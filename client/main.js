@@ -1,12 +1,17 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import './main.html';
+import '../imports/startup/client/routes';
+import routes from "../imports/startup/client/routes";
 //import { RouterModule, Routes } from '@angular/router';
 
 var webApp = angular.module('main-site', [
     angularMeteor,
-    'ngRoute',
+    [require('angular-route')],
 ]);
+webApp.config(routes($routeProvider));
+
+//export default webApp;
 /*
 webApp.config(function ($routeProvider) {
     $routeProvider
