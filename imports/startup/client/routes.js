@@ -1,13 +1,64 @@
-//import {FlowRouter} from FlowRouter;
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-FlowRouter.route('/',{
+// Import Containers
+import {
+    FullLayout,
+    SimpleLayout
+} from './containers';
 
-}).route('/about',{
+export const routes: Routes = [
+    {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+    },
+    {
+        path: '',
+        component: FullLayout,
+        data: {
+            title: 'Home'
+        },
+        children: [
+            {
+                path: 'dashboard',
+                loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+            },
+            {
+                path: 'components',
+                loadChildren: './views/components/components.module#ComponentsModule'
+            },
+            {
+                path: 'icons',
+                loadChildren: './views/icons/icons.module#IconsModule'
+            },
+            {
+                path: 'widgets',
+                loadChildren: './views/widgets/widgets.module#WidgetsModule'
+            },
+            {
+                path: 'charts',
+                loadChildren: './views/chartjs/chartjs.module#ChartJSModule'
+            }
+        ]
+    },
+    {
+        path: 'pages',
+        component: SimpleLayout,
+        data: {
+            title: 'Pages'
+        },
+        children: [
+            {
+                path: '',
+                loadChildren: './views/pages/pages.module#PagesModule',
+            }
+        ]
+    }
+];
 
-}).route('/companies',{
-
-}).route('/contact-us',{
-
-}).route('/login',{
-
-});
+@NgModule({
+    imports: [ RouterModule.forRoot(routes) ],
+    exports: [ RouterModule ]
+})
+export class AppRoutingModule {}
