@@ -1,39 +1,25 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import angularRouter from 'angular-route';
 import './main.html';
 import '../imports/startup/client/routes';
-import routes from "../imports/startup/client/routes";
-//import { RouterModule, Routes } from '@angular/router';
+import routes from '../imports/startup/client/routes';
 
-var webApp = angular.module('main-site', [
+import topNavigation from '../imports/ui/components/navigation/topNavigation';
+import about from '../imports/ui/components/about/about';
+
+webApp = angular.module('main-site', [
     angularMeteor,
-    [require('angular-route')],
-]);
-webApp.config(routes($routeProvider));
+    ['ngRoute'],
+    topNavigation.name,
+    about.name,
+]).config(config);
 
-//export default webApp;
-/*
-webApp.config(function ($routeProvider) {
-    $routeProvider
-        .when('/', {
-            //controller: 'HomeController',
-            templateUrl: 'imports/components/home/home.html'
-        })
-        .when('/about', {
-            templateUrl: 'imports/components/about/about.html'
-        })
-        .when('/companies',{
-            templateUrl: 'imports/components/companies/companies.html'
-        })
-        .when('/contact-us',{
-            templateUrl: 'imports/components/contact-us/contact.html'
-        })
-        .when('/login', {
-            templateUrl: 'imports/components/login/login.html'
-        })
-        .otherwise({
-            redirectTo: '/'
-        });
-});
-
-*/
+function config($routeProvider) {
+    $routeProvider.when('/about',{
+        templateUrl: '../imports/ui/components/navigation/topNavigation.html',
+        controller: 'TopNavigationController'
+    }).otherwise({
+        redirectTo: '/'
+    });
+}

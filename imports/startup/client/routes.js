@@ -1,5 +1,3 @@
-//import ['ngRoute'] from angular-route
-
 export default function routes($routeProvider) {
     $routeProvider
         .when('/', {
@@ -10,7 +8,7 @@ export default function routes($routeProvider) {
         .when('/about', {
             /*controller: 'PhotoController',
             templateUrl: 'views/photo.html' */
-            templateUrl: 'imports/ui/components/home/home.html',
+            templateUrl: 'imports/ui/components/about/about.html',
         })
         .otherwise({
             redirectTo: '/'
