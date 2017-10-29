@@ -12,7 +12,7 @@ Meteor.startup(() => {
     render(
         <BrowserRouter>
             <div>
-                <Route path='/' component={Home}/>
+                <Route path='/home' component={Home}/>
                 <Route path='/contact-us' component={ Contact }/>
             </div>
         </BrowserRouter>,
