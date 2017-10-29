@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import { Router, Route } from 'react-router';
+import { BrowserRouter, Route} from 'react-router-dom';
 
 import './main.html';
 
@@ -10,10 +10,12 @@ import Contact from '../imports/ui/contact-view.jsx';
 
 Meteor.startup(() => {
     render(
-        <Router>
-            <Route path='/' component={Home}/>
-            <Route path='/contact-us' component={ Contact }/>
-        </Router>,
+        <BrowserRouter>
+            <div>
+                <Route path='/' component={Home}/>
+                <Route path='/contact-us' component={ Contact }/>
+            </div>
+        </BrowserRouter>,
         document.getElementById('view-render')
     );
 });
