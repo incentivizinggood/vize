@@ -6,13 +6,14 @@ import Contact from '../../ui/contact-view.jsx';
 import About from '../../ui/about-view';
 import Login from '../../ui/login-view';
 import Companies from '../../ui/companies-view';
+import Reviews from '../../ui/Review.jsx'
 
 export const siteRoutes = (
     <BrowserRouter>
         <div>
             <Route path='/home' component={Home}/>
             <Route path='/about' component={About}/>
-            <Route path='/companies' component={Companies}/>
+            <Route path='/companies' component={ Reviews }/>
             <Route path='/contact-us' component={ Contact }/>
             <Route path='/login' component={Login}/>
         </div>

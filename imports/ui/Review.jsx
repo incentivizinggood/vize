@@ -1,9 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
- 
-import { Reviews } from '../api/reviews.js';
 
-export default class Reviews extends Component {
+import { ReviewsDB } from '../api/reviews.js';
+
+class Reviews extends Component {
+    renderTasks() {
+        let reviews = this.props.reviews;
+        
+        return reviews.map((task) => {
+            return (
+                <Task
+                    key={reviews._id}
+                    review={reviews}
+                />
+            );
+        });
+    }
     render() {
         return (
             <div className="container">
@@ -15,11 +27,12 @@ export default class Reviews extends Component {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.array.isRequired,
+    reviews: PropTypes.array.isRequired
 };
- 
+
 export default createContainer(() => {
-  return {
-    reviews: Reviews.find({}).fetch(),
-  };
-}, App);
+    Meteor.subscribe('reviews');
+    return {
+        reviews: ReviewsDB.find({}).fetch(),
+    };
+}, Reviews);
