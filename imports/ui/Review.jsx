@@ -9,7 +9,7 @@ class Reviews extends Component {
         
         return reviews.map((task) => {
             return (
-                <Task
+                <Review
                     key={reviews._id}
                     review={reviews}
                 />
