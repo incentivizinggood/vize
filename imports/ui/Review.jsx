@@ -4,18 +4,19 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { ReviewsDB } from '../api/reviews.js';
 
 class Reviews extends Component {
-    renderTasks() {
+    renderReviews() {
         let reviews = this.props.reviews;
         
-        return reviews.map((task) => {
+        return reviews.map((review) => {
             return (
                 <Review
-                    key={reviews._id}
-                    review={reviews}
+                    key={review._id}
+                    review={review}
                 />
             );
         });
     }
+
     render() {
         return (
             <div className="container">

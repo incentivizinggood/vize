@@ -1,5 +1,3 @@
-// Review.jsx has the functionality. This might not be needed
-
 
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -15,3 +13,7 @@ class ReviewPage extends Component {
         );
     }
 }
+
+export default createContainer(()=>{
+    
+}, ReviewPage);
