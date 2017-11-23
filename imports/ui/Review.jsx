@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-
 import { ReviewsDB } from '../api/reviews.js';
 
 class Reviews extends Component {
@@ -28,7 +27,8 @@ class Reviews extends Component {
 }
 
 Reviews.propTypes = {
-    reviews: PropTypes.array.isRequired
+    // Error code
+    //reviews: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {

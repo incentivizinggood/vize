@@ -19,3 +19,6 @@ shell-server@0.2.4            # Server-side component of the `meteor shell` comm
 
 twbs:bootstrap
 react-meteor-data
+accounts-password
+msavin:mongol
+accounts-ui

@@ -1,1 +1,4 @@
 /* CSS declarations go here */
+header {
+    background: url("/images/technology.png") no-repeat;
+}
