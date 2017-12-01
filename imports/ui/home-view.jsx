@@ -6,15 +6,14 @@ export default class Home extends Component {
         return (
             <html>
             <head>
+                <title>Homepage</title>
             </head>
-
-            <body>
-            <div id="gui">Hellow!!</div>
-            <p class = "intro">The content of the document......</p>
-
+            <body class ="home">
+            <div class="mission_statement">
+                <h1>Incentivizing Good</h1>
+            </div>
             </body>
             </html>
-
         );
     }
 }

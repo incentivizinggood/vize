@@ -33,9 +33,6 @@ export default class LoginPage extends Component {
             <div className="modal show">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="text-center">Login</h1>
-                        </div>
                         <div className="modal-body">
                             { error.length > 0 ?
                                 <div className="alert alert-danger fade in">{error}</div>

@@ -1,6 +1,5 @@
 <head>
   <base href='/home'/>
-  <title>vize-site</title>
 </head>
 
 <body>
@@ -10,36 +9,44 @@
 </body>
 
 <template name="navigation">
-  <div class="header">
-    <nav class="navbar navbar-default" style="background-color: transparent;">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/home">Vize</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search Companies">
+    <html>
+    <head>
+        <title>Vize</title>
+        <link type="text/css" rel="stylesheet" href="./main.css"/>
+    </head>
+
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="logo" href="/home"> <img src="/images/Final_Logo.png" alt="Vize logo"> </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search Companies">
+                        </div>
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </form>
+                    <div class="navbar-right">
+                        <a href="/home"><button type="button" class="btn btn-default navbar-btn">Home</button></a>
+                        <a href="/companies"><button type="button" class="btn btn-default navbar-btn">Companies</button></a>
+                        <a href="/about"><button type="button" class="btn btn-default navbar-btn">About</button></a>
+                        <a href="/contact-us"><button type="button" class="btn btn-default navbar-btn">Contact</button></a>
+                        <a href="/login"><button type="button" class="btn btn-default navbar-btn">Sign In</button></a>
+                    </div>
+                </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-default">Search</button>
-          </form>
-          <div class="navbar-right">
-              <a href="/home"><button type="button" class="btn btn-default navbar-btn">Home</button></a>
-              <a href="/companies"><button type="button" class="btn btn-default navbar-btn">Companies</button></a>
-              <a href="/about"><button type="button" class="btn btn-default navbar-btn">About</button></a>
-              <a href="/contact-us"><button type="button" class="btn btn-default navbar-btn">Contact</button></a>
-              <a href="/login"><button type="button" class="btn btn-default navbar-btn">Sign In</button></a>
-          </div>
         </div>
-      </div>
-    </nav>
-  </div>
+    </html>
 </template>
+
 
