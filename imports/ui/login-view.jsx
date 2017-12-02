@@ -30,49 +30,30 @@ export default class LoginPage extends Component {
     render(){
         const error = this.state.error;
         return (
-            <div className="modal show">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            { error.length > 0 ?
-                                <div className="alert alert-danger fade in">{error}</div>
-                                :''}
-                            <form  id="login-form"
-                                   className="form col-md-12 center-block"
-                                   onSubmit={this.handleSubmit}>
-                                <div className="form-group">
-                                    <input type="email"
-                                           id="login-email"
-                                           className="form-control input-lg"
-                                           placeholder="email"/>
-                                </div>
-                                <div className="form-group">
-                                    <input type="password"
-                                           id="login-password"
-                                           className="form-control input-lg"
-                                           placeholder="password"/>
-                                </div>
-                                <div className="form-group text-center">
-                                    <input type="submit"
-                                           id="login-button"
-                                           className="btn btn-primary btn-lg btn-block"
-                                           value="Login" />
-                                    <input type="submit"
-                                           id="login-button"
-                                           className="btn btn-primary btn-lg btn-block"
-                                           value="register" />
-                                </div>
-                                <div className="form-group text-center">
-                                    <p className="text-center">
+            <html>
+            <head>
+                <title>Login</title>
+            </head>
+                <body>
+                    <section class = "sectionContainer">
+                        <div>
+                            <h2>Credentials</h2>
+                            <form method = "post" onSubmit="" action="index.html">
+                                <p><input type="text" name="login" value="" placeholder="Username or email"/></p>
+                                <p><input type="password" name="password" value="" placeholder="Password"/></p>
 
-                                    </p>
-                                </div>
+                                <p class = "remember_me">
+                                    <label>
+                                        <input type = "checkbox" name = "remember_me" id = "remember_me"/>
+
+
+                                    </label>
+                                </p>
                             </form>
                         </div>
-                        <div className="modal-footer" style={{borderTop: 0}}></div>
-                    </div>
-                </div>
-            </div>
+                    </section>
+                </body>
+            </html>
         );
     }
 }
