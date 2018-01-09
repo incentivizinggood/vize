@@ -9,10 +9,16 @@ import Companies from '../../ui/companies-view';
 import Reviews from '../../ui/Review.jsx'
 import Mainpage from '../../ui/main-page'
 import Register from '../../ui/register-view.jsx'
+<<<<<<< HEAD
+import Star from "../../ui/star";
+=======
 import Form from '../../ui/form.jsx'
+<<<<<<< HEAD
 <<<<<<< HEAD
 import Star from "../../ui/star.jsx";
 =======
+=======
+>>>>>>> urelbranch
 >>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
 
 
@@ -30,8 +36,12 @@ export const siteRoutes = (
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <Route path='/form' component={Form} />
             <Route path='/star' component={Star} />
+=======
+            <Route path='/stars' component={Star} />
+>>>>>>> urelbranch
 =======
             <Route path='/forms' component={Form} />
 >>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
