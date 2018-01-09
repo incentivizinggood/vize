@@ -13,9 +13,15 @@
     <head>
         <title>Vize</title>
         <link type="text/css" rel="stylesheet" href="./main.css"/>
+
+        <script type="text/javascript">
+            function Redirect() {
+                window.location="http://www.google.com";
+            }
+        </script>
     </head>
 
-    <!-- Wrap all page content here -->
+    <!-- Wrap all page content here! -->
     <div id="wrap">
         <!-- Fixed navbar -->
         <div class="navbar navbar-default navbar-fixed-top">
@@ -33,7 +39,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search Companies">
                         </div>
-                        <button type="submit" class="btn btn-default">Search</button>
+                        <button type="submit" class="btn btn-default" onClick = "Redirect();">Search</button>
                     </form>
                     <div class="navbar-right">
                         <a href="/home"><button type="button" class="btn btn-default navbar-btn">Home</button></a>

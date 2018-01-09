@@ -9,6 +9,8 @@ export default class About extends Component {
                 <link type="text/css" rel="stylesheet" href="./main.css"/>
             </head>
             <body class = "about">
+
+
             </body>
             </html>
 
