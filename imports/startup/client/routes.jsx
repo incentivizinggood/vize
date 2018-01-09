@@ -9,6 +9,8 @@ import Companies from '../../ui/companies-view';
 import Reviews from '../../ui/Review.jsx'
 import Mainpage from '../../ui/main-page'
 import Register from '../../ui/register-view.jsx'
+import Form from '../../ui/form.jsx'
+import Star from "../../ui/star.jsx";
 
 
 // Containers go below
@@ -24,6 +26,8 @@ export const siteRoutes = (
             <Route path='/contact-us' component={Contact}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
+            <Route path='/form' component={Form} />
+            <Route path='/star' component={Star} />
             <Route exact={true} path={'/'} component={AppContainer}/>
         </div>
     </BrowserRouter>);
