@@ -195,10 +195,98 @@ h1 {
     color: #000;
     text-shadow: 0 0 5px #09f;
 }
+<<<<<<< HEAD
 
 
 
 
+/* Underneath is rating 2*/
+.rating2 {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    font-size: 50px;
+}
+.rating2 label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+}
+
+.rating2 label:last-child {
+    position: static;
+}
+
+.rating2 label:nth-child(1) {
+    z-index: 5;
+}
+=======
+>>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
+
+.rating2 label:nth-child(2) {
+    z-index: 4;
+}
+
+.rating2 label:nth-child(3) {
+    z-index: 3;
+}
+
+.rating2 label:nth-child(4) {
+    z-index: 2;
+}
+
+.rating2 label:nth-child(5) {
+    z-index: 1;
+}
+
+.rating2 label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.rating2 label .icon {
+    float: left;
+    color: transparent;
+}
+
+.rating2 label:last-child .icon {
+    color: #000;
+}
+
+.rating2:not(:hover) label input:checked ~ .icon,
+.rating2:hover label:hover input ~ .icon {
+    color: #09f;
+}
+
+.rating2 label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #09f;
+}
+
+
+
+x-star-rating {
+    font-family: 'Ionicons';
+    font-size: 36px;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+x-star-rating > .star::after {
+    content: '\f3ae';
+    color: #777;
+}
+
+<<<<<<< HEAD
+x-star-rating > .star.full::after {
+    content: '\f2fc';
+    color: #fd0;
+=======
 /* Underneath is rating 2*/
 .rating2 {
     display: inline-block;
@@ -263,23 +351,5 @@ h1 {
 .rating2 label input:focus:not(:checked) ~ .icon:last-child {
     color: #000;
     text-shadow: 0 0 5px #09f;
-}
-
-
-
-x-star-rating {
-    font-family: 'Ionicons';
-    font-size: 36px;
-    display: inline-flex;
-    cursor: pointer;
-}
-
-x-star-rating > .star::after {
-    content: '\f3ae';
-    color: #777;
-}
-
-x-star-rating > .star.full::after {
-    content: '\f2fc';
-    color: #fd0;
+>>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
 }

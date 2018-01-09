@@ -12,6 +12,7 @@ export default class Form extends Component {
     constructor (props) {
         super(props)
         this.state = {
+<<<<<<< HEAD
             stars: '',
             stars2: ''
         };
@@ -23,11 +24,28 @@ export default class Form extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
+=======
+            value: ''
+        };
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+
+    }
+
+    // Handling change to the specific event
+    handleChange(event) {
+        this.setState({value: event.target.value});
+>>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
     }
 
     // Handling the submit from forms
     handleSubmit(event){
+<<<<<<< HEAD
         alert('A name was submitted: ' + this.state.stars + 'here:' + this.state.stars2);
+=======
+        alert('A name was submitted: ' + this.state.value);
+>>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
         event.preventDefault();
     }
 
@@ -86,6 +104,11 @@ export default class Form extends Component {
                     </label>
             </div><br/>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cb29e5040f1fb1ea6c886bbb4d0a056dde981e77
                     Respect:
                     <div className="rating2">
                         <label>
