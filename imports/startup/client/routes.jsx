@@ -22,7 +22,7 @@ export const siteRoutes = (
         <div>
             <Route path='/home' component={Home}/>
             <Route path='/about' component={About}/>
-            <Route path='/companies' component={Reviews}/>
+            <Route path='/companies' component={Companies}/>
             <Route path='/contact-us' component={Contact}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
