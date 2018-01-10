@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
+import {Review} from "../api/reviews";
 
 export default class Star extends React.Component {
+
     constructor() {
         super();
         this.state = {
             rating: 1,
-            rating2: 1
+            rating2: 1,
+            title: '',
+            description: ''
         };
     }
 
@@ -20,8 +24,22 @@ export default class Star extends React.Component {
 
     // Handling the submit from forms
     handleSubmit(event){
-        alert('A name was submitted: ' + this.state.rating);
+
+        // Making sure method gets called
+        alert('A name was submitted: ');
+
+        // Prevent default browser form submit
         event.preventDefault();
+
+        //const Title = event.target.title.value;
+        //const Description = event.target.description.value;
+        const Rate = event.target.rating.value
+        //const Rate2 = this.state.rating2.valueOf();
+
+        window.alert(Rate + "bitch i got it")
+
+
+
     }
 
     render() {
@@ -42,23 +60,22 @@ export default class Star extends React.Component {
                     <br/>
                     <br/>
                     <legend>Share your experiences here!!</legend>
-                    <input type="text" placeholder="title:"/><br/>
-                    <textarea type="text" placeholder="Enter text here .." rows="6" cols="50" name="comment" form="usrform"></textarea><br/>
+                    <input type="text" placeholder="title:" name = "title" /><br/>
+                    <textarea name = "description" type="text" placeholder="Enter text here .." rows="6" cols="50"></textarea><br/>
                     Wages:
                     <input type="number" ref="wagesInput" name="enteredWages" min="1" max= "100"/><br/>
 
                     <div>
                             <h2>Health and Safety: {rating}</h2>
                             <StarRatingComponent
-                                name="rate1"
+                                name="rating"
                                 starCount={5}
                                 value={rating}
-                                onStarClick={this.onStarClick.bind(this)}
                             />
                             <br/>
                             <h2>Recommended: {rating2}</h2>
                             <StarRatingComponent
-                                name="rate2"
+                                name="rating2"
                                 starCount={5}
                                 value={rating2}
                                 onStarClick={this.onStarClick2.bind(this)}
