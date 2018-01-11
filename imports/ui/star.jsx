@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import {Mongo} from "meteor/mongo";
-import {Tasks} from "../api/Tasks";
-import {Review} from "../api/reviews";
+import {Tasks} from "../api/Tasks.js";
+import {Review} from "../api/reviews.js";
 
 
 // Hi = new Mongo.Collection('hing');

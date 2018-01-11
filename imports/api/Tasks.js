@@ -1,7 +1,6 @@
-// Connecting mongo
 import { Mongo } from 'meteor/mongo';
 
-export const Tasks = new Mongo.Collection('tasks');
+Tasks = new Mongo.Collection('tasks');
 
 Tasks.allow({
     insert() {return true},
