@@ -1,6 +1,8 @@
 // Connecting mongo
 import {Mongo} from "meteor/mongo";
 
+
+
 export const Review = new Mongo.Collection('review');
 
 // Review.allow({

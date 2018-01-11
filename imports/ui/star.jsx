@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
-import {Review} from "../api/reviews";
+import {Mongo} from "meteor/mongo";
+//import {Task} from "../api/Tasks";
+import {Task} from "../../server/main.js"
+
+
+Hi = new Mongo.Collection('hing');
+
 
 export default class Star extends React.Component {
 
@@ -31,9 +37,13 @@ export default class Star extends React.Component {
         const health = event.target.Health.value
         const recommend = event.target.Recommended.value;
 
-
+        // QuickCheck
         window.alert("Title: " + Title + "Description: " + Description + "Wages: " + wages + "Health: " + health + "Recommended: " + recommend);
 
+
+        // Inserting to db
+        Hi.insert({text: "Hello"});
+        Task.insert({text: "Hello"});
     }
 
     render() {
@@ -59,21 +69,21 @@ export default class Star extends React.Component {
                     <textarea name = "description" type="text" placeholder="Enter text here .." rows="6" cols="50"></textarea><br/>
 
                     <div>
-                            <h2>Wages: {Wages}</h2>
+                            <h2>Wages: </h2>
                             <StarRatingComponent
                                 name="Wages"
                                 starCount={5}
                                 value={Wages}
                             />
                             <br/>
-                            <h2>Health and Safety: {Health}</h2>
+                            <h2>Health and Safety: </h2>
                             <StarRatingComponent
                                 name="Health"
                                 starCount={5}
                                 value={Health}
                             />
                             <br/>
-                            <h2>Recommended: {Recommended}</h2>
+                            <h2>Recommended: </h2>
                             <StarRatingComponent
                                 name="Recommended"
                                 starCount={5}
@@ -90,3 +100,5 @@ export default class Star extends React.Component {
         );
     }
 }
+
+

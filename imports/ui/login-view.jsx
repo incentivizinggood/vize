@@ -35,6 +35,9 @@ export default class LoginPage extends Component {
                 <title>Login</title>
             </head>
                 <body>
+                <br/>
+                <br/>
+                <br/>
                     <section class = "sectionContainer">
                         <div>
                             <h2>Credentials</h2>
@@ -45,8 +48,6 @@ export default class LoginPage extends Component {
                                 <p class = "remember_me">
                                     <label>
                                         <input type = "checkbox" name = "remember_me" id = "remember_me"/>
-
-
                                     </label>
                                 </p>
                             </form>

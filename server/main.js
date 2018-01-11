@@ -1,8 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import {Review} from '../imports/api/reviews.js';
+import '../imports/api/reviews.js';
+import '../imports/api/Tasks.js';
+
+
 
 Meteor.startup(() => {
   // code to run on server at startup
-
 
 });
