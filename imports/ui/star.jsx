@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StarRatingComponent from 'react-star-rating-component';
-import {Mongo} from "meteor/mongo";
+import {Mongo} from 'meteor/mongo'
 import {Tasks} from "../api/Tasks.js";
-import {Review} from "../api/reviews.js";
+//import {Review} from "../api/reviews.js";
 
 
 // Hi = new Mongo.Collection('hing');
@@ -18,6 +18,7 @@ import {Review} from "../api/reviews.js";
 //     update() {return false},
 //     remove() {return false}
 // });
+
 export default class Star extends React.Component {
 
     constructor() {
@@ -50,9 +51,12 @@ export default class Star extends React.Component {
         window.alert("Title: " + Title + "Description: " + Description + "Wages: " + wages + "Health: " + health + "Recommended: " + recommend);
 
 
-        // Inserting to db
+
+        //Inserting to db
         //Hi.insert({text: "Hello"});
-        Tasks.insert({text: "Hello"});
+        //Tasks.insert({text: "Hello"})
+        Tasks.insert({ name: "David", score: 7 });
+
     }
 
     render() {

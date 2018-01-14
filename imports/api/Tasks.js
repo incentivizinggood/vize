@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 
-Tasks = new Mongo.Collection('tasks');
+
+export const Tasks = new Mongo.Collection('tasks');
 
 Tasks.allow({
     insert() {return true},
