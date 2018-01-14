@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { ReviewsDB } from '../api/reviews.js';
+import { ReviewsDB } from '../api/data/reviews.js';
 
 class Reviews extends Component {
     renderReviews() {
         let reviews = this.props.reviews;
-        
+
         return reviews.map((review) => {
             return (
                 <Review

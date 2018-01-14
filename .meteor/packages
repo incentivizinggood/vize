@@ -22,3 +22,4 @@ react-meteor-data
 accounts-password
 msavin:mongol
 accounts-ui
+aldeed:simple-schema

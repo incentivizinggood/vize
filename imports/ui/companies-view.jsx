@@ -1,41 +1,25 @@
-import React, { Component } from "react";
-import CompanyListing from "./company-listing.jsx";
-import CompaniesC from "../api/companies.js";
+import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 
-function wtf(x) {
-    var functionlist = [];
-    var otherslist = [];
-    for (var p in x) {
-        if (typeof x[p] === "function") {
-            functionlist.push(p);
-        } else {
-            otherslist.push(p);
-        }
-    }
-    console.log(
-        "The object has the functions " +
-            functionlist.join(", ") +
-            " and the other stuff " +
-            otherslist.join(", ")
-    );
-}
+import { Companies } from "../api/data/companies.js";
 
-class Companies extends Component {
+import CompanyListing from "./company-listing.jsx";
+
+class CompaniesView extends React.Component {
     renderCompanyList() {
         return this.props.companies.map(company => (
             <CompanyListing key={company._id} company={company} />
         ));
     }
     render() {
-        return (<div>{this.renderCompanyList()}</div>);
+        return <div>{this.renderCompanyList()}</div>;
     }
 }
 
 export default withTracker(() => {
-    Meteor.subscribe('companies');
+    Meteor.subscribe("companies");
 
     return {
-        companies: CompaniesC.CompaniesC.find({}).fetch()
+        companies: Companies.find({}).fetch()
     };
-})(Companies);
+})(CompaniesView);

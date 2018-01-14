@@ -6,8 +6,8 @@ export default class CompanyListing extends Component {
         return (
             <div>
             <h3>{this.props.company.name}</h3>
-            safety {this.props.company.ratings.safety} <br/>
-            respect {this.props.company.ratings.respect}
+            safety {this.props.company.safety} <br/>
+            respect {this.props.company.respect}
             </div>
         );
     }
