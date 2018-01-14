@@ -50,12 +50,8 @@ export default class Star extends React.Component {
         // QuickCheck
         window.alert("Title: " + Title + "Description: " + Description + "Wages: " + wages + "Health: " + health + "Recommended: " + recommend);
 
-
-
         //Inserting to db
-        //Hi.insert({text: "Hello"});
-        //Tasks.insert({text: "Hello"})
-        Tasks.insert({ name: "David", score: 7 });
+        Tasks.insert({Title: Title, Description: Description, Wages: wages, Health: health, Recommended: recommend});
 
     }
 
