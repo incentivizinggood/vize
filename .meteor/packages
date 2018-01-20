@@ -23,3 +23,4 @@ accounts-password
 msavin:mongol
 accounts-ui
 aldeed:simple-schema
+kadira:flow-router
