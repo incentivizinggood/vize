@@ -1,52 +1,68 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 // import { withHistory, Link } from 'react-router-dom'
-import { createContainer } from 'meteor/react-meteor-data'
-import {About} from './about-view.jsx'
+import { createContainer } from "meteor/react-meteor-data";
+import { About } from "./about-view.jsx";
 
 export default class LoginPage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            error: ''
+            error: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
-        let email = document.getElementById('login-email').value;
-        let password = document.getElementById('login-password').value;
-        Meteor.loginWithPassword(email, password, (err) => {
-            if(err){
+        let email = document.getElementById("login-email").value;
+        let password = document.getElementById("login-password").value;
+        Meteor.loginWithPassword(email, password, err => {
+            if (err) {
                 this.setState({
                     error: err.reason
                 });
             } else {
-                this.props.history.push('/');
+                this.props.history.push("/");
             }
         });
     }
 
-    render(){
+    render() {
         const error = this.state.error;
         return (
             <html>
-            <head>
-                <title>Login</title>
-            </head>
+                <head>
+                    <title>Login</title>
+                </head>
                 <body>
-                    <section class = "sectionContainer">
+                    <section class="sectionContainer">
                         <div>
                             <h2>Credentials</h2>
-                            <form method = "post" onSubmit="" action="index.html">
-                                <p><input type="text" name="login" value="" placeholder="Username or email"/></p>
-                                <p><input type="password" name="password" value="" placeholder="Password"/></p>
+                            <form method="post" onSubmit="" action="index.html">
+                                <p>
+                                    <input
+                                        type="text"
+                                        name="login"
+                                        value=""
+                                        placeholder="Username or email"
+                                    />
+                                </p>
+                                <p>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        value=""
+                                        placeholder="Password"
+                                    />
+                                </p>
 
-                                <p class = "remember_me">
+                                <p class="remember_me">
                                     <label>
-                                        <input type = "checkbox" name = "remember_me" id = "remember_me"/>
-
-
+                                        <input
+                                            type="checkbox"
+                                            name="remember_me"
+                                            id="remember_me"
+                                        />
                                     </label>
                                 </p>
                             </form>
@@ -57,10 +73,6 @@ export default class LoginPage extends Component {
         );
     }
 }
-
-
-
-
 
 /*
 import React, {Component} from 'react';

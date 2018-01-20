@@ -2,7 +2,6 @@ import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 
 import { Companies } from "../api/data/companies.js";
-
 import CompanyListing from "./company-listing.jsx";
 
 class CompaniesView extends React.Component {

@@ -1,18 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { ReviewsDB } from '../api/data/reviews.js';
+import React, { Component, PropTypes } from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { ReviewsDB } from "../api/data/reviews.js";
 
 class Reviews extends Component {
     renderReviews() {
         let reviews = this.props.reviews;
 
-        return reviews.map((review) => {
-            return (
-                <Review
-                    key={review._id}
-                    review={review}
-                />
-            );
+        return reviews.map(review => {
+            return <Review key={review._id} review={review} />;
         });
     }
 
@@ -32,8 +27,8 @@ Reviews.propTypes = {
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('reviews');
+    Meteor.subscribe("reviews");
     return {
-        reviews: ReviewsDB.find({}).fetch(),
+        reviews: ReviewsDB.find({}).fetch()
     };
 }, Reviews);

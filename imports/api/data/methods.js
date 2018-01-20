@@ -1,5 +1,6 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
+import "./denormalizers.js"
 
 // This is an incomplete code stub.
 Meteor.methods({

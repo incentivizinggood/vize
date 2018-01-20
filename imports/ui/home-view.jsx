@@ -8,18 +8,18 @@ class Home extends React.Component {
     render() {
         return (
             <html>
-            <head>
-                <title>Homepage</title>
-            </head>
-            <body class ="home">
-            <div class="mission_statement">
-                <h1>Incentivizing Good</h1>
-                <h4 style={{ textAlign: "center", color: "white" }}>
-                    With {this.props.numReviews} reviews on{" "}
-                    {this.props.numCompanies} companies.
-                </h4>
-            </div>
-            </body>
+                <head>
+                    <title>Homepage</title>
+                </head>
+                <body class="home">
+                    <div class="mission_statement">
+                        <h1>Incentivizing Good</h1>
+                        <h4 style={{ textAlign: "center", color: "white" }}>
+                            With {this.props.numReviews} reviews on{" "}
+                            {this.props.numCompanies} companies.
+                        </h4>
+                    </div>
+                </body>
             </html>
         );
     }
