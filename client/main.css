@@ -9,7 +9,7 @@
     border: none;
 }
 
-body.home {
+.page.home {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
         url("../images/life.jpeg");
     background-position: center;
@@ -28,7 +28,7 @@ body.companies {
     display: block;
     margin-top: 0px;
 }
-body.about {
+.page.about {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
         url("../images/sun_set.jpeg");
     background-position: center;

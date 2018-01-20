@@ -6,20 +6,15 @@ import { Reviews } from "../../api/data/reviews.js";
 class HomePage extends React.Component {
     render() {
         return (
-            <html>
-                <head>
-                    <title>Homepage</title>
-                </head>
-                <body class="home">
-                    <div class="mission_statement">
-                        <h1>Incentivizing Good</h1>
-                        <h4 style={{ textAlign: "center", color: "white" }}>
-                            With {this.props.numReviews} reviews on{" "}
-                            {this.props.numCompanies} companies.
-                        </h4>
-                    </div>
-                </body>
-            </html>
+            <div className="page home">
+                <div className="mission_statement">
+                    <h1>Incentivizing Good</h1>
+                    <h4 style={{ textAlign: "center", color: "white" }}>
+                        With {this.props.numReviews} reviews on{" "}
+                        {this.props.numCompanies} companies.
+                    </h4>
+                </div>
+            </div>
         );
     }
 }
