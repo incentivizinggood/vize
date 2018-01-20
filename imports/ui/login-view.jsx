@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 // import { withHistory, Link } from 'react-router-dom'
 import { createContainer } from "meteor/react-meteor-data";
-import { About } from "./about-view.jsx";
 
 export default class LoginPage extends Component {
     constructor(props) {

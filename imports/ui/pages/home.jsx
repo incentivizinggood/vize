@@ -1,10 +1,9 @@
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
-import "../imports.css";
-import { Companies } from "../api/data/companies.js";
-import { Reviews } from "../api/data/reviews.js";
+import { Companies } from "../../api/data/companies.js";
+import { Reviews } from "../../api/data/reviews.js";
 
-class Home extends React.Component {
+class HomePage extends React.Component {
     render() {
         return (
             <html>
@@ -33,4 +32,4 @@ export default withTracker(() => {
         numReviews: Reviews.find({}).count(),
         numCompanies: Companies.find({}).count()
     };
-})(Home);
+})(HomePage);

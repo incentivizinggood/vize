@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import Home from "../../ui/home-view.jsx";
+import Home from "../../ui/pages/home.jsx";
 import Contact from "../../ui/contact-view.jsx";
-import About from "../../ui/about-view";
+import AboutPage from "../../ui/pages/about.jsx";
 import Login from "../../ui/login-view";
 import CompaniesView from "../../ui/companies-view";
 import Reviews from "../../ui/Review.jsx";
@@ -15,7 +15,7 @@ export const siteRoutes = (
         <div>
             <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/about" component={About} />
+            <Route path="/about" component={AboutPage} />
             <Route path="/companies" component={CompaniesView} />
             <Route path="/contact-us" component={Contact} />
             <Route path="/login" component={Login} />
