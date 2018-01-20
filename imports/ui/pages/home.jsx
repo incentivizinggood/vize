@@ -1,30 +1,15 @@
 import React from "react";
-import { withTracker } from "meteor/react-meteor-data";
-import { Companies } from "../../api/data/companies.js";
-import { Reviews } from "../../api/data/reviews.js";
+import TotalsCounter from "../totals-counter.jsx";
 
-class HomePage extends React.Component {
+export default class HomePage extends React.Component {
     render() {
         return (
             <div className="page home">
                 <div className="mission_statement">
                     <h1>Incentivizing Good</h1>
-                    <h4 style={{ textAlign: "center", color: "white" }}>
-                        With {this.props.numReviews} reviews on{" "}
-                        {this.props.numCompanies} companies.
-                    </h4>
+                    <TotalsCounter />
                 </div>
             </div>
         );
     }
 }
-
-export default withTracker(() => {
-    Meteor.subscribe("companies");
-    Meteor.subscribe("reviews");
-
-    return {
-        numReviews: Reviews.find({}).count(),
-        numCompanies: Companies.find({}).count()
-    };
-})(HomePage);
