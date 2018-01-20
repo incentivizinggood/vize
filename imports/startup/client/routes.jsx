@@ -1,25 +1,23 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import Home from "../../ui/pages/home.jsx";
+import HomePage from "../../ui/pages/home.jsx";
 import ContactUsPage from "../../ui/pages/contact-us.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
-import Login from "../../ui/login-view";
+import LoginPage from "../../ui/pages/login.jsx";
 import CompaniesPage from "../../ui/pages/companies.jsx";
-import Reviews from "../../ui/Review.jsx";
-import Mainpage from "../../ui/main-page";
-import Register from "../../ui/register-view.jsx";
+import RegisterPage from "../../ui/pages/register.jsx";
 
 export const siteRoutes = (
     <BrowserRouter>
         <div>
-            <Route exact path="/" component={Home} />
-            <Route path="/home" component={Home} />
+            <Route exact path="/" component={HomePage} />
+            <Route path="/home" component={HomePage} />
             <Route path="/about" component={AboutPage} />
             <Route path="/companies" component={CompaniesPage} />
             <Route path="/contact-us" component={ContactUsPage} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
         </div>
     </BrowserRouter>
 );
