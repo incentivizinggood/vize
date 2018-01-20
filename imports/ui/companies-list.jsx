@@ -4,7 +4,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../api/data/companies.js";
 import CompanyListing from "./company-listing.jsx";
 
-class CompaniesView extends React.Component {
+class CompaniesList extends React.Component {
     renderCompanyList() {
         return this.props.companies.map(company => (
             <CompanyListing key={company._id} company={company} />
@@ -21,4 +21,4 @@ export default withTracker(() => {
     return {
         companies: Companies.find({}).fetch()
     };
-})(CompaniesView);
+})(CompaniesList);
