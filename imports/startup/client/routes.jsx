@@ -9,24 +9,17 @@ import CompaniesView from "../../ui/companies-view";
 import Reviews from "../../ui/Review.jsx";
 import Mainpage from "../../ui/main-page";
 import Register from "../../ui/register-view.jsx";
-import Star from "../../ui/star";
-import Form from "../../ui/form.jsx";
-
-// Containers go below
-import AppContainer from "../../ui/containers/app-container";
 
 export const siteRoutes = (
     <BrowserRouter>
         <div>
+            <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/companies" component={CompaniesView} />
             <Route path="/contact-us" component={Contact} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/stars" component={Star} />
-            <Route path="/forms" component={Form} />
-            <Route exact={true} path={"/"} component={AppContainer} />
         </div>
     </BrowserRouter>
 );
