@@ -1,26 +1,21 @@
 <head>
-  <base href='/home'/>
+    <title>Vize</title>
+    <link type="text/css" rel="stylesheet" href="./main.css" />
+
+    <script type="text/javascript">
+    function Redirect() {
+    window.location = "http://www.google.com";
+}
+</script>
 </head>
 
 <body>
-  {{> navigation}}
-  <div id="view-render"></div>
+    {{> navigation}}
+    <div id="view-render"></div>
 
 </body>
 
 <template name="navigation">
-    <html>
-    <head>
-        <title>Vize</title>
-        <link type="text/css" rel="stylesheet" href="./main.css"/>
-
-        <script type="text/javascript">
-            function Redirect() {
-                window.location="http://www.google.com";
-            }
-        </script>
-    </head>
-
     <!-- Wrap all page content here! -->
     <div id="wrap">
         <!-- Fixed navbar -->
@@ -52,5 +47,4 @@
                 </div>
             </div>
         </div>
-    </html>
 </template>
