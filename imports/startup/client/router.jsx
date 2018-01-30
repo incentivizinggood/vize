@@ -9,17 +9,20 @@ import CompaniesPage from "../../ui/pages/companies.jsx";
 import RegisterPage from "../../ui/pages/register.jsx";
 
 // Reduces boiler plate for simple pages.
-function routeSimplePage(path, component) {
+function routeSimplePage(path, pageType) {
     FlowRouter.route(path, {
         action(params, queryParams) {
-            ReactDOM.render(component, document.getElementById("view-render"));
+            ReactDOM.render(
+                React.createElement(pageType, { params: params, queryParams }),
+                document.getElementById("view-render")
+            );
         }
     });
 }
 
-routeSimplePage("/", <HomePage />);
-routeSimplePage("/about", <AboutPage />);
-routeSimplePage("/companies", <CompaniesPage />);
-routeSimplePage("/contact-us", <ContactUsPage />);
-routeSimplePage("/login", <LoginPage />);
-routeSimplePage("/register", <RegisterPage />);
+routeSimplePage("/", HomePage);
+routeSimplePage("/about", AboutPage);
+routeSimplePage("/companies", CompaniesPage);
+routeSimplePage("/contact-us", ContactUsPage);
+routeSimplePage("/login", LoginPage);
+routeSimplePage("/register", RegisterPage);
