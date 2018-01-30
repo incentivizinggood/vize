@@ -11,14 +11,17 @@ class CompaniesList extends React.Component {
         ));
     }
     render() {
+        if (!this.props.isReady) return <h2>Loading...</h2>;
         return <div>{this.renderCompanyList()}</div>;
     }
 }
 
-export default withTracker(() => {
-    Meteor.subscribe("companies");
+export default withTracker(({ query }) => {
+    if (query === undefined) query = {};
+    var handle = Meteor.subscribe("companies");
 
     return {
-        companies: Companies.find({}).fetch()
+        isReady: handle.ready(),
+        companies: Companies.find(query).fetch()
     };
 })(CompaniesList);

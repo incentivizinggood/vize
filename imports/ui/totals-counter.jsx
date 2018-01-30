@@ -5,6 +5,8 @@ import { Reviews } from "../api/data/reviews.js";
 
 class TotalsCounter extends React.Component {
     render() {
+        if (!this.props.isReady)
+            return <h4 style={{ textAlign: "center", color: "white" }} />;
         return (
             <h4 style={{ textAlign: "center", color: "white" }}>
                 With {this.props.numReviews} reviews on{" "}
@@ -15,10 +17,11 @@ class TotalsCounter extends React.Component {
 }
 
 export default withTracker(() => {
-    Meteor.subscribe("companies");
-    Meteor.subscribe("reviews");
+    var companiesHandle = Meteor.subscribe("companies");
+    var reviewsHandle = Meteor.subscribe("reviews");
 
     return {
+        isReady: companiesHandle.ready() && reviewsHandle.ready(),
         numReviews: Reviews.find({}).count(),
         numCompanies: Companies.find({}).count()
     };

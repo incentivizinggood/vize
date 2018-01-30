@@ -8,6 +8,7 @@ export default class HomePage extends React.Component {
                 <div className="mission_statement">
                     <h1>Incentivizing Good</h1>
                     <TotalsCounter />
+                    {/* TODO add sign in and sign up buttons*/}
                 </div>
             </div>
         );
