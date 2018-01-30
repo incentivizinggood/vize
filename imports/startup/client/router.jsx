@@ -35,21 +35,19 @@ FlowRouter.route("/companies", {
     }
 });
 
-// TODO send to 404 page if company does not exitst.
-FlowRouter.route("/company/:id", {
+FlowRouter.route("/company", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanyPage company_id={params.id} />,
+            <CompanyPage company_id={queryParams.id} />,
             document.getElementById("view-render")
         );
     }
 });
 
-// TODO send to 404 page if user does not exitst.
-FlowRouter.route("/user/:id", {
+FlowRouter.route("/user", {
     action(params, queryParams) {
         ReactDOM.render(
-            <UserPage user_id={params.id} />,
+            <UserPage user_id={queryParams.id} />,
             document.getElementById("view-render")
         );
     }
