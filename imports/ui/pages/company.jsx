@@ -2,6 +2,7 @@ import React from "react";
 import { Mongo } from "meteor/mongo";
 import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
+import ReviewsList from "../reviews-list.jsx";
 
 /** Users can view details of a company on this page.
  */
@@ -17,6 +18,7 @@ class CompanyPage extends React.Component {
         return (
             <div className="page company">
                 <h2>{this.props.company.name}</h2>
+                <ReviewsList query={{ company_id: this.props.company._id }} />
             </div>
         );
     }
