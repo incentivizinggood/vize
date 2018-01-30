@@ -7,10 +7,13 @@ import { Companies } from "../../api/data/companies.js";
  */
 class UserPage extends React.Component {
     render() {
-        if (!this.props.isReady) return <h2>Loading...</h2>;
-        // TODO put 404 page if user does not exitst.
-        if (this.props.user === undefined)
+        if (!this.props.isReady) {
+            return <h2>Loading...</h2>;
+        }
+        if (this.props.user === undefined) {
             return <h2>That user was not found</h2>;
+        }
+
         return (
             <div className="page user">
                 <h2>This page is not implemented yet.</h2>

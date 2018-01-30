@@ -7,10 +7,13 @@ import { Companies } from "../../api/data/companies.js";
  */
 class CompanyPage extends React.Component {
     render() {
-        if (!this.props.isReady) return <h2>Loading...</h2>;
-        // TODO put 404 page if company does not exitst.
-        if (this.props.company === undefined)
+        if (!this.props.isReady) {
+            return <h2>Loading...</h2>;
+        }
+        if (this.props.company === undefined) {
             return <h2>That company was not found</h2>;
+        }
+
         return (
             <div className="page company">
                 <h2>{this.props.company.name}</h2>

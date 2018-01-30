@@ -5,8 +5,10 @@ import { Reviews } from "../api/data/reviews.js";
 
 class TotalsCounter extends React.Component {
     render() {
-        if (!this.props.isReady)
+        if (!this.props.isReady) {
             return <h4 style={{ textAlign: "center", color: "white" }} />;
+        }
+
         return (
             <h4 style={{ textAlign: "center", color: "white" }}>
                 With {this.props.numReviews} reviews on{" "}
