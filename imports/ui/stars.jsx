@@ -1,7 +1,6 @@
 import React from "react";
 
-/**
- * Display a star rating.
+/* Display a star rating.
  */
 export default class Stars extends React.Component {
     render() {

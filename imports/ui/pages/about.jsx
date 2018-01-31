@@ -1,5 +1,7 @@
 import React from "react";
 
+/* A page where visitors can get information about Vize and this app.
+ */
 export default class AboutPage extends React.Component {
     render() {
         return (

@@ -3,7 +3,7 @@ import { Mongo } from "meteor/mongo";
 import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
 
-/** Users can view public details of a user on this page.
+/* Users can view the public information of other users on this page.
  */
 class UserPage extends React.Component {
     render() {

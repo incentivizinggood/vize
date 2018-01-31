@@ -4,7 +4,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
 import ReviewsList from "../reviews-list.jsx";
 
-/** Users can view details of a company on this page.
+/* The page where users can view details of a company.
  */
 class CompanyPage extends React.Component {
     render() {

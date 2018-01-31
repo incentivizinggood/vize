@@ -3,6 +3,9 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../api/data/companies.js";
 import { Reviews } from "../api/data/reviews.js";
 
+/* Show the total number of reviews and companies in the database.
+ * For use as a subtitle on the HomePage.
+ */
 class TotalsCounter extends React.Component {
     render() {
         if (!this.props.isReady) {

@@ -1,6 +1,8 @@
 import React from "react";
 import { createContainer } from "meteor/react-meteor-data";
 
+/* The page where users can login to the app.
+ */
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);

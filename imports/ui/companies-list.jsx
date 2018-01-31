@@ -1,9 +1,11 @@
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
-
 import { Companies } from "../api/data/companies.js";
 import CompanyListing from "./company-listing.jsx";
 
+/* Display several companies in a list.
+ * This is primarily for use on the CompanySearchPage.
+ */
 class CompaniesList extends React.Component {
     renderCompanyList() {
         return this.props.companies.map(company => (

@@ -1,6 +1,8 @@
 import React from "react";
 import TotalsCounter from "../totals-counter.jsx";
 
+/* The home page of the site.
+ */
 export default class HomePage extends React.Component {
     render() {
         return (

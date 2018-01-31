@@ -1,6 +1,9 @@
 import React from "react";
 import Stars from "./stars.jsx";
 
+/* This component is for displaying a sumary of a company in a list.
+ * See also CompaniesList.
+ */
 export default class CompanyListing extends React.Component {
     render() {
         return (

@@ -4,6 +4,8 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Reviews } from "../api/data/reviews.js";
 import ReviewListing from "./review-listing.jsx";
 
+/* Display several reviews in a list.
+ */
 class ReviewsList extends React.Component {
     renderReviewList() {
         return this.props.reviews.map(review => (

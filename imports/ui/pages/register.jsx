@@ -1,6 +1,8 @@
 import React from "react";
 import { Accounts } from "meteor/accounts-base";
 
+/* The page where users can create an account.
+ */
 export default class RegisterPage extends React.Component {
     constructor(props) {
         super(props);

@@ -1,3 +1,9 @@
+/* This file defines how URL's are handled
+ * and the permalink structure of the app.
+ *
+ * All pages are rendered into the view-render div.
+ * See client/main.html
+ */
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -14,7 +20,14 @@ import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 
-// Reduces boiler plate for simple pages.
+/**
+ * Reduces boiler plate for simple pages.
+ * Use this for all pages that use static non-paramerized URL's.
+ *
+ * @param  {String}       path    The path that the page is located at.
+ * @param  {ReactElement} element The page. Note: this expects a jsx
+ *                                expression, not the class name.
+ */
 function routeSimplePage(path, element) {
     FlowRouter.route(path, {
         action(params, queryParams) {
@@ -22,6 +35,8 @@ function routeSimplePage(path, element) {
         }
     });
 }
+
+//----- Define all of the simple routes. -----//
 
 routeSimplePage("/", <HomePage />);
 routeSimplePage("/about", <AboutPage />);
@@ -31,6 +46,8 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
+
+//----- Define the more complex routes. -----//
 
 FlowRouter.route("/companies", {
     action(params, queryParams) {

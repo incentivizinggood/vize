@@ -6,7 +6,7 @@ import CompaniesList from "../companies-list.jsx";
          Initalize CompanySearchControls with queryParams.
 */
 
-/** Users can search and browes the companies from this page.
+/* The page where users can search/browse companies.
  */
 export default class CompanySearchPage extends React.Component {
     render() {

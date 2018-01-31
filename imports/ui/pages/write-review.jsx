@@ -1,5 +1,7 @@
 import React from "react";
 
+/* The page where users write/edit their reviews.
+ */
 export default class WriteReviewPage extends React.Component {
     render() {
         return (

@@ -1,6 +1,9 @@
 import React from "react";
 import Stars from "./stars.jsx";
 
+/* This component is for displaying a sumary of a review in a list.
+ * See also ReviewsList.
+ */
 export default class ReviewListing extends React.Component {
     render() {
         return (
