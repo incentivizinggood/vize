@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { Accounts } from "meteor/accounts-base";
 
-export default class RegisterPage extends Component {
+/* The page where users can create an account.
+ */
+export default class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

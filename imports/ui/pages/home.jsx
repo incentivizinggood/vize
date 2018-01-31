@@ -1,6 +1,8 @@
 import React from "react";
 import TotalsCounter from "../totals-counter.jsx";
 
+/* The home page of the site.
+ */
 export default class HomePage extends React.Component {
     render() {
         return (
@@ -8,6 +10,7 @@ export default class HomePage extends React.Component {
                 <div className="mission_statement">
                     <h1>Incentivizing Good</h1>
                     <TotalsCounter />
+                    {/* TODO add sign in and sign up buttons*/}
                 </div>
             </div>
         );

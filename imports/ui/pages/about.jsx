@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class AboutPage extends Component {
+/* A page where visitors can get information about Vize and this app.
+ */
+export default class AboutPage extends React.Component {
     render() {
         return (
             <div className="page about">
