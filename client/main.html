@@ -1,50 +1,17 @@
 <head>
     <title>Vize</title>
-    <link type="text/css" rel="stylesheet" href="./main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link  rel="stylesheet" href="./main.css" />
+    <link  rel="stylesheet" href="/css/button.css" />
+    <link rel="stylesheet" href="/css/prettySticky.css" />
+    <link  rel="stylesheet" href="/css/main.css" />
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-96x96.png">
 
-    <script type="text/javascript">
-    function Redirect() {
-    window.location = "http://www.google.com";
-}
-</script>
 </head>
 
-<body>
-    {{> navigation}}
-    <div id="view-render"></div>
-
+<body>   
+<div id="view-render"></div>
 </body>
 
-<template name="navigation">
-    <!-- Wrap all page content here! -->
-    <div id="wrap">
-        <!-- Fixed navbar -->
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="logo" href="/home"> <img src="/images/Final_Logo.png" alt="Vize logo"> </a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search Companies">
-                        </div>
-                        <button type="submit" class="btn btn-default" onClick = "Redirect();">Search</button>
-                    </form>
-                    <div class="navbar-right">
-                        <a href="/"><button type="button" class="btn btn-default navbar-btn">Home</button></a>
-                        <a href="/companies"><button type="button" class="btn btn-default navbar-btn">Companies</button></a>
-                        <a href="/about"><button type="button" class="btn btn-default navbar-btn">About</button></a>
-                        <a href="/contact-us"><button type="button" class="btn btn-default navbar-btn">Contact</button></a>
-                        <a href="/login"><button type="button" class="btn btn-default navbar-btn">Sign In</button></a>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-</template>
