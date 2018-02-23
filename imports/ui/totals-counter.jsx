@@ -22,7 +22,7 @@ class TotalsCounter extends React.Component {
 }
 
 export default withTracker(() => {
-    var companiesHandle = Meteor.subscribe("companies");
+    var companiesHandle = Meteor.subscribe("CompanyProfiles");
     var reviewsHandle = Meteor.subscribe("reviews");
 
     return {
