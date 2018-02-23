@@ -7,12 +7,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import Header from "../../ui/pages/header.jsx";
+import Footer from "../../ui/pages/footer.jsx";
+import HomePage from "../../ui/pages/home.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
+
+import ForEmployers from "../../ui/pages/foremployers.jsx";
 import CompanySearchPage from "../../ui/pages/company-search.jsx";
 import CompanyPage from "../../ui/pages/company.jsx";
+import CompanyProfile from "../../ui/pages/companyprofile.jsx";
 import ContactUsPage from "../../ui/pages/contact-us.jsx";
 import HelpPage from "../../ui/pages/help.jsx";
-import HomePage from "../../ui/pages/home.jsx";
 import LoginPage from "../../ui/pages/login.jsx";
 import MyAccountPage from "../../ui/pages/my-account.jsx";
 import NotFoundPage from "../../ui/pages/not-found.jsx";
@@ -40,6 +45,8 @@ function routeSimplePage(path, element) {
 
 routeSimplePage("/", <HomePage />);
 routeSimplePage("/about", <AboutPage />);
+routeSimplePage("/companyprofile", <CompanyProfile />);
+routeSimplePage("/foremployers", <ForEmployers />);
 routeSimplePage("/contact-us", <ContactUsPage />);
 routeSimplePage("/help", <HelpPage />);
 routeSimplePage("/login", <LoginPage />);
@@ -52,7 +59,7 @@ routeSimplePage("/write-review", <WriteReviewPage />);
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanySearchPage queryParams={queryParams} />,
+            <CompanySearchPage queryParams={queryParams} />,           
             document.getElementById("view-render")
         );
     }
@@ -66,7 +73,6 @@ FlowRouter.route("/company", {
         );
     }
 });
-
 FlowRouter.route("/user", {
     action(params, queryParams) {
         ReactDOM.render(

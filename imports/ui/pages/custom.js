@@ -1,0 +1,1 @@
+$('#multi-select-demo').multiselect();
