@@ -3,7 +3,7 @@ import { Companies } from "./companies.js";
 import "./denormalizers.js"
 
 Meteor.methods({
-	//This method be modified to take a Review
+	//This method needs to be modified to take a Review
 	//object and validate it against a schema.
 	// - Josh
     "reviews.insert"(company_id, text, safety, respect) {
@@ -129,24 +129,7 @@ Meteor.methods({
         }
 
 		/*
-		2/23/2018:
-		I have realized that no assumptions could be made
-		about editedCompanyProfile, and that document-replacement
-		is probably not a viable solution, as it relies on
-		the caller to transfer information from the old profile
-		to the new profile, including the unique keys upon which
-		the whole system depends. This is unacceptable.
-
-		However, the alternative is to try to take in a list
-		of changed fields an construct a Mongo-Style Modifier to
-		pass to Comapnies.update, which is quite a lot of work.
-
-		Can we look into the autoforms package? It seems promising.
-
-		2/24/2018:
-		Questions answered at meeting, look out for another pull request
-		when I finish implementing this method. Meanwhile, specs are above.
-			- Josh
+			CODE GOES HERE
 		*/
 	}
 
