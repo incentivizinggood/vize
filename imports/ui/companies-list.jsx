@@ -25,7 +25,7 @@ export default withTracker(({ query }) => {
     if (query === undefined) {
         query = {};
     }
-    var handle = Meteor.subscribe("companies");
+    var handle = Meteor.subscribe("CompanyProfiles");
 
     return {
         isReady: handle.ready(),
