@@ -7,63 +7,69 @@ export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: ""
+            error: null,
+            success: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    loginCallback(err) {
+        if (err) {
+            this.setState({
+                error: err.reason,
+                success: false
+            });
+        } else {
+            this.setState({
+                error: null,
+                success: true
+            });
+        }
+    }
+
     handleSubmit(e) {
         e.preventDefault();
-        let email = document.getElementById("login-email").value;
+        let name = document.getElementById("login-name").value;
         let password = document.getElementById("login-password").value;
-        Meteor.loginWithPassword(email, password, err => {
-            if (err) {
-                this.setState({
-                    error: err.reason
-                });
-            } else {
-                this.props.history.push("/");
-            }
+        Meteor.loginWithPassword(name, password, err => {
+            this.loginCallback(err);
         });
     }
 
+    renderErrorMessage() {
+        if (this.state.error) {
+            return <div>{this.state.error}</div>;
+        } else {
+            return null;
+        }
+    }
+
+    renderLoginForm() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input
+                    id="login-name"
+                    type="text"
+                    placeholder="Username or email"
+                />
+                <input
+                    id="login-password"
+                    type="password"
+                    placeholder="Password"
+                />
+                <input type="submit" value="Login" />
+            </form>
+        );
+    }
+
     render() {
-        const error = this.state.error;
+        if (this.state.success) {
+            return <div className="page login"> Login successful!</div>;
+        }
         return (
             <div className="page login">
-                <section className="sectionContainer">
-                    <div>
-                        <h2>Credentials</h2>
-                        <form method="post" onSubmit="" action="index.html">
-                            <p>
-                                <input
-                                    type="text"
-                                    name="login"
-                                    value=""
-                                    placeholder="Username or email"
-                                />
-                            </p>
-                            <p>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value=""
-                                    placeholder="Password"
-                                />
-                            </p>
-
-                            <p className="remember_me">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="remember_me"
-                                        id="remember_me"
-                                    />
-                                </label>
-                            </p>
-                        </form>
-                    </div>
-                </section>
+                {this.renderErrorMessage()}
+                {this.renderLoginForm()}
             </div>
         );
     }
