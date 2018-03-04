@@ -10,13 +10,16 @@ export default class LoginPage extends React.Component {
             error: null,
             success: false
         };
+
+        // These bindings are necessary to make `this` work in callbacks.
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.loginCallback = this.loginCallback.bind(this);
     }
 
-    loginCallback(err) {
-        if (err) {
+    loginCallback(error) {
+        if (error) {
             this.setState({
-                error: err.reason,
+                error: error.reason,
                 success: false
             });
         } else {
@@ -27,13 +30,11 @@ export default class LoginPage extends React.Component {
         }
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        let name = document.getElementById("login-name").value;
-        let password = document.getElementById("login-password").value;
-        Meteor.loginWithPassword(name, password, err => {
-            this.loginCallback(err);
-        });
+    handleSubmit(event) {
+        event.preventDefault(); // Prevent the default behavior for this event.
+        let name = this.nameInput.value;
+        let password = this.passwordInput.value;
+        Meteor.loginWithPassword(name, password, this.loginCallback);
     }
 
     renderErrorMessage() {
@@ -48,14 +49,14 @@ export default class LoginPage extends React.Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <input
-                    id="login-name"
                     type="text"
                     placeholder="Username or email"
+                    ref={x => (this.nameInput = x)}
                 />
                 <input
-                    id="login-password"
                     type="password"
                     placeholder="Password"
+                    ref={x => (this.passwordInput = x)}
                 />
                 <input type="submit" value="Login" />
             </form>
@@ -64,7 +65,7 @@ export default class LoginPage extends React.Component {
 
     render() {
         if (this.state.success) {
-            return <div className="page login"> Login successful!</div>;
+            return <div className="page login">Login successful!</div>;
         }
         return (
             <div className="page login">
