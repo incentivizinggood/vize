@@ -61,29 +61,25 @@ Meteor.methods({
 			all the fields and meets all the constraints defined
 			in Companies.schema, and it shall go well with you.
 
-			IMPORTANT NOTE: Please, pretty please, don't define
-			your own _id field. We want Mongo to do that for us.
-
-			In fact, there is going to be a pull request (soon)
-			where I will throw an exception if newCompanyProfile
-			has a defined _id field.
-
-			And you will eat it, and I will laugh,
-			because I warned you. :)
-				- Josh
+			NOTE: This method throws an exception if you
+			pass in a newCompanyProfile with a defined _id
+			field. This is becuase we want Mongo to define
+			the _id's for us, and be agnostic as to what
+			any given _id value actually is.
 		*/
+
 		// Make sure the user is logged in before inserting a task
         if (!this.userId) {
             throw new Meteor.Error("not-authorized");
         }
 
+		// Error-out if _id field is defined
+		if ("_id" in newCompanyProfile) {
+			throw new Meteor.Error("invalid newCompanyProfile: contains _id field");
+		}
+
 		//Throws an exception if argument is invalid.
 		Companies.schema.validate(newCompanyProfile);
-
-		/*
-			COMING SOON!
-			Throw an exception if newCompanyProfile._id is defined.
-		*/
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
@@ -91,8 +87,7 @@ Meteor.methods({
 		Companies.insert(newCompanyProfile);
 	}
 
-	//Add method for editing an existing CompanyProfile
-	// --- > THIS IS A WORK IN PROGRESS, SEE BELOW FOR WHY < ---
+	//Edits an existing company profile
 	"companies.editProfile"(companyProfileEdits) {
 		/*
 			COMING SOON!
@@ -106,14 +101,13 @@ Meteor.methods({
 			document fields that need to be edited.
 
 			The _id will be used as a Mongo-Style Selector, and the
-			other fields will be turned into a Mongo-Style Modifier,
-			which will REPLACE the existing fields (except _id)
-			with the new ones (via the $set modifier).
+			entire object is used as a  Mongo-Style Modifier via $set.
 
 			Example: if you want to append to a company's name,
 			then pass an object with a "name" field which has the old name
 			plus whatever new text you want to append. You can do this,
 			or something like it, for as many fields as you need to change.
+
 			Note: we may need to better define which fields can be changed
 			by this method and by whom.
 
@@ -128,9 +122,23 @@ Meteor.methods({
             throw new Meteor.Error("not-authorized");
         }
 
-		/*
-			CODE GOES HERE
-		*/
+		// Mongo-style modifiers seem to just be JSON objects
+		// where the field names are modifiers and the values
+		// are JSON objects with keys identifying the doc field
+		// to be modified and values identifying "how" to perform
+		// the modifier (as in {$inc: {name: 2}} would increment
+		// name by 2 if that was valid). Which means we can just
+		// pass companyProfileEdits to $set. Woohoo.
+		let modifier = {$set: companyProfileEdits};
+
+		// Apparently SimpleSchema lets you validate
+		// Mongo-style modifiers. Dunno about you guys,
+		// but I think that's extremely cool.
+		Companies.schema.validate(modifier);
+
+		// Will probably just silently do nothing if there's
+		// no profile with _id.
+		Companies.update(companyProfileEdits._id, modifier);
 	}
 
 	//Add method for querying all reviews for a particular company?
