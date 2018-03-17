@@ -6,26 +6,26 @@ Meteor.methods({
 	//This method needs to be modified to take a Review
 	//object and validate it against a schema.
 	// - Josh
-    "reviews.insert"(company_id, text, safety, respect) {
-        // Make sure the user is logged in before inserting a task
-        if (!this.userId) {
-            throw new Meteor.Error("not-authorized");
-        }
+	"reviews.insert"(company_id, text, safety, respect) {
+		// Make sure the user is logged in before inserting a task
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
 
-        Reviews.insert({
-            date: new Date(),
-            text: text,
-            company_id: company_id,
-            user_id: this.userId,
-            safety: safety,
-            respect: respect
-        });
+		Reviews.insert({
+			date: new Date(),
+			text: text,
+			company_id: company_id,
+			user_id: this.userId,
+			safety: safety,
+			respect: respect
+		});
 
-        // Update denormalizations.
-        Companies.update(
-            { _id: company_id },
-            {
-                $set: {
+		// Update denormalizations.
+		Companies.update(
+			{ _id: company_id },
+			{
+				$set: {
 					/*
 						I'm not sure how these denormalizations work,
 						but please make sure that they're using the correct
@@ -37,13 +37,13 @@ Meteor.methods({
 						not sure which is supposed to be which. BUG
 							- Josh
 					*/
-                    safety: addToAvg(safety, "$numReviews", "$safety"),
-                    respect: addToAvg(respect, "$numReviews", "$respect")
-                },
-                $inc: { numReviews: 1 }
-            }
-        );
-    }
+					safety: addToAvg(safety, "$numReviews", "$safety"),
+					respect: addToAvg(respect, "$numReviews", "$respect")
+				},
+				$inc: { numReviews: 1 }
+			}
+		);
+	}
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
@@ -69,9 +69,9 @@ Meteor.methods({
 		*/
 
 		// Make sure the user is logged in before inserting a task
-        if (!this.userId) {
-            throw new Meteor.Error("not-authorized");
-        }
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
 
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
@@ -118,9 +118,9 @@ Meteor.methods({
 		*/
 
 		// Copy-paste until we implement real security
-        if (!this.userId) {
-            throw new Meteor.Error("not-authorized");
-        }
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
 
 		// Mongo-style modifiers seem to just be JSON objects
 		// where the field names are modifiers and the values
@@ -140,8 +140,5 @@ Meteor.methods({
 		// no profile with _id.
 		Companies.update(companyProfileEdits._id, modifier);
 	}
-
-	//Add method for querying all reviews for a particular company?
-
 
 });
