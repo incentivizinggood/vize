@@ -13,8 +13,8 @@ export default class LoginPage extends React.Component {
         };
 
         // These bindings are necessary to make `this` work in callbacks.
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleInputChange(event) {
