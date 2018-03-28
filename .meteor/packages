@@ -30,3 +30,6 @@ meteortesting:mocha
 xolvio:cleaner
 dburles:factory
 hwillson:stub-collections
+practicalmeteor:chai
+practicalmeteor:sinon
+underscore

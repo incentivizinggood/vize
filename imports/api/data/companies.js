@@ -89,7 +89,7 @@ Companies.hasEntry = function (companyIdentifier) {
 	// Test whether a company exists yet in the
 	// CompanyProfiles collection.
 	// Returns true if the company is found, false otherwise.
-	return Companies.findOne(Companies.getSelector(companyIdentifier), asdf) !== undefined;
+	return Companies.findOne(Companies.getSelector(companyIdentifier)) !== undefined;
 };
 
 Companies.findReviewsForCompany = function(companyIdentifier) {
@@ -99,7 +99,6 @@ Companies.findReviewsForCompany = function(companyIdentifier) {
 	company = Companies.findOne(Companies.getSelector(companyIdentifier));
 	return Reviews.find({companyID: company._id});
 };
-
 
 if (Meteor.isServer) {
 	Meteor.publish("CompanyProfiles", function() {

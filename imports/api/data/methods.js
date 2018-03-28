@@ -90,10 +90,6 @@ Meteor.methods({
 	//Edits an existing company profile
 	"companies.editProfile"(companyProfileEdits) {
 		/*
-			COMING SOON!
-			Note: Don't worry about the fact that this code hasn't been
-			written yet. This is how it's going to work when it has been written.
-
 			ATTENTION UX DEVELOPERS
 			This function takes a single object, which must have
 			an _id field for the Mongo.ObjectId of the CompanyProfile
