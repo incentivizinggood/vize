@@ -31,10 +31,73 @@ export default class LoginPage extends React.Component {
         const error = this.state.error;
         return (
             <div className="page login">
-                <section className="sectionContainer">
+            <div className="modal show">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="text-center">Log In</h1>
+                        </div>
+                        <div className="modal-body">
+                            {error.length > 0 ? (
+                                <div className="alert alert-danger fade in">
+                                    {error}
+                                </div>
+                            ) : (
+                                ""
+                            )}
+                            <form
+                                id="login-form"
+                                className="form col-md-12 center-block"
+                                onSubmit={this.handleSubmit}
+                            >
+
+                                <div className="form-group">
+                                    <input
+                                        type="email"
+                                        id="signup-email"
+                                        className="form-control input-lg"
+                                        placeholder="email"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        type="password"
+                                        id="signup-password"
+                                        className="form-control input-lg"
+                                        placeholder="password"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        type="submit"
+                                        id="login-button"
+                                        className="btn btn-lg btn-primary btn-block"
+                                        value="Log In"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <p className="text-center">
+                                        Don't have an account? <a href="/register"><strong>Sign up </strong></a>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                        <div
+                            className="modal-footer"
+                            style={{ borderTop: 0 }}
+                        />
+                    </div>
+                </div>
+            </div>
+          </div>
+
+
+
+
+                /*}<section className="sectionContainer">
                     <div>
                         <h2>Credentials</h2>
-                        <form method="post" onSubmit="" action="index.html">
+                        <form method="post" action="#">
                             <p>
                                 <input
                                     type="text"
@@ -64,7 +127,7 @@ export default class LoginPage extends React.Component {
                         </form>
                     </div>
                 </section>
-            </div>
+            </div>*/
         );
     }
 }

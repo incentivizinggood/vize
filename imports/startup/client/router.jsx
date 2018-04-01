@@ -49,9 +49,9 @@ routeSimplePage("/companyprofile", <CompanyProfile />);
 routeSimplePage("/foremployers", <ForEmployers />);
 routeSimplePage("/contact-us", <ContactUsPage />);
 routeSimplePage("/help", <HelpPage />);
-routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
+routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 
 //----- Define the more complex routes. -----//
@@ -59,7 +59,7 @@ routeSimplePage("/write-review", <WriteReviewPage />);
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanySearchPage queryParams={queryParams} />,           
+            <CompanySearchPage queryParams={queryParams} />,
             document.getElementById("view-render")
         );
     }

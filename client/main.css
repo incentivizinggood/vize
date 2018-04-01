@@ -55,7 +55,7 @@ body{
     -moz-background-size:cover;
     -o-background-size:cover;
     -ms-background-size:cover;
-    min-height:700px;
+    min-height:400px;
     position:relative;
 }
  .banner-info{
@@ -1076,7 +1076,7 @@ body{
   color: #747474!important;
   opacity: 1!important;
 }
-.companyprofilepage{padding-top: 100px;padding-bottom: 17px;}
+.companyprofilepage{padding-top: 100px!important;padding-bottom: 17px!important;}
 .banner-text-info input[type="text"] ::-moz-placeholder { /* Firefox 19+ */
   color: #747474!important;
   opacity: 1!important;
@@ -1116,6 +1116,7 @@ body{
 }
 .about-cont .container-contact100 {
     min-height: 77vh;
+	padding: 15px 0;
 }
 .comp-class {
     padding-left: 0px;
@@ -1381,6 +1382,13 @@ body{
  h2.typoh2{
     margin:0 0 10px;
 }
+/******** 22 feb Start******/
+.comp-prfl p {
+    float: left;
+    width: 50%;
+}
+/******** 22 feb End ******/
+
  @media (max-width:768px){
     .grid_5{
         padding:0 0 1em;
@@ -1394,8 +1402,14 @@ body{
         margin-top:0px;
         margin-bottom:0px;
     }
+		
      .grid_5 h3, .grid_5 h2, .grid_5 h1, .grid_5 h4, .grid_5 h5, h3.hdg, h3.bars{
         margin-bottom:.5em;
+    }
+	  form.example button{
+        margin-left:0;
+        margin-top:6px;
+		float: none;
     }
      .progress{
         height:10px;
@@ -1419,6 +1433,18 @@ body{
     }
 }
  @media (max-width:480px){
+	 .emplh3 {
+    font-size: 14px !important;
+	line-height: 23px !important;
+	 }
+	 .about-row p {
+    font-size: 17px !important;
+	 }
+
+	 .btn.btn-lg.btn-danger.btn_follow1 {
+    float: left;
+    margin: 0px 20px 20px 0 !important;
+}
     .table h1{
         font-size:26px;
     }
@@ -1561,6 +1587,10 @@ body{
     color:#000;
 }
  @media(max-width:1280px){
+	 .col-md-4.prostar{
+	padding-left: 0 !important;
+}
+
     .banner-text-info{
         width:70%;
     }
@@ -1690,6 +1720,10 @@ body
     }
 }
  @media(max-width:1024px){
+	 
+	 .banner-text {
+    padding: 1em 0px 0px;
+	 }
     .top-nav ul li a{
         font-size:1.1em;
     }
@@ -1703,7 +1737,7 @@ body
         min-height:600px;
     }
      .banner-text-info{
-        margin:17em auto 0;
+        margin:15em auto 0;
     }
      .welcome, .tabs, .services, .slid, .footer, .about, .team, .codes, .contact, .gallery, .blog{
         padding:6em 0;
@@ -1725,12 +1759,82 @@ body
 }
 }
  @media(max-width:991px){
+	 .comp-prfl p {
+    float: left;
+    width: 100%;
+}
+	 .companyprofilepage {
+    padding-top: 60px!important;
+    padding-bottom: 30px!important;
+}
+.col-md-5.prostar {
+    padding-left: 0;
+}
+.prostar {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+	 .pargrf p {
+    font-size: 15px !important;
+}
+	 .container-fluid.search_companies {
+    padding-top: 60px !important;
+	 }
+	 .multiselect.dropdown-toggle {
+    margin-bottom: 1rem;
+}
+	 .title3 hr {
+    margin-top: 35px !important;
+}
+.title1 {
+    font-size: 26px !important;
+    padding-top: 0px !important;
+}
+	 h1.titlestar {
+    font-size: 25px;
+    line-height: 32px;
+}
+.losize img {
+    margin: 1rem auto;
+}
+	   .welcome-text.wtext-right h1 {
+    font-size: 22px;
+    font-weight: 500;
+}
+.welcome-text.wtext-right {
+    width: 100%;
+}
+.welpad {
+    padding-top: 3em !important;
+}
+.welcome-text.wtext-right h2 {
+    font-size: 18px !important;
+    line-height: 28px;
+}
+	 .banner-text {
+    padding: 1em 0px 0px;
+}
+form.example input[type=text]{
+        align-items:center!important;
+        margin-left:0;
+		margin-bottom: 25px !important;
+		float: none !important;
+    }
+  	  form.example button{
+        margin-left:0;
+        margin-top:6px;
+		float: none !important;
+    }
+	.banner-text h1 {
+    font-size: 2.5em;
+	}
     .top-nav ul li a{
         letter-spacing:0;
         padding:10px 11px;
     }
      .banner-text-info{
-        margin:16em auto 0;
+        margin:12em auto 0;
     }
      .welcome-left{
         float:left;
@@ -1935,8 +2039,13 @@ body
     margin-left: 0px!important;
 }
 .banner-text-info form.example button {
-    width: 20% !important;
+    width: auto !important;
     margin-top: 0px;
+    padding: 11px 30px;
+}
+form.example button {
+    font-size: 17px !important;
+	margin-left: 3px !important;
 }
 #companies_header1 .banner-text-info {
     margin: 3em auto 0;
@@ -1968,7 +2077,7 @@ body
         margin:14em auto 0;
     }
      .welcome, .tabs, .services, .slid, .footer, .about, .team, .codes, .contact, .gallery, .blog{
-        padding:5em 0;
+        padding:1em 0;
     }
      .testimonials-grid p{
         font-size:1.2em;
@@ -2061,7 +2170,7 @@ body
         min-height:460px;
     }
      .banner-text-info{
-        margin:12em auto 0;
+        margin:9em auto 0;
     }
      .slid{
         padding:3em 0;
@@ -2107,6 +2216,33 @@ body
     }
 }
  @media(max-width:640px){
+	 	 h3.tab_section {
+    font-size: 15px;
+    line-height: 24px;
+}
+p.profile_ptext {
+    font-size: 15px !important;
+}
+	 .banner-text {
+    padding: 1em 0px 4em;
+}
+.banner-text.about h1 {
+    font-size: 2.5em !important;
+    line-height: 1.5em;
+    margin: 40px auto 30px !important;
+}
+.banner-text h1 {
+    color: #fff;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+form.example input[type=text] {
+    padding: 7px;
+    margin-bottom: 20px;
+    font-size: 17px;
+    
+}
     .banner-text h2{
         font-size:1.8em;
     }
@@ -2141,7 +2277,7 @@ body
         padding:1.5em;
     }
      .welcome, .tabs, .services,.footer, .about, .team, .codes, .contact, .gallery, .blog{
-        padding:4em 0;
+        padding:3em 0;
     }
      .servc-grids{
         margin-top:0;
@@ -2177,6 +2313,7 @@ body
         float:none;
         width:100%;
         padding:0;
+		margin: 2rem 0;
     }
      .footer-grids:nth-child(1){
         padding:0;
@@ -2256,6 +2393,7 @@ body
     }
 }
  @media(max-width:480px){
+
     .banner-text h2{
         font-size:1.6em;
     }
@@ -2684,6 +2822,7 @@ body
     }
 }
  @media screen and (max-width:780px) and (min-width:320px){
+	
     .alisetright img{
         width:100%!important;
     }
@@ -3211,7 +3350,7 @@ padding-top: 135px;
     font-weight:bold;
 }
  .tabs1{
-    padding-bottom:8em;
+    padding-bottom:4em;
     padding-top: 3em;
 }
  .t1{
@@ -3275,9 +3414,7 @@ padding-top: 135px;
  .moreGoo.more2 .button-pipaluk::before{
     border-color:#000;
 }
- .moun{
-    margin-top:49px;
-}
+
  .prostar{
     margin-bottom:16px;
     margin-top:16px;
@@ -3296,8 +3433,8 @@ padding-top: 135px;
 }
  .bl{
     background-color:#f2f2f2;
-    padding-bottom:104px;
-    padding-top: 4em;
+    padding-bottom:50px;
+    padding-top: 2em;
 }
  .about-row p{
     font-size:19px;
@@ -3451,7 +3588,7 @@ padding-top: 135px;
     border-radius:0px!important;
     margin:0px;
     border-left:1px solid #565656;
-    font-size:18px;
+    font-size:17px;
 }
  .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
     color:#fff!important;
@@ -3473,6 +3610,10 @@ padding-top: 135px;
     font-size:10px;
 }
  @media screen and (max-width:767px) and (min-width:320px){
+	 .btn.btn-lg.btn-danger.btn_follow1 {
+    float: left;
+    margin: 0 20px 0 0;
+}
     .navbar-header.logo{
         margin-top:0px!important;
         background-color:#132437!important;
@@ -3518,14 +3659,18 @@ padding-top: 135px;
     }
      button.navbar-toggle{
         margin-top:1.3em;
+		margin-right: 1em;
     }
      form.example input[type=text]{
         align-items:center!important;
-        margin-left:43px;
+        margin-left:0;
+		margin-bottom: 25px;
+		float: none
     }
-     form.example button{
-        margin-left:67px;
+  	  form.example button{
+        margin-left:0;
         margin-top:6px;
+		float: none;
     }
      .replus{
         margin-top:0px;
@@ -3585,9 +3730,7 @@ padding-top: 135px;
      .container.pagination_text{
         text-align:center!important;
     }
-     .moun{
-        margin-top:0px;
-    }
+  
 }
  @media (min-width:992px) and (max-width:1199px){
     button.multiselect.dropdown-toggle.width_btn.btn.btn-default{

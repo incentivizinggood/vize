@@ -10,7 +10,7 @@ export default class AboutPage extends React.Component {
             <div><Header />
              <div  id="home" className="banner about-banner">
          <div className="banner-info">       
-            <div className="banner-text">
+            <div className="banner-text about">
                <h1>About</h1>
             </div>
          </div>

@@ -1,5 +1,8 @@
 import React from "react";
 import { Accounts } from "meteor/accounts-base";
+import Header from "../../ui/pages/header.jsx";
+import Footer from "../../ui/pages/footer.jsx";
+
 
 /* The page where users can create an account.
  */
@@ -35,6 +38,7 @@ export default class RegisterPage extends React.Component {
     render() {
         const error = this.state.error;
         return (
+
             <div className="page register">
                 <div className="modal show">
                     <div className="modal-dialog">
@@ -60,7 +64,7 @@ export default class RegisterPage extends React.Component {
                                             type="text"
                                             id="signup-name"
                                             className="form-control input-lg"
-                                            placeholder="name"
+                                            placeholder="username"
                                         />
                                     </div>
                                     <div className="form-group">
@@ -82,14 +86,14 @@ export default class RegisterPage extends React.Component {
                                     <div className="form-group">
                                         <input
                                             type="submit"
-                                            id="login-button"
+                                            id="signup-button"
                                             className="btn btn-lg btn-primary btn-block"
                                             value="Sign Up"
                                         />
                                     </div>
                                     <div className="form-group">
                                         <p className="text-center">
-                                            Already have an account? Login
+                                            Already have an account? <a href="/login"><strong>Login</strong></a>
                                         </p>
                                     </div>
                                 </form>

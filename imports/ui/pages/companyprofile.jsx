@@ -32,7 +32,7 @@ export default class CompanyProfile extends React.Component {
             <div className="col-md-2  prostar">
                <img src="images/p5.jpg"  className="img-responsive  hi"/>
             </div>
-            <div className="col-md-3  prostar">
+            <div className="col-md-6  prostar">
                <div className="col-md-12">
                   <fieldset className="rating">
                      <input type="radio" id="star5" name="rating" value="5" />
@@ -59,21 +59,14 @@ export default class CompanyProfile extends React.Component {
                   </fieldset>
                   <label className="renum">(5.0/5.0)</label>
                </div>              
-               <div  className="col-md-12">
+               <div  className="col-md-12 comp-prfl">
                   <p><i className="fa fa-map-marker" aria-hidden="true"></i> Mountain  View, CA</p>
-               </div>
-               <div  className="col-md-12">
-                  <p><i className="fa fa-flask" aria-hidden="true"></i> Science & Technology</p>
-               </div>
-            </div>
-            <div className="col-md-3  prostar">
-               <div  className="col-md-12">
-                  <div  className="moun">
-                     <p><i className="fa fa-globe" aria-hidden="true"></i> www.google.com</p>
-                     <p><i className="fa fa-users" aria-hidden="true"></i>  Size 1501-5000</p>
-                  </div>
+				  <p><i className="fa fa-flask" aria-hidden="true"></i> Science & Technology</p>
+				  <p><i className="fa fa-globe" aria-hidden="true"></i> www.google.com</p>
+                  <p><i className="fa fa-users" aria-hidden="true"></i>  Size 1501-5000</p>
                </div>
             </div>
+  
             <div className="col-md-4 prostar">
                <div  className="col-md-12">
                   <div className="titlestar">

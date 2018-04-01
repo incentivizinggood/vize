@@ -13,13 +13,6 @@ import Footer from "../../ui/pages/footer.jsx";
 /* The page where users can search/browse companies.
  */
 export default class CompanySearchPage extends React.Component {  
-
-componentWillMount() {
-    const script = document.createElement("script");
-    script.src = "/js/custom.js";
-    script.async = true;
-    document.body.appendChild(script);
-    }
     render() {    
         return ( 
 
@@ -33,7 +26,7 @@ componentWillMount() {
 		                  <ul className="rslides" id="slider3">                       
 		                     <li>
 		                        <div className="banner-text-info">
-		                           <form className="example" Method="POST" action="#">
+		                           <form className="example" method="POST" action="#">
 		                              <input type="text" placeholder="Search for a Company..." name="search"/>
 		                              <button type="submit">SEARCH</button>
 		                           </form>
@@ -101,17 +94,17 @@ componentWillMount() {
             <div className="clearfix"> </div>
          </div>
         
-         <div className="container box2 all_boxcolor">
+   <div className="container box2 all_boxcolor">
             <div className="container  welpad1">
                <div className="col-md-3  prostar">
                   <a href="/companyprofile">
                      <div  className="shdo">  
-                        <img src="/images/p5.jpg"  className="img-responsive"/>
+                        <img src="images/p5.jpg"  className="img-responsive"/>
                      </div>
                   </a>
                </div>
                <div className="col-md-4  prostar">
-                  <label className="goo"> <a href="/companyprofile">Google</a></label>
+                  <label className="goo"><a href="/companyprofile">Google</a></label>
                   <div className="col-md-12 comp-class">
                      <fieldset className="rating">
                         <input type="radio" id="star5" name="rating" value="5" />
@@ -137,7 +130,7 @@ componentWillMount() {
                      </fieldset>
                      <label className="renum">(5.0/5.0)</label>
                   </div>
-                 
+                  <br/>
                   <div  className="col-md-12 comp-class">
                      <div  className="locahed">
                         <h4><i className="fa fa-map-marker" aria-hidden="true"></i><span> Mountain  View, CA</span></h4>
@@ -184,14 +177,12 @@ componentWillMount() {
             <div className="clearfix"> </div>
          </div>
       
-         <div className="container box2 all_boxcolor">
+                 <div className="container box2 all_boxcolor">
             <div className="container  welpad1">
                <div className="col-md-3  prostar">
-                  <a href="/companyprofile">
-                     <div  className="shdo">  
-                        <img src="images/p5.jpg"  className="img-responsive"/>
-                     </div>
-                  </a>
+                  <div  className="shdo"> 
+                     <a href="/companyprofile"><img src="images/p5.jpg"  className="img-responsive"/></a>
+                  </div>
                </div>
                <div className="col-md-4  prostar">
                   <label className="goo"> <a href="/companyprofile">Google</a></label>
@@ -220,8 +211,8 @@ componentWillMount() {
                      </fieldset>
                      <label className="renum">(5.0/5.0)</label>
                   </div>
-                 
-                  <div  className="col-md-12comp-class">
+                  <br/>
+                  <div  className="col-md-12 comp-class">
                      <div  className="locahed">
                         <h4><i className="fa fa-map-marker" aria-hidden="true"></i><span> Mountain  View, CA</span></h4>
                         <h4><i className="fa fa-flask" aria-hidden="true"></i> <span>Science & Technology</span></h4>

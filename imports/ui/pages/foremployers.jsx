@@ -35,11 +35,11 @@ export default class ForEmployers extends React.Component
 		                 </div>
                          <div className="welcome welpad">
 						   <div className="container">
-						      <div className="col-md-12 ">
+						      <div className="col-md-12 welcome-text wtext-right ">
 						         <h1>Give yourself the best chance</h1>
 						      </div>
 						     
-						      <div className="col-md-12 ">
+						      <div className="col-md-12 welcome-text wtext-right">
 						         <h2>JobAdvisor helps you discover which employers exist and compare them side by side. Apply for jobs, let them know you're interested, or simply follow the ones you like to add them to your short-list. </h2>
 						      </div>
 						      <div className="col-md-12 ">

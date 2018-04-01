@@ -9,4 +9,5 @@ import "../imports/startup/client/router.jsx";
 
 Meteor.startup(() => {	
 $.getScript('js/prettySticky.js', function(){});
+
 });

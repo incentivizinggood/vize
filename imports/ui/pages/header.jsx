@@ -1,6 +1,12 @@
 import React from "react";
 /* The "header" page. */
 export default class Header extends React.Component {
+componentWillMount() {
+    const script = document.createElement("script");
+    script.src = "/js/custom.js";
+    script.async = true;
+    document.body.appendChild(script);
+    }
   render() {
     return (
   <div className="top-nav">
@@ -16,7 +22,7 @@ export default class Header extends React.Component {
                         <h2>
                            <a href="/"><img src="/images/logo.png"/></a>
                         </h2>
-                     </div>                    
+                     </div>
                      <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav left_nav">
                            <li><a href="#" type="button" id="register-button-menu" className=" btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up or Login</a></li>
@@ -26,8 +32,8 @@ export default class Header extends React.Component {
                            <li><a href="/about" className="link-kumya"><span>About</span></a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                           <li><a href="#" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
-                           <li><a href="#" className="navbar-link margin-right">LOG IN</a></li>
+                           <li><a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
+                           <li><a href="/login" className="navbar-link margin-right">LOG IN</a></li>
                            <li className="dropdown">
                               <hr className="hr_line_width2"/>
                               <a href="#" className="dropdown-toggle boderbtn" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="/images/mx.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavSel"></span> <span className="caret"></span></a>
@@ -35,7 +41,7 @@ export default class Header extends React.Component {
                                  <li><a id="navIta" href="#" className="language"> <img id="imgNavIta" src="/images/mx.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavIta">Español</span></a></li>
                                  <li><a id="navEng" href="#" className="language"><img id="imgNavEng" src="/images/us.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavEng">English</span></a></li>
                               </ul>
-                           </li>                           
+                           </li>
                         </ul>
                         <div className="clearfix"> </div>
                      </div>
