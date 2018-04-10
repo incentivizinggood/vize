@@ -96,6 +96,9 @@ export default class RegisterPage extends React.Component {
                                             Already have an account? <a href="/login"><strong>Login</strong></a>
                                         </p>
                                     </div>
+
+
+
                                 </form>
                             </div>
                             <div
