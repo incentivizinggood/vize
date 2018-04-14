@@ -24,6 +24,9 @@ import NotFoundPage from "../../ui/pages/not-found.jsx";
 import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
+import FlagSystem from "../../ui/pages/flag.jsx";
+
+
 
 /**
  * Reduces boiler plate for simple pages.
@@ -53,9 +56,10 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
+routeSimplePage("/flag", <FlagSystem />);
+
 
 //----- Define the more complex routes. -----//
-
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(

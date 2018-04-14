@@ -15,7 +15,8 @@ export default class LoginPage extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         let email = document.getElementById("login-email").value;
-        let password = document.getElementById("login-password").value;
+        let password = document.getElementById("login-" +
+            "").value;
         Meteor.loginWithPassword(email, password, err => {
             if (err) {
                 this.setState({
@@ -39,7 +40,7 @@ export default class LoginPage extends React.Component {
                                 <input
                                     type="text"
                                     name="login"
-                                    value=""
+                                    value= ""
                                     placeholder="Username or email"
                                 />
                             </p>
