@@ -73,6 +73,9 @@ Companies.schema = new SimpleSchema({
 		defaultValue: 0, },
 });
 
+// Added line for autoforms and collection2 usage
+Companies.attachSchema(Companies.schema);
+
 // Add helper functions directly to the Companies collection object
 // convert _id or name into a proper Mongo-style selector
 Companies.getSelector = function(companyIdentifier) {
