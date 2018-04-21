@@ -4,6 +4,11 @@ import { Mongo } from "meteor/mongo";
 import { Companies } from "../../api/data/companies.js";
 import { withTracker } from 'meteor/react-meteor-data';
 
+//Methinks that I'm not able to use methods in the form
+//unless I have this NEAT little import, perhaps load order
+//has something to do with it...
+import "../../api/data/methods.js";
+
 //so we can use Blaze packages
 import { Template } from 'meteor/templating';
 import Blaze from 'meteor/gadicc:blaze-react-component';
@@ -40,7 +45,6 @@ Factory.define("companyProfile", Companies, {
 	avgSatisfaction: 0,
 	numReviews: 0,
 });
-
 Tracker.autorun(() => {
 	Meteor.subscribe('CompanyProfiles');
 });
@@ -50,10 +54,23 @@ class CompanyCreateProfileForm extends React.Component {
 		super(props);
 	}
 
+	//TESTING CODE
+	renderCompanyProfiles() {
+		console.log("How do I shot web!?!?");
+		return this.props.companyProfiles.map((companyProfile) => (
+			<div>
+				<p>Company</p>
+				<p>Name: {companyProfile.name}</p>
+				<p>Email: {companyProfile.email}</p>
+			</div>
+		));
+	}
+
 	render() {
 		return (
 			<div className="page CompanyCreateProfileForm">
 				<Blaze template="ccp_blaze_form" />
+				{this.renderCompanyProfiles()}
 			</div>
 		);
 	}

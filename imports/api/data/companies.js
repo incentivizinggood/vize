@@ -11,6 +11,9 @@ Companies.schema = new SimpleSchema({
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */},
+	email: {
+		type: String, // is there a pre-made type for representing these?
+		optional: false, },
 	dateEstablished: {
 		type: Date,
 		optional: true, },
@@ -33,9 +36,6 @@ Companies.schema = new SimpleSchema({
 	contactInfo: {
 		type: String,
 		optional: true, },
-	email: {
-		type: String, // is there a pre-made type for representing these?
-		optional: false, },
 
 	numFlags: { // as in, the number of times this company has been "flagged" for some reason,
 				//Vize IT is free to decrease as issues are dealt with
@@ -51,22 +51,26 @@ Companies.schema = new SimpleSchema({
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
-		optional: true, },
+		optional: true,
+	 	defaultValue: 0, },
 	avgRespect: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
-		optional: true, },
+		optional: true,
+		defaultValue: 0, },
 	avgBenefits: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
-		optional: true, },
+		optional: true,
+	 	defaultValue: 0, },
 	avgSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
-		optional: true, },
+		optional: true,
+	 	defaultValue: 0, },
 	numReviews: {
 		type: Number,
 		min: 0,
