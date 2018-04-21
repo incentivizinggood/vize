@@ -22,7 +22,6 @@ export default class CompanyCreateProfileForm extends React.Component {
 		return (
 			<div className="page CompanyCreateProfileForm">
 				<Blaze template="ccp_blaze_form" />
-				<Blaze template="ccp_blaze_form2" />
 			</div>
 		);
 	}
