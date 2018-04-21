@@ -9,7 +9,7 @@ import { chai } from "meteor/practicalmeteor:chai";
 import { sinon } from "meteor/practicalmeteor:sinon";
 import { resetDatabase } from "meteor/xolvio:cleaner";
 import { Factory } from 'meteor/dburles:factory';
-import { faker } from "faker";
+const faker = require('faker');
 import { StubCollections } from "meteor/hwillson:stub-collections";
 import { shallow } from "enzyme";
 
@@ -24,7 +24,7 @@ describe("CompanyCreateProfileForm", function() {
 		name: faker.company.companyName(),
 		dateEstablished: faker.date.recent(),
 		dateJoined: faker.date.recent(),
-		numEmployees: faker.random.number(),
+		numEmployees: 1,
 		industry: faker.commerce.product(),
 		locations: faker.address.streetAddress(),
 		contantInfo: faker.lorem.sentence(),
