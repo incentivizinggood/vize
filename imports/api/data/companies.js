@@ -35,6 +35,7 @@ Companies.schema = new SimpleSchema({
 	email: {
 		type: String, // is there a pre-made type for representing these?
 		optional: false, },
+
 	numFlags: { // as in, the number of times this company has been "flagged" for some reason,
 				//Vize IT is free to decrease as issues are dealt with
 		type: Number,

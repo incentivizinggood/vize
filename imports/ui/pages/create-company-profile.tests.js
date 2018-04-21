@@ -2,7 +2,7 @@
 import { React } from "react";
 import { ReactDOM } from "react-dom";
 import { Mongo } from "meteor/mongo";
-import { CompanyCreateProfileForm } from "./company-profile-creation-form.jsx"
+import { CompanyCreateProfileForm } from "./create-company-profile.jsx"
 
 // Testing facilities
 import { chai } from "meteor/practicalmeteor:chai";

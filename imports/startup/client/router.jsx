@@ -25,6 +25,9 @@ import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 
+//JHIGGINBOTHAM64 ADDED TESTING CODE
+import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
+
 /**
  * Reduces boiler plate for simple pages.
  * Use this for all pages that use static non-paramerized URL's.
@@ -54,12 +57,15 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 
+//JHIGGINBOTHAM64 ADDED TESTING CODE
+routeSimplePage("/create-company-profile",<CompanyCreateProfileForm />);
+
 //----- Define the more complex routes. -----//
 
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanySearchPage queryParams={queryParams} />,           
+            <CompanySearchPage queryParams={queryParams} />,
             document.getElementById("view-render")
         );
     }
