@@ -53,6 +53,7 @@ Meteor.methods({
 	//	--> yet set up accounts. We're not ready for that quite yet.
 	companies_createProfile: function (newCompanyProfile) {
 		console.log("LOOK WE CALLED A METHOD! (companies_createProfile)");
+		console.log("checking user id");
 		/*
 			ATTENTION UX DEVELOPERS
 			This method expects a single argument,
@@ -76,17 +77,19 @@ Meteor.methods({
 			throw new Meteor.Error("not-authorized");
 		}
 
+		console.log("checking for _id field existence");
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
 			throw new Meteor.Error("invalid newCompanyProfile: contains _id field");
 		}
 
+		console.log("validating newCompanyProfile");
 		//Throws an exception if argument is invalid.
 		Companies.schema.validate(newCompanyProfile);
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
-
+		console.log("inserting newCompanyProfile");
 		Companies.insert(newCompanyProfile);
 	},
 

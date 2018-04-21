@@ -12,6 +12,14 @@ import { Factory } from 'meteor/dburles:factory';
 const faker = require('faker');
 import { StubCollections } from "meteor/hwillson:stub-collections";
 import { shallow } from "enzyme";
+/*
+	Fake login, because otherwise all the Methods break
+	Comment from their GitHub page:
+	Must be accessed this way because it is a debug only package
+*/
+var Phony = Package['csauer:accounts-phony'].Phony;
+Meteor.loginWithPhony(Phony.user);
+
 
 describe("CompanyCreateProfileForm", function() {
 

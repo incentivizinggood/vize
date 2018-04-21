@@ -4,11 +4,6 @@ import { Mongo } from "meteor/mongo";
 import { Companies } from "../../api/data/companies.js";
 import { withTracker } from 'meteor/react-meteor-data';
 
-//Methinks that I'm not able to use methods in the form
-//unless I have this NEAT little import, perhaps load order
-//has something to do with it...
-import "../../api/data/methods.js";
-
 //so we can use Blaze packages
 import { Template } from 'meteor/templating';
 import Blaze from 'meteor/gadicc:blaze-react-component';
@@ -45,6 +40,14 @@ Factory.define("companyProfile", Companies, {
 	avgSatisfaction: 0,
 	numReviews: 0,
 });
+/*
+	Fake login, because otherwise all the Methods break
+	Comment from their GitHub page:
+	Must be accessed this way because it is a debug only package
+*/
+var Phony = Package['csauer:accounts-phony'].Phony;
+Meteor.loginWithPhony(Phony.user);
+
 Tracker.autorun(() => {
 	Meteor.subscribe('CompanyProfiles');
 });
@@ -56,9 +59,9 @@ class CompanyCreateProfileForm extends React.Component {
 
 	//TESTING CODE
 	renderCompanyProfiles() {
-		console.log("How do I shot web!?!?");
+		console.log("Inside renderCompanyProfiles");
 		return this.props.companyProfiles.map((companyProfile) => (
-			<div>
+			<div key={companyProfile._id}>
 				<p>Company</p>
 				<p>Name: {companyProfile.name}</p>
 				<p>Email: {companyProfile.email}</p>
