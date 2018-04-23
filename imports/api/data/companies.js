@@ -4,9 +4,7 @@ import { Reviews } from "./reviews.js"; // used when retrieving reviews for a gi
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
 Companies.schema = new SimpleSchema({
-	name: { //Can we make this unique somehow, and maybe also indexed?
-		//It would make using this collection a TON easier...
-		//First attempt -> see fields below, should be self-explanatory
+	name: { 
 		type: String,
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
