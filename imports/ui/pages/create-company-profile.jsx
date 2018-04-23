@@ -52,6 +52,8 @@ Tracker.autorun(() => {
 	Meteor.subscribe('CompanyProfiles');
 });
 
+//TODO Further test the schema validation
+
 class CompanyCreateProfileForm extends React.Component {
 	constructor(props) {
 		super(props);

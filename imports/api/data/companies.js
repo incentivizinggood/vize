@@ -75,7 +75,7 @@ Companies.schema = new SimpleSchema({
 		type: Number,
 		min: 0,
 		decimal: false,
-		optional: false,
+		optional: true,
 		defaultValue: 0, },
 });
 

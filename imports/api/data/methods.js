@@ -2,50 +2,52 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 //BUG THIS IMPORT MAKES THE SERVER CRASH
 //WHEN THIS FILE IS INCLUDED
-//import "./denormalizers.js"
+import "./denormalization.js"
+
+//TODO Further test the schema validation
 
 Meteor.methods({
 	//This method needs to be modified to take a Review
 	//object and validate it against a schema.
 	// - Josh
-	// "reviews.insert"(company_id, text, safety, respect) {
-	// 	// Make sure the user is logged in before inserting a task
-	// 	if (!this.userId) {
-	// 		throw new Meteor.Error("not-authorized");
-	// 	}
-	//
-	// 	Reviews.insert({
-	// 		date: new Date(),
-	// 		text: text,
-	// 		company_id: company_id,
-	// 		user_id: this.userId,
-	// 		safety: safety,
-	// 		respect: respect
-	// 	});
-	//
-	// 	// Update denormalizations.
-	// 	Companies.update(
-	// 		{ _id: company_id },
-	// 		{
-	// 			$set: {
-	// 				/*
-	// 					I'm not sure how these denormalizations work,
-	// 					but please make sure that they're using the correct
-	// 					variable names as per Reviews.schema.
-	//
-	// 					In fact, I'm almost certain that one or more of them
-	// 					is wrong because the schema attribute names used to have
-	// 					the same names as this method's arguments, but I'm
-	// 					not sure which is supposed to be which. BUG
-	// 						- Josh
-	// 				*/
-	// 				safety: addToAvg(safety, "$numReviews", "$safety"),
-	// 				respect: addToAvg(respect, "$numReviews", "$respect")
-	// 			},
-	// 			$inc: { numReviews: 1 }
-	// 		}
-	// 	);
-	// },
+	"reviews.insert"(company_id, text, safety, respect) {
+		// Make sure the user is logged in before inserting a task
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		Reviews.insert({
+			date: new Date(),
+			text: text,
+			company_id: company_id,
+			user_id: this.userId,
+			safety: safety,
+			respect: respect
+		});
+
+		// Update denormalizations.
+		Companies.update(
+			{ _id: company_id },
+			{
+				$set: {
+					/*
+						I'm not sure how these denormalizations work,
+						but please make sure that they're using the correct
+						variable names as per Reviews.schema.
+
+						In fact, I'm almost certain that one or more of them
+						is wrong because the schema attribute names used to have
+						the same names as this method's arguments, but I'm
+						not sure which is supposed to be which. BUG
+							- Josh
+					*/
+					safety: addToAvg(safety, "$numReviews", "$safety"),
+					respect: addToAvg(respect, "$numReviews", "$respect")
+				},
+				$inc: { numReviews: 1 }
+			}
+		);
+	},
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
