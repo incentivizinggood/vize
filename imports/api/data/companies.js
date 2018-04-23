@@ -17,66 +17,94 @@ Companies.schema = new SimpleSchema({
 	dateEstablished: {
 		type: Date,
 		optional: true, },
-	dateJoined: {
-		type: Date,
-		optional: true, },
 	numEmployees: {
 		type: Number,
 	 	decimal: false,
 		optional: true,
 		defaultValue: 0, },
 	//We're going to need to re-vize (LOL)
-	//these next five fields a bit
+	//these next three fields a bit
 	industry: {
 		type: String,
 		optional: true, },
 	locations: {
 		type: String,
-		optional: true,  },
+		optional: true, },
 	contactInfo: {
 		type: String,
 		optional: true, },
 
+	// All fields after this point are only
+	// ever used "internally" by the app,
+	// for calculations or for other things
+	// that are not editable by users.
+	// Thus they have autoform.omit set to true.
+
+	dateJoined: { // refers to the date the company joined Vize
+		type: Date,
+		optional: true,
+		defaultValue: new Date(), // "current" date, i.e. this is a new
+								// insertion and the company is just now joining
+		autoform: {
+			omit: true,
+		}},
 	numFlags: { // as in, the number of times this company has been "flagged" for some reason,
 				//Vize IT is free to decrease as issues are dealt with
 		type: Number,
 		min: 0,
 		decimal: false,
 		optional: true,
-		defaultValue: 0, },
-	// denormalizers
-	// maybe add a mechanism to indicate
-	// that no data is available?
+		defaultValue: 0,
+		autoform: {
+			omit: true,
+		}},
+	// denormalizers - maybe add a mechanism to indicate that no data
+	// is available, so they don't just show up with terrible ratings?
 	avgSafety: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
 		optional: true,
-	 	defaultValue: 0, },
+	 	defaultValue: 0,
+		autoform: {
+			omit: true,
+		}},
 	avgRespect: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
 		optional: true,
-		defaultValue: 0, },
+		defaultValue: 0,
+		autoform: {
+			omit: true,
+		}},
 	avgBenefits: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
 		optional: true,
-	 	defaultValue: 0, },
+	 	defaultValue: 0,
+		autoform: {
+			omit: true,
+		}},
 	avgSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
 		optional: true,
-	 	defaultValue: 0, },
+	 	defaultValue: 0,
+		autoform: {
+			omit: true,
+		}},
 	numReviews: {
 		type: Number,
 		min: 0,
 		decimal: false,
 		optional: true,
-		defaultValue: 0, },
+		defaultValue: 0,
+	 	autoform: {
+			omit: true,
+		}},
 });
 
 // Added line for autoforms and collection2 usage
