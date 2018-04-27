@@ -51,9 +51,7 @@ Meteor.methods({
 	//	--> The full solution will require cross-validation
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
-	companies_createProfile: function (newCompanyProfile) {
-		console.log("LOOK WE CALLED A METHOD! (companies_createProfile)");
-		console.log("checking user id");
+	"companies.createProfile": function (newCompanyProfile) {
 		/*
 			ATTENTION UX DEVELOPERS
 			This method expects a single argument,
@@ -73,30 +71,32 @@ Meteor.methods({
 		*/
 
 		// Make sure the user is logged in before inserting a task
+		console.log("companies.createProfile: checking user id");
+
 		if (!this.userId) {
 			throw new Meteor.Error("user is not logged in");
 		}
 
-		console.log("checking for _id field existence");
+		console.log("companies.createProfile: checking for _id field existence");
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
 			throw new Meteor.Error("invalid newCompanyProfile: contains _id field");
 		}
 
-		console.log("validating newCompanyProfile");
+		console.log("companies.createProfile: validating newCompanyProfile");
 		//Throws an exception if argument is invalid.
 		Companies.schema.validate(newCompanyProfile);
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
-		console.log("inserting newCompanyProfile");
+		console.log("companies.createProfile: inserting newCompanyProfile");
 		Companies.insert(newCompanyProfile);
 
-		console.log("company profile insertion succeeded");
+		console.log("companies.createProfile: success");
 	},
 
 	//Edits an existing company profile
-	companies_editProfile: function(companyProfileEdits) {
+	"companies.editProfile": function (companyProfileEdits) {
 		/*
 			ATTENTION UX DEVELOPERS
 			This function takes a single object, which must have

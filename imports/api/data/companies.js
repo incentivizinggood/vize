@@ -117,7 +117,7 @@ Companies.getSelector = function(companyIdentifier) {
 		return {name: companyIdentifier};
 	else if (typeof companyIdentifier === "object")
 		// assumes type of Mongo.ObjectId for _id if not string for name
-		return companyIdentifier; // don't have to wrap _id in a selector
+		return {_id: companyIdentifier}; // don't have to wrap _id in a selector, but should do so for security anyway
 	else return undefined;
 };
 
