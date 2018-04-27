@@ -1,7 +1,5 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
-//BUG THIS IMPORT MAKES THE SERVER CRASH
-//WHEN THIS FILE IS INCLUDED
 import "./denormalization.js"
 
 //TODO Further test the schema validation
@@ -76,7 +74,7 @@ Meteor.methods({
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error("not-authorized");
+			throw new Meteor.Error("user is not logged in");
 		}
 
 		console.log("checking for _id field existence");

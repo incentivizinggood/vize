@@ -4,20 +4,22 @@ import { Reviews } from "./reviews.js"; // used when retrieving reviews for a gi
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
 Companies.schema = new SimpleSchema({
-	name: { 
+	name: {
 		type: String,
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */},
 	email: {
 		type: String, // is there a pre-made type for representing these?
-		optional: false, },
+		optional: false,
+		regEx: SimpleSchema.RegEx.Email, },
 	dateEstablished: {
 		type: Date,
 		optional: true, },
 	numEmployees: {
 		type: Number,
 	 	decimal: false,
+		min: 0,
 		optional: true,
 		defaultValue: 0, },
 	//We're going to need to re-vize (LOL)
@@ -38,7 +40,7 @@ Companies.schema = new SimpleSchema({
 	// that are not editable by users.
 	// Thus they have autoform.omit set to true.
 
-	dateJoined: { // refers to the date the company joined Vize
+	dateJoined: { // refers to the date the company "joined" Vize - what exactly does that mean?
 		type: Date,
 		optional: true,
 		defaultValue: new Date(), // "current" date, i.e. this is a new
@@ -119,7 +121,7 @@ Companies.getSelector = function(companyIdentifier) {
 	else return undefined;
 };
 
-// simple existence check
+// simple existence check//
 Companies.hasEntry = function (companyIdentifier) {
 	// Test whether a company exists yet in the
 	// CompanyProfiles collection.
