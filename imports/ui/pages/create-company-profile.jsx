@@ -19,10 +19,11 @@ Template.ccp_blaze_form.helpers({
 
 //TODO Further test the schema validation
 
-class CompanyCreateProfileForm extends React.Component {
+export default class CompanyCreateProfileForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+
 	render() {
 		return (
 			<div className="page CompanyCreateProfileForm">
