@@ -91,6 +91,8 @@ Meteor.methods({
 		I just don't immediately know what they need to be. */
 		console.log("inserting newCompanyProfile");
 		Companies.insert(newCompanyProfile);
+
+		console.log("company profile insertion succeeded");
 	},
 
 	//Edits an existing company profile
