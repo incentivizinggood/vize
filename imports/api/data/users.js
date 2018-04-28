@@ -1,5 +1,5 @@
-// The users collection is handeled differently than the other collections.
-// It exists by default and has some builtin fields. As such it is not created
+// The users collection is handled differently than the other collections.
+// It exists by default and has some built-in fields. As such it is not created
 // here, but is instead modified and tweaked.
 
 // ----- Schema and Data Format -----
@@ -43,7 +43,7 @@ Accounts.validateNewUser((user) => {
 // ----- Security -----
 
 // Deny all client-side updates to user documents.
-// The profile field is writable by default, but this is undesiered for
+// The profile field is writable by default, but this is undesired for
 // security reasons. All modifications of the database should be handled
 // only by the server.
 Meteor.users.deny({
