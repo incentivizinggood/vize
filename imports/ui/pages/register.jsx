@@ -7,100 +7,69 @@ export default class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: ""
+            error: null,
+            success: false,
+            username: "",
+            password: ""
         };
+
+        // These bindings are necessary to make `this` work in callbacks.
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        let name = document.getElementById("signup-name").value;
-        let email = document.getElementById("signup-email").value;
-        let password = document.getElementById("signup-password").value;
-        this.setState({ error: "test" });
+    handleInputChange(event) {
+        const target = event.target;
+        const value =
+            target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault(); // Prevent the default behavior for this event.
+        let createUserCallback = error => {
+            this.setState({
+                error: error ? error.reason : null,
+                success: !error
+            });
+        };
         Accounts.createUser(
-            { email: email, username: name, password: password },
-            err => {
-                if (err) {
-                    this.setState({
-                        error: err.reason
-                    });
-                } else {
-                    this.props.history.push("/login");
-                }
-            }
+            { username: this.state.username, password: this.state.password },
+            createUserCallback
         );
     }
 
     render() {
-        const error = this.state.error;
+        if (this.state.success) {
+            return <div className="page register">Sign up successful!</div>;
+        }
         return (
             <div className="page register">
-                <div className="modal show">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h1 className="text-center">Sign up</h1>
-                            </div>
-                            <div className="modal-body">
-                                {error.length > 0 ? (
-                                    <div className="alert alert-danger fade in">
-                                        {error}
-                                    </div>
-                                ) : (
-                                    ""
-                                )}
-                                <form
-                                    id="login-form"
-                                    className="form col-md-12 center-block"
-                                    onSubmit={this.handleSubmit}
-                                >
-                                    <div className="form-group">
-                                        <input
-                                            type="text"
-                                            id="signup-name"
-                                            className="form-control input-lg"
-                                            placeholder="name"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="email"
-                                            id="signup-email"
-                                            className="form-control input-lg"
-                                            placeholder="email"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="password"
-                                            id="signup-password"
-                                            className="form-control input-lg"
-                                            placeholder="password"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="submit"
-                                            id="login-button"
-                                            className="btn btn-lg btn-primary btn-block"
-                                            value="Sign Up"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <p className="text-center">
-                                            Already have an account? Login
-                                        </p>
-                                    </div>
-                                </form>
-                            </div>
-                            <div
-                                className="modal-footer"
-                                style={{ borderTop: 0 }}
-                            />
-                        </div>
-                    </div>
-                </div>
+                {this.state.error ? <div>{this.state.error}</div> : null}
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        autoFocus
+                        required
+                        value={this.state.username}
+                        onChange={this.handleInputChange}
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        required
+                        value={this.state.password}
+                        onChange={this.handleInputChange}
+                    />
+                    <input type="submit" value="Sign Up" />
+                </form>
             </div>
         );
     }

@@ -26,8 +26,8 @@ export default class Header extends React.Component {
                            <li><a href="/about" className="link-kumya"><span>About</span></a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                           <li><a href="#" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
-                           <li><a href="#" className="navbar-link margin-right">LOG IN</a></li>
+                           <li><a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
+                           <li><a href="/login" className="navbar-link margin-right">LOG IN</a></li>
                            <li className="dropdown">
                               <hr className="hr_line_width2"/>
                               <a href="#" className="dropdown-toggle boderbtn" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="/images/mx.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavSel"></span> <span className="caret"></span></a>
