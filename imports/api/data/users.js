@@ -6,17 +6,20 @@
 
 Meteor.users.schema = new SimpleSchema({
     // These fields are used by default in Meteor.
-    // There is little option to change these.
+    // There is little option to change these as Meteor
+    // and some of the packages depend on them.
     username: {
         type: String,
         index: true,
         unique: true
     },
+    // The password field is not checked by this schema,
+    // but it does exist in the database.
     emails: { type: Array },
     'emails.$': { type: Object },
     'emails.$.address': {
         type: String
-        // We choose to not use a regex check on email addresses,
+        // We choose to not do a regex check on email addresses,
         // they will need to get verified anyway so there is no point.
     },
     'emails.$.verified': { type: Boolean },
@@ -25,20 +28,27 @@ Meteor.users.schema = new SimpleSchema({
     // There also exists a profile object by default, but
     // this is not used in this app so it is ignored.
 
+
     // These fields are unique to this app.
+    // They are not used by Meteor nor any of the packages.
     role: {
         // The role of this user. This is used to present
         // workers and companies with different utilities.
+        // For example: A worker should not be able to post a job offer and
+        //              a company should not be able to leave a review.
         type: String,
         allowedValues: ["worker", "company-unverified", "company"]
     }
 });
 
-// Check that the new user follows the schema defined above.
+// Check that all new users follow the schema defined above.
+// This check should get run automatically when a new user is created
+// (or is attempted to be created, this check could block that).
 Accounts.validateNewUser((user) => {
-    Meteor.Users.schema.validate(user);
+    Meteor.users.schema.validate(user);
     return true;
 });
+
 
 // ----- Security -----
 
@@ -47,17 +57,25 @@ Accounts.validateNewUser((user) => {
 // security reasons. All modifications of the database should be handled
 // only by the server.
 Meteor.users.deny({
-    update() { return true; }
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
 });
 
+
+// Since the users collection contians a lot of very sensitive data,
+// we must be extra carefull with what is published.
+
+// This is a Mongo field specifier that can act as a
+// filter which only allows only public fields through.
+Meteor.users.publicFields = {
+    username: 1,
+    role: 1
+};
+
 if (Meteor.isServer) {
-    // Only publish these few fields by default.
+    // Only publish the bear minimum fields by default.
     Meteor.publish('users', function () {
-        return Meteor.users.find({}, {
-            fields: {
-                username: 1,
-                role: 1
-            }
-        });
+        return Meteor.users.find({}, { fields: Meteor.users.publicFields });
     });
 }
