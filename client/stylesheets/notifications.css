@@ -1,0 +1,13 @@
+#notifications {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.notification {
+    margin: 1em;
+    padding: 0.25em;
+    border: solid 1px red;
+    border-radius: 5px;
+    background-color: #fee;
+}
