@@ -90,12 +90,20 @@ Meteor.methods({
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
 		console.log("companies.createProfile: inserting newCompanyProfile");
-		Companies.insert(newCompanyProfile);
-
+		try {
+			Companies.insert(newCompanyProfile);
+		} catch (error) {
+			if(error.code === 11000) { //duplicate key error, the only error not forestalled by our autoform
+				throw new Meteor.Error("insertion-failed","The name you provided is already taken");
+			}
+			else {
+				throw error;
+			}
+		}
 		console.log("companies.createProfile: success");
 	},
 
-	//Edits an existing company profile
+	//Edits an existing company profile -- UNTESTED
 	"companies.editProfile": function (companyProfileEdits) {
 		/*
 			ATTENTION UX DEVELOPERS
