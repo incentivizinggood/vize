@@ -10,7 +10,8 @@ export default class RegisterPage extends React.Component {
             error: null,
             success: false,
             username: "",
-            password: ""
+            password: "",
+            role: ""
         };
 
         // These bindings are necessary to make `this` work in callbacks.
@@ -37,10 +38,12 @@ export default class RegisterPage extends React.Component {
                 success: !error
             });
         };
-        Accounts.createUser(
-            { username: this.state.username, password: this.state.password },
-            createUserCallback
-        );
+        let options = {
+            username: this.state.username,
+            password: this.state.password,
+            role: this.state.role
+        };
+        Accounts.createUser(options, createUserCallback);
     }
 
     render() {
@@ -51,23 +54,51 @@ export default class RegisterPage extends React.Component {
             <div className="page register">
                 {this.state.error ? <div>{this.state.error}</div> : null}
                 <form onSubmit={this.handleSubmit}>
-                    <input
-                        name="username"
-                        type="text"
-                        placeholder="Username"
-                        autoFocus
-                        required
-                        value={this.state.username}
-                        onChange={this.handleInputChange}
-                    />
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                    />
+                    <label>
+                        Username
+                        <input
+                            name="username"
+                            type="text"
+                            placeholder="Username"
+                            autoFocus
+                            required
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Password
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        <input
+                            name="role"
+                            type="radio"
+                            required
+                            value="worker"
+                            checked={this.state.role === "worker"}
+                            onChange={this.handleInputChange}
+                        />
+                        I am a worker
+                    </label>
+                    <label>
+                        <input
+                            name="role"
+                            type="radio"
+                            required
+                            value="company"
+                            checked={this.state.role === "company"}
+                            onChange={this.handleInputChange}
+                        />
+                        I am a company
+                    </label>
                     <input type="submit" value="Sign Up" />
                 </form>
             </div>

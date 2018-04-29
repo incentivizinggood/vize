@@ -8,14 +8,15 @@ Meteor.users.schema = new SimpleSchema({
     // These fields are used by default in Meteor.
     // There is little option to change these as Meteor
     // and some of the packages depend on them.
-    username: {
+    _id: {
         type: String,
-        index: true,
         unique: true
     },
-    // The password field is not checked by this schema,
-    // but it does exist in the database.
-    emails: { type: Array },
+    username: {
+        type: String,
+        unique: true
+    },
+    emails: { type: Array, optional: true },
     'emails.$': { type: Object },
     'emails.$.address': {
         type: String
@@ -25,9 +26,8 @@ Meteor.users.schema = new SimpleSchema({
     'emails.$.verified': { type: Boolean },
     createdAt: { type: Date },
     services: { type: Object, blackbox: true },
-    // There also exists a profile object by default, but
-    // this is not used in this app so it is ignored.
-
+    // There would normaly be a profile field, but
+    // this is not used in this app so it is disabled.
 
     // These fields are unique to this app.
     // They are not used by Meteor nor any of the packages.
@@ -39,6 +39,13 @@ Meteor.users.schema = new SimpleSchema({
         type: String,
         allowedValues: ["worker", "company-unverified", "company"]
     }
+});
+
+Accounts.onCreateUser(function(options, user) {
+    // Transfer the custom data fields given to Accounts.createUser into the
+    // new user. By default only username, password, and email go though.
+    user.role = options.role;
+    return user;
 });
 
 // Check that all new users follow the schema defined above.
