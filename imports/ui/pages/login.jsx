@@ -51,23 +51,29 @@ export default class LoginPage extends React.Component {
             <div className="page login">
                 {this.state.error ? <div>{this.state.error}</div> : null}
                 <form onSubmit={this.handleSubmit}>
-                    <input
-                        name="username"
-                        type="text"
-                        placeholder="Username"
-                        autoFocus
-                        required
-                        value={this.state.username}
-                        onChange={this.handleInputChange}
-                    />
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={this.state.password}
-                        onChange={this.handleInputChange}
-                    />
+                    <label>
+                        Username
+                        <input
+                            name="username"
+                            type="text"
+                            placeholder="Username"
+                            autoFocus
+                            required
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Password
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                        />
+                    </label>
                     <input type="submit" value="Login" />
                 </form>
             </div>
