@@ -1,5 +1,6 @@
 import React from "react";
 import { Meteor } from 'meteor/meteor'
+import "../../api/data/methods.js";
 import { Email } from 'meteor/email'
 import {Accounts} from "meteor/accounts-base";
 
@@ -34,15 +35,57 @@ export default class FlagSystem extends React.Component {
 
 
 
-        // Client: Asynchronously send an email.
+        // //Client: Asynchronously send an email.
         Meteor.call(
             "sendEmail",
             "perfectpud@yahoo.com",
             "udjiogan@yahoo.com",
             "Hello from Meteor!",
-            "This is a test of Email.send."
+            "This is a test of Email.send.",
+            (err,res) => {
+                if (err) {
+                    console.log("Error:");
+                    console.log(err);
+                } else {
+                    console.log("Good:");
+                    console.log(res);
+                }
+            }
         );
 
+        // sending
+        // Email.send({
+        //     to: "perfectpud@yahoo.com",
+        //     from: "perfectpud@yahoo.com",
+        //     subject: "Example Email",
+        //     text: "The contents of our email in plain text."
+        // });
+
+        // if (Meteor.isServer) {
+        //     Email.send({
+        //         from: "perfectpud@yahoo.com",
+        //         to: "perfectpud@yahoo.com",
+        //         subject: "Subject",
+        //         text: "Here is some text"
+        //     });
+        // }
+
+        // if (Meteor.isServer) {
+        //
+        //     Meteor.startup( function() {
+        //         process.env.MAIL_URL =
+        //             "***REMOVED***";
+        //
+        //         Email.send({
+        //             to: "perfectpud@yahoo.com",
+        //             from: "perfectpud@yahoo.com",
+        //             subject: "Meteor Email",
+        //             text: "The email content..."
+        //         });
+        //     });
+        // }
+
+        alert("wassup");
 
         event.preventDefault();
     }
@@ -138,12 +181,12 @@ export default class FlagSystem extends React.Component {
 }
 
 
-// Server: Define a method that the client can call.
-Meteor.methods({
-    sendEmail(to, from, subject, text) {
-        Email.send({ to, from, subject, text });
-    }
-});
+// // Server: Define a method that the client can call.
+// Meteor.methods({
+//     sendEmail(to, from, subject, text) {
+//         Email.send({ to, from, subject, text });
+//     }
+// });
 
 
 

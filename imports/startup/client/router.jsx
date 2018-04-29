@@ -25,6 +25,7 @@ import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 import FlagSystem from "../../ui/pages/flag.jsx";
+import FakeEmployers from "../../ui/pages/fakeEmployers.jsx"
 
 
 
@@ -57,6 +58,7 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 routeSimplePage("/flag", <FlagSystem />);
+routeSimplePage("/fakeemployers", <FakeEmployers />);
 
 
 //----- Define the more complex routes. -----//

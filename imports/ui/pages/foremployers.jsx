@@ -23,9 +23,7 @@ export default class ForEmployers extends React.Component
 			                                   <input type="text" placeholder="Search for a company..." name="search"/>
 			                                   <button type="submit">SEARCH</button>
 			                                   </form>
-			                              
-				
-										</div>	
+											</div>
 									</li>
 									
 								</ul>
@@ -71,3 +69,4 @@ export default class ForEmployers extends React.Component
             }
 
 }
+
