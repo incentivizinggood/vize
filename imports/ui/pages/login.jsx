@@ -35,6 +35,9 @@ export default class LoginPage extends React.Component {
                 error: error ? error.reason : null,
                 success: !error
             });
+            if (this.state.success) {
+                FlowRouter.go("/");
+            }
         };
         Meteor.loginWithPassword(
             this.state.username,

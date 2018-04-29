@@ -37,6 +37,9 @@ export default class RegisterPage extends React.Component {
                 error: error ? error.reason : null,
                 success: !error
             });
+            if (this.state.success) {
+                FlowRouter.go("/");
+            }
         };
         let options = {
             username: this.state.username,
