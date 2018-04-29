@@ -71,25 +71,20 @@ Meteor.methods({
 		*/
 
 		// Make sure the user is logged in before inserting a task
-		console.log("companies.createProfile: checking this.userId (" + this.userId + ")");
-
 		if (!this.userId) {
 			throw new Meteor.Error("logged-out","You must be logged in to your account in order to create a profile");
 		}
 
-		console.log("companies.createProfile: checking for _id field existence");
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
 			throw new Meteor.Error("contains-id","You are not allowed to specifiy an _id attribute for your profile");
 		}
 
-		console.log("companies.createProfile: validating newCompanyProfile");
 		//Throws an exception if argument is invalid.
 		Companies.schema.validate(newCompanyProfile);
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
-		console.log("companies.createProfile: inserting newCompanyProfile");
 		try {
 			Companies.insert(newCompanyProfile);
 		} catch (error) {
@@ -100,7 +95,6 @@ Meteor.methods({
 				throw error;
 			}
 		}
-		console.log("companies.createProfile: success");
 	},
 
 	//Edits an existing company profile -- UNTESTED

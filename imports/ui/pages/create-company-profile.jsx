@@ -1,65 +1,58 @@
-//"standard" imports
 import React from "react";
-import { Mongo } from "meteor/mongo";
 import { Companies } from "../../api/data/companies.js";
-
-//so we can use Blaze packages
-import { Template } from 'meteor/templating';
-import Blaze from 'meteor/gadicc:blaze-react-component';
+import { Template } from "meteor/templating"; // Used to set up the autoform
+import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
+import MeteorError from "../meteor-error.jsx"; // used to display errors thrown by methods
+import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
 
 //autoform business
 import SimpleSchema from "simpl-schema";
 import { AutoForm } from "meteor/aldeed:autoform";
-SimpleSchema.extendOptions(['autoform']);
+SimpleSchema.extendOptions(["autoform"]); // allows us to selectively omit schema fields from the form
 
 //now the interesting part...
 import "./ccp_blaze_form.html";
+
+let formError = new ReactiveVar("good"); // This code looks easier than it was.
+
+Template.ccp_blaze_form.onCreated(function() {
+	this.state = new ReactiveDict();
+	this.state.setDefault({
+		error: formError.get(),
+	});
+});
 Template.ccp_blaze_form.helpers({
 	companyProfiles: Companies,
+	MeteorError: function() {
+		return MeteorError;
+	},
+	hasError: function() {
+		return formError.get() !== "good";
+	},
+	error: function() {
+		return formError.get();
+	},
 });
 AutoForm.addHooks("ccp_blaze_form", {
 
-	after: {
-		method: function(error,result) {
-			console.log("We entered a neat hook, error: " + error + ", result: " + result);
-			// a catch-all callback:
-			// error is undefined on success,
-			// result is undefined on failure
-			// if(error) {
-			// 	throw new Meteor.Error("insertion-failed",error);
-			// }
-			// else if(result) {
-			// 	console.log("companies.createProfile: success");
-			// }
-		},
-	},
-	onSuccess: function(formType, result) {
+	onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
 		console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
+		formError.set("good");
 	},
-	onError: function(formType, error) {
+	onError: function(formType, error) { // "error" contains whatever error object was thrown
 		console.log("ERROR: We did a thing in a " + formType + " form: " + error);
+		formError.set(error.toString());
 	},
 });
-
-/*
-	Whoops, forgot I still need this:
-	Fake login, because otherwise all the Methods break
-	Comment from their GitHub page: Must be accessed this way because it is a debug only package
-*/
-var Phony = Package['csauer:accounts-phony'].Phony;
-Meteor.loginWithPhony(Phony.user);
-
-//TODO Further test the schema validation
 
 export default class CompanyCreateProfileForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-
 	render() {
 		return (
 			<div className="page CompanyCreateProfileForm">
-				<Blaze template="ccp_blaze_form" />
+				<Blaze template="ccp_blaze_form"/>
 			</div>
 		);
 	}

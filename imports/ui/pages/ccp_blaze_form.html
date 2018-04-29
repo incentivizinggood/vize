@@ -1,4 +1,9 @@
 <template name="ccp_blaze_form">
 	{{> quickForm collection=companyProfiles id="ccp_blaze_form" type="method"
 		meteormethod="companies.createProfile"  }}
+	{{#if hasError}}
+	<div>
+		{{> React component=MeteorError err=error}}
+	</div>
+	{{/if}}
 </template>
