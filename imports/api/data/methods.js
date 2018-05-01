@@ -3,6 +3,7 @@ import { Companies } from "./companies.js";
 import {Email} from "meteor/email";
 import {Meteor} from "meteor/meteor";
 //import "./denormalizers.js"
+process.env.MAIL_URL = "***REMOVED***";
 
 Meteor.methods({
 	//This method needs to be modified to take a Review
@@ -10,6 +11,7 @@ Meteor.methods({
 	// // - Josh
     // Server: Define a method that the client can call.
     sendEmail: function(to, from, subject, text) {
+		console.log("--- sendEmail: checking arguments");
 		check([to, from, subject, text], [String]);
         let realEmail = { to, from, subject, text };
 		console.log("--- sendEmail: before send, here is the email:");
@@ -17,7 +19,7 @@ Meteor.methods({
         this.unblock();
         Email.send(realEmail);
         console.log("--- sendEmail: after send");
-		return "return value of sendEmail: we made it"
+		return "return value of sendEmail: we made it";
     },
 
 // "reviews.insert"(company_id, text, safety, respect) {
