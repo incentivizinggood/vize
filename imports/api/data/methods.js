@@ -10,12 +10,14 @@ Meteor.methods({
 	// // - Josh
     // Server: Define a method that the client can call.
     sendEmail: function(to, from, subject, text) {
-        console.log("sendEmail: LOOK WE MADE IT !?!?!?!? WOOOT WOOT");
+		check([to, from, subject, text], [String]);
         let realEmail = { to, from, subject, text };
+		console.log("--- sendEmail: before send, here is the email:");
         console.log(realEmail);
         this.unblock();
         Email.send(realEmail);
-        console.log("sendEmail: after send");
+        console.log("--- sendEmail: after send");
+		return "return value of sendEmail: we made it"
     },
 
 // "reviews.insert"(company_id, text, safety, respect) {

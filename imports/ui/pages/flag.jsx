@@ -7,9 +7,6 @@ import {Accounts} from "meteor/accounts-base";
 /* The page where users write/edit their reviews.
  */
 
-
-
-
 export default class FlagSystem extends React.Component {
 
     constructor(props) {
@@ -38,8 +35,8 @@ export default class FlagSystem extends React.Component {
         // //Client: Asynchronously send an email.
         Meteor.call(
             "sendEmail",
-            "perfectpud@yahoo.com",
-            "udjiogan@yahoo.com",
+            "jhigginbotham64@gmail.com",
+            "jhigginbotham64@gmail.com",
             "Hello from Meteor!",
             "This is a test of Email.send.",
             (err,res) => {
@@ -187,10 +184,3 @@ export default class FlagSystem extends React.Component {
 //         Email.send({ to, from, subject, text });
 //     }
 // });
-
-
-
-
-
-
-
