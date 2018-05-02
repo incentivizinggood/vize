@@ -10,6 +10,10 @@ import SimpleSchema from "simpl-schema";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.extendOptions(["autoform"]); // allows us to selectively omit schema fields from the form
 
+//Until we actually make an account for testing
+var Phony = Package['csauer:accounts-phony'].Phony;
+Meteor.loginWithPhony(Phony.user);
+
 //now the interesting part...
 import "./ccp_blaze_form.html";
 

@@ -8,20 +8,40 @@ Meteor.methods({
 	//This method needs to be modified to take a Review
 	//object and validate it against a schema.
 	// - Josh
-	"reviews.insert"(company_id, text, safety, respect) {
+	'reviews.insert': function(newReview) {
 		// Make sure the user is logged in before inserting a task
+		console.log("ReviewMethod called!");
+		console.log(newReview);
+
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
 
-		Reviews.insert({
-			date: new Date(),
-			text: text,
-			company_id: company_id,
-			user_id: this.userId,
-			safety: safety,
-			respect: respect
+		/*Deploying getter function for Reviews -- Edit as required,
+		For now, will output the Reviews on console.
+		- May need to display these later on a separate page.
+
+		Tracker.autorun updates the console output, whenever there is a change in the Collection
+		and its documents.
+		*/
+
+		Tracker.autorun(function(){
+			console.log("Reviews List", Reviews.find().fetch());
 		});
+
+		/*
+			Validating the new review with the schema
+		*/
+
+		Reviews.schema.validate(newReview);
+
+		Reviews.insert(newReview);
+
+		//TESTING ONLY
+		Tracker.autorun(function(){
+			console.log("Reviews List", Reviews.find().fetch());
+		});
+
 
 		// Update denormalizations.
 		Companies.update(
@@ -36,16 +56,19 @@ Meteor.methods({
 						In fact, I'm almost certain that one or more of them
 						is wrong because the schema attribute names used to have
 						the same names as this method's arguments, but I'm
-						not sure which is supposed to be which. BUG
+						not sure which is supposed to be which.
 							- Josh
 					*/
 					safety: addToAvg(safety, "$numReviews", "$safety"),
-					respect: addToAvg(respect, "$numReviews", "$respect")
+					respect: addToAvg(respect, "$numReviews", "$respect"),
+					benefits: addToAvg(benefits, "$numReviews", "$benefits"),
+					overallSatisfaction: addToAvg(overallSatisfaction, "$numReviews", "$overallSatisfaction"),
 				},
-				$inc: { numReviews: 1 }
+				$inc: { numReviews: 1 } //this will increment the numReviews by 1
 			}
 		);
 	},
+
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation

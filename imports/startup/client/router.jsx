@@ -25,6 +25,9 @@ import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 
+//Testing only
+import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
+
 /**
  * Reduces boiler plate for simple pages.
  * Use this for all pages that use static non-paramerized URL's.
@@ -53,6 +56,9 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
+
+//Testing only
+routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 
 //----- Define the more complex routes. -----//
 

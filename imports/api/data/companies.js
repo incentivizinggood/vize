@@ -17,11 +17,9 @@ Companies.schema = new SimpleSchema({
 		type: Date,
 		optional: true, },
 	numEmployees: {
-		type: Number,
-	 	decimal: false,
-		min: 0,
-		optional: true,
-		defaultValue: 0, },
+		type: String,
+	 	allowedValues: ["1 - 50", "51 - 500", "501 - 2000", "2001 - 5000", "5000+"],
+		optional: true, },
 	//We're going to need to re-vize (LOL)
 	//these next three fields a bit
 	industry: {
@@ -33,6 +31,10 @@ Companies.schema = new SimpleSchema({
 	contactInfo: {
 		type: String,
 		optional: true, },
+	website: {
+		type: String,
+		optional: true,
+		regEx: SimpleSchema.RegEx.Url, },
 
 	// All fields after this point are only
 	// ever used "internally" by the app,
@@ -60,7 +62,7 @@ Companies.schema = new SimpleSchema({
 		}},
 	// denormalizers - maybe add a mechanism to indicate that no data
 	// is available, so they don't just show up with terrible ratings?
-	avgSafety: {
+	avgHealthAndSafety: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
