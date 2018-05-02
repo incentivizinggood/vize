@@ -1,6 +1,11 @@
 import { Mongo } from "meteor/mongo";
 import { Reviews } from "./reviews.js"; // used when retrieving reviews for a given company
 
+/*
+	How to prevent certain values from being
+	set on insert?
+*/
+
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
 Companies.schema = new SimpleSchema({
@@ -49,7 +54,7 @@ Companies.schema = new SimpleSchema({
 								// insertion and the company is just now joining
 		autoform: {
 			omit: true,
-		}},
+		}, },
 	numFlags: { // as in, the number of times this company has been "flagged" for some reason,
 				//Vize IT is free to decrease as issues are dealt with
 		type: Number,
@@ -59,7 +64,7 @@ Companies.schema = new SimpleSchema({
 		defaultValue: 0,
 		autoform: {
 			omit: true,
-		}},
+		}, },
 	// denormalizers - maybe add a mechanism to indicate that no data
 	// is available, so they don't just show up with terrible ratings?
 	avgHealthAndSafety: {
@@ -70,7 +75,7 @@ Companies.schema = new SimpleSchema({
 	 	defaultValue: 0,
 		autoform: {
 			omit: true,
-		}},
+		}, },
 	avgRespect: {
 		type: Number,
 		min: 0, max: 5,
@@ -88,7 +93,7 @@ Companies.schema = new SimpleSchema({
 	 	defaultValue: 0,
 		autoform: {
 			omit: true,
-		}},
+		}, },
 	avgSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
@@ -97,7 +102,7 @@ Companies.schema = new SimpleSchema({
 	 	defaultValue: 0,
 		autoform: {
 			omit: true,
-		}},
+		}, },
 	numReviews: {
 		type: Number,
 		min: 0,
@@ -106,7 +111,7 @@ Companies.schema = new SimpleSchema({
 		defaultValue: 0,
 	 	autoform: {
 			omit: true,
-		}},
+		}, },
 });
 
 // Added line for autoforms and collection2 usage
@@ -131,6 +136,8 @@ Companies.hasEntry = function (companyIdentifier) {
 	return Companies.findOne(Companies.getSelector(companyIdentifier)) !== undefined;
 };
 
+// Is this safe? I want this cursor to be read-only,
+// but I'm not sure it is...
 Companies.findReviewsForCompany = function(companyIdentifier) {
 	// Can find reviews for a company by name or _id.
 	// This uses the LucidChart Reviews schema, but reviews.js has yet
