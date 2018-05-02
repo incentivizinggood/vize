@@ -9,7 +9,7 @@ Companies.schema = new SimpleSchema({
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */},
-	email: {
+	contactEmail: {
 		type: String, // is there a pre-made type for representing these?
 		optional: false,
 		regEx: SimpleSchema.RegEx.Email, },
@@ -26,12 +26,12 @@ Companies.schema = new SimpleSchema({
 		type: String,
 		optional: true, },
 	locations: {
+		type: [String], //allows more than one location
+		optional: true, },
+	otherContactInfo: {
 		type: String,
 		optional: true, },
-	contactInfo: {
-		type: String,
-		optional: true, },
-	website: {
+	websiteURL: {
 		type: String,
 		optional: true,
 		regEx: SimpleSchema.RegEx.Url, },

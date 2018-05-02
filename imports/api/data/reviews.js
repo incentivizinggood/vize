@@ -6,7 +6,9 @@ import {Tracker} from "meteor/tracker";
 export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
 import {Comments} from './comments.js';
 
-
+/*
+	NEED TO MAKE THIS MORE ROBUST
+*/
 //Schema for the Collection
 Reviews.schema = new SimpleSchema({
 	companyID:{ 				// ** _id for the companies..will be obtained from the
@@ -14,7 +16,7 @@ Reviews.schema = new SimpleSchema({
 	 	optional: false,
 		index: true, },
 
-	//** uername and screenName are not there in the MVP, reviews will be completely anonymous.
+	//** username and screenName are not there in the MVP, reviews will be completely anonymous.
 	// username: {
 	//   type: String,
 	//   optional: false
