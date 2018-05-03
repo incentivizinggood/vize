@@ -37,7 +37,7 @@ Companies.schema = new SimpleSchema({
 	//We're going to need to re-vize (LOL)
 	//these next three fields a bit
 	industry: {
-		type: String, //could throw in allowedValues, might be helpful
+		type: String, //could throw in allowedValues, might be helpful to define industry types -> ask Bryce?
 		optional: true, }, //should this be required?
 	locations: {
 		type: Array, //allows more than one location
@@ -78,8 +78,12 @@ Companies.schema = new SimpleSchema({
 			omit: true,
 		}, },
 	// denormalizers - maybe add a mechanism to indicate that no data
-	// is available, so they don't just show up with terrible ratings?
-	avgHealthAndSafety: {
+	// is available, so they don't just show up with terrible ratings? -> "if numReviews == 0..."
+	// NOTE everything from here to numReviews is an AVERAGE value, but the
+	// names do not indicate that because I want them to have the same names
+	// as the fields in the Reviews schema in case I have the opportunity to
+	// abstract the ratings system out of both schemas.
+	healthAndSafety: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -88,7 +92,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	avgMgrRelationship: { //"average manager relationship", in case that isn't clear...
+	mgrRelationship: { //"manager relationship", in case that isn't clear...
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -97,7 +101,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 	}, },
-	avgWorkEnvironment: {
+	workEnvironment: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -106,7 +110,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	avgBenefits: {
+	benefits: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -115,7 +119,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	avgOverallSatisfaction: {
+	overallSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
