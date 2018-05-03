@@ -2,8 +2,17 @@ import { Mongo } from "meteor/mongo";
 import { Reviews } from "./reviews.js"; // used when retrieving reviews for a given company
 
 /*
-	How to prevent certain values from being
+	Questions:
+	- How to prevent certain values from being
 	set on insert?
+	- Would it be desirable to define autoValues
+	such that newly-inserted companies could have
+	their statistics (avg* fields, percentRecommended,
+	etc.) calculated automatically if reviews have
+	already been made about them?
+	- On that note, would it be beneficial to have
+	a "PSM" somewhere to "refresh" the statistics
+	based on reviews?
 */
 
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
@@ -15,7 +24,7 @@ Companies.schema = new SimpleSchema({
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */},
 	contactEmail: {
-		type: String, // is there a pre-made type for representing these?
+		type: String,
 		optional: false,
 		regEx: SimpleSchema.RegEx.Email, },
 	dateEstablished: {
@@ -24,21 +33,24 @@ Companies.schema = new SimpleSchema({
 	numEmployees: {
 		type: String,
 	 	allowedValues: ["1 - 50", "51 - 500", "501 - 2000", "2001 - 5000", "5000+"],
-		optional: true, },
+		optional: true, }, //should this be required?
 	//We're going to need to re-vize (LOL)
 	//these next three fields a bit
 	industry: {
-		type: String,
-		optional: true, },
+		type: String, //could throw in allowedValues, might be helpful
+		optional: true, }, //should this be required?
 	locations: {
-		type: [String], //allows more than one location
-		optional: true, },
+		type: Array, //allows more than one location
+		minCount: 1, //must have at least an HQ or something
+ 		optional: false, },
+	'locations.$': { //restraints on members of the "locations" array
+		type: String, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
 	otherContactInfo: {
-		type: String,
+		type: String, //dunno what this needs to be, leaving it to the user's discretion to "validate"
 		optional: true, },
 	websiteURL: {
 		type: String,
-		optional: true,
+		optional: true, //should this be required?
 		regEx: SimpleSchema.RegEx.Url, },
 
 	// All fields after this point are only
@@ -76,7 +88,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	avgRespect: {
+	avgMgrRelationship: { //"average manager relationship", in case that isn't clear...
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -84,7 +96,16 @@ Companies.schema = new SimpleSchema({
 		defaultValue: 0,
 		autoform: {
 			omit: true,
-		}},
+	}, },
+	avgWorkEnvironment: {
+		type: Number,
+		min: 0, max: 5,
+		decimal: true,
+		optional: true,
+		defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
 	avgBenefits: {
 		type: Number,
 		min: 0, max: 5,
@@ -94,7 +115,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	avgSatisfaction: {
+	avgOverallSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -110,6 +131,37 @@ Companies.schema = new SimpleSchema({
 		optional: true,
 		defaultValue: 0,
 	 	autoform: {
+			omit: true,
+		}, },
+	percentRecommended: {
+		/*
+			How this is calculated:
+			When reviews are left, one of the required fields
+			is basically a boolean "Would you recommend" box.
+			Take the number of checked boxes among all
+			reviews, divide by total number of reviews for
+			this company.
+		*/
+		type: Number,
+		min: 0, max: 1,
+		decimal: true,
+		optional: true,
+		defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
+	avgNumMonthsWorked: {
+		/*
+			Calculated based on reviews left by
+			workers who have left the company (i.e. have
+			provided an end date for their employment),
+			we use it as an indication of turnover rate.
+		*/
+		type: Number,
+		min: 0,
+		decimal: true,
+		defaultValue: 0,
+		autoform: {
 			omit: true,
 		}, },
 });
