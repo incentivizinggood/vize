@@ -1,10 +1,8 @@
 import { Mongo } from "meteor/mongo";
-import {Tracker} from "meteor/tracker";
-
+import { Comments } from './comments.js';
 //Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
 export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
-import {Comments} from './comments.js';
 
 /*
 	Desirable features:
@@ -21,7 +19,7 @@ import {Comments} from './comments.js';
 //https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
 String.prototype.countWords = function(){
 	return this.split(/\s+\b/).length;
-}
+};
 
 //Schema for the Collection
 Reviews.schema = new SimpleSchema({
@@ -150,6 +148,8 @@ Reviews.schema = new SimpleSchema({
 		//not sure if this works for now but it at least
 		//reminds me of generally what needs to be done here.
 });
+
+Reviews.attachSchema(Reviews.schema);
 
 // I dont think there is a needed for this code. Might be wrong.
 if (Meteor.isServer) {

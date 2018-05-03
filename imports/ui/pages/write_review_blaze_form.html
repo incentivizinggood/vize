@@ -1,0 +1,9 @@
+<template name="write_review_blaze_form">
+	{{> quickForm collection=reviews id="write_review_blaze_form" type="method"
+		meteormethod="reviews.submitReview"  }}
+	{{#if hasError}}
+	<div>
+		{{> React component=MeteorError err=error}}
+	</div>
+	{{/if}}
+</template>

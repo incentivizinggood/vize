@@ -23,10 +23,10 @@ import MyAccountPage from "../../ui/pages/my-account.jsx";
 import NotFoundPage from "../../ui/pages/not-found.jsx";
 import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
-import WriteReviewPage from "../../ui/pages/write-review.jsx";
 
-//Testing only
+//TESTING ONLY
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
+import WriteReviewPage from "../../ui/pages/write-review.jsx";
 
 /**
  * Reduces boiler plate for simple pages.
@@ -57,8 +57,10 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 
-//Testing only
+//TESTING ONLY
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/write-review", <WriteReviewPage />);
+
 
 //----- Define the more complex routes. -----//
 

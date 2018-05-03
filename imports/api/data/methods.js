@@ -8,7 +8,7 @@ Meteor.methods({
 	//This method needs to be modified to take a Review
 	//object and validate it against a schema.
 	// - Josh
-	'reviews.insert': function(newReview) {
+	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
 		console.log("ReviewMethod called!");
 		console.log(newReview);
