@@ -164,6 +164,7 @@ const companiesSchema = new SimpleSchema({
 		*/
 		type: Number,
 		min: 0,
+		optional: true,
 		defaultValue: 0,
 		autoform: {
 			omit: true,

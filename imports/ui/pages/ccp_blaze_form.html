@@ -1,6 +1,27 @@
-<template name="ccp_blaze_form">
+<!-- <template name="ccp_blaze_form">
 	{{> quickForm collection=companyProfiles id="ccp_blaze_form" type="method"
 		meteormethod="companies.createProfile"  }}
+	{{#if hasError}}
+	<div>
+		{{> React component=MeteorError err=error}}
+	</div>
+	{{/if}}
+</template> -->
+<template name="ccp_blaze_form">
+	{{#autoForm collection=companyProfiles id="ccp_blaze_form" type="method" meteormethod="companies.createProfile"}}
+		<fieldset>
+			<legend>Create a New Profile</legend>
+			{{> afQuickField name='name'}}
+			{{> afQuickField name='contactEmail'}}
+			{{> afQuickField name='dateEstablished'}}
+			{{> afQuickField name='numEmployees' options='allowed'}}
+			{{> afQuickField name='industry'}}
+			{{> afArrayField name='locations'}}
+			{{> afQuickField name='otherContactInfo'}}
+			{{> afQuickField name='websiteURL'}}
+		</fieldset>
+		<button type="submit" class="btn btn-primary">Create Profile</button>
+	{{/autoForm}}
 	{{#if hasError}}
 	<div>
 		{{> React component=MeteorError err=error}}
