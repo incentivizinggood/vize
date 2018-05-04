@@ -58,9 +58,12 @@ routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 
 //TESTING ONLY
+import SimpleSchema from "simpl-schema";
+import { AutoForm } from "meteor/aldeed:autoform";
+SimpleSchema.debug = true;
+AutoForm.debug();
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
-
 
 //----- Define the more complex routes. -----//
 

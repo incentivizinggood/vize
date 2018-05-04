@@ -26,7 +26,7 @@ SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff
 
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
-Companies.schema = new SimpleSchema({
+const companiesSchema = new SimpleSchema({
 	name: {
 		type: String,
 	 	optional: false,
@@ -171,7 +171,7 @@ Companies.schema = new SimpleSchema({
 });
 
 // Added line for autoforms and collection2 usage
-Companies.attachSchema(Companies.schema);
+Companies.attachSchema(companiesSchema, { replace: true });
 
 // Add helper functions directly to the Companies collection object
 // convert _id or name into a proper Mongo-style selector

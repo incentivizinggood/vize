@@ -106,7 +106,7 @@ Meteor.methods({
 		}
 
 		//Throws an exception if argument is invalid.
-		Companies.schema.validate(newCompanyProfile);
+		Companies.simpleSchema().validate(newCompanyProfile);
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
