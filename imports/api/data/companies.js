@@ -1,6 +1,7 @@
 import { Mongo } from "meteor/mongo";
 import { Reviews } from "./reviews.js"; // used when retrieving reviews for a given company
 import SimpleSchema from "simpl-schema";
+import { Tracker } from "meteor/tracker";
 
 //AutoForm business
 import { AutoForm } from "meteor/aldeed:autoform";
@@ -169,7 +170,7 @@ const companiesSchema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-});
+}, { tracker: Tracker } );
 
 // Added line for autoforms and collection2 usage
 Companies.attachSchema(companiesSchema, { replace: true });

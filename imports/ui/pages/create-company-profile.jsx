@@ -2,7 +2,7 @@ import React from "react";
 import { Companies } from "../../api/data/companies.js";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import MeteorError from "../meteor-error.jsx"; // used to display errors thrown by methods
+import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
 
 //AutoForm business
@@ -20,8 +20,8 @@ let formError = new ReactiveVar("good"); // This code looks easier than it was.
 
 Template.ccp_blaze_form.helpers({
 	companyProfiles: Companies,
-	MeteorError: function() {
-		return MeteorError;
+	ErrorWidget: function() {
+		return ErrorWidget;
 	},
 	hasError: function() {
 		return formError.get() !== "good";

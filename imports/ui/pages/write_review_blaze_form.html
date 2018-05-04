@@ -3,7 +3,7 @@
 		meteormethod="reviews.submitReview"  }}
 	{{#if hasError}}
 	<div>
-		{{> React component=MeteorError err=error}}
+		{{> React component=ErrorWidget err=error}}
 	</div>
 	{{/if}}
 </template>

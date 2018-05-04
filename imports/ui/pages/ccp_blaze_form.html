@@ -1,30 +1,56 @@
+<!-- quickForm version no longer works due to an AutoForms bug:
+https://github.com/aldeed/meteor-autoform/issues/1642#issuecomment-373574067 -->
+
 <!-- <template name="ccp_blaze_form">
 	{{> quickForm collection=companyProfiles id="ccp_blaze_form" type="method"
 		meteormethod="companies.createProfile"  }}
 	{{#if hasError}}
 	<div>
-		{{> React component=MeteorError err=error}}
+		{{> React component=ErrorWidget err=error}}
 	</div>
 	{{/if}}
 </template> -->
+
+<!-- Honestly, the autoForm version gives us more fine-grained
+control over the form at the expense of automatically
+updating when we change the schema, but that's a sacrifice
+I chose to make in order to get other package features,
+namely custom validation, to work. -->
+
 <template name="ccp_blaze_form">
 	{{#autoForm collection=companyProfiles id="ccp_blaze_form" type="method" meteormethod="companies.createProfile"}}
 		<fieldset>
 			<legend>Create a New Profile</legend>
-			{{> afQuickField name='name'}}
-			{{> afQuickField name='contactEmail'}}
-			{{> afQuickField name='dateEstablished'}}
-			{{> afQuickField name='numEmployees' options='allowed'}}
-			{{> afQuickField name='industry'}}
-			{{> afArrayField name='locations'}}
-			{{> afQuickField name='otherContactInfo'}}
-			{{> afQuickField name='websiteURL'}}
+			<div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+				{{> afQuickField name='name'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='contactEmail'}}has-error{{/if}}">
+				{{> afQuickField name='contactEmail'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='numEmployees'}}has-error{{/if}}">
+				{{> afQuickField name='numEmployees' options='allowed'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='industry'}}has-error{{/if}}">
+				{{> afQuickField name='industry'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
+				{{> afArrayField name='locations'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='otherContactInfo'}}has-error{{/if}}">
+				{{> afQuickField name='otherContactInfo'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='websiteURL'}}has-error{{/if}}">
+				{{> afQuickField name='websiteURL'}}
+			</div>
 		</fieldset>
-		<button type="submit" class="btn btn-primary">Create Profile</button>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Create Profile</button>
+			<button type="reset" class="btn btn-default">Reset Form</button>
+		</div>
 	{{/autoForm}}
 	{{#if hasError}}
 	<div>
-		{{> React component=MeteorError err=error}}
+		{{> React component=ErrorWidget err=error}}
 	</div>
 	{{/if}}
 </template>
