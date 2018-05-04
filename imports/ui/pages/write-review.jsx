@@ -13,10 +13,6 @@ import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state 
 //AutoForm business
 import { AutoForm } from "meteor/aldeed:autoform";
 
-//Until we actually make an account for testing
-var Phony = Package['csauer:accounts-phony'].Phony;
-Meteor.loginWithPhony(Phony.user);
-
 //now the interesting part...
 import "./write_review_blaze_form.html";
 

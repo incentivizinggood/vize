@@ -27,12 +27,60 @@ SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff
 
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
+
+// Add helper functions directly to the Companies collection object
+// convert _id or name into a proper Mongo-style selector
+Companies.getSelector = function(companyIdentifier) {
+	if(typeof companyIdentifier === "string")
+		return {name: companyIdentifier};
+	else if (typeof companyIdentifier === "object")
+		// assumes type of Mongo.ObjectId for _id if not string for name
+		return {_id: companyIdentifier}; // don't have to wrap _id in a selector, but should do so for security anyway
+	else return undefined;
+};
+
+// simple existence check//
+Companies.hasEntry = function (companyIdentifier) {
+	// Test whether a company exists yet in the
+	// CompanyProfiles collection.
+	// Returns true if the company is found, false otherwise.
+	return Companies.findOne(Companies.getSelector(companyIdentifier)) !== undefined;
+};
+
+// Is this safe? I want this cursor to be read-only,
+// but I'm not sure it is...
+Companies.findReviewsForCompany = function(companyIdentifier) {
+	// Can find reviews for a company by name or _id.
+	// This uses the LucidChart Reviews schema, but reviews.js has yet
+	// to be updated to match (company_id vs companyID). BUG
+	company = Companies.findOne(Companies.getSelector(companyIdentifier));
+	return Reviews.find({companyID: company._id});
+};
+
 const companiesSchema = new SimpleSchema({
 	name: {
 		type: String,
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
-		unique: true, /* ditto */},
+		unique: true, /* ditto */
+		custom: function() {
+			/*
+				Next to wrapping Blaze into React, this bad boy
+				vies for the title of most-difficult-to-get-correct
+				piece of code I've written for Vize, along with the
+				messageBox stuff below that goes with it.
+			*/
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.isCompanyNameAvailable", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "name",
+							type: "nameTaken"
+						}]);
+					}
+				});
+			} },
+		},
 	contactEmail: {
 		type: String,
 		optional: false,
@@ -172,37 +220,15 @@ const companiesSchema = new SimpleSchema({
 		}, },
 }, { tracker: Tracker } );
 
+// Define custom error messages for custom validation functions
+companiesSchema.messageBox.messages({
+	en: {
+		nameTaken: "The name you provided is already taken",
+	},
+});
+
 // Added line for autoforms and collection2 usage
 Companies.attachSchema(companiesSchema, { replace: true });
-
-// Add helper functions directly to the Companies collection object
-// convert _id or name into a proper Mongo-style selector
-Companies.getSelector = function(companyIdentifier) {
-	if(typeof companyIdentifier === "string")
-		return {name: companyIdentifier};
-	else if (typeof companyIdentifier === "object")
-		// assumes type of Mongo.ObjectId for _id if not string for name
-		return {_id: companyIdentifier}; // don't have to wrap _id in a selector, but should do so for security anyway
-	else return undefined;
-};
-
-// simple existence check//
-Companies.hasEntry = function (companyIdentifier) {
-	// Test whether a company exists yet in the
-	// CompanyProfiles collection.
-	// Returns true if the company is found, false otherwise.
-	return Companies.findOne(Companies.getSelector(companyIdentifier)) !== undefined;
-};
-
-// Is this safe? I want this cursor to be read-only,
-// but I'm not sure it is...
-Companies.findReviewsForCompany = function(companyIdentifier) {
-	// Can find reviews for a company by name or _id.
-	// This uses the LucidChart Reviews schema, but reviews.js has yet
-	// to be updated to match (company_id vs companyID). BUG
-	company = Companies.findOne(Companies.getSelector(companyIdentifier));
-	return Reviews.find({companyID: company._id});
-};
 
 if (Meteor.isServer) {
 	Meteor.publish("CompanyProfiles", function() {

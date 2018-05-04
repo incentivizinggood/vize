@@ -9,13 +9,22 @@ import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state 
 import SimpleSchema from "simpl-schema";
 import { AutoForm } from "meteor/aldeed:autoform";
 
-//Until we actually make an account for testing
-var Phony = Package['csauer:accounts-phony'].Phony;
-Meteor.loginWithPhony(Phony.user);
-
 //now the interesting part...
 import "./ccp_blaze_form.html";
 
+/*
+	This is a good place to talk about the little error blurb
+	you see at the bottom of this form. I realize that it's
+	redundant with most of AutoForm's auto-validation.
+	However, it offers many advantages:
+	1) It reflects the *method* errors, not auto-validation errors
+	2) It therefore catches some things, like not-logged-in, that
+		auto-validation can't/shouldn't
+	3) It may be helpful to see errors in two places, especially
+		if one place is fixed at the bottom of the form
+	4) It is immensely useful in testing, because it tends to reflect state
+
+*/
 let formError = new ReactiveVar("good"); // This code looks easier than it was.
 
 Template.ccp_blaze_form.helpers({

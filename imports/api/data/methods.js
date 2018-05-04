@@ -72,6 +72,14 @@ Meteor.methods({
 	},
 
 
+	"companies.isCompanyNameAvailable": function (companyName) {
+		if(Companies.hasEntry(companyName)) {
+			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
+		}
+
+		return "all good";
+	},
+
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
 	//	--> with the collection of companies that have not
@@ -97,12 +105,12 @@ Meteor.methods({
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error("logged-out","You must be logged in to your account in order to create a profile");
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
 
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
-			throw new Meteor.Error("contains-id","You are not allowed to specifiy an _id attribute for your profile");
+			throw new Meteor.Error("containsId","You are not allowed to specifiy an _id attribute for your profile");
 		}
 
 		//Throws an exception if argument is invalid.
@@ -114,10 +122,13 @@ Meteor.methods({
 			Companies.insert(newCompanyProfile);
 		} catch (error) {
 			if(error.code === 11000) { //duplicate key error, the only error not forestalled by our autoform
-				throw new Meteor.Error("insertion-failed","The name you provided is already taken");
+				// Can safely assume that name is the only possible key for this error,
+				// since it is the only unique field in the company schema
+				throw new Meteor.Error("nameTaken","The name you provided is already taken");
 			}
 			else {
-				throw error;
+				//throw error;
+				throw Meteor.Error(error.code, error.errmsg);
 			}
 		}
 	},
