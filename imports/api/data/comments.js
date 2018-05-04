@@ -1,4 +1,9 @@
 import { Mongo } from "meteor/mongo";
+import SimpleSchema from "simpl-schema";
+
+//AutoForm business
+import { AutoForm } from "meteor/aldeed:autoform";
+SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
 
 export const Comments = new Mongo.Collection("Comments", { idGeneration: 'MONGO'});
 

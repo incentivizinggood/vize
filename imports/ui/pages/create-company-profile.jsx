@@ -5,10 +5,10 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import MeteorError from "../meteor-error.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
 
-//autoform business
+//AutoForm business
 import SimpleSchema from "simpl-schema";
 import { AutoForm } from "meteor/aldeed:autoform";
-SimpleSchema.extendOptions(["autoform"]); // allows us to selectively omit schema fields from the form
+SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
 
 //Until we actually make an account for testing
 var Phony = Package['csauer:accounts-phony'].Phony;

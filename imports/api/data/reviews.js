@@ -1,5 +1,11 @@
 import { Mongo } from "meteor/mongo";
 import { Comments } from './comments.js';
+import SimpleSchema from "simpl-schema";
+
+//AutoForm business
+import { AutoForm } from "meteor/aldeed:autoform";
+SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
+
 //Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
 export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
@@ -54,15 +60,7 @@ Reviews.schema = new SimpleSchema({
 		optional: true, },
 	pros: {
 		type: String,
-		optional: false,
-		custom: function() {
-			console.log("This is a custom validator, and it got called!");
-			if(this.isSet && this.value.wordCount() < 5) {
-				let offendingKey = this.key;
-				console.log("We entered the if-statement because this key is invalid!");
-				return ("tooShort");
-			};
-		} },
+		optional: false, },
 	cons: {
 		type: String,
 		optional: false, },
@@ -73,33 +71,43 @@ Reviews.schema = new SimpleSchema({
 	healthAndSafety: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
-		optional: true,
-	 	defaultValue: 0, },
-	managerRelationship: {
+		optional: false,
+	 	defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
+	managerRelationship: { //"manager relationship", in case that isn't clear...
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: false,
-		defaultValue: 0, },
+		defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
 	workEnvironment: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: false,
-		defaultValue: 0, },
+		defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
 	benefits: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: false,
-	 	defaultValue: 0, },
+	 	defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
 	overallSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: false,
-	 	defaultValue: 0, },
+	 	defaultValue: 0,
+		autoform: {
+			omit: true,
+		}, },
 	additionalComments: { //need to make sure this displays a nice box
 		type: String,
 		optional: true,
@@ -126,20 +134,18 @@ Reviews.schema = new SimpleSchema({
 			omit: true,
 		}, },
 	upvotes: {
-		type: Number,
+		type: SimpleSchema.Integer,
 		min: 0,
 		defaultValue: 0,
 		optional: true,
-		decimal: false,
 		autoform: {
 			omit: true,
 		}, },
 	downvotes: {
-		type: Number,
+		type: SimpleSchema.Integer,
 		min: 0,
 		defaultValue: 0,
 		optional: true,
-		decimal: false,
 		autoform: {
 			omit: true,
 		}, },

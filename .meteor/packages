@@ -37,3 +37,5 @@ react-template-helper
 reactive-dict@1.2.0
 aldeed:autoform
 aldeed:collection2
+aldeed:schema-index
+aldeed:schema-deny

@@ -1,5 +1,10 @@
 import { Mongo } from "meteor/mongo";
 import { Reviews } from "./reviews.js"; // used when retrieving reviews for a given company
+import SimpleSchema from "simpl-schema";
+
+//AutoForm business
+import { AutoForm } from "meteor/aldeed:autoform";
+SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
 
 /*
 	Questions:
@@ -73,9 +78,8 @@ Companies.schema = new SimpleSchema({
 		}, },
 	numFlags: { // as in, the number of times this company has been "flagged" for some reason,
 				//Vize IT is free to decrease as issues are dealt with
-		type: Number,
+		type: SimpleSchema.Integer,
 		min: 0,
-		decimal: false,
 		optional: true,
 		defaultValue: 0,
 		autoform: {
@@ -90,7 +94,6 @@ Companies.schema = new SimpleSchema({
 	healthAndSafety: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: true,
 	 	defaultValue: 0,
 		autoform: {
@@ -99,7 +102,6 @@ Companies.schema = new SimpleSchema({
 	managerRelationship: { //"manager relationship", in case that isn't clear...
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: true,
 		defaultValue: 0,
 		autoform: {
@@ -108,7 +110,6 @@ Companies.schema = new SimpleSchema({
 	workEnvironment: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: true,
 		defaultValue: 0,
 		autoform: {
@@ -117,7 +118,6 @@ Companies.schema = new SimpleSchema({
 	benefits: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: true,
 	 	defaultValue: 0,
 		autoform: {
@@ -126,16 +126,14 @@ Companies.schema = new SimpleSchema({
 	overallSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
-		decimal: true,
 		optional: true,
 	 	defaultValue: 0,
 		autoform: {
 			omit: true,
 		}, },
 	numReviews: {
-		type: Number,
+		type: SimpleSchema.Integer,
 		min: 0,
-		decimal: false,
 		optional: true,
 		defaultValue: 0,
 	 	autoform: {
@@ -152,7 +150,6 @@ Companies.schema = new SimpleSchema({
 		*/
 		type: Number,
 		min: 0, max: 1,
-		decimal: true,
 		optional: true,
 		defaultValue: 0,
 		autoform: {
@@ -167,7 +164,6 @@ Companies.schema = new SimpleSchema({
 		*/
 		type: Number,
 		min: 0,
-		decimal: true,
 		defaultValue: 0,
 		autoform: {
 			omit: true,

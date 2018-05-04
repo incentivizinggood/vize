@@ -1,5 +1,6 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
+import SimpleSchema from "simpl-schema";
 import "./denormalization.js"
 
 //TODO Further test the schema validation
