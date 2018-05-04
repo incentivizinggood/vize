@@ -14,7 +14,23 @@ import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state 
 import SimpleSchema from "simpl-schema";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.extendOptions(["autoform"]); // allows us to selectively omit schema fields from the form
+SimpleSchema.setDefaultMessages({
+	messages: {
+		en: {
+			"tooShort": "Hooray, it works!",
+		},
+	},
+});
 
+// SimpleSchema.defineValidationErrorTransform(error => {
+// 	const ddpError = new Meteor.Error(error.message);
+// 	ddpError.error = 'validation-error';
+// 	ddpError.details = error.details;
+// 	return ddpError;
+// });
+
+let reviewFormValidationContext = Reviews.schema.namedContext("reviewForm");
+reviewFormValidationContext.addInvalidKeys([{name: "pros", type: "tooShort"}]);
 //Until we actually make an account for testing
 var Phony = Package['csauer:accounts-phony'].Phony;
 Meteor.loginWithPhony(Phony.user);

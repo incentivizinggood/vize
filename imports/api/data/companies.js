@@ -13,6 +13,10 @@ import { Reviews } from "./reviews.js"; // used when retrieving reviews for a gi
 	- On that note, would it be beneficial to have
 	a "PSM" somewhere to "refresh" the statistics
 	based on reviews?
+	- Could we add custom validation to the schema such that
+	duplicate-key and not-logged-in errors are caught and displayed
+	before the method is even invoked? That would be drastically
+	simpler than the current setup.
 */
 
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
@@ -92,7 +96,7 @@ Companies.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	mgrRelationship: { //"manager relationship", in case that isn't clear...
+	managerRelationship: { //"manager relationship", in case that isn't clear...
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,

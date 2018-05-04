@@ -25,9 +25,9 @@ Meteor.methods({
 		and its documents.
 		*/
 
-		Tracker.autorun(function(){
-			console.log("Reviews List", Reviews.find().fetch());
-		});
+		// Tracker.autorun(function(){
+		// 	console.log("Reviews List", Reviews.find().fetch());
+		// });
 
 		/*
 			Validating the new review with the schema
@@ -38,35 +38,36 @@ Meteor.methods({
 		Reviews.insert(newReview);
 
 		//TESTING ONLY
-		Tracker.autorun(function(){
-			console.log("Reviews List", Reviews.find().fetch());
-		});
+		// Tracker.autorun(function(){
+		// 	console.log("Reviews List", Reviews.find().fetch());
+		// });
 
-
+		//TESTING - the rest of the business logic is commented out for now,
+		//until I get around to fixing it, I have other irons in the fire
 		// Update denormalizations.
-		Companies.update(
-			{ _id: company_id },
-			{
-				$set: {
-					/*
-						I'm not sure how these denormalizations work,
-						but please make sure that they're using the correct
-						variable names as per Reviews.schema.
-
-						In fact, I'm almost certain that one or more of them
-						is wrong because the schema attribute names used to have
-						the same names as this method's arguments, but I'm
-						not sure which is supposed to be which.
-							- Josh
-					*/
-					safety: addToAvg(safety, "$numReviews", "$safety"),
-					respect: addToAvg(respect, "$numReviews", "$respect"),
-					benefits: addToAvg(benefits, "$numReviews", "$benefits"),
-					overallSatisfaction: addToAvg(overallSatisfaction, "$numReviews", "$overallSatisfaction"),
-				},
-				$inc: { numReviews: 1 } //this will increment the numReviews by 1
-			}
-		);
+		// Companies.update(
+		// 	{ _id: company_id },
+		// 	{
+		// 		$set: {
+		// 			/*
+		// 				I'm not sure how these denormalizations work,
+		// 				but please make sure that they're using the correct
+		// 				variable names as per Reviews.schema.
+		//
+		// 				In fact, I'm almost certain that one or more of them
+		// 				is wrong because the schema attribute names used to have
+		// 				the same names as this method's arguments, but I'm
+		// 				not sure which is supposed to be which.
+		// 					- Josh
+		// 			*/
+		// 			safety: addToAvg(safety, "$numReviews", "$safety"),
+		// 			respect: addToAvg(respect, "$numReviews", "$respect"),
+		// 			benefits: addToAvg(benefits, "$numReviews", "$benefits"),
+		// 			overallSatisfaction: addToAvg(overallSatisfaction, "$numReviews", "$overallSatisfaction"),
+		// 		},
+		// 		$inc: { numReviews: 1 } //this will increment the numReviews by 1
+		// 	}
+		// );
 	},
 
 

@@ -17,7 +17,7 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'})
 //to use for validating pros and cons (which must have >= 5 words each),
 //not sure how good of a long-term solution it is but it seems fine for now.
 //https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
-String.prototype.countWords = function(){
+String.prototype.wordCount = function(){
 	return this.split(/\s+\b/).length;
 };
 
@@ -52,28 +52,31 @@ Reviews.schema = new SimpleSchema({
 	dateLeftCompany: { //need to remind user that they can leave this empty if still employed
 		type: Date,
 		optional: true, },
-	wouldRecommendToOtherJobSeekers: {
-		type: Boolean,
-		optional: false, },
 	pros: {
 		type: String,
-		optional: false, },
-	cons:{
+		optional: false,
+		custom: function() {
+			console.log("This is a custom validator, and it got called!");
+			if(this.isSet && this.value.wordCount() < 5) {
+				let offendingKey = this.key;
+				console.log("We entered the if-statement because this key is invalid!");
+				return ("tooShort");
+			};
+		} },
+	cons: {
 		type: String,
 		optional: false, },
-	additionalComments: { //need to make sure this displays a nice box
-		type: String,
-		optional: true, },
+	wouldRecommendToOtherJobSeekers: {
+		type: Boolean,
+		optional: false,
+		defaultValue: false, },
 	healthAndSafety: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
 		optional: true,
-	 	defaultValue: 0,
-		autoform: {
-			omit: true,
-		}, },
-	mgrRelationship: { //"manager relationship", in case that isn't clear...
+	 	defaultValue: 0, },
+	managerRelationship: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -97,6 +100,15 @@ Reviews.schema = new SimpleSchema({
 		decimal: true,
 		optional: false,
 	 	defaultValue: 0, },
+	additionalComments: { //need to make sure this displays a nice box
+		type: String,
+		optional: true,
+		autoform: {
+			afFieldInput: {
+				type: "textarea",
+				rows: 10,
+			},
+		}, },
 
 	//These last ones have to do with internal bookkeeping
 	//and the actual "life-cycle" of the review itself, and
