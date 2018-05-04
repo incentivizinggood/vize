@@ -1,22 +1,3 @@
-<!-- quickForm version no longer works due to an AutoForms bug:
-https://github.com/aldeed/meteor-autoform/issues/1642#issuecomment-373574067 -->
-
-<!-- <template name="ccp_blaze_form">
-	{{> quickForm collection=companyProfiles id="ccp_blaze_form" type="method"
-		meteormethod="companies.createProfile"  }}
-	{{#if hasError}}
-	<div>
-		{{> React component=ErrorWidget err=error}}
-	</div>
-	{{/if}}
-</template> -->
-
-<!-- Honestly, the autoForm version gives us more fine-grained
-control over the form at the expense of automatically
-updating when we change the schema, but that's a sacrifice
-I chose to make in order to get other package features,
-namely custom validation, to work. -->
-
 <template name="ccp_blaze_form">
 	{{#autoForm collection=companyProfiles id="ccp_blaze_form" type="method" meteormethod="companies.createProfile"}}
 		<fieldset>

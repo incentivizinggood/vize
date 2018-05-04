@@ -71,7 +71,6 @@ Meteor.methods({
 		// );
 	},
 
-
 	"companies.isCompanyNameAvailable": function (companyName) {
 		if(Companies.hasEntry(companyName)) {
 			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
