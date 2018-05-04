@@ -20,7 +20,6 @@ shell-server@0.3.1            # Server-side component of the `meteor shell` comm
 twbs:bootstrap
 react-meteor-data
 accounts-password@1.5.0
-msavin:mongol
 accounts-ui@1.3.0
 kadira:flow-router
 practicalmeteor:mocha
@@ -36,3 +35,5 @@ gadicc:blaze-react-component
 csauer:accounts-phony
 react-template-helper
 reactive-dict@1.2.0
+aldeed:autoform
+aldeed:collection2
