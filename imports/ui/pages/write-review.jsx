@@ -9,11 +9,7 @@ import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
-
-//AutoForm business
 import { AutoForm } from "meteor/aldeed:autoform";
-
-//now the interesting part...
 import "./write_review_blaze_form.html";
 
 let formError = new ReactiveVar("good"); // This code looks easier than it was.

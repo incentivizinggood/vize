@@ -1,10 +1,9 @@
 import { Mongo } from "meteor/mongo";
 import { Comments } from './comments.js';
 import SimpleSchema from "simpl-schema";
-
-//AutoForm business
+import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
+SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
 //Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
@@ -19,16 +18,8 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'})
 		not the schema, silly me...
 */
 
-//Stole this code from an answer to a StackOverflow question,
-//to use for validating pros and cons (which must have >= 5 words each),
-//not sure how good of a long-term solution it is but it seems fine for now.
-//https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
-String.prototype.wordCount = function(){
-	return this.split(/\s+\b/).length;
-};
-
 //Schema for the Collection
-Reviews.schema = new SimpleSchema({
+const reviewsSchema = new SimpleSchema({
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
@@ -60,10 +51,34 @@ Reviews.schema = new SimpleSchema({
 		optional: true, },
 	pros: {
 		type: String,
-		optional: false, },
+		optional: false,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("hasFiveWords", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "pros",
+							type: "needsFiveWords",
+						}]);
+					}
+				});
+			}
+		}, },
 	cons: {
 		type: String,
-		optional: false, },
+		optional: false,
+		custom: function() {
+			if (Meteor.isClient && this.isSet ) {
+				Meteor.call("hasFiveWords", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "cons",
+							type: "needsFiveWords",
+						}]);
+					}
+				});
+			}
+		}, },
 	wouldRecommendToOtherJobSeekers: {
 		type: Boolean,
 		optional: false,
@@ -164,9 +179,17 @@ Reviews.schema = new SimpleSchema({
 		}, }, //Custom validation with an external schema,
 		//not sure if this works for now but it at least
 		//reminds me of generally what needs to be done here.
+}, { tracker: Tracker } );
+
+reviewsSchema.messageBox.messages({
+	//en? does that mean we can add internationalization
+	//in this block of code?
+	en: {
+		needsFiveWords: "You should write at least 5 words in this field",
+	},
 });
 
-Reviews.attachSchema(Reviews.schema);
+Reviews.attachSchema(reviewsSchema, { replace: true });
 
 // I dont think there is a needed for this code. Might be wrong.
 if (Meteor.isServer) {

@@ -2,10 +2,8 @@ import { Mongo } from "meteor/mongo";
 import { Reviews } from "./reviews.js"; // used when retrieving reviews for a given company
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
-
-//AutoForm business
 import { AutoForm } from "meteor/aldeed:autoform";
-SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
+SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
 /*
 	Questions:
@@ -66,21 +64,21 @@ const companiesSchema = new SimpleSchema({
 		custom: function() {
 			/*
 				Next to wrapping Blaze into React, this bad boy
-				vies for the title of most-difficult-to-get-correct
-				piece of code I've written for Vize, along with the
-				messageBox stuff below that goes with it.
+				and the messageBox stuff below that goes with it
+				vie for the title of most-difficult-to-get-correct
+				piece of code I've written for Vize.
 			*/
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("companies.isCompanyNameAvailable", this.value, (error, result) => {
 					if (!result) {
 						this.validationContext.addValidationErrors([{
 							name: "name",
-							type: "nameTaken"
+							type: "nameTaken",
 						}]);
 					}
 				});
-			} },
-		},
+			}
+		}, },
 	contactEmail: {
 		type: String,
 		optional: false,
@@ -92,8 +90,6 @@ const companiesSchema = new SimpleSchema({
 		type: String,
 	 	allowedValues: ["1 - 50", "51 - 500", "501 - 2000", "2001 - 5000", "5000+"],
 		optional: true, }, //should this be required?
-	//We're going to need to re-vize (LOL)
-	//these next three fields a bit
 	industry: {
 		type: String, //could throw in allowedValues, might be helpful to define industry types -> ask Bryce?
 		optional: true, }, //should this be required?
@@ -222,6 +218,8 @@ const companiesSchema = new SimpleSchema({
 
 // Define custom error messages for custom validation functions
 companiesSchema.messageBox.messages({
+	//en? does that mean we can add internationalization
+	//in this block of code?
 	en: {
 		nameTaken: "The name you provided is already taken",
 	},

@@ -5,43 +5,46 @@ import "./denormalization.js"
 
 //TODO Further test the schema validation
 
+//Stole this code from an answer to a StackOverflow question,
+//to use for validating pros and cons (which must have >= 5 words each),
+//not sure how good of a long-term solution it is but it seems fine for now.
+//https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
+String.prototype.wordCount = function(){
+	return this.split(/\s+\b/).length;
+};
+
 Meteor.methods({
+	"hasFiveWords": function (inputString) {
+		if(inputString.wordCount() < 5) {
+			throw new Meteor.Error("needsFiveWords", "You should write at least 5 words in this field");
+		}
+
+		return "all good";
+	},
+
 	//This method needs to be modified to take a Review
 	//object and validate it against a schema.
 	// - Josh
 	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
-		console.log("ReviewMethod called!");
-		console.log(newReview);
+		// console.log("ReviewMethod called!");
+		// console.log(newReview);
 
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
 
-		/*Deploying getter function for Reviews -- Edit as required,
-		For now, will output the Reviews on console.
-		- May need to display these later on a separate page.
+		//This avoids a lot of problems
+		Reviews.simpleSchema().clean(newReview);
 
-		Tracker.autorun updates the console output, whenever there is a change in the Collection
-		and its documents.
-		*/
+		// Error-out if _id field is defined
+		if ("_id" in newReview) {
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
+		}
 
-		// Tracker.autorun(function(){
-		// 	console.log("Reviews List", Reviews.find().fetch());
-		// });
-
-		/*
-			Validating the new review with the schema
-		*/
-
-		Reviews.schema.validate(newReview);
+		Reviews.simpleSchema().validate(newReview);
 
 		Reviews.insert(newReview);
-
-		//TESTING ONLY
-		// Tracker.autorun(function(){
-		// 	console.log("Reviews List", Reviews.find().fetch());
-		// });
 
 		//TESTING - the rest of the business logic is commented out for now,
 		//until I get around to fixing it, I have other irons in the fire
@@ -107,9 +110,12 @@ Meteor.methods({
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
 
+		//This avoids a lot of problems
+		Companies.simpleSchema().clean(newCompanyProfile);
+
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
-			throw new Meteor.Error("containsId","You are not allowed to specifiy an _id attribute for your profile");
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
 		}
 
 		//Throws an exception if argument is invalid.
