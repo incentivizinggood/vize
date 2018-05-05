@@ -114,14 +114,13 @@ Reviews.schema = new SimpleSchema({
 		autoform: {
 			afFieldInput: {
 				type: "textarea",
-				rows: 10,
+				rows: 6,
 			},
 		}, },
 
 	//These last ones have to do with internal bookkeeping
 	//and the actual "life-cycle" of the review itself, and
 	//therefore do not appear on the "Write a Review" form.
-
 	//However, this is done via autoform.omit, which may
 	//prevent us from using those fields easily in legitimate
 	//contexts later, so I may want to refine that feature...

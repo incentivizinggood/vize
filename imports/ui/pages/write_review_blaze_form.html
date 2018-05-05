@@ -1,6 +1,59 @@
 <template name="write_review_blaze_form">
-	{{> quickForm collection=reviews id="write_review_blaze_form" type="method"
+	{{#autoForm collection=reviews id="write_review_blaze_form" type="method"
 		meteormethod="reviews.submitReview"  }}
+		<fieldset>
+			<legend>Write a Review</legend>
+			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+				{{> afQuickField name='companyName'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
+				{{> afQuickField name='reviewTitle'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
+				{{> afArrayField name='locations' options='allowed'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
+				{{> afQuickField name='jobTitle'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='dateJoinedCompany'}}has-error{{/if}}">
+				{{> afQuickField name='dateJoinedCompany'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='dateLeftCompany'}}has-error{{/if}}">
+				{{> afQuickField name='dateLeftCompany'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
+				{{> afQuickField name='pros'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
+				{{> afQuickField name='cons'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
+				{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
+				{{> afQuickField name='healthAndSafety'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
+				{{> afQuickField name='managerRelationship'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
+				{{> afQuickField name='workEnvironment'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
+				{{> afQuickField name='benefits'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
+				{{> afQuickField name='overallSatisfaction'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
+				{{> afQuickField name='additionalComments'}}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Submit Review</button>
+			<button type="reset" class="btn btn-default">Reset Form</button>
+		</div>
+	{{/autoForm}}
 	{{#if hasError}}
 	<div>
 		{{> React component=ErrorWidget err=error}}
