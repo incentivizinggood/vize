@@ -25,7 +25,6 @@ SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema opti
 
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
-
 // Add helper functions directly to the Companies collection object
 // convert _id or name into a proper Mongo-style selector
 Companies.getSelector = function(companyIdentifier) {
@@ -82,9 +81,8 @@ const companiesSchema = new SimpleSchema({
 				if(Companies.hasEntry(this.value)) {
 					return "nameTaken";
 				}
-			}
-
-		}, },
+			} },
+	},
 	contactEmail: {
 		type: String,
 		optional: false,

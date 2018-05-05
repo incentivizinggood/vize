@@ -4,16 +4,16 @@
 		<fieldset>
 			<legend>Write a Review</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-				{{> afQuickField name='companyName'}}
+				{{> afQuickField name='companyName' placeholder="Please enter the name of the company you're reviewing"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
-				{{> afQuickField name='reviewTitle'}}
+				{{> afQuickField name='reviewTitle' placeholder="Please choose a title for your review"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
 				{{> afArrayField name='locations' options='allowed'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-				{{> afQuickField name='jobTitle'}}
+				{{> afQuickField name='jobTitle' placeholder="Please enter the name of the position you held at this company"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='dateJoinedCompany'}}has-error{{/if}}">
 				{{> afQuickField name='dateJoinedCompany'}}
@@ -22,10 +22,10 @@
 				{{> afQuickField name='dateLeftCompany'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
-				{{> afQuickField name='pros'}}
+				{{> afQuickField name='pros' placeholder="Please tell us some pros of working for this company"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
-				{{> afQuickField name='cons'}}
+				{{> afQuickField name='cons' placeholder="Please tell us some cons of working for this company"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
 				{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
@@ -46,7 +46,7 @@
 				{{> afQuickField name='overallSatisfaction'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
-				{{> afQuickField name='additionalComments'}}
+				{{> afQuickField name='additionalComments' placeholder="Please enter any additional thoughts or comments you may have"}}
 			</div>
 		</fieldset>
 		<div class="form-group">

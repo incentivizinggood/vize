@@ -3,25 +3,28 @@
 		<fieldset>
 			<legend>Create a New Profile</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
-				{{> afQuickField name='name'}}
+				{{> afQuickField name='name' placeholder="Please enter the name of your company"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='contactEmail'}}has-error{{/if}}">
-				{{> afQuickField name='contactEmail'}}
+				{{> afQuickField name='contactEmail' placeholder="Please provide an email we can reach your company at"}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='contactEmail'}}has-error{{/if}}">
+				{{> afQuickField name='dateEstablished'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='numEmployees'}}has-error{{/if}}">
 				{{> afQuickField name='numEmployees' options='allowed'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='industry'}}has-error{{/if}}">
-				{{> afQuickField name='industry'}}
+				{{> afQuickField name='industry' placeholder="Please tell us your company's primary industry"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
 				{{> afArrayField name='locations'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='otherContactInfo'}}has-error{{/if}}">
-				{{> afQuickField name='otherContactInfo'}}
+				{{> afQuickField name='otherContactInfo' placeholder="Please enter any additional contact information you'd like to provide us with"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='websiteURL'}}has-error{{/if}}">
-				{{> afQuickField name='websiteURL'}}
+				{{> afQuickField name='websiteURL' placeholder="Please enter the URL of your company's website, if it has one"}}
 			</div>
 		</fieldset>
 		<div class="form-group">
