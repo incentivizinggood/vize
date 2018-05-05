@@ -7,100 +7,103 @@ export default class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: ""
+            error: null,
+            success: false,
+            username: "",
+            password: "",
+            role: ""
         };
+
+        // These bindings are necessary to make `this` work in callbacks.
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        let name = document.getElementById("signup-name").value;
-        let email = document.getElementById("signup-email").value;
-        let password = document.getElementById("signup-password").value;
-        this.setState({ error: "test" });
-        Accounts.createUser(
-            { email: email, username: name, password: password },
-            err => {
-                if (err) {
-                    this.setState({
-                        error: err.reason
-                    });
-                } else {
-                    this.props.history.push("/login");
-                }
+    handleInputChange(event) {
+        const target = event.target;
+        const value =
+            target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault(); // Prevent the default behavior for this event.
+        let createUserCallback = error => {
+            this.setState({
+                error: error ? error.reason : null,
+                success: !error
+            });
+            if (this.state.success) {
+                FlowRouter.go("/");
             }
-        );
+        };
+        let options = {
+            username: this.state.username,
+            password: this.state.password,
+            role: this.state.role
+        };
+        Accounts.createUser(options, createUserCallback);
     }
 
     render() {
-        const error = this.state.error;
+        if (this.state.success) {
+            return <div className="page register">Sign up successful!</div>;
+        }
         return (
             <div className="page register">
-                <div className="modal show">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h1 className="text-center">Sign up</h1>
-                            </div>
-                            <div className="modal-body">
-                                {error.length > 0 ? (
-                                    <div className="alert alert-danger fade in">
-                                        {error}
-                                    </div>
-                                ) : (
-                                    ""
-                                )}
-                                <form
-                                    id="login-form"
-                                    className="form col-md-12 center-block"
-                                    onSubmit={this.handleSubmit}
-                                >
-                                    <div className="form-group">
-                                        <input
-                                            type="text"
-                                            id="signup-name"
-                                            className="form-control input-lg"
-                                            placeholder="name"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="email"
-                                            id="signup-email"
-                                            className="form-control input-lg"
-                                            placeholder="email"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="password"
-                                            id="signup-password"
-                                            className="form-control input-lg"
-                                            placeholder="password"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="submit"
-                                            id="login-button"
-                                            className="btn btn-lg btn-primary btn-block"
-                                            value="Sign Up"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <p className="text-center">
-                                            Already have an account? Login
-                                        </p>
-                                    </div>
-                                </form>
-                            </div>
-                            <div
-                                className="modal-footer"
-                                style={{ borderTop: 0 }}
-                            />
-                        </div>
-                    </div>
-                </div>
+                {this.state.error ? <div>{this.state.error}</div> : null}
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Username
+                        <input
+                            name="username"
+                            type="text"
+                            placeholder="Username"
+                            autoFocus
+                            required
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Password
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        <input
+                            name="role"
+                            type="radio"
+                            required
+                            value="worker"
+                            checked={this.state.role === "worker"}
+                            onChange={this.handleInputChange}
+                        />
+                        I am a worker
+                    </label>
+                    <label>
+                        <input
+                            name="role"
+                            type="radio"
+                            required
+                            value="company"
+                            checked={this.state.role === "company"}
+                            onChange={this.handleInputChange}
+                        />
+                        I am a company
+                    </label>
+                    <input type="submit" value="Sign Up" />
+                </form>
             </div>
         );
     }
