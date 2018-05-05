@@ -107,43 +107,23 @@ const reviewsSchema = new SimpleSchema({
 	healthAndSafety: {
 		type: Number,
 		min: 0, max: 5,
-		optional: false,
-	 	defaultValue: 0,
-		autoform: {
-			omit: true,
-		}, },
+		optional: false, },
 	managerRelationship: { //"manager relationship", in case that isn't clear...
 		type: Number,
 		min: 0, max: 5,
-		optional: false,
-		defaultValue: 0,
-		autoform: {
-			omit: true,
-		}, },
+		optional: false, },
 	workEnvironment: {
 		type: Number,
 		min: 0, max: 5,
-		optional: false,
-		defaultValue: 0,
-		autoform: {
-			omit: true,
-		}, },
+		optional: false, },
 	benefits: {
 		type: Number,
 		min: 0, max: 5,
-		optional: false,
-	 	defaultValue: 0,
-		autoform: {
-			omit: true,
-		}, },
+		optional: false, },
 	overallSatisfaction: {
 		type: Number,
 		min: 0, max: 5,
-		optional: false,
-	 	defaultValue: 0,
-		autoform: {
-			omit: true,
-		}, },
+		optional: false, },
 	additionalComments: { //need to make sure this displays a nice box
 		type: String,
 		optional: true,
