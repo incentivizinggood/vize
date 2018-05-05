@@ -1,6 +1,5 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
-import { Promise } from "meteor/promise";
 import SimpleSchema from "simpl-schema";
 import "./denormalization.js"
 
