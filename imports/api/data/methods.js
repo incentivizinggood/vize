@@ -9,12 +9,12 @@ import "./denormalization.js"
 //to use for validating pros and cons (which must have >= 5 words each),
 //not sure how good of a long-term solution it is but it seems fine for now.
 //https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
-String.prototype.wordCount = function(){
-	return this.split(/\s+\b/).length;
-};
 
 Meteor.methods({
 	"hasFiveWords": function (inputString) {
+		// Funny story, String.prototype.wordCount is actually
+		// defined in reviews.js because I couldn't find a
+		// better place for it. Just in case you're wondering.
 		if(inputString.wordCount() < 5) {
 			throw new Meteor.Error("needsFiveWords", "You should write at least 5 words in this field");
 		}
@@ -27,8 +27,8 @@ Meteor.methods({
 	// - Josh
 	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
-		// console.log("ReviewMethod called!");
-		// console.log(newReview);
+		console.log("SERVER: ReviewMethod called!");
+		console.log(newReview);
 
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
@@ -42,7 +42,11 @@ Meteor.methods({
 			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
 		}
 
-		Reviews.simpleSchema().validate(newReview);
+		console.log("SERVER: validating...");
+		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		console.log(Reviews.simpleSchema().namedContext().validationErrors());
 
 		Reviews.insert(newReview);
 
@@ -119,7 +123,7 @@ Meteor.methods({
 		}
 
 		//Throws an exception if argument is invalid.
-		Companies.simpleSchema().validate(newCompanyProfile);
+		Companies.simpleSchema().namedContext().validate(newCompanyProfile);
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */

@@ -5,6 +5,10 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
+String.prototype.wordCount = function(){
+	return this.split(/\s+\b/).length;
+};
+
 //Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
 export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
@@ -56,12 +60,18 @@ const reviewsSchema = new SimpleSchema({
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("hasFiveWords", this.value, (error, result) => {
 					if (!result) {
+						console.log("needsFiveWords");
 						this.validationContext.addValidationErrors([{
 							name: "pros",
 							type: "needsFiveWords",
 						}]);
 					}
 				});
+			}
+			else if(Meteor.isServer && this.isSet) {
+				if(this.value.wordCount() < 5) {
+					return "needsFiveWords";
+				}
 			}
 		}, },
 	cons: {
@@ -78,11 +88,22 @@ const reviewsSchema = new SimpleSchema({
 					}
 				});
 			}
+			else if(Meteor.isServer && this.isSet) {
+				if(this.value.wordCount() < 5) {
+					return "needsFiveWords";
+				}
+			}
 		}, },
 	wouldRecommendToOtherJobSeekers: {
 		type: Boolean,
 		optional: false,
 		defaultValue: false, },
+
+	/*
+		We're eventually going to remove the
+		defaultValue's and force the user to input them,
+		this is just easier for testing right now.
+	*/
 	healthAndSafety: {
 		type: Number,
 		min: 0, max: 5,

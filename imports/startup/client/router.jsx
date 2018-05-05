@@ -37,11 +37,11 @@ import WriteReviewPage from "../../ui/pages/write-review.jsx";
  *                                expression, not the class name.
  */
 function routeSimplePage(path, element) {
-    FlowRouter.route(path, {
-        action(params, queryParams) {
-            ReactDOM.render(element, document.getElementById("view-render"));
-        }
-    });
+	FlowRouter.route(path, {
+		action(params, queryParams) {
+			ReactDOM.render(element, document.getElementById("view-render"));
+		}
+	});
 }
 
 //----- Define all of the simple routes. -----//
@@ -55,7 +55,6 @@ routeSimplePage("/help", <HelpPage />);
 routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
-routeSimplePage("/write-review", <WriteReviewPage />);
 
 //TESTING ONLY
 import SimpleSchema from "simpl-schema";

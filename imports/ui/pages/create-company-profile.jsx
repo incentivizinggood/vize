@@ -7,6 +7,11 @@ import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state 
 import { AutoForm } from "meteor/aldeed:autoform";
 import "./ccp_blaze_form.html";
 
+/*
+	BUG the error box doesn't go away when
+	you reset the page, this is a problem
+*/
+
 let formError = new ReactiveVar("good"); // This code looks easier than it was.
 
 Template.ccp_blaze_form.helpers({
