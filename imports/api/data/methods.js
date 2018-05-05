@@ -1,5 +1,6 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
+import { Promise } from "meteor/promise";
 import SimpleSchema from "simpl-schema";
 import "./denormalization.js"
 
@@ -27,8 +28,6 @@ Meteor.methods({
 	// - Josh
 	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
-		console.log("SERVER: ReviewMethod called!");
-		console.log(newReview);
 
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
@@ -47,6 +46,8 @@ Meteor.methods({
 		console.log("SERVER: Here is the validation result: ");
 		console.log(validationResult);
 		console.log(Reviews.simpleSchema().namedContext().validationErrors());
+
+		console.log("SERVER: inserting");
 
 		Reviews.insert(newReview);
 
@@ -123,23 +124,18 @@ Meteor.methods({
 		}
 
 		//Throws an exception if argument is invalid.
-		Companies.simpleSchema().namedContext().validate(newCompanyProfile);
+		console.log("SERVER: validating...");
+		let validationResult = Companies.simpleSchema().namedContext().validate(newCompanyProfile);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		console.log(Companies.simpleSchema().namedContext().validationErrors());
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
-		try {
-			Companies.insert(newCompanyProfile);
-		} catch (error) {
-			if(error.code === 11000) { //duplicate key error, the only error not forestalled by our autoform
-				// Can safely assume that name is the only possible key for this error,
-				// since it is the only unique field in the company schema
-				throw new Meteor.Error("nameTaken","The name you provided is already taken");
-			}
-			else {
-				//throw error;
-				throw Meteor.Error(error.code, error.errmsg);
-			}
-		}
+		//try {
+		console.log("SERVER: inserting");
+
+		Companies.insert(newCompanyProfile);
 	},
 
 	//Edits an existing company profile -- UNTESTED

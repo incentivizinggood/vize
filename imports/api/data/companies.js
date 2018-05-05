@@ -78,13 +78,11 @@ const companiesSchema = new SimpleSchema({
 					}
 				});
 			}
-			// else if (Meteor.isServer && this.isSet) {
-			// 	console.log("SERVER: server-side validation");
-			// 	if(Companies.hasEntry(this.value)) {
-			// 		console.log("SERVER: name is taken");
-			// 		return "nameTaken";
-			// 	}
-			// }
+			else if (Meteor.isServer && this.isSet) {
+				if(Companies.hasEntry(this.value)) {
+					return "nameTaken";
+				}
+			}
 
 		}, },
 	contactEmail: {
