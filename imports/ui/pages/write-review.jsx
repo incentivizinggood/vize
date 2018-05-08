@@ -12,6 +12,13 @@ import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state 
 import { AutoForm } from "meteor/aldeed:autoform";
 import "./write_review_blaze_form.html";
 
+//Weird that I have to import both of these here,
+//rather than import the .html in the .js and just
+//import the .js here, but Meteor complains if I don't,
+//so whatever...
+import "../afInputStarRating.html";
+import "../afInputStarRating.js";
+
 /*
 	BUG the error box doesn't go away when
 	you reset the page, this is a problem
