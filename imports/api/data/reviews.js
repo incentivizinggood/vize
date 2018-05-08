@@ -109,6 +109,8 @@ const reviewsSchema = new SimpleSchema({
 		min: 0, max: 5,
 		optional: false,
 	 	autoform: {
+			//only possible because I added the starRating type
+			//to AutoForm, see afInputStarRating.[js,html]
 			type: "starRating",
 		}, },
 	managerRelationship: { //"manager relationship", in case that isn't clear...
@@ -181,7 +183,7 @@ const reviewsSchema = new SimpleSchema({
 		}, },
 	//** Each review has an array of comments attached with it.
 	//** upvotes/downvotes and comments are not there in the form
-	comments: {
+	Comments: {
 		type: Array,
 		optional: true,
 		defaultValue: [],
