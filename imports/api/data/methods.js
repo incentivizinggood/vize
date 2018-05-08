@@ -5,11 +5,6 @@ import "./denormalization.js"
 
 //TODO Further test the schema validation
 
-//Stole this code from an answer to a StackOverflow question,
-//to use for validating pros and cons (which must have >= 5 words each),
-//not sure how good of a long-term solution it is but it seems fine for now.
-//https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
-
 Meteor.methods({
 	"hasFiveWords": function (inputString) {
 		// Funny story, String.prototype.wordCount is actually
@@ -40,13 +35,13 @@ Meteor.methods({
 			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
 		}
 
-		console.log("SERVER: validating...");
+		// console.log("SERVER: validating...");
 		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
-		console.log(Reviews.simpleSchema().namedContext().validationErrors());
+		// console.log("SERVER: Here is the validation result: ");
+		// console.log(validationResult);
+		// console.log(Reviews.simpleSchema().namedContext().validationErrors());
 
-		console.log("SERVER: inserting");
+		// console.log("SERVER: inserting");
 
 		Reviews.insert(newReview);
 
@@ -123,16 +118,16 @@ Meteor.methods({
 		}
 
 		//Throws an exception if argument is invalid.
-		console.log("SERVER: validating...");
+		// console.log("SERVER: validating...");
 		let validationResult = Companies.simpleSchema().namedContext().validate(newCompanyProfile);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
-		console.log(Companies.simpleSchema().namedContext().validationErrors());
+		// console.log("SERVER: Here is the validation result: ");
+		// console.log(validationResult);
+		// console.log(Companies.simpleSchema().namedContext().validationErrors());
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
 		//try {
-		console.log("SERVER: inserting");
+		// console.log("SERVER: inserting");
 
 		Companies.insert(newCompanyProfile);
 	},

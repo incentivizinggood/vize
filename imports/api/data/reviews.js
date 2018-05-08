@@ -5,6 +5,11 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
+//Stole this code from an answer to a StackOverflow question,
+//to use for validating pros and cons (which must have >= 5 words each),
+//not sure how good of a long-term solution it is but it seems fine for now.
+//https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
+
 String.prototype.wordCount = function(){
 	return this.split(/\s+\b/).length;
 };
@@ -60,7 +65,6 @@ const reviewsSchema = new SimpleSchema({
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("hasFiveWords", this.value, (error, result) => {
 					if (!result) {
-						console.log("needsFiveWords");
 						this.validationContext.addValidationErrors([{
 							name: "pros",
 							type: "needsFiveWords",
@@ -190,7 +194,7 @@ const reviewsSchema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	'comments.$': {
+	'Comments.$': {
 		type: Object,
 		custom() {
 			Comments.schema.validate(this);
