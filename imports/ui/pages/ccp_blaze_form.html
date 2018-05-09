@@ -26,6 +26,9 @@
 			<div class="form-group {{#if afFieldIsInvalid name='websiteURL'}}has-error{{/if}}">
 				{{> afQuickField name='websiteURL' placeholder="Please enter the URL of your company's website, if it has one"}}
 			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='descriptionOfCompany'}}has-error{{/if}}">
+				{{> afQuickField name='descriptionOfCompany' placeholder="Enter a brief description of your company for others to see, if you'd like"}}
+			</div>
 		</fieldset>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Create Profile</button>

@@ -51,7 +51,7 @@ Companies.findReviewsForCompany = function(companyIdentifier) {
 	// This uses the LucidChart Reviews schema, but reviews.js has yet
 	// to be updated to match (company_id vs companyID). BUG
 	company = Companies.findOne(Companies.getSelector(companyIdentifier));
-	return Reviews.find({companyID: company._id});
+	return Reviews.find({companyName: company.name});
 };
 
 const companiesSchema = new SimpleSchema({
@@ -110,7 +110,13 @@ const companiesSchema = new SimpleSchema({
 		type: String,
 		optional: true, //should this be required?
 		regEx: SimpleSchema.RegEx.Url, },
-
+	descriptionOfCompany: {
+		type: String,
+		optional: true,
+		autoform: {
+			type: "textarea",
+			rows: 6,
+		}, },
 	// All fields after this point are only
 	// ever used "internally" by the app,
 	// for calculations or for other things

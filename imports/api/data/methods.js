@@ -3,8 +3,6 @@ import { Companies } from "./companies.js";
 import SimpleSchema from "simpl-schema";
 import "./denormalization.js"
 
-//TODO Further test the schema validation
-
 Meteor.methods({
 	"hasFiveWords": function (inputString) {
 		// Funny story, String.prototype.wordCount is actually
@@ -13,16 +11,11 @@ Meteor.methods({
 		if(inputString.wordCount() < 5) {
 			throw new Meteor.Error("needsFiveWords", "You should write at least 5 words in this field");
 		}
-
 		return "all good";
 	},
 
-	//This method needs to be modified to take a Review
-	//object and validate it against a schema.
-	// - Josh
 	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
-
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
@@ -42,35 +35,57 @@ Meteor.methods({
 		// console.log(Reviews.simpleSchema().namedContext().validationErrors());
 
 		// console.log("SERVER: inserting");
-
 		Reviews.insert(newReview);
 
-		//TESTING - the rest of the business logic is commented out for now,
-		//until I get around to fixing it, I have other irons in the fire
+		/*
+			PROBLEM
+			What happens if the company under review does not have a profile yet?
+			I can think of two things we could do:
+			- Create a profile for it, which introduces the hassle of
+				how to handle it when it actually creates a profile
+			- Do nothing, and when the company is created we just automatically
+				calculate its initial stats based on the reviews that have
+				been posted. This might involve a race condition if reviews
+				are being written and profiles created at the same time, because
+				Mongo doesn't ensure ACID.
+
+			So here are the things I need to look out for right now:
+			- What does this method do, or need to do, when the company doesn't exist?
+			- If the actions taken are different depending on whether the company
+				is verified or unverified, how do I handle that?
+			- Should we even allow reviews for companies that don't already have profiles?
+			- Is the math correct?
+		*/
+
 		// Update denormalizations.
-		// Companies.update(
-		// 	{ _id: company_id },
-		// 	{
-		// 		$set: {
-		// 			/*
-		// 				I'm not sure how these denormalizations work,
-		// 				but please make sure that they're using the correct
-		// 				variable names as per Reviews.schema.
-		//
-		// 				In fact, I'm almost certain that one or more of them
-		// 				is wrong because the schema attribute names used to have
-		// 				the same names as this method's arguments, but I'm
-		// 				not sure which is supposed to be which.
-		// 					- Josh
-		// 			*/
-		// 			safety: addToAvg(safety, "$numReviews", "$safety"),
-		// 			respect: addToAvg(respect, "$numReviews", "$respect"),
-		// 			benefits: addToAvg(benefits, "$numReviews", "$benefits"),
-		// 			overallSatisfaction: addToAvg(overallSatisfaction, "$numReviews", "$overallSatisfaction"),
-		// 		},
-		// 		$inc: { numReviews: 1 } //this will increment the numReviews by 1
-		// 	}
-		// );
+		console.log("SERVER: before update");
+		console.log(Companies.findOne({name: newreview.companyName}));
+		Companies.update(
+			{ name: newReview.companyName },
+			{
+				$set: {
+					/*
+						I'm not sure how these denormalizations work,
+						but please make sure that they're using the correct
+						variable names as per Reviews.schema.
+
+						In fact, I'm almost certain that one or more of them
+						is wrong because the schema attribute names used to have
+						the same names as this method's arguments, but I'm
+						not sure which is supposed to be which.
+							- Josh
+					*/
+					healthAndSafety: addToAvg(newReview.healthAndSafety, "$numReviews", "$healthAndSafety"),
+					managerRelationship: addToAvg(newReview.managerRelationship, "$numReviews", "$managerRelationship"),
+					workEnvironment: addToAvg(newReview.workEnvironment, "$numReviews", "$workEnvironment"),
+					benefits: addToAvg(newReview.benefits, "$numReviews", "$benefits"),
+					overallSatisfaction: addToAvg(newReview.overallSatisfaction, "$numReviews", "$overallSatisfaction"),
+				},
+				$inc: { numReviews: 1 } //this will increment the numReviews by 1
+			}
+		);
+		console.log("SERVER: after update");
+		console.log(Companies.findOne({name: newreview.companyName}));
 	},
 
 	"companies.isCompanyNameAvailable": function (companyName) {
