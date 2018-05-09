@@ -1,55 +1,106 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
-import "./denormalizers.js"
+import SimpleSchema from "simpl-schema";
+import "./denormalization.js"
 
 Meteor.methods({
-	//This method needs to be modified to take a Review
-	//object and validate it against a schema.
-	// - Josh
-	"reviews.insert"(company_id, text, safety, respect) {
+	"hasFiveWords": function (inputString) {
+		// Funny story, String.prototype.wordCount is actually
+		// defined in reviews.js because I couldn't find a
+		// better place for it. Just in case you're wondering.
+		if(inputString.wordCount() < 5) {
+			throw new Meteor.Error("needsFiveWords", "You should write at least 5 words in this field");
+		}
+		return "all good";
+	},
+
+	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
 
-		Reviews.insert({
-			date: new Date(),
-			text: text,
-			company_id: company_id,
-			user_id: this.userId,
-			safety: safety,
-			respect: respect
-		});
+		//This avoids a lot of problems
+		Reviews.simpleSchema().clean(newReview);
+
+		// Error-out if _id field is defined
+		if ("_id" in newReview) {
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
+		}
+
+		// console.log("SERVER: validating...");
+		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
+		// console.log("SERVER: Here is the validation result: ");
+		// console.log(validationResult);
+		// console.log(Reviews.simpleSchema().namedContext().validationErrors());
+
+		// console.log("SERVER: inserting");
+		Reviews.insert(newReview);
+
+		/*
+			PROBLEM
+			What happens if the company under review does not have a profile yet?
+			I can think of two things we could do:
+			- Create a profile for it, which introduces the hassle of
+				how to handle it when it actually creates a profile
+			- Do nothing, and when the company is created we just automatically
+				calculate its initial stats based on the reviews that have
+				been posted. This might involve a race condition if reviews
+				are being written and profiles created at the same time, because
+				Mongo doesn't ensure ACID.
+
+			So here are the things I need to look out for right now:
+			- What does this method do, or need to do, when the company doesn't exist?
+			- If the actions taken are different depending on whether the company
+				is verified or unverified, how do I handle that?
+			- Should we even allow reviews for companies that don't already have profiles?
+			- Is the math correct?
+		*/
 
 		// Update denormalizations.
-		Companies.update(
-			{ _id: company_id },
-			{
-				$set: {
-					/*
-						I'm not sure how these denormalizations work,
-						but please make sure that they're using the correct
-						variable names as per Reviews.schema.
+		// console.log("SERVER: before update");
+		// console.log(Companies.findOne({name: newreview.companyName}));
+		// Companies.update(
+		// 	{ name: newReview.companyName },
+		// 	{
+		// 		$set: {
+		// 			/*
+		// 				I'm not sure how these denormalizations work,
+		// 				but please make sure that they're using the correct
+		// 				variable names as per Reviews.schema.
+		//
+		// 				In fact, I'm almost certain that one or more of them
+		// 				is wrong because the schema attribute names used to have
+		// 				the same names as this method's arguments, but I'm
+		// 				not sure which is supposed to be which.
+		// 					- Josh
+		// 			*/
+		// 			healthAndSafety: addToAvg(newReview.healthAndSafety, "$numReviews", "$healthAndSafety"),
+		// 			managerRelationship: addToAvg(newReview.managerRelationship, "$numReviews", "$managerRelationship"),
+		// 			workEnvironment: addToAvg(newReview.workEnvironment, "$numReviews", "$workEnvironment"),
+		// 			benefits: addToAvg(newReview.benefits, "$numReviews", "$benefits"),
+		// 			overallSatisfaction: addToAvg(newReview.overallSatisfaction, "$numReviews", "$overallSatisfaction"),
+		// 		},
+		// 		$inc: { numReviews: 1 } //this will increment the numReviews by 1
+		// 	}
+		// );
+		// console.log("SERVER: after update");
+		// console.log(Companies.findOne({name: newreview.companyName}));
+	},
 
-						In fact, I'm almost certain that one or more of them
-						is wrong because the schema attribute names used to have
-						the same names as this method's arguments, but I'm
-						not sure which is supposed to be which. BUG
-							- Josh
-					*/
-					safety: addToAvg(safety, "$numReviews", "$safety"),
-					respect: addToAvg(respect, "$numReviews", "$respect")
-				},
-				$inc: { numReviews: 1 }
-			}
-		);
-	}
+	"companies.isCompanyNameAvailable": function (companyName) {
+		if(Companies.hasEntry(companyName)) {
+			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
+		}
+
+		return "all good";
+	},
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
-	"companies.createProfile" (newCompanyProfile) {
+	"companies.createProfile": function (newCompanyProfile) {
 		/*
 			ATTENTION UX DEVELOPERS
 			This method expects a single argument,
@@ -70,30 +121,35 @@ Meteor.methods({
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error("not-authorized");
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
+
+		//This avoids a lot of problems
+		Companies.simpleSchema().clean(newCompanyProfile);
 
 		// Error-out if _id field is defined
 		if ("_id" in newCompanyProfile) {
-			throw new Meteor.Error("invalid newCompanyProfile: contains _id field");
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
 		}
 
 		//Throws an exception if argument is invalid.
-		Companies.schema.validate(newCompanyProfile);
+		// console.log("SERVER: validating...");
+		let validationResult = Companies.simpleSchema().namedContext().validate(newCompanyProfile);
+		// console.log("SERVER: Here is the validation result: ");
+		// console.log(validationResult);
+		// console.log(Companies.simpleSchema().namedContext().validationErrors());
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
+		//try {
+		// console.log("SERVER: inserting");
 
 		Companies.insert(newCompanyProfile);
-	}
+	},
 
-	//Edits an existing company profile
-	"companies.editProfile"(companyProfileEdits) {
+	//Edits an existing company profile -- UNTESTED
+	"companies.editProfile": function (companyProfileEdits) {
 		/*
-			COMING SOON!
-			Note: Don't worry about the fact that this code hasn't been
-			written yet. This is how it's going to work when it has been written.
-
 			ATTENTION UX DEVELOPERS
 			This function takes a single object, which must have
 			an _id field for the Mongo.ObjectId of the CompanyProfile
@@ -139,6 +195,6 @@ Meteor.methods({
 		// Will probably just silently do nothing if there's
 		// no profile with _id.
 		Companies.update(companyProfileEdits._id, modifier);
-	}
+	},
 
 });

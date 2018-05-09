@@ -1,3 +1,5 @@
+import SimpleSchema from "simpl-schema";
+
 // The users collection is handled differently than the other collections.
 // It exists by default and has some built-in fields. As such it is not created
 // here, but is instead modified and tweaked.
