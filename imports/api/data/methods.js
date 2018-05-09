@@ -58,34 +58,34 @@ Meteor.methods({
 		*/
 
 		// Update denormalizations.
-		console.log("SERVER: before update");
-		console.log(Companies.findOne({name: newreview.companyName}));
-		Companies.update(
-			{ name: newReview.companyName },
-			{
-				$set: {
-					/*
-						I'm not sure how these denormalizations work,
-						but please make sure that they're using the correct
-						variable names as per Reviews.schema.
-
-						In fact, I'm almost certain that one or more of them
-						is wrong because the schema attribute names used to have
-						the same names as this method's arguments, but I'm
-						not sure which is supposed to be which.
-							- Josh
-					*/
-					healthAndSafety: addToAvg(newReview.healthAndSafety, "$numReviews", "$healthAndSafety"),
-					managerRelationship: addToAvg(newReview.managerRelationship, "$numReviews", "$managerRelationship"),
-					workEnvironment: addToAvg(newReview.workEnvironment, "$numReviews", "$workEnvironment"),
-					benefits: addToAvg(newReview.benefits, "$numReviews", "$benefits"),
-					overallSatisfaction: addToAvg(newReview.overallSatisfaction, "$numReviews", "$overallSatisfaction"),
-				},
-				$inc: { numReviews: 1 } //this will increment the numReviews by 1
-			}
-		);
-		console.log("SERVER: after update");
-		console.log(Companies.findOne({name: newreview.companyName}));
+		// console.log("SERVER: before update");
+		// console.log(Companies.findOne({name: newreview.companyName}));
+		// Companies.update(
+		// 	{ name: newReview.companyName },
+		// 	{
+		// 		$set: {
+		// 			/*
+		// 				I'm not sure how these denormalizations work,
+		// 				but please make sure that they're using the correct
+		// 				variable names as per Reviews.schema.
+		//
+		// 				In fact, I'm almost certain that one or more of them
+		// 				is wrong because the schema attribute names used to have
+		// 				the same names as this method's arguments, but I'm
+		// 				not sure which is supposed to be which.
+		// 					- Josh
+		// 			*/
+		// 			healthAndSafety: addToAvg(newReview.healthAndSafety, "$numReviews", "$healthAndSafety"),
+		// 			managerRelationship: addToAvg(newReview.managerRelationship, "$numReviews", "$managerRelationship"),
+		// 			workEnvironment: addToAvg(newReview.workEnvironment, "$numReviews", "$workEnvironment"),
+		// 			benefits: addToAvg(newReview.benefits, "$numReviews", "$benefits"),
+		// 			overallSatisfaction: addToAvg(newReview.overallSatisfaction, "$numReviews", "$overallSatisfaction"),
+		// 		},
+		// 		$inc: { numReviews: 1 } //this will increment the numReviews by 1
+		// 	}
+		// );
+		// console.log("SERVER: after update");
+		// console.log(Companies.findOne({name: newreview.companyName}));
 	},
 
 	"companies.isCompanyNameAvailable": function (companyName) {
