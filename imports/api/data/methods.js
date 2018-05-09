@@ -3,8 +3,6 @@ import { Companies } from "./companies.js";
 import {Email} from "meteor/email";
 import {Meteor} from "meteor/meteor";
 //import "./denormalizers.js"
-//process.env.MAIL_URL = "***REMOVED***";
-process.env.MAIL_URL =  "***REMOVED***";
 
 Meteor.methods({
 	//This method needs to be modified to take a Review
@@ -60,7 +58,7 @@ Meteor.methods({
 				$inc: { numReviews: 1 }
 			}
 		);
-	}
+	},
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
@@ -102,7 +100,7 @@ Meteor.methods({
 		I just don't immediately know what they need to be. */
 
 		Companies.insert(newCompanyProfile);
-	}
+	},
 
 	//Edits an existing company profile
 	"companies.editProfile"(companyProfileEdits) {
@@ -156,6 +154,6 @@ Meteor.methods({
 		// Will probably just silently do nothing if there's
 		// no profile with _id.
 		Companies.update(companyProfileEdits._id, modifier);
-	}
+	},
 
 });
