@@ -25,13 +25,10 @@ accounts-ui@1.3.0
 aldeed:simple-schema
 kadira:flow-router
 aldeed:collection2
-<<<<<<< HEAD
 email
 check
-=======
 practicalmeteor:mocha
 meteortesting:mocha
 xolvio:cleaner
 dburles:factory
 hwillson:stub-collections
->>>>>>> origin
