@@ -1,5 +1,4 @@
 import React from "react";
-import { createContainer } from "meteor/react-meteor-data";
 
 /* The page where users can login to the app.
  */
@@ -7,8 +6,14 @@ export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: ""
+            error: Meteor.userId() === null ? null : "Already loged in",
+            success: false,
+            username: "",
+            password: ""
         };
+
+        // These bindings are necessary to make `this` work in callbacks.
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -28,8 +33,28 @@ export default class LoginPage extends React.Component {
         });
     }
 
+    handleSubmit(event) {
+        event.preventDefault(); // Prevent the default behavior for this event.
+        let loginCallback = error => {
+            this.setState({
+                error: error ? error.reason : null,
+                success: !error
+            });
+            if (this.state.success) {
+                FlowRouter.go("/");
+            }
+        };
+        Meteor.loginWithPassword(
+            this.state.username,
+            this.state.password,
+            loginCallback
+        );
+    }
+
     render() {
-        const error = this.state.error;
+        if (this.state.success) {
+            return <div className="page login">Login successful!</div>;
+        }
         return (
             <div className="page login">
                 <section className="sectionContainer">

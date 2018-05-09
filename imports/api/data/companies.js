@@ -1,5 +1,5 @@
 import { Mongo } from "meteor/mongo";
-
+import { Reviews } from "./reviews.js"; // used when retrieving reviews for a given company
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
 
 Companies.schema = new SimpleSchema({
@@ -42,15 +42,15 @@ Companies.schema = new SimpleSchema({
 		decimal: false,
 		optional: true,
 		defaultValue: 0, },
-    // denormalizers
+	// denormalizers
 	// maybe add a mechanism to indicate
 	// that no data is available?
-    avgSafety: {
+	avgSafety: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
 		optional: true, },
-    avgRespect: {
+	avgRespect: {
 		type: Number,
 		min: 0, max: 5,
 		decimal: true,
@@ -65,7 +65,7 @@ Companies.schema = new SimpleSchema({
 		min: 0, max: 5,
 		decimal: true,
 		optional: true, },
-    numReviews: {
+	numReviews: {
 		type: Number,
 		min: 0,
 		decimal: false,
@@ -73,8 +73,36 @@ Companies.schema = new SimpleSchema({
 		defaultValue: 0, },
 });
 
+// Add helper functions directly to the Companies collection object
+// convert _id or name into a proper Mongo-style selector
+Companies.getSelector = function(companyIdentifier) {
+	if(typeof companyIdentifier === "string")
+		return {name: companyIdentifier};
+	else if (typeof companyIdentifier === "object")
+		// assumes type of Mongo.ObjectId for _id if not string for name
+		return companyIdentifier; // don't have to wrap _id in a selector
+	else return undefined;
+};
+
+// simple existence check
+Companies.hasEntry = function (companyIdentifier) {
+	// Test whether a company exists yet in the
+	// CompanyProfiles collection.
+	// Returns true if the company is found, false otherwise.
+	return Companies.findOne(Companies.getSelector(companyIdentifier), asdf) !== undefined;
+};
+
+Companies.findReviewsForCompany = function(companyIdentifier) {
+	// Can find reviews for a company by name or _id.
+	// This uses the LucidChart Reviews schema, but reviews.js has yet
+	// to be updated to match (company_id vs companyID). BUG
+	company = Companies.findOne(Companies.getSelector(companyIdentifier));
+	return Reviews.find({companyID: company._id});
+};
+
+
 if (Meteor.isServer) {
-    Meteor.publish("CompanyProfiles", function() {
-        return Companies.find({});
-    });
+	Meteor.publish("CompanyProfiles", function() {
+		return Companies.find({});
+	});
 }
