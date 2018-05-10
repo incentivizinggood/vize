@@ -27,6 +27,7 @@ import UserPage from "../../ui/pages/user.jsx";
 //TESTING ONLY, but leaving in until the site's structure is better defined
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
+import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 
 /**
  * Reduces boiler plate for simple pages.
@@ -66,6 +67,7 @@ let Phony = Package['csauer:accounts-phony'].Phony;
 Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
+routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
 
 //----- Define the more complex routes. -----//
 

@@ -67,7 +67,7 @@ const reviewsSchema = new SimpleSchema({
  		optional: false, },
 	'locations.$': { //restraints on members of the "locations" array
 		type: String, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
-	jobTitle : {			//there are two categories -
+	jobTitle: {			//there are two categories -
 		type: String,		//Line Worker and Upper Management, so type - String, perhaps, not sure
 		optional: false, },	//NOTE: I can do this, but is it correct/necessary?
 	dateJoinedCompany: {

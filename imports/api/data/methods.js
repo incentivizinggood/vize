@@ -1,5 +1,6 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
+import { Salaries } from "./salaries.js";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
@@ -14,27 +15,7 @@ Meteor.methods({
 		return "all good";
 	},
 
-	"companies.isCompanyNameAvailable": function (companyName) {
-		if(Companies.hasEntry(companyName)) {
-			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
-		}
-
-		return "all good";
-	},
-
-	// Technically this does something different, and the return value vs
-	// thrown error and callback structure makes it easy to do this way,
-	// but is there some way to combine this method with the previous one?
-	// They're almost identical.
-	"companies.doesCompanyExist": function (companyName) {
-		if(!Companies.hasEntry(companyName)) {
-			throw new Meteor.Error("noCompanyWithThatName", "There is no company with that name in our database");
-		}
-
-		return "all good";
-	},
-
-	'reviews.submitReview': function(newReview) {
+	"reviews.submitReview": function(newReview) {
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
@@ -58,23 +39,10 @@ Meteor.methods({
 		Reviews.insert(newReview);
 
 		/*
-			PROBLEM
-			What happens if the company under review does not have a profile yet?
-			I can think of two things we could do:
-			- Create a profile for it, which introduces the hassle of
-				how to handle it when it actually creates a profile
-			- Do nothing, and when the company is created we just automatically
-				calculate its initial stats based on the reviews that have
-				been posted. This might involve a race condition if reviews
-				are being written and profiles created at the same time, because
-				Mongo doesn't ensure ACID (or does it?)
-
-			So here are the things I need to look out for right now:
-			- What does this method do, or need to do, when the company doesn't exist?
-			- If the actions taken are different depending on whether the company
-				is verified or unverified, how do I handle that?
-			- Should we even allow reviews for companies that don't already have profiles?
-			- Is the math correct?
+			QUESTION:
+				If the actions taken are different depending on whether
+				the company is verified or unverified, how do I handle
+				that?
 		*/
 
 		// Can assume this to be defined since it is checked for
@@ -96,17 +64,6 @@ Meteor.methods({
 			{ name: newReview.companyName },
 			{
 				$set: {
-					/*
-						I'm not sure how these denormalizations work,
-						but please make sure that they're using the correct
-						variable names as per Reviews.schema.
-
-						In fact, I'm almost certain that one or more of them
-						is wrong because the schema attribute names used to have
-						the same names as this method's arguments, but I'm
-						not sure which is supposed to be which.
-							- Josh
-					*/
 					healthAndSafety: addToAvg(newReview.healthAndSafety, company.numReviews, company.healthAndSafety),
 					managerRelationship: addToAvg(newReview.managerRelationship, company.numReviews, company.managerRelationship),
 					workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
@@ -118,6 +75,72 @@ Meteor.methods({
 		);
 		// console.log("SERVER: after update");
 		// console.log(Companies.findOne({name: newReview.companyName}));
+	},
+
+	"salaries.submitSalaryData": function (newSalary) {
+		// Make sure the user is logged in before inserting a task
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		//This avoids a lot of problems
+		Salaries.simpleSchema().clean(newSalary);
+
+		// Error-out if _id field is defined
+		if ("_id" in newSalary) {
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
+		}
+
+		// console.log("SERVER: validating...");
+		let validationResult = Salaries.simpleSchema().namedContext().validate(newSalary);
+		// console.log("SERVER: Here is the validation result: ");
+		// console.log(validationResult);
+		// console.log(Salaries.simpleSchema().namedContext().validationErrors());
+
+		// console.log("SERVER: inserting");
+		Salaries.insert(newSalary);
+
+		// Can assume this to be defined since it is checked for
+		// in the schema validation for companyName
+		const company = Companies.findOne({name: newSalary.companyName});
+
+		// Update denormalizations.
+		// console.log("SERVER: before update");
+		// console.log(Companies.findOne({name: newSalary.companyName}));
+
+		/*
+			QUESTION:
+				Do we need some kind of hook to periodically re-check
+				the statistics in case something happens where a salary
+				gets inserted before the statistics are updated?
+
+			QUESTION:
+				Also, what kind of salary statistics are we even
+				keeping? Did I just forget?
+		*/
+
+		// Start by copying over from reviews.submitReview
+		// when you're ready
+	},
+
+	"companies.isCompanyNameAvailable": function (companyName) {
+		if(Companies.hasEntry(companyName)) {
+			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
+		}
+
+		return "all good";
+	},
+
+	// Technically this does something different, and the return value vs
+	// thrown error and callback structure makes it easy to do this way,
+	// but is there some way to combine this method with the previous one?
+	// They're almost identical.
+	"companies.doesCompanyExist": function (companyName) {
+		if(!Companies.hasEntry(companyName)) {
+			throw new Meteor.Error("noCompanyWithThatName", "There is no company with that name in our database");
+		}
+
+		return "all good";
 	},
 
 	//Add method for creating a new CompanyProfile
