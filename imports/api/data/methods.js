@@ -4,6 +4,48 @@ import { Salaries } from "./salaries.js";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
+/*
+	This is a helper function used in reviews.submitReview,
+	which I paste here for lack of a better place, from Stack Overflow,
+	because why write the code myself when someone else has already done it?
+	Copy-paste includes original comments.
+*/
+
+function getMonthsBetween(date1,date2,roundUpFractionalMonths) {
+	//Months will be calculated between start and end dates.
+	//Make sure start date is less than end date.
+	//But remember if the difference should be negative.
+	var startDate=date1;
+	var endDate=date2;
+	var inverse=false;
+	if(date1>date2)
+	{
+		startDate=date2;
+		endDate=date1;
+		inverse=true;
+	}
+
+	//Calculate the differences between the start and end dates
+	var yearsDifference=endDate.getFullYear()-startDate.getFullYear();
+	var monthsDifference=endDate.getMonth()-startDate.getMonth();
+	var daysDifference=endDate.getDate()-startDate.getDate();
+
+	var monthCorrection=0;
+	//If roundUpFractionalMonths is true, check if an extra month needs to be added from rounding up.
+	//The difference is done by ceiling (round up), e.g. 3 months and 1 day will be 4 months.
+	if(roundUpFractionalMonths===true && daysDifference>0)
+	{
+		monthCorrection=1;
+	}
+	//If the day difference between the 2 months is negative, the last month is not a whole month.
+	else if(roundUpFractionalMonths!==true && daysDifference<0)
+	{
+		monthCorrection=-1;
+	}
+
+	return (inverse?-1:1)*(yearsDifference*12+monthsDifference+monthCorrection);
+};
+
 Meteor.methods({
 	"hasFiveWords": function (inputString) {
 		// Funny story, String.prototype.wordCount is actually
@@ -50,16 +92,20 @@ Meteor.methods({
 		const company = Companies.findOne({name: newReview.companyName});
 
 		// Update denormalizations.
-		// console.log("SERVER: before update");
-		// console.log(Companies.findOne({name: newReview.companyName}));
-
+		console.log("SERVER: before update");
+		console.log(Companies.findOne({name: newReview.companyName}));
+		console.log("SERVER: the dates in question: ");
+		console.log(newReview.dateJoinedCompany);
+		console.log(newReview.dateLeftCompany);
 		/*
 			QUESTION:
 				Do we need some kind of hook to periodically re-check the
 				averages in case something happens where a review gets
 				inserted before the averages are updated?
 		*/
-
+		const newAvgNumMonthsWorked = (newReview.dateLeftCompany === undefined) ?
+				company.avgNumMonthsWorked :
+				getMonthsBetween(newReview.dateJoinedCompany,newReview.dateLeftCompany, true);
 		Companies.update(
 			{ name: newReview.companyName },
 			{
@@ -69,12 +115,14 @@ Meteor.methods({
 					workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
 					benefits: addToAvg(newReview.benefits, company.numReviews, company.benefits),
 					overallSatisfaction: addToAvg(newReview.overallSatisfaction, company.numReviews, company.overallSatisfaction),
+					percentRecommended: addToAvg((newReview.wouldRecommendToOtherJobSeekers) ? 1 : 0, company.numReviews, company.percentRecommended),
+					avgNumMonthsWorked: newAvgNumMonthsWorked,
 				},
 				$inc: { numReviews: 1 } //this will increment the numReviews by 1
 			}
 		);
-		// console.log("SERVER: after update");
-		// console.log(Companies.findOne({name: newReview.companyName}));
+		console.log("SERVER: after update");
+		console.log(Companies.findOne({name: newReview.companyName}));
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
