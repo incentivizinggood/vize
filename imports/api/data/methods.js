@@ -77,6 +77,10 @@ Meteor.methods({
 			- Is the math correct?
 		*/
 
+		// Can assume this to be defined since it is checked for
+		// in the schema validation for companyName
+		const company = Companies.findOne({name: newReview.companyName});
+
 		// Update denormalizations.
 		console.log("SERVER: before update");
 		console.log(Companies.findOne({name: newReview.companyName}));
@@ -107,8 +111,6 @@ Meteor.methods({
 		console.log("SERVER: after update");
 		console.log(Companies.findOne({name: newReview.companyName}));
 	},
-
-
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
