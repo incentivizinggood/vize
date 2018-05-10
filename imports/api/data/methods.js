@@ -9,6 +9,7 @@ import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 	which I paste here for lack of a better place, from Stack Overflow,
 	because why write the code myself when someone else has already done it?
 	Copy-paste includes original comments.
+	https://stackoverflow.com/questions/2536379/difference-in-months-between-two-dates-in-javascript#2536445
 */
 
 function getMonthsBetween(date1,date2,roundUpFractionalMonths) {
@@ -57,6 +58,15 @@ Meteor.methods({
 		return "all good";
 	},
 
+	// This feels so idiotic, but it seems to be the only way
+	// to enable reactive validation
+	"firstDateIsBeforeSecond": function (dates) {
+		if(!(dates.first < dates.second)) {
+			throw new Meteor.Error("outOfOrder", "First date should be before second");
+		}
+		return "all good";
+	},
+
 	"reviews.submitReview": function(newReview) {
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
@@ -92,11 +102,11 @@ Meteor.methods({
 		const company = Companies.findOne({name: newReview.companyName});
 
 		// Update denormalizations.
-		console.log("SERVER: before update");
-		console.log(Companies.findOne({name: newReview.companyName}));
-		console.log("SERVER: the dates in question: ");
-		console.log(newReview.dateJoinedCompany);
-		console.log(newReview.dateLeftCompany);
+		// console.log("SERVER: before update");
+		// console.log(Companies.findOne({name: newReview.companyName}));
+		// console.log("SERVER: the dates in question: ");
+		// console.log(newReview.dateJoinedCompany);
+		// console.log(newReview.dateLeftCompany);
 		/*
 			QUESTION:
 				Do we need some kind of hook to periodically re-check the
@@ -121,8 +131,8 @@ Meteor.methods({
 				$inc: { numReviews: 1 } //this will increment the numReviews by 1
 			}
 		);
-		console.log("SERVER: after update");
-		console.log(Companies.findOne({name: newReview.companyName}));
+		// console.log("SERVER: after update");
+		// console.log(Companies.findOne({name: newReview.companyName}));
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
@@ -154,7 +164,6 @@ Meteor.methods({
 		if(Companies.hasEntry(companyName)) {
 			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
 		}
-
 		return "all good";
 	},
 
@@ -166,7 +175,6 @@ Meteor.methods({
 		if(!Companies.hasEntry(companyName)) {
 			throw new Meteor.Error("noCompanyWithThatName", "There is no company with that name in our database");
 		}
-
 		return "all good";
 	},
 

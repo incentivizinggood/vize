@@ -72,7 +72,28 @@ const reviewsSchema = new SimpleSchema({
 		optional: false, },	//NOTE: I can do this, but is it correct/necessary?
 	dateJoinedCompany: {
 		type: Date,
-		optional: false, },
+		optional: false,
+		custom: function() {
+			// Need to make sure this value is strictly before dateLeftCompany,
+			// if dateLeftCompany is set
+			if(this.isSet && this.field("dateLeftCompany").isSet) {
+				if(Meteor.isClient) {
+					Meteor.call("firstDateIsBeforeSecond", {first: this.value, second: this.field("dateLeftCompany").value},
+					(error, result) => {
+						if(!result) {
+							this.validationContext.addValidationErrors([{
+								name: "dateJoinedCompany",
+								type: "dateJoinedAfterDateLeft",
+							}]);
+						}
+					});
+				}
+				else if(Meteor.isServer && this.value > this.field("dateLeftCompany").value) {
+					return "dateJoinedAfterDateLeft";
+				}
+			}
+
+		} },
 	dateLeftCompany: { //need to remind user that they can leave this empty if still employed
 		type: Date,
 		optional: true, },
@@ -119,7 +140,12 @@ const reviewsSchema = new SimpleSchema({
 	wouldRecommendToOtherJobSeekers: {
 		type: Boolean,
 		optional: false,
-		defaultValue: false, },
+		defaultValue: false,
+		autoform: {
+			type: "boolean-radios",
+			trueLabel: "Yes",
+			falseLabel: "No",
+		}, },
 
 	/*
 		We're eventually going to remove the
@@ -227,6 +253,7 @@ reviewsSchema.messageBox.messages({
 	en: {
 		needsFiveWords: "You should write at least 5 words in this field",
 		noCompanyWithThatName: "There is no company with that name in our database",
+		dateJoinedAfterDateLeft: "Date Joined cannot be after Date Left",
 	},
 });
 
