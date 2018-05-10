@@ -10,6 +10,8 @@ export class If extends React.Component {
         if (i == -1) {
             if (this.props.cond) {
                 return this.props.children;
+            } else {
+                return null;
             }
         } else {
             if (this.props.cond) {
@@ -23,7 +25,7 @@ export class If extends React.Component {
 
 export class Else extends React.Component {
     render () {
-        console.log("Error: an <Else/> got rendered. This should never happen.");
+        console.error("An <Else/> got rendered. This should never happen.");
         return null;
     }
 }
