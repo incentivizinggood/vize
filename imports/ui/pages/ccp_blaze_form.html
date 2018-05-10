@@ -32,12 +32,12 @@
 		</fieldset>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Create Profile</button>
-			<button type="reset" class="btn btn-default">Reset Form</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >Reset Form</button>
 		</div>
 	{{/autoForm}}
 	{{#if hasError}}
-	<div>
-		{{> React component=ErrorWidget err=error}}
-	</div>
+		<div>
+			{{> React component=ErrorWidget err=error}}
+		</div>
 	{{/if}}
 </template>

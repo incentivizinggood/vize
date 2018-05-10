@@ -3,6 +3,7 @@ import { Comments } from './comments.js';
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
+import { Companies } from "./companies.js";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
 //Stole this code from an answer to a StackOverflow question,
@@ -32,7 +33,24 @@ const reviewsSchema = new SimpleSchema({
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
-		index: true, },
+		index: true,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "companyName",
+							type: "noCompanyWithThatName",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(!Companies.hasEntry(this.value)) {
+					return "noCompanyWithThatName";
+				}
+			}
+		}, },
 
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
@@ -208,6 +226,7 @@ reviewsSchema.messageBox.messages({
 	//in this block of code?
 	en: {
 		needsFiveWords: "You should write at least 5 words in this field",
+		noCompanyWithThatName: "There is no company with that name in our database",
 	},
 });
 
