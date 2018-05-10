@@ -67,7 +67,7 @@ Meteor.methods({
 				calculate its initial stats based on the reviews that have
 				been posted. This might involve a race condition if reviews
 				are being written and profiles created at the same time, because
-				Mongo doesn't ensure ACID.
+				Mongo doesn't ensure ACID (or does it?)
 
 			So here are the things I need to look out for right now:
 			- What does this method do, or need to do, when the company doesn't exist?
@@ -82,8 +82,16 @@ Meteor.methods({
 		const company = Companies.findOne({name: newReview.companyName});
 
 		// Update denormalizations.
-		console.log("SERVER: before update");
-		console.log(Companies.findOne({name: newReview.companyName}));
+		// console.log("SERVER: before update");
+		// console.log(Companies.findOne({name: newReview.companyName}));
+
+		/*
+			QUESTION:
+				Do we need some kind of hook to periodically re-check the
+				averages in case something happens where a review gets
+				inserted before the averages are updated?
+		*/
+
 		Companies.update(
 			{ name: newReview.companyName },
 			{
@@ -99,17 +107,17 @@ Meteor.methods({
 						not sure which is supposed to be which.
 							- Josh
 					*/
-					healthAndSafety: addToAvg(newReview.healthAndSafety, "$numReviews", "$healthAndSafety"),
-					managerRelationship: addToAvg(newReview.managerRelationship, "$numReviews", "$managerRelationship"),
-					workEnvironment: addToAvg(newReview.workEnvironment, "$numReviews", "$workEnvironment"),
-					benefits: addToAvg(newReview.benefits, "$numReviews", "$benefits"),
-					overallSatisfaction: addToAvg(newReview.overallSatisfaction, "$numReviews", "$overallSatisfaction"),
+					healthAndSafety: addToAvg(newReview.healthAndSafety, company.numReviews, company.healthAndSafety),
+					managerRelationship: addToAvg(newReview.managerRelationship, company.numReviews, company.managerRelationship),
+					workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
+					benefits: addToAvg(newReview.benefits, company.numReviews, company.benefits),
+					overallSatisfaction: addToAvg(newReview.overallSatisfaction, company.numReviews, company.overallSatisfaction),
 				},
 				$inc: { numReviews: 1 } //this will increment the numReviews by 1
 			}
 		);
-		console.log("SERVER: after update");
-		console.log(Companies.findOne({name: newReview.companyName}));
+		// console.log("SERVER: after update");
+		// console.log(Companies.findOne({name: newReview.companyName}));
 	},
 
 	//Add method for creating a new CompanyProfile

@@ -8,12 +8,12 @@
  * @return {number}    The new average with x incorperated.
  */
 export const addToAvg = function (x, n, avg) {
-	console.log("addToAvg: x == " + x.toString() + ", n == " + n.toString() + ", avg == " + avg.toString());
+	// console.log("addToAvg: x == " + x.toString() + ", n == " + n.toString() + ", avg == " + avg.toString());
     var w0 = n / (n + 1); // The fraction of avg that is already there.
     var w1 = 1 / (n + 1); // The fraction of avg that will be x.
     // Compute the new average as a weighted sum of the old average and x.
 	var returnValue = avg * w0 + x * w1;
-	console.log("addToAvg returns: " + returnValue.toString());
+	// console.log("addToAvg returns: " + returnValue.toString());
     return returnValue;
 }
 
