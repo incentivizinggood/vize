@@ -37,6 +37,9 @@ Template.ccp_blaze_form.helpers({
 	error: function() {
 		return formError.get();
 	},
+	resetFormError: function() { //called when reset button is clicked
+		formError.set("good");
+	},
 });
 
 AutoForm.addHooks("ccp_blaze_form", {
