@@ -1,7 +1,7 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import SimpleSchema from "simpl-schema";
-import "./denormalization.js"
+import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
 Meteor.methods({
 	"hasFiveWords": function (inputString) {
@@ -11,6 +11,26 @@ Meteor.methods({
 		if(inputString.wordCount() < 5) {
 			throw new Meteor.Error("needsFiveWords", "You should write at least 5 words in this field");
 		}
+		return "all good";
+	},
+
+	"companies.isCompanyNameAvailable": function (companyName) {
+		if(Companies.hasEntry(companyName)) {
+			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
+		}
+
+		return "all good";
+	},
+
+	// Technically this does something different, and the return value vs
+	// thrown error and callback structure makes it easy to do this way,
+	// but is there some way to combine this method with the previous one?
+	// They're almost identical.
+	"companies.doesCompanyExist": function (companyName) {
+		if(!Companies.hasEntry(companyName)) {
+			throw new Meteor.Error("noCompanyWithThatName", "There is no company with that name in our database");
+		}
+
 		return "all good";
 	},
 
@@ -59,7 +79,7 @@ Meteor.methods({
 
 		// Update denormalizations.
 		console.log("SERVER: before update");
-		console.log(Companies.findOne({name: newreview.companyName}));
+		console.log(Companies.findOne({name: newReview.companyName}));
 		Companies.update(
 			{ name: newReview.companyName },
 			{
@@ -85,16 +105,10 @@ Meteor.methods({
 			}
 		);
 		console.log("SERVER: after update");
-		console.log(Companies.findOne({name: newreview.companyName}));
+		console.log(Companies.findOne({name: newReview.companyName}));
 	},
 
-	"companies.isCompanyNameAvailable": function (companyName) {
-		if(Companies.hasEntry(companyName)) {
-			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
-		}
 
-		return "all good";
-	},
 
 	//Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
