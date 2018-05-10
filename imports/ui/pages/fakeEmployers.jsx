@@ -16,55 +16,29 @@ export default class FakeEmployers extends React.Component {
                 <section id="SECTION_2">
                     <div id="DIV_3">
                         <h1 id="H1_4">
-                            Improve with us!
+                            Find the Best Employees in Tijuana
                         </h1>
                         <p id="P_5">
-                            Incentivizing growth one factory at a time
+                            We provide more affordable and effective recruiting, finding employees that stay
                         </p><a href="/employers/signup.html" id="A_6"><span id="SPAN_7"> Get Started </span><i id="I_8"></i></a>
-                    </div>
-                    <div id="DIV_9">
-                        <div id="DIV_10">
-                            <img src= "https://www.glassdoor.com/pc-app/static/img/scaled/home-new/post-jobs-free-white.svg?v=c109131aw" width="44" height="40" id="IMG_11" alt='' />
-                            <div id="DIV_12">
-                                <h4 id="H4_13">
-                                    Post Jobs for Free
-                                </h4><span id="SPAN_14"> Recruit workers from all over the world </span>
-                            </div>
-                        </div>
-                        <div id="DIV_15">
-                            <img src="https://www.glassdoor.com/pc-app/static/img/scaled/home-new/respond-reviews-white.svg?v=ff1e071ii" width="46" height="40" id="IMG_16" alt='' />
-                            <div id="DIV_17">
-                                <h4 id="H4_18">
-                                    Respond to Reviews
-                                </h4><span id="SPAN_19"> Start conversations with top talent </span>
-                            </div>
-                        </div>
-                        <div id="DIV_20">
-                            <img src="https://www.glassdoor.com/pc-app/static/img/scaled/home-new/monitor-performance-white.svg?v=8483a617r" width="40" height="40" id="IMG_21" alt='' />
-                            <div id="DIV_22">
-                                <h4 id="H4_23">
-                                    Monitor Your Performance
-                                </h4><span id="SPAN_24"> Track performance with analytics </span>
-                            </div>
-                        </div>
                     </div>
                 </section>
                 <section id="SECTION_25">
                     <div id="DIV_26">
                         <div id="DIV_27">
-                            <div id="DIV_28">
-                                <img src="https://www.glassdoor.com/pc-app/static/img/scaled/home-new/post-jobs-free-green.svg?v=772f591br" alt="Post jobs for free on Glassdoor" id="IMG_29" />
-                                <h3 id="H3_30">
-                                    Post Jobs for Free
-                                </h3>
-                                <p id="P_31">
-                                    Start hiring informed candidates. Get set up in minutes and drive more applicants to your jobs.
-                                </p>
+                            <div id="DIV_32">
+                                <h4 id = "blueText1"> About Vize </h4>
+                                <p id = "blueText2"> Vize helps companies find the best workers, more affordably and quickly than any other recruiting service. </p>
+                                <figure id="FIGURE_33">
+                                    <img src="images/technology.png" alt="About us" id="IMG_34" />
+                                </figure>
                             </div>
                         </div>
                         <div id="DIV_32">
+                            <h4 id = "blueText1"> Services </h4>
+                            <p id = "blueText2"> Post a job to thousands of potential employees in Tijuana, or create your own profile for building a great company </p>
                             <figure id="FIGURE_33">
-                                <img src="https://www.glassdoor.com/pc-app/static/img/employer-marketing/home-new/products/Glassdoor-Post-Jobs-Dashboard-Desktop.png?v=03ea558lu" alt="List of open jobs and salaries on Glassdoor" id="IMG_34" />
+                                <img src="images/workers.jpeg" alt="Services" id="IMG_34" />
                             </figure>
                             <figure id="FIGURE_35">
                                 <img src="https://www.glassdoor.com/pc-app/static/img/employer-marketing/home-new/products/Glassdoor-Post-Jobs-Dashboard-Tablet.png?v=02eb02531" alt="List of open jobs and salaries on Glassdoor" id="IMG_36" />

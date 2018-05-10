@@ -11,8 +11,8 @@ Meteor.startup(() => {
     console.log("SERVER: before call2");
     Meteor.call(
         "sendEmail",
-        "jhigginbotham64@gmail.com",
-        "jhigginbotham64@gmail.com",
+        "udjiogan@yahoo.com",
+        "perfectpud@yahoo.com",
         "You sent an email!",
         "Hello,\n\n\tThis is indeed the text of an email, good job.\n\nSincerely,\n\n\tJoshua Higginbotham\n\n",
         (err,res) => {

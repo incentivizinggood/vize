@@ -35,8 +35,8 @@ export default class FlagSystem extends React.Component {
         // //Client: Asynchronously send an email.
         Meteor.call(
             "sendEmail",
-            "jhigginbotham64@gmail.com",
-            "jhigginbotham64@gmail.com",
+            "perfectpud@yahoo.com",
+            "perfectpud@yahoo.com",
             "Hello from Meteor!",
             "This is a test of Email.send.",
             (err,res) => {

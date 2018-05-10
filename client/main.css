@@ -3750,7 +3750,7 @@ padding-top: 135px;
     perspective-origin: 640px 300px;
     transform-origin: 640px 300px;
     caret-color: rgb(64, 64, 64);
-    background: rgba(0, 0, 0, 0) url("/images/world_map.jpeg") no-repeat scroll 50% 50% / cover padding-box border-box;
+    background: rgba(0, 0, 0, 0) url("/images/Zona_Rio_Tijuana.jpg") no-repeat scroll 50% 50% / cover padding-box border-box;
     border: 0px none rgb(64, 64, 64);
     flex-flow: column nowrap;
     font: normal normal 500 normal 15px / 15px Lato, sans-serif;
@@ -3789,7 +3789,7 @@ padding-top: 135px;
     font-variant: no-common-ligatures;
     font-variant-ligatures: no-common-ligatures;
     height: 64px;
-    line-height: 64px;
+    line-height: 40px;
     text-align: center;
     text-decoration: none solid rgb(255, 255, 255);
     width: 440px;
@@ -3799,7 +3799,7 @@ padding-top: 135px;
     caret-color: rgb(255, 255, 255);
     border: 0px none rgb(255, 255, 255);
     list-style: none outside none;
-    margin: 0px 0px 16px;
+    margin: 0px 0px 45px;
     outline: rgb(255, 255, 255) none 0px;
 }/*#H1_4*/
 
@@ -3960,95 +3960,6 @@ padding-top: 135px;
     outline: rgb(24, 97, 191) none 0px;
 }/*#I_8*/
 
-#DIV_9 {
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    display: flex;
-    height: 40px;
-    max-width: 1280px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 1280px;
-    column-rule-color: rgb(64, 64, 64);
-    align-items: center;
-    align-self: flex-end;
-    justify-content: center;
-    perspective-origin: 640px 20px;
-    transform-origin: 640px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    flex-flow: row wrap;
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-}/*#DIV_9*/
-
-#DIV_9:after {
-    clear: both;
-    color: rgb(64, 64, 64);
-    content: '';
-    display: table;
-    height: 0px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 0px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 0px 0px;
-    transform-origin: 0px 0px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-}/*#DIV_9:after*/
-
-#DIV_10 {
-    bottom: 0px;
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    display: flex;
-    height: 40px;
-    left: 0px;
-    min-height: 1px;
-    min-width: auto;
-    position: relative;
-    right: 0px;
-    text-decoration: none solid rgb(64, 64, 64);
-    top: 0px;
-    width: 426.656px;
-    column-rule-color: rgb(64, 64, 64);
-    justify-content: flex-start;
-    perspective-origin: 213.328px 20px;
-    transform-origin: 213.328px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-    padding: 0px 12px 0px 16px;
-}/*#DIV_10*/
-
-#DIV_10:after {
-    clear: both;
-    color: rgb(64, 64, 64);
-    content: '';
-    display: table;
-    height: 0px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 0px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 0px 0px;
-    transform-origin: 0px 0px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-}/*#DIV_10:after*/
 
 #IMG_11 {
     box-sizing: border-box;
@@ -4069,106 +3980,6 @@ padding-top: 135px;
     outline: rgb(64, 64, 64) none 0px;
 }/*#IMG_11*/
 
-#DIV_12 {
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    height: 40px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 239.016px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 119.5px 20px;
-    transform-origin: 119.5px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-    padding: 0px 0px 0px 16px;
-}/*#DIV_12*/
-
-#H4_13 {
-    box-sizing: border-box;
-    color: rgb(255, 255, 255);
-    font-family: Lato, sans-serif;
-    font-size: 15px;
-    font-variant: no-common-ligatures;
-    font-variant-ligatures: no-common-ligatures;
-    height: 15px;
-    line-height: 15px;
-    text-decoration: none solid rgb(255, 255, 255);
-    width: 223.016px;
-    column-rule-color: rgb(255, 255, 255);
-    perspective-origin: 111.5px 7.5px;
-    transform-origin: 111.5px 7.5px;
-    caret-color: rgb(255, 255, 255);
-    border: 0px none rgb(255, 255, 255);
-    list-style: none outside none;
-    margin: 0px 0px 10px;
-    outline: rgb(255, 255, 255) none 0px;
-}/*#H4_13*/
-
-#SPAN_14, #SPAN_19, #SPAN_24 {
-    box-sizing: border-box;
-    color: rgb(255, 255, 255);
-    text-decoration: none solid rgb(255, 255, 255);
-    column-rule-color: rgb(255, 255, 255);
-    perspective-origin: 0px 0px;
-    transform-origin: 0px 0px;
-    caret-color: rgb(255, 255, 255);
-    border: 0px none rgb(255, 255, 255);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(255, 255, 255) none 0px;
-}/*#SPAN_14, #SPAN_19, #SPAN_24*/
-
-#DIV_15 {
-    bottom: 0px;
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    display: flex;
-    height: 40px;
-    left: 0px;
-    min-height: 1px;
-    min-width: auto;
-    position: relative;
-    right: 0px;
-    text-decoration: none solid rgb(64, 64, 64);
-    top: 0px;
-    width: 426.656px;
-    column-rule-color: rgb(64, 64, 64);
-    justify-content: center;
-    perspective-origin: 213.328px 20px;
-    transform-origin: 213.328px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-    padding: 0px 12px 0px 16px;
-}/*#DIV_15*/
-
-#DIV_15:after {
-    clear: both;
-    color: rgb(64, 64, 64);
-    content: '';
-    display: table;
-    height: 0px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 0px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 0px 0px;
-    transform-origin: 0px 0px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-}/*#DIV_15:after*/
-
 #IMG_16 {
     box-sizing: border-box;
     color: rgb(64, 64, 64);
@@ -4188,92 +3999,6 @@ padding-top: 135px;
     outline: rgb(64, 64, 64) none 0px;
 }/*#IMG_16*/
 
-#DIV_17 {
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    height: 40px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 242.266px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 121.125px 20px;
-    transform-origin: 121.125px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-    padding: 0px 0px 0px 16px;
-}/*#DIV_17*/
-
-#H4_18 {
-    box-sizing: border-box;
-    color: rgb(255, 255, 255);
-    font-family: Lato, sans-serif;
-    font-size: 15px;
-    font-variant: no-common-ligatures;
-    font-variant-ligatures: no-common-ligatures;
-    height: 15px;
-    line-height: 15px;
-    text-decoration: none solid rgb(255, 255, 255);
-    width: 226.266px;
-    column-rule-color: rgb(255, 255, 255);
-    perspective-origin: 113.125px 7.5px;
-    transform-origin: 113.125px 7.5px;
-    caret-color: rgb(255, 255, 255);
-    border: 0px none rgb(255, 255, 255);
-    list-style: none outside none;
-    margin: 0px 0px 10px;
-    outline: rgb(255, 255, 255) none 0px;
-}/*#H4_18*/
-
-#DIV_20 {
-    bottom: 0px;
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    display: flex;
-    height: 40px;
-    left: 0px;
-    min-height: 1px;
-    min-width: auto;
-    position: relative;
-    right: 0px;
-    text-decoration: none solid rgb(64, 64, 64);
-    top: 0px;
-    width: 426.656px;
-    column-rule-color: rgb(64, 64, 64);
-    justify-content: flex-end;
-    perspective-origin: 213.328px 20px;
-    transform-origin: 213.328px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-    padding: 0px 12px 0px 16px;
-}/*#DIV_20*/
-
-#DIV_20:after {
-    clear: both;
-    color: rgb(64, 64, 64);
-    content: '';
-    display: table;
-    height: 0px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 0px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 0px 0px;
-    transform-origin: 0px 0px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-}/*#DIV_20:after*/
-
 #IMG_21 {
     box-sizing: border-box;
     color: rgb(64, 64, 64);
@@ -4292,46 +4017,6 @@ padding-top: 135px;
     list-style: none outside none;
     outline: rgb(64, 64, 64) none 0px;
 }/*#IMG_21*/
-
-#DIV_22 {
-    box-sizing: border-box;
-    color: rgb(64, 64, 64);
-    height: 40px;
-    min-height: auto;
-    min-width: auto;
-    text-decoration: none solid rgb(64, 64, 64);
-    width: 232.609px;
-    column-rule-color: rgb(64, 64, 64);
-    perspective-origin: 116.297px 20px;
-    transform-origin: 116.297px 20px;
-    caret-color: rgb(64, 64, 64);
-    border: 0px none rgb(64, 64, 64);
-    font: normal normal 500 normal 15px / 15px Lato, sans-serif;
-    list-style: none outside none;
-    outline: rgb(64, 64, 64) none 0px;
-    padding: 0px 0px 0px 16px;
-}/*#DIV_22*/
-
-#H4_23 {
-    box-sizing: border-box;
-    color: rgb(255, 255, 255);
-    font-family: Lato, sans-serif;
-    font-size: 15px;
-    font-variant: no-common-ligatures;
-    font-variant-ligatures: no-common-ligatures;
-    height: 15px;
-    line-height: 15px;
-    text-decoration: none solid rgb(255, 255, 255);
-    width: 216.609px;
-    column-rule-color: rgb(255, 255, 255);
-    perspective-origin: 108.297px 7.5px;
-    transform-origin: 108.297px 7.5px;
-    caret-color: rgb(255, 255, 255);
-    border: 0px none rgb(255, 255, 255);
-    list-style: none outside none;
-    margin: 0px 0px 10px;
-    outline: rgb(255, 255, 255) none 0px;
-}/*#H4_23*/
 
 #SECTION_25 {
     box-sizing: border-box;
@@ -4486,7 +4171,7 @@ padding-top: 135px;
 #DIV_32 {
     box-sizing: border-box;
     color: rgb(64, 64, 64);
-    height: 558px;
+    height: 500px;
     min-height: auto;
     min-width: auto;
     text-align: center;
@@ -4521,13 +4206,22 @@ padding-top: 135px;
     outline: rgb(64, 64, 64) none 0px;
 }/*#FIGURE_33*/
 
+
+/* Text color1*/
+#blueText1 {
+    color: #005cbf;
+}
+#blueText2 {
+    color: #005cbf;
+}
+
 #IMG_34 {
     box-sizing: border-box;
     color: rgb(64, 64, 64);
-    height: 556px;
+    height: 250px;
     text-align: center;
     text-decoration: none solid rgb(64, 64, 64);
-    width: 263px;
+    width: 350px;
     column-rule-color: rgb(64, 64, 64);
     perspective-origin: 131.5px 278px;
     transform-origin: 131.5px 278px;
@@ -4536,7 +4230,7 @@ padding-top: 135px;
     font: normal normal 500 normal 15px / 15px Lato, sans-serif;
     list-style: none outside none;
     outline: rgb(64, 64, 64) none 0px;
-}/*#IMG_34*/
+}/*#IMG_34 556&263*/
 
 #FIGURE_35, #FIGURE_37, #FIGURE_65, #FIGURE_67 {
     box-sizing: border-box;
