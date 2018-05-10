@@ -100,27 +100,6 @@ Meteor.methods({
 		// console.log("SERVER: inserting");
 		Salaries.insert(newSalary);
 
-		// Can assume this to be defined since it is checked for
-		// in the schema validation for companyName
-		const company = Companies.findOne({name: newSalary.companyName});
-
-		// Update denormalizations.
-		// console.log("SERVER: before update");
-		// console.log(Companies.findOne({name: newSalary.companyName}));
-
-		/*
-			QUESTION:
-				Do we need some kind of hook to periodically re-check
-				the statistics in case something happens where a salary
-				gets inserted before the statistics are updated?
-
-			QUESTION:
-				Also, what kind of salary statistics are we even
-				keeping? Did I just forget?
-		*/
-
-		// Start by copying over from reviews.submitReview
-		// when you're ready
 	},
 
 	"companies.isCompanyNameAvailable": function (companyName) {
