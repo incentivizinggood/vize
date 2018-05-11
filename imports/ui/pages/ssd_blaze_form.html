@@ -1,5 +1,5 @@
 <template name="ssd_blaze_form">
-	{{#autoForm collection=salaries id="salary_blaze_form" type="method" meteormethod="salaries.submitSalaryData"}}
+	{{#autoForm collection=salaries id="ssd_blaze_form" type="method" meteormethod="salaries.submitSalaryData"}}
 		<fieldset>
 			<legend>Add a Salary</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
@@ -19,7 +19,7 @@
 			</div>
 		</fieldset>
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Create Profile</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
 			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >Reset Form</button>
 		</div>
 	{{/autoForm}}

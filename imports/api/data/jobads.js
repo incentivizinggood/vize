@@ -29,7 +29,11 @@ const jobAdsSchema = new SimpleSchema({
 				}
 			}
 		}, },
+	jobTitle: {
+		type: String,
+		optional: false, },
 	locations: { //allows more than one location
+		type: Array,
 		minCount: 1, //must have at least an HQ or something
  		optional: false, },
 	'locations.$': { //restraints on members of the "locations" array
@@ -42,12 +46,19 @@ const jobAdsSchema = new SimpleSchema({
 	pesosPerHour: {
 		type: String,
 		optional: false,
-		regEx: /^Hello/, //testing regEx
-	},
+		//This bad boy matches a peso-centavo amount, or hyphen-separated
+		//pair (range) of peso-centavo amounts. Centavos are completely
+		//optional on either end.
+		regEx: /^[123456789]\d*(\.\d\d)?\s*(-\s*[123456789]\d*(\.\d\d)?\s*)?$/,
+		autoform: {
+			afFieldInput: {
+				placeholder: "Please enter a number or range of numbers (two numbers separated by a hyphen \'-\'), no commas",
+			},
+		}, },
 	contractType: {
 		type: String,
 		optional: false,
-		allowedValues: ["Full time", "Part time"],
+		allowedValues: ["Full time", "Part time", "Contractor"],
 	},
 	jobDescription: { //need to make sure this displays a nice box
 		type: String,
