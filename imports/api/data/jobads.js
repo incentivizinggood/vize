@@ -42,7 +42,7 @@ const jobAdsSchema = new SimpleSchema({
 	pesosPerHour: {
 		type: String,
 		optional: false,
-		regEx: SimpleSchema.RegEx.Email,
+		regEx: /^Hello/, //testing regEx
 	},
 	contractType: {
 		type: String,

@@ -6,6 +6,7 @@ import "../imports/api/data/reviews.js";
 import "../imports/api/data/companies.js";
 import "../imports/api/data/salaries.js";
 import "../imports/api/data/users.js";
+import "../imports/api/data/jobads.js";
 
 //BUG FIXED For real guys, you can't use Methods defined
 //in methods.js unless you include them here. I'm thinking

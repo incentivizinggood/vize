@@ -1,6 +1,7 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
+import { JobAds } from "./jobads.js";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
@@ -158,6 +159,30 @@ Meteor.methods({
 		// console.log("SERVER: inserting");
 		Salaries.insert(newSalary);
 
+	},
+
+	"jobAds.postJobAd": function (newJobAd) {
+		// Make sure the user is logged in before inserting a task
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		//This avoids a lot of problems
+		JobAds.simpleSchema().clean(newJobAd);
+
+		// Error-out if _id field is defined
+		if ("_id" in newJobAd) {
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
+		}
+
+		console.log("SERVER: validating...");
+		let validationResult = JobAds.simpleSchema().namedContext().validate(newJobAd);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		console.log(JobAds.simpleSchema().namedContext().validationErrors());
+
+		console.log("SERVER: inserting");
+		JobAds.insert(newJobAd);
 	},
 
 	"companies.isCompanyNameAvailable": function (companyName) {

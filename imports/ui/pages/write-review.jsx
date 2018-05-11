@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import { Reviews } from "../../api/data/reviews.js";
-
-// Lots of nice boilerplate copy-pasted from
-// create-company-profile.jsx
-
+//Boilerplate first
+import React from 'react';
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
+let formError = new ReactiveVar("good");
+
+//Specific stuff second
+import { Reviews } from "../../api/data/reviews.js";
 import "./write_review_blaze_form.html";
 
 //Weird that I have to import both of these here,
@@ -18,8 +17,6 @@ import "./write_review_blaze_form.html";
 //so whatever...
 import "../afInputStarRating.html";
 import "../afInputStarRating.js";
-
-let formError = new ReactiveVar("good"); // This code looks easier than it was.
 
 Template.write_review_blaze_form.helpers({
 	reviews: Reviews,
@@ -48,7 +45,7 @@ AutoForm.addHooks("write_review_blaze_form", {
 	},
 });
 
-export default class WriteReviewPage extends Component {
+export default class WriteReviewPage extends React.Component {
 	constructor (props) {
 		super(props);
 	}

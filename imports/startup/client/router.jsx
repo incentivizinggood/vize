@@ -28,6 +28,7 @@ import UserPage from "../../ui/pages/user.jsx";
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
+import PostAJobForm from "../../ui/pages/post-a-job.jsx"
 
 /**
  * Reduces boiler plate for simple pages.
@@ -58,16 +59,17 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 
 // //TESTING ONLY
-// import SimpleSchema from "simpl-schema";
-// import { AutoForm } from "meteor/aldeed:autoform";
-// SimpleSchema.debug = true;
-// AutoForm.debug();
-// //Until we actually make an account for testing
-// let Phony = Package['csauer:accounts-phony'].Phony;
-// Meteor.loginWithPhony(Phony.user);
+import SimpleSchema from "simpl-schema";
+import { AutoForm } from "meteor/aldeed:autoform";
+SimpleSchema.debug = true;
+AutoForm.debug();
+//Until we actually make an account for testing
+let Phony = Package['csauer:accounts-phony'].Phony;
+Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
+routeSimplePage("/post-a-job", <PostAJobForm />);
 
 //----- Define the more complex routes. -----//
 
