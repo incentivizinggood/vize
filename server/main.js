@@ -4,6 +4,7 @@ import { Meteor } from "meteor/meteor";
 // These files need to be run both on the client(s) and server.
 import "../imports/api/data/reviews.js";
 import "../imports/api/data/companies.js";
+import "../imports/api/data/salaries.js";
 import "../imports/api/data/users.js";
 
 //BUG FIXED For real guys, you can't use Methods defined
