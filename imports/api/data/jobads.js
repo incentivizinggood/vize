@@ -52,7 +52,7 @@ const jobAdsSchema = new SimpleSchema({
 		regEx: /^[123456789]\d*(\.\d\d)?\s*(-\s*[123456789]\d*(\.\d\d)?\s*)?$/,
 		autoform: {
 			afFieldInput: {
-				placeholder: "Enter a value, $.c, or a range of values: $.c - $.c",
+				placeholder: "Enter a value, $.c, or a range of values, $.c - $.c",
 			},
 		}, },
 	contractType: {
