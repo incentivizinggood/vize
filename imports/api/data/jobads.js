@@ -46,13 +46,13 @@ const jobAdsSchema = new SimpleSchema({
 	pesosPerHour: {
 		type: String,
 		optional: false,
-		//This bad boy matches a peso-centavo amount, or hyphen-separated
-		//pair (range) of peso-centavo amounts. Centavos are completely
-		//optional on either end.
+		//This bad boy matches a (peso).(centavo) string, or hyphen-separated
+		//pair (range) of (peso).(centavo) amounts. Centavos are completely
+		//optional on either side of the hyphen.
 		regEx: /^[123456789]\d*(\.\d\d)?\s*(-\s*[123456789]\d*(\.\d\d)?\s*)?$/,
 		autoform: {
 			afFieldInput: {
-				placeholder: "Please enter a number or range of numbers (two numbers separated by a hyphen \'-\'), no commas",
+				placeholder: "Enter a value, $.c, or a range of values: $.c - $.c",
 			},
 		}, },
 	contractType: {
