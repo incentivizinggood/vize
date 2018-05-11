@@ -19,10 +19,10 @@ Meteor.startup(() => {
 	console.log("SERVER: before call2");
 	Meteor.call(
 		"sendEmail",
-		"urelperfect@gmail.com",
-		"postmaster@incentivizinggood.com",
-		"You sent an email!",
-		"Hello,\n\n\tYou have received an email from the Vize MailGun, good job.\n\nSincerely,\n\n\tJoshua Higginbotham\n\n",
+		"perfectpud@yahoo.com",
+		"postmaster@mg.incentivizinggood.com",
+		"You received an Email!",
+		"Hey Urel,\n\n\tDid a bid of cleanup and wanted to check things again. Hope you're doing well.\n\nSincerely,\n\n\tJoshua Higginbotham\n\n",
 		(err,res) => {
 			if (err) {
 				console.log("--- BEGIN error:");
