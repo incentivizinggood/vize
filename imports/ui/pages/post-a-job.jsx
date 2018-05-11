@@ -23,7 +23,6 @@ Template.paj_blaze_form.helpers({
 		return formError.get();
 	},
 	resetFormError: function() { //called when reset button is clicked
-		//AutoForm.resetForm(AutoForm.getFormId());
 		formError.set("good");
 	},
 });
