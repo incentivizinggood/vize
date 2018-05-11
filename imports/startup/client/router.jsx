@@ -9,8 +9,20 @@ import ReactDOM from "react-dom";
 
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
+import OverviewTab from "../../ui/components/overviewTabCP.jsx";
+import ReviewComponent from "../../ui/components/companyReview.jsx";
+import ReviewTab from "../../ui/components/reviewTabCP.jsx";
+import JobTab from "../../ui/components/jobTabCP.jsx";
+import JobPosting from "../../ui/components/jobPosting.jsx";
+import SalaryTab from "../../ui/components/salaryTabCP.jsx";
+import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+import CompanyComponent from "../../ui/components/companyComponent.jsx";
+import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+
+
 import HomePage from "../../ui/pages/home.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
+
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
 import CompanySearchPage from "../../ui/pages/company-search.jsx";

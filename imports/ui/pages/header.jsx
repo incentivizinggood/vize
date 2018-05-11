@@ -3,6 +3,13 @@ import { withTracker } from "meteor/react-meteor-data";
 
 /* The "header" page. */
 class Header extends React.Component {
+  componentWillMount() {
+    const script = document.createElement("script");
+    script.src = "/js/custom.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
   render() {
     let signUpMyAccount = null;
     let logInOutButton = null;
@@ -13,6 +20,7 @@ class Header extends React.Component {
       signUpMyAccount = (<a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a>);
       logInOutButton = (<a href="/login" className="navbar-link margin-right">LOG IN</a>);
     }
+
 
     return (
   <div className="top-nav">
@@ -28,7 +36,7 @@ class Header extends React.Component {
                         <h2>
                            <a href="/"><img src="/images/logo.png"/></a>
                         </h2>
-                     </div>                    
+                     </div>
                      <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav left_nav">
                            <li><a href="#" type="button" id="register-button-menu" className=" btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up or Login</a></li>
@@ -47,7 +55,7 @@ class Header extends React.Component {
                                  <li><a id="navIta" href="#" className="language"> <img id="imgNavIta" src="/images/mx.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavIta">Español</span></a></li>
                                  <li><a id="navEng" href="#" className="language"><img id="imgNavEng" src="/images/us.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavEng">English</span></a></li>
                               </ul>
-                           </li>                           
+                           </li>
                         </ul>
                         <div className="clearfix"> </div>
                      </div>
