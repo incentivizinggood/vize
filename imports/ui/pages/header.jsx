@@ -1,19 +1,10 @@
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
+import { If, Else } from "../if-else.jsx"
 
 /* The "header" page. */
 class Header extends React.Component {
   render() {
-    let signUpMyAccount = null;
-    let logInOutButton = null;
-    if (this.props.isLoggedIn) {
-      signUpMyAccount = (<a href="/my-account" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">My Account</a>);
-      logInOutButton = (<a onClick={Meteor.logout} className="navbar-link margin-right">LOG OUT</a>);
-    } else {
-      signUpMyAccount = (<a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a>);
-      logInOutButton = (<a href="/login" className="navbar-link margin-right">LOG IN</a>);
-    }
-
     return (
   <div className="top-nav">
                  <nav>
@@ -38,8 +29,15 @@ class Header extends React.Component {
                            <li><a href="/about" className="link-kumya"><span>About</span></a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                           <li>{signUpMyAccount}</li>
-                           <li>{logInOutButton}</li>
+
+                            <If cond={this.props.isLoggedIn}>
+                                <li><a href="/my-account" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">My Account</a></li>
+                                <li><a onClick={Meteor.logout} className="navbar-link margin-right">LOG OUT</a></li>
+                            <Else />
+                                <li><a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
+                                <li><a href="/login" className="navbar-link margin-right">LOG IN</a></li>
+                            </If>
+
                            <li className="dropdown">
                               <hr className="hr_line_width2"/>
                               <a href="#" className="dropdown-toggle boderbtn" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="/images/mx.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavSel"></span> <span className="caret"></span></a>
