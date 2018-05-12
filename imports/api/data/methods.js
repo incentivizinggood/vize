@@ -1,51 +1,9 @@
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
+import { JobAds } from "./jobads.js";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
-
-/*
-	This is a helper function used in reviews.submitReview,
-	which I paste here for lack of a better place, from Stack Overflow,
-	because why write the code myself when someone else has already done it?
-	Copy-paste includes original comments.
-	https://stackoverflow.com/questions/2536379/difference-in-months-between-two-dates-in-javascript#2536445
-*/
-
-function getMonthsBetween(date1,date2,roundUpFractionalMonths) {
-	//Months will be calculated between start and end dates.
-	//Make sure start date is less than end date.
-	//But remember if the difference should be negative.
-	var startDate=date1;
-	var endDate=date2;
-	var inverse=false;
-	if(date1>date2)
-	{
-		startDate=date2;
-		endDate=date1;
-		inverse=true;
-	}
-
-	//Calculate the differences between the start and end dates
-	var yearsDifference=endDate.getFullYear()-startDate.getFullYear();
-	var monthsDifference=endDate.getMonth()-startDate.getMonth();
-	var daysDifference=endDate.getDate()-startDate.getDate();
-
-	var monthCorrection=0;
-	//If roundUpFractionalMonths is true, check if an extra month needs to be added from rounding up.
-	//The difference is done by ceiling (round up), e.g. 3 months and 1 day will be 4 months.
-	if(roundUpFractionalMonths===true && daysDifference>0)
-	{
-		monthCorrection=1;
-	}
-	//If the day difference between the 2 months is negative, the last month is not a whole month.
-	else if(roundUpFractionalMonths!==true && daysDifference<0)
-	{
-		monthCorrection=-1;
-	}
-
-	return (inverse?-1:1)*(yearsDifference*12+monthsDifference+monthCorrection);
-};
 
 Meteor.methods({
 	"hasFiveWords": function (inputString) {
@@ -99,7 +57,7 @@ Meteor.methods({
 
 		// Can assume this to be defined since it is checked for
 		// in the schema validation for companyName
-		const company = Companies.findOne({name: newReview.companyName});
+		// const company = Companies.findOne({name: newReview.companyName});
 
 		// Update denormalizations.
 		// console.log("SERVER: before update");
@@ -113,24 +71,22 @@ Meteor.methods({
 				averages in case something happens where a review gets
 				inserted before the averages are updated?
 		*/
-		const newAvgNumMonthsWorked = (newReview.dateLeftCompany === undefined) ?
-				company.avgNumMonthsWorked :
-				getMonthsBetween(newReview.dateJoinedCompany,newReview.dateLeftCompany, true);
-		Companies.update(
-			{ name: newReview.companyName },
-			{
-				$set: {
-					healthAndSafety: addToAvg(newReview.healthAndSafety, company.numReviews, company.healthAndSafety),
-					managerRelationship: addToAvg(newReview.managerRelationship, company.numReviews, company.managerRelationship),
-					workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
-					benefits: addToAvg(newReview.benefits, company.numReviews, company.benefits),
-					overallSatisfaction: addToAvg(newReview.overallSatisfaction, company.numReviews, company.overallSatisfaction),
-					percentRecommended: addToAvg((newReview.wouldRecommendToOtherJobSeekers) ? 1 : 0, company.numReviews, company.percentRecommended),
-					avgNumMonthsWorked: newAvgNumMonthsWorked,
-				},
-				$inc: { numReviews: 1 } //this will increment the numReviews by 1
-			}
-		);
+
+		// Companies.update(
+		// 	{ name: newReview.companyName },
+		// 	{
+		// 		$set: {
+		// 			healthAndSafety: addToAvg(newReview.healthAndSafety, company.numReviews, company.healthAndSafety),
+		// 			managerRelationship: addToAvg(newReview.managerRelationship, company.numReviews, company.managerRelationship),
+		// 			workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
+		// 			benefits: addToAvg(newReview.benefits, company.numReviews, company.benefits),
+		// 			overallSatisfaction: addToAvg(newReview.overallSatisfaction, company.numReviews, company.overallSatisfaction),
+				// 	percentRecommended: addToAvg((newReview.wouldRecommendToOtherJobSeekers) ? 1 : 0, company.numReviews, company.percentRecommended),
+				// 	avgNumMonthsWorked: addToAvg(newReview.numberOfMonthsWorked, company.numReviews, company.avgNumMonthsWorked),
+				// },
+		// 		$inc: { numReviews: 1 } //this will increment the numReviews by 1
+		// 	}
+		// );
 		// console.log("SERVER: after update");
 		// console.log(Companies.findOne({name: newReview.companyName}));
 	},
@@ -158,6 +114,30 @@ Meteor.methods({
 		// console.log("SERVER: inserting");
 		Salaries.insert(newSalary);
 
+	},
+
+	"jobAds.postJobAd": function (newJobAd) {
+		// Make sure the user is logged in before inserting a task
+		if (!this.userId) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		//This avoids a lot of problems
+		JobAds.simpleSchema().clean(newJobAd);
+
+		// Error-out if _id field is defined
+		if ("_id" in newJobAd) {
+			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
+		}
+
+		console.log("SERVER: validating...");
+		let validationResult = JobAds.simpleSchema().namedContext().validate(newJobAd);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		console.log(JobAds.simpleSchema().namedContext().validationErrors());
+
+		console.log("SERVER: inserting");
+		JobAds.insert(newJobAd);
 	},
 
 	"companies.isCompanyNameAvailable": function (companyName) {
