@@ -18,17 +18,17 @@ class CompanyPage extends React.Component {
         return (
             <div className="page company">
                 <h2>{this.props.company.name}</h2>
-                <ReviewsList query={{ company_id: this.props.company._id }} />
+                <ReviewsList query={{ companyName: this.props.company.name }} />
             </div>
         );
     }
 }
 
 export default withTracker(({ company_id }) => {
-    var handle = Meteor.subscribe("companies");
+    var handle = Meteor.subscribe("CompanyProfiles");
 
     return {
         isReady: handle.ready(),
-        company: Companies.findOne(new Mongo.ObjectID(company_id))
+        company: Companies.findOne(new Mongo.ObjectID(company_id)),
     };
 })(CompanyPage);
