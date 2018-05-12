@@ -5,9 +5,17 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-export const JobAds = new Mongo.Collection("JobAds", { idGeneration: 'MONGO'});
+export const JobAds = new Mongo.Collection("JobAds", { idGeneration: 'STRING'});
 
 const jobAdsSchema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID

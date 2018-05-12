@@ -8,7 +8,7 @@ SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema opti
 /*
 	Questions:
 	- How to prevent certain values from being
-	set on insert?
+	set on insert? -> "denyInsert: true"
 	- Would it be desirable to define autoValues
 	such that newly-inserted companies could have
 	their statistics (avg* fields, percentRecommended,
@@ -19,7 +19,7 @@ SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema opti
 	based on reviews?
 */
 
-export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
+export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'STRING' });
 
 // Add helper functions directly to the Companies collection object
 // convert _id or name into a proper Mongo-style selector
@@ -51,18 +51,45 @@ Companies.findReviewsForCompany = function(companyIdentifier) {
 };
 
 const companiesSchema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
+	vizeProfileUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return process.env.ROOT_URL + "company/?id=" + this.field("_id").value;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	vizeReviewUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return process.env.ROOT_URL + "write-review/?id=" + this.field("_id").value;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	}
 	name: {
 		type: String,
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */
 		custom: function() {
-			/*
-				Next to wrapping Blaze into React, this bad boy
-				and the messageBox stuff below that goes with it
-				vie for the title of most-difficult-to-get-correct
-				piece of code I've written for Vize.
-			*/
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("companies.isCompanyNameAvailable", this.value, (error, result) => {
 					if (!result) {
@@ -102,9 +129,9 @@ const companiesSchema = new SimpleSchema({
 	otherContactInfo: {
 		type: String, //dunno what this needs to be, leaving it to the user's discretion to "validate"
 		optional: true, },
-	websiteURL: {
-		type: String,
-		optional: true, //should this be required?
+	websiteURL: {		// the COMPANY's actual website, not their
+		type: String,	// little corner of the Vize web app
+		optional: true, // should this be required?
 		regEx: SimpleSchema.RegEx.Url, },
 	descriptionOfCompany: {
 		type: String,

@@ -17,7 +17,7 @@ String.prototype.wordCount = function(){
 
 //Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
-export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
+export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'});
 
 /*
 	Desirable features:
@@ -31,6 +31,14 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'})
 
 //Schema for the Collection
 const reviewsSchema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID

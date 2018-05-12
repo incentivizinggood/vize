@@ -29,6 +29,6 @@ export default withTracker(({ company_id }) => {
 
     return {
         isReady: handle.ready(),
-        company: Companies.findOne(new Mongo.ObjectID(company_id)),
+        company: Companies.findOne(company_id),
     };
 })(CompanyPage);
