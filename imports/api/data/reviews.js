@@ -25,7 +25,8 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'})
 		- List gets refined or even auto-filled as user types
 	- ...ditto for locations, especially once company name is known
 	- LOL these are all things that go with the form,
-		not the schema, silly me...
+		not the schema, silly me
+	- Unless I can configure allowedValues dynamically...
 */
 
 //Schema for the Collection
@@ -34,23 +35,23 @@ const reviewsSchema = new SimpleSchema({
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
 		index: true,
-		// custom: function() {
-		// 	if (Meteor.isClient && this.isSet) {
-		// 		Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
-		// 			if (!result) {
-		// 				this.validationContext.addValidationErrors([{
-		// 					name: "companyName",
-		// 					type: "noCompanyWithThatName",
-		// 				}]);
-		// 			}
-		// 		});
-		// 	}
-		// 	else if (Meteor.isServer && this.isSet) {
-		// 		if(!Companies.hasEntry(this.value)) {
-		// 			return "noCompanyWithThatName";
-		// 		}
-		// 	}
-		// },
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "companyName",
+							type: "noCompanyWithThatName",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(!Companies.hasEntry(this.value)) {
+					return "noCompanyWithThatName";
+				}
+			}
+		},
 	},
 
 	// BUG will eventually need a username, screenname, or userID to
