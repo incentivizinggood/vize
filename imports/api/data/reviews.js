@@ -34,23 +34,24 @@ const reviewsSchema = new SimpleSchema({
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
 		index: true,
-		custom: function() {
-			if (Meteor.isClient && this.isSet) {
-				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
-					if (!result) {
-						this.validationContext.addValidationErrors([{
-							name: "companyName",
-							type: "noCompanyWithThatName",
-						}]);
-					}
-				});
-			}
-			else if (Meteor.isServer && this.isSet) {
-				if(!Companies.hasEntry(this.value)) {
-					return "noCompanyWithThatName";
-				}
-			}
-		}, },
+		// custom: function() {
+		// 	if (Meteor.isClient && this.isSet) {
+		// 		Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+		// 			if (!result) {
+		// 				this.validationContext.addValidationErrors([{
+		// 					name: "companyName",
+		// 					type: "noCompanyWithThatName",
+		// 				}]);
+		// 			}
+		// 		});
+		// 	}
+		// 	else if (Meteor.isServer && this.isSet) {
+		// 		if(!Companies.hasEntry(this.value)) {
+		// 			return "noCompanyWithThatName";
+		// 		}
+		// 	}
+		// },
+	},
 
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
@@ -70,33 +71,10 @@ const reviewsSchema = new SimpleSchema({
 	jobTitle: {			//there are two categories -
 		type: String,		//Line Worker and Upper Management, so type - String, perhaps, not sure
 		optional: false, },	//NOTE: I can do this, but is it correct/necessary?
-	dateJoinedCompany: {
-		type: Date,
+	numberOfMonthsWorked: {
+		type: SimpleSchema.Integer,
 		optional: false,
-		custom: function() {
-			// Need to make sure this value is strictly before dateLeftCompany,
-			// if dateLeftCompany is set
-			if(this.isSet && this.field("dateLeftCompany").isSet) {
-				if(Meteor.isClient) {
-					Meteor.call("firstDateIsBeforeSecond", {first: this.value, second: this.field("dateLeftCompany").value},
-					(error, result) => {
-						if(!result) {
-							this.validationContext.addValidationErrors([{
-								name: "dateJoinedCompany",
-								type: "dateJoinedAfterDateLeft",
-							}]);
-						}
-					});
-				}
-				else if(Meteor.isServer && this.value > this.field("dateLeftCompany").value) {
-					return "dateJoinedAfterDateLeft";
-				}
-			}
-
-		} },
-	dateLeftCompany: { //need to remind user that they can leave this empty if still employed
-		type: Date,
-		optional: true, },
+	},
 	pros: {
 		type: String,
 		optional: false,
