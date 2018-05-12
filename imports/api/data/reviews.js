@@ -74,7 +74,7 @@ const reviewsSchema = new SimpleSchema({
 	numberOfMonthsWorked: {
 		type: SimpleSchema.Integer,
 		optional: false,
-	},
+		min: 0, },
 	pros: {
 		type: String,
 		optional: false,
