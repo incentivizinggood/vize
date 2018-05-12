@@ -6,6 +6,19 @@ import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
 Meteor.methods({
+
+	sendEmail: function(to, from, subject, text) {
+		console.log("--- sendEmail: checking arguments");
+		check([to, from, subject, text], [String]);
+		let realEmail = { to, from, subject, text };
+		console.log("--- sendEmail: before send, here is the email:");
+		console.log(realEmail);
+		this.unblock();
+		Email.send(realEmail);
+		console.log("--- sendEmail: after send");
+		return "return value of sendEmail: we made it";
+	},
+
 	"hasFiveWords": function (inputString) {
 		// Funny story, String.prototype.wordCount is actually
 		// defined in reviews.js because I couldn't find a
