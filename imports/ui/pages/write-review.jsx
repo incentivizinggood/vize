@@ -9,7 +9,7 @@ let formError = new ReactiveVar("good");
 
 //Specific stuff second
 import { Reviews } from "../../api/data/reviews.js";
-import "./write_review_blaze_form.html";
+import "./wr_blaze_form.html";
 
 //Weird that I have to import both of these here,
 //rather than import the .html in the .js and just
@@ -18,7 +18,7 @@ import "./write_review_blaze_form.html";
 import "../afInputStarRating.html";
 import "../afInputStarRating.js";
 
-Template.write_review_blaze_form.helpers({
+Template.wr_blaze_form.helpers({
 	reviews: Reviews,
 	ErrorWidget: function() {
 		return ErrorWidget;
@@ -34,7 +34,7 @@ Template.write_review_blaze_form.helpers({
 	},
 });
 
-AutoForm.addHooks("write_review_blaze_form", {
+AutoForm.addHooks("wr_blaze_form", {
 	onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
 		console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
 		formError.set("good");
@@ -45,14 +45,14 @@ AutoForm.addHooks("write_review_blaze_form", {
 	},
 });
 
-export default class WriteReviewPage extends React.Component {
+export default class WriteReviewForm extends React.Component {
 	constructor (props) {
 		super(props);
 	}
 	render() {
 		return (
-			<div className="page WriteReviewPage">
-				<Blaze template="write_review_blaze_form"/>
+			<div className="page WriteReviewForm">
+				<Blaze template="wr_blaze_form"/>
 			</div>
 		);
 	}
