@@ -235,11 +235,21 @@ companiesSchema.messageBox.messages({
 	},
 });
 
+//db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})
+
 // Added line for autoforms and collection2 usage
 Companies.attachSchema(companiesSchema, { replace: true });
 
 if (Meteor.isServer) {
+	console.log("SERVER: inside the companies.js isServer block");
+
+
+//Created the index for the collection Companies, to search on the name text.
+	Companies.rawCollection().createIndex({"name": "text"});
+
 	Meteor.publish("CompanyProfiles", function() {
+		//return Companies.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}});
+		//return Companies.find({$text: {$search: "vize"}});
 		return Companies.find({});
 	});
 }

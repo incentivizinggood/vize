@@ -14,6 +14,15 @@ Meteor.methods({
 		return "all good";
 	},
 
+
+//method to search
+"companies.search": function (searchstring){
+	
+
+
+},
+
+
 	'reviews.submitReview': function(newReview) {
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {

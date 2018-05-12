@@ -11,6 +11,7 @@ import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import HomePage from "../../ui/pages/home.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
+import CompanySearchTrial from "../../ui/company-search-trial.jsx"
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
 import CompanySearchPage from "../../ui/pages/company-search.jsx";
@@ -64,15 +65,20 @@ routeSimplePage("/register", <RegisterPage />);
 // //Until we actually make an account for testing
 // let Phony = Package['csauer:accounts-phony'].Phony;
 // Meteor.loginWithPhony(Phony.user);
+
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
+routeSimplePage("/company-search-trial", <CompanySearchTrial />);
+
 
 //----- Define the more complex routes. -----//
 
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanySearchPage queryParams={queryParams} />,
+					// <CompanySearchPage queryParams={queryParams} />,
+					// changing the route for now, because the search code is on CompanySearchTrial now.
+            <CompanySearchTrial queryParams={queryParams} />,
             document.getElementById("view-render")
         );
     }
