@@ -1,6 +1,6 @@
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
-import { If, Else } from "../if-else.jsx"
+import { If, Then, Else } from "../if-else.jsx"
 
 /* The "header" page. */
 class Header extends React.Component {
@@ -38,11 +38,14 @@ class Header extends React.Component {
                         <ul className="nav navbar-nav navbar-right">
 
                             <If cond={this.props.isLoggedIn}>
-                                <li><a href="/my-account" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">My Account</a></li>
-                                <li><a onClick={Meteor.logout} className="navbar-link margin-right">LOG OUT</a></li>
-                            <Else />
-                                <li><a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
-                                <li><a href="/login" className="navbar-link margin-right">LOG IN</a></li>
+                                <Then>
+                                    <li><a href="/my-account" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">My Account</a></li>
+                                    <li><a onClick={Meteor.logout} className="navbar-link margin-right">LOG OUT</a></li>
+                                </Then>
+                                <Else>
+                                    <li><a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a></li>
+                                    <li><a href="/login" className="navbar-link margin-right">LOG IN</a></li>
+                                </Else>
                             </If>
 
                            <li className="dropdown">
