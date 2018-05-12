@@ -9,9 +9,21 @@ import ReactDOM from "react-dom";
 
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
+import OverviewTab from "../../ui/components/overviewTabCP.jsx";
+import ReviewComponent from "../../ui/components/companyReview.jsx";
+import ReviewTab from "../../ui/components/reviewTabCP.jsx";
+import JobTab from "../../ui/components/jobTabCP.jsx";
+import JobPosting from "../../ui/components/jobPosting.jsx";
+import SalaryTab from "../../ui/components/salaryTabCP.jsx";
+import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+import CompanyComponent from "../../ui/components/companyComponent.jsx";
+import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+
+
 import HomePage from "../../ui/pages/home.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
 import CompanySearchTrial from "../../ui/company-search-trial.jsx"
+
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
 import CompanySearchPage from "../../ui/pages/company-search.jsx";
@@ -28,6 +40,7 @@ import UserPage from "../../ui/pages/user.jsx";
 //TESTING ONLY, but leaving in until the site's structure is better defined
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
+import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 
 /**
  * Reduces boiler plate for simple pages.
@@ -69,7 +82,7 @@ routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 routeSimplePage("/company-search-trial", <CompanySearchTrial />);
-
+routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
 
 //----- Define the more complex routes. -----//
 
