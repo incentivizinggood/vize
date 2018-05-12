@@ -79,8 +79,6 @@ AutoForm.debug();
 let Phony = Package['csauer:accounts-phony'].Phony;
 Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
-routeSimplePage("/write-review", <WriteReviewPage />);
-routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
 
 //----- Define the more complex routes. -----//
@@ -102,6 +100,25 @@ FlowRouter.route("/company", {
         );
     }
 });
+
+FlowRouter.route("/write-review", {
+	action(params, queryParams) {
+		ReactDOM.render(
+			<WriteReviewPage companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	}
+});
+
+FlowRouter.route("/submit-salary-data", {
+	action(params, queryParams) {
+		ReactDOM.render(
+			<SubmitSalaryDataForm companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	}
+});
+
 FlowRouter.route("/user", {
     action(params, queryParams) {
         ReactDOM.render(

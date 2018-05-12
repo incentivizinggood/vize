@@ -83,7 +83,18 @@ const companiesSchema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	}
+	vizeSalaryUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return process.env.ROOT_URL + "submit-salary-data/?id=" + this.field("_id").value;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	name: {
 		type: String,
 	 	optional: false,
