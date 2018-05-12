@@ -14,6 +14,28 @@ import "../imports/api/data/jobads.js";
 import "../imports/api/data/methods.js";
 
 Meteor.startup(() => {
-    // code to run on server at startup
-	
+	// code to run on server at startup
+	process.env.MAIL_URL =  "***REMOVED***";
+
+	/* Imports for server-side startup go here. */
+	console.log("SERVER: before call2");
+	Meteor.call(
+		"sendEmail",
+		"jhigginbotham64@tamu.edu",
+		"postmaster@mg.incentivizinggood.com",
+		"You received an Email!",
+		"Hey Urel,\n\n\tDid a bid of cleanup and wanted to check things again. Hope you're doing well.\n\nSincerely,\n\n\tJoshua Higginbotham\n\n",
+		(err,res) => {
+			if (err) {
+				console.log("--- BEGIN error:");
+				console.log(err);
+				console.log("--- END error");
+			} else {
+				console.log("--- BEGIN success:");
+				console.log(res);
+				console.log("--- END success");
+			}
+		}
+	);
+	console.log("SERVER: after call");
 });
