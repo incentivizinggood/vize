@@ -2,6 +2,7 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
+import { Email } from "meteor/email";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
