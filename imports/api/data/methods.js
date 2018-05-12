@@ -27,9 +27,9 @@ Meteor.methods({
 
 	"reviews.submitReview": function(newReview) {
 		// Make sure the user is logged in before inserting a task
-		if (!this.userId) {
-			throw new Meteor.Error("not-authorized");
-		}
+		// if (!this.userId) {
+		// 	throw new Meteor.Error("not-authorized");
+		// }
 
 		//This avoids a lot of problems
 		Reviews.simpleSchema().clean(newReview);
