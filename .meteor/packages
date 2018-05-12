@@ -34,7 +34,7 @@ practicalmeteor:faker
 gadicc:blaze-react-component
 csauer:accounts-phony
 react-template-helper
-reactive-dict@1.2.0
+reactive-dict
 aldeed:autoform
 aldeed:schema-index
 aldeed:schema-deny
