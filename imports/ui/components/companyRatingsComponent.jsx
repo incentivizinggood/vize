@@ -11,11 +11,11 @@ export default class CompanyRating extends React.Component {
              <div  className="star_boder ">
              <label>Overall</label>&nbsp;&nbsp;&nbsp;&nbsp;
              <StarRatings
-              rating={3.8}
+              rating={4.2}
               starDimension="25px"
               starSpacing="2px"
             />
-             &nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">3.8</label>
+             &nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">4.2</label>
           </div>
           <br />
           <div  className="tab_str" >

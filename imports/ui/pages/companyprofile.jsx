@@ -43,7 +43,7 @@ class CompanyProfile extends React.Component {
            <div className="col-md-6  prostar">
               <div className="col-md-12">
                  <fieldset className="rating">
-                    <span className="headingoo">Google</span>
+                    <span className="headingoo">{this.props.company.name}</span>
                     &nbsp;&nbsp;<StarRatings
                      rating={4.103}
                      starDimension="25px"
@@ -56,10 +56,11 @@ class CompanyProfile extends React.Component {
 
               </div>
               <div  className="col-md-12 comp-prfl">
-                 <p><i className="fa fa-map-marker" aria-hidden="true"></i> Mountain  View, CA</p>
-         <p><i className="fa fa-flask" aria-hidden="true"></i> Science & Technology</p>
-         <p><i className="fa fa-globe" aria-hidden="true"></i> www.google.com</p>
-                 <p><i className="fa fa-users" aria-hidden="true"></i>  Size 1501-5000</p>
+                 <p><i className="fa fa-map-marker" aria-hidden="true"> </i> {this.props.company.locations[0]}</p>
+                 {/* displaying just the first company location for now, from the list */}
+         <p><i className="fa fa-flask" aria-hidden="true"> </i> {this.props.company.industry}</p>
+         <p><i className="fa fa-globe" aria-hidden="true"> </i> {this.props.company.websiteURL}</p>
+                 <p><i className="fa fa-users" aria-hidden="true"> </i> {this.props.company.numEmployees}</p>
               </div>
            </div>
 
@@ -103,7 +104,7 @@ class CompanyProfile extends React.Component {
 
      {/* =====================overview tab====================  */}
 
-        <OverviewTab />
+        <OverviewTab company={this.props.company}/>
 
         {/* ===============overview tab end==================
 

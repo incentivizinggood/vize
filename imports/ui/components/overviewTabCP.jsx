@@ -15,14 +15,14 @@ render() {
 
       <div className="col-md-12  section_rview_back_color ">
        <div  className="sect_re1 ">
-        <h4  className="head_section_font">Google Overview</h4>
+        <h4  className="head_section_font">{this.props.company.name} Overview</h4>
 
         <hr />
 
 
         <div  className="over_p">
-        <p>Google is not a conventional company, and we don’t intend to become one. True, we share attributes with the world’s most successful organizations – a focus on innovation and smart business practices comes to mind
-        we share attributes with the world’s most successful organizations – a focus on innovation and smart business practices comes to mind – but even as we continue </p>
+        <p>{this.props.company.descriptionOfCompany}</p>
+        {/* Dont know what to do about the Mission */}
           <p><span>Mission:</span> Google’s mission is to organize the world’s information and make it universally accessible and useful.</p>
          </div>
       </div>
@@ -30,13 +30,13 @@ render() {
       <div className="clear"></div>
 
         <div  className="col-md-12  section_rview_back_color08  "> {/* review link */}
-                               <h4  className="head_section_font">Google Reviews</h4>
+                               <h4  className="head_section_font">{this.props.company.name} Reviews</h4>
                                <div  className="add-buttons">
                                           <button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
                                 </div>
 
                                <hr />
-                                <CompanyRating />
+                                <CompanyRating company={this.props.company}/>
 
                              </div>
 

@@ -29,9 +29,9 @@ const CompanyComponent = (props) => {
 
                  <div  className="col-md-12 comp-class">
                     <div  className="locahed">
-                       <h4><i className="fa fa-map-marker" aria-hidden="true"></i><span> Mountain  View, CA</span></h4>
-                       <h4><i className="fa fa-flask" aria-hidden="true"></i> <span>Science & Technology</span></h4>
-                       <h4><i className="fa fa-users" aria-hidden="true"></i> <span>Size 1501-5000</span></h4>
+                       <h4><i className="fa fa-map-marker" aria-hidden="true"></i> <span>{props.item.locations}</span></h4>
+                       <h4><i className="fa fa-flask" aria-hidden="true"></i> <span>{props.item.industry}</span></h4>
+                       <h4><i className="fa fa-users" aria-hidden="true"></i> <span>{props.item.numEmployees}</span></h4>
                     </div>
                  </div>
               </div>
@@ -58,7 +58,7 @@ const CompanyComponent = (props) => {
               <div  className="col-md-3">
                  <div  className="reviews1">
                     <ul>
-                       <li className="active"><a href="#">8.2K <br/><span className="review_text">Reviews</span></a></li>
+                       <li className="active"><a href="#">{props.item.numReviews} <br/><span className="review_text">Reviews</span></a></li>
                        <li><a href="#">17K <br/><span className="review_text">Salaries</span></a></li>
                        <li><a href="#">8.0K <br/><span className="review_text">Interviews</span></a></li>
                     </ul>
@@ -66,7 +66,7 @@ const CompanyComponent = (props) => {
               </div>
               <div  className="col-md-9">
                  <div className="pargrf">
-                    <p>LORM is a public association bringing together deafblind people, their families, friends, and others concerned with deafblindness and the problems associated with it. At present, LORM has about 200 members and maintains </p>
+                    <p>{props.item.descriptionOfCompany}</p>
                  </div>
               </div>
            </div>
