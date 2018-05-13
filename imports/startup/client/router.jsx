@@ -39,8 +39,9 @@ import UserPage from "../../ui/pages/user.jsx";
 
 //TESTING ONLY, but leaving in until the site's structure is better defined
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
-import WriteReviewPage from "../../ui/pages/write-review.jsx";
+import WriteReviewForm from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
+import PostAJobForm from "../../ui/pages/post-a-job.jsx"
 
 /**
  * Reduces boiler plate for simple pages.
@@ -71,6 +72,7 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 
 // //TESTING ONLY
+<<<<<<< HEAD
 // import SimpleSchema from "simpl-schema";
 // import { AutoForm } from "meteor/aldeed:autoform";
 // SimpleSchema.debug = true;
@@ -83,6 +85,17 @@ routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 routeSimplePage("/company-search-trial", <CompanySearchTrial />);
 routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
+=======
+import SimpleSchema from "simpl-schema";
+import { AutoForm } from "meteor/aldeed:autoform";
+SimpleSchema.debug = true;
+AutoForm.debug();
+//Until we actually make an account for testing
+let Phony = Package['csauer:accounts-phony'].Phony;
+Meteor.loginWithPhony(Phony.user);
+routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/post-a-job", <PostAJobForm />);
+>>>>>>> superRouting
 
 //----- Define the more complex routes. -----//
 
@@ -106,6 +119,25 @@ FlowRouter.route("/company", {
         );
     }
 });
+
+FlowRouter.route("/write-review", {
+	action(params, queryParams) {
+		ReactDOM.render(
+			<WriteReviewForm companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	}
+});
+
+FlowRouter.route("/submit-salary-data", {
+	action(params, queryParams) {
+		ReactDOM.render(
+			<SubmitSalaryDataForm companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	}
+});
+
 FlowRouter.route("/user", {
     action(params, queryParams) {
         ReactDOM.render(

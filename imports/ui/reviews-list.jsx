@@ -26,7 +26,7 @@ export default withTracker(({ query }) => {
     if (query === undefined) {
         query = {};
     }
-    var handle = Meteor.subscribe("reviews");
+    var handle = Meteor.subscribe("Reviews");
 
     return {
         isReady: handle.ready(),

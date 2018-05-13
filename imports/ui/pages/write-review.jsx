@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import { Reviews } from "../../api/data/reviews.js";
-
-// Lots of nice boilerplate copy-pasted from
-// create-company-profile.jsx
-
+//Boilerplate first
+import React from 'react';
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
-import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
+import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
-import "./write_review_blaze_form.html";
+
+
+//Specific stuff second
+import { Reviews } from "../../api/data/reviews.js";
+import "./wr_blaze_form.html";
 
 //Weird that I have to import both of these here,
 //rather than import the .html in the .js and just
@@ -19,43 +18,45 @@ import "./write_review_blaze_form.html";
 import "../afInputStarRating.html";
 import "../afInputStarRating.js";
 
-let formError = new ReactiveVar("good"); // This code looks easier than it was.
+let wr_form_state = new ReactiveDict();
+wr_form_state.set("formError", "good");
 
-Template.write_review_blaze_form.helpers({
+Template.wr_blaze_form.helpers({
 	reviews: Reviews,
 	ErrorWidget: function() {
 		return ErrorWidget;
 	},
 	hasError: function() {
-		return formError.get() !== "good";
+		return wr_form_state.get("formError") !== "good";
 	},
 	error: function() {
-		return formError.get();
+		return wr_form_state.get("formError");
 	},
 	resetFormError: function() { //called when reset button is clicked
-		formError.set("good");
+		wr_form_state.set("formError", "good");
 	},
 });
 
-AutoForm.addHooks("write_review_blaze_form", {
+AutoForm.addHooks("wr_blaze_form", {
 	onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
 		console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
-		formError.set("good");
+		wr_form_state.set("formError", "good");
 	},
 	onError: function(formType, error) { // "error" contains whatever error object was thrown
 		console.log("ERROR: We did a thing in a " + formType + " form: " + error);
-		formError.set(error.toString());
+		wr_form_state.set("formError", error.toString());
 	},
 });
 
-export default class WriteReviewPage extends Component {
+export default class WriteReviewForm extends React.Component {
 	constructor (props) {
 		super(props);
+		//console.log("GOT AN ID: " + this.props.companyId);
 	}
 	render() {
 		return (
-			<div className="page WriteReviewPage">
-				<Blaze template="write_review_blaze_form"/>
+			<div className="page WriteReviewForm">
+				<Blaze template="wr_blaze_form"/>
 			</div>
 		);
 	}

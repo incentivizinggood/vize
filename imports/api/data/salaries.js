@@ -5,13 +5,21 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-export const Salaries = new Mongo.Collection("Salaries", { idGeneration: 'MONGO' });
+export const Salaries = new Mongo.Collection("Salaries", { idGeneration: 'STRING' });
 
 
 /*
 	Change this all from "Salaries" to "Incomes" or "Pay"?
 */
 const salariesSchema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID

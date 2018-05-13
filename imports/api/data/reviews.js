@@ -17,7 +17,7 @@ String.prototype.wordCount = function(){
 
 //Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
-export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
+export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'});
 
 /*
 	Desirable features:
@@ -25,11 +25,20 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'})
 		- List gets refined or even auto-filled as user types
 	- ...ditto for locations, especially once company name is known
 	- LOL these are all things that go with the form,
-		not the schema, silly me...
+		not the schema, silly me
+	- Unless I can configure allowedValues dynamically...
 */
 
 //Schema for the Collection
 const reviewsSchema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
@@ -50,7 +59,8 @@ const reviewsSchema = new SimpleSchema({
 					return "noCompanyWithThatName";
 				}
 			}
-		}, },
+		},
+	},
 
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
@@ -70,33 +80,10 @@ const reviewsSchema = new SimpleSchema({
 	jobTitle: {			//there are two categories -
 		type: String,		//Line Worker and Upper Management, so type - String, perhaps, not sure
 		optional: false, },	//NOTE: I can do this, but is it correct/necessary?
-	dateJoinedCompany: {
-		type: Date,
+	numberOfMonthsWorked: {
+		type: SimpleSchema.Integer,
 		optional: false,
-		custom: function() {
-			// Need to make sure this value is strictly before dateLeftCompany,
-			// if dateLeftCompany is set
-			if(this.isSet && this.field("dateLeftCompany").isSet) {
-				if(Meteor.isClient) {
-					Meteor.call("firstDateIsBeforeSecond", {first: this.value, second: this.field("dateLeftCompany").value},
-					(error, result) => {
-						if(!result) {
-							this.validationContext.addValidationErrors([{
-								name: "dateJoinedCompany",
-								type: "dateJoinedAfterDateLeft",
-							}]);
-						}
-					});
-				}
-				else if(Meteor.isServer && this.value > this.field("dateLeftCompany").value) {
-					return "dateJoinedAfterDateLeft";
-				}
-			}
-
-		} },
-	dateLeftCompany: { //need to remind user that they can leave this empty if still employed
-		type: Date,
-		optional: true, },
+		min: 0, },
 	pros: {
 		type: String,
 		optional: false,
