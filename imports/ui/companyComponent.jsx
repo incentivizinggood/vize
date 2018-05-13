@@ -17,7 +17,7 @@ const CompanyComponent = (props) => {
                  </a>
               </div>
               <div className="col-md-4  prostar">
-                 <label className="goo"> <a href="/companyprofile">{props.item.name}</a></label>
+                 <label className="goo"> <a href={props.item.vizeProfileUrl}>{props.item.name}</a></label>
 
                  {/* &nbsp;&nbsp;<StarRatings
                   rating={4.103}

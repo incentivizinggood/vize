@@ -1,4 +1,6 @@
 import React from "react";
+import { withTracker } from "meteor/react-meteor-data";
+import { Companies } from "../../api/data/companies.js";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import StarRatings from 'react-star-ratings';
@@ -11,7 +13,7 @@ import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 
 /* The Company Profile  page of the site. */
 
-export default class CompanyProfile extends React.Component {
+class CompanyProfile extends React.Component {
 
   changeRating( newRating ) {
       this.setState({
@@ -20,6 +22,13 @@ export default class CompanyProfile extends React.Component {
     }
 
     render() {
+      if (!this.props.isReady) {
+          return <h2>Loading...</h2>;
+      }
+      if (this.props.company === undefined) {
+          return <h2>That company was not found</h2>;
+      }
+
         return(
          <div className="navbarwhite"><Header />
          <br />
@@ -162,3 +171,13 @@ export default class CompanyProfile extends React.Component {
         )
         }
         }
+
+
+export default withTracker(({ companyId }) => {
+    var handle = Meteor.subscribe("CompanyProfiles");
+
+    return {
+        isReady: handle.ready(),
+        company: Companies.findOne(companyId),
+    };
+})(CompanyProfile);

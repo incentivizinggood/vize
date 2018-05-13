@@ -65,7 +65,7 @@ const companiesSchema = new SimpleSchema({
 		denyUpdate: true,
 		autoValue: function() {
 			if(this.field("_id").isSet) {
-				return process.env.ROOT_URL + "company/?id=" + this.field("_id").value;
+				return process.env.ROOT_URL + "companyprofile/?id=" + this.field("_id").value;
 			}
 		},
 		autoform: {

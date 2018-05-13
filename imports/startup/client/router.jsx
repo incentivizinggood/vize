@@ -63,7 +63,6 @@ function routeSimplePage(path, element) {
 
 routeSimplePage("/", <HomePage />);
 routeSimplePage("/about", <AboutPage />);
-routeSimplePage("/companyprofile", <CompanyProfile />);
 routeSimplePage("/foremployers", <ForEmployers />);
 routeSimplePage("/contact-us", <ContactUsPage />);
 routeSimplePage("/help", <HelpPage />);
@@ -98,10 +97,10 @@ FlowRouter.route("/companies", {
     }
 });
 
-FlowRouter.route("/company", {
+FlowRouter.route("/companyprofile", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanyPage company_id={queryParams.id} />,
+            <CompanyProfile companyId={queryParams.id} />,
             document.getElementById("view-render")
         );
     }
