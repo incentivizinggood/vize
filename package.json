@@ -12,6 +12,7 @@
     "faker": "^4.1.0",
     "message-box": "^0.2.0",
     "meteor-node-stubs": "^0.2.11",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.3.2",

@@ -143,7 +143,12 @@ const companiesSchema = new SimpleSchema({
 	websiteURL: {		// the COMPANY's actual website, not their
 		type: String,	// little corner of the Vize web app
 		optional: true, // should this be required?
-		regEx: SimpleSchema.RegEx.Url, },
+		regEx: SimpleSchema.RegEx.Url,
+	 	autoform: {
+			afFieldInput: {
+				type: "url",
+			},
+		}, },
 	descriptionOfCompany: {
 		type: String,
 		optional: true,
