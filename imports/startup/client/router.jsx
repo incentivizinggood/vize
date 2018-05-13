@@ -89,8 +89,9 @@ routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(
-					// <CompanySearchPage queryParams={queryParams} />,
+
 					// changing the route for now, because the search code is on CompanySearchTrial now.
+					// ORIGINAL CODE -- <CompanySearchPage queryParams={queryParams} />,
             <CompanySearchTrial queryParams={queryParams} />,
             document.getElementById("view-render")
         );
