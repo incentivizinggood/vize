@@ -71,21 +71,8 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 
-// //TESTING ONLY
-<<<<<<< HEAD
-// import SimpleSchema from "simpl-schema";
-// import { AutoForm } from "meteor/aldeed:autoform";
-// SimpleSchema.debug = true;
-// AutoForm.debug();
-// //Until we actually make an account for testing
-// let Phony = Package['csauer:accounts-phony'].Phony;
-// Meteor.loginWithPhony(Phony.user);
-
-routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
-routeSimplePage("/write-review", <WriteReviewPage />);
-routeSimplePage("/company-search-trial", <CompanySearchTrial />);
-routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
-=======
+//TESTING ONLY
+// --> BUG needs to be flagged for development-only
 import SimpleSchema from "simpl-schema";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.debug = true;
@@ -94,8 +81,8 @@ AutoForm.debug();
 let Phony = Package['csauer:accounts-phony'].Phony;
 Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/company-search-trial", <CompanySearchTrial />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
->>>>>>> superRouting
 
 //----- Define the more complex routes. -----//
 
