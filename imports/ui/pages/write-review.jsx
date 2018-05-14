@@ -1,5 +1,6 @@
 //Boilerplate first
 import React from 'react';
+import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import { withTracker } from "meteor/react-meteor-data";
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
@@ -22,15 +23,30 @@ import "../afInputStarRating.js";
 
 let wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", "good");
-wr_form_state.set("company", {});
+wr_form_state.set("companyId", undefined);
+
+Template.wr_blaze_form.onCreated(function() {
+	console.log("Received companyId: " + wr_form_state.get("companyId"));
+	this.subscribe("CompanyProfiles"); // Blaze is cool
+});
 
 Template.wr_blaze_form.helpers({
 	reviews: Reviews,
 	ErrorWidget: function() {
 		return ErrorWidget;
 	},
+	shouldHaveCompany: function() {
+		return wr_form_state.get("companyId") !== undefined;
+	},
 	getCompanyName: function() {
-		return wr_form_state.get("company").name;
+		let id = wr_form_state.get("companyId");
+		let company = Companies.findOne(id);
+		if(company === undefined) {
+			return "ERROR: COMPANY NOT FOUND";
+		}
+		else {
+			return company.name;
+		}
 	},
 	hasError: function() {
 		return wr_form_state.get("formError") !== "good";
@@ -54,18 +70,14 @@ AutoForm.addHooks("wr_blaze_form", {
 	},
 });
 
-class WriteReviewForm extends React.Component {
+export default class WriteReviewForm extends React.Component {
 	constructor (props) {
 		super(props);
-		//console.log("GOT AN ID: " + this.props.companyId);
 	}
 	render() {
-		if(!this.props.isReady) {
-			return <h2>Loading...</h2>;
-		}
-		if (this.props.company === undefined) {
-			wr_form_state.set("company", {name: "ERROR: COMPANY NOT FOUND"})
-		}
+
+		wr_form_state.set("companyId",this.props.companyId);
+
 		return (
 			<div className="page WriteReviewForm">
 				<Blaze template="wr_blaze_form"/>
@@ -74,12 +86,6 @@ class WriteReviewForm extends React.Component {
 	}
 }
 
-export default withTracker(({ companyId }) => {
-	let handle = Meteor.subscribe("CompanyProfiles");
-	let companyToReview = Companies.findOne(companyId);
-	wr_form_state.set("company",companyToReview)
-	return {
-		isReady: handle.ready(),
-		company: companyToReview,
-	};
-})(WriteReviewForm);
+WriteReviewForm.propTypes = {
+	companyId: PropTypes.string,
+};
