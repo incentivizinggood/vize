@@ -37,6 +37,18 @@ const jobAdsSchema = new SimpleSchema({
 				}
 			}
 		}, },
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("companyName").isSet) {
+				return Companies.findOne({name: this.field("companyName").value})._id;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	jobTitle: {
 		type: String,
 		optional: false, },

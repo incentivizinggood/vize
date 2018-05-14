@@ -59,8 +59,19 @@ const reviewsSchema = new SimpleSchema({
 					return "noCompanyWithThatName";
 				}
 			}
+		}, },
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("companyName").isSet) {
+				return Companies.findOne({name: this.field("companyName").value})._id;
+			}
 		},
-	},
+		autoform: {
+			omit: true,
+		}, },
 
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
