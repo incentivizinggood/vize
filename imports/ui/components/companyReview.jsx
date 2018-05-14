@@ -6,10 +6,12 @@ export default class ReviewComponent extends React.Component {
       return(
 
 
-        <div  className="col-md-12  section_over_revi2 ">
+  <div  className="col-md-12  section_over_revi2 ">
     <div  className="rev_section">
        <div  className="mar_pad2">
-         <p>{console.log(this.props.companyreview)}</p>
+         {/* this.props.companyreview has the company collection for that particular company */}
+
+         {/* <p>{console.log(this.props.companyreview)}</p> */}
           <p>April 12, 2018<span>&nbsp;&nbsp;- Line Worker</span></p>
           <h2  className="head-rev-con">Lorem Lorem  </h2>
 

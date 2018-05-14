@@ -113,7 +113,7 @@ class CompanyProfile extends React.Component {
 
         ===========review tab==================  */}
         <ReviewTab companyreview = {this.props.company}/>
-            {/* ===========review tab  end==================
+        {/* ===========review tab  end==================
 
             ================job tab============== */}
         <JobTab />
