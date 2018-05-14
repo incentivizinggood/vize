@@ -43,7 +43,7 @@ render() {
                              </div>
 
                               {/* getting the same error here as well, props get undefined and cannot access the values contained in the props. */}
-                                   <CompanyReview companyreview={this.props.companyoverview}/>
+                                   {/* <CompanyReview companyreview={this.props.companyreview}/> */}
                              <div  className="col-md-12  section_overtopsect">
                                     {/* <center>  <li  className="te_deco"><a href="#reviewss"   >See All Reviews</a> </li></center> */}
 
