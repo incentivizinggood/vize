@@ -67,9 +67,11 @@ class CompanyProfile extends React.Component {
            <div className="col-md-4 prostar">
               <div  className="col-md-12">
                  <div className="titlestar">
-                    <div className="" data-toggle="buttons">
-                      <a href="#" className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
-                    </div>
+                    {/* <div className="" data-toggle="buttons"> */}
+                      {/* <a href={this.props.company.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
+
+                      <a href={this.props.company.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
+                    {/* </div> */}
 
                  </div>
               </div>
@@ -104,12 +106,13 @@ class CompanyProfile extends React.Component {
 
      {/* =====================overview tab====================  */}
 
-        <OverviewTab company={this.props.company}/>
+
+        <OverviewTab companyoverview={this.props.company}/>
 
         {/* ===============overview tab end==================
 
         ===========review tab==================  */}
-        <ReviewTab />
+        <ReviewTab companyreview = {this.props.company}/>
             {/* ===========review tab  end==================
 
             ================job tab============== */}
@@ -170,8 +173,8 @@ class CompanyProfile extends React.Component {
 </section>
 </div>
         )
-        }
-        }
+    }
+}
 
 
 export default withTracker(({ companyId }) => {

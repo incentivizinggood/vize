@@ -48,7 +48,7 @@ const CompanyComponent = (props) => {
                           Follow
                           </label>
                        </div>
-                       <a href="#" className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
+                       <a href={props.item.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
                     </div>
                  </div>
               </div>
