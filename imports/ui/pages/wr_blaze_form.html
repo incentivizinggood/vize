@@ -1,10 +1,15 @@
 <template name="wr_blaze_form">
+	{{#if Template.subscriptionsReady}}
 	{{#autoForm collection=reviews id="wr_blaze_form" type="method"
 		meteormethod="reviews.submitReview" preserveForm=false}}
 		<fieldset>
 			<legend>Write a Review</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-				{{> afQuickField name='companyName' value=getCompanyName readonly=true}}
+				{{#if shouldHaveCompany}}
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+				{{else}}
+				{{> afQuickField name='companyName' }}
+				{{/if}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
 				{{> afQuickField name='reviewTitle' placeholder="Please choose a title for your review"}}
@@ -48,12 +53,15 @@
 		</fieldset>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Submit</button>
-			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >Reset Form</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}}>Reset Form</button>
 		</div>
 	{{/autoForm}}
 	{{#if hasError}}
 	<div>
 		{{> React component=ErrorWidget err=error}}
 	</div>
+	{{/if}}
+	{{else}}
+	<h2>Loading...</h2>
 	{{/if}}
 </template>
