@@ -45,8 +45,9 @@ const salariesSchema = new SimpleSchema({
 		type: String,
 		optional: true,
 		denyUpdate: true,
+		index: true,
 		autoValue: function() {
-			if(this.field("companyName").isSet) {
+			if(Meteor.isServer && this.field("companyName").isSet) {
 				return Companies.findOne({name: this.field("companyName").value})._id;
 			}
 		},
