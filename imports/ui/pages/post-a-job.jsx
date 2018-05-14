@@ -9,6 +9,7 @@ let formError = new ReactiveVar("good");
 
 //Specific stuff second
 import { JobAds } from "../../api/data/jobads.js";
+import { Companies } from "../../api/data/companies.js";
 import "./paj_blaze_form.html";
 
 Template.paj_blaze_form.helpers({

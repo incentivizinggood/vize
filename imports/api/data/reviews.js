@@ -15,7 +15,7 @@ String.prototype.wordCount = function(){
 	return this.split(/\s+\b/).length;
 };
 
-//Constructor called - created new Collection named 'Reviews'
+// Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
 export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'});
 
@@ -59,8 +59,20 @@ const reviewsSchema = new SimpleSchema({
 					return "noCompanyWithThatName";
 				}
 			}
+		}, },
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		index: true,
+		autoValue: function() {
+			if(Meteor.isServer && this.field("companyName").isSet) {
+				return Companies.findOne({name: this.field("companyName").value})._id;
+			}
 		},
-	},
+		autoform: {
+			omit: true,
+		}, },
 
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
@@ -148,7 +160,7 @@ const reviewsSchema = new SimpleSchema({
 			//to AutoForm, see afInputStarRating.[js,html]
 			type: "starRating",
 		}, },
-	managerRelationship: { //"manager relationship", in case that isn't clear...
+	managerRelationship: {
 		type: Number,
 		min: 0, max: 5,
 		optional: false,
@@ -176,7 +188,7 @@ const reviewsSchema = new SimpleSchema({
 	 	autoform: {
 			type: "starRating",
 		}, },
-	additionalComments: { //need to make sure this displays a nice box
+	additionalComments: {
 		type: String,
 		optional: true,
 		autoform: {

@@ -9,6 +9,7 @@ let formError = new ReactiveVar("good");
 
 //Specific stuff second
 import { Salaries } from "../../api/data/salaries.js";
+import { Companies } from "../../api/data/companies.js";
 import "./ssd_blaze_form.html";
 
 Template.ssd_blaze_form.helpers({

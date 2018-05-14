@@ -41,6 +41,19 @@ const salariesSchema = new SimpleSchema({
 				}
 			}
 		}, },
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		index: true,
+		autoValue: function() {
+			if(Meteor.isServer && this.field("companyName").isSet) {
+				return Companies.findOne({name: this.field("companyName").value})._id;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	jobTitle: {
 		type: String,
 		optional: false, },

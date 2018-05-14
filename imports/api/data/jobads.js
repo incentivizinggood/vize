@@ -37,6 +37,19 @@ const jobAdsSchema = new SimpleSchema({
 				}
 			}
 		}, },
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		index: true,
+		autoValue: function() {
+			if(Meteor.isServer && this.field("companyName").isSet) {
+				return Companies.findOne({name: this.field("companyName").value})._id;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	jobTitle: {
 		type: String,
 		optional: false, },
@@ -68,7 +81,7 @@ const jobAdsSchema = new SimpleSchema({
 		optional: false,
 		allowedValues: ["Full time", "Part time", "Contractor"],
 	},
-	jobDescription: { //need to make sure this displays a nice box
+	jobDescription: {
 		type: String,
 		optional: false,
 		autoform: {
@@ -78,7 +91,7 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please enter a formal description of this job",
 			},
 		}, },
-	responsibilities: { //need to make sure this displays a nice box
+	responsibilities: {
 		type: String,
 		optional: false,
 		autoform: {
@@ -88,7 +101,7 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please summarize the responsibilities that come with this job"
 			},
 		}, },
-	qualifications: { //need to make sure this displays a nice box
+	qualifications: {
 		type: String,
 		optional: false,
 		autoform: {
