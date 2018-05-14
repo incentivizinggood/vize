@@ -70,7 +70,8 @@ if(Meteor.isClient) {
 		onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
 			console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
 			wr_form_state.set("formError", "good");
-			//AutoForm.resetForm(AutoForm.getFormId());
+			console.log("Resetting " + AutoForm.getFormId() + " with AutoForm.resetForm");
+			AutoForm.resetForm(AutoForm.getFormId());
 		},
 		onError: function(formType, error) { // "error" contains whatever error object was thrown
 			console.log("ERROR: We did a thing in a " + formType + " form: " + error);
