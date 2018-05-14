@@ -2,20 +2,28 @@ import React from "react";
 import StarRatings from 'react-star-ratings';
 
 export default class CompanyRating extends React.Component {
-
+  constructor(props) {
+    super(props);
+}
   render() {
       return(
         <div>
           <div  className="col-md-6  bodr_lft">
+            {/* getting an error here, apparently, this.props.companyrating gives me an object, but
+            I am unable to get any of its fields. */}
+            {/* <p>{console.log(this.props.companyrating.name)}</p>
+            <p>{console.log(JSON.stringify(this.props.companyrating))}</p> */}
+
 
              <div  className="star_boder ">
              <label>Overall</label>&nbsp;&nbsp;&nbsp;&nbsp;
              <StarRatings
-              rating={4.2}
+              rating={this.props.companyrating.overallSatisfaction}
               starDimension="25px"
               starSpacing="2px"
             />
-             &nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">4.2</label>
+
+             &nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">{this.props.companyrating.overallSatisfaction}</label>
           </div>
           <br />
           <div  className="tab_str" >
@@ -24,45 +32,46 @@ export default class CompanyRating extends React.Component {
                   <tr>
                      <td><label htmlFor="input-2" className="control-label  lef_label">Health & Safety</label></td>
                      <td>
+                       {/* star ratings are left */}
                      <StarRatings
-                      rating={4.1}
+                      rating={this.props.companyrating.healthAndSafety}
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                        &nbsp;&nbsp; <label>4.1</label>
+                        &nbsp;&nbsp; <label>{this.props.companyrating.healthAndSafety}</label>
                      </td>
                   </tr>
                   <tr>
                      <td><label htmlFor="input-3" className="control-label   lef_label">Work Environment</label></td>
                      <td>
                      <StarRatings
-                      rating={3.2}
+                      rating={this.props.companyrating.workEnvironment}
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                        &nbsp;&nbsp; <label>3.2</label>
+                        &nbsp;&nbsp; <label>{this.props.companyrating.workEnvironment}</label>
                      </td>
                   </tr>
                   <tr>
                      <td><label htmlFor="input-4" className="control-label   lef_label">Benefits</label></td>
                      <td>
                      <StarRatings
-                      rating={3.5}
+                      rating={this.props.companyrating.benefits}
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                        &nbsp;&nbsp; <label>3.5</label>
+                        &nbsp;&nbsp; <label>{this.props.companyrating.benefits}</label>
                      </td>
                   </tr>
                   <tr>
                      <td>  <label htmlFor="input-5" className="control-label  lef_label">Manager Relationships</label></td>
                      <td>
                      <StarRatings
-                      rating={3.6}
+                      rating={this.props.companyrating.managerRelationship}
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                         &nbsp;&nbsp; <label>4.4</label>
+                         &nbsp;&nbsp; <label>{this.props.companyrating.managerRelationship}</label>
                       </td>
                    </tr>
                    </tbody>
@@ -77,16 +86,19 @@ export default class CompanyRating extends React.Component {
               <center> <h3> Recommended </h3></center>
                 <br />
                      <div className="progress yellow">
-                     <span className="progress-left">
+
+                       {/* commented out the progress bars for now */}
+                     {/* <span className="progress-left">
                         <span className="progress-bar"></span>
                      </span>
                      <span className="progress-right" >
                         <span className="progress-bar"></span>
-                     </span>
-                     <div className="progress-value" >91%</div>
+                     </span> */}
+
+                     <div className="progress-value" >{this.props.companyrating.percentRecommended*100}%</div>
                      </div>
                      <center>
-                     <div  className="col-md-6"><div  className="num_sett"><h1>38 </h1></div></div>
+                     <div  className="col-md-6"><div  className="num_sett"><h1>{this.props.companyrating.avgNumMonthsWorked} </h1></div></div>
                      <div className="col-md-6"><div  className="num_sett">   <span>Average number <br /> of months worked</span></div></div>
                      </center>
 

@@ -15,13 +15,13 @@ render() {
 
       <div className="col-md-12  section_rview_back_color ">
        <div  className="sect_re1 ">
-        <h4  className="head_section_font">{this.props.company.name} Overview</h4>
+        <h4  className="head_section_font">{this.props.companyoverview.name} Overview</h4>
 
         <hr />
 
 
         <div  className="over_p">
-        <p>{this.props.company.descriptionOfCompany}</p>
+        <p>{this.props.companyoverview.descriptionOfCompany}</p>
         {/* Dont know what to do about the Mission */}
           <p><span>Mission:</span> Google’s mission is to organize the world’s information and make it universally accessible and useful.</p>
          </div>
@@ -30,18 +30,20 @@ render() {
       <div className="clear"></div>
 
         <div  className="col-md-12  section_rview_back_color08  "> {/* review link */}
-                               <h4  className="head_section_font">{this.props.company.name} Reviews</h4>
+                               <h4  className="head_section_font">{this.props.companyoverview.name} Reviews</h4>
                                <div  className="add-buttons">
-                                          <button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
+                                 <a href={this.props.companyoverview.vizeReviewUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
+                                          {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
                                 </div>
 
                                <hr />
-                                <CompanyRating company={this.props.company}/>
+                               {/* getting the strange error in CompanyRating */}
+                                <CompanyRating companyrating={this.props.companyoverview}/>
 
                              </div>
 
-
-                                   <CompanyReview />
+                              {/* getting the same error here as well, props get undefined and cannot access the values contained in the props. */}
+                                   <CompanyReview companyreview={this.props.companyoverview}/>
                              <div  className="col-md-12  section_overtopsect">
                                     {/* <center>  <li  className="te_deco"><a href="#reviewss"   >See All Reviews</a> </li></center> */}
 

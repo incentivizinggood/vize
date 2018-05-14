@@ -10,24 +10,28 @@ export default class ReviewTab extends React.Component {
 
       <div role="tabpanel" className="tab-pane" id="reviews">
          <div  className="col-md-12  section_rview_back_color2  "  >
-           <h4  className="head_section_font">Google Reviews</h4>
+           <h4  className="head_section_font">{this.props.companyreview.name} Reviews</h4>
            <div  className="add-buttons">
-                      <button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
+             <a href={this.props.companyreview.vizeReviewUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
+                      {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
             </div>
            <hr />
 
-            <CompanyRating />
+            {/* <CompanyRating /> */}
+            <CompanyRating companyrating={this.props.companyreview}/>
 
          </div>
          {/* <hr />
          <h3  className="head_section_font_25">25 Reviews</h3> */}
 
-         <CompanyReview />
+         {/* <CompanyReview /> */}
+         <CompanyReview companyreview={this.props.companyreview}/>
 
 
 
       {/* ==========review 2========== */}
-                <CompanyReview />
+                {/* <CompanyReview /> */}
+                <CompanyReview companyreview={this.props.companyreview}/>
 
 
       </div>
