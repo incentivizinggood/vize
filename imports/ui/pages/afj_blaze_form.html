@@ -18,6 +18,10 @@
 			<div class="form-group {{#if afFieldIsInvalid name='coverLetterAndComments'}}has-error{{/if}}">
 				{{> afQuickField name='coverLetterAndComments' }}
 			</div>
+			<!-- This field is set to type="hidden" in the schema -->
+			<div class="form-group {{#if afFieldIsInvalid name='jobId'}}has-error{{/if}}">
+				{{> afFieldInput name='jobId' value=jobId }}
+			</div>
 		</fieldset>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Submit</button>

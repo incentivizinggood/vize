@@ -45,6 +45,9 @@ if(Meteor.isClient) {
 		ErrorWidget: function() {
 			return ErrorWidget;
 		},
+		jobId: function() {
+			return afj_form_state.get("jobId");
+		},
 		getCompanyName: function() {
 			let job = afj_form_state.get("job");
 			if(job === undefined) {

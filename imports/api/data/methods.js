@@ -140,9 +140,28 @@ Meteor.methods({
 		return job;
 	},
 
+	"jobads.doesJobAdExist": function(jobIdentifier) {
+		let job = JobAds.findOne(jobIdentifier);
+		if(job === undefined) {
+			throw new Meteor.Error("notFound", "There is no job ad with that id in our database");
+		}
+
+		return "all good";
+	},
+
 	"jobads.applyForJob": function (jobApplication) {
 		console.log("SERVER: entered job application method with argument: ");
 		console.log(jobApplication);
+
+		JobAds.applicationSchema.clean(jobApplication);
+		let validationResult = JobAds.applicationSchema.namedContext().validate(jobApplication);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		let errors = JobAds.applicationSchema.namedContext().validationErrors();
+		if(!validationResult) {
+			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
+
 	},
 
 	"jobads.postJobAd": function (newJobAd) {
