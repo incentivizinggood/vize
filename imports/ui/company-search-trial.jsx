@@ -18,12 +18,10 @@ var input = '';
 class Results extends React.Component {
 
   render(){
-    console.log("after");
-    console.log(this.props.company);
     var first = this.props.company;
 
-    const RenderedItems = this.props.company.map(function(item){
-      return <CompanyComponent item = {item}/>
+    const RenderedItems = this.props.company.map(function(item, i){
+      return <CompanyComponent key={i} item = {item}/>
     });
 
 
@@ -39,10 +37,6 @@ class Results extends React.Component {
 
 let Results1 = withTracker(({query}) => {
    var handle = Meteor.subscribe("CompanyProfiles");
-
-   console.log("inside the tracker");
-   console.log(query);
-   console.log("after input");
 
    return {
        isReady: handle.ready(),
@@ -76,7 +70,7 @@ export default class CompanySearchTrial extends React.Component {
         event.preventDefault();
 
         input = this.refs.input_search.value;
-        console.log(input);
+        // console.log(input);
         this.refs.input_search.value = "";
         this.setState({input: input});
     }

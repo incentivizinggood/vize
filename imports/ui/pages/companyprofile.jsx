@@ -126,7 +126,7 @@ class CompanyProfile extends React.Component {
           {/* ==================job tab end=====================
 
          =================Salaries  tab====================== */}
-        <SalaryTab salaries = {this.props.salaries} salariesCount = {this.props.salariesCount}/>
+        <SalaryTab company={this.props.company} salaries = {this.props.salaries} salariesCount = {this.props.salariesCount}/>
              {/* =================Salaries  tab  end======================
 
             ====================contact  tab==================== */}

@@ -13,10 +13,14 @@ export default class SalaryTab extends React.Component {
     <div role="tabpanel" className="tab-pane" id="salaries">
         <div className="col-md-12  section_rview_back_color03 ">
           <h4 className="head_section_font">{this.props.salariesCount} Job Salaries</h4>
-          <div className="add-buttons">
-            <button>
-              <i className="fa fa-plus"></i>&nbsp; Add a Salary</button>
-          </div>
+            <div  className="add-buttons">
+              <a href={this.props.company.vizeSalaryUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Salary</a>
+                       {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
+             </div>
+
+
+            {/* <button>
+              <i className="fa fa-plus"></i>&nbsp; Add a Salary</button> */}
         </div>
 
         <div className="col-md-12  section_rview_back_color05 ">

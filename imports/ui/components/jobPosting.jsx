@@ -9,17 +9,21 @@ export default class JobPosting extends React.Component {
              <div >
                 <h4><strong>{this.props.item.jobTitle}</strong></h4>
              </div>
+
              <div>
+               <div  className="add-buttons">
+                        <a href={this.props.item.vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
+                      </div>
                 <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.item.locations[0]}</p>
                 <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.item.pesosPerHour}/Hour</p>
                 <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.item.contractType}</p>
              </div>
-               <div  className="fl-ri-app">
-                        <button>Apply Now</button>
-                      </div>
+               {/* <div  className="add-buttons">
+                        <a href={this.props.item.vizeApplyForJobUrl} className="btn btn-primary"> <i aria-hidden="true"></i>   Apply now</a>
+                      </div> */}
 
            <hr />
-             <h4 className="h4-font-sz-job">{this.props.item.jobDescription}</h4>
+             <h4 className="h4-font-sz-job">Job Description</h4>
              <div  className="h4-font-sz">
               <article>
                    <p>{this.props.item.jobDescription}</p>

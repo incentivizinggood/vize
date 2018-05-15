@@ -16,7 +16,7 @@ export default class SalaryPosting extends React.Component {
 
                  <p  className="mal-r">{this.props.item.gender}</p>
                   <div  className="pad-r">
-                      <p>{this.props.item.incomeType}<span>:{this.props.item.incomeAmount}</span></p>
+                      <p>{this.props.item.incomeType}<span>: {this.props.item.incomeAmount}</span></p>
                       {/* <p>Range<span>:$99k-166k</span></p> */}
                  </div>
 
@@ -31,6 +31,7 @@ export default class SalaryPosting extends React.Component {
              </div>
 
                </div>
+
         </div>
 
 
