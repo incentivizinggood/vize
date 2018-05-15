@@ -118,7 +118,7 @@ Companies.schema = new SimpleSchema({
 	contactEmail: {
 		type: String,
 		optional: false,
-		regEx: SimpleSchema.RegEx.Email, },
+		regEx: SimpleSchema.RegEx.EmailWithTLD, },
 	dateEstablished: {
 		type: Date,
 		optional: true, },

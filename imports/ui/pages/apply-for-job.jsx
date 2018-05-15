@@ -24,18 +24,16 @@ if(Meteor.isClient) {
 
 	Template.afj_blaze_form.onCreated(function() {
 		let id = afj_form_state.get("jobId");
-		if(id !== undefined){ // no need to go to all that trouble if we're on the home page
-			this.autorun(function() {
-				Meteor.call("jobads.findOne", id, (error, result) => {
-					if (!result) {
-						afj_form_state.set("job", undefined);
-					}
-					else {
-						afj_form_state.set("job", result);
-					}
-				});
+		this.autorun(function() {
+			Meteor.call("jobads.findOne", id, (error, result) => {
+				if (!result) {
+					afj_form_state.set("job", undefined);
+				}
+				else {
+					afj_form_state.set("job", result);
+				}
 			});
-		}
+		});
 	});
 
 	Template.afj_blaze_form.onRendered(function() {
@@ -43,17 +41,14 @@ if(Meteor.isClient) {
 	});
 
 	Template.afj_blaze_form.helpers({
-		jobads: JobAds,
+		jobApplicationSchema: JobAds.applicationSchema,
 		ErrorWidget: function() {
 			return ErrorWidget;
-		},
-		shouldHaveJob: function() {
-			return afj_form_state.get("jobId") !== undefined;
 		},
 		getCompanyName: function() {
 			let job = afj_form_state.get("job");
 			if(job === undefined) {
-				return "ERROR: JOB NOT FOUND";
+				return "ERROR: INVALID JOB ID";
 			}
 			else {
 				return job.companyName;

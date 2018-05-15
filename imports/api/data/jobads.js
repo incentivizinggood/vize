@@ -143,6 +143,85 @@ JobAds.schema.messageBox.messages({
 
 JobAds.attachSchema(JobAds.schema, { replace: true });
 
+// This is used by the "Apply for a Job" form
+JobAds.applicationSchema = new SimpleSchema({
+	companyName: {	// Always auto-filled by form
+		type: String,
+	 	optional: false,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "companyName",
+							type: "noCompanyWithThatName",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(!Companies.hasEntry(this.value)) {
+					return "noCompanyWithThatName";
+				}
+			}
+		}, },
+	// The following fields are personal information
+	// entered by the applicant
+	fullName: {
+		type: String,
+		optional: false,
+		autoform: {
+			afFieldInput: {
+				placeholder: "Enter your full name here",
+			},
+		}, },
+	email: {
+		type: String,
+		optional: false,
+		regEx: SimpleSchema.RegEx.EmailWithTLD,
+		autoform: {
+			afFieldInput: {
+				placeholder: "Input an email address the company can contact you at",
+			},
+		}, },
+	phoneNumber: {
+		type: String,
+		optional: false,
+		regEx: SimpleSchema.RegEx.Phone,
+		autoform: {
+			afFieldInput: {
+				placeholder: "Input phone number the company can contact you with",
+			},
+		}, },
+	coverLetterAndComments: {
+		type: String,
+		optional: true,
+		autoform: {
+			afFieldInput: {
+				type: "textarea",
+				rows: 6,
+				placeholder: "Things that would normally go in a cover letter may go in this field, otherwise you may type any message you like here and it will get sent to the company as part of your application",
+			},
+		}, },
+	dateSent: {
+		type: Date,
+		optional: true,
+		denyUpdate: true,
+		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+		autoform: {
+			omit: true,
+		}, },
+}, { tracker: Tracker } );
+
+JobAds.applicationSchema.messageBox.messages({
+	//en? does that mean we can add internationalization
+	//in this block of code?
+	en: {
+		noCompanyWithThatName: "There is no company with that name in our database",
+	},
+});
+
+
 JobAds.deny({
     insert() { return true; },
     update() { return true; },

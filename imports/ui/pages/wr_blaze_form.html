@@ -1,6 +1,6 @@
 <template name="wr_blaze_form">
 	{{#autoForm collection=reviews id="wr_blaze_form" type="method"
-		meteormethod="reviews.submitReview" preserveForm=false resetOnSuccess=true}}
+		meteormethod="reviews.submitReview" preserveForm=false }}
 		<fieldset>
 			<legend>Write a Review</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">

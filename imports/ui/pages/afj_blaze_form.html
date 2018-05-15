@@ -1,53 +1,22 @@
 <template name="afj_blaze_form">
-	{{#autoForm collection=reviews id="afj_blaze_form" type="method"
-		meteormethod="jobads.applyForJob" preserveForm=false resetOnSuccess=true}}
+	{{#autoForm schema=jobApplicationSchema id="afj_blaze_form" type="method"
+		meteormethod="jobads.applyForJob" preserveForm=false }}
 		<fieldset>
 			<legend>Apply for a Job</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-				{{#if shouldHaveCompany}}
 				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
-				{{else}}
-				{{> afQuickField name='companyName' }}
-				{{/if}}
 			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
-				{{> afQuickField name='reviewTitle' placeholder="Please choose a title for your review"}}
+			<div class="form-group {{#if afFieldIsInvalid name='fullName'}}has-error{{/if}}">
+				{{> afQuickField name='fullName' }}
 			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
-				{{> afArrayField name='locations' }}
+			<div class="form-group {{#if afFieldIsInvalid name='email'}}has-error{{/if}}">
+				{{> afQuickField name='email' }}
 			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-				{{> afQuickField name='jobTitle' placeholder="Please enter the name of the position you held at this company"}}
+			<div class="form-group {{#if afFieldIsInvalid name='phoneNumber'}}has-error{{/if}}">
+				{{> afQuickField name='phoneNumber' }}
 			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
-				{{> afQuickField name='numberOfMonthsWorked'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
-				{{> afQuickField name='pros' placeholder="Please tell us some pros of working for this company"}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
-				{{> afQuickField name='cons' placeholder="Please tell us some cons of working for this company"}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
-				{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
-				{{> afQuickField name='healthAndSafety'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
-				{{> afQuickField name='managerRelationship'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
-				{{> afQuickField name='workEnvironment'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
-				{{> afQuickField name='benefits'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
-				{{> afQuickField name='overallSatisfaction'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
-				{{> afQuickField name='additionalComments' placeholder="Please enter any additional thoughts or comments you may have"}}
+			<div class="form-group {{#if afFieldIsInvalid name='coverLetterAndComments'}}has-error{{/if}}">
+				{{> afQuickField name='coverLetterAndComments' }}
 			</div>
 		</fieldset>
 		<div class="form-group">
