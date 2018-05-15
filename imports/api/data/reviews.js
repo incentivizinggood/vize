@@ -30,7 +30,7 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'}
 */
 
 //Schema for the Collection
-const reviewsSchema = new SimpleSchema({
+Reviews.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -250,6 +250,7 @@ const reviewsSchema = new SimpleSchema({
 	datePosted: {
 		type: Date,
 		optional: true,
+		denyUpdate: true,
 		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
 		autoform: {
 			omit: true,
@@ -288,7 +289,7 @@ const reviewsSchema = new SimpleSchema({
 		//reminds me of generally what needs to be done here.
 }, { tracker: Tracker } );
 
-reviewsSchema.messageBox.messages({
+Reviews.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -299,9 +300,14 @@ reviewsSchema.messageBox.messages({
 	},
 });
 
-Reviews.attachSchema(reviewsSchema, { replace: true });
+Reviews.attachSchema(Reviews.schema, { replace: true });
 
-// I dont think there is a needed for this code. Might be wrong.
+Reviews.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
 	Meteor.publish("Reviews", function() {
 		return Reviews.find({});

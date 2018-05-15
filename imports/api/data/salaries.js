@@ -11,7 +11,7 @@ export const Salaries = new Mongo.Collection("Salaries", { idGeneration: 'STRING
 /*
 	Change this all from "Salaries" to "Incomes" or "Pay"?
 */
-const salariesSchema = new SimpleSchema({
+Salaries.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -71,13 +71,14 @@ const salariesSchema = new SimpleSchema({
 	datePosted: {
 		type: Date,
 		optional: true,
+		denyUpdate: true,
 		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
 		autoform: {
 			omit: true,
 		}, },
 }, { tracker: Tracker } );
 
-salariesSchema.messageBox.messages({
+Salaries.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -85,10 +86,14 @@ salariesSchema.messageBox.messages({
 	},
 });
 
-Salaries.attachSchema(salariesSchema, { replace: true });
+Salaries.attachSchema(Salaries.schema, { replace: true });
 
-// Do we necessarily need to publish all these collections?
-// Where are they even used?
+Salaries.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
 	Meteor.publish("Salaries", function() {
 		return Salaries.find({});

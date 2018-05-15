@@ -1,5 +1,5 @@
 <template name="paj_blaze_form">
-	{{#autoForm collection=jobAds id="paj_blaze_form" type="method" meteormethod="jobAds.postJobAd" preserveForm=false}}
+	{{#autoForm collection=jobAds id="paj_blaze_form" type="method" meteormethod="jobads.postJobAd" preserveForm=false}}
 		<fieldset>
 			<legend>Post a Job</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">

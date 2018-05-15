@@ -131,7 +131,20 @@ Meteor.methods({
 
 	},
 
-	"jobAds.postJobAd": function (newJobAd) {
+	"jobads.findOne": function (jobIdentifier) {
+		let job = JobAds.findOne(jobIdentifier);
+		if(job === undefined) {
+			throw new Meteor.Error("notFound", "Your search for job ads did not return any results");
+		}
+
+		return job;
+	},
+
+	"jobads.applyForJob": function (jobApplication) {
+		console.log("this is placeholder line of code");
+	},
+
+	"jobads.postJobAd": function (newJobAd) {
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");

@@ -41,7 +41,8 @@ import UserPage from "../../ui/pages/user.jsx";
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewForm from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
-import PostAJobForm from "../../ui/pages/post-a-job.jsx"
+import PostAJobForm from "../../ui/pages/post-a-job.jsx";
+import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";
 
 /**
  * Reduces boiler plate for simple pages.
@@ -127,6 +128,15 @@ FlowRouter.route("/post-a-job", {
 	action(params, queryParams) {
 		ReactDOM.render(
 			<PostAJobForm companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	}
+});
+
+FlowRouter.route("/apply-for-job", {
+	action(params, queryParams) {
+		ReactDOM.render(
+			<ApplyForJobForm jobId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
 	}

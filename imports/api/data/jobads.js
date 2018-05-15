@@ -7,7 +7,7 @@ SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema opti
 
 export const JobAds = new Mongo.Collection("JobAds", { idGeneration: 'STRING'});
 
-const jobAdsSchema = new SimpleSchema({
+JobAds.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -45,6 +45,18 @@ const jobAdsSchema = new SimpleSchema({
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
 				return Companies.findOne({name: this.field("companyName").value})._id;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	vizeApplyForJobUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return process.env.ROOT_URL + "apply-for-job/?id=" + this.field("_id").value;
 			}
 		},
 		autoform: {
@@ -111,9 +123,17 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please describe the qualifications necessary for this job",
 			},
 		}, },
+	datePosted: {
+		type: Date,
+		optional: true,
+		denyUpdate: true,
+		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+		autoform: {
+			omit: true,
+		}, },
 }, { tracker: Tracker } );
 
-jobAdsSchema.messageBox.messages({
+JobAds.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -121,7 +141,13 @@ jobAdsSchema.messageBox.messages({
 	},
 });
 
-JobAds.attachSchema(jobAdsSchema, { replace: true });
+JobAds.attachSchema(JobAds.schema, { replace: true });
+
+JobAds.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
 
 if (Meteor.isServer) {
 	Meteor.publish("JobAds", function() {
