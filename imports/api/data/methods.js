@@ -74,33 +74,36 @@ Meteor.methods({
 		const company = Companies.findOne({name: newReview.companyName});
 
 		// Update denormalizations.
-		console.log("SERVER: before update");
-		console.log(Companies.findOne({name: newReview.companyName}));
+		if(company !== undefined) {
+			console.log("SERVER: before update");
+			console.log(Companies.findOne({name: newReview.companyName}));
 
-		/*
-			QUESTION:
-				Do we need some kind of hook to periodically re-check the
-				averages in case something happens where a review gets
-				inserted before the averages are updated?
-		*/
+			/*
+				QUESTION:
+					Do we need some kind of hook to periodically re-check the
+					averages in case something happens where a review gets
+					inserted before the averages are updated?
+			*/
 
-		Companies.update(
-			{ name: newReview.companyName },
-			{
-				$set: {
-					healthAndSafety: addToAvg(newReview.healthAndSafety, company.numReviews, company.healthAndSafety),
-					managerRelationship: addToAvg(newReview.managerRelationship, company.numReviews, company.managerRelationship),
-					workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
-					benefits: addToAvg(newReview.benefits, company.numReviews, company.benefits),
-					overallSatisfaction: addToAvg(newReview.overallSatisfaction, company.numReviews, company.overallSatisfaction),
-					percentRecommended: addToAvg((newReview.wouldRecommendToOtherJobSeekers) ? 1 : 0, company.numReviews, company.percentRecommended),
-					avgNumMonthsWorked: addToAvg(newReview.numberOfMonthsWorked, company.numReviews, company.avgNumMonthsWorked),
-				},
-				$inc: { numReviews: 1 } //this will increment the numReviews by 1
-			}
-		);
-		console.log("SERVER: after update");
-		console.log(Companies.findOne({name: newReview.companyName}));
+			Companies.update(
+				{ name: newReview.companyName },
+				{
+					$set: {
+						healthAndSafety: addToAvg(newReview.healthAndSafety, company.numReviews, company.healthAndSafety),
+						managerRelationship: addToAvg(newReview.managerRelationship, company.numReviews, company.managerRelationship),
+						workEnvironment: addToAvg(newReview.workEnvironment, company.numReviews, company.workEnvironment),
+						benefits: addToAvg(newReview.benefits, company.numReviews, company.benefits),
+						overallSatisfaction: addToAvg(newReview.overallSatisfaction, company.numReviews, company.overallSatisfaction),
+						percentRecommended: addToAvg((newReview.wouldRecommendToOtherJobSeekers) ? 1 : 0, company.numReviews, company.percentRecommended),
+						avgNumMonthsWorked: addToAvg(newReview.numberOfMonthsWorked, company.numReviews, company.avgNumMonthsWorked),
+					},
+					$inc: { numReviews: 1 } //this will increment the numReviews by 1
+				}
+			);
+			console.log("SERVER: after update");
+			console.log(Companies.findOne({name: newReview.companyName}));
+		}
+
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
@@ -150,6 +153,25 @@ Meteor.methods({
 
 		console.log("SERVER: inserting");
 		JobAds.insert(newJobAd);
+	},
+
+	"companies.findOne": function (companyIdentifier) {
+
+		let company = Companies.findOne(companyIdentifier);
+		if(company === undefined) {
+			throw new Meteor.Error("notFound", "Your search for companies did not return any results");
+		}
+
+		return company;
+	},
+
+	"companies.isNotSessionError": function (companyNameString) {
+		if(companyNameString === "ERROR: COMPANY NOT FOUND" ||
+			companyNameString === "Please wait while we finish loading the form...") {
+			throw new Meteor.Error("sessionError", "Please stop messing around");
+		}
+
+		return "all good";
 	},
 
 	"companies.isCompanyNameAvailable": function (companyName) {

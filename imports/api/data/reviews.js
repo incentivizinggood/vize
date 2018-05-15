@@ -44,30 +44,70 @@ const reviewsSchema = new SimpleSchema({
 	 	optional: false,//use this instead of companyID
 		index: true,
 		custom: function() {
+
 			if (Meteor.isClient && this.isSet) {
-				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+				Meteor.call("companies.isNotSessionError", this.value, (error, result) => {
 					if (!result) {
 						this.validationContext.addValidationErrors([{
 							name: "companyName",
-							type: "noCompanyWithThatName",
+							type: "sessionError",
 						}]);
 					}
 				});
 			}
 			else if (Meteor.isServer && this.isSet) {
-				if(!Companies.hasEntry(this.value)) {
-					return "noCompanyWithThatName";
+				if(this.value === "ERROR: COMPANY NOT FOUND" ||
+					this.value === "Please wait while we finish loading the form...") {
+					return "sessionError";
 				}
 			}
-		}, },
+		}
+		/*
+			After working so hard to get this right,
+			here is why I have removed this custom validator:
+			There is no way to skip custom validation. However,
+			frontend wanted the insertion form to allow users
+			to skip this step under certain circumstances. This
+			would have been a cause for concern, except in the
+			other circumstances this field is auto-filled from
+			the collection and set to read-only. There thus
+			seems to be no use case for this check. But I worked
+			hard on it, so here it is in case I ever need to
+			refer back to its code, or even use it again in the
+			project, perhaps for testing.
+		*/
+		// custom: function() {
+		// 	if (Meteor.isClient && this.isSet) {
+		// 		Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+		// 			if (!result) {
+		// 				this.validationContext.addValidationErrors([{
+		// 					name: "companyName",
+		// 					type: "noCompanyWithThatName",
+		// 				}]);
+		// 			}
+		// 		});
+		// 	}
+		// 	else if (Meteor.isServer && this.isSet) {
+		// 		if(!Companies.hasEntry(this.value)) {
+		// 			return "noCompanyWithThatName";
+		// 		}
+		// 	}
+		// },
+	},
 	companyId: {
 		type: String,
 		optional: true,
-		denyUpdate: true,
+		denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
 		index: true,
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
-				return Companies.findOne({name: this.field("companyName").value})._id;
+				let company = Companies.findOne({name: this.field("companyName").value});
+				if (company !== undefined) {
+					return company._id;
+				}
+				else {
+					return "This company does not have a Vize profile yet";
+				}
 			}
 		},
 		autoform: {
@@ -77,6 +117,8 @@ const reviewsSchema = new SimpleSchema({
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
 	// that's tough to do now
+	// -> NOT REALLY, this information can be stored with the user
+	//		and queried when needed
 
 	reviewTitle: { //title of the review
 		type: String,
@@ -253,6 +295,7 @@ reviewsSchema.messageBox.messages({
 		needsFiveWords: "You should write at least 5 words in this field",
 		noCompanyWithThatName: "There is no company with that name in our database",
 		dateJoinedAfterDateLeft: "Date Joined cannot be after Date Left",
+		sessionError: "Please stop messing around",
 	},
 });
 

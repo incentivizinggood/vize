@@ -5,6 +5,7 @@ import { Template } from "meteor/templating"; // Used to set up the autoform
 import { withTracker } from "meteor/react-meteor-data";
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
+import { ReactiveVar } from "meteor/reactive-var";
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 
@@ -24,12 +25,24 @@ import "../afInputStarRating.js";
 let wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", "good"); // Shared with AutoForm helpers
 wr_form_state.set("companyId", undefined); // Shared with the React wrapper
+wr_form_state.set("company", {name: "Please wait while we finish loading the form..."});
 
 if(Meteor.isClient) {
 
 	Template.wr_blaze_form.onCreated(function() {
-		console.log("Received companyId: " + wr_form_state.get("companyId"));
-		this.subscribe("CompanyProfiles"); // Blaze is cool
+		let id = wr_form_state.get("companyId");
+		if(id !== undefined){ // no need to go to all that trouble if we're on the home page
+			this.autorun(function() {
+				Meteor.call("companies.findOne", id, (error, result) => {
+					if (!result) {
+						wr_form_state.set("company", undefined);
+					}
+					else {
+						wr_form_state.set("company", result);
+					}
+				});
+			});
+		}
 	});
 
 	Template.wr_blaze_form.onRendered(function() {
@@ -45,8 +58,7 @@ if(Meteor.isClient) {
 			return wr_form_state.get("companyId") !== undefined;
 		},
 		getCompanyName: function() {
-			let id = wr_form_state.get("companyId");
-			let company = Companies.findOne(id);
+			let company = wr_form_state.get("company");
 			if(company === undefined) {
 				return "ERROR: COMPANY NOT FOUND";
 			}
@@ -70,8 +82,6 @@ if(Meteor.isClient) {
 		onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
 			console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
 			wr_form_state.set("formError", "good");
-			console.log("Resetting " + AutoForm.getFormId() + " with AutoForm.resetForm");
-			AutoForm.resetForm(AutoForm.getFormId());
 		},
 		onError: function(formType, error) { // "error" contains whatever error object was thrown
 			console.log("ERROR: We did a thing in a " + formType + " form: " + error);
