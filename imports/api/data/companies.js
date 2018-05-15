@@ -36,7 +36,7 @@ Companies.findReviewsForCompany = function(companyIdentifier) {
 	return Reviews.find({companyName: company.name});
 };
 
-const companiesSchema = new SimpleSchema({
+Companies.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -264,7 +264,7 @@ const companiesSchema = new SimpleSchema({
 }, { tracker: Tracker } );
 
 // Define custom error messages for custom validation functions
-companiesSchema.messageBox.messages({
+Companies.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -275,7 +275,7 @@ companiesSchema.messageBox.messages({
 //db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})
 
 // Added line for autoforms and collection2 usage
-Companies.attachSchema(companiesSchema, { replace: true });
+Companies.attachSchema(Companies.schema, { replace: true });
 
 Companies.deny({
     insert() { return true; },

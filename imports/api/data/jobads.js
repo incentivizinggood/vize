@@ -7,7 +7,7 @@ SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema opti
 
 export const JobAds = new Mongo.Collection("JobAds", { idGeneration: 'STRING'});
 
-const jobAdsSchema = new SimpleSchema({
+JobAds.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -125,7 +125,7 @@ const jobAdsSchema = new SimpleSchema({
 		}, },
 }, { tracker: Tracker } );
 
-jobAdsSchema.messageBox.messages({
+JobAds.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -133,7 +133,7 @@ jobAdsSchema.messageBox.messages({
 	},
 });
 
-JobAds.attachSchema(jobAdsSchema, { replace: true });
+JobAds.attachSchema(JobAds.schema, { replace: true });
 
 JobAds.deny({
     insert() { return true; },

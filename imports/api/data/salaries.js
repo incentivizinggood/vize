@@ -11,7 +11,7 @@ export const Salaries = new Mongo.Collection("Salaries", { idGeneration: 'STRING
 /*
 	Change this all from "Salaries" to "Incomes" or "Pay"?
 */
-const salariesSchema = new SimpleSchema({
+Salaries.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -77,7 +77,7 @@ const salariesSchema = new SimpleSchema({
 		}, },
 }, { tracker: Tracker } );
 
-salariesSchema.messageBox.messages({
+Salaries.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -85,7 +85,7 @@ salariesSchema.messageBox.messages({
 	},
 });
 
-Salaries.attachSchema(salariesSchema, { replace: true });
+Salaries.attachSchema(Salaries.schema, { replace: true });
 
 Salaries.deny({
     insert() { return true; },

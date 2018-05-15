@@ -30,7 +30,7 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'}
 */
 
 //Schema for the Collection
-const reviewsSchema = new SimpleSchema({
+Reviews.schema = new SimpleSchema({
 	_id: {
 		type: String,
 		optional: true,
@@ -288,7 +288,7 @@ const reviewsSchema = new SimpleSchema({
 		//reminds me of generally what needs to be done here.
 }, { tracker: Tracker } );
 
-reviewsSchema.messageBox.messages({
+Reviews.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -299,7 +299,7 @@ reviewsSchema.messageBox.messages({
 	},
 });
 
-Reviews.attachSchema(reviewsSchema, { replace: true });
+Reviews.attachSchema(Reviews.schema, { replace: true });
 
 Reviews.deny({
     insert() { return true; },
