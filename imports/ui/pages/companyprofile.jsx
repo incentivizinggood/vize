@@ -25,7 +25,7 @@ class CompanyProfile extends React.Component {
     }
 
     render() {
-      if (!this.props.isReady && !this.props.isReady1 && !this.props.isReady2) {
+      if (!this.props.isReady || !this.props.isReady1 || !this.props.isReady2 || !this.props.isReady3) {
           return <h2>Loading...</h2>;
       }
       if (this.props.company === undefined) {
@@ -112,7 +112,7 @@ class CompanyProfile extends React.Component {
      {/* =====================overview tab====================  */}
 
 
-        <OverviewTab jobsCount = {this.props.jobsCount} firstjobAd={this.props.jobAds[0]} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
+        <OverviewTab jobsCount = {this.props.jobsCount} firstjobAd={this.props.jobAds[2]} firstsalary={this.props.salaries[0]} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
 
         {/* ===============overview tab end==================
 
@@ -192,7 +192,8 @@ export default withTracker(({ companyId }) => {
     return {
         isReady: handle.ready(),
         isReady1: handle1.ready(),
-        isReady2: handle.ready(),
+        isReady2: handle2.ready(),
+        isReady3: handle3.ready(),
         company: Companies.findOne(companyId),
         reviews: Reviews.find({companyId: companyId}).fetch(),
         jobAds: JobAds.find({companyId: companyId}).fetch(),

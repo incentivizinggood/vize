@@ -116,9 +116,21 @@ Meteor.methods({
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
-		// Make sure the user is logged in before inserting a task
+		// Make sure the user is logged and is permitted to submit their salary.
 		if (!this.userId) {
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		if (user.role !== "worker") {
+			throw new Meteor.Error("rolePermission", "Only workers may submit their salaries.");
+		}
+
+		// TODO: use upsert to prevent duplicate salaries.
+		const {companyId, jobTitle} = newSalary;
+		if (Salaries.find({companyId, jobTitle}).count() !== 0) {
+			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per location per job title.");
 		}
 
 		//This avoids a lot of problems
@@ -136,6 +148,9 @@ Meteor.methods({
 		console.log(Salaries.simpleSchema().namedContext().validationErrors());
 
 		console.log("SERVER: inserting");
+
+		// TODO: use upsert to prevent duplicate salaries.
+		// Salaries.upsert({userId, companyId, jobTitle, location}, newSalary);
 		Salaries.insert(newSalary);
 
 	},
