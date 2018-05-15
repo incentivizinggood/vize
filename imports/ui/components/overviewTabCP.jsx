@@ -63,8 +63,8 @@ render() {
                               <div  className="sect_re1 ">
                                   <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
                                   <hr />
-                                   {/* <div> */}
-                                     {/* <p>{console.log(this.props.firstjobAd)}</p>
+                                   <div>
+                                      {/* <p>{console.log(this.props.firstjobAd)}</p> */}
                                       <h4><strong>{this.props.firstjobAd.jobTitle}</strong></h4>
                                    </div>
                                    <div>
@@ -72,14 +72,16 @@ render() {
                                       <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.firstjobAd.pesosPerHour}/Hour</p>
                                       <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.firstjobAd.contractType}</p>
                                    </div>
-                                    <div  className="fl-ri-app">
-                                              <button>Apply Now</button>
-                                            </div>
+
+                                   <div  className="add-buttons">
+                                            <a href={this.props.firstjobAd.vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
+                                    </div>
                                    <hr />
                                    <h4 className="h4-font-sz-job">Job Description</h4>
                                    <div  className="h4-font-sz">
 
-                                         <p>{this.props.firstjobAd.jobDescription}</p> */}
+                                         <p>{this.props.firstjobAd.jobDescription}</p>
+                                  </div>
 
                                 <hr />
                                 <center>
@@ -89,11 +91,9 @@ render() {
                                     </ul>
                                     </div>
                                   </center>
-                                <div   className="fl-ri">
-                                               {/* <p>posted on April 19th, 2018</p> */}
-                                            </div>
+
                                    </div>
-                                {/* </div> */}
+
                              </div>
 
                              {/*job link */}
@@ -107,26 +107,42 @@ render() {
                                 <div  className="sect_re1  sec_p">
 
                                    <h4  className="head_section_font">{this.props.salariesCount} Job Salaries</h4>
-                                   {/* <div  className="add-buttons">
-                                              <button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
-                                    </div> */}
+
+                                    <div  className="add-buttons">
+                                             <a href={this.props.companyoverview.vizeSalaryUrl} className="btn btn-primary">   Add a salary</a>
+                                           </div>
                                    <hr />
                                       {/* <SalaryPosting /> */}
 
 
-                                      {/* <div  className="col-md-12  section_overtopsect"> */}
+
+                                      <div className="hed-soft-mob">
+                                        <p>{this.props.firstsalary.jobTitle}</p>
+                                        <hr />
+                                     </div>
+
+                                     <p  className="mal-r">{this.props.firstsalary.gender}</p>
+                                      {/* <div  className="pad-r"> */}
+                                          <p>{this.props.firstsalary.incomeType}<span>: {this.props.firstsalary.incomeAmount}</span></p>
+                                          {/* <p>Range<span>:$99k-166k</span></p> */}
+                                     {/* </div> */}
+
+
+
+
+
                                         <center>
-                                          <div  className="na_tab1"  >
+                                          {/* <div  className="na_tab1"  > */}
                                             <ul className="" role="tablist">
                                               <li role="presentation"   className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
                                             </ul>
-                                          </div>
+                                          {/* </div> */}
                                         </center>
-                                      {/* </div> */}
+
                                       </div>
                                       </div>
 
-                                      {/* salaries end*/}
+
 
 
       </div>

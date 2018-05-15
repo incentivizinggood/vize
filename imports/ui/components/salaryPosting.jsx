@@ -9,7 +9,7 @@ export default class SalaryPosting extends React.Component {
 
                   <div className="col-md-12 section_rview_back_color05 ">
                         <div  className="sect_re11 ">
-                            <div className="hed-soft-mob">
+                  <div className="hed-soft-mob">
                     <p>{this.props.item.jobTitle}</p>
                     <hr />
                  </div>
