@@ -123,6 +123,14 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please describe the qualifications necessary for this job",
 			},
 		}, },
+	datePosted: {
+		type: Date,
+		optional: true,
+		denyUpdate: true,
+		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+		autoform: {
+			omit: true,
+		}, },
 }, { tracker: Tracker } );
 
 jobAdsSchema.messageBox.messages({

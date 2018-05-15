@@ -71,6 +71,7 @@ const salariesSchema = new SimpleSchema({
 	datePosted: {
 		type: Date,
 		optional: true,
+		denyUpdate: true,
 		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
 		autoform: {
 			omit: true,

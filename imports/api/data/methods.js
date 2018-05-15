@@ -138,7 +138,11 @@ Meteor.methods({
 		}
 
 		return job;
-	}
+	},
+
+	"jobads.applyForJob": function (jobApplication) {
+		console.log("this is placeholder line of code");
+	},
 
 	"jobads.postJobAd": function (newJobAd) {
 		// Make sure the user is logged in before inserting a task

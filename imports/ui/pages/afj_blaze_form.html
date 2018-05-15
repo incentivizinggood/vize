@@ -1,8 +1,8 @@
-<template name="wr_blaze_form">
-	{{#autoForm collection=reviews id="wr_blaze_form" type="method"
-		meteormethod="reviews.submitReview" preserveForm=false resetOnSuccess=true}}
+<template name="afj_blaze_form">
+	{{#autoForm collection=reviews id="afj_blaze_form" type="method"
+		meteormethod="jobads.applyForJob" preserveForm=false resetOnSuccess=true}}
 		<fieldset>
-			<legend>Write a Review</legend>
+			<legend>Apply for a Job</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
 				{{#if shouldHaveCompany}}
 				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
