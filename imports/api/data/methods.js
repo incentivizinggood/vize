@@ -152,6 +152,16 @@ Meteor.methods({
 		JobAds.insert(newJobAd);
 	},
 
+	"companies.findOne": function (companyIdentifier) {
+		
+		let company = Companies.findOne(companyIdentifier);
+		if(company === undefined) {
+			throw new Meteor.Error("notFound", "Your search for companies did not return any results");
+		}
+
+		return company;
+	},
+
 	"companies.isCompanyNameAvailable": function (companyName) {
 		if(Companies.hasEntry(companyName)) {
 			throw new Meteor.Error("nameTaken", "The name you provided is already taken");
