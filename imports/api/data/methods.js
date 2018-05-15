@@ -249,6 +249,16 @@ Meteor.methods({
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
 
+		const user = Meteor.users.findOne(this.userId);
+
+		if (user.role !== "company") {
+			throw new Meteor.Error("rolePermission", "Only companies may post job ads.");
+		}
+
+		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
+			throw new Meteor.Error("rolePermission", "You may only post a job ad for a company that you are allowed to administer.");
+		}
+
 		//This avoids a lot of problems
 		JobAds.simpleSchema().clean(newJobAd);
 
