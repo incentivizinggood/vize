@@ -57,11 +57,14 @@ render() {
                              </div>
                              {/* review link */}
 
-                                 <div className="col-md-12  section_rview_back_color_job"> {/* job link */}
-                                <div  className="sect_re1 ">
+
+
+                             <div className="col-md-12  section_rview_back_color_job"> {/* job link */}
+                              <div  className="sect_re1 ">
                                   <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
                                   <hr />
-                                   <div>
+                                   {/* <div> */}
+                                     {/* <p>{console.log(this.props.firstjobAd)}</p>
                                       <h4><strong>{this.props.firstjobAd.jobTitle}</strong></h4>
                                    </div>
                                    <div>
@@ -76,7 +79,7 @@ render() {
                                    <h4 className="h4-font-sz-job">Job Description</h4>
                                    <div  className="h4-font-sz">
 
-                                         <p>{this.props.firstjobAd.jobDescription}</p>
+                                         <p>{this.props.firstjobAd.jobDescription}</p> */}
 
                                 <hr />
                                 <center>
@@ -87,23 +90,31 @@ render() {
                                     </div>
                                   </center>
                                 <div   className="fl-ri">
-                                               <p>posted on April 19th, 2018</p>
+                                               {/* <p>posted on April 19th, 2018</p> */}
                                             </div>
                                    </div>
-                                </div>
-                             </div> {/*job link */}
+                                {/* </div> */}
+                             </div>
+
+                             {/*job link */}
+
+
+
+
+
+
                            <div className="col-md-12  section_rview_back_color_job"> {/* salaries  */}
                                 <div  className="sect_re1  sec_p">
 
-                                   <h4  className="head_section_font">30 Job Salaries</h4>
-                                   <div  className="add-buttons">
+                                   <h4  className="head_section_font">{this.props.salariesCount} Job Salaries</h4>
+                                   {/* <div  className="add-buttons">
                                               <button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
-                                    </div>
+                                    </div> */}
                                    <hr />
-                                      <SalaryPosting />
+                                      {/* <SalaryPosting /> */}
 
 
-                                      <div  className="col-md-12  section_overtopsect">
+                                      {/* <div  className="col-md-12  section_overtopsect"> */}
                                         <center>
                                           <div  className="na_tab1"  >
                                             <ul className="" role="tablist">
@@ -111,7 +122,7 @@ render() {
                                             </ul>
                                           </div>
                                         </center>
-                                      </div>
+                                      {/* </div> */}
                                       </div>
                                       </div>
 

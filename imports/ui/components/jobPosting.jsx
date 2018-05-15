@@ -39,6 +39,7 @@ export default class JobPosting extends React.Component {
                   <div   className="fl-ri">
 
                         {/* there is no date field in the Schema */}
+                         {/* <p>posted on {this.props.item.datePosted.toString()}</p> */}
                          <p>posted on {this.props.item.jobTitle}</p>
                       </div>
                 </article>

@@ -6,21 +6,30 @@ export default class SalaryPosting extends React.Component {
       return(
         <div>
               <div>
-                <div className="hed-soft-mob">
-                    <p>Software Engineer</p>
+
+                  <div className="col-md-12 section_rview_back_color05 ">
+                        <div  className="sect_re11 ">
+                            <div className="hed-soft-mob">
+                    <p>{this.props.item.jobTitle}</p>
+                    <hr />
                  </div>
 
-                 <p  className="mal-r">Male</p>
+                 <p  className="mal-r">{this.props.item.gender}</p>
                   <div  className="pad-r">
-                      <p>Average<span>:$125,333</span></p>
-                      <p>Range<span>:$99k-166k</span></p>
+                      <p>{this.props.item.incomeType}<span>:{this.props.item.incomeAmount}</span></p>
+                      {/* <p>Range<span>:$99k-166k</span></p> */}
                  </div>
 
-                 <p   className="mal-r">Female</p>
+                 {/* <p   className="mal-r">Female</p>
                   <div  className="pad-r">
                  <p>Average<span>:$125,333</span></p>
                  <p>Range<span>:$99k-166k</span></p>
-                 </div>
+                 </div> */}
+
+                 {/* <hr /> */}
+               </div>
+             </div>
+
                </div>
         </div>
 
