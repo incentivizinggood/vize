@@ -1,6 +1,7 @@
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
+import { Reviews } from "../../api/data/reviews.js";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import StarRatings from 'react-star-ratings';
@@ -22,12 +23,14 @@ class CompanyProfile extends React.Component {
     }
 
     render() {
-      if (!this.props.isReady) {
+      if (!this.props.isReady && !this.props.isReady1) {
           return <h2>Loading...</h2>;
       }
       if (this.props.company === undefined) {
           return <h2>That company was not found</h2>;
       }
+
+    
 
         return(
          <div className="navbarwhite"><Header />
@@ -107,13 +110,14 @@ class CompanyProfile extends React.Component {
      {/* =====================overview tab====================  */}
 
 
-        <OverviewTab companyoverview={this.props.company}/>
+        <OverviewTab companyoverview={this.props.company} companyreview = {this.props.reviews}/>
 
         {/* ===============overview tab end==================
 
         ===========review tab==================  */}
-        <ReviewTab companyreview = {this.props.company}/>
-            {/* ===========review tab  end==================
+        {/* pass both!!!! */}
+        <ReviewTab companyreview = {this.props.reviews} companyinfo = {this.props.company}/>
+        {/* ===========review tab  end==================
 
             ================job tab============== */}
         <JobTab />
@@ -179,9 +183,12 @@ class CompanyProfile extends React.Component {
 
 export default withTracker(({ companyId }) => {
     var handle = Meteor.subscribe("CompanyProfiles");
+    var handle1 = Meteor.subscribe("Reviews");
 
     return {
         isReady: handle.ready(),
+        isReady1: handle1.ready(),
         company: Companies.findOne(companyId),
+        reviews: Reviews.find({companyId: companyId}).fetch(),
     };
 })(CompanyProfile);

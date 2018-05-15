@@ -18,12 +18,12 @@ export default class CompanyRating extends React.Component {
              <div  className="star_boder ">
              <label>Overall</label>&nbsp;&nbsp;&nbsp;&nbsp;
              <StarRatings
-              rating={this.props.companyrating.overallSatisfaction}
+              rating={Math.round(this.props.companyrating.overallSatisfaction*100)/100}
               starDimension="25px"
               starSpacing="2px"
             />
 
-             &nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">{this.props.companyrating.overallSatisfaction}</label>
+             &nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">{Math.round(this.props.companyrating.overallSatisfaction*100)/100}</label>
           </div>
           <br />
           <div  className="tab_str" >
@@ -38,7 +38,7 @@ export default class CompanyRating extends React.Component {
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                        &nbsp;&nbsp; <label>{this.props.companyrating.healthAndSafety}</label>
+                        &nbsp;&nbsp; <label>{Math.round(this.props.companyrating.healthAndSafety*100)/100}</label>
                      </td>
                   </tr>
                   <tr>
@@ -49,7 +49,7 @@ export default class CompanyRating extends React.Component {
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                        &nbsp;&nbsp; <label>{this.props.companyrating.workEnvironment}</label>
+                        &nbsp;&nbsp; <label>{Math.round(this.props.companyrating.workEnvironment*100)/100}</label>
                      </td>
                   </tr>
                   <tr>
@@ -60,7 +60,7 @@ export default class CompanyRating extends React.Component {
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                        &nbsp;&nbsp; <label>{this.props.companyrating.benefits}</label>
+                        &nbsp;&nbsp; <label>{Math.round(this.props.companyrating.benefits*100)/100}</label>
                      </td>
                   </tr>
                   <tr>
@@ -71,7 +71,7 @@ export default class CompanyRating extends React.Component {
                       starDimension="20px"
                       starSpacing="1.8px"
                     />
-                         &nbsp;&nbsp; <label>{this.props.companyrating.managerRelationship}</label>
+                         &nbsp;&nbsp; <label>{Math.round(this.props.companyrating.managerRelationship*100)/100}</label>
                       </td>
                    </tr>
                    </tbody>
@@ -95,7 +95,7 @@ export default class CompanyRating extends React.Component {
                         <span className="progress-bar"></span>
                      </span> */}
 
-                     <div className="progress-value" >{this.props.companyrating.percentRecommended*100}%</div>
+                     <div className="progress-value" >{(Math.round(this.props.companyrating.percentRecommended*100)/100)*100}%</div>
                      </div>
                      <center>
                      <div  className="col-md-6"><div  className="num_sett"><h1>{this.props.companyrating.avgNumMonthsWorked} </h1></div></div>

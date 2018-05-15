@@ -6,16 +6,19 @@ export default class ReviewComponent extends React.Component {
       return(
 
 
-        <div  className="col-md-12  section_over_revi2 ">
+  <div  className="col-md-12  section_over_revi2 ">
     <div  className="rev_section">
        <div  className="mar_pad2">
-         <p>{console.log(this.props.companyreview)}</p>
-          <p>April 12, 2018<span>&nbsp;&nbsp;- Line Worker</span></p>
-          <h2  className="head-rev-con">Lorem Lorem  </h2>
+         {/* this.props.companyreview has the company collection for that particular company */}
+
+         <p>{console.log(this.props.item.datePosted.toString())}</p>
+          <p>{this.props.item.datePosted.toString()}<span>&nbsp;&nbsp;- {this.props.item.jobTitle}</span></p>
+          <h2  className="head-rev-con">{this.props.item.reviewTitle} </h2>
 
           <div className="btn-group show-on-hover">
              <a type="button" className="btn btn-default dropdown-toggle  btbn" data-toggle="dropdown">
              <StarRatings
+               //LEFT FOR NOW!!!
               rating={4} //the average rating of all 5 ratings
               starDimension="15px"
               starSpacing="1.5px"
@@ -26,7 +29,7 @@ export default class ReviewComponent extends React.Component {
                <li><label>Overall</label>
                   <br />
                   <StarRatings
-                   rating={4}
+                   rating={this.props.item.overSatisfaction}
                    starDimension="15px"
                    starSpacing="1.5px"
                  />
@@ -34,7 +37,7 @@ export default class ReviewComponent extends React.Component {
                 <li><label>Health & Safety</label>
                    <br />
                    <StarRatings
-                    rating={4}
+                    rating={this.props.item.healthAndSafety}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -42,7 +45,7 @@ export default class ReviewComponent extends React.Component {
                 <li>  <label >Work Environment</label>
                    <br />
                    <StarRatings
-                    rating={3}
+                    rating={this.props.item.workEnvironment}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -50,7 +53,7 @@ export default class ReviewComponent extends React.Component {
                 <li><label >Benefits</label>
                    <br />
                    <StarRatings
-                    rating={5}
+                    rating={this.props.item.benefits}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -58,7 +61,7 @@ export default class ReviewComponent extends React.Component {
                 <li> <label >Manager Relationships</label>
                    <br />
                    <StarRatings
-                    rating={4}
+                    rating={this.props.item.managerRelationship}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -68,6 +71,7 @@ export default class ReviewComponent extends React.Component {
           </div>
 
           <br />
+          {/* //LEFT FOR NOW, the recommended star */}
           <p ><i className="fa fa-check-square-o faaa" aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>
        </div>
        <div  className="mar_pad">
@@ -77,7 +81,7 @@ export default class ReviewComponent extends React.Component {
                <label>Pros</label>
                <br />
                <p >
-                  Awesome company with great benefits!
+                {this.props.item.pros}
                </p>
             </div>
             <br />
@@ -85,14 +89,14 @@ export default class ReviewComponent extends React.Component {
                <label>Cons</label>
                <br />
                <p>
-                  Managers were often rude and pretentious.
+                  {this.props.item.cons}
                </p>
             </div>
             <br />
             <div className="form-group  p-c-a">
                <label>Additional Comments</label>
                <br />
-               <p>The company has been growing a lot and a can see a great future for it.</p>
+               <p>{this.props.item.additionalComments}</p>
             </div>
           </div>
           <div className="col-md-4 bn-col">
