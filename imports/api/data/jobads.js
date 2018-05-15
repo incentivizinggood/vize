@@ -50,6 +50,18 @@ const jobAdsSchema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
+	vizeApplyForJobUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return process.env.ROOT_URL + "apply-for-job/?id=" + this.field("_id").value;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	jobTitle: {
 		type: String,
 		optional: false, },
