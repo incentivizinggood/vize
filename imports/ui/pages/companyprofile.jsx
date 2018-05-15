@@ -112,7 +112,7 @@ class CompanyProfile extends React.Component {
      {/* =====================overview tab====================  */}
 
 
-        <OverviewTab jobsCount = {this.props.jobsCount} firstjobAd={this.props.jobAds[0]} companyoverview={this.props.company} companyreview = {this.props.reviews}/>
+        <OverviewTab jobsCount = {this.props.jobsCount} firstjobAd={this.props.jobAds[0]} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
 
         {/* ===============overview tab end==================
 
@@ -126,7 +126,7 @@ class CompanyProfile extends React.Component {
           {/* ==================job tab end=====================
 
          =================Salaries  tab====================== */}
-        <SalaryTab />
+        <SalaryTab salaries = {this.props.salaries} salariesCount = {this.props.salariesCount}/>
              {/* =================Salaries  tab  end======================
 
             ====================contact  tab==================== */}
@@ -197,5 +197,7 @@ export default withTracker(({ companyId }) => {
         reviews: Reviews.find({companyId: companyId}).fetch(),
         jobAds: JobAds.find({companyId: companyId}).fetch(),
         jobsCount: JobAds.find({companyId: companyId}).count(),
+        salaries: Salaries.find({companyId: companyId}).fetch(),
+        salariesCount: Salaries.find({companyId: companyId}).count(),
     };
 })(CompanyProfile);
