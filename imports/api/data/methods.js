@@ -141,7 +141,8 @@ Meteor.methods({
 	},
 
 	"jobads.applyForJob": function (jobApplication) {
-		console.log("this is placeholder line of code");
+		console.log("SERVER: entered job application method with argument: ");
+		console.log(jobApplication);
 	},
 
 	"jobads.postJobAd": function (newJobAd) {
