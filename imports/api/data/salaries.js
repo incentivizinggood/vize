@@ -48,7 +48,18 @@ Salaries.schema = new SimpleSchema({
 		index: true,
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
-				return Companies.findOne({name: this.field("companyName").value})._id;
+				let company = Companies.findOne({name: this.field("companyName").value});
+				if (company !== undefined) {
+					return company._id;
+				}
+				else {
+					// This should never happen, because
+					// companies not in the database cannot
+					// have salaries submitted for them:
+					// that error is caught in another
+					// custom validator
+					return undefined;
+				}
 			}
 		},
 		autoform: {
