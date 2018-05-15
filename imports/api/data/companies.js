@@ -95,6 +95,19 @@ const companiesSchema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
+	vizePostJobUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return process.env.ROOT_URL + "post-a-job/?id=" + this.field("_id").value;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	},
 	name: {
 		type: String,
 	 	optional: false,

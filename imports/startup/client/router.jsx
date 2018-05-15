@@ -81,7 +81,6 @@ let Phony = Package['csauer:accounts-phony'].Phony;
 Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/company-search-trial", <CompanySearchTrial />);
-routeSimplePage("/post-a-job", <PostAJobForm />);
 
 //----- Define the more complex routes. -----//
 
@@ -119,6 +118,15 @@ FlowRouter.route("/submit-salary-data", {
 	action(params, queryParams) {
 		ReactDOM.render(
 			<SubmitSalaryDataForm companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	}
+});
+
+FlowRouter.route("/post-a-job", {
+	action(params, queryParams) {
+		ReactDOM.render(
+			<PostAJobForm companyId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
 	}

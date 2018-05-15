@@ -97,7 +97,7 @@ const reviewsSchema = new SimpleSchema({
 	companyId: {
 		type: String,
 		optional: true,
-		//denyUpdate: true, // I would like to do this, but it's not feasible since they can submit reviews for companies that aren't in the database yet
+		denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
 		index: true,
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
@@ -117,6 +117,8 @@ const reviewsSchema = new SimpleSchema({
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
 	// that's tough to do now
+	// -> NOT REALLY, this information can be stored with the user
+	//		and queried when needed
 
 	reviewTitle: { //title of the review
 		type: String,
