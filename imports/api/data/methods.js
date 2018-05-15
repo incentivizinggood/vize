@@ -40,10 +40,19 @@ Meteor.methods({
 	},
 
 	"reviews.submitReview": function(newReview) {
-		// Make sure the user is logged in before inserting a task
+
+		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		if (user.role !== "worker") {
+			throw new Meteor.Error("rolePermission", "Only workers may write reviews.");
+		}
+
+		// TODO: use user to fill in the "who wrote this" info in this review.
 
 		//This avoids a lot of problems
 		Reviews.simpleSchema().clean(newReview);
