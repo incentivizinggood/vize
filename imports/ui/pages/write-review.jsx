@@ -25,7 +25,7 @@ import "../afInputStarRating.js";
 let wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", "good"); // Shared with AutoForm helpers
 wr_form_state.set("companyId", undefined); // Shared with the React wrapper
-wr_form_state.set("company", undefined);
+wr_form_state.set("company", {name: "Please wait while we finish loading the form..."});
 
 if(Meteor.isClient) {
 
