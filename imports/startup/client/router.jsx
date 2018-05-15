@@ -136,7 +136,7 @@ FlowRouter.route("/post-a-job", {
 FlowRouter.route("/apply-for-job", {
 	action(params, queryParams) {
 		ReactDOM.render(
-			<ApplyForJobForm companyId={queryParams.id} />,
+			<ApplyForJobForm jobId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
 	}

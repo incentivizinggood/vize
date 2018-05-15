@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
-import { withTracker } from "meteor/react-meteor-data";
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var";
@@ -47,7 +46,7 @@ if(Meteor.isClient) {
 
 	Template.wr_blaze_form.onRendered(function() {
 		console.log("Rendering wr_blaze_form");
-	})
+	});
 
 	Template.wr_blaze_form.helpers({
 		reviews: Reviews,
