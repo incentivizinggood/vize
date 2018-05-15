@@ -8,8 +8,8 @@ export default class ReviewTab extends React.Component {
   render() {
 
 
-    const RenderedItems = this.props.companyreview.map(function(item){
-      return <CompanyReview item = {item}/>
+    const RenderedItems = this.props.companyreview.map(function(item, i){
+      return <CompanyReview key={i} item = {item}/>
     });
 
       return(

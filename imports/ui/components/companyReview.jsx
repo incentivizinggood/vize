@@ -11,15 +11,15 @@ export default class ReviewComponent extends React.Component {
        <div  className="mar_pad2">
          {/* this.props.companyreview has the company collection for that particular company */}
 
-         <p>{console.log(this.props.item.datePosted.toString())}</p>
-          <p>{this.props.item.datePosted.toString()}<span>&nbsp;&nbsp;- {this.props.item.jobTitle}</span></p>
+         {/* <p>{console.log(this.props.item.datePosted.toString())}</p> */}
+          <p>{this.props.item.datePosted.toString()}<span>&nbsp;&nbsp;- <strong>{this.props.item.jobTitle}</strong></span></p>
           <h2  className="head-rev-con">{this.props.item.reviewTitle} </h2>
 
           <div className="btn-group show-on-hover">
              <a type="button" className="btn btn-default dropdown-toggle  btbn" data-toggle="dropdown">
              <StarRatings
-               //LEFT FOR NOW!!!
-              rating={4} //the average rating of all 5 ratings
+              rating={(this.props.item.healthAndSafety + this.props.item.managerRelationship + this.props.item.workEnvironment + this.props.item.benefits)/4}
+              //the average rating of all 5 ratings
               starDimension="15px"
               starSpacing="1.5px"
             />
@@ -29,7 +29,7 @@ export default class ReviewComponent extends React.Component {
                <li><label>Overall</label>
                   <br />
                   <StarRatings
-                   rating={this.props.item.overSatisfaction}
+                   rating={this.props.item.overallSatisfaction}
                    starDimension="15px"
                    starSpacing="1.5px"
                  />

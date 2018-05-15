@@ -107,7 +107,6 @@ const companiesSchema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
-	},
 	name: {
 		type: String,
 	 	optional: false,

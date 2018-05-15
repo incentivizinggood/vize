@@ -2,6 +2,8 @@ import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
 import { Reviews } from "../../api/data/reviews.js";
+import { JobAds } from "../../api/data/jobads.js";
+import { Salaries } from "../../api/data/salaries.js";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import StarRatings from 'react-star-ratings';
@@ -23,14 +25,14 @@ class CompanyProfile extends React.Component {
     }
 
     render() {
-      if (!this.props.isReady && !this.props.isReady1) {
+      if (!this.props.isReady && !this.props.isReady1 && !this.props.isReady2) {
           return <h2>Loading...</h2>;
       }
       if (this.props.company === undefined) {
           return <h2>That company was not found</h2>;
       }
 
-    
+
 
         return(
          <div className="navbarwhite"><Header />
@@ -48,7 +50,7 @@ class CompanyProfile extends React.Component {
                  <fieldset className="rating">
                     <span className="headingoo">{this.props.company.name}</span>
                     &nbsp;&nbsp;<StarRatings
-                     rating={4.103}
+                     rating={this.props.company.overallSatisfaction}
                      starDimension="25px"
                      starSpacing="2px"
                    />
@@ -110,7 +112,7 @@ class CompanyProfile extends React.Component {
      {/* =====================overview tab====================  */}
 
 
-        <OverviewTab companyoverview={this.props.company} companyreview = {this.props.reviews}/>
+        <OverviewTab jobsCount = {this.props.jobsCount} firstjobAd={this.props.jobAds[0]} companyoverview={this.props.company} companyreview = {this.props.reviews}/>
 
         {/* ===============overview tab end==================
 
@@ -120,7 +122,7 @@ class CompanyProfile extends React.Component {
         {/* ===========review tab  end==================
 
             ================job tab============== */}
-        <JobTab />
+        <JobTab jobAds = {this.props.jobAds} jobsCount = {this.props.jobsCount}/>
           {/* ==================job tab end=====================
 
          =================Salaries  tab====================== */}
@@ -184,11 +186,16 @@ class CompanyProfile extends React.Component {
 export default withTracker(({ companyId }) => {
     var handle = Meteor.subscribe("CompanyProfiles");
     var handle1 = Meteor.subscribe("Reviews");
+    var handle2 = Meteor.subscribe("JobAds");
+    var handle3 = Meteor.subscribe("Salaries");
 
     return {
         isReady: handle.ready(),
         isReady1: handle1.ready(),
+        isReady2: handle.ready(),
         company: Companies.findOne(companyId),
         reviews: Reviews.find({companyId: companyId}).fetch(),
+        jobAds: JobAds.find({companyId: companyId}).fetch(),
+        jobsCount: JobAds.find({companyId: companyId}).count(),
     };
 })(CompanyProfile);

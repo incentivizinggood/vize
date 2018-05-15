@@ -59,15 +59,15 @@ render() {
 
                                  <div className="col-md-12  section_rview_back_color_job"> {/* job link */}
                                 <div  className="sect_re1 ">
-                                  <h4  className="head_section_font">15 Jobs Available</h4>
+                                  <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
                                   <hr />
                                    <div>
-                                      <h4><strong>Software Engineer</strong></h4>
+                                      <h4><strong>{this.props.firstjobAd.jobTitle}</strong></h4>
                                    </div>
                                    <div>
-                                      <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;San Fransisco California</p>
-                                      <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;$50-$80/Hour</p>
-                                      <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;Full Time</p>
+                                      <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.firstjobAd.locations[0]}</p>
+                                      <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.firstjobAd.pesosPerHour}/Hour</p>
+                                      <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.firstjobAd.contractType}</p>
                                    </div>
                                     <div  className="fl-ri-app">
                                               <button>Apply Now</button>
@@ -76,9 +76,7 @@ render() {
                                    <h4 className="h4-font-sz-job">Job Description</h4>
                                    <div  className="h4-font-sz">
 
-                                         <p>Egestas mollitia quos metus natus assumenda ullam suscipit ultricies. Voluptas, nihil natoque elementum error ligula exercitatione
-                                            quuntur turpis eros aut justo qui recusandae eos, soluta repellat ipsa tortor tempus ultricesfermentum! Corporis accusamus dictum! Sapien laboris massa fugit deserunt laboriosam mi consectetur curabitur cum.
-                                         </p>
+                                         <p>{this.props.firstjobAd.jobDescription}</p>
 
                                 <hr />
                                 <center>
