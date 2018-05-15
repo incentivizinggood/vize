@@ -98,7 +98,7 @@ export default class CompanyRating extends React.Component {
                      <div className="progress-value" >{(Math.round(this.props.companyrating.percentRecommended*100)/100)*100}%</div>
                      </div>
                      <center>
-                     <div  className="col-md-6"><div  className="num_sett"><h1>{this.props.companyrating.avgNumMonthsWorked} </h1></div></div>
+                     <div  className="col-md-6"><div  className="num_sett"><h1>{Math.round(this.props.companyrating.avgNumMonthsWorked*100)/100} </h1></div></div>
                      <div className="col-md-6"><div  className="num_sett">   <span>Average number <br /> of months worked</span></div></div>
                      </center>
 
