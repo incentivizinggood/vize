@@ -68,14 +68,15 @@ render() {
                                       <h4><strong>{this.props.firstjobAd.jobTitle}</strong></h4>
                                    </div>
                                    <div>
+                                     <div  className="add-buttons">
+                                              <a href={this.props.firstjobAd.vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
+                                      </div>
                                       <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.firstjobAd.locations[0]}</p>
                                       <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.firstjobAd.pesosPerHour}/Hour</p>
                                       <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.firstjobAd.contractType}</p>
                                    </div>
 
-                                   <div  className="add-buttons">
-                                            <a href={this.props.firstjobAd.vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
-                                    </div>
+
                                    <hr />
                                    <h4 className="h4-font-sz-job">Job Description</h4>
                                    <div  className="h4-font-sz">
@@ -109,7 +110,7 @@ render() {
                                    <h4  className="head_section_font">{this.props.salariesCount} Job Salaries</h4>
 
                                     <div  className="add-buttons">
-                                             <a href={this.props.companyoverview.vizeSalaryUrl} className="btn btn-primary">   Add a salary</a>
+                                             <a href={this.props.companyoverview.vizeSalaryUrl} className="btn btn-primary"><i className="fa fa-plus" aria-hidden="true"></i>   Add a salary</a>
                                            </div>
                                    <hr />
                                       {/* <SalaryPosting /> */}
