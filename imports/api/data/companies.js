@@ -118,7 +118,12 @@ Companies.schema = new SimpleSchema({
 	contactEmail: {
 		type: String,
 		optional: false,
-		regEx: SimpleSchema.RegEx.EmailWithTLD, },
+		regEx: SimpleSchema.RegEx.EmailWithTLD,
+		autoform: {
+			afFieldInput: {
+				type: "email",
+			}
+		}, },
 	dateEstablished: {
 		type: Date,
 		optional: true, },

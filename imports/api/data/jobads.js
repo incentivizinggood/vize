@@ -145,6 +145,32 @@ JobAds.attachSchema(JobAds.schema, { replace: true });
 
 // This is used by the "Apply for a Job" form
 JobAds.applicationSchema = new SimpleSchema({
+	jobId: {
+		type: String,
+		optional: false,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("jobads.doesJobAdExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "jobId",
+							type: "invalidJobId",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(JobAds.findOne(this.value) === undefined) {
+					return "invalidJobId";
+				}
+			}
+		},
+		autoform: {
+			afFieldInput: {
+				type: "hidden",
+				readonly: true,
+			}
+		}, },
 	companyName: {	// Always auto-filled by form
 		type: String,
 	 	optional: false,
@@ -181,6 +207,7 @@ JobAds.applicationSchema = new SimpleSchema({
 		regEx: SimpleSchema.RegEx.EmailWithTLD,
 		autoform: {
 			afFieldInput: {
+				type: "email",
 				placeholder: "Input an email address the company can contact you at",
 			},
 		}, },
@@ -190,6 +217,7 @@ JobAds.applicationSchema = new SimpleSchema({
 		regEx: SimpleSchema.RegEx.Phone,
 		autoform: {
 			afFieldInput: {
+				type: "tel",
 				placeholder: "Input phone number the company can contact you with",
 			},
 		}, },
@@ -217,6 +245,7 @@ JobAds.applicationSchema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
+		invalidJobId: "Please provide a valid job id for the job you wish to apply to",
 		noCompanyWithThatName: "There is no company with that name in our database",
 	},
 });
