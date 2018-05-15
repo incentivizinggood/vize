@@ -162,6 +162,61 @@ Meteor.methods({
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
 
+		let company = Companies.findOne({name: jobApplication.companyName});
+		let companyEmailAddress = company.contactEmail;
+		let companyName = jobApplication.companyName;
+		let workerName = jobApplication.fullName;
+		let workerEmail = jobApplication.email;
+		let workerPhone = jobApplication.phoneNumber;
+		let workerComments =
+		(jobApplication.coverLetterAndComments !== undefined) ?
+		jobApplication.coverLetterAndComments :
+		"[the applicant did not fill in this field]";
+		let jobId = jobApplication.jobId;
+		let emailSubject = "VIZE " + workerName + " has responded to your job advertisement";
+
+		/*
+			This email needs revision, this is only a
+			testing version. For example, including the
+			worker's contact info in the body of the email?
+			Not so sure about that. And of course the wording
+			will be revised. Perhaps additional security measures
+			should be added as well, such as smtps. But
+			this should work well enough for now.
+
+			QUESTION:
+			- What if the company didn't provide a valid email?
+			- What if the worker didn't?
+			- ...or a valid phone number?
+		*/
+
+		let emailText = "Greetings, " + companyName +
+		"\n\n\tA Vize user, " + workerName + ", has responded " +
+		"to your job advertisement [id=" + jobId + "]." +
+		"\n\n\tThey provided the following information: " +
+		"\n\n\tEmail: " + workerEmail +
+		"\n\n\tPhone number: " + workerPhone +
+		"\n\n\tCover Letter/Comments: " + workerComments +
+		"\n\n\tPlease follow up with them according to your company's policy." +
+		"\n\nSincerely," +
+		"\n\n\tVize";
+
+		let applicationEmail = {
+			to: companyEmailAddress,
+			from: "postmaster@incentivizinggood.com",
+			cc: workerEmail,
+			subject: emailSubject,
+			text: emailText,
+		};
+
+		console.log("SERVER: sending email: ");
+		console.log(applicationEmail);
+
+		this.unblock();
+		Email.send(applicationEmail);
+
+		console.log("SERVER: sent email");
+
 	},
 
 	"jobads.postJobAd": function (newJobAd) {

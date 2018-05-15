@@ -23,7 +23,7 @@ Meteor.startup(() => {
 	// Meteor.call(
 	// 	"sendEmail",
 	// 	"jhigginbotham64@tamu.edu",
-	// 	"postmaster@mg.incentivizinggood.com",
+	// 	"postmaster@incentivizinggood.com",
 	// 	"You received an Email!",
 	// 	"Hey Urel,\n\n\tDid a bid of cleanup and wanted to check things again. Hope you're doing well.\n\nSincerely,\n\n\tJoshua Higginbotham\n\n",
 	// 	(err,res) => {
