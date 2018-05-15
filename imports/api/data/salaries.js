@@ -87,8 +87,12 @@ salariesSchema.messageBox.messages({
 
 Salaries.attachSchema(salariesSchema, { replace: true });
 
-// Do we necessarily need to publish all these collections?
-// Where are they even used?
+Salaries.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
 	Meteor.publish("Salaries", function() {
 		return Salaries.find({});

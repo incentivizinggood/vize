@@ -301,7 +301,12 @@ reviewsSchema.messageBox.messages({
 
 Reviews.attachSchema(reviewsSchema, { replace: true });
 
-// I dont think there is a needed for this code. Might be wrong.
+Reviews.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
 	Meteor.publish("Reviews", function() {
 		return Reviews.find({});

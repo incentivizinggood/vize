@@ -5,20 +5,6 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-/*
-	Questions:
-	- How to prevent certain values from being
-	set on insert? -> "denyInsert: true"
-	- Would it be desirable to define autoValues
-	such that newly-inserted companies could have
-	their statistics (avg* fields, percentRecommended,
-	etc.) calculated automatically if reviews have
-	already been made about them?
-	- On that note, would it be beneficial to have
-	a "PSM" somewhere to "refresh" the statistics
-	based on reviews?
-*/
-
 export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'STRING' });
 
 // Add helper functions directly to the Companies collection object
@@ -291,16 +277,16 @@ companiesSchema.messageBox.messages({
 // Added line for autoforms and collection2 usage
 Companies.attachSchema(companiesSchema, { replace: true });
 
+Companies.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
-	console.log("SERVER: inside the companies.js isServer block");
-
-
-//Created the index for the collection Companies, to search on the name text.
 	Companies.rawCollection().createIndex({"name": "text"});
 
 	Meteor.publish("CompanyProfiles", function() {
-		//return Companies.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}});
-		//return Companies.find({$text: {$search: "vize"}});
 		return Companies.find({});
 	});
 }

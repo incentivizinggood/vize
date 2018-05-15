@@ -135,6 +135,12 @@ jobAdsSchema.messageBox.messages({
 
 JobAds.attachSchema(jobAdsSchema, { replace: true });
 
+JobAds.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
 	Meteor.publish("JobAds", function() {
 		return JobAds.find({});
