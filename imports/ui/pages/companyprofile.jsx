@@ -24,6 +24,16 @@ class CompanyProfile extends React.Component {
       });
     }
 
+
+    // var nojob = {
+    //   locations[0]= "",
+    //   pesosPerHour= "",
+    //   contractType= "",
+    //   jobDescription= "",
+    //   jobTitle="",
+    //   vizeApplyForJobUrl=""
+    // }
+
     render() {
       if (!this.props.isReady || !this.props.isReady1 || !this.props.isReady2 || !this.props.isReady3) {
           return <h2>Loading...</h2>;
@@ -112,7 +122,7 @@ class CompanyProfile extends React.Component {
      {/* =====================overview tab====================  */}
 
 
-        <OverviewTab jobsCount = {this.props.jobsCount} firstjobAd={this.props.jobAds[2]} firstsalary={this.props.salaries[0]} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
+        <OverviewTab jobsCount = {this.props.jobsCount} jobAds={this.props.jobAds} salaries={this.props.salaries} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
 
         {/* ===============overview tab end==================
 

@@ -19,14 +19,22 @@ class Results extends React.Component {
 
   render(){
     var first = this.props.company;
+    var display_notice;
 
     const RenderedItems = this.props.company.map(function(item, i){
       return <CompanyComponent key={i} item = {item}/>
     });
 
+    if(RenderedItems.length < 1 ){
+      display_notice = <h2>No Companies match</h2>;
+    } else{
+      display_notice = '';
+    }
+
 
     return(
         <ul>
+          {display_notice}
           {RenderedItems}
         </ul>
 

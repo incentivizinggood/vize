@@ -10,6 +10,65 @@ export default class OverviewTab extends React.Component {
 
 
 render() {
+
+  console.log(this.props.jobAds.length);
+  console.log(this.props.salaries.length);
+  var to_display_jobs;
+  var salaries_to_display;
+
+//FIRST JOBAD CODE TO SHOW ON THE OVERVIEW TAB
+  if(this.props.jobAds.length > 0){
+    to_display_jobs =
+    <div>
+    <div>
+       <h4><strong>{this.props.jobAds[0].jobTitle}</strong></h4>
+    </div>
+    <div>
+      <div  className="add-buttons">
+               <a href={this.props.jobAds[0].vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
+       </div>
+       <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.jobAds[0].locations[0]}</p>
+       <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.jobAds[0].pesosPerHour}/Hour</p>
+       <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.jobAds[0].contractType}</p>
+    </div>
+
+
+    <hr />
+    <h4 className="h4-font-sz-job">Job Description</h4>
+    <div  className="h4-font-sz">
+
+          <p>{this.props.jobAds[0].jobDescription}</p>
+   </div>
+ </div>
+
+  } else{  //the length == 0
+    to_display_jobs = "No Jobs to show right now";
+  }
+
+  if(this.props.salaries.length > 0) {
+    salaries_to_display =
+    <div>
+    <div className="hed-soft-mob">
+            <p>{this.props.salaries[0].jobTitle}</p>
+            <hr />
+         </div>
+
+         <p  className="mal-r">{this.props.salaries[0].gender}</p>
+
+        <p>{this.props.salaries[0].incomeType}<span>: {this.props.salaries[0].incomeAmount}</span></p>
+    </div>
+
+
+  } else {
+    salaries_to_display = "No Salaries to display right now";
+  }
+
+
+
+
+
+
+
     return(
       <div role="tabpanel" className="tab-pane active" id="overview">
 
@@ -22,8 +81,7 @@ render() {
 
         <div  className="over_p">
         <p>{this.props.companyoverview.descriptionOfCompany}</p>
-        {/* Dont know what to do about the Mission */}
-          <p><span>Mission:</span> Google’s mission is to organize the world’s information and make it universally accessible and useful.</p>
+        
          </div>
       </div>
       </div>
@@ -63,17 +121,18 @@ render() {
                               <div  className="sect_re1 ">
                                   <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
                                   <hr />
-                                   <div>
-                                      {/* <p>{console.log(this.props.firstjobAd)}</p> */}
-                                      <h4><strong>{this.props.firstjobAd.jobTitle}</strong></h4>
+
+                                  {/* //THE CODE FOR IF_ELSE */}
+                                   {/* <div>
+                                      <h4><strong>{this.props.jobAds[0].jobTitle}</strong></h4>
                                    </div>
                                    <div>
                                      <div  className="add-buttons">
-                                              <a href={this.props.firstjobAd.vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
+                                              <a href={this.props.jobAds[0].vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
                                       </div>
-                                      <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.firstjobAd.locations[0]}</p>
-                                      <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.firstjobAd.pesosPerHour}/Hour</p>
-                                      <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.firstjobAd.contractType}</p>
+                                      <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.jobAds[0].locations[0]}</p>
+                                      <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.jobAds[0].pesosPerHour}/Hour</p>
+                                      <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.jobAds[0].contractType}</p>
                                    </div>
 
 
@@ -81,8 +140,10 @@ render() {
                                    <h4 className="h4-font-sz-job">Job Description</h4>
                                    <div  className="h4-font-sz">
 
-                                         <p>{this.props.firstjobAd.jobDescription}</p>
-                                  </div>
+                                         <p>{this.props.jobAds[0].jobDescription}</p>
+                                  </div> */}
+                                  {/* //CODE FOR IF_ELSE STOPS */}
+                                  {to_display_jobs}
 
                                 <hr />
                                 <center>
@@ -113,31 +174,30 @@ render() {
                                              <a href={this.props.companyoverview.vizeSalaryUrl} className="btn btn-primary"><i className="fa fa-plus" aria-hidden="true"></i>   Add a salary</a>
                                            </div>
                                    <hr />
-                                      {/* <SalaryPosting /> */}
 
 
+                                      {/* //CODE FOR SALARIES START */}
 
-                                      <div className="hed-soft-mob">
-                                        <p>{this.props.firstsalary.jobTitle}</p>
+                                      {/* <div className="hed-soft-mob">
+                                        <p>{this.props.salaries[0].jobTitle}</p>
                                         <hr />
                                      </div>
 
-                                     <p  className="mal-r">{this.props.firstsalary.gender}</p>
-                                      {/* <div  className="pad-r"> */}
-                                          <p>{this.props.firstsalary.incomeType}<span>: {this.props.firstsalary.incomeAmount}</span></p>
-                                          {/* <p>Range<span>:$99k-166k</span></p> */}
-                                     {/* </div> */}
+                                     <p  className="mal-r">{this.props.salaries[0].gender}</p>
+
+                                          <p>{this.props.salaries[0].incomeType}<span>: {this.props.salaries[0].incomeAmount}</span></p>
+                                         */}
 
 
-
+                                       {/* //CODE FOR SALARIES END */}
+                                       {salaries_to_display}
 
 
                                         <center>
-                                          {/* <div  className="na_tab1"  > */}
+
                                             <ul className="" role="tablist">
                                               <li role="presentation"   className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
                                             </ul>
-                                          {/* </div> */}
                                         </center>
 
                                       </div>
