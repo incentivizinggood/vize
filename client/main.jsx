@@ -2,6 +2,8 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 
 
+
+
 /* The FlowRouter is automaticaly initialized on Meteor.startup.
  * The routes only need to be imported here. No other code is needed.
  */

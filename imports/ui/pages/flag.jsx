@@ -1,10 +1,15 @@
 import React from "react";
 import { Meteor } from 'meteor/meteor'
 import "../../api/data/methods.js";
+import Dialog from "../../ui/pages/dialog-box.jsx";
+
+
 import { Email } from 'meteor/email'
 import {Accounts} from "meteor/accounts-base";
 
 /* The page where users write/edit their reviews.
+   imports/ui/pages/dialog-box.jsx:22:20: Unexpected token (22:20)
+
  */
 
 export default class FlagSystem extends React.Component {
@@ -16,9 +21,9 @@ export default class FlagSystem extends React.Component {
             value:'',
             count: 0,
         };
-        this.handleTextChange = this.handleTextChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleOptionChange = this.handleOptionChange.bind(this)
+        this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleOptionChange = this.handleOptionChange.bind(this);
     }
 
 
@@ -27,63 +32,29 @@ export default class FlagSystem extends React.Component {
         alert("sent1" + ": " + this.state.value);
         alert("sent2" + ": " + this.state.name);
 
-        //this.setState({selectedOption: event.target.selectedOption});
-        //this.state.selectedOption = "option1";
 
-
-
-        // //Client: Asynchronously send an email.
         Meteor.call(
             "sendEmail",
-            "perfectpud@yahoo.com",
-            "perfectpud@yahoo.com",
-            "Hello from Meteor!",
-            "This is a test of Email.send.",
-            (err,res) => {
+            "urelperfect@gmail.com",
+            "postmaster@incentivizinggood.com",
+            ("Reports: " + this.state.value),
+            ("Howdy,\n\n" + "Invalid comment reported details: \n" + "Reason: " +this.state.value + ".\n\nSincerely,\n\n Vize Inc.\n\n"),
+            (err, res) => {
                 if (err) {
-                    console.log("Error:");
+                    console.log("--- BEGIN error:");
                     console.log(err);
+                    console.log("--- END error")
                 } else {
-                    console.log("Good:");
+                    console.log("--- BEGIN success:");
                     console.log(res);
+                    console.log("--- END success")
                 }
             }
         );
 
-        // sending
-        // Email.send({
-        //     to: "perfectpud@yahoo.com",
-        //     from: "perfectpud@yahoo.com",
-        //     subject: "Example Email",
-        //     text: "The contents of our email in plain text."
-        // });
 
-        // if (Meteor.isServer) {
-        //     Email.send({
-        //         from: "perfectpud@yahoo.com",
-        //         to: "perfectpud@yahoo.com",
-        //         subject: "Subject",
-        //         text: "Here is some text"
-        //     });
-        // }
-
-        // if (Meteor.isServer) {
-        //
-        //     Meteor.startup( function() {
-        //         process.env.MAIL_URL =
-        //             "***REMOVED***";
-        //
-        //         Email.send({
-        //             to: "perfectpud@yahoo.com",
-        //             from: "perfectpud@yahoo.com",
-        //             subject: "Meteor Email",
-        //             text: "The email content..."
-        //         });
-        //     });
-        // }
 
         alert("wassup");
-
         event.preventDefault();
     }
 
@@ -142,20 +113,20 @@ export default class FlagSystem extends React.Component {
                             <form onSubmit={this.handleSubmit} id="submitForm">
                                 <div className="radio">
                                     <label>
-                                        <input type="radio" value="option1" name= "sexual content" onChange={this.handleOptionChange} />
-                                        Not true
+                                        <input type="radio" value="Inappropriate Comment" name= "sexual content" onChange={this.handleOptionChange} />
+                                        Inappropriate Comment
                                     </label>
                                 </div>
                                 <div className="radio">
                                     <label>
-                                        <input type="radio" value="option2" name= "sexual content" onChange={this.handleOptionChange} />
-                                        not even the case
+                                        <input type="radio" value="Profanity" name= "sexual content" onChange={this.handleOptionChange} />
+                                        Profanity
                                     </label>
                                 </div>
                                 <div className="radio">
                                     <label>
-                                        <input type="radio" value="option3" name= "sexual content" onChange={this.handleOptionChange} />
-                                        completely false
+                                        <input type="radio" value="Other/Spam" name= "sexual content" onChange={this.handleOptionChange} />
+                                        Other/Spam
                                     </label>
                                 </div>
 
@@ -172,15 +143,10 @@ export default class FlagSystem extends React.Component {
                         </section>
                     </div>
                 </div>
+                <Dialog />
             </div>
+
         );
     }
 }
 
-
-// // Server: Define a method that the client can call.
-// Meteor.methods({
-//     sendEmail(to, from, subject, text) {
-//         Email.send({ to, from, subject, text });
-//     }
-// });

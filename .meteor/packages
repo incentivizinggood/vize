@@ -27,3 +27,9 @@ kadira:flow-router
 aldeed:collection2
 email
 check
+practicalmeteor:mocha
+meteortesting:mocha
+xolvio:cleaner
+dburles:factory
+hwillson:stub-collections
+mrgalaxy:stripe
