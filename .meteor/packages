@@ -45,3 +45,4 @@ easysearch:elasticsearch
 easysearch:autosuggest
 check
 email
+okgrow:analytics
