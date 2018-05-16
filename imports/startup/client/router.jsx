@@ -4,6 +4,13 @@
  * All pages are rendered into the view-render div.
  * See client/main.html
  */
+ if (Meteor.isDevelopment && Meteor.isClient) {
+ 	import SimpleSchema from "simpl-schema";
+ 	import { AutoForm } from "meteor/aldeed:autoform";
+ 	SimpleSchema.debug = true;
+ 	AutoForm.debug();
+ }
+
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -70,16 +77,6 @@ routeSimplePage("/help", <HelpPage />);
 routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
-
-//TESTING ONLY
-// --> BUG needs to be flagged for development-only
-import SimpleSchema from "simpl-schema";
-import { AutoForm } from "meteor/aldeed:autoform";
-SimpleSchema.debug = true;
-AutoForm.debug();
-//Until we actually make an account for testing
-//let Phony = Package['csauer:accounts-phony'].Phony;
-//Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/company-search-trial", <CompanySearchTrial />);
 
