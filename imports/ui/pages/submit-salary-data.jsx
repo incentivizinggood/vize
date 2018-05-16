@@ -21,7 +21,7 @@ if(Meteor.isClient) {
 
 	Template.ssd_blaze_form.onCreated(function() {
 		let id = ssd_form_state.get("companyId");
-		console.log("received id: " + id);
+		if(Meteor.isDevelopment) console.log("received id: " + id);
 		this.autorun(function() {
 			Meteor.call("companies.findOne", id, (error, result) => {
 				if (!result) {
@@ -35,7 +35,7 @@ if(Meteor.isClient) {
 	});
 
 	Template.ssd_blaze_form.onRendered(function() {
-		console.log("Rendering ssd_blaze_form");
+		if(Meteor.isDevelopment) console.log("Rendering ssd_blaze_form");
 	});
 
 	Template.ssd_blaze_form.helpers({
@@ -65,11 +65,11 @@ if(Meteor.isClient) {
 
 	AutoForm.addHooks("ssd_blaze_form", {
 		onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
-			console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
+			if(Meteor.isDevelopment) console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
 			ssd_form_state.set("formError", "good");
 		},
 		onError: function(formType, error) { // "error" contains whatever error object was thrown
-			console.log("ERROR: We did a thing in a " + formType + " form: " + error);
+			if(Meteor.isDevelopment) console.log("ERROR: We did a thing in a " + formType + " form: " + error);
 			ssd_form_state.set("formError", error.toString());
 		},
 	});

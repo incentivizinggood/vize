@@ -41,11 +41,11 @@ Template.ccp_blaze_form.helpers({
 
 AutoForm.addHooks("ccp_blaze_form", {
 	onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
-		console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
+		if(Meteor.isDevelopment) console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
 		formError.set("good");
 	},
 	onError: function(formType, error) { // "error" contains whatever error object was thrown
-		console.log("ERROR: We did a thing in a " + formType + " form: " + error);
+		if(Meteor.isDevelopment) console.log("ERROR: We did a thing in a " + formType + " form: " + error);
 		formError.set(error.toString());
 	},
 });
