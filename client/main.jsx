@@ -7,6 +7,7 @@ import { Meteor } from "meteor/meteor";
  */
 import "../imports/startup/client/router.jsx";
 
-Meteor.startup(() => {	
+Meteor.startup(() => {
 $.getScript('js/prettySticky.js', function(){});
+$.getScript('js/bootstrap-multiselect.js', function(){});
 });

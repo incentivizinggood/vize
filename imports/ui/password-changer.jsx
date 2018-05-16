@@ -1,17 +1,16 @@
 import React from "react";
-import { Accounts } from "meteor/accounts-base";
 
-/* The page where users can create an account.
+/* A form where users can change their passwords.
  */
-export default class RegisterPage extends React.Component {
+export default class PasswordChanger extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
+            error: Meteor.userId() !== null ? null : "Not loged in",
             success: false,
-            username: "",
-            password: "",
-            role: ""
+            oldPassword: "",
+            newPassword: "",
+            repeatNewPassword: ""
         };
 
         // These bindings are necessary to make `this` work in callbacks.
@@ -32,77 +31,64 @@ export default class RegisterPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault(); // Prevent the default behavior for this event.
-        let createUserCallback = error => {
+        let callback = error => {
             this.setState({
                 error: error ? error.reason : null,
                 success: !error
             });
-            if (this.state.success) {
-                FlowRouter.go("/");
-            }
         };
-        let options = {
-            username: this.state.username,
-            password: this.state.password,
-            role: this.state.role
-        };
-        Accounts.createUser(options, createUserCallback);
+
+        // Double check to avoid typos.
+        if (this.state.newPassword !== this.state.repeatNewPassword) {
+            callback({reason: "New passwords do not match."});
+            return;
+        }
+
+        Accounts.changePassword(this.state.oldPassword, this.state.newPassword, callback);
     }
 
     render() {
         if (this.state.success) {
-            return <div className="page register">Sign up successful!</div>;
+            return <div className="password-reset">Password reset successful!</div>;
         }
         return (
-            <div className="page register">
+            <div className="password-reset">
                 {this.state.error ? <div>{this.state.error}</div> : null}
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Username
+                        Current password
                         <input
-                            name="username"
-                            type="text"
-                            placeholder="Username"
-                            autoFocus
-                            required
-                            value={this.state.username}
-                            onChange={this.handleInputChange}
-                        />
-                    </label>
-                    <label>
-                        Password
-                        <input
-                            name="password"
+                            name="oldPassword"
                             type="password"
                             placeholder="Password"
                             required
-                            value={this.state.password}
+                            value={this.state.oldPassword}
                             onChange={this.handleInputChange}
                         />
                     </label>
                     <label>
+                        New password
                         <input
-                            name="role"
-                            type="radio"
+                            name="newPassword"
+                            type="password"
+                            placeholder="New Password"
                             required
-                            value="worker"
-                            checked={this.state.role === "worker"}
+                            value={this.state.newPassword}
                             onChange={this.handleInputChange}
                         />
-                        I am a worker
                     </label>
                     <label>
+                        Repeat new password
                         <input
-                            name="role"
-                            type="radio"
+                            name="repeatNewPassword"
+                            type="password"
+                            placeholder="New Password"
                             required
-                            value="company"
-                            checked={this.state.role === "company"}
+                            value={this.state.repeatNewPassword}
                             onChange={this.handleInputChange}
                         />
-                        I am a company
                     </label>
-                    <input type="submit" value="Sign Up" />
+                    <input type="submit" value="Change Password" />
                 </form>
             </div>
         );

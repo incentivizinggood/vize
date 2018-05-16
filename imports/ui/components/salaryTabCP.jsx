@@ -1,0 +1,71 @@
+import React from "react";
+import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+
+export default class SalaryTab extends React.Component {
+
+  render() {
+      return(
+        <div role="tabpanel" className="tab-pane" id="salaries">
+             <div className="col-md-12  section_rview_back_color03 "   >
+                 <h4  className="head_section_font"  >30 Job Salaries</h4>
+                 <div  className="add-buttons"  >
+                 <button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
+                  </div>
+               </div>
+
+
+           <div className="col-md-12  section_rview_back_color05 ">
+            <SalaryPosting />
+            <hr />
+            <SalaryPosting />
+
+    {/* mobile view range show  section 1  code */}
+
+                <div  className="mobile_view">
+                      <div>
+                      <div   className="hed-soft-mob">
+                          <p>Software Engineer</p>
+                       </div>
+
+                       <p  className="mal-r">Male</p>
+                        <div  className="pad-r">
+                            <p>Average<span>:$125,333</span></p>
+                            <p>Range<span>:$99k-166k</span></p>
+                       </div>
+
+                       <p   className="mal-r">Female</p>
+                        <div  className="pad-r">
+                       <p>Average<span>:$125,333</span></p>
+                       <p>Range<span>:$99k-166k</span></p>
+                       </div>
+                       </div>
+
+                      <div>
+                        <hr />
+                      <div   className="hed-soft-mob">
+                          <p>Product Manager</p>
+                       </div>
+
+                       <p   className="mal-r">Male</p>
+                       <div  className="pad-r">
+                       <p>Average<span>:$125,333</span></p>
+                       <p>Range<span>:$99k-166k</span></p>
+                       </div>
+
+                       <p   className="mal-r">Female</p>
+                       <div  className="pad-r">
+                       <p>Average<span>:$125,333</span></p>
+                       <p>Range<span>:$99k-166k</span></p>
+                       </div>
+                       </div>
+
+{/* mobile view range show   code  end */}
+
+
+           </div>
+           <div className="clear"></div>
+        </div>
+      </div>
+      )
+    }
+    }

@@ -7,11 +7,14 @@
  * @param {number} avg The average to be added to.
  * @return {number}    The new average with x incorperated.
  */
-function addToAvg(x, n, avg) {
+export const addToAvg = function (x, n, avg) {
+	// console.log("addToAvg: x == " + x.toString() + ", n == " + n.toString() + ", avg == " + avg.toString());
     var w0 = n / (n + 1); // The fraction of avg that is already there.
     var w1 = 1 / (n + 1); // The fraction of avg that will be x.
     // Compute the new average as a weighted sum of the old average and x.
-    return avg * w0 + x * w1;
+	var returnValue = avg * w0 + x * w1;
+	// console.log("addToAvg returns: " + returnValue.toString());
+    return returnValue;
 }
 
 /**
@@ -22,7 +25,7 @@ function addToAvg(x, n, avg) {
  * @param {number} avg The average to be subracted from.
  * @return {number}    The new average with x removed.
  */
-function subFromAvg(x, n, avg) {
+export const subFromAvg = function (x, n, avg) {
     var w0 = (n - 1) / n; // The fraction of avg that is not x
     var w1 = 1 / n; // The fraction of avg that is x.
     // Reverse the computation in addToAvg.
@@ -38,7 +41,7 @@ function subFromAvg(x, n, avg) {
  * @param {number} avg   The average before x is changed.
  * @return {number}      The new average with x changed.
  */
-function changeInAvg(x_old, x_new, n, avg) {
+export const changeInAvg = function (x_old, x_new, n, avg) {
     var w1 = 1 / (n + 1); // The fraction of avg that is x.
     return avg + (x_new - x_old) * w1;
 }

@@ -1,0 +1,75 @@
+import { Mongo } from "meteor/mongo";
+import SimpleSchema from "simpl-schema";
+import { Tracker } from "meteor/tracker";
+import { AutoForm } from "meteor/aldeed:autoform";
+import { Companies } from "./companies.js";
+SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
+
+export const Salaries = new Mongo.Collection("Salaries", { idGeneration: 'MONGO' });
+
+
+/*
+	Change this all from "Salaries" to "Incomes" or "Pay"?
+*/
+const salariesSchema = new SimpleSchema({
+	companyName: {		//Filled in by user, or auto-filled by form, but in any
+		type: String,	//case, company names are indexed so we may as well use
+	 	optional: false,//use this instead of companyID
+		index: true,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "companyName",
+							type: "noCompanyWithThatName",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(!Companies.hasEntry(this.value)) {
+					return "noCompanyWithThatName";
+				}
+			}
+		}, },
+	jobTitle: {
+		type: String,
+		optional: false, },
+	incomeType: {
+		type: String,
+		optional: false,
+		allowedValues: ["Yearly Salary", "Monthly Salary", "Hourly Wage"], },
+	incomeAmount: {
+		type: Number,
+		optional: false,
+		min: 0, },
+	gender: {
+		type: String,
+		allowedValues: ["Male", "Female"], },
+	datePosted: {
+		type: Date,
+		optional: true,
+		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+		autoform: {
+			omit: true,
+		}, },
+}, { tracker: Tracker } );
+
+salariesSchema.messageBox.messages({
+	//en? does that mean we can add internationalization
+	//in this block of code?
+	en: {
+		noCompanyWithThatName: "There is no company with that name in our database",
+	},
+});
+
+Salaries.attachSchema(salariesSchema, { replace: true });
+
+// Do we necessarily need to publish all these collections?
+// Where are they even used?
+if (Meteor.isServer) {
+	Meteor.publish("Salaries", function() {
+		return Salaries.find({});
+	});
+}

@@ -9,8 +9,20 @@ import ReactDOM from "react-dom";
 
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
+import OverviewTab from "../../ui/components/overviewTabCP.jsx";
+import ReviewComponent from "../../ui/components/companyReview.jsx";
+import ReviewTab from "../../ui/components/reviewTabCP.jsx";
+import JobTab from "../../ui/components/jobTabCP.jsx";
+import JobPosting from "../../ui/components/jobPosting.jsx";
+import SalaryTab from "../../ui/components/salaryTabCP.jsx";
+import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+import CompanyComponent from "../../ui/components/companyComponent.jsx";
+import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+
+
 import HomePage from "../../ui/pages/home.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
+
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
 import CompanySearchPage from "../../ui/pages/company-search.jsx";
@@ -23,10 +35,14 @@ import MyAccountPage from "../../ui/pages/my-account.jsx";
 import NotFoundPage from "../../ui/pages/not-found.jsx";
 import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
+
+//TESTING ONLY, but leaving in until the site's structure is better defined
+import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 import FlagSystem from "../../ui/pages/flag.jsx";
 
 
+import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 
 /**
  * Reduces boiler plate for simple pages.
@@ -37,11 +53,11 @@ import FlagSystem from "../../ui/pages/flag.jsx";
  *                                expression, not the class name.
  */
 function routeSimplePage(path, element) {
-    FlowRouter.route(path, {
-        action(params, queryParams) {
-            ReactDOM.render(element, document.getElementById("view-render"));
-        }
-    });
+	FlowRouter.route(path, {
+		action(params, queryParams) {
+			ReactDOM.render(element, document.getElementById("view-render"));
+		}
+	});
 }
 
 //----- Define all of the simple routes. -----//
@@ -55,15 +71,26 @@ routeSimplePage("/help", <HelpPage />);
 routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
+
+// //TESTING ONLY
+// import SimpleSchema from "simpl-schema";
+// import { AutoForm } from "meteor/aldeed:autoform";
+// SimpleSchema.debug = true;
+// AutoForm.debug();
+// //Until we actually make an account for testing
+// let Phony = Package['csauer:accounts-phony'].Phony;
+// Meteor.loginWithPhony(Phony.user);
+routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 routeSimplePage("/flag", <FlagSystem />);
+routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
 
 
 //----- Define the more complex routes. -----//
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(
-            <CompanySearchPage queryParams={queryParams} />,           
+            <CompanySearchPage queryParams={queryParams} />,
             document.getElementById("view-render")
         );
     }
