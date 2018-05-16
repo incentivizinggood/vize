@@ -44,6 +44,7 @@ Meteor.methods({
 			console.log("SERVER: Here is the validation result: ");
 			console.log(validationResult);
 			console.log(errors);
+			console.log("SERVER: userId === " + this.userId);
 		}
 
 		if(!validationResult) {

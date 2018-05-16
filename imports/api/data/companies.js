@@ -51,7 +51,7 @@ Companies.schema = new SimpleSchema({
 		denyUpdate: true,
 		autoValue: function() {
 			if(this.field("_id").isSet) {
-				return process.env.ROOT_URL + "companyprofile/?id=" + this.field("_id").value;
+				return Meteor.absoluteUrl("companyprofile/?id=" + this.field("_id").value, {secure: true, });
 			}
 		},
 		autoform: {
@@ -63,7 +63,7 @@ Companies.schema = new SimpleSchema({
 		denyUpdate: true,
 		autoValue: function() {
 			if(this.field("_id").isSet) {
-				return process.env.ROOT_URL + "write-review/?id=" + this.field("_id").value;
+				return Meteor.absoluteUrl("write-review/?id=" + this.field("_id").value, {secure: true, });
 			}
 		},
 		autoform: {
@@ -75,7 +75,7 @@ Companies.schema = new SimpleSchema({
 		denyUpdate: true,
 		autoValue: function() {
 			if(this.field("_id").isSet) {
-				return process.env.ROOT_URL + "submit-salary-data/?id=" + this.field("_id").value;
+				return Meteor.absoluteUrl("submit-salary-data/?id=" + this.field("_id").value, {secure: true, });
 			}
 		},
 		autoform: {
@@ -87,7 +87,7 @@ Companies.schema = new SimpleSchema({
 		denyUpdate: true,
 		autoValue: function() {
 			if(this.field("_id").isSet) {
-				return process.env.ROOT_URL + "post-a-job/?id=" + this.field("_id").value;
+				return Meteor.absoluteUrl("post-a-job/?id=" + this.field("_id").value, {secure: true, });
 			}
 		},
 		autoform: {
