@@ -78,8 +78,8 @@ import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.debug = true;
 AutoForm.debug();
 //Until we actually make an account for testing
-let Phony = Package['csauer:accounts-phony'].Phony;
-Meteor.loginWithPhony(Phony.user);
+//let Phony = Package['csauer:accounts-phony'].Phony;
+//Meteor.loginWithPhony(Phony.user);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/company-search-trial", <CompanySearchTrial />);
 

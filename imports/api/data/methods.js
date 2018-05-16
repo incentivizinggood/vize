@@ -55,12 +55,7 @@ Meteor.methods({
 		// TODO: use user to fill in the "who wrote this" info in this review.
 
 		//This avoids a lot of problems
-		Reviews.simpleSchema().clean(newReview);
-
-		// Error-out if _id field is defined
-		if ("_id" in newReview) {
-			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
-		}
+		newReview = Reviews.simpleSchema().clean(newReview);
 
 		// console.log("SERVER: validating...");
 		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
@@ -134,12 +129,7 @@ Meteor.methods({
 		}
 
 		//This avoids a lot of problems
-		Salaries.simpleSchema().clean(newSalary);
-
-		// Error-out if _id field is defined
-		if ("_id" in newSalary) {
-			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
-		}
+		newSalary = Salaries.simpleSchema().clean(newSalary);
 
 		// console.log("SERVER: validating...");
 		let validationResult = Salaries.simpleSchema().namedContext().validate(newSalary);
@@ -174,10 +164,8 @@ Meteor.methods({
 	},
 
 	"jobads.applyForJob": function (jobApplication) {
-		console.log("SERVER: entered job application method with argument: ");
-		console.log(jobApplication);
 
-		JobAds.applicationSchema.clean(jobApplication);
+		jobApplication = JobAds.applicationSchema.clean(jobApplication);
 		let validationResult = JobAds.applicationSchema.namedContext().validate(jobApplication);
 		console.log("SERVER: Here is the validation result: ");
 		console.log(validationResult);
@@ -244,13 +232,15 @@ Meteor.methods({
 	},
 
 	"jobads.postJobAd": function (newJobAd) {
+		//This avoids a lot of problems
+		newJobAd = JobAds.simpleSchema().clean(newJobAd);
+
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
-
 		if (user.role !== "company") {
 			throw new Meteor.Error("rolePermission", "Only companies may post job ads.");
 		}
@@ -259,19 +249,15 @@ Meteor.methods({
 			throw new Meteor.Error("rolePermission", "You may only post a job ad for a company that you are allowed to administer.");
 		}
 
-		//This avoids a lot of problems
-		JobAds.simpleSchema().clean(newJobAd);
-
-		// Error-out if _id field is defined
-		if ("_id" in newJobAd) {
-			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
-		}
-
 		console.log("SERVER: validating...");
 		let validationResult = JobAds.simpleSchema().namedContext().validate(newJobAd);
 		console.log("SERVER: Here is the validation result: ");
 		console.log(validationResult);
-		console.log(JobAds.simpleSchema().namedContext().validationErrors());
+		let errors = JobAds.simpleSchema().namedContext().validationErrors();
+		console.log(errors);
+		if(!validationResult) {
+			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
 
 		console.log("SERVER: inserting");
 		JobAds.insert(newJobAd);
@@ -326,12 +312,7 @@ Meteor.methods({
 		}
 
 		//This avoids a lot of problems
-		Companies.simpleSchema().clean(newCompanyProfile);
-
-		// Error-out if _id field is defined
-		if ("_id" in newCompanyProfile) {
-			throw new Meteor.Error("containsId","You are not allowed to specifiy your own _id attribute");
-		}
+		newCompanyProfile = Companies.simpleSchema().clean(newCompanyProfile);
 
 		//Throws an exception if argument is invalid.
 		// console.log("SERVER: validating...");
@@ -349,29 +330,6 @@ Meteor.methods({
 	//Edits an existing company profile -- UNTESTED
 	//Leaving this commented out until I have the opportunity to test it
 	// "companies.editProfile": function (companyProfileEdits) {
-	// 	/*
-	// 		ATTENTION UX DEVELOPERS
-	// 		This function takes a single object, which must have
-	// 		an _id field for the Mongo.ObjectId of the CompanyProfile
-	// 		to be updated, and other fields corresponding to the
-	// 		document fields that need to be edited.
-	//
-	// 		The _id will be used as a Mongo-Style Selector, and the
-	// 		entire object is used as a  Mongo-Style Modifier via $set.
-	//
-	// 		Example: if you want to append to a company's name,
-	// 		then pass an object with a "name" field which has the old name
-	// 		plus whatever new text you want to append. You can do this,
-	// 		or something like it, for as many fields as you need to change.
-	//
-	// 		Note: we may need to better define which fields can be changed
-	// 		by this method and by whom.
-	//
-	// 		See the Companies.schema definition in
-	// 		"imports/api/data/companies.js" for a list of field names,
-	// 		types, and constraints.
-	// 			- Josh
-	// 	*/
 	//
 	// 	// Copy-paste until we implement real security
 	// 	if (!this.userId) {
