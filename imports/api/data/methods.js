@@ -52,7 +52,7 @@ Meteor.methods({
 
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
-			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to write a review");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
@@ -189,6 +189,17 @@ Meteor.methods({
 
 		if(!validationResult) {
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
+
+		// Only logged-in workers can apply for jobs
+		if (!this.userId) {
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		if (user.role !== "worker") {
+			throw new Meteor.Error("rolePermission", "Only workers may submit their salaries.");
 		}
 
 		let company = Companies.findOne({name: jobApplication.companyName});
@@ -343,9 +354,21 @@ Meteor.methods({
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
 		}
 
+		const user = Meteor.users.findOne(this.userId);
+		if (user.role !== "company") {
+			throw new Meteor.Error("rolePermission", "Only companies may post job ads.");
+		}
+
+		if(user.companyId !== undefined) {
+			throw new Meteor.Error("profileExists", "Our records indicate that you have already created a profile for your company");
+		}
+
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
 		Companies.insert(newCompanyProfile);
+
+		//If insertion successful, then add companyId field to user account
+		Meteor.users.update(this.userId, {$set:{"companyId": newCompanyProfile._id}});
 	},
 
 });
