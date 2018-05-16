@@ -1,9 +1,9 @@
 <template name="ssd_blaze_form">
 	{{#autoForm collection=salaries id="ssd_blaze_form" type="method" meteormethod="salaries.submitSalaryData" preserveForm=false}}
 		<fieldset>
-			<legend>Add a Salary</legend>
+			<legend>Submit Salary Data</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-				{{> afQuickField name='companyName' placeholder="Please tell us which company your income data is for"}}
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 				{{> afQuickField name='jobTitle' placeholder="Please tell us which job title this income data applies to"}}

@@ -20,6 +20,19 @@ Salaries.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
+	submittedBy: { //userId of the review author
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(Meteor.isServer) {
+				// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
+				return this.userId;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
@@ -48,7 +61,18 @@ Salaries.schema = new SimpleSchema({
 		index: true,
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
-				return Companies.findOne({name: this.field("companyName").value})._id;
+				let company = Companies.findOne({name: this.field("companyName").value});
+				if (company !== undefined) {
+					return company._id;
+				}
+				else {
+					// This should never happen, because
+					// companies not in the database cannot
+					// have salaries submitted for them:
+					// that error is caught in another
+					// custom validator
+					return undefined;
+				}
 			}
 		},
 		autoform: {
