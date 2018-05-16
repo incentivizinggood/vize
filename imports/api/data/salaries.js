@@ -20,6 +20,19 @@ Salaries.schema = new SimpleSchema({
 		autoform: {
 			omit: true,
 		}, },
+	submittedBy: { //userId of the review author
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(Meteor.isServer) {
+				// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
+				return this.userId;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
