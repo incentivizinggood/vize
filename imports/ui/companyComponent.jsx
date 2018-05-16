@@ -3,7 +3,7 @@ import React from "react";
 import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
 import { Salaries } from "../api/data/salaries.js";
-// import StarRatings from 'react-star-ratings';
+import StarRatings from 'react-star-ratings';
 
 const CompanyComponent = (props) => {
       console.log(props.salaries);
@@ -22,11 +22,11 @@ const CompanyComponent = (props) => {
               <div className="col-md-4  prostar">
                  <label className="goo"> <a href={props.item.vizeProfileUrl}>{props.item.name}</a></label>
 
-                 {/* &nbsp;&nbsp;<StarRatings
-                  rating={4.103}
+                 &nbsp;&nbsp;<StarRatings
+                  rating={props.item.overallSatisfaction}
                   starDimension="25px"
                   starSpacing="2px"
-                /> */}
+                />
 
 
 
