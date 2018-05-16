@@ -27,7 +27,7 @@ export default class JobPosting extends React.Component {
              <div  className="h4-font-sz">
               <article>
                    <p>{this.props.item.jobDescription}</p>
-                  <input id="read-more-toggle-01" className="read-more-toggle" type="checkbox" />
+                  <input id={this.props.item._id} className="read-more-toggle" type="checkbox" />
                    <div className="read-more-content">
                       <br />
                       <h4>Qualifications</h4>
@@ -39,7 +39,7 @@ export default class JobPosting extends React.Component {
                       </div>
                         </div>
 
-                   <label className="read-more-toggle-label" htmlFor="read-more-toggle-01">  </label>
+                   <label className="read-more-toggle-label" htmlFor={this.props.item._id}>  </label>
                   <div   className="fl-ri">
 
                         {/* there is no date field in the Schema */}

@@ -3,6 +3,13 @@ import StarRatings from 'react-star-ratings';
 
 export default class ReviewComponent extends React.Component {
   render() {
+    // var className;
+    // if(this.props.item.wouldRecommendToOtherJobSeekers){
+    //   className = <p ><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+    // }else{
+    //   className = <p ><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+    // }
+
       return(
 
 
@@ -73,6 +80,8 @@ export default class ReviewComponent extends React.Component {
           <br />
           {/* //LEFT FOR NOW, the recommended star */}
           <p ><i className="fa fa-check-square-o faaa" aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>
+            {/* <p ><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p> */}
+            {/* {className} */}
        </div>
        <div  className="mar_pad">
           <div className="col-md-8">
