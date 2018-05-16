@@ -191,6 +191,17 @@ Meteor.methods({
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
 
+		// Only logged-in workers can apply for jobs
+		if (!this.userId) {
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		if (user.role !== "worker") {
+			throw new Meteor.Error("rolePermission", "Only workers may submit their salaries.");
+		}
+
 		let company = Companies.findOne({name: jobApplication.companyName});
 		let companyEmailAddress = company.contactEmail;
 		let companyName = jobApplication.companyName;
