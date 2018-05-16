@@ -89,11 +89,10 @@ render() {
                                <h4  className="head_section_font">{this.props.companyoverview.name} Reviews</h4>
                                <div  className="add-buttons">
                                  <a href={this.props.companyoverview.vizeReviewUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
-                                          {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
                                 </div>
 
                                <hr />
-                               {/* getting the strange error in CompanyRating */}
+
                                 <CompanyRating companyrating={this.props.companyoverview}/>
 
                              </div>
@@ -124,7 +123,7 @@ render() {
                                   <div  className="na_tab1">
                                    <ul className="" role="tablist">
                                    <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
-                                    </ul>
+                                    </ul>                                                                                       
                                     </div>
                                   </center>
 
@@ -156,10 +155,6 @@ render() {
 
                                       </div>
                                       </div>
-
-
-
-
       </div>
 
 )

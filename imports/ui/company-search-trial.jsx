@@ -49,7 +49,6 @@ let Results1 = withTracker(({query}) => {
    return {
        isReady: handle.ready(),
        company: Companies.find({"name": { $regex: ".*" + query + ".*", $options: 'i'}}).fetch()
-       //db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}}
    };
 })(Results);
 

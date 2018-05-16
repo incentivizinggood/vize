@@ -1,9 +1,12 @@
 //This is the componenet that gets rendered when user searches for company name
 import React from "react";
+import { JobAds } from "../api/data/jobads.js";
+import { withTracker } from "meteor/react-meteor-data";
+import { Salaries } from "../api/data/salaries.js";
 // import StarRatings from 'react-star-ratings';
 
 const CompanyComponent = (props) => {
-
+      console.log(props.salaries);
       return(
         <div>
 
@@ -59,8 +62,8 @@ const CompanyComponent = (props) => {
                  <div  className="reviews1">
                     <ul>
                        <li className="active"><a href="#">{props.item.numReviews} <br/><span className="review_text">Reviews</span></a></li>
-                       <li><a href="#">17K <br/><span className="review_text">Salaries</span></a></li>
-                       <li><a href="#">8.0K <br/><span className="review_text">Interviews</span></a></li>
+                       <li><a href="#">{props.salaries}<br/><span className="review_text">Salaries</span></a></li>
+                       <li><a href="#">{props.jobads}<br/><span className="review_text">Jobs</span></a></li>
                     </ul>
                  </div>
               </div>
@@ -77,4 +80,12 @@ const CompanyComponent = (props) => {
 
   }
 
-export default CompanyComponent;
+export default withTracker(({ item }) => {
+   var handle = Meteor.subscribe("JobAds");
+   var handle1 = Meteor.subscribe("Salaries");
+
+   return {
+       jobads: JobAds.find({"companyName": item.name}).count(),
+       salaries: Salaries.find({"companyName": item.name}).count()
+   };
+})(CompanyComponent);
