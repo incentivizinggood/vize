@@ -6,18 +6,28 @@ import {Meteor} from "meteor/meteor";
 
 Meteor.methods({
 	//This method needs to be modified to take a Review
+<<<<<<< HEAD
 
     sendEmail: function(to, from, subject, text) {
 		console.log("--- sendEmail: checking arguments");
 		// check([to, from, subject, text], [String]);
         let realEmail = { to, from, subject, text };
+=======
+	//object and validate it against a schema.
+	// // - Josh
+	// Server: Define a method that the client can call.
+	sendEmail: function(to, from, subject, text) {
+		console.log("--- sendEmail: checking arguments");
+		check([to, from, subject, text], [String]);
+		let realEmail = { to, from, subject, text };
+>>>>>>> 716f72695707486f3b8760a22548b650570401aa
 		console.log("--- sendEmail: before send, here is the email:");
-        console.log(realEmail);
-        this.unblock();
-        Email.send(realEmail);
-        console.log("--- sendEmail: after send");
+		console.log(realEmail);
+		this.unblock();
+		Email.send(realEmail);
+		console.log("--- sendEmail: after send");
 		return "return value of sendEmail: we made it";
-    },
+	},
 
 	// Stripe integration
 	"chargeCard": function (stripeToken) {
