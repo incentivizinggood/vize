@@ -43,7 +43,7 @@ if(Meteor.isClient) {
 	});
 
 	Template.wr_blaze_form.onRendered(function() {
-		console.log("Rendering wr_blaze_form");
+		if(Meteor.isDevelopment) console.log("Rendering wr_blaze_form");
 	});
 
 	Template.wr_blaze_form.helpers({
@@ -70,18 +70,18 @@ if(Meteor.isClient) {
 			return wr_form_state.get("formError");
 		},
 		resetFormError: function() { //called when reset button is clicked
-			console.log("Resetting wr_review_form");
+			if(Meteor.isDevelopment) console.log("Resetting wr_review_form");
 			wr_form_state.set("formError", "good");
 		},
 	});
 
 	AutoForm.addHooks("wr_blaze_form", {
 		onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
-			console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
+			if(Meteor.isDevelopment) console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
 			wr_form_state.set("formError", "good");
 		},
 		onError: function(formType, error) { // "error" contains whatever error object was thrown
-			console.log("ERROR: We did a thing in a " + formType + " form: " + error);
+			if(Meteor.isDevelopment) console.log("ERROR: We did a thing in a " + formType + " form: " + error);
 			wr_form_state.set("formError", error.toString());
 		},
 	});

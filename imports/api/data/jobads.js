@@ -44,7 +44,6 @@ JobAds.schema = new SimpleSchema({
 		index: true,
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
-				console.log("companyId autovalue for " + this.field("companyName").value);
 				let company = Companies.findOne({name: this.field("companyName").value});
 				if (company !== undefined) {
 					return company._id;
