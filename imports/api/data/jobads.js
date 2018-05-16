@@ -66,7 +66,7 @@ JobAds.schema = new SimpleSchema({
 		denyUpdate: true,
 		autoValue: function() {
 			if(this.field("_id").isSet) {
-				return process.env.ROOT_URL + "apply-for-job/?id=" + this.field("_id").value;
+				return Meteor.absoluteUrl("apply-for-job/?id=" + this.field("_id").value, {secure: true, });
 			}
 		},
 		autoform: {
