@@ -5,9 +5,17 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-export const JobAds = new Mongo.Collection("JobAds", { idGeneration: 'MONGO'});
+export const JobAds = new Mongo.Collection("JobAds", { idGeneration: 'STRING'});
 
-const jobAdsSchema = new SimpleSchema({
+JobAds.schema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
@@ -28,6 +36,41 @@ const jobAdsSchema = new SimpleSchema({
 					return "noCompanyWithThatName";
 				}
 			}
+		}, },
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		index: true,
+		autoValue: function() {
+			if(Meteor.isServer && this.field("companyName").isSet) {
+				let company = Companies.findOne({name: this.field("companyName").value});
+				if (company !== undefined) {
+					return company._id;
+				}
+				else {
+					// This should never happen, because
+					// companies not in the database cannot
+					// post jobs: that error is caught in
+					// another custom validator
+					return undefined;
+				}
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	vizeApplyForJobUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return Meteor.absoluteUrl("apply-for-job/?id=" + this.field("_id").value, {secure: true, });
+			}
+		},
+		autoform: {
+			omit: true,
 		}, },
 	jobTitle: {
 		type: String,
@@ -60,7 +103,7 @@ const jobAdsSchema = new SimpleSchema({
 		optional: false,
 		allowedValues: ["Full time", "Part time", "Contractor"],
 	},
-	jobDescription: { //need to make sure this displays a nice box
+	jobDescription: {
 		type: String,
 		optional: false,
 		autoform: {
@@ -70,7 +113,7 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please enter a formal description of this job",
 			},
 		}, },
-	responsibilities: { //need to make sure this displays a nice box
+	responsibilities: {
 		type: String,
 		optional: false,
 		autoform: {
@@ -80,7 +123,7 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please summarize the responsibilities that come with this job"
 			},
 		}, },
-	qualifications: { //need to make sure this displays a nice box
+	qualifications: {
 		type: String,
 		optional: false,
 		autoform: {
@@ -90,9 +133,17 @@ const jobAdsSchema = new SimpleSchema({
 				placeholder: "Please describe the qualifications necessary for this job",
 			},
 		}, },
+	datePosted: {
+		type: Date,
+		optional: true,
+		denyUpdate: true,
+		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+		autoform: {
+			omit: true,
+		}, },
 }, { tracker: Tracker } );
 
-jobAdsSchema.messageBox.messages({
+JobAds.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -100,7 +151,121 @@ jobAdsSchema.messageBox.messages({
 	},
 });
 
-JobAds.attachSchema(jobAdsSchema, { replace: true });
+JobAds.attachSchema(JobAds.schema, { replace: true });
+
+// This is used by the "Apply for a Job" form
+JobAds.applicationSchema = new SimpleSchema({
+	jobId: {
+		type: String,
+		optional: false,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("jobads.doesJobAdExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "jobId",
+							type: "invalidJobId",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(JobAds.findOne(this.value) === undefined) {
+					return "invalidJobId";
+				}
+			}
+		},
+		autoform: {
+			afFieldInput: {
+				type: "hidden",
+				readonly: true,
+			}
+		}, },
+	companyName: {	// Always auto-filled by form
+		type: String,
+	 	optional: false,
+		custom: function() {
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "companyName",
+							type: "noCompanyWithThatName",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(!Companies.hasEntry(this.value)) {
+					return "noCompanyWithThatName";
+				}
+			}
+		}, },
+	// The following fields are personal information
+	// entered by the applicant
+	fullName: {
+		type: String,
+		optional: false,
+		autoform: {
+			afFieldInput: {
+				placeholder: "Enter your full name here",
+			},
+		}, },
+	email: {
+		type: String,
+		optional: false,
+		regEx: SimpleSchema.RegEx.EmailWithTLD,
+		autoform: {
+			afFieldInput: {
+				type: "email",
+				placeholder: "Input an email address the company can contact you at",
+			},
+		}, },
+	phoneNumber: {
+		type: String,
+		optional: false,
+		regEx: SimpleSchema.RegEx.Phone,
+		autoform: {
+			afFieldInput: {
+				type: "tel",
+				placeholder: "Input phone number the company can contact you with",
+			},
+		}, },
+	coverLetterAndComments: {
+		type: String,
+		optional: true,
+		autoform: {
+			afFieldInput: {
+				type: "textarea",
+				rows: 6,
+				placeholder: "Things that would normally go in a cover letter may go in this field, otherwise you may type any message you like here and it will get sent to the company as part of your application",
+			},
+		}, },
+	dateSent: {
+		type: Date,
+		optional: true,
+		denyUpdate: true,
+		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+		autoform: {
+			omit: true,
+		}, },
+}, { tracker: Tracker } );
+
+JobAds.applicationSchema.messageBox.messages({
+	//en? does that mean we can add internationalization
+	//in this block of code?
+	en: {
+		invalidJobId: "Please provide a valid job id for the job you wish to apply to",
+		noCompanyWithThatName: "There is no company with that name in our database",
+	},
+});
+
+
+JobAds.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
 
 if (Meteor.isServer) {
 	Meteor.publish("JobAds", function() {

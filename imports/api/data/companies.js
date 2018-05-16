@@ -5,21 +5,7 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-/*
-	Questions:
-	- How to prevent certain values from being
-	set on insert?
-	- Would it be desirable to define autoValues
-	such that newly-inserted companies could have
-	their statistics (avg* fields, percentRecommended,
-	etc.) calculated automatically if reviews have
-	already been made about them?
-	- On that note, would it be beneficial to have
-	a "PSM" somewhere to "refresh" the statistics
-	based on reviews?
-*/
-
-export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'MONGO' });
+export const Companies = new Mongo.Collection("CompanyProfiles", { idGeneration: 'STRING' });
 
 // Add helper functions directly to the Companies collection object
 // convert _id or name into a proper Mongo-style selector
@@ -50,19 +36,69 @@ Companies.findReviewsForCompany = function(companyIdentifier) {
 	return Reviews.find({companyName: company.name});
 };
 
-const companiesSchema = new SimpleSchema({
+Companies.schema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
+	vizeProfileUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return Meteor.absoluteUrl("companyprofile/?id=" + this.field("_id").value, {secure: true, });
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	vizeReviewUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return Meteor.absoluteUrl("write-review/?id=" + this.field("_id").value, {secure: true, });
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	vizeSalaryUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return Meteor.absoluteUrl("submit-salary-data/?id=" + this.field("_id").value, {secure: true, });
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
+	vizePostJobUrl: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(this.field("_id").isSet) {
+				return Meteor.absoluteUrl("post-a-job/?id=" + this.field("_id").value, {secure: true, });
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	name: {
 		type: String,
 	 	optional: false,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */
 		custom: function() {
-			/*
-				Next to wrapping Blaze into React, this bad boy
-				and the messageBox stuff below that goes with it
-				vie for the title of most-difficult-to-get-correct
-				piece of code I've written for Vize.
-			*/
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("companies.isCompanyNameAvailable", this.value, (error, result) => {
 					if (!result) {
@@ -82,7 +118,12 @@ const companiesSchema = new SimpleSchema({
 	contactEmail: {
 		type: String,
 		optional: false,
-		regEx: SimpleSchema.RegEx.Email, },
+		regEx: SimpleSchema.RegEx.EmailWithTLD,
+		autoform: {
+			afFieldInput: {
+				type: "email",
+			}
+		}, },
 	dateEstablished: {
 		type: Date,
 		optional: true, },
@@ -102,10 +143,15 @@ const companiesSchema = new SimpleSchema({
 	otherContactInfo: {
 		type: String, //dunno what this needs to be, leaving it to the user's discretion to "validate"
 		optional: true, },
-	websiteURL: {
-		type: String,
-		optional: true, //should this be required?
-		regEx: SimpleSchema.RegEx.Url, },
+	websiteURL: {		// the COMPANY's actual website, not their
+		type: String,	// little corner of the Vize web app
+		optional: true, // should this be required?
+		regEx: SimpleSchema.RegEx.Url,
+	 	autoform: {
+			afFieldInput: {
+				type: "url",
+			},
+		}, },
 	descriptionOfCompany: {
 		type: String,
 		optional: true,
@@ -223,7 +269,7 @@ const companiesSchema = new SimpleSchema({
 }, { tracker: Tracker } );
 
 // Define custom error messages for custom validation functions
-companiesSchema.messageBox.messages({
+Companies.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
@@ -231,10 +277,20 @@ companiesSchema.messageBox.messages({
 	},
 });
 
+//db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})
+
 // Added line for autoforms and collection2 usage
-Companies.attachSchema(companiesSchema, { replace: true });
+Companies.attachSchema(Companies.schema, { replace: true });
+
+Companies.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
 
 if (Meteor.isServer) {
+	Companies.rawCollection().createIndex({"name": "text"});
+
 	Meteor.publish("CompanyProfiles", function() {
 		return Companies.find({});
 	});

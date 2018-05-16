@@ -1,9 +1,9 @@
 <template name="paj_blaze_form">
-	{{#autoForm collection=jobAds id="paj_blaze_form" type="method" meteormethod="jobAds.postJobAd" preserveForm=false}}
+	{{#autoForm collection=jobAds id="paj_blaze_form" type="method" meteormethod="jobads.postJobAd" preserveForm=false}}
 		<fieldset>
 			<legend>Post a Job</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-				{{> afQuickField name='companyName' placeholder="Please tell us which company you'd like to post a job ad for"}}
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 				{{> afQuickField name='jobTitle' placeholder="Please tell us the title of the job you'd like to advertise"}}

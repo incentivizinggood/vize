@@ -15,9 +15,9 @@ String.prototype.wordCount = function(){
 	return this.split(/\s+\b/).length;
 };
 
-//Constructor called - created new Collection named 'Reviews'
+// Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
-export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'});
+export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'});
 
 /*
 	Desirable features:
@@ -25,15 +25,70 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'MONGO'})
 		- List gets refined or even auto-filled as user types
 	- ...ditto for locations, especially once company name is known
 	- LOL these are all things that go with the form,
-		not the schema, silly me...
+		not the schema, silly me
+	- Unless I can configure allowedValues dynamically...
 */
 
 //Schema for the Collection
-const reviewsSchema = new SimpleSchema({
+Reviews.schema = new SimpleSchema({
+	_id: {
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		autoform: {
+			omit: true,
+		}, },
+	submittedBy: { //userId of the review author
+		type: String,
+		optional: true,
+		denyUpdate: true,
+		autoValue: function() {
+			if(Meteor.isServer) {
+				// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
+				return this.userId;
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
 		index: true,
+		custom: function() {
+
+			if (Meteor.isClient && this.isSet) {
+				Meteor.call("companies.isNotSessionError", this.value, (error, result) => {
+					if (!result) {
+						this.validationContext.addValidationErrors([{
+							name: "companyName",
+							type: "sessionError",
+						}]);
+					}
+				});
+			}
+			else if (Meteor.isServer && this.isSet) {
+				if(this.value === "ERROR: COMPANY NOT FOUND" ||
+					this.value === "Please wait while we finish loading the form...") {
+					return "sessionError";
+				}
+			}
+		}
+		/*
+			After working so hard to get this right,
+			here is why I have removed this custom validator:
+			There is no way to skip custom validation. However,
+			frontend wanted the insertion form to allow users
+			to skip this step under certain circumstances. This
+			would have been a cause for concern, except in the
+			other circumstances this field is auto-filled from
+			the collection and set to read-only. There thus
+			seems to be no use case for this check. But I worked
+			hard on it, so here it is in case I ever need to
+			refer back to its code, or even use it again in the
+			project, perhaps for testing.
+		*/
 		// custom: function() {
 		// 	if (Meteor.isClient && this.isSet) {
 		// 		Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
@@ -52,10 +107,31 @@ const reviewsSchema = new SimpleSchema({
 		// 	}
 		// },
 	},
+	companyId: {
+		type: String,
+		optional: true,
+		denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
+		index: true,
+		autoValue: function() {
+			if(Meteor.isServer && this.field("companyName").isSet) {
+				let company = Companies.findOne({name: this.field("companyName").value});
+				if (company !== undefined) {
+					return company._id;
+				}
+				else {
+					return "This company does not have a Vize profile yet";
+				}
+			}
+		},
+		autoform: {
+			omit: true,
+		}, },
 
 	// BUG will eventually need a username, screenname, or userID to
 	// tie reviews to users for the sake of logic and validation, but
 	// that's tough to do now
+	// -> NOT REALLY, this information can be stored with the user
+	//		and queried when needed
 
 	reviewTitle: { //title of the review
 		type: String,
@@ -139,7 +215,7 @@ const reviewsSchema = new SimpleSchema({
 			//to AutoForm, see afInputStarRating.[js,html]
 			type: "starRating",
 		}, },
-	managerRelationship: { //"manager relationship", in case that isn't clear...
+	managerRelationship: {
 		type: Number,
 		min: 0, max: 5,
 		optional: false,
@@ -167,7 +243,7 @@ const reviewsSchema = new SimpleSchema({
 	 	autoform: {
 			type: "starRating",
 		}, },
-	additionalComments: { //need to make sure this displays a nice box
+	additionalComments: {
 		type: String,
 		optional: true,
 		autoform: {
@@ -187,6 +263,7 @@ const reviewsSchema = new SimpleSchema({
 	datePosted: {
 		type: Date,
 		optional: true,
+		denyUpdate: true,
 		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
 		autoform: {
 			omit: true,
@@ -225,19 +302,25 @@ const reviewsSchema = new SimpleSchema({
 		//reminds me of generally what needs to be done here.
 }, { tracker: Tracker } );
 
-reviewsSchema.messageBox.messages({
+Reviews.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
 		needsFiveWords: "You should write at least 5 words in this field",
 		noCompanyWithThatName: "There is no company with that name in our database",
 		dateJoinedAfterDateLeft: "Date Joined cannot be after Date Left",
+		sessionError: "Please stop messing around",
 	},
 });
 
-Reviews.attachSchema(reviewsSchema, { replace: true });
+Reviews.attachSchema(Reviews.schema, { replace: true });
 
-// I dont think there is a needed for this code. Might be wrong.
+Reviews.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
 if (Meteor.isServer) {
 	Meteor.publish("Reviews", function() {
 		return Reviews.find({});

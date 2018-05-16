@@ -40,6 +40,11 @@ Meteor.users.schema = new SimpleSchema({
         //              a company should not be able to leave a review.
         type: String,
         allowedValues: ["worker", "company-unverified", "company"]
+    },
+    companyId: {
+        // If role === "company", the ID of the company that this user is administering.
+        type: String,
+        optional: true
     }
 });
 
