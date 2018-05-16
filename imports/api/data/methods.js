@@ -9,15 +9,17 @@ import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 Meteor.methods({
 
 	sendEmail: function(to, from, subject, text) {
-		console.log("--- sendEmail: checking arguments");
+		if(Meteor.isDevelopment) console.log("SERVER sendEmail: checking arguments");
 		check([to, from, subject, text], [String]);
 		let realEmail = { to, from, subject, text };
-		console.log("--- sendEmail: before send, here is the email:");
-		console.log(realEmail);
+		if(Meteor.isDevelopment) {
+			console.log("SERVER sendEmail: before send, here is the email:");
+			console.log(realEmail);
+		}
 		this.unblock();
 		Email.send(realEmail);
-		console.log("--- sendEmail: after send");
-		return "return value of sendEmail: we made it";
+		if(Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
+		return "we made it";
 	},
 
 	"hasFiveWords": function (inputString) {
@@ -35,12 +37,15 @@ Meteor.methods({
 		//This avoids a lot of problems
 		newReview = Reviews.simpleSchema().clean(newReview);
 
-		// console.log("SERVER: validating...");
 		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
 		let errors = Reviews.simpleSchema().namedContext().validationErrors();
-		console.log(errors);
+
+		if(Meteor.isDevelopment) {
+			console.log("SERVER: Here is the validation result: ");
+			console.log(validationResult);
+			console.log(errors);
+		}
+
 		if(!validationResult) {
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
@@ -58,7 +63,6 @@ Meteor.methods({
 
 		// TODO: use user to fill in the "who wrote this" info in this review.
 
-		// console.log("SERVER: inserting");
 		Reviews.insert(newReview);
 
 		/*
@@ -74,8 +78,11 @@ Meteor.methods({
 
 		// Update denormalizations.
 		if(company !== undefined) {
-			console.log("SERVER: before update");
-			console.log(Companies.findOne({name: newReview.companyName}));
+
+			if(Meteor.isDevelopment) {
+				console.log("SERVER: before update");
+				console.log(Companies.findOne(Companies.findOne({name: newReview.companyName})))
+			}
 
 			/*
 				QUESTION:
@@ -99,10 +106,12 @@ Meteor.methods({
 					$inc: { numReviews: 1 } //this will increment the numReviews by 1
 				}
 			);
-			console.log("SERVER: after update");
-			console.log(Companies.findOne({name: newReview.companyName}));
-		}
 
+			if(Meteor.isDevelopment) {
+				console.log("SERVER: after update");
+				console.log(Companies.findOne({name: newReview.companyName}));
+			}
+		}
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
@@ -110,12 +119,15 @@ Meteor.methods({
 		//This avoids a lot of problems
 		newSalary = Salaries.simpleSchema().clean(newSalary);
 
-		// console.log("SERVER: validating...");
 		let validationResult = Salaries.simpleSchema().namedContext().validate(newSalary);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
 		let errors = Salaries.simpleSchema().namedContext().validationErrors();
-		console.log(errors);
+
+		if(Meteor.isDevelopment) {
+			console.log("SERVER: Here is the validation result: ");
+			console.log(validationResult);
+			console.log(errors);
+		}
+
 		if(!validationResult) {
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
@@ -167,9 +179,14 @@ Meteor.methods({
 
 		jobApplication = JobAds.applicationSchema.clean(jobApplication);
 		let validationResult = JobAds.applicationSchema.namedContext().validate(jobApplication);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
 		let errors = JobAds.applicationSchema.namedContext().validationErrors();
+
+		if(Meteor.isDevelopment) {
+			console.log("SERVER: Here is the validation result: ");
+			console.log(validationResult);
+			console.log(errors);
+		}
+
 		if(!validationResult) {
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
@@ -221,26 +238,28 @@ Meteor.methods({
 			text: emailText,
 		};
 
-		console.log("SERVER: sending email: ");
-		console.log(applicationEmail);
+		if(Meteor.isDevelopment) {
+			console.log("SERVER: sending email: ");
+			console.log(applicationEmail);
+		}
 
 		this.unblock();
 		Email.send(applicationEmail);
 
-		console.log("SERVER: sent email");
-
 	},
 
 	"jobads.postJobAd": function (newJobAd) {
-		//This avoids a lot of problems
-		newJobAd = JobAds.simpleSchema().clean(newJobAd);
 
-		console.log("SERVER: validating...");
+		newJobAd = JobAds.simpleSchema().clean(newJobAd);
 		let validationResult = JobAds.simpleSchema().namedContext().validate(newJobAd);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
 		let errors = JobAds.simpleSchema().namedContext().validationErrors();
-		console.log(errors);
+
+		if(Meteor.isDevelopment) {
+			console.log("SERVER: Here is the validation result: ");
+			console.log(validationResult);
+			console.log(errors);
+		}
+
 		if(!validationResult) {
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
@@ -259,7 +278,6 @@ Meteor.methods({
 			throw new Meteor.Error("rolePermission", "You may only post a job ad for a company that you are allowed to administer.");
 		}
 
-		console.log("SERVER: inserting");
 		JobAds.insert(newJobAd);
 	},
 
@@ -306,16 +324,15 @@ Meteor.methods({
 	//	--> yet set up accounts. We're not ready for that quite yet.
 	"companies.createProfile": function (newCompanyProfile) {
 
-		//This avoids a lot of problems
 		newCompanyProfile = Companies.simpleSchema().clean(newCompanyProfile);
-
-		//Throws an exception if argument is invalid.
-		console.log("SERVER: validating...");
 		let validationResult = Companies.simpleSchema().namedContext().validate(newCompanyProfile);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
 		let errors = Companies.simpleSchema().namedContext().validationErrors();
-		console.log(errors);
+
+		if(Meteor.isDevelopment) {
+			console.log("SERVER: Here is the validation result: ");
+			console.log(validationResult);
+			console.log(errors);
+		}
 
 		if(!validationResult) {
 			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
@@ -328,7 +345,6 @@ Meteor.methods({
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
-		console.log("SERVER: inserting");
 		Companies.insert(newCompanyProfile);
 	},
 
