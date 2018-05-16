@@ -30,16 +30,20 @@ Meteor.methods({
 		return "all good";
 	},
 
-	// This feels so idiotic, but it seems to be the only way
-	// to enable reactive validation
-	"firstDateIsBeforeSecond": function (dates) {
-		if(!(dates.first < dates.second)) {
-			throw new Meteor.Error("outOfOrder", "First date should be before second");
-		}
-		return "all good";
-	},
-
 	"reviews.submitReview": function(newReview) {
+
+		//This avoids a lot of problems
+		newReview = Reviews.simpleSchema().clean(newReview);
+
+		// console.log("SERVER: validating...");
+		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		let errors = Reviews.simpleSchema().namedContext().validationErrors();
+		console.log(errors);
+		if(!validationResult) {
+			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
 
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
@@ -53,15 +57,6 @@ Meteor.methods({
 		}
 
 		// TODO: use user to fill in the "who wrote this" info in this review.
-
-		//This avoids a lot of problems
-		newReview = Reviews.simpleSchema().clean(newReview);
-
-		// console.log("SERVER: validating...");
-		let validationResult = Reviews.simpleSchema().namedContext().validate(newReview);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
-		console.log(Reviews.simpleSchema().namedContext().validationErrors());
 
 		// console.log("SERVER: inserting");
 		Reviews.insert(newReview);
@@ -111,6 +106,20 @@ Meteor.methods({
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
+
+		//This avoids a lot of problems
+		newSalary = Salaries.simpleSchema().clean(newSalary);
+
+		// console.log("SERVER: validating...");
+		let validationResult = Salaries.simpleSchema().namedContext().validate(newSalary);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		let errors = Salaries.simpleSchema().namedContext().validationErrors();
+		console.log(errors);
+		if(!validationResult) {
+			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
+
 		// Make sure the user is logged and is permitted to submit their salary.
 		if (!this.userId) {
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
@@ -127,15 +136,6 @@ Meteor.methods({
 		if (Salaries.find({companyId, jobTitle}).count() !== 0) {
 			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per location per job title.");
 		}
-
-		//This avoids a lot of problems
-		newSalary = Salaries.simpleSchema().clean(newSalary);
-
-		// console.log("SERVER: validating...");
-		let validationResult = Salaries.simpleSchema().namedContext().validate(newSalary);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
-		console.log(Salaries.simpleSchema().namedContext().validationErrors());
 
 		console.log("SERVER: inserting");
 
@@ -235,6 +235,16 @@ Meteor.methods({
 		//This avoids a lot of problems
 		newJobAd = JobAds.simpleSchema().clean(newJobAd);
 
+		console.log("SERVER: validating...");
+		let validationResult = JobAds.simpleSchema().namedContext().validate(newJobAd);
+		console.log("SERVER: Here is the validation result: ");
+		console.log(validationResult);
+		let errors = JobAds.simpleSchema().namedContext().validationErrors();
+		console.log(errors);
+		if(!validationResult) {
+			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
+
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
@@ -247,16 +257,6 @@ Meteor.methods({
 
 		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
 			throw new Meteor.Error("rolePermission", "You may only post a job ad for a company that you are allowed to administer.");
-		}
-
-		console.log("SERVER: validating...");
-		let validationResult = JobAds.simpleSchema().namedContext().validate(newJobAd);
-		console.log("SERVER: Here is the validation result: ");
-		console.log(validationResult);
-		let errors = JobAds.simpleSchema().namedContext().validationErrors();
-		console.log(errors);
-		if(!validationResult) {
-			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
 		}
 
 		console.log("SERVER: inserting");
@@ -306,53 +306,30 @@ Meteor.methods({
 	//	--> yet set up accounts. We're not ready for that quite yet.
 	"companies.createProfile": function (newCompanyProfile) {
 
-		// Make sure the user is logged in before inserting a task
-		if (!this.userId) {
-			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
-		}
-
 		//This avoids a lot of problems
 		newCompanyProfile = Companies.simpleSchema().clean(newCompanyProfile);
 
 		//Throws an exception if argument is invalid.
-		// console.log("SERVER: validating...");
+		console.log("SERVER: validating...");
 		let validationResult = Companies.simpleSchema().namedContext().validate(newCompanyProfile);
 		console.log("SERVER: Here is the validation result: ");
 		console.log(validationResult);
-		console.log(Companies.simpleSchema().namedContext().validationErrors());
+		let errors = Companies.simpleSchema().namedContext().validationErrors();
+		console.log(errors);
+
+		if(!validationResult) {
+			throw new Meteor.Error("ClientError", "Invalid form inputs", errors);
+		}
+
+		// Make sure the user is logged in before inserting a task
+		if (!this.userId) {
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to create a profile");
+		}
 
 		/* We will probably end up needing more checks here,
 		I just don't immediately know what they need to be. */
 		console.log("SERVER: inserting");
 		Companies.insert(newCompanyProfile);
 	},
-
-	//Edits an existing company profile -- UNTESTED
-	//Leaving this commented out until I have the opportunity to test it
-	// "companies.editProfile": function (companyProfileEdits) {
-	//
-	// 	// Copy-paste until we implement real security
-	// 	if (!this.userId) {
-	// 		throw new Meteor.Error("not-authorized");
-	// 	}
-	//
-	// 	// Mongo-style modifiers seem to just be JSON objects
-	// 	// where the field names are modifiers and the values
-	// 	// are JSON objects with keys identifying the doc field
-	// 	// to be modified and values identifying "how" to perform
-	// 	// the modifier (as in {$inc: {name: 2}} would increment
-	// 	// name by 2 if that was valid). Which means we can just
-	// 	// pass companyProfileEdits to $set. Woohoo.
-	// 	let modifier = {$set: companyProfileEdits};
-	//
-	// 	// Apparently SimpleSchema lets you validate
-	// 	// Mongo-style modifiers. Dunno about you guys,
-	// 	// but I think that's extremely cool.
-	// 	Companies.schema.validate(modifier);
-	//
-	// 	// Will probably just silently do nothing if there's
-	// 	// no profile with _id.
-	// 	Companies.update(companyProfileEdits._id, modifier);
-	// },
 
 });
