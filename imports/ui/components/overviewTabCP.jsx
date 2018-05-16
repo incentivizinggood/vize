@@ -11,12 +11,10 @@ export default class OverviewTab extends React.Component {
 
 render() {
 
-  console.log(this.props.jobAds.length);
-  console.log(this.props.salaries.length);
   var to_display_jobs;
   var salaries_to_display;
 
-//FIRST JOBAD CODE TO SHOW ON THE OVERVIEW TAB
+//FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
   if(this.props.jobAds.length > 0){
     to_display_jobs =
     <div>
@@ -41,10 +39,12 @@ render() {
    </div>
  </div>
 
-  } else{  //the length == 0
+  } else {  //the length == 0
     to_display_jobs = "No Jobs to show right now";
   }
 
+
+//FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
   if(this.props.salaries.length > 0) {
     salaries_to_display =
     <div>
@@ -65,9 +65,7 @@ render() {
 
 
 
-
-
-
+//MAIN JSX FILE
 
     return(
       <div role="tabpanel" className="tab-pane active" id="overview">
@@ -81,7 +79,7 @@ render() {
 
         <div  className="over_p">
         <p>{this.props.companyoverview.descriptionOfCompany}</p>
-        
+
          </div>
       </div>
       </div>
@@ -99,11 +97,8 @@ render() {
                                 <CompanyRating companyrating={this.props.companyoverview}/>
 
                              </div>
-
-                              {/* getting the same error here as well, props get undefined and cannot access the values contained in the props. */}
-                                   {/* <CompanyReview companyreview={this.props.companyreview}/> */}
                              <div  className="col-md-12  section_overtopsect">
-                                    {/* <center>  <li  className="te_deco"><a href="#reviewss"   >See All Reviews</a> </li></center> */}
+
 
                           <center>
                             <div  className="na_tab1"  >
@@ -122,30 +117,9 @@ render() {
                                   <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
                                   <hr />
 
-                                  {/* //THE CODE FOR IF_ELSE */}
-                                   {/* <div>
-                                      <h4><strong>{this.props.jobAds[0].jobTitle}</strong></h4>
-                                   </div>
-                                   <div>
-                                     <div  className="add-buttons">
-                                              <a href={this.props.jobAds[0].vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
-                                      </div>
-                                      <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.jobAds[0].locations[0]}</p>
-                                      <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.jobAds[0].pesosPerHour}/Hour</p>
-                                      <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.jobAds[0].contractType}</p>
-                                   </div>
-
-
-                                   <hr />
-                                   <h4 className="h4-font-sz-job">Job Description</h4>
-                                   <div  className="h4-font-sz">
-
-                                         <p>{this.props.jobAds[0].jobDescription}</p>
-                                  </div> */}
-                                  {/* //CODE FOR IF_ELSE STOPS */}
                                   {to_display_jobs}
 
-                                <hr />
+
                                 <center>
                                   <div  className="na_tab1">
                                    <ul className="" role="tablist">
@@ -160,11 +134,6 @@ render() {
 
                              {/*job link */}
 
-
-
-
-
-
                            <div className="col-md-12  section_rview_back_color_job"> {/* salaries  */}
                                 <div  className="sect_re1  sec_p">
 
@@ -175,21 +144,6 @@ render() {
                                            </div>
                                    <hr />
 
-
-                                      {/* //CODE FOR SALARIES START */}
-
-                                      {/* <div className="hed-soft-mob">
-                                        <p>{this.props.salaries[0].jobTitle}</p>
-                                        <hr />
-                                     </div>
-
-                                     <p  className="mal-r">{this.props.salaries[0].gender}</p>
-
-                                          <p>{this.props.salaries[0].incomeType}<span>: {this.props.salaries[0].incomeAmount}</span></p>
-                                         */}
-
-
-                                       {/* //CODE FOR SALARIES END */}
                                        {salaries_to_display}
 
 
