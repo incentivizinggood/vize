@@ -1,8 +1,9 @@
 import React from "react";
 import Header from "../../ui/pages/header.jsx";
-import Footer from "../../ui/pages/footer.jsx";
+import Footer from "../../ui/pages/footer.jsx"; 
 import TotalsCounter from "../totals-counter.jsx";
 import Dialog from "../../ui/pages/dialog-box.jsx";
+
 /* The home page of the site.
  */
 export default class HomePage extends React.Component {
@@ -11,13 +12,13 @@ export default class HomePage extends React.Component {
                 <div><Header />
                   <div className="banner">
                   <div className="banner-info">
-
+   
                  <div className="banner-text">
                <div  id="top" className="callbacks_container">
                   <ul className="rslides" id="slider3">
                      <li>
                         <div className="banner-text-info">
-                           <h1>Find the best job for you, from people like you</h1>
+                           <h1>Find the best job for you, from people like you</h1>                          
                            <form className="example" method="POST" action="#">
                               <input type="text" placeholder="Search..." name="search"/>
                               <button type="submit">SEARCH</button>
@@ -36,7 +37,7 @@ export default class HomePage extends React.Component {
             <div className="col-md-12 welcome-text wtext-right">
                <h1>Find an employer that treats you right</h1>
             </div>
-
+           
             <div className="col-md-12 welcome-text wtext-right">
                <h2>Vize helps you discover employers based on different industries, job sizes, and company size. The companies are compared based on ratings and reviews</h2>
             </div>
@@ -52,11 +53,11 @@ export default class HomePage extends React.Component {
        <div className="clearfix"> </div>
         <div className="container">
          <div className="col-md-4  ">
-            <div  className="#">
+            <div  className="#">              
             </div>
          </div>
          <div className="col-md-8  ">
-            <div  className="alisetright  homlaptopimg">
+            <div  className="alisetright  homlaptopimg">              
                <img src="images/laptopimg.jpg"  className="img-responsive"/>
             </div>
          </div>
@@ -81,7 +82,7 @@ export default class HomePage extends React.Component {
                </div>
             </div>
             <div className="slid-row11">
-               <div className="col-md-3 losize">
+               <div className="col-md-3 losize"> 
                   <img src="/images/l1.png " className="img-responsive"/>
                </div>
                <div className="col-md-3  losize">
@@ -96,7 +97,7 @@ export default class HomePage extends React.Component {
                <div className="clearfix"> </div>
             </div>
          </div>
-      </div>
+      </div>      
           <div className="star" id="services">
          <div className="container">
             <div className="row">
@@ -117,9 +118,9 @@ export default class HomePage extends React.Component {
          </div>
       </div>
 <Footer />
-                            <Dialog />
+<Dialog />
                 </div>
 
-        );
+               );
     }
 }
