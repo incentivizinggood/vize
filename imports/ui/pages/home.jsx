@@ -65,58 +65,58 @@ export default class HomePage extends React.Component {
 
 
 
-               <div className="sectslider">
-             <div className="container">
-                <div className="row">
-                   <div className="col-md-3  title3">
-                      <hr/>
-                   </div>
-                   <div className="col-md-6">
-                      <p className="title1 few-txt">A few companies using
-                         JobAdvisor
-                      </p>
-                   </div>
-                   <div className="col-md-3  title3">
-                      <hr/>
-                   </div>
-                </div>
-                <div className="slid-row11">
-                   <div className="col-md-3 losize">
-                      <img src="/images/l1.png " className="img-responsive"/>
-                   </div>
-                   <div className="col-md-3  losize">
-                      <img src="/images/l2.png"/>
-                   </div>
-                   <div className="col-md-3 losize">
-                      <img src="/images/l3.png"/>
-                   </div>
-                   <div className="col-md-3  losize">
-                      <img src="/images/l4.png"/>
-                   </div>
-                   <div className="clearfix"> </div>
-                </div>
-             </div>
-          </div>
-              <div className="star" id="services">
-             <div className="container">
-                <div className="row">
-                   <div className="col-md-1">
-                   </div>
-                   <div className="col-md-8">
-                      <h1 className="titlestar">Start discovering new employers now  </h1>
-                   </div>
-                   <div className="col-md-2">
-                      <div className="titlestar">
-                         <a className="button out-butt-dark">SIGN UP</a>
-                      </div>
-                   </div>
-                   <div className="col-md-1">
-                   </div>
-                </div>
-                <div className="clearfix"> </div>
-             </div>
-          </div>
-    <Footer />
+           <div className="sectslider">
+         <div className="container">
+            <div className="row">
+               <div className="col-md-3  title3">
+                  <hr/>
+               </div>
+               <div className="col-md-6">
+                  <p className="title1 few-txt">A few companies using
+                     JobAdvisor
+                  </p>
+               </div>
+               <div className="col-md-3  title3">
+                  <hr/>
+               </div>
+            </div>
+            <div className="slid-row11">
+               <div className="col-md-3 losize">
+                  <img src="/images/l1.png " className="img-responsive"/>
+               </div>
+               <div className="col-md-3  losize">
+                  <img src="/images/l2.png"/>
+               </div>
+               <div className="col-md-3 losize">
+                  <img src="/images/l3.png"/>
+               </div>
+               <div className="col-md-3  losize">
+                  <img src="/images/l4.png"/>
+               </div>
+               <div className="clearfix"> </div>
+            </div>
+         </div>
+      </div>
+          <div className="star" id="services">
+         <div className="container">
+            <div className="row">
+               <div className="col-md-1">
+               </div>
+               <div className="col-md-8">
+                  <h1 className="titlestar">Start discovering new employers now  </h1>
+               </div>
+               <div className="col-md-2">
+                  <div className="titlestar">
+                     <a className="button out-butt-dark">SIGN UP</a>
+                  </div>
+               </div>
+               <div className="col-md-1">
+               </div>
+            </div>
+            <div className="clearfix"> </div>
+         </div>
+      </div>
+<Footer />
                             <Dialog />
                 </div>
 
