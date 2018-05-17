@@ -99,6 +99,7 @@ export default class CompanySearchTrial extends React.Component {
                                  <button type="submit">SEARCH</button>
                               </form>
                            </div>
+
                         </li>
                      </ul>
                   </div>
@@ -121,7 +122,7 @@ export default class CompanySearchTrial extends React.Component {
 
 {/* ////////////////////////RESULTS CODE///////////////////////////////// */}
 
-
+          <br></br>
           <Results1 query={this.state.input}/>
 
       </div>
