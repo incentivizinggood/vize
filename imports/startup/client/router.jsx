@@ -47,8 +47,6 @@ import UserPage from "../../ui/pages/user.jsx";
 //TESTING ONLY, but leaving in until the site's structure is better defined
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewForm from "../../ui/pages/write-review.jsx";
-import FlagSystem from "../../ui/pages/flag.jsx";
-import Stripe from "../../ui/pages/stripe.jsx"
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "../../ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";

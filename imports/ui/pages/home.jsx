@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx"; 
 import TotalsCounter from "../totals-counter.jsx";
-import Dialog from "../../ui/pages/dialog-box.jsx";
 
 /* The home page of the site.
  */
@@ -118,7 +117,6 @@ export default class HomePage extends React.Component {
          </div>
       </div>
 <Footer />
-<Dialog />
                 </div>
 
                );
