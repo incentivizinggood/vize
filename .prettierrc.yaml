@@ -1,2 +1,12 @@
+# NOTE: If you are using prettier-atom you must restart atom for any changes
+# made here to take effect. The prettier-atom plugin only reads this config file
+# once and then caches it. It will not detect changes.
+
+# Use larger indentions to make code blocks easier to see.
 tabWidth: 4
+
+# Put a trailing comma in multi-line objects and arrays so that fields can be
+# added with out having to edit the line above.
 trailingComma: "es5"
+
+# All other options are left at their default values.
