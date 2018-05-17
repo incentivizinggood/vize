@@ -3,18 +3,32 @@ import StarRatings from 'react-star-ratings';
 
 export default class ReviewComponent extends React.Component {
   render() {
+
+    //IF-ELSE for the Recommended option, green tick v/s red cross
+    var className;
+    if(this.props.item.wouldRecommendToOtherJobSeekers){
+      className = <p ><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+    }else{
+      className = <p ><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
+    }
+
       return(
 
-        <div  className="col-md-12  section_over_revi2 ">
+
+  <div  className="col-md-12  section_over_revi2 ">
     <div  className="rev_section">
        <div  className="mar_pad2">
-          <p>April 12, 2018<span>&nbsp;&nbsp;- Line Worker</span></p>
-          <h2  className="head-rev-con">Lorem Lorem  </h2>
+         {/* this.props.companyreview has the company collection for that particular company */}
+
+         {/* <p>{console.log(this.props.item.datePosted.toString())}</p> */}
+          <p>{this.props.item.datePosted.toString()}<span>&nbsp;&nbsp;- <strong>{this.props.item.jobTitle}</strong></span></p>
+          <h2  className="head-rev-con">{this.props.item.reviewTitle} </h2>
 
           <div className="btn-group show-on-hover">
              <a type="button" className="btn btn-default dropdown-toggle  btbn" data-toggle="dropdown">
              <StarRatings
-              rating={4} //the average rating of all 5 ratings
+              rating={(this.props.item.healthAndSafety + this.props.item.managerRelationship + this.props.item.workEnvironment + this.props.item.benefits)/4}
+              //the average rating of all 5 ratings
               starDimension="15px"
               starSpacing="1.5px"
             />
@@ -24,7 +38,7 @@ export default class ReviewComponent extends React.Component {
                <li><label>Overall</label>
                   <br />
                   <StarRatings
-                   rating={4}
+                   rating={this.props.item.overallSatisfaction}
                    starDimension="15px"
                    starSpacing="1.5px"
                  />
@@ -32,7 +46,7 @@ export default class ReviewComponent extends React.Component {
                 <li><label>Health & Safety</label>
                    <br />
                    <StarRatings
-                    rating={4}
+                    rating={this.props.item.healthAndSafety}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -40,7 +54,7 @@ export default class ReviewComponent extends React.Component {
                 <li>  <label >Work Environment</label>
                    <br />
                    <StarRatings
-                    rating={3}
+                    rating={this.props.item.workEnvironment}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -48,7 +62,7 @@ export default class ReviewComponent extends React.Component {
                 <li><label >Benefits</label>
                    <br />
                    <StarRatings
-                    rating={5}
+                    rating={this.props.item.benefits}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -56,7 +70,7 @@ export default class ReviewComponent extends React.Component {
                 <li> <label >Manager Relationships</label>
                    <br />
                    <StarRatings
-                    rating={4}
+                    rating={this.props.item.managerRelationship}
                     starDimension="15px"
                     starSpacing="1.5px"
                   />
@@ -66,7 +80,9 @@ export default class ReviewComponent extends React.Component {
           </div>
 
           <br />
-          <p ><i className="fa fa-check-square-o faaa" aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>
+        {/* // Does the IF-ELSE, and changes class to the ticked one if recommended
+        //and to the crossed one, if not recommended. */}
+            {className}
        </div>
        <div  className="mar_pad">
           <div className="col-md-8">
@@ -75,7 +91,7 @@ export default class ReviewComponent extends React.Component {
                <label>Pros</label>
                <br />
                <p >
-                  Awesome company with great benefits!
+                {this.props.item.pros}
                </p>
             </div>
             <br />
@@ -83,14 +99,14 @@ export default class ReviewComponent extends React.Component {
                <label>Cons</label>
                <br />
                <p>
-                  Managers were often rude and pretentious.
+                  {this.props.item.cons}
                </p>
             </div>
             <br />
             <div className="form-group  p-c-a">
                <label>Additional Comments</label>
                <br />
-               <p>The company has been growing a lot and a can see a great future for it.</p>
+               <p>{this.props.item.additionalComments}</p>
             </div>
           </div>
           <div className="col-md-4 bn-col">

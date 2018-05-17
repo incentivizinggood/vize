@@ -6,6 +6,7 @@ import ReviewListing from "./review-listing.jsx";
 
 /* Display several reviews in a list.
  */
+ 
 class ReviewsList extends React.Component {
     renderReviewList() {
         return this.props.reviews.map(review => (
@@ -25,7 +26,7 @@ export default withTracker(({ query }) => {
     if (query === undefined) {
         query = {};
     }
-    var handle = Meteor.subscribe("reviews");
+    var handle = Meteor.subscribe("Reviews");
 
     return {
         isReady: handle.ready(),
