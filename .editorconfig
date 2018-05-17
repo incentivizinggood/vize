@@ -1,5 +1,9 @@
+# This is the config file for the EditorConfig plugin for Atom. EditorConfig
+# overides Atom's editor settings to make them match this project's code style.
+
 root = true
 
+# Set the editor to use this project's style and standard UNIX conventions.
 [*]
 indent_style = space
 indent_size = 4
@@ -8,5 +12,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# Do not interfear with the the default style of package.json and
+# package-lock.json. Those files are auto-generated and should be left alone.
 [*.json]
 indent_size = 2
