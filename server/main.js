@@ -12,9 +12,6 @@ import "../imports/api/data/jobads.js";
 // BUG FIXED For real guys, you can't use Methods defined
 //in methods.js unless you include them here. I'm thinking
 //we have a lot to learn about loading order in Meteor.
-import "../imports/api/data/users.js";
-// This should also be imported here, but this file has errors which are being
-// fixed on another branch. Leave this commented out until the fixes are merged.
 import "../imports/api/data/methods.js";
 
 

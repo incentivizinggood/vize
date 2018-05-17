@@ -84,8 +84,6 @@ routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/flag", <FlagSystem />);
 routeSimplePage("/fakeemployers", <FakeEmployers />);
 routeSimplePage("/stripe", <Stripe />);
-routeSimplePage("/company-search-trial", <CompanySearchTrial />);
-
 
 //----- Define the more complex routes. -----//
 FlowRouter.route("/companies", {
