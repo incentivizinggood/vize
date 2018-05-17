@@ -7,7 +7,7 @@ jQuery(function() {
         	return scroll <= jQuery(this).offset().top + $(this).height();
         });
         jQuery(".nav a").removeClass("selected");
-        jQuery(".nav a[href=#" + currentArea.attr("id") + "]").addClass("selected");
+        jQuery(".nav a[href=\\#" + currentArea.attr("id") + "]").addClass("selected");
 
         if (jQuery(window).scrollTop() > 100) {
             jQuery('nav').addClass("navScroll");
@@ -20,4 +20,3 @@ jQuery(function() {
         }
     });
 });
-

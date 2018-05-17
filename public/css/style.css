@@ -1606,9 +1606,7 @@ body{
      .banner, .banner-info{
         min-height:600px;
     }
-     .banner-text-info{
-        margin:17em auto 0;
-    }
+
      .welcome, .tabs, .services, .slid, .footer, .about, .team, .codes, .contact, .gallery, .blog{
         padding:6em 0;
     }
@@ -1630,9 +1628,7 @@ body{
         letter-spacing:0;
         padding:10px 11px;
     }
-     .banner-text-info{
-        margin:16em auto 0;
-    }
+     
      .welcome-left{
         float:left;
         width:40%;
@@ -3338,7 +3334,7 @@ body{
     border-left:1px solid #565656;
     font-size:18px;
 }
- 
+
  h3.tab_section{
     margin-top:10px;
     font-family:'Open Sans', sans-serif;
@@ -3514,7 +3510,7 @@ body{
                  background-color: #ffffff;
                  padding-bottom: 16px;
                  box-shadow: 0 0 4px 0 rgba(0,0,0,.08), 0 2px 4px 0 rgba(0,0,0,.12);
-                                      
+
      }
          .sect_re11_add {
                   padding-bottom: 24px;
