@@ -40,6 +40,8 @@ import UserPage from "../../ui/pages/user.jsx";
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewPage from "../../ui/pages/write-review.jsx";
 import FlagSystem from "../../ui/pages/flag.jsx";
+import FakeEmployers from "../../ui/pages/fakeEmployers.jsx"
+import Stripe from "../../ui/pages/stripe.jsx"
 
 
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
@@ -84,6 +86,8 @@ routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/write-review", <WriteReviewPage />);
 routeSimplePage("/flag", <FlagSystem />);
 routeSimplePage("/submit-salary-data", <SubmitSalaryDataForm />);
+routeSimplePage("/fakeemployers", <FakeEmployers />);
+routeSimplePage("/stripe", <Stripe />);
 
 
 //----- Define the more complex routes. -----//

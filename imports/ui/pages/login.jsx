@@ -30,6 +30,8 @@ export default class LoginPage extends React.Component {
             } else {
                 this.props.history.push("/");
             }
+        });
+    }
     handleInputChange(event) {
         const target = event.target;
         const value =
