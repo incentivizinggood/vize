@@ -85,7 +85,7 @@ export default class CompanySearchTrial extends React.Component {
     render() {
         return (
           <div className="customcompanypage">
-            <Header />
+            <div className="navbarwhite"><Header /></div>
             <div className="container-fluid  search_companies">
             <div className="row all_boxcolor1 select_box1">
                <div>

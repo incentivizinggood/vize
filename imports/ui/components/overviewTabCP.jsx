@@ -122,8 +122,8 @@ render() {
                                 <center>
                                   <div  className="na_tab1">
                                    <ul className="" role="tablist">
-                                   <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
-                                    </ul>                                                                                       
+                                   <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" aria-expanded="true" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
+                                    </ul>
                                     </div>
                                   </center>
 
@@ -149,7 +149,7 @@ render() {
                                         <center>
 
                                             <ul className="" role="tablist">
-                                              <li role="presentation"   className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
+                                              <li role="presentation"   id="see_all_salaries" className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
                                             </ul>
                                         </center>
 

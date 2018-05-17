@@ -43,12 +43,18 @@ const CompanyComponent = (props) => {
                     <div className="titlestar">
                        <div className="" data-toggle="buttons">
                           <label className="btn btn-lg btn-success active btn_follow1">
-                          <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/>
+
+                          {/*FOLLOW BUTTON CODE COMMENTED OUT   */}
+
+                          {/* <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/>
                           <i className="fa fa-check"></i> Following
                           </label>
                           <label className="btn btn-lg btn-danger btn_follow1">
                           <input type="radio" name="options" id="option" autoComplete="off"/>
-                          Follow
+                          Follow */}
+
+                          {/* FOLLOW BUTTON CODE ENDS */}
+
                           </label>
                        </div>
                        <a href={props.item.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
@@ -61,9 +67,9 @@ const CompanyComponent = (props) => {
               <div  className="col-md-3">
                  <div  className="reviews1">
                     <ul>
-                       <li className="active"><a href="#">{props.item.numReviews} <br/><span className="review_text">Reviews</span></a></li>
-                       <li><a href="#">{props.salaries}<br/><span className="review_text">Salaries</span></a></li>
-                       <li><a href="#">{props.jobads}<br/><span className="review_text">Jobs</span></a></li>
+                       <li className="active">{props.item.numReviews} <br/><span className="review_text">Reviews</span></li>
+                       <li>{props.salaries}<br/><span className="review_text">Salaries</span></li>
+                       <li>{props.jobads}<br/><span className="review_text">Jobs</span></li>
                     </ul>
                  </div>
               </div>
