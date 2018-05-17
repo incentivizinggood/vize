@@ -1,5 +1,6 @@
 # This is the config file for the EditorConfig plugin for Atom. EditorConfig
 # overides Atom's editor settings to make them match this project's code style.
+# See CODING-STYLE.md for more information.
 
 root = true
 

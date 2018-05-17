@@ -1,3 +1,6 @@
+# This is the config file for Prettier.
+# See CODING-STYLE.md for more information.
+
 # NOTE: If you are using prettier-atom you must restart atom for any changes
 # made here to take effect. The prettier-atom plugin only reads this config file
 # once and then caches it. It will not detect changes.
