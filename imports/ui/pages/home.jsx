@@ -31,11 +31,11 @@ export default class HomePage extends React.Component {
                 </div>
 
 
-                 <div className="welcome  welpad">
-             <div className="container">
-                <div className="col-md-12 welcome-text wtext-right">
-                   <h1>Find an employer that treats you right</h1>
-                </div>
+             <div className="welcome  welpad">
+         <div className="container">
+            <div className="col-md-12 welcome-text wtext-right">
+               <h1>Find an employer that treats you right</h1>
+            </div>
 
                 <div className="col-md-12 welcome-text wtext-right">
                    <h2>Vize helps you discover employers based on different industries, job sizes, and company size. The companies are compared based on ratings and reviews</h2>
