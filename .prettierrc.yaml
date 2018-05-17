@@ -18,5 +18,10 @@ overrides:
   - files: "*.json"
     options:
         tabWidth: 2
+# Do not interfear with the the default style of package.json and
+# package-lock.json. Those files are auto-generated and should be left alone.
+  - files: "*.md"
+    options:
+        proseWrap: "always"
 
 # All other options are left at their default values.
