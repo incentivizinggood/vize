@@ -37,31 +37,31 @@ export default class HomePage extends React.Component {
                <h1>Find an employer that treats you right</h1>
             </div>
 
-                <div className="col-md-12 welcome-text wtext-right">
-                   <h2>Vize helps you discover employers based on different industries, job sizes, and company size. The companies are compared based on ratings and reviews</h2>
-                </div>
-                <div className="col-md-12 welcome-text wtext-left">
-                   <div className="titlestar">
-                      <a href="/companies" className="button out-butt-dark">Companies</a>
-                   </div>
-                </div>
-                <div className="clearfix"> </div>
-             </div>
-          </div>
+            <div className="col-md-12 welcome-text wtext-right">
+               <h2>Vize helps you discover employers based on different industries, job sizes, and company size. The companies are compared based on ratings and reviews</h2>
+            </div>
+            <div className="col-md-12 welcome-text wtext-left">
+               <div className="titlestar">
+                  <a href="/companies" className="button out-butt-dark">Companies</a>
+               </div>
+            </div>
+            <div className="clearfix"> </div>
+         </div>
+      </div>
 
-           <div className="clearfix"> </div>
-            <div className="container">
-             <div className="col-md-4  ">
-                <div  className="#">
-                </div>
-             </div>
-             <div className="col-md-8  ">
-                <div  className="alisetright  homlaptopimg">
-                   <img src="images/laptopimg.jpg"  className="img-responsive"/>
-                </div>
-             </div>
-             <div className="clearfix"> </div>
-          </div>
+       <div className="clearfix"> </div>
+        <div className="container">
+         <div className="col-md-4  ">
+            <div  className="#">
+            </div>
+         </div>
+         <div className="col-md-8  ">
+            <div  className="alisetright  homlaptopimg">
+               <img src="images/laptopimg.jpg"  className="img-responsive"/>
+            </div>
+         </div>
+         <div className="clearfix"> </div>
+      </div>
 
 
 
