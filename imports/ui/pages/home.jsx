@@ -8,27 +8,27 @@ import Dialog from "../../ui/pages/dialog-box.jsx";
 export default class HomePage extends React.Component {
     render() {
         return(
-                    <div><Header />
-                      <div className="banner">
-                      <div className="banner-info">
+                <div><Header />
+                  <div className="banner">
+                  <div className="banner-info">
 
-                     <div className="banner-text">
-                   <div  id="top" className="callbacks_container">
-                      <ul className="rslides" id="slider3">
-                         <li>
-                            <div className="banner-text-info">
-                               <h1>Find the best job for you, from people like you</h1>
-                               <form className="example" method="POST" action="#">
-                                  <input type="text" placeholder="Search..." name="search"/>
-                                  <button type="submit">SEARCH</button>
-                               </form>
-                            </div>
-                         </li>
-                      </ul>
-                   </div>
+                 <div className="banner-text">
+               <div  id="top" className="callbacks_container">
+                  <ul className="rslides" id="slider3">
+                     <li>
+                        <div className="banner-text-info">
+                           <h1>Find the best job for you, from people like you</h1>
+                           <form className="example" method="POST" action="#">
+                              <input type="text" placeholder="Search..." name="search"/>
+                              <button type="submit">SEARCH</button>
+                           </form>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
                 </div>
-                    </div>
-                    </div>
+                </div>
 
 
                  <div className="welcome  welpad">
