@@ -17,21 +17,6 @@ export default class LoginPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        let email = document.getElementById("login-email").value;
-        let password = document.getElementById("login-" +
-            "").value;
-        Meteor.loginWithPassword(email, password, err => {
-            if (err) {
-                this.setState({
-                    error: err.reason
-                });
-            } else {
-                this.props.history.push("/");
-            }
-        });
-    }
     handleInputChange(event) {
         const target = event.target;
         const value =
@@ -67,39 +52,6 @@ export default class LoginPage extends React.Component {
         }
         return (
             <div className="page login">
-                <section className="sectionContainer">
-                    <div>
-                        <h2>Credentials</h2>
-                        <form method="post" onSubmit="" action="index.html">
-                            <p>
-                                <input
-                                    type="text"
-                                    name="login"
-                                    value= ""
-                                    placeholder="Username or email"
-                                />
-                            </p>
-                            <p>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value=""
-                                    placeholder="Password"
-                                />
-                            </p>
-
-                            <p className="remember_me">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="remember_me"
-                                        id="remember_me"
-                                    />
-                                </label>
-                            </p>
-                        </form>
-                    </div>
-                </section>
                 {this.state.error ? <div>{this.state.error}</div> : null}
                 <form onSubmit={this.handleSubmit}>
                     <label>
