@@ -17,11 +17,6 @@ import "../imports/api/data/users.js";
 import "../imports/api/data/methods.js";
 
 Meteor.startup(() => {
-    // code to run on server at startup
-    // process.env.MAIL_URL = "***REMOVED***";
-    // process.env.MAIL_URL = "***REMOVED***";
-    //    process.env.MAIL_URL = "***REMOVED***";
-    process.env.MAIL_URL = "***REMOVED***";
-
+	// code to run on server at startup
 
 });
