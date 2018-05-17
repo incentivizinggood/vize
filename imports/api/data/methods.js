@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
