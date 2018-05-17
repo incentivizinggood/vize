@@ -86,6 +86,7 @@ routeSimplePage("/fakeemployers", <FakeEmployers />);
 routeSimplePage("/stripe", <Stripe />);
 
 //----- Define the more complex routes. -----//
+
 FlowRouter.route("/companies", {
     action(params, queryParams) {
         ReactDOM.render(

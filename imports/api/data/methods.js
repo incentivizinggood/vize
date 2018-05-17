@@ -7,7 +7,6 @@ import { Email } from "meteor/email";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
 
-
 Meteor.methods({
 
 	sendEmail: function(to, from, subject, text) {
