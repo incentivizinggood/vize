@@ -1,5 +1,6 @@
 node_modules/
-
+# Mac stuff
+._*
 
 # Created by https://www.gitignore.io/api/meteorjs,webstorm
 

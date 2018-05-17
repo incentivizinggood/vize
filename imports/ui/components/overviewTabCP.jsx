@@ -10,40 +10,95 @@ export default class OverviewTab extends React.Component {
 
 
 render() {
+
+  var to_display_jobs;
+  var salaries_to_display;
+
+//FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
+  if(this.props.jobAds.length > 0){
+    to_display_jobs =
+    <div>
+    <div>
+       <h4><strong>{this.props.jobAds[0].jobTitle}</strong></h4>
+    </div>
+    <div>
+      <div  className="add-buttons">
+               <a href={this.props.jobAds[0].vizeApplyForJobUrl} className="btn btn-primary">   Apply now</a>
+       </div>
+       <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;{this.props.jobAds[0].locations[0]}</p>
+       <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.jobAds[0].pesosPerHour}/Hour</p>
+       <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.jobAds[0].contractType}</p>
+    </div>
+
+
+    <hr />
+    <h4 className="h4-font-sz-job">Job Description</h4>
+    <div  className="h4-font-sz">
+
+          <p>{this.props.jobAds[0].jobDescription}</p>
+   </div>
+ </div>
+
+  } else {  //the length == 0
+    to_display_jobs = "No Jobs to show right now";
+  }
+
+
+//FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
+  if(this.props.salaries.length > 0) {
+    salaries_to_display =
+    <div>
+    <div className="hed-soft-mob">
+            <p>{this.props.salaries[0].jobTitle}</p>
+            <hr />
+         </div>
+
+         <p  className="mal-r">{this.props.salaries[0].gender}</p>
+
+        <p>{this.props.salaries[0].incomeType}<span>: {this.props.salaries[0].incomeAmount}</span></p>
+    </div>
+
+
+  } else {
+    salaries_to_display = "No Salaries to display right now";
+  }
+
+
+
+//MAIN JSX FILE
+
     return(
       <div role="tabpanel" className="tab-pane active" id="overview">
 
       <div className="col-md-12  section_rview_back_color ">
        <div  className="sect_re1 ">
-        <h4  className="head_section_font">Google Overview</h4>
+        <h4  className="head_section_font">{this.props.companyoverview.name} Overview</h4>
 
         <hr />
 
 
         <div  className="over_p">
-        <p>Google is not a conventional company, and we don’t intend to become one. True, we share attributes with the world’s most successful organizations – a focus on innovation and smart business practices comes to mind
-        we share attributes with the world’s most successful organizations – a focus on innovation and smart business practices comes to mind – but even as we continue </p>
-          <p><span>Mission:</span> Google’s mission is to organize the world’s information and make it universally accessible and useful.</p>
+        <p>{this.props.companyoverview.descriptionOfCompany}</p>
+
          </div>
       </div>
       </div>
       <div className="clear"></div>
 
         <div  className="col-md-12  section_rview_back_color08  "> {/* review link */}
-                               <h4  className="head_section_font">Google Reviews</h4>
+                               <h4  className="head_section_font">{this.props.companyoverview.name} Reviews</h4>
                                <div  className="add-buttons">
-                                          <button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
+                                 <a href={this.props.companyoverview.vizeReviewUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
+                                          {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
                                 </div>
 
                                <hr />
-                                <CompanyRating />
+                               {/* getting the strange error in CompanyRating */}
+                                <CompanyRating companyrating={this.props.companyoverview}/>
 
                              </div>
-
-
-                                   <CompanyReview />
                              <div  className="col-md-12  section_overtopsect">
-                                    {/* <center>  <li  className="te_deco"><a href="#reviewss"   >See All Reviews</a> </li></center> */}
+
 
                           <center>
                             <div  className="na_tab1"  >
@@ -55,30 +110,16 @@ render() {
                              </div>
                              {/* review link */}
 
-                                 <div className="col-md-12  section_rview_back_color_job"> {/* job link */}
-                                <div  className="sect_re1 ">
-                                  <h4  className="head_section_font">15 Jobs Available</h4>
+
+
+                             <div className="col-md-12  section_rview_back_color_job"> {/* job link */}
+                              <div  className="sect_re1 ">
+                                  <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
                                   <hr />
-                                   <div>
-                                      <h4><strong>Software Engineer</strong></h4>
-                                   </div>
-                                   <div>
-                                      <p> <i className="fa fa-map-marker" ></i>&nbsp;&nbsp;&nbsp;San Fransisco California</p>
-                                      <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;$50-$80/Hour</p>
-                                      <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;Full Time</p>
-                                   </div>
-                                    <div  className="fl-ri-app">
-                                              <button>Apply Now</button>
-                                            </div>
-                                   <hr />
-                                   <h4 className="h4-font-sz-job">Job Description</h4>
-                                   <div  className="h4-font-sz">
 
-                                         <p>Egestas mollitia quos metus natus assumenda ullam suscipit ultricies. Voluptas, nihil natoque elementum error ligula exercitatione
-                                            quuntur turpis eros aut justo qui recusandae eos, soluta repellat ipsa tortor tempus ultricesfermentum! Corporis accusamus dictum! Sapien laboris massa fugit deserunt laboriosam mi consectetur curabitur cum.
-                                         </p>
+                                  {to_display_jobs}
 
-                                <hr />
+
                                 <center>
                                   <div  className="na_tab1">
                                    <ul className="" role="tablist">
@@ -86,36 +127,37 @@ render() {
                                     </ul>
                                     </div>
                                   </center>
-                                <div   className="fl-ri">
-                                               <p>posted on April 19th, 2018</p>
-                                            </div>
+
                                    </div>
-                                </div>
-                             </div> {/*job link */}
+
+                             </div>
+
+                             {/*job link */}
+
                            <div className="col-md-12  section_rview_back_color_job"> {/* salaries  */}
                                 <div  className="sect_re1  sec_p">
 
-                                   <h4  className="head_section_font">30 Job Salaries</h4>
-                                   <div  className="add-buttons">
-                                              <button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
-                                    </div>
+                                   <h4  className="head_section_font">{this.props.salariesCount} Job Salaries</h4>
+
+                                    <div  className="add-buttons">
+                                             <a href={this.props.companyoverview.vizeSalaryUrl} className="btn btn-primary"><i className="fa fa-plus" aria-hidden="true"></i>   Add a salary</a>
+                                           </div>
                                    <hr />
-                                      <SalaryPosting />
+
+                                       {salaries_to_display}
 
 
-                                      <div  className="col-md-12  section_overtopsect">
                                         <center>
-                                          <div  className="na_tab1"  >
+
                                             <ul className="" role="tablist">
                                               <li role="presentation"   className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
                                             </ul>
-                                          </div>
                                         </center>
-                                      </div>
+
                                       </div>
                                       </div>
 
-                                      {/* salaries end*/}
+
 
 
       </div>

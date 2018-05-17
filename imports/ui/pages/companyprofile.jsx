@@ -1,4 +1,9 @@
 import React from "react";
+import { withTracker } from "meteor/react-meteor-data";
+import { Companies } from "../../api/data/companies.js";
+import { Reviews } from "../../api/data/reviews.js";
+import { JobAds } from "../../api/data/jobads.js";
+import { Salaries } from "../../api/data/salaries.js";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import StarRatings from 'react-star-ratings';
@@ -11,7 +16,7 @@ import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 
 /* The Company Profile  page of the site. */
 
-export default class CompanyProfile extends React.Component {
+class CompanyProfile extends React.Component {
 
   changeRating( newRating ) {
       this.setState({
@@ -19,7 +24,26 @@ export default class CompanyProfile extends React.Component {
       });
     }
 
+
+    // var nojob = {
+    //   locations[0]= "",
+    //   pesosPerHour= "",
+    //   contractType= "",
+    //   jobDescription= "",
+    //   jobTitle="",
+    //   vizeApplyForJobUrl=""
+    // }
+
     render() {
+      if (!this.props.isReady || !this.props.isReady1 || !this.props.isReady2 || !this.props.isReady3) {
+          return <h2>Loading...</h2>;
+      }
+      if (this.props.company === undefined) {
+          return <h2>That company was not found</h2>;
+      }
+
+
+
         return(
          <div className="navbarwhite"><Header />
          <br />
@@ -34,9 +58,9 @@ export default class CompanyProfile extends React.Component {
            <div className="col-md-6  prostar">
               <div className="col-md-12">
                  <fieldset className="rating">
-                    <span className="headingoo">Google</span>
+                    <span className="headingoo">{this.props.company.name}</span>
                     &nbsp;&nbsp;<StarRatings
-                     rating={4.103}
+                     rating={this.props.company.overallSatisfaction}
                      starDimension="25px"
                      starSpacing="2px"
                    />
@@ -47,19 +71,22 @@ export default class CompanyProfile extends React.Component {
 
               </div>
               <div  className="col-md-12 comp-prfl">
-                 <p><i className="fa fa-map-marker" aria-hidden="true"></i> Mountain  View, CA</p>
-         <p><i className="fa fa-flask" aria-hidden="true"></i> Science & Technology</p>
-         <p><i className="fa fa-globe" aria-hidden="true"></i> www.google.com</p>
-                 <p><i className="fa fa-users" aria-hidden="true"></i>  Size 1501-5000</p>
+                 <p><i className="fa fa-map-marker" aria-hidden="true"> </i> {this.props.company.locations[0]}</p>
+                 {/* displaying just the first company location for now, from the list */}
+         <p><i className="fa fa-flask" aria-hidden="true"> </i> {this.props.company.industry}</p>
+         <p><i className="fa fa-globe" aria-hidden="true"> </i> {this.props.company.websiteURL}</p>
+                 <p><i className="fa fa-users" aria-hidden="true"> </i> {this.props.company.numEmployees}</p>
               </div>
            </div>
 
            <div className="col-md-4 prostar">
               <div  className="col-md-12">
                  <div className="titlestar">
-                    <div className="" data-toggle="buttons">
-                      <a href="#" className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
-                    </div>
+                    {/* <div className="" data-toggle="buttons"> */}
+                      {/* <a href={this.props.company.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
+
+                      <a href={this.props.company.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
+                    {/* </div> */}
 
                  </div>
               </div>
@@ -94,20 +121,22 @@ export default class CompanyProfile extends React.Component {
 
      {/* =====================overview tab====================  */}
 
-        <OverviewTab />
+
+        <OverviewTab jobsCount = {this.props.jobsCount} jobAds={this.props.jobAds} salaries={this.props.salaries} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
 
         {/* ===============overview tab end==================
 
         ===========review tab==================  */}
-        <ReviewTab />
-            {/* ===========review tab  end==================
+        {/* pass both!!!! */}
+        <ReviewTab companyreview = {this.props.reviews} companyinfo = {this.props.company}/>
+        {/* ===========review tab  end==================
 
             ================job tab============== */}
-        <JobTab />
+        <JobTab jobAds = {this.props.jobAds} jobsCount = {this.props.jobsCount}/>
           {/* ==================job tab end=====================
 
          =================Salaries  tab====================== */}
-        <SalaryTab />
+        <SalaryTab company={this.props.company} salaries = {this.props.salaries} salariesCount = {this.props.salariesCount}/>
              {/* =================Salaries  tab  end======================
 
             ====================contact  tab==================== */}
@@ -160,5 +189,26 @@ export default class CompanyProfile extends React.Component {
 </section>
 </div>
         )
-        }
-        }
+    }
+}
+
+
+export default withTracker(({ companyId }) => {
+    var handle = Meteor.subscribe("CompanyProfiles");
+    var handle1 = Meteor.subscribe("Reviews");
+    var handle2 = Meteor.subscribe("JobAds");
+    var handle3 = Meteor.subscribe("Salaries");
+
+    return {
+        isReady: handle.ready(),
+        isReady1: handle1.ready(),
+        isReady2: handle2.ready(),
+        isReady3: handle3.ready(),
+        company: Companies.findOne(companyId),
+        reviews: Reviews.find({companyId: companyId}).fetch(),
+        jobAds: JobAds.find({companyId: companyId}).fetch(),
+        jobsCount: JobAds.find({companyId: companyId}).count(),
+        salaries: Salaries.find({companyId: companyId}).fetch(),
+        salariesCount: Salaries.find({companyId: companyId}).count(),
+    };
+})(CompanyProfile);

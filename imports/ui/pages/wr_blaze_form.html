@@ -1,25 +1,26 @@
-<template name="write_review_blaze_form">
-	{{#autoForm collection=reviews id="write_review_blaze_form" type="method"
-		meteormethod="reviews.submitReview"  }}
+<template name="wr_blaze_form">
+	{{#autoForm collection=reviews id="wr_blaze_form" type="method"
+		meteormethod="reviews.submitReview" preserveForm=false }}
 		<fieldset>
 			<legend>Write a Review</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-				{{> afQuickField name='companyName' placeholder="Please enter the name of the company you're reviewing"}}
+				{{#if shouldHaveCompany}}
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+				{{else}}
+				{{> afQuickField name='companyName' }}
+				{{/if}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
 				{{> afQuickField name='reviewTitle' placeholder="Please choose a title for your review"}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
-				{{> afArrayField name='locations' options='allowed'}}
+				{{> afArrayField name='locations' }}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 				{{> afQuickField name='jobTitle' placeholder="Please enter the name of the position you held at this company"}}
 			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='dateJoinedCompany'}}has-error{{/if}}">
-				{{> afQuickField name='dateJoinedCompany'}}
-			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='dateLeftCompany'}}has-error{{/if}}">
-				{{> afQuickField name='dateLeftCompany'}}
+			<div class="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
+				{{> afQuickField name='numberOfMonthsWorked'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
 				{{> afQuickField name='pros' placeholder="Please tell us some pros of working for this company"}}
@@ -50,8 +51,8 @@
 			</div>
 		</fieldset>
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Submit Review</button>
-			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >Reset Form</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}}>Reset Form</button>
 		</div>
 	{{/autoForm}}
 	{{#if hasError}}

@@ -30,3 +30,15 @@ Comments.schema = new SimpleSchema({
 		type: Number,
 		defaultValue: 0, }
 });
+
+Comments.deny({
+    insert() { return true; },
+    update() { return true; },
+    remove() { return true; }
+});
+
+if (Meteor.isServer) {
+    Meteor.publish('Comments', function () {
+        return Comments.find({});
+    });
+}

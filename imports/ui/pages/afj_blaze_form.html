@@ -1,0 +1,36 @@
+<template name="afj_blaze_form">
+	{{#autoForm schema=jobApplicationSchema id="afj_blaze_form" type="method"
+		meteormethod="jobads.applyForJob" preserveForm=false }}
+		<fieldset>
+			<legend>Apply for a Job</legend>
+			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='fullName'}}has-error{{/if}}">
+				{{> afQuickField name='fullName' }}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='email'}}has-error{{/if}}">
+				{{> afQuickField name='email' }}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='phoneNumber'}}has-error{{/if}}">
+				{{> afQuickField name='phoneNumber' }}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='coverLetterAndComments'}}has-error{{/if}}">
+				{{> afQuickField name='coverLetterAndComments' }}
+			</div>
+			<!-- This field is set to type="hidden" in the schema -->
+			<div class="form-group {{#if afFieldIsInvalid name='jobId'}}has-error{{/if}}">
+				{{> afFieldInput name='jobId' value=jobId }}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}}>Reset Form</button>
+		</div>
+	{{/autoForm}}
+	{{#if hasError}}
+	<div>
+		{{> React component=ErrorWidget err=error}}
+	</div>
+	{{/if}}
+</template>
