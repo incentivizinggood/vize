@@ -7,9 +7,9 @@ export default class ReviewComponent extends React.Component {
     //IF-ELSE for the Recommended option, green tick v/s red cross
     var className;
     if(this.props.item.wouldRecommendToOtherJobSeekers){
-      className = <p ><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+      className = <p style={{color:"#2E8B57"}}><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
     }else{
-      className = <p ><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
+      className = <p style={{color:"#FF4545"}}><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
     }
 
       return(
