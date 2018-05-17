@@ -30,6 +30,7 @@
     "enzyme": "^3.3.0",
     "nightmare": "^3.0.0",
     "phantomjs-prebuilt": "^2.1.16",
+    "prettier": "1.12.1",
     "selenium-webdriver": "^4.0.0-alpha.1"
   }
 }
