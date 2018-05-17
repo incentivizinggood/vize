@@ -78,8 +78,6 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
-routeSimplePage("/flag", <FlagSystem />);
-routeSimplePage("/stripe", <Stripe />);
 
 //----- Define the more complex routes. -----//
 
