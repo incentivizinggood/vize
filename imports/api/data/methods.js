@@ -303,6 +303,27 @@ Meteor.methods({
 		return company;
 	},
 
+	"companies.companyForCurrentUser": function() {
+
+		if(!this.userId) {
+			throw new Meteor.Error("loggedOut", "You must be logged in to perform this action");
+		}
+
+		let user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
+
+		if(user.role !== "company" || user.companyId === undefined) {
+			throw new Meteor.Error("rolePermission", "Only companies who have created Vize profiles may perform this action");
+		}
+
+		let company = Companies.findOne(user.companyId);
+
+		if(company === undefined) {
+			throw new Meteor.Error("notFound", "Unable to match a company profile with this user ID");
+		}
+
+		return company;
+	},
+
 	"companies.isNotSessionError": function (companyNameString) {
 		if(companyNameString === "ERROR: COMPANY NOT FOUND" ||
 			companyNameString === "Please wait while we finish loading the form...") {
