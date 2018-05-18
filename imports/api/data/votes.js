@@ -24,8 +24,7 @@ Votes.schema = new SimpleSchema({
 	submittedBy: { //userId of the review author
 		type: String,
 		index: true,
-		optional: true,
-		denyUpdate: true,
+		optional: false,
 		autoValue: function() {
 			if(Meteor.isServer) {
 				return this.userId;
@@ -35,13 +34,11 @@ Votes.schema = new SimpleSchema({
 		type: String,
 		index: true,
 		optional: false,
-		denyUpdate: true,
 		allowedValues: ["review", "comment"], },
 	references: {
 		type: String,
 		index: true,
-		optional: false,
-		denyUpdate: true, },
+		optional: false, },
 	value: {
 		type: Boolean,
 		optional: false, }

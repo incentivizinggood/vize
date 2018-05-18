@@ -27,7 +27,7 @@ class VoteButtons extends React.Component {
 				this.setState((prevState) => {
 						return {upVotes: prevState.upVotes+1};
 				});
-				console.log("Upvoting review " + this.props.review._id + ": " + this.state.upVotes);
+				console.log("Upvoting review " + this.props.review._id + ": " + this.props.review.upvotes);
 			}
 		});
 	}
@@ -44,7 +44,7 @@ class VoteButtons extends React.Component {
 				this.setState((prevState) => {
 						return {downVotes: prevState.downVotes+1};
 				});
-				console.log("Downvoting review " + this.props.review._id + ": " + this.state.downVotes);
+				console.log("Downvoting review " + this.props.review._id + ": " + this.props.review.downvotes);
 			}
 		});
 	}
