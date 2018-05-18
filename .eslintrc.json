@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "@meteorjs/eslint-config-meteor",
+    "prettier",
+    "prettier/react"
+  ]
+}
