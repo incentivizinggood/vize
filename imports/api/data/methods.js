@@ -131,6 +131,7 @@ Meteor.methods({
 
 		if(!validationResult) {
 			if(Meteor.isDevelopment) console.log("SERVER: review is invalid");
+			if(Meteor.isDevelopment) console.log(errors);
 			throw new Meteor.Error("invalidArguments", "First argument [review] must be a review", errors);
 		}
 
@@ -159,26 +160,26 @@ Meteor.methods({
 			throw new Meteor.Error("noCheating", "You are not allowed to vote on your own review");
 		}
 
-		// upsert to Votes
+		// This next bit was a pain to write
+
+		let previousVote = Votes.findOne({submittedBy: this.userId, references: review._id, voteSubject: "review"});
 		let upsertResult = Votes.upsert({submittedBy: this.userId, references: review._id, voteSubject: "review"}, {
-			//submittedBy: this.userId,
+			submittedBy: this.userId,
 			references: review._id,
 			voteSubject: "review",
 			value: vote,
 		}, {multi: false});
 
-		// update Reviews, but only if vote changed
-		if(upsertResult.numberAffected !== 0) {
-			let decNum = (upsertResult.insertedId === undefined) ? 0 : 1;
+		if(upsertResult.numberAffected !== 0 && (previousVote === undefined || vote !== previousVote.value)) {
 			if(vote === true) {
-				Reviews.update(review._id, {$inc: {upvotes: 1}, $dec: {downvotes: decNum}});
+				let decNum = (previousVote === undefined || review.downvotes === 0) ? 0 : -1;
+				Reviews.update(review._id, {$inc: {upvotes: 1, downvotes: decNum}}, {getAutoValues: false});
 			}
 			else {
-				Reviews.update(review._id, {$inc: {downvotes: 1}, $dec: {upvotes: decNum}});
+				let decNum = (previousVote === undefined || review.upvotes === 0) ? 0 : -1;
+				Reviews.update(review._id, {$inc: {downvotes: 1, upvotes: decNum}}, {getAutoValues: false});
 			}
 		}
-
-		console.log("SERVER: passed validation");
 
 		return "I VOTED";
 	},

@@ -24,12 +24,8 @@ Votes.schema = new SimpleSchema({
 	submittedBy: { //userId of the review author
 		type: String,
 		index: true,
-		optional: false,
-		autoValue: function() {
-			if(Meteor.isServer) {
-				return this.userId;
-			}
-		}, },
+		denyUpdate: true,
+		optional: false, },
 	voteSubject: {
 		type: String,
 		index: true,
