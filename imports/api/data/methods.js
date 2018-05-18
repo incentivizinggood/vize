@@ -3,6 +3,7 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
+import { Votes } from "./votes.js";
 import { Email } from "meteor/email";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
@@ -113,6 +114,74 @@ Meteor.methods({
 				console.log(Companies.findOne({name: newReview.companyName}));
 			}
 		}
+	},
+
+	"reviews.changeVote": function(review, vote) {
+		console.log("SERVER: User " + this.userId + " voted " + vote + " on review " + review._id);
+
+		// validate vote: must be boolean
+		if(typeof vote !== "boolean") {
+			if(Meteor.isDevelopment) console.log("SERVER: vote is not boolean");
+			throw new Meteor.Error("invalidArguments", "Second argument [vote] must be a boolean");
+		}
+
+		// validate review: must match Reviews.schema
+		let validationResult = Reviews.simpleSchema().namedContext().validate(review);
+		let errors = Reviews.simpleSchema().namedContext().validationErrors();
+
+		if(!validationResult) {
+			if(Meteor.isDevelopment) console.log("SERVER: review is invalid");
+			if(Meteor.isDevelopment) console.log(errors);
+			throw new Meteor.Error("invalidArguments", "First argument [review] must be a review", errors);
+		}
+
+		if(Reviews.findOne(review) === undefined) {
+			if(Meteor.isDevelopment) console.log("SERVER: review does not exist");
+			throw new Meteor.Error("invalidArguments", "You may not vote on reviews that do not exist yet");
+		}
+
+		// must be logged in
+		if(!this.userId) {
+			if(Meteor.isDevelopment) console.log("SERVER: user is not logged in");
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to vote");
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		// only workers
+		if(user.role === "company") {
+			if(Meteor.isDevelopment) console.log("SERVER: user is a company");
+			throw new Meteor.Error("rolePermission", "Companies are not currently allowed to vote on reviews");
+		}
+
+		// can't vote on own review
+		if(this.userId === review.submittedBy) {
+			if(Meteor.isDevelopment) console.log("SERVER: user is voting on own review");
+			throw new Meteor.Error("noCheating", "You are not allowed to vote on your own review");
+		}
+
+		// This next bit was a pain to write
+
+		let previousVote = Votes.findOne({submittedBy: this.userId, references: review._id, voteSubject: "review"});
+		let upsertResult = Votes.upsert({submittedBy: this.userId, references: review._id, voteSubject: "review"}, {
+			submittedBy: this.userId,
+			references: review._id,
+			voteSubject: "review",
+			value: vote,
+		}, {multi: false});
+
+		if(upsertResult.numberAffected !== 0 && (previousVote === undefined || vote !== previousVote.value)) {
+			if(vote === true) {
+				let decNum = (previousVote === undefined || review.downvotes === 0) ? 0 : -1;
+				Reviews.update(review._id, {$inc: {upvotes: 1, downvotes: decNum}}, {getAutoValues: false});
+			}
+			else {
+				let decNum = (previousVote === undefined || review.upvotes === 0) ? 0 : -1;
+				Reviews.update(review._id, {$inc: {downvotes: 1, upvotes: decNum}}, {getAutoValues: false});
+			}
+		}
+
+		return "I VOTED";
 	},
 
 	"salaries.submitSalaryData": function (newSalary) {
