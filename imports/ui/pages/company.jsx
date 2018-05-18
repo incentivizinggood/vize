@@ -6,6 +6,7 @@ import ReviewsList from "../reviews-list.jsx";
 
 /* The page where users can view details of a company.
  */
+
 class CompanyPage extends React.Component {
     render() {
         if (!this.props.isReady) {

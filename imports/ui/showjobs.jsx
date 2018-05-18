@@ -1,15 +1,28 @@
 import React from "react";
-import JobPosting from "../../ui/components/jobPosting.jsx";
+import JobPosting from "../ui/components/jobPosting.jsx";
+import { JobAds } from "../api/data/jobads.js";
+import { withTracker } from "meteor/react-meteor-data";
 
-export default class ShowJobs extends React.Component {
+class ShowJobs extends React.Component {
+
+
 
   render() {
+    if (!this.props.isReady) {
+        return <h2>Loading...</h2>;
+    }
+    console.log(this.props);
+    const RenderedItems = this.props.jobads.map(function(jobad){
+      return <JobPosting key={jobad._id} item={jobad} />
+    });
+    var message;
+    if(RenderedItems.length < 1){
+      message = <h2>No Jobs Available right now.</h2>
+    }else{
+      message = '';
+    }
 
-    // const RenderedItems = this.props.jobAds.map(function(item, i){
-    //   return <JobPosting key ={i} item = {item}/>
-    // });
-
-      return(
+    return(
         <div>
           <p>In the jobs page!</p>
 
@@ -17,9 +30,20 @@ export default class ShowJobs extends React.Component {
                 <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
               </div> */}
 
-
-            {/* {RenderedItems} */}
+            {message}
+            {RenderedItems}
         </div>
       )
-    }
-    }
+  }
+}
+
+
+export default withTracker(() => {
+   var handle = Meteor.subscribe("JobAds");
+
+
+   return {
+     isReady: handle.ready(),
+     jobads: JobAds.find({}).fetch(),
+   };
+})(ShowJobs);

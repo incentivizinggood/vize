@@ -25,6 +25,7 @@ import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
 import CompanyComponent from "../../ui/components/companyComponent.jsx";
 import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+import ShowJobs from "../../ui/showjobs.jsx";
 
 
 import HomePage from "../../ui/pages/home.jsx";
@@ -78,6 +79,8 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/showjobs", <ShowJobs/>);
+
 
 //----- Define the more complex routes. -----//
 
