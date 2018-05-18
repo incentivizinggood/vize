@@ -2,18 +2,21 @@ import React from "react";
 import JobPosting from "../ui/components/jobPosting.jsx";
 import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
+import ShowJobComponent from "../ui/components/showJobComponent.jsx";
 
 class ShowJobs extends React.Component {
 
 
 
   render() {
+    console.log(this.props);
+    
     if (!this.props.isReady) {
         return <h2>Loading...</h2>;
     }
     console.log(this.props);
     const RenderedItems = this.props.jobads.map(function(jobad){
-      return <JobPosting key={jobad._id} item={jobad} />
+      return <ShowJobComponent key={jobad._id} item={jobad} />
     });
     var message;
     if(RenderedItems.length < 1){
