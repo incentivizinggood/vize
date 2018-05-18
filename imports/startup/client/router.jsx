@@ -33,8 +33,6 @@ import CompanySearchTrial from "../../ui/company-search-trial.jsx"
 
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
-import CompanySearchPage from "../../ui/pages/company-search.jsx";
-import CompanyPage from "../../ui/pages/company.jsx";
 import CompanyProfile from "../../ui/pages/companyprofile.jsx";
 import ContactUsPage from "../../ui/pages/contact-us.jsx";
 import HelpPage from "../../ui/pages/help.jsx";
