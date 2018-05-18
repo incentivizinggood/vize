@@ -3,6 +3,7 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
+import { Votes } from "./votes.js";
 import { Email } from "meteor/email";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
@@ -117,6 +118,31 @@ Meteor.methods({
 
 	"reviews.changeVote": function(review, vote) {
 		console.log("SERVER: User " + this.userId + " voted " + vote + " on review " + review._id);
+
+		// validate vote: must be boolean
+
+		// validate review: must match Reviews.schema
+
+		// must be logged in
+		if(!this.userId) {
+
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		// only workers
+		if(user.role === "company") {
+
+		}
+
+		// can't vote on own review
+		if(this.userId === review.submittedBy) {
+
+		}
+
+		// upsert to Votes
+
+		// update Reviews
 
 		return "I VOTED";
 	},
