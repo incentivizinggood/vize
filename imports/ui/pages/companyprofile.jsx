@@ -108,8 +108,8 @@ class CompanyProfile extends React.Component {
                  <ul className="nav nav-tabs" role="tablist">
                     <li className="active" role="presentation"  ><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
                     <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
-                    <li role="presentation"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
-                    <li role="presentation"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
+                    <li role="presentation" ><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
+                    <li role="presentation" ><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
                     <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li>
                  </ul>
               </div>

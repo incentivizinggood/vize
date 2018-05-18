@@ -23,7 +23,6 @@ import JobTab from "../../ui/components/jobTabCP.jsx";
 import JobPosting from "../../ui/components/jobPosting.jsx";
 import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
-import CompanyComponent from "../../ui/components/companyComponent.jsx";
 import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 import ShowJobs from "../../ui/showjobs.jsx";
 
@@ -43,7 +42,6 @@ import NotFoundPage from "../../ui/pages/not-found.jsx";
 import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 
-//TESTING ONLY, but leaving in until the site's structure is better defined
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewForm from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
