@@ -1,5 +1,6 @@
 import React from "react";
 import StarRatings from 'react-star-ratings';
+import VoteButtons from "./voteButtons.jsx";
 
 export default class ReviewComponent extends React.Component {
   render() {
@@ -111,14 +112,7 @@ export default class ReviewComponent extends React.Component {
           </div>
           <div className="col-md-4 bn-col">
              <div  className="fl_ri">
-                <br />
-                <div  className="thumb_up_bn">
-                   <button type="button" className="btn btn-default btn-circle btn-xl"> <i  className="fa fa-thumbs-o-up  "></i></button>
-                </div>
-                <br />
-                <div  className="thumb_don_bn">
-                   <button type="button" className="btn btn-default btn-circle btn-xl">  <i   className="fa fa-thumbs-o-down"></i></button>
-                </div>
+				 <VoteButtons />
              </div>
 
           </div>

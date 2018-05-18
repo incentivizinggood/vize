@@ -99,15 +99,15 @@ export default class FlagSystem extends React.Component {
                 <label> {"Counter: " + this.state.count}</label>
                 <br/>
                 <br/>
-                <a href="#modal" class="modal-trigger">Push</a>
-                <div class="modal" id="modal">
-                    <div class="modal__dialog">
+                <a href="#modal" className="modal-trigger">Push</a>
+                <div className="modal" id="modal">
+                    <div className="modal__dialog">
 
                         /* Section begins here */
-                        <section class="modal__content">
-                            <header class="modal__header">
-                                <h2 class="modal__title">Report comment</h2>
-                                <a href="#" class="modal__close">&times;</a>
+                        <section className="modal__content">
+                            <header className="modal__header">
+                                <h2 className="modal__title">Report comment</h2>
+                                <a href="#" className="modal__close">&times;</a>
                             </header>
 
                             <form onSubmit={this.handleSubmit} id="submitForm">
@@ -132,21 +132,20 @@ export default class FlagSystem extends React.Component {
 
                                 <div>
                                     <label> {"Please let us know why you picked" + ": " + this.state.name}</label>
-                                    <textarea rows="4" cols="50" class="textBox-flag" placeholder={"Thank you..."} onChange={this.handleTextChange} />
+                                    <textarea rows="4" cols="50" className="textBox-flag" placeholder={"Thank you..."} onChange={this.handleTextChange} />
                                 </div>
                             </form>
 
-                            <footer class="modal__footer">
+                            <footer className="modal__footer">
                                 <button type="button" className="">Cancel</button>
                                 <button type="submit" className="done-button" form="submitForm" value="Submit">SUBMIT</button>
                             </footer>
                         </section>
                     </div>
                 </div>
-                <Dialog />
+                // <Dialog />
             </div>
 
         );
     }
 }
-

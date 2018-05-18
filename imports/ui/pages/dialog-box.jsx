@@ -31,19 +31,19 @@ export default class Dialog extends React.Component {
     return (
         <div>
             <div id="live-chat">
-                <header class="clearfix">
-                    <a href="#" class="chat-close" onClick={this.buttonClicked}>x</a>
+                <header className="clearfix">
+                    <a href="#" className="chat-close" onClick={this.buttonClicked}>x</a>
                     <h4>Live feedback</h4>
-                    <span class="chat-message-counter">3</span>
+                    <span className="chat-message-counter">3</span>
                 </header>
-                <div class ="chat">
-                    <p class = "chat-feedback">Send us immediate feedback using this chat</p>
+                <div className ="chat">
+                    <p className = "chat-feedback">Send us immediate feedback using this chat</p>
                     <form action="#" method="post">
                         <fieldset>
-                            <textarea rows="4" cols="40" placeholder = "Type your message…" class = "dialog_button" autoFocus/>
+                            <textarea rows="4" cols="40" placeholder = "Type your message…" className = "dialog_button" autoFocus="true"/>
                             <input type="hidden"/>
                         </fieldset>
-                        <button type="submit" class = "sendMessage" form ="submitForm" value ="Submit"> send message </button>
+                        <button type="submit" className = "sendMessage" form ="submitForm" value ="Submit"> send message </button>
                     </form>
                 </div>
             </div>
