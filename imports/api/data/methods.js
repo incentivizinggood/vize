@@ -115,6 +115,12 @@ Meteor.methods({
 		}
 	},
 
+	"reviews.changeVote": function(review, vote) {
+		console.log("SERVER: User " + this.userId + " voted " + vote + " on review " + review._id);
+
+		return "I VOTED";
+	},
+
 	"salaries.submitSalaryData": function (newSalary) {
 
 		//This avoids a lot of problems
