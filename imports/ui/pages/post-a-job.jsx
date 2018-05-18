@@ -1,6 +1,6 @@
 //Boilerplate first
+import { Meteor } from "meteor/meteor";
 import React from "react";
-import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
@@ -20,10 +20,8 @@ paj_form_state.set("company", {name: "Please wait while we finish loading the fo
 if(Meteor.isClient) {
 
 	Template.paj_blaze_form.onCreated(function() {
-		let id = paj_form_state.get("companyId");
-		if(Meteor.isDevelopment) console.log("received id: " + id);
 		this.autorun(function() {
-			Meteor.call("companies.findOne", id, (error, result) => {
+			Meteor.call("companies.companyForCurrentUser", (error, result) => {
 				if (!result) {
 					paj_form_state.set("company", undefined);
 				}
@@ -46,7 +44,7 @@ if(Meteor.isClient) {
 		getCompanyName: function() {
 			let company = paj_form_state.get("company");
 			if(company === undefined) {
-				return "ERROR: COMPANY NOT FOUND";
+				return "ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)";
 			}
 			else {
 				return company.name;
@@ -81,8 +79,6 @@ export default class PostAJobForm extends React.Component {
 	}
 	render() {
 
-		paj_form_state.set("companyId",this.props.companyId);
-
 		return (
 			<div className="page PostAJobForm">
 				<Blaze template="paj_blaze_form"/>
@@ -90,7 +86,3 @@ export default class PostAJobForm extends React.Component {
 		);
 	}
 }
-
-PostAJobForm.propTypes = {
-	companyId: PropTypes.string,
-};

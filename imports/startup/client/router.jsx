@@ -78,6 +78,7 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/post-a-job", <PostAJobForm />);
 
 //----- Define the more complex routes. -----//
 
@@ -115,15 +116,6 @@ FlowRouter.route("/submit-salary-data", {
 	action(params, queryParams) {
 		ReactDOM.render(
 			<SubmitSalaryDataForm companyId={queryParams.id} />,
-			document.getElementById("view-render")
-		);
-	}
-});
-
-FlowRouter.route("/post-a-job", {
-	action(params, queryParams) {
-		ReactDOM.render(
-			<PostAJobForm companyId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
 	}
