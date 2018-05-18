@@ -217,30 +217,29 @@ Meteor.methods({
 		let emailSubject = "VIZE " + workerName + " has responded to your job advertisement";
 
 		/*
-			This email needs revision, this is only a
-			testing version. For example, including the
-			worker's contact info in the body of the email?
-			Not so sure about that. And of course the wording
-			will be revised. Perhaps additional security measures
-			should be added as well, such as smtps. But
-			this should work well enough for now.
-
 			QUESTION:
 			- What if the company didn't provide a valid email?
 			- What if the worker didn't?
 			- ...or a valid phone number?
 		*/
 
-		let emailText = "Greetings, " + companyName +
-		"\n\n\tA Vize user, " + workerName + ", has responded " +
-		"to your job advertisement [id=" + jobId + "]." +
-		"\n\n\tThey provided the following information: " +
-		"\n\n\tEmail: " + workerEmail +
-		"\n\n\tPhone number: " + workerPhone +
-		"\n\n\tCover Letter/Comments: " + workerComments +
-		"\n\n\tPlease follow up with them according to your company's policy." +
-		"\n\nSincerely," +
-		"\n\n\tVize";
+		let emailText = "To those at " + companyName + "," +
+		"\n\n\tCongratulations, you just received a new job application! " +
+		"A Vize user, " + workerName + ", has responded " +
+		"to your job post (which was given id=" + jobId + ")." +
+		"They provided the contact information below, feel free to contact " +
+		"them directly." +
+		"\n\n\tIf you have any issues with this process, please " +
+		"let us know. If you hire this employee, please send us a message letting " +
+		"us know what you think of our service. We hope you've found the perfect " +
+		"employee for your company and the position!" +
+		"\n\nAll the best," +
+		"\n\n\tThe Vize Team" +
+		"\n\nAPPLICANT INFORMATION" +
+		"\nFull name: " + workerName +
+		"\nEmail: " + workerEmail +
+		"\nPhone number: " + workerPhone +
+		"\nCover letter/Aditional comments:\n" + workerComments;
 
 		let applicationEmail = {
 			to: companyEmailAddress,
@@ -298,6 +297,27 @@ Meteor.methods({
 		let company = Companies.findOne(companyIdentifier);
 		if(company === undefined) {
 			throw new Meteor.Error("notFound", "Your search for companies did not return any results");
+		}
+
+		return company;
+	},
+
+	"companies.companyForCurrentUser": function() {
+
+		if(!this.userId) {
+			throw new Meteor.Error("loggedOut", "You must be logged in to perform this action");
+		}
+
+		let user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
+
+		if(user.role !== "company" || user.companyId === undefined) {
+			throw new Meteor.Error("rolePermission", "Only companies who have created Vize profiles may perform this action");
+		}
+
+		let company = Companies.findOne(user.companyId);
+
+		if(company === undefined) {
+			throw new Meteor.Error("notFound", "Unable to match a company profile with this user ID");
 		}
 
 		return company;
