@@ -3,6 +3,7 @@ import JobPosting from "../ui/components/jobPosting.jsx";
 import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
 import ShowJobComponent from "../ui/components/showJobComponent.jsx";
+import Header from "./pages/header.jsx";
 
 class ShowJobs extends React.Component {
 
@@ -26,11 +27,22 @@ class ShowJobs extends React.Component {
 
     return(
         <div>
-          <h2>{this.props.numberofjobs} Ofertas de empleo</h2>
-
+          <div className="navbarwhite"><Header /></div>
+          <div className="container-fluid  search_companies">
+          <div className="row all_boxcolor1 select_box1">
+          <div  id="companies_header1" className="callbacks_container">
+            <ul className="rslides" id="slider3">
+               <li>
+                    <h2>{this.props.numberofjobs} Ofertas de empleo</h2>
             {message}
             {RenderedItems}
+          
+        </li>
+      </ul>
         </div>
+      </div>
+      </div>
+    </div>
       )
   }
 }
