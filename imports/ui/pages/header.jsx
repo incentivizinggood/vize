@@ -12,6 +12,24 @@ class Header extends React.Component {
   }
 
   render() {
+    let signUpMyAccount = null;
+    let logInOutButton = null;
+    if (this.props.isLoggedIn) {
+      signUpMyAccount = (
+        /*<li class="dropdown pf  show-on-hover-pf">
+          <a href="#" class="dropdown-toggle  " data-toggle="dropdown"><img src="images/icon2.jpg" class="img-responsive  dp-profile" /> </a>
+          <ul class="dropdown-menu pf">
+            <li  class="tr"><a href="#">My Profile</a></li>
+            <li  class="tr"><a href="#">Sign Out</a></li>
+          </ul>
+        </li>*/
+        <a href="/my-account" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Myy Account</a>);
+      logInOutButton = (<a onClick={Meteor.logout} className="navbar-link margin-right">LOG OUT</a>);
+    } else {
+      signUpMyAccount = (<a href="/register" type="button" id="register-button" className="btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up</a>);
+      logInOutButton = (<a href="/login" className="navbar-link margin-right">LOG IN</a>);
+    }
+
     return (
   <div className="top-nav">
                  <nav>
@@ -32,8 +50,8 @@ class Header extends React.Component {
                            <li><a href="#" type="button" id="register-button-menu" className=" btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up or Login</a></li>
                            <hr className="hr_line_width1"/>
                            <li><a href="/companies" className="link-kumya "><span >Companies</span></a></li>
-                           <li><a href="/foremployers" className="link-kumya"><span >For Employers</span></a></li>
-                           <li><a href="/about" className="link-kumya"><span>About</span></a></li>
+                           <li><a href="#" className="link-kumya"><span>Jobs</span></a></li>
+                           <li><a href="#" className="link-kumya"><span>Resources</span></a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
 
@@ -56,6 +74,7 @@ class Header extends React.Component {
                                  <li><a id="navEng" href="#" className="language"><img id="imgNavEng" src="/images/us.jpg" alt="..." className="img-thumbnail icon-small"/>  <span id="lanNavEng">English</span></a></li>
                               </ul>
                            </li>
+                           <li><a href="/foremployers" className="link-kumya"><span >For Employers</span></a></li>
                         </ul>
                         <div className="clearfix"> </div>
                      </div>

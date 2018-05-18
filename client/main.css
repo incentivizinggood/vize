@@ -1702,9 +1702,7 @@ body
      .banner, .banner-info{
         min-height:600px;
     }
-     .banner-text-info{
-        margin:17em auto 0;
-    }
+
      .welcome, .tabs, .services, .slid, .footer, .about, .team, .codes, .contact, .gallery, .blog{
         padding:6em 0;
     }
@@ -1729,9 +1727,7 @@ body
         letter-spacing:0;
         padding:10px 11px;
     }
-     .banner-text-info{
-        margin:16em auto 0;
-    }
+
      .welcome-left{
         float:left;
         width:40%;
@@ -1964,9 +1960,7 @@ body
      .banner, .banner-info{
         min-height:525px;
     }
-     .banner-text-info{
-        margin:14em auto 0;
-    }
+
      .welcome, .tabs, .services, .slid, .footer, .about, .team, .codes, .contact, .gallery, .blog{
         padding:5em 0;
     }
@@ -2060,9 +2054,7 @@ body
      .banner, .banner-info{
         min-height:460px;
     }
-     .banner-text-info{
-        margin:12em auto 0;
-    }
+
      .slid{
         padding:3em 0;
     }
@@ -2116,9 +2108,7 @@ body
      .banner, .banner-info{
         min-height:410px;
     }
-     .banner-text-info{
-        margin:10em auto 0;
-    }
+
      .callbacks_tabs{
         left:42.5%;
     }
