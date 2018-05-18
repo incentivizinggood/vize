@@ -50,7 +50,7 @@ class Header extends React.Component {
                            <li><a href="#" type="button" id="register-button-menu" className=" btn navbar-btn margin-right btn-green hvr-icon-forward">Sign Up or Login</a></li>
                            <hr className="hr_line_width1"/>
                            <li><a href="/companies" className="link-kumya "><span >Companies</span></a></li>
-                           <li><a href="#" className="link-kumya"><span>Jobs</span></a></li>
+                           <li><a href="/jobs" className="link-kumya"><span>Jobs</span></a></li>
                            <li><a href="#" className="link-kumya"><span>Resources</span></a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">

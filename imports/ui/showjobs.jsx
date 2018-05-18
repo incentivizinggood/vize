@@ -9,12 +9,11 @@ class ShowJobs extends React.Component {
 
 
   render() {
-    console.log(this.props);
-    
+
     if (!this.props.isReady) {
         return <h2>Loading...</h2>;
     }
-    console.log(this.props);
+
     const RenderedItems = this.props.jobads.map(function(jobad){
       return <ShowJobComponent key={jobad._id} item={jobad} />
     });
@@ -27,11 +26,7 @@ class ShowJobs extends React.Component {
 
     return(
         <div>
-          <p>In the jobs page!</p>
-
-              {/* <div  className="ava_job ">
-                <h4  className="head_section_font">{this.props.jobsCount} Job(s) Available</h4>
-              </div> */}
+          <h2>{this.props.numberofjobs} Ofertas de empleo</h2>
 
             {message}
             {RenderedItems}
@@ -48,5 +43,6 @@ export default withTracker(() => {
    return {
      isReady: handle.ready(),
      jobads: JobAds.find({}).fetch(),
+     numberofjobs: JobAds.find({}).count(),
    };
 })(ShowJobs);

@@ -15,7 +15,7 @@ const CompanyComponent = (props) => {
               <div className="col-md-3  prostar">
                  <a href="/companyprofile">
                     <div  className="shdo">
-                       <img src=""  className="img-responsive"/>
+                       <img src="/images/default-company.png"  className="img-responsive"/>
                     </div>
                  </a>
               </div>

@@ -53,7 +53,7 @@ class CompanyProfile extends React.Component {
       <div className="welcome  welpadgo wel_profile">
         <div className="container  welpad12 box_shadow">
            <div className="col-md-2  prostar">
-              <img src="images/p5.jpg"  className="img-responsive  hi"/>
+              <img src="/images/default-company.png"  className="img-responsive  hi"/>
            </div>
            <div className="col-md-6  prostar">
               <div className="col-md-12">

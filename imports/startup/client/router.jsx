@@ -77,7 +77,7 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
-routeSimplePage("/showjobs", <ShowJobs/>);
+routeSimplePage("/jobs", <ShowJobs/>);
 routeSimplePage("/post-a-job", <PostAJobForm />);
 
 
