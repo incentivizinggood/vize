@@ -29,12 +29,10 @@ if(this.props.companyreview.length > 0){
 
   to_display_review =
 
-    <div  className="col-md-12  section_over_revi2 ">
+
       <div  className="rev_section">
          <div  className="mar_pad2">
-           {/* this.props.companyreview has the company collection for that particular company */}
 
-           {/* <p>{console.log(this.props.item.datePosted.toString())}</p> */}
             <p>{this.props.companyreview[0].datePosted.toString()}<span>&nbsp;&nbsp;- <strong>{this.props.companyreview[0].jobTitle}</strong></span></p>
             <h2  className="head-rev-con">{this.props.companyreview[0].reviewTitle} </h2>
 
@@ -138,7 +136,7 @@ if(this.props.companyreview.length > 0){
             </div>
          </div>
          <div className="clear"></div>
-      </div>
+      {/* </div> */}
     </div>
 } else{
   to_display_review = "No Reviews to show right now";
