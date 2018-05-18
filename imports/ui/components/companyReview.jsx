@@ -112,7 +112,7 @@ export default class ReviewComponent extends React.Component {
           </div>
           <div className="col-md-4 bn-col">
              <div  className="fl_ri">
-				 <VoteButtons />
+				 <VoteButtons review={this.props.item}/>
              </div>
 
           </div>
