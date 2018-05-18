@@ -223,17 +223,23 @@ Meteor.methods({
 			- ...or a valid phone number?
 		*/
 
-		let emailText = "To those at " + companyName + ","
+		let emailText = "To those at " + companyName + "," +
 		"\n\n\tCongratulations, you just received a new job application!" +
-		"\nA Vize user, " + workerName + ", has responded " +
+		"A Vize user, " + workerName + ", has responded " +
 		"to your job post (which was given id=" + jobId + ")." +
-		"\nThey provided the contact information below, feel free to contact " +
-		"them directly.\n\n\tIf you have any issues with this process, please " +
+		"They provided the contact information below, feel free to contact " +
+		"them directly." +
+		"\n\n\tIf you have any issues with this process, please " +
 		"let us know. If you hire this employee, please send us a message letting " +
 		"us know what you think of our service. We hope you've found the perfect " +
 		"employee for your company and the position!" +
 		"\n\nAll the best," +
-		"\n\n\tThe Vize Team";
+		"\n\n\tThe Vize Team" +
+		"\n\nAPPLICANT INFORMATION" +
+		"\nFull name: " + workerName +
+		"\nEmail: " + workerEmail +
+		"\nPhone number: " + workerPhone +
+		"\nCover letter/Aditional comments:\n" + workerComments;
 
 		let applicationEmail = {
 			to: companyEmailAddress,
