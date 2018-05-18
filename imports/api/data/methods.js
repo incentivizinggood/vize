@@ -224,7 +224,7 @@ Meteor.methods({
 		*/
 
 		let emailText = "To those at " + companyName + "," +
-		"\n\n\tCongratulations, you just received a new job application!" +
+		"\n\n\tCongratulations, you just received a new job application! " +
 		"A Vize user, " + workerName + ", has responded " +
 		"to your job post (which was given id=" + jobId + ")." +
 		"They provided the contact information below, feel free to contact " +
