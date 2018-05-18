@@ -48,6 +48,7 @@ import WriteReviewForm from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "../../ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";
+import FlagSystem from "../../ui/pages/flag.jsx";
 
 /**
  * Reduces boiler plate for simple pages.
@@ -77,6 +78,9 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
+
+//REMOVE BEFORE MERGE
+routeSimplePage("/flag", <FlagSystem />);
 
 //----- Define the more complex routes. -----//
 

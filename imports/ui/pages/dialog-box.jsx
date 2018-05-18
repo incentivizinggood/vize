@@ -40,7 +40,7 @@ export default class Dialog extends React.Component {
                     <p class = "chat-feedback">Send us immediate feedback using this chat</p>
                     <form action="#" method="post">
                         <fieldset>
-                            <textarea rows="4" cols="40" placeholder = "Type your message…" class = "dialog_button" autofocus/>
+                            <textarea rows="4" cols="40" placeholder = "Type your message…" class = "dialog_button" autoFocus/>
                             <input type="hidden"/>
                         </fieldset>
                         <button type="submit" class = "sendMessage" form ="submitForm" value ="Submit"> send message </button>
