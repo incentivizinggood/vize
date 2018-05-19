@@ -156,7 +156,7 @@ export default class HomePage extends React.Component {
                             </div>
                             <br />
                              <div  className="fl-ri-re">
-                            <button><a href="/write-review" > <i className="fa fa-plus" ></i>&nbsp; Add a Review </a></button>
+                            <a href={Meteor.absoluteUrl("write-review/", {secure: true, })} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; Add a Review </a>
                           </div>
                           <br />
                         </div>
@@ -177,7 +177,7 @@ export default class HomePage extends React.Component {
                             </div>
                                <br />
                             <div  className="fl-ri-re">
-                            <button><a href="/submit-salary-data" ><i className="fa fa-plus" ></i>&nbsp; Add a Salary </a></button>
+                            <a href={Meteor.absoluteUrl("submit-salary-data/", {secure: true, })} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; Add a Salary </a>
                           </div>
                           <br />
                         </div>
