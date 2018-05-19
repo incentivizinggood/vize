@@ -8,13 +8,12 @@ class VoteButtons extends React.Component {
 		super(props);
 		this.upVote = this.upVote.bind(this);
 		this.downVote = this.downVote.bind(this);
-		console.log("CONSTRUCTOR: Received vote: ");
-		console.log(this.props.vote[0]);
-		this.state = {
-			upVotes: 0,
-			downVotes: 0,
-		};
-
+		if(Meteor.isDevelopment) {
+			this.state = {
+				upVotes: 0,
+				downVotes: 0,
+			};
+		}
 	}
 
 	upVote(event) {
@@ -56,8 +55,6 @@ class VoteButtons extends React.Component {
 	}
 
 	render() {
-		console.log("RENDER: Received vote: ");
-		console.log(this.props.vote[0]);
 		return(
 			<div>
 				<br />
@@ -81,11 +78,11 @@ export default withTracker(({ review, userVotes }) => {
 	// One of the more ridiculous pieces of code I've had to write
 	return {
 		review: review,
-		vote: userVotes.find({
-				submittedBy: Meteor.userId(),
-				references: review._id,
-				voteSubject: "review",
-			}).fetch(),
+		vote: userVotes.findOne({
+					submittedBy: Meteor.userId(),
+					references: review._id,
+					voteSubject: "review",
+				}),
 	};
 
 })(VoteButtons);

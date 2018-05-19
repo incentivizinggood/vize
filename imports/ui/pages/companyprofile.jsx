@@ -199,7 +199,7 @@ export default withTracker(({ companyId }) => {
     var handle2 = Meteor.subscribe("Reviews");
     var handle3 = Meteor.subscribe("JobAds");
     var handle4 = Meteor.subscribe("Salaries");
-    var handle5 = Meteor.subscribe("Votes");
+    var handle5 = Meteor.subscribe("Votes", {submittedBy: Meteor.userId(), voteSubject: "review"});
 
     return {
         isReady: handle1.ready() && handle2.ready() && handle3.ready() && handle4.ready() && handle5.ready(),
