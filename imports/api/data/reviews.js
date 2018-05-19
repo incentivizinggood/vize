@@ -55,6 +55,7 @@ Reviews.schema = new SimpleSchema({
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
+		max: 100,
 		index: true,
 		custom: function() {
 
@@ -136,6 +137,7 @@ Reviews.schema = new SimpleSchema({
 	reviewTitle: { //title of the review
 		type: String,
 		optional: false,
+		max: 100,
 		index: true, },
 	//Pretty much copy-pasted from companies.js
 	locations: { //where they worked for the company being reviewed
@@ -143,9 +145,11 @@ Reviews.schema = new SimpleSchema({
 		minCount: 1, //must have at least one
  		optional: false, },
 	'locations.$': { //restraints on members of the "locations" array
-		type: String, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		type: String,
+		max: 150, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
 	jobTitle: {			//there are two categories -
 		type: String,		//Line Worker and Upper Management, so type - String, perhaps, not sure
+		max: 100,
 		optional: false, },	//NOTE: I can do this, but is it correct/necessary?
 	numberOfMonthsWorked: {
 		type: SimpleSchema.Integer,
@@ -154,6 +158,7 @@ Reviews.schema = new SimpleSchema({
 	pros: {
 		type: String,
 		optional: false,
+		max: 200,
 		custom: function() {
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("hasFiveWords", this.value, (error, result) => {
@@ -174,6 +179,7 @@ Reviews.schema = new SimpleSchema({
 	cons: {
 		type: String,
 		optional: false,
+		max: 200,
 		custom: function() {
 			if (Meteor.isClient && this.isSet ) {
 				Meteor.call("hasFiveWords", this.value, (error, result) => {
@@ -246,6 +252,7 @@ Reviews.schema = new SimpleSchema({
 	additionalComments: {
 		type: String,
 		optional: true,
+		max: 6000,
 		autoform: {
 			afFieldInput: {
 				type: "textarea",

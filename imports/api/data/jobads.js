@@ -19,6 +19,7 @@ JobAds.schema = new SimpleSchema({
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
+		max: 100,
 		index: true,
 		custom: function() {
 			if (Meteor.isClient && this.isSet) {
@@ -74,13 +75,15 @@ JobAds.schema = new SimpleSchema({
 		}, },
 	jobTitle: {
 		type: String,
+		max: 100,
 		optional: false, },
 	locations: { //allows more than one location
 		type: Array,
 		minCount: 1, //must have at least an HQ or something
  		optional: false, },
 	'locations.$': { //restraints on members of the "locations" array
-		type: String, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		type: String,
+		max: 150, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
 	/*
 		QUESTION:
 			How to support different currencies,
@@ -89,6 +92,7 @@ JobAds.schema = new SimpleSchema({
 	pesosPerHour: {
 		type: String,
 		optional: false,
+		max: 30,
 		//This bad boy matches a (peso).(centavo) string, or hyphen-separated
 		//pair (range) of (peso).(centavo) amounts. Centavos are completely
 		//optional on either side of the hyphen.
@@ -106,6 +110,7 @@ JobAds.schema = new SimpleSchema({
 	jobDescription: {
 		type: String,
 		optional: false,
+		max: 6000,
 		autoform: {
 			afFieldInput: {
 				type: "textarea",
@@ -116,6 +121,7 @@ JobAds.schema = new SimpleSchema({
 	responsibilities: {
 		type: String,
 		optional: false,
+		max: 6000,
 		autoform: {
 			afFieldInput: {
 				type: "textarea",
@@ -126,6 +132,7 @@ JobAds.schema = new SimpleSchema({
 	qualifications: {
 		type: String,
 		optional: false,
+		max: 6000,
 		autoform: {
 			afFieldInput: {
 				type: "textarea",
@@ -184,6 +191,7 @@ JobAds.applicationSchema = new SimpleSchema({
 	companyName: {	// Always auto-filled by form
 		type: String,
 	 	optional: false,
+		max: 100,
 		custom: function() {
 			if (Meteor.isClient && this.isSet) {
 				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
@@ -206,6 +214,7 @@ JobAds.applicationSchema = new SimpleSchema({
 	fullName: {
 		type: String,
 		optional: false,
+		max: 150,
 		autoform: {
 			afFieldInput: {
 				placeholder: "Enter your full name here",
@@ -214,6 +223,7 @@ JobAds.applicationSchema = new SimpleSchema({
 	email: {
 		type: String,
 		optional: false,
+		max: 100,
 		regEx: SimpleSchema.RegEx.EmailWithTLD,
 		autoform: {
 			afFieldInput: {
@@ -224,6 +234,7 @@ JobAds.applicationSchema = new SimpleSchema({
 	phoneNumber: {
 		type: String,
 		optional: false,
+		max: 20,
 		regEx: SimpleSchema.RegEx.Phone,
 		autoform: {
 			afFieldInput: {
@@ -234,6 +245,7 @@ JobAds.applicationSchema = new SimpleSchema({
 	coverLetterAndComments: {
 		type: String,
 		optional: true,
+		max: 6000,
 		autoform: {
 			afFieldInput: {
 				type: "textarea",

@@ -36,6 +36,7 @@ Salaries.schema = new SimpleSchema({
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
+		max: 100,
 		index: true,
 		custom: function() {
 			if (Meteor.isClient && this.isSet) {
@@ -76,6 +77,7 @@ Salaries.schema = new SimpleSchema({
 		}, },
 	jobTitle: {
 		type: String,
+		max: 100,
 		optional: false, },
 	incomeType: {
 		type: String,
