@@ -27,6 +27,6 @@ export default withTracker(({ user_id }) => {
 
     return {
         isReady: handle.ready(),
-        user: Meteor.users.findOne(new Mongo.ObjectID(user_id))
+        user: Meteor.users.findOne(new Mongo.ObjectID(user_id)),
     };
 })(UserPage);

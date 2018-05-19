@@ -6,7 +6,7 @@ import React from "react";
 //}
 
 export class If extends React.Component {
-    render () {
+    render() {
         if (this.props.cond) {
             return this.props.children[0];
         } else {
@@ -20,13 +20,13 @@ export class If extends React.Component {
 }
 
 export class Then extends React.Component {
-    render () {
+    render() {
         return this.props.children;
     }
 }
 
 export class Else extends React.Component {
-    render () {
+    render() {
         return this.props.children;
     }
 }

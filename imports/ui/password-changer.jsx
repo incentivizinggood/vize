@@ -10,7 +10,7 @@ export default class PasswordChanger extends React.Component {
             success: false,
             oldPassword: "",
             newPassword: "",
-            repeatNewPassword: ""
+            repeatNewPassword: "",
         };
 
         // These bindings are necessary to make `this` work in callbacks.
@@ -25,7 +25,7 @@ export default class PasswordChanger extends React.Component {
         const name = target.name;
 
         this.setState({
-            [name]: value
+            [name]: value,
         });
     }
 
@@ -34,22 +34,28 @@ export default class PasswordChanger extends React.Component {
         let callback = error => {
             this.setState({
                 error: error ? error.reason : null,
-                success: !error
+                success: !error,
             });
         };
 
         // Double check to avoid typos.
         if (this.state.newPassword !== this.state.repeatNewPassword) {
-            callback({reason: "New passwords do not match."});
+            callback({ reason: "New passwords do not match." });
             return;
         }
 
-        Accounts.changePassword(this.state.oldPassword, this.state.newPassword, callback);
+        Accounts.changePassword(
+            this.state.oldPassword,
+            this.state.newPassword,
+            callback
+        );
     }
 
     render() {
         if (this.state.success) {
-            return <div className="password-reset">Password reset successful!</div>;
+            return (
+                <div className="password-reset">Password reset successful!</div>
+            );
         }
         return (
             <div className="password-reset">
