@@ -28,7 +28,7 @@ if(this.props.companyreview.length > 0){
 if(this.props.companyreview.length > 0){
 
   to_display_review =
-	<CompanyReview item={this.props.companyreview[0]} />
+	<CompanyReview item={this.props.companyreview[0]} userVotes={this.props.userVotes}/>
 
 } else{
   to_display_review = "No Reviews to show right now";
