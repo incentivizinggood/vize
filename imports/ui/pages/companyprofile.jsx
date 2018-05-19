@@ -202,7 +202,7 @@ export default withTracker(({ companyId }) => {
     var handle5 = Meteor.subscribe("Votes");
 
     return {
-        isReady: handle1.ready() && handle2.ready() && handle3.ready() && handle4.ready(),
+        isReady: handle1.ready() && handle2.ready() && handle3.ready() && handle4.ready() && handle5.ready(),
         company: Companies.findOne(companyId),
         reviews: Reviews.find({companyId: companyId}).fetch(),
         jobAds: JobAds.find({companyId: companyId}).fetch(),

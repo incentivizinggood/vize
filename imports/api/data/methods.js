@@ -184,6 +184,16 @@ Meteor.methods({
 		return "I VOTED";
 	},
 
+	"votes.findOne": function(voteSelector) {
+		let vote = Votes.findOne(voteSelector);
+		if(vote === undefined) {
+			throw new Meteor.Error("notFound", "Our database contains no votes that match your query");
+		}
+		console.log("SERVER: found vote: ");
+		console.log(vote);
+		return vote;
+	},
+
 	"salaries.submitSalaryData": function (newSalary) {
 
 		//This avoids a lot of problems

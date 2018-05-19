@@ -8,7 +8,8 @@ class VoteButtons extends React.Component {
 		super(props);
 		this.upVote = this.upVote.bind(this);
 		this.downVote = this.downVote.bind(this);
-		
+		console.log("CONSTRUCTOR: Received vote: ");
+		console.log(this.props.vote[0]);
 		this.state = {
 			upVotes: 0,
 			downVotes: 0,
@@ -55,6 +56,8 @@ class VoteButtons extends React.Component {
 	}
 
 	render() {
+		console.log("RENDER: Received vote: ");
+		console.log(this.props.vote[0]);
 		return(
 			<div>
 				<br />
@@ -74,17 +77,15 @@ class VoteButtons extends React.Component {
 	}
 }
 
-export default withTracker(({ review }) => {
-	/*
-		Will need the Votes subscription and stuff
-		if/when we're ready to make sure the button
-		colors persist across refreshes based on the
-		user's vote
-	*/
-	//let voteHandle = Meteor.subscribe("Votes");
+export default withTracker(({ review, userVotes }) => {
+	// One of the more ridiculous pieces of code I've had to write
 	return {
-		//isReady: voteHandle.ready(),
 		review: review,
-		//vote: Votes.findOne({reviewId: review._id, submittedBy: this.userId}),
+		vote: userVotes.find({
+				submittedBy: Meteor.userId(),
+				references: review._id,
+				voteSubject: "review",
+			}).fetch(),
 	};
+
 })(VoteButtons);
