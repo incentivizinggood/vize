@@ -106,12 +106,15 @@ class CompanyProfile extends React.Component {
 
 
               <div  className="na_tab"  >
-                 <ul className="nav nav-tabs" role="tablist">
-                    <li className="active" role="presentation" ><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                    <li role="presentation" ><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
-                    <li role="presentation" ><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
-                    <li role="presentation" ><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
-                    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li>
+                 {/* <ul className="nav nav-tabs" role="tablist"> */}
+                   <ul className= " nav nav-tabs">
+                     {/* Setting the width of each tab to 25% for each tab since we deleted the 5th one */}
+                    <li className="active" role="presentation" style={{width:"25%"}}><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation" style={{width:"25%"}}><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+                    <li role="presentation" style={{width:"25%"}}><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
+                    <li role="presentation" style={{width:"25%"}}><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
+                    {/* Commenting out the Contact Us form for now */}
+                    {/* <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li> */}
                  </ul>
               </div>
 

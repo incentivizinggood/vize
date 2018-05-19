@@ -40,7 +40,7 @@ export default class HomePage extends React.Component {
                            <h1>Find the best job for you, from people like you</h1>
                            <form className="example" method="POST" action="#" onSubmit= {this.handleSubmit.bind(this)}>
                               <input ref="input" type="text" placeholder="Search..." name="search"/>
-                              <button type="submit"><a >SEARCH</a></button>
+                              <button type="submit"><a style={{color:"#ffffff"}}>SEARCH</a></button>
                            </form>
                         </div>
                      </li>
