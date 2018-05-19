@@ -59,10 +59,18 @@ export default class CompanySearchTrial extends React.Component {
   constructor(props){
     super(props);
     this.state = {input: ""};
+
   }
 
   componentDidMount(){
     console.log("Inside the company Search trial page");
+    console.log(this.props.queryParams);
+
+    if(this.props.queryParams !== undefined && this.props.queryParams.input !== undefined){
+      this.setState({input: this.props.queryParams.input});
+    } else{
+      console.log("inside else");
+    }
   }
 
 //Gives error for now -- Need to ask Julian for this.

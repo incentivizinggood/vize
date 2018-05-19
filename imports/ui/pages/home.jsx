@@ -5,27 +5,28 @@ import Footer from "../../ui/pages/footer.jsx";
 /* The home page of the site.
  */
 export default class HomePage extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {input: ""};
+  }
+
+  componentDidMount(){
+    console.log("Inside the company home search page");
+  }
+
+
+  handleSubmit(event){
+    event.preventDefault();
+    _input = this.refs.input.value;
+    this.refs.input.value = "";
+    this.setState({input: _input});
+
+    // FlowRouter.setQueryParams({ input: input });
+    FlowRouter.go("/companies/?input=" + _input);
+  }
+
     render() {
-
-      constructor(props){
-        super(props);
-        this.state = {input: ""};
-      }
-
-      componentDidMount(){
-        console.log("Inside the company home search page");
-      }
-
-
-      handleSubmit(event){
-        event.preventDefault();
-        input = this.refs.input_search.value;
-        console.log(input);
-        this.refs.input_search.value = "";
-        this.setState({input: input});
-
-      }
-
         return(
                 <div><Header />
                   <div className="banner">
@@ -39,7 +40,7 @@ export default class HomePage extends React.Component {
                            <h1>Find the best job for you, from people like you</h1>
                            <form className="example" method="POST" action="#" onSubmit= {this.handleSubmit.bind(this)}>
                               <input ref="input" type="text" placeholder="Search..." name="search"/>
-                              <button type="submit">SEARCH</button>
+                              <button type="submit"><a >SEARCH</a></button>
                            </form>
                         </div>
                      </li>

@@ -87,6 +87,7 @@ FlowRouter.route("/companies", {
 
 					// changing the route for now, because the search code is on CompanySearchTrial now.
 					// ORIGINAL CODE -- <CompanySearchPage queryParams={queryParams} />,
+
             <CompanySearchTrial queryParams={queryParams} />,
             document.getElementById("view-render")
         );
