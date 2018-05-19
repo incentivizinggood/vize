@@ -34,18 +34,27 @@ Template.ccp_blaze_form.helpers({
 	error: function() {
 		return formError.get();
 	},
-	resetFormError: function() { //called when reset button is clicked
+	resetFormError: function() {
+		//called when reset button is clicked
 		formError.set("good");
 	},
 });
 
 AutoForm.addHooks("ccp_blaze_form", {
-	onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
-		if(Meteor.isDevelopment) console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
+	onSuccess: function(formType, result) {
+		// If your method returns something, it will show up in "result"
+		if (Meteor.isDevelopment)
+			console.log(
+				"SUCCESS: We did a thing in a " + formType + " form: " + result
+			);
 		formError.set("good");
 	},
-	onError: function(formType, error) { // "error" contains whatever error object was thrown
-		if(Meteor.isDevelopment) console.log("ERROR: We did a thing in a " + formType + " form: " + error);
+	onError: function(formType, error) {
+		// "error" contains whatever error object was thrown
+		if (Meteor.isDevelopment)
+			console.log(
+				"ERROR: We did a thing in a " + formType + " form: " + error
+			);
 		formError.set(error.toString());
 	},
 });
@@ -57,7 +66,7 @@ export default class CompanyCreateProfileForm extends React.Component {
 	render() {
 		return (
 			<div className="page CompanyCreateProfileForm">
-				<Blaze template="ccp_blaze_form"/>
+				<Blaze template="ccp_blaze_form" />
 			</div>
 		);
 	}

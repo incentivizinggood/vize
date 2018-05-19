@@ -1,1 +1,1 @@
-$('#multi-select-demo').multiselect();
+$("#multi-select-demo").multiselect();

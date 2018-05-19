@@ -7,6 +7,7 @@
 
 # Use larger indentions to make code blocks easier to see.
 tabWidth: 4
+useTabs: true
 
 # Put a trailing comma in multi-line objects and arrays so that fields can be
 # added with out having to edit the line above.
@@ -23,5 +24,9 @@ overrides:
   - files: "*.md"
     options:
         proseWrap: "always"
-
+# The Markdown format requires space intentions and YAML considers them invalid
+# characters.
+  - files: "*.{md,yaml}"
+    options:
+        useTabs: false
 # All other options are left at their default values.
