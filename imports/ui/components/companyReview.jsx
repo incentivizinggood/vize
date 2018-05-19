@@ -1,15 +1,21 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
 import StarRatings from 'react-star-ratings';
+import VoteButtons from "./voteButtons.jsx";
 
 export default class ReviewComponent extends React.Component {
+	constructor(props) {
+		super(props);
+	}
   render() {
-
+    //@options -  For the date formatting
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     //IF-ELSE for the Recommended option, green tick v/s red cross
     var className;
     if(this.props.item.wouldRecommendToOtherJobSeekers){
-      className = <p ><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+      className = <p style={{color:"#2E8B57"}}><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
     }else{
-      className = <p ><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
+      className = <p style={{color:"#FF4545"}}><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
     }
 
       return(
@@ -18,17 +24,14 @@ export default class ReviewComponent extends React.Component {
   <div  className="col-md-12  section_over_revi2 ">
     <div  className="rev_section">
        <div  className="mar_pad2">
-         {/* this.props.companyreview has the company collection for that particular company */}
-
-         {/* <p>{console.log(this.props.item.datePosted.toString())}</p> */}
-          <p>{this.props.item.datePosted.toString()}<span>&nbsp;&nbsp;- <strong>{this.props.item.jobTitle}</strong></span></p>
+          <p>{this.props.item.datePosted.toLocaleDateString("en-US",options)}<span>&nbsp;&nbsp;- <strong>{this.props.item.jobTitle}</strong></span></p>
           <h2  className="head-rev-con">{this.props.item.reviewTitle} </h2>
 
           <div className="btn-group show-on-hover">
              <a type="button" className="btn btn-default dropdown-toggle  btbn" data-toggle="dropdown">
              <StarRatings
-              rating={(this.props.item.healthAndSafety + this.props.item.managerRelationship + this.props.item.workEnvironment + this.props.item.benefits)/4}
-              //the average rating of all 5 ratings
+              rating={(this.props.item.healthAndSafety + this.props.item.managerRelationship + this.props.item.workEnvironment + this.props.item.benefits)/4}//the average rating of all 5 ratings
+
               starDimension="15px"
               starSpacing="1.5px"
             />
@@ -111,14 +114,7 @@ export default class ReviewComponent extends React.Component {
           </div>
           <div className="col-md-4 bn-col">
              <div  className="fl_ri">
-                <br />
-                <div  className="thumb_up_bn">
-                   <button type="button" className="btn btn-default btn-circle btn-xl"> <i  className="fa fa-thumbs-o-up  "></i></button>
-                </div>
-                <br />
-                <div  className="thumb_don_bn">
-                   <button type="button" className="btn btn-default btn-circle btn-xl">  <i   className="fa fa-thumbs-o-down"></i></button>
-                </div>
+				 <VoteButtons review={this.props.item} userVotes={this.props.userVotes}/>
              </div>
 
           </div>

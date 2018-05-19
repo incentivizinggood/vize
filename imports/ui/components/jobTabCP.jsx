@@ -17,7 +17,7 @@ export default class JobTab extends React.Component {
               </div>
             </div>
 
-            {RenderedItems}           
+            {RenderedItems}
         </div>
       )
     }

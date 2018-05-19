@@ -5,12 +5,14 @@ import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 
 export default class ReviewTab extends React.Component {
 
+	renderItems() {
+		let userVotes = this.props.userVotes;
+		return this.props.companyreview.map(function(item, i) {
+			return <CompanyReview key={i} item={item} userVotes={userVotes}/>
+		});
+	}
+
   render() {
-
-
-    const RenderedItems = this.props.companyreview.map(function(item, i){
-      return <CompanyReview key={i} item = {item}/>
-    });
 
       return(
 
@@ -23,23 +25,12 @@ export default class ReviewTab extends React.Component {
             </div>
            <hr />
 
-            {/* <CompanyRating /> */}
+
             <CompanyRating companyrating={this.props.companyinfo}/>
 
          </div>
-         {/* <hr />
-         <h3  className="head_section_font_25">25 Reviews</h3> */}
 
-         {/* <CompanyReview /> */}
-         {/* <CompanyReview companyreview={this.props.companyreview}/> */}
-         {RenderedItems}
-
-
-
-      {/* ==========review 2========== */}
-                {/* <CompanyReview /> */}
-                {/* <CompanyReview companyreview={this.props.companyreview}/> */}
-
+         {this.renderItems()}
 
       </div>
 

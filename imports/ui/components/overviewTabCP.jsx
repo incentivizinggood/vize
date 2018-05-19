@@ -10,9 +10,29 @@ export default class OverviewTab extends React.Component {
 
 
 render() {
-
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   var to_display_jobs;
   var salaries_to_display;
+  var to_display_review;
+  var className;
+if(this.props.companyreview.length > 0){
+  if(this.props.companyreview[0].wouldRecommendToOtherJobSeekers){
+    className = <p style={{color:"#2E8B57"}}><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+  }else{
+    className = <p style={{color:"#FF4545"}}><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
+  }
+}
+
+//FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
+
+if(this.props.companyreview.length > 0){
+
+  to_display_review =
+	<CompanyReview item={this.props.companyreview[0]} userVotes={this.props.userVotes}/>
+
+} else{
+  to_display_review = "No Reviews to show right now";
+}
 
 //FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
   if(this.props.jobAds.length > 0){
@@ -89,16 +109,16 @@ render() {
                                <h4  className="head_section_font">{this.props.companyoverview.name} Reviews</h4>
                                <div  className="add-buttons">
                                  <a href={this.props.companyoverview.vizeReviewUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
-                                          {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
                                 </div>
 
                                <hr />
-                               {/* getting the strange error in CompanyRating */}
+
                                 <CompanyRating companyrating={this.props.companyoverview}/>
 
                              </div>
                              <div  className="col-md-12  section_overtopsect">
 
+                            {to_display_review}
 
                           <center>
                             <div  className="na_tab1"  >
@@ -123,7 +143,7 @@ render() {
                                 <center>
                                   <div  className="na_tab1">
                                    <ul className="" role="tablist">
-                                   <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
+                                   <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" aria-expanded="true" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
                                     </ul>
                                     </div>
                                   </center>
@@ -150,16 +170,12 @@ render() {
                                         <center>
 
                                             <ul className="" role="tablist">
-                                              <li role="presentation"   className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
+                                              <li role="presentation"   id="see_all_salaries" className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
                                             </ul>
                                         </center>
 
                                       </div>
                                       </div>
-
-
-
-
       </div>
 
 )

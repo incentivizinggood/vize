@@ -1,11 +1,31 @@
 import React from "react";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
-import TotalsCounter from "../totals-counter.jsx";
 
 /* The home page of the site.
  */
 export default class HomePage extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {input: ""};
+  }
+
+  componentDidMount(){
+    console.log("Inside the company home search page");
+  }
+
+
+  handleSubmit(event){
+    event.preventDefault();
+    _input = this.refs.input.value;
+    this.refs.input.value = "";
+    this.setState({input: _input});
+
+    // FlowRouter.setQueryParams({ input: input });
+    FlowRouter.go("/companies/?input=" + _input);
+  }
+
     render() {
         return(
                 <div><Header />
@@ -18,9 +38,9 @@ export default class HomePage extends React.Component {
                      <li>
                         <div className="banner-text-info">
                            <h1>Find the best job for you, from people like you</h1>
-                           <form className="example" method="POST" action="#">
-                              <input type="text" placeholder="Search..." name="search"/>
-                              <button type="submit">SEARCH</button>
+                           <form className="example" method="POST" action="#" onSubmit= {this.handleSubmit.bind(this)}>
+                              <input ref="input" type="text" placeholder="Search..." name="search"/>
+                              <button type="submit"><a style={{color:"#ffffff"}}>SEARCH</a></button>
                            </form>
                         </div>
                      </li>
@@ -47,7 +67,7 @@ export default class HomePage extends React.Component {
                 <h4>With thousands of companies in Mexico on our site and hundreds  of job posts, you'll be able to find a great factory to work for</h4>
                      </div>
                      <div className="titlestar  ">
-                     <center><a href="companies.html" className="button out-butt-dark  ">Jobs</a></center>
+                     <center><a href="/jobs" className="button out-butt-dark  ">Jobs</a></center>
                    </div>
                 </div>
 
@@ -67,7 +87,7 @@ export default class HomePage extends React.Component {
                 <h4>With thousands of companies in Mexico on our site and hundreds  of job posts, you'll be able to find a great factory to work for</h4>
                      </div>
                      <div className="titlestar  ">
-                     <center><a href="companies.html" className="button out-butt-dark  ">Jobs</a></center>
+                     <center><a href="/jobs" className="button out-butt-dark  ">Jobs</a></center>
                    </div>
                 </div>
                 <br />
@@ -152,12 +172,12 @@ export default class HomePage extends React.Component {
 
                             </div>
                             <div className="frontLocation">
-                             See annonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.
+                             See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.
 
                             </div>
                             <br />
                              <div  className="fl-ri-re">
-                            <button><a href="/write-review" > <i className="fa fa-plus" ></i>&nbsp; Add a Review </a></button>
+                            <a href={Meteor.absoluteUrl("write-review/", {secure: true, })} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; Add a Review </a>
                           </div>
                           <br />
                         </div>
@@ -178,7 +198,7 @@ export default class HomePage extends React.Component {
                             </div>
                                <br />
                             <div  className="fl-ri-re">
-                            <button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
+                            <a href={Meteor.absoluteUrl("submit-salary-data/", {secure: true, })} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; Add a Salary </a>
                           </div>
                           <br />
                         </div>
@@ -216,20 +236,6 @@ export default class HomePage extends React.Component {
           </div>
           <Footer />
                           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                );
     }

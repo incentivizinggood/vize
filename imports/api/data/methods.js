@@ -3,6 +3,7 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
+import { Votes } from "./votes.js";
 import { Email } from "meteor/email";
 import SimpleSchema from "simpl-schema";
 import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
@@ -115,6 +116,99 @@ Meteor.methods({
 		}
 	},
 
+	"reviews.changeVote": function(review, vote) {
+		console.log("SERVER: User " + this.userId + " voted " + vote + " on review " + review._id);
+
+		// validate vote: must be boolean
+		if(typeof vote !== "boolean") {
+			if(Meteor.isDevelopment) console.log("SERVER: vote is not boolean");
+			throw new Meteor.Error("invalidArguments", "Second argument [vote] must be a boolean");
+		}
+
+		// validate review: must match Reviews.schema
+		let validationResult = Reviews.simpleSchema().namedContext().validate(review);
+		let errors = Reviews.simpleSchema().namedContext().validationErrors();
+
+		if(!validationResult) {
+			if(Meteor.isDevelopment) console.log("SERVER: review is invalid");
+			if(Meteor.isDevelopment) console.log(errors);
+			throw new Meteor.Error("invalidArguments", "First argument [review] must be a review", errors);
+		}
+
+		if(Reviews.findOne(review) === undefined) {
+			if(Meteor.isDevelopment) console.log("SERVER: review does not exist");
+			throw new Meteor.Error("invalidArguments", "You may not vote on reviews that do not exist yet");
+		}
+
+		// must be logged in
+		if(!this.userId) {
+			if(Meteor.isDevelopment) console.log("SERVER: user is not logged in");
+			throw new Meteor.Error("loggedOut","You must be logged in to your account in order to vote");
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		// only workers
+		if(user.role === "company") {
+			if(Meteor.isDevelopment) console.log("SERVER: user is a company");
+			throw new Meteor.Error("rolePermission", "Companies are not currently allowed to vote on reviews");
+		}
+
+		// can't vote on own review
+		if(this.userId === review.submittedBy) {
+			if(Meteor.isDevelopment) console.log("SERVER: user is voting on own review");
+			throw new Meteor.Error("noCheating", "You are not allowed to vote on your own review");
+		}
+
+		// This next bit was a pain to write
+
+		let previousVote = Votes.findOne({submittedBy: this.userId, references: review._id, voteSubject: "review"});
+
+		// This is completely ridiculous, I wanted to use
+		// upsert but it just got too complicated
+		let result;
+		if(previousVote === undefined) {
+			result = Votes.insert({
+				submittedBy: this.userId,
+				references: review._id,
+				voteSubject: "review",
+				value: vote,
+			});
+		}
+		else {
+			result = Votes.update(
+				{submittedBy: this.userId, references: review._id, voteSubject: "review"},
+				{$set: {value: vote}}
+			);
+		}
+
+		// again with the doing things the first way that comes to mind
+		let proceed =
+			(
+				(previousVote === undefined && result !== undefined)
+				||
+				(previousVote !== undefined && result !== 0)
+			)
+			&&
+			(
+				(previousVote === undefined)
+				||
+				(vote !== previousVote.value)
+			);
+		if(proceed) {
+			if(vote === true) {
+				let decNum = (previousVote === undefined || review.downvotes === 0) ? 0 : -1;
+				Reviews.update(review._id, {$inc: {upvotes: 1, downvotes: decNum}}, {getAutoValues: false});
+			}
+			else {
+				let decNum = (previousVote === undefined || review.upvotes === 0) ? 0 : -1;
+				Reviews.update(review._id, {$inc: {downvotes: 1, upvotes: decNum}}, {getAutoValues: false});
+			}
+		}
+
+		return "I VOTED";
+	},
+
 	"salaries.submitSalaryData": function (newSalary) {
 
 		//This avoids a lot of problems
@@ -144,10 +238,10 @@ Meteor.methods({
 			throw new Meteor.Error("rolePermission", "Only workers may submit their salaries.");
 		}
 
-		// TODO: use upsert to prevent duplicate salaries.
-		const {companyId, jobTitle} = newSalary;
-		if (Salaries.find({companyId, jobTitle}).count() !== 0) {
-			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per location per job title.");
+		// TODO: filter by location as well
+		const {companyName, jobTitle} = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
+		if (Salaries.find({companyName, jobTitle}).count() !== 0) {
+			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per job title.");
 		}
 
 		console.log("SERVER: inserting");
@@ -217,30 +311,29 @@ Meteor.methods({
 		let emailSubject = "VIZE " + workerName + " has responded to your job advertisement";
 
 		/*
-			This email needs revision, this is only a
-			testing version. For example, including the
-			worker's contact info in the body of the email?
-			Not so sure about that. And of course the wording
-			will be revised. Perhaps additional security measures
-			should be added as well, such as smtps. But
-			this should work well enough for now.
-
 			QUESTION:
 			- What if the company didn't provide a valid email?
 			- What if the worker didn't?
 			- ...or a valid phone number?
 		*/
 
-		let emailText = "Greetings, " + companyName +
-		"\n\n\tA Vize user, " + workerName + ", has responded " +
-		"to your job advertisement [id=" + jobId + "]." +
-		"\n\n\tThey provided the following information: " +
-		"\n\n\tEmail: " + workerEmail +
-		"\n\n\tPhone number: " + workerPhone +
-		"\n\n\tCover Letter/Comments: " + workerComments +
-		"\n\n\tPlease follow up with them according to your company's policy." +
-		"\n\nSincerely," +
-		"\n\n\tVize";
+		let emailText = "To those at " + companyName + "," +
+		"\n\n\tCongratulations, you just received a new job application! " +
+		"A Vize user, " + workerName + ", has responded " +
+		"to your job post (which was given id=" + jobId + ")." +
+		"They provided the contact information below, feel free to contact " +
+		"them directly." +
+		"\n\n\tIf you have any issues with this process, please " +
+		"let us know. If you hire this employee, please send us a message letting " +
+		"us know what you think of our service. We hope you've found the perfect " +
+		"employee for your company and the position!" +
+		"\n\nAll the best," +
+		"\n\n\tThe Vize Team" +
+		"\n\nAPPLICANT INFORMATION" +
+		"\nFull name: " + workerName +
+		"\nEmail: " + workerEmail +
+		"\nPhone number: " + workerPhone +
+		"\nCover letter/Aditional comments:\n" + workerComments;
 
 		let applicationEmail = {
 			to: companyEmailAddress,
@@ -298,6 +391,27 @@ Meteor.methods({
 		let company = Companies.findOne(companyIdentifier);
 		if(company === undefined) {
 			throw new Meteor.Error("notFound", "Your search for companies did not return any results");
+		}
+
+		return company;
+	},
+
+	"companies.companyForCurrentUser": function() {
+
+		if(!this.userId) {
+			throw new Meteor.Error("loggedOut", "You must be logged in to perform this action");
+		}
+
+		let user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
+
+		if(user.role !== "company" || user.companyId === undefined) {
+			throw new Meteor.Error("rolePermission", "Only companies who have created Vize profiles may perform this action");
+		}
+
+		let company = Companies.findOne(user.companyId);
+
+		if(company === undefined) {
+			throw new Meteor.Error("notFound", "Unable to match a company profile with this user ID");
 		}
 
 		return company;

@@ -49,7 +49,6 @@ let Results1 = withTracker(({query}) => {
    return {
        isReady: handle.ready(),
        company: Companies.find({"name": { $regex: ".*" + query + ".*", $options: 'i'}}).fetch()
-       //db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}}
    };
 })(Results);
 
@@ -60,10 +59,18 @@ export default class CompanySearchTrial extends React.Component {
   constructor(props){
     super(props);
     this.state = {input: ""};
+
   }
 
   componentDidMount(){
-    console.log("Inside the company Search trial page");
+    // console.log("Inside the company Search trial page");
+    // console.log(this.props.queryParams);
+
+    if(this.props.queryParams !== undefined && this.props.queryParams.input !== undefined){
+      this.setState({input: this.props.queryParams.input});
+    } else{
+      console.log("inside else");
+    }
   }
 
 //Gives error for now -- Need to ask Julian for this.
@@ -86,7 +93,7 @@ export default class CompanySearchTrial extends React.Component {
     render() {
         return (
           <div className="customcompanypage">
-            <Header />
+            <div className="navbarwhite"><Header /></div>
             <div className="container-fluid  search_companies">
             <div className="row all_boxcolor1 select_box1">
                <div>
@@ -100,6 +107,7 @@ export default class CompanySearchTrial extends React.Component {
                                  <button type="submit">SEARCH</button>
                               </form>
                            </div>
+
                         </li>
                      </ul>
                   </div>
@@ -122,7 +130,7 @@ export default class CompanySearchTrial extends React.Component {
 
 {/* ////////////////////////RESULTS CODE///////////////////////////////// */}
 
-
+          <br></br>
           <Results1 query={this.state.input}/>
 
       </div>

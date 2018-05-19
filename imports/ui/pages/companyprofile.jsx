@@ -4,6 +4,7 @@ import { Companies } from "../../api/data/companies.js";
 import { Reviews } from "../../api/data/reviews.js";
 import { JobAds } from "../../api/data/jobads.js";
 import { Salaries } from "../../api/data/salaries.js";
+import { Votes } from "../../api/data/votes.js";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import StarRatings from 'react-star-ratings';
@@ -35,7 +36,7 @@ class CompanyProfile extends React.Component {
     // }
 
     render() {
-      if (!this.props.isReady || !this.props.isReady1 || !this.props.isReady2 || !this.props.isReady3) {
+      if (!this.props.isReady) {
           return <h2>Loading...</h2>;
       }
       if (this.props.company === undefined) {
@@ -53,7 +54,7 @@ class CompanyProfile extends React.Component {
       <div className="welcome  welpadgo wel_profile">
         <div className="container  welpad12 box_shadow">
            <div className="col-md-2  prostar">
-              <img src="images/p5.jpg"  className="img-responsive  hi"/>
+              <img src="/images/default-company.png"  className="img-responsive  hi"/>
            </div>
            <div className="col-md-6  prostar">
               <div className="col-md-12">
@@ -105,12 +106,15 @@ class CompanyProfile extends React.Component {
 
 
               <div  className="na_tab"  >
-                 <ul className="nav nav-tabs" role="tablist">
-                    <li className="active" role="presentation"  ><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                    <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
-                    <li role="presentation"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
-                    <li role="presentation"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
-                    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li>
+                 {/* <ul className="nav nav-tabs" role="tablist"> */}
+                   <ul className= " nav nav-tabs">
+                     {/* Setting the width of each tab to 25% for each tab since we deleted the 5th one */}
+                    <li className="active" role="presentation" style={{width:"25%"}}><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation" style={{width:"25%"}}><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+                    <li role="presentation" style={{width:"25%"}}><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
+                    <li role="presentation" style={{width:"25%"}}><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
+                    {/* Commenting out the Contact Us form for now */}
+                    {/* <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li> */}
                  </ul>
               </div>
 
@@ -122,13 +126,13 @@ class CompanyProfile extends React.Component {
      {/* =====================overview tab====================  */}
 
 
-        <OverviewTab jobsCount = {this.props.jobsCount} jobAds={this.props.jobAds} salaries={this.props.salaries} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount}/>
+        <OverviewTab jobsCount = {this.props.jobsCount} jobAds={this.props.jobAds} salaries={this.props.salaries} companyoverview={this.props.company} companyreview = {this.props.reviews} salariesCount = {this.props.salariesCount} userVotes = {this.props.userVotes}/>
 
         {/* ===============overview tab end==================
 
         ===========review tab==================  */}
         {/* pass both!!!! */}
-        <ReviewTab companyreview = {this.props.reviews} companyinfo = {this.props.company}/>
+        <ReviewTab companyreview = {this.props.reviews} companyinfo = {this.props.company} userVotes = {this.props.userVotes}/>
         {/* ===========review tab  end==================
 
             ================job tab============== */}
@@ -194,21 +198,20 @@ class CompanyProfile extends React.Component {
 
 
 export default withTracker(({ companyId }) => {
-    var handle = Meteor.subscribe("CompanyProfiles");
-    var handle1 = Meteor.subscribe("Reviews");
-    var handle2 = Meteor.subscribe("JobAds");
-    var handle3 = Meteor.subscribe("Salaries");
+    var handle1 = Meteor.subscribe("CompanyProfiles");
+    var handle2 = Meteor.subscribe("Reviews");
+    var handle3 = Meteor.subscribe("JobAds");
+    var handle4 = Meteor.subscribe("Salaries");
+    var handle5 = Meteor.subscribe("Votes", {submittedBy: Meteor.userId(), voteSubject: "review"});
 
     return {
-        isReady: handle.ready(),
-        isReady1: handle1.ready(),
-        isReady2: handle2.ready(),
-        isReady3: handle3.ready(),
+        isReady: handle1.ready() && handle2.ready() && handle3.ready() && handle4.ready() && handle5.ready(),
         company: Companies.findOne(companyId),
         reviews: Reviews.find({companyId: companyId}).fetch(),
         jobAds: JobAds.find({companyId: companyId}).fetch(),
         jobsCount: JobAds.find({companyId: companyId}).count(),
         salaries: Salaries.find({companyId: companyId}).fetch(),
         salariesCount: Salaries.find({companyId: companyId}).count(),
+		userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
     };
 })(CompanyProfile);

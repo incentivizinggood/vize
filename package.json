@@ -5,7 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.46",
+    "@babel/runtime": "^7.0.0-beta.47",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
@@ -15,6 +15,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",
+    "react-circular-progressbar": "^0.8.0",
     "react-dom": "^16.3.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

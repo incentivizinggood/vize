@@ -23,8 +23,8 @@ import JobTab from "../../ui/components/jobTabCP.jsx";
 import JobPosting from "../../ui/components/jobPosting.jsx";
 import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
-import CompanyComponent from "../../ui/components/companyComponent.jsx";
 import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+import ShowJobs from "../../ui/showjobs.jsx";
 
 
 import HomePage from "../../ui/pages/home.jsx";
@@ -33,8 +33,6 @@ import CompanySearchTrial from "../../ui/company-search-trial.jsx"
 
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
-import CompanySearchPage from "../../ui/pages/company-search.jsx";
-import CompanyPage from "../../ui/pages/company.jsx";
 import CompanyProfile from "../../ui/pages/companyprofile.jsx";
 import ContactUsPage from "../../ui/pages/contact-us.jsx";
 import HelpPage from "../../ui/pages/help.jsx";
@@ -44,7 +42,6 @@ import NotFoundPage from "../../ui/pages/not-found.jsx";
 import RegisterPage from "../../ui/pages/register.jsx";
 import UserPage from "../../ui/pages/user.jsx";
 
-//TESTING ONLY, but leaving in until the site's structure is better defined
 import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
 import WriteReviewForm from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
@@ -78,6 +75,9 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/jobs", <ShowJobs/>);
+routeSimplePage("/post-a-job", <PostAJobForm />);
+
 
 //----- Define the more complex routes. -----//
 
@@ -87,6 +87,7 @@ FlowRouter.route("/companies", {
 
 					// changing the route for now, because the search code is on CompanySearchTrial now.
 					// ORIGINAL CODE -- <CompanySearchPage queryParams={queryParams} />,
+
             <CompanySearchTrial queryParams={queryParams} />,
             document.getElementById("view-render")
         );
@@ -115,15 +116,6 @@ FlowRouter.route("/submit-salary-data", {
 	action(params, queryParams) {
 		ReactDOM.render(
 			<SubmitSalaryDataForm companyId={queryParams.id} />,
-			document.getElementById("view-render")
-		);
-	}
-});
-
-FlowRouter.route("/post-a-job", {
-	action(params, queryParams) {
-		ReactDOM.render(
-			<PostAJobForm companyId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
 	}

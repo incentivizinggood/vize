@@ -36,28 +36,30 @@ Salaries.schema = new SimpleSchema({
 	companyName: {		//Filled in by user, or auto-filled by form, but in any
 		type: String,	//case, company names are indexed so we may as well use
 	 	optional: false,//use this instead of companyID
+		max: 100,
 		index: true,
 		custom: function() {
 			if (Meteor.isClient && this.isSet) {
-				Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+				Meteor.call("companies.isNotSessionError", this.value, (error, result) => {
 					if (!result) {
 						this.validationContext.addValidationErrors([{
 							name: "companyName",
-							type: "noCompanyWithThatName",
+							type: "sessionError",
 						}]);
 					}
 				});
 			}
 			else if (Meteor.isServer && this.isSet) {
-				if(!Companies.hasEntry(this.value)) {
-					return "noCompanyWithThatName";
+				if(this.value === "ERROR: COMPANY NOT FOUND" ||
+					this.value === "Please wait while we finish loading the form...") {
+					return "sessionError";
 				}
 			}
 		}, },
 	companyId: {
 		type: String,
 		optional: true,
-		denyUpdate: true,
+		denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
 		index: true,
 		autoValue: function() {
 			if(Meteor.isServer && this.field("companyName").isSet) {
@@ -66,12 +68,7 @@ Salaries.schema = new SimpleSchema({
 					return company._id;
 				}
 				else {
-					// This should never happen, because
-					// companies not in the database cannot
-					// have salaries submitted for them:
-					// that error is caught in another
-					// custom validator
-					return undefined;
+					return "This company does not have a Vize profile yet";
 				}
 			}
 		},
@@ -80,6 +77,7 @@ Salaries.schema = new SimpleSchema({
 		}, },
 	jobTitle: {
 		type: String,
+		max: 100,
 		optional: false, },
 	incomeType: {
 		type: String,
@@ -107,6 +105,7 @@ Salaries.schema.messageBox.messages({
 	//in this block of code?
 	en: {
 		noCompanyWithThatName: "There is no company with that name in our database",
+		sessionError: "Please stop messing around",
 	},
 });
 
