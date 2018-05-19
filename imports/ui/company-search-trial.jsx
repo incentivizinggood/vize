@@ -63,8 +63,8 @@ export default class CompanySearchTrial extends React.Component {
   }
 
   componentDidMount(){
-    console.log("Inside the company Search trial page");
-    console.log(this.props.queryParams);
+    // console.log("Inside the company Search trial page");
+    // console.log(this.props.queryParams);
 
     if(this.props.queryParams !== undefined && this.props.queryParams.input !== undefined){
       this.setState({input: this.props.queryParams.input});

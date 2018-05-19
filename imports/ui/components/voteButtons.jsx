@@ -23,6 +23,7 @@ class VoteButtons extends React.Component {
 		Meteor.call("reviews.changeVote", this.props.review, true, (error, result) => {
 			if(!result) {
 				console.log("Messed up upvote");
+				console.log(error);
 			}
 			else {
 				// Change state here if you want to reactively update
@@ -42,6 +43,7 @@ class VoteButtons extends React.Component {
 		Meteor.call("reviews.changeVote", this.props.review, false, (error, result) => {
 			if(!result) {
 				console.log("Messed up downvote");
+				console.log(error);
 			}
 			else {
 				// Change state here if you want to reactively update

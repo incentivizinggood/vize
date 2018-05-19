@@ -120,7 +120,6 @@ if(this.props.companyreview.length > 0){
 
                             {to_display_review}
 
-
                           <center>
                             <div  className="na_tab1"  >
                              <ul className="" role="tablist">
