@@ -8,6 +8,8 @@ class VoteButtons extends React.Component {
 		super(props);
 		this.upVote = this.upVote.bind(this);
 		this.downVote = this.downVote.bind(this);
+		this.renderUpButton = this.renderUpButton.bind(this);
+		this.renderDownButton = this.renderDownButton.bind(this);
 		if(Meteor.isDevelopment) {
 			this.state = {
 				upVotes: 0,
@@ -54,21 +56,33 @@ class VoteButtons extends React.Component {
 		});
 	}
 
+	renderUpButton() {
+		return (
+			<div  className="thumb_up_bn">
+				<button type="button" className="btn btn-default btn-circle btn-xl" style={this.props.upStyle} onClick={this.upVote}>
+					<i  className="fa fa-thumbs-o-up  "></i>
+				</button>
+			</div>
+		);
+	}
+
+	renderDownButton() {
+		return (
+			<div  className="thumb_don_bn">
+				<button type="button" className="btn btn-default btn-circle btn-xl" style={this.props.downStyle} onClick={this.downVote}>
+					<i   className="fa fa-thumbs-o-down"></i>
+				</button>
+			</div>
+		);
+	}
+
 	render() {
 		return(
 			<div>
 				<br />
-				<div  className="thumb_up_bn">
-					<button type="button" className="btn btn-default btn-circle btn-xl" onClick={this.upVote}>
-						<i  className="fa fa-thumbs-o-up  "></i>
-					</button>
-				</div>
+				{this.renderUpButton()}
 				<br />
-				<div  className="thumb_don_bn">
-					<button type="button" className="btn btn-default btn-circle btn-xl" onClick={this.downVote}>
-						<i   className="fa fa-thumbs-o-down"></i>
-					</button>
-				</div>
+				{this.renderDownButton()}
 			</div>
 		);
 	}
@@ -76,13 +90,18 @@ class VoteButtons extends React.Component {
 
 export default withTracker(({ review, userVotes }) => {
 	// One of the more ridiculous pieces of code I've had to write
+	let userVote = userVotes.findOne({
+						submittedBy: Meteor.userId(),
+						references: review._id,
+						voteSubject: "review",
+					});
+	let upButtonStyle = (userVote === undefined || userVote.value === false) ? {"backgroundColor": "transparent"} : {"backgroundColor": "green"};
+	let downButtonStyle = (userVote === undefined || userVote.value === true) ? {"backgroundColor": "transparent"} : {"backgroundColor": "red"};
 	return {
 		review: review,
-		vote: userVotes.findOne({
-					submittedBy: Meteor.userId(),
-					references: review._id,
-					voteSubject: "review",
-				}),
+		vote: userVote,
+		upStyle: upButtonStyle,
+		downStyle: downButtonStyle,
 	};
 
 })(VoteButtons);
