@@ -238,10 +238,10 @@ Meteor.methods({
 			throw new Meteor.Error("rolePermission", "Only workers may submit their salaries.");
 		}
 
-		// TODO: use upsert to prevent duplicate salaries.
-		const {companyId, jobTitle} = newSalary;
-		if (Salaries.find({companyId, jobTitle}).count() !== 0) {
-			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per location per job title.");
+		// TODO: filter by location as well
+		const {companyName, jobTitle} = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page 
+		if (Salaries.find({companyName, jobTitle}).count() !== 0) {
+			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per job title.");
 		}
 
 		console.log("SERVER: inserting");
