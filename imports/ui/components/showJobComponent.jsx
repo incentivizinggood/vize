@@ -1,13 +1,16 @@
 import React from "react";
 
-export default class JobPosting extends React.Component {
+export default class ShowJobComponent extends React.Component {
 
   render() {
+    //@options -  For the date formatting
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       return(
         <div className="col-md-12 section_rview_back_color05 ">
               <div  className="sect_re11 ">
              <div >
+               <h3><strong>{this.props.item.companyName}</strong></h3>
+               <br></br>
                 <h4><strong>{this.props.item.jobTitle}</strong></h4>
              </div>
 

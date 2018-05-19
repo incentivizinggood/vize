@@ -1,5 +1,49 @@
 import React from "react";
 import StarRatings from 'react-star-ratings';
+import CircularProgressbar from "react-circular-progressbar";
+
+class ChangingProgressbar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentPercentageIndex: 0
+    };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        currentPercentageIndex:
+          (this.state.currentPercentageIndex + 1) %
+          this.props.percentages.length
+      });
+    }, this.props.interval);
+  }
+
+  getStyles() {
+    return this.props.stylesForPercentage
+      ? this.props.stylesForPercentage(this.getCurrentPercentage())
+      : {};
+  }
+
+  getCurrentPercentage() {
+    return this.props.percentages[this.state.currentPercentageIndex];
+  }
+
+  render() {
+    return (
+      <CircularProgressbar
+        {...this.props}
+        percentage={this.getCurrentPercentage()}
+        styles={this.getStyles()}
+      />
+    );
+  }
+}
+ChangingProgressbar.defaultProps = {
+  interval: 100000
+};
 
 export default class CompanyRating extends React.Component {
   constructor(props) {
@@ -85,7 +129,7 @@ export default class CompanyRating extends React.Component {
                 </div> */}
               <center> <h3> Recommended </h3></center>
                 <br />
-                     <div className="progress yellow">
+                     {/* <div className="progress yellow"> */}
 
                        {/* commented out the progress bars for now */}
                      {/* <span className="progress-left">
@@ -95,7 +139,14 @@ export default class CompanyRating extends React.Component {
                         <span className="progress-bar"></span>
                      </span> */}
 
-                     <div className="progress-value" >{(Math.round(this.props.companyrating.percentRecommended*100)/100)*100}%</div>
+                     {/* <div className="progress-value" >{(Math.round(this.props.companyrating.percentRecommended*100)/100)*100}%</div> */}
+
+                     <div style={{width: '50%', height: '50%', margin:'0 auto'}}>
+                     <ChangingProgressbar
+                       percentages={[(Math.round(this.props.companyrating.percentRecommended*100)/100)*100]}
+                       strokeWidth={10}
+                       initialAnimation
+                      />
                      </div>
                      <center>
                      <div  className="col-md-6"><div  className="num_sett"><h1>{Math.round(this.props.companyrating.avgNumMonthsWorked*100)/100} </h1></div></div>

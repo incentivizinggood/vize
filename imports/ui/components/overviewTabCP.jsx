@@ -10,9 +10,137 @@ export default class OverviewTab extends React.Component {
 
 
 render() {
-
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   var to_display_jobs;
   var salaries_to_display;
+  var to_display_review;
+  var className;
+if(this.props.companyreview.length > 0){
+  if(this.props.companyreview[0].wouldRecommendToOtherJobSeekers){
+    className = <p style={{color:"#2E8B57"}}><i className="fa fa-check-square" style={{color:"#2E8B57"}} aria-hidden="true"></i>&nbsp;&nbsp;Recommended</p>;
+  }else{
+    className = <p style={{color:"#FF4545"}}><i className="far fa-times-circle" style={{color:"#FF4545"}} aria-hidden="true"></i>&nbsp;&nbsp;Not Recommended</p>;
+  }
+}
+
+//FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
+
+if(this.props.companyreview.length > 0){
+
+  to_display_review =
+
+
+      <div  className="rev_section">
+         <div  className="mar_pad2">
+
+            <p>{this.props.companyreview[0].datePosted.toLocaleDateString("en-US",options)}<span>&nbsp;&nbsp;- <strong>{this.props.companyreview[0].jobTitle}</strong></span></p>
+            <h2  className="head-rev-con">{this.props.companyreview[0].reviewTitle} </h2>
+
+            <div className="btn-group show-on-hover">
+               <a type="button" className="btn btn-default dropdown-toggle  btbn" data-toggle="dropdown">
+               <StarRatings
+                rating={(this.props.companyreview[0].healthAndSafety + this.props.companyreview[0].managerRelationship + this.props.companyreview[0].workEnvironment + this.props.companyreview[0].benefits)/4}
+                //the average rating of all 5 ratings
+                starDimension="15px"
+                starSpacing="1.5px"
+              />
+               &nbsp;<i className="fa fa-caret-down"></i>
+               </a>
+               <ul className="dropdown-menu" role="menu">
+                 <li><label>Overall</label>
+                    <br />
+                    <StarRatings
+                     rating={this.props.companyreview[0].overallSatisfaction}
+                     starDimension="15px"
+                     starSpacing="1.5px"
+                   />
+                 </li>
+                  <li><label>Health & Safety</label>
+                     <br />
+                     <StarRatings
+                      rating={this.props.companyreview[0].healthAndSafety}
+                      starDimension="15px"
+                      starSpacing="1.5px"
+                    />
+                  </li>
+                  <li>  <label >Work Environment</label>
+                     <br />
+                     <StarRatings
+                      rating={this.props.companyreview[0].workEnvironment}
+                      starDimension="15px"
+                      starSpacing="1.5px"
+                    />
+                  </li>
+                  <li><label >Benefits</label>
+                     <br />
+                     <StarRatings
+                      rating={this.props.companyreview[0].benefits}
+                      starDimension="15px"
+                      starSpacing="1.5px"
+                    />
+                  </li>
+                  <li> <label >Manager Relationships</label>
+                     <br />
+                     <StarRatings
+                      rating={this.props.companyreview[0].managerRelationship}
+                      starDimension="15px"
+                      starSpacing="1.5px"
+                    />
+                  </li>
+
+               </ul>
+            </div>
+
+            <br />
+          {/* // Does the IF-ELSE, and changes class to the ticked one if recommended
+          //and to the crossed one, if not recommended. */}
+              {className}
+         </div>
+         <div  className="mar_pad">
+            <div className="col-md-8">
+               <div className="form-group  p-c-a">
+                 <br />
+                 <label>Pros</label>
+                 <br />
+                 <p >
+                  {this.props.companyreview[0].pros}
+                 </p>
+              </div>
+              <br />
+              <div className="form-group  p-c-a">
+                 <label>Cons</label>
+                 <br />
+                 <p>
+                    {this.props.companyreview[0].cons}
+                 </p>
+              </div>
+              <br />
+              <div className="form-group  p-c-a">
+                 <label>Additional Comments</label>
+                 <br />
+                 <p>{this.props.companyreview[0].additionalComments}</p>
+              </div>
+            </div>
+            <div className="col-md-4 bn-col">
+               <div  className="fl_ri">
+                  <br />
+                  <div  className="thumb_up_bn">
+                     <button type="button" className="btn btn-default btn-circle btn-xl"> <i  className="fa fa-thumbs-o-up  "></i></button>
+                  </div>
+                  <br />
+                  <div  className="thumb_don_bn">
+                     <button type="button" className="btn btn-default btn-circle btn-xl">  <i   className="fa fa-thumbs-o-down"></i></button>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+         <div className="clear"></div>
+      {/* </div> */}
+    </div>
+} else{
+  to_display_review = "No Reviews to show right now";
+}
 
 //FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
   if(this.props.jobAds.length > 0){
@@ -89,15 +217,16 @@ render() {
                                <h4  className="head_section_font">{this.props.companyoverview.name} Reviews</h4>
                                <div  className="add-buttons">
                                  <a href={this.props.companyoverview.vizeReviewUrl} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a>
-                                          {/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
                                 </div>
 
                                <hr />
-                               {/* getting the strange error in CompanyRating */}
+
                                 <CompanyRating companyrating={this.props.companyoverview}/>
 
                              </div>
                              <div  className="col-md-12  section_overtopsect">
+
+                            {to_display_review}
 
 
                           <center>
@@ -123,7 +252,7 @@ render() {
                                 <center>
                                   <div  className="na_tab1">
                                    <ul className="" role="tablist">
-                                   <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
+                                   <li role="presentation"   className="te_deco"><a href="#jobs" aria-controls="jobs" aria-expanded="true" role="tab" data-toggle="tab"> <strong>See All Jobs ></strong></a></li>
                                     </ul>
                                     </div>
                                   </center>
@@ -150,16 +279,12 @@ render() {
                                         <center>
 
                                             <ul className="" role="tablist">
-                                              <li role="presentation"   className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
+                                              <li role="presentation"   id="see_all_salaries" className="te_deco"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab"><strong>See All Salaries ></strong></a></li>
                                             </ul>
                                         </center>
 
                                       </div>
                                       </div>
-
-
-
-
       </div>
 
 )

@@ -53,7 +53,7 @@ class CompanyProfile extends React.Component {
       <div className="welcome  welpadgo wel_profile">
         <div className="container  welpad12 box_shadow">
            <div className="col-md-2  prostar">
-              <img src="images/p5.jpg"  className="img-responsive  hi"/>
+              <img src="/images/default-company.png"  className="img-responsive  hi"/>
            </div>
            <div className="col-md-6  prostar">
               <div className="col-md-12">
@@ -106,10 +106,10 @@ class CompanyProfile extends React.Component {
 
               <div  className="na_tab"  >
                  <ul className="nav nav-tabs" role="tablist">
-                    <li className="active" role="presentation"  ><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                    <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
-                    <li role="presentation"><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
-                    <li role="presentation"><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
+                    <li className="active" role="presentation" ><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                    <li role="presentation" ><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+                    <li role="presentation" ><a href="#jobs" aria-controls="jobs" role="tab" data-toggle="tab">Jobs</a></li>
+                    <li role="presentation" ><a href="#salaries" aria-controls="salaries" role="tab" data-toggle="tab">Salaries</a></li>
                     <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li>
                  </ul>
               </div>
