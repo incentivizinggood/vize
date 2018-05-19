@@ -39,3 +39,17 @@ Votes.schema = new SimpleSchema({
 		type: Boolean,
 		optional: false, }
 }, { tracker: Tracker } );
+
+Votes.attachSchema(Votes.schema, { replace: true });
+
+Votes.deny({
+	insert() { return true; },
+	update() { return true; },
+	remove() { return true; }
+});
+
+if (Meteor.isServer) {
+	Meteor.publish("Votes", function() {
+		return Votes.find({});
+	});
+}
