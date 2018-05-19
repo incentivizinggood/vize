@@ -163,14 +163,39 @@ Meteor.methods({
 		// This next bit was a pain to write
 
 		let previousVote = Votes.findOne({submittedBy: this.userId, references: review._id, voteSubject: "review"});
-		let upsertResult = Votes.upsert({submittedBy: this.userId, references: review._id, voteSubject: "review"}, {
-			submittedBy: this.userId,
-			references: review._id,
-			voteSubject: "review",
-			value: vote,
-		}, {multi: false});
 
-		if(upsertResult.numberAffected !== 0 && (previousVote === undefined || vote !== previousVote.value)) {
+		// This is completely ridiculous, I wanted to use
+		// upsert but it just got too complicated
+		let result;
+		if(previousVote === undefined) {
+			result = Votes.insert({
+				submittedBy: this.userId,
+				references: review._id,
+				voteSubject: "review",
+				valute: vote,
+			});
+		}
+		else {
+			result = Votes.update(
+				{submittedBy: this.userId, references: review._id, voteSubject: "review"},
+				{$set: {value: vote}}
+			);
+		}
+
+		// again with the doing things the first way that comes to mind
+		let proceed =
+			(
+				(previousVote === undefined && result !== undefined)
+				||
+				(previousVote !== undefined && result !== 0)
+			)
+			&&
+			(
+				(previousVote === undefined)
+				||
+				(vote !== previousVote.value)
+			);
+		if(proceed) {
 			if(vote === true) {
 				let decNum = (previousVote === undefined || review.downvotes === 0) ? 0 : -1;
 				Reviews.update(review._id, {$inc: {upvotes: 1, downvotes: decNum}}, {getAutoValues: false});
@@ -213,10 +238,10 @@ Meteor.methods({
 			throw new Meteor.Error("rolePermission", "Only workers may submit their salaries.");
 		}
 
-		// TODO: use upsert to prevent duplicate salaries.
-		const {companyId, jobTitle} = newSalary;
-		if (Salaries.find({companyId, jobTitle}).count() !== 0) {
-			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per location per job title.");
+		// TODO: filter by location as well
+		const {companyName, jobTitle} = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page 
+		if (Salaries.find({companyName, jobTitle}).count() !== 0) {
+			throw new Meteor.Error("duplicateSalary", "You may only submit one salary per company per job title.");
 		}
 
 		console.log("SERVER: inserting");

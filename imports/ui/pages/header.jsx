@@ -41,7 +41,7 @@ class Header extends React.Component {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                         </button>
-                        <h2>
+                        <h2 className="site-logo">
                            <a href="/"><img src="/images/logo.png"/></a>
                         </h2>
                      </div>
