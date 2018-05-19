@@ -8,13 +8,12 @@ class VoteButtons extends React.Component {
 		super(props);
 		this.upVote = this.upVote.bind(this);
 		this.downVote = this.downVote.bind(this);
-		if(Meteor.isDevelopment) {
-			this.state = {
-				upVotes: 0,
-				downVotes: 0,
-			};
-			console.log("Constructing buttons for review " + this.props.review._id);
-		}		
+		
+		this.state = {
+			upVotes: 0,
+			downVotes: 0,
+		};
+
 	}
 
 	upVote(event) {

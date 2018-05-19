@@ -1,8 +1,12 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
 import StarRatings from 'react-star-ratings';
 import VoteButtons from "./voteButtons.jsx";
 
 export default class ReviewComponent extends React.Component {
+	constructor(props) {
+		super(props);
+	}
   render() {
     //@options -  For the date formatting
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -110,7 +114,7 @@ export default class ReviewComponent extends React.Component {
           </div>
           <div className="col-md-4 bn-col">
              <div  className="fl_ri">
-				 <VoteButtons review={this.props.item}/>
+				 <VoteButtons review={this.props.item} userVotes={this.props.userVotes}/>
              </div>
 
           </div>

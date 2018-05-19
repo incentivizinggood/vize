@@ -209,6 +209,6 @@ export default withTracker(({ companyId }) => {
         jobsCount: JobAds.find({companyId: companyId}).count(),
         salaries: Salaries.find({companyId: companyId}).fetch(),
         salariesCount: Salaries.find({companyId: companyId}).count(),
-		userVotes: Votes.find({submittedBy: this.userId}).fetch(),
+		userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
     };
 })(CompanyProfile);
