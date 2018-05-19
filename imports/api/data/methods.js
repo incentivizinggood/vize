@@ -163,14 +163,39 @@ Meteor.methods({
 		// This next bit was a pain to write
 
 		let previousVote = Votes.findOne({submittedBy: this.userId, references: review._id, voteSubject: "review"});
-		let upsertResult = Votes.upsert({submittedBy: this.userId, references: review._id, voteSubject: "review"}, {
-			submittedBy: this.userId,
-			references: review._id,
-			voteSubject: "review",
-			value: vote,
-		}, {multi: false});
 
-		if(upsertResult.numberAffected !== 0 && (previousVote === undefined || vote !== previousVote.value)) {
+		// This is completely ridiculous, I wanted to use
+		// upsert but it just got too complicated
+		let result;
+		if(previousVote === undefined) {
+			result = Votes.insert({
+				submittedBy: this.userId,
+				references: review._id,
+				voteSubject: "review",
+				valute: vote,
+			});
+		}
+		else {
+			result = Votes.update(
+				{submittedBy: this.userId, references: review._id, voteSubject: "review"},
+				{$set: {value: vote}}
+			);
+		}
+
+		// again with the doing things the first way that comes to mind
+		let proceed =
+			(
+				(previousVote === undefined && result !== undefined)
+				||
+				(previousVote !== undefined && result !== 0)
+			)
+			&&
+			(
+				(previousVote === undefined)
+				||
+				(vote !== previousVote.value)
+			);
+		if(proceed) {
 			if(vote === true) {
 				let decNum = (previousVote === undefined || review.downvotes === 0) ? 0 : -1;
 				Reviews.update(review._id, {$inc: {upvotes: 1, downvotes: decNum}}, {getAutoValues: false});
