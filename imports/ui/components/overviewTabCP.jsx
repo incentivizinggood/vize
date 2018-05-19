@@ -10,7 +10,7 @@ export default class OverviewTab extends React.Component {
 
 
 render() {
-
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   var to_display_jobs;
   var salaries_to_display;
   var to_display_review;
@@ -33,7 +33,7 @@ if(this.props.companyreview.length > 0){
       <div  className="rev_section">
          <div  className="mar_pad2">
 
-            <p>{this.props.companyreview[0].datePosted.toString()}<span>&nbsp;&nbsp;- <strong>{this.props.companyreview[0].jobTitle}</strong></span></p>
+            <p>{this.props.companyreview[0].datePosted.toLocaleDateString("en-US",options)}<span>&nbsp;&nbsp;- <strong>{this.props.companyreview[0].jobTitle}</strong></span></p>
             <h2  className="head-rev-con">{this.props.companyreview[0].reviewTitle} </h2>
 
             <div className="btn-group show-on-hover">

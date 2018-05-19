@@ -3,7 +3,8 @@ import StarRatings from 'react-star-ratings';
 
 export default class ReviewComponent extends React.Component {
   render() {
-
+    //@options -  For the date formatting
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     //IF-ELSE for the Recommended option, green tick v/s red cross
     var className;
     if(this.props.item.wouldRecommendToOtherJobSeekers){
@@ -18,17 +19,14 @@ export default class ReviewComponent extends React.Component {
   <div  className="col-md-12  section_over_revi2 ">
     <div  className="rev_section">
        <div  className="mar_pad2">
-         {/* this.props.companyreview has the company collection for that particular company */}
-
-         {/* <p>{console.log(this.props.item.datePosted.toString())}</p> */}
-          <p>{this.props.item.datePosted.toString()}<span>&nbsp;&nbsp;- <strong>{this.props.item.jobTitle}</strong></span></p>
+          <p>{this.props.item.datePosted.toLocaleDateString("en-US",options)}<span>&nbsp;&nbsp;- <strong>{this.props.item.jobTitle}</strong></span></p>
           <h2  className="head-rev-con">{this.props.item.reviewTitle} </h2>
 
           <div className="btn-group show-on-hover">
              <a type="button" className="btn btn-default dropdown-toggle  btbn" data-toggle="dropdown">
              <StarRatings
-              rating={(this.props.item.healthAndSafety + this.props.item.managerRelationship + this.props.item.workEnvironment + this.props.item.benefits)/4}
-              //the average rating of all 5 ratings
+              rating={(this.props.item.healthAndSafety + this.props.item.managerRelationship + this.props.item.workEnvironment + this.props.item.benefits)/4}//the average rating of all 5 ratings
+
               starDimension="15px"
               starSpacing="1.5px"
             />

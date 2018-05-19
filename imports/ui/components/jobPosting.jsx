@@ -3,6 +3,7 @@ import React from "react";
 export default class JobPosting extends React.Component {
 
   render() {
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       return(
         <div className="col-md-12 section_rview_back_color05 ">
               <div  className="sect_re11 ">
@@ -44,7 +45,7 @@ export default class JobPosting extends React.Component {
 
                         {/* there is no date field in the Schema */}
                          {/* <p>posted on {this.props.item.datePosted.toString()}</p> */}
-                         <p>posted on {this.props.item.datePosted.toString()}</p>
+                         <p>posted on {this.props.item.datePosted.toLocaleDateString("en-US", options)}</p>
                       </div>
                 </article>
 

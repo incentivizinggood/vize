@@ -23,23 +23,12 @@ export default class ReviewTab extends React.Component {
             </div>
            <hr />
 
-            {/* <CompanyRating /> */}
+
             <CompanyRating companyrating={this.props.companyinfo}/>
 
          </div>
-         {/* <hr />
-         <h3  className="head_section_font_25">25 Reviews</h3> */}
 
-         {/* <CompanyReview /> */}
-         {/* <CompanyReview companyreview={this.props.companyreview}/> */}
          {RenderedItems}
-
-
-
-      {/* ==========review 2========== */}
-                {/* <CompanyReview /> */}
-                {/* <CompanyReview companyreview={this.props.companyreview}/> */}
-
 
       </div>
 
