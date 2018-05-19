@@ -30,19 +30,22 @@ export default class AboutPage extends React.Component {
 
         Meteor.call(
             "sendEmail",
-            "urelperfect@gmail.com",
+            "incentivizinggood@gmail.com",
             "postmaster@incentivizinggood.com",
             ("Contacting us: " + this.state.name),
-            ("Howdy Vize reader,,\n\n" + "Below is the message: \n" + this.state.textBox + ".\n\nSincerely,\n\n Vize Inc.\n\n"),
+            ("Howdy Vize reader,\n" + "Below is the message: \n" + this.state.textBox + ".\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: " + this.state.emailSending),
             (err, res) => {
                 if (err) {
                     console.log("--- BEGIN error:");
+                    alert("Please try again")
                     console.log(err);
                     console.log("--- END error")
                 } else {
                     console.log("--- BEGIN success:");
                     console.log(res);
                     console.log("--- END success")
+                    alert("Thank you for the feedback!")
+
                 }
             }
         );
@@ -51,6 +54,13 @@ export default class AboutPage extends React.Component {
 
         // alert("wassup");
         event.preventDefault();
+
+
+        //clearing fields
+        document.getElementById("first-name").value = null;
+        document.getElementById("email").value = null;
+        document.getElementById("message").value = null;
+
     }
 
     handleNameChange(event) {
