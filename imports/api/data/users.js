@@ -12,20 +12,20 @@ Meteor.users.schema = new SimpleSchema({
     // and some of the packages depend on them.
     _id: {
         type: String,
-        unique: true
+        unique: true,
     },
     username: {
         type: String,
-        unique: true
+        unique: true,
     },
     emails: { type: Array, optional: true },
-    'emails.$': { type: Object },
-    'emails.$.address': {
-        type: String
+    "emails.$": { type: Object },
+    "emails.$.address": {
+        type: String,
         // We choose to not do a regex check on email addresses,
         // they will need to get verified anyway so there is no point.
     },
-    'emails.$.verified': { type: Boolean },
+    "emails.$.verified": { type: Boolean },
     createdAt: { type: Date },
     services: { type: Object, blackbox: true },
     // There would normaly be a profile field, but
@@ -39,13 +39,13 @@ Meteor.users.schema = new SimpleSchema({
         // For example: A worker should not be able to post a job offer and
         //              a company should not be able to leave a review.
         type: String,
-        allowedValues: ["worker", "company-unverified", "company"]
+        allowedValues: ["worker", "company-unverified", "company"],
     },
     companyId: {
         // If role === "company", the ID of the company that this user is administering.
         type: String,
-        optional: true
-    }
+        optional: true,
+    },
 });
 
 Accounts.onCreateUser(function(options, user) {
@@ -58,11 +58,10 @@ Accounts.onCreateUser(function(options, user) {
 // Check that all new users follow the schema defined above.
 // This check should get run automatically when a new user is created
 // (or is attempted to be created, this check could block that).
-Accounts.validateNewUser((user) => {
+Accounts.validateNewUser(user => {
     Meteor.users.schema.validate(user);
     return true;
 });
-
 
 // ----- Security -----
 
@@ -71,11 +70,16 @@ Accounts.validateNewUser((user) => {
 // security reasons. All modifications of the database should be handled
 // only by the server.
 Meteor.users.deny({
-    insert() { return true; },
-    update() { return true; },
-    remove() { return true; }
+    insert() {
+        return true;
+    },
+    update() {
+        return true;
+    },
+    remove() {
+        return true;
+    },
 });
-
 
 // Since the users collection contians a lot of very sensitive data,
 // we must be extra carefull with what is published.
@@ -84,12 +88,12 @@ Meteor.users.deny({
 // filter which only allows only public fields through.
 Meteor.users.publicFields = {
     username: 1,
-    role: 1
+    role: 1,
 };
 
 if (Meteor.isServer) {
     // Only publish the bear minimum fields by default.
-    Meteor.publish('users', function () {
+    Meteor.publish("users", function() {
         return Meteor.users.find({}, { fields: Meteor.users.publicFields });
     });
 }

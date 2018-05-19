@@ -1,61 +1,50 @@
-        .icon-small
-{
-    height:18px;
-    margin:0;
-	padding:0;
+.icon-small {
+    height: 18px;
+    margin: 0;
+    padding: 0;
 }
 
-.icon-medium
-{
-    height:22px;
-	margin:0;
-	padding:0;
+.icon-medium {
+    height: 22px;
+    margin: 0;
+    padding: 0;
 }
 nav.header_main {
     background: #ffffff;
     box-shadow: 0 0 5px;
 }
 .top-nav ul li a {
-   
-    color: #000000!important;
-
- }
- .top-nav ul li a:hover {
-   
-    color: #000000!important;
-
- }
- form.example input[type=text] {
+    color: #000000 !important;
+}
+.top-nav ul li a:hover {
+    color: #000000 !important;
+}
+form.example input[type="text"] {
     padding: 10px;
     font-size: 19px;
     border: 1px solid grey;
     float: left;
     width: 75%;
-    background: #ffffff!important;
+    background: #ffffff !important;
     border-radius: 4px;
     font-weight: bold;
 }
 .banner-text-info {
     width: 70%;
-    margin: 1em auto 0!important;
+    margin: 1em auto 0 !important;
     text-align: center;
-    margin-bottom: 1em!important;
+    margin-bottom: 1em !important;
 }
 nav.navScroll {
-    
-    box-shadow: 0px 0px 0px #B1B1B1!important;
+    box-shadow: 0px 0px 0px #b1b1b1 !important;
 }
 
+@media screen and (max-width: 767px) and (min-width: 320px) {
+    .top-nav ul li a {
+        color: #ffffff !important;
+    }
 
-
-@media screen and (max-width:767px) and (min-width: 320px){
-
-.top-nav ul li a {
-     color: #ffffff!important; 
-}
-
-  .top-nav ul li a:hover {
-    color: #ffffff!important; 
-}
- 
+    .top-nav ul li a:hover {
+        color: #ffffff !important;
+    }
 }

@@ -11,7 +11,7 @@ export default class RegisterPage extends React.Component {
             success: false,
             username: "",
             password: "",
-            role: ""
+            role: "",
         };
 
         // These bindings are necessary to make `this` work in callbacks.
@@ -26,7 +26,7 @@ export default class RegisterPage extends React.Component {
         const name = target.name;
 
         this.setState({
-            [name]: value
+            [name]: value,
         });
     }
 
@@ -35,7 +35,7 @@ export default class RegisterPage extends React.Component {
         let createUserCallback = error => {
             this.setState({
                 error: error ? error.reason : null,
-                success: !error
+                success: !error,
             });
             if (this.state.success) {
                 FlowRouter.go("/");
@@ -44,7 +44,7 @@ export default class RegisterPage extends React.Component {
         let options = {
             username: this.state.username,
             password: this.state.password,
-            role: this.state.role
+            role: this.state.role,
         };
         Accounts.createUser(options, createUserCallback);
     }

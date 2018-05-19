@@ -9,7 +9,7 @@ export default class LoginPage extends React.Component {
             error: Meteor.userId() === null ? null : "Already loged in",
             success: false,
             username: "",
-            password: ""
+            password: "",
         };
 
         // These bindings are necessary to make `this` work in callbacks.
@@ -24,7 +24,7 @@ export default class LoginPage extends React.Component {
         const name = target.name;
 
         this.setState({
-            [name]: value
+            [name]: value,
         });
     }
 
@@ -33,7 +33,7 @@ export default class LoginPage extends React.Component {
         let loginCallback = error => {
             this.setState({
                 error: error ? error.reason : null,
-                success: !error
+                success: !error,
             });
             if (this.state.success) {
                 FlowRouter.go("/");
