@@ -96,6 +96,7 @@ Companies.schema = new SimpleSchema({
 	name: {
 		type: String,
 	 	optional: false,
+		max: 100,
 		index: true, /* requires aldeed:collection2 and simpl-schema packages */
 		unique: true, /* ditto */
 		custom: function() {
@@ -118,6 +119,7 @@ Companies.schema = new SimpleSchema({
 	contactEmail: {
 		type: String,
 		optional: false,
+		max: 100,
 		regEx: SimpleSchema.RegEx.EmailWithTLD,
 		autoform: {
 			afFieldInput: {
@@ -133,18 +135,22 @@ Companies.schema = new SimpleSchema({
 		optional: true, }, //should this be required?
 	industry: {
 		type: String, //could throw in allowedValues, might be helpful to define industry types -> ask Bryce?
+		max: 50,
 		optional: true, }, //should this be required?
 	locations: {
 		type: Array, //allows more than one location
 		minCount: 1, //must have at least an HQ or something
  		optional: false, },
 	'locations.$': { //restraints on members of the "locations" array
-		type: String, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		type: String,
+		max: 150, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
 	otherContactInfo: {
 		type: String, //dunno what this needs to be, leaving it to the user's discretion to "validate"
+		max: 200,
 		optional: true, },
 	websiteURL: {		// the COMPANY's actual website, not their
 		type: String,	// little corner of the Vize web app
+		max: 300,
 		optional: true, // should this be required?
 		regEx: SimpleSchema.RegEx.Url,
 	 	autoform: {
@@ -155,6 +161,7 @@ Companies.schema = new SimpleSchema({
 	descriptionOfCompany: {
 		type: String,
 		optional: true,
+		max: 6000,
 		autoform: {
 			type: "textarea",
 			rows: 6,
