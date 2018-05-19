@@ -58,6 +58,39 @@ body{
     min-height:700px;
     position:relative;
 }
+
+/*=======header search==== */
+
+.input-append.search_filed {
+    /* padding: 0px; */
+    margin-bottom: 0px;
+    font-size: 19px;
+    /*border: 1px solid grey;*/
+    width: 85%;
+    background: #f1f1f1;
+    border-radius: 4px;
+    font-weight: bold;
+    line-height: 39px;
+    margin: 0 auto;
+}
+input.input-medium.search-query {
+    width: 85%;
+    float: left;
+
+    padding-left: 17px;
+}
+button.add-on {
+    background: #439bd5;
+     border: 2px solid #439bd5;
+    width: 15%;
+        color: #fff;
+}
+/*=======header search==== */
+
+.site-logo {
+  margin-top: 0px;
+}
+
  .banner-info{
     background-size:cover;
     -moz-background-size:cover;
@@ -329,51 +362,50 @@ body{
     border-color:#FFFFFF;
     background-color:#745EC5;
 }
- .welcome,.tabs,.services,.slid,.footer,.about,.team,.codes,.contact,.gallery,.blog{
-    padding:8em 0;
+.welcome,.tabs,.services,.slid,.footer,.about,.team,.codes,.contact,.gallery,.blog{
+   padding:8em 0;
 }
- .welcome-left{
-    padding-right:8em;
+.welcome-left{
+   padding-right:8em;
 }
- .welcome-left img ,.tabs img{
-    width:100%;
+.welcome-left img ,.tabs img{
+   width:100%;
 }
- h3.title{
-    font-size:4em;
-    color:#745EC5;
-    text-align:center;
+h3.title{
+   font-size:4em;
+   color:#745EC5;
+   text-align:center;
 }
-.few-txt {
-    padding: 70px 40px 0px 40px;
+p{
+   font-size:1.1em;
+   color:#aaa;
+   line-height:1.6em;
+   margin-top:0.5em;
 }
- p{
-    font-size:1.1em;
-    color:#aaa;
-    line-height:1.6em;
-    margin-top:0.5em;
+.welcome h3.title,.tabs h3.title{
+   text-align:left;
 }
- .welcome h3.title,.tabs h3.title{
-    text-align:left;
+.welcome h4{
+   font-size:1.5em;
+   color:#000;
+   font-weight:700;
 }
- .welcome h4{
-    font-size:1.5em;
-    color:#000;
-    font-weight:700;
+.welcome span.glyphicon{
+   font-size:1.2em;
+   border:2px solid #aaa;
+   border-radius:50%;
+   padding:0.8em;
+   color:#555;
 }
- .welcome span.glyphicon{
-    font-size:1.2em;
-    border:2px solid #aaa;
-    border-radius:50%;
-    padding:0.8em;
-    color:#555;
+.welcome-info{
+   margin-top:1.5em;
 }
- .welcome-info{
-    margin-top:1.5em;
+.welcome-info:hover span.glyphicon{
+   border-color:#333;
+   color:#333;
 }
- .welcome-info:hover span.glyphicon{
-    border-color:#333;
-    color:#333;
-}
+
+
  .tabs{
     background:#ffffff;
 }
@@ -3617,6 +3649,18 @@ padding-top: 135px;
  a#register-button:active{
     background:#fb406f!important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
