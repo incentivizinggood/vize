@@ -3,7 +3,11 @@
 		<fieldset>
 			<legend>Submit Salary Data</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+				{{#if shouldHaveCompany}}
 				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+				{{else}}
+				{{> afQuickField name='companyName' }}
+				{{/if}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 				{{> afQuickField name='jobTitle' placeholder="Please tell us which job title this income data applies to"}}
