@@ -22,16 +22,18 @@ if(Meteor.isClient) {
 	Template.ssd_blaze_form.onCreated(function() {
 		let id = ssd_form_state.get("companyId");
 		if(Meteor.isDevelopment) console.log("received id: " + id);
-		this.autorun(function() {
-			Meteor.call("companies.findOne", id, (error, result) => {
-				if (!result) {
-					ssd_form_state.set("company", undefined);
-				}
-				else {
-					ssd_form_state.set("company", result);
-				}
+		if(id !== undefined) {
+			this.autorun(function() {
+				Meteor.call("companies.findOne", id, (error, result) => {
+					if (!result) {
+						ssd_form_state.set("company", undefined);
+					}
+					else {
+						ssd_form_state.set("company", result);
+					}
+				});
 			});
-		});
+		}
 	});
 
 	Template.ssd_blaze_form.onRendered(function() {
@@ -42,6 +44,9 @@ if(Meteor.isClient) {
 		salaries: Salaries,
 		ErrorWidget: function() {
 			return ErrorWidget;
+		},
+		shouldHaveCompany: function() {
+			return ssd_form_state.get("companyId") !== undefined;
 		},
 		getCompanyName: function() {
 			let company = ssd_form_state.get("company");
@@ -59,6 +64,7 @@ if(Meteor.isClient) {
 			return ssd_form_state.get("formError");
 		},
 		resetFormError: function() { //called when reset button is clicked
+			if(Meteor.isDevelopment) console.log("Resetting ssd_review_form");
 			ssd_form_state.set("formError", "good");
 		},
 	});
