@@ -22,9 +22,7 @@ export default class ShowJobComponent extends React.Component {
                 <p> <i className="fa fa-money" ></i>&nbsp;&nbsp;{this.props.item.pesosPerHour}/Hour</p>
                 <p> <i className="fa fa-calendar" ></i>&nbsp;&nbsp;{this.props.item.contractType}</p>
              </div>
-               {/* <div  className="add-buttons">
-                        <a href={this.props.item.vizeApplyForJobUrl} className="btn btn-primary"> <i aria-hidden="true"></i>   Apply now</a>
-                      </div> */}
+  
 
            <hr />
              <h4 className="h4-font-sz-job">Job Description</h4>
@@ -46,8 +44,6 @@ export default class ShowJobComponent extends React.Component {
                    <label className="read-more-toggle-label" htmlFor={this.props.item._id}>  </label>
                   <div   className="fl-ri">
 
-                        {/* there is no date field in the Schema */}
-                         {/* <p>posted on {this.props.item.datePosted.toString()}</p> */}
                          <p>posted on {this.props.item.datePosted.toLocaleDateString("en-US", options)}</p>
                       </div>
                 </article>
