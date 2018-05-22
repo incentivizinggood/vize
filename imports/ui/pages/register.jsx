@@ -1,4 +1,5 @@
 import React from "react";
+import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
 
 /* The page where users can create an account.
@@ -20,10 +21,10 @@ export default class RegisterPage extends React.Component {
 	}
 
 	handleInputChange(event) {
-		const target = event.target;
+		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;
-		const name = target.name;
+		const { name } = target;
 
 		this.setState({
 			[name]: value,
@@ -57,21 +58,22 @@ export default class RegisterPage extends React.Component {
 			<div className="page register">
 				{this.state.error ? <div>{this.state.error}</div> : null}
 				<form onSubmit={this.handleSubmit}>
-					<label>
+					<label htmlFor="registerform-username">
 						Username
 						<input
+							id="registerform-username"
 							name="username"
 							type="text"
 							placeholder="Username"
-							autoFocus
 							required
 							value={this.state.username}
 							onChange={this.handleInputChange}
 						/>
 					</label>
-					<label>
+					<label htmlFor="registerform-password">
 						Password
 						<input
+							id="registerform-password"
 							name="password"
 							type="password"
 							placeholder="Password"
@@ -80,8 +82,9 @@ export default class RegisterPage extends React.Component {
 							onChange={this.handleInputChange}
 						/>
 					</label>
-					<label>
+					<label htmlFor="registerform-role-worker">
 						<input
+							id="registerform-role-worker"
 							name="role"
 							type="radio"
 							required
@@ -91,8 +94,9 @@ export default class RegisterPage extends React.Component {
 						/>
 						I am a worker
 					</label>
-					<label>
+					<label htmlFor="registerform-role-company">
 						<input
+							id="registerform-role-company"
 							name="role"
 							type="radio"
 							required
