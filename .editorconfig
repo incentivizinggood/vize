@@ -13,13 +13,13 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-# Do not interfear with the the default style of package.json and
+# Do not interfere with the the default style of package.json and
 # package-lock.json. Those files are auto-generated and should be left alone.
-[*.json]
+[package{,-lock}.json]
 indent_style = space
 indent_size = 2
 
-# The Markdown format requires space intentions and YAML considers them invalid
+# The Markdown format requires space indentions and YAML considers them invalid
 # characters.
 [*.{md,yaml}]
 indent_style = space

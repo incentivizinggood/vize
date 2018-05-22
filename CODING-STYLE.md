@@ -13,9 +13,9 @@ Prettier's default style. The only differences are:
 *   We are using tabs for indention for all code except YAML and Markdown. These
     languages are excluded because they require spaces for indention.
 
-It should be noted that these changes are not applied to JSON files. The files
-`package.json` and `package-lock.json` are edited by NPM and it would be a
-unneeded hassle to fight with it on formatting.
+It should be noted that these changes are not applied to the files
+`package.json` and `package-lock.json`. These files are edited by NPM and it
+would be a unneeded hassle to fight with it on formatting.
 
 ## Tools
 
