@@ -1,7 +1,8 @@
 import React from "react";
 
-export default class JobPosting extends React.Component {
+export default class ShowJobComponent extends React.Component {
 	render() {
+		//@options -  For the date formatting
 		var options = {
 			weekday: "long",
 			year: "numeric",
@@ -12,6 +13,10 @@ export default class JobPosting extends React.Component {
 			<div className="col-md-12 section_rview_back_color05 ">
 				<div className="sect_re11 ">
 					<div>
+						<h3>
+							<strong>{this.props.item.companyName}</strong>
+						</h3>
+						<br />
 						<h4>
 							<strong>{this.props.item.jobTitle}</strong>
 						</h4>
@@ -46,9 +51,6 @@ export default class JobPosting extends React.Component {
 							}
 						</p>
 					</div>
-					{/* <div  className="add-buttons">
-                        <a href={this.props.item.vizeApplyForJobUrl} className="btn btn-primary"> <i aria-hidden="true"></i>   Apply now</a>
-                      </div> */}
 
 					<hr />
 					<h4 className="h4-font-sz-job">Job Description</h4>
@@ -78,8 +80,6 @@ export default class JobPosting extends React.Component {
 								{" "}
 							</label>
 							<div className="fl-ri">
-								{/* there is no date field in the Schema */}
-								{/* <p>posted on {this.props.item.datePosted.toString()}</p> */}
 								<p>
 									posted on{" "}
 									{this.props.item.datePosted.toLocaleDateString(

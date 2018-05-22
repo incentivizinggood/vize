@@ -1,5 +1,5 @@
 import { Mongo } from "meteor/mongo";
-import { Comments } from './comments.js';
+import { Comments } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
@@ -11,13 +11,15 @@ SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema opti
 //not sure how good of a long-term solution it is but it seems fine for now.
 //https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
 
-String.prototype.wordCount = function(){
+String.prototype.wordCount = function() {
 	return this.split(/\s+\b/).length;
 };
 
 // Constructor called - created new Collection named 'Reviews'
 // Collection can be edited by the object Reviews
-export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'});
+export const Reviews = new Mongo.Collection("Reviews", {
+	idGeneration: "STRING",
+});
 
 /*
 	Desirable features:
@@ -30,52 +32,65 @@ export const Reviews = new Mongo.Collection("Reviews", { idGeneration: 'STRING'}
 */
 
 //Schema for the Collection
-Reviews.schema = new SimpleSchema({
-	_id: {
-		type: String,
-		optional: true,
-		denyUpdate: true,
-		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
-		autoform: {
-			omit: true,
-		}, },
-	submittedBy: { //userId of the review author
-		type: String,
-		optional: true,
-		denyUpdate: true,
-		autoValue: function() {
-			if(Meteor.isServer) {
-				// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
-				return this.userId;
-			}
+Reviews.schema = new SimpleSchema(
+	{
+		_id: {
+			type: String,
+			optional: true,
+			denyUpdate: true,
+			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+			autoform: {
+				omit: true,
+			},
 		},
-		autoform: {
-			omit: true,
-		}, },
-	companyName: {		//Filled in by user, or auto-filled by form, but in any
-		type: String,	//case, company names are indexed so we may as well use
-	 	optional: false,//use this instead of companyID
-		index: true,
-		custom: function() {
-
-			if (Meteor.isClient && this.isSet) {
-				Meteor.call("companies.isNotSessionError", this.value, (error, result) => {
-					if (!result) {
-						this.validationContext.addValidationErrors([{
-							name: "companyName",
-							type: "sessionError",
-						}]);
-					}
-				});
-			}
-			else if (Meteor.isServer && this.isSet) {
-				if(this.value === "ERROR: COMPANY NOT FOUND" ||
-					this.value === "Please wait while we finish loading the form...") {
-					return "sessionError";
+		submittedBy: {
+			//userId of the review author
+			type: String,
+			optional: true,
+			denyUpdate: true,
+			autoValue: function() {
+				if (Meteor.isServer) {
+					// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
+					return this.userId;
 				}
-			}
-		}
-		/*
+			},
+			autoform: {
+				omit: true,
+			},
+		},
+		companyName: {
+			//Filled in by user, or auto-filled by form, but in any
+			type: String, //case, company names are indexed so we may as well use
+			optional: false, //use this instead of companyID
+			max: 100,
+			index: true,
+			custom: function() {
+				if (Meteor.isClient && this.isSet) {
+					Meteor.call(
+						"companies.isNotSessionError",
+						this.value,
+						(error, result) => {
+							if (!result) {
+								this.validationContext.addValidationErrors([
+									{
+										name: "companyName",
+										type: "sessionError",
+									},
+								]);
+							}
+						}
+					);
+				} else if (Meteor.isServer && this.isSet) {
+					if (
+						this.value === "ERROR: COMPANY NOT FOUND" ||
+						this.value ===
+							"Please wait while we finish loading the form..."
+					) {
+						return "sessionError";
+					}
+				}
+			},
+			/*
 			After working so hard to get this right,
 			here is why I have removed this custom validator:
 			There is no way to skip custom validation. However,
@@ -89,225 +104,266 @@ Reviews.schema = new SimpleSchema({
 			refer back to its code, or even use it again in the
 			project, perhaps for testing.
 		*/
-		// custom: function() {
-		// 	if (Meteor.isClient && this.isSet) {
-		// 		Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
-		// 			if (!result) {
-		// 				this.validationContext.addValidationErrors([{
-		// 					name: "companyName",
-		// 					type: "noCompanyWithThatName",
-		// 				}]);
-		// 			}
-		// 		});
-		// 	}
-		// 	else if (Meteor.isServer && this.isSet) {
-		// 		if(!Companies.hasEntry(this.value)) {
-		// 			return "noCompanyWithThatName";
-		// 		}
-		// 	}
-		// },
-	},
-	companyId: {
-		type: String,
-		optional: true,
-		denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
-		index: true,
-		autoValue: function() {
-			if(Meteor.isServer && this.field("companyName").isSet) {
-				let company = Companies.findOne({name: this.field("companyName").value});
-				if (company !== undefined) {
-					return company._id;
-				}
-				else {
-					return "This company does not have a Vize profile yet";
-				}
-			}
+			// custom: function() {
+			// 	if (Meteor.isClient && this.isSet) {
+			// 		Meteor.call("companies.doesCompanyExist", this.value, (error, result) => {
+			// 			if (!result) {
+			// 				this.validationContext.addValidationErrors([{
+			// 					name: "companyName",
+			// 					type: "noCompanyWithThatName",
+			// 				}]);
+			// 			}
+			// 		});
+			// 	}
+			// 	else if (Meteor.isServer && this.isSet) {
+			// 		if(!Companies.hasEntry(this.value)) {
+			// 			return "noCompanyWithThatName";
+			// 		}
+			// 	}
+			// },
 		},
-		autoform: {
-			omit: true,
-		}, },
-
-	// BUG will eventually need a username, screenname, or userID to
-	// tie reviews to users for the sake of logic and validation, but
-	// that's tough to do now
-	// -> NOT REALLY, this information can be stored with the user
-	//		and queried when needed
-
-	reviewTitle: { //title of the review
-		type: String,
-		optional: false,
-		index: true, },
-	//Pretty much copy-pasted from companies.js
-	locations: { //where they worked for the company being reviewed
-		type: Array,
-		minCount: 1, //must have at least one
- 		optional: false, },
-	'locations.$': { //restraints on members of the "locations" array
-		type: String, }, //more refined address-checking or validation? dunno, I don't see the need for it immediately
-	jobTitle: {			//there are two categories -
-		type: String,		//Line Worker and Upper Management, so type - String, perhaps, not sure
-		optional: false, },	//NOTE: I can do this, but is it correct/necessary?
-	numberOfMonthsWorked: {
-		type: SimpleSchema.Integer,
-		optional: false,
-		min: 0, },
-	pros: {
-		type: String,
-		optional: false,
-		custom: function() {
-			if (Meteor.isClient && this.isSet) {
-				Meteor.call("hasFiveWords", this.value, (error, result) => {
-					if (!result) {
-						this.validationContext.addValidationErrors([{
-							name: "pros",
-							type: "needsFiveWords",
-						}]);
+		companyId: {
+			type: String,
+			optional: true,
+			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
+			index: true,
+			autoValue: function() {
+				if (Meteor.isServer && this.field("companyName").isSet) {
+					let company = Companies.findOne({
+						name: this.field("companyName").value,
+					});
+					if (company !== undefined) {
+						return company._id;
+					} else {
+						return "This company does not have a Vize profile yet";
 					}
-				});
-			}
-			else if(Meteor.isServer && this.isSet) {
-				if(this.value.wordCount() < 5) {
-					return "needsFiveWords";
 				}
-			}
-		}, },
-	cons: {
-		type: String,
-		optional: false,
-		custom: function() {
-			if (Meteor.isClient && this.isSet ) {
-				Meteor.call("hasFiveWords", this.value, (error, result) => {
-					if (!result) {
-						this.validationContext.addValidationErrors([{
-							name: "cons",
-							type: "needsFiveWords",
-						}]);
-					}
-				});
-			}
-			else if(Meteor.isServer && this.isSet) {
-				if(this.value.wordCount() < 5) {
-					return "needsFiveWords";
-				}
-			}
-		}, },
-	wouldRecommendToOtherJobSeekers: {
-		type: Boolean,
-		optional: false,
-		defaultValue: false,
-		autoform: {
-			type: "boolean-radios",
-			trueLabel: "Yes",
-			falseLabel: "No",
-		}, },
+			},
+			autoform: {
+				omit: true,
+			},
+		},
 
-	/*
+		// BUG will eventually need a username, screenname, or userID to
+		// tie reviews to users for the sake of logic and validation, but
+		// that's tough to do now
+		// -> NOT REALLY, this information can be stored with the user
+		//		and queried when needed
+
+		reviewTitle: {
+			//title of the review
+			type: String,
+			optional: false,
+			max: 100,
+			index: true,
+		},
+		//Pretty much copy-pasted from companies.js
+		locations: {
+			//where they worked for the company being reviewed
+			type: Array,
+			minCount: 1, //must have at least one
+			optional: false,
+		},
+		"locations.$": {
+			//restraints on members of the "locations" array
+			type: String,
+			max: 150,
+		}, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		jobTitle: {
+			//there are two categories -
+			type: String, //Line Worker and Upper Management, so type - String, perhaps, not sure
+			max: 100,
+			optional: false,
+		}, //NOTE: I can do this, but is it correct/necessary?
+		numberOfMonthsWorked: {
+			type: SimpleSchema.Integer,
+			optional: false,
+			min: 0,
+		},
+		pros: {
+			type: String,
+			optional: false,
+			max: 200,
+			custom: function() {
+				if (Meteor.isClient && this.isSet) {
+					Meteor.call("hasFiveWords", this.value, (error, result) => {
+						if (!result) {
+							this.validationContext.addValidationErrors([
+								{
+									name: "pros",
+									type: "needsFiveWords",
+								},
+							]);
+						}
+					});
+				} else if (Meteor.isServer && this.isSet) {
+					if (this.value.wordCount() < 5) {
+						return "needsFiveWords";
+					}
+				}
+			},
+		},
+		cons: {
+			type: String,
+			optional: false,
+			max: 200,
+			custom: function() {
+				if (Meteor.isClient && this.isSet) {
+					Meteor.call("hasFiveWords", this.value, (error, result) => {
+						if (!result) {
+							this.validationContext.addValidationErrors([
+								{
+									name: "cons",
+									type: "needsFiveWords",
+								},
+							]);
+						}
+					});
+				} else if (Meteor.isServer && this.isSet) {
+					if (this.value.wordCount() < 5) {
+						return "needsFiveWords";
+					}
+				}
+			},
+		},
+		wouldRecommendToOtherJobSeekers: {
+			type: Boolean,
+			optional: false,
+			defaultValue: false,
+			autoform: {
+				type: "boolean-radios",
+				trueLabel: "Yes",
+				falseLabel: "No",
+			},
+		},
+
+		/*
 		We're eventually going to remove the
 		defaultValue's and force the user to input them,
 		this is just easier for testing right now.
 	*/
-	healthAndSafety: {
-		type: Number,
-		min: 0, max: 5,
-		optional: false,
-	 	autoform: {
-			//only possible because I added the starRating type
-			//to AutoForm, see afInputStarRating.[js,html]
-			type: "starRating",
-		}, },
-	managerRelationship: {
-		type: Number,
-		min: 0, max: 5,
-		optional: false,
-	 	autoform: {
-			type: "starRating",
-		}, },
-	workEnvironment: {
-		type: Number,
-		min: 0, max: 5,
-		optional: false,
-	 	autoform: {
-			type: "starRating",
-		}, },
-	benefits: {
-		type: Number,
-		min: 0, max: 5,
-		optional: false,
-	 	autoform: {
-			type: "starRating",
-		}, },
-	overallSatisfaction: {
-		type: Number,
-		min: 0, max: 5,
-		optional: false,
-	 	autoform: {
-			type: "starRating",
-		}, },
-	additionalComments: {
-		type: String,
-		optional: true,
-		autoform: {
-			afFieldInput: {
-				type: "textarea",
-				rows: 6,
+		healthAndSafety: {
+			type: Number,
+			min: 0,
+			max: 5,
+			optional: false,
+			autoform: {
+				//only possible because I added the starRating type
+				//to AutoForm, see afInputStarRating.[js,html]
+				type: "starRating",
 			},
-		}, },
+		},
+		managerRelationship: {
+			type: Number,
+			min: 0,
+			max: 5,
+			optional: false,
+			autoform: {
+				type: "starRating",
+			},
+		},
+		workEnvironment: {
+			type: Number,
+			min: 0,
+			max: 5,
+			optional: false,
+			autoform: {
+				type: "starRating",
+			},
+		},
+		benefits: {
+			type: Number,
+			min: 0,
+			max: 5,
+			optional: false,
+			autoform: {
+				type: "starRating",
+			},
+		},
+		overallSatisfaction: {
+			type: Number,
+			min: 0,
+			max: 5,
+			optional: false,
+			autoform: {
+				type: "starRating",
+			},
+		},
+		additionalComments: {
+			type: String,
+			optional: true,
+			max: 6000,
+			autoform: {
+				afFieldInput: {
+					type: "textarea",
+					rows: 6,
+				},
+			},
+		},
 
-	//These last ones have to do with internal bookkeeping
-	//and the actual "life-cycle" of the review itself, and
-	//therefore do not appear on the "Write a Review" form.
-	//However, this is done via autoform.omit, which may
-	//prevent us from using those fields easily in legitimate
-	//contexts later, so I may want to refine that feature...
+		//These last ones have to do with internal bookkeeping
+		//and the actual "life-cycle" of the review itself, and
+		//therefore do not appear on the "Write a Review" form.
+		//However, this is done via autoform.omit, which may
+		//prevent us from using those fields easily in legitimate
+		//contexts later, so I may want to refine that feature...
 
-	datePosted: {
-		type: Date,
-		optional: true,
-		denyUpdate: true,
-		defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
-		autoform: {
-			omit: true,
-		}, },
-	upvotes: {
-		type: SimpleSchema.Integer,
-		min: 0,
-		defaultValue: 0,
-		optional: true,
-		autoform: {
-			omit: true,
-		}, },
-	downvotes: {
-		type: SimpleSchema.Integer,
-		min: 0,
-		defaultValue: 0,
-		optional: true,
-		autoform: {
-			omit: true,
-		}, },
-	//** Each review has an array of comments attached with it.
-	//** upvotes/downvotes and comments are not there in the form
-	Comments: {
-		type: Array,
-		optional: true,
-		defaultValue: [],
-		autoform: {
-			omit: true,
-		}, },
-	'Comments.$': {
-		type: Object,
-		custom() {
-			Comments.schema.validate(this);
-		}, }, //Custom validation with an external schema,
+		datePosted: {
+			type: Date,
+			optional: true,
+			denyUpdate: true,
+			defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+			autoform: {
+				omit: true,
+			},
+		},
+		upvotes: {
+			type: SimpleSchema.Integer,
+			min: 0,
+			defaultValue: 0,
+			optional: true,
+			autoform: {
+				omit: true,
+			},
+		},
+		downvotes: {
+			type: SimpleSchema.Integer,
+			min: 0,
+			defaultValue: 0,
+			optional: true,
+			autoform: {
+				omit: true,
+			},
+		},
+		//** Each review has an array of comments attached with it.
+		//** upvotes/downvotes and comments are not there in the form
+		Comments: {
+			type: Array,
+			optional: true,
+			defaultValue: [],
+			autoform: {
+				omit: true,
+			},
+		},
+		"Comments.$": {
+			type: Object,
+			custom() {
+				Comments.schema.validate(this);
+			},
+		}, //Custom validation with an external schema,
 		//not sure if this works for now but it at least
 		//reminds me of generally what needs to be done here.
-}, { tracker: Tracker } );
+	},
+	{ tracker: Tracker }
+);
 
 Reviews.schema.messageBox.messages({
 	//en? does that mean we can add internationalization
 	//in this block of code?
 	en: {
 		needsFiveWords: "You should write at least 5 words in this field",
-		noCompanyWithThatName: "There is no company with that name in our database",
+		noCompanyWithThatName:
+			"There is no company with that name in our database",
 		dateJoinedAfterDateLeft: "Date Joined cannot be after Date Left",
 		sessionError: "Please stop messing around",
 	},
@@ -316,9 +372,15 @@ Reviews.schema.messageBox.messages({
 Reviews.attachSchema(Reviews.schema, { replace: true });
 
 Reviews.deny({
-    insert() { return true; },
-    update() { return true; },
-    remove() { return true; }
+	insert() {
+		return true;
+	},
+	update() {
+		return true;
+	},
+	remove() {
+		return true;
+	},
 });
 
 if (Meteor.isServer) {

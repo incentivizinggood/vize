@@ -10,10 +10,12 @@ Prettier's default style. The only differences are:
     them.
 *   We use prose wrapping to make Markdown documents more readable when
     displayed as plain text.
+*   We are using tabs for indention for all code except YAML and Markdown. These
+    languages are excluded because they require spaces for indention.
 
 It should be noted that these changes are not applied to JSON files. The files
 `package.json` and `package-lock.json` are edited by NPM and it would be a
-unneeded hassle to fight with it on formating.
+unneeded hassle to fight with it on formatting.
 
 ## Tools
 
@@ -28,11 +30,26 @@ earlier and reduces the amount of time spent on debugging.
 
 ### Editor Settings
 
-EditorConfig has not been setup yet.
+For configuring Atom's editor settings you should use the EditorConfig package.
+EditorConfig reads settings from the `.editorconfig` file and overrides Atom's
+normal settings. This makes it so that you can use the proper settings in this
+project, and still use your preferred settings in your other projects all
+without ever changing your settings.
+
+1.  Install the `editorconfig` package into Atom.
+1.  Do not change any of this package's settings.
 
 ### Prettier
 
-Prettier has not been setup yet.
+1.  Install the `prettier-atom` package into Atom.
+1.  Select the option "Format Files on Save". This will make Prettier run
+    automatically whenever you save a file so that you never accidentally commit
+    bad code into Git.
+1.  Select the options "Only format if Prettier is found in your project's
+    dependencies" and "Only format if a Prettier config is found". These options
+    will prevent Prettier from running on any other projects that you may work
+    on.
+1.  Do not change any of the other settings for this package.
 
 ### ESLint
 
@@ -54,7 +71,7 @@ To do.
 
 ### Prettier
 
-Prettier has not been setup yet.
+To do.
 
 ### ESLint
 

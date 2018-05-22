@@ -8,7 +8,7 @@ export default class ErrorWidget extends React.Component {
 	render() {
 		return (
 			<div className="alert alert-danger">
-  				<strong>{this.props.err}</strong>
+				<strong>{this.props.err}</strong>
 			</div>
 		);
 	}

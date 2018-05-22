@@ -4,12 +4,12 @@
  * All pages are rendered into the view-render div.
  * See client/main.html
  */
- if (Meteor.isDevelopment && Meteor.isClient) {
- 	import SimpleSchema from "simpl-schema";
- 	import { AutoForm } from "meteor/aldeed:autoform";
- 	SimpleSchema.debug = true;
- 	AutoForm.debug();
- }
+if (Meteor.isDevelopment && Meteor.isClient) {
+	import SimpleSchema from "simpl-schema";
+	import { AutoForm } from "meteor/aldeed:autoform";
+	SimpleSchema.debug = true;
+	AutoForm.debug();
+}
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -24,12 +24,11 @@ import JobPosting from "../../ui/components/jobPosting.jsx";
 import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
 import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
-
+import ShowJobs from "../../ui/showjobs.jsx";
 
 import HomePage from "../../ui/pages/home.jsx";
 import AboutPage from "../../ui/pages/about.jsx";
-import CompanySearchTrial from "../../ui/company-search-trial.jsx"
-
+import CompanySearchTrial from "../../ui/company-search-trial.jsx";
 
 import ForEmployers from "../../ui/pages/foremployers.jsx";
 import CompanyProfile from "../../ui/pages/companyprofile.jsx";
@@ -59,7 +58,7 @@ function routeSimplePage(path, element) {
 	FlowRouter.route(path, {
 		action(params, queryParams) {
 			ReactDOM.render(element, document.getElementById("view-render"));
-		}
+		},
 	});
 }
 
@@ -74,29 +73,30 @@ routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
+routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
 
 //----- Define the more complex routes. -----//
 
 FlowRouter.route("/companies", {
-    action(params, queryParams) {
-        ReactDOM.render(
+	action(params, queryParams) {
+		ReactDOM.render(
+			// changing the route for now, because the search code is on CompanySearchTrial now.
+			// ORIGINAL CODE -- <CompanySearchPage queryParams={queryParams} />,
 
-					// changing the route for now, because the search code is on CompanySearchTrial now.
-					// ORIGINAL CODE -- <CompanySearchPage queryParams={queryParams} />,
-            <CompanySearchTrial queryParams={queryParams} />,
-            document.getElementById("view-render")
-        );
-    }
+			<CompanySearchTrial queryParams={queryParams} />,
+			document.getElementById("view-render")
+		);
+	},
 });
 
 FlowRouter.route("/companyprofile", {
-    action(params, queryParams) {
-        ReactDOM.render(
-            <CompanyProfile companyId={queryParams.id} />,
-            document.getElementById("view-render")
-        );
-    }
+	action(params, queryParams) {
+		ReactDOM.render(
+			<CompanyProfile companyId={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	},
 });
 
 FlowRouter.route("/write-review", {
@@ -105,7 +105,7 @@ FlowRouter.route("/write-review", {
 			<WriteReviewForm companyId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
-	}
+	},
 });
 
 FlowRouter.route("/submit-salary-data", {
@@ -114,7 +114,7 @@ FlowRouter.route("/submit-salary-data", {
 			<SubmitSalaryDataForm companyId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
-	}
+	},
 });
 
 FlowRouter.route("/apply-for-job", {
@@ -123,24 +123,24 @@ FlowRouter.route("/apply-for-job", {
 			<ApplyForJobForm jobId={queryParams.id} />,
 			document.getElementById("view-render")
 		);
-	}
+	},
 });
 
 FlowRouter.route("/user", {
-    action(params, queryParams) {
-        ReactDOM.render(
-            <UserPage user_id={queryParams.id} />,
-            document.getElementById("view-render")
-        );
-    }
+	action(params, queryParams) {
+		ReactDOM.render(
+			<UserPage user_id={queryParams.id} />,
+			document.getElementById("view-render")
+		);
+	},
 });
 
 // Add a 404 page to handle unknown paths.
 FlowRouter.notFound = {
-    action() {
-        ReactDOM.render(
-            <NotFoundPage />,
-            document.getElementById("view-render")
-        );
-    }
+	action() {
+		ReactDOM.render(
+			<NotFoundPage />,
+			document.getElementById("view-render")
+		);
+	},
 };
