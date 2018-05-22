@@ -5,240 +5,356 @@ import Footer from "../../ui/pages/footer.jsx";
 /* The home page of the site.
  */
 export default class HomePage extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { input: "" };
+	}
 
-  constructor(props){
-    super(props);
-    this.state = {input: ""};
-  }
+	componentDidMount() {
+		console.log("Inside the company home search page");
+	}
 
-  componentDidMount(){
-    console.log("Inside the company home search page");
-  }
+	handleSubmit(event) {
+		event.preventDefault();
+		_input = this.refs.input.value;
+		this.refs.input.value = "";
+		this.setState({ input: _input });
 
+		// FlowRouter.setQueryParams({ input: input });
+		FlowRouter.go("/companies/?input=" + _input);
+	}
 
-  handleSubmit(event){
-    event.preventDefault();
-    _input = this.refs.input.value;
-    this.refs.input.value = "";
-    this.setState({input: _input});
+	render() {
+		return (
+			<div>
+				<Header />
+				<div className="banner">
+					<div className="banner-info">
+						<div className="banner-text">
+							<div id="top" className="callbacks_container">
+								<ul className="rslides" id="slider3">
+									<li>
+										<div className="banner-text-info">
+											<h1>
+												Find the best job for you, from
+												people like you
+											</h1>
+											<form
+												className="example"
+												method="POST"
+												action="#"
+												onSubmit={this.handleSubmit.bind(
+													this
+												)}
+											>
+												<input
+													ref="input"
+													type="text"
+													placeholder="Search..."
+													name="search"
+												/>
+												<button type="submit">
+													<a
+														style={{
+															color: "#ffffff",
+														}}
+													>
+														SEARCH
+													</a>
+												</button>
+											</form>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 
-    // FlowRouter.setQueryParams({ input: input });
-    FlowRouter.go("/companies/?input=" + _input);
-  }
+				<div className="welcome  welpad">
+					<div className="container  des-top-view">
+						<div className="col-md-8 ">
+							<div>
+								<img
+									className="img-responsive"
+									src="images/home-img-2.png"
+								/>
+							</div>
+						</div>
+						<div className="col-md-4 ">
+							<div className="great-job-hm">
+								<h1>
+									Find a Great job <br /> Near You{" "}
+								</h1>
+							</div>
+							<div className="great-comp-hm">
+								<h4>
+									With thousands of companies in Mexico on our
+									site and hundreds of job posts, you'll be
+									able to find a great factory to work for
+								</h4>
+							</div>
+							<div className="titlestar  ">
+								<center>
+									<a
+										href="/jobs"
+										className="button out-butt-dark  "
+									>
+										Jobs
+									</a>
+								</center>
+							</div>
+						</div>
 
-    render() {
-        return(
-                <div><Header />
-                  <div className="banner">
-                  <div className="banner-info">
+						<div className="clearfix"> </div>
+					</div>
 
-                 <div className="banner-text">
-               <div  id="top" className="callbacks_container">
-                  <ul className="rslides" id="slider3">
-                     <li>
-                        <div className="banner-text-info">
-                           <h1>Find the best job for you, from people like you</h1>
-                           <form className="example" method="POST" action="#" onSubmit= {this.handleSubmit.bind(this)}>
-                              <input ref="input" type="text" placeholder="Search..." name="search"/>
-                              <button type="submit"><a style={{color:"#ffffff"}}>SEARCH</a></button>
-                           </form>
-                        </div>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-                </div>
-                </div>
+					{/* =====mobile view show====  */}
 
+					<div className="container  mobile-view-box">
+						<div className="col-md-4 ">
+							<div className="great-job-hm">
+								<h1>
+									Find a Great job <br /> Near You{" "}
+								</h1>
+							</div>
+							<div className="great-comp-hm">
+								<h4>
+									With thousands of companies in Mexico on our
+									site and hundreds of job posts, you'll be
+									able to find a great factory to work for
+								</h4>
+							</div>
+							<div className="titlestar  ">
+								<center>
+									<a
+										href="/jobs"
+										className="button out-butt-dark  "
+									>
+										Jobs
+									</a>
+								</center>
+							</div>
+						</div>
+						<br />
+						<br />
+						<div className="col-md-8 ">
+							<div>
+								<center>
+									{" "}
+									<img
+										className="img-responsive"
+										src="images/mobile-1.png"
+									/>
+								</center>
+							</div>
+						</div>
 
+						<div className="clearfix"> </div>
+					</div>
+					{/* ====mobile view show  end==== */}
+				</div>
 
-                <div className="welcome  welpad">
-             <div className="container  des-top-view">
-                <div className="col-md-8 ">
-                   <div>
-                      <img className="img-responsive" src="images/home-img-2.png" />
-                   </div>
-                </div>
-               <div className="col-md-4 ">
-                <div  className="great-job-hm">
-                   <h1>Find a Great job <br /> Near You  </h1>
-                </div>
-             <div    className="great-comp-hm">
-                <h4>With thousands of companies in Mexico on our site and hundreds  of job posts, you'll be able to find a great factory to work for</h4>
-                     </div>
-                     <div className="titlestar  ">
-                     <center><a href="/jobs" className="button out-butt-dark  ">Jobs</a></center>
-                   </div>
-                </div>
+				{/*  find great employer*/}
 
+				<div className="welcome  welpad   back-hm-sect-colr">
+					<div className="container  blu-section-desc">
+						<div className="col-md-5 ">
+							<div className="great-emp-hm">
+								<h1>
+									Find an Employer <br />That Treats You Right{" "}
+								</h1>
+							</div>
+							<div className="great-discover-emp">
+								<h4>
+									Vize helps you discover employers based on
+									different industries, job types, and company
+									sizes, The feedback and rating system holds
+									companies accountable for creating rich work
+									environments and safe working conditions
+								</h4>
+							</div>
+							<div className="companies-btn  ">
+								<center>
+									<a
+										href="/companies"
+										className="button out-bodr  "
+									>
+										Companies
+									</a>
+								</center>
+							</div>
+						</div>
+						<div className="col-md-7 ">
+							<div>
+								<img
+									className="img-responsive"
+									src="images/home-img-1.png"
+								/>
+							</div>
+						</div>
+						<div className="clearfix"> </div>
+					</div>
 
-                <div className="clearfix"> </div>
-              </div>
+					{/* ===mobile view blue section==== */}
 
-              {/* =====mobile view show====  */}
+					<div className="container  blu-mobile-sect">
+						<div className="col-md-5 ">
+							<div className="great-emp-hm">
+								<h1>
+									Find an Employer <br />That Treats You Right{" "}
+								</h1>
+							</div>
+							<div className="great-discover-emp">
+								<h4>
+									Vize helps you discover employers based on
+									different industries, job types, and company
+									sizes, The feedback and rating system holds
+									companies accountable for creating rich work
+									environments and safe working conditions
+								</h4>
+							</div>
+							<div className="companies-btn  ">
+								<center>
+									<a
+										href="/companies"
+										className="button out-bodr  "
+									>
+										Companies
+									</a>
+								</center>
+							</div>
+						</div>
+						<br />
+						<br />
+						<div className="col-md-7 ">
+							<div>
+								<center>
+									{" "}
+									<img
+										className="img-responsive"
+										src="images/mobile-2.png"
+									/>
+								</center>
+							</div>
+						</div>
+						<div className="clearfix"> </div>
+					</div>
+				</div>
 
-                  <div className="container  mobile-view-box">
+				{/* 2 cards section */}
+				<div className="welcome  welpad  back-hm-community">
+					<div className="container">
+						<div className="col-md-12 ">
+							<center>
+								<div className="hover panel-hm">
+									<div className="front">
+										<div className="frontTitle">
+											Hear From You <br />Community
+										</div>
+										<div className="frontLogo isas" />
+										<div className="frontLocation">
+											See anonymous reviews and ratings of
+											companies from people in your
+											Community. Add value to the
+											community by sharing your work
+											experience.
+										</div>
+										<br />
+										<div className="fl-ri-re">
+											<a
+												href={Meteor.absoluteUrl(
+													"write-review/",
+													{ secure: true }
+												)}
+												className="btn btn-primary"
+											>
+												{" "}
+												<i
+													className="fa fa-plus"
+													aria-hidden="true"
+												/>&nbsp; Add a Review{" "}
+											</a>
+										</div>
+										<br />
+									</div>
+								</div>
 
-               <div className="col-md-4 ">
-                <div  className="great-job-hm">
-                   <h1>Find a Great job <br /> Near You  </h1>
-                </div>
-             <div    className="great-comp-hm">
-                <h4>With thousands of companies in Mexico on our site and hundreds  of job posts, you'll be able to find a great factory to work for</h4>
-                     </div>
-                     <div className="titlestar  ">
-                     <center><a href="/jobs" className="button out-butt-dark  ">Jobs</a></center>
-                   </div>
-                </div>
-                <br />
-                <br />
-              <div className="col-md-8 ">
-                   <div>
-                     <center>  <img className="img-responsive" src="images/mobile-1.png" /></center>
-                   </div>
-                </div>
+								<div className="hover panel-hm">
+									<div className="front">
+										<div className="frontTitle">
+											Get a Fair Salary For <br />Your
+											Work
+										</div>
+										<div className="frontLogo boisedigital" />
+										<div className="frontLocation">
+											Find hundreds of salaries for
+											different job positions and genders.
+											Share your salary announmously to
+											make sure others are getting fairly
+											compensated.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</div>
+										<br />
+										<div className="fl-ri-re">
+											<a
+												href={Meteor.absoluteUrl(
+													"submit-salary-data/",
+													{ secure: true }
+												)}
+												className="btn btn-primary"
+											>
+												{" "}
+												<i
+													className="fa fa-plus"
+													aria-hidden="true"
+												/>&nbsp; Add a Salary{" "}
+											</a>
+										</div>
+										<br />
+									</div>
+								</div>
+							</center>
+						</div>
 
-                <div className="clearfix"> </div>
-              </div>
-              {/* ====mobile view show  end==== */}
+						<div className="clearfix"> </div>
+					</div>
+				</div>
 
-
-          </div>
-
-       {/*  find great employer*/}
-
-          <div className="welcome  welpad   back-hm-sect-colr">
-             <div className="container  blu-section-desc">
-
-               <div className="col-md-5 ">
-                <div  className="great-emp-hm">
-                   <h1>Find an Employer <br />That Treats You Right </h1>
-                </div>
-             <div    className="great-discover-emp">
-                <h4>Vize helps you discover employers based on different industries, job types, and company sizes, The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions</h4>
-                     </div>
-                     <div className="companies-btn  ">
-                     <center><a href="/companies" className="button out-bodr  ">Companies</a></center>
-                   </div>
-                </div>
-                <div className="col-md-7 ">
-                   <div>
-                      <img className="img-responsive" src="images/home-img-1.png" />
-                   </div>
-                </div>
-                <div className="clearfix"> </div>
-              </div>
-
-              {/* ===mobile view blue section==== */}
-
-                   <div className="container  blu-mobile-sect">
-
-               <div className="col-md-5 ">
-                <div  className="great-emp-hm">
-                   <h1>Find an Employer <br />That Treats You Right </h1>
-                </div>
-             <div    className="great-discover-emp">
-                <h4>Vize helps you discover employers based on different industries, job types, and company sizes, The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions</h4>
-                     </div>
-                     <div className="companies-btn  ">
-                     <center><a href="/companies" className="button out-bodr  ">Companies</a></center>
-                   </div>
-                </div>
-                <br />
-                <br />
-                <div className="col-md-7 ">
-                   <div>
-                    <center> <img className="img-responsive" src="images/mobile-2.png" /></center>
-                   </div>
-                </div>
-                <div className="clearfix"> </div>
-              </div>
-
-          </div>
-
-             {/* 2 cards section */}
-     <div className="welcome  welpad  back-hm-community">
-             <div className="container">
-
-           <div className="col-md-12 ">
-
-           <center>
-                      <div className="hover panel-hm" >
-                        <div className="front">
-                            <div className="frontTitle">
-                             Hear From You <br />Community
-                            </div>
-                            <div className="frontLogo isas">
-
-                            </div>
-                            <div className="frontLocation">
-                             See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.
-
-                            </div>
-                            <br />
-                             <div  className="fl-ri-re">
-                            <a href={Meteor.absoluteUrl("write-review/", {secure: true, })} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; Add a Review </a>
-                          </div>
-                          <br />
-                        </div>
-                      </div>
-
-                      <div className="hover panel-hm" >
-                        <div className="front">
-                            <div className="frontTitle">
-                              Get a Fair Salary For <br />Your Work
-
-                            </div>
-                            <div className="frontLogo boisedigital">
-
-                            </div>
-                            <div className="frontLocation">
-
-                      Find hundreds of salaries for different job positions and genders. Share your salary announmously to make sure others are getting fairly compensated.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                               <br />
-                            <div  className="fl-ri-re">
-                            <a href={Meteor.absoluteUrl("submit-salary-data/", {secure: true, })} className="btn btn-primary"> <i className="fa fa-plus" aria-hidden="true"></i>&nbsp; Add a Salary </a>
-                          </div>
-                          <br />
-                        </div>
-                       </div>
-
-
-            </center>
-    </div>
-
-
-
-                <div className="clearfix"> </div>
-              </div>
-          </div>
-
-            {/* services */}
-          <div className="star" id="services">
-             <div className="container">
-                <div className="row">
-                   <div className="col-md-1">
-                   </div>
-                   <div className="col-md-8">
-                    <center>  <h1 className="titlestar">Start discovering new employers now  </h1></center>
-                   </div>
-                   <div className="col-md-2">
-                      <div className="titlestar">
-                        <center> <a href="/register" className="button out-butt-dark">SIGN UP</a></center>
-                      </div>
-                   </div>
-                   <div className="col-md-1">
-                   </div>
-                </div>
-                <div className="clearfix"> </div>
-             </div>
-          </div>
-          <Footer />
-                          </div>
-
-               );
-    }
+				{/* services */}
+				<div className="star" id="services">
+					<div className="container">
+						<div className="row">
+							<div className="col-md-1" />
+							<div className="col-md-8">
+								<center>
+									{" "}
+									<h1 className="titlestar">
+										Start discovering new employers now{" "}
+									</h1>
+								</center>
+							</div>
+							<div className="col-md-2">
+								<div className="titlestar">
+									<center>
+										{" "}
+										<a
+											href="/register"
+											className="button out-butt-dark"
+										>
+											SIGN UP
+										</a>
+									</center>
+								</div>
+							</div>
+							<div className="col-md-1" />
+						</div>
+						<div className="clearfix"> </div>
+					</div>
+				</div>
+				<Footer />
+			</div>
+		);
+	}
 }
 
 /*

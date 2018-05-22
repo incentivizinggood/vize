@@ -12,40 +12,54 @@ import { Reviews } from "./reviews.js";
 	The actual vote is the value field: true == up, false == down
 */
 
-export const Votes = new Mongo.Collection("Votes", { idGeneration: 'STRING'});
+export const Votes = new Mongo.Collection("Votes", { idGeneration: "STRING" });
 
-Votes.schema = new SimpleSchema({
-	_id: {
-		type: String,
-		optional: true,
-		denyUpdate: true,
-		autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+Votes.schema = new SimpleSchema(
+	{
+		_id: {
+			type: String,
+			optional: true,
+			denyUpdate: true,
+			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
+		},
+		submittedBy: {
+			//userId of the review author
+			type: String,
+			index: true,
+			denyUpdate: true,
+			optional: false,
+		},
+		voteSubject: {
+			type: String,
+			index: true,
+			optional: false,
+			allowedValues: ["review", "comment"],
+		},
+		references: {
+			type: String,
+			index: true,
+			optional: false,
+		},
+		value: {
+			type: Boolean,
+			optional: false,
+		},
 	},
-	submittedBy: { //userId of the review author
-		type: String,
-		index: true,
-		denyUpdate: true,
-		optional: false, },
-	voteSubject: {
-		type: String,
-		index: true,
-		optional: false,
-		allowedValues: ["review", "comment"], },
-	references: {
-		type: String,
-		index: true,
-		optional: false, },
-	value: {
-		type: Boolean,
-		optional: false, }
-}, { tracker: Tracker } );
+	{ tracker: Tracker }
+);
 
 Votes.attachSchema(Votes.schema, { replace: true });
 
 Votes.deny({
-	insert() { return true; },
-	update() { return true; },
-	remove() { return true; }
+	insert() {
+		return true;
+	},
+	update() {
+		return true;
+	},
+	remove() {
+		return true;
+	},
 });
 
 if (Meteor.isServer) {

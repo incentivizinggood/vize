@@ -1,5 +1,5 @@
 //Boilerplate first
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
@@ -22,19 +22,20 @@ import "../afInputStarRating.js";
 let wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", "good"); // Shared with AutoForm helpers
 wr_form_state.set("companyId", undefined); // Shared with the React wrapper
-wr_form_state.set("company", {name: "Please wait while we finish loading the form..."});
+wr_form_state.set("company", {
+	name: "Please wait while we finish loading the form...",
+});
 
-if(Meteor.isClient) {
-
+if (Meteor.isClient) {
 	Template.wr_blaze_form.onCreated(function() {
 		let id = wr_form_state.get("companyId");
-		if(id !== undefined){ // no need to go to all that trouble if we're on the home page
+		if (id !== undefined) {
+			// no need to go to all that trouble if we're on the home page
 			this.autorun(function() {
 				Meteor.call("companies.findOne", id, (error, result) => {
 					if (!result) {
 						wr_form_state.set("company", undefined);
-					}
-					else {
+					} else {
 						wr_form_state.set("company", result);
 					}
 				});
@@ -43,7 +44,7 @@ if(Meteor.isClient) {
 	});
 
 	Template.wr_blaze_form.onRendered(function() {
-		if(Meteor.isDevelopment) console.log("Rendering wr_blaze_form");
+		if (Meteor.isDevelopment) console.log("Rendering wr_blaze_form");
 	});
 
 	Template.wr_blaze_form.helpers({
@@ -56,10 +57,9 @@ if(Meteor.isClient) {
 		},
 		getCompanyName: function() {
 			let company = wr_form_state.get("company");
-			if(company === undefined) {
+			if (company === undefined) {
 				return "ERROR: COMPANY NOT FOUND";
-			}
-			else {
+			} else {
 				return company.name;
 			}
 		},
@@ -69,36 +69,46 @@ if(Meteor.isClient) {
 		error: function() {
 			return wr_form_state.get("formError");
 		},
-		resetFormError: function() { //called when reset button is clicked
-			if(Meteor.isDevelopment) console.log("Resetting wr_review_form");
+		resetFormError: function() {
+			//called when reset button is clicked
+			if (Meteor.isDevelopment) console.log("Resetting wr_review_form");
 			wr_form_state.set("formError", "good");
 		},
 	});
 
 	AutoForm.addHooks("wr_blaze_form", {
-		onSuccess: function(formType, result) { // If your method returns something, it will show up in "result"
-			if(Meteor.isDevelopment) console.log("SUCCESS: We did a thing in a " + formType + " form: " + result);
+		onSuccess: function(formType, result) {
+			// If your method returns something, it will show up in "result"
+			if (Meteor.isDevelopment)
+				console.log(
+					"SUCCESS: We did a thing in a " +
+						formType +
+						" form: " +
+						result
+				);
 			wr_form_state.set("formError", "good");
 		},
-		onError: function(formType, error) { // "error" contains whatever error object was thrown
-			if(Meteor.isDevelopment) console.log("ERROR: We did a thing in a " + formType + " form: " + error);
+		onError: function(formType, error) {
+			// "error" contains whatever error object was thrown
+			if (Meteor.isDevelopment)
+				console.log(
+					"ERROR: We did a thing in a " + formType + " form: " + error
+				);
 			wr_form_state.set("formError", error.toString());
 		},
 	});
 }
 
-
 export default class WriteReviewForm extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 	}
 	render() {
-
-		wr_form_state.set("companyId",this.props.companyId);
+		wr_form_state.set("companyId", this.props.companyId);
 
 		return (
 			<div className="page WriteReviewForm">
-				<Blaze template="wr_blaze_form"/>
+				<Blaze template="wr_blaze_form" />
 			</div>
 		);
 	}
