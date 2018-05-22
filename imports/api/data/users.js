@@ -1,3 +1,5 @@
+import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
 import SimpleSchema from "simpl-schema";
 
 // The users collection is handled differently than the other collections.
@@ -51,8 +53,7 @@ Meteor.users.schema = new SimpleSchema({
 Accounts.onCreateUser(function(options, user) {
 	// Transfer the custom data fields given to Accounts.createUser into the
 	// new user. By default only username, password, and email go though.
-	user.role = options.role;
-	return user;
+	return { ...user, role: options.role };
 });
 
 // Check that all new users follow the schema defined above.
