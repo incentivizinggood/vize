@@ -13,12 +13,7 @@ useTabs: true
 # added with out having to edit the line above.
 trailingComma: "es5"
 
-# Do not interfear with the the default style of package.json and
-# package-lock.json. Those files are auto-generated and should be left alone.
 overrides:
-  - files: "*.json"
-    options:
-        tabWidth: 2
 # Use prose wrapping to make Markdown documents more readable when displayed as
 # plain text.
   - files: "*.md"
@@ -29,4 +24,5 @@ overrides:
   - files: "*.{md,yaml}"
     options:
         useTabs: false
+
 # All other options are left at their default values.

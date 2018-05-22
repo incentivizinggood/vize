@@ -1,7 +1,7 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-//import { Votes } from "../../api/data/votes.js";
+// import { Votes } from "../../api/data/votes.js";
 
 class VoteButtons extends React.Component {
 	constructor(props) {
@@ -32,14 +32,13 @@ class VoteButtons extends React.Component {
 					// Change state here if you want to reactively update
 					// based on user vote
 					if (Meteor.isDevelopment) {
-						this.setState(prevState => {
-							return { upVotes: prevState.upVotes + 1 };
-						});
+						this.setState(prevState => ({
+							upVotes: prevState.upVotes + 1,
+						}));
 						console.log(
-							"Upvoting review " +
-								this.props.review._id +
-								": " +
+							`Upvoting review ${this.props.review._id}: ${
 								this.props.review.upvotes
+							}`
 						);
 					}
 				}
@@ -61,14 +60,13 @@ class VoteButtons extends React.Component {
 					// Change state here if you want to reactively update
 					// based on user vote
 					if (Meteor.isDevelopment) {
-						this.setState(prevState => {
-							return { downVotes: prevState.downVotes + 1 };
-						});
+						this.setState(prevState => ({
+							downVotes: prevState.downVotes + 1,
+						}));
 						console.log(
-							"Downvoting review " +
-								this.props.review._id +
-								": " +
+							`Downvoting review ${this.props.review._id}: ${
 								this.props.review.downvotes
+							}`
 						);
 					}
 				}
@@ -120,21 +118,21 @@ class VoteButtons extends React.Component {
 
 export default withTracker(({ review, userVotes }) => {
 	// One of the more ridiculous pieces of code I've had to write
-	let userVote = userVotes.findOne({
+	const userVote = userVotes.findOne({
 		submittedBy: Meteor.userId(),
 		references: review._id,
 		voteSubject: "review",
 	});
-	let upButtonStyle =
+	const upButtonStyle =
 		userVote === undefined || userVote.value === false
 			? { backgroundColor: "transparent" }
 			: { backgroundColor: "green" };
-	let downButtonStyle =
+	const downButtonStyle =
 		userVote === undefined || userVote.value === true
 			? { backgroundColor: "transparent" }
 			: { backgroundColor: "red" };
 	return {
-		review: review,
+		review,
 		vote: userVote,
 		upStyle: upButtonStyle,
 		downStyle: downButtonStyle,

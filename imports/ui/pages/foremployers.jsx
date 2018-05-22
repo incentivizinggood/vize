@@ -34,10 +34,10 @@ export default class ForEmployers extends React.Component {
 								</center>
 							</div>
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
-				{/*find great employer */}
+				{/* find great employer */}
 				{/* find card sect */}
 				<div className="welcome  welpad  back-hm-community">
 					<div className="container">
@@ -58,7 +58,7 @@ export default class ForEmployers extends React.Component {
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<br />
-										{/*}  <div  className="fl-ri-re">
+										{/* }  <div  className="fl-ri-re">
 																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
 																								</div> */}
 										<br />
@@ -88,7 +88,7 @@ export default class ForEmployers extends React.Component {
 								</div>
 							</center>
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
 				{/* find card sect
@@ -117,7 +117,7 @@ export default class ForEmployers extends React.Component {
 								</h4>
 							</div>
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
 				{/* find great sect
@@ -149,7 +149,7 @@ export default class ForEmployers extends React.Component {
 							</div>
 							<div className="col-md-1" />
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
 				{/* //section */}

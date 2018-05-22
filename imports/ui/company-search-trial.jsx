@@ -10,13 +10,13 @@ import Footer from "./pages/footer.jsx";
 /* A set of controls for the user to select search queries and options.
  * For use in the CompanySearchPage.
  */
-var input = "";
+let input = "";
 
-////////////////////CHILD COMPONENT///////////////////
+// //////////////////CHILD COMPONENT///////////////////
 class Results extends React.Component {
 	render() {
-		var first = this.props.company;
-		var display_notice;
+		const first = this.props.company;
+		let display_notice;
 
 		const RenderedItems = this.props.company.map(function(item, i) {
 			return <CompanyComponent key={i} item={item} />;
@@ -37,18 +37,18 @@ class Results extends React.Component {
 	}
 }
 
-let Results1 = withTracker(({ query }) => {
-	var handle = Meteor.subscribe("CompanyProfiles");
+const Results1 = withTracker(({ query }) => {
+	const handle = Meteor.subscribe("CompanyProfiles");
 
 	return {
 		isReady: handle.ready(),
 		company: Companies.find({
-			name: { $regex: ".*" + query + ".*", $options: "i" },
+			name: { $regex: `.*${query}.*`, $options: "i" },
 		}).fetch(),
 	};
 })(Results);
 
-///////////////Company Search -- Main Component////////////////////
+// /////////////Company Search -- Main Component////////////////////
 export default class CompanySearchTrial extends React.Component {
 	constructor(props) {
 		super(props);
@@ -69,7 +69,7 @@ export default class CompanySearchTrial extends React.Component {
 		}
 	}
 
-	//Gives error for now -- Need to ask Julian for this.
+	// Gives error for now -- Need to ask Julian for this.
 	// componentWillMount() {
 	//     const script = document.createElement("script");
 	//     script.src = "/js/custom.js";
@@ -83,7 +83,7 @@ export default class CompanySearchTrial extends React.Component {
 		input = this.refs.input_search.value;
 		// console.log(input);
 		this.refs.input_search.value = "";
-		this.setState({ input: input });
+		this.setState({ input });
 	}
 
 	render() {
@@ -123,9 +123,9 @@ export default class CompanySearchTrial extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="clearfix"> </div>
+					<div className="clearfix" />
 				</div>
-				<div className="clearfix"> </div>
+				<div className="clearfix" />
 
 				{/* ////////////////////////RESULTS CODE///////////////////////////////// */}
 

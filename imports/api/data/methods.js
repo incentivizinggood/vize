@@ -1,19 +1,20 @@
 import { Meteor } from "meteor/meteor";
+import { Email } from "meteor/email";
+import { check } from "meteor/check";
+
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
 import { Votes } from "./votes.js";
-import { Email } from "meteor/email";
-import SimpleSchema from "simpl-schema";
-import { addToAvg, subFromAvg, changeInAvg } from "./denormalization.js";
+import { addToAvg } from "./denormalization.js";
 
 Meteor.methods({
-	sendEmail: function(to, from, subject, text) {
+	sendEmail(to, from, subject, text) {
 		if (Meteor.isDevelopment)
 			console.log("SERVER sendEmail: checking arguments");
 		check([to, from, subject, text], [String]);
-		let realEmail = { to, from, subject, text };
+		const realEmail = { to, from, subject, text };
 		if (Meteor.isDevelopment) {
 			console.log("SERVER sendEmail: before send, here is the email:");
 			console.log(realEmail);
@@ -24,7 +25,7 @@ Meteor.methods({
 		return "we made it";
 	},
 
-	hasFiveWords: function(inputString) {
+	hasFiveWords(inputString) {
 		// Funny story, String.prototype.wordCount is actually
 		// defined in reviews.js because I couldn't find a
 		// better place for it. Just in case you're wondering.
@@ -37,14 +38,14 @@ Meteor.methods({
 		return "all good";
 	},
 
-	"reviews.submitReview": function(newReview) {
-		//This avoids a lot of problems
+	"reviews.submitReview"(newReview) {
+		// This avoids a lot of problems
 		newReview = Reviews.simpleSchema().clean(newReview);
 
-		let validationResult = Reviews.simpleSchema()
+		const validationResult = Reviews.simpleSchema()
 			.namedContext()
 			.validate(newReview);
-		let errors = Reviews.simpleSchema()
+		const errors = Reviews.simpleSchema()
 			.namedContext()
 			.validationErrors();
 
@@ -152,7 +153,7 @@ Meteor.methods({
 							company.avgNumMonthsWorked
 						),
 					},
-					$inc: { numReviews: 1 }, //this will increment the numReviews by 1
+					$inc: { numReviews: 1 }, // this will increment the numReviews by 1
 				}
 			);
 
@@ -163,14 +164,9 @@ Meteor.methods({
 		}
 	},
 
-	"reviews.changeVote": function(review, vote) {
+	"reviews.changeVote"(review, vote) {
 		console.log(
-			"SERVER: User " +
-				this.userId +
-				" voted " +
-				vote +
-				" on review " +
-				review._id
+			`SERVER: User ${this.userId} voted ${vote} on review ${review._id}`
 		);
 
 		// validate vote: must be boolean
@@ -184,10 +180,10 @@ Meteor.methods({
 		}
 
 		// validate review: must match Reviews.schema
-		let validationResult = Reviews.simpleSchema()
+		const validationResult = Reviews.simpleSchema()
 			.namedContext()
 			.validate(review);
-		let errors = Reviews.simpleSchema()
+		const errors = Reviews.simpleSchema()
 			.namedContext()
 			.validationErrors();
 
@@ -243,7 +239,7 @@ Meteor.methods({
 
 		// This next bit was a pain to write
 
-		let previousVote = Votes.findOne({
+		const previousVote = Votes.findOne({
 			submittedBy: this.userId,
 			references: review._id,
 			voteSubject: "review",
@@ -271,13 +267,13 @@ Meteor.methods({
 		}
 
 		// again with the doing things the first way that comes to mind
-		let proceed =
+		const proceed =
 			((previousVote === undefined && result !== undefined) ||
 				(previousVote !== undefined && result !== 0)) &&
 			(previousVote === undefined || vote !== previousVote.value);
 		if (proceed) {
 			if (vote === true) {
-				let decNum =
+				const decNum =
 					previousVote === undefined || review.downvotes === 0
 						? 0
 						: -1;
@@ -287,7 +283,7 @@ Meteor.methods({
 					{ getAutoValues: false }
 				);
 			} else {
-				let decNum =
+				const decNum =
 					previousVote === undefined || review.upvotes === 0 ? 0 : -1;
 				Reviews.update(
 					review._id,
@@ -300,14 +296,14 @@ Meteor.methods({
 		return "I VOTED";
 	},
 
-	"salaries.submitSalaryData": function(newSalary) {
-		//This avoids a lot of problems
+	"salaries.submitSalaryData"(newSalary) {
+		// This avoids a lot of problems
 		newSalary = Salaries.simpleSchema().clean(newSalary);
 
-		let validationResult = Salaries.simpleSchema()
+		const validationResult = Salaries.simpleSchema()
 			.namedContext()
 			.validate(newSalary);
-		let errors = Salaries.simpleSchema()
+		const errors = Salaries.simpleSchema()
 			.namedContext()
 			.validationErrors();
 
@@ -358,8 +354,8 @@ Meteor.methods({
 		Salaries.insert(newSalary);
 	},
 
-	"jobads.findOne": function(jobIdentifier) {
-		let job = JobAds.findOne(jobIdentifier);
+	"jobads.findOne"(jobIdentifier) {
+		const job = JobAds.findOne(jobIdentifier);
 		if (job === undefined) {
 			throw new Meteor.Error(
 				"notFound",
@@ -370,8 +366,8 @@ Meteor.methods({
 		return job;
 	},
 
-	"jobads.doesJobAdExist": function(jobIdentifier) {
-		let job = JobAds.findOne(jobIdentifier);
+	"jobads.doesJobAdExist"(jobIdentifier) {
+		const job = JobAds.findOne(jobIdentifier);
 		if (job === undefined) {
 			throw new Meteor.Error(
 				"notFound",
@@ -382,12 +378,14 @@ Meteor.methods({
 		return "all good";
 	},
 
-	"jobads.applyForJob": function(jobApplication) {
+	"jobads.applyForJob"(jobApplication) {
 		jobApplication = JobAds.applicationSchema.clean(jobApplication);
-		let validationResult = JobAds.applicationSchema
+		const validationResult = JobAds.applicationSchema
 			.namedContext()
 			.validate(jobApplication);
-		let errors = JobAds.applicationSchema.namedContext().validationErrors();
+		const errors = JobAds.applicationSchema
+			.namedContext()
+			.validationErrors();
 
 		if (Meteor.isDevelopment) {
 			console.log("SERVER: Here is the validation result: ");
@@ -420,19 +418,18 @@ Meteor.methods({
 			);
 		}
 
-		let company = Companies.findOne({ name: jobApplication.companyName });
-		let companyEmailAddress = company.contactEmail;
-		let companyName = jobApplication.companyName;
-		let workerName = jobApplication.fullName;
-		let workerEmail = jobApplication.email;
-		let workerPhone = jobApplication.phoneNumber;
-		let workerComments =
+		const company = Companies.findOne({ name: jobApplication.companyName });
+		const companyEmailAddress = company.contactEmail;
+		const companyName = jobApplication.companyName;
+		const workerName = jobApplication.fullName;
+		const workerEmail = jobApplication.email;
+		const workerPhone = jobApplication.phoneNumber;
+		const workerComments =
 			jobApplication.coverLetterAndComments !== undefined
 				? jobApplication.coverLetterAndComments
 				: "[the applicant did not fill in this field]";
-		let jobId = jobApplication.jobId;
-		let emailSubject =
-			"VIZE " + workerName + " has responded to your job advertisement";
+		const jobId = jobApplication.jobId;
+		const emailSubject = `VIZE ${workerName} has responded to your job advertisement`;
 
 		/*
 			QUESTION:
@@ -441,36 +438,23 @@ Meteor.methods({
 			- ...or a valid phone number?
 		*/
 
-		let emailText =
-			"To those at " +
-			companyName +
-			"," +
-			"\n\n\tCongratulations, you just received a new job application! " +
-			"A Vize user, " +
-			workerName +
-			", has responded " +
-			"to your job post (which was given id=" +
-			jobId +
-			")." +
-			"They provided the contact information below, feel free to contact " +
-			"them directly." +
-			"\n\n\tIf you have any issues with this process, please " +
-			"let us know. If you hire this employee, please send us a message letting " +
-			"us know what you think of our service. We hope you've found the perfect " +
-			"employee for your company and the position!" +
-			"\n\nAll the best," +
-			"\n\n\tThe Vize Team" +
-			"\n\nAPPLICANT INFORMATION" +
-			"\nFull name: " +
-			workerName +
-			"\nEmail: " +
-			workerEmail +
-			"\nPhone number: " +
-			workerPhone +
-			"\nCover letter/Aditional comments:\n" +
-			workerComments;
+		const emailText =
+			`To those at ${companyName},` +
+			`\n\n\tCongratulations, you just received a new job application! ` +
+			`A Vize user, ${workerName}, has responded ` +
+			`to your job post (which was given id=${jobId}).` +
+			`They provided the contact information below, feel free to contact ` +
+			`them directly.` +
+			`\n\n\tIf you have any issues with this process, please ` +
+			`let us know. If you hire this employee, please send us a message letting ` +
+			`us know what you think of our service. We hope you've found the perfect ` +
+			`employee for your company and the position!` +
+			`\n\nAll the best,` +
+			`\n\n\tThe Vize Team` +
+			`\n\nAPPLICANT INFORMATION` +
+			`\nFull name: ${workerName}\nEmail: ${workerEmail}\nPhone number: ${workerPhone}\nCover letter/Aditional comments:\n${workerComments}`;
 
-		let applicationEmail = {
+		const applicationEmail = {
 			to: companyEmailAddress,
 			from: "postmaster@incentivizinggood.com",
 			cc: workerEmail,
@@ -487,12 +471,12 @@ Meteor.methods({
 		Email.send(applicationEmail);
 	},
 
-	"jobads.postJobAd": function(newJobAd) {
+	"jobads.postJobAd"(newJobAd) {
 		newJobAd = JobAds.simpleSchema().clean(newJobAd);
-		let validationResult = JobAds.simpleSchema()
+		const validationResult = JobAds.simpleSchema()
 			.namedContext()
 			.validate(newJobAd);
-		let errors = JobAds.simpleSchema()
+		const errors = JobAds.simpleSchema()
 			.namedContext()
 			.validationErrors();
 
@@ -536,8 +520,8 @@ Meteor.methods({
 		JobAds.insert(newJobAd);
 	},
 
-	"companies.findOne": function(companyIdentifier) {
-		let company = Companies.findOne(companyIdentifier);
+	"companies.findOne"(companyIdentifier) {
+		const company = Companies.findOne(companyIdentifier);
 		if (company === undefined) {
 			throw new Meteor.Error(
 				"notFound",
@@ -548,7 +532,7 @@ Meteor.methods({
 		return company;
 	},
 
-	"companies.companyForCurrentUser": function() {
+	"companies.companyForCurrentUser"() {
 		if (!this.userId) {
 			throw new Meteor.Error(
 				"loggedOut",
@@ -556,7 +540,7 @@ Meteor.methods({
 			);
 		}
 
-		let user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
+		const user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
 
 		if (user.role !== "company" || user.companyId === undefined) {
 			throw new Meteor.Error(
@@ -565,7 +549,7 @@ Meteor.methods({
 			);
 		}
 
-		let company = Companies.findOne(user.companyId);
+		const company = Companies.findOne(user.companyId);
 
 		if (company === undefined) {
 			throw new Meteor.Error(
@@ -577,7 +561,7 @@ Meteor.methods({
 		return company;
 	},
 
-	"companies.isNotSessionError": function(companyNameString) {
+	"companies.isNotSessionError"(companyNameString) {
 		if (
 			companyNameString === "ERROR: COMPANY NOT FOUND" ||
 			companyNameString ===
@@ -592,7 +576,7 @@ Meteor.methods({
 		return "all good";
 	},
 
-	"companies.isCompanyNameAvailable": function(companyName) {
+	"companies.isCompanyNameAvailable"(companyName) {
 		if (Companies.hasEntry(companyName)) {
 			throw new Meteor.Error(
 				"nameTaken",
@@ -606,7 +590,7 @@ Meteor.methods({
 	// thrown error and callback structure makes it easy to do this way,
 	// but is there some way to combine this method with the previous one?
 	// They're almost identical.
-	"companies.doesCompanyExist": function(companyName) {
+	"companies.doesCompanyExist"(companyName) {
 		if (!Companies.hasEntry(companyName)) {
 			throw new Meteor.Error(
 				"noCompanyWithThatName",
@@ -616,16 +600,16 @@ Meteor.methods({
 		return "all good";
 	},
 
-	//Add method for creating a new CompanyProfile
+	// Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
-	"companies.createProfile": function(newCompanyProfile) {
+	"companies.createProfile"(newCompanyProfile) {
 		newCompanyProfile = Companies.simpleSchema().clean(newCompanyProfile);
-		let validationResult = Companies.simpleSchema()
+		const validationResult = Companies.simpleSchema()
 			.namedContext()
 			.validate(newCompanyProfile);
-		let errors = Companies.simpleSchema()
+		const errors = Companies.simpleSchema()
 			.namedContext()
 			.validationErrors();
 
@@ -670,7 +654,7 @@ Meteor.methods({
 		I just don't immediately know what they need to be. */
 		Companies.insert(newCompanyProfile);
 
-		//If insertion successful, then add companyId field to user account
+		// If insertion successful, then add companyId field to user account
 		Meteor.users.update(this.userId, {
 			$set: { companyId: newCompanyProfile._id },
 		});

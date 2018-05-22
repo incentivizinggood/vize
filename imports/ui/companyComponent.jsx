@@ -1,4 +1,4 @@
-//This is the componenet that gets rendered when user searches for company name
+// This is the componenet that gets rendered when user searches for company name
 import React from "react";
 import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
@@ -64,7 +64,7 @@ const CompanyComponent = props => {
 							<div className="titlestar">
 								<div className="" data-toggle="buttons">
 									<label className="btn btn-lg btn-success active btn_follow1">
-										{/*FOLLOW BUTTON CODE COMMENTED OUT   */}
+										{/* FOLLOW BUTTON CODE COMMENTED OUT   */}
 
 										{/* <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/>
                           <i className="fa fa-check"></i> Following
@@ -91,7 +91,7 @@ const CompanyComponent = props => {
 						</div>
 					</div>
 				</div>
-				<div className="clearfix"> </div>
+				<div className="clearfix" />
 				<div className="container  welpad1">
 					<div className="col-md-3">
 						<div className="reviews1">
@@ -121,15 +121,15 @@ const CompanyComponent = props => {
 						</div>
 					</div>
 				</div>
-				<div className="clearfix"> </div>
+				<div className="clearfix" />
 			</div>
 		</div>
 	);
 };
 
 export default withTracker(({ item }) => {
-	var handle = Meteor.subscribe("JobAds");
-	var handle1 = Meteor.subscribe("Salaries");
+	const handle = Meteor.subscribe("JobAds");
+	const handle1 = Meteor.subscribe("Salaries");
 
 	return {
 		jobads: JobAds.find({ companyName: item.name }).count(),

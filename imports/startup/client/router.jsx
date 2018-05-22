@@ -4,26 +4,11 @@
  * All pages are rendered into the view-render div.
  * See client/main.html
  */
-if (Meteor.isDevelopment && Meteor.isClient) {
-	import SimpleSchema from "simpl-schema";
-	import { AutoForm } from "meteor/aldeed:autoform";
-	SimpleSchema.debug = true;
-	AutoForm.debug();
-}
-
 import React from "react";
 import ReactDOM from "react-dom";
+import { Meteor } from "meteor/meteor";
+import { FlowRouter } from "meteor/kadira:flow-router";
 
-import Header from "../../ui/pages/header.jsx";
-import Footer from "../../ui/pages/footer.jsx";
-import OverviewTab from "../../ui/components/overviewTabCP.jsx";
-import ReviewComponent from "../../ui/components/companyReview.jsx";
-import ReviewTab from "../../ui/components/reviewTabCP.jsx";
-import JobTab from "../../ui/components/jobTabCP.jsx";
-import JobPosting from "../../ui/components/jobPosting.jsx";
-import SalaryTab from "../../ui/components/salaryTabCP.jsx";
-import SalaryPosting from "../../ui/components/salaryPosting.jsx";
-import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 import ShowJobs from "../../ui/showjobs.jsx";
 
 import HomePage from "../../ui/pages/home.jsx";
@@ -46,6 +31,14 @@ import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "../../ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";
 
+if (Meteor.isDevelopment && Meteor.isClient) {
+	import SimpleSchema from "simpl-schema";
+	import { AutoForm } from "meteor/aldeed:autoform";
+
+	SimpleSchema.debug = true;
+	AutoForm.debug();
+}
+
 /**
  * Reduces boiler plate for simple pages.
  * Use this for all pages that use static non-paramerized URL's.
@@ -56,13 +49,13 @@ import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";
  */
 function routeSimplePage(path, element) {
 	FlowRouter.route(path, {
-		action(params, queryParams) {
+		action() {
 			ReactDOM.render(element, document.getElementById("view-render"));
 		},
 	});
 }
 
-//----- Define all of the simple routes. -----//
+// ----- Define all of the simple routes. -----//
 
 routeSimplePage("/", <HomePage />);
 routeSimplePage("/about", <AboutPage />);
@@ -76,7 +69,7 @@ routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
 
-//----- Define the more complex routes. -----//
+// ----- Define the more complex routes. -----//
 
 FlowRouter.route("/companies", {
 	action(params, queryParams) {

@@ -1,4 +1,4 @@
-//Boilerplate first
+// Boilerplate first
 import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
@@ -7,12 +7,12 @@ import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown 
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 
-//Specific stuff second
+// Specific stuff second
 import { Salaries } from "../../api/data/salaries.js";
 import { Companies } from "../../api/data/companies.js";
 import "./ssd_blaze_form.html";
 
-let ssd_form_state = new ReactiveDict();
+const ssd_form_state = new ReactiveDict();
 ssd_form_state.set("formError", "good"); // Shared with AutoForm helpers
 ssd_form_state.set("companyId", undefined); // Shared with the React wrapper
 ssd_form_state.set("company", {
@@ -21,8 +21,8 @@ ssd_form_state.set("company", {
 
 if (Meteor.isClient) {
 	Template.ssd_blaze_form.onCreated(function() {
-		let id = ssd_form_state.get("companyId");
-		if (Meteor.isDevelopment) console.log("received id: " + id);
+		const id = ssd_form_state.get("companyId");
+		if (Meteor.isDevelopment) console.log(`received id: ${id}`);
 		if (id !== undefined) {
 			this.autorun(function() {
 				Meteor.call("companies.findOne", id, (error, result) => {
@@ -42,50 +42,46 @@ if (Meteor.isClient) {
 
 	Template.ssd_blaze_form.helpers({
 		salaries: Salaries,
-		ErrorWidget: function() {
+		ErrorWidget() {
 			return ErrorWidget;
 		},
-		shouldHaveCompany: function() {
+		shouldHaveCompany() {
 			return ssd_form_state.get("companyId") !== undefined;
 		},
-		getCompanyName: function() {
-			let company = ssd_form_state.get("company");
+		getCompanyName() {
+			const company = ssd_form_state.get("company");
 			if (company === undefined) {
 				return "ERROR: COMPANY NOT FOUND";
-			} else {
-				return company.name;
 			}
+			return company.name;
 		},
-		hasError: function() {
+		hasError() {
 			return ssd_form_state.get("formError") !== "good";
 		},
-		error: function() {
+		error() {
 			return ssd_form_state.get("formError");
 		},
-		resetFormError: function() {
-			//called when reset button is clicked
+		resetFormError() {
+			// called when reset button is clicked
 			if (Meteor.isDevelopment) console.log("Resetting ssd_review_form");
 			ssd_form_state.set("formError", "good");
 		},
 	});
 
 	AutoForm.addHooks("ssd_blaze_form", {
-		onSuccess: function(formType, result) {
+		onSuccess(formType, result) {
 			// If your method returns something, it will show up in "result"
 			if (Meteor.isDevelopment)
 				console.log(
-					"SUCCESS: We did a thing in a " +
-						formType +
-						" form: " +
-						result
+					`SUCCESS: We did a thing in a ${formType} form: ${result}`
 				);
 			ssd_form_state.set("formError", "good");
 		},
-		onError: function(formType, error) {
+		onError(formType, error) {
 			// "error" contains whatever error object was thrown
 			if (Meteor.isDevelopment)
 				console.log(
-					"ERROR: We did a thing in a " + formType + " form: " + error
+					`ERROR: We did a thing in a ${formType} form: ${error}`
 				);
 			ssd_form_state.set("formError", error.toString());
 		},

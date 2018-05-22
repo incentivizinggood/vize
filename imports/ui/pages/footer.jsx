@@ -16,16 +16,16 @@ export default class Footer extends React.Component {
 					<div className="col-md-3 footer-grids">
 						<h4>Employers</h4>
 						<ul className=" footer_nav navigation2">
-							{/*<li><a href="#">Pricing</a></li>*/}
+							{/* <li><a href="#">Pricing</a></li> */}
 							<li>
 								<a href="/register">
 									Create a Free Employer Account
 								</a>
 							</li>
-							{/*<li><a href="#">Post a Job</a></li>*/}
+							{/* <li><a href="#">Post a Job</a></li> */}
 						</ul>
 					</div>
-					{/*<div className="col-md-3 footer-grids">
+					{/* <div className="col-md-3 footer-grids">
                <h4>Community</h4>
                <ul className=" footer_nav navigation3">
                   <li><a href="#">Help Center</a></li>
@@ -43,13 +43,13 @@ export default class Footer extends React.Component {
                   <li><a href="#">Community Standards</a></li>
                   <li><a href="#">Help</a></li>
                </ul>
-            </div>*/}
-					<div className="clearfix"> </div>
+            </div> */}
+					<div className="clearfix" />
 					<div>
 						<div className="container">
 							<div className="col-md-12">
 								<div className="footer-bottom">
-									{/*<a href="#"><i className="fa fa-facebook-official" aria-hidden="true"></i></a>
+									{/* <a href="#"><i className="fa fa-facebook-official" aria-hidden="true"></i></a>
                         <a href="#"><i className="fa fa-linkedin-square" aria-hidden="true"></i></a>
                         <a href="#"><i className="fa fa-twitter-square" aria-hidden="true"></i></a> */}
 								</div>

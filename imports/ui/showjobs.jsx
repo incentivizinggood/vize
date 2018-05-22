@@ -14,7 +14,7 @@ class ShowJobs extends React.Component {
 		const RenderedItems = this.props.jobads.map(function(jobad) {
 			return <ShowJobComponent key={jobad._id} item={jobad} />;
 		});
-		var message;
+		let message;
 		if (RenderedItems.length < 1) {
 			message = <h2>No Jobs Available right now.</h2>;
 		} else {
@@ -51,7 +51,7 @@ class ShowJobs extends React.Component {
 }
 
 export default withTracker(() => {
-	var handle = Meteor.subscribe("JobAds");
+	const handle = Meteor.subscribe("JobAds");
 
 	return {
 		isReady: handle.ready(),

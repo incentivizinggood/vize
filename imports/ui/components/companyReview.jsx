@@ -8,15 +8,15 @@ export default class ReviewComponent extends React.Component {
 		super(props);
 	}
 	render() {
-		//@options -  For the date formatting
-		var options = {
+		// @options -  For the date formatting
+		const options = {
 			weekday: "long",
 			year: "numeric",
 			month: "long",
 			day: "numeric",
 		};
-		//IF-ELSE for the Recommended option, green tick v/s red cross
-		var className;
+		// IF-ELSE for the Recommended option, green tick v/s red cross
+		let className;
 		if (this.props.item.wouldRecommendToOtherJobSeekers) {
 			className = (
 				<p style={{ color: "#2E8B57" }}>
@@ -71,7 +71,7 @@ export default class ReviewComponent extends React.Component {
 											this.props.item.workEnvironment +
 											this.props.item.benefits) /
 										4
-									} //the average rating of all 5 ratings
+									} // the average rating of all 5 ratings
 									starDimension="15px"
 									starSpacing="1.5px"
 								/>

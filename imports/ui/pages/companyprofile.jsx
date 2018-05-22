@@ -135,11 +135,11 @@ class CompanyProfile extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="clearfix"> </div>
+					<div className="clearfix" />
 				</div>
 
 				<br />
-				{/*}//navigation */}
+				{/* }//navigation */}
 				<section id="back_col">
 					<div className="container  mar_lf_ri">
 						<div className="row">
@@ -321,11 +321,11 @@ class CompanyProfile extends React.Component {
 }
 
 export default withTracker(({ companyId }) => {
-	var handle1 = Meteor.subscribe("CompanyProfiles");
-	var handle2 = Meteor.subscribe("Reviews");
-	var handle3 = Meteor.subscribe("JobAds");
-	var handle4 = Meteor.subscribe("Salaries");
-	var handle5 = Meteor.subscribe("Votes", {
+	const handle1 = Meteor.subscribe("CompanyProfiles");
+	const handle2 = Meteor.subscribe("Reviews");
+	const handle3 = Meteor.subscribe("JobAds");
+	const handle4 = Meteor.subscribe("Salaries");
+	const handle5 = Meteor.subscribe("Votes", {
 		submittedBy: Meteor.userId(),
 		voteSubject: "review",
 	});
@@ -338,11 +338,11 @@ export default withTracker(({ companyId }) => {
 			handle4.ready() &&
 			handle5.ready(),
 		company: Companies.findOne(companyId),
-		reviews: Reviews.find({ companyId: companyId }).fetch(),
-		jobAds: JobAds.find({ companyId: companyId }).fetch(),
-		jobsCount: JobAds.find({ companyId: companyId }).count(),
-		salaries: Salaries.find({ companyId: companyId }).fetch(),
-		salariesCount: Salaries.find({ companyId: companyId }).count(),
+		reviews: Reviews.find({ companyId }).fetch(),
+		jobAds: JobAds.find({ companyId }).fetch(),
+		jobsCount: JobAds.find({ companyId }).count(),
+		salaries: Salaries.find({ companyId }).fetch(),
+		salariesCount: Salaries.find({ companyId }).count(),
 		userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
 	};
 })(CompanyProfile);

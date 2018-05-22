@@ -2,8 +2,8 @@ import React from "react";
 
 export default class ShowJobComponent extends React.Component {
 	render() {
-		//@options -  For the date formatting
-		var options = {
+		// @options -  For the date formatting
+		const options = {
 			weekday: "long",
 			year: "numeric",
 			month: "long",

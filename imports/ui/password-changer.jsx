@@ -31,7 +31,7 @@ export default class PasswordChanger extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
-		let callback = error => {
+		const callback = error => {
 			this.setState({
 				error: error ? error.reason : null,
 				success: !error,

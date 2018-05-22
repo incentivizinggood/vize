@@ -13,17 +13,18 @@ Prettier's default style. The only differences are:
 *   We are using tabs for indention for all code except YAML and Markdown. These
     languages are excluded because they require spaces for indention.
 
-It should be noted that these changes are not applied to JSON files. The files
-`package.json` and `package-lock.json` are edited by NPM and it would be a
-unneeded hassle to fight with it on formatting.
+It should be noted that these changes are not applied to the files
+`package.json` and `package-lock.json`. These files are edited by NPM and it
+would be a unneeded hassle to fight with it on formatting.
 
 ## Tools
 
 To help enforce the coding style we are using Prettier. Prettier corrects any
 formatting errors automatically.
 
-To help detect errors and low quality code we are going to use ESLint, but this
-has not yet been setup yet.
+To help detect errors and low quality code we are going to use ESLint. ESLint
+scans the source code to detect errors and bad habits. This caches some problems
+earlier and reduces the amount of time spent on debugging.
 
 ## Setup on Atom
 
@@ -52,7 +53,12 @@ without ever changing your settings.
 
 ### ESLint
 
-ESLint has not been setup yet.
+1.  Install the packages `language-babel`, `linter`, and `linter-eslint`.
+1.  Go to `linter-eslint`'s settings.
+1.  Select the option "Disable when no ESLint config is found". This will
+    prevent ESLint from running on any other projects that you may work on.
+
+See https://guide.meteor.com/code-style.html#eslint-atom for more info.
 
 ## Setup on WebStorm
 
@@ -69,4 +75,6 @@ To do.
 
 ### ESLint
 
-ESLint has not been setup yet.
+To do.
+
+See https://guide.meteor.com/code-style.html#eslint-webstorm for more info.

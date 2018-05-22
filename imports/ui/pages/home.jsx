@@ -21,7 +21,7 @@ export default class HomePage extends React.Component {
 		this.setState({ input: _input });
 
 		// FlowRouter.setQueryParams({ input: input });
-		FlowRouter.go("/companies/?input=" + _input);
+		FlowRouter.go(`/companies/?input=${_input}`);
 	}
 
 	render() {
@@ -106,7 +106,7 @@ export default class HomePage extends React.Component {
 							</div>
 						</div>
 
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 
 					{/* =====mobile view show====  */}
@@ -150,12 +150,12 @@ export default class HomePage extends React.Component {
 							</div>
 						</div>
 
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 					{/* ====mobile view show  end==== */}
 				</div>
 
-				{/*  find great employer*/}
+				{/*  find great employer */}
 
 				<div className="welcome  welpad   back-hm-sect-colr">
 					<div className="container  blu-section-desc">
@@ -193,7 +193,7 @@ export default class HomePage extends React.Component {
 								/>
 							</div>
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 
 					{/* ===mobile view blue section==== */}
@@ -238,7 +238,7 @@ export default class HomePage extends React.Component {
 								</center>
 							</div>
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
 
@@ -316,7 +316,7 @@ export default class HomePage extends React.Component {
 							</center>
 						</div>
 
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
 
@@ -348,7 +348,7 @@ export default class HomePage extends React.Component {
 							</div>
 							<div className="col-md-1" />
 						</div>
-						<div className="clearfix"> </div>
+						<div className="clearfix" />
 					</div>
 				</div>
 				<Footer />
@@ -442,4 +442,4 @@ export default class HomePage extends React.Component {
             </div>
             <div className="clearfix"> </div>
          </div>
-      </div>*/
+      </div> */
