@@ -1,30 +1,17 @@
-import React from "react";
-
-// Hotfix: This does not work on production.
-// function isElse (x) {
-//    return (typeof x === "object" && typeof x.type === "function" && x.type.name === "Else");
-// }
-
-export class If extends React.Component {
-	render() {
-		if (this.props.cond) {
-			return this.props.children[0];
-		}
-		if (this.props.children.length > 1) {
-			return this.props.children[1];
-		}
-		return null;
+export function If(props) {
+	if (props.cond) {
+		return props.children[0];
 	}
+	if (props.children.length > 1) {
+		return props.children[1];
+	}
+	return null;
 }
 
-export class Then extends React.Component {
-	render() {
-		return this.props.children;
-	}
+export function Then(props) {
+	return props.children;
 }
 
-export class Else extends React.Component {
-	render() {
-		return this.props.children;
-	}
+export function Else(props) {
+	return props.children;
 }

@@ -1,4 +1,6 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
 
 /* A form where users can change their passwords.
  */
@@ -19,10 +21,10 @@ export default class PasswordChanger extends React.Component {
 	}
 
 	handleInputChange(event) {
-		const target = event.target;
+		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;
-		const name = target.name;
+		const { name } = target;
 
 		this.setState({
 			[name]: value,
@@ -61,9 +63,10 @@ export default class PasswordChanger extends React.Component {
 			<div className="password-reset">
 				{this.state.error ? <div>{this.state.error}</div> : null}
 				<form onSubmit={this.handleSubmit}>
-					<label>
+					<label htmlFor="passwordChangeForm-oldPassword">
 						Current password
 						<input
+							id="passwordChangeForm-oldPassword"
 							name="oldPassword"
 							type="password"
 							placeholder="Password"
@@ -72,9 +75,10 @@ export default class PasswordChanger extends React.Component {
 							onChange={this.handleInputChange}
 						/>
 					</label>
-					<label>
+					<label htmlFor="passwordChangeForm-newPassword">
 						New password
 						<input
+							id="passwordChangeForm-newPassword"
 							name="newPassword"
 							type="password"
 							placeholder="New Password"
@@ -83,9 +87,10 @@ export default class PasswordChanger extends React.Component {
 							onChange={this.handleInputChange}
 						/>
 					</label>
-					<label>
+					<label htmlFor="passwordChangeForm-repeatNewPassword">
 						Repeat new password
 						<input
+							id="passwordChangeForm-repeatNewPassword"
 							name="repeatNewPassword"
 							type="password"
 							placeholder="New Password"
