@@ -10,10 +10,12 @@ Prettier's default style. The only differences are:
     them.
 *   We use prose wrapping to make Markdown documents more readable when
     displayed as plain text.
+*   We are using tabs for indention for all code except YAML and Markdown. These
+    languages are excluded because they require spaces for indention.
 
 It should be noted that these changes are not applied to JSON files. The files
 `package.json` and `package-lock.json` are edited by NPM and it would be a
-unneeded hassle to fight with it on formating.
+unneeded hassle to fight with it on formatting.
 
 ## Tools
 
