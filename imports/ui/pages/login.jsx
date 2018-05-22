@@ -1,4 +1,6 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
+import { FlowRouter } from "meteor/kadira:flow-router";
 
 /* The page where users can login to the app.
  */
@@ -18,10 +20,10 @@ export default class LoginPage extends React.Component {
 	}
 
 	handleInputChange(event) {
-		const target = event.target;
+		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;
-		const name = target.name;
+		const { name } = target;
 
 		this.setState({
 			[name]: value,
@@ -54,21 +56,22 @@ export default class LoginPage extends React.Component {
 			<div className="page login">
 				{this.state.error ? <div>{this.state.error}</div> : null}
 				<form onSubmit={this.handleSubmit}>
-					<label>
+					<label htmlFor="loginform-username">
 						Username
 						<input
+							id="loginform-username"
 							name="username"
 							type="text"
 							placeholder="Username"
-							autoFocus
 							required
 							value={this.state.username}
 							onChange={this.handleInputChange}
 						/>
 					</label>
-					<label>
+					<label htmlFor="loginform-password">
 						Password
 						<input
+							id="loginform-password"
 							name="password"
 							type="password"
 							placeholder="Password"
