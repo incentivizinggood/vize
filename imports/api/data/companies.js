@@ -3,6 +3,7 @@ import { Reviews } from "./reviews.js"; // used when retrieving reviews for a gi
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
+
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
 export const Companies = new Mongo.Collection("CompanyProfiles", {
@@ -18,7 +19,7 @@ Companies.getSelector = function(companyIdentifier) {
 		// assumes type of Mongo.ObjectId for _id if not string for name
 		return { _id: companyIdentifier };
 	// don't have to wrap _id in a selector, but should do so for security anyway
-	else return undefined;
+	return undefined;
 };
 
 // simple existence check//
@@ -57,10 +58,10 @@ Companies.schema = new SimpleSchema(
 			type: String,
 			optional: true,
 			denyUpdate: true,
-			autoValue: function() {
+			autoValue() {
 				if (this.field("_id").isSet) {
 					return Meteor.absoluteUrl(
-						"companyprofile/?id=" + this.field("_id").value,
+						`companyprofile/?id=${this.field("_id").value}`,
 						{ secure: true }
 					);
 				}
@@ -73,10 +74,10 @@ Companies.schema = new SimpleSchema(
 			type: String,
 			optional: true,
 			denyUpdate: true,
-			autoValue: function() {
+			autoValue() {
 				if (this.field("_id").isSet) {
 					return Meteor.absoluteUrl(
-						"write-review/?id=" + this.field("_id").value,
+						`write-review/?id=${this.field("_id").value}`,
 						{ secure: true }
 					);
 				}
@@ -89,10 +90,10 @@ Companies.schema = new SimpleSchema(
 			type: String,
 			optional: true,
 			denyUpdate: true,
-			autoValue: function() {
+			autoValue() {
 				if (this.field("_id").isSet) {
 					return Meteor.absoluteUrl(
-						"submit-salary-data/?id=" + this.field("_id").value,
+						`submit-salary-data/?id=${this.field("_id").value}`,
 						{ secure: true }
 					);
 				}
@@ -105,10 +106,10 @@ Companies.schema = new SimpleSchema(
 			type: String,
 			optional: true,
 			denyUpdate: true,
-			autoValue: function() {
+			autoValue() {
 				if (this.field("_id").isSet) {
 					return Meteor.absoluteUrl(
-						"post-a-job/?id=" + this.field("_id").value,
+						`post-a-job/?id=${this.field("_id").value}`,
 						{ secure: true }
 					);
 				}
@@ -123,7 +124,7 @@ Companies.schema = new SimpleSchema(
 			max: 100,
 			index: true /* requires aldeed:collection2 and simpl-schema packages */,
 			unique: true /* ditto */,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call(
 						"companies.isCompanyNameAvailable",
@@ -171,24 +172,24 @@ Companies.schema = new SimpleSchema(
 				"5000+",
 			],
 			optional: true,
-		}, //should this be required?
+		}, // should this be required?
 		industry: {
-			type: String, //could throw in allowedValues, might be helpful to define industry types -> ask Bryce?
+			type: String, // could throw in allowedValues, might be helpful to define industry types -> ask Bryce?
 			max: 50,
 			optional: true,
-		}, //should this be required?
+		}, // should this be required?
 		locations: {
-			type: Array, //allows more than one location
-			minCount: 1, //must have at least an HQ or something
+			type: Array, // allows more than one location
+			minCount: 1, // must have at least an HQ or something
 			optional: false,
 		},
 		"locations.$": {
-			//restraints on members of the "locations" array
+			// restraints on members of the "locations" array
 			type: String,
 			max: 150,
-		}, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		otherContactInfo: {
-			type: String, //dunno what this needs to be, leaving it to the user's discretion to "validate"
+			type: String, // dunno what this needs to be, leaving it to the user's discretion to "validate"
 			max: 200,
 			optional: true,
 		},
@@ -231,7 +232,7 @@ Companies.schema = new SimpleSchema(
 		},
 		numFlags: {
 			// as in, the number of times this company has been "flagged" for some reason,
-			//Vize IT is free to decrease as issues are dealt with
+			// Vize IT is free to decrease as issues are dealt with
 			type: SimpleSchema.Integer,
 			min: 0,
 			optional: true,
@@ -257,7 +258,7 @@ Companies.schema = new SimpleSchema(
 			},
 		},
 		managerRelationship: {
-			//"manager relationship", in case that isn't clear...
+			// "manager relationship", in case that isn't clear...
 			type: Number,
 			min: 0,
 			max: 5,
@@ -345,14 +346,14 @@ Companies.schema = new SimpleSchema(
 
 // Define custom error messages for custom validation functions
 Companies.schema.messageBox.messages({
-	//en? does that mean we can add internationalization
-	//in this block of code?
+	// en? does that mean we can add internationalization
+	// in this block of code?
 	en: {
 		nameTaken: "The name you provided is already taken",
 	},
 });
 
-//db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})
+// db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})
 
 // Added line for autoforms and collection2 usage
 Companies.attachSchema(Companies.schema, { replace: true });

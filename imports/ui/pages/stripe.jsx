@@ -22,22 +22,22 @@ export default class FlagSystem extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert("sent1" + ": " + this.state.value);
-		alert("sent2" + ": " + this.state.name);
+		alert(`${"sent1" + ": "}${this.state.value}`);
+		alert(`${"sent2" + ": "}${this.state.name}`);
 		alert("wassup");
 		event.preventDefault();
 	}
 
 	handleOptionChange(event) {
 		// alert("ground");
-		//this.setState({value: event.target.value});
+		// this.setState({value: event.target.value});
 		this.setState({ name: event.target.value });
 	}
 	handleTextChange(event) {
 		// alert("ground");
 		this.setState({ value: event.target.value });
 
-		//this.setState({selectedOption: event.target.selectedOption});
+		// this.setState({selectedOption: event.target.selectedOption});
 	}
 
 	handleStripe(event) {
@@ -51,7 +51,7 @@ export default class FlagSystem extends React.Component {
 			name: "Vize",
 			description: "Secure payments",
 			panelLabel: "Pay Now",
-			token: function(res) {
+			token(res) {
 				stripeToken = res.id;
 				console.info(res);
 				Meteor.call("chargeCard", stripeToken);

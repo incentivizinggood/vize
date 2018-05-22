@@ -23,7 +23,7 @@ class UserPage extends React.Component {
 }
 
 export default withTracker(({ user_id }) => {
-	var handle = Meteor.subscribe("users");
+	const handle = Meteor.subscribe("users");
 
 	return {
 		isReady: handle.ready(),

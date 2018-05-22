@@ -3,6 +3,7 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
 export const JobAds = new Mongo.Collection("JobAds", {
@@ -21,12 +22,12 @@ JobAds.schema = new SimpleSchema(
 			},
 		},
 		companyName: {
-			//Filled in by user, or auto-filled by form, but in any
-			type: String, //case, company names are indexed so we may as well use
-			optional: false, //use this instead of companyID
+			// Filled in by user, or auto-filled by form, but in any
+			type: String, // case, company names are indexed so we may as well use
+			optional: false, // use this instead of companyID
 			max: 100,
 			index: true,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call(
 						"companies.doesCompanyExist",
@@ -54,20 +55,19 @@ JobAds.schema = new SimpleSchema(
 			optional: true,
 			denyUpdate: true,
 			index: true,
-			autoValue: function() {
+			autoValue() {
 				if (Meteor.isServer && this.field("companyName").isSet) {
-					let company = Companies.findOne({
+					const company = Companies.findOne({
 						name: this.field("companyName").value,
 					});
 					if (company !== undefined) {
 						return company._id;
-					} else {
-						// This should never happen, because
-						// companies not in the database cannot
-						// post jobs: that error is caught in
-						// another custom validator
-						return undefined;
 					}
+					// This should never happen, because
+					// companies not in the database cannot
+					// post jobs: that error is caught in
+					// another custom validator
+					return undefined;
 				}
 			},
 			autoform: {
@@ -78,10 +78,10 @@ JobAds.schema = new SimpleSchema(
 			type: String,
 			optional: true,
 			denyUpdate: true,
-			autoValue: function() {
+			autoValue() {
 				if (this.field("_id").isSet) {
 					return Meteor.absoluteUrl(
-						"apply-for-job/?id=" + this.field("_id").value,
+						`apply-for-job/?id=${this.field("_id").value}`,
 						{ secure: true }
 					);
 				}
@@ -96,16 +96,16 @@ JobAds.schema = new SimpleSchema(
 			optional: false,
 		},
 		locations: {
-			//allows more than one location
+			// allows more than one location
 			type: Array,
-			minCount: 1, //must have at least an HQ or something
+			minCount: 1, // must have at least an HQ or something
 			optional: false,
 		},
 		"locations.$": {
-			//restraints on members of the "locations" array
+			// restraints on members of the "locations" array
 			type: String,
 			max: 150,
-		}, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		/*
 		QUESTION:
 			How to support different currencies,
@@ -115,9 +115,9 @@ JobAds.schema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 30,
-			//This bad boy matches a (peso).(centavo) string, or hyphen-separated
-			//pair (range) of (peso).(centavo) amounts. Centavos are completely
-			//optional on either side of the hyphen.
+			// This bad boy matches a (peso).(centavo) string, or hyphen-separated
+			// pair (range) of (peso).(centavo) amounts. Centavos are completely
+			// optional on either side of the hyphen.
 			regEx: /^[123456789]\d*(\.\d\d)?\s*(-\s*[123456789]\d*(\.\d\d)?\s*)?$/,
 			autoform: {
 				afFieldInput: {
@@ -174,7 +174,7 @@ JobAds.schema = new SimpleSchema(
 			type: Date,
 			optional: true,
 			denyUpdate: true,
-			defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
 			},
@@ -184,8 +184,8 @@ JobAds.schema = new SimpleSchema(
 );
 
 JobAds.schema.messageBox.messages({
-	//en? does that mean we can add internationalization
-	//in this block of code?
+	// en? does that mean we can add internationalization
+	// in this block of code?
 	en: {
 		noCompanyWithThatName:
 			"There is no company with that name in our database",
@@ -200,7 +200,7 @@ JobAds.applicationSchema = new SimpleSchema(
 		jobId: {
 			type: String,
 			optional: false,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call(
 						"jobads.doesJobAdExist",
@@ -234,7 +234,7 @@ JobAds.applicationSchema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 100,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call(
 						"companies.doesCompanyExist",
@@ -312,7 +312,7 @@ JobAds.applicationSchema = new SimpleSchema(
 			type: Date,
 			optional: true,
 			denyUpdate: true,
-			defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
 			},
@@ -322,8 +322,8 @@ JobAds.applicationSchema = new SimpleSchema(
 );
 
 JobAds.applicationSchema.messageBox.messages({
-	//en? does that mean we can add internationalization
-	//in this block of code?
+	// en? does that mean we can add internationalization
+	// in this block of code?
 	en: {
 		invalidJobId:
 			"Please provide a valid job id for the job you wish to apply to",

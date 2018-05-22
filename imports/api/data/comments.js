@@ -1,8 +1,9 @@
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 
-//AutoForm business
+// AutoForm business
 import { AutoForm } from "meteor/aldeed:autoform";
+
 SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
 
 export const Comments = new Mongo.Collection("Comments", {
@@ -18,7 +19,7 @@ Comments.schema = new SimpleSchema({
 		type: String,
 		optional: false,
 	},
-	//might need to change the screenName 'optional:true' for anonymous profiles
+	// might need to change the screenName 'optional:true' for anonymous profiles
 	datePosted: {
 		type: Date,
 		optional: true,
@@ -27,8 +28,8 @@ Comments.schema = new SimpleSchema({
 		type: String,
 		optional: false,
 	},
-	//** Unsure if the comments will have upvotes and downvotes as well
-	//** most probably no, so, might want to delete them.
+	//* * Unsure if the comments will have upvotes and downvotes as well
+	//* * most probably no, so, might want to delete them.
 	upvotes: {
 		type: Number,
 		defaultValue: 0,

@@ -32,7 +32,7 @@ export default class RegisterPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
-		let createUserCallback = error => {
+		const createUserCallback = error => {
 			this.setState({
 				error: error ? error.reason : null,
 				success: !error,
@@ -41,7 +41,7 @@ export default class RegisterPage extends React.Component {
 				FlowRouter.go("/");
 			}
 		};
-		let options = {
+		const options = {
 			username: this.state.username,
 			password: this.state.password,
 			role: this.state.role,

@@ -1,17 +1,17 @@
-var __slice = [].slice;
+const __slice = [].slice;
 
 (function($, window) {
-	var Starrr;
+	let Starrr;
 
 	Starrr = (function() {
 		Starrr.prototype.defaults = {
 			rating: void 0,
 			numStars: 5,
-			change: function(e, value) {},
+			change(e, value) {},
 		};
 
 		function Starrr($el, options) {
-			var i,
+			let i,
 				_,
 				_ref,
 				_this = this;
@@ -44,13 +44,13 @@ var __slice = [].slice;
 		}
 
 		Starrr.prototype.createStars = function() {
-			var _i, _ref, _results;
+			let _i, _ref, _results;
 
 			_results = [];
 			for (
 				_i = 1, _ref = this.options.numStars;
-				1 <= _ref ? _i <= _ref : _i >= _ref;
-				1 <= _ref ? _i++ : _i--
+				_ref >= 1 ? _i <= _ref : _i >= _ref;
+				_ref >= 1 ? _i++ : _i--
 			) {
 				_results.push(
 					this.$el.append(
@@ -71,14 +71,14 @@ var __slice = [].slice;
 		};
 
 		Starrr.prototype.syncRating = function(rating) {
-			var i, _i, _j, _ref;
+			let i, _i, _j, _ref;
 
 			rating || (rating = this.options.rating);
 			if (rating) {
 				for (
 					i = _i = 0, _ref = rating - 1;
-					0 <= _ref ? _i <= _ref : _i >= _ref;
-					i = 0 <= _ref ? ++_i : --_i
+					_ref >= 0 ? _i <= _ref : _i >= _ref;
+					i = _ref >= 0 ? ++_i : --_i
 				) {
 					this.$el
 						.find("span")
@@ -111,14 +111,14 @@ var __slice = [].slice;
 		return Starrr;
 	})();
 	return $.fn.extend({
-		starrr: function() {
-			var args, option;
+		starrr() {
+			let args, option;
 
 			(option = arguments[0]),
 				(args =
-					2 <= arguments.length ? __slice.call(arguments, 1) : []);
+					arguments.length >= 2 ? __slice.call(arguments, 1) : []);
 			return this.each(function() {
-				var data;
+				let data;
 
 				data = $(this).data("star-rating");
 				if (!data) {
@@ -128,7 +128,7 @@ var __slice = [].slice;
 					);
 				}
 				if (typeof option === "string") {
-					return data[option].apply(data, args);
+					return data[option](...args);
 				}
 			});
 		},

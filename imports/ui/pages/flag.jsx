@@ -25,19 +25,19 @@ export default class FlagSystem extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert("sent1" + ": " + this.state.value);
-		alert("sent2" + ": " + this.state.name);
+		alert(`${"sent1" + ": "}${this.state.value}`);
+		alert(`${"sent2" + ": "}${this.state.name}`);
 
 		Meteor.call(
 			"sendEmail",
 			"urelperfect@gmail.com",
 			"postmaster@incentivizinggood.com",
-			"Reports: " + this.state.value,
-			"Howdy,\n\n" +
+			`Reports: ${this.state.value}`,
+			`${"Howdy,\n\n" +
 				"Invalid comment reported details: \n" +
-				"Reason: " +
-				this.state.value +
-				".\n\nSincerely,\n\n Vize Inc.\n\n",
+				"Reason: "}${
+				this.state.value
+			}.\n\nSincerely,\n\n Vize Inc.\n\n`,
 			(err, res) => {
 				if (err) {
 					console.log("--- BEGIN error:");
@@ -57,7 +57,7 @@ export default class FlagSystem extends React.Component {
 
 	handleOptionChange(event) {
 		// alert("ground");
-		//this.setState({value: event.target.value});
+		// this.setState({value: event.target.value});
 		this.setState({ name: event.target.value });
 
 		// this.setState({selectedOption: event.target.selectedOption});
@@ -70,7 +70,7 @@ export default class FlagSystem extends React.Component {
 		// alert("ground");
 		this.setState({ value: event.target.value });
 
-		//this.setState({selectedOption: event.target.selectedOption});
+		// this.setState({selectedOption: event.target.selectedOption});
 	}
 	countUp(event) {
 		this.setState({
@@ -93,7 +93,7 @@ export default class FlagSystem extends React.Component {
 				<br />
 				<button onClick={this.countUp.bind(this)}> up </button>
 				<button onClick={this.countDown.bind(this)}> down </button>
-				<label> {"Counter: " + this.state.count}</label>
+				<label> {`Counter: ${this.state.count}`}</label>
 				<br />
 				<br />
 				<a href="#modal" className="modal-trigger">
@@ -148,15 +148,14 @@ export default class FlagSystem extends React.Component {
 								<div>
 									<label>
 										{" "}
-										{"Please let us know why you picked" +
-											": " +
-											this.state.name}
+										{`${"Please let us know why you picked" +
+											": "}${this.state.name}`}
 									</label>
 									<textarea
 										rows="4"
 										cols="50"
 										className="textBox-flag"
-										placeholder={"Thank you..."}
+										placeholder="Thank you..."
 										onChange={this.handleTextChange}
 									/>
 								</div>

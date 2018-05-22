@@ -7,16 +7,16 @@ import SalaryPosting from "../../ui/components/salaryPosting.jsx";
 
 export default class OverviewTab extends React.Component {
 	render() {
-		var options = {
+		const options = {
 			weekday: "long",
 			year: "numeric",
 			month: "long",
 			day: "numeric",
 		};
-		var to_display_jobs;
-		var salaries_to_display;
-		var to_display_review;
-		var className;
+		let to_display_jobs;
+		let salaries_to_display;
+		let to_display_review;
+		let className;
 		if (this.props.companyreview.length > 0) {
 			if (this.props.companyreview[0].wouldRecommendToOtherJobSeekers) {
 				className = (
@@ -41,7 +41,7 @@ export default class OverviewTab extends React.Component {
 			}
 		}
 
-		//FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
+		// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
 
 		if (this.props.companyreview.length > 0) {
 			to_display_review = (
@@ -54,7 +54,7 @@ export default class OverviewTab extends React.Component {
 			to_display_review = "No Reviews to show right now";
 		}
 
-		//FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
+		// FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
 		if (this.props.jobAds.length > 0) {
 			to_display_jobs = (
 				<div>
@@ -101,11 +101,11 @@ export default class OverviewTab extends React.Component {
 				</div>
 			);
 		} else {
-			//the length == 0
+			// the length == 0
 			to_display_jobs = "No Jobs to show right now";
 		}
 
-		//FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
+		// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
 		if (this.props.salaries.length > 0) {
 			salaries_to_display = (
 				<div>
@@ -126,7 +126,7 @@ export default class OverviewTab extends React.Component {
 			salaries_to_display = "No Salaries to display right now";
 		}
 
-		//MAIN JSX FILE
+		// MAIN JSX FILE
 
 		return (
 			<div role="tabpanel" className="tab-pane active" id="overview">
@@ -223,7 +223,7 @@ export default class OverviewTab extends React.Component {
 					</div>
 				</div>
 
-				{/*job link */}
+				{/* job link */}
 
 				<div className="col-md-12  section_rview_back_color_job">
 					{" "}

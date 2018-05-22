@@ -12,7 +12,7 @@ import { AutoForm } from "meteor/aldeed:autoform";
 	Example code: http://gjunge.github.io/rateit.js/examples/
 */
 
-//copy-pasted from rateit demo code, jquery-rateit-demo.js
+// copy-pasted from rateit demo code, jquery-rateit-demo.js
 if (Meteor.isClient) {
 	Template.afInputStarRating.rendered = function() {
 		// at .created() time, it's too early to run rateit(), so run it at rendered()
@@ -22,13 +22,12 @@ if (Meteor.isClient) {
 
 AutoForm.addInputType("starRating", {
 	template: "afInputStarRating",
-	valueOut: function() {
-		let rating = this.rateit("value");
+	valueOut() {
+		const rating = this.rateit("value");
 		if (rating === 0) {
 			// user did not click the star
-			return undefined; //...but this field is required
-		} else {
-			return rating;
+			return undefined; // ...but this field is required
 		}
+		return rating;
 	},
 });

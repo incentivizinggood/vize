@@ -1,11 +1,11 @@
 jQuery(function() {
 	jQuery(window).scroll(function() {
-		var scroll = jQuery(window).scrollTop() + 90;
-		var currentArea = jQuery("section").filter(function() {
+		const scroll = jQuery(window).scrollTop() + 90;
+		const currentArea = jQuery("section").filter(function() {
 			return scroll <= jQuery(this).offset().top + $(this).height();
 		});
 		jQuery(".nav a").removeClass("selected");
-		jQuery(".nav a[href=\\#" + currentArea.attr("id") + "]").addClass(
+		jQuery(`.nav a[href=\\#${currentArea.attr("id")}]`).addClass(
 			"selected"
 		);
 

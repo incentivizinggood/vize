@@ -23,7 +23,7 @@ Votes.schema = new SimpleSchema(
 			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 		},
 		submittedBy: {
-			//userId of the review author
+			// userId of the review author
 			type: String,
 			index: true,
 			denyUpdate: true,

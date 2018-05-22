@@ -21,18 +21,18 @@ export default class AboutPage extends React.Component {
 	}
 
 	handleSubmit(event) {
-		//alert("Called: " + this.state.name + " Email: " + this.state.emailSending  + " TextBox: " + this.state.textBox);
+		// alert("Called: " + this.state.name + " Email: " + this.state.emailSending  + " TextBox: " + this.state.textBox);
 
 		Meteor.call(
 			"sendEmail",
 			"incentivizinggood@gmail.com",
 			"postmaster@incentivizinggood.com",
-			"Contacting us: " + this.state.name,
-			"Howdy Vize reader,\n" +
-				"Below is the message: \n" +
-				this.state.textBox +
-				".\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: " +
-				this.state.emailSending,
+			`Contacting us: ${this.state.name}`,
+			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
+				this.state.textBox
+			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
+				this.state.emailSending
+			}`,
 			(err, res) => {
 				if (err) {
 					console.log("--- BEGIN error:");
@@ -51,7 +51,7 @@ export default class AboutPage extends React.Component {
 		// alert("wassup");
 		event.preventDefault();
 
-		//clearing fields
+		// clearing fields
 		document.getElementById("first-name").value = null;
 		document.getElementById("email").value = null;
 		document.getElementById("message").value = null;
@@ -108,7 +108,7 @@ export default class AboutPage extends React.Component {
 									this circumstance?
 								</p>
 							</div>
-							<div className="clearfix"> </div>
+							<div className="clearfix" />
 						</div>
 					</div>
 				</div>
@@ -140,7 +140,7 @@ export default class AboutPage extends React.Component {
 									directly from the workers themselves.{" "}
 								</p>
 							</div>
-							<div className="clearfix"> </div>
+							<div className="clearfix" />
 						</div>
 					</div>
 				</div>

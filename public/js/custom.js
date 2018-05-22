@@ -4,25 +4,25 @@ $("#multi-select-demo2").multiselect();
 $("#multi-select-demo3").multiselect();
 
 $(document).ready(function() {
-	var itaImgLink = "images/mx.jpg";
-	var engImgLink = "images/us.jpg";
-	var deuImgLink = "images/mx.jpg";
-	var fraImgLink = "images/mx.jpg";
+	const itaImgLink = "images/mx.jpg";
+	const engImgLink = "images/us.jpg";
+	const deuImgLink = "images/mx.jpg";
+	const fraImgLink = "images/mx.jpg";
 
-	var imgBtnSel = $("#imgBtnSel");
-	var imgBtnIta = $("#imgBtnIta");
-	var imgBtnEng = $("#imgBtnEng");
-	var imgBtnDeu = $("#imgBtnDeu");
-	var imgBtnFra = $("#imgBtnFra");
+	const imgBtnSel = $("#imgBtnSel");
+	const imgBtnIta = $("#imgBtnIta");
+	const imgBtnEng = $("#imgBtnEng");
+	const imgBtnDeu = $("#imgBtnDeu");
+	const imgBtnFra = $("#imgBtnFra");
 
-	var imgNavSel = $("#imgNavSel");
-	var imgNavIta = $("#imgNavIta");
-	var imgNavEng = $("#imgNavEng");
-	var imgNavDeu = $("#imgNavDeu");
-	var imgNavFra = $("#imgNavFra");
+	const imgNavSel = $("#imgNavSel");
+	const imgNavIta = $("#imgNavIta");
+	const imgNavEng = $("#imgNavEng");
+	const imgNavDeu = $("#imgNavDeu");
+	const imgNavFra = $("#imgNavFra");
 
-	var spanNavSel = $("#lanNavSel");
-	var spanBtnSel = $("#lanBtnSel");
+	const spanNavSel = $("#lanNavSel");
+	const spanBtnSel = $("#lanBtnSel");
 
 	imgBtnSel.attr("src", itaImgLink);
 	imgBtnIta.attr("src", itaImgLink);
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	imgNavFra.attr("src", fraImgLink);
 
 	$(".language").on("click", function(event) {
-		var currentId = $(this).attr("id");
+		const currentId = $(this).attr("id");
 
 		if (currentId == "navIta") {
 			imgNavSel.attr("src", itaImgLink);

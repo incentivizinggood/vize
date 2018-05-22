@@ -4,12 +4,13 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-//Stole this code from an answer to a StackOverflow question,
-//to use for validating pros and cons (which must have >= 5 words each),
-//not sure how good of a long-term solution it is but it seems fine for now.
-//https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
+// Stole this code from an answer to a StackOverflow question,
+// to use for validating pros and cons (which must have >= 5 words each),
+// not sure how good of a long-term solution it is but it seems fine for now.
+// https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
 
 String.prototype.wordCount = function() {
 	return this.split(/\s+\b/).length;
@@ -31,7 +32,7 @@ export const Reviews = new Mongo.Collection("Reviews", {
 	- Unless I can configure allowedValues dynamically...
 */
 
-//Schema for the Collection
+// Schema for the Collection
 Reviews.schema = new SimpleSchema(
 	{
 		_id: {
@@ -44,11 +45,11 @@ Reviews.schema = new SimpleSchema(
 			},
 		},
 		submittedBy: {
-			//userId of the review author
+			// userId of the review author
 			type: String,
 			optional: true,
 			denyUpdate: true,
-			autoValue: function() {
+			autoValue() {
 				if (Meteor.isServer) {
 					// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
 					return this.userId;
@@ -59,12 +60,12 @@ Reviews.schema = new SimpleSchema(
 			},
 		},
 		companyName: {
-			//Filled in by user, or auto-filled by form, but in any
-			type: String, //case, company names are indexed so we may as well use
-			optional: false, //use this instead of companyID
+			// Filled in by user, or auto-filled by form, but in any
+			type: String, // case, company names are indexed so we may as well use
+			optional: false, // use this instead of companyID
 			max: 100,
 			index: true,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call(
 						"companies.isNotSessionError",
@@ -127,16 +128,15 @@ Reviews.schema = new SimpleSchema(
 			optional: true,
 			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
 			index: true,
-			autoValue: function() {
+			autoValue() {
 				if (Meteor.isServer && this.field("companyName").isSet) {
-					let company = Companies.findOne({
+					const company = Companies.findOne({
 						name: this.field("companyName").value,
 					});
 					if (company !== undefined) {
 						return company._id;
-					} else {
-						return "This company does not have a Vize profile yet";
 					}
+					return "This company does not have a Vize profile yet";
 				}
 			},
 			autoform: {
@@ -151,30 +151,30 @@ Reviews.schema = new SimpleSchema(
 		//		and queried when needed
 
 		reviewTitle: {
-			//title of the review
+			// title of the review
 			type: String,
 			optional: false,
 			max: 100,
 			index: true,
 		},
-		//Pretty much copy-pasted from companies.js
+		// Pretty much copy-pasted from companies.js
 		locations: {
-			//where they worked for the company being reviewed
+			// where they worked for the company being reviewed
 			type: Array,
-			minCount: 1, //must have at least one
+			minCount: 1, // must have at least one
 			optional: false,
 		},
 		"locations.$": {
-			//restraints on members of the "locations" array
+			// restraints on members of the "locations" array
 			type: String,
 			max: 150,
-		}, //more refined address-checking or validation? dunno, I don't see the need for it immediately
+		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		jobTitle: {
-			//there are two categories -
-			type: String, //Line Worker and Upper Management, so type - String, perhaps, not sure
+			// there are two categories -
+			type: String, // Line Worker and Upper Management, so type - String, perhaps, not sure
 			max: 100,
 			optional: false,
-		}, //NOTE: I can do this, but is it correct/necessary?
+		}, // NOTE: I can do this, but is it correct/necessary?
 		numberOfMonthsWorked: {
 			type: SimpleSchema.Integer,
 			optional: false,
@@ -184,7 +184,7 @@ Reviews.schema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 200,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call("hasFiveWords", this.value, (error, result) => {
 						if (!result) {
@@ -207,7 +207,7 @@ Reviews.schema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 200,
-			custom: function() {
+			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call("hasFiveWords", this.value, (error, result) => {
 						if (!result) {
@@ -248,8 +248,8 @@ Reviews.schema = new SimpleSchema(
 			max: 5,
 			optional: false,
 			autoform: {
-				//only possible because I added the starRating type
-				//to AutoForm, see afInputStarRating.[js,html]
+				// only possible because I added the starRating type
+				// to AutoForm, see afInputStarRating.[js,html]
 				type: "starRating",
 			},
 		},
@@ -301,18 +301,18 @@ Reviews.schema = new SimpleSchema(
 			},
 		},
 
-		//These last ones have to do with internal bookkeeping
-		//and the actual "life-cycle" of the review itself, and
-		//therefore do not appear on the "Write a Review" form.
-		//However, this is done via autoform.omit, which may
-		//prevent us from using those fields easily in legitimate
-		//contexts later, so I may want to refine that feature...
+		// These last ones have to do with internal bookkeeping
+		// and the actual "life-cycle" of the review itself, and
+		// therefore do not appear on the "Write a Review" form.
+		// However, this is done via autoform.omit, which may
+		// prevent us from using those fields easily in legitimate
+		// contexts later, so I may want to refine that feature...
 
 		datePosted: {
 			type: Date,
 			optional: true,
 			denyUpdate: true,
-			defaultValue: new Date(), //obviously, assumes it cannot possibly have been posted before it is posted
+			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
 			},
@@ -335,8 +335,8 @@ Reviews.schema = new SimpleSchema(
 				omit: true,
 			},
 		},
-		//** Each review has an array of comments attached with it.
-		//** upvotes/downvotes and comments are not there in the form
+		//* * Each review has an array of comments attached with it.
+		//* * upvotes/downvotes and comments are not there in the form
 		Comments: {
 			type: Array,
 			optional: true,
@@ -350,16 +350,16 @@ Reviews.schema = new SimpleSchema(
 			custom() {
 				Comments.schema.validate(this);
 			},
-		}, //Custom validation with an external schema,
-		//not sure if this works for now but it at least
-		//reminds me of generally what needs to be done here.
+		}, // Custom validation with an external schema,
+		// not sure if this works for now but it at least
+		// reminds me of generally what needs to be done here.
 	},
 	{ tracker: Tracker }
 );
 
 Reviews.schema.messageBox.messages({
-	//en? does that mean we can add internationalization
-	//in this block of code?
+	// en? does that mean we can add internationalization
+	// in this block of code?
 	en: {
 		needsFiveWords: "You should write at least 5 words in this field",
 		noCompanyWithThatName:

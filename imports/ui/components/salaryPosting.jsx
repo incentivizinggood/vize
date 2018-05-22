@@ -130,4 +130,4 @@ export default class SalaryPosting extends React.Component {
 
 
      </div>
-       </div>*/
+       </div> */

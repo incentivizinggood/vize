@@ -30,7 +30,7 @@ export default class LoginPage extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
-		let loginCallback = error => {
+		const loginCallback = error => {
 			this.setState({
 				error: error ? error.reason : null,
 				success: !error,

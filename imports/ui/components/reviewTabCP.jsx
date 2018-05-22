@@ -5,7 +5,7 @@ import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 
 export default class ReviewTab extends React.Component {
 	renderItems() {
-		let userVotes = this.props.userVotes;
+		const userVotes = this.props.userVotes;
 		return this.props.companyreview.map(function(item, i) {
 			return <CompanyReview key={i} item={item} userVotes={userVotes} />;
 		});

@@ -16,13 +16,13 @@ class Header extends React.Component {
 		let logInOutButton = null;
 		if (this.props.isLoggedIn) {
 			signUpMyAccount = (
-				/*<li class="dropdown pf  show-on-hover-pf">
+				/* <li class="dropdown pf  show-on-hover-pf">
           <a href="#" class="dropdown-toggle  " data-toggle="dropdown"><img src="images/icon2.jpg" class="img-responsive  dp-profile" /> </a>
           <ul class="dropdown-menu pf">
             <li  class="tr"><a href="#">My Profile</a></li>
             <li  class="tr"><a href="#">Sign Out</a></li>
           </ul>
-        </li>*/
+        </li> */
 				<a
 					href="/my-account"
 					type="button"
@@ -226,7 +226,7 @@ class Header extends React.Component {
 									</a>
 								</li>
 							</ul>
-							<div className="clearfix"> </div>
+							<div className="clearfix" />
 						</div>
 					</div>
 				</nav>
@@ -235,8 +235,6 @@ class Header extends React.Component {
 	}
 }
 
-export default withTracker(() => {
-	return {
-		isLoggedIn: Meteor.userId() !== null,
-	};
-})(Header);
+export default withTracker(() => ({
+	isLoggedIn: Meteor.userId() !== null,
+}))(Header);

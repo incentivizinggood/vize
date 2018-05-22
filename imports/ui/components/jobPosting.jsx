@@ -2,7 +2,7 @@ import React from "react";
 
 export default class JobPosting extends React.Component {
 	render() {
-		var options = {
+		const options = {
 			weekday: "long",
 			year: "numeric",
 			month: "long",
