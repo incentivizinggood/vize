@@ -2,7 +2,7 @@
 	{{#autoForm collection=reviews id="wr_blaze_form" type="method"
 		meteormethod="reviews.submitReview" preserveForm=false }}
 		<fieldset>
-			<legend>Write a Review</legend>
+			<legend>{{__ "common.wr_blaze_form.title"}}</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
 				{{#if shouldHaveCompany}}
 				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
