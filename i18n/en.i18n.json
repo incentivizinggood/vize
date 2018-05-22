@@ -4,6 +4,8 @@
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
+		"pleaseWait": "Please wait while we finish loading the form...",
+		"companyNotFound": "ERROR: COMPANY NOT FOUND",
 		"wr": {
 			"formTitle": "Write a Review",
 			"companyNamePlaceholder":
