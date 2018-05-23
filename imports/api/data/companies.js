@@ -3,6 +3,7 @@ import { Reviews } from "./reviews.js"; // used when retrieving reviews for a gi
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
+import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -131,7 +132,7 @@ Companies.schema = new SimpleSchema(
 						}
 					);
 				} else if (Meteor.isServer && this.isSet) {
-					if (Companies.hasEntry(this.value)) {
+					if (Companies.findOne({ name: this.value }) !== undefined) {
 						return "nameTaken";
 					}
 				}
@@ -334,13 +335,16 @@ Companies.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+const companyErrorMessages = {
+	nameTaken: i18n.__("SimpleSchema.custom.Companies.nameTaken"),
+};
+
 // Define custom error messages for custom validation functions
 Companies.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		nameTaken: "The name you provided is already taken",
-	},
+	en: companyErrorMessages,
+	es: companyErrorMessages,
 });
 
 // db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})

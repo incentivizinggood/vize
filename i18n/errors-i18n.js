@@ -5,66 +5,66 @@ import find from "lodash.find";
 const regExpMessages = [
 	{
 		exp: SimpleSchema.RegEx.Email,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Email"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Email"),
 	},
 	{
 		exp: SimpleSchema.RegEx.EmailWithTLD,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.EmailWithTLD"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.EmailWithTLD"),
 	},
 	{
 		exp: SimpleSchema.RegEx.Domain,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Domain"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Domain"),
 	},
 	{
 		exp: SimpleSchema.RegEx.WeakDomain,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.WeakDomain"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.WeakDomain"),
 	},
 	{
 		exp: SimpleSchema.RegEx.IP,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.IP"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.IP"),
 	},
 	{
 		exp: SimpleSchema.RegEx.IPv4,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.IPv4"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.IPv4"),
 	},
 	{
 		exp: SimpleSchema.RegEx.IPv6,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.IPv6"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.IPv6"),
 	},
 	{
 		exp: SimpleSchema.RegEx.Url,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Url"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Url"),
 	},
 	{
 		exp: SimpleSchema.RegEx.Id,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Id"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Id"),
 	},
 	{
 		exp: SimpleSchema.RegEx.ZipCode,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.ZipCode"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.ZipCode"),
 	},
 	{
 		exp: SimpleSchema.RegEx.Phone,
-		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Phone"),
+		msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Phone"),
 	},
 ];
 
 const errorMessages = {
-	required: i18n.__("SimpleSchema.errors.required"),
-	minString: i18n.__("SimpleSchema.errors.minString"),
-	maxString: i18n.__("SimpleSchema.errors.maxString"),
-	minNumber: i18n.__("SimpleSchema.errors.minNumber"),
-	maxNumber: i18n.__("SimpleSchema.errors.maxNumber"),
-	minNumberExclusive: i18n.__("SimpleSchema.errors.minNumberExclusive"),
-	maxNumberExclusive: i18n.__("SimpleSchema.errors.maxNumberExclusive"),
-	minDate: i18n.__("SimpleSchema.errors.minDate"),
-	maxDate: i18n.__("SimpleSchema.errors.maxDate"),
-	badDate: i18n.__("SimpleSchema.errors.badDate"),
-	minCount: i18n.__("SimpleSchema.errors.minCount"),
-	maxCount: i18n.__("SimpleSchema.errors.maxCount"),
-	noDecimal: i18n.__("SimpleSchema.errors.noDecimal"),
-	notAllowed: i18n.__("SimpleSchema.errors.notAllowed"),
-	expectedType: i18n.__("SimpleSchema.errors.expectedType"),
+	required: i18n.__("SimpleSchema.defaults.required"),
+	minString: i18n.__("SimpleSchema.defaults.minString"),
+	maxString: i18n.__("SimpleSchema.defaults.maxString"),
+	minNumber: i18n.__("SimpleSchema.defaults.minNumber"),
+	maxNumber: i18n.__("SimpleSchema.defaults.maxNumber"),
+	minNumberExclusive: i18n.__("SimpleSchema.defaults.minNumberExclusive"),
+	maxNumberExclusive: i18n.__("SimpleSchema.defaults.maxNumberExclusive"),
+	minDate: i18n.__("SimpleSchema.defaults.minDate"),
+	maxDate: i18n.__("SimpleSchema.defaults.maxDate"),
+	badDate: i18n.__("SimpleSchema.defaults.badDate"),
+	minCount: i18n.__("SimpleSchema.defaults.minCount"),
+	maxCount: i18n.__("SimpleSchema.defaults.maxCount"),
+	noDecimal: i18n.__("SimpleSchema.defaults.noDecimal"),
+	notAllowed: i18n.__("SimpleSchema.defaults.notAllowed"),
+	expectedType: i18n.__("SimpleSchema.defaults.expectedType"),
 	regEx({ label, regExp }) {
 		// See if there's one where exp matches this expression
 		let msgObj;
@@ -82,7 +82,7 @@ const errorMessages = {
 		return `${label} ${regExpMessage}`;
 	},
 
-	keyNotInSchema: i18n.__("SimpleSchema.errors.keyNotInSchema"),
+	keyNotInSchema: i18n.__("SimpleSchema.defaults.keyNotInSchema"),
 };
 
 SimpleSchema.setDefaultMessages({

@@ -1,7 +1,7 @@
 {
 	"_locale": "en",
 	"_namespace": "SimpleSchema",
-	"errors": {
+	"defaults": {
 		"required": "{{{label}}} is required",
 		"minString": "{{{label}}} must be at least {{min}} characters",
 		"maxString": "{{{label}}} cannot exceed {{max}} characters",
@@ -32,5 +32,19 @@
 			"Phone": "must be a valid phone number"
 		},
 		"keyNotInSchema": "{{name}} is not allowed by the schema"
+	},
+	"custom": {
+		"JobApplications": {},
+		"Companies": {
+			"nameTaken": "The name you provided is already taken"
+		},
+		"JobAds": {},
+		"Salaries": {},
+		"Reviews": {
+			"needsFiveWords": "You should write at least 5 words in this field",
+			"noCompanyWithThatName":
+				"There is no company with that name in our database",
+			"sessionError": "Please stop messing around"
+		}
 	}
 }
