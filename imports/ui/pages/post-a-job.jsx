@@ -6,6 +6,7 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
+import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { JobAds } from "../../api/data/jobads.js";
@@ -16,7 +17,7 @@ const paj_form_state = new ReactiveDict();
 paj_form_state.set("formError", "good"); // Shared with AutoForm helpers
 paj_form_state.set("companyId", undefined); // Shared with the React wrapper
 paj_form_state.set("company", {
-	name: "Please wait while we finish loading the form...",
+	name: i18n.__("common.forms.pleaseWait"),
 });
 
 if (Meteor.isClient) {
@@ -44,7 +45,7 @@ if (Meteor.isClient) {
 		getCompanyName() {
 			const company = paj_form_state.get("company");
 			if (company === undefined) {
-				return "ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)";
+				return i18n.__("common.forms.paj.profileNotFoundError");
 			}
 			return company.name;
 		},

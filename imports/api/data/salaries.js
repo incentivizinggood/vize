@@ -3,6 +3,7 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -100,7 +101,11 @@ Salaries.schema = new SimpleSchema(
 		incomeType: {
 			type: String,
 			optional: false,
-			allowedValues: ["Yearly Salary", "Monthly Salary", "Hourly Wage"],
+			allowedValues: [
+				i18n.__("common.forms.ssd.payTypes.yearlySalary"),
+				i18n.__("common.forms.ssd.payTypes.monthlySalary"),
+				i18n.__("common.forms.ssd.payTypes.hourlyWage"),
+			],
 		},
 		incomeAmount: {
 			type: Number,
@@ -109,7 +114,10 @@ Salaries.schema = new SimpleSchema(
 		},
 		gender: {
 			type: String,
-			allowedValues: ["Male", "Female"],
+			allowedValues: [
+				i18n.__("common.gender.male"),
+				i18n.__("common.gender.female"),
+			],
 		},
 		datePosted: {
 			type: Date,

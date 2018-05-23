@@ -5,6 +5,7 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
+import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { Companies } from "../../api/data/companies.js";
