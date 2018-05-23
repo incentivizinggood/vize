@@ -3,6 +3,7 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -44,7 +45,7 @@ JobAds.schema = new SimpleSchema(
 						}
 					);
 				} else if (Meteor.isServer && this.isSet) {
-					if (!Companies.hasEntry(this.value)) {
+					if (Companies.findOne({ name: this.value }) === undefined) {
 						return "noCompanyWithThatName";
 					}
 				}
@@ -175,13 +176,15 @@ JobAds.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+const jobAdErrors = {
+	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+};
+
 JobAds.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		noCompanyWithThatName:
-			"There is no company with that name in our database",
-	},
+	en: jobAdErrors,
+	es: jobAdErrors,
 });
 
 JobAds.attachSchema(JobAds.schema, { replace: true });
@@ -243,7 +246,7 @@ JobAds.applicationSchema = new SimpleSchema(
 						}
 					);
 				} else if (Meteor.isServer && this.isSet) {
-					if (!Companies.hasEntry(this.value)) {
+					if (Companies.findOne({ name: this.value }) === undefined) {
 						return "noCompanyWithThatName";
 					}
 				}
@@ -302,15 +305,16 @@ JobAds.applicationSchema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+const jobAppErrors = {
+	invalidJobId: i18n.__("SimpleSchema.custom.JobApplications.invalidJobId"),
+	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+};
+
 JobAds.applicationSchema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		invalidJobId:
-			"Please provide a valid job id for the job you wish to apply to",
-		noCompanyWithThatName:
-			"There is no company with that name in our database",
-	},
+	en: jobAppErrors,
+	es: jobAppErrors,
 });
 
 JobAds.deny({

@@ -360,10 +360,8 @@ Reviews.schema = new SimpleSchema(
 
 const reviewErrorMessages = {
 	needsFiveWords: i18n.__("SimpleSchema.custom.Reviews.needsFiveWords"),
-	noCompanyWithThatName: i18n.__(
-		"SimpleSchema.custom.Reviews.noCompanyWithThatName"
-	),
-	sessionError: i18n.__("SimpleSchema.custom.Reviews.sessionError"),
+	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+	sessionError: i18n.__("SimpleSchema.custom.sessionError"),
 };
 
 Reviews.schema.messageBox.messages({

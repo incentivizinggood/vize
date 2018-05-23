@@ -34,17 +34,20 @@
 		"keyNotInSchema": "{{name}} is not allowed by the schema"
 	},
 	"custom": {
-		"JobApplications": {},
+		"noCompanyWithThatName":
+			"There is no company with that name in our database",
+		"sessionError": "Please stop messing around",
+		"JobApplications": {
+			"invalidJobId":
+				"Please provide a valid job id for the job you wish to apply for"
+		},
 		"Companies": {
 			"nameTaken": "The name you provided is already taken"
 		},
 		"JobAds": {},
 		"Salaries": {},
 		"Reviews": {
-			"needsFiveWords": "You should write at least 5 words in this field",
-			"noCompanyWithThatName":
-				"There is no company with that name in our database",
-			"sessionError": "Please stop messing around"
+			"needsFiveWords": "You should write at least 5 words in this field"
 		}
 	}
 }
