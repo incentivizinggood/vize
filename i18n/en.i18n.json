@@ -65,6 +65,21 @@
 	"employers": "Employers",
 	"create_free_account": "Create a Free Employer Account",
 	"all_rights_reserved": "All rights reserved"
+},
+
+"aboutUs": {
+	"about": "About",
+	"the_problem": "The Problem",
+	"noLeverage": "EMPLOYEES DON'T HAVE LEVERAGE",
+	"problem_text": "To fill large orders in a timely manner and get enough business to survive as a company, factories cuts corners, working their employees beyond their limits and not taking the time to ensure that the job is safe. In highly developed legal systems this would be stopped by the police and enforced with legislation that protects workers' labor rights. In most developing countries, such legislation either doesn't exist or they lack the capacity to enforce it. In short, factories have every incentive to cut corners, and no incentive to be held accountable to their employees. So how do we increase the leverage that workers have in this circumstance?",
+	"our_solution": "Our Solution",
+	"reviews_accountability": "REVIEWS ARE A FORM OF ACCOUNTABILITY",
+	"solution_text" : "To provide employees in developing countries with more leverage, we're creating a platform for workers to share reviews of their working conditions with all other workers in their region. This will give workers the information they need to avoid factories with terrible working conditions. Factories with poor reviews will get fewer workers, thus be unable to fill large orders from buyers, and lose profits. This will create a direct incentive for factories to improve conditions based on feedback coming directly from the workers themselves.",
+	"reach_us": "Feel free to reach out to us",
+	"submit_button": "Submit",
+	"placeholder_name": "Your Name",
+	"placeholder_email": "Eg. example@email.com",
+	"placeholder_comments": "Please enter your comments..."
 }
 
 }
