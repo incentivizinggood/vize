@@ -5,6 +5,28 @@
 		"male": "Male",
 		"female": "Female"
 	},
+	"login": {
+		"username": "Username",
+		"password": "Password",
+		"submit": "Login",
+		"error": {
+			"loggedIn": "Already logged in"
+		},
+		"success": "Login successful!"
+	},
+	"register": {
+		"username": "Username",
+		"password": "Password",
+		"role": {
+			"worker": "I am a worker",
+			"company": "I am a company"
+		},
+		"submit": "Sign Up",
+		"error": {
+			"loggedIn": "Already logged in"
+		},
+		"success": "Sign up successful!"
+	},
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
