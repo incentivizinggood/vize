@@ -3879,7 +3879,7 @@ a#register-button:active {
 .CircularProgressbar .CircularProgressbar-path {
 	stroke: #3e98c7;
 	stroke-linecap: round;
-	transition: stroke-dashoffset 0.5s ease 0s;
+	transition: stroke-dashoffset 4s ease 0s;
 }
 
 .CircularProgressbar .CircularProgressbar-trail {
