@@ -1,36 +1,36 @@
 <template name="paj_blaze_form">
 	{{#autoForm collection=jobAds id="paj_blaze_form" type="method" meteormethod="jobads.postJobAd" preserveForm=false}}
 		<fieldset>
-			<legend>Post a Job</legend>
+			<legend>{{__ "common.forms.paj.formTitle"}}</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
 				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-				{{> afQuickField name='jobTitle' placeholder="Please tell us the title of the job you'd like to advertise"}}
+				{{> afQuickField name='jobTitle' placeholder=(__ "common.forms.paj.jobTitlePlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
 				{{> afArrayField name='locations' }}
 			</div>
 
 			<div class="form-group {{#if afFieldIsInvalid name='pesosPerHour'}}has-error{{/if}}">
-				{{> afQuickField name='pesosPerHour' }}
+				{{> afQuickField name='pesosPerHour' placeholder=(__ "common.forms.paj.payRangePlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='contractType'}}has-error{{/if}}">
 				{{> afQuickField name='contractType' options='allowed'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobDescription'}}has-error{{/if}}">
-				{{> afQuickField name='jobDescription' }}
+				{{> afQuickField name='jobDescription' placeholder=(__ "common.forms.paj.jobDescriptionPlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='responsibilities'}}has-error{{/if}}">
-				{{> afQuickField name='responsibilities' }}
+				{{> afQuickField name='responsibilities' placeholder=(__ "common.forms.paj.jobResponsibilitiesPlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='qualifications'}}has-error{{/if}}">
-				{{> afQuickField name='qualifications' }}
+				{{> afQuickField name='qualifications' placeholder=(__ "common.forms.paj.jobQualificationsPlaceholder")}}
 			</div>
 		</fieldset>
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Submit</button>
-			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >Reset Form</button>
+			<button type="submit" class="btn btn-primary">{{__ "common.forms.submitForm"}}</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >{{__ "common.forms.resetForm"}}</button>
 		</div>
 	{{/autoForm}}
 	{{#if hasError}}

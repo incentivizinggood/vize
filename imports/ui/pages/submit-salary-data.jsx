@@ -17,7 +17,7 @@ const ssd_form_state = new ReactiveDict();
 ssd_form_state.set("formError", "good"); // Shared with AutoForm helpers
 ssd_form_state.set("companyId", undefined); // Shared with the React wrapper
 ssd_form_state.set("company", {
-	name: "Please wait while we finish loading the form...",
+	name: i18n.__("common.forms.pleaseWait"),
 });
 
 if (Meteor.isClient) {
@@ -52,7 +52,7 @@ if (Meteor.isClient) {
 		getCompanyName() {
 			const company = ssd_form_state.get("company");
 			if (company === undefined) {
-				return "ERROR: COMPANY NOT FOUND";
+				return i18n.__("common.forms.companyNotFound");
 			}
 			return company.name;
 		},

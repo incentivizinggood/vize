@@ -119,17 +119,15 @@ JobAds.schema = new SimpleSchema(
 			// pair (range) of (peso).(centavo) amounts. Centavos are completely
 			// optional on either side of the hyphen.
 			regEx: /^[123456789]\d*(\.\d\d)?\s*(-\s*[123456789]\d*(\.\d\d)?\s*)?$/,
-			autoform: {
-				afFieldInput: {
-					placeholder:
-						"Enter a value, $.c, or a range of values, $.c - $.c",
-				},
-			},
 		},
 		contractType: {
 			type: String,
 			optional: false,
-			allowedValues: ["Full time", "Part time", "Contractor"],
+			allowedValues: [
+				i18n.__("common.forms.paj.contractTypes.fullTime"),
+				i18n.__("common.forms.paj.contractTypes.partTime"),
+				i18n.__("common.forms.paj.contractTypes.contractor"),
+			],
 		},
 		jobDescription: {
 			type: String,
@@ -139,8 +137,6 @@ JobAds.schema = new SimpleSchema(
 				afFieldInput: {
 					type: "textarea",
 					rows: 6,
-					placeholder:
-						"Please enter a formal description of this job",
 				},
 			},
 		},
@@ -152,8 +148,6 @@ JobAds.schema = new SimpleSchema(
 				afFieldInput: {
 					type: "textarea",
 					rows: 6,
-					placeholder:
-						"Please summarize the responsibilities that come with this job",
 				},
 			},
 		},
@@ -165,8 +159,6 @@ JobAds.schema = new SimpleSchema(
 				afFieldInput: {
 					type: "textarea",
 					rows: 6,
-					placeholder:
-						"Please describe the qualifications necessary for this job",
 				},
 			},
 		},

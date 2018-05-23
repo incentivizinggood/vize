@@ -1,6 +1,10 @@
 {
 	"_locale": "en-US",
 	"_namespace": "common",
+	"gender": {
+		"male": "Male",
+		"female": "Female"
+	},
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
@@ -28,6 +32,37 @@
 				"Please enter the URL of your company's website, if it has one",
 			"descriptionPlaceholder":
 				"Enter a brief description of your company for others to see on its profile page, if you'd like"
+		},
+		"paj": {
+			"contractTypes": {
+				"fullTime": "Full time",
+				"partTime": "Part time",
+				"contractor": "Contractor"
+			},
+			"formTitle": "Post a Job",
+			"jobTitlePlaceholder":
+				"Please tell us the title of the position you are advertising",
+			"payRangePlaceholder":
+				"Enter a value, $.c, or a range of values, $.c - $.c",
+			"jobDescriptionPlaceholder":
+				"Please enter a formal description of this job",
+			"jobResponsibilitiesPlaceholder":
+				"Please summarize the responsibilities of this position",
+			"jobQualificationsPlaceholder":
+				"Please summarize the qualifications needed for this position",
+			"profileNotFoundError":
+				"ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
+		},
+		"ssd": {
+			"payTypes": {
+				"yearlySalary": "Yearly Salary",
+				"monthlySalary": "Monthly Salary",
+				"hourlyWage": "Hourly Wage"
+			},
+			"formTitle": "Submit Salary Data",
+			"companyNamePlaceholder":
+				"Please tell us the name of the company you worked for",
+			"jobTitlePlaceholder": "Please tell us your job title there"
 		},
 		"wr": {
 			"formTitle": "Write a Review",
