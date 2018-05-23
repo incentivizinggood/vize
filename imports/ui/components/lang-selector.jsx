@@ -1,40 +1,50 @@
 import React from "react";
 import { i18n } from "meteor/universe:i18n";
 import PropTypes from "prop-types";
+import Dropdown, {
+	DropdownTrigger,
+	DropdownContent,
+} from "react-simple-dropdown";
+
+const locales = [
+	{ code: "en", name: "English", icon: "images/us.jpg" },
+	{ code: "es", name: "Español", icon: "images/mx.jpg" },
+];
 
 function LangOption(props) {
 	return (
 		<button
 			onClick={() => {
-				i18n.setLocale(props.locale);
+				i18n.setLocale(props.locale.code);
 			}}
 		>
-			<img src="/images/us.jpg" alt="US flag" />
+			<img src={props.locale.icon} alt={`${props.locale.name} icon.`} />
+			<span>{props.locale.name}</span>
 		</button>
 	);
 }
 
 LangOption.propTypes = {
-	locale: PropTypes.string.isRequired,
+	locale: PropTypes.shape({
+		code: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		icon: PropTypes.string.isRequired,
+	}).isRequired,
 };
 
-export default function LangSelector(props) {
+export default function LangSelector() {
 	return (
-		<div>
-			<button
-				onClick={() => {
-					i18n.setLocale("en");
-				}}
-			>
-				<img src="/images/us.jpg" alt="US flag" />
-			</button>
-			<button
-				onClick={() => {
-					i18n.setLocale("es");
-				}}
-			>
-				<img src="/images/mx.jpg" alt="Mexican flag" />
-			</button>
-		</div>
+		<Dropdown>
+			<DropdownTrigger>test</DropdownTrigger>
+			<DropdownContent>
+				<ul>
+					{locales.map(l => (
+						<li key={l.code}>
+							<LangOption locale={l} />
+						</li>
+					))}
+				</ul>
+			</DropdownContent>
+		</Dropdown>
 	);
 }
