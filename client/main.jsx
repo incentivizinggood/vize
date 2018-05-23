@@ -5,6 +5,7 @@ import { $ } from "meteor/jquery";
  * The routes only need to be imported here. No other code is needed.
  */
 import "../imports/startup/client/router.jsx";
+import "../imports/startup/client/i18n.js";
 
 Meteor.startup(() => {
 	$.getScript("js/prettySticky.js", function() {});

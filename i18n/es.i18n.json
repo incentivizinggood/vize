@@ -1,0 +1,25 @@
+{
+	"_locale": "es",
+	"_namespace": "common",
+	"forms": {
+		"submitForm": "Enviar",
+		"resetForm": "Restablecer formulario",
+		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
+		"companyNotFound": "ERROR: EMPRESA NO ENCONTRADA",
+		"wr": {
+			"formTitle": "Escribe una Reseña",
+			"companyNamePlaceholder":
+				"Ingrese el nombre de la compañía que está revisando",
+			"reviewTitlePlaceholder":
+				"Por favor, elija un título para su revisión",
+			"jobTitlePlaceholder":
+				"Ingrese el nombre del puesto que ocupó en esta empresa",
+			"prosPlaceholder":
+				"Cuéntanos algunas ventajas de trabajar para esta empresa",
+			"consPlaceholder":
+				"Por favor díganos algunos contras de trabajar para esta compañía",
+			"additionalCommentsPlaceholder":
+				"Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
+		}
+	}
+}
