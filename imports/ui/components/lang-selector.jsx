@@ -6,10 +6,11 @@ import Dropdown, {
 	DropdownContent,
 } from "react-simple-dropdown";
 
-const locales = [
-	{ code: "en", name: "English", icon: "images/us.jpg" },
-	{ code: "es", name: "Español", icon: "images/mx.jpg" },
-];
+import {
+	localeMetadata,
+	getLocaleMetadata,
+	getClosestSupportedLocale,
+} from "../../startup/client/i18n.js";
 
 function LangOption(props) {
 	return (
@@ -37,18 +38,22 @@ LangOption.propTypes = {
 export default class LangSelector extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { locale: locales[0] };
+		this.state = {
+			locale: getLocaleMetadata(
+				getClosestSupportedLocale(i18n.getLocale())
+			),
+		};
 
 		this.updateLocale = this.updateLocale.bind(this);
 		this.dropdown = React.createRef();
 
 		i18n.onChangeLocale(this.updateLocale);
-		this.updateLocale(i18n.getLocale());
 	}
 
 	updateLocale(newLocaleCode) {
-		const newLocale =
-			locales.find(({ code }) => code === newLocaleCode) || locales[0];
+		const newLocale = getLocaleMetadata(
+			getClosestSupportedLocale(newLocaleCode)
+		);
 		this.setState({ locale: newLocale });
 	}
 
@@ -68,7 +73,7 @@ export default class LangSelector extends React.Component {
 				</DropdownTrigger>
 				<DropdownContent>
 					<ul>
-						{locales.map(l => (
+						{localeMetadata.map(l => (
 							<li key={l.code}>
 								<LangOption
 									locale={l}
