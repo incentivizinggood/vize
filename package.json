@@ -10,6 +10,7 @@
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "faker": "^4.1.0",
+    "lodash.find": "^4.6.0",
     "message-box": "^0.2.0",
     "meteor-node-stubs": "^0.2.11",
     "prop-types": "^15.6.1",
