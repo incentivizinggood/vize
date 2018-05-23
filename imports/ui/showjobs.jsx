@@ -4,11 +4,14 @@ import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
 import ShowJobComponent from "../ui/components/showJobComponent.jsx";
 import Header from "./pages/header.jsx";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 class ShowJobs extends React.Component {
 	render() {
 		if (!this.props.isReady) {
-			return <h2>Loading...</h2>;
+			return <h2><T>common.jobsearch.loading</T></h2>;
 		}
 
 		const RenderedItems = this.props.jobads.map(function(jobad) {
@@ -16,7 +19,7 @@ class ShowJobs extends React.Component {
 		});
 		let message;
 		if (RenderedItems.length < 1) {
-			message = <h2>No Jobs Available right now.</h2>;
+			message = <h2><T>common.jobsearch.nojobs</T></h2>;
 		} else {
 			message = "";
 		}
@@ -35,8 +38,7 @@ class ShowJobs extends React.Component {
 							<ul className="rslides" id="slider3">
 								<li>
 									<h2>
-										{this.props.numberofjobs} Ofertas de
-										empleo
+										{this.props.numberofjobs} <T>common.jobsearch.jobsAvailable</T>
 									</h2>
 									{message}
 									{RenderedItems}
