@@ -5,7 +5,7 @@
 			<legend>{{__ "common.forms.wr.formTitle"}}</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
 				{{#if shouldHaveCompany}}
-				{{> afQuickField name='companyName' value=getCompanyName readonly=true placeholder=(__ "common.forms.wr.companyNamePlaceholder") }}
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 				{{else}}
 				{{> afQuickField name='companyName' placeholder=(__ "common.forms.wr.companyNamePlaceholder") }}
 				{{/if}}

@@ -263,11 +263,6 @@ JobAds.applicationSchema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 150,
-			autoform: {
-				afFieldInput: {
-					placeholder: "Enter your full name here",
-				},
-			},
 		},
 		email: {
 			type: String,
@@ -277,8 +272,6 @@ JobAds.applicationSchema = new SimpleSchema(
 			autoform: {
 				afFieldInput: {
 					type: "email",
-					placeholder:
-						"Input an email address the company can contact you at",
 				},
 			},
 		},
@@ -290,8 +283,6 @@ JobAds.applicationSchema = new SimpleSchema(
 			autoform: {
 				afFieldInput: {
 					type: "tel",
-					placeholder:
-						"Input phone number the company can contact you with",
 				},
 			},
 		},
@@ -303,8 +294,6 @@ JobAds.applicationSchema = new SimpleSchema(
 				afFieldInput: {
 					type: "textarea",
 					rows: 6,
-					placeholder:
-						"Things that would normally go in a cover letter may go in this field, otherwise you may type any message you like here and it will get sent to the company as part of your application",
 				},
 			},
 		},
