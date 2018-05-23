@@ -80,6 +80,23 @@
 	"placeholder_name": "Your Name",
 	"placeholder_email": "Eg. example@email.com",
 	"placeholder_comments": "Please enter your comments..."
+},
+
+"forEmployers": {
+	"find_best": "Find the Best Employees in Tijuana",
+	"find_best_part1": "We provide more affordable and effective recruiting",
+	"find_best_part2": "finding employees that stay",
+	"get_started_button": "Get Started",
+	"increase_workers": "Increase Worker",
+	"retention": "Retention",
+	"increase_workers_text": "With on inside look into the work environment of your company, workers will be able to determine whether your company is the right fit for them before being hired.",
+	"grow_in_response": "Grow In Response",
+	"to_worker_feedback": "To Worker Feedback",
+	"grow_response_text": "After creating a profile for your company, you will be able to read reviews from workers to get an idea of what they like and dislike about your company. Use negative feedback as a mechanism for growth",
+	"reach_thousand": "Reach Thousands of Workers",
+	"reach_thousand_text": "Register your company today to get instant access to a 60 day free trial that allows you to post an unlimited number of jobs.",
+	"accelerate": "Accelerate our growth and discover thousands of potential employees",
+	"register_button": "Register"
 }
 
 }
