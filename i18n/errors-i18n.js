@@ -1,5 +1,53 @@
 import SimpleSchema from "simpl-schema";
 import i18n from "meteor/universe:i18n";
+import find from "lodash.find";
+
+const regExpMessages = [
+	{
+		exp: SimpleSchema.RegEx.Email,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Email"),
+	},
+	{
+		exp: SimpleSchema.RegEx.EmailWithTLD,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.EmailWithTLD"),
+	},
+	{
+		exp: SimpleSchema.RegEx.Domain,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Domain"),
+	},
+	{
+		exp: SimpleSchema.RegEx.WeakDomain,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.WeakDomain"),
+	},
+	{
+		exp: SimpleSchema.RegEx.IP,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.IP"),
+	},
+	{
+		exp: SimpleSchema.RegEx.IPv4,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.IPv4"),
+	},
+	{
+		exp: SimpleSchema.RegEx.IPv6,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.IPv6"),
+	},
+	{
+		exp: SimpleSchema.RegEx.Url,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Url"),
+	},
+	{
+		exp: SimpleSchema.RegEx.Id,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Id"),
+	},
+	{
+		exp: SimpleSchema.RegEx.ZipCode,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.ZipCode"),
+	},
+	{
+		exp: SimpleSchema.RegEx.Phone,
+		msg: i18n.__("SimpleSchema.errors.regExMsgStubs.Phone"),
+	},
+];
 
 const errorMessages = {
 	required: i18n.__("SimpleSchema.errors.required"),
@@ -16,33 +64,44 @@ const errorMessages = {
 	maxCount: i18n.__("SimpleSchema.errors.maxCount"),
 	noDecimal: i18n.__("SimpleSchema.errors.noDecimal"),
 	notAllowed: i18n.__("SimpleSchema.errors.notAllowed"),
-	expectedString: i18n.__("SimpleSchema.errors.expectedString"),
-	expectedNumber: i18n.__("SimpleSchema.errors.expectedNumber"),
-	expectedBoolean: i18n.__("SimpleSchema.errors.expectedBoolean"),
-	expectedArray: i18n.__("SimpleSchema.errors.expectedArray"),
-	expectedObject: i18n.__("SimpleSchema.errors.expectedObject"),
-	expectedConstructor: i18n.__("SimpleSchema.errors.expectedConstructor"),
-	"RegEx.msg": i18n.__("SimpleSchema.errors.RegEx.msg"),
-	"RegEx.Email": i18n.__("SimpleSchema.errors.RegEx.Email"),
-	"RegEx.WeakEmail": i18n.__("SimpleSchema.errors.RegEx.WeakEmail"),
-	"RegEx.Domain": i18n.__("SimpleSchema.errors.RegEx.Domain"),
-	"RegEx.WeakDomain": i18n.__("SimpleSchema.errors.RegEx.WeakDomain"),
-	"RegEx.IP": i18n.__("SimpleSchema.errors.RegEx.IP"),
-	"RegEx.IPv4": i18n.__("SimpleSchema.errors.RegEx.IPv4"),
-	"RegEx.IPv6": i18n.__("SimpleSchema.errors.RegEx.IPv6"),
-	"RegEx.Url": i18n.__("SimpleSchema.errors.RegEx.Url"),
-	"RegEx.Id": i18n.__("SimpleSchema.errors.RegEx.Id"),
+	expectedType: i18n.__("SimpleSchema.errors.expectedType"),
+	regEx({ label, regExp }) {
+		// See if there's one where exp matches this expression
+		let msgObj;
+		if (regExp) {
+			msgObj = find(
+				regExpMessages,
+				o => o.exp && o.exp.toString() === regExp
+			);
+		}
+
+		const regExpMessage = msgObj
+			? msgObj.msg
+			: "failed regular expression validation";
+
+		return `${label} ${regExpMessage}`;
+	},
+
 	keyNotInSchema: i18n.__("SimpleSchema.errors.keyNotInSchema"),
 };
 
-const registerSchemaMessages = () => {
-	SimpleSchema.setDefaultMessages({
-		messages: {
-			en: errorMessages,
-			es: errorMessages,
-		},
-	});
-};
+SimpleSchema.setDefaultMessages({
+	messages: {
+		en: errorMessages,
+		es: errorMessages,
+	},
+});
 
-i18n.onChangeLocale(registerSchemaMessages);
-registerSchemaMessages();
+/*
+	This function needs to set the message box
+	language to the current locale. It should then
+	be invoked every time the locale changes
+	to automatically keep the message box language
+	up to date.
+*/
+// const setMessageBoxLanguage = () => {
+
+// };
+//
+// i18n.onChangeLocale(setMessageBoxLanguage);
+// setMessageBoxLanguage();

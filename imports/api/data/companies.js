@@ -142,11 +142,11 @@ Companies.schema = new SimpleSchema(
 			optional: false,
 			max: 100,
 			regEx: SimpleSchema.RegEx.EmailWithTLD,
-			autoform: {
-				afFieldInput: {
-					type: "email",
-				},
-			},
+			// autoform: {
+			// 	afFieldInput: {
+			// 		type: "email",
+			// 	},
+			// },
 		},
 		dateEstablished: {
 			type: Date,
