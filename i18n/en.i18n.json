@@ -1,6 +1,7 @@
 {
 	"_locale": "en-US",
 	"_namespace": "common",
+
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
@@ -20,5 +21,13 @@
 			"additionalCommentsPlaceholder":
 				"Please enter any additional thoughts or comments you may have"
 		}
+	},
+
+	"search":{
+		"loading": "Loading...",
+		"noCompaniesMatch": "No Companies match",
+		"placeholder": "Search for a Company...",
+		"button": "SEARCH"
 	}
+
 }

@@ -6,11 +6,13 @@ import { withTracker } from "meteor/react-meteor-data";
 import CompanyComponent from "./companyComponent.jsx";
 import Header from "./pages/header.jsx";
 import Footer from "./pages/footer.jsx";
+import i18n from "meteor/universe:i18n";
 
 /* A set of controls for the user to select search queries and options.
  * For use in the CompanySearchPage.
  */
 let input = "";
+const T = i18n.createComponent();
 
 // //////////////////CHILD COMPONENT///////////////////
 class Results extends React.Component {
@@ -23,7 +25,7 @@ class Results extends React.Component {
 		});
 
 		if (RenderedItems.length < 1) {
-			display_notice = <h2>No Companies match</h2>;
+			display_notice = <h2><T>common.search.noCompaniesMatch</T></h2>;
 		} else {
 			display_notice = "";
 		}
@@ -111,10 +113,11 @@ export default class CompanySearchTrial extends React.Component {
 												<input
 													ref="input_search"
 													type="text"
-													placeholder="Search for a Company..."
+													placeholder={i18n.__("common.search.placeholder")}
+
 												/>
 												<button type="submit">
-													SEARCH
+													<T>common.search.button</T>
 												</button>
 											</form>
 										</div>
