@@ -8,7 +8,6 @@ import "../imports/startup/client/router.jsx";
 import "../imports/startup/client/i18n.js";
 
 Meteor.startup(() => {
-	console.log("Client starting.");
 	$.getScript("js/prettySticky.js", function() {});
 	$.getScript("js/bootstrap-multiselect.js", function() {});
 });

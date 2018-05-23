@@ -1,60 +1,18 @@
 import React from "react";
-import { i18n } from "meteor/universe:i18n";
 import PropTypes from "prop-types";
 import Dropdown, {
 	DropdownTrigger,
 	DropdownContent,
 } from "react-simple-dropdown";
+import { i18n } from "meteor/universe:i18n";
+import { withTracker } from "meteor/react-meteor-data";
 
-import {
-	localeMetadata,
-	getLocaleMetadata,
-	getClosestSupportedLocale,
-} from "../../startup/client/i18n.js";
+import { localeMetadata, currentLocale } from "../../startup/client/i18n.js";
 
-function LangOption(props) {
-	return (
-		<button
-			onClick={() => {
-				i18n.setLocale(props.locale.code);
-				props.extraOnClick();
-			}}
-		>
-			<img src={props.locale.icon} alt={`${props.locale.name} icon.`} />
-			<span>{props.locale.name}</span>
-		</button>
-	);
-}
-
-LangOption.propTypes = {
-	locale: PropTypes.shape({
-		code: PropTypes.string.isRequired,
-		name: PropTypes.string.isRequired,
-		icon: PropTypes.string.isRequired,
-	}).isRequired,
-	extraOnClick: PropTypes.func.isRequired,
-};
-
-export default class LangSelector extends React.Component {
+class LangSelector extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			locale: getLocaleMetadata(
-				getClosestSupportedLocale(i18n.getLocale())
-			),
-		};
-
-		this.updateLocale = this.updateLocale.bind(this);
 		this.dropdown = React.createRef();
-
-		i18n.onChangeLocale(this.updateLocale);
-	}
-
-	updateLocale(newLocaleCode) {
-		const newLocale = getLocaleMetadata(
-			getClosestSupportedLocale(newLocaleCode)
-		);
-		this.setState({ locale: newLocale });
 	}
 
 	render() {
@@ -66,19 +24,23 @@ export default class LangSelector extends React.Component {
 			<Dropdown ref={this.dropdown}>
 				<DropdownTrigger>
 					<img
-						src={this.state.locale.icon}
-						alt={`${this.state.locale.name} icon.`}
+						src={this.props.currentLocale.icon}
+						alt={`${this.props.currentLocale.name} icon.`}
 					/>
-					<span>{this.state.locale.name}</span>
 				</DropdownTrigger>
 				<DropdownContent>
 					<ul>
 						{localeMetadata.map(l => (
 							<li key={l.code}>
-								<LangOption
-									locale={l}
-									extraOnClick={hideDropdown}
-								/>
+								<button
+									onClick={() => {
+										i18n.setLocale(l.code);
+										hideDropdown();
+									}}
+								>
+									<img src={l.icon} alt={`${l.name} icon.`} />
+									<span>{l.name}</span>
+								</button>
 							</li>
 						))}
 					</ul>
@@ -87,3 +49,17 @@ export default class LangSelector extends React.Component {
 		);
 	}
 }
+
+LangSelector.propTypes = {
+	currentLocale: PropTypes.shape({
+		code: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		icon: PropTypes.string.isRequired,
+	}).isRequired,
+};
+
+const LangSelectorContainer = withTracker(() => ({
+	currentLocale: currentLocale.get(),
+}))(LangSelector);
+
+export default LangSelectorContainer;
