@@ -6,6 +6,29 @@
 		"resetForm": "Reset Form",
 		"pleaseWait": "Please wait while we finish loading the form...",
 		"companyNotFound": "ERROR: COMPANY NOT FOUND",
+		"afj": {
+			"formTitle": "Apply for a Job",
+			"fullNamePlaceholder": "Please enter your full name here",
+			"emailPlaceholder": "example@email.com",
+			"phoneNumberPlaceholder": "###-###-####",
+			"clacPlaceholder":
+				"You may fill in this space with anything else that you want to send to the company along with your application",
+			"invalidJobId": "ERROR: INVALID JOB ID"
+		},
+		"ccp": {
+			"formTitle": "Create a New Profile",
+			"namePlaceholder": "Please enter the name of your company",
+			"emailPlaceholder":
+				"Please provide an email we can reach your company at (example@email.com)",
+			"industryPlaceholder":
+				"Please tell us your company's primary industry",
+			"otherContactInfoPlaceholder":
+				"Please enter any additional contact information you'd like to provide us with",
+			"websiteUrlPlaceholder":
+				"Please enter the URL of your company's website, if it has one",
+			"descriptionPlaceholder":
+				"Enter a brief description of your company for others to see on its profile page, if you'd like"
+		},
 		"wr": {
 			"formTitle": "Write a Review",
 			"companyNamePlaceholder":
@@ -19,15 +42,6 @@
 				"Please tell us some cons of working for this company",
 			"additionalCommentsPlaceholder":
 				"Please enter any additional thoughts or comments you may have"
-		},
-		"afj": {
-			"formTitle": "Apply for a Job",
-			"fullNamePlaceholder": "Please enter your full name here",
-			"emailPlaceholder": "example@email.com",
-			"phoneNumberPlaceholder": "###-###-####",
-			"clacPlaceholder":
-				"You may fill in this space with anything else that you want to send to the company along with your application",
-			"invalidJobId": "ERROR: INVALID JOB ID"
 		}
 	}
 }

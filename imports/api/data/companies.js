@@ -33,16 +33,6 @@ Companies.hasEntry = function(companyIdentifier) {
 	);
 };
 
-// Is this safe? I want this cursor to be read-only,
-// but I'm not sure it is...
-Companies.findReviewsForCompany = function(companyIdentifier) {
-	// Can find reviews for a company by name or _id.
-	// This uses the LucidChart Reviews schema, but reviews.js has yet
-	// to be updated to match (company_id vs companyID). BUG
-	company = Companies.findOne(Companies.getSelector(companyIdentifier));
-	return Reviews.find({ companyName: company.name });
-};
-
 Companies.schema = new SimpleSchema(
 	{
 		_id: {
