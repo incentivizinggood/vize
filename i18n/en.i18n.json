@@ -28,6 +28,12 @@
 		"noCompaniesMatch": "No Companies match",
 		"placeholder": "Search for a Company...",
 		"button": "SEARCH"
+	},
+
+	"jobsearch":{
+		"loading": "Loading...",
+		"nojobs": "No Jobs Available right now.",
+		"jobsAvailable": "Employment Offer(s) Available"
 	}
 
 }
