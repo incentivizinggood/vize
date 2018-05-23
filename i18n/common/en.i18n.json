@@ -5,6 +5,14 @@
 		"male": "Male",
 		"female": "Female"
 	},
+	"methods": {
+		"meteorErrors": {
+			"needsFiveWords": "needsFiveWords"
+		},
+		"errorMessages": {
+			"needsFiveWords": "You should write at least 5 words in this field"
+		}
+	},
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",

@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { check } from "meteor/check";
-
+import i18n from "meteor/universe:i18n";
 import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
@@ -29,10 +29,14 @@ Meteor.methods({
 		// Funny story, String.prototype.wordCount is actually
 		// defined in reviews.js because I couldn't find a
 		// better place for it. Just in case you're wondering.
-		if (inputString.wordCount() < 5) {
+		if (
+			inputString === undefined ||
+			typeof inputString !== "string" ||
+			inputString.wordCount() < 5
+		) {
 			throw new Meteor.Error(
-				"needsFiveWords",
-				"You should write at least 5 words in this field"
+				i18n.__("common.methods.meteorErrors.needsFiveWords"),
+				i18n.__("common.methods.errorMessages.needsFiveWords")
 			);
 		}
 		return "all good";
