@@ -25,7 +25,11 @@ class Results extends React.Component {
 		});
 
 		if (RenderedItems.length < 1) {
-			display_notice = <h2><T>common.search.noCompaniesMatch</T></h2>;
+			display_notice = (
+				<h2>
+					<T>common.search.noCompaniesMatch</T>
+				</h2>
+			);
 		} else {
 			display_notice = "";
 		}
@@ -113,8 +117,9 @@ export default class CompanySearchTrial extends React.Component {
 												<input
 													ref="input_search"
 													type="text"
-													placeholder={i18n.__("common.search.placeholder")}
-
+													placeholder={i18n.__(
+														"common.search.placeholder"
+													)}
 												/>
 												<button type="submit">
 													<T>common.search.button</T>
