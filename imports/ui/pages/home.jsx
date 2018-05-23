@@ -101,7 +101,7 @@ export default class HomePage extends React.Component {
 										href="/jobs"
 										className="button out-butt-dark  "
 									>
-										Jobs
+										<T>common.homePage.jobsButton</T>
 									</a>
 								</center>
 							</div>
