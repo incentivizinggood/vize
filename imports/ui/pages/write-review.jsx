@@ -28,6 +28,8 @@ wr_form_state.set("company", {
 });
 
 if (Meteor.isClient) {
+	Template.wr_blaze_form.bindI18nNamespace("common.forms");
+
 	Template.wr_blaze_form.onCreated(function() {
 		const id = wr_form_state.get("companyId");
 		if (id !== undefined) {

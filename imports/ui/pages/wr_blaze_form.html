@@ -2,31 +2,31 @@
 	{{#autoForm collection=reviews id="wr_blaze_form" type="method"
 		meteormethod="reviews.submitReview" preserveForm=false }}
 		<fieldset>
-			<legend>{{__ "common.forms.wr.formTitle"}}</legend>
+			<legend>{{__ ".wr.formTitle"}}</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
 				{{#if shouldHaveCompany}}
 				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 				{{else}}
-				{{> afQuickField name='companyName' placeholder=(__ "common.forms.wr.companyNamePlaceholder") }}
+				{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") }}
 				{{/if}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
-				{{> afQuickField name='reviewTitle' placeholder=(__ "common.forms.wr.reviewTitlePlaceholder")}}
+				{{> afQuickField name='reviewTitle' placeholder=(__ ".wr.reviewTitlePlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
 				{{> afArrayField name='locations' }}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-				{{> afQuickField name='jobTitle' placeholder=(__ "common.forms.wr.jobTitlePlaceholder")}}
+				{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
 				{{> afQuickField name='numberOfMonthsWorked'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
-				{{> afQuickField name='pros' placeholder=(__ "common.forms.wr.prosPlaceholder")}}
+				{{> afQuickField name='pros' placeholder=(__ ".wr.prosPlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
-				{{> afQuickField name='cons' placeholder=(__ "common.forms.wr.consPlaceholder")}}
+				{{> afQuickField name='cons' placeholder=(__ ".wr.consPlaceholder")}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
 				{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
@@ -47,12 +47,12 @@
 				{{> afQuickField name='overallSatisfaction'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
-				{{> afQuickField name='additionalComments' placeholder=(__ "common.forms.wr.additionalCommentsPlaceholder")}}
+				{{> afQuickField name='additionalComments' placeholder=(__ ".wr.additionalCommentsPlaceholder")}}
 			</div>
 		</fieldset>
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">{{__ "common.forms.submitForm"}}</button>
-			<button type="reset" class="btn btn-default" onclick={{resetFormError}}>{{__ "common.forms.resetForm"}}</button>
+			<button type="submit" class="btn btn-primary">{{__ ".submitForm"}}</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}}>{{__ ".resetForm"}}</button>
 		</div>
 	{{/autoForm}}
 	{{#if hasError}}

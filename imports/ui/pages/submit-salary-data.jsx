@@ -21,6 +21,8 @@ ssd_form_state.set("company", {
 });
 
 if (Meteor.isClient) {
+	Template.ssd_blaze_form.bindI18nNamespace("common.forms");
+
 	Template.ssd_blaze_form.onCreated(function() {
 		const id = ssd_form_state.get("companyId");
 		if (Meteor.isDevelopment) console.log(`received id: ${id}`);
