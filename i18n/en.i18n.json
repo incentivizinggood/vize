@@ -46,7 +46,7 @@
 		"jobsButton": "Jobs",
 		"findemp_part1": "Find an Employer",
 		"findemp_part2": "That Treats You Right",
-		"findemp_text": "Vize helps you discover employers based on different industries, job types, and company sizes, The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
+		"findemp_text": "Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
 		"companiesButton": "Companies",
 		"hear": "Hear From Your",
 		"community": "Community",
@@ -58,6 +58,13 @@
 		"salary_button": "Add a Salary",
 		"discover_employers": "Start discovering new employers now",
 		"signup_button": "SIGN UP"
-	}
+	},
+
+"footer":{
+	"about_us": "About Us",
+	"employers": "Employers",
+	"create_free_account": "Create a Free Employer Account",
+	"all_rights_reserved": "All rights reserved"
+}
 
 }
