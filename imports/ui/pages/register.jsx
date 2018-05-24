@@ -39,7 +39,7 @@ export default class RegisterPage extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
 		const createUserCallback = error => {
-			console.log(error);
+			if (error) console.error(error);
 			this.setState({
 				// Using slice here to remove the period from the error reason
 				// so that it will work as a JSON key in the translation files.

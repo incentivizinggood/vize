@@ -37,6 +37,17 @@
 		},
 		"success": "Sign up successful!"
 	},
+	"passwordChanger": {
+		"oldPassword": "Current password",
+		"newPassword": "New password",
+		"repeatNewPassword": "Repeat new password",
+		"submit": "Change Password",
+		"error": {
+			"Incorrect password": "Incorrect password",
+			"New passwords do not match": "New passwords do not match"
+		},
+		"success": "Password reset successful!"
+	},
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
