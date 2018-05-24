@@ -1,25 +1,269 @@
 {
 	"_locale": "es",
 	"_namespace": "common",
+	"gender": {
+		"male": "PLEASE TRANSLATE Male",
+		"female": "PLEASE TRANSLATE Female"
+	},
+	"login": {
+		"username": "PLEASE TRANSLATE Username",
+		"password": "PLEASE TRANSLATE Password",
+		"submit": "PLEASE TRANSLATE Login",
+		"error": {
+			"loggedIn": "PLEASE TRANSLATE Already logged in.",
+			"Unrecognized options for login request":
+				"PLEASE TRANSLATE Unrecognized options for login request.",
+			"Match failed": "PLEASE TRANSLATE Match failed.",
+			"User not found":
+				"PLEASE TRANSLATE There is no user with that name.",
+			"Incorrect password":
+				"PLEASE TRANSLATE The password you gave is incorrect.",
+			"User has no password set":
+				"PLEASE TRANSLATE This user account has no password set. You will need to login by some other means."
+		},
+		"success": "PLEASE TRANSLATE Login successful!"
+	},
+	"register": {
+		"username": "PLEASE TRANSLATE Username",
+		"password": "PLEASE TRANSLATE Password",
+		"role": {
+			"worker": "PLEASE TRANSLATE I am a worker",
+			"company": "PLEASE TRANSLATE I am a company"
+		},
+		"submit": "PLEASE TRANSLATE Sign Up",
+		"error": {
+			"loggedIn": "PLEASE TRANSLATE Already logged in",
+			"Username already exists":
+				"PLEASE TRANSLATE That username is already taken.",
+			"Email already exists":
+				"PLEASE TRANSLATE That email is already used by annother account."
+		},
+		"success": "PLEASE TRANSLATE Sign up successful!"
+	},
+	"passwordChanger": {
+		"oldPassword": "PLEASE TRANSLATE Current password",
+		"newPassword": "PLEASE TRANSLATE New password",
+		"repeatNewPassword": "PLEASE TRANSLATE Repeat new password",
+		"submit": "PLEASE TRANSLATE Change Password",
+		"error": {
+			"Incorrect password": "PLEASE TRANSLATE Incorrect password",
+			"New passwords do not match":
+				"PLEASE TRANSLATE New passwords do not match"
+		},
+		"success": "PLEASE TRANSLATE Password reset successful!"
+	},
 	"forms": {
-		"submitForm": "Enviar",
-		"resetForm": "Restablecer formulario",
-		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
-		"companyNotFound": "ERROR: EMPRESA NO ENCONTRADA",
-		"wr": {
-			"formTitle": "Escribe una Reseña",
-			"companyNamePlaceholder":
-				"Ingrese el nombre de la compañía que está revisando",
-			"reviewTitlePlaceholder":
-				"Por favor, elija un título para su revisión",
+		"submitForm": "<PLEASE CHECK TRANSLATION> Enviar",
+		"resetForm": "<PLEASE CHECK TRANSLATION> Restablecer formulario",
+		"pleaseWait":
+			"<PLEASE CHECK TRANSLATION> Espere mientras terminamos de cargar el formulario...",
+		"companyNotFound":
+			"<PLEASE CHECK TRANSLATION> ERROR: EMPRESA NO ENCONTRADA",
+		"afj": {
+			"formTitle": "PLEASE TRANSLATE Apply for a Job",
+			"fullNamePlaceholder":
+				"PLEASE TRANSLATE Please enter your full name here",
+			"emailPlaceholder": "PLEASE TRANSLATE??? example@email.com",
+			"phoneNumberPlaceholder": "PLEASE TRANSLATE??? ###-###-####",
+			"clacPlaceholder":
+				"PLEASE TRANSLATE You may fill in this space with anything else that you want to send to the company along with your application",
+			"invalidJobId": "PLEASE TRANSLATE ERROR: INVALID JOB ID"
+		},
+		"ccp": {
+			"formTitle": "PLEASE TRANSLATE Create a New Profile",
+			"namePlaceholder":
+				"PLEASE TRANSLATE Please enter the name of your company",
+			"emailPlaceholder":
+				"PLEASE TRANSLATE Please provide an email we can reach your company at (example@email.com)",
+			"industryPlaceholder":
+				"PLEASE TRANSLATE Please tell us your company's primary industry",
+			"otherContactInfoPlaceholder":
+				"PLEASE TRANSLATE Please enter any additional contact information you'd like to provide us with",
+			"websiteUrlPlaceholder":
+				"PLEASE TRANSLATE Please enter the URL of your company's website, if it has one",
+			"descriptionPlaceholder":
+				"PLEASE TRANSLATE Enter a brief description of your company for others to see on its profile page, if you'd like"
+		},
+		"paj": {
+			"contractTypes": {
+				"fullTime": "PLEASE TRANSLATE Full time",
+				"partTime": "PLEASE TRANSLATE Part time",
+				"contractor": "PLEASE TRANSLATE Contractor"
+			},
+			"formTitle": "PLEASE TRANSLATE Post a Job",
 			"jobTitlePlaceholder":
-				"Ingrese el nombre del puesto que ocupó en esta empresa",
+				"PLEASE TRANSLATE Please tell us the title of the position you are advertising",
+			"payRangePlaceholder":
+				"PLEASE TRANSLATE Enter a value, $.c, or a range of values, $.c - $.c",
+			"jobDescriptionPlaceholder":
+				"PLEASE TRANSLATE Please enter a formal description of this job",
+			"jobResponsibilitiesPlaceholder":
+				"PLEASE TRANSLATE Please summarize the responsibilities of this position",
+			"jobQualificationsPlaceholder":
+				"PLEASE TRANSLATE Please summarize the qualifications needed for this position",
+			"profileNotFoundError":
+				"PLEASE TRANSLATE ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
+		},
+		"ssd": {
+			"payTypes": {
+				"yearlySalary": "PLEASE TRANSLATE Yearly Salary",
+				"monthlySalary": "PLEASE TRANSLATE Monthly Salary",
+				"hourlyWage": "PLEASE TRANSLATE Hourly Wage"
+			},
+			"formTitle": "PLEASE TRANSLATE Submit Salary Data",
+			"companyNamePlaceholder":
+				"PLEASE TRANSLATE Please tell us the name of the company you worked for",
+			"jobTitlePlaceholder":
+				"PLEASE TRANSLATE Please tell us your job title there"
+		},
+		"wr": {
+			"formTitle": "PLEASE TRANSLATE Escribe una Reseña",
+			"companyNamePlaceholder":
+				"PLEASE TRANSLATE Ingrese el nombre de la compañía que está revisando",
+			"reviewTitlePlaceholder":
+				"PLEASE TRANSLATE Por favor, elija un título para su revisión",
+			"jobTitlePlaceholder":
+				"PLEASE TRANSLATE Ingrese el nombre del puesto que ocupó en esta empresa",
 			"prosPlaceholder":
-				"Cuéntanos algunas ventajas de trabajar para esta empresa",
+				"PLEASE TRANSLATE Cuéntanos algunas ventajas de trabajar para esta empresa",
 			"consPlaceholder":
-				"Por favor díganos algunos contras de trabajar para esta compañía",
+				"PLEASE TRANSLATE Por favor díganos algunos contras de trabajar para esta compañía",
 			"additionalCommentsPlaceholder":
-				"Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
+				"PLEASE TRANSLATE Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
+		}
+	},
+	"search": {
+		"loading": "PLEASE TRANSLATE Loading...",
+		"noCompaniesMatch": "PLEASE TRANSLATE No Companies match",
+		"placeholder": "PLEASE TRANSLATE Search for a Company...",
+		"button": "PLEASE TRANSLATE SEARCH"
+	},
+
+	"jobsearch": {
+		"loading": "PLEASE TRANSLATE Loading...",
+		"nojobs": "PLEASE TRANSLATE No Jobs Available right now.",
+		"jobsAvailable": "PLEASE TRANSLATE Employment Offer(s) Available"
+	},
+	"homePage": {
+		"mainBanner":
+			"PLEASE TRANSLATE Find the best job for you, from people like you",
+		"searchButton": "PLEASE TRANSLATE SEARCH",
+		"placeholder": "PLEASE TRANSLATE Search for a Company...",
+		"findjob_part1": "PLEASE TRANSLATE Find a Great Job",
+		"commonLine": "PLEASE TRANSLATE Near You",
+		"findjob_text":
+			"PLEASE TRANSLATE With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory to work for",
+		"jobsButton": "PLEASE TRANSLATE Jobs",
+		"findemp_part1": "PLEASE TRANSLATE Find an Employer",
+		"findemp_part2": "PLEASE TRANSLATE That Treats You Right",
+		"findemp_text":
+			"PLEASE TRANSLATE Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
+		"companiesButton": "PLEASE TRANSLATE Companies",
+		"hear": "PLEASE TRANSLATE Hear From Your",
+		"community": "PLEASE TRANSLATE Community",
+		"hear_text":
+			"PLEASE TRANSLATE See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.",
+		"add_review_button": "PLEASE TRANSLATE Add a Review",
+		"get_fair_salary": "PLEASE TRANSLATE Get a Fair Salary For",
+		"your_work": "PLEASE TRANSLATE Your Work",
+		"fairsalary_text":
+			"PLEASE TRANSLATE Find hundreds of salaries for different job positions and genders. Share your salary announmously to make sure others are getting fairly compensated.",
+		"salary_button": "PLEASE TRANSLATE Add a Salary",
+		"discover_employers":
+			"PLEASE TRANSLATE Start discovering new employers now",
+		"signup_button": "PLEASE TRANSLATE SIGN UP"
+	},
+	"footer": {
+		"about_us": "PLEASE TRANSLATE About Us",
+		"employers": "PLEASE TRANSLATE Employers",
+		"create_free_account":
+			"PLEASE TRANSLATE Create a Free Employer Account",
+		"all_rights_reserved": "PLEASE TRANSLATE All rights reserved"
+	},
+	"aboutUs": {
+		"about": "PLEASE TRANSLATE About",
+		"the_problem": "PLEASE TRANSLATE The Problem",
+		"noLeverage": "PLEASE TRANSLATE EMPLOYEES DON'T HAVE LEVERAGE",
+		"problem_text":
+			"PLEASE TRANSLATE To fill large orders in a timely manner and get enough business to survive as a company, factories cuts corners, working their employees beyond their limits and not taking the time to ensure that the job is safe. In highly developed legal systems this would be stopped by the police and enforced with legislation that protects workers' labor rights. In most developing countries, such legislation either doesn't exist or they lack the capacity to enforce it. In short, factories have every incentive to cut corners, and no incentive to be held accountable to their employees. So how do we increase the leverage that workers have in this circumstance?",
+		"our_solution": "PLEASE TRANSLATE Our Solution",
+		"reviews_accountability":
+			"PLEASE TRANSLATE REVIEWS ARE A FORM OF ACCOUNTABILITY",
+		"solution_text":
+			"PLEASE TRANSLATE To provide employees in developing countries with more leverage, we're creating a platform for workers to share reviews of their working conditions with all other workers in their region. This will give workers the information they need to avoid factories with terrible working conditions. Factories with poor reviews will get fewer workers, thus be unable to fill large orders from buyers, and lose profits. This will create a direct incentive for factories to improve conditions based on feedback coming directly from the workers themselves.",
+		"reach_us": "PLEASE TRANSLATE Feel free to reach out to us",
+		"submit_button": "PLEASE TRANSLATE Submit",
+		"placeholder_name": "PLEASE TRANSLATE Your Name",
+		"placeholder_email": "PLEASE TRANSLATE??? Eg. example@email.com",
+		"placeholder_comments": "PLEASE TRANSLATE Please enter your comments..."
+	},
+	"forEmployers": {
+		"find_best": "PLEASE TRANSLATE Find the Best Employees in Tijuana",
+		"find_best_part1":
+			"PLEASE TRANSLATE We provide more affordable and effective recruiting,",
+		"find_best_part2": "PLEASE TRANSLATE finding employees that stay",
+		"get_started_button": "PLEASE TRANSLATE Get Started",
+		"increase_workers": "PLEASE TRANSLATE Increase Worker",
+		"retention": "PLEASE TRANSLATE Retention",
+		"increase_workers_text":
+			"PLEASE TRANSLATE With an inside look into the work environment of your company, workers will be able to determine whether your company is the right fit for them before being hired.",
+		"grow_in_response": "PLEASE TRANSLATE Grow In Response",
+		"to_worker_feedback": "PLEASE TRANSLATE To Worker Feedback",
+		"grow_response_text":
+			"PLEASE TRANSLATE After creating a profile for your company, you will be able to read reviews from workers to get an idea of what they like and dislike about your company. Use negative feedback as a mechanism for growth",
+		"reach_thousand": "PLEASE TRANSLATE Reach Thousands of Workers",
+		"reach_thousand_text":
+			"PLEASE TRANSLATE Register your company today to get instant access to a 60 day free trial that allows you to post an unlimited number of jobs.",
+		"accelerate":
+			"PLEASE TRANSLATE Accelerate our growth and discover thousands of potential employees",
+		"register_button": "PLEASE TRANSLATE Register"
+	},
+	"methods": {
+		"jobAppEmail": {
+			"fieldLeftEmpty":
+				"[PLEASE TRANSLATE the applicant did not fill in this field]",
+			"subjectLine":
+				"PLEASE TRANSLATE VIZE {$wName} has responded to your job advertisement",
+			"emailText":
+				"PLEASE TRANSLATE To those at {$cName},\n\n\tCongratulations, you just received a new job application! A Vize user, {$wName}, has responded to your job post (which was given id={$jId}). They provided the contact information below, feel free to contact them directly.\n\n\tIf you have any issues with this process, please let us know. If you hire this employee, please send us a message letting us know what you think of our service. We hope you've found the perfect employee for your company and the position!\n\nAll the best,\n\n\tThe Vize Team\n\nAPPLICANT INFORMATION\nFull name: {$wName}\nEmail: {$wEmail}\nPhone number:  {$wPhone}\nCover letter/Additional comments:\n{$wComments}"
+		},
+		"meteorErrors": {
+			"needsFiveWords": "PLEASE TRANSLATE needsFiveWords",
+			"rolePermission": "PLEASE TRANSLATE rolePermission",
+			"invalidArguments": "PLEASE TRANSLATE invalidArguments",
+			"loggedOut": "PLEASE TRANSLATE loggedOut",
+			"noCheating": "PLEASE TRANSLATE noCheating",
+			"duplicateEntry": "PLEASE TRANSLATE duplicateEntry",
+			"notFound": "PLEASE TRANSLATE notFound",
+			"sessionError": "PLEASE TRANSLATE sessionError",
+			"nameTaken": "PLEASE TRANSLATE nameTaken"
+		},
+		"errorMessages": {
+			"needsFiveWords":
+				"PLEASE TRANSLATE You should write at least 5 words in this field",
+			"invalidFormInputs": "PLEASE TRANSLATE Invalid form inputs",
+			"loggedOut":
+				"PLEASE TRANSLATE You must be logged in to perform this action",
+			"onlyWorkers":
+				"PLEASE TRANSLATE Only workers may perform this action",
+			"onlyCompanies":
+				"PLEASE TRANSLATE Only companies may perform this action",
+			"onlyOnce": "PLEASE TRANSLATE You are only allowed to do this once",
+			"permissionDenied":
+				"PLEASE TRANSLATE You are not authorized to perform this action",
+			"noCheating":
+				"PLEASE TRANSLATE You may not vote on your own reviews",
+			"vote1stArg":
+				"PLEASE TRANSLATE First argument [review] must be a valid review",
+			"vote2ndArg":
+				"PLEASE TRANSLATE Second argument [vote] must be a boolean",
+			"voteOnNullReview":
+				"PLEASE TRANSLATE You may not vote on reviews that do not exist yet",
+			"notFound":
+				"PLEASE TRANSLATE Your search did not return any results",
+			"nameTaken":
+				"PLEASE TRANSLATE The name you provided is already taken",
+			"sessionError": "PLEASE TRANSLATE Please stop messing around"
 		}
 	}
 }

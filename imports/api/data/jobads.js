@@ -334,16 +334,30 @@ JobAds.applicationSchema.labels({
 	dateSent: i18n.__("SimpleSchema.labels.JobApplications.dateSent"),
 });
 
-const jobAppErrors = {
-	invalidJobId: i18n.__("SimpleSchema.custom.JobApplications.invalidJobId"),
-	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+const jobAppErrors = function(locale) {
+	return {
+		invalidJobId: i18n.__(
+			"SimpleSchema.custom.JobApplications.invalidJobId",
+			{ _locale: locale }
+		),
+		noCompanyWithThatName: i18n.__(
+			"SimpleSchema.custom.noCompanyWithThatName",
+			{ _locale: locale }
+		),
+	};
 };
 
 JobAds.applicationSchema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: jobAppErrors,
-	es: jobAppErrors,
+	en: jobAppErrors("en"),
+	es: jobAppErrors("es"),
+});
+
+i18n.onChangeLocale(function(newLocale) {
+	console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
+	JobAds.schema.messageBox.setLanguage(newLocale);
+	JobAds.applicationSchema.messageBox.setLanguage(newLocale);
 });
 
 JobAds.deny({
