@@ -5,6 +5,49 @@
 		"male": "Male",
 		"female": "Female"
 	},
+	"login": {
+		"username": "Username",
+		"password": "Password",
+		"submit": "Login",
+		"error": {
+			"loggedIn": "Already logged in.",
+			"Unrecognized options for login request":
+				"Unrecognized options for login request.",
+			"Match failed": "Match failed.",
+			"User not found": "There is no user with that name.",
+			"Incorrect password": "The password you gave is incorrect.",
+			"User has no password set":
+				"This user account has no password set. You will need to login by some other means."
+		},
+		"success": "Login successful!"
+	},
+	"register": {
+		"username": "Username",
+		"password": "Password",
+		"role": {
+			"worker": "I am a worker",
+			"company": "I am a company"
+		},
+		"submit": "Sign Up",
+		"error": {
+			"loggedIn": "Already logged in",
+			"Username already exists": "That username is already taken.",
+			"Email already exists":
+				"That email is already used by annother account."
+		},
+		"success": "Sign up successful!"
+	},
+	"passwordChanger": {
+		"oldPassword": "Current password",
+		"newPassword": "New password",
+		"repeatNewPassword": "Repeat new password",
+		"submit": "Change Password",
+		"error": {
+			"Incorrect password": "Incorrect password",
+			"New passwords do not match": "New passwords do not match"
+		},
+		"success": "Password reset successful!"
+	},
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
