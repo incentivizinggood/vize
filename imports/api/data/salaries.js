@@ -64,9 +64,9 @@ Salaries.schema = new SimpleSchema(
 					);
 				} else if (Meteor.isServer && this.isSet) {
 					if (
-						this.value === "ERROR: COMPANY NOT FOUND" ||
 						this.value ===
-							"Please wait while we finish loading the form..."
+							i18n.__("common.forms.companyNotFound") ||
+						this.value === i18n.__("common.forms.pleaseWait")
 					) {
 						return "sessionError";
 					}
@@ -132,14 +132,27 @@ Salaries.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+const salaryErrors = {
+	noCompanyWithThatName: i18n.__("common.forms.companyNotFound"),
+	sessionError: i18n.__("SimpleSchema.custom.sessionError"),
+};
+
+Salaries.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.Salaries._id"),
+	submittedBy: i18n.__("SimpleSchema.labels.Salaries.submittedBy"),
+	companyName: i18n.__("SimpleSchema.labels.Salaries.companyName"),
+	companyId: i18n.__("SimpleSchema.labels.Salaries.companyId"),
+	jobTitle: i18n.__("SimpleSchema.labels.Salaries.jobTitle"),
+	incomeType: i18n.__("SimpleSchema.labels.Salaries.incomeType"),
+	incomeAmount: i18n.__("SimpleSchema.labels.Salaries.incomeAmount"),
+	gender: i18n.__("SimpleSchema.labels.Salaries.gender"),
+	datePosted: i18n.__("SimpleSchema.labels.Salaries.datePosted"),
+});
+
 Salaries.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		noCompanyWithThatName:
-			"There is no company with that name in our database",
-		sessionError: "Please stop messing around",
-	},
+	en: salaryErrors,
 });
 
 Salaries.attachSchema(Salaries.schema, { replace: true });

@@ -4,6 +4,7 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -83,9 +84,9 @@ Reviews.schema = new SimpleSchema(
 					);
 				} else if (Meteor.isServer && this.isSet) {
 					if (
-						this.value === "ERROR: COMPANY NOT FOUND" ||
 						this.value ===
-							"Please wait while we finish loading the form..."
+							i18n.__("common.forms.companyNotFound") ||
+						this.value === i18n.__("common.forms.pleaseWait")
 					) {
 						return "sessionError";
 					}
@@ -357,16 +358,50 @@ Reviews.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+const reviewErrorMessages = {
+	needsFiveWords: i18n.__("SimpleSchema.custom.Reviews.needsFiveWords"),
+	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+	sessionError: i18n.__("SimpleSchema.custom.sessionError"),
+};
+
+Reviews.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.Reviews._id"),
+	submittedBy: i18n.__("SimpleSchema.labels.Reviews.submittedBy"),
+	companyName: i18n.__("SimpleSchema.labels.Reviews.companyName"),
+	companyId: i18n.__("SimpleSchema.labels.Reviews.companyId"),
+	reviewTitle: i18n.__("SimpleSchema.labels.Reviews.reviewTitle"),
+	locations: i18n.__("SimpleSchema.labels.Reviews.locations"),
+	jobTitle: i18n.__("SimpleSchema.labels.Reviews.jobTitle"),
+	numberOfMonthsWorked: i18n.__(
+		"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
+	),
+	pros: i18n.__("SimpleSchema.labels.Reviews.pros"),
+	cons: i18n.__("SimpleSchema.labels.Reviews.cons"),
+	wouldRecommendToOtherJobSeekers: i18n.__(
+		"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
+	),
+	healthAndSafety: i18n.__("SimpleSchema.labels.Reviews.healthAndSafety"),
+	managerRelationship: i18n.__(
+		"SimpleSchema.labels.Reviews.managerRelationship"
+	),
+	workEnvironment: i18n.__("SimpleSchema.labels.Reviews.workEnvironment"),
+	benefits: i18n.__("SimpleSchema.labels.Reviews.benefits"),
+	overallSatisfaction: i18n.__(
+		"SimpleSchema.labels.Reviews.overallSatisfaction"
+	),
+	additionalComments: i18n.__(
+		"SimpleSchema.labels.Reviews.additionalComments"
+	),
+	datePosted: i18n.__("SimpleSchema.labels.Reviews.datePosted"),
+	upvotes: i18n.__("SimpleSchema.labels.Reviews.upvotes"),
+	downvotes: i18n.__("SimpleSchema.labels.Reviews.downvotes"),
+});
+
 Reviews.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		needsFiveWords: "You should write at least 5 words in this field",
-		noCompanyWithThatName:
-			"There is no company with that name in our database",
-		dateJoinedAfterDateLeft: "Date Joined cannot be after Date Left",
-		sessionError: "Please stop messing around",
-	},
+	en: reviewErrorMessages,
+	es: reviewErrorMessages,
 });
 
 Reviews.attachSchema(Reviews.schema, { replace: true });

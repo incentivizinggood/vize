@@ -48,6 +48,14 @@ Votes.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+Votes.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.Votes._id"),
+	submittedBy: i18n.__("SimpleSchema.labels.Votes.submittedBy"),
+	voteSubject: i18n.__("SimpleSchema.labels.Votes.voteSubject"),
+	references: i18n.__("SimpleSchema.labels.Votes.references"),
+	value: i18n.__("SimpleSchema.labels.Votes.value"),
+});
+
 Votes.attachSchema(Votes.schema, { replace: true });
 
 Votes.deny({

@@ -21,6 +21,8 @@ paj_form_state.set("company", {
 });
 
 if (Meteor.isClient) {
+	Template.paj_blaze_form.bindI18nNamespace("common.forms");
+
 	Template.paj_blaze_form.onCreated(function() {
 		this.autorun(function() {
 			Meteor.call("companies.companyForCurrentUser", (error, result) => {

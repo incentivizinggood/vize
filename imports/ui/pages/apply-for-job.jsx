@@ -22,6 +22,8 @@ afj_form_state.set("job", {
 });
 
 if (Meteor.isClient) {
+	Template.afj_blaze_form.bindI18nNamespace("common.forms");
+
 	Template.afj_blaze_form.onCreated(function() {
 		const id = afj_form_state.get("jobId");
 		this.autorun(function() {
