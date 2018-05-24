@@ -5,13 +5,6 @@ import LangSelector from "../components/lang-selector.jsx";
 
 /* The "header" page. */
 class Header extends React.Component {
-	componentWillMount() {
-		const script = document.createElement("script");
-		script.src = "/js/custom.js";
-		script.async = true;
-		document.body.appendChild(script);
-	}
-
 	render() {
 		return (
 			<div className="top-nav">
