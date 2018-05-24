@@ -5,6 +5,49 @@
 		"male": "Male",
 		"female": "Female"
 	},
+	"login": {
+		"username": "Username",
+		"password": "Password",
+		"submit": "Login",
+		"error": {
+			"loggedIn": "Already logged in.",
+			"Unrecognized options for login request":
+				"Unrecognized options for login request.",
+			"Match failed": "Match failed.",
+			"User not found": "There is no user with that name.",
+			"Incorrect password": "The password you gave is incorrect.",
+			"User has no password set":
+				"This user account has no password set. You will need to login by some other means."
+		},
+		"success": "Login successful!"
+	},
+	"register": {
+		"username": "Username",
+		"password": "Password",
+		"role": {
+			"worker": "I am a worker",
+			"company": "I am a company"
+		},
+		"submit": "Sign Up",
+		"error": {
+			"loggedIn": "Already logged in",
+			"Username already exists": "That username is already taken.",
+			"Email already exists":
+				"That email is already used by annother account."
+		},
+		"success": "Sign up successful!"
+	},
+	"passwordChanger": {
+		"oldPassword": "Current password",
+		"newPassword": "New password",
+		"repeatNewPassword": "Repeat new password",
+		"submit": "Change Password",
+		"error": {
+			"Incorrect password": "Incorrect password",
+			"New passwords do not match": "New passwords do not match"
+		},
+		"success": "Password reset successful!"
+	},
 	"forms": {
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
@@ -78,6 +121,88 @@
 			"additionalCommentsPlaceholder":
 				"Please enter any additional thoughts or comments you may have"
 		}
+	},
+	"search": {
+		"loading": "Loading...",
+		"noCompaniesMatch": "No Companies match",
+		"placeholder": "Search for a Company...",
+		"button": "SEARCH"
+	},
+
+	"jobsearch": {
+		"loading": "Loading...",
+		"nojobs": "No Jobs Available right now.",
+		"jobsAvailable": "Employment Offer(s) Available"
+	},
+	"homePage": {
+		"mainBanner": "Find the best job for you, from people like you",
+		"searchButton": "SEARCH",
+		"placeholder": "Search for a Company...",
+		"findjob_part1": "Find a Great Job",
+		"commonLine": "Near You",
+		"findjob_text":
+			"With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory to work for",
+		"jobsButton": "Jobs",
+		"findemp_part1": "Find an Employer",
+		"findemp_part2": "That Treats You Right",
+		"findemp_text":
+			"Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
+		"companiesButton": "Companies",
+		"hear": "Hear From Your",
+		"community": "Community",
+		"hear_text":
+			"See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.",
+		"add_review_button": "Add a Review",
+		"get_fair_salary": "Get a Fair Salary For",
+		"your_work": "Your Work",
+		"fairsalary_text":
+			"Find hundreds of salaries for different job positions and genders. Share your salary announmously to make sure others are getting fairly compensated.",
+		"salary_button": "Add a Salary",
+		"discover_employers": "Start discovering new employers now",
+		"signup_button": "SIGN UP"
+	},
+	"footer": {
+		"about_us": "About Us",
+		"employers": "Employers",
+		"create_free_account": "Create a Free Employer Account",
+		"all_rights_reserved": "All rights reserved"
+	},
+	"aboutUs": {
+		"about": "About",
+		"the_problem": "The Problem",
+		"noLeverage": "EMPLOYEES DON'T HAVE LEVERAGE",
+		"problem_text":
+			"To fill large orders in a timely manner and get enough business to survive as a company, factories cuts corners, working their employees beyond their limits and not taking the time to ensure that the job is safe. In highly developed legal systems this would be stopped by the police and enforced with legislation that protects workers' labor rights. In most developing countries, such legislation either doesn't exist or they lack the capacity to enforce it. In short, factories have every incentive to cut corners, and no incentive to be held accountable to their employees. So how do we increase the leverage that workers have in this circumstance?",
+		"our_solution": "Our Solution",
+		"reviews_accountability": "REVIEWS ARE A FORM OF ACCOUNTABILITY",
+		"solution_text":
+			"To provide employees in developing countries with more leverage, we're creating a platform for workers to share reviews of their working conditions with all other workers in their region. This will give workers the information they need to avoid factories with terrible working conditions. Factories with poor reviews will get fewer workers, thus be unable to fill large orders from buyers, and lose profits. This will create a direct incentive for factories to improve conditions based on feedback coming directly from the workers themselves.",
+		"reach_us": "Feel free to reach out to us",
+		"submit_button": "Submit",
+		"placeholder_name": "Your Name",
+		"placeholder_email": "Eg. example@email.com",
+		"placeholder_comments": "Please enter your comments..."
+	},
+	"forEmployers": {
+		"find_best": "Find the Best Employees in Tijuana",
+		"find_best_part1":
+			"We provide more affordable and effective recruiting,",
+		"find_best_part2": "finding employees that stay",
+		"get_started_button": "Get Started",
+		"increase_workers": "Increase Worker",
+		"retention": "Retention",
+		"increase_workers_text":
+			"With an inside look into the work environment of your company, workers will be able to determine whether your company is the right fit for them before being hired.",
+		"grow_in_response": "Grow In Response",
+		"to_worker_feedback": "To Worker Feedback",
+		"grow_response_text":
+			"After creating a profile for your company, you will be able to read reviews from workers to get an idea of what they like and dislike about your company. Use negative feedback as a mechanism for growth",
+		"reach_thousand": "Reach Thousands of Workers",
+		"reach_thousand_text":
+			"Register your company today to get instant access to a 60 day free trial that allows you to post an unlimited number of jobs.",
+		"accelerate":
+			"Accelerate our growth and discover thousands of potential employees",
+		"register_button": "Register"
 	},
 	"methods": {
 		"jobAppEmail": {

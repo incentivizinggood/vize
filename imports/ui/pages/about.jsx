@@ -2,9 +2,13 @@ import React from "react";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import { Meteor } from "meteor/meteor";
+import i18n from "meteor/universe:i18n";
 
 /* A page where visitors can get information about Vize and this app.
  */
+
+const T = i18n.createComponent();
+
 export default class AboutPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -74,7 +78,7 @@ export default class AboutPage extends React.Component {
 				<div id="home" className="banner about-banner">
 					<div className="banner-info">
 						<div className="banner-text">
-							<h1>About</h1>
+							<h1><T>common.aboutUs.about</T></h1>
 						</div>
 					</div>
 				</div>
@@ -82,30 +86,15 @@ export default class AboutPage extends React.Component {
 				<div className="about">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="al">The Problem</h1>
+							<h1 className="al"><T>common.aboutUs.the_problem</T></h1>
 							<h3 className="emplh3">
-								EMPLOYEES DON'T HAVE LEVERAGE
+								<T>common.aboutUs.noLeverage</T>
 							</h3>
 						</div>
 						<div className="col-md-12 ">
 							<div className="about-row">
 								<p>
-									To fill large orders in a timely manner and
-									get enough business to survive as a company,
-									factories cuts corners, working their
-									employees beyond their limits and not taking
-									the time to ensure that the job is safe. In
-									highly developed legal systems this would be
-									stopped by the police and enforced with
-									legislation that protects workers' labor
-									rights. In most developing countries, such
-									legislation either doesn't exist or they
-									lack the capacity to enforce it. In short,
-									factories have every incentive to cut
-									corners, and no incentive to be held
-									accountable to their employees. So how do we
-									increase the leverage that workers have in
-									this circumstance?
+									<T>common.aboutUs.problem_text</T>
 								</p>
 							</div>
 							<div className="clearfix" />
@@ -116,28 +105,17 @@ export default class AboutPage extends React.Component {
 				<div className="about  bl">
 					<div className="container">
 						<div className="col-md-12  cdoun">
-							<h1 className="al">Our Solution</h1>
+							<h1 className="al"><T>common.aboutUs.our_solution</T></h1>
 
 							<h3 className="emplh3">
-								REVIEWS ARE A FORM OF ACCOUNTABILITY
+								<T>common.aboutUs.reviews_accountability</T>
 							</h3>
 						</div>
 						<div className="col-md-12 ">
 							<div className="about-row">
 								<p>
-									To provide employees in developing countries
-									with more leverage, we're creating a
-									platform for workers to share reviews of
-									their working conditions with all other
-									workers in their region. This will give
-									workers the information they need to avoid
-									factories with terrible working conditions.
-									Factories with poor reviews will get fewer
-									workers, thus be unable to fill large orders
-									from buyers, and lose profits. This will
-									create a direct incentive for factories to
-									improve conditions based on feedback coming
-									directly from the workers themselves.{" "}
+									<T>common.aboutUs.solution_text</T>
+									{" "}
 								</p>
 							</div>
 							<div className="clearfix" />
@@ -156,7 +134,7 @@ export default class AboutPage extends React.Component {
 									id="submitForm"
 								>
 									<span className="contact100-form-title">
-										Feel free to reach out to us
+										<T>common.aboutUs.reach_us</T>
 									</span>
 									<div className="wrap-input100 rs1 validate-input">
 										<input
@@ -164,7 +142,7 @@ export default class AboutPage extends React.Component {
 											className="input100"
 											type="text"
 											name="first-name"
-											placeholder="Your Name"
+											placeholder={i18n.__("common.aboutUs.placeholder_name")}
 											onChange={this.handleNameChange}
 										/>
 										<span className="focus-input100" />
@@ -175,7 +153,7 @@ export default class AboutPage extends React.Component {
 											className="input100"
 											type="text"
 											name="email"
-											placeholder="Eg. example@email.com"
+											placeholder={i18n.__("common.aboutUs.placeholder_email")}
 											onChange={this.handleEmailChange}
 										/>
 										<span className="focus-input100" />
@@ -185,7 +163,7 @@ export default class AboutPage extends React.Component {
 											id="message"
 											className="input100"
 											name="message"
-											placeholder="Please enter your comments..."
+											placeholder={i18n.__("common.aboutUs.placeholder_comments")}
 											onChange={
 												this.handleTextBoxChanging
 											}
@@ -199,7 +177,7 @@ export default class AboutPage extends React.Component {
 											value="Submit"
 										>
 											<span>
-												Submit
+												<T>common.aboutUs.submit_button</T>
 												<i className="zmdi zmdi-arrow-right m-l-8" />
 											</span>
 										</button>

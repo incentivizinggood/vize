@@ -1,9 +1,13 @@
 import React from "react";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
+import i18n from "meteor/universe:i18n";
 
 /* The home page of the site.
  */
+
+const T = i18n.createComponent();
+
 export default class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -36,8 +40,7 @@ export default class HomePage extends React.Component {
 									<li>
 										<div className="banner-text-info">
 											<h1>
-												Find the best job for you, from
-												people like you
+												<T>common.homePage.mainBanner</T>
 											</h1>
 											<form
 												className="example"
@@ -50,7 +53,7 @@ export default class HomePage extends React.Component {
 												<input
 													ref="input"
 													type="text"
-													placeholder="Search..."
+													placeholder={i18n.__("common.homePage.placeholder")}
 													name="search"
 												/>
 												<button type="submit">
@@ -59,7 +62,7 @@ export default class HomePage extends React.Component {
 															color: "#ffffff",
 														}}
 													>
-														SEARCH
+														<T>common.homePage.searchButton</T>
 													</a>
 												</button>
 											</form>
@@ -84,14 +87,12 @@ export default class HomePage extends React.Component {
 						<div className="col-md-4 ">
 							<div className="great-job-hm">
 								<h1>
-									Find a Great job <br /> Near You{" "}
+									<T>common.homePage.findjob_part1</T> <br /> <T>common.homePage.commonLine</T>{" "}
 								</h1>
 							</div>
 							<div className="great-comp-hm">
 								<h4>
-									With thousands of companies in Mexico on our
-									site and hundreds of job posts, you'll be
-									able to find a great factory to work for
+									<T>common.homePage.findjob_text</T>
 								</h4>
 							</div>
 							<div className="titlestar  ">
@@ -100,7 +101,7 @@ export default class HomePage extends React.Component {
 										href="/jobs"
 										className="button out-butt-dark  "
 									>
-										Jobs
+										<T>common.homePage.jobsButton</T>
 									</a>
 								</center>
 							</div>
@@ -115,14 +116,12 @@ export default class HomePage extends React.Component {
 						<div className="col-md-4 ">
 							<div className="great-job-hm">
 								<h1>
-									Find a Great job <br /> Near You{" "}
+									<T>common.homePage.findjob_part1</T> <br /> <T>common.homePage.commonLine</T>{" "}
 								</h1>
 							</div>
 							<div className="great-comp-hm">
 								<h4>
-									With thousands of companies in Mexico on our
-									site and hundreds of job posts, you'll be
-									able to find a great factory to work for
+									<T>common.homePage.findjob_text</T>
 								</h4>
 							</div>
 							<div className="titlestar  ">
@@ -131,7 +130,7 @@ export default class HomePage extends React.Component {
 										href="/jobs"
 										className="button out-butt-dark  "
 									>
-										Jobs
+										<T>common.homePage.jobsButton</T>
 									</a>
 								</center>
 							</div>
@@ -162,16 +161,12 @@ export default class HomePage extends React.Component {
 						<div className="col-md-5 ">
 							<div className="great-emp-hm">
 								<h1>
-									Find an Employer <br />That Treats You Right{" "}
+									<T>common.homePage.findemp_part1</T> <br /><T>common.homePage.findemp_part2</T>{" "}
 								</h1>
 							</div>
 							<div className="great-discover-emp">
 								<h4>
-									Vize helps you discover employers based on
-									different industries, job types, and company
-									sizes, The feedback and rating system holds
-									companies accountable for creating rich work
-									environments and safe working conditions
+									<T>common.homePage.findemp_text</T>
 								</h4>
 							</div>
 							<div className="companies-btn  ">
@@ -180,7 +175,7 @@ export default class HomePage extends React.Component {
 										href="/companies"
 										className="button out-bodr  "
 									>
-										Companies
+										<T>common.homePage.companiesButton</T>
 									</a>
 								</center>
 							</div>
@@ -202,16 +197,12 @@ export default class HomePage extends React.Component {
 						<div className="col-md-5 ">
 							<div className="great-emp-hm">
 								<h1>
-									Find an Employer <br />That Treats You Right{" "}
+									<T>common.homePage.findemp_part1</T> <br /><T>common.homePage.findemp_part2</T>{" "}
 								</h1>
 							</div>
 							<div className="great-discover-emp">
 								<h4>
-									Vize helps you discover employers based on
-									different industries, job types, and company
-									sizes, The feedback and rating system holds
-									companies accountable for creating rich work
-									environments and safe working conditions
+									<T>common.homePage.findemp_text</T>
 								</h4>
 							</div>
 							<div className="companies-btn  ">
@@ -220,7 +211,7 @@ export default class HomePage extends React.Component {
 										href="/companies"
 										className="button out-bodr  "
 									>
-										Companies
+										<T>common.homePage.companiesButton</T>
 									</a>
 								</center>
 							</div>
@@ -250,15 +241,11 @@ export default class HomePage extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											Hear From You <br />Community
+										 	<T>common.homePage.hear</T><br /><T>common.homePage.community</T>
 										</div>
 										<div className="frontLogo isas" />
 										<div className="frontLocation">
-											See anonymous reviews and ratings of
-											companies from people in your
-											Community. Add value to the
-											community by sharing your work
-											experience.
+											<T>common.homePage.hear_text</T>
 										</div>
 										<br />
 										<div className="fl-ri-re">
@@ -273,7 +260,7 @@ export default class HomePage extends React.Component {
 												<i
 													className="fa fa-plus"
 													aria-hidden="true"
-												/>&nbsp; Add a Review{" "}
+												/>&nbsp; {i18n.__("common.homePage.add_review_button")} {" "}
 											</a>
 										</div>
 										<br />
@@ -283,16 +270,11 @@ export default class HomePage extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											Get a Fair Salary For <br />Your
-											Work
+											<T>common.homePage.get_fair_salary</T> <br /><T>common.homePage.your_work</T>
 										</div>
 										<div className="frontLogo boisedigital" />
 										<div className="frontLocation">
-											Find hundreds of salaries for
-											different job positions and genders.
-											Share your salary announmously to
-											make sure others are getting fairly
-											compensated.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<T>common.homePage.fairsalary_text</T>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<br />
 										<div className="fl-ri-re">
@@ -307,7 +289,7 @@ export default class HomePage extends React.Component {
 												<i
 													className="fa fa-plus"
 													aria-hidden="true"
-												/>&nbsp; Add a Salary{" "}
+												/>&nbsp; {i18n.__("common.homePage.salary_button")} {" "}
 											</a>
 										</div>
 										<br />
@@ -329,7 +311,7 @@ export default class HomePage extends React.Component {
 								<center>
 									{" "}
 									<h1 className="titlestar">
-										Start discovering new employers now{" "}
+										<T>common.homePage.discover_employers</T>{" "}
 									</h1>
 								</center>
 							</div>
@@ -341,7 +323,7 @@ export default class HomePage extends React.Component {
 											href="/register"
 											className="button out-butt-dark"
 										>
-											SIGN UP
+											<T>common.homePage.signup_button</T>
 										</a>
 									</center>
 								</div>

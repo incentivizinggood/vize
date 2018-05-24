@@ -1,8 +1,10 @@
 import React from "react";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
+import i18n from "meteor/universe:i18n";
 
 /* A page Foremployers  */
+const T = i18n.createComponent();
 
 export default class ForEmployers extends React.Component {
 	render() {
@@ -14,13 +16,11 @@ export default class ForEmployers extends React.Component {
 					<div className="container ">
 						<div className="col-md-12 ">
 							<div className="great-emp-hm">
-								<h1>Find the Best Employees in Tijuana</h1>
+								<h1><T>common.forEmployers.find_best</T></h1>
 							</div>
 							<div className="great-discover-emp">
 								<h4>
-									we provide more affordable and effective
-									recruiting <br /> finding employees that
-									stay
+									<T>common.forEmployers.find_best_part1</T> <br /><T>common.forEmployers.find_best_part2</T>
 								</h4>
 							</div>
 							<div className="companies-btn  ">
@@ -29,7 +29,7 @@ export default class ForEmployers extends React.Component {
 										href="/register"
 										className="button out-bodr-get  "
 									>
-										Get Started
+										<T>common.forEmployers.get_started_button</T>
 									</a>
 								</center>
 							</div>
@@ -46,15 +46,11 @@ export default class ForEmployers extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											Increase Worker <br />Retention
+											<T>common.forEmployers.increase_workers</T> <br /><T>common.forEmployers.retention</T>
 										</div>
 										<div className="frontLogo    emp-icon2" />
 										<div className="frontLocation   plu">
-											With on inside look into the work
-											environment of your company, workers
-											will be able to determine whether
-											your company is the right fit for
-											them before being hired.
+											<T>common.forEmployers.increase_workers_text</T>
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<br />
@@ -67,17 +63,11 @@ export default class ForEmployers extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											Grow In Reponse <br /> To Worker
-											Feedback
+											<T>common.forEmployers.grow_in_response</T> <br /> <T>common.forEmployers.to_worker_feedback</T>
 										</div>
 										<div className="frontLogo   emp-icon1" />
 										<div className="frontLocation">
-											After creating a profile for your
-											company, you will be able to read
-											reviews from workers to get an idea
-											of what they like and dislike about
-											your company. Use negative feedback
-											as a mechanism for growth
+											<T>common.forEmployers.grow_response_text</T>
 										</div>
 										<br />
 										{/* <div  className="fl-ri-re">
@@ -107,13 +97,11 @@ export default class ForEmployers extends React.Component {
 						</div>
 						<div className="col-md-6 ">
 							<div className="great-job-hm">
-								<h1>Reach Thousands of Workers </h1>
+								<h1><T>common.forEmployers.reach_thousand</T> </h1>
 							</div>
 							<div className="great-comp-hm">
 								<h4>
-									Register your company today to get instant
-									access to a 60 day free trial that allows
-									you to post an unlimited number of jobs.
+									<T>common.forEmployers.reach_thousand_text</T>
 								</h4>
 							</div>
 						</div>
@@ -129,8 +117,7 @@ export default class ForEmployers extends React.Component {
 							<div className="col-md-8">
 								<center>
 									<h1 className="titlestar22">
-										Accelerate your growth and discover
-										thousands of potential employees{" "}
+										<T>common.forEmployers.accelerate</T>{" "}
 									</h1>
 								</center>
 							</div>
@@ -142,7 +129,7 @@ export default class ForEmployers extends React.Component {
 											href="/register"
 											className="button out-butt-dark"
 										>
-											Register
+											<T>common.forEmployers.register_button</T>
 										</a>
 									</center>
 								</div>
