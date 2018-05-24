@@ -431,9 +431,11 @@ Meteor.methods({
 		const workerComments =
 			jobApplication.coverLetterAndComments !== undefined
 				? jobApplication.coverLetterAndComments
-				: "[the applicant did not fill in this field]";
+				: i18n.__("common.methods.jobAppEmail.fieldLeftEmpty");
 		const jobId = jobApplication.jobId;
-		const emailSubject = `VIZE ${workerName} has responded to your job advertisement`;
+		const emailSubject = i18n.__("common.methods.jobAppEmail.subjectLine", {
+			wName: workerName,
+		});
 
 		/*
 			QUESTION:
@@ -442,21 +444,19 @@ Meteor.methods({
 			- ...or a valid phone number?
 		*/
 
-		const emailText =
-			`To those at ${companyName},` +
-			`\n\n\tCongratulations, you just received a new job application! ` +
-			`A Vize user, ${workerName}, has responded ` +
-			`to your job post (which was given id=${jobId}).` +
-			`They provided the contact information below, feel free to contact ` +
-			`them directly.` +
-			`\n\n\tIf you have any issues with this process, please ` +
-			`let us know. If you hire this employee, please send us a message letting ` +
-			`us know what you think of our service. We hope you've found the perfect ` +
-			`employee for your company and the position!` +
-			`\n\nAll the best,` +
-			`\n\n\tThe Vize Team` +
-			`\n\nAPPLICANT INFORMATION` +
-			`\nFull name: ${workerName}\nEmail: ${workerEmail}\nPhone number: ${workerPhone}\nCover letter/Aditional comments:\n${workerComments}`;
+		const emailParams = {
+			cName: companyName,
+			wName: workerName,
+			jId: jobId,
+			wEmail: workerEmail,
+			wPhone: workerPhone,
+			wComments: workerComments,
+		};
+
+		const emailText = i18n.__(
+			"common.methods.jobAppEmail.emailText",
+			emailParams
+		);
 
 		const applicationEmail = {
 			to: companyEmailAddress,
