@@ -3,6 +3,7 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -44,7 +45,7 @@ JobAds.schema = new SimpleSchema(
 						}
 					);
 				} else if (Meteor.isServer && this.isSet) {
-					if (!Companies.hasEntry(this.value)) {
+					if (Companies.findOne({ name: this.value }) === undefined) {
 						return "noCompanyWithThatName";
 					}
 				}
@@ -175,13 +176,32 @@ JobAds.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+const jobAdErrors = {
+	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+};
+
+JobAds.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.JobAds._id"),
+	companyName: i18n.__("SimpleSchema.labels.JobAds.companyName"),
+	companyId: i18n.__("SimpleSchema.labels.JobAds.companyId"),
+	vizeApplyForJobUrl: i18n.__(
+		"SimpleSchema.labels.JobAds.vizeApplyForJobUrl"
+	),
+	jobTitle: i18n.__("SimpleSchema.labels.JobAds.jobTitle"),
+	locations: i18n.__("SimpleSchema.labels.JobAds.locations"),
+	pesosPerHour: i18n.__("SimpleSchema.labels.JobAds.pesosPerHour"),
+	contractType: i18n.__("SimpleSchema.labels.JobAds.contractType"),
+	jobDescription: i18n.__("SimpleSchema.labels.JobAds.jobDescription"),
+	responsibilities: i18n.__("SimpleSchema.labels.JobAds.responsibilities"),
+	qualifications: i18n.__("SimpleSchema.labels.JobAds.qualifications"),
+	datePosted: i18n.__("SimpleSchema.labels.JobAds.datePosted"),
+});
+
 JobAds.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		noCompanyWithThatName:
-			"There is no company with that name in our database",
-	},
+	en: jobAdErrors,
+	es: jobAdErrors,
 });
 
 JobAds.attachSchema(JobAds.schema, { replace: true });
@@ -243,7 +263,7 @@ JobAds.applicationSchema = new SimpleSchema(
 						}
 					);
 				} else if (Meteor.isServer && this.isSet) {
-					if (!Companies.hasEntry(this.value)) {
+					if (Companies.findOne({ name: this.value }) === undefined) {
 						return "noCompanyWithThatName";
 					}
 				}
@@ -302,15 +322,28 @@ JobAds.applicationSchema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
+JobAds.applicationSchema.labels({
+	jobId: i18n.__("SimpleSchema.labels.JobApplications.jobId"),
+	companyName: i18n.__("SimpleSchema.labels.JobApplications.companyName"),
+	fullName: i18n.__("SimpleSchema.labels.JobApplications.fullName"),
+	email: i18n.__("SimpleSchema.labels.JobApplications.email"),
+	phoneNumber: i18n.__("SimpleSchema.labels.JobApplications.phoneNumber"),
+	coverLetterAndComments: i18n.__(
+		"SimpleSchema.labels.JobApplications.coverLetterAndComments"
+	),
+	dateSent: i18n.__("SimpleSchema.labels.JobApplications.dateSent"),
+});
+
+const jobAppErrors = {
+	invalidJobId: i18n.__("SimpleSchema.custom.JobApplications.invalidJobId"),
+	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
+};
+
 JobAds.applicationSchema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: {
-		invalidJobId:
-			"Please provide a valid job id for the job you wish to apply to",
-		noCompanyWithThatName:
-			"There is no company with that name in our database",
-	},
+	en: jobAppErrors,
+	es: jobAppErrors,
 });
 
 JobAds.deny({

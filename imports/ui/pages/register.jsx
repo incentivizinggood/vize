@@ -1,6 +1,11 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
+import i18n from "meteor/universe:i18n";
+
+const t = i18n.createTranslator("common.register");
+const T = i18n.createComponent(t);
 
 /* The page where users can create an account.
  */
@@ -8,7 +13,7 @@ export default class RegisterPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			error: null,
+			error: Meteor.userId() === null ? null : "loggedIn",
 			success: false,
 			username: "",
 			password: "",
@@ -34,8 +39,11 @@ export default class RegisterPage extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
 		const createUserCallback = error => {
+			if (error) console.error(error);
 			this.setState({
-				error: error ? error.reason : null,
+				// Using slice here to remove the period from the error reason
+				// so that it will work as a JSON key in the translation files.
+				error: error ? error.reason.slice(0, -1) : null,
 				success: !error,
 			});
 			if (this.state.success) {
@@ -52,31 +60,39 @@ export default class RegisterPage extends React.Component {
 
 	render() {
 		if (this.state.success) {
-			return <div className="page register">Sign up successful!</div>;
+			return (
+				<div className="page register">
+					<T>success</T>
+				</div>
+			);
 		}
 		return (
 			<div className="page register">
-				{this.state.error ? <div>{this.state.error}</div> : null}
+				{this.state.error ? (
+					<div>
+						<T>{`error.${this.state.error}`}</T>
+					</div>
+				) : null}
 				<form onSubmit={this.handleSubmit}>
 					<label htmlFor="registerform-username">
-						Username
+						<T>username</T>
 						<input
 							id="registerform-username"
 							name="username"
 							type="text"
-							placeholder="Username"
+							placeholder={t("username")}
 							required
 							value={this.state.username}
 							onChange={this.handleInputChange}
 						/>
 					</label>
 					<label htmlFor="registerform-password">
-						Password
+						<T>password</T>
 						<input
 							id="registerform-password"
 							name="password"
 							type="password"
-							placeholder="Password"
+							placeholder={t("password")}
 							required
 							value={this.state.password}
 							onChange={this.handleInputChange}
@@ -92,7 +108,7 @@ export default class RegisterPage extends React.Component {
 							checked={this.state.role === "worker"}
 							onChange={this.handleInputChange}
 						/>
-						I am a worker
+						<T>role.worker</T>
 					</label>
 					<label htmlFor="registerform-role-company">
 						<input
@@ -104,9 +120,9 @@ export default class RegisterPage extends React.Component {
 							checked={this.state.role === "company"}
 							onChange={this.handleInputChange}
 						/>
-						I am a company
+						<T>role.company</T>
 					</label>
-					<input type="submit" value="Sign Up" />
+					<input type="submit" value={t("submit")} />
 				</form>
 			</div>
 		);

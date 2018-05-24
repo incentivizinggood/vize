@@ -13,6 +13,8 @@ import "./ccp_blaze_form.html";
 
 const formError = new ReactiveVar("good");
 
+Template.ccp_blaze_form.bindI18nNamespace("common.forms");
+
 Template.ccp_blaze_form.helpers({
 	companyProfiles: Companies,
 	ErrorWidget() {

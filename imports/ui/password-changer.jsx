@@ -1,6 +1,10 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
+import i18n from "meteor/universe:i18n";
+
+const t = i18n.createTranslator("common.passwordChanger");
+const T = i18n.createComponent(t);
 
 /* A form where users can change their passwords.
  */
@@ -8,7 +12,7 @@ export default class PasswordChanger extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			error: Meteor.userId() !== null ? null : "Not loged in",
+			error: Meteor.userId() !== null ? null : "Not logged in",
 			success: false,
 			oldPassword: "",
 			newPassword: "",
@@ -34,6 +38,7 @@ export default class PasswordChanger extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
 		const callback = error => {
+			if (error) console.error(error);
 			this.setState({
 				error: error ? error.reason : null,
 				success: !error,
@@ -42,7 +47,7 @@ export default class PasswordChanger extends React.Component {
 
 		// Double check to avoid typos.
 		if (this.state.newPassword !== this.state.repeatNewPassword) {
-			callback({ reason: "New passwords do not match." });
+			callback({ reason: "New passwords do not match" });
 			return;
 		}
 
@@ -56,50 +61,56 @@ export default class PasswordChanger extends React.Component {
 	render() {
 		if (this.state.success) {
 			return (
-				<div className="password-reset">Password reset successful!</div>
+				<div className="password-reset">
+					<T>success</T>
+				</div>
 			);
 		}
 		return (
 			<div className="password-reset">
-				{this.state.error ? <div>{this.state.error}</div> : null}
+				{this.state.error ? (
+					<div>
+						<T>{`error.${this.state.error}`}</T>
+					</div>
+				) : null}
 				<form onSubmit={this.handleSubmit}>
 					<label htmlFor="passwordChangeForm-oldPassword">
-						Current password
+						<T>oldPassword</T>
 						<input
 							id="passwordChangeForm-oldPassword"
 							name="oldPassword"
 							type="password"
-							placeholder="Password"
+							placeholder={t("oldPassword")}
 							required
 							value={this.state.oldPassword}
 							onChange={this.handleInputChange}
 						/>
 					</label>
 					<label htmlFor="passwordChangeForm-newPassword">
-						New password
+						<T>newPassword</T>
 						<input
 							id="passwordChangeForm-newPassword"
 							name="newPassword"
 							type="password"
-							placeholder="New Password"
+							placeholder={t("newPassword")}
 							required
 							value={this.state.newPassword}
 							onChange={this.handleInputChange}
 						/>
 					</label>
 					<label htmlFor="passwordChangeForm-repeatNewPassword">
-						Repeat new password
+						<T>repeatNewPassword</T>
 						<input
 							id="passwordChangeForm-repeatNewPassword"
 							name="repeatNewPassword"
 							type="password"
-							placeholder="New Password"
+							placeholder={t("newPassword")}
 							required
 							value={this.state.repeatNewPassword}
 							onChange={this.handleInputChange}
 						/>
 					</label>
-					<input type="submit" value="Change Password" />
+					<input type="submit" value={t("submit")} />
 				</form>
 			</div>
 		);
