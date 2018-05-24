@@ -339,6 +339,43 @@ const companyErrorMessages = {
 	nameTaken: i18n.__("SimpleSchema.custom.Companies.nameTaken"),
 };
 
+Companies.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.Companies._id"),
+	vizeProfileUrl: i18n.__("SimpleSchema.labels.Companies.vizeProfileUrl"),
+	vizeReviewUrl: i18n.__("SimpleSchema.labels.Companies.vizeReviewUrl"),
+	vizeSalaryUrl: i18n.__("SimpleSchema.labels.Companies.vizeSalaryUrl"),
+	vizePostJobUrl: i18n.__("SimpleSchema.labels.Companies.vizePostJobUrl"),
+	name: i18n.__("SimpleSchema.labels.Companies.name"),
+	contactEmail: i18n.__("SimpleSchema.labels.Companies.contactEmail"),
+	dateEstablished: i18n.__("SimpleSchema.labels.Companies.dateEstablished"),
+	numEmployees: i18n.__("SimpleSchema.labels.Companies.numEmployees"),
+	industry: i18n.__("SimpleSchema.labels.Companies.industry"),
+	locations: i18n.__("SimpleSchema.labels.Companies.locations"),
+	otherContactInfo: i18n.__("SimpleSchema.labels.Companies.otherContactInfo"),
+	websiteURL: i18n.__("SimpleSchema.labels.Companies.websiteURL"),
+	descriptionOfCompany: i18n.__(
+		"SimpleSchema.labels.Companies.descriptionOfCompany"
+	),
+	dateJoined: i18n.__("SimpleSchema.labels.Companies.dateJoined"),
+	numFlags: i18n.__("SimpleSchema.labels.Companies.numFlags"),
+	healthAndSafety: i18n.__("SimpleSchema.labels.Companies.healthAndSafety"),
+	managerRelationship: i18n.__(
+		"SimpleSchema.labels.Companies.managerRelationship"
+	),
+	workEnvironment: i18n.__("SimpleSchema.labels.Companies.workEnvironment"),
+	benefits: i18n.__("SimpleSchema.labels.Companies.benefits"),
+	overallSatisfaction: i18n.__(
+		"SimpleSchema.labels.Companies.overallSatisfaction"
+	),
+	numReviews: i18n.__("SimpleSchema.labels.Companies.numReviews"),
+	percentRecommended: i18n.__(
+		"SimpleSchema.labels.Companies.percentRecommended"
+	),
+	avgNumMonthsWorked: i18n.__(
+		"SimpleSchema.labels.Companies.avgNumMonthsWorked"
+	),
+});
+
 // Define custom error messages for custom validation functions
 Companies.schema.messageBox.messages({
 	// en? does that mean we can add internationalization

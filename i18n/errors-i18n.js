@@ -77,7 +77,7 @@ const errorMessages = {
 
 		const regExpMessage = msgObj
 			? msgObj.msg
-			: "failed regular expression validation";
+			: i18n.__("SimpleSchema.regExMsgStubs.msg");
 
 		return `${label} ${regExpMessage}`;
 	},

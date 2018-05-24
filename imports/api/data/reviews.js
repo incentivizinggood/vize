@@ -364,6 +364,39 @@ const reviewErrorMessages = {
 	sessionError: i18n.__("SimpleSchema.custom.sessionError"),
 };
 
+Reviews.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.Reviews._id"),
+	submittedBy: i18n.__("SimpleSchema.labels.Reviews.submittedBy"),
+	companyName: i18n.__("SimpleSchema.labels.Reviews.companyName"),
+	companyId: i18n.__("SimpleSchema.labels.Reviews.companyId"),
+	reviewTitle: i18n.__("SimpleSchema.labels.Reviews.reviewTitle"),
+	locations: i18n.__("SimpleSchema.labels.Reviews.locations"),
+	jobTitle: i18n.__("SimpleSchema.labels.Reviews.jobTitle"),
+	numberOfMonthsWorked: i18n.__(
+		"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
+	),
+	pros: i18n.__("SimpleSchema.labels.Reviews.pros"),
+	cons: i18n.__("SimpleSchema.labels.Reviews.cons"),
+	wouldRecommendToOtherJobSeekers: i18n.__(
+		"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
+	),
+	healthAndSafety: i18n.__("SimpleSchema.labels.Reviews.healthAndSafety"),
+	managerRelationship: i18n.__(
+		"SimpleSchema.labels.Reviews.managerRelationship"
+	),
+	workEnvironment: i18n.__("SimpleSchema.labels.Reviews.workEnvironment"),
+	benefits: i18n.__("SimpleSchema.labels.Reviews.benefits"),
+	overallSatisfaction: i18n.__(
+		"SimpleSchema.labels.Reviews.overallSatisfaction"
+	),
+	additionalComments: i18n.__(
+		"SimpleSchema.labels.Reviews.additionalComments"
+	),
+	datePosted: i18n.__("SimpleSchema.labels.Reviews.datePosted"),
+	upvotes: i18n.__("SimpleSchema.labels.Reviews.upvotes"),
+	downvotes: i18n.__("SimpleSchema.labels.Reviews.downvotes"),
+});
+
 Reviews.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?

@@ -180,6 +180,23 @@ const jobAdErrors = {
 	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
 };
 
+JobAds.schema.labels({
+	_id: i18n.__("SimpleSchema.labels.JobAds._id"),
+	companyName: i18n.__("SimpleSchema.labels.JobAds.companyName"),
+	companyId: i18n.__("SimpleSchema.labels.JobAds.companyId"),
+	vizeApplyForJobUrl: i18n.__(
+		"SimpleSchema.labels.JobAds.vizeApplyForJobUrl"
+	),
+	jobTitle: i18n.__("SimpleSchema.labels.JobAds.jobTitle"),
+	locations: i18n.__("SimpleSchema.labels.JobAds.locations"),
+	pesosPerHour: i18n.__("SimpleSchema.labels.JobAds.pesosPerHour"),
+	contractType: i18n.__("SimpleSchema.labels.JobAds.contractType"),
+	jobDescription: i18n.__("SimpleSchema.labels.JobAds.jobDescription"),
+	responsibilities: i18n.__("SimpleSchema.labels.JobAds.responsibilities"),
+	qualifications: i18n.__("SimpleSchema.labels.JobAds.qualifications"),
+	datePosted: i18n.__("SimpleSchema.labels.JobAds.datePosted"),
+});
+
 JobAds.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
@@ -304,6 +321,18 @@ JobAds.applicationSchema = new SimpleSchema(
 	},
 	{ tracker: Tracker }
 );
+
+JobAds.applicationSchema.labels({
+	jobId: i18n.__("SimpleSchema.labels.JobApplications.jobId"),
+	companyName: i18n.__("SimpleSchema.labels.JobApplications.companyName"),
+	fullName: i18n.__("SimpleSchema.labels.JobApplications.fullName"),
+	email: i18n.__("SimpleSchema.labels.JobApplications.email"),
+	phoneNumber: i18n.__("SimpleSchema.labels.JobApplications.phoneNumber"),
+	coverLetterAndComments: i18n.__(
+		"SimpleSchema.labels.JobApplications.coverLetterAndComments"
+	),
+	dateSent: i18n.__("SimpleSchema.labels.JobApplications.dateSent"),
+});
 
 const jobAppErrors = {
 	invalidJobId: i18n.__("SimpleSchema.custom.JobApplications.invalidJobId"),
