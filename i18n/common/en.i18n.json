@@ -10,7 +10,14 @@
 		"password": "Password",
 		"submit": "Login",
 		"error": {
-			"loggedIn": "Already logged in"
+			"loggedIn": "Already logged in.",
+			"Unrecognized options for login request":
+				"Unrecognized options for login request.",
+			"Match failed": "Match failed.",
+			"User not found": "There is no user with that name.",
+			"Incorrect password": "The password you gave is incorrect.",
+			"User has no password set":
+				"This user account has no password set. You will need to login by some other means."
 		},
 		"success": "Login successful!"
 	},
@@ -23,7 +30,10 @@
 		},
 		"submit": "Sign Up",
 		"error": {
-			"loggedIn": "Already logged in"
+			"loggedIn": "Already logged in",
+			"Username already exists": "That username is already taken.",
+			"Email already exists":
+				"That email is already used by annother account."
 		},
 		"success": "Sign up successful!"
 	},

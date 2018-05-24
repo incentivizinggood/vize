@@ -13,7 +13,7 @@ export default class RegisterPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			error: Meteor.userId() === null ? null : t("error.loggedIn"),
+			error: Meteor.userId() === null ? null : "loggedIn",
 			success: false,
 			username: "",
 			password: "",
@@ -39,8 +39,11 @@ export default class RegisterPage extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
 		const createUserCallback = error => {
+			console.log(error);
 			this.setState({
-				error: error ? error.reason : null,
+				// Using slice here to remove the period from the error reason
+				// so that it will work as a JSON key in the translation files.
+				error: error ? error.reason.slice(0, -1) : null,
 				success: !error,
 			});
 			if (this.state.success) {
@@ -65,7 +68,11 @@ export default class RegisterPage extends React.Component {
 		}
 		return (
 			<div className="page register">
-				{this.state.error ? <div>{this.state.error}</div> : null}
+				{this.state.error ? (
+					<div>
+						<T>{`error.${this.state.error}`}</T>
+					</div>
+				) : null}
 				<form onSubmit={this.handleSubmit}>
 					<label htmlFor="registerform-username">
 						<T>username</T>

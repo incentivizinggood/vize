@@ -12,7 +12,7 @@ export default class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			error: Meteor.userId() === null ? null : t("error.loggedIn"),
+			error: Meteor.userId() === null ? null : "loggedIn",
 			success: false,
 			username: "",
 			password: "",
@@ -37,6 +37,7 @@ export default class LoginPage extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
 		const loginCallback = error => {
+			console.log(error);
 			this.setState({
 				error: error ? error.reason : null,
 				success: !error,
@@ -62,7 +63,11 @@ export default class LoginPage extends React.Component {
 		}
 		return (
 			<div className="page login">
-				{this.state.error ? <div>{this.state.error}</div> : null}
+				{this.state.error ? (
+					<div>
+						<T>{`error.${this.state.error}`}</T>
+					</div>
+				) : null}
 				<form onSubmit={this.handleSubmit}>
 					<label htmlFor="loginform-username">
 						<T>username</T>
