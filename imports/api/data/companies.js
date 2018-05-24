@@ -335,10 +335,6 @@ Companies.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-const companyErrorMessages = {
-	nameTaken: i18n.__("SimpleSchema.custom.Companies.nameTaken"),
-};
-
 Companies.schema.labels({
 	_id: i18n.__("SimpleSchema.labels.Companies._id"),
 	vizeProfileUrl: i18n.__("SimpleSchema.labels.Companies.vizeProfileUrl"),
@@ -376,12 +372,25 @@ Companies.schema.labels({
 	),
 });
 
+const companyErrorMessages = function(locale) {
+	return {
+		nameTaken: i18n.__("SimpleSchema.custom.Companies.nameTaken", {
+			_locale: locale,
+		}),
+	};
+};
+
 // Define custom error messages for custom validation functions
 Companies.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: companyErrorMessages,
-	es: companyErrorMessages,
+	en: companyErrorMessages("en"),
+	es: companyErrorMessages("es"),
+});
+
+i18n.onChangeLocale(function(newLocale) {
+	console.log("COMPANIES: " + newLocale);
+	Companies.schema.messageBox.setLanguage(newLocale);
 });
 
 // db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})

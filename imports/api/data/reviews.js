@@ -358,12 +358,6 @@ Reviews.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-const reviewErrorMessages = {
-	needsFiveWords: i18n.__("SimpleSchema.custom.Reviews.needsFiveWords"),
-	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
-	sessionError: i18n.__("SimpleSchema.custom.sessionError"),
-};
-
 Reviews.schema.labels({
 	_id: i18n.__("SimpleSchema.labels.Reviews._id"),
 	submittedBy: i18n.__("SimpleSchema.labels.Reviews.submittedBy"),
@@ -397,11 +391,31 @@ Reviews.schema.labels({
 	downvotes: i18n.__("SimpleSchema.labels.Reviews.downvotes"),
 });
 
+const reviewErrorMessages = function(locale) {
+	return {
+		needsFiveWords: i18n.__("SimpleSchema.custom.Reviews.needsFiveWords", {
+			_locale: locale,
+		}),
+		noCompanyWithThatName: i18n.__(
+			"SimpleSchema.custom.noCompanyWithThatName",
+			{ _locale: locale }
+		),
+		sessionError: i18n.__("SimpleSchema.custom.sessionError", {
+			_locale: locale,
+		}),
+	};
+};
+
 Reviews.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: reviewErrorMessages,
-	es: reviewErrorMessages,
+	en: reviewErrorMessages("en"),
+	es: reviewErrorMessages("es"),
+});
+
+i18n.onChangeLocale(function(newLocale) {
+	console.log("REVIEWS: " + newLocale);
+	Reviews.schema.messageBox.setLanguage(newLocale);
 });
 
 Reviews.attachSchema(Reviews.schema, { replace: true });

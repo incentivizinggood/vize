@@ -132,11 +132,6 @@ Salaries.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-const salaryErrors = {
-	noCompanyWithThatName: i18n.__("common.forms.companyNotFound"),
-	sessionError: i18n.__("SimpleSchema.custom.sessionError"),
-};
-
 Salaries.schema.labels({
 	_id: i18n.__("SimpleSchema.labels.Salaries._id"),
 	submittedBy: i18n.__("SimpleSchema.labels.Salaries.submittedBy"),
@@ -149,10 +144,27 @@ Salaries.schema.labels({
 	datePosted: i18n.__("SimpleSchema.labels.Salaries.datePosted"),
 });
 
+const salaryErrors = function(locale) {
+	return {
+		noCompanyWithThatName: i18n.__("common.forms.companyNotFound", {
+			_locale: locale,
+		}),
+		sessionError: i18n.__("SimpleSchema.custom.sessionError", {
+			_locale: locale,
+		}),
+	};
+};
+
 Salaries.schema.messageBox.messages({
 	// en? does that mean we can add internationalization
 	// in this block of code?
-	en: salaryErrors,
+	en: salaryErrors("en"),
+	es: salaryErrors("es"),
+});
+
+i18n.onChangeLocale(function(newLocale) {
+	console.log("SALARIES: " + newLocale);
+	Salaries.schema.messageBox.setLanguage(newLocale);
 });
 
 Salaries.attachSchema(Salaries.schema, { replace: true });
