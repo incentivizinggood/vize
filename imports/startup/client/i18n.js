@@ -1,30 +1,37 @@
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
-function lmd(code, name, icon) {
-	return { code, name, icon };
-}
+const localeMetadata = {
+	en: { nativeName: "English", icon: "images/us.jpg" },
+	es: { nativeName: "Español", icon: "images/mx.jpg" },
+};
 
-const localeMetadata = [
-	lmd("en", "English", "images/us.jpg"),
-	lmd("es", "Español", "images/mx.jpg"),
-];
-
+/* This is ment to match the fallbacks used by universe:i18n
+ */
 function getClosestSupportedLocale(code) {
-	const supportedLocales = localeMetadata.map(e => e.code);
+	const supportedLocales = Object.keys(localeMetadata);
+	let localeCanidate = code;
 
-	if (supportedLocales.indexOf(code) !== -1) {
-		return code;
+	// Try to use the given locale.
+	if (supportedLocales.indexOf(localeCanidate) !== -1) {
+		return localeCanidate;
 	}
 
 	// Try to find a locale without the regional variant.
-	const fallbackCode = code.split("-")[0];
-	if (supportedLocales.indexOf(fallbackCode) !== -1) {
-		return fallbackCode;
+	localeCanidate = code.replace(/-.+$/, "");
+	if (supportedLocales.indexOf(localeCanidate) !== -1) {
+		return localeCanidate;
 	}
 
-	// English is the closest we have to a universal language.
-	return "en";
+	// Try to use the default locale.
+	localeCanidate = i18n.options.defaultLocale;
+	if (supportedLocales.indexOf(localeCanidate) !== -1) {
+		return localeCanidate;
+	}
+
+	// Use the default locale without the regional variant.
+	localeCanidate = i18n.options.defaultLocale.replace(/-.+$/, "");
+	return localeCanidate;
 }
 
 function getDefaultLocale() {
@@ -37,7 +44,7 @@ function getDefaultLocale() {
 	);
 }
 
-const currentLocale = new ReactiveVar(localeMetadata[0]);
+const currentLocale = new ReactiveVar(getDefaultLocale());
 
 function localeChanged(code) {
 	const csl = getClosestSupportedLocale(code);
@@ -46,15 +53,19 @@ function localeChanged(code) {
 			`The locale was set to ${code} but that is not supported. The closest supported locale is ${csl}.`
 		);
 	}
-	currentLocale.set(localeMetadata.find(e => e.code === csl));
+	currentLocale.set(csl);
 }
 
 i18n.onChangeLocale(localeChanged);
 i18n.setLocale(getDefaultLocale());
 
+function reactiveGetLocale() {
+	return currentLocale.get();
+}
+
 export {
 	localeMetadata,
-	currentLocale,
+	reactiveGetLocale,
 	getDefaultLocale,
 	getClosestSupportedLocale,
 };
