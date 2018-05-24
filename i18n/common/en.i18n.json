@@ -7,10 +7,32 @@
 	},
 	"methods": {
 		"meteorErrors": {
-			"needsFiveWords": "needsFiveWords"
+			"needsFiveWords": "needsFiveWords",
+			"rolePermission": "rolePermission",
+			"invalidArguments": "invalidArguments",
+			"loggedOut": "loggedOut",
+			"noCheating": "noCheating",
+			"duplicateEntry": "duplicateEntry",
+			"notFound": "notFound",
+			"sessionError": "sessionError",
+			"nameTaken": "nameTaken"
 		},
 		"errorMessages": {
-			"needsFiveWords": "You should write at least 5 words in this field"
+			"needsFiveWords": "You should write at least 5 words in this field",
+			"invalidFormInputs": "Invalid form inputs",
+			"loggedOut": "You must be logged in to perform this action",
+			"onlyWorkers": "Only workers may perform this action",
+			"onlyCompanies": "Only companies may perform this action",
+			"onlyOnce": "You are only allowed to do this once",
+			"permissionDenied": "You are not authorized to perform this action",
+			"noCheating": "You may not vote on your own reviews",
+			"vote1stArg": "First argument [review] must be a valid review",
+			"vote2ndArg": "Second argument [vote] must be a boolean",
+			"voteOnNullReview":
+				"You may not vote on reviews that do not exist yet",
+			"notFound": "Your search did not return any results",
+			"nameTaken": "The name you provided is already taken",
+			"sessionError": "Please stop messing around"
 		}
 	},
 	"forms": {

@@ -61,8 +61,8 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				"ClientError",
-				"Invalid form inputs",
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.invalidFormInputs"),
 				errors
 			);
 		}
@@ -70,8 +70,8 @@ Meteor.methods({
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to your account in order to write a review"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
@@ -79,8 +79,8 @@ Meteor.methods({
 
 		if (user.role !== "worker") {
 			throw new Meteor.Error(
-				"rolePermission",
-				"Only workers may write reviews."
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.onlyWorkers")
 			);
 		}
 
@@ -178,8 +178,8 @@ Meteor.methods({
 			if (Meteor.isDevelopment)
 				console.log("SERVER: vote is not boolean");
 			throw new Meteor.Error(
-				"invalidArguments",
-				"Second argument [vote] must be a boolean"
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.vote2ndArg")
 			);
 		}
 
@@ -195,8 +195,8 @@ Meteor.methods({
 			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
 			if (Meteor.isDevelopment) console.log(errors);
 			throw new Meteor.Error(
-				"invalidArguments",
-				"First argument [review] must be a review",
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.vote1stArg"),
 				errors
 			);
 		}
@@ -205,8 +205,8 @@ Meteor.methods({
 			if (Meteor.isDevelopment)
 				console.log("SERVER: review does not exist");
 			throw new Meteor.Error(
-				"invalidArguments",
-				"You may not vote on reviews that do not exist yet"
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.voteOnNullReview")
 			);
 		}
 
@@ -215,8 +215,8 @@ Meteor.methods({
 			if (Meteor.isDevelopment)
 				console.log("SERVER: user is not logged in");
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to your account in order to vote"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
@@ -226,8 +226,8 @@ Meteor.methods({
 		if (user.role === "company") {
 			if (Meteor.isDevelopment) console.log("SERVER: user is a company");
 			throw new Meteor.Error(
-				"rolePermission",
-				"Companies are not currently allowed to vote on reviews"
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.onlyWorkers")
 			);
 		}
 
@@ -236,8 +236,8 @@ Meteor.methods({
 			if (Meteor.isDevelopment)
 				console.log("SERVER: user is voting on own review");
 			throw new Meteor.Error(
-				"noCheating",
-				"You are not allowed to vote on your own review"
+				i18n.__("common.methods.meteorErrors.noCheating"),
+				i18n.__("common.methods.errorMessages.noCheating")
 			);
 		}
 
@@ -319,8 +319,8 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				"ClientError",
-				"Invalid form inputs",
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.invalidFormInputs"),
 				errors
 			);
 		}
@@ -328,8 +328,8 @@ Meteor.methods({
 		// Make sure the user is logged and is permitted to submit their salary.
 		if (!this.userId) {
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to your account in order to create a profile"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
@@ -337,8 +337,8 @@ Meteor.methods({
 
 		if (user.role !== "worker") {
 			throw new Meteor.Error(
-				"rolePermission",
-				"Only workers may submit their salaries."
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.onlyWorkers")
 			);
 		}
 
@@ -346,8 +346,8 @@ Meteor.methods({
 		const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
 		if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
 			throw new Meteor.Error(
-				"duplicateSalary",
-				"You may only submit one salary per company per job title."
+				i18n.__("common.methods.meteorErrors.duplicateEntry"),
+				i18n.__("common.methods.errorMessages.onlyOnce")
 			);
 		}
 
@@ -362,8 +362,8 @@ Meteor.methods({
 		const job = JobAds.findOne(jobIdentifier);
 		if (job === undefined) {
 			throw new Meteor.Error(
-				"notFound",
-				"Your search for job ads did not return any results"
+				i18n.__("common.methods.meteorErrors.notFound"),
+				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
@@ -374,8 +374,8 @@ Meteor.methods({
 		const job = JobAds.findOne(jobIdentifier);
 		if (job === undefined) {
 			throw new Meteor.Error(
-				"notFound",
-				"There is no job ad with that id in our database"
+				i18n.__("common.methods.meteorErrors.notFound"),
+				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
@@ -399,8 +399,8 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				"ClientError",
-				"Invalid form inputs",
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.invalidFormInputs"),
 				errors
 			);
 		}
@@ -408,8 +408,8 @@ Meteor.methods({
 		// Only logged-in workers can apply for jobs
 		if (!this.userId) {
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to your account in order to create a profile"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
@@ -417,8 +417,8 @@ Meteor.methods({
 
 		if (user.role !== "worker") {
 			throw new Meteor.Error(
-				"rolePermission",
-				"Only workers may submit their salaries."
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.onlyWorkers")
 			);
 		}
 
@@ -492,8 +492,8 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				"ClientError",
-				"Invalid form inputs",
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.invalidFormInputs"),
 				errors
 			);
 		}
@@ -501,23 +501,23 @@ Meteor.methods({
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to your account in order to create a profile"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 		if (user.role !== "company") {
 			throw new Meteor.Error(
-				"rolePermission",
-				"Only companies may post job ads."
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.onlyCompanies")
 			);
 		}
 
 		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
 			throw new Meteor.Error(
-				"rolePermission",
-				"You may only post a job ad for a company that you are allowed to administer."
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.permissionDenied")
 			);
 		}
 
@@ -528,8 +528,8 @@ Meteor.methods({
 		const company = Companies.findOne(companyIdentifier);
 		if (company === undefined) {
 			throw new Meteor.Error(
-				"notFound",
-				"Your search for companies did not return any results"
+				i18n.__("common.methods.meteorErrors.notFound"),
+				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
@@ -539,8 +539,8 @@ Meteor.methods({
 	"companies.companyForCurrentUser"() {
 		if (!this.userId) {
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to perform this action"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
@@ -548,8 +548,8 @@ Meteor.methods({
 
 		if (user.role !== "company" || user.companyId === undefined) {
 			throw new Meteor.Error(
-				"rolePermission",
-				"Only companies who have created Vize profiles may perform this action"
+				i18n.__("common.methods.meteorErrors.notFound"),
+				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
@@ -557,8 +557,8 @@ Meteor.methods({
 
 		if (company === undefined) {
 			throw new Meteor.Error(
-				"notFound",
-				"Unable to match a company profile with this user ID"
+				i18n.__("common.methods.meteorErrors.notFound"),
+				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
@@ -567,13 +567,12 @@ Meteor.methods({
 
 	"companies.isNotSessionError"(companyNameString) {
 		if (
-			companyNameString === "ERROR: COMPANY NOT FOUND" ||
-			companyNameString ===
-				"Please wait while we finish loading the form..."
+			companyNameString === i18n.__("common.forms.companyNotFound") ||
+			companyNameString === i18n.__("common.forms.pleaseWait")
 		) {
 			throw new Meteor.Error(
-				"sessionError",
-				"Please stop messing around"
+				i18n.__("common.methods.meteorErrors.sessionError"),
+				i18n.__("common.methods.errorMessages.sessionError")
 			);
 		}
 
@@ -583,8 +582,8 @@ Meteor.methods({
 	"companies.isCompanyNameAvailable"(companyName) {
 		if (Companies.hasEntry(companyName)) {
 			throw new Meteor.Error(
-				"nameTaken",
-				"The name you provided is already taken"
+				i18n.__("common.methods.meteorErrors.nameTaken"),
+				i18n.__("common.methods.errorMessages.nameTaken")
 			);
 		}
 		return "all good";
@@ -595,10 +594,10 @@ Meteor.methods({
 	// but is there some way to combine this method with the previous one?
 	// They're almost identical.
 	"companies.doesCompanyExist"(companyName) {
-		if (!Companies.hasEntry(companyName)) {
+		if (Companies.findOne({ name: companyName }) === undefined) {
 			throw new Meteor.Error(
-				"noCompanyWithThatName",
-				"There is no company with that name in our database"
+				i18n.__("common.methods.meteorErrors.notFound"),
+				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 		return "all good";
@@ -625,8 +624,8 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				"ClientError",
-				"Invalid form inputs",
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.invalidFormInputs"),
 				errors
 			);
 		}
@@ -634,23 +633,23 @@ Meteor.methods({
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
 			throw new Meteor.Error(
-				"loggedOut",
-				"You must be logged in to your account in order to create a profile"
+				i18n.__("common.methods.meteorErrors.loggedOut"),
+				i18n.__("common.methods.errorMessages.loggedOut")
 			);
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 		if (user.role !== "company") {
 			throw new Meteor.Error(
-				"rolePermission",
-				"Only companies may post job ads."
+				i18n.__("common.methods.meteorErrors.rolePermission"),
+				i18n.__("common.methods.errorMessages.onlyCompanies")
 			);
 		}
 
 		if (user.companyId !== undefined) {
 			throw new Meteor.Error(
-				"profileExists",
-				"Our records indicate that you have already created a profile for your company"
+				i18n.__("common.methods.meteorErrors.duplicateEntry"),
+				i18n.__("common.methods.errorMessages.onlyOnce")
 			);
 		}
 
