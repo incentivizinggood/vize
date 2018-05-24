@@ -78,7 +78,7 @@
 			"additionalCommentsPlaceholder":
 				"Please enter any additional thoughts or comments you may have"
 		}
-	}
+	},
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",
@@ -115,5 +115,5 @@
 			"nameTaken": "The name you provided is already taken",
 			"sessionError": "Please stop messing around"
 		}
-	},
+	}
 }
