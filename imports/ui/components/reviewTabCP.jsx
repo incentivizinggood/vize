@@ -7,6 +7,17 @@ import i18n from "meteor/universe:i18n";
 const T = i18n.createComponent();
 
 export default class ReviewTab extends React.Component {
+	componentDidMount() {
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
+	}
+
 	renderItems() {
 		const userVotes = this.props.userVotes;
 		return this.props.companyreview.map(function(item, i) {

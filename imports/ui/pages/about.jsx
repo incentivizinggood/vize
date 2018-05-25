@@ -24,6 +24,17 @@ export default class AboutPage extends React.Component {
 		this.handleTextBoxChanging = this.handleTextBoxChanging.bind(this);
 	}
 
+	componentDidMount() {
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
+	}
+
 	handleSubmit(event) {
 		// alert("Called: " + this.state.name + " Email: " + this.state.emailSending  + " TextBox: " + this.state.textBox);
 
@@ -78,7 +89,9 @@ export default class AboutPage extends React.Component {
 				<div id="home" className="banner about-banner">
 					<div className="banner-info">
 						<div className="banner-text">
-							<h1><T>common.aboutUs.about</T></h1>
+							<h1>
+								<T>common.aboutUs.about</T>
+							</h1>
 						</div>
 					</div>
 				</div>
@@ -86,7 +99,9 @@ export default class AboutPage extends React.Component {
 				<div className="about">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="al"><T>common.aboutUs.the_problem</T></h1>
+							<h1 className="al">
+								<T>common.aboutUs.the_problem</T>
+							</h1>
 							<h3 className="emplh3">
 								<T>common.aboutUs.noLeverage</T>
 							</h3>
@@ -105,7 +120,9 @@ export default class AboutPage extends React.Component {
 				<div className="about  bl">
 					<div className="container">
 						<div className="col-md-12  cdoun">
-							<h1 className="al"><T>common.aboutUs.our_solution</T></h1>
+							<h1 className="al">
+								<T>common.aboutUs.our_solution</T>
+							</h1>
 
 							<h3 className="emplh3">
 								<T>common.aboutUs.reviews_accountability</T>
@@ -114,8 +131,7 @@ export default class AboutPage extends React.Component {
 						<div className="col-md-12 ">
 							<div className="about-row">
 								<p>
-									<T>common.aboutUs.solution_text</T>
-									{" "}
+									<T>common.aboutUs.solution_text</T>{" "}
 								</p>
 							</div>
 							<div className="clearfix" />
@@ -142,7 +158,9 @@ export default class AboutPage extends React.Component {
 											className="input100"
 											type="text"
 											name="first-name"
-											placeholder={i18n.__("common.aboutUs.placeholder_name")}
+											placeholder={i18n.__(
+												"common.aboutUs.placeholder_name"
+											)}
 											onChange={this.handleNameChange}
 										/>
 										<span className="focus-input100" />
@@ -153,7 +171,9 @@ export default class AboutPage extends React.Component {
 											className="input100"
 											type="text"
 											name="email"
-											placeholder={i18n.__("common.aboutUs.placeholder_email")}
+											placeholder={i18n.__(
+												"common.aboutUs.placeholder_email"
+											)}
 											onChange={this.handleEmailChange}
 										/>
 										<span className="focus-input100" />
@@ -163,7 +183,9 @@ export default class AboutPage extends React.Component {
 											id="message"
 											className="input100"
 											name="message"
-											placeholder={i18n.__("common.aboutUs.placeholder_comments")}
+											placeholder={i18n.__(
+												"common.aboutUs.placeholder_comments"
+											)}
 											onChange={
 												this.handleTextBoxChanging
 											}
@@ -177,7 +199,9 @@ export default class AboutPage extends React.Component {
 											value="Submit"
 										>
 											<span>
-												<T>common.aboutUs.submit_button</T>
+												<T>
+													common.aboutUs.submit_button
+												</T>
 												<i className="zmdi zmdi-arrow-right m-l-8" />
 											</span>
 										</button>

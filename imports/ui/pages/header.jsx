@@ -8,6 +8,17 @@ const T = i18n.createComponent();
 
 /* The "header" page. */
 class Header extends React.Component {
+	componentDidMount() {
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
+	}
+
 	render() {
 		return (
 			<div className="top-nav">
