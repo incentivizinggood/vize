@@ -2,8 +2,8 @@ import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
 const localeMetadata = {
-	en: { nativeName: "English", icon: "images/flags/us.jpg" },
-	es: { nativeName: "Español", icon: "images/flags/mx.jpg" },
+	en: { nativeName: "English", icon: "/images/flags/us.jpg" },
+	es: { nativeName: "Español", icon: "/images/flags/mx.jpg" },
 };
 
 /* This is ment to match the fallbacks used by universe:i18n
