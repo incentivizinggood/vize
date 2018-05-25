@@ -335,42 +335,93 @@ Companies.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-Companies.schema.labels({
-	_id: i18n.__("SimpleSchema.labels.Companies._id"),
-	vizeProfileUrl: i18n.__("SimpleSchema.labels.Companies.vizeProfileUrl"),
-	vizeReviewUrl: i18n.__("SimpleSchema.labels.Companies.vizeReviewUrl"),
-	vizeSalaryUrl: i18n.__("SimpleSchema.labels.Companies.vizeSalaryUrl"),
-	vizePostJobUrl: i18n.__("SimpleSchema.labels.Companies.vizePostJobUrl"),
-	name: i18n.__("SimpleSchema.labels.Companies.name"),
-	contactEmail: i18n.__("SimpleSchema.labels.Companies.contactEmail"),
-	dateEstablished: i18n.__("SimpleSchema.labels.Companies.dateEstablished"),
-	numEmployees: i18n.__("SimpleSchema.labels.Companies.numEmployees"),
-	industry: i18n.__("SimpleSchema.labels.Companies.industry"),
-	locations: i18n.__("SimpleSchema.labels.Companies.locations"),
-	otherContactInfo: i18n.__("SimpleSchema.labels.Companies.otherContactInfo"),
-	websiteURL: i18n.__("SimpleSchema.labels.Companies.websiteURL"),
-	descriptionOfCompany: i18n.__(
-		"SimpleSchema.labels.Companies.descriptionOfCompany"
-	),
-	dateJoined: i18n.__("SimpleSchema.labels.Companies.dateJoined"),
-	numFlags: i18n.__("SimpleSchema.labels.Companies.numFlags"),
-	healthAndSafety: i18n.__("SimpleSchema.labels.Companies.healthAndSafety"),
-	managerRelationship: i18n.__(
-		"SimpleSchema.labels.Companies.managerRelationship"
-	),
-	workEnvironment: i18n.__("SimpleSchema.labels.Companies.workEnvironment"),
-	benefits: i18n.__("SimpleSchema.labels.Companies.benefits"),
-	overallSatisfaction: i18n.__(
-		"SimpleSchema.labels.Companies.overallSatisfaction"
-	),
-	numReviews: i18n.__("SimpleSchema.labels.Companies.numReviews"),
-	percentRecommended: i18n.__(
-		"SimpleSchema.labels.Companies.percentRecommended"
-	),
-	avgNumMonthsWorked: i18n.__(
-		"SimpleSchema.labels.Companies.avgNumMonthsWorked"
-	),
-});
+const companyLabels = function() {
+	return {
+		_id: i18n.__("SimpleSchema.labels.Companies._id", {
+			_locale: i18n.getLocale(),
+		}),
+		vizeProfileUrl: i18n.__(
+			"SimpleSchema.labels.Companies.vizeProfileUrl",
+			{ _locale: i18n.getLocale() }
+		),
+		vizeReviewUrl: i18n.__("SimpleSchema.labels.Companies.vizeReviewUrl", {
+			_locale: i18n.getLocale(),
+		}),
+		vizeSalaryUrl: i18n.__("SimpleSchema.labels.Companies.vizeSalaryUrl", {
+			_locale: i18n.getLocale(),
+		}),
+		vizePostJobUrl: i18n.__(
+			"SimpleSchema.labels.Companies.vizePostJobUrl",
+			{ _locale: i18n.getLocale() }
+		),
+		name: i18n.__("SimpleSchema.labels.Companies.name", {
+			_locale: i18n.getLocale(),
+		}),
+		contactEmail: i18n.__("SimpleSchema.labels.Companies.contactEmail", {
+			_locale: i18n.getLocale(),
+		}),
+		dateEstablished: i18n.__(
+			"SimpleSchema.labels.Companies.dateEstablished",
+			{ _locale: i18n.getLocale() }
+		),
+		numEmployees: i18n.__("SimpleSchema.labels.Companies.numEmployees", {
+			_locale: i18n.getLocale(),
+		}),
+		industry: i18n.__("SimpleSchema.labels.Companies.industry", {
+			_locale: i18n.getLocale(),
+		}),
+		locations: i18n.__("SimpleSchema.labels.Companies.locations", {
+			_locale: i18n.getLocale(),
+		}),
+		otherContactInfo: i18n.__(
+			"SimpleSchema.labels.Companies.otherContactInfo",
+			{ _locale: i18n.getLocale() }
+		),
+		websiteURL: i18n.__("SimpleSchema.labels.Companies.websiteURL", {
+			_locale: i18n.getLocale(),
+		}),
+		descriptionOfCompany: i18n.__(
+			"SimpleSchema.labels.Companies.descriptionOfCompany",
+			{ _locale: i18n.getLocale() }
+		),
+		dateJoined: i18n.__("SimpleSchema.labels.Companies.dateJoined", {
+			_locale: i18n.getLocale(),
+		}),
+		numFlags: i18n.__("SimpleSchema.labels.Companies.numFlags", {
+			_locale: i18n.getLocale(),
+		}),
+		healthAndSafety: i18n.__(
+			"SimpleSchema.labels.Companies.healthAndSafety",
+			{ _locale: i18n.getLocale() }
+		),
+		managerRelationship: i18n.__(
+			"SimpleSchema.labels.Companies.managerRelationship",
+			{ _locale: i18n.getLocale() }
+		),
+		workEnvironment: i18n.__(
+			"SimpleSchema.labels.Companies.workEnvironment",
+			{ _locale: i18n.getLocale() }
+		),
+		benefits: i18n.__("SimpleSchema.labels.Companies.benefits", {
+			_locale: i18n.getLocale(),
+		}),
+		overallSatisfaction: i18n.__(
+			"SimpleSchema.labels.Companies.overallSatisfaction",
+			{ _locale: i18n.getLocale() }
+		),
+		numReviews: i18n.__("SimpleSchema.labels.Companies.numReviews", {
+			_locale: i18n.getLocale(),
+		}),
+		percentRecommended: i18n.__(
+			"SimpleSchema.labels.Companies.percentRecommended",
+			{ _locale: i18n.getLocale() }
+		),
+		avgNumMonthsWorked: i18n.__(
+			"SimpleSchema.labels.Companies.avgNumMonthsWorked",
+			{ _locale: i18n.getLocale() }
+		),
+	};
+};
 
 const companyErrorMessages = function(locale) {
 	return {
@@ -383,6 +434,8 @@ const companyErrorMessages = function(locale) {
 const englishCompanies = companyErrorMessages("en");
 const spanishCompanies = companyErrorMessages("es");
 
+Companies.schema.labels(companyLabels());
+
 // Define custom error messages for custom validation functions
 Companies.schema.messageBox.messages({
 	en: englishCompanies,
@@ -392,6 +445,7 @@ Companies.schema.messageBox.messages({
 i18n.onChangeLocale(function(newLocale) {
 	if (Meteor.isDevelopment) console.log("COMPANIES: " + newLocale);
 	Companies.schema.messageBox.setLanguage(newLocale);
+	Companies.schema.labels(companyLabels());
 });
 
 // db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})

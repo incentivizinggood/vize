@@ -132,17 +132,35 @@ Salaries.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-Salaries.schema.labels({
-	_id: i18n.__("SimpleSchema.labels.Salaries._id"),
-	submittedBy: i18n.__("SimpleSchema.labels.Salaries.submittedBy"),
-	companyName: i18n.__("SimpleSchema.labels.Salaries.companyName"),
-	companyId: i18n.__("SimpleSchema.labels.Salaries.companyId"),
-	jobTitle: i18n.__("SimpleSchema.labels.Salaries.jobTitle"),
-	incomeType: i18n.__("SimpleSchema.labels.Salaries.incomeType"),
-	incomeAmount: i18n.__("SimpleSchema.labels.Salaries.incomeAmount"),
-	gender: i18n.__("SimpleSchema.labels.Salaries.gender"),
-	datePosted: i18n.__("SimpleSchema.labels.Salaries.datePosted"),
-});
+const salaryLabels = function() {
+	return {
+		_id: i18n.__("SimpleSchema.labels.Salaries._id"),
+		submittedBy: i18n.__("SimpleSchema.labels.Salaries.submittedBy", {
+			_locale: i18n.getLocale(),
+		}),
+		companyName: i18n.__("SimpleSchema.labels.Salaries.companyName", {
+			_locale: i18n.getLocale(),
+		}),
+		companyId: i18n.__("SimpleSchema.labels.Salaries.companyId", {
+			_locale: i18n.getLocale(),
+		}),
+		jobTitle: i18n.__("SimpleSchema.labels.Salaries.jobTitle", {
+			_locale: i18n.getLocale(),
+		}),
+		incomeType: i18n.__("SimpleSchema.labels.Salaries.incomeType", {
+			_locale: i18n.getLocale(),
+		}),
+		incomeAmount: i18n.__("SimpleSchema.labels.Salaries.incomeAmount", {
+			_locale: i18n.getLocale(),
+		}),
+		gender: i18n.__("SimpleSchema.labels.Salaries.gender", {
+			_locale: i18n.getLocale(),
+		}),
+		datePosted: i18n.__("SimpleSchema.labels.Salaries.datePosted", {
+			_locale: i18n.getLocale(),
+		}),
+	};
+};
 
 const salaryErrors = function(locale) {
 	return {
@@ -158,6 +176,8 @@ const salaryErrors = function(locale) {
 const englishSalaries = salaryErrors("en");
 const spanishSalaries = salaryErrors("es");
 
+Salaries.schema.labels(salaryLabels());
+
 Salaries.schema.messageBox.messages({
 	en: englishSalaries,
 	es: spanishSalaries,
@@ -166,6 +186,7 @@ Salaries.schema.messageBox.messages({
 i18n.onChangeLocale(function(newLocale) {
 	if (Meteor.isDevelopment) console.log("SALARIES: " + newLocale);
 	Salaries.schema.messageBox.setLanguage(newLocale);
+	Salaries.schema.labels(salaryLabels());
 });
 
 Salaries.attachSchema(Salaries.schema, { replace: true });

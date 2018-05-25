@@ -176,22 +176,48 @@ JobAds.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-JobAds.schema.labels({
-	_id: i18n.__("SimpleSchema.labels.JobAds._id"),
-	companyName: i18n.__("SimpleSchema.labels.JobAds.companyName"),
-	companyId: i18n.__("SimpleSchema.labels.JobAds.companyId"),
-	vizeApplyForJobUrl: i18n.__(
-		"SimpleSchema.labels.JobAds.vizeApplyForJobUrl"
-	),
-	jobTitle: i18n.__("SimpleSchema.labels.JobAds.jobTitle"),
-	locations: i18n.__("SimpleSchema.labels.JobAds.locations"),
-	pesosPerHour: i18n.__("SimpleSchema.labels.JobAds.pesosPerHour"),
-	contractType: i18n.__("SimpleSchema.labels.JobAds.contractType"),
-	jobDescription: i18n.__("SimpleSchema.labels.JobAds.jobDescription"),
-	responsibilities: i18n.__("SimpleSchema.labels.JobAds.responsibilities"),
-	qualifications: i18n.__("SimpleSchema.labels.JobAds.qualifications"),
-	datePosted: i18n.__("SimpleSchema.labels.JobAds.datePosted"),
-});
+const jobAdLabels = function() {
+	return {
+		_id: i18n.__("SimpleSchema.labels.JobAds._id", {
+			_locale: i18n.getLocale(),
+		}),
+		companyName: i18n.__("SimpleSchema.labels.JobAds.companyName", {
+			_locale: i18n.getLocale(),
+		}),
+		companyId: i18n.__("SimpleSchema.labels.JobAds.companyId", {
+			_locale: i18n.getLocale(),
+		}),
+		vizeApplyForJobUrl: i18n.__(
+			"SimpleSchema.labels.JobAds.vizeApplyForJobUrl",
+			{ _locale: i18n.getLocale() }
+		),
+		jobTitle: i18n.__("SimpleSchema.labels.JobAds.jobTitle", {
+			_locale: i18n.getLocale(),
+		}),
+		locations: i18n.__("SimpleSchema.labels.JobAds.locations", {
+			_locale: i18n.getLocale(),
+		}),
+		pesosPerHour: i18n.__("SimpleSchema.labels.JobAds.pesosPerHour", {
+			_locale: i18n.getLocale(),
+		}),
+		contractType: i18n.__("SimpleSchema.labels.JobAds.contractType", {
+			_locale: i18n.getLocale(),
+		}),
+		jobDescription: i18n.__("SimpleSchema.labels.JobAds.jobDescription", {
+			_locale: i18n.getLocale(),
+		}),
+		responsibilities: i18n.__(
+			"SimpleSchema.labels.JobAds.responsibilities",
+			{ _locale: i18n.getLocale() }
+		),
+		qualifications: i18n.__("SimpleSchema.labels.JobAds.qualifications", {
+			_locale: i18n.getLocale(),
+		}),
+		datePosted: i18n.__("SimpleSchema.labels.JobAds.datePosted", {
+			_locale: i18n.getLocale(),
+		}),
+	};
+};
 
 const jobAdErrors = function(locale) {
 	return {
@@ -204,6 +230,8 @@ const jobAdErrors = function(locale) {
 
 const englishJobAds = jobAdErrors("en");
 const spanishJobAds = jobAdErrors("es");
+
+JobAds.schema.labels(jobAdLabels());
 
 JobAds.schema.messageBox.messages({
 	en: englishJobAds,
@@ -328,17 +356,34 @@ JobAds.applicationSchema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-JobAds.applicationSchema.labels({
-	jobId: i18n.__("SimpleSchema.labels.JobApplications.jobId"),
-	companyName: i18n.__("SimpleSchema.labels.JobApplications.companyName"),
-	fullName: i18n.__("SimpleSchema.labels.JobApplications.fullName"),
-	email: i18n.__("SimpleSchema.labels.JobApplications.email"),
-	phoneNumber: i18n.__("SimpleSchema.labels.JobApplications.phoneNumber"),
-	coverLetterAndComments: i18n.__(
-		"SimpleSchema.labels.JobApplications.coverLetterAndComments"
-	),
-	dateSent: i18n.__("SimpleSchema.labels.JobApplications.dateSent"),
-});
+const jobAppLabels = function() {
+	return {
+		jobId: i18n.__("SimpleSchema.labels.JobApplications.jobId", {
+			_locale: i18n.getLocale(),
+		}),
+		companyName: i18n.__(
+			"SimpleSchema.labels.JobApplications.companyName",
+			{ _locale: i18n.getLocale() }
+		),
+		fullName: i18n.__("SimpleSchema.labels.JobApplications.fullName", {
+			_locale: i18n.getLocale(),
+		}),
+		email: i18n.__("SimpleSchema.labels.JobApplications.email", {
+			_locale: i18n.getLocale(),
+		}),
+		phoneNumber: i18n.__(
+			"SimpleSchema.labels.JobApplications.phoneNumber",
+			{ _locale: i18n.getLocale() }
+		),
+		coverLetterAndComments: i18n.__(
+			"SimpleSchema.labels.JobApplications.coverLetterAndComments",
+			{ _locale: i18n.getLocale() }
+		),
+		dateSent: i18n.__("SimpleSchema.labels.JobApplications.dateSent", {
+			_locale: i18n.getLocale(),
+		}),
+	};
+};
 
 const jobAppErrors = function(locale) {
 	return {
@@ -356,6 +401,8 @@ const jobAppErrors = function(locale) {
 const englishJobApps = jobAppErrors("en");
 const spanishJobApps = jobAppErrors("es");
 
+JobAds.applicationSchema.labels(jobAppLabels());
+
 JobAds.applicationSchema.messageBox.messages({
 	en: englishJobApps,
 	es: spanishJobApps,
@@ -366,6 +413,8 @@ i18n.onChangeLocale(function(newLocale) {
 		console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
 	JobAds.schema.messageBox.setLanguage(newLocale);
 	JobAds.applicationSchema.messageBox.setLanguage(newLocale);
+	JobAds.schema.labels(jobAdLabels());
+	JobAds.applicationSchema.labels(jobAppLabels());
 });
 
 JobAds.deny({
