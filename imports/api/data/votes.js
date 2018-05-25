@@ -56,6 +56,10 @@ Votes.schema.labels({
 	value: i18n.__("SimpleSchema.labels.Votes.value"),
 });
 
+i18n.onChangeLocale(function(newLocale) {
+	console.log("VOTES: " + newLocale);
+});
+
 Votes.attachSchema(Votes.schema, { replace: true });
 
 Votes.deny({
