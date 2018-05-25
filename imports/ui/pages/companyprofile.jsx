@@ -14,10 +14,24 @@ import CompanyReview from "../../ui/components/companyReview.jsx";
 import ReviewTab from "../../ui/components/reviewTabCP.jsx";
 import JobTab from "../../ui/components/jobTabCP.jsx";
 import SalaryTab from "../../ui/components/salaryTabCP.jsx";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 /* The Company Profile  page of the site. */
 
 class CompanyProfile extends React.Component {
+	componentDidMount() {
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
+	}
+
 	changeRating(newRating) {
 		this.setState({
 			rating: newRating,
@@ -35,10 +49,18 @@ class CompanyProfile extends React.Component {
 
 	render() {
 		if (!this.props.isReady) {
-			return <h2>Loading...</h2>;
+			return (
+				<h2>
+					<T>common.companyprofile.loading</T>
+				</h2>
+			);
 		}
 		if (this.props.company === undefined) {
-			return <h2>That company was not found</h2>;
+			return (
+				<h2>
+					<T>common.companyprofile.notfound</T>
+				</h2>
+			);
 		}
 
 		return (
@@ -128,7 +150,9 @@ class CompanyProfile extends React.Component {
 											className="fa fa-plus"
 											aria-hidden="true"
 										/>{" "}
-										Add a Review
+										{i18n.__(
+											"common.companyprofile.add_review"
+										)}
 									</a>
 									{/* </div> */}
 								</div>
@@ -158,7 +182,9 @@ class CompanyProfile extends React.Component {
 											role="tab"
 											data-toggle="tab"
 										>
-											Overview
+											<T>
+												common.companyprofile.overview
+											</T>
 										</a>
 									</li>
 									<li
@@ -171,7 +197,7 @@ class CompanyProfile extends React.Component {
 											role="tab"
 											data-toggle="tab"
 										>
-											Reviews
+											<T>common.companyprofile.reviews</T>
 										</a>
 									</li>
 									<li
@@ -184,7 +210,7 @@ class CompanyProfile extends React.Component {
 											role="tab"
 											data-toggle="tab"
 										>
-											Jobs
+											<T>common.companyprofile.jobs</T>
 										</a>
 									</li>
 									<li
@@ -197,7 +223,9 @@ class CompanyProfile extends React.Component {
 											role="tab"
 											data-toggle="tab"
 										>
-											Salaries
+											<T>
+												common.companyprofile.salaries
+											</T>
 										</a>
 									</li>
 									{/* Commenting out the Contact Us form for now */}
@@ -254,7 +282,9 @@ class CompanyProfile extends React.Component {
 										<div className="col-md-12  section_rview_back_color ">
 											<div className="sect_re1 ">
 												<h4 className="head_section_font">
-													Contact
+													<T>
+														common.companyprofile.contact
+													</T>
 												</h4>
 												<hr />
 
@@ -262,8 +292,12 @@ class CompanyProfile extends React.Component {
 													<div className="wrap-contact100">
 														<form className="contact100-form validate-form">
 															<span className="contact100-form-title">
-																Feel free to
-																reach out to us
+																<T>
+																	common.companyprofile.feel_free
+																</T>
+																<T>
+																	common.companyprofile.reach_us
+																</T>
 															</span>
 															<div className="wrap-input100 rs1 validate-input">
 																<input

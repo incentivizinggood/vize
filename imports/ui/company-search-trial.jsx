@@ -73,6 +73,15 @@ export default class CompanySearchTrial extends React.Component {
 		} else {
 			console.log("inside else");
 		}
+
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleSubmit(event) {

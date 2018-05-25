@@ -218,6 +218,112 @@
 			"PLEASE TRANSLATE Accelerate our growth and discover thousands of potential employees",
 		"register_button": "PLEASE TRANSLATE Register"
 	},
+
+	"companyreview": {
+		"recommend": "PLEASE TRANSLATE   Recommended",
+		"not_recommend": "PLEASE TRANSLATE   Not Recommended",
+		"overall": "PLEASE TRANSLATE   Overall",
+		"health_safety": "PLEASE TRANSLATE   Health & Safety",
+		"work_env": "PLEASE TRANSLATE   Work Environment",
+		"benefits": "PLEASE TRANSLATE   Benefits",
+		"manager_relation": "PLEASE TRANSLATE   Manager Relationships",
+		"pros": "PLEASE TRANSLATE   Pros",
+		"cons": "PLEASE TRANSLATE   Cons",
+		"additional_comments": "PLEASE TRANSLATE   Additional Comments"
+	},
+
+	"jobpostings": {
+		"apply_now": "PLEASE TRANSLATE   Apply Now",
+		"hour": "PLEASE TRANSLATE   /Hour",
+		"job_description": "PLEASE TRANSLATE   Job Description",
+		"qualifications": "PLEASE TRANSLATE   Qualifications",
+		"responsibilities": "PLEASE TRANSLATE   Responsibilities",
+		"posted_on": "PLEASE TRANSLATE   posted on"
+	},
+
+	"company_ratings": {
+		"overall": "PLEASE TRANSLATE   Overall",
+		"health_safety": "PLEASE TRANSLATE   Health & Safety",
+		"work_env": "PLEASE TRANSLATE   Work Environment",
+		"benefits": "PLEASE TRANSLATE   Benefits",
+		"manager_relation": "PLEASE TRANSLATE   Manager Relationships",
+		"recommend": "PLEASE TRANSLATE   Recommended",
+		"average_num": "PLEASE TRANSLATE   Average number",
+		"months_worked": "PLEASE TRANSLATE   of months worked"
+	},
+
+	"jobscomponent": {
+		"jobs_available": "PLEASE TRANSLATE   Job(s) Available"
+	},
+
+	"overview_tab": {
+		"display_text": "PLEASE TRANSLATE   No reviews to show right now",
+		"apply_now": "PLEASE TRANSLATE   Apply Now",
+		"hour": "PLEASE TRANSLATE   /Hour",
+		"job_description": "PLEASE TRANSLATE   Job Description",
+		"display_jobs": "PLEASE TRANSLATE   No Jobs to show right now",
+		"salaries_text": "PLEASE TRANSLATE   No Salaries to display right now",
+		"overview": "PLEASE TRANSLATE   Overview",
+		"reviews": "PLEASE TRANSLATE   Reviews",
+		"add_review": "PLEASE TRANSLATE   Add a Review",
+		"see_all_reviews": "PLEASE TRANSLATE   See All Reviews",
+		"job_salaries": "PLEASE TRANSLATE   Job Salaries",
+		"add_salary": "PLEASE TRANSLATE   Add a Salary",
+		"see_all_salaries": "PLEASE TRANSLATE   See All Salaries",
+		"see_all_jobs": "PLEASE TRANSLATE  See All Jobs",
+		"jobs_available": "PLEASE TRANSLATE  Job(s) Available"
+	},
+
+	"review_tab": {
+		"reviews": "PLEASE TRANSLATE   Reviews",
+		"add_review": "PLEASE TRANSLATE   Add a Review"
+	},
+
+	"salary_tab": {
+		"job_salaries": "PLEASE TRANSLATE   Job Salaries",
+		"add_salary": "PLEASE TRANSLATE   Add a Salary"
+	},
+
+	"showjob": {
+		"apply_now": "PLEASE TRANSLATE   Apply Now",
+		"hour": "PLEASE TRANSLATE   /Hour",
+		"job_description": "PLEASE TRANSLATE   Job Description",
+		"qualifications": "PLEASE TRANSLATE   Qualifications",
+		"responsibilities": "PLEASE TRANSLATE   Responsibilities",
+		"posted_on": "PLEASE TRANSLATE   posted on"
+	},
+
+	"company_component": {
+		"reviews": "PLEASE TRANSLATE  Reviews",
+		"salaries": "PLEASE TRANSLATE  Salaries",
+		"jobs": "PLEASE TRANSLATE Jobs"
+	},
+
+	"companyprofile": {
+		"loading": "PLEASE TRANSLATE  Loading...",
+		"notfound": "PLEASE TRANSLATE  That company was not found",
+		"overview": "PLEASE TRANSLATE  Overview",
+		"reviews": "PLEASE TRANSLATE  Reviews",
+		"add_review": "PLEASE TRANSLATE  Add a Review",
+		"jobs": "PLEASE TRANSLATE  Jobs",
+		"salaries": "PLEASE TRANSLATE   Salaries",
+		"contact": "PLEASE TRANSLATE  Contact",
+		"feel_free": "PLEASE TRANSLATE  Feel free to",
+		"reach_us": "PLEASE TRANSLATE  reach out to us",
+		"add_review": "PLEASE TRANSLATE  Add a Review"
+	},
+
+	"header": {
+		"companies": "PLEASE TRANSLATE   Companies",
+		"jobs": "PLEASE TRANSLATE   Jobs",
+		"resources": "PLEASE TRANSLATE   Resources",
+		"for_employers": "PLEASE TRANSLATE   For Employers",
+		"login": "PLEASE TRANSLATE   LOG IN",
+		"signup": "PLEASE TRANSLATE   SIGN UP",
+		"logout": "PLEASE TRANSLATE   LOG OUT",
+		"myaccount": "PLEASE TRANSLATE   MY ACCOUNT"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty":

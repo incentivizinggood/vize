@@ -1,6 +1,9 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import CircularProgressbar from "react-circular-progressbar";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 class ChangingProgressbar extends React.Component {
 	constructor(props) {
@@ -59,7 +62,9 @@ export default class CompanyRating extends React.Component {
             <p>{console.log(JSON.stringify(this.props.companyrating))}</p> */}
 
 					<div className="star_boder ">
-						<label>Overall</label>&nbsp;&nbsp;&nbsp;&nbsp;
+						<label>
+							<T>common.company_ratings.overall</T>
+						</label>&nbsp;&nbsp;&nbsp;&nbsp;
 						<StarRatings
 							rating={
 								Math.round(
@@ -87,7 +92,9 @@ export default class CompanyRating extends React.Component {
 											htmlFor="input-2"
 											className="control-label  lef_label"
 										>
-											Health & Safety
+											<T>
+												common.company_ratings.health_safety
+											</T>
 										</label>
 									</td>
 									<td>
@@ -115,7 +122,9 @@ export default class CompanyRating extends React.Component {
 											htmlFor="input-3"
 											className="control-label   lef_label"
 										>
-											Work Environment
+											<T>
+												common.company_ratings.work_env
+											</T>
 										</label>
 									</td>
 									<td>
@@ -142,7 +151,9 @@ export default class CompanyRating extends React.Component {
 											htmlFor="input-4"
 											className="control-label   lef_label"
 										>
-											Benefits
+											<T>
+												common.company_ratings.benefits
+											</T>
 										</label>
 									</td>
 									<td>
@@ -170,7 +181,9 @@ export default class CompanyRating extends React.Component {
 											htmlFor="input-5"
 											className="control-label  lef_label"
 										>
-											Manager Relationships
+											<T>
+												common.company_ratings.manager_relation
+											</T>
 										</label>
 									</td>
 									<td>
@@ -202,7 +215,10 @@ export default class CompanyRating extends React.Component {
                 </div> */}
 					<center>
 						{" "}
-						<h3> Recommended </h3>
+						<h3>
+							{" "}
+							<T>common.company_ratings.recommend</T>{" "}
+						</h3>
 					</center>
 					<br />
 					{/* <div className="progress yellow"> */}
@@ -252,7 +268,8 @@ export default class CompanyRating extends React.Component {
 							<div className="num_sett">
 								{" "}
 								<span>
-									Average number <br /> of months worked
+									<T>common.company_ratings.average_num</T>{" "}
+									<T>common.company_ratings.months_worked</T>
 								</span>
 							</div>
 						</div>

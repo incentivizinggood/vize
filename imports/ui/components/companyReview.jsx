@@ -2,6 +2,9 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import StarRatings from "react-star-ratings";
 import VoteButtons from "./voteButtons.jsx";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 export default class ReviewComponent extends React.Component {
 	constructor(props) {
@@ -24,7 +27,7 @@ export default class ReviewComponent extends React.Component {
 						className="fa fa-check-square"
 						style={{ color: "#2E8B57" }}
 						aria-hidden="true"
-					/>&nbsp;&nbsp;Recommended
+					/>&nbsp;&nbsp;<T>common.companyreview.recommend</T>
 				</p>
 			);
 		} else {
@@ -34,7 +37,7 @@ export default class ReviewComponent extends React.Component {
 						className="far fa-times-circle"
 						style={{ color: "#FF4545" }}
 						aria-hidden="true"
-					/>&nbsp;&nbsp;Not Recommended
+					/>&nbsp;&nbsp;<T>common.companyreview.not_recommend</T>
 				</p>
 			);
 		}
@@ -79,7 +82,9 @@ export default class ReviewComponent extends React.Component {
 							</a>
 							<ul className="dropdown-menu" role="menu">
 								<li>
-									<label>Overall</label>
+									<label>
+										<T>common.companyreview.overall</T>
+									</label>
 									<br />
 									<StarRatings
 										rating={
@@ -90,7 +95,11 @@ export default class ReviewComponent extends React.Component {
 									/>
 								</li>
 								<li>
-									<label>Health & Safety</label>
+									<label>
+										<T>
+											common.companyreview.health_safety
+										</T>
+									</label>
 									<br />
 									<StarRatings
 										rating={this.props.item.healthAndSafety}
@@ -100,7 +109,9 @@ export default class ReviewComponent extends React.Component {
 								</li>
 								<li>
 									{" "}
-									<label>Work Environment</label>
+									<label>
+										<T>common.companyreview.work_env</T>
+									</label>
 									<br />
 									<StarRatings
 										rating={this.props.item.workEnvironment}
@@ -109,7 +120,9 @@ export default class ReviewComponent extends React.Component {
 									/>
 								</li>
 								<li>
-									<label>Benefits</label>
+									<label>
+										<T>common.companyreview.benefits</T>
+									</label>
 									<br />
 									<StarRatings
 										rating={this.props.item.benefits}
@@ -119,7 +132,11 @@ export default class ReviewComponent extends React.Component {
 								</li>
 								<li>
 									{" "}
-									<label>Manager Relationships</label>
+									<label>
+										<T>
+											common.companyreview.manager_relation
+										</T>
+									</label>
 									<br />
 									<StarRatings
 										rating={
@@ -141,19 +158,27 @@ export default class ReviewComponent extends React.Component {
 						<div className="col-md-8">
 							<div className="form-group  p-c-a">
 								<br />
-								<label>Pros</label>
+								<label>
+									<T>common.companyreview.pros</T>
+								</label>
 								<br />
 								<p>{this.props.item.pros}</p>
 							</div>
 							<br />
 							<div className="form-group  p-c-a">
-								<label>Cons</label>
+								<label>
+									<T>common.companyreview.cons</T>
+								</label>
 								<br />
 								<p>{this.props.item.cons}</p>
 							</div>
 							<br />
 							<div className="form-group  p-c-a">
-								<label>Additional Comments</label>
+								<label>
+									<T>
+										common.companyreview.additional_comments
+									</T>
+								</label>
 								<br />
 								<p>{this.props.item.additionalComments}</p>
 							</div>

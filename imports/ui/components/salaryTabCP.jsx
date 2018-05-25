@@ -1,7 +1,21 @@
 import React from "react";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 export default class SalaryTab extends React.Component {
+	componentDidMount() {
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
+	}
+
 	render() {
 		const RenderedItems = this.props.salaries.map(function(item, i) {
 			return <SalaryPosting key={i} item={item} />;
@@ -11,7 +25,8 @@ export default class SalaryTab extends React.Component {
 			<div role="tabpanel" className="tab-pane" id="salaries">
 				<div className="col-md-12  section_rview_back_color03 ">
 					<h4 className="head_section_font">
-						{this.props.salariesCount} Job Salaries
+						{this.props.salariesCount}{" "}
+						<T>common.salary_tab.job_salaries</T>
 					</h4>
 					<div className="add-buttons">
 						<a
@@ -19,8 +34,8 @@ export default class SalaryTab extends React.Component {
 							className="btn btn-primary"
 						>
 							{" "}
-							<i className="fa fa-plus" aria-hidden="true" /> Add
-							a Salary
+							<i className="fa fa-plus" aria-hidden="true" />
+							{i18n.__("common.salary_tab.add_salary")}
 						</a>
 						{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 					</div>
