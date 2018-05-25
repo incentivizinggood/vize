@@ -219,7 +219,12 @@
 	},
 
 	"jobpostings": {
-		"apply_now": "Apply Now"
+		"apply_now": "Apply Now",
+		"hour": "/Hour",
+		"job_description": "Job Description",
+		"qualifications": "Qualifications",
+		"responsibilities": "Responsibilities",
+		"posted_on": "posted on"
 	},
 
 	"methods": {
