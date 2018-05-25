@@ -277,6 +277,17 @@
 		"posted_on": "posted on"
 	},
 
+	"header": {
+		"companies": "Companies",
+		"jobs": "Jobs",
+		"resources": "Resources",
+		"for_employers": "For Employers",
+		"login": "LOG IN",
+		"signup": "SIGN UP",
+		"logout": "LOG OUT",
+		"myaccount": "MY ACCOUNT"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",

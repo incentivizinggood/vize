@@ -2,6 +2,9 @@ import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { If, Then, Else } from "../if-else.jsx";
 import LangSelector from "../components/lang-selector.jsx";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 /* The "header" page. */
 class Header extends React.Component {
@@ -58,17 +61,23 @@ class Header extends React.Component {
 										href="/companies"
 										className="link-kumya "
 									>
-										<span>Companies</span>
+										<span>
+											<T>common.header.companies</T>
+										</span>
 									</a>
 								</li>
 								<li>
 									<a href="/jobs" className="link-kumya">
-										<span>Jobs</span>
+										<span>
+											<T>common.header.jobs</T>
+										</span>
 									</a>
 								</li>
 								<li>
 									<a href="" className="link-kumya">
-										<span>Resources</span>
+										<span>
+											<T>common.header.resources</T>
+										</span>
 									</a>
 								</li>
 							</ul>
@@ -82,7 +91,9 @@ class Header extends React.Component {
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												My Account
+												{i18n.__(
+													"common.header.myaccount"
+												)}
 											</a>
 										</li>
 										<li>
@@ -90,7 +101,7 @@ class Header extends React.Component {
 												onClick={Meteor.logout}
 												className="navbar-link margin-right"
 											>
-												LOG OUT
+												<T>common.header.logout</T>
 											</a>
 										</li>
 									</Then>
@@ -102,7 +113,9 @@ class Header extends React.Component {
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												Sign Up
+												{i18n.__(
+													"common.header.signup"
+												)}
 											</a>
 										</li>
 										<li>
@@ -110,7 +123,7 @@ class Header extends React.Component {
 												href="/login"
 												className="navbar-link margin-right"
 											>
-												LOG IN
+												<T>common.header.login</T>
 											</a>
 										</li>
 									</Else>
@@ -125,7 +138,9 @@ class Header extends React.Component {
 										href="/foremployers"
 										className="link-kumya"
 									>
-										<span>For Employers</span>
+										<span>
+											<T>common.header.for_employers</T>
+										</span>
 									</a>
 								</li>
 							</ul>
