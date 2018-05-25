@@ -450,6 +450,9 @@ const reviewErrorMessages = function(locale) {
 };
 
 const englishReviews = reviewErrorMessages("en");
+if (Meteor.isClient && Meteor.isProduction) {
+	i18n.loadLocale("es");
+}
 const spanishReviews = reviewErrorMessages("es");
 
 console.log("english review error messages");

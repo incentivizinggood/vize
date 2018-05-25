@@ -399,6 +399,9 @@ const jobAppErrors = function(locale) {
 };
 
 const englishJobApps = jobAppErrors("en");
+if (Meteor.isClient && Meteor.isProduction) {
+	i18n.loadLocale("es");
+}
 const spanishJobApps = jobAppErrors("es");
 
 JobAds.applicationSchema.labels(jobAppLabels());

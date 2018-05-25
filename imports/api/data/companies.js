@@ -432,6 +432,9 @@ const companyErrorMessages = function(locale) {
 };
 
 const englishCompanies = companyErrorMessages("en");
+if (Meteor.isClient && Meteor.isProduction) {
+	i18n.loadLocale("es");
+}
 const spanishCompanies = companyErrorMessages("es");
 
 Companies.schema.labels(companyLabels());

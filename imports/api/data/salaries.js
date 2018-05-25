@@ -174,6 +174,9 @@ const salaryErrors = function(locale) {
 };
 
 const englishSalaries = salaryErrors("en");
+if (Meteor.isClient && Meteor.isProduction) {
+	i18n.loadLocale("es");
+}
 const spanishSalaries = salaryErrors("es");
 
 Salaries.schema.labels(salaryLabels());
