@@ -126,7 +126,7 @@ const errorMessages = function(locale) {
 
 			const regExpMessage = msgObj
 				? msgObj.msg
-				: i18n.__("SimpleSchema.regExMsgStubs.msg", {
+				: i18n.__("SimpleSchema.defaults.regExMsgStubs.msg", {
 						_locale: locale,
 				  });
 
