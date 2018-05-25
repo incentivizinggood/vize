@@ -1,4 +1,7 @@
 import React from "react";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 export default class JobPosting extends React.Component {
 	render() {
@@ -24,7 +27,7 @@ export default class JobPosting extends React.Component {
 								className="btn btn-primary"
 							>
 								{" "}
-								Apply now
+								<T>common.jobpostings.apply_now</T>
 							</a>
 						</div>
 						<p>

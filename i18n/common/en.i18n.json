@@ -204,6 +204,24 @@
 			"Accelerate our growth and discover thousands of potential employees",
 		"register_button": "Register"
 	},
+
+	"companyreview": {
+		"recommend": "Recommended",
+		"not_recommend": "Not Recommended",
+		"overall": "Overall",
+		"health_safety": "Health & Safety",
+		"work_env": "Work Environment",
+		"benefits": "Benefits",
+		"manager_relation": "Manager Relationships",
+		"pros": "Pros",
+		"cons": "Cons",
+		"additional_comments": "Additional Comments"
+	},
+
+	"jobpostings": {
+		"apply_now": "Apply Now"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",
