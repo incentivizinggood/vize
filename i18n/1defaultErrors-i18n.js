@@ -144,6 +144,7 @@ const englishDefaults = errorMessages("en");
 const spanishDefaults = errorMessages("es");
 
 // if (Meteor.isClient && Meteor.isDevelopment) {
+console.log((Meteor.isServer ? "SERVER " : "CLIENT ") + process.env);
 console.log("englishDefaults");
 console.log(englishDefaults);
 console.log("spanishDefaults");

@@ -46,6 +46,7 @@ const englishSalaries = salaryErrors("en");
 const spanishSalaries = salaryErrors("es");
 
 //if (Meteor.isDevelopment) {
+console.log((Meteor.isServer ? "SERVER " : "CLIENT ") + process.env);
 console.log("english salary error messages");
 console.log(englishSalaries);
 console.log("spanish salary error messages");

@@ -101,6 +101,7 @@ const englishCompanies = companyErrorMessages("en");
 const spanishCompanies = companyErrorMessages("es");
 
 //if (Meteor.isDevelopment) {
+console.log((Meteor.isServer ? "SERVER " : "CLIENT ") + process.env);
 console.log("english company error messages");
 console.log(englishCompanies);
 console.log("spanish company error messages");
