@@ -29,7 +29,7 @@ export default class ReviewTab extends React.Component {
 						>
 							{" "}
 							<i className="fa fa-plus" aria-hidden="true" />{" "}
-							{i18n.__("common.review_tab.add_review")}
+							{i18n.__("common.overview_tab.add_review")}
 						</a>
 						{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 					</div>

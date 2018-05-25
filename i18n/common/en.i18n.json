@@ -255,7 +255,9 @@
 		"see_all_reviews": "See All Reviews",
 		"job_salaries": "Job Salaries",
 		"add_salary": "Add a Salary",
-		"see_all_salaries": "See All Salaries"
+		"see_all_salaries": "See All Salaries",
+		"see_all_jobs": "See All Jobs",
+		"jobs_available": "Job(s) Available"
 	},
 
 	"review_tab": {
@@ -275,6 +277,12 @@
 		"qualifications": "Qualifications",
 		"responsibilities": "Responsibilities",
 		"posted_on": "posted on"
+	},
+
+	"company_component": {
+		"reviews": "Reviews",
+		"salaries": "Salaries",
+		"jobs": "Jobs"
 	},
 
 	"header": {

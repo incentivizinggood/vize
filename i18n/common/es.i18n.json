@@ -247,7 +247,7 @@
 		"work_env": "PLEASE TRANSLATE   Work Environment",
 		"benefits": "PLEASE TRANSLATE   Benefits",
 		"manager_relation": "PLEASE TRANSLATE   Manager Relationships",
-		"recommend": "RPLEASE TRANSLATE   ecommended",
+		"recommend": "PLEASE TRANSLATE   Recommended",
 		"average_num": "PLEASE TRANSLATE   Average number",
 		"months_worked": "PLEASE TRANSLATE   of months worked"
 	},
@@ -269,7 +269,9 @@
 		"see_all_reviews": "PLEASE TRANSLATE   See All Reviews",
 		"job_salaries": "PLEASE TRANSLATE   Job Salaries",
 		"add_salary": "PLEASE TRANSLATE   Add a Salary",
-		"see_all_salaries": "PLEASE TRANSLATE   See All Salaries"
+		"see_all_salaries": "PLEASE TRANSLATE   See All Salaries",
+		"see_all_jobs": "PLEASE TRANSLATE  See All Jobs",
+		"jobs_available": "PLEASE TRANSLATE  Job(s) Available"
 	},
 
 	"review_tab": {
@@ -289,6 +291,12 @@
 		"qualifications": "PLEASE TRANSLATE   Qualifications",
 		"responsibilities": "PLEASE TRANSLATE   Responsibilities",
 		"posted_on": "PLEASE TRANSLATE   posted on"
+	},
+
+	"company_component": {
+		"reviews": "PLEASE TRANSLATE  Reviews",
+		"salaries": "PLEASE TRANSLATE  Salaries",
+		"jobs": "PLEASE TRANSLATE Jobs"
 	},
 
 	"header": {

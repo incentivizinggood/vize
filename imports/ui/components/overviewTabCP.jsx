@@ -179,7 +179,7 @@ export default class OverviewTab extends React.Component {
 						>
 							{" "}
 							<i className="fa fa-plus" aria-hidden="true" />{" "}
-							<T>common.overview_tab.add_review</T>
+							{i18n.__("common.overview_tab.add_review")}
 						</a>
 					</div>
 					<hr />
@@ -216,7 +216,8 @@ export default class OverviewTab extends React.Component {
 					{/* job link */}
 					<div className="sect_re1 ">
 						<h4 className="head_section_font">
-							{this.props.jobsCount} Job(s) Available
+							{this.props.jobsCount}{" "}
+							<T>common.overview_tab.jobs_available</T>
 						</h4>
 						<hr />
 
@@ -234,7 +235,11 @@ export default class OverviewTab extends React.Component {
 											data-toggle="tab"
 										>
 											{" "}
-											<strong>See All Jobs ></strong>
+											<strong>
+												<T>
+													common.overview_tab.see_all_jobs
+												</T>
+											</strong>
 										</a>
 									</li>
 								</ul>

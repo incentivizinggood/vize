@@ -4,6 +4,9 @@ import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
 import { Salaries } from "../api/data/salaries.js";
 import StarRatings from "react-star-ratings";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 const CompanyComponent = props => {
 	console.log(props.salaries);
@@ -85,7 +88,7 @@ const CompanyComponent = props => {
 										className="fa fa-plus"
 										aria-hidden="true"
 									/>{" "}
-									Add a Review
+									{i18n.__("common.overview_tab.add_review")}
 								</a>
 							</div>
 						</div>
@@ -98,19 +101,23 @@ const CompanyComponent = props => {
 							<ul>
 								<li className="active">
 									{props.item.numReviews} <br />
-									<span className="review_text">Reviews</span>
+									<span className="review_text">
+										<T>common.company_component.reviews</T>
+									</span>
 								</li>
 								<li>
 									{props.salaries}
 									<br />
 									<span className="review_text">
-										Salaries
+										<T>common.company_component.salaries</T>
 									</span>
 								</li>
 								<li>
 									{props.jobads}
 									<br />
-									<span className="review_text">Jobs</span>
+									<span className="review_text">
+										<T>common.company_component.jobs</T>
+									</span>
 								</li>
 							</ul>
 						</div>
