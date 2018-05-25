@@ -299,6 +299,20 @@
 		"jobs": "PLEASE TRANSLATE Jobs"
 	},
 
+	"companyprofile": {
+		"loading": "PLEASE TRANSLATE  Loading...",
+		"notfound": "PLEASE TRANSLATE  That company was not found",
+		"overview": "PLEASE TRANSLATE  Overview",
+		"reviews": "PLEASE TRANSLATE  Reviews",
+		"add_review": "PLEASE TRANSLATE  Add a Review",
+		"jobs": "PLEASE TRANSLATE  Jobs",
+		"salaries": "PLEASE TRANSLATE   Salaries",
+		"contact": "PLEASE TRANSLATE  Contact",
+		"feel_free": "PLEASE TRANSLATE  Feel free to",
+		"reach_us": "PLEASE TRANSLATE  reach out to us",
+		"add_review": "PLEASE TRANSLATE  Add a Review"
+	},
+
 	"header": {
 		"companies": "PLEASE TRANSLATE   Companies",
 		"jobs": "PLEASE TRANSLATE   Jobs",

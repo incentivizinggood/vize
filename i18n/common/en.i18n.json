@@ -285,6 +285,20 @@
 		"jobs": "Jobs"
 	},
 
+	"companyprofile": {
+		"loading": "Loading...",
+		"notfound": "That company was not found",
+		"overview": "Overview",
+		"reviews": "Reviews",
+		"add_review": "Add a Review",
+		"jobs": "Jobs",
+		"salaries": " Salaries",
+		"contact": "Contact",
+		"feel_free": "Feel free to",
+		"reach_us": "reach out to us",
+		"add_review": "Add a Review"
+	},
+
 	"header": {
 		"companies": "Companies",
 		"jobs": "Jobs",
