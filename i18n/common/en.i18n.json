@@ -258,6 +258,11 @@
 		"see_all_salaries": "See All Salaries"
 	},
 
+	"review_tab": {
+		"reviews": "Reviews",
+		"add_review": "Add a Review"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",
