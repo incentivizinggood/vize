@@ -238,6 +238,10 @@
 		"months_worked": "of months worked"
 	},
 
+	"jobscomponent": {
+		"jobs_available": "Job(s) Available"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",

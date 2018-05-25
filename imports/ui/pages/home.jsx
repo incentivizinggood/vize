@@ -40,7 +40,9 @@ export default class HomePage extends React.Component {
 									<li>
 										<div className="banner-text-info">
 											<h1>
-												<T>common.homePage.mainBanner</T>
+												<T>
+													common.homePage.mainBanner
+												</T>
 											</h1>
 											<form
 												className="example"
@@ -53,7 +55,9 @@ export default class HomePage extends React.Component {
 												<input
 													ref="input"
 													type="text"
-													placeholder={i18n.__("common.homePage.placeholder")}
+													placeholder={i18n.__(
+														"common.homePage.placeholder"
+													)}
 													name="search"
 												/>
 												<button type="submit">
@@ -62,7 +66,9 @@ export default class HomePage extends React.Component {
 															color: "#ffffff",
 														}}
 													>
-														<T>common.homePage.searchButton</T>
+														<T>
+															common.homePage.searchButton
+														</T>
 													</a>
 												</button>
 											</form>
@@ -87,7 +93,8 @@ export default class HomePage extends React.Component {
 						<div className="col-md-4 ">
 							<div className="great-job-hm">
 								<h1>
-									<T>common.homePage.findjob_part1</T> <br /> <T>common.homePage.commonLine</T>{" "}
+									<T>common.homePage.findjob_part1</T> <br />{" "}
+									<T>common.homePage.commonLine</T>{" "}
 								</h1>
 							</div>
 							<div className="great-comp-hm">
@@ -116,7 +123,8 @@ export default class HomePage extends React.Component {
 						<div className="col-md-4 ">
 							<div className="great-job-hm">
 								<h1>
-									<T>common.homePage.findjob_part1</T> <br /> <T>common.homePage.commonLine</T>{" "}
+									<T>common.homePage.findjob_part1</T> <br />{" "}
+									<T>common.homePage.commonLine</T>{" "}
 								</h1>
 							</div>
 							<div className="great-comp-hm">
@@ -161,7 +169,8 @@ export default class HomePage extends React.Component {
 						<div className="col-md-5 ">
 							<div className="great-emp-hm">
 								<h1>
-									<T>common.homePage.findemp_part1</T> <br /><T>common.homePage.findemp_part2</T>{" "}
+									<T>common.homePage.findemp_part1</T> <br />
+									<T>common.homePage.findemp_part2</T>{" "}
 								</h1>
 							</div>
 							<div className="great-discover-emp">
@@ -197,7 +206,8 @@ export default class HomePage extends React.Component {
 						<div className="col-md-5 ">
 							<div className="great-emp-hm">
 								<h1>
-									<T>common.homePage.findemp_part1</T> <br /><T>common.homePage.findemp_part2</T>{" "}
+									<T>common.homePage.findemp_part1</T> <br />
+									<T>common.homePage.findemp_part2</T>{" "}
 								</h1>
 							</div>
 							<div className="great-discover-emp">
@@ -241,7 +251,9 @@ export default class HomePage extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-										 	<T>common.homePage.hear</T><br /><T>common.homePage.community</T>
+											<T>common.homePage.hear</T>
+											<br />
+											<T>common.homePage.community</T>
 										</div>
 										<div className="frontLogo isas" />
 										<div className="frontLocation">
@@ -260,7 +272,10 @@ export default class HomePage extends React.Component {
 												<i
 													className="fa fa-plus"
 													aria-hidden="true"
-												/>&nbsp; {i18n.__("common.homePage.add_review_button")} {" "}
+												/>&nbsp;{" "}
+												{i18n.__(
+													"common.homePage.add_review_button"
+												)}{" "}
 											</a>
 										</div>
 										<br />
@@ -270,11 +285,17 @@ export default class HomePage extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											<T>common.homePage.get_fair_salary</T> <br /><T>common.homePage.your_work</T>
+											<T>
+												common.homePage.get_fair_salary
+											</T>{" "}
+											<br />
+											<T>common.homePage.your_work</T>
 										</div>
 										<div className="frontLogo boisedigital" />
 										<div className="frontLocation">
-											<T>common.homePage.fairsalary_text</T>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<T>
+												common.homePage.fairsalary_text
+											</T>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<br />
 										<div className="fl-ri-re">
@@ -289,7 +310,10 @@ export default class HomePage extends React.Component {
 												<i
 													className="fa fa-plus"
 													aria-hidden="true"
-												/>&nbsp; {i18n.__("common.homePage.salary_button")} {" "}
+												/>&nbsp;{" "}
+												{i18n.__(
+													"common.homePage.salary_button"
+												)}{" "}
 											</a>
 										</div>
 										<br />
@@ -311,7 +335,9 @@ export default class HomePage extends React.Component {
 								<center>
 									{" "}
 									<h1 className="titlestar">
-										<T>common.homePage.discover_employers</T>{" "}
+										<T>
+											common.homePage.discover_employers
+										</T>{" "}
 									</h1>
 								</center>
 							</div>
