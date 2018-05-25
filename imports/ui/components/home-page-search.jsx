@@ -32,12 +32,6 @@ export default class HomePageSearch extends React.Component {
 	}
 
 	render() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		i18n.onceChangeLocale(() => {
-			this.forceUpdate();
-		});
-
 		return (
 			<form className="example" onSubmit={this.handleSubmit}>
 				<input
