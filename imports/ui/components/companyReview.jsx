@@ -83,7 +83,7 @@ export default class ReviewComponent extends React.Component {
 							<ul className="dropdown-menu" role="menu">
 								<li>
 									<label>
-										<T>common.companyreview.overall</T>ll
+										<T>common.companyreview.overall</T>
 									</label>
 									<br />
 									<StarRatings

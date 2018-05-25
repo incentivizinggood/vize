@@ -227,6 +227,17 @@
 		"posted_on": "posted on"
 	},
 
+	"company_ratings": {
+		"overall": "Overall",
+		"health_safety": "Health & Safety",
+		"work_env": "Work Environment",
+		"benefits": "Benefits",
+		"manager_relation": "Manager Relationships",
+		"recommend": "Recommended",
+		"average_num": "Average number",
+		"months_worked": "of months worked"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",
