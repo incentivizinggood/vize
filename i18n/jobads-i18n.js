@@ -56,6 +56,13 @@ const jobAdErrors = function(locale) {
 const englishJobAds = jobAdErrors("en");
 const spanishJobAds = jobAdErrors("es");
 
+//if (Meteor.isDevelopment) {
+console.log("english job ad error messages");
+console.log(englishJobAds);
+console.log("spanish job ad error messages");
+console.log(spanishJobAds);
+//}
+
 JobAds.schema.labels(jobAdLabels());
 
 JobAds.schema.messageBox.messages({
@@ -108,6 +115,13 @@ const jobAppErrors = function(locale) {
 const englishJobApps = jobAppErrors("en");
 const spanishJobApps = jobAppErrors("es");
 
+//if (Meteor.isDevelopment) {
+console.log("english job app error messages");
+console.log(englishJobApps);
+console.log("spanish job app error messages");
+console.log(spanishJobApps);
+//}
+
 JobAds.applicationSchema.labels(jobAppLabels());
 
 JobAds.applicationSchema.messageBox.messages({
@@ -116,8 +130,9 @@ JobAds.applicationSchema.messageBox.messages({
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	if (Meteor.isDevelopment)
-		console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
+	// if (Meteor.isDevelopment)
+	// 	console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
+	console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
 	JobAds.schema.messageBox.setLanguage(newLocale);
 	JobAds.applicationSchema.messageBox.setLanguage(newLocale);
 	JobAds.schema.labels(jobAdLabels());

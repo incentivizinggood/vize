@@ -45,6 +45,13 @@ const salaryErrors = function(locale) {
 const englishSalaries = salaryErrors("en");
 const spanishSalaries = salaryErrors("es");
 
+//if (Meteor.isDevelopment) {
+console.log("english salary error messages");
+console.log(englishSalaries);
+console.log("spanish salary error messages");
+console.log(spanishSalaries);
+//}
+
 Salaries.schema.labels(salaryLabels());
 
 Salaries.schema.messageBox.messages({
@@ -53,7 +60,8 @@ Salaries.schema.messageBox.messages({
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	if (Meteor.isDevelopment) console.log("SALARIES: " + newLocale);
+	// if (Meteor.isDevelopment) console.log("SALARIES: " + newLocale);
+	console.log("SALARIES: " + newLocale);
 	Salaries.schema.messageBox.setLanguage(newLocale);
 	Salaries.schema.labels(salaryLabels());
 });

@@ -100,6 +100,13 @@ const companyErrorMessages = function(locale) {
 const englishCompanies = companyErrorMessages("en");
 const spanishCompanies = companyErrorMessages("es");
 
+//if (Meteor.isDevelopment) {
+console.log("english company error messages");
+console.log(englishCompanies);
+console.log("spanish company error messages");
+console.log(spanishCompanies);
+//}
+
 Companies.schema.labels(companyLabels());
 
 // Define custom error messages for custom validation functions
@@ -109,7 +116,8 @@ Companies.schema.messageBox.messages({
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	if (Meteor.isDevelopment) console.log("COMPANIES: " + newLocale);
+	// if (Meteor.isDevelopment) console.log("COMPANIES: " + newLocale);
+	console.log("COMPANIES: " + newLocale);
 	Companies.schema.messageBox.setLanguage(newLocale);
 	Companies.schema.labels(companyLabels());
 });

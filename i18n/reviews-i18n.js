@@ -95,12 +95,12 @@ const reviewErrorMessages = function(locale) {
 const englishReviews = reviewErrorMessages("en");
 const spanishReviews = reviewErrorMessages("es");
 
-if (Meteor.isDevelopment) {
-	console.log("english review error messages");
-	console.log(englishReviews);
-	console.log("spanish review error messages");
-	console.log(spanishReviews);
-}
+//if (Meteor.isDevelopment) {
+console.log("english review error messages");
+console.log(englishReviews);
+console.log("spanish review error messages");
+console.log(spanishReviews);
+//}
 Reviews.schema.labels(reviewLabels());
 
 Reviews.schema.messageBox.messages({
@@ -109,7 +109,8 @@ Reviews.schema.messageBox.messages({
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	if (Meteor.isDevelopment) console.log("REVIEWS: " + newLocale);
+	// if (Meteor.isDevelopment) console.log("REVIEWS: " + newLocale);
+	console.log("REVIEWS: " + newLocale);
 	Reviews.schema.messageBox.setLanguage(newLocale);
 	Reviews.schema.labels(reviewLabels());
 });
