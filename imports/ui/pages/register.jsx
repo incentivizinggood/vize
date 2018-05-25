@@ -25,6 +25,17 @@ export default class RegisterPage extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	componentDidMount() {
+		// Ask to be updated "reactively".
+		// universe:i18n cannot be trusted to do that automaticaly.
+		this.i18nInvalidate = () => this.forceUpdate();
+		i18n.onChangeLocale(this.i18nInvalidate);
+	}
+
+	componentWillUnmount() {
+		i18n.offChangeLocale(this.i18nInvalidate);
+	}
+
 	handleInputChange(event) {
 		const { target } = event;
 		const value =
