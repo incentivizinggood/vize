@@ -143,14 +143,14 @@ const errorMessages = function(locale) {
 const englishDefaults = errorMessages("en");
 const spanishDefaults = errorMessages("es");
 
-// if (Meteor.isClient && Meteor.isDevelopment) {
-console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
-console.log(process.env.UNIVERSE_I18N_LOCALES);
-console.log("englishDefaults");
-console.log(englishDefaults);
-console.log("spanishDefaults");
-console.log(spanishDefaults);
-// }
+if (Meteor.isClient && Meteor.isDevelopment) {
+	console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
+	console.log(process.env.UNIVERSE_I18N_LOCALES);
+	console.log("englishDefaults");
+	console.log(englishDefaults);
+	console.log("spanishDefaults");
+	console.log(spanishDefaults);
+}
 
 SimpleSchema.setDefaultMessages({
 	messages: {

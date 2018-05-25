@@ -1,9 +1,6 @@
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
-i18n.loadLocale("en");
-i18n.loadLocale("es");
-
 const localeMetadata = {
 	en: { nativeName: "English", icon: "/images/flags/us.jpg" },
 	es: { nativeName: "Español", icon: "/images/flags/mx.jpg" },

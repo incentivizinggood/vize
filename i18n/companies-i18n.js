@@ -100,14 +100,14 @@ const companyErrorMessages = function(locale) {
 const englishCompanies = companyErrorMessages("en");
 const spanishCompanies = companyErrorMessages("es");
 
-//if (Meteor.isDevelopment) {
-console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
-console.log(process.env.UNIVERSE_I18N_LOCALES);
-console.log("english company error messages");
-console.log(englishCompanies);
-console.log("spanish company error messages");
-console.log(spanishCompanies);
-//}
+if (Meteor.isDevelopment) {
+	console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
+	console.log(process.env.UNIVERSE_I18N_LOCALES);
+	console.log("english company error messages");
+	console.log(englishCompanies);
+	console.log("spanish company error messages");
+	console.log(spanishCompanies);
+}
 
 Companies.schema.labels(companyLabels());
 
@@ -118,8 +118,7 @@ Companies.schema.messageBox.messages({
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	// if (Meteor.isDevelopment) console.log("COMPANIES: " + newLocale);
-	console.log("COMPANIES: " + newLocale);
+	if (Meteor.isDevelopment) console.log("COMPANIES: " + newLocale);
 	Companies.schema.messageBox.setLanguage(newLocale);
 	Companies.schema.labels(companyLabels());
 });
