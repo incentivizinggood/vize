@@ -74,7 +74,7 @@ const regExpMessages = function(locale) {
 };
 
 const errorMessages = function(locale) {
-	return {
+	const errors = {
 		required: i18n.__("SimpleSchema.defaults.required", {
 			_locale: locale,
 		}),
@@ -126,18 +126,33 @@ const errorMessages = function(locale) {
 
 			const regExpMessage = msgObj
 				? msgObj.msg
-				: i18n.__("SimpleSchema.regExMsgStubs.msg");
+				: i18n.__("SimpleSchema.regExMsgStubs.msg", {
+						_locale: locale,
+				  });
 
 			return `${label} ${regExpMessage}`;
 		},
 
-		keyNotInSchema: i18n.__("SimpleSchema.defaults.keyNotInSchema"),
+		keyNotInSchema: i18n.__("SimpleSchema.defaults.keyNotInSchema", {
+			_locale: locale,
+		}),
 	};
+	return errors;
 };
+
+const englishDefaults = errorMessages("en");
+const spanishDefaults = errorMessages("es");
+
+if (Meteor.isClient && Meteor.isDevelopment) {
+	console.log("englishDefaults");
+	console.log(englishDefaults);
+	console.log("spanishDefaults");
+	console.log(spanishDefaults);
+}
 
 SimpleSchema.setDefaultMessages({
 	messages: {
-		en: errorMessages("en"),
-		es: errorMessages("es"),
+		en: englishDefaults,
+		es: spanishDefaults,
 	},
 });
