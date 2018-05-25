@@ -1,4 +1,7 @@
 import React from "react";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 export default class ShowJobComponent extends React.Component {
 	render() {
@@ -29,7 +32,7 @@ export default class ShowJobComponent extends React.Component {
 								className="btn btn-primary"
 							>
 								{" "}
-								Apply now
+								{i18n.__("common.showjob.apply_now")}
 							</a>
 						</div>
 						<p>
@@ -42,7 +45,8 @@ export default class ShowJobComponent extends React.Component {
 							{" "}
 							<i className="fa fa-money" />&nbsp;&nbsp;{
 								this.props.item.pesosPerHour
-							}/Hour
+							}
+							<T>common.showjob.hour</T>
 						</p>
 						<p>
 							{" "}
@@ -53,7 +57,9 @@ export default class ShowJobComponent extends React.Component {
 					</div>
 
 					<hr />
-					<h4 className="h4-font-sz-job">Job Description</h4>
+					<h4 className="h4-font-sz-job">
+						<T>common.showjob.job_description</T>
+					</h4>
 					<div className="h4-font-sz">
 						<article>
 							<p>{this.props.item.jobDescription}</p>
@@ -64,11 +70,15 @@ export default class ShowJobComponent extends React.Component {
 							/>
 							<div className="read-more-content">
 								<br />
-								<h4>Qualifications</h4>
+								<h4>
+									<T>common.showjob.qualifications</T>
+								</h4>
 								<p>{this.props.item.qualifications} </p>
 								<br />
 								<div>
-									<h4>Responsibilities</h4>
+									<h4>
+										<T>common.showjob.responsibilities</T>
+									</h4>
 									<p>{this.props.item.responsibilities}</p>
 								</div>
 							</div>
@@ -81,7 +91,7 @@ export default class ShowJobComponent extends React.Component {
 							</label>
 							<div className="fl-ri">
 								<p>
-									posted on{" "}
+									<T>common.showjob.posted_on</T>{" "}
 									{this.props.item.datePosted.toLocaleDateString(
 										"en-US",
 										options

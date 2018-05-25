@@ -263,6 +263,20 @@
 		"add_review": "Add a Review"
 	},
 
+	"salary_tab": {
+		"job_salaries": "Job Salaries",
+		"add_salary": "Add a Salary"
+	},
+
+	"showjob": {
+		"apply_now": "Apply Now",
+		"hour": "/Hour",
+		"job_description": "Job Description",
+		"qualifications": "Qualifications",
+		"responsibilities": "Responsibilities",
+		"posted_on": "posted on"
+	},
+
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",
