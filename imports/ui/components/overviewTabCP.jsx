@@ -4,6 +4,9 @@ import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "../../ui/components/companyReview.jsx";
 import JobPosting from "../../ui/components/jobPosting.jsx";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 export default class OverviewTab extends React.Component {
 	render() {
@@ -25,7 +28,7 @@ export default class OverviewTab extends React.Component {
 							className="fa fa-check-square"
 							style={{ color: "#2E8B57" }}
 							aria-hidden="true"
-						/>&nbsp;&nbsp;Recommended
+						/>&nbsp;&nbsp;<T>common.companyreview.recommend</T>
 					</p>
 				);
 			} else {
@@ -35,7 +38,7 @@ export default class OverviewTab extends React.Component {
 							className="far fa-times-circle"
 							style={{ color: "#FF4545" }}
 							aria-hidden="true"
-						/>&nbsp;&nbsp;Not Recommended
+						/>&nbsp;&nbsp;<T>common.companyreview.not_recommend</T>
 					</p>
 				);
 			}
@@ -51,7 +54,11 @@ export default class OverviewTab extends React.Component {
 				/>
 			);
 		} else {
-			to_display_review = "No Reviews to show right now";
+			to_display_review = <T>common.overview_tab.display_text</T>;
+
+			// {i18n.__(
+			// 	"common.overview_tab.display_text"
+			// )};
 		}
 
 		// FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
@@ -70,7 +77,7 @@ export default class OverviewTab extends React.Component {
 								className="btn btn-primary"
 							>
 								{" "}
-								Apply now
+								{i18n.__("common.overview_tab.apply_now")}
 							</a>
 						</div>
 						<p>
@@ -83,7 +90,8 @@ export default class OverviewTab extends React.Component {
 							{" "}
 							<i className="fa fa-money" />&nbsp;&nbsp;{
 								this.props.jobAds[0].pesosPerHour
-							}/Hour
+							}
+							<T>common.overview_tab.hour</T>
 						</p>
 						<p>
 							{" "}
@@ -94,7 +102,9 @@ export default class OverviewTab extends React.Component {
 					</div>
 
 					<hr />
-					<h4 className="h4-font-sz-job">Job Description</h4>
+					<h4 className="h4-font-sz-job">
+						<T>common.overview_tab.job_description</T>
+					</h4>
 					<div className="h4-font-sz">
 						<p>{this.props.jobAds[0].jobDescription}</p>
 					</div>
@@ -102,7 +112,11 @@ export default class OverviewTab extends React.Component {
 			);
 		} else {
 			// the length == 0
-			to_display_jobs = "No Jobs to show right now";
+			to_display_jobs = <T>common.overview_tab.display_jobs</T>;
+
+			// {i18n.__(
+			// 	"common.overview_tab.display_jobs"
+			// )};
 		}
 
 		// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
@@ -123,7 +137,7 @@ export default class OverviewTab extends React.Component {
 				</div>
 			);
 		} else {
-			salaries_to_display = "No Salaries to display right now";
+			salaries_to_display = <T>common.overview_tab.salaries_text</T>;
 		}
 
 		// MAIN JSX FILE
@@ -133,7 +147,8 @@ export default class OverviewTab extends React.Component {
 				<div className="col-md-12  section_rview_back_color ">
 					<div className="sect_re1 ">
 						<h4 className="head_section_font">
-							{this.props.companyoverview.name} Overview
+							{this.props.companyoverview.name}{" "}
+							<T>common.overview_tab.overview</T>
 						</h4>
 
 						<hr />
@@ -154,7 +169,8 @@ export default class OverviewTab extends React.Component {
 					{" "}
 					{/* review link */}
 					<h4 className="head_section_font">
-						{this.props.companyoverview.name} Reviews
+						{this.props.companyoverview.name}{" "}
+						<T>common.overview_tab.reviews</T>
 					</h4>
 					<div className="add-buttons">
 						<a
@@ -162,8 +178,8 @@ export default class OverviewTab extends React.Component {
 							className="btn btn-primary"
 						>
 							{" "}
-							<i className="fa fa-plus" aria-hidden="true" /> Add
-							a Review
+							<i className="fa fa-plus" aria-hidden="true" />{" "}
+							<T>common.overview_tab.add_review</T>
 						</a>
 					</div>
 					<hr />
@@ -182,7 +198,11 @@ export default class OverviewTab extends React.Component {
 										role="tab"
 										data-toggle="tab"
 									>
-										<strong>See All Reviews ></strong>
+										<strong>
+											<T>
+												common.overview_tab.see_all_reviews
+											</T>
+										</strong>
 									</a>
 								</li>
 							</ul>
@@ -230,7 +250,8 @@ export default class OverviewTab extends React.Component {
 					{/* salaries  */}
 					<div className="sect_re1  sec_p">
 						<h4 className="head_section_font">
-							{this.props.salariesCount} Job Salaries
+							{this.props.salariesCount}{" "}
+							<T>common.overview_tab.job_salaries</T>
 						</h4>
 
 						<div className="add-buttons">
@@ -239,7 +260,7 @@ export default class OverviewTab extends React.Component {
 								className="btn btn-primary"
 							>
 								<i className="fa fa-plus" aria-hidden="true" />{" "}
-								Add a salary
+								{i18n.__("common.overview_tab.add_salary")}
 							</a>
 						</div>
 						<hr />
@@ -259,7 +280,11 @@ export default class OverviewTab extends React.Component {
 										role="tab"
 										data-toggle="tab"
 									>
-										<strong>See All Salaries ></strong>
+										<strong>
+											<T>
+												common.overview_tab.see_all_salaries
+											</T>
+										</strong>
 									</a>
 								</li>
 							</ul>
