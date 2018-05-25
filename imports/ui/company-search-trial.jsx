@@ -75,14 +75,6 @@ export default class CompanySearchTrial extends React.Component {
 		}
 	}
 
-	// Gives error for now -- Need to ask Julian for this.
-	// componentWillMount() {
-	//     const script = document.createElement("script");
-	//     script.src = "/js/custom.js";
-	//     script.async = true;
-	//     document.body.appendChild(script);
-	//     }
-
 	handleSubmit(event) {
 		event.preventDefault();
 

@@ -7,9 +7,24 @@ import Dropdown, {
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { localeMetadata, currentLocale } from "../../startup/client/i18n.js";
+import {
+	localeMetadata,
+	reactiveGetLocale,
+} from "../../startup/client/i18n.js";
 
-class LangSelector extends React.Component {
+function CurLang({ code }) {
+	return <img src={localeMetadata[code].icon} alt={`${code} icon.`} />;
+}
+
+CurLang.propTypes = {
+	code: PropTypes.string.isRequired,
+};
+
+const CurLangContainer = withTracker(() => ({
+	code: reactiveGetLocale(),
+}))(CurLang);
+
+export default class LangSelector extends React.Component {
 	constructor(props) {
 		super(props);
 		this.dropdown = React.createRef();
@@ -20,46 +35,32 @@ class LangSelector extends React.Component {
 			this.dropdown.current.hide();
 		};
 
+		const LangOpt = code => (
+			<li key={code}>
+				<button
+					onClick={() => {
+						i18n.setLocale(code);
+						hideDropdown();
+					}}
+				>
+					<img
+						src={localeMetadata[code].icon}
+						alt={`${code} icon.`}
+					/>
+					<span>{localeMetadata[code].nativeName}</span>
+				</button>
+			</li>
+		);
+
 		return (
 			<Dropdown ref={this.dropdown}>
 				<DropdownTrigger>
-					<img
-						src={this.props.currentLocale.icon}
-						alt={`${this.props.currentLocale.name} icon.`}
-					/>
+					<CurLangContainer />
 				</DropdownTrigger>
 				<DropdownContent>
-					<ul>
-						{localeMetadata.map(l => (
-							<li key={l.code}>
-								<button
-									onClick={() => {
-										i18n.setLocale(l.code);
-										hideDropdown();
-									}}
-								>
-									<img src={l.icon} alt={`${l.name} icon.`} />
-									<span>{l.name}</span>
-								</button>
-							</li>
-						))}
-					</ul>
+					<ul>{Object.keys(localeMetadata).map(LangOpt)}</ul>
 				</DropdownContent>
 			</Dropdown>
 		);
 	}
 }
-
-LangSelector.propTypes = {
-	currentLocale: PropTypes.shape({
-		code: PropTypes.string.isRequired,
-		name: PropTypes.string.isRequired,
-		icon: PropTypes.string.isRequired,
-	}).isRequired,
-};
-
-const LangSelectorContainer = withTracker(() => ({
-	currentLocale: currentLocale.get(),
-}))(LangSelector);
-
-export default LangSelectorContainer;
