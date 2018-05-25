@@ -155,15 +155,16 @@ const salaryErrors = function(locale) {
 	};
 };
 
+const englishSalaries = salaryErrors("en");
+const spanishSalaries = salaryErrors("es");
+
 Salaries.schema.messageBox.messages({
-	// en? does that mean we can add internationalization
-	// in this block of code?
-	en: salaryErrors("en"),
-	es: salaryErrors("es"),
+	en: englishSalaries,
+	es: spanishSalaries,
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	console.log("SALARIES: " + newLocale);
+	if (Meteor.isDevelopment) console.log("SALARIES: " + newLocale);
 	Salaries.schema.messageBox.setLanguage(newLocale);
 });
 

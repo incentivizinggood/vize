@@ -406,15 +406,16 @@ const reviewErrorMessages = function(locale) {
 	};
 };
 
+const englishReviews = reviewErrorMessages("en");
+const spanishReviews = reviewErrorMessages("es");
+
 Reviews.schema.messageBox.messages({
-	// en? does that mean we can add internationalization
-	// in this block of code?
-	en: reviewErrorMessages("en"),
-	es: reviewErrorMessages("es"),
+	en: englishReviews,
+	es: spanishReviews,
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	console.log("REVIEWS: " + newLocale);
+	if (Meteor.isDevelopment) console.log("REVIEWS: " + newLocale);
 	Reviews.schema.messageBox.setLanguage(newLocale);
 });
 

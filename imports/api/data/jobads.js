@@ -176,10 +176,6 @@ JobAds.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-const jobAdErrors = {
-	noCompanyWithThatName: i18n.__("SimpleSchema.custom.noCompanyWithThatName"),
-};
-
 JobAds.schema.labels({
 	_id: i18n.__("SimpleSchema.labels.JobAds._id"),
 	companyName: i18n.__("SimpleSchema.labels.JobAds.companyName"),
@@ -197,11 +193,21 @@ JobAds.schema.labels({
 	datePosted: i18n.__("SimpleSchema.labels.JobAds.datePosted"),
 });
 
+const jobAdErrors = function(locale) {
+	return {
+		noCompanyWithThatName: i18n.__(
+			"SimpleSchema.custom.noCompanyWithThatName",
+			{ _locale: locale }
+		),
+	};
+};
+
+const englishJobAds = jobAdErrors("en");
+const spanishJobAds = jobAdErrors("es");
+
 JobAds.schema.messageBox.messages({
-	// en? does that mean we can add internationalization
-	// in this block of code?
-	en: jobAdErrors,
-	es: jobAdErrors,
+	en: englishJobAds,
+	es: spanishJobAds,
 });
 
 JobAds.attachSchema(JobAds.schema, { replace: true });
@@ -347,15 +353,17 @@ const jobAppErrors = function(locale) {
 	};
 };
 
+const englishJobApps = jobAppErrors("en");
+const spanishJobApps = jobAppErrors("es");
+
 JobAds.applicationSchema.messageBox.messages({
-	// en? does that mean we can add internationalization
-	// in this block of code?
-	en: jobAppErrors("en"),
-	es: jobAppErrors("es"),
+	en: englishJobApps,
+	es: spanishJobApps,
 });
 
 i18n.onChangeLocale(function(newLocale) {
-	console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
+	if (Meteor.isDevelopment)
+		console.log("JOBADS AND JOBAPPLICATIONS: " + newLocale);
 	JobAds.schema.messageBox.setLanguage(newLocale);
 	JobAds.applicationSchema.messageBox.setLanguage(newLocale);
 });
