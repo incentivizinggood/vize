@@ -993,7 +993,7 @@ p {
 .blog-img {
 	overflow: hidden;
 }
-..blog-img a img {
+.blog-img a img {
 	width: 100%;
 	-webkit-transform: scaleY(1);
 	-moz-transform: scaleY(1);
@@ -1006,7 +1006,7 @@ p {
 	-ms-transition: all 0.7s ease-in-out;
 	transition: all 0.7s ease-in-out;
 }
-..blog-img a img:hover {
+.blog-img a img:hover {
 	-webkit-transform: scale(1.5);
 	-moz-transform: scale(1.5);
 	-o-transform: scale(1.5);
