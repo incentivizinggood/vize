@@ -1,5 +1,4 @@
-export const typeDefs = [
-	`
+
 enum UserRole {
 	WORKER
 	COMPANY
@@ -7,8 +6,10 @@ enum UserRole {
 }
 
 type User {
-	id: String!
+	id: ID!
+	"The user's username, as would be typed in the login field."
 	username: String!
+	"The user's role."
 	role: UserRole!
 }
 
@@ -17,5 +18,3 @@ type Query {
 	user(id: ID!): User
 	currentUser: User
 }
-`,
-];
