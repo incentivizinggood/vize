@@ -26,6 +26,12 @@ if (Meteor.isServer) {
 
 	process.on("SIGTERM", closeAndExit);
 	process.on("SIGINT", closeAndExit);
+
+	Meteor.methods({
+		"maria-companies.createProfile"(newCompanyProfile) {
+			console.log("HELLO, WORLD!");
+		},
+	});
 }
 
 Meteor.startup(() => {

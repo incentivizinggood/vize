@@ -1,5 +1,5 @@
 <template name="ccp_blaze_form">
-	{{#autoForm collection=companyProfiles id="ccp_blaze_form" type="method" meteormethod="companies.createProfile" preserveForm=false}}
+	{{#autoForm collection=companyProfiles id="ccp_blaze_form" type="method" meteormethod="maria-companies.createProfile" preserveForm=false}}
 		<fieldset>
 			<legend>{{__ ".ccp.formTitle"}}</legend>
 			<div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
