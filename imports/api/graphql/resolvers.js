@@ -21,6 +21,28 @@ export const resolvers = {
 			return context.user;
 		},
 
+		allComments(root, args, context) {
+			return Comments.find({}).fetch();
+		},
+		allCompanies(root, args, context) {
+			return Companies.find({}).fetch();
+		},
+		allJobAds(root, args, context) {
+			return JobAds.find({}).fetch();
+		},
+		allReviews(root, args, context) {
+			return Reviews.find({}).fetch();
+		},
+		allSalaries(root, args, context) {
+			return Salaries.find({}).fetch();
+		},
+		allUsers(root, args, context) {
+			return Meteor.users.find({}).fetch();
+		},
+		allVotes(root, args, context) {
+			return Votes.find({}).fetch();
+		},
+
 		comment(root, args, context) {
 			return Comments.findOne(args.id);
 		},

@@ -2,6 +2,14 @@ type Query {
 	say: String!
 	currentUser: User
 
+	allComments: [Comment!]!
+	allCompanies: [Company!]!
+	allJobAds: [JobAd!]!
+	allReviews: [Review!]!
+	allSalaries: [Salary!]!
+	allUsers: [User!]!
+	allVotes: [Vote!]!
+
 	comment(id: ID!): Comment
 	company(id: ID!): Company
 	jobAd(id: ID!): JobAd
