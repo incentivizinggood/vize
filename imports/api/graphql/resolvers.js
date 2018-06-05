@@ -68,14 +68,17 @@ export const resolvers = {
 
 	CommentParent: {
 		__resolveType(obj, context, info) {
-			/* if (obj.wingspan) {
-				return "Airplane";
+			// Test for the existance of fields unique to each type.
+			if (obj.content) {
+				return "Comment";
 			}
 
-			if (obj.licensePlate) {
-				return "Car";
-			} */
+			if (obj.companyName) {
+				return "Review";
+			}
 
+			// It should be imposible to get here.
+			// TODO throw a more informative error message.
 			return null;
 		},
 	},
@@ -83,10 +86,10 @@ export const resolvers = {
 	Comment: {
 		id: ({ _id }) => _id,
 
-		content: () => null, // TODO
-		created: () => null, // TODO
+		content: ({ content }) => content,
+		created: ({ datePosted }) => datePosted,
 
-		author: () => null, // TODO
+		author: ({ username }) => Meteor.users.findOne({ username }),
 		parent: () => null, // TODO
 		children: () => null, // TODO
 	},
@@ -94,16 +97,16 @@ export const resolvers = {
 	Company: {
 		id: ({ _id }) => _id,
 
-		reviews: () => null, // TODO
-		jobAds: () => null, // TODO
+		reviews: ({ name }) => Reviews.find({ companyName: name }).fetch(),
+		jobAds: ({ name }) => JobAds.find({ companyName: name }).fetch(),
 	},
 
 	JobAd: {
 		id: ({ _id }) => _id,
 
-		created: () => null, // TODO
+		created: ({ datePosted }) => datePosted,
 
-		company: () => null, // TODO
+		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 	},
 
 	Review: {
@@ -119,10 +122,10 @@ export const resolvers = {
 	Salary: {
 		id: ({ _id }) => _id,
 
-		created: () => null, // TODO
+		created: ({ datePosted }) => datePosted,
 
-		author: () => null, // TODO
-		company: () => null, // TODO
+		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
+		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 	},
 
 	User: {
@@ -144,14 +147,17 @@ export const resolvers = {
 
 	VoteSubject: {
 		__resolveType(obj, context, info) {
-			/* if (obj.wingspan) {
-				return "Airplane";
+			// Test for the existance of fields unique to each type.
+			if (obj.content) {
+				return "Comment";
 			}
 
-			if (obj.licensePlate) {
-				return "Car";
-			} */
+			if (obj.companyName) {
+				return "Review";
+			}
 
+			// It should be imposible to get here.
+			// TODO throw a more informative error message.
 			return null;
 		},
 	},
@@ -159,15 +165,22 @@ export const resolvers = {
 	Vote: {
 		id: ({ _id }) => _id,
 
-		isUpvote: () => null, // TODO
+		isUpvote: ({ value }) => value,
 
-		author: () => null, // TODO
-		subject: () => null, // TODO
+		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
+		subject({ voteSubject, references }) {
+			if (voteSubject === "review") return Reviews.findOne(references);
+
+			// It should be imposible to get here.
+			// TODO throw a more informative error message.
+			return null;
+		},
 	},
 
 	Date: new GraphQLScalarType({
 		name: "Date",
-		description: "Date custom scalar type",
+		description:
+			"JavaScript Date serialized as milliseconds since midnight January 1, 1970 UTC.",
 		parseValue(value) {
 			return new Date(value); // value from the client
 		},

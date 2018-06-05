@@ -27,6 +27,7 @@ type Comment {
 
 	"What was said in this comment."
 	content: String!
+	"The date and time this was created."
 	created: Date!
 
 	"The user who wrote this."
@@ -49,6 +50,7 @@ type Company {
 type JobAd {
 	id: ID!
 
+	"The date and time this was created."
 	created: Date!
 
 	"The company that is hiring."
@@ -58,6 +60,7 @@ type JobAd {
 type Review {
 	id: ID!
 
+	"The date and time this was created."
 	created: Date!
 
 	"The user who wrote this."
@@ -71,6 +74,7 @@ type Review {
 type Salary {
 	id: ID!
 
+	"The date and time this was created."
 	created: Date!
 
 	"The user who submitted this."
@@ -93,6 +97,7 @@ type User {
 
 	"The user's role."
 	role: UserRole!
+	"The date and time this was created."
 	created: Date!
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
