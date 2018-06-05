@@ -4,49 +4,63 @@ type Query {
 	currentUser: User
 }
 
+"The roles a user can play."
 enum UserRole {
 	WORKER
 	COMPANY
 	COMPANY_UNVERIFIED
 }
 
+"The kinds of things that can be commented on."
 union CommentParent = Comment | Review
 
 type Comment {
 	id: ID!
 
+	"What was said in this comment."
 	content: String!
 
+	"The user who wrote this."
 	author: User!
+	"The thing this comment is about or the comment that this one is responding to."
 	parent: CommentParent!
+	"Responses to this comment."
 	children: [Comment!]!
 }
 
 type Company {
 	id: ID!
 
+	"Reviews about this company."
 	reviews: [Review!]!
+	"Advertisements for jobs at this company."
 	jobAds: [JobAd!]!
 }
 
 type JobAd {
 	id: ID!
 
+	"The company that is hiring."
 	company: Company!
 }
 
 type Review {
 	id: ID!
 
+	"The user who wrote this."
 	author: User!
+	"The company being reviewed"
 	company: Company!
+	"Comments about this review."
 	comments: [Comment!]!
 }
 
 type Salary {
 	id: ID!
 
+	"The user who submitted this."
 	author: User!
+	"The company that paid this salary."
 	company: Company!
 }
 
@@ -58,19 +72,27 @@ type User {
 	"The user's role."
 	role: UserRole!
 
+	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
+	"Reviews written by this user. Will be null if this user cannot write reviews."
 	reviews: [Review!]
+	"Comments written by this user."
 	comments: [Comment!]!
+	"Votes cast by this user."
 	votes: [Vote!]!
 }
 
+"The kinds of things that can be voted on."
 union VoteSubject = Comment | Review
 
 type Vote {
 	id: ID!
 
+	"True if this vote is positive or favorable."
 	isUpvote: Boolean!
 
+	"The user who cast this vote."
 	author: User!
+	"The thing voted on."
 	subject: VoteSubject!
 }
