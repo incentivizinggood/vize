@@ -44,10 +44,62 @@ export const resolvers = {
 		},
 	},
 
+	CommentParent: {
+		__resolveType(obj, context, info) {
+			/* if (obj.wingspan) {
+				return "Airplane";
+			}
+
+			if (obj.licensePlate) {
+				return "Car";
+			} */
+
+			return null;
+		},
+	},
+
+	Comment: {
+		id: ({ _id }) => _id,
+	},
+
+	Company: {
+		id: ({ _id }) => _id,
+	},
+
+	JobAd: {
+		id: ({ _id }) => _id,
+	},
+
+	Review: {
+		id: ({ _id }) => _id,
+	},
+
+	Salary: {
+		id: ({ _id }) => _id,
+	},
+
 	User: {
 		id: ({ _id }) => _id,
 		username: ({ username }) => username,
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
+	},
+
+	VoteSubject: {
+		__resolveType(obj, context, info) {
+			/* if (obj.wingspan) {
+				return "Airplane";
+			}
+
+			if (obj.licensePlate) {
+				return "Car";
+			} */
+
+			return null;
+		},
+	},
+
+	Vote: {
+		id: ({ _id }) => _id,
 	},
 
 	Date: new GraphQLScalarType({
