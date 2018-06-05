@@ -112,7 +112,20 @@ export const resolvers = {
 	Review: {
 		id: ({ _id }) => _id,
 
+		title: ({ reviewTitle }) => reviewTitle,
+		locations: ({ locations }) => locations,
+		jobTitle: ({ jobTitle }) => jobTitle,
+		numberOfMonthsWorked: ({ numberOfMonthsWorked }) =>
+			numberOfMonthsWorked,
+		pros: ({ pros }) => pros,
+		cons: ({ cons }) => cons,
+		wouldRecommendToOtherJobSeekers: ({
+			wouldRecommendToOtherJobSeekers,
+		}) => wouldRecommendToOtherJobSeekers,
+		additionalComments: ({ additionalComments }) => additionalComments,
 		created: ({ datePosted }) => datePosted,
+		upvotes: ({ upvotes }) => upvotes,
+		downvotes: ({ downvotes }) => downvotes,
 
 		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),

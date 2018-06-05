@@ -60,8 +60,18 @@ type JobAd {
 type Review {
 	id: ID!
 
+	title: String!
+	locations: [String!]!
+	jobTitle: String!
+	numberOfMonthsWorked: Int!
+	pros: String!
+	cons: String!
+	wouldRecommendToOtherJobSeekers: Boolean!
+	additionalComments: String
 	"The date and time this was created."
 	created: Date!
+	upvotes: Int!
+	downvotes: Int!
 
 	"The user who wrote this."
 	author: User!
