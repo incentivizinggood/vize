@@ -81,7 +81,18 @@ export const resolvers = {
 	User: {
 		id: ({ _id }) => _id,
 		username: ({ username }) => username,
+
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
+		created: ({ createdAt }) => createdAt,
+
+		company: ({ companyId }) =>
+			companyId ? Companies.findOne(companyId) : null,
+		reviews({ _id, role }) {
+			if (role !== "worker") return null;
+			return Reviews.find({ submittedBy: _id }).fetch();
+		},
+		comments: ({ username }) => Comments.find({ username }).fetch(),
+		votes: ({ _id }) => Votes.find({ submittedBy: _id }),
 	},
 
 	VoteSubject: {
