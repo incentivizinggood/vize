@@ -60,22 +60,47 @@ export const resolvers = {
 
 	Comment: {
 		id: ({ _id }) => _id,
+
+		content: () => null, // TODO
+		created: () => null, // TODO
+
+		author: () => null, // TODO
+		parent: () => null, // TODO
+		children: () => null, // TODO
 	},
 
 	Company: {
 		id: ({ _id }) => _id,
+
+		reviews: () => null, // TODO
+		jobAds: () => null, // TODO
 	},
 
 	JobAd: {
 		id: ({ _id }) => _id,
+
+		created: () => null, // TODO
+
+		company: () => null, // TODO
 	},
 
 	Review: {
 		id: ({ _id }) => _id,
+
+		created: () => null, // TODO
+
+		author: () => null, // TODO
+		company: () => null, // TODO
+		comments: () => null, // TODO
 	},
 
 	Salary: {
 		id: ({ _id }) => _id,
+
+		created: () => null, // TODO
+
+		author: () => null, // TODO
+		company: () => null, // TODO
 	},
 
 	User: {
@@ -111,6 +136,11 @@ export const resolvers = {
 
 	Vote: {
 		id: ({ _id }) => _id,
+
+		isUpvote: () => null, // TODO
+
+		author: () => null, // TODO
+		subject: () => null, // TODO
 	},
 
 	Date: new GraphQLScalarType({
