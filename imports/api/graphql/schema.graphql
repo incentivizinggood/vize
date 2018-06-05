@@ -41,6 +41,26 @@ type Comment {
 type Company {
 	id: ID!
 
+	vizeProfileUrl: String
+	vizeReviewUrl: String
+	vizeSalaryUrl: String
+	vizePostJobUrl: String
+	name: String!
+	contactEmail: String!
+	dateEstablished: Date
+	numEmployees: String
+	industry: String
+	locations: [String!]!
+	otherContactInfo: String
+	websiteURL: String
+	descriptionOfCompany: String
+	dateJoined: Date
+	numFlags: Int
+	avgStarRatings: StarRatings
+	numReviews: Int!
+	percentRecommended: Float
+	avgNumMonthsWorked: Float
+
 	"Reviews about this company."
 	reviews: [Review!]!
 	"Advertisements for jobs at this company."
