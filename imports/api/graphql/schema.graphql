@@ -1,7 +1,14 @@
 type Query {
 	say: String!
-	user(id: ID!): User
 	currentUser: User
+
+	comment(id: ID!): Comment
+	company(id: ID!): Company
+	jobAd(id: ID!): JobAd
+	review(id: ID!): Review
+	salary(id: ID!): Salary
+	user(id: ID!): User
+	vote(id: ID!): Vote
 }
 
 "The roles a user can play."
