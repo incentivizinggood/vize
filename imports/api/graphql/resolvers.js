@@ -122,6 +122,19 @@ export const resolvers = {
 		wouldRecommendToOtherJobSeekers: ({
 			wouldRecommendToOtherJobSeekers,
 		}) => wouldRecommendToOtherJobSeekers,
+		starRatings: ({
+			healthAndSafety,
+			managerRelationship,
+			workEnvironment,
+			benefits,
+			overallSatisfaction,
+		}) => ({
+			healthAndSafety,
+			managerRelationship,
+			workEnvironment,
+			benefits,
+			overallSatisfaction,
+		}),
 		additionalComments: ({ additionalComments }) => additionalComments,
 		created: ({ datePosted }) => datePosted,
 		upvotes: ({ upvotes }) => upvotes,
@@ -188,6 +201,14 @@ export const resolvers = {
 			// TODO throw a more informative error message.
 			return null;
 		},
+	},
+
+	StarRatings: {
+		healthAndSafety: ({ healthAndSafety }) => healthAndSafety,
+		managerRelationship: ({ managerRelationship }) => managerRelationship,
+		workEnvironment: ({ workEnvironment }) => workEnvironment,
+		benefits: ({ benefits }) => benefits,
+		overallSatisfaction: ({ overallSatisfaction }) => overallSatisfaction,
 	},
 
 	Date: new GraphQLScalarType({

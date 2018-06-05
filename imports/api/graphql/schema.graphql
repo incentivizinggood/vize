@@ -67,6 +67,7 @@ type Review {
 	pros: String!
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!
+	starRatings: StarRatings!
 	additionalComments: String
 	"The date and time this was created."
 	created: Date!
@@ -133,6 +134,14 @@ type Vote {
 	author: User!
 	"The thing voted on."
 	subject: VoteSubject!
+}
+
+type StarRatings {
+	healthAndSafety: Float!
+	managerRelationship: Float!
+	workEnvironment: Float!
+	benefits: Float!
+	overallSatisfaction: Float!
 }
 
 scalar Date
