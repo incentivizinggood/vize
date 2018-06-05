@@ -11,13 +11,6 @@ type Query {
 	vote(id: ID!): Vote
 }
 
-"The roles a user can play."
-enum UserRole {
-	WORKER
-	COMPANY
-	COMPANY_UNVERIFIED
-}
-
 "The kinds of things that can be commented on."
 union CommentParent = Comment | Review
 
@@ -26,6 +19,7 @@ type Comment {
 
 	"What was said in this comment."
 	content: String!
+	created: Date!
 
 	"The user who wrote this."
 	author: User!
@@ -47,12 +41,16 @@ type Company {
 type JobAd {
 	id: ID!
 
+	created: Date!
+
 	"The company that is hiring."
 	company: Company!
 }
 
 type Review {
 	id: ID!
+
+	created: Date!
 
 	"The user who wrote this."
 	author: User!
@@ -65,10 +63,19 @@ type Review {
 type Salary {
 	id: ID!
 
+	created: Date!
+
 	"The user who submitted this."
 	author: User!
 	"The company that paid this salary."
 	company: Company!
+}
+
+"The roles a user can play."
+enum UserRole {
+	WORKER
+	COMPANY
+	COMPANY_UNVERIFIED
 }
 
 type User {
@@ -78,6 +85,7 @@ type User {
 
 	"The user's role."
 	role: UserRole!
+	created: Date!
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
@@ -103,3 +111,5 @@ type Vote {
 	"The thing voted on."
 	subject: VoteSubject!
 }
+
+scalar Date
