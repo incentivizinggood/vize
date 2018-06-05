@@ -13,7 +13,7 @@ import "../imports/api/data/methods.js";
 if (Meteor.isServer) {
 	const db = new LiveMysql({
 		host: "localhost",
-		port: 3306,
+		port: process.env.MYSQL_PORT,
 		user: process.env.MYSQL_USR,
 		password: process.env.MYSQL_PW,
 		database: "vize",
@@ -26,8 +26,6 @@ if (Meteor.isServer) {
 
 	process.on("SIGTERM", closeAndExit);
 	process.on("SIGINT", closeAndExit);
-
-	console.log("First success!");
 }
 
 Meteor.startup(() => {
