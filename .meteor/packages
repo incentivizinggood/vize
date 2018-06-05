@@ -51,3 +51,4 @@ universe:i18n
 universe:i18n-blaze
 session
 fourseven:scss
+numtel:mysql
