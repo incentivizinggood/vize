@@ -109,11 +109,11 @@ export const resolvers = {
 	Review: {
 		id: ({ _id }) => _id,
 
-		created: () => null, // TODO
+		created: ({ datePosted }) => datePosted,
 
-		author: () => null, // TODO
-		company: () => null, // TODO
-		comments: () => null, // TODO
+		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
+		company: ({ companyName }) => Companies.findOne({ name: companyName }),
+		comments: () => [], // TODO
 	},
 
 	Salary: {
