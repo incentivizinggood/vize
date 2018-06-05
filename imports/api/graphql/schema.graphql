@@ -10,34 +10,67 @@ enum UserRole {
 	COMPANY_UNVERIFIED
 }
 
+union CommentParent = Comment | Review
+
 type Comment {
 	id: ID!
+
+	content: String!
+
+	author: User!
+	parent: CommentParent!
+	children: [Comment!]!
 }
 
 type Company {
 	id: ID!
+
+	reviews: [Review!]!
+	jobAds: [JobAd!]!
 }
 
 type JobAd {
 	id: ID!
+
+	company: Company!
 }
 
 type Review {
 	id: ID!
+
+	author: User!
+	company: Company!
+	comments: [Comment!]!
 }
 
 type Salary {
 	id: ID!
+
+	author: User!
+	company: Company!
 }
 
 type User {
 	id: ID!
 	"The user's username, as would be typed in the login field."
 	username: String!
+
 	"The user's role."
 	role: UserRole!
+
+	company: Company
+	reviews: [Review!]
+	comments: [Comment!]!
+	votes: [Vote!]!
 }
+
+union VoteSubject = Comment | Review
 
 type Vote {
 	id: ID!
+
+	isUpvote: Boolean!
+
+	author: User!
+	subject: VoteSubject!
 }
