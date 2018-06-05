@@ -1,8 +1,33 @@
+type Query {
+	say: String!
+	user(id: ID!): User
+	currentUser: User
+}
 
 enum UserRole {
 	WORKER
 	COMPANY
 	COMPANY_UNVERIFIED
+}
+
+type Comment {
+	id: ID!
+}
+
+type Company {
+	id: ID!
+}
+
+type JobAd {
+	id: ID!
+}
+
+type Review {
+	id: ID!
+}
+
+type Salary {
+	id: ID!
 }
 
 type User {
@@ -13,8 +38,6 @@ type User {
 	role: UserRole!
 }
 
-type Query {
-	say: String!
-	user(id: ID!): User
-	currentUser: User
+type Vote {
+	id: ID!
 }
