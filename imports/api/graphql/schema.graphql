@@ -74,6 +74,14 @@ type Company {
 type JobAd {
 	id: ID!
 
+	vizeApplyForJobUrl: String
+	jobTitle: String!
+	locations: [String!]!
+	pesosPerHour: String! # TODO convert to unit aware system
+	contractType: String!
+	jobDescription: String!
+	responsibilities: String!
+	qualifications: String!
 	"The date and time this was created."
 	created: Date!
 

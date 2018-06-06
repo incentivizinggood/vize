@@ -141,6 +141,14 @@ export const resolvers = {
 	JobAd: {
 		id: ({ _id }) => _id,
 
+		vizeApplyForJobUrl: ({ vizeApplyForJobUrl }) => vizeApplyForJobUrl,
+		jobTitle: ({ jobTitle }) => jobTitle,
+		locations: ({ locations }) => locations,
+		pesosPerHour: ({ pesosPerHour }) => pesosPerHour,
+		contractType: ({ contractType }) => contractType,
+		jobDescription: ({ jobDescription }) => jobDescription,
+		responsibilities: ({ responsibilities }) => responsibilities,
+		qualifications: ({ qualifications }) => qualifications,
 		created: ({ datePosted }) => datePosted,
 
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),
