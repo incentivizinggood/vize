@@ -195,6 +195,9 @@ export const resolvers = {
 	Salary: {
 		id: ({ _id }) => _id,
 
+		jobTitle: ({ jobTitle }) => jobTitle,
+		incomeType: ({ incomeType }) => incomeType,
+		incomeAmount: ({ incomeAmount }) => incomeAmount,
 		created: ({ datePosted }) => datePosted,
 
 		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
