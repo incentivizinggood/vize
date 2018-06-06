@@ -88,10 +88,14 @@ export const resolvers = {
 
 		content: ({ content }) => content,
 		created: ({ datePosted }) => datePosted,
+		upvotes: ({ upvotes }) => upvotes,
+		downvotes: ({ downvotes }) => downvotes,
 
 		author: ({ username }) => Meteor.users.findOne({ username }),
 		parent: () => null, // TODO
 		children: () => null, // TODO
+		votes: ({ _id }) =>
+			Votes.find({ voteSubject: "comment", references: _id }).fetch(),
 	},
 
 	Company: {
@@ -176,6 +180,8 @@ export const resolvers = {
 		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 		comments: () => [], // TODO
+		votes: ({ _id }) =>
+			Votes.find({ voteSubject: "review", references: _id }).fetch(),
 	},
 
 	Salary: {

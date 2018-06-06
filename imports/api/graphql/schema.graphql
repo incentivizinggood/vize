@@ -29,6 +29,8 @@ type Comment {
 	content: String!
 	"The date and time this was created."
 	created: Date!
+	upvotes: Int!
+	downvotes: Int!
 
 	"The user who wrote this."
 	author: User!
@@ -36,6 +38,8 @@ type Comment {
 	parent: CommentParent!
 	"Responses to this comment."
 	children: [Comment!]!
+	"The votes cast on this comment."
+	votes: [Vote!]!
 }
 
 type Company {
@@ -100,6 +104,8 @@ type Review {
 	company: Company!
 	"Comments about this review."
 	comments: [Comment!]!
+	"The votes cast on this review."
+	votes: [Vote!]!
 }
 
 type Salary {
