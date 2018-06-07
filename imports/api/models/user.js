@@ -1,15 +1,20 @@
 import { Meteor } from "meteor/meteor";
 
-const User = {
+const UserModel = {
+	// Get the user with a given id.
 	getById(id) {
 		return Meteor.users.findOne(id, { fields: Meteor.users.publicFields });
 	},
+
+	// Get the user with a given username.
 	getByUsername(username) {
 		return Meteor.users.findOne(
 			{ username },
 			{ fields: Meteor.users.publicFields }
 		);
 	},
+
+	// Get all of the users.
 	getAll(pageNumber = 0, pageSize = 3) {
 		const cursor = Meteor.users.find(
 			{},
@@ -26,4 +31,4 @@ const User = {
 	},
 };
 
-export default User;
+export default UserModel;

@@ -30,13 +30,13 @@ export const resolvers = {
 			return JobAds.find({}).fetch();
 		},
 		allReviews(obj, args, context) {
-			return Reviews.find({}).fetch();
+			return context.ReviewModel.getAll();
 		},
 		allSalaries(obj, args, context) {
 			return Salaries.find({}).fetch();
 		},
 		allUsers(obj, args, context) {
-			return context.models.User.getAll(args.pageNum, args.pageSize);
+			return context.UserModel.getAll(args.pageNum, args.pageSize);
 		},
 		allVotes(obj, args, context) {
 			return Votes.find({}).fetch();
@@ -52,13 +52,13 @@ export const resolvers = {
 			return JobAds.findOne(args.id);
 		},
 		review(obj, args, context) {
-			return Reviews.findOne(args.id);
+			return context.ReviewModel.getById(args.id);
 		},
 		salary(obj, args, context) {
 			return Salaries.findOne(args.id);
 		},
 		user(obj, args, context) {
-			return context.models.User.getById(args.id);
+			return context.UserModel.getById(args.id);
 		},
 		vote(obj, args, context) {
 			return Votes.findOne(args.id);
@@ -91,7 +91,7 @@ export const resolvers = {
 		downvotes: ({ downvotes }) => downvotes,
 
 		author: ({ username }, args, context) =>
-			context.models.User.getByUsername(username),
+			context.UserModel.getByUsername(username),
 		parent: () => null, // TODO
 		children: () => null, // TODO
 		votes: ({ _id }) =>
@@ -134,7 +134,7 @@ export const resolvers = {
 		percentRecommended: ({ percentRecommended }) => percentRecommended,
 		avgNumMonthsWorked: ({ avgNumMonthsWorked }) => avgNumMonthsWorked,
 
-		reviews: ({ name }) => Reviews.find({ companyName: name }).fetch(),
+		reviews: (obj, args, context) => context.ReviewModel.getByCompany(obj),
 		jobAds: ({ name }) => JobAds.find({ companyName: name }).fetch(),
 	},
 
@@ -186,7 +186,7 @@ export const resolvers = {
 		downvotes: ({ downvotes }) => downvotes,
 
 		author: ({ submittedBy }, args, context) =>
-			context.models.User.getById(submittedBy),
+			context.UserModel.getById(submittedBy),
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 		comments: () => [], // TODO
 		votes: ({ _id }) =>
@@ -202,7 +202,7 @@ export const resolvers = {
 		created: ({ datePosted }) => datePosted,
 
 		author: ({ submittedBy }, args, context) =>
-			context.models.User.getById(submittedBy),
+			context.UserModel.getById(submittedBy),
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 	},
 
@@ -215,9 +215,8 @@ export const resolvers = {
 
 		company: ({ companyId }) =>
 			companyId ? Companies.findOne(companyId) : null,
-		reviews({ _id, role }) {
-			if (role !== "worker") return null;
-			return Reviews.find({ submittedBy: _id }).fetch();
+		reviews(obj, args, context) {
+			return context.ReviewModel.getByAuthor(obj);
 		},
 		comments: ({ username }) => Comments.find({ username }).fetch(),
 		votes: ({ _id }) => Votes.find({ submittedBy: _id }),
@@ -246,7 +245,7 @@ export const resolvers = {
 		isUpvote: ({ value }) => value,
 
 		author: ({ submittedBy }, args, context) =>
-			context.models.User.getById(submittedBy),
+			context.UserModel.getById(submittedBy),
 		subject({ voteSubject, references }) {
 			if (voteSubject === "review") return Reviews.findOne(references);
 
