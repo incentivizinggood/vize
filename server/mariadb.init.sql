@@ -10,15 +10,16 @@ CREATE TABLE companies (
 	vizeSalaryUrl		varchar(255),	-- default value?
 	vizePostJobUrl		varchar(255),	-- default value?
 	name				varchar(100)	unique not null,
-	contactEmail		varchar(100), 	-- needs regex constraint
+	contactEmail		varchar(100), 	-- needs regex constraint -> CHECK RLIKE
 	dateEstablished		datetime,
-	numEmployees		varchar(20), 	-- needs allowedValues constraint
+	numEmployees		varchar(20), 	-- needs allowedValues constraint -> CHECK RLIKE
 	industry			varchar(60),
 	-- locations						-- can be done either with a separate table or dynamic columns, will probably use a separate table
 	otherContactInfo	varchar(255),
-	websiteURL			varchar(255),	-- needs regex constraint
+	websiteURL			varchar(255),	-- needs regex constraint -> CHECK RLIKE
 	descriptionOfCompany	text,
 	dateJoined			datetime,		-- default value?
+	-- min/max constraints are straightforward via CHECK
 	numFlags			int,			-- default value? also needs minValue constraint
 	healthAndSafety		float,			-- needs min/max constraints, also defaultValue?
 	managerRelationship	float,			-- needs min/max constraints, also defaultValue?
