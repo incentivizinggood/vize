@@ -125,7 +125,10 @@ if (Meteor.isServer) {
 
 			// start transaction
 			conn.beginTransaction(function(err1) {
-				if (err1) throw err1;
+				if (err1) {
+					console.log(err1);
+					throw err1;
+				}
 				conn.query(companyInsertionQuery, function(
 					err2,
 					results,
@@ -133,12 +136,14 @@ if (Meteor.isServer) {
 				) {
 					if (err2) {
 						return conn.rollback(function() {
+							console.log(err2);
 							throw err2;
 						});
 					}
 					conn.commit(function(err3) {
 						if (err3) {
 							return conn.rollback(function() {
+								console.log(err3);
 								throw err3;
 							});
 						}

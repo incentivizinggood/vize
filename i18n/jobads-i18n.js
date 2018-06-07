@@ -56,7 +56,7 @@ const jobAdErrors = function(locale) {
 const englishJobAds = jobAdErrors("en");
 const spanishJobAds = jobAdErrors("es");
 
-if (Meteor.isDevelopment) {
+if (Meteor.isDevelopment && process.env.I18N_DEBUG) {
 	console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
 	console.log(process.env.UNIVERSE_I18N_LOCALES);
 	console.log("english job ad error messages");
@@ -117,7 +117,7 @@ const jobAppErrors = function(locale) {
 const englishJobApps = jobAppErrors("en");
 const spanishJobApps = jobAppErrors("es");
 
-if (Meteor.isDevelopment) {
+if (Meteor.isDevelopment && process.env.I18N_DEBUG) {
 	console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
 	console.log(process.env.UNIVERSE_I18N_LOCALES);
 	console.log("english job app error messages");

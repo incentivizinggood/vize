@@ -100,7 +100,7 @@ const companyErrorMessages = function(locale) {
 const englishCompanies = companyErrorMessages("en");
 const spanishCompanies = companyErrorMessages("es");
 
-if (Meteor.isDevelopment) {
+if (Meteor.isDevelopment && process.env.I18N_DEBUG) {
 	console.log(Meteor.isServer ? "SERVER env" : "CLIENT env");
 	console.log(process.env.UNIVERSE_I18N_LOCALES);
 	console.log("english company error messages");
