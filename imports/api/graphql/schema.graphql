@@ -2,13 +2,13 @@ type Query {
 	say: String!
 	currentUser: User
 
-	allComments: [Comment!]!
-	allCompanies: [Company!]!
-	allJobAds: [JobAd!]!
-	allReviews: [Review!]!
-	allSalaries: [Salary!]!
+	allComments(pageNum: Int, pageSize: Int): [Comment!]!
+	allCompanies(pageNum: Int, pageSize: Int): [Company!]!
+	allJobAds(pageNum: Int, pageSize: Int): [JobAd!]!
+	allReviews(pageNum: Int, pageSize: Int): [Review!]!
+	allSalaries(pageNum: Int, pageSize: Int): [Salary!]!
 	allUsers(pageNum: Int, pageSize: Int): [User!]!
-	allVotes: [Vote!]!
+	allVotes(pageNum: Int, pageSize: Int): [Vote!]!
 
 	comment(id: ID!): Comment
 	company(id: ID!): Company
@@ -17,6 +17,9 @@ type Query {
 	salary(id: ID!): Salary
 	user(id: ID!): User
 	vote(id: ID!): Vote
+
+	# searchCompanies(searchTerms: SearchTerms, pageSize: Int, pageNum: Int): [Company!]!
+	# searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
 "The kinds of things that can be commented on."
@@ -37,9 +40,9 @@ type Comment {
 	"The thing this comment is about or the comment that this one is responding to."
 	parent: CommentParent!
 	"Responses to this comment."
-	children: [Comment!]!
+	children(pageNum: Int, pageSize: Int): [Comment!]!
 	"The votes cast on this comment."
-	votes: [Vote!]!
+	votes(pageNum: Int, pageSize: Int): [Vote!]!
 }
 
 type Company {
@@ -66,9 +69,9 @@ type Company {
 	avgNumMonthsWorked: Float
 
 	"Reviews about this company."
-	reviews: [Review!]!
+	reviews(pageNum: Int, pageSize: Int): [Review!]!
 	"Advertisements for jobs at this company."
-	jobAds: [JobAd!]!
+	jobAds(pageNum: Int, pageSize: Int): [JobAd!]!
 }
 
 type JobAd {
@@ -111,10 +114,16 @@ type Review {
 	"The company being reviewed"
 	company: Company!
 	"Comments about this review."
-	comments: [Comment!]!
+	comments(pageNum: Int, pageSize: Int): [Comment!]!
 	"The votes cast on this review."
-	votes: [Vote!]!
+	votes(pageNum: Int, pageSize: Int): [Vote!]!
 }
+
+#type Compensation {
+#basePay: Currency
+# Later on benefits should be added here
+# benefits: [Benefit!]!
+#}
 
 type Salary {
 	id: ID!
@@ -151,11 +160,11 @@ type User {
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
 	"Reviews written by this user. Will be null if this user cannot write reviews."
-	reviews: [Review!]
+	reviews(pageNum: Int, pageSize: Int): [Review!]
 	"Comments written by this user."
-	comments: [Comment!]!
+	comments(pageNum: Int, pageSize: Int): [Comment!]!
 	"Votes cast by this user."
-	votes: [Vote!]!
+	votes(pageNum: Int, pageSize: Int): [Vote!]!
 }
 
 "The kinds of things that can be voted on."

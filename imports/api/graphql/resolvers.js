@@ -19,25 +19,25 @@ export const resolvers = {
 		},
 
 		allComments(obj, args, context) {
-			return context.CommentModel.getAll();
+			return context.CommentModel.getAll(args.pageNum, args.pageSize);
 		},
 		allCompanies(obj, args, context) {
-			return context.CompanyModel.getAll();
+			return context.CompanyModel.getAll(args.pageNum, args.pageSize);
 		},
 		allJobAds(obj, args, context) {
-			return context.JobAdModel.getAll();
+			return context.JobAdModel.getAll(args.pageNum, args.pageSize);
 		},
 		allReviews(obj, args, context) {
-			return context.ReviewModel.getAll();
+			return context.ReviewModel.getAll(args.pageNum, args.pageSize);
 		},
 		allSalaries(obj, args, context) {
-			return context.SalaryModel.getAll();
+			return context.SalaryModel.getAll(args.pageNum, args.pageSize);
 		},
 		allUsers(obj, args, context) {
 			return context.UserModel.getAll(args.pageNum, args.pageSize);
 		},
 		allVotes(obj, args, context) {
-			return context.VoteModel.getAll();
+			return context.VoteModel.getAll(args.pageNum, args.pageSize);
 		},
 
 		comment(obj, args, context) {
@@ -90,8 +90,10 @@ export const resolvers = {
 
 		author: (obj, args, context) => context.CommentModel.getTheAuthor(obj),
 		parent: (obj, args, context) => context.CommentModel.getTheParent(obj),
-		children: (obj, args, context) => context.CommentModel.getByParent(obj),
-		votes: (obj, args, context) => context.VoteModel.getByAuthor(obj),
+		children: (obj, args, context) =>
+			context.CommentModel.getByParent(obj, args.pageNum, args.pageSize),
+		votes: (obj, args, context) =>
+			context.VoteModel.getByAuthor(obj, args.pageNum, args.pageSize),
 	},
 
 	Company: {
@@ -129,8 +131,10 @@ export const resolvers = {
 		percentRecommended: p("percentRecommended"),
 		avgNumMonthsWorked: p("avgNumMonthsWorked"),
 
-		reviews: (obj, args, context) => context.ReviewModel.getByCompany(obj),
-		jobAds: (obj, args, context) => context.JobAdModel.getByCompany(obj),
+		reviews: (obj, args, context) =>
+			context.ReviewModel.getByCompany(obj, args.pageNum, args.pageSize),
+		jobAds: (obj, args, context) =>
+			context.JobAdModel.getByCompany(obj, args.pageNum, args.pageSize),
 	},
 
 	JobAd: {
@@ -179,8 +183,10 @@ export const resolvers = {
 
 		author: (obj, args, context) => context.ReviewModel.getTheAuthor(obj),
 		company: (obj, args, context) => context.ReviewModel.getTheCompany(obj),
-		comments: (obj, args, context) => context.getByParent(obj),
-		votes: (obj, args, context) => context.VoteModel.getBySubject(obj),
+		comments: (obj, args, context) =>
+			context.getByParent(obj, args.pageNum, args.pageSize),
+		votes: (obj, args, context) =>
+			context.VoteModel.getBySubject(obj, args.pageNum, args.pageSize),
 	},
 
 	Salary: {
@@ -203,9 +209,12 @@ export const resolvers = {
 		created: p("createdAt"),
 
 		company: (obj, args, context) => context.UserModel.getTheCompany(obj),
-		reviews: (obj, args, context) => context.ReviewModel.getByAuthor(obj),
-		comments: (obj, args, context) => context.CommentModel.getByAuthor(obj),
-		votes: (obj, args, context) => context.VoteModel.getByAuthor(obj),
+		reviews: (obj, args, context) =>
+			context.ReviewModel.getByAuthor(obj, args.pageNum, args.pageSize),
+		comments: (obj, args, context) =>
+			context.CommentModel.getByAuthor(obj, args.pageNum, args.pageSize),
+		votes: (obj, args, context) =>
+			context.VoteModel.getByAuthor(obj, args.pageNum, args.pageSize),
 	},
 
 	VoteSubject: {
