@@ -1,13 +1,6 @@
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
 
-import { Comments } from "../data/comments.js";
-import { Companies } from "../data/companies.js";
-import { JobAds } from "../data/jobads.js";
-import { Reviews } from "../data/reviews.js";
-import { Salaries } from "../data/salaries.js";
-import { Votes } from "../data/votes.js";
-
 /* eslint-disable no-unused-vars */
 export const resolvers = {
 	Query: {
@@ -21,47 +14,47 @@ export const resolvers = {
 		},
 
 		allComments(obj, args, context) {
-			return Comments.find({}).fetch();
+			return context.CommentModel.getAll();
 		},
 		allCompanies(obj, args, context) {
-			return Companies.find({}).fetch();
+			return context.CompanyModel.getAll();
 		},
 		allJobAds(obj, args, context) {
-			return JobAds.find({}).fetch();
+			return context.JobAdModel.getAll();
 		},
 		allReviews(obj, args, context) {
 			return context.ReviewModel.getAll();
 		},
 		allSalaries(obj, args, context) {
-			return Salaries.find({}).fetch();
+			return context.SalaryModel.getAll();
 		},
 		allUsers(obj, args, context) {
 			return context.UserModel.getAll(args.pageNum, args.pageSize);
 		},
 		allVotes(obj, args, context) {
-			return Votes.find({}).fetch();
+			return context.VoteModel.getAll();
 		},
 
 		comment(obj, args, context) {
-			return Comments.findOne(args.id);
+			return context.CommentModel.getById(args.id);
 		},
 		company(obj, args, context) {
-			return Companies.findOne(args.id);
+			return context.CompanyModel.getById(args.id);
 		},
 		jobAd(obj, args, context) {
-			return JobAds.findOne(args.id);
+			return context.JobAdModel.getById(args.id);
 		},
 		review(obj, args, context) {
 			return context.ReviewModel.getById(args.id);
 		},
 		salary(obj, args, context) {
-			return Salaries.findOne(args.id);
+			return context.SalaryModel.getById(args.id);
 		},
 		user(obj, args, context) {
 			return context.UserModel.getById(args.id);
 		},
 		vote(obj, args, context) {
-			return Votes.findOne(args.id);
+			return context.VoteModel.getById(args.id);
 		},
 	},
 
@@ -90,12 +83,10 @@ export const resolvers = {
 		upvotes: ({ upvotes }) => upvotes,
 		downvotes: ({ downvotes }) => downvotes,
 
-		author: ({ username }, args, context) =>
-			context.UserModel.getByUsername(username),
+		author: (obj, args, context) => context.CommentModel.getTheAuthor(obj),
 		parent: () => null, // TODO
 		children: () => null, // TODO
-		votes: ({ _id }) =>
-			Votes.find({ voteSubject: "comment", references: _id }).fetch(),
+		votes: (obj, args, context) => context.VoteModel.getByAuthor(obj),
 	},
 
 	Company: {
@@ -135,7 +126,7 @@ export const resolvers = {
 		avgNumMonthsWorked: ({ avgNumMonthsWorked }) => avgNumMonthsWorked,
 
 		reviews: (obj, args, context) => context.ReviewModel.getByCompany(obj),
-		jobAds: ({ name }) => JobAds.find({ companyName: name }).fetch(),
+		jobAds: (obj, args, context) => context.JobAdModel.getByCompany(obj),
 	},
 
 	JobAd: {
@@ -151,7 +142,7 @@ export const resolvers = {
 		qualifications: ({ qualifications }) => qualifications,
 		created: ({ datePosted }) => datePosted,
 
-		company: ({ companyName }) => Companies.findOne({ name: companyName }),
+		company: (obj, args, context) => context.JobAdModel.getTheCompany(obj),
 	},
 
 	Review: {
@@ -185,12 +176,10 @@ export const resolvers = {
 		upvotes: ({ upvotes }) => upvotes,
 		downvotes: ({ downvotes }) => downvotes,
 
-		author: ({ submittedBy }, args, context) =>
-			context.UserModel.getById(submittedBy),
-		company: ({ companyName }) => Companies.findOne({ name: companyName }),
-		comments: () => [], // TODO
-		votes: ({ _id }) =>
-			Votes.find({ voteSubject: "review", references: _id }).fetch(),
+		author: (obj, args, context) => context.ReviewModel.getTheAuthor(obj),
+		company: (obj, args, context) => context.ReviewModel.getTheCompany(obj),
+		comments: (obj, args, context) => context.getByParent(obj),
+		votes: (obj, args, context) => context.VoteModel.getBySubject(obj),
 	},
 
 	Salary: {
@@ -201,9 +190,8 @@ export const resolvers = {
 		incomeAmount: ({ incomeAmount }) => incomeAmount,
 		created: ({ datePosted }) => datePosted,
 
-		author: ({ submittedBy }, args, context) =>
-			context.UserModel.getById(submittedBy),
-		company: ({ companyName }) => Companies.findOne({ name: companyName }),
+		author: (obj, args, context) => context.SalaryModel.getTheAuthor(obj),
+		company: (obj, args, context) => context.SalaryModel.getTheCompany(obj),
 	},
 
 	User: {
@@ -213,13 +201,10 @@ export const resolvers = {
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
 		created: ({ createdAt }) => createdAt,
 
-		company: ({ companyId }) =>
-			companyId ? Companies.findOne(companyId) : null,
-		reviews(obj, args, context) {
-			return context.ReviewModel.getByAuthor(obj);
-		},
-		comments: ({ username }) => Comments.find({ username }).fetch(),
-		votes: ({ _id }) => Votes.find({ submittedBy: _id }),
+		company: (obj, args, context) => context.UserModel.getTheCompany(obj),
+		reviews: (obj, args, context) => context.ReviewModel.getByAuthor(obj),
+		comments: (obj, args, context) => context.CommentModel.getByAuthor(obj),
+		votes: (obj, args, context) => context.VoteModel.getByAuthor(obj),
 	},
 
 	VoteSubject: {
@@ -244,15 +229,8 @@ export const resolvers = {
 
 		isUpvote: ({ value }) => value,
 
-		author: ({ submittedBy }, args, context) =>
-			context.UserModel.getById(submittedBy),
-		subject({ voteSubject, references }) {
-			if (voteSubject === "review") return Reviews.findOne(references);
-
-			// It should be imposible to get here.
-			// TODO throw a more informative error message.
-			return null;
-		},
+		author: (obj, args, context) => context.VoteModel.getTheAuthor(obj),
+		subject: (obj, args, context) => context.VoteModel.getTheSubject(obj),
 	},
 
 	StarRatings: {

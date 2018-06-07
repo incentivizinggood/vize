@@ -2,6 +2,8 @@ import { Reviews } from "../data/reviews.js";
 import UserModel from "./user.js";
 import CompanyModel from "./company.js";
 
+const defaultPageSize = 100;
+
 const ReviewModel = {
 	// Get the review with a given id.
 	getById(id) {
@@ -9,7 +11,7 @@ const ReviewModel = {
 	},
 
 	// Get all reviews written by a given user.
-	getByAuthor(user, pageNumber = 0, pageSize = 100) {
+	getByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = Reviews.find(
 			{ submittedBy: user._id },
 			{
@@ -26,7 +28,7 @@ const ReviewModel = {
 	},
 
 	// Get all reviews written about a given company.
-	getByCompany(company, pageNumber = 0, pageSize = 100) {
+	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = Reviews.find(
 			{ companyName: company.name },
 			{
@@ -43,7 +45,7 @@ const ReviewModel = {
 	},
 
 	// Get all of the reviews.
-	getAll(pageNumber = 0, pageSize = 100) {
+	getAll(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = Reviews.find(
 			{},
 			{

@@ -1,5 +1,7 @@
 import { Meteor } from "meteor/meteor";
 
+const defaultPageSize = 100;
+
 const UserModel = {
 	// Get the user with a given id.
 	getById(id) {
@@ -14,8 +16,15 @@ const UserModel = {
 		);
 	},
 
+	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
+		throw new Error("Not implemented yet");
+	},
+	getTheCompany(user) {
+		throw new Error("Not implemented yet");
+	},
+
 	// Get all of the users.
-	getAll(pageNumber = 0, pageSize = 3) {
+	getAll(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = Meteor.users.find(
 			{},
 			{
