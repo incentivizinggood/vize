@@ -1,7 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
 
-/* eslint-disable no-unused-vars */
+// A helper function that produces simple resolvers.
+function p(path) {
+	return (obj, args, context) => obj[path];
+}
+
 export const resolvers = {
 	Query: {
 		say(obj, args, context) {
@@ -76,12 +81,12 @@ export const resolvers = {
 	},
 
 	Comment: {
-		id: ({ _id }) => _id,
+		id: p("_id"),
 
-		content: ({ content }) => content,
-		created: ({ datePosted }) => datePosted,
-		upvotes: ({ upvotes }) => upvotes,
-		downvotes: ({ downvotes }) => downvotes,
+		content: p("content"),
+		created: p("datePosted"),
+		upvotes: p("upvotes"),
+		downvotes: p("downvotes"),
 
 		author: (obj, args, context) => context.CommentModel.getTheAuthor(obj),
 		parent: () => null, // TODO
@@ -90,24 +95,23 @@ export const resolvers = {
 	},
 
 	Company: {
-		id: ({ _id }) => _id,
+		id: p("_id"),
 
-		vizeProfileUrl: ({ vizeProfileUrl }) => vizeProfileUrl,
-		vizeReviewUrl: ({ vizeReviewUrl }) => vizeReviewUrl,
-		vizeSalaryUrl: ({ vizeSalaryUrl }) => vizeSalaryUrl,
-		vizePostJobUrl: ({ vizePostJobUrl }) => vizePostJobUrl,
-		name: ({ name }) => name,
-		contactEmail: ({ contactEmail }) => contactEmail,
-		dateEstablished: ({ dateEstablished }) => dateEstablished,
-		numEmployees: ({ numEmployees }) => numEmployees,
-		industry: ({ industry }) => industry,
-		locations: ({ locations }) => locations,
-		otherContactInfo: ({ otherContactInfo }) => otherContactInfo,
-		websiteURL: ({ otherContactInfo }) => otherContactInfo,
-		descriptionOfCompany: ({ descriptionOfCompany }) =>
-			descriptionOfCompany,
-		dateJoined: ({ dateJoined }) => dateJoined,
-		numFlags: ({ numFlags }) => numFlags,
+		vizeProfileUrl: p("vizeProfileUrl"),
+		vizeReviewUrl: p("vizeReviewUrl"),
+		vizeSalaryUrl: p("vizeSalaryUrl"),
+		vizePostJobUrl: p("vizePostJobUrl"),
+		name: p("name"),
+		contactEmail: p("contactEmail"),
+		dateEstablished: p("dateEstablished"),
+		numEmployees: p("numEmployees"),
+		industry: p("industry"),
+		locations: p("locations"),
+		otherContactInfo: p("otherContactInfo"),
+		websiteURL: p("otherContactInfo"),
+		descriptionOfCompany: p("descriptionOfCompany"),
+		dateJoined: p("dateJoined"),
+		numFlags: p("numFlags"),
 		avgStarRatings: ({
 			healthAndSafety,
 			managerRelationship,
@@ -121,43 +125,40 @@ export const resolvers = {
 			benefits,
 			overallSatisfaction,
 		}),
-		numReviews: ({ numReviews }) => numReviews,
-		percentRecommended: ({ percentRecommended }) => percentRecommended,
-		avgNumMonthsWorked: ({ avgNumMonthsWorked }) => avgNumMonthsWorked,
+		numReviews: p("numReviews"),
+		percentRecommended: p("percentRecommended"),
+		avgNumMonthsWorked: p("avgNumMonthsWorked"),
 
 		reviews: (obj, args, context) => context.ReviewModel.getByCompany(obj),
 		jobAds: (obj, args, context) => context.JobAdModel.getByCompany(obj),
 	},
 
 	JobAd: {
-		id: ({ _id }) => _id,
+		id: p("_id"),
 
-		vizeApplyForJobUrl: ({ vizeApplyForJobUrl }) => vizeApplyForJobUrl,
-		jobTitle: ({ jobTitle }) => jobTitle,
-		locations: ({ locations }) => locations,
-		pesosPerHour: ({ pesosPerHour }) => pesosPerHour,
-		contractType: ({ contractType }) => contractType,
-		jobDescription: ({ jobDescription }) => jobDescription,
-		responsibilities: ({ responsibilities }) => responsibilities,
-		qualifications: ({ qualifications }) => qualifications,
-		created: ({ datePosted }) => datePosted,
+		vizeApplyForJobUrl: p("vizeApplyForJobUrl"),
+		jobTitle: p("jobTitle"),
+		locations: p("locations"),
+		pesosPerHour: p("pesosPerHour"),
+		contractType: p("contractType"),
+		jobDescription: p("jobDescription"),
+		responsibilities: p("responsibilities"),
+		qualifications: p("qualifications"),
+		created: p("datePosted"),
 
 		company: (obj, args, context) => context.JobAdModel.getTheCompany(obj),
 	},
 
 	Review: {
-		id: ({ _id }) => _id,
+		id: p("_id"),
 
-		title: ({ reviewTitle }) => reviewTitle,
-		locations: ({ locations }) => locations,
-		jobTitle: ({ jobTitle }) => jobTitle,
-		numberOfMonthsWorked: ({ numberOfMonthsWorked }) =>
-			numberOfMonthsWorked,
-		pros: ({ pros }) => pros,
-		cons: ({ cons }) => cons,
-		wouldRecommendToOtherJobSeekers: ({
-			wouldRecommendToOtherJobSeekers,
-		}) => wouldRecommendToOtherJobSeekers,
+		title: p("reviewTitle"),
+		locations: p("locations"),
+		jobTitle: p("jobTitle"),
+		numberOfMonthsWorked: p("numberOfMonthsWorked"),
+		pros: p("pros"),
+		cons: p("cons"),
+		wouldRecommendToOtherJobSeekers: p("wouldRecommendToOtherJobSeekers"),
 		starRatings: ({
 			healthAndSafety,
 			managerRelationship,
@@ -171,10 +172,10 @@ export const resolvers = {
 			benefits,
 			overallSatisfaction,
 		}),
-		additionalComments: ({ additionalComments }) => additionalComments,
-		created: ({ datePosted }) => datePosted,
-		upvotes: ({ upvotes }) => upvotes,
-		downvotes: ({ downvotes }) => downvotes,
+		additionalComments: p("additionalComments"),
+		created: p("datePosted"),
+		upvotes: p("upvotes"),
+		downvotes: p("downvotes"),
 
 		author: (obj, args, context) => context.ReviewModel.getTheAuthor(obj),
 		company: (obj, args, context) => context.ReviewModel.getTheCompany(obj),
@@ -183,23 +184,23 @@ export const resolvers = {
 	},
 
 	Salary: {
-		id: ({ _id }) => _id,
+		id: p("_id"),
 
-		jobTitle: ({ jobTitle }) => jobTitle,
-		incomeType: ({ incomeType }) => incomeType,
-		incomeAmount: ({ incomeAmount }) => incomeAmount,
-		created: ({ datePosted }) => datePosted,
+		jobTitle: p("jobTitle"),
+		incomeType: p("incomeType"),
+		incomeAmount: p("incomeAmount"),
+		created: p("datePosted"),
 
 		author: (obj, args, context) => context.SalaryModel.getTheAuthor(obj),
 		company: (obj, args, context) => context.SalaryModel.getTheCompany(obj),
 	},
 
 	User: {
-		id: ({ _id }) => _id,
-		username: ({ username }) => username,
+		id: p("_id"),
+		username: p("username"),
 
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
-		created: ({ createdAt }) => createdAt,
+		created: p("createdAt"),
 
 		company: (obj, args, context) => context.UserModel.getTheCompany(obj),
 		reviews: (obj, args, context) => context.ReviewModel.getByAuthor(obj),
@@ -225,20 +226,20 @@ export const resolvers = {
 	},
 
 	Vote: {
-		id: ({ _id }) => _id,
+		id: p("_id"),
 
-		isUpvote: ({ value }) => value,
+		isUpvote: p("value"),
 
 		author: (obj, args, context) => context.VoteModel.getTheAuthor(obj),
 		subject: (obj, args, context) => context.VoteModel.getTheSubject(obj),
 	},
 
 	StarRatings: {
-		healthAndSafety: ({ healthAndSafety }) => healthAndSafety,
-		managerRelationship: ({ managerRelationship }) => managerRelationship,
-		workEnvironment: ({ workEnvironment }) => workEnvironment,
-		benefits: ({ benefits }) => benefits,
-		overallSatisfaction: ({ overallSatisfaction }) => overallSatisfaction,
+		healthAndSafety: p("healthAndSafety"),
+		managerRelationship: p("managerRelationship"),
+		workEnvironment: p("workEnvironment"),
+		benefits: p("benefits"),
+		overallSatisfaction: p("overallSatisfaction"),
 	},
 
 	Date: new GraphQLScalarType({
