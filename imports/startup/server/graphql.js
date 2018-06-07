@@ -3,6 +3,7 @@ import { makeExecutableSchema } from "graphql-tools";
 
 import typeDefs from "/imports/api/graphql/schema.graphql";
 import { resolvers } from "/imports/api/graphql/resolvers.js";
+import User from "/imports/api/models/user.js";
 
 const schema = makeExecutableSchema({
 	typeDefs,
@@ -11,4 +12,5 @@ const schema = makeExecutableSchema({
 
 createApolloServer({
 	schema,
+	context: { models: { User } },
 });

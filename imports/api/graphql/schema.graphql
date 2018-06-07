@@ -7,7 +7,7 @@ type Query {
 	allJobAds: [JobAd!]!
 	allReviews: [Review!]!
 	allSalaries: [Salary!]!
-	allUsers: [User!]!
+	allUsers(pageNum: Int, pageSize: Int): [User!]!
 	allVotes: [Vote!]!
 
 	comment(id: ID!): Comment

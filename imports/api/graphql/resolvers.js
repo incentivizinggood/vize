@@ -1,4 +1,3 @@
-import { Meteor } from "meteor/meteor";
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
 
@@ -12,56 +11,56 @@ import { Votes } from "../data/votes.js";
 /* eslint-disable no-unused-vars */
 export const resolvers = {
 	Query: {
-		say(root, args, context) {
+		say(obj, args, context) {
 			return "Hello world.";
 		},
-		currentUser(root, args, context) {
+		currentUser(obj, args, context) {
 			// The current user is added to the context
 			// by the `meteor/apollo` package.
 			return context.user;
 		},
 
-		allComments(root, args, context) {
+		allComments(obj, args, context) {
 			return Comments.find({}).fetch();
 		},
-		allCompanies(root, args, context) {
+		allCompanies(obj, args, context) {
 			return Companies.find({}).fetch();
 		},
-		allJobAds(root, args, context) {
+		allJobAds(obj, args, context) {
 			return JobAds.find({}).fetch();
 		},
-		allReviews(root, args, context) {
+		allReviews(obj, args, context) {
 			return Reviews.find({}).fetch();
 		},
-		allSalaries(root, args, context) {
+		allSalaries(obj, args, context) {
 			return Salaries.find({}).fetch();
 		},
-		allUsers(root, args, context) {
-			return Meteor.users.find({}).fetch();
+		allUsers(obj, args, context) {
+			return context.models.User.getAll(args.pageNum, args.pageSize);
 		},
-		allVotes(root, args, context) {
+		allVotes(obj, args, context) {
 			return Votes.find({}).fetch();
 		},
 
-		comment(root, args, context) {
+		comment(obj, args, context) {
 			return Comments.findOne(args.id);
 		},
-		company(root, args, context) {
+		company(obj, args, context) {
 			return Companies.findOne(args.id);
 		},
-		jobAd(root, args, context) {
+		jobAd(obj, args, context) {
 			return JobAds.findOne(args.id);
 		},
-		review(root, args, context) {
+		review(obj, args, context) {
 			return Reviews.findOne(args.id);
 		},
-		salary(root, args, context) {
+		salary(obj, args, context) {
 			return Salaries.findOne(args.id);
 		},
-		user(root, args, context) {
-			return Meteor.users.findOne(args.id);
+		user(obj, args, context) {
+			return context.models.User.getById(args.id);
 		},
-		vote(root, args, context) {
+		vote(obj, args, context) {
 			return Votes.findOne(args.id);
 		},
 	},
@@ -91,7 +90,8 @@ export const resolvers = {
 		upvotes: ({ upvotes }) => upvotes,
 		downvotes: ({ downvotes }) => downvotes,
 
-		author: ({ username }) => Meteor.users.findOne({ username }),
+		author: ({ username }, args, context) =>
+			context.models.User.getByUsername(username),
 		parent: () => null, // TODO
 		children: () => null, // TODO
 		votes: ({ _id }) =>
@@ -185,7 +185,8 @@ export const resolvers = {
 		upvotes: ({ upvotes }) => upvotes,
 		downvotes: ({ downvotes }) => downvotes,
 
-		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
+		author: ({ submittedBy }, args, context) =>
+			context.models.User.getById(submittedBy),
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 		comments: () => [], // TODO
 		votes: ({ _id }) =>
@@ -200,7 +201,8 @@ export const resolvers = {
 		incomeAmount: ({ incomeAmount }) => incomeAmount,
 		created: ({ datePosted }) => datePosted,
 
-		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
+		author: ({ submittedBy }, args, context) =>
+			context.models.User.getById(submittedBy),
 		company: ({ companyName }) => Companies.findOne({ name: companyName }),
 	},
 
@@ -243,7 +245,8 @@ export const resolvers = {
 
 		isUpvote: ({ value }) => value,
 
-		author: ({ submittedBy }) => Meteor.users.findOne(submittedBy),
+		author: ({ submittedBy }, args, context) =>
+			context.models.User.getById(submittedBy),
 		subject({ voteSubject, references }) {
 			if (voteSubject === "review") return Reviews.findOne(references);
 
