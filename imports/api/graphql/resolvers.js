@@ -89,8 +89,8 @@ export const resolvers = {
 		downvotes: p("downvotes"),
 
 		author: (obj, args, context) => context.CommentModel.getTheAuthor(obj),
-		parent: () => null, // TODO
-		children: () => null, // TODO
+		parent: (obj, args, context) => context.CommentModel.getTheParent(obj),
+		children: (obj, args, context) => context.CommentModel.getByParent(obj),
 		votes: (obj, args, context) => context.VoteModel.getByAuthor(obj),
 	},
 
