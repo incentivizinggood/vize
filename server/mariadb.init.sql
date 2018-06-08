@@ -7,23 +7,46 @@ CREATE TABLE companies (
 	vizeSalaryUrl		varchar(255),
 	vizePostJobUrl		varchar(255),
 	name				varchar(100)	unique not null,
-	contactEmail		varchar(100), 	-- needs regex constraint -> CHECK RLIKE
+	contactEmail		varchar(100), 	-- needs regex constraint -> RLIKE in trigger
 	dateEstablished		datetime,
-	numEmployees		varchar(20), 	-- needs allowedValues constraint -> CHECK RLIKE
+	numEmployees		varchar(20), 	-- needs allowedValues constraint -> RLIKE in trigger
 	industry			varchar(60),
 	-- locations						-- can be done either with a separate table or dynamic columns, will probably use a separate table
 	otherContactInfo	varchar(255),
-	websiteURL			varchar(255),	-- needs regex constraint -> CHECK RLIKE
+	websiteURL			varchar(255),	-- needs regex constraint -> RLIKE in trigger
 	descriptionOfCompany	text,
 	dateJoined			datetime		default now(),
 	-- min/max constraints are straightforward via CHECK
-	numFlags			int				default 0 check (numFlags >= 0),
-	healthAndSafety		float			default 0 check (healthAndSafety >= 0 AND healthAndSafety <= 5),
-	managerRelationship	float			default 0 check (managerRelationship >= 0 AND managerRelationship <= 5),
-	workEnvironment		float			default 0 check (workEnvironment >= 0 AND workEnvironment <= 5),
-	benefits			float			default 0 check (benefits >= 0 AND benefits <= 5),
-	overallSatisfaction	float			default 0 check (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
-	numReviews			int				default 0 check (numReviews >= 0),
-	percentRecommended	float			default 0 check (percentRecommended >= 0 AND percentRecommended <= 1),
-	avgNumMonthsWorked	float			default 0 check (avgNumMonthsWorked >= 0)
+	numFlags			int				default 0, -- geq 0
+	numReviews			int				default 0, -- geq 0
+	avgNumMonthsWorked	float			default 0, -- geq 0
+	percentRecommended	float			default 0, -- geq 0 and leq 1
+	healthAndSafety		float			default 0, -- geq 0 and leq 5
+	managerRelationship	float			default 0, -- geq 0 and leq 5
+	workEnvironment		float			default 0, -- geq 0 and leq 5
+	benefits			float			default 0, -- geq 0 and leq 5
+	overallSatisfaction	float			default 0 -- geq 0 and leq 5
 ) ENGINE = InnoDB;
+
+CREATE FUNCTION int_geq_0 (i int) RETURNS bool DETERMINISTIC
+	RETURN (i >= 0);
+
+CREATE FUNCTION float_geq_0 (f float) RETURNS bool DETERMINISTIC
+	RETURN (f >= 0);
+
+CREATE FUNCTION float_geq_0_and_leq_1 (f float) RETURNS bool DETERMINISTIC
+	RETURN (f >= 0 AND f <= 1);
+
+CREATE FUNCTION float_geq_0_and_leq_5 (f float) RETURNS bool DETERMINISTIC
+	RETURN (f >= 0 AND f <= 5);
+
+DELIMITER //
+
+CREATE TRIGGER bi_validate_company
+	BEFORE INSERT ON companies
+	FOR EACH ROW
+		BEGIN
+
+		END; //
+
+DELIMITER ;
