@@ -55,6 +55,10 @@ const ReviewModel = {
 		);
 		return cursor.fetch();
 	},
+
+	isReview(obj) {
+		throw new Error("Not implemented yet");
+	},
 };
 
 export default ReviewModel;

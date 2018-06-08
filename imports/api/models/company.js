@@ -8,8 +8,9 @@ const CompanyModel = {
 		return Companies.findOne(id);
 	},
 
+	// Get the company with a given name.
 	getByName(name) {
-		throw new Error("Not implemented yet");
+		return Companies.findOne({ name });
 	},
 
 	// Get all of the companies.

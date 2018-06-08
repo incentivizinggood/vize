@@ -1,4 +1,5 @@
 import { Meteor } from "meteor/meteor";
+import CompanyModel from "./company.js";
 
 const defaultPageSize = 100;
 
@@ -16,11 +17,21 @@ const UserModel = {
 		);
 	},
 
+	// Get all users administering a given company.
 	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
-		throw new Error("Not implemented yet");
+		const cursor = Meteor.users.find(
+			{ companyId: company._id },
+			{
+				skip: pageNumber * pageSize,
+				limit: pageSize,
+			}
+		);
+
+		return cursor.fetch();
 	},
+	// Get the company administered by a given user.
 	getTheCompany(user) {
-		throw new Error("Not implemented yet");
+		return CompanyModel.getByName(user.companyName);
 	},
 
 	// Get all of the users.

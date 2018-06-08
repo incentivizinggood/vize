@@ -1,4 +1,5 @@
 import { JobAds } from "../data/jobads.js";
+import CompanyModel from "./company.js";
 
 const defaultPageSize = 100;
 
@@ -8,11 +9,21 @@ const JobAdModel = {
 		return JobAds.findOne(id);
 	},
 
+	// Get all job ads posted by a given company.
 	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
-		throw new Error("Not implemented yet");
+		const cursor = JobAds.find(
+			{ companyName: company.name },
+			{
+				skip: pageNumber * pageSize,
+				limit: pageSize,
+			}
+		);
+
+		return cursor.fetch();
 	},
+	// Get the company that posted a given review.
 	getTheCompany(jobAd) {
-		throw new Error("Not implemented yet");
+		return CompanyModel.getByName(jobAd.companyName);
 	},
 
 	// Get all of the job ads.
