@@ -21,13 +21,13 @@ CREATE TABLE companies (
 	dateJoined			datetime		default now(),
 	-- min/max constraints are straightforward via CHECK
 	numFlags			int				default 0 check (numFlags >= 0),
-	healthAndSafety		float			default 0 check (healthAndSafety >= 0 && healthAndSafety <= 5),
-	managerRelationship	float			default 0 check (managerRelationship >= 0 && managerRelationship <= 5),
-	workEnvironment		float			default 0 check (workEnvironment >= 0 && workEnvironment <= 5),
-	benefits			float			default 0 check (benefits >= 0 && benefits <= 5),
-	overallSatisfaction	float			default 0 check (overallSatisfaction >= 0 && overallSatisfaction <= 5),
+	healthAndSafety		float			default 0 check (healthAndSafety >= 0 AND healthAndSafety <= 5),
+	managerRelationship	float			default 0 check (managerRelationship >= 0 AND managerRelationship <= 5),
+	workEnvironment		float			default 0 check (workEnvironment >= 0 AND workEnvironment <= 5),
+	benefits			float			default 0 check (benefits >= 0 AND benefits <= 5),
+	overallSatisfaction	float			default 0 check (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
 	numReviews			int				default 0 check (numReviews >= 0),
-	percentRecommended	float			default 0 check (percentRecommended >= 0),
+	percentRecommended	float			default 0 check (percentRecommended >= 0 AND percentRecommended <= 1),
 	avgNumMonthsWorked	float			default 0 check (avgNumMonthsWorked >= 0)
 ) ENGINE = InnoDB;
 COMMIT;

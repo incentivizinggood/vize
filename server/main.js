@@ -99,7 +99,6 @@ if (Meteor.isServer) {
 			// BUG need to add regex constraints
 			const locations = newCompanyProfile.locations;
 			delete newCompanyProfile.locations;
-			delete newCompanyProfile.dateJoined;
 
 			// manually create URL's since we're not relying on
 			// SimpleSchema/collection2 magic any more
