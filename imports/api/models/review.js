@@ -1,18 +1,23 @@
-import { Reviews } from "../data/reviews.js";
-import UserModel from "./user.js";
-import CompanyModel from "./company.js";
-
 const defaultPageSize = 100;
 
-const ReviewModel = {
+export default class ReviewModel {
+	constructor(connector) {
+		this.connector = connector;
+	}
+
+	init({ userModel, companyModel }) {
+		this.userModel = userModel;
+		this.companyModel = companyModel;
+	}
+
 	// Get the review with a given id.
 	getById(id) {
-		return Reviews.findOne(id);
-	},
+		return this.connector.findOne(id);
+	}
 
 	// Get all reviews written by a given user.
 	getByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
-		const cursor = Reviews.find(
+		const cursor = this.connector.find(
 			{ submittedBy: user._id },
 			{
 				skip: pageNumber * pageSize,
@@ -21,15 +26,15 @@ const ReviewModel = {
 		);
 
 		return cursor.fetch();
-	},
+	}
 	// Get the user who wrote a given review.
 	getTheAuthor(review) {
-		return UserModel.getById(review.submittedBy);
-	},
+		return this.userModel.getById(review.submittedBy);
+	}
 
 	// Get all reviews written about a given company.
 	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
-		const cursor = Reviews.find(
+		const cursor = this.connector.find(
 			{ companyName: company.name },
 			{
 				skip: pageNumber * pageSize,
@@ -38,15 +43,15 @@ const ReviewModel = {
 		);
 
 		return cursor.fetch();
-	},
+	}
 	// Get the company that a given review is about.
 	getTheCompany(review) {
-		return CompanyModel.getByName(review.companyName);
-	},
+		return this.companyModel.getByName(review.companyName);
+	}
 
 	// Get all of the reviews.
 	getAll(pageNumber = 0, pageSize = defaultPageSize) {
-		const cursor = Reviews.find(
+		const cursor = this.connector.find(
 			{},
 			{
 				skip: pageNumber * pageSize,
@@ -54,11 +59,9 @@ const ReviewModel = {
 			}
 		);
 		return cursor.fetch();
-	},
+	}
 
 	isReview(obj) {
 		throw new Error("Not implemented yet");
-	},
-};
-
-export default ReviewModel;
+	}
+}

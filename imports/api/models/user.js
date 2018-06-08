@@ -1,25 +1,33 @@
-import { Meteor } from "meteor/meteor";
-import CompanyModel from "./company.js";
-
 const defaultPageSize = 100;
 
-const UserModel = {
+export default class UserModel {
+	constructor(connector) {
+		this.connector = connector;
+	}
+
+	init({ companyModel, userModel }) {
+		this.userModel = userModel;
+		this.companyModel = companyModel;
+	}
+
 	// Get the user with a given id.
 	getById(id) {
-		return Meteor.users.findOne(id, { fields: Meteor.users.publicFields });
-	},
+		return this.connector.findOne(id, {
+			fields: this.connector.publicFields,
+		});
+	}
 
 	// Get the user with a given username.
 	getByUsername(username) {
-		return Meteor.users.findOne(
+		return this.connector.findOne(
 			{ username },
-			{ fields: Meteor.users.publicFields }
+			{ fields: this.connector.publicFields }
 		);
-	},
+	}
 
 	// Get all users administering a given company.
 	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
-		const cursor = Meteor.users.find(
+		const cursor = this.connector.find(
 			{ companyId: company._id },
 			{
 				skip: pageNumber * pageSize,
@@ -28,18 +36,18 @@ const UserModel = {
 		);
 
 		return cursor.fetch();
-	},
+	}
 	// Get the company administered by a given user.
 	getTheCompany(user) {
-		return CompanyModel.getByName(user.companyName);
-	},
+		return this.companyModel.getByName(user.companyName);
+	}
 
 	// Get all of the users.
 	getAll(pageNumber = 0, pageSize = defaultPageSize) {
-		const cursor = Meteor.users.find(
+		const cursor = this.connector.find(
 			{},
 			{
-				fields: Meteor.users.publicFields,
+				fields: this.connector.publicFields,
 				skip: pageNumber * pageSize,
 				limit: pageSize,
 			}
@@ -48,7 +56,5 @@ const UserModel = {
 		// You could determine if this is not the last page with:
 		// cursor.count(false) > (pageNumber + 1) * pageSize
 		return cursor.fetch();
-	},
-};
-
-export default UserModel;
+	}
+}
