@@ -2,7 +2,7 @@ import { createApolloServer } from "meteor/apollo";
 import { makeExecutableSchema } from "graphql-tools";
 
 import typeDefs from "/imports/api/graphql/schema.graphql";
-import { resolvers } from "/imports/api/graphql/resolvers.js";
+import resolvers from "/imports/api/graphql/resolvers.js";
 
 import CommentModel from "/imports/api/models/comment.js";
 import CompanyModel from "/imports/api/models/company.js";

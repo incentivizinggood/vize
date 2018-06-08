@@ -7,7 +7,7 @@ function p(path) {
 	return (obj, args, context) => obj[path];
 }
 
-export const resolvers = {
+export default {
 	Query: {
 		say(obj, args, context) {
 			return "Hello world.";
@@ -66,11 +66,11 @@ export const resolvers = {
 	CommentParent: {
 		__resolveType(obj, context, info) {
 			// Test for the existance of fields unique to each type.
-			if (obj.content) {
+			if (context.CommentModel.isComment(obj)) {
 				return "Comment";
 			}
 
-			if (obj.companyName) {
+			if (context.ReviewModel.isReview(obj)) {
 				return "Review";
 			}
 
@@ -220,11 +220,11 @@ export const resolvers = {
 	VoteSubject: {
 		__resolveType(obj, context, info) {
 			// Test for the existance of fields unique to each type.
-			if (obj.content) {
+			if (context.CommentModel.isComment(obj)) {
 				return "Comment";
 			}
 
-			if (obj.companyName) {
+			if (context.ReviewModel.isReview(obj)) {
 				return "Review";
 			}
 
