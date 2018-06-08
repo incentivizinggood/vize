@@ -93,13 +93,42 @@ if (Meteor.isServer) {
 				);
 			}
 			// BUG need to add extra table for locations
-			// BUG need to handle dates properly
 			// BUG need to make sure SQL injection doesn't work
+			// BUG need to make sure that URL's work
+			// BUG need to add min/max constraints
+			// BUG need to add regex constraints
 			const locations = newCompanyProfile.locations;
-			const dateJoined = newCompanyProfile.dateJoined;
 			delete newCompanyProfile.locations;
 			delete newCompanyProfile.dateJoined;
 
+			// manually create URL's since we're not relying on
+			// SimpleSchema/collection2 magic any more
+			newCompanyProfile.vizeProfileUrl = encodeURI(
+				Meteor.absoluteUrl(
+					`companyprofile/?name=${newCompanyProfile.name}`,
+					{ secure: true }
+				)
+			);
+			newCompanyProfile.vizeProfileUrl = encodeURI(
+				Meteor.absoluteUrl(
+					`write-review/?name=${newCompanyProfile.name}`,
+					{ secure: true }
+				)
+			);
+			newCompanyProfile.vizeProfileUrl = encodeURI(
+				Meteor.absoluteUrl(
+					`submit-salary-data/?name=${newCompanyProfile.name}`,
+					{ secure: true }
+				)
+			);
+			newCompanyProfile.vizeProfileUrl = encodeURI(
+				Meteor.absoluteUrl(
+					`post-a-job/?name=${newCompanyProfile.name}`,
+					{ secure: true }
+				)
+			);
+
+			// preparing the query string
 			const fieldNames = Object.keys(newCompanyProfile);
 			const newValues = Object.values(newCompanyProfile);
 			const fieldNamePlaceholders = `(${"??,".repeat(
@@ -118,12 +147,8 @@ if (Meteor.isServer) {
 			console.log(newValues);
 			console.log(companyInsertionQuery);
 
-			// how to construct ID-dependent auto-values?
-			// -> using the name, since the name is unique?
-			// -> not sure, but can do that for now, since
-			// -> the search techniques will be different anyway
-
 			// start transaction
+			// it's so good to be back in SQL
 			conn.beginTransaction(function(err1) {
 				if (err1) {
 					console.log(err1);

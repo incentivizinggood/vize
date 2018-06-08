@@ -4,11 +4,11 @@ START TRANSACTION;
 SET autocommit=0;
 -- It's so good to be back...
 CREATE TABLE companies (
-	reviewId			bigint			primary key auto_increment,
-	vizeProfileUrl		varchar(255),	-- default value?
-	vizeReviewUrl		varchar(255),	-- default value?
-	vizeSalaryUrl		varchar(255),	-- default value?
-	vizePostJobUrl		varchar(255),	-- default value?
+	_id					bigint			primary key auto_increment,
+	vizeProfileUrl		varchar(255),
+	vizeReviewUrl		varchar(255),
+	vizeSalaryUrl		varchar(255),
+	vizePostJobUrl		varchar(255),
 	name				varchar(100)	unique not null,
 	contactEmail		varchar(100), 	-- needs regex constraint -> CHECK RLIKE
 	dateEstablished		datetime,
@@ -18,16 +18,16 @@ CREATE TABLE companies (
 	otherContactInfo	varchar(255),
 	websiteURL			varchar(255),	-- needs regex constraint -> CHECK RLIKE
 	descriptionOfCompany	text,
-	dateJoined			datetime,		-- default value?
+	dateJoined			datetime		default now(),
 	-- min/max constraints are straightforward via CHECK
-	numFlags			int,			-- default value? also needs minValue constraint
-	healthAndSafety		float,			-- needs min/max constraints, also defaultValue?
-	managerRelationship	float,			-- needs min/max constraints, also defaultValue?
-	workEnvironment		float,			-- needs min/max constraints, also defaultValue?
-	benefits			float,			-- needs min/max constraints, also defaultValue?
-	overallSatisfaction	float,			-- needs min/max constraints, also defaultValue?
-	numReviews			int,			-- needs min value contraint and default value
-	percentRecommended	float,			-- needs min/max constraints, also defaultValue?
-	avgNumMonthsWorked	float			-- needs min value contraint and default value
+	numFlags			int				default 0 check (numFlags >= 0),
+	healthAndSafety		float			default 0 check (healthAndSafety >= 0 && healthAndSafety <= 5),
+	managerRelationship	float			default 0 check (managerRelationship >= 0 && managerRelationship <= 5),
+	workEnvironment		float			default 0 check (workEnvironment >= 0 && workEnvironment <= 5),
+	benefits			float			default 0 check (benefits >= 0 && benefits <= 5),
+	overallSatisfaction	float			default 0 check (overallSatisfaction >= 0 && overallSatisfaction <= 5),
+	numReviews			int				default 0 check (numReviews >= 0),
+	percentRecommended	float			default 0 check (percentRecommended >= 0),
+	avgNumMonthsWorked	float			default 0 check (avgNumMonthsWorked >= 0)
 ) ENGINE = InnoDB;
 COMMIT;
