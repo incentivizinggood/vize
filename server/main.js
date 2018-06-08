@@ -92,11 +92,19 @@ if (Meteor.isServer) {
 					i18n.__("common.methods.errorMessages.onlyOnce")
 				);
 			}
+			// BUG must separate Mongo validation from MySQL validation,
+			//		especially in cases where validation is done
+			//		AGAINST the existing databases
 			// BUG need to add extra table for locations
 			// BUG need to make sure SQL injection doesn't work
 			// BUG need to make sure that URL's work
-			// BUG need to add min/max constraints
-			// BUG need to add regex constraints
+			// BUG need to add min/max constraint trigger
+			// BUG need to add regex constraints trigger
+			// NOTE can add denormalization inside triggers
+			//		so long as the triggers are called from
+			//		a statement executing in a transaction
+
+			// not going to deal with this right now
 			const locations = newCompanyProfile.locations;
 			delete newCompanyProfile.locations;
 

@@ -1,8 +1,5 @@
 create database vize;
 use vize;
-START TRANSACTION;
-SET autocommit=0;
--- It's so good to be back...
 CREATE TABLE companies (
 	_id					bigint			primary key auto_increment,
 	vizeProfileUrl		varchar(255),
@@ -30,4 +27,3 @@ CREATE TABLE companies (
 	percentRecommended	float			default 0 check (percentRecommended >= 0 AND percentRecommended <= 1),
 	avgNumMonthsWorked	float			default 0 check (avgNumMonthsWorked >= 0)
 ) ENGINE = InnoDB;
-COMMIT;
