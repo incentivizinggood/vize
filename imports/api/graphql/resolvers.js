@@ -83,10 +83,7 @@ export default {
 	Comment: {
 		id: p("_id"),
 
-		content: p("content"),
 		created: p("datePosted"),
-		upvotes: p("upvotes"),
-		downvotes: p("downvotes"),
 
 		author: (obj, args, context) => context.commentModel.getTheAuthor(obj),
 		parent: (obj, args, context) => context.commentModel.getTheParent(obj),
@@ -99,21 +96,6 @@ export default {
 	Company: {
 		id: p("_id"),
 
-		vizeProfileUrl: p("vizeProfileUrl"),
-		vizeReviewUrl: p("vizeReviewUrl"),
-		vizeSalaryUrl: p("vizeSalaryUrl"),
-		vizePostJobUrl: p("vizePostJobUrl"),
-		name: p("name"),
-		contactEmail: p("contactEmail"),
-		dateEstablished: p("dateEstablished"),
-		numEmployees: p("numEmployees"),
-		industry: p("industry"),
-		locations: p("locations"),
-		otherContactInfo: p("otherContactInfo"),
-		websiteURL: p("otherContactInfo"),
-		descriptionOfCompany: p("descriptionOfCompany"),
-		dateJoined: p("dateJoined"),
-		numFlags: p("numFlags"),
 		avgStarRatings: ({
 			healthAndSafety,
 			managerRelationship,
@@ -127,9 +109,6 @@ export default {
 			benefits,
 			overallSatisfaction,
 		}),
-		numReviews: p("numReviews"),
-		percentRecommended: p("percentRecommended"),
-		avgNumMonthsWorked: p("avgNumMonthsWorked"),
 
 		reviews: (obj, args, context) =>
 			context.reviewModel.getByCompany(obj, args.pageNum, args.pageSize),
@@ -140,14 +119,6 @@ export default {
 	JobAd: {
 		id: p("_id"),
 
-		vizeApplyForJobUrl: p("vizeApplyForJobUrl"),
-		jobTitle: p("jobTitle"),
-		locations: p("locations"),
-		pesosPerHour: p("pesosPerHour"),
-		contractType: p("contractType"),
-		jobDescription: p("jobDescription"),
-		responsibilities: p("responsibilities"),
-		qualifications: p("qualifications"),
 		created: p("datePosted"),
 
 		company: (obj, args, context) => context.jobAdModel.getTheCompany(obj),
@@ -157,12 +128,6 @@ export default {
 		id: p("_id"),
 
 		title: p("reviewTitle"),
-		locations: p("locations"),
-		jobTitle: p("jobTitle"),
-		numberOfMonthsWorked: p("numberOfMonthsWorked"),
-		pros: p("pros"),
-		cons: p("cons"),
-		wouldRecommendToOtherJobSeekers: p("wouldRecommendToOtherJobSeekers"),
 		starRatings: ({
 			healthAndSafety,
 			managerRelationship,
@@ -176,10 +141,7 @@ export default {
 			benefits,
 			overallSatisfaction,
 		}),
-		additionalComments: p("additionalComments"),
 		created: p("datePosted"),
-		upvotes: p("upvotes"),
-		downvotes: p("downvotes"),
 
 		author: (obj, args, context) => context.reviewModel.getTheAuthor(obj),
 		company: (obj, args, context) => context.reviewModel.getTheCompany(obj),
@@ -192,9 +154,6 @@ export default {
 	Salary: {
 		id: p("_id"),
 
-		jobTitle: p("jobTitle"),
-		incomeType: p("incomeType"),
-		incomeAmount: p("incomeAmount"),
 		created: p("datePosted"),
 
 		author: (obj, args, context) => context.salaryModel.getTheAuthor(obj),
@@ -203,7 +162,6 @@ export default {
 
 	User: {
 		id: p("_id"),
-		username: p("username"),
 
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
 		created: p("createdAt"),
@@ -241,14 +199,6 @@ export default {
 
 		author: (obj, args, context) => context.voteModel.getTheAuthor(obj),
 		subject: (obj, args, context) => context.voteModel.getTheSubject(obj),
-	},
-
-	StarRatings: {
-		healthAndSafety: p("healthAndSafety"),
-		managerRelationship: p("managerRelationship"),
-		workEnvironment: p("workEnvironment"),
-		benefits: p("benefits"),
-		overallSatisfaction: p("overallSatisfaction"),
 	},
 
 	Date: new GraphQLScalarType({
