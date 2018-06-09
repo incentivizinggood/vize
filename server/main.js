@@ -95,10 +95,10 @@ if (Meteor.isServer) {
 			// BUG must separate Mongo validation from MySQL validation,
 			//		especially in cases where validation is done
 			//		AGAINST the existing databases
+			//	-> NOTE this is mostly completed
 			// BUG need to add extra table for locations
 			// BUG need to make sure SQL injection doesn't work
 			// BUG need to make sure that URL's work
-			// BUG need to make sure names are unique
 			// NOTE can add denormalization inside triggers
 			//		so long as the triggers are called from
 			//		a statement executing in a transaction

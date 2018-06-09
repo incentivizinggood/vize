@@ -1,12 +1,12 @@
 create database vize;
 use vize;
 CREATE TABLE companies (
-	_id					bigint			primary key auto_increment,
+	_id					int				unsigned primary key auto_increment,
 	vizeProfileUrl		varchar(255),
 	vizeReviewUrl		varchar(255),
 	vizeSalaryUrl		varchar(255),
 	vizePostJobUrl		varchar(255),
-	name				varchar(255)	not null,
+	name				varchar(190)	unique not null,
 	contactEmail		varchar(255)	not null, 	-- needs regex constraint -> RLIKE in trigger
 	dateEstablished		datetime,
 	numEmployees		varchar(20), 	-- needs allowedValues constraint -> RLIKE in trigger
