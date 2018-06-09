@@ -36,11 +36,13 @@ CREATE TRIGGER bi_validate_company
 		BEGIN
 			-- Not worrying about existence constraints or default values,
 			-- becuase those are handled by the schema itself
-			IF (NOT NEW.contactEmail = NULL) AND NOT (NEW.contactEmail RLIKE '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"') THEN
+			-- Got error 'PCRE does not support \L, \l, \N{name}, \U, or \u at offset 318' from regexp
+			IF (NOT NEW.contactEmail = NULL) AND NOT (NEW.contactEmail RLIKE '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$') THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "contactEmail is not a valid email";
 			ELSEIF (NOT NEW.numEmployees = NULL) AND NOT (NEW.numEmployees="1 - 50" OR NEW.numEmployees="51 - 500" OR NEW.numEmployees="501 - 2000" OR NEW.numEmployees="2001 - 5000" OR NEW.numEmployees="5000+") THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Illegal value for numEmployees";
-			ELSEIF (NOT NEW.websiteURL = NULL) AND (NOT NEW.websiteURL RLIKE "^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$") THEN
+			ELSEIF (NOT NEW.websiteURL = NULL) AND (NOT NEW.websiteURL RLIKE '^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!10(?:\\.\\d{1,3}){3})(?!127(?:\\.\\d{1,3}){3})(?!169\\.254(?:\\.\\d{1,3}){2})(?!192\\.168(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)(?:\\.(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)*(?:\\.(?:[a-z\\x00a1-\\xffff]{2,})))(?::\\d{2,5})?(?:\\/[^\\s]*)?$'
+			) THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'websiteURL is not a valid URL';
 			ELSEIF NOT NEW.numFlags = NULL AND NEW.numFlags < 0 THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'numFlags cannot be less than 0';
