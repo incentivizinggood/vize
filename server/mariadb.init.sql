@@ -36,7 +36,7 @@ CREATE TRIGGER bi_validate_company
 		BEGIN
 			-- Not worrying about existence constraints or default values,
 			-- becuase those are handled by the schema itself
-			IF (NOT NEW.contactEmail = NULL) AND NOT (NEW.contactEmail RLIKE "^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$")
+			IF (NOT NEW.contactEmail = NULL) AND NOT (NEW.contactEmail RLIKE '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"') THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "contactEmail is not a valid email";
 			ELSEIF (NOT NEW.numEmployees = NULL) AND NOT (NEW.numEmployees="1 - 50" OR NEW.numEmployees="51 - 500" OR NEW.numEmployees="501 - 2000" OR NEW.numEmployees="2001 - 5000" OR NEW.numEmployees="5000+") THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Illegal value for numEmployees";
