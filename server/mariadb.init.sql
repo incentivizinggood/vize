@@ -36,7 +36,6 @@ CREATE TRIGGER bi_validate_company
 		BEGIN
 			-- Not worrying about existence constraints or default values,
 			-- becuase those are handled by the schema itself
-			-- Got error 'PCRE does not support \L, \l, \N{name}, \U, or \u at offset 318' from regexp
 			IF ((NEW.contactEmail IS NOT NULL) AND (NOT (NEW.contactEmail RLIKE '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'))) THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "contactEmail is not a valid email";
 			ELSEIF ((NEW.numEmployees IS NOT NULL) AND (NOT (NEW.numEmployees="1 - 50" OR NEW.numEmployees="51 - 500" OR NEW.numEmployees="501 - 2000" OR NEW.numEmployees="2001 - 5000" OR NEW.numEmployees="5000+"))) THEN
@@ -52,7 +51,7 @@ CREATE TRIGGER bi_validate_company
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'avgNumMonthsWorkeds cannot be less than 0';
 			ELSEIF ((NEW.percentRecommended IS NOT NULL) AND (NEW.percentRecommended < 0 OR NEW.percentRecommended > 1)) THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'percentRecommended must be between 0 and 1 (inclusive)';
-			ELSEIF ((NEW.healthAndSafety IS NOT NULL) AND (NEW.healthAndSafety < 0 OR NEW.healthAndSafety > 1)) THEN
+			ELSEIF ((NEW.healthAndSafety IS NOT NULL) AND (NEW.healthAndSafety < 0 OR NEW.healthAndSafety > 5)) THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'healthAndSafety must be between 0 and 5 (inclusive)';
 			ELSEIF ((NEW.managerRelationship IS NOT NULL) AND (NEW.managerRelationship < 0 OR NEW.managerRelationship > 5)) THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'managerRelationship must be between 0 and 5 (inclusive)';

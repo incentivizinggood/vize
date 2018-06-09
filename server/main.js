@@ -102,6 +102,8 @@ if (Meteor.isServer) {
 			// NOTE can add denormalization inside triggers
 			//		so long as the triggers are called from
 			//		a statement executing in a transaction
+			// NOTE I should write a SQL script with a bunch of test queries
+			// and descriptions of the expected results...
 
 			// not going to deal with this right now
 			const locations = newCompanyProfile.locations;
