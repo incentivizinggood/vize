@@ -7,13 +7,13 @@ CREATE TABLE companies (
 	vizeSalaryUrl		varchar(255),
 	vizePostJobUrl		varchar(255),
 	name				varchar(190)	unique not null,
-	contactEmail		varchar(255)	not null, 	-- needs regex constraint -> RLIKE in trigger
+	contactEmail		varchar(255)	not null,
 	dateEstablished		datetime,
-	numEmployees		varchar(20), 	-- needs allowedValues constraint -> RLIKE in trigger
+	numEmployees		varchar(20),
 	industry			varchar(60),
 	-- locations						-- can be done either with a separate table or dynamic columns, will probably use a separate table
 	otherContactInfo	varchar(255),
-	websiteURL			varchar(255),	-- needs regex constraint -> RLIKE in trigger
+	websiteURL			varchar(255),
 	descriptionOfCompany	text,
 	dateJoined			datetime		default now(),
 	-- min/max constraints are straightforward via CHECK
@@ -36,6 +36,7 @@ CREATE TRIGGER bi_validate_company
 		BEGIN
 			-- Not worrying about existence constraints or default values,
 			-- becuase those are handled by the schema itself
+			-- QUESTION Should I find a better place to keep these regex strings?
 			IF ((NEW.contactEmail IS NOT NULL) AND (NOT (NEW.contactEmail RLIKE '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'))) THEN
 				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "contactEmail is not a valid email";
 			ELSEIF ((NEW.numEmployees IS NOT NULL) AND (NOT (NEW.numEmployees="1 - 50" OR NEW.numEmployees="51 - 500" OR NEW.numEmployees="501 - 2000" OR NEW.numEmployees="2001 - 5000" OR NEW.numEmployees="5000+"))) THEN

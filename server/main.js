@@ -43,8 +43,17 @@ if (Meteor.isServer) {
 
 	Meteor.methods({
 		"maria-companies.createProfile"(_newCompanyProfile) {
-			// reorder object fields/make sure order matches query, somehow
-			// INSERT via conn.query
+			// BUG Client-side validation currently uses the Mongo collections,
+			//		this is going to be an enormous source of problems
+			//		if not fixed soon, and will affect almost all the forms.
+			// BUG need to add extra table for locations
+			// BUG need to make sure SQL injection doesn't work
+			// BUG need to make sure that URL's work
+			// NOTE can add denormalization inside triggers
+			//		so long as the triggers are called from
+			//		a statement executing in a transaction
+			// NOTE I should write a SQL script with a bunch of test queries
+			// and descriptions of the expected results...
 
 			let newCompanyProfile = Companies.simpleSchema().clean(
 				_newCompanyProfile
@@ -92,25 +101,15 @@ if (Meteor.isServer) {
 					i18n.__("common.methods.errorMessages.onlyOnce")
 				);
 			}
-			// BUG must separate Mongo validation from MySQL validation,
-			//		especially in cases where validation is done
-			//		AGAINST the existing databases
-			//	-> NOTE this is mostly completed
-			// BUG need to add extra table for locations
-			// BUG need to make sure SQL injection doesn't work
-			// BUG need to make sure that URL's work
-			// NOTE can add denormalization inside triggers
-			//		so long as the triggers are called from
-			//		a statement executing in a transaction
-			// NOTE I should write a SQL script with a bunch of test queries
-			// and descriptions of the expected results...
 
 			// not going to deal with this right now
 			const locations = newCompanyProfile.locations;
 			delete newCompanyProfile.locations;
 
 			// manually create URL's since we're not relying on
-			// SimpleSchema/collection2 magic any more
+			// SimpleSchema/collection2 magic any more, would love
+			// to have done this in an AFTER INSERT trigger but then
+			// I wouldn't be able to use the magnificent Meteor.absoluteUrl
 			newCompanyProfile.vizeProfileUrl = encodeURI(
 				Meteor.absoluteUrl(
 					`companyprofile/?name=${newCompanyProfile.name}`,
@@ -156,7 +155,7 @@ if (Meteor.isServer) {
 			console.log(companyInsertionQuery);
 
 			// start transaction
-			// it's so good to be back in SQL
+			// it's soooo good to be back in SQL
 			conn.beginTransaction(function(err1) {
 				if (err1) {
 					console.log(err1);
@@ -180,6 +179,11 @@ if (Meteor.isServer) {
 								throw err3;
 							});
 						}
+						/*
+							Else, this would be the place to update the
+							Meteor.users collection with the new company ID,
+							unless that is made part of the transaction
+						*/
 					});
 				});
 			});
