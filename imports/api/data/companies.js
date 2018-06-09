@@ -186,7 +186,7 @@ Companies.schema = new SimpleSchema(
 		websiteURL: {
 			// the COMPANY's actual website, not their
 			type: String, // little corner of the Vize web app
-			max: 300,
+			max: 250,
 			optional: true, // should this be required?
 			regEx: SimpleSchema.RegEx.Url,
 			autoform: {
