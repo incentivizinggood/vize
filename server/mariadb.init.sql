@@ -1,5 +1,7 @@
 create database vize;
 use vize;
+
+-- company profiles
 CREATE TABLE companies (
 	_id					int				unsigned primary key auto_increment,
 	vizeProfileUrl		varchar(255),
@@ -66,3 +68,16 @@ CREATE TRIGGER bi_validate_company
 		END //
 
 DELIMITER ;
+
+-- normalized company locations
+CREATE TABLE locations (
+	companyName			varchar(190),
+	locationName		varchar(190),
+	PRIMARY KEY (companyName, locationName),
+	FOREIGN KEY (companyName) REFERENCES companies (name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- can now use ALTER TABLE to add foreign key constraint
+-- to companies, so that each company must have at least one location
+ALTER TABLE companies ADD FOREIGN KEY (name) REFERENCES locations (companyName);

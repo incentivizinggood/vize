@@ -46,14 +46,18 @@ if (Meteor.isServer) {
 			// BUG Client-side validation currently uses the Mongo collections,
 			//		this is going to be an enormous source of problems
 			//		if not fixed soon, and will affect almost all the forms.
+			// NOTE This just requires adding a switch in the custom validator
+			// for server-side, and writing a new method/adding a switch to the
+			// existing method on client-side
 			// BUG need to add extra table for locations
 			// BUG need to make sure SQL injection doesn't work
 			// BUG need to make sure that URL's work
+
 			// NOTE can add denormalization inside triggers
 			//		so long as the triggers are called from
 			//		a statement executing in a transaction
 			// NOTE I should write a SQL script with a bunch of test queries
-			// and descriptions of the expected results...
+			//		and descriptions of the expected results...
 
 			let newCompanyProfile = Companies.simpleSchema().clean(
 				_newCompanyProfile
@@ -106,10 +110,12 @@ if (Meteor.isServer) {
 			const locations = newCompanyProfile.locations;
 			delete newCompanyProfile.locations;
 
-			// manually create URL's since we're not relying on
+			// Manually create URL's since we're not relying on
 			// SimpleSchema/collection2 magic any more, would love
 			// to have done this in an AFTER INSERT trigger but then
-			// I wouldn't be able to use the magnificent Meteor.absoluteUrl
+			// I wouldn't be able to use the magnificent Meteor.absoluteUrl.
+			// Although there may be a way to pass in the root URL on
+			// database initialization...I'll need to think about this.
 			newCompanyProfile.vizeProfileUrl = encodeURI(
 				Meteor.absoluteUrl(
 					`companyprofile/?name=${newCompanyProfile.name}`,
@@ -135,7 +141,7 @@ if (Meteor.isServer) {
 				)
 			);
 
-			// preparing the query string
+			// preparing the query strings
 			const fieldNames = Object.keys(newCompanyProfile);
 			const newValues = Object.values(newCompanyProfile);
 			const fieldNamePlaceholders = `(${"??,".repeat(
@@ -156,6 +162,10 @@ if (Meteor.isServer) {
 
 			// start transaction
 			// it's soooo good to be back in SQL
+			// remember to turn off autocommit, otherwise
+			// the foreign key constraints will cause errors
+			// I disabled it locally in my.cnf, but that won't
+			// help anyone who clones the repo
 			conn.beginTransaction(function(err1) {
 				if (err1) {
 					console.log(err1);
@@ -172,6 +182,10 @@ if (Meteor.isServer) {
 							throw err2;
 						});
 					}
+					/*
+						Else, insert to the locations table
+						and add a link to the chain of death
+					*/
 					conn.commit(function(err3) {
 						if (err3) {
 							return conn.rollback(function() {
