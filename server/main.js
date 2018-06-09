@@ -98,8 +98,6 @@ if (Meteor.isServer) {
 			// BUG need to add extra table for locations
 			// BUG need to make sure SQL injection doesn't work
 			// BUG need to make sure that URL's work
-			// BUG need to add min/max constraint trigger
-			// BUG need to add regex constraints trigger
 			// NOTE can add denormalization inside triggers
 			//		so long as the triggers are called from
 			//		a statement executing in a transaction
