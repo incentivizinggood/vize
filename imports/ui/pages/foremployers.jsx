@@ -16,11 +16,15 @@ export default class ForEmployers extends React.Component {
 					<div className="container ">
 						<div className="col-md-12 ">
 							<div className="great-emp-hm">
-								<h1><T>common.forEmployers.find_best</T></h1>
+								<h1>
+									<T>common.forEmployers.find_best</T>
+								</h1>
 							</div>
 							<div className="great-discover-emp">
 								<h4>
-									<T>common.forEmployers.find_best_part1</T> <br /><T>common.forEmployers.find_best_part2</T>
+									<T>common.forEmployers.find_best_part1</T>{" "}
+									<br />
+									<T>common.forEmployers.find_best_part2</T>
 								</h4>
 							</div>
 							<div className="companies-btn  ">
@@ -29,7 +33,9 @@ export default class ForEmployers extends React.Component {
 										href="/register"
 										className="button out-bodr-get  "
 									>
-										<T>common.forEmployers.get_started_button</T>
+										<T>
+											common.forEmployers.get_started_button
+										</T>
 									</a>
 								</center>
 							</div>
@@ -46,11 +52,17 @@ export default class ForEmployers extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											<T>common.forEmployers.increase_workers</T> <br /><T>common.forEmployers.retention</T>
+											<T>
+												common.forEmployers.increase_workers
+											</T>{" "}
+											<br />
+											<T>common.forEmployers.retention</T>
 										</div>
 										<div className="frontLogo    emp-icon2" />
 										<div className="frontLocation   plu">
-											<T>common.forEmployers.increase_workers_text</T>
+											<T>
+												common.forEmployers.increase_workers_text
+											</T>
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<br />
@@ -63,11 +75,19 @@ export default class ForEmployers extends React.Component {
 								<div className="hover panel-hm">
 									<div className="front">
 										<div className="frontTitle">
-											<T>common.forEmployers.grow_in_response</T> <br /> <T>common.forEmployers.to_worker_feedback</T>
+											<T>
+												common.forEmployers.grow_in_response
+											</T>{" "}
+											<br />{" "}
+											<T>
+												common.forEmployers.to_worker_feedback
+											</T>
 										</div>
 										<div className="frontLogo   emp-icon1" />
 										<div className="frontLocation">
-											<T>common.forEmployers.grow_response_text</T>
+											<T>
+												common.forEmployers.grow_response_text
+											</T>
 										</div>
 										<br />
 										{/* <div  className="fl-ri-re">
@@ -97,11 +117,15 @@ export default class ForEmployers extends React.Component {
 						</div>
 						<div className="col-md-6 ">
 							<div className="great-job-hm">
-								<h1><T>common.forEmployers.reach_thousand</T> </h1>
+								<h1>
+									<T>common.forEmployers.reach_thousand</T>{" "}
+								</h1>
 							</div>
 							<div className="great-comp-hm">
 								<h4>
-									<T>common.forEmployers.reach_thousand_text</T>
+									<T>
+										common.forEmployers.reach_thousand_text
+									</T>
 								</h4>
 							</div>
 						</div>
@@ -129,7 +153,9 @@ export default class ForEmployers extends React.Component {
 											href="/register"
 											className="button out-butt-dark"
 										>
-											<T>common.forEmployers.register_button</T>
+											<T>
+												common.forEmployers.register_button
+											</T>
 										</a>
 									</center>
 								</div>

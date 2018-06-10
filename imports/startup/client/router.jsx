@@ -30,6 +30,7 @@ import WriteReviewForm from "../../ui/pages/write-review.jsx";
 import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "../../ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";
+import ResourcesWorkers from "../../ui/pages/resources-workers.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
 	import SimpleSchema from "simpl-schema";
@@ -68,7 +69,7 @@ routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
-
+routeSimplePage("/worker-resources", <ResourcesWorkers />);
 // ----- Define the more complex routes. -----//
 
 FlowRouter.route("/companies", {
