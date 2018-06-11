@@ -42,4 +42,16 @@ export default class JobAdModel {
 		);
 		return cursor.fetch();
 	}
+
+	postJobAd(company, jobAdParams) {
+		throw new Error("Not implemented yet");
+	}
+
+	editJobAd(id, jobAdChanges) {
+		throw new Error("Not implemented yet");
+	}
+
+	deleteJobAd(id) {
+		throw new Error("Not implemented yet");
+	}
 }

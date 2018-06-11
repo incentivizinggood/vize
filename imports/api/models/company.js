@@ -30,4 +30,16 @@ export default class CompanyModel {
 		);
 		return cursor.fetch();
 	}
+
+	createCompany(companyParams) {
+		throw new Error("Not implemented yet");
+	}
+
+	editCompany(id, companyChanges) {
+		throw new Error("Not implemented yet");
+	}
+
+	deleteCompany(id) {
+		throw new Error("Not implemented yet");
+	}
 }

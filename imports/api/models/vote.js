@@ -80,4 +80,14 @@ export default class VoteModel {
 		);
 		return cursor.fetch();
 	}
+
+	// Create a new vote or, if the subject was already voted on, change the vote.
+	castVote(user, subject, isUpvote) {
+		throw new Error("Not implemented yet");
+	}
+
+	// Remove a vote. If there is no vote, do nothing.
+	removeVote(user, subject) {
+		throw new Error("Not implemented yet");
+	}
 }

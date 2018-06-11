@@ -60,4 +60,16 @@ export default class SalaryModel {
 		);
 		return cursor.fetch();
 	}
+
+	submitSalary(user, company, salaryParams) {
+		throw new Error("Not implemented yet");
+	}
+
+	editSalary(id, salaryChanges) {
+		throw new Error("Not implemented yet");
+	}
+
+	deleteSalary(id) {
+		throw new Error("Not implemented yet");
+	}
 }

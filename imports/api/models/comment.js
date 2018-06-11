@@ -55,4 +55,16 @@ export default class CommentModel {
 	isComment(obj) {
 		throw new Error("Not implemented yet");
 	}
+
+	writeComment(user, subject, commentParams) {
+		throw new Error("Not implemented yet");
+	}
+
+	editComment(id, commentChanges) {
+		throw new Error("Not implemented yet");
+	}
+
+	deleteComment(id) {
+		throw new Error("Not implemented yet");
+	}
 }

@@ -62,6 +62,21 @@ export default class ReviewModel {
 	}
 
 	isReview(obj) {
+		return this.connector.schema
+			.newContext()
+			.validate(obj)
+			.isValid();
+	}
+
+	submitReview(user, company, reviewParams) {
+		throw new Error("Not implemented yet");
+	}
+
+	editReview(id, reviewChanges) {
+		throw new Error("Not implemented yet");
+	}
+
+	deleteReview(id) {
 		throw new Error("Not implemented yet");
 	}
 }

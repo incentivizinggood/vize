@@ -57,4 +57,16 @@ export default class UserModel {
 		// cursor.count(false) > (pageNumber + 1) * pageSize
 		return cursor.fetch();
 	}
+
+	createUser(userParams) {
+		throw new Error("Not implemented yet");
+	}
+
+	editUser(id, userChanges) {
+		throw new Error("Not implemented yet");
+	}
+
+	deleteUser(id) {
+		throw new Error("Not implemented yet");
+	}
 }
