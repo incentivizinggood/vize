@@ -13,7 +13,7 @@
     "lodash.find": "^4.6.0",
     "message-box": "^0.2.0",
     "meteor-node-stubs": "^0.2.11",
-    "mysql": "^2.15.0",
+    "pg": "^7.4.3",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",
@@ -32,7 +32,6 @@
     "chai": "^4.1.2",
     "chai-enzyme": "^0.8.0",
     "cheerio": "^1.0.0-rc.2",
-    "chromedriver": "^2.36.0",
     "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -42,8 +41,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^5.0.0",
     "eslint-plugin-react": "^7.8.2",
-    "nightmare": "^3.0.0",
-    "phantomjs-prebuilt": "^2.1.16",
     "prettier": "1.12.1",
     "selenium-webdriver": "^4.0.0-alpha.1"
   }
