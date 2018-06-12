@@ -1,5 +1,6 @@
 // This is the componenet that gets rendered when user searches for company name
 import React from "react";
+import { Meteor } from "meteor/meteor";
 import { JobAds } from "../api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
 import { Salaries } from "../api/data/salaries.js";
@@ -39,12 +40,19 @@ class CompanyComponent extends React.Component {
 						<div className="col-md-4  prostar">
 							<label className="goo">
 								{" "}
-								<a href={this.props.item.vizeProfileUrl}>
+								<a
+									href={`/companyprofile/?id=${
+										this.props.item.id
+									}`}
+								>
 									{this.props.item.name}
 								</a>
 							</label>
 							&nbsp;&nbsp;<StarRatings
-								rating={this.props.item.overallSatisfaction}
+								rating={
+									this.props.item.avgStarRatings
+										.overallSatisfaction
+								}
 								starDimension="25px"
 								starSpacing="2px"
 							/>
@@ -94,7 +102,9 @@ class CompanyComponent extends React.Component {
 										</label>
 									</div>
 									<a
-										href={this.props.item.vizeReviewUrl}
+										href={`/write-review/?id=${
+											this.props.item.id
+										}`}
 										className="btn btn-primary  add_review replus"
 									>
 										{" "}

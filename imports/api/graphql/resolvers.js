@@ -61,6 +61,14 @@ export default {
 		vote(obj, args, context) {
 			return context.voteModel.getById(args.id);
 		},
+
+		searchCompanies(obj, args, context) {
+			return context.companyModel.search(
+				args.searchText,
+				args.pageNum,
+				args.pageSize
+			);
+		},
 	},
 
 	CommentParent: {

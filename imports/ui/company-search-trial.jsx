@@ -1,18 +1,34 @@
 import React from "react";
-import Blaze from "meteor/gadicc:blaze-react-component";
-import "./pages/search.html";
-import { Companies } from "../api/data/companies.js";
-import { withTracker } from "meteor/react-meteor-data";
+import i18n from "meteor/universe:i18n";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+
 import CompanyComponent from "./companyComponent.jsx";
 import Header from "./pages/header.jsx";
-import Footer from "./pages/footer.jsx";
-import i18n from "meteor/universe:i18n";
+import "./pages/search.html";
 
 /* A set of controls for the user to select search queries and options.
  * For use in the CompanySearchPage.
  */
 let input = "";
 const T = i18n.createComponent();
+
+const companySearchQuery = gql`
+	query companySearchPage($searchText: String!) {
+		searchCompanies(searchText: $searchText) {
+			id
+			name
+			avgStarRatings {
+				overallSatisfaction
+			}
+			locations
+			industry
+			numEmployees
+			numReviews
+			descriptionOfCompany
+		}
+	}
+`;
 
 // //////////////////CHILD COMPONENT///////////////////
 class Results extends React.Component {
@@ -43,16 +59,16 @@ class Results extends React.Component {
 	}
 }
 
-const Results1 = withTracker(({ query }) => {
-	const handle = Meteor.subscribe("CompanyProfiles");
+const Results1 = ({ searchText }) => (
+	<Query query={companySearchQuery} variables={{ searchText }}>
+		{({ loading, error, data }) => {
+			if (loading) return "Loading...";
+			if (error) return `Error! ${error.message}`;
 
-	return {
-		isReady: handle.ready(),
-		company: Companies.find({
-			name: { $regex: `.*${query}.*`, $options: "i" },
-		}).fetch(),
-	};
-})(Results);
+			return <Results company={data.searchCompanies} />;
+		}}
+	</Query>
+);
 
 // /////////////Company Search -- Main Component////////////////////
 export default class CompanySearchTrial extends React.Component {
@@ -139,7 +155,7 @@ export default class CompanySearchTrial extends React.Component {
 				{/* ////////////////////////RESULTS CODE///////////////////////////////// */}
 
 				<br />
-				<Results1 query={this.state.input} />
+				<Results1 searchText={this.state.input} />
 			</div>
 		);
 	}

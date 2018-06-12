@@ -18,7 +18,11 @@ type Query {
 	user(id: ID!): User
 	vote(id: ID!): Vote
 
-	# searchCompanies(searchTerms: SearchTerms, pageSize: Int, pageNum: Int): [Company!]!
+	searchCompanies(
+		searchText: String
+		pageSize: Int
+		pageNum: Int
+	): [Company!]!
 	# searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
@@ -48,10 +52,6 @@ type Comment {
 type Company {
 	id: ID!
 
-	vizeProfileUrl: String
-	vizeReviewUrl: String
-	vizeSalaryUrl: String
-	vizePostJobUrl: String
 	name: String!
 	contactEmail: String!
 	dateEstablished: Date
@@ -77,7 +77,6 @@ type Company {
 type JobAd {
 	id: ID!
 
-	vizeApplyForJobUrl: String
 	jobTitle: String!
 	locations: [String!]!
 	pesosPerHour: String! # TODO convert to unit aware system

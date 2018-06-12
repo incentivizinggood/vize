@@ -31,6 +31,17 @@ export default class CompanyModel {
 		return cursor.fetch();
 	}
 
+	search(searchText, pageNumber = 0, pageSize = defaultPageSize) {
+		const cursor = this.connector.find(
+			{ name: { $regex: `.*${searchText}.*`, $options: "i" } },
+			{
+				skip: pageNumber * pageSize,
+				limit: pageSize,
+			}
+		);
+		return cursor.fetch();
+	}
+
 	createCompany(companyParams) {
 		throw new Error("Not implemented yet");
 	}
