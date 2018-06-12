@@ -1,17 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import i18n from "meteor/universe:i18n";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import CompanyComponent from "./companyComponent.jsx";
 import Header from "./pages/header.jsx";
-import "./pages/search.html";
 
-/* A set of controls for the user to select search queries and options.
- * For use in the CompanySearchPage.
- */
-let input = "";
-const T = i18n.createComponent();
+const t = i18n.createTranslator("common.search");
+const T = i18n.createComponent(t);
 
 const companySearchQuery = gql`
 	query companySearchPage($searchText: String!) {
@@ -31,65 +28,54 @@ const companySearchQuery = gql`
 `;
 
 // //////////////////CHILD COMPONENT///////////////////
-class Results extends React.Component {
-	render() {
-		const first = this.props.company;
-		let display_notice;
-
-		const RenderedItems = this.props.company.map(function(item, i) {
-			return <CompanyComponent key={i} item={item} />;
-		});
-
-		if (RenderedItems.length < 1) {
-			display_notice = (
-				<h2>
-					<T>common.search.noCompaniesMatch</T>
-				</h2>
-			);
-		} else {
-			display_notice = "";
-		}
-
-		return (
-			<ul>
-				{display_notice}
-				{RenderedItems}
-			</ul>
-		);
-	}
-}
-
-const Results1 = ({ searchText }) => (
+const SearchResults = ({ searchText }) => (
 	<Query query={companySearchQuery} variables={{ searchText }}>
 		{({ loading, error, data }) => {
-			if (loading) return "Loading...";
-			if (error) return `Error! ${error.message}`;
+			if (loading) {
+				return (
+					<h2>
+						<T>loading</T>
+					</h2>
+				);
+			}
+			if (error) {
+				return <h2>{`Error! ${error.message}`}</h2>;
+			}
 
-			return <Results company={data.searchCompanies} />;
+			const resultList = data.searchCompanies.map(function(company) {
+				return <CompanyComponent key={company.id} item={company} />;
+			});
+
+			if (resultList.length < 1) {
+				return (
+					<h2>
+						<T>noCompaniesMatch</T>
+					</h2>
+				);
+			}
+
+			return <ul>{resultList}</ul>;
 		}}
 	</Query>
 );
+
+SearchResults.propTypes = {
+	searchText: PropTypes.string.isRequired,
+};
 
 // /////////////Company Search -- Main Component////////////////////
 export default class CompanySearchTrial extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { input: "" };
+		this.state = {
+			searchTextInput: this.props.searchText || "",
+			searchText: this.props.searchText || "",
+		};
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	componentDidMount() {
-		// console.log("Inside the company Search trial page");
-		// console.log(this.props.queryParams);
-
-		if (
-			this.props.queryParams !== undefined &&
-			this.props.queryParams.input !== undefined
-		) {
-			this.setState({ input: this.props.queryParams.input });
-		} else {
-			console.log("inside else");
-		}
-
 		// Ask to be updated "reactively".
 		// universe:i18n cannot be trusted to do that automaticaly.
 		this.i18nInvalidate = () => this.forceUpdate();
@@ -100,16 +86,39 @@ export default class CompanySearchTrial extends React.Component {
 		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
+	handleInputChange(event) {
+		const { target } = event;
+		const value =
+			target.type === "checkbox" ? target.checked : target.value;
+		const { name } = target;
+
+		this.setState({
+			[name]: value,
+		});
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
-
-		input = this.refs.input_search.value;
-		// console.log(input);
-		this.refs.input_search.value = "";
-		this.setState({ input });
+		this.setState({
+			searchText: this.state.searchTextInput,
+		});
 	}
 
 	render() {
+		const form = (
+			<form className="example" onSubmit={this.handleSubmit}>
+				<input
+					name="searchTextInput"
+					type="text"
+					placeholder={t("placeholder")}
+					value={this.state.searchTextInput}
+					onChange={this.handleInputChange}
+				/>
+				<button type="submit">
+					<T>button</T>
+				</button>
+			</form>
+		);
 		return (
 			<div className="customcompanypage">
 				<div className="navbarwhite">
@@ -125,23 +134,7 @@ export default class CompanySearchTrial extends React.Component {
 								<ul className="rslides" id="slider3">
 									<li>
 										<div className="banner-text-info">
-											<form
-												className="example"
-												onSubmit={this.handleSubmit.bind(
-													this
-												)}
-											>
-												<input
-													ref="input_search"
-													type="text"
-													placeholder={i18n.__(
-														"common.search.placeholder"
-													)}
-												/>
-												<button type="submit">
-													<T>common.search.button</T>
-												</button>
-											</form>
+											{form}
 										</div>
 									</li>
 								</ul>
@@ -151,12 +144,17 @@ export default class CompanySearchTrial extends React.Component {
 					<div className="clearfix" />
 				</div>
 				<div className="clearfix" />
-
-				{/* ////////////////////////RESULTS CODE///////////////////////////////// */}
-
 				<br />
-				<Results1 searchText={this.state.input} />
+				<SearchResults searchText={this.state.searchText} />
 			</div>
 		);
 	}
 }
+
+CompanySearchTrial.propTypes = {
+	searchText: PropTypes.string,
+};
+
+CompanySearchTrial.defaultProps = {
+	searchText: "",
+};
