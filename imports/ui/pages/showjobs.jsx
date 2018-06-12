@@ -1,8 +1,8 @@
 import React from "react";
-import JobPosting from "../ui/components/jobPosting.jsx";
-import { JobAds } from "../api/data/jobads.js";
+import JobPosting from "/imports/ui/components/jobPosting.jsx";
+import { JobAds } from "/imports/api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
-import ShowJobComponent from "../ui/components/showJobComponent.jsx";
+import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header.jsx";
 import i18n from "meteor/universe:i18n";
 
