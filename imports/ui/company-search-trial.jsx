@@ -4,8 +4,8 @@ import "./pages/search.html";
 import { Companies } from "../api/data/companies.js";
 import { withTracker } from "meteor/react-meteor-data";
 import CompanyComponent from "./companyComponent.jsx";
-import Header from "./pages/header.jsx";
-import Footer from "./pages/footer.jsx";
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
 import i18n from "meteor/universe:i18n";
 
 /* A set of controls for the user to select search queries and options.
