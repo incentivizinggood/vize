@@ -1,4 +1,4 @@
-import ApolloClient from "apollo-client";
-import { meteorClientConfig } from "meteor/apollo";
+import { createApolloClient } from "meteor/apollo";
 
-export const client = new ApolloClient(meteorClientConfig());
+const client = createApolloClient();
+export default client;
