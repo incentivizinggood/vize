@@ -72,6 +72,7 @@ type Company {
 	reviews(pageNum: Int, pageSize: Int): [Review!]!
 	"Advertisements for jobs at this company."
 	jobAds(pageNum: Int, pageSize: Int): [JobAd!]!
+	salaries(pageNum: Int, pageSize: Int): [Salary!]!
 }
 
 type JobAd {

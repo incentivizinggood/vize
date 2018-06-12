@@ -122,6 +122,8 @@ export default {
 			context.reviewModel.getByCompany(obj, args.pageNum, args.pageSize),
 		jobAds: (obj, args, context) =>
 			context.jobAdModel.getByCompany(obj, args.pageNum, args.pageSize),
+		salaries: (obj, args, context) =>
+			context.salaryModel.getByCompany(obj, args.pageNum, args.pageSize),
 	},
 
 	JobAd: {
