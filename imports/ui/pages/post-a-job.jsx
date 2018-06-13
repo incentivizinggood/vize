@@ -11,7 +11,7 @@ import i18n from "meteor/universe:i18n";
 // Specific stuff second
 import { JobAds } from "../../api/data/jobads.js";
 import { Companies } from "../../api/data/companies.js";
-import "./paj_blaze_form.html";
+import "/imports/ui/forms/post-a-job.html";
 
 const paj_form_state = new ReactiveDict();
 paj_form_state.set("formError", "good"); // Shared with AutoForm helpers

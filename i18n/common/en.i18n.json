@@ -141,7 +141,7 @@
 		"findjob_part1": "Find a Great Job",
 		"commonLine": "Near You",
 		"findjob_text":
-			"With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory to work for",
+			"With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory or company to work for",
 		"jobsButton": "Jobs",
 		"findemp_part1": "Find an Employer",
 		"findemp_part2": "That Treats You Right",
@@ -156,7 +156,7 @@
 		"get_fair_salary": "Get a Fair Salary For",
 		"your_work": "Your Work",
 		"fairsalary_text":
-			"Find hundreds of salaries for different job positions and genders. Share your salary announmously to make sure others are getting fairly compensated.",
+			"Find hundreds of salaries for different job positions by gender. Share your salary anonymously to make sure others are getting fairly compensated.",
 		"salary_button": "Add a Salary",
 		"discover_employers": "Start discovering new employers now",
 		"signup_button": "SIGN UP"
@@ -186,22 +186,22 @@
 	"forEmployers": {
 		"find_best": "Find the Best Employees in Tijuana",
 		"find_best_part1":
-			"We provide more affordable and effective recruiting,",
-		"find_best_part2": "finding employees that stay",
+			"We provide affordable and effective recruiting by helping ",
+		"find_best_part2": "you find more employees and reducing turnover rates.",
 		"get_started_button": "Get Started",
 		"increase_workers": "Increase Worker",
 		"retention": "Retention",
 		"increase_workers_text":
-			"With an inside look into the work environment of your company, workers will be able to determine whether your company is the right fit for them before being hired.",
+			"With more potential employees on our site, you can find the perfect match for the position you’re hiring for.",
 		"grow_in_response": "Grow In Response",
 		"to_worker_feedback": "To Worker Feedback",
 		"grow_response_text":
-			"After creating a profile for your company, you will be able to read reviews from workers to get an idea of what they like and dislike about your company. Use negative feedback as a mechanism for growth",
+			"We provide data directly from your workforce, so you know exactly what to do to increase retention and productivity",
 		"reach_thousand": "Reach Thousands of Workers",
 		"reach_thousand_text":
-			"Register your company today to get instant access to a 60 day free trial that allows you to post an unlimited number of jobs.",
+			"Register your company today to get instant and free access to thousands of potential employees near you.",
 		"accelerate":
-			"Accelerate our growth and discover thousands of potential employees",
+			"Accelerate your growth and discover thousands of potential employees",
 		"register_button": "Register"
 	},
 

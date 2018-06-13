@@ -4,8 +4,8 @@ import i18n from "meteor/universe:i18n";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
-import CompanyComponent from "./companyComponent.jsx";
-import Header from "./pages/header.jsx";
+import Header from "/imports/ui/components/header.jsx";
+import CompanyComponent from "../companyComponent.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
