@@ -9,7 +9,7 @@ import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { Companies } from "../../api/data/companies.js";
-import "./ccp_blaze_form.html";
+import "/imports/ui/forms/create-company-profile.html";
 
 const formError = new ReactiveVar("good");
 
