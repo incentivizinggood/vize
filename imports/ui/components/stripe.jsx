@@ -1,6 +1,6 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
-import "../../api/data/methods.js";
+import "/imports/api/data/methods.js";
 import { Email } from "meteor/email";
 import { Accounts } from "meteor/accounts-base";
 

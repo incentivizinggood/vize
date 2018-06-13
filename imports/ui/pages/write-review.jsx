@@ -11,7 +11,7 @@ import i18n from "meteor/universe:i18n";
 // Specific stuff second
 import { Reviews } from "../../api/data/reviews.js";
 import { Companies } from "../../api/data/companies.js";
-import "./wr_blaze_form.html";
+import "/imports/ui/forms/write-review.html";
 
 // Weird that I have to import both of these here,
 // rather than import the .html in the .js and just
