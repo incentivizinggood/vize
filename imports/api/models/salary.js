@@ -11,12 +11,12 @@ export default class SalaryModel {
 	}
 
 	// Get the salary with a given id.
-	getById(id) {
+	getSalaryById(id) {
 		return this.connector.findOne(id);
 	}
 
 	// Get all salaries submitted by a given user.
-	getByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
+	getSalariesByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ submittedBy: user._id },
 			{
@@ -28,12 +28,12 @@ export default class SalaryModel {
 		return cursor.fetch();
 	}
 	// Get the user who submitted a given salary.
-	getTheAuthor(salary) {
-		return this.userModel.getById(salary.submittedBy);
+	getAuthorOfSalary(salary) {
+		return this.userModel.getUserById(salary.submittedBy);
 	}
 
 	// Get all salaries paid by a given company.
-	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
+	getSalariesByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ companyName: company.name },
 			{
@@ -45,12 +45,12 @@ export default class SalaryModel {
 		return cursor.fetch();
 	}
 	// Get the company that paid a given salary.
-	getTheCompany(salary) {
-		return this.companyModel.getByName(salary.companyName);
+	getCompanyOfSalary(salary) {
+		return this.companyModel.getCompanyByName(salary.companyName);
 	}
 
 	// Get all of the salaries.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllSalaries(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{

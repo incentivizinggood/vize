@@ -10,12 +10,12 @@ export default class CommentModel {
 	}
 
 	// Get the comment with a given id.
-	getById(id) {
+	getCommentById(id) {
 		return this.connector.findOne(id);
 	}
 
 	// Get all comments written by a given user.
-	getByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
+	getCommentsByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ username: user.username },
 			{
@@ -27,21 +27,21 @@ export default class CommentModel {
 		return cursor.fetch();
 	}
 	// Get the user who wrote a given comment.
-	getTheAuthor(comment) {
-		return this.userModel.getByUsername(comment.username);
+	getAuthorOfComment(comment) {
+		return this.userModel.getUserByUsername(comment.username);
 	}
 
 	// Get all comments that are about a given thing.
-	getByParent(parent, pageNumber = 0, pageSize = defaultPageSize) {
+	getCommentsByParent(parent, pageNumber = 0, pageSize = defaultPageSize) {
 		throw new Error("Not implemented yet");
 	}
 	// Get the thing that a given comment is about or the comment that a given comment is responding to.
-	getTheParent(comment) {
+	getParentOfComment(comment) {
 		throw new Error("Not implemented yet");
 	}
 
 	// Get all of the comments.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllComments(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{
@@ -56,7 +56,7 @@ export default class CommentModel {
 		throw new Error("Not implemented yet");
 	}
 
-	writeComment(user, subject, commentParams) {
+	writeComment(user, parent, commentParams) {
 		throw new Error("Not implemented yet");
 	}
 

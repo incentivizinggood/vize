@@ -10,17 +10,17 @@ export default class CompanyModel {
 	}
 
 	// Get the company with a given id.
-	getById(id) {
+	getCompanyById(id) {
 		return this.connector.findOne(id);
 	}
 
 	// Get the company with a given name.
-	getByName(name) {
+	getCompanyByName(name) {
 		return this.connector.findOne({ name });
 	}
 
 	// Get all of the companies.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllCompanies(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{
@@ -31,7 +31,11 @@ export default class CompanyModel {
 		return cursor.fetch();
 	}
 
-	search(searchText, pageNumber = 0, pageSize = defaultPageSize) {
+	searchForComapanies(
+		searchText,
+		pageNumber = 0,
+		pageSize = defaultPageSize
+	) {
 		const cursor = this.connector.find(
 			{ name: { $regex: `.*${searchText}.*`, $options: "i" } },
 			{

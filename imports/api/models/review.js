@@ -11,12 +11,12 @@ export default class ReviewModel {
 	}
 
 	// Get the review with a given id.
-	getById(id) {
+	getReviewById(id) {
 		return this.connector.findOne(id);
 	}
 
 	// Get all reviews written by a given user.
-	getByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
+	getReviewsByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ submittedBy: user._id },
 			{
@@ -28,12 +28,12 @@ export default class ReviewModel {
 		return cursor.fetch();
 	}
 	// Get the user who wrote a given review.
-	getTheAuthor(review) {
-		return this.userModel.getById(review.submittedBy);
+	getAuthorOfReview(review) {
+		return this.userModel.getUserById(review.submittedBy);
 	}
 
 	// Get all reviews written about a given company.
-	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
+	getReviewsByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ companyName: company.name },
 			{
@@ -45,12 +45,12 @@ export default class ReviewModel {
 		return cursor.fetch();
 	}
 	// Get the company that a given review is about.
-	getTheCompany(review) {
-		return this.companyModel.getByName(review.companyName);
+	getCompanyOfReview(review) {
+		return this.companyModel.getCompanyByName(review.companyName);
 	}
 
 	// Get all of the reviews.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllReviews(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{

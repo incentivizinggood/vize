@@ -12,12 +12,12 @@ export default class VoteModel {
 	}
 
 	// Get the vote with a given id.
-	getById(id) {
+	getVoteById(id) {
 		return this.connector.findOne(id);
 	}
 
 	// Get all votes cast by a given user.
-	getByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
+	getVotesByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ submittedBy: user._id },
 			{
@@ -29,12 +29,12 @@ export default class VoteModel {
 		return cursor.fetch();
 	}
 	// Get the user who cast a given vote.
-	getTheAuthor(vote) {
-		return this.userModel.getById(vote.submittedBy);
+	getAuthorOfVote(vote) {
+		return this.userModel.getUserById(vote.submittedBy);
 	}
 
 	// Get all votes that were cast on a given thing.
-	getBySubject(subject, pageNumber = 0, pageSize = defaultPageSize) {
+	getVotesBySubject(subject, pageNumber = 0, pageSize = defaultPageSize) {
 		let voteSubject;
 		if (this.reviewModel.isReview(subject)) {
 			voteSubject = "review";
@@ -57,12 +57,12 @@ export default class VoteModel {
 		return cursor.fetch();
 	}
 	// Get the thing that a given vote was cast on.
-	getTheSubject(vote) {
+	getSubjectOfVote(vote) {
 		if (vote.voteSubject === "review")
-			return this.reviewModel.getById(vote.references);
+			return this.reviewModel.getReviewById(vote.references);
 
 		if (vote.voteSubject === "comment")
-			return this.commentModel.getById(vote.references);
+			return this.commentModel.getCommentById(vote.references);
 
 		// It should be imposible to get here.
 		// TODO throw a more informative error message.
@@ -70,7 +70,7 @@ export default class VoteModel {
 	}
 
 	// Get all of the votes.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllVotes(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{

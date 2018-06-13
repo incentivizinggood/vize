@@ -19,51 +19,63 @@ export default {
 		},
 
 		allComments(obj, args, context) {
-			return context.commentModel.getAll(args.pageNum, args.pageSize);
+			return context.commentModel.getAllComments(
+				args.pageNum,
+				args.pageSize
+			);
 		},
 		allCompanies(obj, args, context) {
-			return context.companyModel.getAll(args.pageNum, args.pageSize);
+			return context.companyModel.getAllCompanies(
+				args.pageNum,
+				args.pageSize
+			);
 		},
 		allJobAds(obj, args, context) {
-			return context.jobAdModel.getAll(args.pageNum, args.pageSize);
+			return context.jobAdModel.getAllJobAds(args.pageNum, args.pageSize);
 		},
 		allReviews(obj, args, context) {
-			return context.reviewModel.getAll(args.pageNum, args.pageSize);
+			return context.reviewModel.getAllReviews(
+				args.pageNum,
+				args.pageSize
+			);
 		},
 		allSalaries(obj, args, context) {
-			return context.salaryModel.getAll(args.pageNum, args.pageSize);
+			return context.salaryModel.getAllSalaries(
+				args.pageNum,
+				args.pageSize
+			);
 		},
 		allUsers(obj, args, context) {
-			return context.userModel.getAll(args.pageNum, args.pageSize);
+			return context.userModel.getAllUsers(args.pageNum, args.pageSize);
 		},
 		allVotes(obj, args, context) {
-			return context.voteModel.getAll(args.pageNum, args.pageSize);
+			return context.voteModel.getAllVotes(args.pageNum, args.pageSize);
 		},
 
 		comment(obj, args, context) {
-			return context.commentModel.getById(args.id);
+			return context.commentModel.getCommentById(args.id);
 		},
 		company(obj, args, context) {
-			return context.companyModel.getById(args.id);
+			return context.companyModel.getCompanyById(args.id);
 		},
 		jobAd(obj, args, context) {
-			return context.jobAdModel.getById(args.id);
+			return context.jobAdModel.getJobAdById(args.id);
 		},
 		review(obj, args, context) {
-			return context.reviewModel.getById(args.id);
+			return context.reviewModel.getReviewById(args.id);
 		},
 		salary(obj, args, context) {
-			return context.salaryModel.getById(args.id);
+			return context.salaryModel.getSalaryById(args.id);
 		},
 		user(obj, args, context) {
-			return context.userModel.getById(args.id);
+			return context.userModel.getUserById(args.id);
 		},
 		vote(obj, args, context) {
-			return context.voteModel.getById(args.id);
+			return context.voteModel.getVoteById(args.id);
 		},
 
 		searchCompanies(obj, args, context) {
-			return context.companyModel.search(
+			return context.companyModel.searchForCompanies(
 				args.searchText,
 				args.pageNum,
 				args.pageSize
@@ -93,12 +105,22 @@ export default {
 
 		created: p("datePosted"),
 
-		author: (obj, args, context) => context.commentModel.getTheAuthor(obj),
-		parent: (obj, args, context) => context.commentModel.getTheParent(obj),
+		author: (obj, args, context) =>
+			context.commentModel.getAuthorOfComment(obj),
+		parent: (obj, args, context) =>
+			context.commentModel.getParentOfComment(obj),
 		children: (obj, args, context) =>
-			context.commentModel.getByParent(obj, args.pageNum, args.pageSize),
+			context.commentModel.getCommentsByParent(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 		votes: (obj, args, context) =>
-			context.voteModel.getByAuthor(obj, args.pageNum, args.pageSize),
+			context.voteModel.getVotesBySubject(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 	},
 
 	Company: {
@@ -119,11 +141,23 @@ export default {
 		}),
 
 		reviews: (obj, args, context) =>
-			context.reviewModel.getByCompany(obj, args.pageNum, args.pageSize),
+			context.reviewModel.getReviewsByCompany(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 		jobAds: (obj, args, context) =>
-			context.jobAdModel.getByCompany(obj, args.pageNum, args.pageSize),
+			context.jobAdModel.getJobAdsByCompany(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 		salaries: (obj, args, context) =>
-			context.salaryModel.getByCompany(obj, args.pageNum, args.pageSize),
+			context.salaryModel.getSalariesByCompany(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 	},
 
 	JobAd: {
@@ -131,7 +165,8 @@ export default {
 
 		created: p("datePosted"),
 
-		company: (obj, args, context) => context.jobAdModel.getTheCompany(obj),
+		company: (obj, args, context) =>
+			context.jobAdModel.getCompanyOfJobAd(obj),
 	},
 
 	Review: {
@@ -153,12 +188,18 @@ export default {
 		}),
 		created: p("datePosted"),
 
-		author: (obj, args, context) => context.reviewModel.getTheAuthor(obj),
-		company: (obj, args, context) => context.reviewModel.getTheCompany(obj),
+		author: (obj, args, context) =>
+			context.reviewModel.getAuthorOfReview(obj),
+		company: (obj, args, context) =>
+			context.reviewModel.getCompanyOfReview(obj),
 		comments: (obj, args, context) =>
-			context.getByParent(obj, args.pageNum, args.pageSize),
+			context.getCommentsByParent(obj, args.pageNum, args.pageSize),
 		votes: (obj, args, context) =>
-			context.voteModel.getBySubject(obj, args.pageNum, args.pageSize),
+			context.voteModel.getVotesBySubject(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 	},
 
 	Salary: {
@@ -166,8 +207,10 @@ export default {
 
 		created: p("datePosted"),
 
-		author: (obj, args, context) => context.salaryModel.getTheAuthor(obj),
-		company: (obj, args, context) => context.salaryModel.getTheCompany(obj),
+		author: (obj, args, context) =>
+			context.salaryModel.getAuthorOfSalary(obj),
+		company: (obj, args, context) =>
+			context.salaryModel.getCompanyOfSalary(obj),
 	},
 
 	User: {
@@ -176,13 +219,26 @@ export default {
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
 		created: p("createdAt"),
 
-		company: (obj, args, context) => context.userModel.getTheCompany(obj),
+		company: (obj, args, context) =>
+			context.userModel.getCompanyOfUser(obj),
 		reviews: (obj, args, context) =>
-			context.reviewModel.getByAuthor(obj, args.pageNum, args.pageSize),
+			context.reviewModel.getReviewsByAuthor(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 		comments: (obj, args, context) =>
-			context.commentModel.getByAuthor(obj, args.pageNum, args.pageSize),
+			context.commentModel.getCommentsByAuthor(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 		votes: (obj, args, context) =>
-			context.voteModel.getByAuthor(obj, args.pageNum, args.pageSize),
+			context.voteModel.getVotesByAuthor(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 	},
 
 	VoteSubject: {
@@ -207,8 +263,9 @@ export default {
 
 		isUpvote: p("value"),
 
-		author: (obj, args, context) => context.voteModel.getTheAuthor(obj),
-		subject: (obj, args, context) => context.voteModel.getTheSubject(obj),
+		author: (obj, args, context) => context.voteModel.getAuthorOfVote(obj),
+		subject: (obj, args, context) =>
+			context.voteModel.getSubjectOfVote(obj),
 	},
 
 	Date: new GraphQLScalarType({

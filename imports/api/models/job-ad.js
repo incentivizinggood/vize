@@ -10,12 +10,12 @@ export default class JobAdModel {
 	}
 
 	// Get the job ad with a given id.
-	getById(id) {
+	getJobAdById(id) {
 		return this.connector.findOne(id);
 	}
 
 	// Get all job ads posted by a given company.
-	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
+	getJobAdsByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ companyName: company.name },
 			{
@@ -27,12 +27,12 @@ export default class JobAdModel {
 		return cursor.fetch();
 	}
 	// Get the company that posted a given review.
-	getTheCompany(jobAd) {
-		return this.companyModel.getByName(jobAd.companyName);
+	getCompanyOfJobAd(jobAd) {
+		return this.companyModel.getCompanyByName(jobAd.companyName);
 	}
 
 	// Get all of the job ads.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllJobAds(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{

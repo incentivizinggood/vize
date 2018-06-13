@@ -5,20 +5,19 @@ export default class UserModel {
 		this.connector = connector;
 	}
 
-	init({ companyModel, userModel }) {
-		this.userModel = userModel;
+	init({ companyModel }) {
 		this.companyModel = companyModel;
 	}
 
 	// Get the user with a given id.
-	getById(id) {
+	getUserById(id) {
 		return this.connector.findOne(id, {
 			fields: this.connector.publicFields,
 		});
 	}
 
 	// Get the user with a given username.
-	getByUsername(username) {
+	getUserByUsername(username) {
 		return this.connector.findOne(
 			{ username },
 			{ fields: this.connector.publicFields }
@@ -26,7 +25,7 @@ export default class UserModel {
 	}
 
 	// Get all users administering a given company.
-	getByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
+	getUsersByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{ companyId: company._id },
 			{
@@ -38,12 +37,12 @@ export default class UserModel {
 		return cursor.fetch();
 	}
 	// Get the company administered by a given user.
-	getTheCompany(user) {
-		return this.companyModel.getByName(user.companyName);
+	getCompanyOfUser(user) {
+		return this.companyModel.getCompanyByName(user.companyName);
 	}
 
 	// Get all of the users.
-	getAll(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllUsers(pageNumber = 0, pageSize = defaultPageSize) {
 		const cursor = this.connector.find(
 			{},
 			{
