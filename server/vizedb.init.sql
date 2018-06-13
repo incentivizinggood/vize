@@ -1,5 +1,5 @@
-create database vize;
-use vize;
+-- create database vize;
+-- use vize;
 
 -- company profiles
 CREATE TABLE companies (
