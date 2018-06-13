@@ -5,8 +5,8 @@ import { Reviews } from "../../api/data/reviews.js";
 import { JobAds } from "../../api/data/jobads.js";
 import { Salaries } from "../../api/data/salaries.js";
 import { Votes } from "../../api/data/votes.js";
-import Header from "../../ui/pages/header.jsx";
-import Footer from "../../ui/pages/footer.jsx";
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
 import StarRatings from "react-star-ratings";
 
 import OverviewTab from "../../ui/components/overviewTabCP.jsx";

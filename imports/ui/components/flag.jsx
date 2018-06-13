@@ -1,7 +1,7 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import "../../api/data/methods.js";
-import Dialog from "../../ui/pages/dialog-box.jsx";
+import Dialog from "./dialog-box.jsx";
 
 import { Email } from "meteor/email";
 import { Accounts } from "meteor/accounts-base";

@@ -11,7 +11,7 @@ import i18n from "meteor/universe:i18n";
 // Specific stuff second
 import { Salaries } from "../../api/data/salaries.js";
 import { Companies } from "../../api/data/companies.js";
-import "./ssd_blaze_form.html";
+import "/imports/ui/forms/submit-salary-data.html";
 
 const ssd_form_state = new ReactiveDict();
 ssd_form_state.set("formError", "good"); // Shared with AutoForm helpers
