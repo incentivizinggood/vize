@@ -2,6 +2,7 @@
 import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type UserModel, { User } from "./user.js";
+import type ReviewModel, { Review } from "./review.js";
 
 const defaultPageSize = 100;
 
@@ -12,7 +13,7 @@ export type Comment = {
 	content: string,
 };
 
-export type CommentParent = any;
+export type CommentParent = Comment | Review;
 
 export default class CommentModel {
 	connector: Mongo.Collection;

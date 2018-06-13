@@ -1,80 +1,105 @@
+// @flow
 /* eslint-disable no-unused-vars */
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
+import type { Comment, CommentParent } from "../models/comment.js";
+import type { Company } from "../models/company.js";
+import type { JobAd } from "../models/job-ad.js";
+import type { Review } from "../models/review.js";
+import type { User } from "../models/user.js";
+import type { Salary } from "../models/salary.js";
+import type { Vote, VoteSubject } from "../models/vote.js";
+import type { ID, AllModels } from "../models/common.js";
+
+type Context = {
+	user: User,
+} & AllModels;
+
+type PgnArgs = {
+	pageNum?: number,
+	pageSize?: number,
+};
+
+type IdArg = { id: ID };
 
 // A helper function that produces simple resolvers.
-function p(path) {
-	return (obj, args, context) => obj[path];
+function p(path: string): ({ [path: string]: any }, {}, Context) => any {
+	return (obj: { [path: string]: any }, args: {}, context: Context): any =>
+		obj[path];
 }
 
 export default {
 	Query: {
-		say(obj, args, context) {
+		say(obj: {}, args: {}, context: Context) {
 			return "Hello world.";
 		},
-		currentUser(obj, args, context) {
+		currentUser(obj: {}, args: {}, context: Context) {
 			// The current user is added to the context
 			// by the `meteor/apollo` package.
 			return context.user;
 		},
 
-		allComments(obj, args, context) {
+		allComments(obj: {}, args: PgnArgs, context: Context) {
 			return context.commentModel.getAllComments(
 				args.pageNum,
 				args.pageSize
 			);
 		},
-		allCompanies(obj, args, context) {
+		allCompanies(obj: {}, args: PgnArgs, context: Context) {
 			return context.companyModel.getAllCompanies(
 				args.pageNum,
 				args.pageSize
 			);
 		},
-		allJobAds(obj, args, context) {
+		allJobAds(obj: {}, args: PgnArgs, context: Context) {
 			return context.jobAdModel.getAllJobAds(args.pageNum, args.pageSize);
 		},
-		allReviews(obj, args, context) {
+		allReviews(obj: {}, args: PgnArgs, context: Context) {
 			return context.reviewModel.getAllReviews(
 				args.pageNum,
 				args.pageSize
 			);
 		},
-		allSalaries(obj, args, context) {
+		allSalaries(obj: {}, args: PgnArgs, context: Context) {
 			return context.salaryModel.getAllSalaries(
 				args.pageNum,
 				args.pageSize
 			);
 		},
-		allUsers(obj, args, context) {
+		allUsers(obj: {}, args: PgnArgs, context: Context) {
 			return context.userModel.getAllUsers(args.pageNum, args.pageSize);
 		},
-		allVotes(obj, args, context) {
+		allVotes(obj: {}, args: PgnArgs, context: Context) {
 			return context.voteModel.getAllVotes(args.pageNum, args.pageSize);
 		},
 
-		comment(obj, args, context) {
+		comment(obj: {}, args: IdArg, context: Context) {
 			return context.commentModel.getCommentById(args.id);
 		},
-		company(obj, args, context) {
+		company(obj: {}, args: IdArg, context: Context) {
 			return context.companyModel.getCompanyById(args.id);
 		},
-		jobAd(obj, args, context) {
+		jobAd(obj: {}, args: IdArg, context: Context) {
 			return context.jobAdModel.getJobAdById(args.id);
 		},
-		review(obj, args, context) {
+		review(obj: {}, args: IdArg, context: Context) {
 			return context.reviewModel.getReviewById(args.id);
 		},
-		salary(obj, args, context) {
+		salary(obj: {}, args: IdArg, context: Context) {
 			return context.salaryModel.getSalaryById(args.id);
 		},
-		user(obj, args, context) {
+		user(obj: {}, args: IdArg, context: Context) {
 			return context.userModel.getUserById(args.id);
 		},
-		vote(obj, args, context) {
+		vote(obj: {}, args: IdArg, context: Context) {
 			return context.voteModel.getVoteById(args.id);
 		},
 
-		searchCompanies(obj, args, context) {
+		searchCompanies(
+			obj: {},
+			args: { searchText: string } & PgnArgs,
+			context: Context
+		) {
 			return context.companyModel.searchForCompanies(
 				args.searchText,
 				args.pageNum,
@@ -84,7 +109,7 @@ export default {
 	},
 
 	CommentParent: {
-		__resolveType(obj, context, info) {
+		__resolveType(obj: CommentParent, context: Context, info: mixed) {
 			// Test for the existance of fields unique to each type.
 			if (context.commentModel.isComment(obj)) {
 				return "Comment";
@@ -105,17 +130,17 @@ export default {
 
 		created: p("datePosted"),
 
-		author: (obj, args, context) =>
+		author: (obj: Comment, args: {}, context: Context) =>
 			context.commentModel.getAuthorOfComment(obj),
-		parent: (obj, args, context) =>
+		parent: (obj: Comment, args: {}, context: Context) =>
 			context.commentModel.getParentOfComment(obj),
-		children: (obj, args, context) =>
+		children: (obj: Comment, args: PgnArgs, context: Context) =>
 			context.commentModel.getCommentsByParent(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
-		votes: (obj, args, context) =>
+		votes: (obj: Comment, args: PgnArgs, context: Context) =>
 			context.voteModel.getVotesBySubject(
 				obj,
 				args.pageNum,
@@ -132,7 +157,7 @@ export default {
 			workEnvironment,
 			benefits,
 			overallSatisfaction,
-		}) => ({
+		}: Company) => ({
 			healthAndSafety,
 			managerRelationship,
 			workEnvironment,
@@ -140,19 +165,19 @@ export default {
 			overallSatisfaction,
 		}),
 
-		reviews: (obj, args, context) =>
+		reviews: (obj: Company, args: PgnArgs, context: Context) =>
 			context.reviewModel.getReviewsByCompany(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
-		jobAds: (obj, args, context) =>
+		jobAds: (obj: Company, args: PgnArgs, context: Context): [JobAd] =>
 			context.jobAdModel.getJobAdsByCompany(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
-		salaries: (obj, args, context) =>
+		salaries: (obj: Company, args: PgnArgs, context: Context) =>
 			context.salaryModel.getSalariesByCompany(
 				obj,
 				args.pageNum,
@@ -165,7 +190,7 @@ export default {
 
 		created: p("datePosted"),
 
-		company: (obj, args, context) =>
+		company: (obj: JobAd, args: {}, context: Context) =>
 			context.jobAdModel.getCompanyOfJobAd(obj),
 	},
 
@@ -179,7 +204,7 @@ export default {
 			workEnvironment,
 			benefits,
 			overallSatisfaction,
-		}) => ({
+		}: Review) => ({
 			healthAndSafety,
 			managerRelationship,
 			workEnvironment,
@@ -188,13 +213,13 @@ export default {
 		}),
 		created: p("datePosted"),
 
-		author: (obj, args, context) =>
+		author: (obj: Review, args: {}, context: Context) =>
 			context.reviewModel.getAuthorOfReview(obj),
-		company: (obj, args, context) =>
+		company: (obj: Review, args: {}, context: Context) =>
 			context.reviewModel.getCompanyOfReview(obj),
-		comments: (obj, args, context) =>
+		comments: (obj: Review, args: PgnArgs, context: Context) =>
 			context.getCommentsByParent(obj, args.pageNum, args.pageSize),
-		votes: (obj, args, context) =>
+		votes: (obj: Review, args: PgnArgs, context: Context) =>
 			context.voteModel.getVotesBySubject(
 				obj,
 				args.pageNum,
@@ -207,33 +232,33 @@ export default {
 
 		created: p("datePosted"),
 
-		author: (obj, args, context) =>
+		author: (obj: Salary, args: {}, context: Context) =>
 			context.salaryModel.getAuthorOfSalary(obj),
-		company: (obj, args, context) =>
+		company: (obj: Salary, args: {}, context: Context) =>
 			context.salaryModel.getCompanyOfSalary(obj),
 	},
 
 	User: {
 		id: p("_id"),
 
-		role: ({ role }) => role.toUpperCase().replace("-", "_"),
+		role: ({ role }: User) => role.toUpperCase().replace("-", "_"),
 		created: p("createdAt"),
 
-		company: (obj, args, context) =>
+		company: (obj: User, args: {}, context: Context) =>
 			context.userModel.getCompanyOfUser(obj),
-		reviews: (obj, args, context) =>
+		reviews: (obj: User, args: PgnArgs, context: Context) =>
 			context.reviewModel.getReviewsByAuthor(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
-		comments: (obj, args, context) =>
+		comments: (obj: User, args: PgnArgs, context: Context) =>
 			context.commentModel.getCommentsByAuthor(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
-		votes: (obj, args, context) =>
+		votes: (obj: User, args: PgnArgs, context: Context) =>
 			context.voteModel.getVotesByAuthor(
 				obj,
 				args.pageNum,
@@ -242,7 +267,7 @@ export default {
 	},
 
 	VoteSubject: {
-		__resolveType(obj, context, info) {
+		__resolveType(obj: VoteSubject, context: Context, info: mixed) {
 			// Test for the existance of fields unique to each type.
 			if (context.commentModel.isComment(obj)) {
 				return "Comment";
@@ -263,8 +288,9 @@ export default {
 
 		isUpvote: p("value"),
 
-		author: (obj, args, context) => context.voteModel.getAuthorOfVote(obj),
-		subject: (obj, args, context) =>
+		author: (obj: Vote, args: {}, context: Context) =>
+			context.voteModel.getAuthorOfVote(obj),
+		subject: (obj: Vote, args: {}, context: Context) =>
 			context.voteModel.getSubjectOfVote(obj),
 	},
 
