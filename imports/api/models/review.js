@@ -1,16 +1,16 @@
 // @flow
 import type { Mongo } from "meteor/mongo";
-import type { StarRatings, AllModels } from "./common.js";
+import type { ID, StarRatings, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
 const defaultPageSize = 100;
 
 export type Review = {
-	_id: string,
-	submittedBy: string,
+	_id: ID,
+	submittedBy: ?ID,
 	companyName: string,
-	companyId: ?string,
+	companyId: ?ID,
 	reviewTitle: string,
 	locations: [string],
 	jobTitle: string,
@@ -18,11 +18,17 @@ export type Review = {
 	pros: string,
 	cons: string,
 	wouldRecommendToOtherJobSeekers: boolean,
-	starRatings: StarRatings,
+
+	healthAndSafety: number,
+	managerRelationship: number,
+	workEnvironment: number,
+	benefits: number,
+	overallSatisfaction: number,
+
 	additionalComments: string,
-	datePosted: Date,
-	upvotes: number,
-	downvotes: number,
+	datePosted: ?Date,
+	upvotes: ?number,
+	downvotes: ?number,
 };
 
 export default class ReviewModel {
@@ -39,7 +45,7 @@ export default class ReviewModel {
 	}
 
 	// Get the review with a given id.
-	getReviewById(id: string): Review {
+	getReviewById(id: ID): Review {
 		return this.connector.findOne(id);
 	}
 
@@ -107,15 +113,15 @@ export default class ReviewModel {
 			.isValid();
 	}
 
-	submitReview(user: User, company: Company, reviewParams: any) {
+	submitReview(user: User, company: Company, reviewParams: any): Review {
 		throw new Error("Not implemented yet");
 	}
 
-	editReview(id: string, reviewChanges: any) {
+	editReview(id: ID, reviewChanges: any): Review {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteReview(id: string) {
+	deleteReview(id: ID): Review {
 		throw new Error("Not implemented yet");
 	}
 }

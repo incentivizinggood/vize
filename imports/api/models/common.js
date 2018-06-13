@@ -7,6 +7,8 @@ import type SalaryModel from "./salary.js";
 import type UserModel from "./user.js";
 import type VoteModel from "./vote.js";
 
+export type ID = string;
+
 export type StarRatings = {
 	healthAndSafety: number,
 	managerRelationship: number,

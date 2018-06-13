@@ -1,23 +1,49 @@
+// @flow
+import type { Mongo } from "meteor/mongo";
+import type { ID, AllModels } from "./common.js";
+import type CommentModel, { Comment } from "./comment.js";
+import type ReviewModel, { Review } from "./review.js";
+import type UserModel, { User } from "./user.js";
+
 const defaultPageSize = 100;
 
+export type Vote = {
+	_id: ID,
+	submittedBy: ID,
+	voteSubject: "review" | "comment",
+	references: ID,
+	value: boolean,
+};
+
+export type VoteSubject = Comment | Review;
+
 export default class VoteModel {
-	constructor(connector) {
+	connector: Mongo.Collection;
+	commentModel: CommentModel;
+	reviewModel: ReviewModel;
+	userModel: UserModel;
+
+	constructor(connector: Mongo.Collection) {
 		this.connector = connector;
 	}
 
-	init({ commentModel, reviewModel, userModel }) {
+	init({ commentModel, reviewModel, userModel }: AllModels) {
 		this.commentModel = commentModel;
 		this.reviewModel = reviewModel;
 		this.userModel = userModel;
 	}
 
 	// Get the vote with a given id.
-	getVoteById(id) {
+	getVoteById(id: ID): Vote {
 		return this.connector.findOne(id);
 	}
 
 	// Get all votes cast by a given user.
-	getVotesByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
+	getVotesByAuthor(
+		user: User,
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Vote] {
 		const cursor = this.connector.find(
 			{ submittedBy: user._id },
 			{
@@ -29,12 +55,16 @@ export default class VoteModel {
 		return cursor.fetch();
 	}
 	// Get the user who cast a given vote.
-	getAuthorOfVote(vote) {
+	getAuthorOfVote(vote: Vote): User {
 		return this.userModel.getUserById(vote.submittedBy);
 	}
 
 	// Get all votes that were cast on a given thing.
-	getVotesBySubject(subject, pageNumber = 0, pageSize = defaultPageSize) {
+	getVotesBySubject(
+		subject: VoteSubject,
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Vote] {
 		let voteSubject;
 		if (this.reviewModel.isReview(subject)) {
 			voteSubject = "review";
@@ -57,7 +87,7 @@ export default class VoteModel {
 		return cursor.fetch();
 	}
 	// Get the thing that a given vote was cast on.
-	getSubjectOfVote(vote) {
+	getSubjectOfVote(vote: Vote): VoteSubject {
 		if (vote.voteSubject === "review")
 			return this.reviewModel.getReviewById(vote.references);
 
@@ -70,7 +100,10 @@ export default class VoteModel {
 	}
 
 	// Get all of the votes.
-	getAllVotes(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllVotes(
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Vote] {
 		const cursor = this.connector.find(
 			{},
 			{
@@ -82,12 +115,12 @@ export default class VoteModel {
 	}
 
 	// Create a new vote or, if the subject was already voted on, change the vote.
-	castVote(user, subject, isUpvote) {
+	castVote(user: User, subject: VoteSubject, isUpvote: boolean): Vote {
 		throw new Error("Not implemented yet");
 	}
 
 	// Remove a vote. If there is no vote, do nothing.
-	removeVote(user, subject) {
+	removeVote(user: User, subject: VoteSubject): Vote {
 		throw new Error("Not implemented yet");
 	}
 }

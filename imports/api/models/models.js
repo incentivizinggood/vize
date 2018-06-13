@@ -1,4 +1,6 @@
+// @flow
 import { Meteor } from "meteor/meteor";
+import type { Mongo } from "meteor/mongo";
 
 // Import models.
 import CommentModel from "/imports/api/models/comment.js";
@@ -18,7 +20,19 @@ import { Salaries } from "./../../api/data/salaries.js";
 // The users connector is Meteor.users which is imported above.
 import { Votes } from "./../../api/data/votes.js";
 
-function createConnectors() {
+import type { AllModels } from "./common.js";
+
+type AllConnectors = {
+	commentConnector: Mongo.Collection,
+	companyConnector: Mongo.Collection,
+	jobAdConnector: Mongo.Collection,
+	reviewConnector: Mongo.Collection,
+	salaryConnector: Mongo.Collection,
+	userConnector: Mongo.Collection,
+	voteConnector: Mongo.Collection,
+};
+
+function createConnectors(): AllConnectors {
 	const connectors = {
 		commentConnector: Comments,
 		companyConnector: Companies,
@@ -32,8 +46,10 @@ function createConnectors() {
 }
 
 // This object constructing function is used to help pass references around.
-export default function constructModels(connectors = createConnectors()) {
-	const models = {
+export default function constructModels(
+	connectors: AllConnectors = createConnectors()
+): AllModels {
+	const models: AllModels = {
 		commentModel: new CommentModel(connectors.commentConnector),
 		companyModel: new CompanyModel(connectors.companyConnector),
 		jobAdModel: new JobAdModel(connectors.jobAdConnector),

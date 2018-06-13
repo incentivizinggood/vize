@@ -1,26 +1,67 @@
+// @flow
+import type { Mongo } from "meteor/mongo";
+import type { ID, StarRatings, AllModels } from "./common.js";
+
 const defaultPageSize = 100;
 
+export type Company = {
+	_id: ID,
+	name: string,
+
+	contactEmail: string,
+	dateEstablished: ?Date,
+	numEmployees: ?(
+		| "1 - 50"
+		| "51 - 500"
+		| "501 - 2000"
+		| "2001 - 5000"
+		| "5000+"
+	),
+	industry: ?string,
+	locations: [string],
+	otherContactInfo: ?string,
+	websiteURL: ?string,
+	descriptionOfCompany: ?string,
+	dateJoined: ?Date,
+	numFlags: ?number,
+
+	healthAndSafety: number,
+	managerRelationship: number,
+	workEnvironment: number,
+	benefits: number,
+	overallSatisfaction: number,
+
+	numReviews: number,
+	percentRecommended: ?number,
+	avgNumMonthsWorked: ?number,
+};
+
 export default class CompanyModel {
-	constructor(connector) {
+	connector: Mongo.Collection;
+
+	constructor(connector: Mongo.Collection) {
 		this.connector = connector;
 	}
 
-	init({}) {
+	init({  }: AllModels) {
 		// This does not need any refrences to other models.
 	}
 
 	// Get the company with a given id.
-	getCompanyById(id) {
+	getCompanyById(id: ID): Company {
 		return this.connector.findOne(id);
 	}
 
 	// Get the company with a given name.
-	getCompanyByName(name) {
+	getCompanyByName(name: string): Company {
 		return this.connector.findOne({ name });
 	}
 
 	// Get all of the companies.
-	getAllCompanies(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllCompanies(
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Company] {
 		const cursor = this.connector.find(
 			{},
 			{
@@ -32,10 +73,10 @@ export default class CompanyModel {
 	}
 
 	searchForComapanies(
-		searchText,
-		pageNumber = 0,
-		pageSize = defaultPageSize
-	) {
+		searchText: string,
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Company] {
 		const cursor = this.connector.find(
 			{ name: { $regex: `.*${searchText}.*`, $options: "i" } },
 			{
@@ -46,15 +87,15 @@ export default class CompanyModel {
 		return cursor.fetch();
 	}
 
-	createCompany(companyParams) {
+	createCompany(companyParams): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	editCompany(id, companyChanges) {
+	editCompany(id: ID, companyChanges): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteCompany(id) {
+	deleteCompany(id: ID): Company {
 		throw new Error("Not implemented yet");
 	}
 }

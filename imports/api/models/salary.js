@@ -1,22 +1,48 @@
+// @flow
+import type { Mongo } from "meteor/mongo";
+import type { ID, AllModels } from "./common.js";
+import type CompanyModel, { Company } from "./company.js";
+import type UserModel, { User } from "./user.js";
+
 const defaultPageSize = 100;
 
+export type Salary = {
+	_id: ID,
+	submittedBy: ID,
+	companyName: string,
+	companyId: ?ID,
+	jobTitle: string,
+	incomeType: string,
+	incomeAmount: number,
+	gender: "M" | "F",
+	datePosted: ?Date,
+};
+
 export default class SalaryModel {
-	constructor(connector) {
+	connector: Mongo.Collection;
+	companyModel: CompanyModel;
+	userModel: UserModel;
+
+	constructor(connector: Mongo.Collection) {
 		this.connector = connector;
 	}
 
-	init({ userModel, companyModel }) {
+	init({ userModel, companyModel }: AllModels) {
 		this.userModel = userModel;
 		this.companyModel = companyModel;
 	}
 
 	// Get the salary with a given id.
-	getSalaryById(id) {
+	getSalaryById(id: ID): Salary {
 		return this.connector.findOne(id);
 	}
 
 	// Get all salaries submitted by a given user.
-	getSalariesByAuthor(user, pageNumber = 0, pageSize = defaultPageSize) {
+	getSalariesByAuthor(
+		user: User,
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Salary] {
 		const cursor = this.connector.find(
 			{ submittedBy: user._id },
 			{
@@ -28,12 +54,16 @@ export default class SalaryModel {
 		return cursor.fetch();
 	}
 	// Get the user who submitted a given salary.
-	getAuthorOfSalary(salary) {
+	getAuthorOfSalary(salary: Salary): User {
 		return this.userModel.getUserById(salary.submittedBy);
 	}
 
 	// Get all salaries paid by a given company.
-	getSalariesByCompany(company, pageNumber = 0, pageSize = defaultPageSize) {
+	getSalariesByCompany(
+		company: Company,
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Salary] {
 		const cursor = this.connector.find(
 			{ companyName: company.name },
 			{
@@ -45,12 +75,15 @@ export default class SalaryModel {
 		return cursor.fetch();
 	}
 	// Get the company that paid a given salary.
-	getCompanyOfSalary(salary) {
+	getCompanyOfSalary(salary: Salary): Company {
 		return this.companyModel.getCompanyByName(salary.companyName);
 	}
 
 	// Get all of the salaries.
-	getAllSalaries(pageNumber = 0, pageSize = defaultPageSize) {
+	getAllSalaries(
+		pageNumber: number = 0,
+		pageSize: number = defaultPageSize
+	): [Salary] {
 		const cursor = this.connector.find(
 			{},
 			{
@@ -61,15 +94,15 @@ export default class SalaryModel {
 		return cursor.fetch();
 	}
 
-	submitSalary(user, company, salaryParams) {
+	submitSalary(user: User, company: Company, salaryParams): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	editSalary(id, salaryChanges) {
+	editSalary(id: ID, salaryChanges): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteSalary(id) {
+	deleteSalary(id: ID): Salary {
 		throw new Error("Not implemented yet");
 	}
 }
