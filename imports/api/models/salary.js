@@ -94,11 +94,11 @@ export default class SalaryModel {
 		return cursor.fetch();
 	}
 
-	submitSalary(user: User, company: Company, salaryParams): Salary {
+	submitSalary(user: User, company: Company, salaryParams: mixed): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	editSalary(id: ID, salaryChanges): Salary {
+	editSalary(id: ID, salaryChanges: mixed): Salary {
 		throw new Error("Not implemented yet");
 	}
 

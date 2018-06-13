@@ -74,11 +74,11 @@ export default class JobAdModel {
 		return cursor.fetch();
 	}
 
-	postJobAd(company: Company, jobAdParams): JobAd {
+	postJobAd(company: Company, jobAdParams: mixed): JobAd {
 		throw new Error("Not implemented yet");
 	}
 
-	editJobAd(id: ID, jobAdChanges): JobAd {
+	editJobAd(id: ID, jobAdChanges: mixed): JobAd {
 		throw new Error("Not implemented yet");
 	}
 

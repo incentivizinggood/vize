@@ -87,11 +87,11 @@ export default class CommentModel {
 		throw new Error("Not implemented yet");
 	}
 
-	writeComment(user: User, parent: CommentParent, commentParams) {
+	writeComment(user: User, parent: CommentParent, commentParams: mixed) {
 		throw new Error("Not implemented yet");
 	}
 
-	editComment(id: ID, commentChanges) {
+	editComment(id: ID, commentChanges: mixed) {
 		throw new Error("Not implemented yet");
 	}
 

@@ -82,11 +82,11 @@ export default class UserModel {
 		return cursor.fetch();
 	}
 
-	createUser(userParams): User {
+	createUser(userParams: mixed): User {
 		throw new Error("Not implemented yet");
 	}
 
-	editUser(id: ID, userChanges): User {
+	editUser(id: ID, userChanges: mixed): User {
 		throw new Error("Not implemented yet");
 	}
 

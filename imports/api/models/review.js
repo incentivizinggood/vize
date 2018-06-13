@@ -113,11 +113,11 @@ export default class ReviewModel {
 			.isValid();
 	}
 
-	submitReview(user: User, company: Company, reviewParams: any): Review {
+	submitReview(user: User, company: Company, reviewParams: mixed): Review {
 		throw new Error("Not implemented yet");
 	}
 
-	editReview(id: ID, reviewChanges: any): Review {
+	editReview(id: ID, reviewChanges: mixed): Review {
 		throw new Error("Not implemented yet");
 	}
 

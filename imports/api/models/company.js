@@ -87,11 +87,11 @@ export default class CompanyModel {
 		return cursor.fetch();
 	}
 
-	createCompany(companyParams): Company {
+	createCompany(companyParams: mixed): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	editCompany(id: ID, companyChanges): Company {
+	editCompany(id: ID, companyChanges: mixed): Company {
 		throw new Error("Not implemented yet");
 	}
 
