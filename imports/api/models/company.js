@@ -25,11 +25,11 @@ export type Company = {
 	dateJoined: ?Date,
 	numFlags: ?number,
 
-	healthAndSafety: number,
-	managerRelationship: number,
-	workEnvironment: number,
-	benefits: number,
-	overallSatisfaction: number,
+	healthAndSafety: ?number,
+	managerRelationship: ?number,
+	workEnvironment: ?number,
+	benefits: ?number,
+	overallSatisfaction: ?number,
 
 	numReviews: number,
 	percentRecommended: ?number,

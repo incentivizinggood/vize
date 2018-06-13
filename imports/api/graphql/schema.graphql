@@ -23,7 +23,7 @@ type Query {
 		pageSize: Int
 		pageNum: Int
 	): [Company!]!
-	# searchJobs(searchTerms: SearchTerms): [JobAd!]!
+	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
 "The kinds of things that can be commented on."
@@ -35,9 +35,7 @@ type Comment {
 	"What was said in this comment."
 	content: String!
 	"The date and time this was created."
-	created: Date!
-	upvotes: Int!
-	downvotes: Int!
+	created: Date
 
 	"The user who wrote this."
 	author: User!
@@ -86,7 +84,7 @@ type JobAd {
 	responsibilities: String!
 	qualifications: String!
 	"The date and time this was created."
-	created: Date!
+	created: Date
 
 	"The company that is hiring."
 	company: Company!
@@ -105,9 +103,9 @@ type Review {
 	starRatings: StarRatings!
 	additionalComments: String
 	"The date and time this was created."
-	created: Date!
-	upvotes: Int!
-	downvotes: Int!
+	created: Date
+	upvotes: Int
+	downvotes: Int
 
 	"The user who wrote this."
 	author: User!
@@ -119,12 +117,6 @@ type Review {
 	votes(pageNum: Int, pageSize: Int): [Vote!]!
 }
 
-#type Compensation {
-#basePay: Currency
-# Later on benefits should be added here
-# benefits: [Benefit!]!
-#}
-
 type Salary {
 	id: ID!
 
@@ -132,7 +124,7 @@ type Salary {
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
-	created: Date!
+	created: Date
 
 	"The user who submitted this."
 	author: User!

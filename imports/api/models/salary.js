@@ -14,7 +14,6 @@ export type Salary = {
 	jobTitle: string,
 	incomeType: string,
 	incomeAmount: number,
-	gender: "M" | "F",
 	datePosted: ?Date,
 };
 
