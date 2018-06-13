@@ -1,83 +1,56 @@
--- create database vize;
--- use vize;
+-- In case anyone was wondering, here are some features that PostgreSQL
+-- has that MariaDB and other MySQL-ites don't:
+-- -> Deferrable constraints
+-- -> Check constraints
 
 -- company profiles
 CREATE TABLE companies (
-	_id					int				unsigned primary key auto_increment,
+	_id					serial			PRIMARY KEY,
+	name				varchar(190)	UNIQUE NOT NULL,
+	dateJoined			date			DEFAULT now(),
 	vizeProfileUrl		varchar(255),
 	vizeReviewUrl		varchar(255),
 	vizeSalaryUrl		varchar(255),
 	vizePostJobUrl		varchar(255),
-	name				varchar(190)	unique not null,
-	contactEmail		varchar(255)	not null,
-	dateEstablished		datetime,
-	numEmployees		varchar(20),
+	dateEstablished		date,
 	industry			varchar(60),
-	-- locations						-- can be done either with a separate table or dynamic columns, will probably use a separate table
 	otherContactInfo	varchar(255),
-	websiteURL			varchar(255),
 	descriptionOfCompany	text,
-	dateJoined			datetime		default now(),
-	-- min/max constraints are straightforward via CHECK
-	numFlags			int				default 0, -- geq 0
-	numReviews			int				default 0, -- geq 0
-	avgNumMonthsWorked	float			default 0, -- geq 0
-	percentRecommended	float			default 0, -- geq 0 and leq 1
-	healthAndSafety		float			default 0, -- geq 0 and leq 5
-	managerRelationship	float			default 0, -- geq 0 and leq 5
-	workEnvironment		float			default 0, -- geq 0 and leq 5
-	benefits			float			default 0, -- geq 0 and leq 5
-	overallSatisfaction	float			default 0 -- geq 0 and leq 5
-) ENGINE = InnoDB;
+	-- locations	-- can be done either with a separate table or dynamic columns, will probably use a separate table
 
-DELIMITER //
+	-- Other validity onstraints are straightforward via CHECK,
+	-- I love that PostgreSQL actually supports this
 
-CREATE TRIGGER bi_validate_company
-	BEFORE INSERT ON companies
-	FOR EACH ROW
-		BEGIN
-			-- Not worrying about existence constraints or default values,
-			-- becuase those are handled by the schema itself
-			-- QUESTION Should I find a better place to keep these regex strings?
-			IF ((NEW.contactEmail IS NOT NULL) AND (NOT (NEW.contactEmail RLIKE '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'))) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "contactEmail is not a valid email";
-			ELSEIF ((NEW.numEmployees IS NOT NULL) AND (NOT (NEW.numEmployees="1 - 50" OR NEW.numEmployees="51 - 500" OR NEW.numEmployees="501 - 2000" OR NEW.numEmployees="2001 - 5000" OR NEW.numEmployees="5000+"))) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Illegal value for numEmployees";
-			ELSEIF ((NEW.websiteURL IS NOT NULL) AND (NOT (NEW.websiteURL RLIKE '^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!10(?:\\.\\d{1,3}){3})(?!127(?:\\.\\d{1,3}){3})(?!169\\.254(?:\\.\\d{1,3}){2})(?!192\\.168(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)(?:\\.(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)*(?:\\.(?:[a-z\\x00a1-\\xffff]{2,})))(?::\\d{2,5})?(?:\\/[^\\s]*)?$'
-			))) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'websiteURL is not a valid URL';
-			ELSEIF ((NEW.numFlags IS NOT NULL) AND (NEW.numFlags < 0)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'numFlags cannot be less than 0';
-			ELSEIF ((NEW.numReviews IS NOT NULL) AND (NEW.numReviews < 0)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'numReviews cannot be less than 0';
-			ELSEIF ((NEW.avgNumMonthsWorked IS NOT NULL) AND (NEW.avgNumMonthsWorked < 0)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'avgNumMonthsWorkeds cannot be less than 0';
-			ELSEIF ((NEW.percentRecommended IS NOT NULL) AND (NEW.percentRecommended < 0 OR NEW.percentRecommended > 1)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'percentRecommended must be between 0 and 1 (inclusive)';
-			ELSEIF ((NEW.healthAndSafety IS NOT NULL) AND (NEW.healthAndSafety < 0 OR NEW.healthAndSafety > 5)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'healthAndSafety must be between 0 and 5 (inclusive)';
-			ELSEIF ((NEW.managerRelationship IS NOT NULL) AND (NEW.managerRelationship < 0 OR NEW.managerRelationship > 5)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'managerRelationship must be between 0 and 5 (inclusive)';
-			ELSEIF ((NEW.workEnvironment IS NOT NULL) AND (NEW.workEnvironment < 0 OR NEW.workEnvironment > 5)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'workEnvironment must be between 0 and 5 (inclusive)';
-			ELSEIF ((NEW.benefits IS NOT NULL) AND (NEW.benefits < 0 OR NEW.benefits > 5)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'benefits must be between 0 and 5 (inclusive)';
-			ELSEIF ((NEW.overallSatisfaction IS NOT NULL) AND (NEW.overallSatisfaction < 0 OR NEW.overallSatisfaction > 5)) THEN
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'overallSatisfaction must be between 0 and 5 (inclusive)';
-			END IF;
-		END //
-
-DELIMITER ;
+	-- defines allowed brackets for numEmployees
+	numEmployees		varchar(20)		CHECK (numEmployees IS NULL OR numEmployees='1 - 50' OR numEmployees='51 - 500' OR numEmployees='501 - 2000' OR numEmployees='2001 - 5000' OR numEmployees='5000+'),
+	-- regex CHECK constraint for email (with TLD) validity
+	-- QUESTION Should I find a better place to keep the regex strings?
+	contactEmail		varchar(255)	NOT NULL CHECK (contactEmail ~ '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+	-- regex CHECK constraint for URL validity, a bit different
+	-- from the email check because websiteURL is not a required field
+	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR (websiteURL ~ '^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!10(?:\\.\\d{1,3}){3})(?!127(?:\\.\\d{1,3}){3})(?!169\\.254(?:\\.\\d{1,3}){2})(?!192\\.168(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)(?:\\.(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)*(?:\\.(?:[a-z\\x00a1-\\xffff]{2,})))(?::\\d{2,5})?(?:\\/[^\\s]*)?$')),
+	numFlags			int				DEFAULT 0 CHECK (numFlags >= 0),
+	numReviews			int				DEFAULT 0 CHECK (numReviews >= 0),
+	avgNumMonthsWorked	float			DEFAULT 0 CHECK (avgNumMonthsWorked >= 0),
+	percentRecommended	float			DEFAULT 0 CHECK (percentRecommended >= 0 AND percentRecommended <= 1),
+	healthAndSafety		float			DEFAULT 0 CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
+	managerRelationship	float			DEFAULT 0 CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
+	workEnvironment		float			DEFAULT 0 CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
+	benefits			float			DEFAULT 0 CHECK (benefits >= 0 AND benefits <= 5),
+	overallSatisfaction	float			DEFAULT 0 CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5)
+);
 
 -- normalized company locations
 CREATE TABLE locations (
-	companyName			varchar(190),
+	companyName			varchar(190)
+	REFERENCES companies (name)
+	ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
 	locationName		varchar(190),
-	PRIMARY KEY (companyName, locationName),
-	FOREIGN KEY (companyName) REFERENCES companies (name)
-		ON UPDATE CASCADE ON DELETE CASCADE
+	PRIMARY KEY (companyName, locationName)
 );
 
--- can now use ALTER TABLE to add foreign key constraint
--- to companies, so that each company must have at least one location
-ALTER TABLE companies ADD FOREIGN KEY (name) REFERENCES locations (companyName);
+-- Okay, here's the tricky part:
+-- One-many relationship from companies to locations,
+-- many-one from locations to companies. Solved on
+-- locations side by foreign key, but how to make sure
+-- that each company has at least one location?
