@@ -17,13 +17,15 @@ export type CommentParent = Comment | Review;
 
 export default class CommentModel {
 	connector: Mongo.Collection;
+	reviewModel: ReviewModel;
 	userModel: UserModel;
 
 	constructor(connector: Mongo.Collection) {
 		this.connector = connector;
 	}
 
-	init({ userModel }: AllModels) {
+	init({ reviewModel, userModel }: AllModels) {
+		this.reviewModel = reviewModel;
 		this.userModel = userModel;
 	}
 

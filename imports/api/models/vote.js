@@ -94,9 +94,7 @@ export default class VoteModel {
 		if (vote.voteSubject === "comment")
 			return this.commentModel.getCommentById(vote.references);
 
-		// It should be imposible to get here.
-		// TODO throw a more informative error message.
-		return null;
+		throw new Error("vote.voteSubject is not a valid value");
 	}
 
 	// Get all of the votes.

@@ -72,7 +72,7 @@ export default class CompanyModel {
 		return cursor.fetch();
 	}
 
-	searchForComapanies(
+	searchForCompanies(
 		searchText: string,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize

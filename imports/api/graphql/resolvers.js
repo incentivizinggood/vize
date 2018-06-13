@@ -218,7 +218,11 @@ export default {
 		company: (obj: Review, args: {}, context: Context) =>
 			context.reviewModel.getCompanyOfReview(obj),
 		comments: (obj: Review, args: PgnArgs, context: Context) =>
-			context.getCommentsByParent(obj, args.pageNum, args.pageSize),
+			context.commentModel.getCommentsByParent(
+				obj,
+				args.pageNum,
+				args.pageSize
+			),
 		votes: (obj: Review, args: PgnArgs, context: Context) =>
 			context.voteModel.getVotesBySubject(
 				obj,

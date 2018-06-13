@@ -8,7 +8,7 @@ const defaultPageSize = 100;
 
 export type Review = {
 	_id: ID,
-	submittedBy: ?ID,
+	submittedBy: ID,
 	companyName: string,
 	companyId: ?ID,
 	reviewTitle: string,

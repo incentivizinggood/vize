@@ -56,8 +56,11 @@ export default class UserModel {
 		return cursor.fetch();
 	}
 	// Get the company administered by a given user.
-	getCompanyOfUser(user: User): Company {
-		return this.companyModel.getCompanyById(user.companyName);
+	getCompanyOfUser(user: User): ?Company {
+		if (user.companyId) {
+			return this.companyModel.getCompanyById(user.companyId);
+		}
+		return null;
 	}
 
 	// Get all of the users.
