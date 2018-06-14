@@ -3,6 +3,7 @@ import { Meteor } from "meteor/meteor";
 // import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
 
+import "../imports/startup/server/graphql.js";
 // Import all of the collection and method definitions.
 // These files need to be run both on the client(s) and server.
 // import { Reviews } from "../imports/api/data/reviews.js";

@@ -52,3 +52,5 @@ universe:i18n-blaze
 session
 fourseven:scss
 numtel:mysql
+apollo
+swydo:graphql
