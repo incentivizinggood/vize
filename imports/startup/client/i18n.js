@@ -1,6 +1,8 @@
+import find from "lodash.find";
 import merge from "lodash.merge";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
+import SimpleSchema from "simpl-schema";
 
 import { Companies } from "/imports/api/data/companies.js";
 import { JobAds } from "/imports/api/data/jobads.js";
@@ -71,12 +73,45 @@ function reactiveGetLocale() {
 }
 
 function setUpI18nOnSchema(schema, schemaName) {
+	const regExpMessages = function(locale) {
+		return Object.keys(SimpleSchema.RegEx).map(key => ({
+			exp: SimpleSchema.RegEx[key],
+			msg: i18n.__(`SimpleSchema.defaults.regExMsgStubs.${key}`, {
+				_locale: locale,
+			}),
+		}));
+	};
+
+	const errorMessages = function(locale) {
+		return merge(i18n.getTranslations("SimpleSchema.defaults"), {
+			regEx({ label, regExp }) {
+				// See if there's one where exp matches this expression
+				let msgObj;
+				if (regExp) {
+					msgObj = find(
+						regExpMessages(locale),
+						o => o.exp && o.exp.toString() === regExp
+					);
+				}
+
+				const regExpMessage = msgObj
+					? msgObj.msg
+					: i18n.__("SimpleSchema.defaults.regExMsgStubs.msg", {
+							_locale: locale,
+					  });
+
+				return `${label} ${regExpMessage}`;
+			},
+		});
+	};
+
 	// Define a callback function.
 	function thisSchemaSetLocale(locale) {
 		// universe:i18n is designed to use incremental loading.
 		// We need to add the messages of this locale in case it is a new one.
 		schema.messageBox.messages({
 			[locale]: merge(
+				errorMessages(locale),
 				i18n.getTranslations("SimpleSchema.defaults", locale),
 				i18n.getTranslations("SimpleSchema.custom", locale),
 				i18n.getTranslations(
