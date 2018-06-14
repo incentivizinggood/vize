@@ -39,7 +39,7 @@ export default class HomePageSearch extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		FlowRouter.go(`/companies/?input=${this.state.search}`);
+		FlowRouter.go(`/companies/?search=${this.state.search}`);
 	}
 
 	render() {
