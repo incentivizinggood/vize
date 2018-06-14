@@ -1,7 +1,12 @@
 import merge from "lodash.merge";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
+
+import { Companies } from "/imports/api/data/companies.js";
+import { JobAds } from "/imports/api/data/jobads.js";
 import { Reviews } from "/imports/api/data/reviews.js";
+import { Salaries } from "/imports/api/data/salaries.js";
+import { Votes } from "/imports/api/data/votes.js";
 
 const localeMetadata = {
 	en: { nativeName: "English", icon: "/images/flags/us.jpg" },
@@ -85,11 +90,16 @@ function setUpI18nOnSchema(schema, schemaName) {
 			i18n.getTranslations(`SimpleSchema.labels.${schemaName}`)
 		);
 	}
-	thisSchemaSetLocale("en");
+	thisSchemaSetLocale(getDefaultLocale());
 	i18n.onChangeLocale(thisSchemaSetLocale);
 }
 
+setUpI18nOnSchema(Companies.schema, "Companies");
+setUpI18nOnSchema(JobAds.schema, "JobAds");
+setUpI18nOnSchema(JobAds.applicationSchema, "JobApplications");
 setUpI18nOnSchema(Reviews.schema, "Reviews");
+setUpI18nOnSchema(Salaries.schema, "Salaries");
+setUpI18nOnSchema(Votes.schema, "Votes");
 
 export {
 	localeMetadata,
