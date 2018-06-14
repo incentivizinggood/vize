@@ -77,9 +77,12 @@ function reactiveGetLocale() {
 function createRegExErrorMessages(locale) {
 	const regExpMessages = Object.keys(SimpleSchema.RegEx).map(key => ({
 		exp: SimpleSchema.RegEx[key],
-		msg: i18n.getTranslation(`SimpleSchema.defaults.regExMsgStubs.${key}`, {
-			_locale: locale,
-		}),
+		msg: i18n.getTranslation(
+			`SimpleSchema.messages.defaults.regExMsgStubs.${key}`,
+			{
+				_locale: locale,
+			}
+		),
 	}));
 	return {
 		regEx({ label, regExp }) {
@@ -95,7 +98,7 @@ function createRegExErrorMessages(locale) {
 			const regExpMessage = msgObj
 				? msgObj.msg
 				: i18n.getTranslation(
-						"SimpleSchema.defaults.regExMsgStubs.msg",
+						"SimpleSchema.messages.defaults.regExMsgStubs.msg",
 						{
 							_locale: locale,
 						}
@@ -113,18 +116,17 @@ function setUpI18nOnSchema(schema, schemaName) {
 		// We need to add the messages of this locale in case it is a new one.
 		schema.messageBox.messages({
 			[locale]: merge(
-				i18n.getTranslations("SimpleSchema.defaults", locale),
+				i18n.getTranslations("SimpleSchema.messages.defaults", locale),
 				createRegExErrorMessages(locale),
-				i18n.getTranslations("SimpleSchema.custom", locale),
 				i18n.getTranslations(
-					`SimpleSchema.custom.${schemaName}`,
+					`SimpleSchema.messages.${schemaName}`,
 					locale
 				)
 			),
 		});
 		schema.messageBox.setLanguage(locale);
 		schema.labels(
-			i18n.getTranslations(`SimpleSchema.labels.${schemaName}`)
+			i18n.getTranslations(`SimpleSchema.labels.${schemaName}`, locale)
 		);
 	}
 	thisSchemaSetLocale(getDefaultLocale());
