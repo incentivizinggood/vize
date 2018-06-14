@@ -3,74 +3,12 @@ import i18n from "meteor/universe:i18n";
 import find from "lodash.find";
 
 const regExpMessages = function(locale) {
-	return [
-		{
-			exp: SimpleSchema.RegEx.Email,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Email", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.EmailWithTLD,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.EmailWithTLD", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.Domain,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Domain", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.WeakDomain,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.WeakDomain", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.IP,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.IP", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.IPv4,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.IPv4", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.IPv6,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.IPv6", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.Url,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Url", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.Id,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Id", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.ZipCode,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.ZipCode", {
-				_locale: locale,
-			}),
-		},
-		{
-			exp: SimpleSchema.RegEx.Phone,
-			msg: i18n.__("SimpleSchema.defaults.regExMsgStubs.Phone", {
-				_locale: locale,
-			}),
-		},
-	];
+	return Object.keys(SimpleSchema.RegEx).map(key => ({
+		exp: SimpleSchema.RegEx[key],
+		msg: i18n.__(`SimpleSchema.defaults.regExMsgStubs.${key}`, {
+			_locale: locale,
+		}),
+	}));
 };
 
 const errorMessages = function(locale) {
