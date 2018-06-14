@@ -69,12 +69,20 @@ CREATE TABLE locations (
 -- Options: C (requires clunky setup, harder to secure)
 --			pgSQL (fine, but not very powerful)
 --			tcl (fine, but would have to learn)
---			Python (great, but insecure in this context)
+--			Python (great, but not-fully-supported by postgres and seems very insecure)
 --			Perl (great, well-supported and secure but hard to read,
 --			and would have to learn)
--- ANSWER
--- My current choice: Perl, because it provides security, documentation,
--- power (for when I need to do the "5 words" constraint on Reviews),
--- the nice procedural abstractions that C doesn't have, and seems more useful
--- to know than Tcl.
--- ...low key I just really want to learn Perl. Sue me.
+-- SCRATCH ALL THAT
+-- I would have gone with Perl, but the learning curve seems really steep.
+-- Will see how far I get with pl/V8 (Javascript) via CREATE EXTENSION,
+-- because this stuff just needs to get done.
+-- Why? It's a "trusted" (doesn't have to run as root) language that
+-- I already know and provides all the necessary power, we just need to install
+-- it, which means breaking out of the Meteor ecosystem a bit.
+
+-- WARNING
+-- If this succeeds, the Vize Web App project will depend on PL/V8,
+-- which will have to be manually installed on Galaxy by...probably me.
+-- Although I guess it wouldn't be hard to just clone the repo and
+-- "make install", which is basically what the instructions on their
+-- website tell you to do.
