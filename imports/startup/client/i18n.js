@@ -72,47 +72,49 @@ function reactiveGetLocale() {
 	return currentLocale.get();
 }
 
-function setUpI18nOnSchema(schema, schemaName) {
-	const regExpMessages = function(locale) {
-		return Object.keys(SimpleSchema.RegEx).map(key => ({
-			exp: SimpleSchema.RegEx[key],
-			msg: i18n.__(`SimpleSchema.defaults.regExMsgStubs.${key}`, {
-				_locale: locale,
-			}),
-		}));
-	};
+// Regex error messages are special.
+// They need a function to resolve the human readable text.
+function createRegExErrorMessages(locale) {
+	const regExpMessages = Object.keys(SimpleSchema.RegEx).map(key => ({
+		exp: SimpleSchema.RegEx[key],
+		msg: i18n.getTranslation(`SimpleSchema.defaults.regExMsgStubs.${key}`, {
+			_locale: locale,
+		}),
+	}));
+	return {
+		regEx({ label, regExp }) {
+			// See if there's one where exp matches this expression
+			let msgObj;
+			if (regExp) {
+				msgObj = find(
+					regExpMessages,
+					o => o.exp && o.exp.toString() === regExp
+				);
+			}
 
-	const errorMessages = function(locale) {
-		return merge(i18n.getTranslations("SimpleSchema.defaults"), {
-			regEx({ label, regExp }) {
-				// See if there's one where exp matches this expression
-				let msgObj;
-				if (regExp) {
-					msgObj = find(
-						regExpMessages(locale),
-						o => o.exp && o.exp.toString() === regExp
-					);
-				}
-
-				const regExpMessage = msgObj
-					? msgObj.msg
-					: i18n.__("SimpleSchema.defaults.regExMsgStubs.msg", {
+			const regExpMessage = msgObj
+				? msgObj.msg
+				: i18n.getTranslation(
+						"SimpleSchema.defaults.regExMsgStubs.msg",
+						{
 							_locale: locale,
-					  });
+						}
+				  );
 
-				return `${label} ${regExpMessage}`;
-			},
-		});
+			return `${label} ${regExpMessage}`;
+		},
 	};
+}
 
+function setUpI18nOnSchema(schema, schemaName) {
 	// Define a callback function.
 	function thisSchemaSetLocale(locale) {
 		// universe:i18n is designed to use incremental loading.
 		// We need to add the messages of this locale in case it is a new one.
 		schema.messageBox.messages({
 			[locale]: merge(
-				errorMessages(locale),
 				i18n.getTranslations("SimpleSchema.defaults", locale),
+				createRegExErrorMessages(locale),
 				i18n.getTranslations("SimpleSchema.custom", locale),
 				i18n.getTranslations(
 					`SimpleSchema.custom.${schemaName}`,
