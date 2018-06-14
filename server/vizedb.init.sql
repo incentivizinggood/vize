@@ -54,3 +54,27 @@ CREATE TABLE locations (
 -- many-one from locations to companies. Solved on
 -- locations side by foreign key, but how to make sure
 -- that each company has at least one location?
+
+-- SOLUTION:
+-- Foreign key as it currently stands, plus
+-- "deferred constraint triggers", one for each
+-- case (after update/delete/truncate on locations,
+-- after insert on companies, constraint triggers
+-- can only be after but it's fine because they
+-- roll back the transaction).
+
+-- QUESTION
+-- What language to write triggers in? PostgreSQL doesn't
+-- support full trigger definitions via DDL like Maria does.
+-- Options: C (requires clunky setup, harder to secure)
+--			pgSQL (fine, but not very powerful)
+--			tcl (fine, but would have to learn)
+--			Python (great, but insecure in this context)
+--			Perl (great, well-supported and secure but hard to read,
+--			and would have to learn)
+-- ANSWER
+-- My current choice: Perl, because it provides security, documentation,
+-- power (for when I need to do the "5 words" constraint on Reviews),
+-- the nice procedural abstractions that C doesn't have, and seems more useful
+-- to know than Tcl.
+-- ...low key I just really want to learn Perl. Sue me.
