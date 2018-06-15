@@ -50,12 +50,9 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^5.0.0",
     "eslint-plugin-react": "^7.8.2",
-<<<<<<< HEAD
-=======
     "flow-bin": "^0.74.0",
     "nightmare": "^3.0.0",
     "phantomjs-prebuilt": "^2.1.16",
->>>>>>> origin
     "prettier": "1.12.1",
     "selenium-webdriver": "^4.0.0-alpha.1"
   }
