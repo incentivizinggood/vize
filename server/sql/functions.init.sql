@@ -1,7 +1,14 @@
-CREATE FUNCTION hello() RETURNS VOID AS
+CREATE OR REPLACE FUNCTION check_company_locations() RETURNS TRIGGER AS
 $$
-	plv8.elog(NOTICE, "Hello, world!");
+	plv8.elog(NOTICE, "Hello, world of PostgreSQL triggers!");
+	return NEW;
 $$ LANGUAGE plv8;
+
+DROP TRIGGER IF EXISTS ai_companies ON companies;
+CREATE CONSTRAINT TRIGGER ai_companies
+AFTER INSERT ON companies
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE check_company_locations();
 
 -- Okay, here's the tricky part:
 -- One-many relationship from companies to locations,
