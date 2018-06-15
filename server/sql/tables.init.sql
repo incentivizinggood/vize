@@ -22,11 +22,10 @@ CREATE TABLE companies (
 	-- allowed brackets for numEmployees
 	numEmployees		varchar(20)		CHECK (numEmployees IS NULL OR numEmployees='1 - 50' OR numEmployees='51 - 500' OR numEmployees='501 - 2000' OR numEmployees='2001 - 5000' OR numEmployees='5000+'),
 	-- regex CHECK constraint for email (with TLD) validity
-	-- QUESTION Should I find a better place to keep the regex strings?
-	contactEmail		varchar(255)	NOT NULL CHECK (contactEmail ~ '^(([^<>()\\[\\]\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+	contactEmail		varchar(255)	NOT NULL CHECK (is_valid_email_with_tld(contactEmail)),
 	-- regex CHECK constraint for URL validity, a bit different
 	-- from the email check because websiteURL is not a required field
-	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR (websiteURL ~ '^(?:(?:https?|ftp):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!10(?:\\.\\d{1,3}){3})(?!127(?:\\.\\d{1,3}){3})(?!169\\.254(?:\\.\\d{1,3}){2})(?!192\\.168(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)(?:\\.(?:[a-z\\x00a1-\\xffff0-9]+-?)*[a-z\\x00a1-\\xffff0-9]+)*(?:\\.(?:[a-z\\x00a1-\\xffff]{2,})))(?::\\d{2,5})?(?:\\/[^\\s]*)?$')),
+	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR is_valid_url(websiteURL)),
 	numFlags			int				DEFAULT 0 CHECK (numFlags >= 0),
 	numReviews			int				DEFAULT 0 CHECK (numReviews >= 0),
 	avgNumMonthsWorked	float			DEFAULT 0 CHECK (avgNumMonthsWorked >= 0),
