@@ -1,0 +1,1 @@
+\! echo "INVALID REGEX TEST 1: "
