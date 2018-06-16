@@ -46,5 +46,21 @@ $$ LANGUAGE plv8;
 -- doesn't accidentally get moved or deleted
 CREATE OR REPLACE FUNCTION check_remaining_company_locations() RETURNS TRIGGER AS
 $$
-	plv8.elog(NOTICE, "Hello, world!");
+	// skip case we don't care about so we don't have to worry about NEW
+	if(TG_OP === 'UPDATE' && OLD.companyname === NEW.companyname)
+		return null;
+	const oldCompanyName = OLD.companyname;
+	// make sure old company actually exists
+	let plan = plv8.prepare("select name from companies where name=$1",['text']);
+	const oldCompanyExists = plan.execute([oldCompanyName]).length >= 1;
+	plan.free();
+	// skip another case that we do not care about
+	if(!oldCompanyExists)
+		return null;
+	plan = plv8.prepare("select companyName from company_locations where companyName=$1");
+	const isLastLocation = plan.execute([oldCompanyName]).length < 1;
+	// finally, the reason we came here to begin with
+	if(isLastLocation)
+		throw "Each company must have at least one location (cannot remove last location)";
+	return null;
 $$ LANGUAGE plv8;
