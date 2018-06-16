@@ -187,7 +187,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.startup(async () => {
-	let res = await client
+	await client
 		.connect()
 		.then(console.log("Successfully connected to PostgreSQL!"))
 		.catch(e => console.log(e));
