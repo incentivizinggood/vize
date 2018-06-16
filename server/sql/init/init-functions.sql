@@ -24,15 +24,10 @@ $$
 	throw "Operation not permitted";
 $$ LANGUAGE plv8;
 
--- trigger functions to hackishly kind-of-enforce a foreign key constraint
--- on companies, our workaround for not being in Meteor/Mongo where we
--- can specify that array fields must have a minimum number of elements,
--- and not being in MariaDB where we can specify a foreign key reference
--- to a partial key
-
 -- This one is going to be used in an after-insert
--- constraint trigger on companies
-CREATE OR REPLACE FUNCTION check_for_company_locations() RETURNS TRIGGER AS
+-- constraint trigger on companies so that each
+-- company starts off with at least one location.
+CREATE OR REPLACE FUNCTION check_company_location_count() RETURNS TRIGGER AS
 $$
 	const newCompanyName = NEW.name;
 	const plan = plv8.prepare("select count(companyName) from company_locations where companyName=$1", ['text']);
@@ -44,4 +39,12 @@ $$
 	else {
 		throw "Each company must have at least one location";
 	}
+$$ LANGUAGE plv8;
+
+-- This is for after-delete and after-update triggers
+-- on locations, to make sure that a company's last location
+-- doesn't accidentally get moved or deleted
+CREATE OR REPLACE FUNCTION check_remaining_company_locations() RETURNS TRIGGER AS
+$$
+	plv8.elog(NOTICE, "Hello, world!");
 $$ LANGUAGE plv8;
