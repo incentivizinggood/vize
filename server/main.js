@@ -191,11 +191,11 @@ Meteor.startup(async () => {
 		.connect()
 		.then(console.log("Successfully connected to PostgreSQL!"))
 		.catch(e => console.log(e));
-	res = await client.query("SELECT NOW()");
-	console.log(res);
-	res = await client
-		.end()
-		.then(console.log("Successfully closed connection to PostgreSQL!"))
-		.catch(e => console.log(e));
-	console.log("Successfully connected to PostgreSQL!");
+	// res = await client.query("SELECT NOW()");
+	// console.log(res);
+	// res = await client
+	// 	.end()
+	// 	.then(console.log("Successfully closed connection to PostgreSQL!"))
+	// 	.catch(e => console.log(e));
+	// console.log("Successfully connected to PostgreSQL!");
 });
