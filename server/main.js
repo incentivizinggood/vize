@@ -16,6 +16,9 @@ import "../imports/api/data/methods.js";
 
 const { Client } = require("pg");
 
+// db connection should eventually be imported from elsewhere
+const client = new Client();
+
 // code to run on server at startup
 if (Meteor.isServer) {
 	Meteor.methods({
@@ -181,19 +184,18 @@ if (Meteor.isServer) {
 			// });
 		},
 	});
-	// connection should eventually be imported from elsewhere
-	const client = new Client();
-	let res = client
+}
+
+Meteor.startup(async () => {
+	let res = await client
 		.connect()
 		.then(console.log("Successfully connected to PostgreSQL!"))
 		.catch(e => console.log(e));
-	res = client.query("SELECT NOW()");
+	res = await client.query("SELECT NOW()");
 	console.log(res);
-	res = client
+	res = await client
 		.end()
 		.then(console.log("Successfully closed connection to PostgreSQL!"))
 		.catch(e => console.log(e));
 	console.log("Successfully connected to PostgreSQL!");
-}
-
-Meteor.startup(() => {});
+});
