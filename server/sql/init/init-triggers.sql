@@ -1,3 +1,13 @@
+DROP TRIGGER IF EXISTS deny_truncate ON companies;
+CREATE TRIGGER deny_truncate
+BEFORE TRUNCATE ON companies
+FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+
+DROP TRIGGER IF EXISTS deny_truncate ON company_locations;
+CREATE TRIGGER deny_truncate
+BEFORE TRUNCATE ON company_locations
+FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+
 DROP TRIGGER IF EXISTS ai_companies ON companies;
 CREATE CONSTRAINT TRIGGER ai_companies
 AFTER INSERT ON companies

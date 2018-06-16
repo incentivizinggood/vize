@@ -4,6 +4,7 @@
 -- -> Check constraints
 
 -- company profiles
+DROP TABLE IF EXISTS companies CASCADE;
 CREATE TABLE companies (
 	_id					serial			PRIMARY KEY,
 	name				varchar(190)	UNIQUE NOT NULL,
@@ -38,7 +39,8 @@ CREATE TABLE companies (
 );
 
 -- normalized company locations
-CREATE TABLE locations (
+DROP TABLE IF EXISTS company_locations CASCADE;
+CREATE TABLE company_locations (
 	companyName			varchar(190)
 	REFERENCES companies (name)
 	ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
