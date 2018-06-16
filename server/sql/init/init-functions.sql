@@ -18,7 +18,7 @@ $$ LANGUAGE plv8;
 -- to blanketly disallow some action
 CREATE OR REPLACE FUNCTION deny_op() RETURNS TRIGGER AS
 $$
-	// plv8 is very intuitive, just not in the ways you might expect,
+	// plv8 is very intuitive, just not in the ways you might expect XD,
 	// apparently this statement translates to a nice SQL exception
 	// and rolls back the parent transaction
 	throw "Operation not permitted";
@@ -32,7 +32,16 @@ $$ LANGUAGE plv8;
 
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies
-CREATE OR REPLACE FUNCTION check_company_locations() RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION check_for_company_locations() RETURNS TRIGGER AS
 $$
-	return NEW;
+	const newCompanyName = NEW.name;
+	const plan = plv8.prepare("select count(companyName) from company_locations where companyName=$1", ['text']);
+	const location_count = plan.execute([newCompanyName])[0].count;
+	plan.free();
+	if(location_count >= 1) {
+		return null;
+	}
+	else {
+		throw "Each company must have at least one location";
+	}
 $$ LANGUAGE plv8;
