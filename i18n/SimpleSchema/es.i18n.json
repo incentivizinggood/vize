@@ -1,56 +1,48 @@
 {
 	"_locale": "es",
 	"_namespace": "SimpleSchema",
-	"defaults": {
-		"required": "{{{label}}} es requerida",
-		"minString":
-			"{{{label}}} debe ser al menos {{min}} caracteres",
-		"maxString":
-			"{{{label}}} no puede exceder {{max}} caracteres",
-		"minNumber": "{{{label}}} deben ser al menos {{min}}",
-		"maxNumber": "{{{label}}} no puede exceder {{max}}",
-		"minNumberExclusive":
-			"{{{label}}} debe ser mayor que {{min}}",
-		"maxNumberExclusive":
-			"{{{label}}} debe ser menor que {{max}}",
-		"minDate": "{{{label}}} debe estar en o después de {{min}}",
-		"maxDate": "{{{label}}} no puede ser después de {{max}}",
-		"badDate": "{{{label}}} no es una fecha valida",
-		"minCount":
-			"Debes especificar al menos {{maxCount}} valores",
-		"maxCount":
-			"No debes colocar mas que {{maxCount}} valores",
-		"noDecimal": "{{{label}}} debe ser un numero entero",
-		"notAllowed": "{{{value}}} no es un valor permitido",
-		"expectedType": "{{{label}}} debe ser un {{dataType}}",
-		"regExMsgStubs": {
-			"msg": "la validación de expresiones regulares fallado",
-			"Email": "Colocar una direccion de correo correcta",
-			"EmailWithTLD": "Colocar una direccion de correo correcta",
-			"Domain": "Debe ser un dominio válido",
-			"WeakDomain": "Debe ser un dominio válido",
-			"IP": "Debe ser una dirección IPv4 o IPv6 válida",
-			"IPv4": "Debe ser una dirección IPv4 válida",
-			"IPv6": "Debe ser una dirección IPv6 válida",
-			"Url": "Debe ser una URL correcta",
-			"Id": "Debe ser una identificación alfanumérica válida",
-			"ZipCode": "Debe ser un código postal válido",
-			"Phone": "Debe ser un numero de telefono valido"
+	"messages": {
+		"defaults": {
+			"required": "{{{label}}} es requerida",
+			"minString": "{{{label}}} debe ser al menos {{min}} caracteres",
+			"maxString": "{{{label}}} no puede exceder {{max}} caracteres",
+			"minNumber": "{{{label}}} deben ser al menos {{min}}",
+			"maxNumber": "{{{label}}} no puede exceder {{max}}",
+			"minNumberExclusive": "{{{label}}} debe ser mayor que {{min}}",
+			"maxNumberExclusive": "{{{label}}} debe ser menor que {{max}}",
+			"minDate": "{{{label}}} debe estar en o después de {{min}}",
+			"maxDate": "{{{label}}} no puede ser después de {{max}}",
+			"badDate": "{{{label}}} no es una fecha valida",
+			"minCount": "Debes especificar al menos {{maxCount}} valores",
+			"maxCount": "No debes colocar mas que {{maxCount}} valores",
+			"noDecimal": "{{{label}}} debe ser un numero entero",
+			"notAllowed": "{{{value}}} no es un valor permitido",
+			"expectedType": "{{{label}}} debe ser un {{dataType}}",
+			"regExMsgStubs": {
+				"msg": "la validación de expresiones regulares fallado",
+				"Email": "Colocar una direccion de correo correcta",
+				"EmailWithTLD": "Colocar una direccion de correo correcta",
+				"Domain": "Debe ser un dominio válido",
+				"WeakDomain": "Debe ser un dominio válido",
+				"IP": "Debe ser una dirección IPv4 o IPv6 válida",
+				"IPv4": "Debe ser una dirección IPv4 válida",
+				"IPv6": "Debe ser una dirección IPv6 válida",
+				"Url": "Debe ser una URL correcta",
+				"Id": "Debe ser una identificación alfanumérica válida",
+				"ZipCode": "Debe ser un código postal válido",
+				"Phone": "Debe ser un numero de telefono valido"
+			},
+			"keyNotInSchema": "{{name}} no está permitido por el esquema",
+			"noCompanyWithThatName":
+				"No hay una empresa con ese nombre en nuestra base de datos",
+			"sessionError": "Por favor, dejar de jugar un poco"
 		},
-		"keyNotInSchema":
-			"{{name}} no está permitido por el esquema"
-	},
-	"custom": {
-		"noCompanyWithThatName":
-			"No hay una empresa con ese nombre en nuestra base de datos",
-		"sessionError": "Por favor, dejar de jugar un poco",
 		"JobApplications": {
 			"invalidJobId":
 				"Proporcione una identificación de trabajo válida para el trabajo al que desea postularse"
 		},
 		"Companies": {
-			"nameTaken":
-				"El nombre proporcionado ya esta en uso"
+			"nameTaken": "El nombre proporcionado ya esta en uso"
 		},
 		"JobAds": {},
 		"Salaries": {},
@@ -94,8 +86,7 @@
 			"overallSatisfaction": "Satisfacción General",
 			"numReviews": "Numero de comentarios",
 			"percentRecommended": "Porcentaje recomendado",
-			"avgNumMonthsWorked":
-				"Numero de meses trabajados"
+			"avgNumMonthsWorked": "Numero de meses trabajados"
 		},
 		"JobAds": {
 			"_id": "_id",
@@ -137,7 +128,7 @@
 				"Would Recommend to Other Job Seekers",
 			"healthAndSafety": "Salud y Beneficios",
 			"managerRelationship": "Relaciones del Gerente",
-			"workEnvironment":"Ambiente Laboral",
+			"workEnvironment": "Ambiente Laboral",
 			"benefits": "Beneficios",
 			"overallSatisfaction": "Satisfacción General",
 			"additionalComments": "Comentarios Adicionales",
