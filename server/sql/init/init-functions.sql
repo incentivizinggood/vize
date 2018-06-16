@@ -16,7 +16,9 @@ $$ LANGUAGE plv8;
 
 -- trigger function to hackishly kind-of-enforce a foreign key constraint
 -- on companies, our workaround for not being in Meteor/Mongo where we
--- can specify that array fields must have a minimum number of elements
+-- can specify that array fields must have a minimum number of elements,
+-- and not being in MariaDB where we can specify a foreign key reference
+-- to a partial key
 CREATE OR REPLACE FUNCTION check_company_locations() RETURNS TRIGGER AS
 $$
 	return NEW;
