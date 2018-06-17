@@ -83,7 +83,6 @@ mongo-id@1.0.7
 mrgalaxy:stripe@2.2.2
 npm-bcrypt@0.9.3
 npm-mongo@2.2.34
-numtel:mysql@1.0.6
 observe-sequence@1.0.16
 okgrow:analytics@3.0.5
 ordered-dict@1.1.0
