@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import Header from "/imports/ui/components/header.jsx";
-import CompanyComponent from "../companyComponent.jsx";
+import CompanyComponent from "/imports/ui/components/company-search-result.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);

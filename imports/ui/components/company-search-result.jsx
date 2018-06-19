@@ -1,9 +1,9 @@
 // This is the componenet that gets rendered when user searches for company name
 import React from "react";
 import { Meteor } from "meteor/meteor";
-import { JobAds } from "../api/data/jobads.js";
+import { JobAds } from "/imports/api/data/jobads.js";
 import { withTracker } from "meteor/react-meteor-data";
-import { Salaries } from "../api/data/salaries.js";
+import { Salaries } from "/imports/api/data/salaries.js";
 import StarRatings from "react-star-ratings";
 import i18n from "meteor/universe:i18n";
 
