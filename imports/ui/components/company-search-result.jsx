@@ -8,22 +8,11 @@ import i18n from "meteor/universe:i18n";
 
 import { JobAds } from "/imports/api/data/jobads.js";
 import { Salaries } from "/imports/api/data/salaries.js";
+import WriteReviewButton from "./write-review-button.jsx";
 
-const t = i18n.createTranslator();
-const T = i18n.createComponent(t);
+const T = i18n.createComponent();
 
 class CompanyComponent extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
 	render() {
 		return (
 			<div>
@@ -92,19 +81,9 @@ class CompanyComponent extends React.Component {
 						<div className="col-md-5 prostar">
 							<div className="col-md-12">
 								<div className="titlestar">
-									<a
-										href={`/write-review/?id=${
-											this.props.item.id
-										}`}
-										className="btn btn-primary  add_review replus"
-									>
-										{" "}
-										<i
-											className="fa fa-plus"
-											aria-hidden="true"
-										/>{" "}
-										{t("common.overview_tab.add_review")}
-									</a>
+									<WriteReviewButton
+										companyId={this.props.item.id}
+									/>
 								</div>
 							</div>
 						</div>
