@@ -1,17 +1,14 @@
 import { Meteor } from "meteor/meteor";
-// import { Email } from "meteor/email";
-// import { check } from "meteor/check";
-import i18n from "meteor/universe:i18n";
 
 import "../imports/startup/server/graphql.js";
 // Import all of the collection and method definitions.
 // These files need to be run both on the client(s) and server.
-// import { Reviews } from "../imports/api/data/reviews.js";
-import { Companies } from "../imports/api/data/companies.js";
-// import { Salaries } from "../imports/api/data/salaries.js";
-// import { JobAds } from "../imports/api/data/jobads.js";
-// import { Votes } from "../imports/api/data/votes.js";
-// import { addToAvg } from "../imports/api/data/denormalization.js";
+import "../imports/api/data/reviews.js";
+import "../imports/api/data/companies.js";
+import "../imports/api/data/salaries.js";
+import "../imports/api/data/users.js";
+import "../imports/api/data/jobads.js";
+import "../imports/api/data/votes.js";
 import "../imports/api/data/methods.js";
 
 const { Client } = require("pg");
