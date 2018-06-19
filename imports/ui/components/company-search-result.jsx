@@ -12,125 +12,110 @@ import WriteReviewButton from "./write-review-button.jsx";
 
 const T = i18n.createComponent();
 
-class CompanyComponent extends React.Component {
-	render() {
-		return (
-			<div>
-				<div className="container box2 all_boxcolor">
-					<div className="container  welpad1">
-						<div className="col-md-3  prostar">
-							<a href="/companyprofile">
-								<div className="shdo">
-									<img
-										src="/images/default-company.png"
-										className="img-responsive"
-										alt={`The company logo of ${
-											this.props.item.name
-										}`}
-									/>
-								</div>
-							</a>
-						</div>
-						<div className="col-md-4  prostar">
-							<span className="goo">
-								{" "}
-								<a
-									href={`/companyprofile/?id=${
-										this.props.item.id
+function CompanyComponent(props) {
+	return (
+		<div>
+			<div className="container box2 all_boxcolor">
+				<div className="container  welpad1">
+					<div className="col-md-3  prostar">
+						<a href="/companyprofile">
+							<div className="shdo">
+								<img
+									src="/images/default-company.png"
+									className="img-responsive"
+									alt={`The company logo of ${
+										props.item.name
 									}`}
-								>
-									{this.props.item.name}
-								</a>
-							</span>
-							&nbsp;&nbsp;<StarRatings
-								rating={
-									this.props.item.avgStarRatings
-										.overallSatisfaction
-								}
-								starDimension="25px"
-								starSpacing="2px"
-							/>
-							<div className="col-md-12 comp-class">
-								<div className="locahed">
-									<h4>
-										<i
-											className="fa fa-map-marker"
-											aria-hidden="true"
-										/>{" "}
-										<span>{this.props.item.locations}</span>
-									</h4>
-									<h4>
-										<i
-											className="fa fa-flask"
-											aria-hidden="true"
-										/>{" "}
-										<span>{this.props.item.industry}</span>
-									</h4>
-									<h4>
-										<i
-											className="fa fa-users"
-											aria-hidden="true"
-										/>{" "}
-										<span>
-											{this.props.item.numEmployees}
-										</span>
-									</h4>
-								</div>
+								/>
 							</div>
-						</div>
-						<div className="col-md-5 prostar">
-							<div className="col-md-12">
-								<div className="titlestar">
-									<WriteReviewButton
-										companyId={this.props.item.id}
-									/>
-								</div>
+						</a>
+					</div>
+					<div className="col-md-4  prostar">
+						<span className="goo">
+							{" "}
+							<a href={`/companyprofile/?id=${props.item.id}`}>
+								{props.item.name}
+							</a>
+						</span>
+						&nbsp;&nbsp;<StarRatings
+							rating={
+								props.item.avgStarRatings.overallSatisfaction
+							}
+							starDimension="25px"
+							starSpacing="2px"
+						/>
+						<div className="col-md-12 comp-class">
+							<div className="locahed">
+								<h4>
+									<i
+										className="fa fa-map-marker"
+										aria-hidden="true"
+									/>{" "}
+									<span>{props.item.locations}</span>
+								</h4>
+								<h4>
+									<i
+										className="fa fa-flask"
+										aria-hidden="true"
+									/>{" "}
+									<span>{props.item.industry}</span>
+								</h4>
+								<h4>
+									<i
+										className="fa fa-users"
+										aria-hidden="true"
+									/>{" "}
+									<span>{props.item.numEmployees}</span>
+								</h4>
 							</div>
 						</div>
 					</div>
-					<div className="clearfix" />
-					<div className="container  welpad1">
-						<div className="col-md-3">
-							<div className="reviews1">
-								<ul>
-									<li className="active">
-										{this.props.item.numReviews} <br />
-										<span className="review_text">
-											<T>
-												common.company_component.reviews
-											</T>
-										</span>
-									</li>
-									<li>
-										{this.props.salaries}
-										<br />
-										<span className="review_text">
-											<T>
-												common.company_component.salaries
-											</T>
-										</span>
-									</li>
-									<li>
-										{this.props.jobads}
-										<br />
-										<span className="review_text">
-											<T>common.company_component.jobs</T>
-										</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div className="col-md-9">
-							<div className="pargrf">
-								<p>{this.props.item.descriptionOfCompany}</p>
+					<div className="col-md-5 prostar">
+						<div className="col-md-12">
+							<div className="titlestar">
+								<WriteReviewButton companyId={props.item.id} />
 							</div>
 						</div>
 					</div>
-					<div className="clearfix" />
 				</div>
+				<div className="clearfix" />
+				<div className="container  welpad1">
+					<div className="col-md-3">
+						<div className="reviews1">
+							<ul>
+								<li className="active">
+									{props.item.numReviews} <br />
+									<span className="review_text">
+										<T>common.company_component.reviews</T>
+									</span>
+								</li>
+								<li>
+									{props.salaries}
+									<br />
+									<span className="review_text">
+										<T>common.company_component.salaries</T>
+									</span>
+								</li>
+								<li>
+									{props.jobads}
+									<br />
+									<span className="review_text">
+										<T>common.company_component.jobs</T>
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div className="col-md-9">
+						<div className="pargrf">
+							<p>{props.item.descriptionOfCompany}</p>
+						</div>
+					</div>
+				</div>
+				<div className="clearfix" />
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
 CompanyComponent.propTypes = {
