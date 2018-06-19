@@ -24,7 +24,6 @@ class CompanyComponent extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.salaries);
 		return (
 			<div>
 				<div className="container box2 all_boxcolor">
@@ -89,20 +88,6 @@ class CompanyComponent extends React.Component {
 						<div className="col-md-5 prostar">
 							<div className="col-md-12">
 								<div className="titlestar">
-									<div className="" data-toggle="buttons">
-										<label className="btn btn-lg btn-success active btn_follow1">
-											{/* FOLLOW BUTTON CODE COMMENTED OUT   */}
-
-											{/* <input type="radio" name="options" id="option1" autoComplete="off" defaultChecked/>
-                          <i className="fa fa-check"></i> Following
-                          </label>
-                          <label className="btn btn-lg btn-danger btn_follow1">
-                          <input type="radio" name="options" id="option" autoComplete="off"/>
-                          Follow */}
-
-											{/* FOLLOW BUTTON CODE ENDS */}
-										</label>
-									</div>
 									<a
 										href={`/write-review/?id=${
 											this.props.item.id
@@ -185,8 +170,8 @@ CompanyComponent.propTypes = {
 };
 
 export default withTracker(({ item }) => {
-	const handle = Meteor.subscribe("JobAds");
-	const handle1 = Meteor.subscribe("Salaries");
+	Meteor.subscribe("JobAds");
+	Meteor.subscribe("Salaries");
 
 	return {
 		jobads: JobAds.find({ companyName: item.name }).count(),
