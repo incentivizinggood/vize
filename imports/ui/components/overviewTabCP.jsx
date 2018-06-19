@@ -1,9 +1,6 @@
 import React from "react";
-import StarRatings from "react-star-ratings";
 import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "../../ui/components/companyReview.jsx";
-import JobPosting from "../../ui/components/jobPosting.jsx";
-import SalaryPosting from "../../ui/components/salaryPosting.jsx";
 import i18n from "meteor/universe:i18n";
 
 const T = i18n.createComponent();
@@ -21,39 +18,9 @@ export default class OverviewTab extends React.Component {
 	}
 
 	render() {
-		const options = {
-			weekday: "long",
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-		};
 		let to_display_jobs;
 		let salaries_to_display;
 		let to_display_review;
-		let className;
-		if (this.props.companyreview.length > 0) {
-			if (this.props.companyreview[0].wouldRecommendToOtherJobSeekers) {
-				className = (
-					<p style={{ color: "#2E8B57" }}>
-						<i
-							className="fa fa-check-square"
-							style={{ color: "#2E8B57" }}
-							aria-hidden="true"
-						/>&nbsp;&nbsp;<T>common.companyreview.recommend</T>
-					</p>
-				);
-			} else {
-				className = (
-					<p style={{ color: "#FF4545" }}>
-						<i
-							className="far fa-times-circle"
-							style={{ color: "#FF4545" }}
-							aria-hidden="true"
-						/>&nbsp;&nbsp;<T>common.companyreview.not_recommend</T>
-					</p>
-				);
-			}
-		}
 
 		// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
 
