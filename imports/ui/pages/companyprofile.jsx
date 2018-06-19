@@ -241,8 +241,8 @@ class CompanyProfile extends React.Component {
 										jobsCount={this.props.jobsCount}
 										jobAds={this.props.jobAds}
 										salaries={this.props.salaries}
-										companyoverview={this.props.company}
-										companyreview={this.props.reviews}
+										companyOverview={this.props.company}
+										companyReview={this.props.reviews}
 										salariesCount={this.props.salariesCount}
 										userVotes={this.props.userVotes}
 									/>

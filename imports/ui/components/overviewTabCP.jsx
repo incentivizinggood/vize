@@ -18,30 +18,26 @@ export default class OverviewTab extends React.Component {
 	}
 
 	render() {
-		let to_display_jobs;
-		let salaries_to_display;
-		let to_display_review;
+		let toDisplayJobs;
+		let salariesToDisplay;
+		let toDisplayReview;
 
 		// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
 
-		if (this.props.companyreview.length > 0) {
-			to_display_review = (
+		if (this.props.companyReview.length > 0) {
+			toDisplayReview = (
 				<CompanyReview
-					item={this.props.companyreview[0]}
+					item={this.props.companyReview[0]}
 					userVotes={this.props.userVotes}
 				/>
 			);
 		} else {
-			to_display_review = <T>common.overview_tab.display_text</T>;
-
-			// {i18n.__(
-			// 	"common.overview_tab.display_text"
-			// )};
+			toDisplayReview = <T>common.overview_tab.display_text</T>;
 		}
 
 		// FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
 		if (this.props.jobAds.length > 0) {
-			to_display_jobs = (
+			toDisplayJobs = (
 				<div>
 					<div>
 						<h4>
@@ -90,16 +86,12 @@ export default class OverviewTab extends React.Component {
 			);
 		} else {
 			// the length == 0
-			to_display_jobs = <T>common.overview_tab.display_jobs</T>;
-
-			// {i18n.__(
-			// 	"common.overview_tab.display_jobs"
-			// )};
+			toDisplayJobs = <T>common.overview_tab.display_jobs</T>;
 		}
 
 		// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
 		if (this.props.salaries.length > 0) {
-			salaries_to_display = (
+			salariesToDisplay = (
 				<div>
 					<div className="hed-soft-mob">
 						<p>{this.props.salaries[0].jobTitle}</p>
@@ -115,7 +107,7 @@ export default class OverviewTab extends React.Component {
 				</div>
 			);
 		} else {
-			salaries_to_display = <T>common.overview_tab.salaries_text</T>;
+			salariesToDisplay = <T>common.overview_tab.salaries_text</T>;
 		}
 
 		// MAIN JSX FILE
@@ -125,7 +117,7 @@ export default class OverviewTab extends React.Component {
 				<div className="col-md-12  section_rview_back_color ">
 					<div className="sect_re1 ">
 						<h4 className="head_section_font">
-							{this.props.companyoverview.name}{" "}
+							{this.props.companyOverview.name}{" "}
 							<T>common.overview_tab.overview</T>
 						</h4>
 
@@ -134,7 +126,7 @@ export default class OverviewTab extends React.Component {
 						<div className="over_p">
 							<p>
 								{
-									this.props.companyoverview
+									this.props.companyOverview
 										.descriptionOfCompany
 								}
 							</p>
@@ -147,12 +139,12 @@ export default class OverviewTab extends React.Component {
 					{" "}
 					{/* review link */}
 					<h4 className="head_section_font">
-						{this.props.companyoverview.name}{" "}
+						{this.props.companyOverview.name}{" "}
 						<T>common.overview_tab.reviews</T>
 					</h4>
 					<div className="add-buttons">
 						<a
-							href={this.props.companyoverview.vizeReviewUrl}
+							href={this.props.companyOverview.vizeReviewUrl}
 							className="btn btn-primary"
 						>
 							{" "}
@@ -161,10 +153,10 @@ export default class OverviewTab extends React.Component {
 						</a>
 					</div>
 					<hr />
-					<CompanyRating companyrating={this.props.companyoverview} />
+					<CompanyRating companyrating={this.props.companyOverview} />
 				</div>
 				<div className="col-md-12  section_overtopsect">
-					{to_display_review}
+					{toDisplayReview}
 
 					<center>
 						<div className="na_tab1">
@@ -199,7 +191,7 @@ export default class OverviewTab extends React.Component {
 						</h4>
 						<hr />
 
-						{to_display_jobs}
+						{toDisplayJobs}
 
 						<center>
 							<div className="na_tab1">
@@ -239,7 +231,7 @@ export default class OverviewTab extends React.Component {
 
 						<div className="add-buttons">
 							<a
-								href={this.props.companyoverview.vizeSalaryUrl}
+								href={this.props.companyOverview.vizeSalaryUrl}
 								className="btn btn-primary"
 							>
 								<i className="fa fa-plus" aria-hidden="true" />{" "}
@@ -248,7 +240,7 @@ export default class OverviewTab extends React.Component {
 						</div>
 						<hr />
 
-						{salaries_to_display}
+						{salariesToDisplay}
 
 						<center>
 							<ul className="" role="tablist">
