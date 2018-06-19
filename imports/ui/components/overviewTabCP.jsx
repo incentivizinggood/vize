@@ -1,7 +1,9 @@
 import React from "react";
-import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
-import CompanyReview from "../../ui/components/companyReview.jsx";
+
 import i18n from "meteor/universe:i18n";
+
+import CompanyRating from "./companyRatingsComponent.jsx";
+import CompanyReview from "./companyReview.jsx";
 
 const t = i18n.createTranslator("common.overview_tab")
 const T = i18n.createComponent(t);
