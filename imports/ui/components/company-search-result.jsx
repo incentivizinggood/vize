@@ -10,7 +10,8 @@ import { JobAds } from "/imports/api/data/jobads.js";
 import { Salaries } from "/imports/api/data/salaries.js";
 import WriteReviewButton from "./write-review-button.jsx";
 
-const T = i18n.createComponent();
+const t = i18n.createTranslator("common.company_component");
+const T = i18n.createComponent(t);
 
 function CompanyComponent(props) {
 	return (
@@ -86,21 +87,21 @@ function CompanyComponent(props) {
 								<li className="active">
 									{props.item.numReviews} <br />
 									<span className="review_text">
-										<T>common.company_component.reviews</T>
+										<T>reviews</T>
 									</span>
 								</li>
 								<li>
 									{props.salaries}
 									<br />
 									<span className="review_text">
-										<T>common.company_component.salaries</T>
+										<T>salaries</T>
 									</span>
 								</li>
 								<li>
 									{props.jobads}
 									<br />
 									<span className="review_text">
-										<T>common.company_component.jobs</T>
+										<T>jobs</T>
 									</span>
 								</li>
 							</ul>
