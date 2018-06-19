@@ -9,7 +9,8 @@ import i18n from "meteor/universe:i18n";
 import { JobAds } from "/imports/api/data/jobads.js";
 import { Salaries } from "/imports/api/data/salaries.js";
 
-const T = i18n.createComponent();
+const t = i18n.createTranslator();
+const T = i18n.createComponent(t);
 
 class CompanyComponent extends React.Component {
 	componentDidMount() {
@@ -34,12 +35,15 @@ class CompanyComponent extends React.Component {
 									<img
 										src="/images/default-company.png"
 										className="img-responsive"
+										alt={`The company logo of ${
+											this.props.item.name
+										}`}
 									/>
 								</div>
 							</a>
 						</div>
 						<div className="col-md-4  prostar">
-							<label className="goo">
+							<span className="goo">
 								{" "}
 								<a
 									href={`/companyprofile/?id=${
@@ -48,7 +52,7 @@ class CompanyComponent extends React.Component {
 								>
 									{this.props.item.name}
 								</a>
-							</label>
+							</span>
 							&nbsp;&nbsp;<StarRatings
 								rating={
 									this.props.item.avgStarRatings
@@ -99,9 +103,7 @@ class CompanyComponent extends React.Component {
 											className="fa fa-plus"
 											aria-hidden="true"
 										/>{" "}
-										{i18n.__(
-											"common.overview_tab.add_review"
-										)}
+										{t("common.overview_tab.add_review")}
 									</a>
 								</div>
 							</div>
