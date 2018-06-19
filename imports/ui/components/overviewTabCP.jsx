@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import i18n from "meteor/universe:i18n";
 
 import CompanyRating from "./companyRatingsComponent.jsx";
 import CompanyReview from "./companyReview.jsx";
 
-const t = i18n.createTranslator("common.overview_tab")
+const t = i18n.createTranslator("common.overview_tab");
 const T = i18n.createComponent(t);
 
 export default class OverviewTab extends React.Component {
@@ -120,8 +121,7 @@ export default class OverviewTab extends React.Component {
 				<div className="col-md-12  section_rview_back_color ">
 					<div className="sect_re1 ">
 						<h4 className="head_section_font">
-							{this.props.companyOverview.name}{" "}
-							<T>overview</T>
+							{this.props.companyOverview.name} <T>overview</T>
 						</h4>
 
 						<hr />
@@ -142,12 +142,13 @@ export default class OverviewTab extends React.Component {
 					{" "}
 					{/* review link */}
 					<h4 className="head_section_font">
-						{this.props.companyOverview.name}{" "}
-						<T>reviews</T>
+						{this.props.companyOverview.name} <T>reviews</T>
 					</h4>
 					<div className="add-buttons">
 						<a
-							href={this.props.companyOverview.vizeReviewUrl}
+							href={`/write-review/?id=${
+								this.props.companyOverview._id
+							}`}
 							className="btn btn-primary"
 						>
 							{" "}
@@ -187,8 +188,7 @@ export default class OverviewTab extends React.Component {
 					{/* job link */}
 					<div className="sect_re1 ">
 						<h4 className="head_section_font">
-							{this.props.jobsCount}{" "}
-							<T>jobs_available</T>
+							{this.props.jobsCount} <T>jobs_available</T>
 						</h4>
 						<hr />
 
@@ -224,13 +224,14 @@ export default class OverviewTab extends React.Component {
 					{/* salaries  */}
 					<div className="sect_re1  sec_p">
 						<h4 className="head_section_font">
-							{this.props.salariesCount}{" "}
-							<T>job_salaries</T>
+							{this.props.salariesCount} <T>job_salaries</T>
 						</h4>
 
 						<div className="add-buttons">
 							<a
-								href={this.props.companyOverview.vizeSalaryUrl}
+								href={`/submit-salary-data/?id=${
+									this.props.companyOverview._id
+								}`}
 								className="btn btn-primary"
 							>
 								<i className="fa fa-plus" aria-hidden="true" />{" "}
@@ -267,3 +268,18 @@ export default class OverviewTab extends React.Component {
 		);
 	}
 }
+
+OverviewTab.propTypes = {
+	userVotes: PropTypes.object.isRequired,
+	jobAds: PropTypes.arrayOf(PropTypes.object).isRequired,
+	salaries: PropTypes.arrayOf(PropTypes.object).isRequired,
+	companyOverview: PropTypes.shape({
+		_id: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+		descriptionOfCompany: PropTypes.string,
+	}).isRequired,
+	companyReview: PropTypes.arrayOf(PropTypes.object).isRequired,
+	jobsCount: PropTypes.number.isRequired,
+	salariesCount: PropTypes.number.isRequired,
+};
