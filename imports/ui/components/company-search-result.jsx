@@ -1,5 +1,6 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
+import PropTypes from "prop-types";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -165,6 +166,23 @@ class CompanyComponent extends React.Component {
 		);
 	}
 }
+
+CompanyComponent.propTypes = {
+	jobads: PropTypes.number.isRequired,
+	salaries: PropTypes.number.isRequired,
+	item: PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		numEmployees: PropTypes.string,
+		industry: PropTypes.string,
+		locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+		descriptionOfCompany: PropTypes.string,
+		avgStarRatings: PropTypes.shape({
+			overallSatisfaction: PropTypes.number.isRequired,
+		}),
+		numReviews: PropTypes.number.isRequired,
+	}).isRequired,
+};
 
 export default withTracker(({ item }) => {
 	const handle = Meteor.subscribe("JobAds");
