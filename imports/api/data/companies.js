@@ -186,7 +186,7 @@ Companies.schema = new SimpleSchema(
 		websiteURL: {
 			// the COMPANY's actual website, not their
 			type: String, // little corner of the Vize web app
-			max: 300,
+			max: 250,
 			optional: true, // should this be required?
 			regEx: SimpleSchema.RegEx.Url,
 			autoform: {
@@ -209,7 +209,6 @@ Companies.schema = new SimpleSchema(
 		// for calculations or for other things
 		// that are not editable by users.
 		// Thus they have autoform.omit set to true.
-
 		dateJoined: {
 			// refers to the date the company "joined" Vize - what exactly does that mean?
 			type: Date,
@@ -299,13 +298,13 @@ Companies.schema = new SimpleSchema(
 		},
 		percentRecommended: {
 			/*
-			How this is calculated:
-			When reviews are left, one of the required fields
-			is basically a boolean "Would you recommend" box.
-			Take the number of checked boxes among all
-			reviews, divide by total number of reviews for
-			this company.
-		*/
+				How this is calculated:
+				When reviews are left, one of the required fields
+				is basically a boolean "Would you recommend" box.
+				Take the number of checked boxes among all
+				reviews, divide by total number of reviews for
+				this company.
+			*/
 			type: Number,
 			min: 0,
 			max: 1,
@@ -317,11 +316,11 @@ Companies.schema = new SimpleSchema(
 		},
 		avgNumMonthsWorked: {
 			/*
-			Calculated based on reviews left by
-			workers who have left the company (i.e. have
-			provided an end date for their employment),
-			we use it as an indication of turnover rate.
-		*/
+				Calculated based on reviews left by
+				workers who have left the company (i.e. have
+				provided an end date for their employment),
+				we use it as an indication of turnover rate.
+			*/
 			type: Number,
 			min: 0,
 			optional: true,
