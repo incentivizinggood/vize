@@ -294,7 +294,7 @@
 			},
 
 
-			"company_component": {
+			"CompanySearchResult": {
 					"reviews": "Comentarios",
 					"salaries": "Salarios",
 					"jobs": "Trabajos"

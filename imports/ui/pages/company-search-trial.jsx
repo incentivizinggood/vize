@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import Header from "/imports/ui/components/header.jsx";
-import CompanyComponent from "/imports/ui/components/company-search-result.jsx";
+import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
@@ -43,7 +43,7 @@ const SearchResults = ({ searchText }) => (
 			}
 
 			const resultList = data.searchCompanies.map(function(company) {
-				return <CompanyComponent key={company.id} item={company} />;
+				return <CompanySearchResult key={company.id} item={company} />;
 			});
 
 			if (resultList.length < 1) {

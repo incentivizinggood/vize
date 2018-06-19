@@ -10,10 +10,10 @@ import { JobAds } from "/imports/api/data/jobads.js";
 import { Salaries } from "/imports/api/data/salaries.js";
 import WriteReviewButton from "./write-review-button.jsx";
 
-const t = i18n.createTranslator("common.company_component");
+const t = i18n.createTranslator("common.CompanySearchResult");
 const T = i18n.createComponent(t);
 
-function CompanyComponent(props) {
+function CompanySearchResult(props) {
 	return (
 		<div>
 			<div className="container box2 all_boxcolor">
@@ -119,7 +119,7 @@ function CompanyComponent(props) {
 	);
 }
 
-CompanyComponent.propTypes = {
+CompanySearchResult.propTypes = {
 	jobads: PropTypes.number.isRequired,
 	salaries: PropTypes.number.isRequired,
 	item: PropTypes.shape({
@@ -144,4 +144,4 @@ export default withTracker(({ item }) => {
 		jobads: JobAds.find({ companyName: item.name }).count(),
 		salaries: Salaries.find({ companyName: item.name }).count(),
 	};
-})(CompanyComponent);
+})(CompanySearchResult);

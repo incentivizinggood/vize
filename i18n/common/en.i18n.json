@@ -279,7 +279,7 @@
 		"posted_on": "posted on"
 	},
 
-	"company_component": {
+	"CompanySearchResult": {
 		"reviews": "Reviews",
 		"salaries": "Salaries",
 		"jobs": "Jobs"
