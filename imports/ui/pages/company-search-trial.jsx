@@ -43,7 +43,7 @@ const SearchResults = ({ searchText }) => (
 			}
 
 			const resultList = data.searchCompanies.map(function(company) {
-				return <CompanySearchResult key={company.id} item={company} />;
+				return <CompanySearchResult key={company.id} company={company} />;
 			});
 
 			if (resultList.length < 1) {

@@ -14,18 +14,19 @@ const t = i18n.createTranslator("common.CompanySearchResult");
 const T = i18n.createComponent(t);
 
 function CompanySearchResult(props) {
+	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
 	return (
 		<div>
 			<div className="container box2 all_boxcolor">
 				<div className="container  welpad1">
 					<div className="col-md-3  prostar">
-						<a href="/companyprofile">
+						<a href={companyProfileUrl}>
 							<div className="shdo">
 								<img
 									src="/images/default-company.png"
 									className="img-responsive"
 									alt={`The company logo of ${
-										props.item.name
+										props.company.name
 									}`}
 								/>
 							</div>
@@ -34,13 +35,13 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
-							<a href={`/companyprofile/?id=${props.item.id}`}>
-								{props.item.name}
+							<a href={companyProfileUrl}>
+								{props.company.name}
 							</a>
 						</span>
 						&nbsp;&nbsp;<StarRatings
 							rating={
-								props.item.avgStarRatings.overallSatisfaction
+								props.company.avgStarRatings.overallSatisfaction
 							}
 							starDimension="25px"
 							starSpacing="2px"
@@ -52,21 +53,21 @@ function CompanySearchResult(props) {
 										className="fa fa-map-marker"
 										aria-hidden="true"
 									/>{" "}
-									<span>{props.item.locations}</span>
+									<span>{props.company.locations}</span>
 								</h4>
 								<h4>
 									<i
 										className="fa fa-flask"
 										aria-hidden="true"
 									/>{" "}
-									<span>{props.item.industry}</span>
+									<span>{props.company.industry}</span>
 								</h4>
 								<h4>
 									<i
 										className="fa fa-users"
 										aria-hidden="true"
 									/>{" "}
-									<span>{props.item.numEmployees}</span>
+									<span>{props.company.numEmployees}</span>
 								</h4>
 							</div>
 						</div>
@@ -74,7 +75,7 @@ function CompanySearchResult(props) {
 					<div className="col-md-5 prostar">
 						<div className="col-md-12">
 							<div className="titlestar">
-								<WriteReviewButton companyId={props.item.id} />
+								<WriteReviewButton companyId={props.company.id} />
 							</div>
 						</div>
 					</div>
@@ -85,7 +86,7 @@ function CompanySearchResult(props) {
 						<div className="reviews1">
 							<ul>
 								<li className="active">
-									{props.item.numReviews} <br />
+									{props.company.numReviews} <br />
 									<span className="review_text">
 										<T>reviews</T>
 									</span>
@@ -109,7 +110,7 @@ function CompanySearchResult(props) {
 					</div>
 					<div className="col-md-9">
 						<div className="pargrf">
-							<p>{props.item.descriptionOfCompany}</p>
+							<p>{props.company.descriptionOfCompany}</p>
 						</div>
 					</div>
 				</div>
@@ -122,7 +123,7 @@ function CompanySearchResult(props) {
 CompanySearchResult.propTypes = {
 	jobads: PropTypes.number.isRequired,
 	salaries: PropTypes.number.isRequired,
-	item: PropTypes.shape({
+	company: PropTypes.shape({
 		id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
 		numEmployees: PropTypes.string,
@@ -136,12 +137,12 @@ CompanySearchResult.propTypes = {
 	}).isRequired,
 };
 
-export default withTracker(({ item }) => {
+export default withTracker(({ company }) => {
 	Meteor.subscribe("JobAds");
 	Meteor.subscribe("Salaries");
 
 	return {
-		jobads: JobAds.find({ companyName: item.name }).count(),
-		salaries: Salaries.find({ companyName: item.name }).count(),
+		jobads: JobAds.find({ companyName: company.name }).count(),
+		salaries: Salaries.find({ companyName: company.name }).count(),
 	};
 })(CompanySearchResult);
