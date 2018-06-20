@@ -49,6 +49,15 @@ CREATE TABLE company_locations (
 	PRIMARY KEY (companyName, locationName)
 );
 
+-- NOTE submittedBy fields are numeric in this implementation,
+-- but could be displayed on the website as "user[submittedBy]"
+-- in place of a screen name
+-- QUESTION how to fill in the submittedBy field for users that
+-- don't have accounts yet, especially as I don't yet know how the
+-- accounts will be implemented in the full-SQL version?
+-- QUESTION what if I do it by translating users.js to PostgreSQL
+-- like the other schema files? Then how would we handle the transition stage?
+
 -- reviews about companies
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
@@ -56,7 +65,7 @@ CREATE TABLE reviews (
 	-- QUESTION
 	-- Does this field have to be compatible with
 	-- the current Mongo setup?
-	submittedBy			integer, -- same size as serial, which would be used for User ID's in the full-SQL implementation
+	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
 	-- QUESTION
 	-- Logically these bext two fields are foreign keys, but how to handle
 	-- the desired exception cases (where someone can leave a review
@@ -109,4 +118,18 @@ CREATE TABLE review_locations (
 		DEFERRABLE INITIALLY DEFERRED,
 	locationName		varchar(190),
 	PRIMARY KEY (reviewId,locationName)
+);
+
+DROP TABLE IF EXISTS review_comments CASCADE;
+CREATE TABLE review_comments (
+	-- QUESTION this first field should be an index, how to do that?
+	reviewId			integer			NOT NULL
+		REFERENCES reviews(_id)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0 or -1 if they don't have an account
+	datePosted			date			DEFAULT now(),
+	content				text			NOT NULL,
+	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
+	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
 );
