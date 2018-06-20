@@ -42,8 +42,71 @@ CREATE TABLE companies (
 DROP TABLE IF EXISTS company_locations CASCADE;
 CREATE TABLE company_locations (
 	companyName			varchar(190)
-	REFERENCES companies (name)
-	ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
+		REFERENCES companies (name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
 	locationName		varchar(190),
 	PRIMARY KEY (companyName, locationName)
+);
+
+-- reviews about companies
+DROP TABLE IF EXISTS reviews CASCADE;
+CREATE TABLE reviews (
+	_id					serial			PRIMARY KEY,
+	-- QUESTION
+	-- Does this field have to be compatible with
+	-- the current Mongo setup?
+	submittedBy			integer, -- same size as serial, which would be used for User ID's in the full-SQL implementation
+	-- QUESTION
+	-- Logically these bext two fields are foreign keys, but how to handle
+	-- the desired exception cases (where someone can leave a review
+	-- for a company that has no profile yet)? Two options:
+	-- 0) Wait, is this even a problem since the fields aren't declared NOT NULL?
+	--		Logically the only separation between cases is session flow, so
+	--		it might make sense to leave these fields as optional since the
+	--		database doesn't care about session flow.
+	-- 1) TRIGGER to check for a profile, if it doesn't exist then
+	--		create a dummy one, perhaps with a special flag
+	-- 2) DISABLE TRIGGERS, perform the desired insertion, then reenable
+	--		triggers. Not sure if this is viable, it will only work if
+	--		ALTER TABLE doesn't auto-commit the transaction, and only if
+	--		we can make sure that the transaction has an Xlock on this table.
+	companyName			varchar(190)
+		REFERENCES companies(name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	companyId			integer
+		REFERENCES companies (_id)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	-- QUESTION This next field is supposed to be indexed, how to do that?
+	reviewTitle			varchar(101)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
+	jobTitle			varchar(101)	NOT NULL,
+	numMonthsWorked		smallint		NOT NULL CHECK (numMonthsWorked >= 0),
+	pros				varchar(201)	NOT NULL, -- check 5 words
+	cons				varchar(201)	NOT NULL, -- check 5 words
+	wouldRecommend		boolean			NOT NULL,
+	healthAndSafety		float			NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
+	managerRelationship	float			NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
+	workEnvironment		float			NOT NULL CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
+	benefits			float			NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
+	overallSatisfaction	float			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
+	additionalComments	text,
+	dateJoined			date			DEFAULT now(),
+	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
+	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
+
+	-- NOTE Locations go here, need another table with special triggers on it
+	-- NOTE Comments go here, need another table with another set of triggers
+);
+
+-- normalized review locations
+DROP TABLE IF EXISTS review_locations CASCADE;
+CREATE TABLE review_locations (
+	reviewId			integer			NOT NULL
+		REFERENCES reviews(_id)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	locationName		varchar(190),
+	PRIMARY KEY (reviewId,locationName)
 );
