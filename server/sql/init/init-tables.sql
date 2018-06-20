@@ -5,9 +5,11 @@
 
 -- TODO:
 -- 1) "artificial" indexes
--- 2) special functions for reviews, review locations, and comments
--- 3) triggers for reviews, review locations, and comments
--- 4) add users.js to your list of JS files to "translate" to postgres
+-- 2) In testing, make sure that the FK constraints on reviews work as expected
+-- 3) Speaking of which, actually write the test suite for reviews
+-- 4) Refactor the location-counting functions and triggers to be more reusable
+-- 5) Edit comments in init-functions.sql and init-triggers.sql to make more sense
+-- 6) add users.js to your list of JS files to "translate" to postgres
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
@@ -61,17 +63,12 @@ CREATE TABLE company_locations (
 -- NOTE submittedBy fields are numeric in this implementation,
 -- but could be displayed on the website as "user[submittedBy]"
 -- in place of a screen name
--- QUESTION how to fill in the submittedBy field for users that
--- don't have accounts yet, especially as I don't yet know how the
--- accounts will be implemented in the full-SQL version?
--- QUESTION what if I do it by translating users.js to PostgreSQL
--- like the other schema files? Then how would we handle the transition stage?
 
 -- reviews about companies
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	_id					serial			PRIMARY KEY,
-	-- QUESTION
+	-- QUESTION (related to users table implementation)
 	-- Does this field have to be compatible with
 	-- the current Mongo setup?
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
@@ -126,6 +123,7 @@ CREATE TABLE review_locations (
 	PRIMARY KEY (reviewId,locationName)
 );
 
+-- normalized review comments
 DROP TABLE IF EXISTS review_comments CASCADE;
 CREATE TABLE review_comments (
 	-- QUESTION this first field should be an index, how to do that?
