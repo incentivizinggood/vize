@@ -14,6 +14,15 @@ $$
 	return urlRegex.test(arg);
 $$ LANGUAGE plv8;
 
+-- count words in a string, used for checking pros and cons
+-- in the reviews table, hooray for plv8 letting me reuse
+-- the Javascript code that I fought so hard to get working
+CREATE OR REPLACE FUNCTION word_count(arg text)
+RETURNS integer AS
+$$
+	return arg.split(/\s+\b/).length;
+$$ LANGUAGE plv8;
+
 -- helper function for when we want to use a trigger
 -- to blanketly disallow some action
 CREATE OR REPLACE FUNCTION deny_op() RETURNS TRIGGER AS

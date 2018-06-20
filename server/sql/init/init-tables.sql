@@ -3,6 +3,15 @@
 -- -> Deferrable constraints
 -- -> Check constraints
 
+-- TODO:
+-- 1) "artificial" indexes
+-- 2) special functions for reviews, review locations, and comments
+-- 3) triggers for reviews, review locations, and comments
+-- 4) add users.js to your list of JS files to "translate" to postgres
+--		-> user-related SQL fields will reference it
+--		-> will be nice if it can be used alongside current user accounts
+--			before they are replaced by GraphQL
+
 -- company profiles
 DROP TABLE IF EXISTS companies CASCADE;
 CREATE TABLE companies (
@@ -92,8 +101,8 @@ CREATE TABLE reviews (
 	reviewTitle			varchar(101)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
 	jobTitle			varchar(101)	NOT NULL,
 	numMonthsWorked		smallint		NOT NULL CHECK (numMonthsWorked >= 0),
-	pros				varchar(201)	NOT NULL, -- check 5 words
-	cons				varchar(201)	NOT NULL, -- check 5 words
+	pros				varchar(201)	NOT NULL CHECK (word_count(pros) >= 5),
+	cons				varchar(201)	NOT NULL CHECK (word_count(cons) >= 5),
 	wouldRecommend		boolean			NOT NULL,
 	healthAndSafety		float			NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
 	managerRelationship	float			NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
@@ -104,9 +113,6 @@ CREATE TABLE reviews (
 	dateJoined			date			DEFAULT now(),
 	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
 	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
-
-	-- NOTE Locations go here, need another table with special triggers on it
-	-- NOTE Comments go here, need another table with another set of triggers
 );
 
 -- normalized review locations
