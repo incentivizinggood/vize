@@ -85,7 +85,7 @@ CREATE TABLE reviews (
 	--		triggers. Not sure if this is viable, it will only work if
 	--		ALTER TABLE doesn't auto-commit the transaction, and only if
 	--		we can make sure that the transaction has an Xlock on this table.
-	companyName			varchar(190)
+	companyName			varchar(190)	NOT NULL
 		REFERENCES companies(name)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,

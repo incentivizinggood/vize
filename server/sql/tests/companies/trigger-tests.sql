@@ -1,5 +1,5 @@
 -- companies foreign key -> company_locations tests:
-\! echo "--- TESTING COMPANY-RELATED FUNCTIONALITY *WITHOUT* TRIGGERS ---"
+\! echo "--- TESTING COMPANY-RELATED FUNCTIONALITY *WITH* TRIGGERS ---"
 \i ./server/sql/tests/wipedb.sql;
 \i ./server/sql/init/init-db.sql;
 -- tests for geq_one_locations trigger on companies
