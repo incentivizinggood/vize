@@ -4,8 +4,8 @@
 -- -> Check constraints
 
 -- TODO:
--- 1) In testing, make sure that the FK constraints on reviews work as expected
--- 2) Speaking of which, actually write the test suite for reviews
+-- 1) Write the test suite for reviews
+-- 2) In testing, make sure that the FK constraints on reviews work as expected
 -- 3) Refactor the location-counting functions and triggers to be more reusable
 -- 4) Edit comments in init-functions.sql and init-triggers.sql to make more sense
 -- 5) add users.js to your list of JS files to "translate" to postgres
