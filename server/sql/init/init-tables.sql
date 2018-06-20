@@ -4,12 +4,11 @@
 -- -> Check constraints
 
 -- TODO:
--- 1) "artificial" indexes
--- 2) In testing, make sure that the FK constraints on reviews work as expected
--- 3) Speaking of which, actually write the test suite for reviews
--- 4) Refactor the location-counting functions and triggers to be more reusable
--- 5) Edit comments in init-functions.sql and init-triggers.sql to make more sense
--- 6) add users.js to your list of JS files to "translate" to postgres
+-- 1) In testing, make sure that the FK constraints on reviews work as expected
+-- 2) Speaking of which, actually write the test suite for reviews
+-- 3) Refactor the location-counting functions and triggers to be more reusable
+-- 4) Edit comments in init-functions.sql and init-triggers.sql to make more sense
+-- 5) add users.js to your list of JS files to "translate" to postgres
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
@@ -94,7 +93,7 @@ CREATE TABLE reviews (
 		REFERENCES companies (_id)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	-- QUESTION This next field is supposed to be indexed, how to do that?
+	-- QUESTION this next field might be a good index, should we do that and how?
 	reviewTitle			varchar(101)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
 	jobTitle			varchar(101)	NOT NULL,
 	numMonthsWorked		smallint		NOT NULL CHECK (numMonthsWorked >= 0),
@@ -126,7 +125,7 @@ CREATE TABLE review_locations (
 -- normalized review comments
 DROP TABLE IF EXISTS review_comments CASCADE;
 CREATE TABLE review_comments (
-	-- QUESTION this first field should be an index, how to do that?
+	-- QUESTION this first field might be a good index, should we do that and how?
 	reviewId			integer			NOT NULL
 		REFERENCES reviews(_id)
 		ON UPDATE CASCADE ON DELETE CASCADE
