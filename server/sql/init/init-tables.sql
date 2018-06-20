@@ -79,12 +79,16 @@ CREATE TABLE reviews (
 	--		Logically the only separation between cases is session flow, so
 	--		it might make sense to leave these fields as optional since the
 	--		database doesn't care about session flow.
+	-- -> FALSE, companyName is NOT NULL, that was a mistake earlier.
 	-- 1) TRIGGER to check for a profile, if it doesn't exist then
 	--		create a dummy one, perhaps with a special flag
+	-- -> This is going to be fugly.
 	-- 2) DISABLE TRIGGERS, perform the desired insertion, then reenable
 	--		triggers. Not sure if this is viable, it will only work if
 	--		ALTER TABLE doesn't auto-commit the transaction, and only if
 	--		we can make sure that the transaction has an Xlock on this table.
+	-- -> It indeed does not, and you can request ACCESS EXCLUSIVE.
+	--		Did I mention that I love PostgreSQL?
 	companyName			varchar(190)	NOT NULL
 		REFERENCES companies(name)
 		ON UPDATE CASCADE ON DELETE CASCADE
