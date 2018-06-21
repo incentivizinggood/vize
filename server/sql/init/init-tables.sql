@@ -13,7 +13,7 @@
 DROP TABLE IF EXISTS companies CASCADE;
 CREATE TABLE companies (
 	companyId			serial			PRIMARY KEY,
-	name				varchar(190)	UNIQUE NOT NULL,
+	name				varchar(110)	UNIQUE NOT NULL,
 	dateJoined			date			DEFAULT now(),
 	vizeProfileUrl		varchar(255),
 	vizeReviewUrl		varchar(255),
@@ -21,7 +21,7 @@ CREATE TABLE companies (
 	vizePostJobUrl		varchar(255),
 	dateEstablished		date,
 	industry			varchar(60),
-	otherContactInfo	varchar(255),
+	otherContactInfo	varchar(210),
 	descriptionOfCompany	text,
 
 	-- Other validity onstraints are straightforward via CHECK,
@@ -29,7 +29,7 @@ CREATE TABLE companies (
 	-- allowed brackets for numEmployees
 	numEmployees		varchar(20)		CHECK (numEmployees IS NULL OR numEmployees='1 - 50' OR numEmployees='51 - 500' OR numEmployees='501 - 2000' OR numEmployees='2001 - 5000' OR numEmployees='5000+'),
 	-- regex CHECK constraint for email (with TLD) validity
-	contactEmail		varchar(255)	NOT NULL CHECK (is_valid_email_with_tld(contactEmail)),
+	contactEmail		varchar(110)	NOT NULL CHECK (is_valid_email_with_tld(contactEmail)),
 	-- regex CHECK constraint for URL validity, a bit different
 	-- from the email check because websiteURL is not a required field
 	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR is_valid_url(websiteURL)),
@@ -51,7 +51,7 @@ CREATE TABLE company_locations (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	locationName		varchar(190),
+	locationName		varchar(160),
 	PRIMARY KEY (companyId, locationName)
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE reviews (
 	--		we can make sure that the transaction has an Xlock on this table.
 	-- -> It indeed does not, and you can request ACCESS EXCLUSIVE.
 	--		Did I mention that I love PostgreSQL?
-	companyName			varchar(190)	NOT NULL
+	companyName			varchar(110)	NOT NULL
 		REFERENCES companies (name)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
@@ -97,11 +97,11 @@ CREATE TABLE reviews (
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	-- QUESTION this next field might be a good index, should we do that and how?
-	reviewTitle			varchar(101)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
-	jobTitle			varchar(101)	NOT NULL,
+	reviewTitle			varchar(110)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
+	jobTitle			varchar(110)	NOT NULL,
 	numMonthsWorked		smallint		NOT NULL CHECK (numMonthsWorked >= 0),
-	pros				varchar(201)	NOT NULL CHECK (word_count(pros) >= 5),
-	cons				varchar(201)	NOT NULL CHECK (word_count(cons) >= 5),
+	pros				varchar(210)	NOT NULL CHECK (word_count(pros) >= 5),
+	cons				varchar(210)	NOT NULL CHECK (word_count(cons) >= 5),
 	wouldRecommend		boolean			NOT NULL,
 	healthAndSafety		float			NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
 	managerRelationship	float			NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
@@ -121,7 +121,7 @@ CREATE TABLE review_locations (
 		REFERENCES reviews (reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	reviewLocation		varchar(190),
+	reviewLocation		varchar(160),
 	PRIMARY KEY (reviewId,reviewLocation)
 );
 
@@ -135,6 +135,8 @@ CREATE TABLE review_comments (
 		DEFERRABLE INITIALLY DEFERRED,
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0 or -1 if they don't have an account
 	datePosted			date			DEFAULT now(),
+	-- We may want to discuss the maximum allowable size of comments,
+	-- I'm not sure if ~250 characters is enough but > 6000 (text) seems excessive.
 	content				text			NOT NULL,
 	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
 	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
@@ -145,7 +147,7 @@ DROP TABLE IF EXISTS salaries CASCADE;
 CREATE TABLE salaries (
 	salaryId			serial			PRIMARY KEY,
 	submittedBy			integer			NOT NULL,
-	companyName			varchar(190)	NOT NULL
+	companyName			varchar(110)	NOT NULL
 		REFERENCES companies (name)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
@@ -153,7 +155,7 @@ CREATE TABLE salaries (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	jobTitle			varchar(101)	NOT NULL,
+	jobTitle			varchar(110)	NOT NULL,
 	incomeType			varchar(20)		NOT NULL CHECK (incomeType='Yearly Salary' OR incomeType='Monthly Salary' OR incomeType='Hourly Wage'),
 	incomeAmount		float			NOT NULL CHECK (incomeAmount >= 0),
 	gender				varchar(10)		CHECK (gender IS NULL OR gender='Male' OR gender='Female'),
