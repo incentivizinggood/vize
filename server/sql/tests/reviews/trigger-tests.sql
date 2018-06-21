@@ -66,3 +66,7 @@ DELETE FROM review_locations WHERE reviewLocation='somewhere over the rainbow';
 UPDATE review_locations SET reviewId=1 WHERE reviewLocation='somewhere over the rainbow';
 
 -- test comments foreign key to reviews
+-- should be fine
+INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (1,0,'hello world');
+-- should fail
+INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (3,0,'hello world');
