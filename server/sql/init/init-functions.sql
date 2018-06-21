@@ -33,10 +33,14 @@ $$
 	throw "Operation not permitted";
 $$ LANGUAGE plv8;
 
+-- selects the set of X (locations or something)
+-- related to Y (companies or reviews) by factor Z (companyName or reviewId)
+
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.
 CREATE OR REPLACE FUNCTION check_company_location_count() RETURNS TRIGGER AS
+-- should just call "check_location_count" with company arguments
 $$
 	const newCompanyName = NEW.name;
 	const plan = plv8.prepare("select count(companyName) from company_locations where companyName=$1", ['text']);
@@ -52,8 +56,9 @@ $$ LANGUAGE plv8;
 
 -- ditto for review locations
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
+-- should just call "check_location_count" with review arguments
 $$
-	const newReviewId = NEW._id;
+	const newReviewId = NEW.reviewId;
 	const plan = plv8.prepare("select count(reviewId) from review_locations where reviewId=$1", ['integer']);
 	const location_count = plan.execute([newReviewId])[0].count;
 	plan.free();
@@ -74,6 +79,7 @@ $$
 	if(TG_OP === 'UPDATE' && OLD.companyname === NEW.companyname)
 		return null;
 	const oldCompanyName = OLD.companyname;
+	// * FROM HERE ... *
 	// make sure old company actually exists
 	let plan = plv8.prepare("select name from companies where name=$1",['text']);
 	const oldCompanyExists = plan.execute([oldCompanyName]).length >= 1;
@@ -83,6 +89,7 @@ $$
 		return null;
 	plan = plv8.prepare("select companyName from company_locations where companyName=$1");
 	const isLastLocation = plan.execute([oldCompanyName]).length < 1;
+	// * ... TO HERE CAN BE FACTORED OUT INTO check_location_count *
 	// finally, the reason we came here to begin with
 	if(isLastLocation)
 		throw "Each company must have at least one location (cannot remove last location)";
@@ -96,8 +103,9 @@ $$
 	if(TG_OP === 'UPDATE' && OLD.reviewid === NEW.reviewid)
 		return null;
 	const oldReviewId = OLD.reviewid;
+	// * FROM HERE ... *
 	// make sure old company actually exists
-	let plan = plv8.prepare("select _id from reviews where _id=$1",['integer']);
+	let plan = plv8.prepare("select reviewId from reviews where reviewId=$1",['integer']);
 	const oldReviewExists = plan.execute([oldReviewId]).length >= 1;
 	plan.free();
 	// skip another case that we do not care about
@@ -105,6 +113,7 @@ $$
 		return null;
 	plan = plv8.prepare("select reviewId from review_locations where reviewId=$1");
 	const isLastLocation = plan.execute([oldReviewId]).length < 1;
+	// * ... TO HERE CAN BE FACTORED OUT INTO check_location_count *
 	// finally, the reason we came here to begin with
 	if(isLastLocation)
 		throw "Each review must have at least one location (cannot remove last location)";

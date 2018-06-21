@@ -181,11 +181,11 @@ INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					benefits,overallSatisfaction)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,0,6);
 
-\! echo "INVALID ARG TEST 27: duplicate _id"
+\! echo "INVALID ARG TEST 27: duplicate reviewId"
 -- rehash of the first acceptance test insertion,
--- _id field should conflict if the other tests were run first
+-- reviewId field should conflict if the other tests were run first
 INSERT INTO reviews
-(_id,submittedBy,companyName,companyId,
+(reviewId,submittedBy,companyName,companyId,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,

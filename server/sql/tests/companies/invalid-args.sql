@@ -8,5 +8,5 @@ INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numRev
 \! echo "INVALID ARG TEST 3: NULL email"
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES ('invalid-args-test3', '1 - 50', NULL, 'https://example.com',0,0,0,0,0,0,0,0,0);
 
-\! echo "INVALID ARG TEST 4: duplicate _id"
-INSERT INTO companies (_id, name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES (1,'invalid-args-test4', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);
+\! echo "INVALID ARG TEST 4: duplicate companyId"
+INSERT INTO companies (companyId, name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES (1,'invalid-args-test4', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);

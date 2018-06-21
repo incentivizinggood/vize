@@ -13,7 +13,7 @@
 -- company profiles
 DROP TABLE IF EXISTS companies CASCADE;
 CREATE TABLE companies (
-	_id					serial			PRIMARY KEY,
+	companyId			serial			PRIMARY KEY,
 	name				varchar(190)	UNIQUE NOT NULL,
 	dateJoined			date			DEFAULT now(),
 	vizeProfileUrl		varchar(255),
@@ -63,7 +63,7 @@ CREATE TABLE company_locations (
 -- reviews about companies
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
-	_id					serial			PRIMARY KEY,
+	reviewId			serial			PRIMARY KEY,
 	-- QUESTION (related to users table implementation)
 	-- Does this field have to be compatible with
 	-- the current Mongo setup?
@@ -94,7 +94,7 @@ CREATE TABLE reviews (
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	companyId			integer
-		REFERENCES companies (_id)
+		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	-- QUESTION this next field might be a good index, should we do that and how?
@@ -119,7 +119,7 @@ CREATE TABLE reviews (
 DROP TABLE IF EXISTS review_locations CASCADE;
 CREATE TABLE review_locations (
 	reviewId			integer			NOT NULL
-		REFERENCES reviews(_id)
+		REFERENCES reviews(reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	reviewLocation		varchar(190),
@@ -131,7 +131,7 @@ DROP TABLE IF EXISTS review_comments CASCADE;
 CREATE TABLE review_comments (
 	-- QUESTION this first field might be a good index, should we do that and how?
 	reviewId			integer			NOT NULL
-		REFERENCES reviews(_id)
+		REFERENCES reviews(reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0 or -1 if they don't have an account
