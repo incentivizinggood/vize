@@ -1,19 +1,21 @@
 \! echo "ACCEPTANCE TEST 1: all non-default-valued fields"
-INSERT INTO review
+INSERT INTO reviews
 (submittedBy,companyName,companyId,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (0,"Vize",0,
-			"a","a",0,
-			"a a a a a","a a a a a",1
-			0,0,0,0,0);
+	VALUES (0,'a',0,
+			'a','a',0,
+			'a a a a a','a a a a a',FALSE,
+			0,0,0,0,0,'Hello world!');
 
 \! echo "ACCEPTANCE TEST 2: only non-null fields, numeric range limits"
-INSERT INTO review
-(submittedBy,reviewTitle,jobTitle,numMonthsWorked,
+INSERT INTO reviews
+(submittedBy,companyName,reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction)
-	VALUES ()
+	VALUES (0,'a','a','a',9999,
+			'a a a a a','a a a a a',TRUE,
+			5,5,5,5,5);
