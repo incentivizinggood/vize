@@ -35,10 +35,21 @@ $$ LANGUAGE plv8;
 
 -- selects the set of X from table 1 (company_locations or review_locations)
 -- related to Y in table 2 (companies or reviews)
--- by factor Z (companyId or reviewId)
+-- by integer factor Z (companyId or reviewId)
 -- and return the set's size
 -- or -1 if Z does not exist in table 2
---CREATE OR REPLACE FUNCTION count_related_by_id()
+-- this breaks if Z's name is not the same in both table1 and table2
+CREATE OR REPLACE FUNCTION count_related_by_int
+(table1 text, table2 text, factorname text, factorvalue integer)
+RETURNS integer AS
+$$
+	const checkTable2Plan = plv8.prepare("select $1 from $2 where $1=$3",['text','text','integer']);
+	const doesYexist = checkTable2Plan.execute([factorname,table2,factorvalue]).length >= 1;
+	checkTable2Plan.free();
+	if(!doesYexist) return -1;
+	const countXplan = plv8.prepare("select count($1) from $2 where $1=$3",['text','text','integer']);
+	return countXplan.execute([factorname,table1,factorvalue])[0].length;
+$$ LANGUAGE plv8;
 
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
