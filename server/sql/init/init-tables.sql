@@ -70,6 +70,9 @@ CREATE TABLE reviews (
 	-- QUESTION (related to users table implementation)
 	-- Does this field have to be compatible with
 	-- the current Mongo setup?
+	-- QUESTION Are users allowed to submit more than
+	-- one review per company? If not, we could use
+	-- (submittedBy,companyName) as the primary key.
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
 	-- QUESTION
 	-- Logically these bext two fields are foreign keys, but how to handle
@@ -122,8 +125,8 @@ CREATE TABLE review_locations (
 		REFERENCES reviews(_id)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	locationName		varchar(190),
-	PRIMARY KEY (reviewId,locationName)
+	reviewLocation		varchar(190),
+	PRIMARY KEY (reviewId,reviewLocation)
 );
 
 -- normalized review comments
