@@ -4,8 +4,7 @@
 -- -> Check constraints
 -- -> DDL and DML statements that never commit transactions without asking permission
 -- TODO:
--- 1) Refactor the location-counting functions and triggers to be more reusable
--- 2) add users.js to your list of JS files to "translate" to postgres
+-- - Add users.js to your list of JS files to "translate" to postgres
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
