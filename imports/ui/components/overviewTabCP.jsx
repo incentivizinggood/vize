@@ -1,5 +1,7 @@
+// @flow
 import React from "react";
 import PropTypes from "prop-types";
+import type Mongo from "meteor/mongo";
 
 import i18n from "meteor/universe:i18n";
 
@@ -9,7 +11,38 @@ import CompanyReview from "./companyReview.jsx";
 const t = i18n.createTranslator("common.overview_tab");
 const T = i18n.createComponent(t);
 
-export default class OverviewTab extends React.Component {
+type OverviewTabProps = {
+	userVotes: Mongo.Collection,
+	jobAds: [
+		{
+			jobTitle: string,
+			vizeApplyForJobUrl: string,
+			locations: [string],
+			pesosPerHour: number,
+			contractType: string,
+			jobDescription: string,
+		},
+	],
+	salaries: [
+		{
+			jobTitle: string,
+			gender: string,
+			incomeType: string,
+			incomeAmount: string,
+		},
+	],
+	companyOverview: {
+		_id: string,
+		name: string,
+		locations: [string],
+		descriptionOfCompany?: string,
+	},
+	companyReview: [mixed],
+	jobsCount: number,
+	salariesCount: number,
+};
+
+export default class OverviewTab extends React.Component<OverviewTabProps> {
 	componentDidMount() {
 		// Ask to be updated "reactively".
 		// universe:i18n cannot be trusted to do that automaticaly.
@@ -20,6 +53,8 @@ export default class OverviewTab extends React.Component {
 	componentWillUnmount() {
 		i18n.offChangeLocale(this.i18nInvalidate);
 	}
+
+	i18nInvalidate: () => void;
 
 	render() {
 		let toDisplayJobs;
@@ -271,15 +306,32 @@ export default class OverviewTab extends React.Component {
 
 OverviewTab.propTypes = {
 	userVotes: PropTypes.object.isRequired,
-	jobAds: PropTypes.arrayOf(PropTypes.object).isRequired,
-	salaries: PropTypes.arrayOf(PropTypes.object).isRequired,
+	jobAds: PropTypes.arrayOf(
+		PropTypes.shape({
+			jobTitle: PropTypes.string.isRequired,
+			vizeApplyForJobUrl: PropTypes.string.isRequired,
+			locations: PropTypes.arrayOf(PropTypes.string.isRequired)
+				.isRequired,
+			pesosPerHour: PropTypes.number.isRequired,
+			contractType: PropTypes.string.isRequired,
+			jobDescription: PropTypes.string.isRequired,
+		}).isRequired
+	).isRequired,
+	salaries: PropTypes.arrayOf(
+		PropTypes.shape({
+			jobTitle: PropTypes.string.isRequired,
+			gender: PropTypes.string.isRequired,
+			incomeType: PropTypes.string.isRequired,
+			incomeAmount: PropTypes.string.isRequired,
+		}).isRequired
+	).isRequired,
 	companyOverview: PropTypes.shape({
 		_id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
 		locations: PropTypes.arrayOf(PropTypes.string).isRequired,
 		descriptionOfCompany: PropTypes.string,
 	}).isRequired,
-	companyReview: PropTypes.arrayOf(PropTypes.object).isRequired,
+	companyReview: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 	jobsCount: PropTypes.number.isRequired,
 	salariesCount: PropTypes.number.isRequired,
 };
