@@ -1,11 +1,14 @@
 \! echo "--- TESTING REVIEW-RELATED FUNCTIONALITY *WITH* TRIGGERS ---"
 \i ./server/sql/tests/wipedb.sql;
 \i ./server/sql/init/init-db.sql;
+
 -- test reviews foreign key to companies
--- this one should be totally fine
+-- these should all be fine
 START TRANSACTION;
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES ('a', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);
 INSERT INTO company_locations(companyName,locationName) VALUES ('a','somewhere over the rainbow'),('a','hello world'),('a','anotherwhere'),('a','movin right along');
+INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES ('b', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);
+INSERT INTO company_locations(companyName,locationName) VALUES ('b','somewhere over the rainbow'),('b','hello world'),('b','anotherwhere'),('b','movin right along');
 INSERT INTO reviews
 (submittedBy,companyName,
 	reviewTitle,jobTitle,numMonthsWorked,
@@ -16,9 +19,7 @@ INSERT INTO reviews
 			'a a a a a','a a a a a',FALSE,
 			0,0,0,0,0,'Hello world!');
 INSERT INTO review_locations (reviewId,reviewLocation) VALUES (1,'hello world');
-INSERT INTO review_locations (reviewId,reviewLocation) VALUES (1,'somewhere over the rainbow');
-COMMIT;
--- this next one should fail, no company 'b'
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (1,'anotherwhere');
 INSERT INTO reviews
 (submittedBy,companyName,
 	reviewTitle,jobTitle,numMonthsWorked,
@@ -28,9 +29,40 @@ INSERT INTO reviews
 	VALUES (0,'b','a','a',0,
 			'a a a a a','a a a a a',FALSE,
 			0,0,0,0,0,'Hello world!');
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (2,'somewhere over the rainbow');
+COMMIT;
 
--- test reviews geq_one_locations
+-- this next one should fail, no company 'c'
+INSERT INTO reviews
+(submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (0,'c','a','a',0,
+			'a a a a a','a a a a a',FALSE,
+			0,0,0,0,0,'Hello world!');
 
--- test review_locations not_last_location
+-- should fail, review has no locations
+START TRANSACTION;
+INSERT INTO reviews
+(submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (0,'b','a','a',0,
+			'a a a a a','a a a a a',FALSE,
+			0,0,0,0,0,'Hello world!');
+COMMIT;
+
+-- should fail, would leave no locations for review
+DELETE FROM review_locations WHERE reviewId=1;
+-- should succeed, one location left
+DELETE FROM review_locations WHERE reviewLocation='hello world';
+-- these next two should both fail, as either
+-- would remove a review's last location
+DELETE FROM review_locations WHERE reviewLocation='somewhere over the rainbow';
+UPDATE review_locations SET reviewId=1 WHERE reviewLocation='somewhere over the rainbow';
 
 -- test comments foreign key to reviews

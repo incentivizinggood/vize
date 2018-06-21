@@ -97,7 +97,7 @@ $$
 		return null;
 	const oldReviewId = OLD.reviewid;
 	// make sure old company actually exists
-	let plan = plv8.prepare("select name from reviews where _id=$1",['text']);
+	let plan = plv8.prepare("select _id from reviews where _id=$1",['integer']);
 	const oldReviewExists = plan.execute([oldReviewId]).length >= 1;
 	plan.free();
 	// skip another case that we do not care about
