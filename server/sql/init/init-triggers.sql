@@ -25,6 +25,11 @@ CREATE TRIGGER deny_truncate
 BEFORE TRUNCATE ON review_comments
 FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
 
+DROP TRIGGER IF EXISTS deny_truncate ON salaries;
+CREATE TRIGGER deny_truncate
+BEFORE TRUNCATE ON salaries
+FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+
 -- QUESTION:
 -- One-many relationship from companies to locations,
 -- many-one from locations to companies. Solved on

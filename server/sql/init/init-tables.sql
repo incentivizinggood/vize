@@ -89,7 +89,7 @@ CREATE TABLE reviews (
 	-- -> It indeed does not, and you can request ACCESS EXCLUSIVE.
 	--		Did I mention that I love PostgreSQL?
 	companyName			varchar(190)	NOT NULL
-		REFERENCES companies(name)
+		REFERENCES companies (name)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	companyId			integer
@@ -118,7 +118,7 @@ CREATE TABLE reviews (
 DROP TABLE IF EXISTS review_locations CASCADE;
 CREATE TABLE review_locations (
 	reviewId			integer			NOT NULL
-		REFERENCES reviews(reviewId)
+		REFERENCES reviews (reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	reviewLocation		varchar(190),
@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS review_comments CASCADE;
 CREATE TABLE review_comments (
 	-- QUESTION this first field might be a good index, should we do that and how?
 	reviewId			integer			NOT NULL
-		REFERENCES reviews(reviewId)
+		REFERENCES reviews (reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0 or -1 if they don't have an account
@@ -138,4 +138,24 @@ CREATE TABLE review_comments (
 	content				text			NOT NULL,
 	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
 	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
+);
+
+-- salary reports about companies
+DROP TABLE IF EXISTS salaries CASCADE;
+CREATE TABLE salaries (
+	salaryId			serial			PRIMARY KEY,
+	submittedBy			integer			NOT NULL,
+	companyName			varchar(190)	NOT NULL
+		REFERENCES companies (name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	companyId			integer
+		REFERENCES companies (companyId)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	jobTitle			varchar(101)	NOT NULL,
+	incomeType			varchar(20)		NOT NULL CHECK (incomeType='Yearly Salary' OR incomeType='Monthly Salary' OR incomeType='Hourly Wage'),
+	incomeAmount		float			NOT NULL CHECK (incomeAmount >= 0),
+	gender				varchar(10)		CHECK (gender IS NULL OR gender='Male' OR gender='Female'),
+	datePosted			date			DEFAULT now()
 );
