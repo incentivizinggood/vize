@@ -48,12 +48,12 @@ CREATE TABLE companies (
 -- normalized company locations
 DROP TABLE IF EXISTS company_locations CASCADE;
 CREATE TABLE company_locations (
-	companyName			varchar(190)
-		REFERENCES companies (name)
+	companyId			integer
+		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	locationName		varchar(190),
-	PRIMARY KEY (companyName, locationName)
+	PRIMARY KEY (companyId, locationName)
 );
 
 -- NOTE submittedBy fields are numeric in this implementation,

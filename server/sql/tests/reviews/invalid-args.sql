@@ -138,42 +138,42 @@ INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction,upvotes)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,0,0,-1);
-\! echo "INVALID ARG TEST 21: overshot arg ranges, part 8"
+\! echo "INVALID ARG TEST 21: undershot arg ranges, part 8"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
 					wouldRecommend,healthAndSafety,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction,downvotes)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,0,0,-1);
-\! echo "INVALID ARG TEST 22: overshot arg ranges, part 2"
+\! echo "INVALID ARG TEST 22: overshot arg ranges, part 1"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
 					wouldRecommend,healthAndSafety,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,6,0,0,0,0);
-\! echo "INVALID ARG TEST 23: overshot arg ranges, part 3"
+\! echo "INVALID ARG TEST 23: overshot arg ranges, part 2"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
 					wouldRecommend,healthAndSafety,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,6,0,0,0);
-\! echo "INVALID ARG TEST 24: overshot arg ranges, part 4"
+\! echo "INVALID ARG TEST 24: overshot arg ranges, part 3"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
 					wouldRecommend,healthAndSafety,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,6,0,0);
-\! echo "INVALID ARG TEST 25: overshot arg ranges, part 5"
+\! echo "INVALID ARG TEST 25: overshot arg ranges, part 4"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
 					wouldRecommend,healthAndSafety,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,6,0);
-\! echo "INVALID ARG TEST 26: overshot arg ranges, part 6"
+\! echo "INVALID ARG TEST 26: overshot arg ranges, part 5"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
 					wouldRecommend,healthAndSafety,
