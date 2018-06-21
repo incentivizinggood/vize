@@ -10,5 +10,3 @@ INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numRev
 
 \! echo "INVALID ARG TEST 4: duplicate _id"
 INSERT INTO companies (_id, name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES (1,'invalid-args-test4', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);
-
--- next up: numEmployees and numeric fields
