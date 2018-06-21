@@ -39,16 +39,17 @@ $$ LANGUAGE plv8;
 -- and return the set's size
 -- or -1 if Z does not exist in table 2
 -- this breaks if Z's name is not the same in both table1 and table2
+-- BUG This function is highly vulnerable to SQL injection
 CREATE OR REPLACE FUNCTION count_related_by_int
 (table1 text, table2 text, factorname text, factorvalue integer)
 RETURNS integer AS
 $$
-	const checkTable2Plan = plv8.prepare("select $1 from $2 where $1=$3",['text','text','integer']);
-	const doesYexist = checkTable2Plan.execute([factorname,table2,factorvalue]).length >= 1;
+	const checkTable2Plan = plv8.prepare("select " + factorname + " from " + table2 + " where " + factorname + "=$1",['integer']);
+	const doesYexist = checkTable2Plan.execute([factorvalue]).length >= 1;
 	checkTable2Plan.free();
 	if(!doesYexist) return -1;
-	const countXplan = plv8.prepare("select count($1) from $2 where $1=$3",['text','text','integer']);
-	return countXplan.execute([factorname,table1,factorvalue])[0].length;
+	const countXplan = plv8.prepare("select count(" + factorname + ") from " + table1 + " where " + factorname + "=$1",['integer']);
+	return countXplan.execute([factorvalue])[0].count;
 $$ LANGUAGE plv8;
 
 -- This one is going to be used in an after-insert
@@ -57,32 +58,30 @@ $$ LANGUAGE plv8;
 CREATE OR REPLACE FUNCTION check_company_location_count() RETURNS TRIGGER AS
 -- should just call "check_location_count" with company arguments
 $$
-	const newCompanyId = NEW.companyid;
-	const plan = plv8.prepare("select count(companyId) from company_locations where companyId=$1", ['integer']);
-	const location_count = plan.execute([newCompanyId])[0].count;
-	plan.free();
-	if(location_count >= 1) {
-		return null;
-	}
-	else {
+	const newcompanyid = NEW.companyid;
+	const count_related_by_int = plv8.find_function("count_related_by_int");
+	const result = count_related_by_int("company_locations", "companies","companyid",newcompanyid);
+	if(result === -1)
+		throw "Company doesn't exist, what in the blazes is going on?";
+	else if(result === 0)
 		throw "Each company must have at least one location";
-	}
+	else
+		return null;
 $$ LANGUAGE plv8;
 
 -- ditto for review locations
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
 -- should just call "check_location_count" with review arguments
 $$
-	const newReviewId = NEW.reviewid;
-	const plan = plv8.prepare("select count(reviewId) from review_locations where reviewId=$1", ['integer']);
-	const location_count = plan.execute([newReviewId])[0].count;
-	plan.free();
-	if(location_count >= 1) {
-		return null;
-	}
-	else {
+	const newreviewid = NEW.reviewid;
+	const count_related_by_int = plv8.find_function("count_related_by_int");
+	const result = count_related_by_int("review_locations","reviews","reviewid",newreviewid);
+	if(result === -1)
+		throw "Review doesn't exist, what in the blazes is going on?";
+	else if(result === 0)
 		throw "Each review must have at least one location";
-	}
+	else
+		return null;
 $$ LANGUAGE plv8;
 
 -- This is for after-delete and after-update triggers
@@ -94,21 +93,12 @@ $$
 	if(TG_OP === 'UPDATE' && OLD.companyid === NEW.companyid)
 		return null;
 	const oldcompanyid = OLD.companyid;
-	// * FROM HERE ... *
-	// make sure old company actually exists
-	let plan = plv8.prepare("select companyid from companies where companyid=$1",['integer']);
-	const oldCompanyExists = plan.execute([oldcompanyid]).length >= 1;
-	plan.free();
-	// skip another case that we do not care about
-	if(!oldCompanyExists)
-		return null;
-	plan = plv8.prepare("select companyId from company_locations where companyId=$1",['integer']);
-	const isLastLocation = plan.execute([oldcompanyid]).length < 1;
-	// * ... TO HERE CAN BE FACTORED OUT INTO check_location_count *
-	// finally, the reason we came here to begin with
-	if(isLastLocation)
+	const count_related_by_int = plv8.find_function("count_related_by_int");
+	const result = count_related_by_int("company_locations", "companies", "companyid",oldcompanyid);
+	if (result === 0)
 		throw "Each company must have at least one location (cannot remove last location)";
-	return null;
+	else
+		return null;
 $$ LANGUAGE plv8;
 
 -- ditto for review locations
@@ -117,20 +107,11 @@ $$
 	// skip case we don't care about so we don't have to worry about NEW
 	if(TG_OP === 'UPDATE' && OLD.reviewid === NEW.reviewid)
 		return null;
-	const oldReviewId = OLD.reviewid;
-	// * FROM HERE ... *
-	// make sure old company actually exists
-	let plan = plv8.prepare("select reviewId from reviews where reviewId=$1",['integer']);
-	const oldReviewExists = plan.execute([oldReviewId]).length >= 1;
-	plan.free();
-	// skip another case that we do not care about
-	if(!oldReviewExists)
-		return null;
-	plan = plv8.prepare("select reviewId from review_locations where reviewId=$1",['integer']);
-	const isLastLocation = plan.execute([oldReviewId]).length < 1;
-	// * ... TO HERE CAN BE FACTORED OUT INTO check_location_count *
-	// finally, the reason we came here to begin with
-	if(isLastLocation)
+	const oldreviewid = OLD.reviewid;
+	const count_related_by_int = plv8.find_function("count_related_by_int");
+	const result = count_related_by_int("review_locations","reviews","reviewid",oldreviewid);
+	if(result === 0)
 		throw "Each review must have at least one location (cannot remove last location)";
-	return null;
+	else
+		return null;
 $$ LANGUAGE plv8;
