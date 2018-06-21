@@ -4,11 +4,8 @@
 -- -> Check constraints
 -- -> DDL and DML statements that never commit transactions without asking permission
 -- TODO:
--- 1) Write the test suite for reviews
--- 2) In testing, make sure that the FK constraints on reviews work as expected
--- 3) Refactor the location-counting functions and triggers to be more reusable
--- 4) Edit comments in init-functions.sql and init-triggers.sql to make more sense
--- 5) add users.js to your list of JS files to "translate" to postgres
+-- 1) Refactor the location-counting functions and triggers to be more reusable
+-- 2) add users.js to your list of JS files to "translate" to postgres
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL

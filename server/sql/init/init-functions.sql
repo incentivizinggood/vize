@@ -50,7 +50,7 @@ $$
 	}
 $$ LANGUAGE plv8;
 
--- ditto for reviews
+-- ditto for review locations
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
 $$
 	const newReviewId = NEW._id;
@@ -66,7 +66,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- This is for after-delete and after-update triggers
--- on locations, to make sure that a company's last location
+-- on company locations, to make sure that a company's last location
 -- doesn't accidentally get moved or deleted
 CREATE OR REPLACE FUNCTION check_remaining_company_locations() RETURNS TRIGGER AS
 $$
@@ -89,7 +89,7 @@ $$
 	return null;
 $$ LANGUAGE plv8;
 
--- ditto for reviews
+-- ditto for review locations
 CREATE OR REPLACE FUNCTION check_remaining_review_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
