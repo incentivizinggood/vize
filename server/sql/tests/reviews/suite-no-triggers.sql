@@ -1,7 +1,6 @@
 \! echo "--- TESTING REVIEW-RELATED FUNCTIONALITY *WITHOUT* TRIGGERS ---"
 \i ./server/sql/wipedb.sql;
 \i ./server/sql/init/init-db.sql;
-START TRANSACTION;
 ALTER TABLE reviews DISABLE TRIGGER all;
 ALTER TABLE review_locations DISABLE TRIGGER all;
 ALTER TABLE review_comments DISABLE TRIGGER all;
@@ -11,4 +10,3 @@ ALTER TABLE review_comments DISABLE TRIGGER all;
 ALTER TABLE reviews ENABLE TRIGGER all;
 ALTER TABLE review_locations ENABLE TRIGGER all;
 ALTER TABLE review_comments ENABLE TRIGGER all;
-COMMIT;
