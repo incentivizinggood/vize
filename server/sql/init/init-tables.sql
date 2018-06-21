@@ -2,7 +2,7 @@
 -- has that MariaDB and other MySQL-ites don't:
 -- -> Deferrable constraints
 -- -> Check constraints
-
+-- -> DDL and DML statements that never commit transactions without asking permission
 -- TODO:
 -- 1) Write the test suite for reviews
 -- 2) In testing, make sure that the FK constraints on reviews work as expected
