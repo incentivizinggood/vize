@@ -58,7 +58,7 @@ $$ LANGUAGE plv8;
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
 -- should just call "check_location_count" with review arguments
 $$
-	const newReviewId = NEW.reviewId;
+	const newReviewId = NEW.reviewid;
 	const plan = plv8.prepare("select count(reviewId) from review_locations where reviewId=$1", ['integer']);
 	const location_count = plan.execute([newReviewId])[0].count;
 	plan.free();
