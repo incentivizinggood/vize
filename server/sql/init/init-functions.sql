@@ -44,6 +44,12 @@ CREATE OR REPLACE FUNCTION count_related_by_int
 (table1 text, table2 text, factorname text, factorvalue integer)
 RETURNS integer AS
 $$
+	// hacked SQL-injection defense because I cannot
+	// fully use prepared statements here
+	if(!(table1 === "company_locations" || table1 === "review_locations") ||
+		!(table2 === "companies" || table2 === "reviews") ||
+		!(factorname === "companyid" || factorname === "reviewid"))
+		throw "Illegal arguments";
 	const checkTable2Plan = plv8.prepare("select " + factorname + " from " + table2 + " where " + factorname + "=$1",['integer']);
 	const doesYexist = checkTable2Plan.execute([factorvalue]).length >= 1;
 	checkTable2Plan.free();
