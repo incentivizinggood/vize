@@ -142,6 +142,7 @@ CREATE TABLE review_locations (
 -- normalized review comments
 DROP TABLE IF EXISTS review_comments CASCADE;
 CREATE TABLE review_comments (
+	commentId			serial			PRIMARY KEY, -- needed for voting
 	-- QUESTION this first field might be a good index, should we do that and how?
 	reviewId			integer			NOT NULL
 		REFERENCES reviews (reviewId)
@@ -220,3 +221,9 @@ CREATE TABLE votes (
 	-- requires a special trigger for a special multiplexed foreign key constraint
 	value				boolean			NOT NULL
 );
+
+-- review or comment must exist
+-- vote.submittedBy <> [review,comment].submittedBy (cannot vote on own review)
+-- cannot vote twice (handled by primary key)
+-- go ahead and add 'denormalization' now
+-- 		-> insert trigger separate from update/delete trigger
