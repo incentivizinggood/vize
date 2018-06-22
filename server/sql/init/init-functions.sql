@@ -54,9 +54,9 @@ RETURNS integer AS
 $$
 	// hacked SQL-injection defense because I cannot
 	// fully use prepared statements here
-	if(!(table1 === "company_locations" || table1 === "review_locations") ||
-		!(table2 === "companies" || table2 === "reviews") ||
-		!(factorname === "companyid" || factorname === "reviewid"))
+	if(!(table1 === "company_locations" || table1 === "review_locations" || table1 === "job_locations") ||
+		!(table2 === "companies" || table2 === "reviews" || table2 === "jobads") ||
+		!(factorname === "companyid" || factorname === "reviewid" || factorname === "jobadid"))
 		throw "Illegal arguments";
 	const checkTable2Plan = plv8.prepare("select " + factorname + " from " + table2 + " where " + factorname + "=$1",['integer']);
 	const doesYexist = checkTable2Plan.execute([factorvalue]).length >= 1;
@@ -70,7 +70,6 @@ $$ LANGUAGE plv8;
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.
 CREATE OR REPLACE FUNCTION check_company_location_count() RETURNS TRIGGER AS
--- should just call "check_location_count" with company arguments
 $$
 	const newcompanyid = NEW.companyid;
 	const count_related_by_int = plv8.find_function("count_related_by_int");
@@ -85,7 +84,6 @@ $$ LANGUAGE plv8;
 
 -- ditto for review locations
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
--- should just call "check_location_count" with review arguments
 $$
 	const newreviewid = NEW.reviewid;
 	const count_related_by_int = plv8.find_function("count_related_by_int");
@@ -94,6 +92,20 @@ $$
 		throw "Review doesn't exist, what in the blazes is going on?";
 	else if(result === 0)
 		throw "Each review must have at least one location";
+	else
+		return null;
+$$ LANGUAGE plv8;
+
+-- ditto for job locations
+CREATE OR REPLACE FUNCTION check_job_location_count() RETURNS TRIGGER AS
+$$
+	const newjobadid = NEW.jobadid;
+	const count_related_by_int = plv8.find_function("count_related_by_int");
+	const result = count_related_by_int("job_locations","jobads","jobadid",newjobadid);
+	if(result === -1)
+		throw "Job ad doesn't exist, what in the blazes is going on?";
+	else if(result === 0)
+		throw "Each job ad must have at least one location";
 	else
 		return null;
 $$ LANGUAGE plv8;
@@ -126,6 +138,21 @@ $$
 	const result = count_related_by_int("review_locations","reviews","reviewid",oldreviewid);
 	if(result === 0)
 		throw "Each review must have at least one location (cannot remove last location)";
+	else
+		return null;
+$$ LANGUAGE plv8;
+
+-- ditto for job locations
+CREATE OR REPLACE FUNCTION check_remaining_job_locations() RETURNS TRIGGER AS
+$$
+	// skip case we don't care about so we don't have to worry about NEW
+	if(TG_OP === 'UPDATE' && OLD.jobadid === NEW.jobadid)
+		return null;
+	const oldjobadid = OLD.jobadid;
+	const count_related_by_int = plv8.find_function("count_related_by_int");
+	const result = count_related_by_int("job_locations","jobads","jobadid",oldjobadid);
+	if(result === 0)
+		throw "Each job ad must have at least one location (cannot remove last location)";
 	else
 		return null;
 $$ LANGUAGE plv8;

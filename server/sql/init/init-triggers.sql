@@ -30,6 +30,16 @@ CREATE TRIGGER deny_truncate
 BEFORE TRUNCATE ON salaries
 FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
 
+DROP TRIGGER IF EXISTS deny_truncate ON jobads;
+CREATE TRIGGER deny_truncate
+BEFORE TRUNCATE ON jobads
+FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+
+DROP TRIGGER IF EXISTS deny_truncate ON job_locations;
+CREATE TRIGGER deny_truncate
+BEFORE TRUNCATE ON job_locations
+FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+
 -- QUESTION:
 -- One-many relationship from companies to locations,
 -- many-one from locations to companies. Solved on
@@ -71,3 +81,15 @@ CREATE CONSTRAINT TRIGGER not_last_location
 AFTER UPDATE OR DELETE ON review_locations
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE check_remaining_review_locations();
+
+DROP TRIGGER IF EXISTS geq_one_locations ON jobads;
+CREATE CONSTRAINT TRIGGER geq_one_locations
+AFTER INSERT ON jobads
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE check_job_location_count();
+
+DROP TRIGGER IF EXISTS not_last_location ON job_locations;
+CREATE CONSTRAINT TRIGGER not_last_location
+AFTER UPDATE OR DELETE ON job_locations
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE check_remaining_job_locations();
