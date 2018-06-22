@@ -208,3 +208,15 @@ CREATE TABLE job_locations (
 	jobLocation		varchar(160),
 	PRIMARY KEY (jobadId,jobLocation)
 );
+
+-- votes on reviews and comments ("upvotes" and "downvotes")
+DROP TABLE IF EXISTS votes CASCADE;
+CREATE TABLE votes (
+	-- do we need a vote id field?
+	submittedBy			integer			NOT NULL, -- user ID
+	voteSubject			varchar(10)		NOT NULL CHECK (voteSubject='review' OR voteSubject='comment'), -- what the vote is about
+	refersTo			integer			NOT NULL, -- id of the review or comment in question
+	PRIMARY KEY (submittedBy,voteSubject,refersTo), -- one vote per user per item
+	-- requires a special trigger for a special multiplexed foreign key constraint
+	value				boolean			NOT NULL
+);
