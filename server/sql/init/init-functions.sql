@@ -156,3 +156,59 @@ $$
 	else
 		return null;
 $$ LANGUAGE plv8;
+
+-- vote insertion
+CREATE OR REPLACE FUNCTION cast_initial_vote() RETURNS TRIGGER AS
+$$
+	// select review or comment by NEW.refersto,
+	// if none found then throw an exception
+	const table = (NEW.votesubject === 'review') ? "reviews" : "review_comments";
+	const id = (table === "reviews") ? "reviewid" : "commentid";
+	const queryPlan = plv8.prepare("select * from " + table + " where " + id + "=$1",['integer']);
+	const result = queryPlan.execute([NEW.refersto]);
+	if(result.length === 0)
+		throw "Cannot vote on nonexistent " + NEW.votesubject;
+	else if(result[0].submittedby === NEW.submittedby)
+		throw "Cannot vote on own " + NEW.votesubject;
+	else
+		return null;
+$$ LANGUAGE plv8;
+
+-- for these next two trigger functions:
+-- assume vote exists because these are after-triggers
+-- assume the referenced items also exist because of cascading
+-- foreign keys and previously-implemented trigger constraints
+
+-- vote update
+CREATE OR REPLACE FUNCTION change_vote() RETURNS TRIGGER AS
+$$
+//		if new value === old value, return null
+//		else if new value > old value, subtract one from downvotes and add one to upvotes
+//		else if new value < old value, subtract one from upvotes and add one to downvotes
+//		must also check for changes in votesubject and refersto
+	const table = ()
+	if(NEW.value === OLD.value) {
+		return null;
+	}
+	else if(NEW.value === 't' && OLD.value === 'f') {
+
+	}
+	else if(NEW.value === 'f' && OLD.value === 't') {
+
+	}
+$$ LANGUAGE plv9;
+
+-- vote delete
+CREATE OR REPLACE FUNCTION retract_vote() RETURNS TRIGGER AS
+$$
+//		if vote value is true, subtract one from upvotes
+//		else if vote value is false, subtract one from downvotes
+	const table = (OLD.votesubject === 'review') ? "reviews" : "review_comments";
+	const id = (table === "reviews") ? "reviewid" : "commentId";
+	if(OLD.value === 't') {
+
+	}
+	else if(OLD.value === 'f') {
+
+	}
+$$ LANGUAGE plv8;

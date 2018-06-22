@@ -40,6 +40,11 @@ CREATE TRIGGER deny_truncate
 BEFORE TRUNCATE ON job_locations
 FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
 
+DROP TRIGGER IF EXISTS deny_truncate ON votes;
+CREATE TRIGGER deny_truncate
+BEFORE TRUNCATE ON votes
+FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+
 -- QUESTION:
 -- One-many relationship from companies to locations,
 -- many-one from locations to companies. Solved on
@@ -93,3 +98,23 @@ CREATE CONSTRAINT TRIGGER not_last_location
 AFTER UPDATE OR DELETE ON job_locations
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE check_remaining_job_locations();
+
+DROP TRIGGER IF EXISTS insert_vote ON votes;
+CREATE CONSTRAINT TRIGGER insert_vote
+AFTER INSERT ON votes
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE cast_initial_vote();
+
+-- do these next two really need to be
+-- deferred constraint triggers?
+DROP TRIGGER IF EXISTS update_vote ON votes;
+CREATE CONSTRAINT TRIGGER update_vote
+AFTER UPDATE ON votes
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE change_vote();
+
+DROP TRIGGER IF EXISTS delete_vote ON votes;
+CREATE CONSTRAINT TRIGGER delete_vote
+AFTER DELETE ON votes
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE retract_vote();
