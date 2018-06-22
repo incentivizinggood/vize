@@ -14,6 +14,14 @@ $$
 	return urlRegex.test(arg);
 $$ LANGUAGE plv8 IMMUTABLE;
 
+-- regex check for pay range
+CREATE OR REPLACE FUNCTION is_valid_pay_range(arg text)
+RETURNS boolean AS
+$$
+	const payRangeRegex=/^[123456789]\d*(\.\d\d)?\s*(-\s*[123456789]\d*(\.\d\d)?\s*)?$/;
+	return payRangeRegex.test(arg);
+$$ LANGUAGE plv8 IMMUTABLE;
+
 -- count words in a string, used for checking pros and cons
 -- in the reviews table, hooray for plv8 letting me reuse
 -- the Javascript code that I fought so hard to get working

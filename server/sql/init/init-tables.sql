@@ -27,10 +27,10 @@ CREATE TABLE companies (
 	companyId			serial			PRIMARY KEY,
 	name				varchar(110)	UNIQUE NOT NULL,
 	dateJoined			date			DEFAULT now(),
-	vizeProfileUrl		varchar(255), -- need to make sure this gets initialized
-	vizeReviewUrl		varchar(255), -- need to make sure this gets initialized
-	vizeSalaryUrl		varchar(255), -- need to make sure this gets initialized
-	vizePostJobUrl		varchar(255), -- need to make sure this gets initialized
+	vizeProfileUrl		text, -- need to make sure this gets initialized
+	vizeReviewUrl		text, -- need to make sure this gets initialized
+	vizeSalaryUrl		text, -- need to make sure this gets initialized
+	vizePostJobUrl		text, -- need to make sure this gets initialized
 	dateEstablished		date,
 	industry			varchar(60),
 	otherContactInfo	varchar(210),
@@ -186,6 +186,7 @@ CREATE TABLE jobads (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
+	vizeApplyForJobUrl	text, -- need to make sure this gets initialized
 	jobTitle			varchar(110)	NOT NULL,
 	pesosPerHour		varchar(40)		NOT NULL CHECK (is_valid_pay_range(pesosPerHour)),
 	contractType		varchar(20)		NOT NULL CHECK (contractType='Full time' OR contractType='Part time' OR contractType='Contractor'),
