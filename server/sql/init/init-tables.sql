@@ -8,6 +8,8 @@
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
+-- - Figure out how to fill in the vize*Url fields
+-- - Figure out how long comments and other text fields ought to be
 
 -- WARNING --
 -- Let the reader beware:
