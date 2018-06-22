@@ -182,20 +182,32 @@ $$ LANGUAGE plv8;
 -- vote update
 CREATE OR REPLACE FUNCTION change_vote() RETURNS TRIGGER AS
 $$
+//		deny changes to votesubject and refersto, because I do not want to think about them
 //		if new value === old value, return null
 //		else if new value > old value, subtract one from downvotes and add one to upvotes
 //		else if new value < old value, subtract one from upvotes and add one to downvotes
-//		must also check for changes in votesubject and refersto
-	const table = ()
-	if(NEW.value === OLD.value) {
+	if(NEW.votesubject !== OLD.votesubject ||
+			NEW.refersto !== OLD.refersto) {
+		throw "Operation not permitted";
+	}
+	else if(NEW.value === OLD.value) {
 		return null;
 	}
-	else if(NEW.value === 't' && OLD.value === 'f') {
-
+	const table = (OLD.votesubject === 'review') ? "reviews" : "review_comments";
+	const id = (table === "reviews") ? "reviewid" : "commentid";
+	const queryPlan = plv8.prepare("select upvotes,downvotes from " + table + " where " + id + "=$1",['integer']);
+	const oldVotes = queryPlan.execute([OLD.refersto]);
+	queryPlan.free();
+	const oldUpvotes = oldVotes[0].upvotes;
+	const oldDownvotes = oldVotes[0].downvotes;
+	const updatePlan = plv8.prepare("update " + table + " set upvotes=$1,downvotes=$2 where " + id + "=$3",['integer','integer','integer']);
+	if(NEW.value === 't' && OLD.value === 'f') {
+		updatePlan.execute([oldUpvotes+1, oldDownvotes-1,OLD.refersto])
 	}
 	else if(NEW.value === 'f' && OLD.value === 't') {
-
+		updatePlan.execute([oldUpvotes-1, oldDownvotes+1,OLD.refersto])
 	}
+	updatePlan.free();
 $$ LANGUAGE plv9;
 
 -- vote delete
@@ -204,11 +216,20 @@ $$
 //		if vote value is true, subtract one from upvotes
 //		else if vote value is false, subtract one from downvotes
 	const table = (OLD.votesubject === 'review') ? "reviews" : "review_comments";
-	const id = (table === "reviews") ? "reviewid" : "commentId";
+	const id = (table === "reviews") ? "reviewid" : "commentid";
+	const queryPlan = plv8.prepare("select upvotes,downvotes from " + table + " where " + id + "=$1",['integer']);
+	const oldVotes = queryPlan.execute([OLD.refersto]);
+	queryPlan.free();
+	const oldUpvotes = oldVotes[0].upvotes;
+	const oldDownvotes = oldVotes[0].downvotes;
 	if(OLD.value === 't') {
-
+		const updatePlan = plv8.prepare("update " + table + " set upvotes=$1 where " + id + "=$2",['integer','integer']);
+		updatePlan.execute([oldUpvotes-1,OLD.refersto]);
+		updatePlan.free();
 	}
 	else if(OLD.value === 'f') {
-
+		const updatePlan = plv8.prepare("update " + table + " set downvotes=$1 where " + id + "=$2",['integer','integer']);
+		updatePlan.execute([oldDownvotes-1,OLD.refersto]);
+		updatePlan.free();
 	}
 $$ LANGUAGE plv8;
