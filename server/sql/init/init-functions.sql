@@ -164,14 +164,26 @@ $$
 	// if none found then throw an exception
 	const table = (NEW.votesubject === 'review') ? "reviews" : "review_comments";
 	const id = (table === "reviews") ? "reviewid" : "commentid";
-	const queryPlan = plv8.prepare("select * from " + table + " where " + id + "=$1",['integer']);
+	const queryPlan = plv8.prepare("select upvotes,downotes from " + table + " where " + id + "=$1",['integer']);
 	const result = queryPlan.execute([NEW.refersto]);
 	if(result.length === 0)
 		throw "Cannot vote on nonexistent " + NEW.votesubject;
 	else if(result[0].submittedby === NEW.submittedby)
 		throw "Cannot vote on own " + NEW.votesubject;
-	else
-		return null;
+	else {
+		const oldUpvotes = result[0].upvotes;
+		const oldDownvotes = result[0].downvotes;
+		if(NEW.value === 't') {
+			const updatePlan = plv8.prepare("update " + table + " set upvotes=$1 where " + id + "=$2",['integer','integer']);
+			updatePlan.execute([oldUpvotes+1,NEW.refersto]);
+			updatePlan.free();
+		}
+		else if(NEW.value === 'f') {
+			const updatePlan = plv8.prepare("update " + table + " set downvotes=$1 where " + id + "=$2",['integer','integer']);
+			updatePlan.execute([oldDownvotes+1,NEW.refersto]);
+			updatePlan.free();
+		}
+	}
 $$ LANGUAGE plv8;
 
 -- for these next two trigger functions:
@@ -208,7 +220,7 @@ $$
 		updatePlan.execute([oldUpvotes-1, oldDownvotes+1,OLD.refersto])
 	}
 	updatePlan.free();
-$$ LANGUAGE plv9;
+$$ LANGUAGE plv8;
 
 -- vote delete
 CREATE OR REPLACE FUNCTION retract_vote() RETURNS TRIGGER AS
