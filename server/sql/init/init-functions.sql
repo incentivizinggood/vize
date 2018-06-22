@@ -164,7 +164,7 @@ $$
 	// if none found then throw an exception
 	const table = (NEW.votesubject === 'review') ? "reviews" : "review_comments";
 	const id = (table === "reviews") ? "reviewid" : "commentid";
-	const queryPlan = plv8.prepare("select upvotes,downotes from " + table + " where " + id + "=$1",['integer']);
+	const queryPlan = plv8.prepare("select upvotes,downvotes from " + table + " where " + id + "=$1",['integer']);
 	const result = queryPlan.execute([NEW.refersto]);
 	if(result.length === 0)
 		throw "Cannot vote on nonexistent " + NEW.votesubject;
