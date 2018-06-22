@@ -30,11 +30,11 @@ INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
 INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
 	VALUES ('a','a','1','Fulltime','a','a','a');
-\! echo "INVALID ARG TEST 8: invalid contract type 2"
+\! echo "INVALID ARG TEST 9: invalid contract type 2"
 INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
 	VALUES ('a','a','1','Part ime','a','a','a');
-\! echo "INVALID ARG TEST 8: invalid contract type 3"
+\! echo "INVALID ARG TEST 10: invalid contract type 3"
 INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
 	VALUES ('a','a','1','Gontractor','a','a','a');
