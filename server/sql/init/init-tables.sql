@@ -9,20 +9,32 @@
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
 
+-- WARNING --
+-- Let the reader beware:
+-- camelCase is used in this file for readability, but
+-- *NOTE* while  SQL dialects are weakly typed,
+-- the table, field, trigger, constraint, and function
+-- names are converted entirely to lowercase. *NOTE*
+-- This actually can cause strange null pointer
+-- exceptions when working with plv8 code.
+-- If in doubt, use all lowercase or snakecase
+-- when writing queries or stored function code.
+-- WARNING --
+
 -- company profiles
 DROP TABLE IF EXISTS companies CASCADE;
 CREATE TABLE companies (
 	companyId			serial			PRIMARY KEY,
 	name				varchar(110)	UNIQUE NOT NULL,
 	dateJoined			date			DEFAULT now(),
-	vizeProfileUrl		varchar(255),
-	vizeReviewUrl		varchar(255),
-	vizeSalaryUrl		varchar(255),
-	vizePostJobUrl		varchar(255),
+	vizeProfileUrl		varchar(255), -- need to make sure this gets initialized
+	vizeReviewUrl		varchar(255), -- need to make sure this gets initialized
+	vizeSalaryUrl		varchar(255), -- need to make sure this gets initialized
+	vizePostJobUrl		varchar(255), -- need to make sure this gets initialized
 	dateEstablished		date,
 	industry			varchar(60),
 	otherContactInfo	varchar(210),
-	descriptionOfCompany	text,
+	descriptionOfCompany	varchar(6010),
 
 	-- Other validity onstraints are straightforward via CHECK,
 	-- I love that PostgreSQL actually supports this
@@ -108,7 +120,7 @@ CREATE TABLE reviews (
 	workEnvironment		float			NOT NULL CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
 	benefits			float			NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
 	overallSatisfaction	float			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
-	additionalComments	text,
+	additionalComments	varchar(6010),
 	dateJoined			date			DEFAULT now(),
 	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
 	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
@@ -137,7 +149,7 @@ CREATE TABLE review_comments (
 	datePosted			date			DEFAULT now(),
 	-- We may want to discuss the maximum allowable size of comments,
 	-- I'm not sure if ~250 characters is enough but > 6000 (text) seems excessive.
-	content				text			NOT NULL,
+	content				varchar(6010)	NOT NULL,
 	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
 	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
 );
@@ -160,4 +172,36 @@ CREATE TABLE salaries (
 	incomeAmount		float			NOT NULL CHECK (incomeAmount >= 0),
 	gender				varchar(10)		CHECK (gender IS NULL OR gender='Male' OR gender='Female'),
 	datePosted			date			DEFAULT now()
+);
+
+-- job ads posted by companies
+DROP TABLE IF EXISTS jobads CASCADE;
+CREATE TABLE jobads (
+	jobadId				serial			PRIMARY KEY,
+	companyName			varchar(110)	NOT NULL
+		REFERENCES companies (name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	companyId			integer
+		REFERENCES companies (companyId)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	jobTitle			varchar(110)	NOT NULL,
+	pesosPerHour		varchar(40)		NOT NULL CHECK (is_valid_pay_range(pesosPerHour)),
+	contractType		varchar(20)		NOT NULL CHECK (contractType='Full time' OR contractType='Part time' OR contractType='Contractor'),
+	jobDescription		varchar(6010)	NOT NULL,
+	responsibilities	varchar(6010)	NOT NULL,
+	qualifications		varchar(6010)	NOT NULL,
+	dateposted			date			DEFAULT now()
+);
+
+-- normalized job locations
+DROP TABLE IF EXISTS job_locations CASCADE;
+CREATE TABLE job_locations (
+	jobadId			integer				NOT NULL
+		REFERENCES jobads (jobadId)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	jobLocation		varchar(160),
+	PRIMARY KEY (jobadId,jobLocation)
 );
