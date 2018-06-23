@@ -35,29 +35,26 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- n: the number of values already in the average
 -- avg: the average to add x to
 -- returns the average with x added to it
--- copy-pasted from imports/api/data/denormalization.js
+-- Accepted answer was strange, but the most-upvoted answer
+-- suits our use case perfectly:
+-- https://math.stackexchange.com/questions/22348/how-to-add-and-subtract-values-from-an-average
 CREATE OR REPLACE FUNCTION add_to_average(x float, n integer, avg float)
 RETURNS float AS
 $$
-	const w0 = n / (n + 1); // The fraction of avg that is already there.
-	const w1 = 1 / (n + 1); // The fraction of avg that will be x.
-	// Compute the new average as a weighted sum of the old average and x.
-	const returnValue = avg * w0 + x * w1;
-	return returnValue;
+	return avg + ((x - avg) / (n + 1));
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- x: the number to be removed from the average
 -- n: the number of values currently in the average
 -- avg: the average to remove x from
 -- returns the average with x removed from it
--- copy-pasted from imports/api/data/denormalization.js
+-- inverted version of previous function
 CREATE OR REPLACE FUNCTION sub_from_average(x float, n integer, avg float)
 RETURNS float AS
 $$
-	const w0 = (n - 1) / n; // The fraction of avg that is not x
-	const w1 = 1 / n; // The fraction of avg that is x.
-	// Reverse the computation in addToAvg.
-	return (avg - x * w1) / w0;
+	//const neg_x = x * -1;
+	// because 0 / 0 is NaN (rather than 0) in Javascript
+	return (n - 1 === 0) ? 0 : avg - ((x - avg) / (n - 1));
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- x_old: the old value of x

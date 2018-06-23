@@ -134,7 +134,8 @@ INSERT INTO review_locations (reviewId,reviewLocation) VALUES (5,'somewhere over
 INSERT INTO review_locations (reviewId,reviewLocation) VALUES (6,'somewhere over the rainbow');
 INSERT INTO review_locations (reviewId,reviewLocation) VALUES (7,'somewhere over the rainbow');
 COMMIT;
--- final values should be:
+
+-- values should be:
 -- numreviews: 5
 -- avgnummonthsworked: 4
 -- percentrecommended: .6
@@ -143,4 +144,32 @@ COMMIT;
 -- workenvironment: 16 / 5 = 3.2
 -- benefits: 21 / 5 = 4.2
 -- overallsatisfaction: 1 / 5 = .2
+select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies where name='a';
+
+-- values should be:
+-- numreviews: 4
+-- avgnummonthsworked: 3.75
+-- percentrecommended: .75
+-- healthandsafety: 1.25
+-- managerrelationship: 2.25
+-- workenvironment: 3.25
+-- benefits: 4.25
+-- overallsatisfaction: .25
+delete from reviews where submittedby=3;
+select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies where name='a';
+
+-- values should be:
+-- numreviews: 3
+-- avgnummonthsworked: 4.33
+-- percentrecommended: .667
+-- healthandsafety: 1.33
+-- managerrelationship: 2.33
+-- workenvironment: 3.33
+-- benefits: 4.33
+-- overallsatisfaction: .33
+delete from reviews where submittedby=0;
+select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies where name='a';
+
+-- values should be all 0's
+delete from reviews *;
 select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies where name='a';
