@@ -196,14 +196,17 @@ $$ LANGUAGE plv8;
 -- foreign keys and previously-implemented trigger constraints
 
 -- vote update
+-- users should only be able to update their own votes
 CREATE OR REPLACE FUNCTION change_vote() RETURNS TRIGGER AS
 $$
-//		deny changes to votesubject and refersto, because I do not want to think about them
+//		deny changes to votesubject, refersto, and submittedby,
+//		because I do not want to think about them
 //		if new value === old value, return null
 //		else if new value > old value, subtract one from downvotes and add one to upvotes
 //		else if new value < old value, subtract one from upvotes and add one to downvotes
 	if(NEW.votesubject !== OLD.votesubject ||
-			NEW.refersto !== OLD.refersto) {
+		NEW.refersto !== OLD.refersto ||
+		NEW.submittedby !== OLD.submittedby) {
 		throw "Operation not permitted";
 	}
 	else if(NEW.value === OLD.value) {
@@ -227,6 +230,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- vote delete
+-- users should only be able to delete their own votes
 CREATE OR REPLACE FUNCTION retract_vote() RETURNS TRIGGER AS
 $$
 //		if vote value is true, subtract one from upvotes
