@@ -164,8 +164,9 @@ $$
 	// if none found then throw an exception
 	const table = (NEW.votesubject === 'review') ? "reviews" : "review_comments";
 	const id = (table === "reviews") ? "reviewid" : "commentid";
-	const queryPlan = plv8.prepare("select upvotes,downvotes from " + table + " where " + id + "=$1",['integer']);
+	const queryPlan = plv8.prepare("select submittedby,upvotes,downvotes from " + table + " where " + id + "=$1",['integer']);
 	const result = queryPlan.execute([NEW.refersto]);
+	queryPlan.free();
 	if(result.length === 0)
 		throw "Cannot vote on nonexistent " + NEW.votesubject;
 	else if(result[0].submittedby === NEW.submittedby)
@@ -173,15 +174,18 @@ $$
 	else {
 		const oldUpvotes = result[0].upvotes;
 		const oldDownvotes = result[0].downvotes;
-		if(NEW.value === 't') {
+		if(NEW.value === true) {
 			const updatePlan = plv8.prepare("update " + table + " set upvotes=$1 where " + id + "=$2",['integer','integer']);
 			updatePlan.execute([oldUpvotes+1,NEW.refersto]);
 			updatePlan.free();
 		}
-		else if(NEW.value === 'f') {
+		else if(NEW.value === false) {
 			const updatePlan = plv8.prepare("update " + table + " set downvotes=$1 where " + id + "=$2",['integer','integer']);
 			updatePlan.execute([oldDownvotes+1,NEW.refersto]);
 			updatePlan.free();
+		}
+		else {
+			plv8.elog(ERROR,"vote value is neither true nor false? wut?");
 		}
 	}
 $$ LANGUAGE plv8;
@@ -213,10 +217,10 @@ $$
 	const oldUpvotes = oldVotes[0].upvotes;
 	const oldDownvotes = oldVotes[0].downvotes;
 	const updatePlan = plv8.prepare("update " + table + " set upvotes=$1,downvotes=$2 where " + id + "=$3",['integer','integer','integer']);
-	if(NEW.value === 't' && OLD.value === 'f') {
+	if(NEW.value === true && OLD.value === false) {
 		updatePlan.execute([oldUpvotes+1, oldDownvotes-1,OLD.refersto])
 	}
-	else if(NEW.value === 'f' && OLD.value === 't') {
+	else if(NEW.value === false && OLD.value === true) {
 		updatePlan.execute([oldUpvotes-1, oldDownvotes+1,OLD.refersto])
 	}
 	updatePlan.free();
@@ -234,12 +238,12 @@ $$
 	queryPlan.free();
 	const oldUpvotes = oldVotes[0].upvotes;
 	const oldDownvotes = oldVotes[0].downvotes;
-	if(OLD.value === 't') {
+	if(OLD.value === true) {
 		const updatePlan = plv8.prepare("update " + table + " set upvotes=$1 where " + id + "=$2",['integer','integer']);
 		updatePlan.execute([oldUpvotes-1,OLD.refersto]);
 		updatePlan.free();
 	}
-	else if(OLD.value === 'f') {
+	else if(OLD.value === false) {
 		const updatePlan = plv8.prepare("update " + table + " set downvotes=$1 where " + id + "=$2",['integer','integer']);
 		updatePlan.execute([oldDownvotes-1,OLD.refersto]);
 		updatePlan.free();
