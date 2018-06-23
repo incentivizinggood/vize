@@ -31,6 +31,12 @@ $$
 	return arg.split(/\s+\b/).length;
 $$ LANGUAGE plv8 IMMUTABLE;
 
+-- WARNING
+-- BEWARE DEATH BY FLOATING POINT ERRORS.
+-- These next functions terrify me so much
+-- I want to replace denormalization with views.
+-- WARNING
+
 -- x: number to add to an average
 -- n: the number of values already in the average
 -- avg: the average to add x to
@@ -38,8 +44,8 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- Accepted answer was strange, but the most-upvoted answer
 -- suits our use case perfectly:
 -- https://math.stackexchange.com/questions/22348/how-to-add-and-subtract-values-from-an-average
-CREATE OR REPLACE FUNCTION add_to_average(x float, n integer, avg float)
-RETURNS float AS
+CREATE OR REPLACE FUNCTION add_to_average(x float(2), n float(2), avg float(2))
+RETURNS float(2) AS
 $$
 	return avg + ((x - avg) / (n + 1));
 $$ LANGUAGE plv8 IMMUTABLE;
@@ -49,11 +55,13 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- avg: the average to remove x from
 -- returns the average with x removed from it
 -- inverted version of previous function
-CREATE OR REPLACE FUNCTION sub_from_average(x float, n integer, avg float)
-RETURNS float AS
+CREATE OR REPLACE FUNCTION sub_from_average(x float(2), n float(2), avg float(2))
+RETURNS float(2) AS
 $$
-	//const neg_x = x * -1;
 	// because 0 / 0 is NaN (rather than 0) in Javascript
+	plv8.elog(NOTICE, "x === " + x);
+	plv8.elog(NOTICE, "n === " + n);
+	plv8.elog(NOTICE, "avg === " + avg);
 	return (n - 1 === 0) ? 0 : avg - ((x - avg) / (n - 1));
 $$ LANGUAGE plv8 IMMUTABLE;
 
@@ -63,8 +71,8 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- avg: the average before x is changed
 -- return the average with x changed
 -- copy-pasted from imports/api/data/denormalization.js
-CREATE OR REPLACE FUNCTION change_value_in_avg(x_old float, x_new float, n integer, avg float)
-RETURNS float AS
+CREATE OR REPLACE FUNCTION change_value_in_avg(x_old float(2), x_new float(2), n float(2), avg float(2))
+RETURNS float(2) AS
 $$
 	const w1 = 1 / (n + 1); // The fraction of avg that is x.
 	return avg + (x_new - x_old) * w1;
@@ -329,7 +337,7 @@ $$
 		"healthAndSafety=$4,managerRelationship=$5,workEnvironment=$6,"+
 		"benefits=$7,overallSatisfaction=$8 "+
 		"WHERE name=$9",
-	['float','float','float','float','float','float','float','float','text']);
+	['float(2)','float(2)','float(2)','float(2)','float(2)','float(2)','float(2)','float(2)','text']);
 
 	if(TG_OP.toLowerCase() === 'insert') {
 		const addToAvg = plv8.find_function("add_to_average");

@@ -49,13 +49,13 @@ CREATE TABLE companies (
 	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR is_valid_url(websiteURL)),
 	numFlags			int				DEFAULT 0 CHECK (numFlags >= 0),
 	numReviews			int				DEFAULT 0 CHECK (numReviews >= 0),
-	avgNumMonthsWorked	float			DEFAULT 0 CHECK (avgNumMonthsWorked >= 0),
-	percentRecommended	float			DEFAULT 0 CHECK (percentRecommended >= 0 AND percentRecommended <= 1),
-	healthAndSafety		float			DEFAULT 0 CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
-	managerRelationship	float			DEFAULT 0 CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
-	workEnvironment		float			DEFAULT 0 CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
-	benefits			float			DEFAULT 0 CHECK (benefits >= 0 AND benefits <= 5),
-	overallSatisfaction	float			DEFAULT 0 CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5)
+	avgNumMonthsWorked	float(2)			DEFAULT 0 CHECK (avgNumMonthsWorked >= 0),
+	percentRecommended	float(2)			DEFAULT 0 CHECK (percentRecommended >= 0 AND percentRecommended <= 1),
+	healthAndSafety		float(2)			DEFAULT 0 CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
+	managerRelationship	float(2)			DEFAULT 0 CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
+	workEnvironment		float(2)			DEFAULT 0 CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
+	benefits			float(2)			DEFAULT 0 CHECK (benefits >= 0 AND benefits <= 5),
+	overallSatisfaction	float(2)			DEFAULT 0 CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5)
 );
 
 -- normalized company locations
@@ -117,11 +117,11 @@ CREATE TABLE reviews (
 	pros				varchar(210)	NOT NULL CHECK (word_count(pros) >= 5),
 	cons				varchar(210)	NOT NULL CHECK (word_count(cons) >= 5),
 	wouldRecommend		boolean			NOT NULL,
-	healthAndSafety		float			NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
-	managerRelationship	float			NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
-	workEnvironment		float			NOT NULL CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
-	benefits			float			NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
-	overallSatisfaction	float			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
+	healthAndSafety		float(2)			NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
+	managerRelationship	float(2)			NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
+	workEnvironment		float(2)			NOT NULL CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
+	benefits			float(2)			NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
+	overallSatisfaction	float(2)			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
 	additionalComments	varchar(6010),
 	dateJoined			date			DEFAULT now(),
 	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
@@ -172,7 +172,7 @@ CREATE TABLE salaries (
 		DEFERRABLE INITIALLY DEFERRED,
 	jobTitle			varchar(110)	NOT NULL,
 	incomeType			varchar(20)		NOT NULL CHECK (incomeType='Yearly Salary' OR incomeType='Monthly Salary' OR incomeType='Hourly Wage'),
-	incomeAmount		float			NOT NULL CHECK (incomeAmount >= 0),
+	incomeAmount		float(2)			NOT NULL CHECK (incomeAmount >= 0),
 	gender				varchar(10)		CHECK (gender IS NULL OR gender='Male' OR gender='Female'),
 	datePosted			date			DEFAULT now()
 );
