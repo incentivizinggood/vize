@@ -59,9 +59,6 @@ CREATE OR REPLACE FUNCTION sub_from_average(x float(2), n float(2), avg float(2)
 RETURNS float(2) AS
 $$
 	// because 0 / 0 is NaN (rather than 0) in Javascript
-	plv8.elog(NOTICE, "x === " + x);
-	plv8.elog(NOTICE, "n === " + n);
-	plv8.elog(NOTICE, "avg === " + avg);
 	return (n - 1 === 0) ? 0 : avg - ((x - avg) / (n - 1));
 $$ LANGUAGE plv8 IMMUTABLE;
 
