@@ -76,9 +76,71 @@ INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (3,0,'hello wo
 select nummonthsworked,wouldrecommend,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from reviews;
 select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies;
 
--- should succeed via cascade to review_locations
-DELETE * FROM reviews;
--- should show 0 reviews
-select numreviews from companies;
+-- should succeed via cascade to reviews and review_locations
+DELETE FROM companies *;
 
--- now to look at the statistics
+-- now to check to correctness of the denormalization
+START TRANSACTION;
+INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES ('a', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);
+INSERT INTO company_locations(companyId,locationName) VALUES (3,'somewhere over the rainbow');
+INSERT INTO reviews
+(reviewId,submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (3,0,'a','a','a',2,
+			'a a a a a','a a a a a',TRUE,
+			1,2,3,4,0,'Hello world!');
+INSERT INTO reviews
+(reviewId,submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (4,1,'a','a','a',3,
+			'a a a a a','a a a a a',TRUE,
+			1,2,3,4,0,'Hello world!');
+INSERT INTO reviews
+(reviewId,submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (5,2,'a','a','a',4,
+			'a a a a a','a a a a a',TRUE,
+			1,2,3,4,0,'Hello world!');
+INSERT INTO reviews
+(reviewId,submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (6,3,'a','a','a',5,
+			'a a a a a','a a a a a',FALSE,
+			1,2,3,4,0,'Hello world!');
+INSERT INTO reviews
+(reviewId,submittedBy,companyName,
+	reviewTitle,jobTitle,numMonthsWorked,
+	pros,cons,wouldRecommend,healthAndSafety,
+	managerRelationship,workEnvironment,benefits,
+	overallSatisfaction,additionalComments)
+	VALUES (7,4,'a','a','a',6,
+			'a a a a a','a a a a a',FALSE,
+			2,3,4,5,1,'Hello world!');
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (3,'somewhere over the rainbow');
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (4,'somewhere over the rainbow');
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (5,'somewhere over the rainbow');
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (6,'somewhere over the rainbow');
+INSERT INTO review_locations (reviewId,reviewLocation) VALUES (7,'somewhere over the rainbow');
+COMMIT;
+-- final values should be:
+-- numreviews: 5
+-- avgnummonthsworked: 4
+-- percentrecommended: .6
+-- healthandsafety: 6 / 5 = 1.2
+-- managerrelationship: 11 / 5 = 2.2
+-- workenvironment: 16 / 5 = 3.2
+-- benefits: 21 / 5 = 4.2
+-- overallsatisfaction: 1 / 5 = .2
+select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies where name='a';

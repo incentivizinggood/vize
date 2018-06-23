@@ -311,12 +311,21 @@ $$ LANGUAGE plv8;
 -- and that referenced company is valid if it exists
 CREATE OR REPLACE FUNCTION update_review_statistics() RETURNS TRIGGER AS
 $$
+
+	if(TG_OP.toLowerCase() === 'update' &&
+	(OLD.companyid !== NEW.companyid || OLD.companyname !== NEW.companyname)) {
+		throw "Operation not permitted";
+	}
+
+	const companyName = (TG_OP.toLowerCase() === 'delete') ? OLD.companyname : NEW.companyname;
 	const queryPlan = plv8.prepare("SELECT * FROM companies WHERE name=$1",['text']);
-	const company = queryPlan.execute([NEW.companyname])[0];
+	const company = queryPlan.execute(companyName)[0];
 	queryPlan.free();
+
 	if(company === undefined) {
 		return null;
 	}
+
 	const updatePlan = plv8.prepare(
 		"UPDATE companies SET "+
 		"numReviews=$1,avgNumMonthsWorked=$2,percentRecommended=$3,"+
@@ -324,6 +333,7 @@ $$
 		"benefits=$7,overallSatisfaction=$8 "+
 		"WHERE name=$9",
 	['float','float','float','float','float','float','float','float','text']);
+
 	if(TG_OP.toLowerCase() === 'insert') {
 		const addToAvg = plv8.find_function("add_to_average");
 		updatePlan.execute([
@@ -338,6 +348,7 @@ $$
 			company.name
 		]);
 	}
+
 	else if(TG_OP.toLowerCase() === 'update') {
 		const changeValueInAvg = plv8.find_function("change_value_in_avg");
 		updatePlan.execute([
@@ -352,6 +363,7 @@ $$
 			company.name
 		]);
 	}
+
 	else if(TG_OP.toLowerCase() === 'delete') {
 		const subFromAvg = plv8.find_function("sub_from_average");
 		updatePlan.execute([
@@ -366,6 +378,8 @@ $$
 			company.name
 		]);
 	}
+
 	updatePlan.free();
 	return null;
+
 $$ LANGUAGE plv8;
