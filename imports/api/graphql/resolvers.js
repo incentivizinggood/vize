@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
+import type { ValueNode } from "graphql/language";
+
 import type { Comment, CommentParent } from "../models/comment.js";
 import type { Company } from "../models/company.js";
 import type { JobAd } from "../models/job-ad.js";
@@ -300,17 +302,29 @@ export default {
 
 	Date: new GraphQLScalarType({
 		name: "Date",
-		parseValue(value: mixed): Date {
-			return new Date(value);
-		},
-		serialize(value: mixed): string {
-			return value.toISOString();
-		},
-		parseLiteral(ast) {
-			if (ast.kind === Kind.INT) {
-				return parseInt(ast.value, 10); // ast value is always in string format
+		serialize(value: mixed): ?string {
+			if (value instanceof Date) {
+				// TODO: Validate that Date instance is valid.
+				return value.toISOString();
 			}
-			return null;
+			// value is not a valid instance of Date.
+			return undefined;
+		},
+		parseValue(value: mixed): ?Date {
+			if (typeof value === "string" || value instanceof String) {
+				// TODO: Check for ISO 8601 format and reject all other formats.
+				return new Date(value);
+			}
+			// value is not a valid encoding for a Date scalar.
+			return undefined;
+		},
+		parseLiteral(ast: ValueNode): ?Date {
+			if (ast.kind === Kind.STRING) {
+				// TODO: Check for ISO 8601 format and reject all other formats.
+				return new Date(ast.value);
+			}
+			// value is not a valid encoding for a Date scalar.
+			return undefined;
 		},
 	}),
 };
