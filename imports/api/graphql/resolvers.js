@@ -300,13 +300,11 @@ export default {
 
 	Date: new GraphQLScalarType({
 		name: "Date",
-		description:
-			"JavaScript Date serialized as milliseconds since midnight January 1, 1970 UTC.",
-		parseValue(value) {
-			return new Date(value); // value from the client
+		parseValue(value: mixed): Date {
+			return new Date(value);
 		},
-		serialize(value) {
-			return value.getTime(); // value sent to the client
+		serialize(value: mixed): string {
+			return value.toISOString();
 		},
 		parseLiteral(ast) {
 			if (ast.kind === Kind.INT) {

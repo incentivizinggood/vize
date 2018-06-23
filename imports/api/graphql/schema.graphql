@@ -182,4 +182,5 @@ type StarRatings {
 	overallSatisfaction: Float!
 }
 
+"Date and time serialized as a string in the ISO 8601 format."
 scalar Date
