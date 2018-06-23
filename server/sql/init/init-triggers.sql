@@ -1,3 +1,9 @@
+-- WARNING
+-- In PostgreSQL, triggers defined for the same
+-- event on the same table execute in alphabetical
+-- order by trigger name.
+-- WARNING
+
 -- TRUNCATE just seems like a nasty loophole
 -- right now and I'm not going to think about it.
 DROP TRIGGER IF EXISTS deny_truncate ON companies;
@@ -105,8 +111,6 @@ AFTER INSERT ON votes
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE cast_initial_vote();
 
--- do these next two really need to be
--- deferred constraint triggers?
 DROP TRIGGER IF EXISTS update_vote ON votes;
 CREATE CONSTRAINT TRIGGER update_vote
 AFTER UPDATE ON votes
@@ -118,3 +122,8 @@ CREATE CONSTRAINT TRIGGER delete_vote
 AFTER DELETE ON votes
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE retract_vote();
+
+DROP TRIGGER IF EXISTS update_denormalization ON reviews;
+CREATE TRIGGER update_denormalization
+AFTER INSERT OR UPDATE OR DELETE ON reviews
+FOR EACH ROW EXECUTE PROCEDURE update_review_statistics();

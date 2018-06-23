@@ -253,3 +253,19 @@ $$
 		updatePlan.free();
 	}
 $$ LANGUAGE plv8;
+
+-- review data denormalization,
+-- based on whether review is being inserted, updated, or deleted
+-- update numReviews (+1, -0, -1)
+-- update averages:
+-- avgNumMonthsWorked
+-- percentRecommended
+-- healthAndSafety
+-- managerRelationship
+-- workEnvironment
+-- benefits
+-- overallSatisfaction
+CREATE OR REPLACE FUNCTION update_review_statistics() RETURNS TRIGGER AS
+$$
+
+$$ LANGUAGE plv8;
