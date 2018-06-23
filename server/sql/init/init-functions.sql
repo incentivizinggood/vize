@@ -31,6 +31,48 @@ $$
 	return arg.split(/\s+\b/).length;
 $$ LANGUAGE plv8 IMMUTABLE;
 
+-- x: number to add to an average
+-- n: the number of values already in the average
+-- avg: the average to add x to
+-- returns the average with x added to it
+-- copy-pasted from imports/api/data/denormalization.js
+CREATE OR REPLACE FUNCTION add_to_average(x float, n integer, avg float)
+RETURNS float AS
+$$
+	const w0 = n / (n + 1); // The fraction of avg that is already there.
+	const w1 = 1 / (n + 1); // The fraction of avg that will be x.
+	// Compute the new average as a weighted sum of the old average and x.
+	const returnValue = avg * w0 + x * w1;
+	return returnValue;
+$$ LANGUAGE plv8 IMMUTABLE;
+
+-- x: the number to be removed from the average
+-- n: the number of values currently in the average
+-- avg: the average to remove x from
+-- returns the average with x removed from it
+-- copy-pasted from imports/api/data/denormalization.js
+CREATE OR REPLACE FUNCTION sub_from_average(x float, n integer, avg float)
+RETURNS float AS
+$$
+	const w0 = (n - 1) / n; // The fraction of avg that is not x
+	const w1 = 1 / n; // The fraction of avg that is x.
+	// Reverse the computation in addToAvg.
+	return (avg - x * w1) / w0;
+$$ LANGUAGE plv8 IMMUTABLE;
+
+-- x_old: the old value of x
+-- x_new: the new value of x
+-- n: the number of values in the average
+-- avg: the average before x is changed
+-- return the average with x changed
+-- copy-pasted from imports/api/data/denormalization.js
+CREATE OR REPLACE FUNCTION change_value_in_avg(x_old float, x_new float, n integer, avg float)
+RETURNS float AS
+$$
+	const w1 = 1 / (n + 1); // The fraction of avg that is x.
+	return avg + (x_new - x_old) * w1;
+$$ LANGUAGE plv8 IMMUTABLE;
+
 -- helper function for when we want to use a trigger
 -- to blanketly disallow some action
 CREATE OR REPLACE FUNCTION deny_op() RETURNS TRIGGER AS
@@ -265,7 +307,62 @@ $$ LANGUAGE plv8;
 -- workEnvironment
 -- benefits
 -- overallSatisfaction
+-- can assume that NEW review is valid
+-- and that referenced company is valid if it exists
 CREATE OR REPLACE FUNCTION update_review_statistics() RETURNS TRIGGER AS
 $$
-
+	const queryPlan = plv8.prepare("SELECT * FROM companies WHERE name=$1",['text']);
+	const company = queryPlan.execute([NEW.companyname])[0];
+	queryPlan.free();
+	if(company === undefined) {
+		return null;
+	}
+	const updatePlan = plv8.prepare(
+		"UPDATE companies SET "+
+		"numReviews=$1,avgNumMonthsWorked=$2,percentRecommended=$3,"+
+		"healthAndSafety=$4,managerRelationship=$5,workEnvironment=$6,"+
+		"benefits=$7,overallSatisfaction=$8 "+
+		"WHERE name=",
+	['float','float','float','float','float','float','float','float']);
+	if(TG_OP.toLowerCase() === 'insert') {
+		const addToAvg = plv8.find_function("add_to_average");
+		updatePlan.execute([
+			company.numreviews+1,
+			addToAvg(NEW.nummonthsworked,company.numreviews,company.avgnummonthsworked),
+			addToAvg((NEW.wouldrecommend) ? 1 : 0,company.numreviews,company.percentrecommended),
+			addToAvg(NEW.healthandsafety,company.numreviews,company.healthandsafety),
+			addToAvg(NEW.managerrelationship,company.numreviews,company.managerrelationship),
+			addToAvg(NEW.workenvironment,company.numreviews,company.workenvironment),
+			addToAvg(NEW.benefits,company.numreviews,company.benefits),
+			addToAvg(NEW.overallsatisfaction,company.numreviews,company.overallsatisfaction),
+		]);
+	}
+	else if(TG_OP.toLowerCase() === 'update') {
+		const changeValueInAvg = plv8.find_function("change_value_in_avg");
+		updatePlan.execute([
+			company.numreviews,
+			changeValueInAvg(OLD.nummonthsworked,NEW.nummonthsworked,company.numreviews,company.avgnummonthsworked),
+			changeValueInAvg((OLD.wouldrecommend) ? 1 : 0, (NEW.wouldrecommend) ? 1 : 0,company.numreviews,company.percentrecommended),
+			changeValueInAvg(OLD.healthandsafety,NEW.healthandsafety,company.numreviews,company.healthandsafety),
+			changeValueInAvg(OLD.managerrelationship,NEW.managerrelationship,company.numreviews,company.managerrelationship),
+			changeValueInAvg(OLD.workenvironment,NEW.workenvironment,company.numreviews,company.workenvironment),
+			changeValueInAvg(OLD.benefits,NEW.benefits,company.numreviews,company.benefits),
+			changeValueInAvg(OLD.overallsatisfaction,NEW.overallsatisfaction,company.numreviews,company.overallsatisfaction),
+		]);
+	}
+	else if(TG_OP.toLowerCase() === 'delete') {
+		const subFromAvg = plv8.find_function("sub_from_average");
+		updatePlan.execute([
+			company.numreviews-1,
+			subFromAvg(OLD.nummonthsworked,company.numreviews,company.avgnummonthsworked),
+			subFromAvg((OLD.wouldrecommend) ? 1 : 0,company.numreviews,company.percentrecommended),
+			subFromAvg(OLD.healthandsafety,company.numreviews,company.healthandsafety),
+			subFromAvg(OLD.managerrelationship,company.numreviews,company.managerrelationship),
+			subFromAvg(OLD.workenvironment,company.numreviews,company.workenvironment),
+			subFromAvg(OLD.benefits,company.numreviews,company.benefits),
+			subFromAvg(OLD.overallsatisfaction,company.numreviews,company.overallsatisfaction),
+		]);
+	}
+	updatePlan.free();
+	return null;
 $$ LANGUAGE plv8;
