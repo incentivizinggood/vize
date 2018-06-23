@@ -70,3 +70,15 @@ UPDATE review_locations SET reviewId=1 WHERE reviewLocation='somewhere over the 
 INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (1,0,'hello world');
 -- should fail
 INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (3,0,'hello world');
+
+-- should be pretty much all 0's on both of these,
+-- but 1 review for each company
+select nummonthsworked,wouldrecommend,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from reviews;
+select numreviews,avgnummonthsworked,percentrecommended,healthandsafety,managerrelationship,workenvironment,benefits,overallsatisfaction from companies;
+
+-- should succeed via cascade to review_locations
+DELETE * FROM reviews;
+-- should show 0 reviews
+select numreviews from companies;
+
+-- now to look at the statistics

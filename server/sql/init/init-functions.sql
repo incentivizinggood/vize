@@ -322,8 +322,8 @@ $$
 		"numReviews=$1,avgNumMonthsWorked=$2,percentRecommended=$3,"+
 		"healthAndSafety=$4,managerRelationship=$5,workEnvironment=$6,"+
 		"benefits=$7,overallSatisfaction=$8 "+
-		"WHERE name=",
-	['float','float','float','float','float','float','float','float']);
+		"WHERE name=$9",
+	['float','float','float','float','float','float','float','float','text']);
 	if(TG_OP.toLowerCase() === 'insert') {
 		const addToAvg = plv8.find_function("add_to_average");
 		updatePlan.execute([
@@ -335,6 +335,7 @@ $$
 			addToAvg(NEW.workenvironment,company.numreviews,company.workenvironment),
 			addToAvg(NEW.benefits,company.numreviews,company.benefits),
 			addToAvg(NEW.overallsatisfaction,company.numreviews,company.overallsatisfaction),
+			company.name
 		]);
 	}
 	else if(TG_OP.toLowerCase() === 'update') {
@@ -348,6 +349,7 @@ $$
 			changeValueInAvg(OLD.workenvironment,NEW.workenvironment,company.numreviews,company.workenvironment),
 			changeValueInAvg(OLD.benefits,NEW.benefits,company.numreviews,company.benefits),
 			changeValueInAvg(OLD.overallsatisfaction,NEW.overallsatisfaction,company.numreviews,company.overallsatisfaction),
+			company.name
 		]);
 	}
 	else if(TG_OP.toLowerCase() === 'delete') {
@@ -361,6 +363,7 @@ $$
 			subFromAvg(OLD.workenvironment,company.numreviews,company.workenvironment),
 			subFromAvg(OLD.benefits,company.numreviews,company.benefits),
 			subFromAvg(OLD.overallsatisfaction,company.numreviews,company.overallsatisfaction),
+			company.name
 		]);
 	}
 	updatePlan.free();
