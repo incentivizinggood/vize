@@ -4,6 +4,8 @@ import { FlowRouter } from "meteor/kadira:flow-router";
 import i18n from "meteor/universe:i18n";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
+import Dialog from "./dialog-box.jsx"
+
 
 const t = i18n.createTranslator("common.login");
 const T = i18n.createComponent(t);
@@ -142,6 +144,7 @@ export default class LoginPage extends React.Component {
 					</div>
 				</div>
 				<Footer/>
+				<Dialog/>
 			</div>
 		);
 	}

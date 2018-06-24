@@ -127,21 +127,21 @@ export default class RegisterPage extends React.Component {
 
 													<div className="form-group">
 														<div className="icon-addon addon-md">
-															<input type="email" name="email" id="email" className="form-control"  placeholder="Email " value="" />
+															<input type="email" name="email" id="email" className="form-control"  placeholder="Email"/>
 															<label for="email" className="fa fa-envelope-o" rel="tooltip" title="email" />
 														</div>
 													</div>
 
 													<div className="form-group">
 														<div className="icon-addon addon-md">
-															<input type="text" name="companyName" id="companyName" className="form-control"  placeholder="Company Name"  value=""/>
+															<input type="text" name="companyName" id="companyName" className="form-control"  placeholder="Company Name"/>
 															<label for="companyName" className="fa fa-building-o" rel="tooltip" title="companyName"/>
 														</div>
 													</div>
 
 													<div className="form-group">
 														<div className="icon-addon addon-md   pwd-line-sm">
-															<input type="password" name="password" id="password" className="form-control"  placeholder="Password" value="" required
+															<input type="password" name="password" id="password" className="form-control"  placeholder="Password" required
 																   value={this.state.password}
 																   onChange={this.handleInputChange}/>
 															<label for="password" className="fa fa-lock" rel="tooltip" title="password"/>
@@ -169,14 +169,14 @@ export default class RegisterPage extends React.Component {
 
 													<div className="form-group">
 														<div className="icon-addon addon-md">
-															<input type="email" name="email" id="email" className="form-control  "  placeholder="Email " value="" />
+															<input type="email" name="email" id="email" className="form-control  "  placeholder="Email" />
 															<label for="email" className="fa fa-envelope-o" rel="tooltip" title="email"/>
 														</div>
 													</div>
 
 													<div className="form-group">
 														<div className="icon-addon addon-md   pwd-line-sm">
-															<input type="password" name="password" id="password" className="form-control  "  placeholder="Password" value="" required
+															<input type="password" name="password" id="password" className="form-control  "  placeholder="Password" required
 																   value={this.state.password}
 																   onChange={this.handleInputChange}/>
 															<label for="password" className="fa fa-lock" rel="tooltip" title="password" />
@@ -213,8 +213,9 @@ export default class RegisterPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Dialog/>
+
 				<Footer/>
+				<Dialog/>
 			</div>
 		);
 	}
