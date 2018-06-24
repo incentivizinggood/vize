@@ -1,0 +1,427 @@
+.container.login-top-spce {
+    padding-top: 112px;
+}
+
+
+.input-group .icon-addon .form-control {
+    border-radius: 0;
+}
+
+.icon-addon {
+    position: relative;
+    color: #555;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon,
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    font-size: 14px;
+    width: 20px;
+    margin-left: -2.5px;
+    text-align: center;
+    padding: 10px 0;
+    top: 1px
+}
+
+.icon-addon.addon-md .form-control,
+.icon-addon .form-control {
+    padding-left: 30px;
+    float: left;
+    font-weight: normal;
+}
+
+
+.icon-addon .form-control:focus + .glyphicon,
+.icon-addon:hover .glyphicon,
+.icon-addon .form-control:focus + .fa,
+.icon-addon:hover .fa {
+    color: #2580db;
+}
+
+
+.employer-fm .form-control
+
+{       display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+
+    -webkit-box-shadow: inset 0 0px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 -1px 0px rgba(0,0,0,.075);
+
+}
+
+
+.employer-fm .form-control:focus {
+    border-bottom: 1px solid #439bd5!important;
+}
+
+.employer-fm .form-control:hover {
+    border-bottom: 1px solid #439bd5!important;
+}
+
+/*=================employer and worker ==============*/
+
+a.button.out-bodr-get1 {
+    background-color: #439bd5;
+    color: #ffffff;
+    font-size: 33px;
+    font-family: initial;
+    border: 1px solid #87bcdf!important;
+    margin-top: 42px;
+
+}
+a.button.out-bodr-get1:hover {
+    background-color: #7bb3d6;
+
+}
+ .employer-btn-get{
+    margin-top:50px;
+    color:#222;
+    font-weight:300;
+}
+
+
+
+
+
+a.employer-btn {
+    text-decoration: none;
+}
+a.worker-btn {
+    text-decoration: none;
+}
+
+
+
+.employer-fm .input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid #bdb9b9;
+    outline: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+}
+
+
+.employer-fm .input-group-addon:first-child {
+    border-right: 0;
+    border: none;
+    border-bottom: 1px  solid #bdb9b9;
+        background-color: #fff;
+}
+
+.text-center.login-link-cs {
+    margin-top: -2px;
+    padding-bottom: 31px;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.text-center.login-link-cs a{
+    font-size: 17px;
+    font-weight: 700;
+
+}
+
+.panel-heading.p-head {
+    padding-bottom: 30px!important;
+        padding: 0px 0px!important;
+}
+
+h3.top-head-employer {
+    font-family: initial;
+    font-size: 32px;
+}
+
+h3.top-head-worker {
+    font-family: initial;
+    font-size: 32px;
+}
+
+.form-control.pwd-line
+{
+	width: 66%!important;
+}
+
+.text-center.reg{
+   font-size: 16px;
+    font-weight: 700;
+}
+
+/*=================employer and worker ==============*/
+
+
+
+/*================== employer button and worker button  start================*/
+
+
+.btn-emp {
+    width: 50%;
+    background-color: #f2f2f2;
+    float: left;
+    text-align: center;
+}
+.btn-work {
+    width: 50%;
+    background-color: bisque;
+    float: right;
+    text-align: center;
+}
+
+
+
+
+
+a#register-form-link {
+    width: 100%;
+    background-color: #f3f3f3;
+    font-family: initial;
+    color: #000;
+    font-size: 26px;
+     border-right: 1px solid;
+}
+
+a#register-form-link:hover {
+    background-color: #dcdada;
+}
+
+a#register-form-link:focus {
+    background-color: #dcdada;
+}
+a#register-form-link.active {
+    background-color: #dcdada;
+}
+
+
+a#worker-form-link {
+    width: 100%;
+     background-color: #f3f3f3;
+     font-family: initial;
+    color: #000;
+    font-size: 26px;
+}
+a#worker-form-link:hover{
+background-color: #dcdada;
+}
+
+a#worker-form-link:active{
+background-color: #dcdada!important;
+}
+
+a#worker-form-link:focus {
+    background-color: #dcdada;
+}
+
+a#worker-form-link.active {
+    background-color: #dcdada;
+}
+
+div.button-center {
+	text-align: center;
+}
+
+/*==============employer button and worker button end===============*/
+
+
+
+
+/*=================login page  ==============*/
+a.button.out-bodr-login:hover {
+    background-color: #48acef;
+}
+
+.login-fm .input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid #bdb9b9;
+    outline: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+}
+
+
+.login-fm  .input-group-addon:first-child {
+    border-right: 0;
+    border: none;
+    border-bottom: 1px  solid #bdb9b9;
+        background-color: #fff;
+}
+
+
+.login-fm .form-control
+
+{       display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+
+    -webkit-box-shadow: inset 0 0px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 -1px 0px rgba(0,0,0,.075);
+
+}
+
+
+.login-fm .form-control:focus {
+    border-bottom: 1px solid #439bd5!important;
+}
+
+.login-fm .form-control:hover {
+    border-bottom: 1px solid #439bd5!important;
+}
+
+
+a.button.out-bodr-login {
+    background-color: #439bd5;
+    color: #ffffff;
+    font-size: 33px;
+    border: 1px solid #87bcdf!important;
+    margin-bottom: 15px;
+        padding-left: 2em;
+    padding-right: 2em;
+
+    font-family: initial;
+        margin-top: 55px;
+}
+/*=================login page end ==============*/
+
+
+
+
+/*=================Start of Dialog box ==============*/
+
+/* ---------- LIVE-CHAT ---------- */
+
+#live-chat {
+    bottom: 0;
+    font-size: 12px;
+    right: 24px;
+    position: fixed;
+    width: 300px;
+}
+
+#live-chat header {
+    background: #293239;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    cursor: pointer;
+    padding: 16px 24px;
+}
+
+#live-chat h4:before {
+    background: #1a8a34;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    height: 8px;
+    margin: 0 8px 0 0;
+    width: 8px;
+}
+
+#live-chat h4 {
+    font-size: 12px;
+}
+
+#live-chat h5 {
+    font-size: 10px;
+}
+
+#live-chat form {
+    padding: 24px;
+}
+
+#live-chat input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 8px;
+    outline: none;
+    width: 234px;
+}
+
+.chat-message-counter {
+    background: #e62727;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: none;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    left: 0;
+    line-height: 28px;
+    margin: -15px 0 0 -15px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 28px;
+}
+
+.chat-close {
+    background: #1b2126;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    float: right;
+    font-size: 10px;
+    height: 16px;
+    line-height: 16px;
+    margin: 2px 0 0 0;
+    text-align: center;
+    width: 16px;
+}
+
+.chat {
+    background: #fff;
+}
+
+.chat-message {
+    margin: 16px 0;
+}
+
+.chat-feedback {
+    font-style: italic;
+    margin: auto;
+    margin: auto;
+    width: auto;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    text-align: center;
+}
