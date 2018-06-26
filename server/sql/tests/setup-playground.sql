@@ -1,3 +1,5 @@
+\i server/sql/wipedb.sql;
+\i server/sql/init/init-db.sql
 START TRANSACTION;
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags,numReviews, avgNumMonthsWorked,percentRecommended,healthAndSafety,managerRelationship,workEnvironment,benefits,overallSatisfaction) VALUES ('a', '1 - 50', 'example@gmail.com', 'https://example.com',0,0,0,0,0,0,0,0,0);
 INSERT INTO company_locations(companyId,locationName) VALUES (1,'somewhere over the rainbow'),(1,'hello world'),(1,'anotherwhere'),(1,'movin right along');
@@ -24,6 +26,8 @@ INSERT INTO reviews
 			'a a a a a','a a a a a',FALSE,
 			0,0,0,0,0,'Hello world!');
 INSERT INTO review_locations (reviewId,reviewLocation) VALUES (2,'somewhere over the rainbow');
+
+INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (1,0,'hello world');
 
 INSERT INTO reviews
 (reviewId,submittedBy,companyName,
