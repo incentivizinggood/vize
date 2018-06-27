@@ -1,5 +1,5 @@
 \! echo "ACCEPTANCE TEST 1: non-default-valued fields, contract type 1"
-INSERT INTO jobads(companyName,companyId,vizeApplyForJobUrl,
+INSERT INTO jobads(companyName,companyId,
 				jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
 	VALUES ('a',0,'a','a','1','Full time','a','a','a');
