@@ -1,16 +1,21 @@
 -- company review statistics -> calculated on companies, from reviews
 DROP VIEW IF EXISTS company_review_statistics CASCADE;
 CREATE OR REPLACE VIEW company_review_statistics AS
-select companyname as name,
-count(companyname) as numreviews,
-avg(nummonthsworked) as avgnummonthsworked,
-avg(wouldrecommend::int) as percentrecommended,
-avg(healthandsafety) as healthandsafety,
-avg(managerrelationship) as managerrelationship,
-avg(workenvironment) as workenvironment,
-avg(benefits) as benefits,
-avg(overallsatisfaction) overallsatisfaction
+
+select
+
+	companyname as name,
+	count(companyname) as numreviews,
+	avg(nummonthsworked) as avgnummonthsworked,
+	avg(wouldrecommend::int) as percentrecommended,
+	avg(healthandsafety) as healthandsafety,
+	avg(managerrelationship) as managerrelationship,
+	avg(workenvironment) as workenvironment,
+	avg(benefits) as benefits,
+	avg(overallsatisfaction) overallsatisfaction
+
 from reviews
+
 group by companyname;
 
 -- company salary statistics -> calculated on companies, from salaries
@@ -66,14 +71,6 @@ from
 	group by
 		companyname,jobtitle) as female_pay_stats;
 
-
--- for each job title
--- avg,max,min for males
--- avg,max,min for females
--- avg,max,min for all
--- group by company,job title
-
-
 -- review upvotes and downvotes -> calculated on reviews, from votes
 DROP VIEW IF EXISTS review_vote_counts CASCADE;
 CREATE OR REPLACE VIEW review_vote_counts AS
@@ -117,3 +114,21 @@ from
 	(select refersto,count(value) as downvotes from comment_votes
 	group by refersto,value
 	having value='f') as votes2;
+
+-- job ad counts, can be used to more easily check whether
+-- companies are over their limit
+DROP VIEW IF EXISTS job_post_counts CASCADE;
+CREATE OR REPLACE VIEW job_post_counts AS
+
+select
+
+	companyname,
+	count(jobadid) as count
+
+from
+
+	jobads
+
+group by
+
+	companyname;
