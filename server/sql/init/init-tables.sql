@@ -159,6 +159,13 @@ CREATE TABLE salaries (
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	jobTitle			varchar(110)	NOT NULL,
+	-- This confuses me. I should think that jobTitle
+	-- would determine income type, and income type
+	-- introduces yet another variable into the calculation
+	-- of statistics that is both hard to handle internally
+	-- and tricky to represent on the frontend. Do we need it?
+	-- Further, Julian's proposed salary stats display
+	-- does not make use of it.
 	incomeType			varchar(20)		NOT NULL CHECK (incomeType='Yearly Salary' OR incomeType='Monthly Salary' OR incomeType='Hourly Wage'),
 	incomeAmount		float(2)			NOT NULL CHECK (incomeAmount >= 0),
 	gender				varchar(10)		CHECK (gender IS NULL OR gender='Male' OR gender='Female'),

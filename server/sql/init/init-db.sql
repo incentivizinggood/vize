@@ -4,3 +4,5 @@
 \i ./server/sql/init/init-tables.sql;
 -- triggers next, because they use both the functions and the tables
 \i ./server/sql/init/init-triggers.sql;
+-- views last, because they depend on everything else
+\i ./server/sql/init/init-views.sql;

@@ -1,4 +1,5 @@
 -- regex check for email w/ TLD
+DROP FUNCTION IF EXISTS is_valid_email_with_tld;
 CREATE OR REPLACE FUNCTION is_valid_email_with_tld(arg text)
 RETURNS boolean AS
 $$
@@ -7,6 +8,7 @@ $$
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- regex check for URL
+DROP FUNCTION IF EXISTS is_valid_url;
 CREATE OR REPLACE FUNCTION is_valid_url(arg text)
 RETURNS boolean AS
 $$
@@ -15,6 +17,7 @@ $$
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- regex check for pay range
+DROP FUNCTION IF EXISTS is_valid_pay_range;
 CREATE OR REPLACE FUNCTION is_valid_pay_range(arg text)
 RETURNS boolean AS
 $$
@@ -25,14 +28,27 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- count words in a string, used for checking pros and cons
 -- in the reviews table, hooray for plv8 letting me reuse
 -- the Javascript code that I fought so hard to get working
+DROP FUNCTION IF EXISTS word_count;
 CREATE OR REPLACE FUNCTION word_count(arg text)
 RETURNS integer AS
 $$
 	return arg.split(/\s+\b/).length;
 $$ LANGUAGE plv8 IMMUTABLE;
 
+-- helper function for replacing NULL values in output
+-- with 0's, in cases where 0 makes more sense
+-- currently only defined for bigint becuase it is
+-- only used on the results of count aggregations
+DROP FUNCTION IF EXISTS zero_if_null;
+CREATE OR REPLACE FUNCTION zero_if_null(arg bigint)
+RETURNS bigint AS
+$$
+	return (arg === null || arg === undefined) ? 0 : arg;
+$$ LANGUAGE plv8 IMMUTABLE;
+
 -- helper function for when we want to use a trigger
 -- to blanketly disallow some action
+DROP FUNCTION IF EXISTS deny_op;
 CREATE OR REPLACE FUNCTION deny_op() RETURNS TRIGGER AS
 $$
 	// plv8 is very intuitive, just not in the ways you might expect XD,
@@ -48,6 +64,7 @@ $$ LANGUAGE plv8;
 -- or -1 if Z does not exist in table 2
 -- this breaks if Z's name is not the same in both table1 and table2
 -- BUG This function is highly vulnerable to SQL injection
+DROP FUNCTION IF EXISTS count_related_by_int;
 CREATE OR REPLACE FUNCTION count_related_by_int
 (table1 text, table2 text, factorname text, factorvalue integer)
 RETURNS integer AS
@@ -69,6 +86,7 @@ $$ LANGUAGE plv8;
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.
+DROP FUNCTION IF EXISTS check_company_location_count;
 CREATE OR REPLACE FUNCTION check_company_location_count() RETURNS TRIGGER AS
 $$
 	const newcompanyid = NEW.companyid;
@@ -83,6 +101,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for review locations
+DROP FUNCTION IF EXISTS check_review_location_count;
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
 $$
 	const newreviewid = NEW.reviewid;
@@ -97,6 +116,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for job locations
+DROP FUNCTION IF EXISTS check_job_location_count;
 CREATE OR REPLACE FUNCTION check_job_location_count() RETURNS TRIGGER AS
 $$
 	const newjobadid = NEW.jobadid;
@@ -113,6 +133,7 @@ $$ LANGUAGE plv8;
 -- This is for after-delete and after-update triggers
 -- on company locations, to make sure that a company's last location
 -- doesn't accidentally get moved or deleted
+DROP FUNCTION IF EXISTS check_remaining_company_locations;
 CREATE OR REPLACE FUNCTION check_remaining_company_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
@@ -128,6 +149,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for review locations
+DROP FUNCTION IF EXISTS check_remaining_review_locations;
 CREATE OR REPLACE FUNCTION check_remaining_review_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
@@ -143,6 +165,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for job locations
+DROP FUNCTION IF EXISTS check_remaining_job_locations;
 CREATE OR REPLACE FUNCTION check_remaining_job_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
