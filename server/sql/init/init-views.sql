@@ -36,15 +36,13 @@ select
 
 from
 
-	(select refersto,count(value) as upvotes from votes
-	where votesubject='review'
+	(select refersto,count(value) as upvotes from review_votes
 	group by refersto,value
 	having value='t') as votes1
 
 	NATURAL FULL OUTER JOIN
 
-	(select refersto,count(value) as downvotes from votes
-	where votesubject='review'
+	(select refersto,count(value) as downvotes from review_votes
 	group by refersto,value
 	having value='f') as votes2;
 
@@ -60,12 +58,12 @@ select
 
 from
 
-	(select refersto,count(value) as upvotes from votes
-	where votesubject='comment'
+	(select refersto,count(value) as upvotes from comment_votes
 	group by refersto,value
 	having value='t') as votes1
+
 	NATURAL FULL OUTER JOIN
-	(select refersto,count(value) as downvotes from votes
-	where votesubject='comment'
+
+	(select refersto,count(value) as downvotes from comment_votes
 	group by refersto,value
 	having value='f') as votes2;
