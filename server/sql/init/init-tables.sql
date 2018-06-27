@@ -8,8 +8,6 @@
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
--- - Figure out how to fill in the vize*Url fields
--- - Figure out how long comments and other text fields ought to be
 
 -- WARNING --
 -- Let the reader beware:
@@ -29,10 +27,6 @@ CREATE TABLE companies (
 	companyId			serial			PRIMARY KEY,
 	name				varchar(110)	UNIQUE NOT NULL,
 	dateJoined			date			DEFAULT now(),
-	vizeProfileUrl		text, -- BUG this should not be in the schema
-	vizeReviewUrl		text, -- BUG this should not be in the schema
-	vizeSalaryUrl		text, -- BUG this should not be in the schema
-	vizePostJobUrl		text, -- BUG this should not be in the schema
 	dateEstablished		date,
 	industry			varchar(60),
 	otherContactInfo	varchar(210),
@@ -175,7 +169,6 @@ CREATE TABLE jobads (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	vizeApplyForJobUrl	text, -- BUG this should not be in the schema
 	jobTitle			varchar(110)	NOT NULL,
 	pesosPerHour		varchar(40)		NOT NULL CHECK (is_valid_pay_range(pesosPerHour)),
 	contractType		varchar(20)		NOT NULL CHECK (contractType='Full time' OR contractType='Part time' OR contractType='Contractor'),
