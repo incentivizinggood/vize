@@ -34,18 +34,6 @@ AFTER UPDATE OR DELETE ON company_locations
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE check_remaining_company_locations();
 
-DROP TRIGGER IF EXISTS geq_one_locations ON reviews;
-CREATE CONSTRAINT TRIGGER geq_one_locations
-AFTER INSERT ON reviews
-DEFERRABLE INITIALLY DEFERRED
-FOR EACH ROW EXECUTE PROCEDURE check_review_location_count();
-
-DROP TRIGGER IF EXISTS not_last_location ON review_locations;
-CREATE CONSTRAINT TRIGGER not_last_location
-AFTER UPDATE OR DELETE ON review_locations
-DEFERRABLE INITIALLY DEFERRED
-FOR EACH ROW EXECUTE PROCEDURE check_remaining_review_locations();
-
 DROP TRIGGER IF EXISTS geq_one_locations ON jobads;
 CREATE CONSTRAINT TRIGGER geq_one_locations
 AFTER INSERT ON jobads

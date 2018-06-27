@@ -102,6 +102,7 @@ CREATE TABLE reviews (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
+	reviewLocation		varchar(160)	NOT NULL,
 	-- QUESTION this next field might be a good index, should we do that and how?
 	reviewTitle			varchar(110)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
 	jobTitle			varchar(110)	NOT NULL,
@@ -116,17 +117,6 @@ CREATE TABLE reviews (
 	overallSatisfaction	float(2)			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
 	additionalComments	varchar(6010),
 	dateJoined			date			DEFAULT now()
-);
-
--- normalized review locations
-DROP TABLE IF EXISTS review_locations CASCADE;
-CREATE TABLE review_locations (
-	reviewId			integer			NOT NULL
-		REFERENCES reviews (reviewId)
-		ON UPDATE CASCADE ON DELETE CASCADE
-		DEFERRABLE INITIALLY DEFERRED,
-	reviewLocation		varchar(160),
-	PRIMARY KEY (reviewId,reviewLocation)
 );
 
 -- normalized review comments
@@ -158,6 +148,7 @@ CREATE TABLE salaries (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
+	salaryLocation		varchar(160)	NOT NULL,
 	jobTitle			varchar(110)	NOT NULL,
 	-- This confuses me. I should think that jobTitle
 	-- would determine income type, and income type
