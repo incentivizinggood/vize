@@ -103,10 +103,18 @@ INSERT INTO job_locations (jobadId,jobLocation) VALUES (2,'somewhere over the ra
 
 INSERT INTO salaries
 (submittedBy,companyName,
-	jobTitle,incomeType,incomeAmount)
+	jobTitle,incomeType,incomeAmount,gender)
 	VALUES
-	(0,'a','a','Hourly Wage',10),
-	(1,'a','a','Hourly Wage',15),
-	(2,'a','a','Hourly Wage',40);
+	(0,'a','a','Hourly Wage',10,NULL),
+	(1,'a','a','Hourly Wage',15,NULL),
+	(2,'a','a','Hourly Wage',40,NULL),
+	(2,'a','a','Hourly Wage',40,NULL),
+	(2,'a','a','Hourly Wage',80,NULL),
+	(2,'a','a','Hourly Wage',20,'Male'),
+	(2,'a','a','Hourly Wage',30,'Male'),
+	(2,'a','a','Hourly Wage',10,'Male'),
+	(2,'a','a','Hourly Wage',15,'Female'),
+	(2,'a','a','Hourly Wage',25,'Female'),
+	(2,'a','a','Hourly Wage',60,'Female');
 
 COMMIT;

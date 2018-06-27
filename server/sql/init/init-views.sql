@@ -14,19 +14,69 @@ from reviews
 group by companyname;
 
 -- company salary statistics -> calculated on companies, from salaries
--- DROP VIEW IF EXISTS company_salary_statistics CASCADE;
--- CREATE OR REPLACE VIEW company_salary_statistics AS
--- select
+-- NOTE this view is meant to directly satisfy a prototype page
+-- that Julian gave me, which ignores both location and pay type
+DROP VIEW IF EXISTS company_salary_statistics CASCADE;
+CREATE OR REPLACE VIEW company_salary_statistics AS
+
+select
+
+	companyname,jobtitle,
+	total_avg_pay,total_max_pay,total_min_pay,
+	male_avg_pay,male_max_pay,male_min_pay,
+	female_avg_pay,female_max_pay,female_min_pay
+
+from
+
+	(select
+		companyname,jobtitle,
+		avg(incomeamount) as total_avg_pay,
+		max(incomeamount) as total_max_pay,
+		min(incomeamount) as total_min_pay
+	from
+		salaries
+	group by
+		companyname,jobtitle) as total_pay_stats
+
+	NATURAL FULL OUTER JOIN
+
+	(select
+		companyname,jobtitle,
+		avg(incomeamount) as male_avg_pay,
+		max(incomeamount) as male_max_pay,
+		min(incomeamount) as male_min_pay
+	from
+		salaries
+	where
+		gender='Male'
+	group by
+		companyname,jobtitle) as male_pay_stats
+
+	NATURAL FULL OUTER JOIN
+
+	(select
+		companyname,jobtitle,
+		avg(incomeamount) as female_avg_pay,
+		max(incomeamount) as female_max_pay,
+		min(incomeamount) as female_min_pay
+	from
+		salaries
+	where
+		gender='Female'
+	group by
+		companyname,jobtitle) as female_pay_stats;
+
+
 -- for each job title
 -- avg,max,min for males
 -- avg,max,min for females
 -- avg,max,min for all
--- group by company by job title
+-- group by company,job title
 
 
 -- review upvotes and downvotes -> calculated on reviews, from votes
-DROP VIEW IF EXISTS review_vote_statistics CASCADE;
-CREATE OR REPLACE VIEW review_vote_statistics AS
+DROP VIEW IF EXISTS review_vote_counts CASCADE;
+CREATE OR REPLACE VIEW review_vote_counts AS
 
 select
 
@@ -47,8 +97,8 @@ from
 	having value='f') as votes2;
 
 -- comment upvotes and downvotes -> calculated on review_comments, from votes
-DROP VIEW IF EXISTS comment_vote_statistics CASCADE;
-CREATE OR REPLACE VIEW comment_vote_statistics AS
+DROP VIEW IF EXISTS comment_vote_counts CASCADE;
+CREATE OR REPLACE VIEW comment_vote_counts AS
 
 select
 
