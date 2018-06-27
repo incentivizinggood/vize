@@ -131,20 +131,6 @@ INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					managerRelationship,workEnvironment,
 					benefits,overallSatisfaction)
 	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,0,-1);
-\! echo "INVALID ARG TEST 20: undershot arg ranges, part 7"
-INSERT INTO reviews(submittedBy,companyName,reviewTItle,
-					jobTitle,numMonthsWorked,pros,cons,
-					wouldRecommend,healthAndSafety,
-					managerRelationship,workEnvironment,
-					benefits,overallSatisfaction,upvotes)
-	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,0,0,-1);
-\! echo "INVALID ARG TEST 21: undershot arg ranges, part 8"
-INSERT INTO reviews(submittedBy,companyName,reviewTItle,
-					jobTitle,numMonthsWorked,pros,cons,
-					wouldRecommend,healthAndSafety,
-					managerRelationship,workEnvironment,
-					benefits,overallSatisfaction,downvotes)
-	VALUES (0,'a','a','a',0,'a a a a a','a a a a a',FALSE,0,0,0,0,0,-1);
 \! echo "INVALID ARG TEST 22: overshot arg ranges, part 1"
 INSERT INTO reviews(submittedBy,companyName,reviewTItle,
 					jobTitle,numMonthsWorked,pros,cons,
