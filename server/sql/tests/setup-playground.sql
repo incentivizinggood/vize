@@ -42,7 +42,7 @@ INSERT INTO reviews
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (4,1,'a','a','a',3,
+	VALUES (4,1,'a','a','a','a',3,
 			'a a a a a','a a a a a',TRUE,
 			1,2,3,4,0,'Hello world!');
 INSERT INTO reviews
@@ -95,19 +95,19 @@ INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
 INSERT INTO job_locations (jobadId,jobLocation) VALUES (2,'somewhere over the rainbow');
 
 INSERT INTO salaries
-(submittedBy,companyName,
+(submittedBy,companyName,salarylocation,
 	jobTitle,incomeType,incomeAmount,gender)
 	VALUES
-	(0,'a','a','Hourly Wage',10,NULL),
-	(1,'a','a','Hourly Wage',15,NULL),
-	(2,'a','a','Hourly Wage',40,NULL),
-	(2,'a','a','Hourly Wage',40,NULL),
-	(2,'a','a','Hourly Wage',80,NULL),
-	(2,'a','a','Hourly Wage',20,'Male'),
-	(2,'a','a','Hourly Wage',30,'Male'),
-	(2,'a','a','Hourly Wage',10,'Male'),
-	(2,'a','a','Hourly Wage',15,'Female'),
-	(2,'a','a','Hourly Wage',25,'Female'),
-	(2,'a','a','Hourly Wage',60,'Female');
+	(0,'a','a','a','Hourly Wage',10,NULL),
+	(1,'a','a','a','Hourly Wage',15,NULL),
+	(2,'a','a','a','Hourly Wage',40,NULL),
+	(2,'a','a','a','Hourly Wage',40,NULL),
+	(2,'a','a','a','Hourly Wage',80,NULL),
+	(2,'a','a','a','Hourly Wage',20,'Male'),
+	(2,'a','a','a','Hourly Wage',30,'Male'),
+	(2,'a','a','a','Hourly Wage',10,'Male'),
+	(2,'a','a','a','Hourly Wage',15,'Female'),
+	(2,'a','a','a','Hourly Wage',25,'Female'),
+	(2,'a','a','a','Hourly Wage',60,'Female');
 
 COMMIT;
