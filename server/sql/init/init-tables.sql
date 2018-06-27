@@ -184,7 +184,7 @@ CREATE TABLE jobads (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	vizeApplyForJobUrl	text, -- need to make sure this gets initialized
+	vizeApplyForJobUrl	text, -- BUG this should not be in the schema
 	jobTitle			varchar(110)	NOT NULL,
 	pesosPerHour		varchar(40)		NOT NULL CHECK (is_valid_pay_range(pesosPerHour)),
 	contractType		varchar(20)		NOT NULL CHECK (contractType='Full time' OR contractType='Part time' OR contractType='Contractor'),
@@ -205,14 +205,28 @@ CREATE TABLE job_locations (
 	PRIMARY KEY (jobadId,jobLocation)
 );
 
--- votes on reviews and comments ("upvotes" and "downvotes")
-DROP TABLE IF EXISTS votes CASCADE;
-CREATE TABLE votes (
+-- votes on reviews
+DROP TABLE IF EXISTS review_votes CASCADE;
+CREATE TABLE review_votes (
 	-- do we need a vote id field?
 	submittedBy			integer			NOT NULL, -- user ID
-	voteSubject			varchar(10)		NOT NULL CHECK (voteSubject='review' OR voteSubject='comment'), -- what the vote is about
-	refersTo			integer			NOT NULL, -- id of the review or comment in question
-	PRIMARY KEY (submittedBy,voteSubject,refersTo), -- one vote per user per item
-	-- requires a special trigger for a special multiplexed foreign key constraint
+	refersTo			integer			NOT NULL
+		REFERENCES reviews (reviewid)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY (submittedBy,refersTo), -- one vote per user per item
+	value				boolean			NOT NULL
+);
+
+-- votes on comments
+DROP TABLE IF EXISTS comment_votes CASCADE;
+CREATE TABLE comment_votes (
+	-- do we need a vote id field?
+	submittedBy			integer			NOT NULL, -- user ID
+	refersTo			integer			NOT NULL
+		REFERENCES review_comments (commentid)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY (submittedBy,refersTo), -- one vote per user per item
 	value				boolean			NOT NULL
 );

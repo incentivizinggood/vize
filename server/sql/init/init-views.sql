@@ -25,8 +25,8 @@ group by companyname;
 
 
 -- review upvotes and downvotes -> calculated on reviews, from votes
-DROP VIEW IF EXISTS review_votes CASCADE;
-CREATE OR REPLACE VIEW review_votes AS
+DROP VIEW IF EXISTS review_vote_statistics CASCADE;
+CREATE OR REPLACE VIEW review_vote_statistics AS
 
 select
 
@@ -49,8 +49,8 @@ from
 	having value='f') as votes2;
 
 -- comment upvotes and downvotes -> calculated on review_comments, from votes
-DROP VIEW IF EXISTS comment_votes CASCADE;
-CREATE OR REPLACE VIEW comment_votes AS
+DROP VIEW IF EXISTS comment_vote_statistics CASCADE;
+CREATE OR REPLACE VIEW comment_vote_statistics AS
 
 select
 

@@ -3,5 +3,5 @@ companies,company_locations,
 reviews,review_locations,review_comments,
 salaries,
 jobads,job_locations,
-votes
+review_votes,comment_votes
 CASCADE;

@@ -179,3 +179,18 @@ $$
 	else
 		return null;
 $$ LANGUAGE plv8;
+
+-- make sure that users don't vote on own reviews or comments
+DROP FUNCTION IF EXISTS disallow_voting_on_self;
+CREATE OR REPLACE FUNCTION disallow_voting_on_self() RETURNS TRIGGER AS
+$$
+	if(!(TG_TABLE_NAME === "review_votes" || TG_TABLE_NAME === "comment_votes"))
+		throw "Operation not permitted";
+	const table = (TG_TABLE_NAME === "review_votes") ? "reviews" : "review_comments";
+	const id = (TG_TABLE_NAME === "review_votes") ? "reviewid" : "commentid";
+	const plan = plv8.prepare("select * from " + table + " where " + id + "=$1",['integer']);
+	const result = plan.execute([NEW.refersto]);
+	if(result[0].submittedby === NEW.submittedby)
+		throw "You are not allowed to vote on your own " + ((TG_TABLE_NAME === "review_votes") ? "reviews" : "comments");
+	return null;
+$$ LANGUAGE plv8;
