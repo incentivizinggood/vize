@@ -14,9 +14,13 @@ select
 	avg(benefits) as benefits,
 	avg(overallsatisfaction) overallsatisfaction
 
-from reviews
+from
 
-group by companyname;
+	reviews
+
+group by
+
+	companyname;
 
 -- company salary statistics -> calculated on companies, from salaries
 -- NOTE this view is meant to directly satisfy a prototype page
