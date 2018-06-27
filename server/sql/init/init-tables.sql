@@ -29,10 +29,10 @@ CREATE TABLE companies (
 	companyId			serial			PRIMARY KEY,
 	name				varchar(110)	UNIQUE NOT NULL,
 	dateJoined			date			DEFAULT now(),
-	vizeProfileUrl		text, -- need to make sure this gets initialized
-	vizeReviewUrl		text, -- need to make sure this gets initialized
-	vizeSalaryUrl		text, -- need to make sure this gets initialized
-	vizePostJobUrl		text, -- need to make sure this gets initialized
+	vizeProfileUrl		text, -- BUG this should not be in the schema
+	vizeReviewUrl		text, -- BUG this should not be in the schema
+	vizeSalaryUrl		text, -- BUG this should not be in the schema
+	vizePostJobUrl		text, -- BUG this should not be in the schema
 	dateEstablished		date,
 	industry			varchar(60),
 	otherContactInfo	varchar(210),
@@ -47,15 +47,7 @@ CREATE TABLE companies (
 	-- regex CHECK constraint for URL validity, a bit different
 	-- from the email check because websiteURL is not a required field
 	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR is_valid_url(websiteURL)),
-	numFlags			int				DEFAULT 0 CHECK (numFlags >= 0),
-	numReviews			int				DEFAULT 0 CHECK (numReviews >= 0),
-	avgNumMonthsWorked	float(2)			DEFAULT 0 CHECK (avgNumMonthsWorked >= 0),
-	percentRecommended	float(2)			DEFAULT 0 CHECK (percentRecommended >= 0 AND percentRecommended <= 1),
-	healthAndSafety		float(2)			DEFAULT 0 CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
-	managerRelationship	float(2)			DEFAULT 0 CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
-	workEnvironment		float(2)			DEFAULT 0 CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
-	benefits			float(2)			DEFAULT 0 CHECK (benefits >= 0 AND benefits <= 5),
-	overallSatisfaction	float(2)			DEFAULT 0 CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5)
+	numFlags			int				DEFAULT 0 CHECK (numFlags >= 0)
 );
 
 -- normalized company locations
@@ -123,9 +115,7 @@ CREATE TABLE reviews (
 	benefits			float(2)			NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
 	overallSatisfaction	float(2)			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
 	additionalComments	varchar(6010),
-	dateJoined			date			DEFAULT now(),
-	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
-	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
+	dateJoined			date			DEFAULT now()
 );
 
 -- normalized review locations
@@ -152,9 +142,7 @@ CREATE TABLE review_comments (
 	datePosted			date			DEFAULT now(),
 	-- We may want to discuss the maximum allowable size of comments,
 	-- I'm not sure if ~250 characters is enough but > 6000 (text) seems excessive.
-	content				varchar(6010)	NOT NULL,
-	upvotes				integer			DEFAULT 0 CHECK (upvotes >= 0),
-	downvotes			integer			DEFAULT 0 CHECK (downvotes >= 0)
+	content				varchar(6010)	NOT NULL
 );
 
 -- salary reports about companies
