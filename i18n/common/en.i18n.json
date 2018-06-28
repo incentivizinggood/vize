@@ -105,6 +105,8 @@
 			"formTitle": "Submit Salary Data",
 			"companyNamePlaceholder":
 				"Please tell us the name of the company you worked for",
+			"locationPlaceholder":
+				"Please tell us where you worked for this company",
 			"jobTitlePlaceholder": "Please tell us your job title there"
 		},
 		"wr": {

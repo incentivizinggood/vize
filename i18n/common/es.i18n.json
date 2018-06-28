@@ -106,6 +106,8 @@
 			"formTitle": "Forma Salarial",
 			"companyNamePlaceholder":
 				"Por favor díganos el nombre de la empresa para la que trabajó",
+			"locationPlaceholder":
+				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
 			"jobTitlePlaceholder": "Por favor díganos su título de trabajo allí"
 		},
 		"wr": {
