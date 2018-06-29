@@ -64,10 +64,6 @@
 		},
 		"Companies": {
 			"_id": "_id",
-			"vizeProfileUrl": "vizeProfileUrl",
-			"vizeReviewUrl": "vizeReviewUrl",
-			"vizeSalaryUrl": "vizeSalaryUrl",
-			"vizePostJobUrl": "vizePostJobUrl",
 			"name": "Nombre de la empresa",
 			"contactEmail": "Email de contacto",
 			"dateEstablished": "Fecha establecida",
@@ -92,7 +88,6 @@
 			"_id": "_id",
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
-			"vizeApplyForJobUrl": "vizeApplyForJobUrl",
 			"jobTitle": "Titulo del trabajo",
 			"locations": "Localizacion",
 			"pesosPerHour": "Pesos por hora",
