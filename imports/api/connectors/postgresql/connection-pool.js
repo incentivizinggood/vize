@@ -9,8 +9,8 @@
 	create a container class where all the functions
 	can be async rather than trying to shoehorn
 	that behavior into the existing GraphQL model code,
-	especially since Meteor tends to be unpredictable
-	about how it executes such code.
+	especially as I'm not sure how Meteor and Apollo
+	would handle such code.
 
 	Moreover, it keeps all the node-pg connection management
 	code in one place, which make it much easier both to
@@ -18,7 +18,7 @@
 
 	Models can now worry solely about taking the results
 	and packaging them into whatever the schema expects,
-	and this class only worries about querying the database.
+	and these classes only worry about querying the database.
 */
 
 const { Pool } = require("pg");
