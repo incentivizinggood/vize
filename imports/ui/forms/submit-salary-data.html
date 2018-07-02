@@ -9,6 +9,9 @@
 				{{> afQuickField name='companyName' placeholder=(__ ".ssd.companyNamePlaceholder")}}
 				{{/if}}
 			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
+				{{> afQuickField name='location' placeholder=(__ ".ssd.locationPlaceholder")}}
+			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 				{{> afQuickField name='jobTitle' placeholder=(__ ".ssd.jobTitlePlaceholder")}}
 			</div>
