@@ -51,20 +51,21 @@ type Company {
 	id: ID!
 
 	name: String!
-	contactEmail: String!
-	dateEstablished: DateTime
-	numEmployees: String
+	# contactEmail: String!
+	# dateEstablished: DateTime
+	# numEmployees: String
 	industry: String
 	locations: [String!]!
-	otherContactInfo: String
-	websiteURL: String
-	descriptionOfCompany: String
-	dateJoined: DateTime
-	numFlags: Int
-	avgStarRatings: StarRatings
+	# otherContactInfo: String
+	# websiteURL: String
+	description: String
+	# dateJoined: DateTime
+	# numFlags: Int
+
 	numReviews: Int!
-	percentRecommended: Float
+	avgStarRatings: StarRatings
 	avgNumMonthsWorked: Float
+	percentRecommended: Float
 
 	"Reviews about this company."
 	reviews(pageNum: Int, pageSize: Int): [Review!]!
@@ -76,15 +77,15 @@ type Company {
 type JobAd {
 	id: ID!
 
-	jobTitle: String!
-	locations: [String!]!
-	pesosPerHour: String! # TODO convert to unit aware system
-	contractType: String!
-	jobDescription: String!
-	responsibilities: String!
-	qualifications: String!
+	# jobTitle: String!
+	# locations: [String!]!
+	# pesosPerHour: String! # TODO convert to unit aware system
+	# contractType: String!
+	# jobDescription: String!
+	# responsibilities: String!
+	# qualifications: String!
 	"The date and time this was created."
-	created: DateTime
+	datePosted: DateTime
 
 	"The company that is hiring."
 	company: Company!
@@ -93,43 +94,43 @@ type JobAd {
 type Review {
 	id: ID!
 
-	title: String!
-	locations: [String!]!
-	jobTitle: String!
-	numberOfMonthsWorked: Int!
-	pros: String!
-	cons: String!
-	wouldRecommendToOtherJobSeekers: Boolean!
-	starRatings: StarRatings!
-	additionalComments: String
-	"The date and time this was created."
-	created: DateTime
-	upvotes: Int
-	downvotes: Int
+	# title: String!
+	# locations: [String!]!
+	# jobTitle: String!
+	# numberOfMonthsWorked: Int!
+	# pros: String!
+	# cons: String!
+	# wouldRecommendToOtherJobSeekers: Boolean!
+	# starRatings: StarRatings!
+	# additionalComments: String
+	# "The date and time this was created."
+	# created: DateTime
+	# upvotes: Int
+	# downvotes: Int
 
-	"The user who wrote this."
-	author: User!
-	"The company being reviewed"
-	company: Company!
-	"Comments about this review."
-	comments(pageNum: Int, pageSize: Int): [Comment!]!
-	"The votes cast on this review."
-	votes(pageNum: Int, pageSize: Int): [Vote!]!
+	# "The user who wrote this."
+	# author: User!
+	# "The company being reviewed"
+	# company: Company!
+	# "Comments about this review."
+	# comments(pageNum: Int, pageSize: Int): [Comment!]!
+	# "The votes cast on this review."
+	# votes(pageNum: Int, pageSize: Int): [Vote!]!
 }
 
 type Salary {
 	id: ID!
 
-	jobTitle: String!
-	incomeType: String! # TODO change to enum
-	incomeAmount: Float! # TODO convert to unit aware system
-	"The date and time this was created."
-	created: DateTime
+	# jobTitle: String!
+	# incomeType: String! # TODO change to enum
+	# incomeAmount: Float! # TODO convert to unit aware system
+	# "The date and time this was created."
+	# created: DateTime
 
-	"The user who submitted this."
-	author: User!
-	"The company that paid this salary."
-	company: Company!
+	# "The user who submitted this."
+	# author: User!
+	# "The company that paid this salary."
+	# company: Company!
 }
 
 "The roles a user can play."
