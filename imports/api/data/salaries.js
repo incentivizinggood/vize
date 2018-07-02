@@ -93,6 +93,11 @@ Salaries.schema = new SimpleSchema(
 				omit: true,
 			},
 		},
+		location: {
+			type: String,
+			max: 150,
+			optional: false,
+		},
 		jobTitle: {
 			type: String,
 			max: 100,
@@ -114,6 +119,7 @@ Salaries.schema = new SimpleSchema(
 		},
 		gender: {
 			type: String,
+			optional: true,
 			allowedValues: [
 				i18n.__("common.gender.male"),
 				i18n.__("common.gender.female"),

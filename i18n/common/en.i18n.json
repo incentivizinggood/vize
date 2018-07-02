@@ -105,6 +105,8 @@
 			"formTitle": "Submit Salary Data",
 			"companyNamePlaceholder":
 				"Please tell us the name of the company you worked for",
+			"locationPlaceholder":
+				"Please tell us where you worked for this company",
 			"jobTitlePlaceholder": "Please tell us your job title there"
 		},
 		"wr": {
@@ -112,6 +114,8 @@
 			"companyNamePlaceholder":
 				"Please enter the name of the company you're reviewing",
 			"reviewTitlePlaceholder": "Please choose a title for your review",
+			"locationPlaceholder":
+				"Please tell us where you worked for this company",
 			"jobTitlePlaceholder":
 				"Please enter the name of the position you held at this company",
 			"prosPlaceholder":
@@ -187,7 +191,8 @@
 		"find_best": "Find the Best Employees in Tijuana",
 		"find_best_part1":
 			"We provide affordable and effective recruiting by helping ",
-		"find_best_part2": "you find more employees and reducing turnover rates.",
+		"find_best_part2":
+			"you find more employees and reducing turnover rates.",
 		"get_started_button": "Get Started",
 		"increase_workers": "Increase Worker",
 		"retention": "Retention",
