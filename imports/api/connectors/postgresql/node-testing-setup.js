@@ -192,10 +192,33 @@ let vize = {
 
 obj = await createCompany(vize);
 
+let getReviewById;
 let getReviewsByAuthor;
 let getAllReviews;
 let getReviewsForCompany;
 let submitReview;
+
+getReviewById = async function(id) {
+	const client = await pool.connect();
+	await client.query("START TRANSACTION READ ONLY");
+
+	const reviewResults = await client.query(
+		"SELECT * FROM reviews WHERE reviewid=$1",
+		[id]
+	);
+
+	const voteResults = await client.query(
+		"SELECT * FROM review_vote_counts WHERE refersto=$1",
+		[id]
+	);
+	await client.query("COMMIT");
+	client.release();
+
+	return {
+		review: reviewResults.rows[0],
+		votes: voteResults.rows[0]
+	}
+}
 
 getReviewsByAuthor = async function() {
 
