@@ -90,6 +90,8 @@ CREATE TABLE reviews (
 	--		Did I mention that I love PostgreSQL?
 	companyName			varchar(110)	NOT NULL
 		REFERENCES companies (name)
+		-- should we really cascade on delete,
+		-- or leave the reviews of deleted companies?
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	companyId			integer
