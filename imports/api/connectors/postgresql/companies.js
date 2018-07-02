@@ -84,7 +84,38 @@ export default class CompanyConnector {
 		};
 	}
 
-	static async getAllCompanies(skip, limit) {}
+	static async getAllCompanies(skip, limit) {
+		const client = await pool.connect();
+		await client.query("START TRANSACTION READ ONLY");
+		const companyResults = await client.query(
+			"SELECT * FROM companies OFFSET $1 LIMIT $2",
+			[skip, limit]
+		);
+
+		const locationResults = {};
+		const statResults = {};
+		for (let company of companyResults.rows) {
+			let locations = await client.query(
+				"SELECT * FROM company_locations WHERE companyid=$1",
+				[company.companyid]
+			);
+			let stats = await client.query(
+				"SELECT * FROM company_review_statistics WHERE name=$1",
+				[company.name]
+			);
+			locationResults[company.name] = locations.rows;
+			statResults[company.name] = stats.rows[0];
+		}
+
+		await client.query("COMMIT");
+		client.release();
+
+		return {
+			matchingCompanies: companyResults.rows,
+			matchingCompanyLocations: locationResults,
+			matchingCompanyReviewStats: statResults,
+		};
+	}
 
 	static async createCompany(company) {}
 
