@@ -26,7 +26,7 @@ type Query {
 	# TODO: searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
-"The kinds of things that can be commented on."
+"The type of things that can be commented on."
 union CommentParent = Comment | Review
 
 type Comment {
@@ -35,7 +35,7 @@ type Comment {
 	"What was said in this comment."
 	content: String!
 	"The date and time this was created."
-	created: DateTime
+	created: DateTime!
 
 	"The user who wrote this."
 	author: User!
@@ -52,17 +52,22 @@ type Company {
 
 	name: String!
 	# contactEmail: String!
+	"The approximate number of employies working at this company."
 	numEmployees: String
+	"The industry that this company opperates in."
 	industry: String
+	"All of the locations that this company has workplaces at."
 	locations: [String!]!
 	# otherContactInfo: String
+	"This company's website. This is external to the Vize website."
 	websiteURL: String
 	description: String
 	# dateEstablished: DateTime
+	"The date and time this company joined the Vize platform."
 	dateJoined: DateTime
 	# numFlags: Int
 	"The date and time this entity was added to the database. Not the time this company was established."
-	created: DateTime
+	created: DateTime!
 
 	numReviews: Int!
 	avgStarRatings: StarRatings
@@ -87,9 +92,9 @@ type JobAd {
 	responsibilities: String!
 	qualifications: String!
 	"The date and time this was posted."
-	datePosted: DateTime
+	datePosted: DateTime!
 	"The date and time this entity was added to the database. Not the time this job ad was posted."
-	created: DateTime
+	created: DateTime!
 
 	"The company that is hiring."
 	company: Company!
@@ -102,7 +107,9 @@ type Review {
 	locations: [String!]!
 	jobTitle: String!
 	numberOfMonthsWorked: Int!
+	"The things that are/were good about working for this company."
 	pros: String!
+	"The things that are/were bad about working for this company."
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!
 	starRatings: StarRatings!
@@ -130,7 +137,7 @@ type Salary {
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
-	created: DateTime
+	created: DateTime!
 
 	"The user who submitted this."
 	author: User!
@@ -165,7 +172,7 @@ type User {
 	votes(pageNum: Int, pageSize: Int): [Vote!]!
 }
 
-"The kinds of things that can be voted on."
+"The type of things that can be voted on."
 union VoteSubject = Comment | Review
 
 type Vote {
