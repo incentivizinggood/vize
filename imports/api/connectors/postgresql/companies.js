@@ -4,25 +4,28 @@ export default class CompanyConnector {
 	static async getCompanyByName(name) {
 		const client = await pool.connect();
 		await client.query("START TRANSACTION READ ONLY");
+		//companyResults format is unknown
 		const companyResults = await client.query(
 			"SELECT * FROM companies WHERE name=$1",
 			[name]
 		);
+		// ...therefore companyResults.companyid is undefined
 		const locationResults = await client.query(
 			"SELECT locationname FROM company_locations WHERE companyid=$1",
-			[companyResults.companyid]
+			[companyResults.rows[0].companyid]
 		);
+		// same issue
 		const statResults = await client.query(
-			"SELECT * FROM company_review_statistics WHERE companyname=$1",
+			"SELECT * FROM company_review_statistics WHERE name=$1",
 			[name]
 		);
 		await client.query("COMMIT");
 		client.release();
 
 		return {
-			company: companyResults,
-			locations: locationResults,
-			review_stats: statResults,
+			company: companyResults.rows[0],
+			locations: locationResults.rows,
+			reviewStats: statResults.rows[0],
 		};
 	}
 
@@ -38,16 +41,16 @@ export default class CompanyConnector {
 			[id]
 		);
 		const statResults = await client.query(
-			"SELECT * FROM company_review_statistics WHERE companyname=$1",
-			[companyResults.name]
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[companyResults.rows[0].name]
 		);
 		await client.query("COMMIT");
 		client.release();
 
 		return {
-			company: companyResults,
-			locations: locationResults,
-			review_stats: statResults,
+			company: companyResults.rows[0],
+			locations: locationResults.rows,
+			reviewStats: statResults.rows[0],
 		};
 	}
 
