@@ -117,9 +117,62 @@ export default class CompanyConnector {
 		};
 	}
 
-	static async createCompany(company) {}
+	static async createCompany(company) {
+		const client = await pool.connect();
+		await client.query("START TRANSACTION");
 
-	static async editCompany(company) {}
+		// assumes that company has the well-known format
+		// from the schema in imports/api/data/companies.js
+		const newCompany = await client.query(
+			"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
+			[
+				company.name,
+				company.dateEstablished,
+				company.industry,
+				company.otherContactInfo,
+				company.descriptionOfCompany,
+				company.numEmployees,
+				company.contactEmail,
+				company.websiteURL,
+			]
+		);
 
-	static async deleteCompany(name) {}
+		// screw functional programming
+		const id = newCompany.rows[0].companyid;
+		let insertValues = [];
+		let insertValueString = "";
+		let index = 0;
+		for (location of company.locations) {
+			insertValues.push(id, location);
+			insertValueString =
+				insertValueString +
+				"($" +
+				(index + 1) +
+				",$" +
+				(index + 2) +
+				"),";
+			index += 2;
+		}
+		insertValueString = insertValueString.slice(0, -1);
+
+		const newLocations = await client.query(
+			"INSERT INTO company_locations (companyid,locationname) " +
+				"VALUES " +
+				insertValueString +
+				" RETURNING *",
+			insertValues
+		);
+
+		await client.query("COMMIT");
+		client.release();
+
+		return {
+			company: newCompany.rows[0],
+			locations: newLocations.rows,
+		};
+	}
+
+	// static async editCompany(company) {}
+	// static async deleteCompany(name) {}
 }

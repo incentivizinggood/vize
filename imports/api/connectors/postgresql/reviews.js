@@ -1,18 +1,16 @@
 import { pool } from "./connection-pool.js";
 
 export default class ReviewConnector {
-	/*
-		getReviewById(id)
+	static async getReviewById(id) {}
 
-		getReviewsByAuthor(id,skip,limit)
-		getAllReviews(skip,limit) -> gets all reviews, and assembles all
-							location and voting info
-		getReviewsForCompany(name,skip,limit) -> gets all reviews for company,
-							assembles all voting and location info
+	static async getReviewsByAuthor(id, skip, limit) {}
 
-		submitReview
-		editReview
-		deleteReview
+	static async getAllReviews(skip, limit) {}
 
-	*/
+	static async getReviewsForCompany(name, skip, limit) {}
+
+	static async submitReview(review) {}
+
+	// editReview
+	// deleteReview
 }
