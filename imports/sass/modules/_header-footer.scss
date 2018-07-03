@@ -1,0 +1,338 @@
+//---------- Navbar ---------//
+.top-nav {
+	z-index: 999;
+}
+
+nav {
+	position: fixed;
+	background: none;
+	z-index: 10000;
+	width: 100%;
+	padding-bottom: 7px;
+	@include transition(all 0.5s);
+	
+	.navbarwhite & {
+		background: $white;
+		box-shadow: 0 0 5px;
+		ul li a {
+			color: $black;
+			&:not(#register-button):hover,
+			&:not(#register-button):focus,
+			&:not(#register-button):active {
+				color: $black;
+			}
+		}
+	}
+	
+	ul li {
+		margin: 0 0.5em;
+		a {
+			letter-spacing: 1px;
+			font-size: 1.2em;
+			color: $white;
+			&:not(#register-button):hover,
+			&:not(#register-button):focus,
+			&:not(#register-button):active {
+				background-color: transparent !important;
+				color: $white;
+			}
+		}
+	}
+	
+	ul.nav {
+		&.navbar-right {
+			margin-top: 18px;
+			text-transform: uppercase;
+			font-size: 12px;
+		}
+		
+		&.navbar-nav.left_nav {
+			margin-left: 32px;
+			margin-top: 18px;
+			text-transform: uppercase;
+			font-size: 12px;
+		}
+	}
+	
+	//navScroll
+	&.navScroll {
+		.navbar-header {
+			position: relative;
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: -10000px;
+				bottom: 0;
+				left: -700px;
+				background: $white;
+				width: 10000px;
+				z-index: -1;
+				height: 74px;
+				box-shadow: 0 2px 5px #b1b1b1;
+			}
+		}
+		li a {
+			color: $black;
+			&:not(#register-button):hover,
+			&:not(#register-button):focus,
+			&:not(#register-button):active {
+				color: $black;
+			}
+		}
+	}
+}
+
+#register-button {
+	color: $white;
+	font-weight: bold;
+	letter-spacing: 0.015em;
+	font-size: 12px;
+	padding-top: 6px;
+	line-height: 13px;
+	padding-bottom: 6px;
+	width: 100px;
+	text-transform: uppercase;
+	margin-top: 9px;
+	border-radius: 3px;
+	background: $secondary-color;
+	&:hover,
+	&:active,
+	&:focus{
+		color: $white;
+		background: $secondary-color;
+	}
+}
+
+.btn-green {
+	background-color: $secondary-color;
+	color: $white;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	font-size: 12px;
+	font-weight: bold;
+	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+#register-button-menu,
+.hr_line_width2,
+.hr_line_width1 {
+	display: none;
+}
+
+//--------------------------------------//
+
+//---------- Footer ---------//
+
+.footer {
+	background: #232326;
+	padding-top: 5%;
+	padding-bottom: 0;
+	text-align: left;
+	color: #cbcbcb;
+	
+	h3 {
+		font-size: 2.5em;
+		color: #745ec5;
+		margin-bottom: 0.5em;
+	}
+	
+	a {
+		font-size: 17px;
+		color: #cbcbcb;
+		&:hover,
+		&:focus {
+			color: $primary-color;
+		}
+	}
+	
+	&-grids {
+		h4 {
+			color: #767676;
+			text-transform: uppercase;
+			margin-bottom: 19px;
+			font-size: 23px;
+		}
+		&:nth-child(1) {
+			padding: 0 5em 0 0;
+		}
+		span {
+			display: block;
+		}
+		
+		@media (max-width: 991px) {
+			padding-left: 0;
+			margin-top: 10px;
+		}
+	}
+	
+	&-copy {
+		margin: 3em 0 0;
+		padding: 2em 0;
+		border-top: 1px solid #aaa;
+		p {
+			text-align: center;
+		}
+	}
+	
+	ul.footer_nav.navigation4,
+	ul.footer_nav.navigation3,
+	ul.footer_nav.navigation2,
+	ul.footer_nav.navigation1 {
+		font-size: 17px;
+		list-style: none;
+		line-height: 31px;
+	}
+}
+
+//--------------------------------------//
+//header dwopdown menu media
+@media (max-width: 768px) {
+	.top-nav > nav {
+		background-color: #132437;
+	}
+	nav.navScroll {
+		background-color: #132437;
+		box-shadow: transparent;
+	}
+}
+
+@media screen and (max-width: 1199px) and (min-width: 360px) {
+	
+	ul.nav.navbar-right {
+		width: 60%;
+		margin-left: 0;
+	}
+	.btn-green {
+		background-color: $secondary-color;
+	}
+	nav.navScroll ul li a {
+		color: $white;
+	}
+	ul.dropdown-menu.header_drop_language li:hover {
+		background: #132437;
+	}
+	#register-button {
+		width: 100%;
+		display: none;
+	}
+	.navbar-collapse {
+		padding-bottom: 250px !important;
+	}
+	button.navbar-toggle {
+		margin-top: 1.3em;
+	}
+	div#bs-example-navbar-collapse-1 {
+		background: #132437;
+		float: left;
+		width: 77%;
+		padding: 0;
+	}
+	a#register-button-menu {
+		display: block !important;
+		height: 55px;
+		padding-top: 17px !important;
+		border-radius: 0px !important;
+		text-align: left;
+		margin-top: -15px;
+		&:hover,
+		&:focus,
+		&:active{
+			background: $secondary-color;
+		}
+	}
+	a.navbar-link.margin-right {
+		display: none;
+	}
+	ul.nav.navbar-nav.left_nav {
+		margin-left: 0px !important;
+	}
+	.top-nav ul li a {
+		letter-spacing: 0;
+		padding: 10px 35px !important;
+	}
+}
+
+@media (max-width: 1199px) {
+	.navbar-header {
+		float: none;
+	}
+	.navbar-left,
+	.navbar-right {
+		float: none !important;
+	}
+	
+	.navbar-toggle .icon-bar {
+		background: $white;
+	}
+	.navbar-toggle {
+		display: block;
+		background-color: $primary-color;
+		border: 1px solid $white;
+		margin-top: 15px;
+	}
+	.navbar-collapse {
+		border-top: 1px solid transparent;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+	}
+	.navbar-fixed-top {
+		top: 0;
+		border-width: 0 0 1px;
+	}
+	.navbar-collapse.collapse {
+		display: none !important;
+	}
+	.navbar-nav {
+		float: none !important;
+		margin-top: 7.5px;
+	}
+	.navbar-nav > li {
+		float: none;
+	}
+	.navbar-nav > li > a {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.collapse.in {
+		display: block !important;
+	}
+	
+	nav.header_main {
+		background: #132437;
+	}
+	.top-nav ul li a {
+		color: $white !important;
+	}
+	
+	.top-nav ul li a:hover {
+		color: $white !important;
+	}
+	a#register-button-menu {
+		display: block !important;
+		height: 55px;
+		padding-top: 17px !important;
+		border-radius: 0px !important;
+		text-align: left;
+		margin-top: -15px;
+		&:hover,
+		&:focus,
+		&:active{
+			background: $secondary-color;
+		}
+	}
+	.btn-green {
+		background-color: $secondary-color !important;
+	}
+	#register-button {
+		width: 100%;
+		display: none;
+	}
+	
+	a.navbar-link.margin-right {
+		display: none;
+	}
+	
+	ul.nav.navbar-right {
+		margin-bottom: 95px;
+	}
+}
