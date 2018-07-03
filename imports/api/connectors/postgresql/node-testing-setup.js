@@ -5,7 +5,7 @@
 // REPL via copy-paste
 
 const { Pool } = require("pg");
-const pool = new Pool();
+let pool = new Pool();
 
 // variable declarations, so I can freely
 // reassign them via copy-paste
@@ -18,21 +18,27 @@ let obj;
 
 getCompanyByName = async function(name) {
 	const client = await pool.connect();
-	await client.query("START TRANSACTION READ ONLY");
-	const companyResults = await client.query(
-		"SELECT * FROM companies WHERE name=$1",
-		[name]
-	);
-	const locationResults = await client.query(
-		"SELECT locationname FROM company_locations WHERE companyid=$1",
-		[companyResults.rows[0].companyid]
-	);
-	const statResults = await client.query(
-		"SELECT * FROM company_review_statistics WHERE name=$1",
-		[name]
-	);
-	await client.query("COMMIT");
-	client.release();
+	let companyResults = { rows: [] };
+	let locationResults = { rows: [] };
+	let statResults = { rows: [] };
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		companyResults = await client.query(
+			"SELECT * FROM companies WHERE name=$1",
+			[name]
+		);
+		locationResults = await client.query(
+			"SELECT locationname FROM company_locations WHERE companyid=$1",
+			[companyResults.rows[0].companyid]
+		);
+		statResults = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[name]
+		);
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
+	}
 
 	return {
 		company: companyResults.rows[0],
@@ -43,21 +49,27 @@ getCompanyByName = async function(name) {
 
 getCompanyById = async function(id) {
 	const client = await pool.connect();
-	await client.query("START TRANSACTION READ ONLY");
-	const companyResults = await client.query(
-		"SELECT * FROM companies WHERE companyid=$1",
-		[id]
-	);
-	const locationResults = await client.query(
-		"SELECT locationname FROM company_locations WHERE companyid=$1",
-		[id]
-	);
-	const statResults = await client.query(
-		"SELECT * FROM company_review_statistics WHERE name=$1",
-		[companyResults.rows[0].name]
-	);
-	await client.query("COMMIT");
-	client.release();
+	let companyResults = { rows: [] };
+	let locationResults = { rows: [] };
+	let reviewStats = { rows: [] };
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		companyResults = await client.query(
+			"SELECT * FROM companies WHERE companyid=$1",
+			[id]
+		);
+		locationResults = await client.query(
+			"SELECT locationname FROM company_locations WHERE companyid=$1",
+			[id]
+		);
+		statResults = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[companyResults.rows[0].name]
+		);
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
+	}
 
 	return {
 		company: companyResults.rows[0],
@@ -66,112 +78,140 @@ getCompanyById = async function(id) {
 	};
 };
 
-companyNameRegexSearch = async function(name,skip,limit) {
+companyNameRegexSearch = async function(name, skip, limit) {
 	const client = await pool.connect();
-	await client.query("START TRANSACTION READ ONLY");
-	const companyResults = await client.query(
-		"SELECT * FROM companies WHERE name LIKE $1 OFFSET $2 LIMIT $3",
-		["%" + name + "%",skip,limit]
-	);
-
+	let companyResults = { rows: [] };
 	let locationResults = {};
 	let statResults = {};
-	for (let company of companyResults.rows) {
-		let locations = await client.query(
-			"SELECT * FROM company_locations WHERE companyid=$1",
-			[company.companyid]
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		companyResults = await client.query(
+			"SELECT * FROM companies WHERE name LIKE $1 OFFSET $2 LIMIT $3",
+			["%" + name + "%", skip, limit]
 		);
-		let stats = await client.query(
-			"SELECT * FROM company_review_statistics WHERE name=$1",
-			[company.name]
-		);
-		locationResults[company.name] = locations.rows;
-		statResults[company.name] = stats.rows[0];
+
+		for (let company of companyResults.rows) {
+			let locations = await client.query(
+				"SELECT * FROM company_locations WHERE companyid=$1",
+				[company.companyid]
+			);
+			let stats = await client.query(
+				"SELECT * FROM company_review_statistics WHERE name=$1",
+				[company.name]
+			);
+			locationResults[company.name] = locations.rows;
+			statResults[company.name] = stats.rows[0];
+		}
+
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
 	}
-
-	await client.query("COMMIT");
-	client.release();
-
-	return {
-		matchingCompanies: companyResults.rows,
-		matchingCompanyLocations: locationResults,
-		matchingCompanyReviewStats: statResults
-	}
-}
-
-getAllCompanies = async function(skip, limit) {
-	const client = await pool.connect();
-	await client.query("START TRANSACTION READ ONLY");
-	const companyResults = await client.query(
-		"SELECT * FROM companies OFFSET $1 LIMIT $2",
-		[skip, limit]
-	);
-
-	const locationResults = {};
-	const statResults = {};
-	for (let company of companyResults.rows) {
-		let locations = await client.query(
-			"SELECT * FROM company_locations WHERE companyid=$1",
-			[company.companyid]
-		);
-		let stats = await client.query(
-			"SELECT * FROM company_review_statistics WHERE name=$1",
-			[company.name]
-		);
-		locationResults[company.name] = locations.rows;
-		statResults[company.name] = stats.rows[0];
-	}
-
-	await client.query("COMMIT");
-	client.release();
 
 	return {
 		matchingCompanies: companyResults.rows,
 		matchingCompanyLocations: locationResults,
 		matchingCompanyReviewStats: statResults,
 	};
-}
+};
+
+getAllCompanies = async function(skip, limit) {
+	const client = await pool.connect();
+	let companyResults = { rows: [] };
+	let locationResults = {};
+	let statResults = {};
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		companyResults = await client.query(
+			"SELECT * FROM companies OFFSET $1 LIMIT $2",
+			[skip, limit]
+		);
+
+		for (let company of companyResults.rows) {
+			let locations = await client.query(
+				"SELECT * FROM company_locations WHERE companyid=$1",
+				[company.companyid]
+			);
+			let stats = await client.query(
+				"SELECT * FROM company_review_statistics WHERE name=$1",
+				[company.name]
+			);
+			locationResults[company.name] = locations.rows;
+			statResults[company.name] = stats.rows[0];
+		}
+
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		matchingCompanies: companyResults.rows,
+		matchingCompanyLocations: locationResults,
+		matchingCompanyReviewStats: statResults,
+	};
+};
 
 createCompany = async function(company) {
 	const client = await pool.connect();
 	await client.query("START TRANSACTION");
+	let newCompany = { rows: [] };
+	let newLocations = { rows: [] };
 
-	// assumes that company has the well-known format
-	// from the schema in imports/api/data/companies.js
-	const newCompany = await client.query(
-		"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
-		"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
-		[company.name,company.dateEstablished,company.industry,
-			company.otherContactInfo,company.descriptionOfCompany,
-			company.numEmployees,company.contactEmail,company.websiteURL]
-	);
+	try {
+		// assumes that company has the well-known format
+		// from the schema in imports/api/data/companies.js
+		newCompany = await client.query(
+			"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
+			[
+				company.name,
+				company.dateEstablished,
+				company.industry,
+				company.otherContactInfo,
+				company.descriptionOfCompany,
+				company.numEmployees,
+				company.contactEmail,
+				company.websiteURL,
+			]
+		);
 
-	// screw functional programming
-	const id = newCompany.rows[0].companyid;
-	let insertValues = [];
-	let insertValueString = "";
-	let index = 0;
-	for (let location of company.locations) {
-		insertValues.push(id,location);
-		insertValueString = insertValueString + "($" + (index + 1) + ",$" + (index + 2) + "),";
-		index += 2;
+		// screw functional programming
+		const id = newCompany.rows[0].companyid;
+		let insertValues = [];
+		let insertValueString = "";
+		let index = 0;
+		for (let location of company.locations) {
+			insertValues.push(id, location);
+			insertValueString =
+				insertValueString +
+				"($" +
+				(index + 1) +
+				",$" +
+				(index + 2) +
+				"),";
+			index += 2;
+		}
+		insertValueString = insertValueString.slice(0, -1);
+
+		newLocations = await client.query(
+			"INSERT INTO company_locations (companyid,locationname) " +
+				"VALUES " +
+				insertValueString +
+				" RETURNING *",
+			insertValues
+		);
+
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
 	}
-	insertValueString = insertValueString.slice(0, -1);
-
-	const newLocations = await client.query(
-		"INSERT INTO company_locations (companyid,locationname) " +
-		"VALUES " + insertValueString + " RETURNING *",
-		insertValues
-	);
-
-	await client.query("COMMIT");
-	client.release();
 
 	return {
 		company: newCompany.rows[0],
-		locations: newLocations.rows
+		locations: newLocations.rows,
 	};
-}
+};
 
 // requires that server/sql/tests/setup-playground has been run
 obj = await getCompanyByName("a");
@@ -180,7 +220,7 @@ obj = await companyNameRegexSearch("a",0,1000);
 obj = await getAllCompanies(0,1000);
 
 let vize = {
-	name: "Vize",
+	name: "wut",
 	numEmployees: "1 - 50",
 	industry: "Software Development",
 	otherContactInfo: "None to speak of",
@@ -200,38 +240,66 @@ let submitReview;
 
 getReviewById = async function(id) {
 	const client = await pool.connect();
-	await client.query("START TRANSACTION READ ONLY");
+	let reviewResults = { rows: [] };
+	let voteResults = { rows: [] };
+	try {
+		await client.query("START TRANSACTION READ ONLY");
 
-	const reviewResults = await client.query(
-		"SELECT * FROM reviews WHERE reviewid=$1",
-		[id]
-	);
+		reviewResults = await client.query(
+			"SELECT * FROM reviews WHERE reviewid=$1",
+			[id]
+		);
 
-	const voteResults = await client.query(
-		"SELECT * FROM review_vote_counts WHERE refersto=$1",
-		[id]
-	);
-	await client.query("COMMIT");
-	client.release();
+		voteResults = await client.query(
+			"SELECT * FROM review_vote_counts WHERE refersto=$1",
+			[id]
+		);
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
+	}
 
 	return {
 		review: reviewResults.rows[0],
-		votes: voteResults.rows[0]
+		votes: voteResults.rows[0],
+	};
+};
+
+getReviewsByAuthor = async function(id, skip, limit) {
+	const client = await pool.connect();
+	let reviewResults = { rows: [] };
+	let voteResults = {};
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		reviewResults = await client.query(
+			"SELECT * FROM reviews WHERE submittedby=$1",
+			[id]
+		);
+
+		voteResults = {};
+		for (let review of reviewResults.rows) {
+			let votes = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[review.reviewid]
+			);
+
+			voteResults[review.reviewid] = votes.rows[0];
+		}
+
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
 	}
-}
 
-getReviewsByAuthor = async function() {
+	return {
+		reviews: reviewResults.rows,
+		votes: voteResults,
+	};
+};
 
-}
+getAllReviews = async function(skip, limit) {};
 
-getAllReviews = async function() {
+getReviewsForCompany = async function(name, skip, limit) {};
 
-}
-
-getReviewsForCompany = async function() {
-
-}
-
-submitReview = async function() {
-
-}
+submitReview = async function(review) {};
