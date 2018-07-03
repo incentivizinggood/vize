@@ -342,7 +342,13 @@ getReviewsForCompany = async function(name, skip, limit) {
 	};
 };
 
-submitReview = async function(review) {};
+submitReview = async function(review) {
+	// assumes review is formatted for SimplSchema conformity
+	// ignores Comments and upvotes/downvotes, because this is
+	// (supposed to be) a new review, which cannot have been
+	// commented or voted on yet
+
+};
 
 // requires that server/sql/tests/setup-playground has been run
 obj = await getCompanyByName("a");
