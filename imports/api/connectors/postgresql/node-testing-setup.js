@@ -213,25 +213,6 @@ createCompany = async function(company) {
 	};
 };
 
-// requires that server/sql/tests/setup-playground has been run
-obj = await getCompanyByName("a");
-obj = await getCompanyById(1);
-obj = await companyNameRegexSearch("a",0,1000);
-obj = await getAllCompanies(0,1000);
-
-let vize = {
-	name: "wut",
-	numEmployees: "1 - 50",
-	industry: "Software Development",
-	otherContactInfo: "None to speak of",
-	contactEmail: "incentivizinggood@gmail.com",
-	websiteURL: "https://www.incentivizinggood.com",
-	descriptionOfCompany: "Pretty leet",
-	locations: ["My house", "Shaffer's aparment", "Tijuana"]
-}
-
-obj = await createCompany(vize);
-
 let getReviewById;
 let getReviewsByAuthor;
 let getAllReviews;
@@ -277,7 +258,6 @@ getReviewsByAuthor = async function(id, skip, limit) {
 			[id]
 		);
 
-		voteResults = {};
 		for (let review of reviewResults.rows) {
 			let votes = await client.query(
 				"SELECT * FROM review_vote_counts WHERE refersto=$1",
@@ -298,8 +278,56 @@ getReviewsByAuthor = async function(id, skip, limit) {
 	};
 };
 
-getAllReviews = async function(skip, limit) {};
+getAllReviews = async function(skip, limit) {
+	const client = await pool.connect();
+	let reviewResults = { rows: [] };
+	let voteResults = {};
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		reviewResults = await client.query(
+			"SELECT * FROM reviews"
+		);
+
+		for (let review of reviewResults.rows) {
+			let votes = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[review.reviewid]
+			);
+
+			voteResults[review.reviewid] = votes.rows[0];
+		}
+
+		await client.query("COMMIT");
+	} finally {
+		client.release();
+	}
+
+	return {
+		reviews: reviewResults.rows,
+		votes: voteResults
+	}
+};
 
 getReviewsForCompany = async function(name, skip, limit) {};
 
 submitReview = async function(review) {};
+
+// requires that server/sql/tests/setup-playground has been run
+obj = await getCompanyByName("a");
+obj = await getCompanyById(1);
+obj = await companyNameRegexSearch("a",0,1000);
+obj = await getAllCompanies(0,1000);
+
+let vize = {
+	name: "wut",
+	numEmployees: "1 - 50",
+	industry: "Software Development",
+	otherContactInfo: "None to speak of",
+	contactEmail: "incentivizinggood@gmail.com",
+	websiteURL: "https://www.incentivizinggood.com",
+	descriptionOfCompany: "Pretty leet",
+	locations: ["My house", "Shaffer's aparment", "Tijuana"]
+}
+
+obj = await createCompany(vize);

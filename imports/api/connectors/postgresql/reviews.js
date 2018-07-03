@@ -61,7 +61,34 @@ export default class ReviewConnector {
 		};
 	}
 
-	static async getAllReviews(skip, limit) {}
+	static async getAllReviews(skip, limit) {
+		const client = await pool.connect();
+		let reviewResults = { rows: [] };
+		let voteResults = {};
+		try {
+			await client.query("START TRANSACTION READ ONLY");
+
+			reviewResults = await client.query("SELECT * FROM reviews");
+
+			for (let review of reviewResults.rows) {
+				let votes = await client.query(
+					"SELECT * FROM review_vote_counts WHERE refersto=$1",
+					[review.reviewid]
+				);
+
+				voteResults[review.reviewid] = votes.rows[0];
+			}
+
+			await client.query("COMMIT");
+		} finally {
+			client.release();
+		}
+
+		return {
+			reviews: reviewResults.rows,
+			votes: voteResults,
+		};
+	}
 
 	static async getReviewsForCompany(name, skip, limit) {}
 
