@@ -30,7 +30,7 @@ const closeAndExit = function() {
 	process.exit();
 };
 
-process.on("SIGTERM", closeAndExit());
-process.on("SIGINT", closeAndExit());
+// process.on("SIGTERM", closeAndExit());
+// process.on("SIGINT", closeAndExit());
 
 export default pool;

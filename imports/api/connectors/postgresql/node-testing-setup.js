@@ -151,7 +151,7 @@ createCompany = async function(company) {
 	let insertValues = [];
 	let insertValueString = "";
 	let index = 0;
-	for (location of company.locations) {
+	for (let location of company.locations) {
 		insertValues.push(id,location);
 		insertValueString = insertValueString + "($" + (index + 1) + ",$" + (index + 2) + "),";
 		index += 2;

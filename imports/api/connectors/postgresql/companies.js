@@ -1,4 +1,4 @@
-import { pool } from "./connection-pool.js";
+import pool from "./connection-pool.js";
 
 export default class CompanyConnector {
 	static async getCompanyByName(name) {
@@ -118,6 +118,8 @@ export default class CompanyConnector {
 	}
 
 	static async createCompany(company) {
+		// console.log(company);
+
 		const client = await pool.connect();
 		await client.query("START TRANSACTION");
 
@@ -143,7 +145,7 @@ export default class CompanyConnector {
 		let insertValues = [];
 		let insertValueString = "";
 		let index = 0;
-		for (location of company.locations) {
+		for (let location of company.locations) {
 			insertValues.push(id, location);
 			insertValueString =
 				insertValueString +

@@ -1,4 +1,4 @@
-import { pool } from "./connection-pool.js";
+import pool from "./connection-pool.js";
 
 export default class JobAdConnector {
 	/*

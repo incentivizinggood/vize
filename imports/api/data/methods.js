@@ -9,6 +9,14 @@ import { JobAds } from "./jobads.js";
 import { Votes } from "./votes.js";
 import { addToAvg } from "./denormalization.js";
 
+// Testing with PostgreSQL
+import CompanyConnector from "../connectors/postgresql/companies.js";
+import ReviewConnector from "../connectors/postgresql/reviews.js";
+import JobAdsConnector from "../connectors/postgresql/jobads.js";
+import SalaryConnector from "../connectors/postgresql/salaries.js";
+import VoteConnector from "../connectors/postgresql/votes.js";
+import CommentConnector from "../connectors/postgresql/comments.js";
+
 Meteor.methods({
 	sendEmail(to, from, subject, text) {
 		if (Meteor.isDevelopment)
