@@ -1,14 +1,8 @@
--- TRUNCATE just seems like a nasty loophole
--- right now and I'm not going to think about it.
-DROP TRIGGER IF EXISTS deny_truncate ON companies;
-CREATE TRIGGER deny_truncate
-BEFORE TRUNCATE ON companies
-FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
-
-DROP TRIGGER IF EXISTS deny_truncate ON company_locations;
-CREATE TRIGGER deny_truncate
-BEFORE TRUNCATE ON company_locations
-FOR EACH STATEMENT EXECUTE PROCEDURE deny_op();
+-- WARNING
+-- In PostgreSQL, triggers defined for the same
+-- event on the same table execute in alphabetical
+-- order by trigger name.
+-- WARNING
 
 -- QUESTION:
 -- One-many relationship from companies to locations,
@@ -39,3 +33,27 @@ CREATE CONSTRAINT TRIGGER not_last_location
 AFTER UPDATE OR DELETE ON company_locations
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE check_remaining_company_locations();
+
+DROP TRIGGER IF EXISTS geq_one_locations ON jobads;
+CREATE CONSTRAINT TRIGGER geq_one_locations
+AFTER INSERT ON jobads
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE check_job_location_count();
+
+DROP TRIGGER IF EXISTS not_last_location ON job_locations;
+CREATE CONSTRAINT TRIGGER not_last_location
+AFTER UPDATE OR DELETE ON job_locations
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE check_remaining_job_locations();
+
+DROP TRIGGER IF EXISTS not_own_review ON review_votes;
+CREATE CONSTRAINT TRIGGER not_own_review
+AFTER INSERT OR UPDATE ON review_votes
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE disallow_voting_on_self();
+
+DROP TRIGGER IF EXISTS not_own_comment ON comment_votes;
+CREATE CONSTRAINT TRIGGER not_own_comment
+AFTER INSERT OR UPDATE ON comment_votes
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE disallow_voting_on_self();
