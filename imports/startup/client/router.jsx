@@ -74,8 +74,16 @@ routeSimplePage("/post-a-job", <PostAJobForm />);
 routeSimplePage("/worker-resources", <ResourcesWorkers />);
 
 // ----- Define the more complex routes. -----//
+const queryRoutes = {
+	companies: "companies",
+	companyProfile: "companyprofile",
+	writeReview: "write-review",
+	submitSalaryData: "submit-salary-data",
+	applyForJob: "apply-for-job",
+	user: "user",
+};
 
-FlowRouter.route("/companies", {
+FlowRouter.route(`/${queryRoutes.companies}`, {
 	action(params, queryParams) {
 		currentPage.set(
 			// changing the route for now, because the search code is on CompanySearchTrial now.
@@ -85,31 +93,31 @@ FlowRouter.route("/companies", {
 	},
 });
 
-FlowRouter.route("/companyprofile", {
+FlowRouter.route(`/${queryRoutes.companyProfile}`, {
 	action(params, queryParams) {
 		currentPage.set(<CompanyProfile companyId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/write-review", {
+FlowRouter.route(`/${queryRoutes.writeReview}`, {
 	action(params, queryParams) {
 		currentPage.set(<WriteReviewForm companyId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/submit-salary-data", {
+FlowRouter.route(`/${queryRoutes.submitSalaryData}`, {
 	action(params, queryParams) {
 		currentPage.set(<SubmitSalaryDataForm companyId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/apply-for-job", {
+FlowRouter.route(`/${queryRoutes.applyForJob}`, {
 	action(params, queryParams) {
 		currentPage.set(<ApplyForJobForm jobId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/user", {
+FlowRouter.route(`/${queryRoutes.user}`, {
 	action(params, queryParams) {
 		currentPage.set(<UserPage user_id={queryParams.id} />);
 	},
@@ -122,4 +130,41 @@ FlowRouter.notFound = {
 	},
 };
 
-export { currentPage };
+// exporting commonly-used URL generators
+// in order to reduce the risk of typos
+// and reduce the use of magic strings
+const vizeProfileUrl = function(companyId) {
+	return Meteor.absoluteUrl(
+		`${queryRoutes.companyProfile}/?id=${companyId}`,
+		{
+			secure: true,
+		}
+	);
+};
+const vizeReviewUrl = function(companyId) {
+	return Meteor.absoluteUrl(`${queryRoutes.writeReview}/?id=${companyId}`, {
+		secure: true,
+	});
+};
+const vizeSalaryUrl = function(companyId) {
+	return Meteor.absoluteUrl(
+		`${queryRoutes.submitSalaryData}/?id=${companyId}`,
+		{
+			secure: true,
+		}
+	);
+};
+const vizeApplyForJobUrl = function(jobId) {
+	return Meteor.absoluteUrl(`${queryRoutes.applyForJob}/?id=${jobId}`, {
+		secure: true,
+	});
+};
+
+const urlGenerators = {
+	vizeProfileUrl,
+	vizeReviewUrl,
+	vizeSalaryUrl,
+	vizeApplyForJobUrl,
+};
+
+export { currentPage, urlGenerators };
