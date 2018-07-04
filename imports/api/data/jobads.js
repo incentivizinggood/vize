@@ -75,22 +75,6 @@ JobAds.schema = new SimpleSchema(
 				omit: true,
 			},
 		},
-		vizeApplyForJobUrl: {
-			type: String,
-			optional: true,
-			denyUpdate: true,
-			autoValue() {
-				if (this.field("_id").isSet) {
-					return Meteor.absoluteUrl(
-						`apply-for-job/?id=${this.field("_id").value}`,
-						{ secure: true }
-					);
-				}
-			},
-			autoform: {
-				omit: true,
-			},
-		},
 		jobTitle: {
 			type: String,
 			max: 100,
