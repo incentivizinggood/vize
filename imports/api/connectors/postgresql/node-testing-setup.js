@@ -35,6 +35,9 @@ getCompanyByName = async function(name) {
 			[name]
 		);
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -66,6 +69,9 @@ getCompanyById = async function(id) {
 			[companyResults.rows[0].name]
 		);
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -103,6 +109,9 @@ companyNameRegexSearch = async function(name, skip, limit) {
 		}
 
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -140,6 +149,9 @@ getAllCompanies = async function(skip, limit) {
 		}
 
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -153,11 +165,11 @@ getAllCompanies = async function(skip, limit) {
 
 createCompany = async function(company) {
 	const client = await pool.connect();
-	await client.query("START TRANSACTION");
 	let newCompany = { rows: [] };
 	let newLocations = { rows: [] };
 
 	try {
+		await client.query("START TRANSACTION");
 		// assumes that company has the well-known format
 		// from the schema in imports/api/data/companies.js
 		newCompany = await client.query(
@@ -202,6 +214,9 @@ createCompany = async function(company) {
 		);
 
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -235,6 +250,9 @@ getReviewById = async function(id) {
 			[id]
 		);
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -267,6 +285,9 @@ getReviewsByAuthor = async function(id, skip, limit) {
 		}
 
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -299,8 +320,11 @@ getAllReviews = async function(skip, limit) {
 		}
 
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
-		client.release();
+		await client.release();
 	}
 
 	return {
@@ -331,6 +355,9 @@ getReviewsForCompany = async function(name, skip, limit) {
 		}
 
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -356,8 +383,9 @@ submitReview = async function(review) {
 			"(submittedBy,companyName,companyId,reviewLocation,"+
 			"reviewTitle,jobTitle,numMonthsWorked,pros,cons,"+
 			"wouldRecommend,healthAndSafety,managerRelationship,"+
-			"workEnvironment,benefits,overallSatisfaction,additionalComments)"+
-			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)",
+			"workEnvironment,benefits,overallSatisfaction,additionalComments) "+
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) "+
+			"RETURNING *",
 			[review.submittedBy,review.companyName,review.companyId,
 			review.location,review.reviewTitle,review.jobTitle,
 			review.numberOfMonthsWorked,review.pros,review.cons,
@@ -366,6 +394,9 @@ submitReview = async function(review) {
 			review.overallSatisfaction,review.additionalComments]
 		);
 		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
 	}
@@ -386,7 +417,7 @@ obj = await companyNameRegexSearch("a",0,1000);
 obj = await getAllCompanies(0,1000);
 
 vize = {
-	name: "another round 2",
+	name: "another round 6",
 	numEmployees: "1 - 50",
 	industry: "Software Development",
 	otherContactInfo: "None to speak of",
