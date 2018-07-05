@@ -431,9 +431,9 @@ obj = await createCompany(vize);
 
 vizeReview = {
 	submittedBy: 0,
-	companyName: obj.company.name,
-	companyId: obj.company.companyid,
-	location: obj.locations[0].locationname,
+	companyName: 'a',
+	companyId: 1,
+	location: "asdf",
 	reviewTitle: "Hello World",
 	jobTitle: "Web developer",
 	numberOfMonthsWorked: 50,

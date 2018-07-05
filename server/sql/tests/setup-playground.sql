@@ -28,48 +28,48 @@ INSERT INTO reviews
 INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (1,0,'hello world');
 
 INSERT INTO reviews
-(reviewId,submittedBy,companyname,reviewlocation,
+(submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (3,0,'a','a','a','a',2,
+	VALUES (0,'a','a','a','a',2,
 			'a a a a a','a a a a a',TRUE,
 			1,2,3,4,0,'Hello world!');
 INSERT INTO reviews
-(reviewId,submittedBy,companyname,reviewlocation,
+(submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (4,1,'a','a','a','a',3,
+	VALUES (1,'a','a','a','a',3,
 			'a a a a a','a a a a a',TRUE,
 			1,2,3,4,0,'Hello world!');
 INSERT INTO reviews
-(reviewId,submittedBy,companyname,reviewlocation,
+(submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (5,2,'a','a','a','a',4,
+	VALUES (2,'a','a','a','a',4,
 			'a a a a a','a a a a a',TRUE,
 			1,2,3,4,0,'Hello world!');
 INSERT INTO reviews
-(reviewId,submittedBy,companyname,reviewlocation,
+(submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (6,3,'a','a','a','a',5,
+	VALUES (3,'a','a','a','a',5,
 			'a a a a a','a a a a a',FALSE,
 			1,2,3,4,0,'Hello world!');
 INSERT INTO reviews
-(reviewId,submittedBy,companyname,reviewlocation,
+(submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
 	pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction,additionalComments)
-	VALUES (7,4,'a','a','a','a',6,
+	VALUES (4,'a','a','a','a',6,
 			'a a a a a','a a a a a',FALSE,
 			2,3,4,5,1,'Hello world!');
 
