@@ -14,7 +14,6 @@ let getCompanyById;
 let companyNameRegexSearch;
 let getAllCompanies;
 let createCompany;
-let obj;
 
 getCompanyByName = async function(name) {
 	const client = await pool.connect();
@@ -347,8 +346,38 @@ submitReview = async function(review) {
 	// ignores Comments and upvotes/downvotes, because this is
 	// (supposed to be) a new review, which cannot have been
 	// commented or voted on yet
+	const client = await pool.connect();
+	let newReview = { rows: [] };
 
+	try {
+		await client.query("START TRANSACTION");
+		newReview = await client.query(
+			"INSERT INTO reviews "+
+			"(submittedBy,companyName,companyId,reviewLocation,"+
+			"reviewTitle,jobTitle,numMonthsWorked,pros,cons,"+
+			"wouldRecommend,healthAndSafety,managerRelationship,"+
+			"workEnvironment,benefits,overallSatisfaction,additionalComments)"+
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)",
+			[review.submittedBy,review.companyName,review.companyId,
+			review.location,review.reviewTitle,review.jobTitle,
+			review.numberOfMonthsWorked,review.pros,review.cons,
+			review.wouldRecommendToOtherJobSeekers,review.healthAndSafety,
+			review.managerRelationship,review.workEnvironment,review.benefits,
+			review.overallSatisfaction,review.additionalComments]
+		);
+		await client.query("COMMIT");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		review: newReview.rows[0]
+	};
 };
+
+let obj;
+let vize;
+let vizeReview;
 
 // requires that server/sql/tests/setup-playground has been run
 obj = await getCompanyByName("a");
@@ -356,8 +385,8 @@ obj = await getCompanyById(1);
 obj = await companyNameRegexSearch("a",0,1000);
 obj = await getAllCompanies(0,1000);
 
-let vize = {
-	name: "wut",
+vize = {
+	name: "another round 2",
 	numEmployees: "1 - 50",
 	industry: "Software Development",
 	otherContactInfo: "None to speak of",
@@ -365,6 +394,27 @@ let vize = {
 	websiteURL: "https://www.incentivizinggood.com",
 	descriptionOfCompany: "Pretty leet",
 	locations: ["My house", "Shaffer's aparment", "Tijuana"]
-}
+};
 
 obj = await createCompany(vize);
+
+vizeReview = {
+	submittedBy: 0,
+	companyName: obj.company.name,
+	companyId: obj.company.companyid,
+	location: obj.locations[0].locationname,
+	reviewTitle: "Hello World",
+	jobTitle: "Web developer",
+	numberOfMonthsWorked: 50,
+	pros: "b b b b b",
+	cons: "c c c c c",
+	wouldRecommendToOtherJobSeekers: true,
+	healthAndSafety: 3.5,
+	managerRelationship: 5,
+	workEnvironment: 1.7,
+	benefits: 2.8,
+	overallSatisfaction: 4.3,
+	additionalComments: "Hello World"
+};
+
+obj = await submitReview(vizeReview);

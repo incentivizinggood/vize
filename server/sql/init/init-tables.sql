@@ -63,12 +63,6 @@ CREATE TABLE company_locations (
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
-	-- QUESTION (related to users table implementation)
-	-- Does this field have to be compatible with
-	-- the current Mongo setup?
-	-- QUESTION Are users allowed to submit more than
-	-- one review per company? If not, we could use
-	-- (submittedBy,companyName) as the primary key.
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
 	-- QUESTION
 	-- Logically these bext two fields are foreign keys, but how to handle
@@ -88,6 +82,30 @@ CREATE TABLE reviews (
 	--		we can make sure that the transaction has an Xlock on this table.
 	-- -> It indeed does not, and you can request ACCESS EXCLUSIVE.
 	--		Did I mention that I love PostgreSQL?
+	--
+	-- NOTE
+	-- Forget all that, I have an even better idea.
+	-- companyName is required in all cases, but in the "exception" case,
+	-- there will be no companyId. So logically it would seem like
+	-- this translates to companyName being a required field,
+	-- with companyId as an optional foreign key field. If the case is
+	-- not the exception case, then we would expect the caller
+	-- to provide the companyid.
+	-- Then the only caveat is users leaving reviews for companies
+	-- in the non-exception case where the name given does not match
+	-- the recorded name of the company with that id. This can be handled
+	-- either in a trigger or by the caller.
+	-- This may make it necessary to allow the companyName field to be
+	-- updated for correction in case of typos, or to be automatically
+	-- updated when a companyid is supplied.
+	-- Of course, this will not be enough to catch all mistakes made
+	-- in the exception case, but at that point I'm afraid we'll have
+	-- to rely on good UI or "manual correction".
+	-- Although, logically it seems to makes sense that reviews for
+	-- companies with different names would be treated as reviews for
+	-- different companies: that's just taking the user at their word,
+	-- and in that light it makes perfect sense to offload the burden of
+	-- mistake-checking to either them or the front-end.
 	companyName			varchar(110)	NOT NULL
 		REFERENCES companies (name)
 		-- should we really cascade on delete,
@@ -106,11 +124,11 @@ CREATE TABLE reviews (
 	pros				varchar(210)	NOT NULL CHECK (word_count(pros) >= 5),
 	cons				varchar(210)	NOT NULL CHECK (word_count(cons) >= 5),
 	wouldRecommend		boolean			NOT NULL,
-	healthAndSafety		float(2)			NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
-	managerRelationship	float(2)			NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
-	workEnvironment		float(2)			NOT NULL CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
-	benefits			float(2)			NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
-	overallSatisfaction	float(2)			NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
+	healthAndSafety		float(2)		NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
+	managerRelationship	float(2)		NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
+	workEnvironment		float(2)		NOT NULL CHECK (workEnvironment >= 0 AND workEnvironment <= 5),
+	benefits			float(2)		NOT NULL CHECK (benefits >= 0 AND benefits <= 5),
+	overallSatisfaction	float(2)		NOT NULL CHECK (overallSatisfaction >= 0 AND overallSatisfaction <= 5),
 	additionalComments	varchar(6010),
 	dateJoined			date			DEFAULT now()
 );
@@ -154,7 +172,7 @@ CREATE TABLE salaries (
 	-- Further, Julian's proposed salary stats display
 	-- does not make use of it.
 	incomeType			varchar(20)		NOT NULL CHECK (incomeType='Yearly Salary' OR incomeType='Monthly Salary' OR incomeType='Hourly Wage'),
-	incomeAmount		float(2)			NOT NULL CHECK (incomeAmount >= 0),
+	incomeAmount		float(2)		NOT NULL CHECK (incomeAmount >= 0),
 	gender				varchar(10)		CHECK (gender IS NULL OR gender='Male' OR gender='Female'),
 	datePosted			date			DEFAULT now()
 );
