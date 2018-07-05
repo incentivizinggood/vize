@@ -406,9 +406,26 @@ submitReview = async function(review) {
 	};
 };
 
+let getSalaryById;
+let getAllSalaries;
+let getSalariesByAuthor;
+let getSalariesForCompany;
+let submitSalary;
+
+getSalaryById = async function (id) {}
+
+getAllSalaries = async function (skip, limit) {}
+
+getSalariesByAuthor = async function (id, skip, limit) {}
+
+getSalariesForCompany = async function (name, skip, limit) {}
+
+submitSalary = async function (salary) {}
+
 let obj;
 let vize;
 let vizeReview;
+let vizeSalary;
 
 // requires that server/sql/tests/setup-playground has been run
 obj = await getCompanyByName("a");
