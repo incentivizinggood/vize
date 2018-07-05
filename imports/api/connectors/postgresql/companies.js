@@ -39,7 +39,7 @@ export default class CompanyConnector {
 		const client = await pool.connect();
 		let companyResults = { rows: [] };
 		let locationResults = { rows: [] };
-		let reviewStats = { rows: [] };
+		let statResults = { rows: [] };
 		try {
 			await client.query("START TRANSACTION READ ONLY");
 			companyResults = await client.query(
@@ -83,7 +83,7 @@ export default class CompanyConnector {
 
 			for (let company of companyResults.rows) {
 				let locations = await client.query(
-					"SELECT * FROM company_locations WHERE companyid=$1",
+					"SELECT locationname FROM company_locations WHERE companyid=$1",
 					[company.companyid]
 				);
 				let stats = await client.query(
@@ -103,9 +103,9 @@ export default class CompanyConnector {
 		}
 
 		return {
-			matchingCompanies: companyResults.rows,
-			matchingCompanyLocations: locationResults,
-			matchingCompanyReviewStats: statResults,
+			companies: companyResults.rows,
+			locations: locationResults,
+			reviewStats: statResults,
 		};
 	}
 
@@ -123,7 +123,7 @@ export default class CompanyConnector {
 
 			for (let company of companyResults.rows) {
 				let locations = await client.query(
-					"SELECT * FROM company_locations WHERE companyid=$1",
+					"SELECT locationname FROM company_locations WHERE companyid=$1",
 					[company.companyid]
 				);
 				let stats = await client.query(
@@ -143,9 +143,9 @@ export default class CompanyConnector {
 		}
 
 		return {
-			matchingCompanies: companyResults.rows,
-			matchingCompanyLocations: locationResults,
-			matchingCompanyReviewStats: statResults,
+			companies: companyResults.rows,
+			locations: locationResults,
+			reviewStats: statResults,
 		};
 	}
 

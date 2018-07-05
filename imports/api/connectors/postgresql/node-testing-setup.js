@@ -53,7 +53,7 @@ getCompanyById = async function(id) {
 	const client = await pool.connect();
 	let companyResults = { rows: [] };
 	let locationResults = { rows: [] };
-	let reviewStats = { rows: [] };
+	let statResults = { rows: [] };
 	try {
 		await client.query("START TRANSACTION READ ONLY");
 		companyResults = await client.query(
@@ -97,7 +97,7 @@ companyNameRegexSearch = async function(name, skip, limit) {
 
 		for (let company of companyResults.rows) {
 			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
+				"SELECT locationname FROM company_locations WHERE companyid=$1",
 				[company.companyid]
 			);
 			let stats = await client.query(
@@ -117,9 +117,9 @@ companyNameRegexSearch = async function(name, skip, limit) {
 	}
 
 	return {
-		matchingCompanies: companyResults.rows,
-		matchingCompanyLocations: locationResults,
-		matchingCompanyReviewStats: statResults,
+		companies: companyResults.rows,
+		locations: locationResults,
+		reviewStats: statResults,
 	};
 };
 
@@ -137,7 +137,7 @@ getAllCompanies = async function(skip, limit) {
 
 		for (let company of companyResults.rows) {
 			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
+				"SELECT locationname FROM company_locations WHERE companyid=$1",
 				[company.companyid]
 			);
 			let stats = await client.query(
@@ -157,9 +157,9 @@ getAllCompanies = async function(skip, limit) {
 	}
 
 	return {
-		matchingCompanies: companyResults.rows,
-		matchingCompanyLocations: locationResults,
-		matchingCompanyReviewStats: statResults,
+		companies: companyResults.rows,
+		locations: locationResults,
+		reviewStats: statResults,
 	};
 };
 
@@ -549,10 +549,173 @@ submitSalary = async function (salary) {
 	};
 }
 
+let getJobAdById;
+let getAllJobAds;
+let getJobAdsByCompany;
+let postJobAd;
+
+getJobAdById = async function(id) {
+	const client = await pool.connect();
+	let jobAdResults = { rows: [] };
+	let locationResults = { rows: [] };
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		jobAdResults = await client.query(
+			"SELECT * FROM jobads WHERE jobadid=$1",
+			[id]
+		);
+		locationResults = await client.query(
+			"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+			[id]
+		);
+		await client.query("COMMIT");
+	} catch(e) {
+		console.log(e);
+		client.query("ROLLBACK");
+	} finally {
+		client.release();
+	}
+
+	return {
+		jobAd: jobAdResults.rows[0],
+		locations: locationResults.rows
+	};
+};
+
+getAllJobAds = async function(skip,limit) {
+	const client = await pool.connect();
+	let jobAdResults = { rows: [] };
+	let locationResults = {};
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		jobAdResults = await client.query(
+			"SELECT * FROM jobads OFFSET $1 LIMIT $2",
+			[skip,limit]
+		);
+
+		for(let jobad of jobAdResults.rows) {
+			let locations = await client.query(
+				"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+				[jobad.jobadid]
+			);
+			locationResults[jobad.jobadid] = locations.rows;
+		}
+
+		await client.query("COMMIT");
+	} catch(e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		jobads: jobAdResults.rows,
+		locations: locationResults
+	}
+};
+
+getJobAdsByCompany = async function(companyName,skip,limit) {
+	const client = await pool.connect();
+	let jobAdResults = { rows: [] };
+	let locationResults = {};
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+		jobAdResults = await client.query(
+			"SELECT * FROM jobads WHERE companyname=$1 OFFSET $2 LIMIT $3",
+			[companyName,skip,limit]
+		);
+
+		for(let jobad of jobAdResults.rows) {
+			let locations = await client.query(
+				"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+				[jobad.jobadid]
+			);
+			locationResults[jobad.jobadid] = locations.rows;
+		}
+
+		await client.query("COMMIT");
+	} catch(e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		jobads: jobAdResults.rows,
+		locations: locationResults
+	}
+};
+
+postJobAd = async function(jobad) {
+	const client = await pool.connect();
+	let newJobAd = { rows: [] };
+	let newLocations = { rows: [] };
+
+	try {
+		await client.query("START TRANSACTION");
+
+		newJobAd = await client.query(
+			"INSERT INTO jobads " +
+			"(companyname,companyid,jobtitle,pesosperhour,"+
+			"contracttype,jobdescription,responsibilities,qualifications) "+
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
+			"RETURNING *",
+			[
+				jobad.companyName,jobad.companyId,
+				jobad.jobTitle,jobad.pesosPerHour,
+				jobad.contractType,jobad.jobDescription,
+				jobad.responsibilities,jobad.qualifications
+			]
+		);
+
+		// this bit could probably be refactored out into a
+		// function and used for both companies and jobads
+		const id = newJobAd.rows[0].jobadid;
+		let insertValues = [];
+		let insertValueString = "";
+		let index = 0;
+		for(let location of jobad.locations) {
+			insertValues.push(id, location);
+			insertValueString =
+				insertValueString +
+				"($" +
+				(index + 1) +
+				",$" +
+				(index + 2) +
+				"),";
+			index += 2;
+		}
+		insertValueString = insertValueString.slice(0, -1);
+
+		newLocations = await client.query(
+			"INSERT INTO job_locations (jobadid,joblocation) " +
+				"VALUES " +
+				insertValueString +
+				" RETURNING *",
+			insertValues
+		);
+
+		await client.query("COMMIT");
+	} catch(e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		jobad: newJobAd.rows[0],
+		locations: newLocations.rows
+	};
+};
+
 let obj;
 let vize;
 let vizeReview;
 let vizeSalary;
+let vizeJobAd;
 
 vize = {
 	name: "another round 10",
@@ -595,6 +758,18 @@ vizeSalary = {
 	gender: "Male"
 };
 
+vizeJobAd = {
+	companyName: 'a',
+	companyId: 1,
+	jobTitle: "Web developer",
+	locations: ["My house", "Shaffer's aparment", "Tijuana"],
+	pesosPerHour: "100 - 200",
+	contractType: "Full time",
+	jobDescription: "Pretty leet for a web dev",
+	responsibilities: "Do stuff",
+	qualifications: "Be able to do stuff"
+}
+
 // NOTE requires that server/sql/tests/setup-playground.sql has
 // been run on the machine that these queries are being sent to
 
@@ -616,7 +791,13 @@ obj = await getSalariesByAuthor(2,0,1000);
 obj = await getSalariesForCompany('a',0,1000);
 obj = await getAllSalaries(0,1000);
 
+// jobad query functions
+obj = await getJobAdById(1);
+obj = await getJobAdsByCompany("b");
+obj = await getAllJobAds();
+
 //insertion functions
 obj = await createCompany(vize);
 obj = await submitReview(vizeReview);
 obj = await submitSalary(vizeSalary);
+obj = await postJobAd(vizeJobAd);
