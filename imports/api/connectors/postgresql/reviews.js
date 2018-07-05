@@ -18,6 +18,9 @@ export default class ReviewConnector {
 				[id]
 			);
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -50,6 +53,9 @@ export default class ReviewConnector {
 			}
 
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -82,8 +88,11 @@ export default class ReviewConnector {
 			}
 
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
-			client.release();
+			await client.release();
 		}
 
 		return {
@@ -114,6 +123,9 @@ export default class ReviewConnector {
 			}
 
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -124,7 +136,55 @@ export default class ReviewConnector {
 		};
 	}
 
-	static async submitReview(review) {}
+	static async submitReview(review) {
+		// assumes review is formatted for SimplSchema conformity
+		// ignores Comments and upvotes/downvotes, because this is
+		// (supposed to be) a new review, which cannot have been
+		// commented or voted on yet
+		const client = await pool.connect();
+		let newReview = { rows: [] };
+
+		try {
+			await client.query("START TRANSACTION");
+			newReview = await client.query(
+				"INSERT INTO reviews " +
+					"(submittedBy,companyName,companyId,reviewLocation," +
+					"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
+					"wouldRecommend,healthAndSafety,managerRelationship," +
+					"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
+					"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
+					"RETURNING *",
+				[
+					review.submittedBy,
+					review.companyName,
+					review.companyId,
+					review.location,
+					review.reviewTitle,
+					review.jobTitle,
+					review.numberOfMonthsWorked,
+					review.pros,
+					review.cons,
+					review.wouldRecommendToOtherJobSeekers,
+					review.healthAndSafety,
+					review.managerRelationship,
+					review.workEnvironment,
+					review.benefits,
+					review.overallSatisfaction,
+					review.additionalComments,
+				]
+			);
+			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
+		} finally {
+			await client.release();
+		}
+
+		return {
+			review: newReview.rows[0],
+		};
+	}
 
 	// editReview
 	// deleteReview

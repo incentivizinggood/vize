@@ -21,6 +21,9 @@ export default class CompanyConnector {
 				[name]
 			);
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -52,6 +55,9 @@ export default class CompanyConnector {
 				[companyResults.rows[0].name]
 			);
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -89,6 +95,9 @@ export default class CompanyConnector {
 			}
 
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -126,6 +135,9 @@ export default class CompanyConnector {
 			}
 
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
@@ -139,11 +151,11 @@ export default class CompanyConnector {
 
 	static async createCompany(company) {
 		const client = await pool.connect();
-		await client.query("START TRANSACTION");
 		let newCompany = { rows: [] };
 		let newLocations = { rows: [] };
 
 		try {
+			await client.query("START TRANSACTION");
 			// assumes that company has the well-known format
 			// from the schema in imports/api/data/companies.js
 			newCompany = await client.query(
@@ -188,6 +200,9 @@ export default class CompanyConnector {
 			);
 
 			await client.query("COMMIT");
+		} catch (e) {
+			console.log(e);
+			await client.query("ROLLBACK");
 		} finally {
 			await client.release();
 		}
