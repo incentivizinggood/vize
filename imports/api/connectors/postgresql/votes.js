@@ -1,14 +1,15 @@
 import pool from "./connection-pool.js";
 
 export default class VoteConnector {
-	/*
-		getVoteById(id) -> currently not possible, does it even make sense?
+	static async getAllVotes(skip, limit) {}
 
-		getAllVotes(skip,limit)
-		getVotesByAuthor(id,skip,limit)
-		getVotesForSubject(subject,refersto,skip,limit)
+	static async getVotesByAuthor(id, skip, limit) {}
 
-		castVote
-		removeVote
-	*/
+	static async getVotesForSubject(subject, refersto, skip, limit) {}
+
+	static async castVote(vote) {}
+
+	//	getVoteById(id) -> currently not possible, does it even make sense?
+
+	//	removeVote
 }

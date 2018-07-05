@@ -1,14 +1,15 @@
 import pool from "./connection-pool.js";
 
 export default class CommentConnector {
-	/*
-		getCommentById(id)
+	static async getCommentById(id) {}
 
-		getAllComments(skip,limit)
-		getCommentsByAuthor(id,skip,limit)
+	static async getAllComments(skip, limit) {}
 
-		writeComment
-		editComment
-		deleteComment
-	*/
+	static async getCommentsByAuthor(id, skip, limit) {}
+
+	static async writeComment(comment) {}
+
+	//	editComment
+
+	//	deleteComment
 }

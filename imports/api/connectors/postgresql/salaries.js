@@ -1,15 +1,17 @@
 import pool from "./connection-pool.js";
 
 export default class SalaryConnector {
-	/*
-		getSalaryById
+	static async getSalaryById(id) {}
 
-		getAllSalaries(skip,limit)
-		getSalariesByAuthor(id,skip,limit)
-		getSalariesForCompany(name,skip,limit)
+	static async getAllSalaries(skip, limit) {}
 
-		submitSalary
-		editSalary
-		deleteSalary
-	*/
+	static async getSalariesByAuthor(id, skip, limit) {}
+
+	static async getSalariesForCompany(name, skip, limit) {}
+
+	static async submitSalary(salary) {}
+
+	//	editSalary
+
+	//	deleteSalary
 }
