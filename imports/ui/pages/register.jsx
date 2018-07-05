@@ -54,8 +54,10 @@ export default class RegisterPage extends React.Component {
 
 
 	handleSubmit(event) {
-		event.preventDefault(); // Prevent the default behavior for this event.
+		event.preventDefault(); // Prevent the default behavior for this event
+		alert("duh")
 		const createUserCallback = error => {
+
 			if (error) console.error(error);
 			this.setState({
 				// Using slice here to remove the period from the error reason
@@ -150,7 +152,7 @@ export default class RegisterPage extends React.Component {
 													</div>
 
 													<div className="button-center">
-														<a href="#" className="button out-bodr-get1">Get Started</a>
+														<button form="worker-form" type="submit" className="button out-bodr-get1">Submit</button>
 													</div>
 												</div>
 											</form>
@@ -186,7 +188,7 @@ export default class RegisterPage extends React.Component {
 												</div>
 
 												<div className="button-center">
-													<a href="#" className="button out-bodr-get1">Get Started</a>
+													<button form="worker-form" type="submit" className="button out-bodr-get1">Submit</button>
 												</div>
 											</form>
 										</div>
