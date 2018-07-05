@@ -412,29 +412,150 @@ let getSalariesByAuthor;
 let getSalariesForCompany;
 let submitSalary;
 
-getSalaryById = async function (id) {}
+getSalaryById = async function (id) {
+	const client = await pool.connect();
+	let salaryResults = { rows: [] };
 
-getAllSalaries = async function (skip, limit) {}
+	try {
+		await client.query("START TRANSACTION READ ONLY");
 
-getSalariesByAuthor = async function (id, skip, limit) {}
+		salaryResults = await client.query(
+			"SELECT * FROM salaries WHERE salaryid=$1",
+			[id]
+		);
 
-getSalariesForCompany = async function (name, skip, limit) {}
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
 
-submitSalary = async function (salary) {}
+	return {
+		salary: salaryResults.rows[0]
+	};
+}
+
+getSalariesByAuthor = async function (id, skip, limit) {
+	const client = await pool.connect();
+	let salaryResults = { rows: [] };
+
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[id,skip,limit]
+		);
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		salaries: salaryResults.rows
+	}
+}
+
+getAllSalaries = async function (skip, limit) {
+	const client = await pool.connect();
+	let salaryResults = { rows: [] };
+
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries OFFSET $1 LIMIT $2",
+			[skip,limit]
+		);
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		salaries: salaryResults.rows
+	}
+}
+
+getSalariesForCompany = async function (name, skip, limit) {
+	const client = await pool.connect();
+	let salaryResults = { rows: [] };
+
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries WHERE companyname=$1 OFFSET $2 LIMIT $3",
+			[name,skip,limit]
+		);
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		salaries: salaryResults.rows
+	}
+}
+
+submitSalary = async function (salary) {
+	// assumes salary is formatted for SimplSchema conformity
+	const client = await pool.connect();
+	let newSalary = { rows: [] };
+
+	try {
+		await client.query("START TRANSACTION");
+		newSalary = await client.query(
+			"INSERT INTO salaries " +
+				"(submittedby,companyname,companyid,salarylocation,"+
+				"jobtitle,incometype,incomeamount,gender) "+
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
+				"RETURNING *",
+			[
+				salary.submittedBy,
+				salary.companyName,
+				salary.companyId,
+				salary.location,
+				salary.jobTitle,
+				salary.incomeType,
+				salary.incomeAmount,
+				salary.gender
+			]
+		);
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		salary: newSalary.rows[0]
+	};
+}
 
 let obj;
 let vize;
 let vizeReview;
 let vizeSalary;
 
-// requires that server/sql/tests/setup-playground has been run
-obj = await getCompanyByName("a");
-obj = await getCompanyById(1);
-obj = await companyNameRegexSearch("a",0,1000);
-obj = await getAllCompanies(0,1000);
-
 vize = {
-	name: "another round 6",
+	name: "another round 10",
 	numEmployees: "1 - 50",
 	industry: "Software Development",
 	otherContactInfo: "None to speak of",
@@ -443,8 +564,6 @@ vize = {
 	descriptionOfCompany: "Pretty leet",
 	locations: ["My house", "Shaffer's aparment", "Tijuana"]
 };
-
-obj = await createCompany(vize);
 
 vizeReview = {
 	submittedBy: 0,
@@ -465,4 +584,39 @@ vizeReview = {
 	additionalComments: "Hello World"
 };
 
+vizeSalary = {
+	submittedBy: 0,
+	companyName: "a",
+	companyId: 1,
+	location: "asdf",
+	jobTitle: "Web developer",
+	incomeType: "Yearly Salary",
+	incomeAmount: 50,
+	gender: "Male"
+};
+
+// NOTE requires that server/sql/tests/setup-playground.sql has
+// been run on the machine that these queries are being sent to
+
+// company query functions
+obj = await getCompanyByName("a");
+obj = await getCompanyById(1);
+obj = await companyNameRegexSearch("a",0,1000);
+obj = await getAllCompanies(0,1000);
+
+// review query functions
+obj = await getReviewById(1);
+obj = await getReviewsByAuthor(0,0,1000);
+obj = await getReviewsForCompany('a',0,1000);
+obj = await getAllReviews(0,1000);
+
+// salary query functions
+obj = await getSalaryById(1);
+obj = await getSalariesByAuthor(2,0,1000);
+obj = await getSalariesForCompany('a',0,1000);
+obj = await getAllSalaries(0,1000);
+
+//insertion functions
+obj = await createCompany(vize);
 obj = await submitReview(vizeReview);
+obj = await submitSalary(vizeSalary);
