@@ -711,11 +711,40 @@ postJobAd = async function(jobad) {
 	};
 };
 
+let getCommentById;
+let getAllComments;
+let getCommentsByAuthor;
+let writeComment;
+
+getCommentById = async function(id) {}
+
+getAllComments = async function(skip,limit) {}
+
+getCommentsByAuthor = async function(id,skip,limit) {}
+
+writeComment = async function(comment) {}
+
+let getAllVotes;
+let getVotesForSubject;
+let getVotesByAuthor;
+let castVote;
+
+getAllVotes = async function(skip,limit) {}
+
+getVotesForSubject = async function(subject,refersto,skip,limit) {}
+
+getVotesByAuthor = async function(id,skip,limit) {}
+
+castVote = async function(vote) {}
+
 let obj;
 let vize;
 let vizeReview;
 let vizeSalary;
 let vizeJobAd;
+let vizeComment;
+let vizeVote;
+let vizeVote2;
 
 vize = {
 	name: "another round 10",
@@ -770,6 +799,26 @@ vizeJobAd = {
 	qualifications: "Be able to do stuff"
 }
 
+vizeComment = {
+	reviewId: 1,
+	submittedBy: 0,
+	content: "FIRST!"
+}
+
+vizeVote = {
+	submittedBy: 0,
+	voteSubject: "comment",
+	references: 1,
+	value: true
+}
+
+vizeVote2 = {
+	submittedBy: 0,
+	voteSubject: "comment",
+	references: 1,
+	value: false
+}
+
 // NOTE requires that server/sql/tests/setup-playground.sql has
 // been run on the machine that these queries are being sent to
 
@@ -794,10 +843,23 @@ obj = await getAllSalaries(0,1000);
 // jobad query functions
 obj = await getJobAdById(1);
 obj = await getJobAdsByCompany("b");
-obj = await getAllJobAds();
+obj = await getAllJobAds(0,1000);
+
+// comment query functions
+obj = getCommentById(1);
+obj = getAllComments(0,1000);
+obj = getCommentsByAuthor(1,0,1000);
+
+// vote query functions
+obj = getAllVotes(0,1000);
+obj = getVotesByAuthor(1,0,1000);
+obj = getVotesForSubject("comment",1,skip,limit);
+obj = getVotesForSubject("review",1,skip,limit);
 
 //insertion functions
 obj = await createCompany(vize);
 obj = await submitReview(vizeReview);
 obj = await submitSalary(vizeSalary);
 obj = await postJobAd(vizeJobAd);
+obj = await castVote(vizeVote);
+obj = await castVote(vizeVote2);
