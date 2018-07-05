@@ -6,6 +6,7 @@ import i18n from "meteor/universe:i18n";
 import Header from "../../ui/pages/header.jsx";
 import Footer from "../../ui/pages/footer.jsx";
 import Dialog from "./dialog-box.jsx"
+import 'font-awesome/css/font-awesome.min.css';
 
 
 const t = i18n.createTranslator("common.register");
@@ -154,7 +155,7 @@ export default class RegisterPage extends React.Component {
 												</div>
 											</form>
 											<form id="worker-form" action="" method="post" role="form"   style={{display: "block"}}>
-												<h3  className="top-head-worker" align="center" >Worker  Register</h3>
+												<h3  className="top-head-worker" align="center" >Employee  Register</h3>
 												<br/>
 												<div  className="employer-fm">
 													<div className="form-group">
@@ -204,7 +205,7 @@ export default class RegisterPage extends React.Component {
 												<a href="#"   className="button" id="register-form-link"  role="button" onClick={this.buttonClicked} >Employer</a>
 											</div>
 											<div  className="btn-work">
-												<a href="#" className="button  active" id="worker-form-link"  role="button" onClick={this.buttonClicked} >Worker  </a>
+												<a href="#" className="button  active" id="worker-form-link"  role="button" onClick={this.buttonClicked} >Employee</a>
 											</div>
 										</div>
 									</div>
