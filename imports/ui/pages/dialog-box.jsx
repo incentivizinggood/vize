@@ -15,6 +15,7 @@ export default class Dialog extends React.Component {
 
 	}
 	buttonClicked(event){
+		event.preventDefault(); // Prevent the default behavior for this event
 		$(document).ready(function(){
 			const chatbox = jQuery.noConflict();
 			chatbox(() => {
@@ -28,8 +29,42 @@ export default class Dialog extends React.Component {
 			});
 		});
 
+	}
+
+	sendClicked(event) {
+		event.preventDefault();
+		alert("waduso");  // Send us an email
+
+
+		Meteor.call(
+			"sendEmail",
+			"incentivizinggood@gmail.com",
+			"postmaster@incentivizinggood.com",
+			`Contacting us: ${this.state.name}`,
+			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
+				this.state.textBox
+				}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
+				this.state.emailSending
+				}`,
+			(err, res) => {
+				if (err) {
+					console.log("--- BEGIN error:");
+					alert("Please try again");
+					console.log(err);
+					console.log("--- END error");
+				} else {
+					console.log("--- BEGIN success:");
+					console.log(res);
+					console.log("--- END success");
+					alert("Thank you for the feedback!");
+				}
+			}
+		);
+
+		alert("wassup2");
 
 	}
+
 
 	render() {
 		return (
@@ -44,7 +79,7 @@ export default class Dialog extends React.Component {
 					<header className="chatbox-popup__header">
 					</header>
 					<main className="chatbox-popup__main">
-						We make it simple and seamless forbussiness and people to talk to each other. Ask us anything.
+						Please send us feedback on how to improve below... thank you!
 					</main>
 					<footer className="chatbox-popup__footer">
 						<aside style={{flex:"1",color:"#888", text:"center"}}>
@@ -53,7 +88,7 @@ export default class Dialog extends React.Component {
 							<textarea type="text" placeholder="Type your message here..." autofocus/>
 						</aside>
 						<aside style={{flex:"1",color:"#888", text:"center"}}>
-							<i className="fa fa-paper-plane" aria-hidden="true"/>
+							<i className="fa fa-paper-plane" aria-hidden="true" onClick={this.sendClicked}/>
 						</aside>
 					</footer>
 				</section>
