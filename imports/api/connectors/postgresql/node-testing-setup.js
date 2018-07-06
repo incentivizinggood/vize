@@ -940,7 +940,36 @@ getVotesByAuthor = async function(id,skip,limit) {
 	};
 }
 
-castVote = async function(vote) {}
+castVote = async function(vote) {
+	const client = await pool.connect();
+	let voteResults = { rows: [] };
+	try {
+		if(vote.voteSubject !== "review" && vote.voteSubject !== "comment")
+			throw "Illegal subject: table does not exist";
+		const tblName = vote.voteSubject + "_votes";
+
+		await client.query("START TRANSACTION");
+
+		voteResults = await client.query(
+			"INSERT INTO " + tblName + " (refersto,submittedby,value) " +
+			"VALUES ($1,$2,$3) " +
+			"ON CONFLICT (submittedby,refersto) DO UPDATE SET value=$3 " + // I love PostgreSQL
+			"RETURNING *",
+			[vote.references,vote.submittedBy,vote.value]
+		);
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		vote: voteResults.rows[0]
+	};
+}
 
 let obj;
 let vize;
@@ -1011,15 +1040,29 @@ vizeComment = {
 }
 
 vizeVote = {
-	submittedBy: 0,
+	submittedBy: 105,
 	voteSubject: "comment",
 	references: 1,
 	value: true
 }
 
 vizeVote2 = {
-	submittedBy: 0,
+	submittedBy: 105,
 	voteSubject: "comment",
+	references: 1,
+	value: false
+}
+
+vizeVote3 = {
+	submittedBy: 105,
+	voteSubject: "review",
+	references: 1,
+	value: true
+}
+
+vizeVote4 = {
+	submittedBy: 105,
+	voteSubject: "review",
 	references: 1,
 	value: false
 }
@@ -1069,3 +1112,5 @@ obj = await postJobAd(vizeJobAd);
 obj = await writeComment(vizeComment);
 obj = await castVote(vizeVote);
 obj = await castVote(vizeVote2);
+obj = await castVote(vizeVote3);
+obj = await castVote(vizeVote4);
