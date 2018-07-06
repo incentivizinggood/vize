@@ -95,7 +95,10 @@ DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
-	companyName			varchar(110)	NOT NULL,
+	companyName			varchar(110)	NOT NULL
+		REFERENCES companies (name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
 	companyId			integer
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
@@ -138,7 +141,10 @@ DROP TABLE IF EXISTS salaries CASCADE;
 CREATE TABLE salaries (
 	salaryId			serial			PRIMARY KEY,
 	submittedBy			integer			NOT NULL,
-	companyName			varchar(110)	NOT NULL,
+	companyName			varchar(110)	NOT NULL
+		REFERENCES companies (name)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
 	companyId			integer
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
