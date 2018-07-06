@@ -851,11 +851,94 @@ let getVotesForSubject;
 let getVotesByAuthor;
 let castVote;
 
-getAllVotes = async function(skip,limit) {}
+getAllVotes = async function(skip,limit) {
+	const client = await pool.connect();
+	let reviewVoteResults = { rows: [] };
+	let commentVoteResults = { rows: [] };
+	try {
+		await client.query("START TRANSACTION READ ONLY");
 
-getVotesForSubject = async function(subject,refersto,skip,limit) {}
+		reviewVoteResults = await client.query(
+			"SELECT * FROM review_vote_counts OFFSET $1 LIMIT $2",
+			[skip,limit]
+		);
 
-getVotesByAuthor = async function(id,skip,limit) {}
+		commentVoteResults = await client.query(
+			"SELECT * FROM comment_vote_counts OFFSET $1 LIMIT $2",
+			[skip,limit]
+		);
+
+		await client.query("COMMIT");
+	} catch(e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		reviewVotes: reviewVoteResults.rows,
+		commentVotes: commentVoteResults.rows
+	};
+}
+
+getVotesForSubject = async function(subject,refersto,skip,limit) {
+	const client = await pool.connect();
+	let voteResults = { rows: [] };
+	try {
+		if(subject !== "review" && subject !== "comment")
+			throw "Illegal subject: table does not exist";
+		await client.query("START TRANSACTION READ ONLY");
+
+		voteResults = await client.query(
+			"SELECT * FROM " + subject + "_vote_counts WHERE " +
+			"refersto=$1 OFFSET $2 LIMIT $3",
+			[refersto,skip,limit]
+		);
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		votes: voteResults.rows[0]
+	};
+}
+
+getVotesByAuthor = async function(id,skip,limit) {
+	const client = await pool.connect();
+	let reviewVoteResults = { rows: [] };
+	let commentVoteResults = { rows: [] };
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		reviewVoteResults = await client.query(
+			"SELECT * FROM review_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[id,skip,limit]
+		);
+
+		commentVoteResults = await client.query(
+			"SELECT * FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[id,skip,limit]
+		);
+
+		await client.query("COMMIT");
+	} catch(e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return {
+		reviewVotes: reviewVoteResults.rows,
+		commentVotes: commentVoteResults.rows
+	};
+}
 
 castVote = async function(vote) {}
 
@@ -974,9 +1057,9 @@ obj = await getCommentsByAuthor(1,0,1000);
 
 // vote query functions
 obj = await getAllVotes(0,1000);
-obj = await getVotesByAuthor(1,0,1000);
-obj = await getVotesForSubject("comment",1,skip,limit);
-obj = await getVotesForSubject("review",1,skip,limit);
+obj = await getVotesByAuthor(99,0,1000);
+obj = await getVotesForSubject("comment",1,0,1000);
+obj = await getVotesForSubject("review",1,0,1000);
 
 //insertion functions
 obj = await createCompany(vize);
