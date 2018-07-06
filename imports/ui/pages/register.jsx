@@ -152,7 +152,7 @@ export default class RegisterPage extends React.Component {
 													</div>
 
 													<div className="button-center">
-														<button form="worker-form" type="submit" className="button out-bodr-get1">Submit</button>
+														<button form="register-form" type="submit" className="button out-bodr-get1">Get Started</button>
 													</div>
 												</div>
 											</form>
@@ -188,7 +188,7 @@ export default class RegisterPage extends React.Component {
 												</div>
 
 												<div className="button-center">
-													<button form="worker-form" type="submit" className="button out-bodr-get1">Submit</button>
+													<button form="worker-form" type="submit" className="button out-bodr-get1">Get Started</button>
 												</div>
 											</form>
 										</div>
@@ -216,7 +216,6 @@ export default class RegisterPage extends React.Component {
 						</div>
 					</div>
 				</div>
-
 				<Footer/>
 				<Dialog/>
 			</div>

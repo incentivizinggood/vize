@@ -120,7 +120,7 @@ export default class LoginPage extends React.Component {
 													</div>
 
 													<div className="button-center">
-														<a href="#" className="button out-bodr-login" type="submit" value={t("submit")}>Login</a>
+														<button form="login-form" type="submit" className="enterTriggers" value={t("submit")}>Login</button>
 													</div>
 
 
