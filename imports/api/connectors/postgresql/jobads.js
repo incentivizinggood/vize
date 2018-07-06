@@ -12,7 +12,7 @@ export default class JobAdConnector {
 				[id]
 			);
 			locationResults = await client.query(
-				"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+				"SELECT * FROM job_locations WHERE jobadid=$1",
 				[id]
 			);
 			await client.query("COMMIT");
@@ -42,7 +42,7 @@ export default class JobAdConnector {
 
 			for (let jobad of jobAdResults.rows) {
 				let locations = await client.query(
-					"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+					"SELECT * FROM job_locations WHERE jobadid=$1",
 					[jobad.jobadid]
 				);
 				locationResults[jobad.jobadid] = locations.rows;
@@ -75,7 +75,7 @@ export default class JobAdConnector {
 
 			for (let jobad of jobAdResults.rows) {
 				let locations = await client.query(
-					"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+					"SELECT * FROM job_locations WHERE jobadid=$1",
 					[jobad.jobadid]
 				);
 				locationResults[jobad.jobadid] = locations.rows;

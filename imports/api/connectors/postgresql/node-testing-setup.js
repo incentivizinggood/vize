@@ -27,7 +27,7 @@ getCompanyByName = async function(name) {
 			[name]
 		);
 		locationResults = await client.query(
-			"SELECT locationname FROM company_locations WHERE companyid=$1",
+			"SELECT * FROM company_locations WHERE companyid=$1",
 			[companyResults.rows[0].companyid]
 		);
 		statResults = await client.query(
@@ -61,7 +61,7 @@ getCompanyById = async function(id) {
 			[id]
 		);
 		locationResults = await client.query(
-			"SELECT locationname FROM company_locations WHERE companyid=$1",
+			"SELECT * FROM company_locations WHERE companyid=$1",
 			[id]
 		);
 		statResults = await client.query(
@@ -97,7 +97,7 @@ companyNameRegexSearch = async function(name, skip, limit) {
 
 		for (let company of companyResults.rows) {
 			let locations = await client.query(
-				"SELECT locationname FROM company_locations WHERE companyid=$1",
+				"SELECT * FROM company_locations WHERE companyid=$1",
 				[company.companyid]
 			);
 			let stats = await client.query(
@@ -137,7 +137,7 @@ getAllCompanies = async function(skip, limit) {
 
 		for (let company of companyResults.rows) {
 			let locations = await client.query(
-				"SELECT locationname FROM company_locations WHERE companyid=$1",
+				"SELECT * FROM company_locations WHERE companyid=$1",
 				[company.companyid]
 			);
 			let stats = await client.query(
@@ -566,7 +566,7 @@ getJobAdById = async function(id) {
 			[id]
 		);
 		locationResults = await client.query(
-			"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+			"SELECT * FROM job_locations WHERE jobadid=$1",
 			[id]
 		);
 		await client.query("COMMIT");
@@ -596,7 +596,7 @@ getAllJobAds = async function(skip,limit) {
 
 		for(let jobad of jobAdResults.rows) {
 			let locations = await client.query(
-				"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+				"SELECT * FROM job_locations WHERE jobadid=$1",
 				[jobad.jobadid]
 			);
 			locationResults[jobad.jobadid] = locations.rows;
@@ -629,7 +629,7 @@ getJobAdsByCompany = async function(companyName,skip,limit) {
 
 		for(let jobad of jobAdResults.rows) {
 			let locations = await client.query(
-				"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+				"SELECT * FROM job_locations WHERE jobadid=$1",
 				[jobad.jobadid]
 			);
 			locationResults[jobad.jobadid] = locations.rows;

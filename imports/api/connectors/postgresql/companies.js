@@ -13,7 +13,7 @@ export default class CompanyConnector {
 				[name]
 			);
 			locationResults = await client.query(
-				"SELECT locationname FROM company_locations WHERE companyid=$1",
+				"SELECT * FROM company_locations WHERE companyid=$1",
 				[companyResults.rows[0].companyid]
 			);
 			statResults = await client.query(
@@ -47,7 +47,7 @@ export default class CompanyConnector {
 				[id]
 			);
 			locationResults = await client.query(
-				"SELECT locationname FROM company_locations WHERE companyid=$1",
+				"SELECT * FROM company_locations WHERE companyid=$1",
 				[id]
 			);
 			statResults = await client.query(
@@ -83,7 +83,7 @@ export default class CompanyConnector {
 
 			for (let company of companyResults.rows) {
 				let locations = await client.query(
-					"SELECT locationname FROM company_locations WHERE companyid=$1",
+					"SELECT * FROM company_locations WHERE companyid=$1",
 					[company.companyid]
 				);
 				let stats = await client.query(
@@ -123,7 +123,7 @@ export default class CompanyConnector {
 
 			for (let company of companyResults.rows) {
 				let locations = await client.query(
-					"SELECT locationname FROM company_locations WHERE companyid=$1",
+					"SELECT * FROM company_locations WHERE companyid=$1",
 					[company.companyid]
 				);
 				let stats = await client.query(
