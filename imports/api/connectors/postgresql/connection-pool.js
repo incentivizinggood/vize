@@ -33,4 +33,36 @@ const closeAndExit = function() {
 // process.on("SIGTERM", closeAndExit());
 // process.on("SIGINT", closeAndExit());
 
-export default pool;
+const readFromPostgres = async function() {
+	const client = await pool.connect();
+	let result = {};
+	try {
+		await client.query("START TRANSACTION READ ONLY");
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return result;
+};
+
+const writeToPostgres = async function() {
+	const client = await pool.connect();
+	let result = {};
+	try {
+		await client.query("START TRANSACTION");
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return result;
+};

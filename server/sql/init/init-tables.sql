@@ -95,6 +95,12 @@ DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
 	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
+	-- BUG
+	-- companyName: non-FK required field
+	-- companyId: optional FK field
+	-- needed triggers:
+	-- 1) fix name to match id (on insert AND on update)
+	-- 2) supply id if name matches a company
 	companyName			varchar(110)	NOT NULL
 		REFERENCES companies (name)
 		ON UPDATE CASCADE ON DELETE CASCADE
