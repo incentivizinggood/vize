@@ -17,7 +17,8 @@ const wrapPgFunction = async function(func, readOnly) {
 		if (readOnly) await client.query("START TRANSACTION READ ONLY");
 		else await client.query("START TRANSACTION");
 
-		// removes function name from start of args list
+		// removes function name  and readOnly flag
+		// from start of args list
 		result = await query.apply(
 			null,
 			[client].concat([...arguments].slice(2))
