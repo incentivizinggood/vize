@@ -70,7 +70,7 @@ export default class Dialog extends React.Component {
 		return (
 			<div>
 				<button className="chatbox-open">
-					<i className="fa fa-comment fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
+					<i className="fa fa-comments fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
 				</button>
 				<button className="chatbox-close">
 					<i className="fa fa-close fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
@@ -87,7 +87,7 @@ export default class Dialog extends React.Component {
 						<aside style={{flex:"10"}}>
 							<textarea type="text" placeholder="Type your message here..." autofocus/>
 						</aside>
-						<aside style={{flex:"1",color:"#888", text:"center"}}>
+						<aside style={{flex:"1",color:"#2079b5", text:"center"}}>
 							<i className="fa fa-paper-plane" aria-hidden="true" onClick={this.sendClicked}/>
 						</aside>
 					</footer>
