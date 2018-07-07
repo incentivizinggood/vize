@@ -20,7 +20,7 @@ const wrapPgFunction = async function(func, readOnly) {
 		// removes function name from start of args list
 		result = await query.apply(
 			null,
-			[client].concat([...arguments].slice(1))
+			[client].concat([...arguments].slice(2))
 		);
 
 		await client.query("COMMIT");
