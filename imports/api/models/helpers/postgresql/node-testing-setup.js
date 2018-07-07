@@ -7,22 +7,27 @@
 const { Pool } = require("pg");
 let pool = new Pool();
 
-let invokePgQuery;
-let invokePgMutation;
+let wrapPgFunction;
+let PostgreSQL;
 
 // These function assume that arguments to the
 // function parameter (query and mutation) are
 // passed after the function name, so that they
 // can be accessed and used array-style
+wrapPgFunction = async function(func, readOnly) {
 
-invokePgQuery = async function(query) {
 	const client = await pool.connect();
 	let result = {};
 	try {
-		await client.query("START TRANSACTION READ ONLY");
+		if (readOnly) await client.query("START TRANSACTION READ ONLY");
+		else await client.query("START TRANSACTION");
 
-		// removes function name from start of args list
-		result = await query.apply(null, [client].concat([...arguments].slice(1)));
+		// removes function name  and readOnly flag
+		// from start of args list
+		result = await func.apply(
+			null,
+			[client].concat([...arguments].slice(2)[0])
+		);
 
 		await client.query("COMMIT");
 	} catch (e) {
@@ -35,25 +40,15 @@ invokePgQuery = async function(query) {
 	return result;
 };
 
-invokePgMutation = async function(mutation) {
-	const client = await pool.connect();
-	let result = {};
-	try {
-		await client.query("START TRANSACTION");
-
-		// removes function name from start of args list
-		result = await mutation.apply(null, [client].concat([...arguments].slice(1)));
-
-		await client.query("COMMIT");
-	} catch (e) {
-		console.log(e);
-		await client.query("ROLLBACK");
-	} finally {
-		await client.release();
+PostgreSQL = class {
+	static async executeQuery(query) {
+		return wrapPgFunction(query, true, [...arguments].slice(1));
 	}
 
-	return result;
-};
+	static async executeMutation(mutation) {
+		return wrapPgFunction(mutation, false, [...arguments].slice(1));
+	}
+}
 
 // variable declarations, so I can freely
 // reassign them via copy-paste
@@ -805,46 +800,46 @@ vizeVote4 = {
 // been run on the machine that these queries are being sent to
 
 // company query functions
-obj = await invokePgQuery(getCompanyByName, "a");
-obj = await invokePgQuery(getCompanyById, 1);
-obj = await invokePgQuery(companyNameRegexSearch, "a", 0, 1000);
-obj = await invokePgQuery(getAllCompanies, 0, 1000);
+obj = await PostgreSQL.executeQuery(getCompanyByName, "a");
+obj = await PostgreSQL.executeQuery(getCompanyById, 1);
+obj = await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000);
+obj = await PostgreSQL.executeQuery(getAllCompanies, 0, 1000);
 
 // review query functions
-obj = await invokePgQuery(getReviewById, 1);
-obj = await invokePgQuery(getReviewsByAuthor, 0, 0, 1000);
-obj = await invokePgQuery(getReviewsForCompany, 'a', 0, 1000);
-obj = await invokePgQuery(getAllReviews, 0, 1000);
+obj = await PostgreSQL.executeQuery(getReviewById, 1);
+obj = await PostgreSQL.executeQuery(getReviewsByAuthor, 0, 0, 1000);
+obj = await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000);
+obj = await PostgreSQL.executeQuery(getAllReviews, 0, 1000);
 
 // salary query functions
-obj = await invokePgQuery(getSalaryById, 1);
-obj = await invokePgQuery(getSalariesByAuthor, 2, 0, 1000);
-obj = await invokePgQuery(getSalariesForCompany, 'a', 0, 1000);
-obj = await invokePgQuery(getAllSalaries, 0, 1000);
+obj = await PostgreSQL.executeQuery(getSalaryById, 1);
+obj = await PostgreSQL.executeQuery(getSalariesByAuthor, 2, 0, 1000);
+obj = await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000);
+obj = await PostgreSQL.executeQuery(getAllSalaries, 0, 1000);
 
 // jobad query functions
-obj = await invokePgQuery(getJobAdById, 1);
-obj = await invokePgQuery(getJobAdsByCompany, "b");
-obj = await invokePgQuery(getAllJobAds, 0, 1000);
+obj = await PostgreSQL.executeQuery(getJobAdById, 1);
+obj = await PostgreSQL.executeQuery(getJobAdsByCompany, "b");
+obj = await PostgreSQL.executeQuery(getAllJobAds, 0, 1000);
 
 // comment query functions
-obj = await invokePgQuery(getCommentById, 1);
-obj = await invokePgQuery(getAllComments, 0, 1000);
-obj = await invokePgQuery(getCommentsByAuthor, 1, 0, 1000);
+obj = await PostgreSQL.executeQuery(getCommentById, 1);
+obj = await PostgreSQL.executeQuery(getAllComments, 0, 1000);
+obj = await PostgreSQL.executeQuery(getCommentsByAuthor, 1, 0, 1000);
 
 // vote query functions
-obj = await invokePgQuery(getAllVotes, 0, 1000);
-obj = await invokePgQuery(getVotesByAuthor, 99, 0, 1000);
-obj = await invokePgQuery(getVotesForSubject, "comment", 1, 0, 1000);
-obj = await invokePgQuery(getVotesForSubject, "review", 1, 0, 1000);
+obj = await PostgreSQL.executeQuery(getAllVotes, 0, 1000);
+obj = await PostgreSQL.executeQuery(getVotesByAuthor, 99, 0, 1000);
+obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
+obj = await PostgreSQL.executeQuery(getVotesForSubject, "review", 1, 0, 1000);
 
 //insertion functions
-obj = await invokePgMutation(createCompany, vize);
-obj = await invokePgMutation(submitReview, vizeReview);
-obj = await invokePgMutation(submitSalary, vizeSalary);
-obj = await invokePgMutation(postJobAd, vizeJobAd);
-obj = await invokePgMutation(writeComment, vizeComment);
-obj = await invokePgMutation(castVote, vizeVote);
-obj = await invokePgMutation(castVote, vizeVote2);
-obj = await invokePgMutation(castVote, vizeVote3);
-obj = await invokePgMutation(castVote, vizeVote4);
+obj = await PostgreSQL.executeMutation(createCompany, vize);
+obj = await PostgreSQL.executeMutation(submitReview, vizeReview);
+obj = await PostgreSQL.executeMutation(submitSalary, vizeSalary);
+obj = await PostgreSQL.executeMutation(postJobAd, vizeJobAd);
+obj = await PostgreSQL.executeMutation(writeComment, vizeComment);
+obj = await PostgreSQL.executeMutation(castVote, vizeVote);
+obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
+obj = await PostgreSQL.executeMutation(castVote, vizeVote3);
+obj = await PostgreSQL.executeMutation(castVote, vizeVote4);
