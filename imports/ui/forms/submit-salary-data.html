@@ -1,0 +1,38 @@
+<template name="ssd_blaze_form">
+	{{#autoForm collection=salaries id="ssd_blaze_form" type="method" meteormethod="salaries.submitSalaryData" preserveForm=false}}
+		<fieldset>
+			<legend>{{__ ".ssd.formTitle"}}</legend>
+			<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+				{{#if shouldHaveCompany}}
+				{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+				{{else}}
+				{{> afQuickField name='companyName' placeholder=(__ ".ssd.companyNamePlaceholder")}}
+				{{/if}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
+				{{> afQuickField name='location' placeholder=(__ ".ssd.locationPlaceholder")}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
+				{{> afQuickField name='jobTitle' placeholder=(__ ".ssd.jobTitlePlaceholder")}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='incomeType'}}has-error{{/if}}">
+				{{> afQuickField name='incomeType' options='allowed'}}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='incomeAmount'}}has-error{{/if}}">
+				{{> afQuickField name='incomeAmount' }}
+			</div>
+			<div class="form-group {{#if afFieldIsInvalid name='gender'}}has-error{{/if}}">
+				{{> afQuickField name='gender' options='allowed'}}
+			</div>
+		</fieldset>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">{{__ ".submitForm"}}</button>
+			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >{{__ ".resetForm"}}</button>
+		</div>
+	{{/autoForm}}
+	{{#if hasError}}
+		<div>
+			{{> React component=ErrorWidget err=error}}
+		</div>
+	{{/if}}
+</template>

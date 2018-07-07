@@ -5,31 +5,32 @@
  * See client/main.html
  */
 import React from "react";
-import ReactDOM from "react-dom";
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
+import { ReactiveVar } from "meteor/reactive-var";
 
-import ShowJobs from "../../ui/showjobs.jsx";
+import ShowJobs from "/imports/ui/pages/showjobs.jsx";
 
-import HomePage from "../../ui/pages/home.jsx";
-import AboutPage from "../../ui/pages/about.jsx";
-import CompanySearchTrial from "../../ui/company-search-trial.jsx";
+import HomePage from "/imports/ui/pages/home.jsx";
+import AboutPage from "/imports/ui/pages/about.jsx";
+import CompanySearchTrial from "/imports/ui/pages/company-search-trial.jsx";
 
-import ForEmployers from "../../ui/pages/foremployers.jsx";
-import CompanyProfile from "../../ui/pages/companyprofile.jsx";
-import ContactUsPage from "../../ui/pages/contact-us.jsx";
-import HelpPage from "../../ui/pages/help.jsx";
-import LoginPage from "../../ui/pages/login.jsx";
-import MyAccountPage from "../../ui/pages/my-account.jsx";
-import NotFoundPage from "../../ui/pages/not-found.jsx";
-import RegisterPage from "../../ui/pages/register.jsx";
-import UserPage from "../../ui/pages/user.jsx";
+import ForEmployers from "/imports/ui/pages/foremployers.jsx";
+import CompanyProfile from "/imports/ui/pages/companyprofile.jsx";
+import ContactUsPage from "/imports/ui/pages/contact-us.jsx";
+import HelpPage from "/imports/ui/pages/help.jsx";
+import LoginPage from "/imports/ui/pages/login.jsx";
+import MyAccountPage from "/imports/ui/pages/my-account.jsx";
+import NotFoundPage from "/imports/ui/pages/not-found.jsx";
+import RegisterPage from "/imports/ui/pages/register.jsx";
+import UserPage from "/imports/ui/pages/user.jsx";
 
-import CompanyCreateProfileForm from "../../ui/pages/create-company-profile.jsx";
-import WriteReviewForm from "../../ui/pages/write-review.jsx";
-import SubmitSalaryDataForm from "../../ui/pages/submit-salary-data.jsx";
-import PostAJobForm from "../../ui/pages/post-a-job.jsx";
-import ApplyForJobForm from "../../ui/pages/apply-for-job.jsx";
+import CompanyCreateProfileForm from "/imports/ui/pages/create-company-profile.jsx";
+import WriteReviewForm from "/imports/ui/pages/write-review.jsx";
+import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
+import PostAJobForm from "/imports/ui/pages/post-a-job.jsx";
+import ApplyForJobForm from "/imports/ui/pages/apply-for-job.jsx";
+import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
 	import SimpleSchema from "simpl-schema";
@@ -38,6 +39,8 @@ if (Meteor.isDevelopment && Meteor.isClient) {
 	SimpleSchema.debug = true;
 	AutoForm.debug();
 }
+
+const currentPage = new ReactiveVar(null);
 
 /**
  * Reduces boiler plate for simple pages.
@@ -50,7 +53,7 @@ if (Meteor.isDevelopment && Meteor.isClient) {
 function routeSimplePage(path, element) {
 	FlowRouter.route(path, {
 		action() {
-			ReactDOM.render(element, document.getElementById("view-render"));
+			currentPage.set(element);
 		},
 	});
 }
@@ -68,72 +71,100 @@ routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
+routeSimplePage("/worker-resources", <ResourcesWorkers />);
 
 // ----- Define the more complex routes. -----//
+const queryRoutes = {
+	companies: "companies",
+	companyProfile: "companyprofile",
+	writeReview: "write-review",
+	submitSalaryData: "submit-salary-data",
+	applyForJob: "apply-for-job",
+	user: "user",
+};
 
-FlowRouter.route("/companies", {
+FlowRouter.route(`/${queryRoutes.companies}`, {
 	action(params, queryParams) {
-		ReactDOM.render(
+		currentPage.set(
 			// changing the route for now, because the search code is on CompanySearchTrial now.
 			// ORIGINAL CODE -- <CompanySearchPage queryParams={queryParams} />,
-
-			<CompanySearchTrial queryParams={queryParams} />,
-			document.getElementById("view-render")
+			<CompanySearchTrial searchText={queryParams.search} />
 		);
 	},
 });
 
-FlowRouter.route("/companyprofile", {
+FlowRouter.route(`/${queryRoutes.companyProfile}`, {
 	action(params, queryParams) {
-		ReactDOM.render(
-			<CompanyProfile companyId={queryParams.id} />,
-			document.getElementById("view-render")
-		);
+		currentPage.set(<CompanyProfile companyId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/write-review", {
+FlowRouter.route(`/${queryRoutes.writeReview}`, {
 	action(params, queryParams) {
-		ReactDOM.render(
-			<WriteReviewForm companyId={queryParams.id} />,
-			document.getElementById("view-render")
-		);
+		currentPage.set(<WriteReviewForm companyId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/submit-salary-data", {
+FlowRouter.route(`/${queryRoutes.submitSalaryData}`, {
 	action(params, queryParams) {
-		ReactDOM.render(
-			<SubmitSalaryDataForm companyId={queryParams.id} />,
-			document.getElementById("view-render")
-		);
+		currentPage.set(<SubmitSalaryDataForm companyId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/apply-for-job", {
+FlowRouter.route(`/${queryRoutes.applyForJob}`, {
 	action(params, queryParams) {
-		ReactDOM.render(
-			<ApplyForJobForm jobId={queryParams.id} />,
-			document.getElementById("view-render")
-		);
+		currentPage.set(<ApplyForJobForm jobId={queryParams.id} />);
 	},
 });
 
-FlowRouter.route("/user", {
+FlowRouter.route(`/${queryRoutes.user}`, {
 	action(params, queryParams) {
-		ReactDOM.render(
-			<UserPage user_id={queryParams.id} />,
-			document.getElementById("view-render")
-		);
+		currentPage.set(<UserPage user_id={queryParams.id} />);
 	},
 });
 
 // Add a 404 page to handle unknown paths.
 FlowRouter.notFound = {
 	action() {
-		ReactDOM.render(
-			<NotFoundPage />,
-			document.getElementById("view-render")
-		);
+		currentPage.set(<NotFoundPage />);
 	},
 };
+
+// exporting commonly-used URL generators
+// in order to reduce the risk of typos
+// and reduce the use of magic strings
+const vizeProfileUrl = function(companyId) {
+	return Meteor.absoluteUrl(
+		`${queryRoutes.companyProfile}/?id=${companyId}`,
+		{
+			secure: true,
+		}
+	);
+};
+const vizeReviewUrl = function(companyId) {
+	return Meteor.absoluteUrl(`${queryRoutes.writeReview}/?id=${companyId}`, {
+		secure: true,
+	});
+};
+const vizeSalaryUrl = function(companyId) {
+	return Meteor.absoluteUrl(
+		`${queryRoutes.submitSalaryData}/?id=${companyId}`,
+		{
+			secure: true,
+		}
+	);
+};
+const vizeApplyForJobUrl = function(jobId) {
+	return Meteor.absoluteUrl(`${queryRoutes.applyForJob}/?id=${jobId}`, {
+		secure: true,
+	});
+};
+
+const urlGenerators = {
+	vizeProfileUrl,
+	vizeReviewUrl,
+	vizeSalaryUrl,
+	vizeApplyForJobUrl,
+};
+
+export { currentPage, urlGenerators };

@@ -127,17 +127,11 @@ Reviews.schema = new SimpleSchema(
 			max: 100,
 			index: true,
 		},
-		// Pretty much copy-pasted from companies.js
-		locations: {
+		location: {
 			// where they worked for the company being reviewed
-			type: Array,
-			minCount: 1, // must have at least one
-			optional: false,
-		},
-		"locations.$": {
-			// restraints on members of the "locations" array
 			type: String,
 			max: 150,
+			optional: false,
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		jobTitle: {
 			// there are two categories -

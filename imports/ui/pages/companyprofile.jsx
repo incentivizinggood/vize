@@ -5,8 +5,8 @@ import { Reviews } from "../../api/data/reviews.js";
 import { JobAds } from "../../api/data/jobads.js";
 import { Salaries } from "../../api/data/salaries.js";
 import { Votes } from "../../api/data/votes.js";
-import Header from "../../ui/pages/header.jsx";
-import Footer from "../../ui/pages/footer.jsx";
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
 import StarRatings from "react-star-ratings";
 
 import OverviewTab from "../../ui/components/overviewTabCP.jsx";
@@ -15,6 +15,8 @@ import ReviewTab from "../../ui/components/reviewTabCP.jsx";
 import JobTab from "../../ui/components/jobTabCP.jsx";
 import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 import i18n from "meteor/universe:i18n";
+
+import { urlGenerators } from "../../startup/client/router.jsx";
 
 const T = i18n.createComponent();
 
@@ -139,10 +141,12 @@ class CompanyProfile extends React.Component {
 							<div className="col-md-12">
 								<div className="titlestar">
 									{/* <div className="" data-toggle="buttons"> */}
-									{/* <a href={this.props.company.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
+									{/* <a href={urlGenerators.vizeReviewUrl(this.props.company._id)} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
 
 									<a
-										href={this.props.company.vizeReviewUrl}
+										href={urlGenerators.vizeReviewUrl(
+											this.props.company._id
+										)}
 										className="btn btn-primary  add_review replus"
 									>
 										{" "}

@@ -5,6 +5,7 @@ import CompanyReview from "../../ui/components/companyReview.jsx";
 import JobPosting from "../../ui/components/jobPosting.jsx";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
 import i18n from "meteor/universe:i18n";
+import { urlGenerators } from "../../startup/client/router.jsx";
 
 const T = i18n.createComponent();
 
@@ -84,7 +85,9 @@ export default class OverviewTab extends React.Component {
 					<div>
 						<div className="add-buttons">
 							<a
-								href={this.props.jobAds[0].vizeApplyForJobUrl}
+								href={urlGenerators.vizeApplyForJobUrl(
+									this.props.jobAds[0]._id
+								)}
 								className="btn btn-primary"
 							>
 								{" "}
@@ -185,7 +188,9 @@ export default class OverviewTab extends React.Component {
 					</h4>
 					<div className="add-buttons">
 						<a
-							href={this.props.companyoverview.vizeReviewUrl}
+							href={urlGenerators.vizeReviewUrl(
+								this.props.companyoverview._id
+							)}
 							className="btn btn-primary"
 						>
 							{" "}
@@ -272,7 +277,9 @@ export default class OverviewTab extends React.Component {
 
 						<div className="add-buttons">
 							<a
-								href={this.props.companyoverview.vizeSalaryUrl}
+								href={urlGenerators.vizeSalaryUrl(
+									this.props.companyoverview._id
+								)}
 								className="btn btn-primary"
 							>
 								<i className="fa fa-plus" aria-hidden="true" />{" "}

@@ -1,5 +1,6 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
+import { urlGenerators } from "../../startup/client/router.jsx";
 
 const T = i18n.createComponent();
 
@@ -39,7 +40,9 @@ export default class ShowJobComponent extends React.Component {
 					<div>
 						<div className="add-buttons">
 							<a
-								href={this.props.item.vizeApplyForJobUrl}
+								href={urlGenerators.vizeApplyForJobUrl(
+									this.props.item._id
+								)}
 								className="btn btn-primary"
 							>
 								{" "}

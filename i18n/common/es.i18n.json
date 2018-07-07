@@ -2,374 +2,361 @@
 	"_locale": "es",
 	"_namespace": "common",
 	"gender": {
-		"male": "PLEASE TRANSLATE Male",
-		"female": "PLEASE TRANSLATE Female"
+		"male": "Hombre",
+		"female": "Mujer"
 	},
 	"login": {
-		"username": "PLEASE TRANSLATE Username",
-		"password": "PLEASE TRANSLATE Password",
-		"submit": "PLEASE TRANSLATE Login",
+		"username": "Nombre de usuario",
+		"password": "Contraseña",
+		"submit": "Usuario",
 		"error": {
-			"loggedIn": "PLEASE TRANSLATE Already logged in.",
+			"loggedIn": "Ya estas conectado.",
 			"Unrecognized options for login request":
-				"PLEASE TRANSLATE Unrecognized options for login request.",
-			"Match failed": "PLEASE TRANSLATE Match failed.",
-			"User not found":
-				"PLEASE TRANSLATE There is no user with that name.",
-			"Incorrect password":
-				"PLEASE TRANSLATE The password you gave is incorrect.",
+				"No se reconoces las opciones para la solitud de inicio.",
+			"Match failed":
+				"Combinación incorrecta de nombre de usuario o contraseña.",
+			"User not found": "No se encuentra el usuario.",
+			"Incorrect password": "Contraseña incorrecta",
 			"User has no password set":
-				"PLEASE TRANSLATE This user account has no password set. You will need to login by some other means."
+				"Esta cuenta de usuario no tiene contraseña establecida. Tendrá que iniciar sesión por otros medios."
 		},
-		"success": "PLEASE TRANSLATE Login successful!"
+		"success": "Inicio de sesión correcto!"
 	},
 	"register": {
-		"username": "PLEASE TRANSLATE Username",
-		"password": "PLEASE TRANSLATE Password",
+		"username": "Nomber de usuario",
+		"password": "Contraseña",
 		"role": {
-			"worker": "PLEASE TRANSLATE I am a worker",
-			"company": "PLEASE TRANSLATE I am a company"
+			"worker": "Soy un trabajador",
+			"company": "Soy una empresa"
 		},
-		"submit": "PLEASE TRANSLATE Sign Up",
+		"submit": "Regístrar",
 		"error": {
-			"loggedIn": "PLEASE TRANSLATE Already logged in",
-			"Username already exists":
-				"PLEASE TRANSLATE That username is already taken.",
+			"loggedIn": "Ya estas conectado.",
+			"Username already exists": "Ese nombre de usuario ya existe.",
 			"Email already exists":
-				"PLEASE TRANSLATE That email is already used by annother account."
+				"Ese correo electrónico ya está siendo utilizado por otra cuenta."
 		},
-		"success": "PLEASE TRANSLATE Sign up successful!"
+		"success": "Registracion exitosa!"
 	},
 	"passwordChanger": {
-		"oldPassword": "PLEASE TRANSLATE Current password",
-		"newPassword": "PLEASE TRANSLATE New password",
-		"repeatNewPassword": "PLEASE TRANSLATE Repeat new password",
-		"submit": "PLEASE TRANSLATE Change Password",
+		"oldPassword": "Contraseña actual",
+		"newPassword": "Nueva contraseña",
+		"repeatNewPassword": "Repetir nueva contraseña",
+		"submit": "Cambiar contraseña",
 		"error": {
-			"Incorrect password": "PLEASE TRANSLATE Incorrect password",
-			"New passwords do not match":
-				"PLEASE TRANSLATE New passwords do not match"
+			"Incorrect password": "Contraseña incorrecta",
+			"New passwords do not match": "Las nuevas contraseñas no coinciden"
 		},
-		"success": "PLEASE TRANSLATE Password reset successful!"
+		"success": "Restablecimiento de contraseña exitoso!"
 	},
 	"forms": {
-		"submitForm": "<PLEASE CHECK TRANSLATION> Enviar",
-		"resetForm": "<PLEASE CHECK TRANSLATION> Restablecer formulario",
-		"pleaseWait":
-			"<PLEASE CHECK TRANSLATION> Espere mientras terminamos de cargar el formulario...",
-		"companyNotFound":
-			"<PLEASE CHECK TRANSLATION> ERROR: EMPRESA NO ENCONTRADA",
+		"submitForm": "Enviar",
+		"resetForm": "Restablecer formulario",
+		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
+		"companyNotFound": "EMPRESA NO SE ENCUENTRA",
 		"afj": {
-			"formTitle": "PLEASE TRANSLATE Apply for a Job",
-			"fullNamePlaceholder":
-				"PLEASE TRANSLATE Please enter your full name here",
-			"emailPlaceholder": "PLEASE TRANSLATE??? example@email.com",
-			"phoneNumberPlaceholder": "PLEASE TRANSLATE??? ###-###-####",
+			"formTitle": "Solicitar un trabajo",
+			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",
+			"emailPlaceholder": "ejemplo@gmail.com",
+			"phoneNumberPlaceholder": "###-###-####",
 			"clacPlaceholder":
-				"PLEASE TRANSLATE You may fill in this space with anything else that you want to send to the company along with your application",
-			"invalidJobId": "PLEASE TRANSLATE ERROR: INVALID JOB ID"
+				"Puede utilizar este espacio con cualquier otra cosa que desee enviar a la compañía junto con su solicitud",
+			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
 		},
 		"ccp": {
-			"formTitle": "PLEASE TRANSLATE Create a New Profile",
-			"namePlaceholder":
-				"PLEASE TRANSLATE Please enter the name of your company",
+			"formTitle": "Crear un nuevo perfil",
+			"namePlaceholder": "Por favor ingrese el nombre de su empresa",
 			"emailPlaceholder":
-				"PLEASE TRANSLATE Please provide an email we can reach your company at (example@email.com)",
+				"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
 			"industryPlaceholder":
-				"PLEASE TRANSLATE Please tell us your company's primary industry",
+				"Por favor díganos la industria principal de su empresa",
 			"otherContactInfoPlaceholder":
-				"PLEASE TRANSLATE Please enter any additional contact information you'd like to provide us with",
+				"Ingrese cualquier información de contacto adicional que le gustaría proporcionarnos",
 			"websiteUrlPlaceholder":
-				"PLEASE TRANSLATE Please enter the URL of your company's website, if it has one",
+				"Ingrese la URL del sitio web de su empresa, si tiene una",
 			"descriptionPlaceholder":
-				"PLEASE TRANSLATE Enter a brief description of your company for others to see on its profile page, if you'd like"
+				"Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea"
 		},
 		"paj": {
 			"contractTypes": {
-				"fullTime": "PLEASE TRANSLATE Full time",
-				"partTime": "PLEASE TRANSLATE Part time",
-				"contractor": "PLEASE TRANSLATE Contractor"
+				"fullTime": "Tiempo completo",
+				"partTime": "Medio tiempo",
+				"contractor": "Contratista"
 			},
-			"formTitle": "PLEASE TRANSLATE Post a Job",
+			"formTitle": "Anunciar un trabajo",
 			"jobTitlePlaceholder":
-				"PLEASE TRANSLATE Please tell us the title of the position you are advertising",
+				"Por favor díganos el título del puesto que está anunciando",
 			"payRangePlaceholder":
-				"PLEASE TRANSLATE Enter a value, $.c, or a range of values, $.c - $.c",
+				"Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
 			"jobDescriptionPlaceholder":
-				"PLEASE TRANSLATE Please enter a formal description of this job",
+				"Por favor ingrese una descripción formal de este trabajo",
 			"jobResponsibilitiesPlaceholder":
-				"PLEASE TRANSLATE Please summarize the responsibilities of this position",
+				"Por favor resuma las responsabilidades de este puesto",
 			"jobQualificationsPlaceholder":
-				"PLEASE TRANSLATE Please summarize the qualifications needed for this position",
+				"Por favor resuma las calificaciones necesarias para este puesto",
 			"profileNotFoundError":
-				"PLEASE TRANSLATE ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
+				"ERROR: PERFIL DE LA EMPRESA NO SE ENCUENTRA (INICIAR SESIÓN Y / O CREAR UN PERFIL PARA PUBLICAR UN TRABAJO)"
 		},
 		"ssd": {
 			"payTypes": {
-				"yearlySalary": "PLEASE TRANSLATE Yearly Salary",
-				"monthlySalary": "PLEASE TRANSLATE Monthly Salary",
-				"hourlyWage": "PLEASE TRANSLATE Hourly Wage"
+				"yearlySalary": "Salario anual",
+				"monthlySalary": "Salario mensual",
+				"hourlyWage": "Salario por hora"
 			},
-			"formTitle": "PLEASE TRANSLATE Submit Salary Data",
+			"formTitle": "Forma Salarial",
 			"companyNamePlaceholder":
-				"PLEASE TRANSLATE Please tell us the name of the company you worked for",
-			"jobTitlePlaceholder":
-				"PLEASE TRANSLATE Please tell us your job title there"
+				"Por favor díganos el nombre de la empresa para la que trabajó",
+			"locationPlaceholder":
+				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
+			"jobTitlePlaceholder": "Por favor díganos su título de trabajo allí"
 		},
 		"wr": {
-			"formTitle": "PLEASE TRANSLATE Escribe una Reseña",
+			"formTitle": "Escribe una Reseña",
 			"companyNamePlaceholder":
-				"PLEASE TRANSLATE Ingrese el nombre de la compañía que está revisando",
+				"Ingrese el nombre de la compañía que está revisando",
 			"reviewTitlePlaceholder":
-				"PLEASE TRANSLATE Por favor, elija un título para su revisión",
+				"Por favor, elija un título para su revisión",
+			"locationPlaceholder":
+				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
 			"jobTitlePlaceholder":
-				"PLEASE TRANSLATE Ingrese el nombre del puesto que ocupó en esta empresa",
+				"Ingrese el nombre del puesto que ocupó en esta empresa",
 			"prosPlaceholder":
-				"PLEASE TRANSLATE Cuéntanos algunas ventajas de trabajar para esta empresa",
+				"Cuéntanos algunas ventajas de trabajar para esta empresa. Que te gusto de esta empresa?",
 			"consPlaceholder":
-				"PLEASE TRANSLATE Por favor díganos algunos contras de trabajar para esta compañía",
+				"Por favor díganos algunas limitaciones y desventajas de trabajar para esta empresa",
 			"additionalCommentsPlaceholder":
-				"PLEASE TRANSLATE Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
+				"Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
 		}
 	},
 	"search": {
-		"loading": "PLEASE TRANSLATE Loading...",
-		"noCompaniesMatch": "PLEASE TRANSLATE No Companies match",
-		"placeholder": "PLEASE TRANSLATE Search for a Company...",
-		"button": "PLEASE TRANSLATE SEARCH"
+		"loading": "Cargando...",
+		"noCompaniesMatch": "No hay empresas que coincidan",
+		"placeholder": "Busquar una empresa...",
+		"button": "Buscar"
 	},
 
 	"jobsearch": {
-		"loading": "PLEASE TRANSLATE Loading...",
-		"nojobs": "PLEASE TRANSLATE No Jobs Available right now.",
-		"jobsAvailable": "PLEASE TRANSLATE Employment Offer(s) Available"
+		"loading": "Cargando...",
+		"nojobs": "No hay anuncios de trabajo disponibles en este momento.",
+		"jobsAvailable": "Oferta(s) de empleo disponible(s)"
 	},
 	"homePage": {
 		"mainBanner":
-			"PLEASE TRANSLATE Find the best job for you, from people like you",
-		"searchButton": "PLEASE TRANSLATE SEARCH",
-		"placeholder": "PLEASE TRANSLATE Search for a Company...",
-		"findjob_part1": "PLEASE TRANSLATE Find a Great Job",
-		"commonLine": "PLEASE TRANSLATE Near You",
+			"Encuentre el mejor trabajo para usted, de personas como usted",
+		"searchButton": "Buscar",
+		"placeholder": "Buscar una empresa",
+		"findjob_part1": "Encuentre un trabajo bueno",
+		"commonLine": "cerca de usted",
 		"findjob_text":
-			"PLEASE TRANSLATE With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory to work for",
-		"jobsButton": "PLEASE TRANSLATE Jobs",
-		"findemp_part1": "PLEASE TRANSLATE Find an Employer",
-		"findemp_part2": "PLEASE TRANSLATE That Treats You Right",
+			"Con miles de empresas en México en nuestro sitio y cientos de puestos de trabajo, podrá encontrar una gran fábrica o empresa para trabajar",
+		"jobsButton": "Trabajos",
+		"findemp_part1": "Encuentre un empleador",
+		"findemp_part2": "que lo trate bien",
 		"findemp_text":
-			"PLEASE TRANSLATE Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
-		"companiesButton": "PLEASE TRANSLATE Companies",
-		"hear": "PLEASE TRANSLATE Hear From Your",
-		"community": "PLEASE TRANSLATE Community",
+			"Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. El sistema de evaluación y calificación responsabiliza a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
+		"companiesButton": "Empresas",
+		"hear": "Escuche de su ",
+		"community": "comunidad",
 		"hear_text":
-			"PLEASE TRANSLATE See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.",
-		"add_review_button": "PLEASE TRANSLATE Add a Review",
-		"get_fair_salary": "PLEASE TRANSLATE Get a Fair Salary For",
-		"your_work": "PLEASE TRANSLATE Your Work",
+			"Consulte opiniones y valoraciones anónimas de compañías expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
+		"add_review_button": "Agregue su Evaluación",
+		"get_fair_salary": "Obtenga un salario",
+		"your_work": "justo por su trabajo",
 		"fairsalary_text":
-			"PLEASE TRANSLATE Find hundreds of salaries for different job positions and genders. Share your salary announmously to make sure others are getting fairly compensated.",
-		"salary_button": "PLEASE TRANSLATE Add a Salary",
-		"discover_employers":
-			"PLEASE TRANSLATE Start discovering new employers now",
-		"signup_button": "PLEASE TRANSLATE SIGN UP"
+			"Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
+		"salary_button": "Agregar un Salario",
+		"discover_employers": "Comience a descubrir nuevos empleadores ahora",
+		"signup_button": "Registrar"
 	},
 	"footer": {
-		"about_us": "PLEASE TRANSLATE About Us",
-		"employers": "PLEASE TRANSLATE Employers",
-		"create_free_account":
-			"PLEASE TRANSLATE Create a Free Employer Account",
-		"all_rights_reserved": "PLEASE TRANSLATE All rights reserved"
+		"about_us": "Acerca de nosotros",
+		"employers": "Empleadores",
+		"create_free_account": "Crear una cuenta de empleador gratuita",
+		"all_rights_reserved": "Todos los derechos reservados"
 	},
 	"aboutUs": {
-		"about": "PLEASE TRANSLATE About",
-		"the_problem": "PLEASE TRANSLATE The Problem",
-		"noLeverage": "PLEASE TRANSLATE EMPLOYEES DON'T HAVE LEVERAGE",
+		"about": "Acerca de",
+		"the_problem": "El problema",
+		"noLeverage": "Los empleados no tienen ventaja o influencia",
 		"problem_text":
-			"PLEASE TRANSLATE To fill large orders in a timely manner and get enough business to survive as a company, factories cuts corners, working their employees beyond their limits and not taking the time to ensure that the job is safe. In highly developed legal systems this would be stopped by the police and enforced with legislation that protects workers' labor rights. In most developing countries, such legislation either doesn't exist or they lack the capacity to enforce it. In short, factories have every incentive to cut corners, and no incentive to be held accountable to their employees. So how do we increase the leverage that workers have in this circumstance?",
-		"our_solution": "PLEASE TRANSLATE Our Solution",
+			"para llenar grandes pedidos de manera oportuna y obtener suficientes negocios para sobrevivir como empresa, las fábricas recortan esquinas, trabajan a sus empleados más allá de sus límites y no se toman el tiempo para asegurarse de que el trabajo sea seguro. En sistemas jurídicos altamente desarrollados, la policía detendría esta medida y la aplicaría con una legislación que proteja los derechos laborales de los trabajadores. En la mayoría de los países en desarrollo, dicha legislación o no existe o no tienen la capacidad para hacerla cumplir. En resumen, las fábricas tienen todos los incentivos para tomar un atajo, y no hay incentivos para rendir cuentas a sus empleados. Entonces, ¿cómo aumentamos el apalancamiento que los trabajadores tienen en esta circunstancia?",
+		"our_solution": "Nuestra solucion",
 		"reviews_accountability":
-			"PLEASE TRANSLATE REVIEWS ARE A FORM OF ACCOUNTABILITY",
+			"LAS REVISIONES SON UNA FORMA DE RESPONSABILIDAD",
 		"solution_text":
-			"PLEASE TRANSLATE To provide employees in developing countries with more leverage, we're creating a platform for workers to share reviews of their working conditions with all other workers in their region. This will give workers the information they need to avoid factories with terrible working conditions. Factories with poor reviews will get fewer workers, thus be unable to fill large orders from buyers, and lose profits. This will create a direct incentive for factories to improve conditions based on feedback coming directly from the workers themselves.",
-		"reach_us": "PLEASE TRANSLATE Feel free to reach out to us",
-		"submit_button": "PLEASE TRANSLATE Submit",
-		"placeholder_name": "PLEASE TRANSLATE Your Name",
-		"placeholder_email": "PLEASE TRANSLATE??? Eg. example@email.com",
-		"placeholder_comments": "PLEASE TRANSLATE Please enter your comments..."
+			"Para proporcionar más apalancamiento a los empleados de los países en desarrollo, estamos creando una plataforma para que los trabajadores compartan las revisiones de sus condiciones de trabajo con todos los demás trabajadores de su región. Esto dará a los trabajadores la información que necesitan para evitar fábricas con condiciones de trabajo terribles. Las fábricas con malas críticas obtendrán menos trabajadores, por lo tanto no podrán cumplir pedidos grandes de compradores y perderán ganancias. Esto creará un incentivo directo para que las fábricas mejoren las condiciones basadas en los comentarios que provienen directamente de los propios trabajadores",
+		"reach_us": "No dude en contactarnos",
+		"submit_button": "Enviar",
+		"placeholder_name": "Su Nombre",
+		"placeholder_email": "Eg. ejemplo@email.com",
+		"placeholder_comments": "Por favor deje sus comentarios"
 	},
 	"forEmployers": {
-		"find_best": "PLEASE TRANSLATE Find the Best Employees in Tijuana",
+		"find_best": "Encuentre los mejores empleados en Tijuana",
 		"find_best_part1":
-			"PLEASE TRANSLATE We provide more affordable and effective recruiting,",
-		"find_best_part2": "PLEASE TRANSLATE finding employees that stay",
-		"get_started_button": "PLEASE TRANSLATE Get Started",
-		"increase_workers": "PLEASE TRANSLATE Increase Worker",
-		"retention": "PLEASE TRANSLATE Retention",
+			"Proporcionamos reclutamiento económico y efectivo con una plataforma ",
+		"find_best_part2":
+			"que le ayuda a encontrar más empleados y reducir las tasas de rotación.",
+		"get_started_button": "Comenzar",
+		"increase_workers": "Aumentar Retención",
+		"retention": "de Trabajadores",
 		"increase_workers_text":
-			"PLEASE TRANSLATE With an inside look into the work environment of your company, workers will be able to determine whether your company is the right fit for them before being hired.",
-		"grow_in_response": "PLEASE TRANSLATE Grow In Response",
-		"to_worker_feedback": "PLEASE TRANSLATE To Worker Feedback",
+			"Con más empleados potenciales en nuestro sitio, puede encontrar la combinación perfecta para el puesto que está contratando.",
+		"grow_in_response": "Crece en respuesta a las",
+		"to_worker_feedback": "evaluaciones de los trabajadores",
 		"grow_response_text":
-			"PLEASE TRANSLATE After creating a profile for your company, you will be able to read reviews from workers to get an idea of what they like and dislike about your company. Use negative feedback as a mechanism for growth",
-		"reach_thousand": "PLEASE TRANSLATE Reach Thousands of Workers",
+			"Proporcionamos datos directamente de su fuerza laboral, para que sepa exactamente qué hacer para aumentar la retención y la productividad de sus trabajadores.",
+		"reach_thousand": "Llague a Miles de Trabajadores",
 		"reach_thousand_text":
-			"PLEASE TRANSLATE Register your company today to get instant access to a 60 day free trial that allows you to post an unlimited number of jobs.",
+			"Registre su empresa hoy para obtener acceso instantáneo y gratuito a miles de empleados potenciales cerca de usted.",
 		"accelerate":
-			"PLEASE TRANSLATE Accelerate our growth and discover thousands of potential employees",
-		"register_button": "PLEASE TRANSLATE Register"
+			"Acelere su crecimiento y descubra miles de empleados potenciales",
+		"register_button": "Registrar"
 	},
 
 	"companyreview": {
-		"recommend": "PLEASE TRANSLATE   Recommended",
-		"not_recommend": "PLEASE TRANSLATE   Not Recommended",
-		"overall": "PLEASE TRANSLATE   Overall",
-		"health_safety": "PLEASE TRANSLATE   Health & Safety",
-		"work_env": "PLEASE TRANSLATE   Work Environment",
-		"benefits": "PLEASE TRANSLATE   Benefits",
-		"manager_relation": "PLEASE TRANSLATE   Manager Relationships",
-		"pros": "PLEASE TRANSLATE   Pros",
-		"cons": "PLEASE TRANSLATE   Cons",
-		"additional_comments": "PLEASE TRANSLATE   Additional Comments"
+		"recommend": "Recomendado",
+		"not_recommend": "No recomendado",
+		"overall": "En general",
+		"health_safety": "Salud y seguridad",
+		"work_env": "Ambiente de trabajo",
+		"benefits": "Beneficios",
+		"manager_relation": "Relaciones del gerente",
+		"pros": "Ventajas",
+		"cons": "Limitaciones",
+		"additional_comments": "Comentarios adicionales"
 	},
 
 	"jobpostings": {
-		"apply_now": "PLEASE TRANSLATE   Apply Now",
-		"hour": "PLEASE TRANSLATE   /Hour",
-		"job_description": "PLEASE TRANSLATE   Job Description",
-		"qualifications": "PLEASE TRANSLATE   Qualifications",
-		"responsibilities": "PLEASE TRANSLATE   Responsibilities",
-		"posted_on": "PLEASE TRANSLATE   posted on"
+		"apply_now": "Aplica ahora",
+		"hour": "Por Hora",
+		"job_description": "Descripcion del trabajo",
+		"qualifications": "Calificaciones",
+		"responsibilities": "Responsabilidades",
+		"posted_on": "Publicado en"
 	},
 
 	"company_ratings": {
-		"overall": "PLEASE TRANSLATE   Overall",
-		"health_safety": "PLEASE TRANSLATE   Health & Safety",
-		"work_env": "PLEASE TRANSLATE   Work Environment",
-		"benefits": "PLEASE TRANSLATE   Benefits",
-		"manager_relation": "PLEASE TRANSLATE   Manager Relationships",
-		"recommend": "PLEASE TRANSLATE   Recommended",
-		"average_num": "PLEASE TRANSLATE   Average number",
-		"months_worked": "PLEASE TRANSLATE   of months worked"
+		"overall": "General",
+		"health_safety": "Salud y Seguiridad",
+		"work_env": "Ambiente de trabajo",
+		"benefits": "Beneficios",
+		"manager_relation": "Relaciones del gerente",
+		"recommend": "Recomendado",
+		"average_num": "Numero promedio",
+		"months_worked": "Meses trabajados"
 	},
 
 	"jobscomponent": {
-		"jobs_available": "PLEASE TRANSLATE   Job(s) Available"
+		"jobs_available": "Trabajos disponibles"
 	},
 
 	"overview_tab": {
-		"display_text": "PLEASE TRANSLATE   No reviews to show right now",
-		"apply_now": "PLEASE TRANSLATE   Apply Now",
-		"hour": "PLEASE TRANSLATE   /Hour",
-		"job_description": "PLEASE TRANSLATE   Job Description",
-		"display_jobs": "PLEASE TRANSLATE   No Jobs to show right now",
-		"salaries_text": "PLEASE TRANSLATE   No Salaries to display right now",
-		"overview": "PLEASE TRANSLATE   Overview",
-		"reviews": "PLEASE TRANSLATE   Reviews",
-		"add_review": "PLEASE TRANSLATE   Add a Review",
-		"see_all_reviews": "PLEASE TRANSLATE   See All Reviews",
-		"job_salaries": "PLEASE TRANSLATE   Job Salaries",
-		"add_salary": "PLEASE TRANSLATE   Add a Salary",
-		"see_all_salaries": "PLEASE TRANSLATE   See All Salaries",
-		"see_all_jobs": "PLEASE TRANSLATE  See All Jobs",
-		"jobs_available": "PLEASE TRANSLATE  Job(s) Available"
+		"display_text": "No hay comentarios para mostrar en este momento",
+		"apply_now": "Aplica ahora",
+		"hour": "Por Hora",
+		"job_description": "Descripcion del trabajo",
+		"display_jobs": "No hay trabajos para mostrar en este momento",
+		"salaries_text": "No hay salarios para mostrar en este momento",
+		"overview": "Vista general",
+		"reviews": "Comentarios",
+		"add_review": "Agrega un comentario",
+		"see_all_reviews": "Ver todos los comentarios",
+		"job_salaries": "Salarios de trabajos",
+		"add_salary": "Agrega un salario",
+		"see_all_salaries": "Ver todos los salarios",
+		"see_all_jobs": "Ver todos los trabajos",
+		"jobs_available": "Trabajos disponibles"
 	},
 
 	"review_tab": {
-		"reviews": "PLEASE TRANSLATE   Reviews",
-		"add_review": "PLEASE TRANSLATE   Add a Review"
+		"reviews": "Comentarios",
+		"add_review": "Agrega un comentario"
 	},
 
 	"salary_tab": {
-		"job_salaries": "PLEASE TRANSLATE   Job Salaries",
-		"add_salary": "PLEASE TRANSLATE   Add a Salary"
+		"job_salaries": "Salarios de trabajos",
+		"add_salary": "Agrega un salario"
 	},
 
 	"showjob": {
-		"apply_now": "PLEASE TRANSLATE   Apply Now",
-		"hour": "PLEASE TRANSLATE   /Hour",
-		"job_description": "PLEASE TRANSLATE   Job Description",
-		"qualifications": "PLEASE TRANSLATE   Qualifications",
-		"responsibilities": "PLEASE TRANSLATE   Responsibilities",
-		"posted_on": "PLEASE TRANSLATE   posted on"
+		"apply_now": "Aplica ahora",
+		"hour": "Por Hora",
+		"job_description": "Descripcion del trabajo",
+		"qualifications": "Calificaciones",
+		"responsibilities": "Reponsabilidades",
+		"posted_on": "Publicado en"
 	},
 
-	"company_component": {
-		"reviews": "PLEASE TRANSLATE  Reviews",
-		"salaries": "PLEASE TRANSLATE  Salaries",
-		"jobs": "PLEASE TRANSLATE Jobs"
+	"CompanySearchResult": {
+		"reviews": "Comentarios",
+		"salaries": "Salarios",
+		"jobs": "Trabajos"
 	},
 
 	"companyprofile": {
-		"loading": "PLEASE TRANSLATE  Loading...",
-		"notfound": "PLEASE TRANSLATE  That company was not found",
-		"overview": "PLEASE TRANSLATE  Overview",
-		"reviews": "PLEASE TRANSLATE  Reviews",
-		"add_review": "PLEASE TRANSLATE  Add a Review",
-		"jobs": "PLEASE TRANSLATE  Jobs",
-		"salaries": "PLEASE TRANSLATE   Salaries",
-		"contact": "PLEASE TRANSLATE  Contact",
-		"feel_free": "PLEASE TRANSLATE  Feel free to",
-		"reach_us": "PLEASE TRANSLATE  reach out to us",
-		"add_review": "PLEASE TRANSLATE  Add a Review"
+		"loading": "Cargando...",
+		"notfound": "La compañia no fue encontrada",
+		"overview": "Vision general",
+		"reviews": "Comentarios",
+		"add_review": "Agregar una reseña",
+		"jobs": "Trabajos",
+		"salaries": "Salarios",
+		"contact": "Contacto",
+		"feel_free": "No dude en",
+		"reach_us": "Comunicate con nosotros",
+		"add_review": "Agregar un comentario"
 	},
 
 	"header": {
-		"companies": "PLEASE TRANSLATE   Companies",
-		"jobs": "PLEASE TRANSLATE   Jobs",
-		"resources": "PLEASE TRANSLATE   Resources",
-		"for_employers": "PLEASE TRANSLATE   For Employers",
-		"login": "PLEASE TRANSLATE   LOG IN",
-		"signup": "PLEASE TRANSLATE   SIGN UP",
-		"logout": "PLEASE TRANSLATE   LOG OUT",
-		"myaccount": "PLEASE TRANSLATE   MY ACCOUNT"
+		"companies": "Compañias",
+		"jobs": "Empleos",
+		"resources": "Recursos",
+		"for_employers": "Para empleadores",
+		"login": "Iniciar seccion",
+		"signup": "Registrarse",
+		"logout": "Cerrar seccion",
+		"myaccount": "Mi cuenta"
 	},
 
 	"methods": {
 		"jobAppEmail": {
-			"fieldLeftEmpty":
-				"[PLEASE TRANSLATE the applicant did not fill in this field]",
+			"fieldLeftEmpty": "[El solicitante no completó este campo]",
 			"subjectLine":
-				"PLEASE TRANSLATE VIZE {$wName} has responded to your job advertisement",
+				"VIZE {$wName} ha respondido a su anuncio de trabajo",
 			"emailText":
-				"PLEASE TRANSLATE To those at {$cName},\n\n\tCongratulations, you just received a new job application! A Vize user, {$wName}, has responded to your job post (which was given id={$jId}). They provided the contact information below, feel free to contact them directly.\n\n\tIf you have any issues with this process, please let us know. If you hire this employee, please send us a message letting us know what you think of our service. We hope you've found the perfect employee for your company and the position!\n\nAll the best,\n\n\tThe Vize Team\n\nAPPLICANT INFORMATION\nFull name: {$wName}\nEmail: {$wEmail}\nPhone number:  {$wPhone}\nCover letter/Additional comments:\n{$wComments}"
-		},
-		"meteorErrors": {
-			"needsFiveWords": "PLEASE TRANSLATE needsFiveWords",
-			"rolePermission": "PLEASE TRANSLATE rolePermission",
-			"invalidArguments": "PLEASE TRANSLATE invalidArguments",
-			"loggedOut": "PLEASE TRANSLATE loggedOut",
-			"noCheating": "PLEASE TRANSLATE noCheating",
-			"duplicateEntry": "PLEASE TRANSLATE duplicateEntry",
-			"notFound": "PLEASE TRANSLATE notFound",
-			"sessionError": "PLEASE TRANSLATE sessionError",
-			"nameTaken": "PLEASE TRANSLATE nameTaken"
+				"Para los que están en {$cName}, \n\n\tFelicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, {$wName}, ha respondido a su puesto de trabajo (que recibió el id = {$jId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente. \n\n\t Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!\n\nLe deseamos lo mejor, \n\n\tEl equipo de VIZE\n\nINFORMACIÓN DEL SOLICITANTE \nNombre completo: {$wName} \nEmail: {$wEmail} \nNúmero de teléfono: {$wPhone} \ncarta de presentacion/Comentarios adicionales: \n{$wComments} ",
+
+			"needsFiveWords": "Necesita cinco palabras",
+			"rolePermission": "Permisos con su rol",
+			"invalidArguments": "Argumentos no válidos",
+			"loggedOut": "Desconectado",
+			"noCheating": "No hay engaño",
+			"duplicateEntry": "Entrada duplicada",
+			"notFound": "No se encuentra",
+			"sessionError": "Error de sesión",
+			"nameTaken": "Nombre en uso"
 		},
 		"errorMessages": {
 			"needsFiveWords":
-				"PLEASE TRANSLATE You should write at least 5 words in this field",
-			"invalidFormInputs": "PLEASE TRANSLATE Invalid form inputs",
-			"loggedOut":
-				"PLEASE TRANSLATE You must be logged in to perform this action",
+				"Debes escribir al menos 5 palabras en este campo",
+			"invalidFormInputs": "Entradas no validas",
+			"loggedOut": "Debes ingresar para realizar esta acción",
 			"onlyWorkers":
 				"PLEASE TRANSLATE Only workers may perform this action",
 			"onlyCompanies":
-				"PLEASE TRANSLATE Only companies may perform this action",
-			"onlyOnce": "PLEASE TRANSLATE You are only allowed to do this once",
-			"permissionDenied":
-				"PLEASE TRANSLATE You are not authorized to perform this action",
-			"noCheating":
-				"PLEASE TRANSLATE You may not vote on your own reviews",
+				"Solo los trabajadores pueden realizar esta acción",
+			"onlyOnce": "Solo se te permite hacer esto una vez",
+			"permissionDenied": "No estás autorizado a realizar esta acción",
+			"noCheating": "No puedes votar en tus propios comentarios",
 			"vote1stArg":
-				"PLEASE TRANSLATE First argument [review] must be a valid review",
-			"vote2ndArg":
-				"PLEASE TRANSLATE Second argument [vote] must be a boolean",
+				"El primer argumento [revisión] debe ser una revisión válida",
+			"vote2ndArg": "Segundo argumento [votar] debe ser un valor lógico",
 			"voteOnNullReview":
-				"PLEASE TRANSLATE You may not vote on reviews that do not exist yet",
-			"notFound":
-				"PLEASE TRANSLATE Your search did not return any results",
-			"nameTaken":
-				"PLEASE TRANSLATE The name you provided is already taken",
-			"sessionError": "PLEASE TRANSLATE Please stop messing around"
+				"No puedes votar en revisiones que aún no existen",
+			"notFound": "Tu busqueda no arrojo ningun resultado",
+			"nameTaken": "La informacion proporcionada ya esta en uso",
+			"sessionError": "Por favor no juegues"
 		}
 	}
 }

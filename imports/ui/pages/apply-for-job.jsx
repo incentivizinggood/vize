@@ -12,7 +12,7 @@ import i18n from "meteor/universe:i18n";
 // Specific stuff second
 import { JobAds } from "../../api/data/jobads.js";
 import { Companies } from "../../api/data/companies.js";
-import "./afj_blaze_form.html";
+import "/imports/ui/forms/apply-for-job.html";
 
 const afj_form_state = new ReactiveDict();
 afj_form_state.set("formError", "good"); // Shared with AutoForm helpers
