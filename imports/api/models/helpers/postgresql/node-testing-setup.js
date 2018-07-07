@@ -37,6 +37,7 @@ invokePgQuery = async function(query) {
 
 invokePgMutation = async function(mutation) {
 	const client = await pool.connect();
+	let result = {};
 	try {
 		await client.query("START TRANSACTION");
 
@@ -659,7 +660,7 @@ getAllVotes = async function(client, skip, limit) {
 getVotesForSubject = async function(client, subject, refersto, skip, limit) {
 	let voteResults = { rows: [] };
 	if(subject !== "review" && subject !== "comment")
-		throw "Illegal subject: table does not exist";
+		throw new Error("Illegal subject: table does not exist");
 	voteResults = await client.query(
 		"SELECT * FROM " + subject + "_vote_counts WHERE " +
 		"refersto=$1 OFFSET $2 LIMIT $3",
@@ -690,7 +691,7 @@ getVotesByAuthor = async function(client, id, skip, limit) {
 castVote = async function(client, vote) {
 	let voteResults = { rows: [] };
 	if(vote.voteSubject !== "review" && vote.voteSubject !== "comment")
-		throw "Illegal subject: table does not exist";
+		throw new Error("Illegal subject: table does not exist");
 	const tblName = vote.voteSubject + "_votes";
 	voteResults = await client.query(
 		"INSERT INTO " + tblName + " (refersto,submittedby,value) " +
