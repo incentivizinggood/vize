@@ -13,7 +13,7 @@ INSERT INTO salaries
 	VALUES (0,'a','a','a','Hourly Wage',0);
 COMMIT;
 
--- should succeed, exceptions case
+-- should succeed, exception case
 -- where no company with that name
 -- is in the database
 INSERT INTO salaries

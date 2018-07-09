@@ -1,18 +1,18 @@
-\! echo "INVALID ARG TEST 1: NULL fields, part 1"
-INSERT INTO votes(submittedBy,voteSubject,refersTo,value)
-	VALUES(NULL,'review',0,'t');
-\! echo "INVALID ARG TEST 2: NULL fields, part 2"
-INSERT INTO votes(submittedBy,voteSubject,refersTo,value)
-	VALUES(0,NULL,0,'t');
-\! echo "INVALID ARG TEST 3: NULL fields, part 3"
-INSERT INTO votes(submittedBy,voteSubject,refersTo,value)
-	VALUES(0,'review',NULL,'t');
-\! echo "INVALID ARG TEST 4: NULL fields, part 4"
-INSERT INTO votes(submittedBy,voteSubject,refersTo,value)
-	VALUES(0,'review',0,NULL);
-\! echo "INVALID ARG TEST 5: invalid vote subject 1"
-INSERT INTO votes(submittedBy,voteSubject,refersTo,value)
-	VALUES(0,'revew',0,'t');
-\! echo "INVALID ARG TEST 6: invalid vote subject 2"
-INSERT INTO votes(submittedBy,voteSubject,refersTo,value)
-	VALUES(0,'commet',0,'t');
+\! echo "INVALID ARG TEST 1: review_votes: NULL fields, part 1"
+INSERT INTO review_votes(submittedBy,refersTo,value)
+	VALUES(NULL,0,'t');
+\! echo "INVALID ARG TEST 2: review_votes: NULL fields, part 2"
+INSERT INTO review_votes(submittedBy,refersTo,value)
+	VALUES(0,NULL,'t');
+\! echo "INVALID ARG TEST 3: review_votes: NULL fields, part 3"
+INSERT INTO review_votes(submittedBy,refersTo,value)
+	VALUES(0,0,NULL);
+\! echo "INVALID ARG TEST 4: comment_votes: NULL fields, part 1"
+INSERT INTO comment_votes(submittedBy,refersTo,value)
+	VALUES(NULL,0,'t');
+\! echo "INVALID ARG TEST 5: comment_votes: NULL fields, part 3"
+INSERT INTO comment_votes(submittedBy,refersTo,value)
+	VALUES(0,NULL,'t');
+\! echo "INVALID ARG TEST 6: comment_votes: NULL fields, part 4"
+INSERT INTO comment_votes(submittedBy,refersTo,value)
+	VALUES(0,0,NULL);
