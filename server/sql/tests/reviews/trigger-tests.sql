@@ -29,7 +29,10 @@ INSERT INTO reviews
 			0,0,0,0,0,'Hello world!');
 COMMIT;
 
--- this next one should fail, no company 'c'
+-- this next one should NOT fail,
+-- it is an exception case where name
+-- is provided but no company with that
+-- name is in the database
 INSERT INTO reviews
 (submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
@@ -44,4 +47,4 @@ INSERT INTO reviews
 -- should be fine
 INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (1,0,'hello world');
 -- should fail
-INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (3,0,'hello world');
+INSERT INTO review_comments (reviewId,submittedBy,content) VALUES (4,0,'hello world');

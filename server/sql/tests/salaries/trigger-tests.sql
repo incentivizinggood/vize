@@ -13,6 +13,14 @@ INSERT INTO salaries
 	VALUES (0,'a','a','a','Hourly Wage',0);
 COMMIT;
 
+-- should succeed, exceptions case
+-- where no company with that name
+-- is in the database
+INSERT INTO salaries
+(submittedBy,companyname,salarylocation,
+	jobTitle,incomeType,incomeAmount)
+	VALUES (0,'b','a','a','Hourly Wage',0);
+
 -- fail: no company with id -1
 -- may give a message about name being null,
 -- since that's what the trigger "corrected"
