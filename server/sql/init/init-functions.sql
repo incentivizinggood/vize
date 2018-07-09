@@ -100,6 +100,24 @@ $$
 		return null;
 $$ LANGUAGE plv8;
 
+-- Retrieves the id of a company with a given name,
+-- used to help figure things out in cases where
+-- name is provided and a company with that name
+-- has an entry in companies, but the id was not provided
+DROP FUNCTION IF EXISTS get_id_for_name;
+CREATE OR REPLACE FUNCTION get_id_for_name
+(companyname text)
+RETURNS integer AS
+$$
+	const queryCompanyIdPlan = plv8.prepare("select companyid from companies where name=$1",['text']);
+	const result = queryCompanyIdPlan.execute([companyname]);
+	queryCompanyIdPlan.free();
+	if(result.length > 0)
+		return result[0].companyid;
+	else
+		return null;
+$$ LANGUAGE plv8;
+
 -- where tables have both companyname and
 -- companyid fields, companyid is treated
 -- as Single Source of Truth for which company
@@ -107,8 +125,18 @@ $$ LANGUAGE plv8;
 DROP FUNCTION IF EXISTS correct_name_by_id;
 CREATE OR REPLACE FUNCTION correct_name_by_id() RETURNS TRIGGER AS
 $$
-	const get_correct_name = plv8.find_function("get_name_for_id");
-	NEW.companyname = get_correct_name(NEW.companyid);
+	const get_name_for_id = plv8.find_function("get_name_for_id");
+	NEW.companyname = get_name_for_id(NEW.companyid);
+	return NEW;
+$$ LANGUAGE plv8;
+
+-- we choose to be a pal and try to get the companyid
+-- if the caller supplies a name without an id
+DROP FUNCTION IF EXISTS fill_id_by_name;
+CREATE OR REPLACE FUNCTION fill_id_by_name() RETURNS TRIGGER AS
+$$
+	const get_id_for_name = plv8.find_function("get_id_for_name");
+	NEW.companyid = get_id_for_name(NEW.companyname);
 	return NEW;
 $$ LANGUAGE plv8;
 
