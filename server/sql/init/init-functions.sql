@@ -83,6 +83,35 @@ $$
 	return countXplan.execute([factorvalue])[0].count;
 $$ LANGUAGE plv8;
 
+-- Retrieves the name of a company with a given
+-- id if the company exists, used to help
+-- autofill/autocorrect company names
+DROP FUNCTION IF EXISTS get_name_for_id;
+CREATE OR REPLACE FUNCTION get_name_for_id
+(companyid integer)
+RETURNS text AS
+$$
+	const queryCompanyNamePlan = plv8.prepare("select name from companies where companyid=$1",['integer']);
+	const result = queryCompanyNamePlan.execute([companyid]);
+	queryCompanyNamePlan.free();
+	if(result.length > 0)
+		return result[0].name;
+	else
+		return null;
+$$ LANGUAGE plv8;
+
+-- where tables have both companyname and
+-- companyid fields, companyid is treated
+-- as Single Source of Truth for which company
+-- is being referenced
+DROP FUNCTION IF EXISTS correct_name_by_id;
+CREATE OR REPLACE FUNCTION correct_name_by_id() RETURNS TRIGGER AS
+$$
+	const get_correct_name = plv8.find_function("get_name_for_id");
+	NEW.companyname = get_correct_name(NEW.companyid);
+	return NEW;
+$$ LANGUAGE plv8;
+
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.

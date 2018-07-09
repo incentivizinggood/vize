@@ -101,10 +101,7 @@ CREATE TABLE reviews (
 	-- needed triggers:
 	-- 1) fix name to match id (on insert AND on update)
 	-- 2) supply id if name matches a company
-	companyName			varchar(110)	NOT NULL
-		REFERENCES companies (name)
-		ON UPDATE CASCADE ON DELETE CASCADE
-		DEFERRABLE INITIALLY DEFERRED,
+	companyName			varchar(110)	NOT NULL,
 	companyId			integer
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
@@ -147,10 +144,7 @@ DROP TABLE IF EXISTS salaries CASCADE;
 CREATE TABLE salaries (
 	salaryId			serial			PRIMARY KEY,
 	submittedBy			integer			NOT NULL,
-	companyName			varchar(110)	NOT NULL
-		REFERENCES companies (name)
-		ON UPDATE CASCADE ON DELETE CASCADE
-		DEFERRABLE INITIALLY DEFERRED,
+	companyName			varchar(110)	NOT NULL,
 	companyId			integer
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
@@ -174,11 +168,11 @@ CREATE TABLE salaries (
 DROP TABLE IF EXISTS jobads CASCADE;
 CREATE TABLE jobads (
 	jobadId				serial			PRIMARY KEY,
-	companyName			varchar(110)	NOT NULL
+	companyName			varchar(110)
 		REFERENCES companies (name)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	companyId			integer
+	companyId			integer			NOT NULL
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,

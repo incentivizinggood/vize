@@ -84,14 +84,14 @@ INSERT INTO comment_votes(submittedBy,refersTo,value) VALUES (102,1,'f');
 INSERT INTO review_votes(submittedBy,refersTo,value) VALUES (103,2,'f');
 INSERT INTO comment_votes(submittedBy,refersTo,value) VALUES (103,1,'t');
 
-INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
+INSERT INTO jobads(companyid,jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
-	VALUES ('a','a','1.00','Part time','a','a','a');
+	VALUES (1,'a','1.00','Part time','a','a','a');
 INSERT INTO job_locations (jobadId,jobLocation) VALUES (1,'hello world');
 INSERT INTO job_locations (jobadId,jobLocation) VALUES (1,'anotherwhere');
-INSERT INTO jobads(companyName,jobTitle,pesosPerHour,contractType,
+INSERT INTO jobads(companyid,jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
-	VALUES ('b','a','1.00','Part time','a','a','a');
+	VALUES (2,'a','1.00','Part time','a','a','a');
 INSERT INTO job_locations (jobadId,jobLocation) VALUES (2,'somewhere over the rainbow');
 
 INSERT INTO salaries
