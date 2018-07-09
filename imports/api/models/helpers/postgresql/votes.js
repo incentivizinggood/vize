@@ -1,4 +1,22 @@
 export default class PgVoteFunctions {
+	static async getVoteByPrimaryKey(client, voteKeyFields) {
+		let voteResults = { rows: [] };
+		if (
+			voteKeyFields.voteSubject !== "review" &&
+			voteKeyFields.voteSubject !== "comment"
+		)
+			throw new Error("Illegal subject: table does not exist");
+		voteResults = await client.query(
+			"SELECT * FROM " +
+				voteKeyFields.voteSubject +
+				"_votes WHERE submittedby=$1 AND refersto=$2",
+			[voteKeyFields.submittedBy, voteKeyFields.references]
+		);
+		return {
+			vote: voteResults.rows[0],
+		};
+	}
+
 	// this goes through the view under the hood,
 	// rather than making the caller aggregate the data
 	static async getAllVotes(client, skip, limit) {

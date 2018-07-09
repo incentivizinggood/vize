@@ -630,10 +630,24 @@ writeComment = async function(client, comment) {
 	};
 }
 
+let getVoteByPrimaryKey;
 let getAllVotes;
 let getVotesForSubject;
 let getVotesByAuthor;
 let castVote;
+
+getVoteByPrimaryKey = async function(client, voteKeyFields) {
+	let voteResults = { rows: [] };
+	if(voteKeyFields.voteSubject !== "review" && voteKeyFields.voteSubject !== "comment")
+		throw new Error("Illegal subject: table does not exist");
+	voteResults = await client.query(
+		"SELECT * FROM " + voteKeyFields.voteSubject + "_votes WHERE submittedby=$1 AND refersto=$2",
+		[voteKeyFields.submittedBy, voteKeyFields.references]
+	);
+	return {
+		vote: voteResults.rows[0]
+	};
+}
 
 getAllVotes = async function(client, skip, limit) {
 	let reviewVoteResults = { rows: [] };
@@ -828,6 +842,8 @@ obj = await PostgreSQL.executeQuery(getAllComments, 0, 1000);
 obj = await PostgreSQL.executeQuery(getCommentsByAuthor, 1, 0, 1000);
 
 // vote query functions
+obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 100, references: 1, voteSubject: "review"});
+obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 100, references: 1, voteSubject: "comment"});
 obj = await PostgreSQL.executeQuery(getAllVotes, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesByAuthor, 99, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
