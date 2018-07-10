@@ -10,12 +10,13 @@ import { Votes } from "./votes.js";
 import { addToAvg } from "./denormalization.js";
 
 // Testing with PostgreSQL
-import CompanyConnector from "../connectors/postgresql/companies.js";
-import ReviewConnector from "../connectors/postgresql/reviews.js";
-import JobAdsConnector from "../connectors/postgresql/jobads.js";
-import SalaryConnector from "../connectors/postgresql/salaries.js";
-import VoteConnector from "../connectors/postgresql/votes.js";
-import CommentConnector from "../connectors/postgresql/comments.js";
+import PostgreSQL from "../graphql/connectors/postgresql.js";
+import PgCompanyFunctions from "../models/helpers/postgresql/companies.js";
+import PgReviewFunctions from "../models/helpers/postgresql/reviews.js";
+import PgJobAdFunctions from "../models/helpers/postgresql/jobads.js";
+import PgSalaryFunctions from "../models/helpers/postgresql/salaries.js";
+import PgVoteFunctions from "../models/helpers/postgresql/votes.js";
+import PgCommentFunctions from "../models/helpers/postgresql/comments.js";
 
 Meteor.methods({
 	sendEmail(to, from, subject, text) {
