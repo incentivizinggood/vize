@@ -221,6 +221,9 @@ createCompany = async function(client, company) {
 	};
 };
 
+let getUserById;
+let createUser;
+
 let getReviewById;
 let getReviewsByAuthor;
 let getAllReviews;
