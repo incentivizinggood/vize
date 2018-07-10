@@ -103,7 +103,7 @@ CREATE TABLE users (
 	-- corresponding to this user tuple
 	userMongoId			varchar(50)		UNIQUE,
 
-	role				varchar(30)		CHECK (role IS NULL OR role='worker' OR role='company-unverified' OR role='company'),
+	role				varchar(30)		NOT NULL CHECK (role='worker' OR role='company-unverified' OR role='company'),
 	companyid			integer			UNIQUE
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE SET NULL
