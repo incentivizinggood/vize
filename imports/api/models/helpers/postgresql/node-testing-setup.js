@@ -735,7 +735,6 @@ vize = {
 };
 
 vizeReview = {
-	submittedBy: 0,
 	companyName: 'a',
 	companyId: 1,
 	location: "asdf",
@@ -754,7 +753,6 @@ vizeReview = {
 };
 
 vizeSalary = {
-	submittedBy: 0,
 	companyName: "a",
 	companyId: 1,
 	location: "asdf",
@@ -778,33 +776,32 @@ vizeJobAd = {
 
 vizeComment = {
 	reviewId: 1,
-	submittedBy: 0,
 	content: "FIRST!"
 }
 
 vizeVote = {
-	submittedBy: 105,
+	submittedBy: 11,
 	voteSubject: "comment",
 	references: 1,
 	value: true
 }
 
 vizeVote2 = {
-	submittedBy: 105,
+	submittedBy: 11,
 	voteSubject: "comment",
 	references: 1,
 	value: false
 }
 
 vizeVote3 = {
-	submittedBy: 105,
+	submittedBy: 11,
 	voteSubject: "review",
 	references: 1,
 	value: true
 }
 
 vizeVote4 = {
-	submittedBy: 105,
+	submittedBy: 11,
 	voteSubject: "review",
 	references: 1,
 	value: false
@@ -821,13 +818,13 @@ obj = await PostgreSQL.executeQuery(getAllCompanies, 0, 1000);
 
 // review query functions
 obj = await PostgreSQL.executeQuery(getReviewById, 1);
-obj = await PostgreSQL.executeQuery(getReviewsByAuthor, 0, 0, 1000);
+obj = await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000);
 obj = await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000);
 obj = await PostgreSQL.executeQuery(getAllReviews, 0, 1000);
 
 // salary query functions
 obj = await PostgreSQL.executeQuery(getSalaryById, 1);
-obj = await PostgreSQL.executeQuery(getSalariesByAuthor, 2, 0, 1000);
+obj = await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000);
 obj = await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000);
 obj = await PostgreSQL.executeQuery(getAllSalaries, 0, 1000);
 
@@ -839,13 +836,13 @@ obj = await PostgreSQL.executeQuery(getAllJobAds, 0, 1000);
 // comment query functions
 obj = await PostgreSQL.executeQuery(getCommentById, 1);
 obj = await PostgreSQL.executeQuery(getAllComments, 0, 1000);
-obj = await PostgreSQL.executeQuery(getCommentsByAuthor, 1, 0, 1000);
+obj = await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000);
 
 // vote query functions
-obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 100, references: 1, voteSubject: "review"});
-obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 100, references: 1, voteSubject: "comment"});
+obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 7, references: 1, voteSubject: "review"});
+obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 7, references: 1, voteSubject: "comment"});
 obj = await PostgreSQL.executeQuery(getAllVotes, 0, 1000);
-obj = await PostgreSQL.executeQuery(getVotesByAuthor, 99, 0, 1000);
+obj = await PostgreSQL.executeQuery(getVotesByAuthor, 6, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "review", 1, 0, 1000);
 
