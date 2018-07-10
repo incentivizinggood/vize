@@ -7,7 +7,6 @@ import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
 import { Votes } from "./votes.js";
-import { addToAvg } from "./denormalization.js";
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
