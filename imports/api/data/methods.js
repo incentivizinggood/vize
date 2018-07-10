@@ -53,11 +53,11 @@ Meteor.methods({
 
 	"reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
-		newReview = Reviews.simpleSchema().clean(newReview);
+		const cleanReview = Reviews.simpleSchema().clean(newReview);
 
 		const validationResult = Reviews.simpleSchema()
 			.namedContext()
-			.validate(newReview);
+			.validate(cleanReview);
 		const errors = Reviews.simpleSchema()
 			.namedContext()
 			.validationErrors();
@@ -93,9 +93,10 @@ Meteor.methods({
 			);
 		}
 
-		// TODO: use user to fill in the "who wrote this" info in this review.
+		// Mongo ID to Postgres ID translation can be handled
+		// for submittedBy in the helper function
 
-		Reviews.insert(newReview);
+		// TODO fill in Postgres code here
 
 		/*
 			QUESTION:
@@ -103,78 +104,6 @@ Meteor.methods({
 				the company is verified or unverified, how do I handle
 				that?
 		*/
-
-		// Can assume this to be defined since it is checked for
-		// in the schema validation for companyName
-		const company = Companies.findOne({ name: newReview.companyName });
-
-		// Update denormalizations.
-		if (company !== undefined) {
-			if (Meteor.isDevelopment) {
-				console.log("SERVER: before update");
-				console.log(
-					Companies.findOne(
-						Companies.findOne({ name: newReview.companyName })
-					)
-				);
-			}
-
-			/*
-				QUESTION:
-					Do we need some kind of hook to periodically re-check the
-					averages in case something happens where a review gets
-					inserted before the averages are updated?
-			*/
-
-			Companies.update(
-				{ name: newReview.companyName },
-				{
-					$set: {
-						healthAndSafety: addToAvg(
-							newReview.healthAndSafety,
-							company.numReviews,
-							company.healthAndSafety
-						),
-						managerRelationship: addToAvg(
-							newReview.managerRelationship,
-							company.numReviews,
-							company.managerRelationship
-						),
-						workEnvironment: addToAvg(
-							newReview.workEnvironment,
-							company.numReviews,
-							company.workEnvironment
-						),
-						benefits: addToAvg(
-							newReview.benefits,
-							company.numReviews,
-							company.benefits
-						),
-						overallSatisfaction: addToAvg(
-							newReview.overallSatisfaction,
-							company.numReviews,
-							company.overallSatisfaction
-						),
-						percentRecommended: addToAvg(
-							newReview.wouldRecommendToOtherJobSeekers ? 1 : 0,
-							company.numReviews,
-							company.percentRecommended
-						),
-						avgNumMonthsWorked: addToAvg(
-							newReview.numberOfMonthsWorked,
-							company.numReviews,
-							company.avgNumMonthsWorked
-						),
-					},
-					$inc: { numReviews: 1 }, // this will increment the numReviews by 1
-				}
-			);
-
-			if (Meteor.isDevelopment) {
-				console.log("SERVER: after update");
-				console.log(Companies.findOne({ name: newReview.companyName }));
-			}
-		}
 	},
 
 	"reviews.changeVote"(review, vote) {
