@@ -1,17 +1,17 @@
 /*==========  post job page start ============*/
 
 .container.fom-job {
-	padding-left: 10em;
-	padding-right: 10em;
 	padding-bottom: 9px;
-	margin-top: 0px;
+	margin-top: 50px;
 	margin-bottom: 19px;
 	padding-top: 117px;
+	width: 60%;
 }
 
 .fom-siz-post {
 	width: 80%;
 	margin: 0 auto;
+	padding-top: 10px;
 }
 
 textarea.text-area {
@@ -69,5 +69,24 @@ span.kk {
 
 .lk {
 	margin-bottom: 0px !important;
+}
+
+@media (max-width: 768px) {
+	.container.fom-job {
+		padding-bottom: 9px;
+		margin-top: 0px;
+		margin-bottom: 19px;
+		padding-top: 117px;
+		width: 85%;
+	}
+}
+@media (max-width: 428px) {
+	.container.fom-job {
+		padding-bottom: 9px;
+		margin-top: 0px;
+		margin-bottom: 19px;
+		padding-top: 117px;
+		width: 95%;
+	}
 }
 /*=========  post job page end  ========*/

@@ -13,6 +13,9 @@ import { JobAds } from "../../api/data/jobads.js";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/post-a-job.html";
 
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
+
 const paj_form_state = new ReactiveDict();
 paj_form_state.set("formError", "good"); // Shared with AutoForm helpers
 paj_form_state.set("companyId", undefined); // Shared with the React wrapper
@@ -89,8 +92,14 @@ export default class PostAJobForm extends React.Component {
 	}
 	render() {
 		return (
-			<div className="page PostAJobForm">
-				<Blaze template="paj_blaze_form" />
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="page PostAJobForm">
+					<Blaze template="paj_blaze_form" />
+				</div>
+				<Footer />
 			</div>
 		);
 	}
