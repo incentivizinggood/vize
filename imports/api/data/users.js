@@ -1,6 +1,8 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 import SimpleSchema from "simpl-schema";
+import PostgreSQL from "../graphql/connectors/postgresql.js";
+import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
 // The users collection is handled differently than the other collections.
 // It exists by default and has some built-in fields. As such it is not created
@@ -53,6 +55,11 @@ Meteor.users.schema = new SimpleSchema({
 Accounts.onCreateUser(function(options, user) {
 	// Transfer the custom data fields given to Accounts.createUser into the
 	// new user. By default only username, password, and email go though.
+	console.log("OPTIONS");
+	console.log(options);
+	console.log("USER");
+	console.log(user);
+
 	return { ...user, role: options.role };
 });
 
