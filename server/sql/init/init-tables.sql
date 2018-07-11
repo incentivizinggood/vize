@@ -111,7 +111,10 @@ CREATE TABLE users (
 	-- the companyId field in the Mongo document
 	-- corresponding to this user tuple
 	companyMongoId		varchar(50)		UNIQUE,
-	dateAdded			date			DEFAULT now()
+	dateAdded			date			DEFAULT now(),
+	CHECK ( -- can't have workers with company profiles
+		(companyid IS NULL AND companyMongoId IS NULL)
+		OR role='company' OR role='company-unverified')
 );
 
 -- NOTE submittedBy fields are numeric in this implementation,
