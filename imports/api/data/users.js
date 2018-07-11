@@ -55,10 +55,27 @@ Meteor.users.schema = new SimpleSchema({
 Accounts.onCreateUser(function(options, user) {
 	// Transfer the custom data fields given to Accounts.createUser into the
 	// new user. By default only username, password, and email go though.
-	console.log("OPTIONS");
-	console.log(options);
-	console.log("USER");
-	console.log(user);
+	if (Meteor.isDevelopment) {
+		console.log("OPTIONS");
+		console.log(options);
+		console.log("USER");
+		console.log(user);
+	}
+
+	const newUser = PostgreSQL.meteorWrappedAsyncMutation(
+		PgUserFunctions.createUser,
+		[
+			{
+				_id: user._id,
+				role: options.role,
+			},
+		]
+	);
+
+	if (Meteor.isDevelopment) {
+		console.log(newUser);
+		console.log("RETURNING");
+	}
 
 	return { ...user, role: options.role };
 });
