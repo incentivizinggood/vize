@@ -46,18 +46,4 @@ export default class PostgreSQL {
 	static async executeMutation(mutation) {
 		return wrapPgFunction(mutation, false, [...arguments].slice(1));
 	}
-
-	static meteorWrappedAsyncQuery = Meteor.wrapAsync(
-		// args needs to be an array in order for this to work
-		async function(query, args, callback) {
-			return wrapPgFunction(query, true, [...args]);
-		}
-	);
-
-	static meteorWrappedAsyncMutation = Meteor.wrapAsync(
-		// args needs to be an array in order for this to work
-		async function(mutation, args, callback) {
-			return wrapPgFunction(mutation, false, [...args]);
-		}
-	);
 }
