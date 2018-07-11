@@ -62,21 +62,15 @@ Accounts.onCreateUser(function(options, user) {
 		console.log(user);
 	}
 
-	const newUser = PostgreSQL.meteorWrappedAsyncMutation(
-		PgUserFunctions.createUser,
-		[
-			{
-				_id: user._id,
-				role: options.role,
-			},
-		]
-	);
+	const newUser = Meteor.call("postgres.users.createUser", {
+		_id: user._id,
+		role: options.role,
+	});
 
 	if (Meteor.isDevelopment) {
 		console.log(newUser);
 		console.log("RETURNING");
 	}
-
 	return { ...user, role: options.role };
 });
 

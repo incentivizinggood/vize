@@ -16,8 +16,15 @@ import PgJobAdFunctions from "../models/helpers/postgresql/jobads.js";
 import PgSalaryFunctions from "../models/helpers/postgresql/salaries.js";
 import PgVoteFunctions from "../models/helpers/postgresql/votes.js";
 import PgCommentFunctions from "../models/helpers/postgresql/comments.js";
+import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
 Meteor.methods({
+	"postgres.users.createUser"(user, companyPostgresId) {
+		// just trying to get this to work, will
+		// add security and validation later
+		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
+	},
+
 	sendEmail(to, from, subject, text) {
 		if (Meteor.isDevelopment)
 			console.log("SERVER sendEmail: checking arguments");
