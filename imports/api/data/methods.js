@@ -551,8 +551,10 @@ Meteor.methods({
 	//	--> The full solution will require cross-validation
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
-	"companies.createProfile"(newCompanyProfile) {
-		newCompanyProfile = Companies.simpleSchema().clean(newCompanyProfile);
+	async "companies.createProfile"(companyProfile) {
+		const newCompanyProfile = Companies.simpleSchema().clean(
+			companyProfile
+		);
 		const validationResult = Companies.simpleSchema()
 			.namedContext()
 			.validate(newCompanyProfile);
@@ -605,5 +607,22 @@ Meteor.methods({
 		Meteor.users.update(this.userId, {
 			$set: { companyId: newCompanyProfile._id },
 		});
+
+		// insert company to PostgreSQL
+		// update user info in PostgreSQL
+		const newPgCompany = await PostgreSQL.executeMutation(
+			PgCompanyFunctions.createCompany,
+			newCompanyProfile
+		);
+		if (Meteor.isDevelopment) {
+			console.log("NEW PG COMPANY");
+			console.log(newPgCompany);
+		}
+		PostgreSQL.executeMutation(
+			PgUserFunctions.setUserCompanyInfo,
+			this.userId,
+			newPgCompany.company.companyid,
+			newCompanyProfile._id
+		);
 	},
 });
