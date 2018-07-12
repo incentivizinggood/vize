@@ -19,7 +19,7 @@ Meteor.users.schema = new SimpleSchema({
 		unique: true,
 	},
 	username: {
-		type: Number,
+		type: String,
 		unique: true,
 	},
 	emails: { type: Array, optional: true },
@@ -47,7 +47,7 @@ Meteor.users.schema = new SimpleSchema({
 	},
 	companyId: {
 		// If role === "company", the ID of the company that this user is administering.
-		type: String,
+		type: SimpleSchema.Integer,
 		optional: true,
 	},
 });

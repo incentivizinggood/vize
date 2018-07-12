@@ -19,7 +19,7 @@ import PgCommentFunctions from "../models/helpers/postgresql/comments.js";
 import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
 Meteor.methods({
-	"postgres.users.createUser"(user, companyPostgresId) {
+	async "postgres.users.createUser"(user, companyPostgresId) {
 		// just trying to get this to work, will
 		// add security and validation later
 		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
@@ -57,9 +57,9 @@ Meteor.methods({
 		return "all good";
 	},
 
-	"reviews.submitReview"(newReview) {
+	async "reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
-		const cleanReview = Reviews.simpleSchema().clean(newReview);
+		let cleanReview = Reviews.simpleSchema().clean(newReview);
 
 		const validationResult = Reviews.simpleSchema()
 			.namedContext()
@@ -99,10 +99,18 @@ Meteor.methods({
 			);
 		}
 
-		// Mongo ID to Postgres ID translation can be handled
-		// for submittedBy in the helper function
+		const pgUser = await PostgreSQL.executeQuery(
+			PgUserFunctions.getUserById,
+			this.userId
+		);
 
-		// TODO fill in Postgres code here
+		cleanReview.submittedBy = pgUser.user.userid;
+		if (typeof cleanReview.companyId === "string")
+			cleanReview.companyId = undefined;
+		await PostgreSQL.executeMutation(
+			PgReviewFunctions.submitReview,
+			cleanReview
+		);
 
 		/*
 			QUESTION:
