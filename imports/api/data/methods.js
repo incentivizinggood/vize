@@ -18,6 +18,15 @@ import PgVoteFunctions from "../models/helpers/postgresql/votes.js";
 import PgCommentFunctions from "../models/helpers/postgresql/comments.js";
 import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
+/*
+	TODO
+	Every place a method is called
+	that queries the database, the arguments
+	need to be checked (in the code, where they
+	are actually called) for validity and format.
+	Oh my friggin' goodness, this code...
+*/
+
 Meteor.methods({
 	async "postgres.users.createUser"(user, companyPostgresId) {
 		// just trying to get this to work, will
@@ -333,21 +342,42 @@ Meteor.methods({
 		);
 	},
 
-	"jobads.findOne"(jobIdentifier) {
-		const job = JobAds.findOne(jobIdentifier);
-		if (job === undefined) {
+	/*
+		TODO
+		This is another function that can't be
+		tested until the fronted is updated,
+		since it is accessed from the company
+		profile page.
+	*/
+	async "jobads.findOne"(jobIdentifier) {
+		const job = await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdById,
+			jobIdentifier
+		);
+		if (job.jobAd === undefined) {
 			throw new Meteor.Error(
 				i18n.__("common.methods.meteorErrors.notFound"),
 				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
+		/*
+			TODO
+			Format job.jobAd and job.locations into
+			something that matches the SimplSchema.
+			This may have to wait until the schemas
+			are fixed.
+		*/
+
 		return job;
 	},
 
-	"jobads.doesJobAdExist"(jobIdentifier) {
-		const job = JobAds.findOne(jobIdentifier);
-		if (job === undefined) {
+	async "jobads.doesJobAdExist"(jobIdentifier) {
+		const job = await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdById,
+			jobIdentifier
+		);
+		if (job.jobAd === undefined) {
 			throw new Meteor.Error(
 				i18n.__("common.methods.meteorErrors.notFound"),
 				i18n.__("common.methods.errorMessages.notFound")
@@ -357,6 +387,13 @@ Meteor.methods({
 		return "all good";
 	},
 
+	/*
+		TODO
+		This one doesn't write to any of the collections,
+		but it does read from them pretty extensively,
+		so you can probably go ahead and fix it up to
+		start using mostly PostgreSQL.
+	*/
 	"jobads.applyForJob"(jobApplication) {
 		jobApplication = JobAds.applicationSchema.clean(jobApplication);
 		const validationResult = JobAds.applicationSchema
@@ -450,7 +487,7 @@ Meteor.methods({
 		Email.send(applicationEmail);
 	},
 
-	"jobads.postJobAd"(newJobAd) {
+	async "jobads.postJobAd"(newJobAd) {
 		newJobAd = JobAds.simpleSchema().clean(newJobAd);
 		const validationResult = JobAds.simpleSchema()
 			.namedContext()
@@ -489,25 +526,65 @@ Meteor.methods({
 			);
 		}
 
-		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.permissionDenied")
-			);
-		}
+		/*
+			TODO
+			This check will have to be properly re-implemented
+			once you've fixed the other methods, and perhaps the
+			form and schema as well.
+			-> required the job ad company id to have the same type
+				as the user's company id, SimplSchema.integer,
+				which affects the way this form is initially populated,
+				so the changes are going to be mostly in the schema
+			-> also requires that certain company-related methods
+				have been fixed as well
+		*/
+		// if (!(user.companyId && user.companyId === newJobAd.companyId)) {
+		// 	throw new Meteor.Error(
+		// 		i18n.__("common.methods.meteorErrors.rolePermission"),
+		// 		i18n.__("common.methods.errorMessages.permissionDenied")
+		// 	);
+		// }
 
-		JobAds.insert(newJobAd);
+		// For now, since there's no submittedBy field,
+		// we will just assume that newJobAd is properly initialized
+		await PostgreSQL.executeMutation(PgJobAdFunctions.postJobAd, newJobAd);
 	},
 
 	"companies.findOne"(companyIdentifier) {
+		/*
+			TODO
+			Figure out how you actually want to handle
+			these kinds of functions. Finding by ID
+			and finding by name are two different queries
+			in SQL and thus two different helper functions,
+			so you'll either want to make a Mongo-style wrapper
+			(which could be as simple as an if-statement)
+			or split this method in two and refactor all the callers.
+			Honestly, I'd rather go for the second option.
+			Friggin'...this code...at least I wrote it, so
+			there's no one else to blame for it...
+		*/
+		// const company = await PostgreSQL.executeQuery(PgCompanyFunctions.getCompany)
 		const company = Companies.findOne(companyIdentifier);
-		if (company === undefined) {
+		if (company.company === undefined) {
 			throw new Meteor.Error(
 				i18n.__("common.methods.meteorErrors.notFound"),
 				i18n.__("common.methods.errorMessages.notFound")
 			);
 		}
 
+		/*
+			TODO
+			Have to format this object properly
+			Y'know, I probably should write a
+			helper function for that, since taking
+			the locations object and packing it
+			into a locations array field is such
+			a common task.
+			Actually, if I did that then I could
+			call it from the helper functions and
+			drastically simplify the caller's life.
+		*/
 		return company;
 	},
 
