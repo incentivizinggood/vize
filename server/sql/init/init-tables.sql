@@ -108,9 +108,6 @@ CREATE TABLE users (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE SET NULL
 		DEFERRABLE INITIALLY DEFERRED,
-	-- the companyId field in the Mongo document
-	-- corresponding to this user tuple
-	companyMongoId		varchar(50)		UNIQUE,
 	dateAdded			date			DEFAULT now(),
 	CHECK ( -- can't have workers with company profiles
 		(companyid IS NULL AND companyMongoId IS NULL)

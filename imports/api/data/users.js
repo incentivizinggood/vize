@@ -19,7 +19,7 @@ Meteor.users.schema = new SimpleSchema({
 		unique: true,
 	},
 	username: {
-		type: String,
+		type: Number,
 		unique: true,
 	},
 	emails: { type: Array, optional: true },

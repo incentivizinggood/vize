@@ -599,15 +599,6 @@ Meteor.methods({
 			);
 		}
 
-		/* We will probably end up needing more checks here,
-		I just don't immediately know what they need to be. */
-		Companies.insert(newCompanyProfile);
-
-		// If insertion successful, then add companyId field to user account
-		Meteor.users.update(this.userId, {
-			$set: { companyId: newCompanyProfile._id },
-		});
-
 		// insert company to PostgreSQL
 		// update user info in PostgreSQL
 		const newPgCompany = await PostgreSQL.executeMutation(
@@ -618,11 +609,15 @@ Meteor.methods({
 			console.log("NEW PG COMPANY");
 			console.log(newPgCompany);
 		}
-		PostgreSQL.executeMutation(
+		await PostgreSQL.executeMutation(
 			PgUserFunctions.setUserCompanyInfo,
 			this.userId,
-			newPgCompany.company.companyid,
-			newCompanyProfile._id
+			newPgCompany.company.companyid
 		);
+
+		// If insertion successful, then add companyId field to user account
+		Meteor.users.update(this.userId, {
+			$set: { companyId: newPgCompany.company.companyid },
+		});
 	},
 });

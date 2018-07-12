@@ -42,7 +42,7 @@ export default class PgUserFunctions {
 		};
 	}
 
-	static async setUserCompanyInfo(client, userId, companyId, companyMongoId) {
+	static async setUserCompanyInfo(client, userId, companyId) {
 		// Expects a userId (string Mongo id
 		// or integer Postgres id), the company's
 		// integer Postgres id, and the company's
@@ -68,11 +68,11 @@ export default class PgUserFunctions {
 
 		newUser = await client.query(
 			"UPDATE users " +
-				"SET companyid=$1,companymongoid=$2 " +
+				"SET companyid=$1 " +
 				"WHERE " +
 				selector +
-				"=$3 returning *",
-			[companyId, companyMongoId, userId]
+				"=$2 RETURNING *",
+			[companyId, userId]
 		);
 
 		return {
