@@ -59,7 +59,7 @@ Meteor.methods({
 
 	async "reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
-		let cleanReview = Reviews.simpleSchema().clean(newReview);
+		const cleanReview = Reviews.simpleSchema().clean(newReview);
 
 		const validationResult = Reviews.simpleSchema()
 			.namedContext()
@@ -120,7 +120,18 @@ Meteor.methods({
 		*/
 	},
 
-	"reviews.changeVote"(review, vote) {
+	/*
+		TODO
+		I won't be able to test reviews.changeVote in
+		its proper context until the review ID
+		format is changed. Submitting reviews works fine,
+		but this method takes input from the frontend,
+		which doesn't know about the changes yet.
+		Also the schemas and validation will have to
+		be updated as well.
+		Dang.
+	*/
+	async "reviews.changeVote"(review, vote) {
 		console.log(
 			`SERVER: User ${this.userId} voted ${vote} on review ${review._id}`
 		);
@@ -252,9 +263,9 @@ Meteor.methods({
 		return "I VOTED";
 	},
 
-	"salaries.submitSalaryData"(newSalary) {
+	async "salaries.submitSalaryData"(salary) {
 		// This avoids a lot of problems
-		newSalary = Salaries.simpleSchema().clean(newSalary);
+		const newSalary = Salaries.simpleSchema().clean(salary);
 
 		const validationResult = Salaries.simpleSchema()
 			.namedContext()
@@ -295,19 +306,31 @@ Meteor.methods({
 		}
 
 		// TODO: filter by location as well
-		const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
-		if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.duplicateEntry"),
-				i18n.__("common.methods.errorMessages.onlyOnce")
-			);
-		}
+		// const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
+		// if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
+		// 	throw new Meteor.Error(
+		// 		i18n.__("common.methods.meteorErrors.duplicateEntry"),
+		// 		i18n.__("common.methods.errorMessages.onlyOnce")
+		// 	);
+		// }
 
-		console.log("SERVER: inserting");
+		if (Meteor.isDevelopment) console.log("SERVER: inserting");
 
 		// TODO: use upsert to prevent duplicate salaries.
+		// QUESTION: do we actually want to prevent duplicate salaries?
+		//			I was under the impression that we didn't.
 		// Salaries.upsert({userId, companyId, jobTitle, location}, newSalary);
-		Salaries.insert(newSalary);
+		const pgUser = await PostgreSQL.executeQuery(
+			PgUserFunctions.getUserById,
+			this.userId
+		);
+		newSalary.submittedBy = pgUser.user.userid;
+		if (typeof newSalary.companyId === "string")
+			newSalary.companyId = undefined;
+		await PostgreSQL.executeMutation(
+			PgSalaryFunctions.submitSalary,
+			newSalary
+		);
 	},
 
 	"jobads.findOne"(jobIdentifier) {
