@@ -57,7 +57,7 @@ let getCompanyById;
 let companyNameRegexSearch;
 let getAllCompanies;
 let createCompany;
-let assembleCompanyResults;
+let processCompanyResults;
 
 getCompanyByName = async function(client, name) {
 	let companyResults = { rows: [] };
@@ -172,6 +172,7 @@ getAllCompanies = async function(client, skip, limit) {
 createCompany = async function(client, company) {
 	let newCompany = { rows: [] };
 	let newLocations = { rows: [] };
+	let newStats = { rows: [] };
 
 	// assumes that company has the well-known format
 	// from the schema in imports/api/data/companies.js
@@ -219,11 +220,36 @@ createCompany = async function(client, company) {
 	return {
 		company: newCompany.rows[0],
 		locations: newLocations.rows,
+		/*
+			Alas, PostgreSQL does not truly support
+			"READ UNCOMMITTED" transactions, which
+			prevents one from getting the review stats
+			as well if there were already reviews for
+			a company with the name of the new company,
+			but I still want to prevent this function
+			being yet another exception case for the
+			purposes of results-processing, so we give
+			back dummy, default values
+		*/
+		reviewStats: {
+			name: newCompany.rows[0].name,
+			numreviews: 0,
+			avgnummonthsworked: 0,
+			percentrecommended: 0,
+			healthandsafety: 0,
+			managerrelationship: 0,
+			workenvironment: 0,
+			benefits: 0,
+			overallsatisfaction: 0
+		}
 	};
 };
 
-assembleCompanyResults = function(companyResults) {
+processCompanyResults = function(companyResults) {
 	/*
+		Translate directly from model function results
+		to Mongo SimplSchema format
+
 		expects object with fields:
 		company or companies -> singular company, or array of companies
 		locations -> object with arrays indexed by company name
@@ -241,9 +267,7 @@ assembleCompanyResults = function(companyResults) {
 	*/
 
 	// singular company
-	// might be newly-inserted, so don't get
-	// thrown off if reviewStats is undefined
-	if(companyResults.company !== undefined && companyResults.reviewStats !== undefined) {
+	if(companyResults.company !== undefined) {
 		return {
 			_id: Number(companyResults.company.companyid),
 			name: companyResults.company.name,
@@ -267,32 +291,7 @@ assembleCompanyResults = function(companyResults) {
 			avgNumMonthsWorked: Number(companyResults.reviewStats.avgnummonthsworked)
 		};
 	}
-	else if(companyResults.company !== undefined && companyResults.reviewStats === undefined) {
-		return {
-			_id: Number(companyResults.company.companyid),
-			name: companyResults.company.name,
-			contactEmail: companyResults.company.contactemail,
-			dateEstablished: companyResults.company.dateestablished,
-			numEmployees: companyResults.company.numemployees,
-			industry: companyResults.company.industry,
-			locations: companyResults.locations.map(loc => loc.locationname),
-			otherContactInfo: companyResults.company.othercontactinfo,
-			websiteURL: companyResults.company.websiteurl,
-			descriptionOfCompany: companyResults.company.descriptionofcompany,
-			dateJoined: companyResults.company.dateadded,
-			numFlags: Number(companyResults.company.numflags),
-			numReviews: 0,
-			healthAndSafety: 0,
-			managerRelationship: 0,
-			workEnvironment: 0,
-			benefits: 0,
-			overallSatisfaction: 0,
-			percentRecommended: 0,
-			avgNumMonthsWorked: 0
-		};
-	}
 	// array of companies
-	// reviewStats should always be defined
 	else if(companyResults.companies !== undefined) {
 		return companyResults.companies.map(company => {
 			return {
@@ -319,6 +318,7 @@ assembleCompanyResults = function(companyResults) {
 			};
 		});
 	}
+	else return undefined;
 }
 
 let getUserById;
