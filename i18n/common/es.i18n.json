@@ -79,7 +79,7 @@
 		},
 		"paj": {
 			"contractTypes": {
-				"default": "<PLEASE TRANSLATE> (Select One)",
+				"default": "(Seleccione uno)",
 				"fullTime": "Tiempo completo",
 				"partTime": "Medio tiempo",
 				"contractor": "Contratista"
