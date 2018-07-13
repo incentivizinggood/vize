@@ -112,6 +112,7 @@ export default class PgCompanyFunctions {
 	static async createCompany(client, company) {
 		let newCompany = { rows: [] };
 		let newLocations = { rows: [] };
+		let newStats = { rows: [] };
 
 		// assumes that company has the well-known format
 		// from the schema in imports/api/data/companies.js
@@ -159,7 +160,143 @@ export default class PgCompanyFunctions {
 		return {
 			company: newCompany.rows[0],
 			locations: newLocations.rows,
+			/*
+				Alas, PostgreSQL does not truly support
+				"READ UNCOMMITTED" transactions, which
+				prevents one from getting the review stats
+				as well if there were already reviews for
+				a company with the name of the new company,
+				but I still want to prevent this function
+				being yet another exception case for the
+				purposes of results-processing, so we give
+				back dummy, default values
+			*/
+			reviewStats: {
+				name: newCompany.rows[0].name,
+				numreviews: 0,
+				avgnummonthsworked: 0,
+				percentrecommended: 0,
+				healthandsafety: 0,
+				managerrelationship: 0,
+				workenvironment: 0,
+				benefits: 0,
+				overallsatisfaction: 0,
+			},
 		};
+	}
+
+	static processCompanyResults(companyResults) {
+		/*
+			Translate directly from model function results
+			to Mongo SimplSchema format
+
+			expects object with fields:
+			company or companies -> singular company, or array of companies
+			locations -> object with arrays indexed by company name
+			optional reviewStats -> object with objects indexed by company name
+			return array of companies, or dictionary of companies indexed by name?
+			-> array is easier to iterate through
+			-> companies should be in the same order they are given,
+					assumes already sorted
+		*/
+
+		/*
+			This function is super ugly but it works. If someone knows
+			a better more functional-programming way to do this,
+			please let me know or else feel free to fix it yourself.
+		*/
+
+		// singular company
+		if (companyResults.company !== undefined) {
+			return {
+				_id: Number(companyResults.company.companyid),
+				name: companyResults.company.name,
+				contactEmail: companyResults.company.contactemail,
+				dateEstablished: companyResults.company.dateestablished,
+				numEmployees: companyResults.company.numemployees,
+				industry: companyResults.company.industry,
+				locations: companyResults.locations.map(
+					loc => loc.locationname
+				),
+				otherContactInfo: companyResults.company.othercontactinfo,
+				websiteURL: companyResults.company.websiteurl,
+				descriptionOfCompany:
+					companyResults.company.descriptionofcompany,
+				dateJoined: companyResults.company.dateadded,
+				numFlags: Number(companyResults.company.numflags),
+				numReviews: Number(companyResults.reviewStats.numreviews),
+				healthAndSafety: Number(
+					companyResults.reviewStats.healthandsafety
+				),
+				managerRelationship: Number(
+					companyResults.reviewStats.managerrelationship
+				),
+				workEnvironment: Number(
+					companyResults.reviewStats.workenvironment
+				),
+				benefits: Number(companyResults.reviewStats.benefits),
+				overallSatisfaction: Number(
+					companyResults.reviewStats.overallsatisfaction
+				),
+				percentRecommended: Number(
+					companyResults.reviewStats.percentrecommended
+				),
+				avgNumMonthsWorked: Number(
+					companyResults.reviewStats.avgnummonthsworked
+				),
+			};
+		}
+		// array of companies
+		else if (companyResults.companies !== undefined) {
+			return companyResults.companies.map(company => {
+				return {
+					_id: Number(company.companyid),
+					name: company.name,
+					contactEmail: company.contactemail,
+					dateEstablished: company.dateestablished,
+					numEmployees: company.numemployees,
+					industry: company.industry,
+					locations: companyResults.locations[company.name].map(
+						loc => loc.locationname
+					),
+					otherContactInfo: company.othercontactinfo,
+					websiteURL: company.websiteurl,
+					descriptionOfCompany: company.descriptionofcompany,
+					dateJoined: company.dateadded,
+					numFlags: Number(company.numflags),
+					numReviews: Number(
+						companyResults.reviewStats[company.name].numreviews
+					),
+					healthAndSafety: Number(
+						companyResults.reviewStats[company.name].healthandsafety
+					),
+					managerRelationship: Number(
+						companyResults.reviewStats[company.name]
+							.managerrelationship
+					),
+					workEnvironment: Number(
+						companyResults.reviewStats[company.name].workenvironment
+					),
+					benefits: Number(
+						companyResults.reviewStats[company.name].benefits
+					),
+					overallSatisfaction: Number(
+						companyResults.reviewStats[company.name]
+							.overallsatisfaction
+					),
+					percentRecommended: Number(
+						companyResults.reviewStats[company.name]
+							.percentrecommended
+					),
+					avgNumMonthsWorked: Number(
+						companyResults.reviewStats[company.name]
+							.avgnummonthsworked
+					),
+				};
+			});
+		}
+
+		return undefined;
 	}
 
 	// static async editCompany(company) {}
