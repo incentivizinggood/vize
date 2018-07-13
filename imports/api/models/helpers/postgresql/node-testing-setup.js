@@ -728,6 +728,7 @@ let getJobAdById;
 let getAllJobAds;
 let getJobAdsByCompany;
 let postJobAd;
+let processJobAdResults;
 
 getJobAdById = async function(client, id) {
 	let jobAdResults = { rows: [] };
@@ -741,7 +742,7 @@ getJobAdById = async function(client, id) {
 		[id]
 	);
 	return {
-		jobAd: jobAdResults.rows[0],
+		jobad: jobAdResults.rows[0],
 		locations: locationResults.rows
 	};
 };
@@ -837,10 +838,52 @@ postJobAd = async function(client, jobad) {
 	};
 };
 
+processJobAdResults = function(jobAdResults) {
+	/*
+		Expect input object to have fields:
+		jobad or jobads for single ad or array of ads
+		locations
+	*/
+	if(jobAdResults.jobad !== undefined) {
+		const jobad = jobAdResults.jobad;
+		return {
+			_id: Number(jobad.jobadid),
+			companyName: jobad.companyname,
+			companyId: Number(jobad.companyid),
+			jobTitle: jobad.jobtitle,
+			locations: jobAdResults.locations.map(loc => loc.joblocation),
+			pesosPerHour: jobad.pesosperhour,
+			contractType: jobad.contracttype,
+			jobDescription: jobad.jobdescription,
+			responsibilities: jobad.responsibilities,
+			qualifications: jobad.qualifications,
+			datePosted: jobad.dateadded
+		}
+	}
+	else if(jobAdResults.jobads !== undefined) {
+		return jobAdResults.jobads.map(jobad => {
+			return {
+				_id: Number(jobad.jobadid),
+				companyName: jobad.companyname,
+				companyId: Number(jobad.companyid),
+				jobTitle: jobad.jobtitle,
+				locations: jobAdResults.locations[String(jobad.jobadid)].map(loc => loc.joblocation),
+				pesosPerHour: jobad.pesosperhour,
+				contractType: jobad.contracttype,
+				jobDescription: jobad.jobdescription,
+				responsibilities: jobad.responsibilities,
+				qualifications: jobad.qualifications,
+				datePosted: jobad.dateadded
+			};
+		});
+	}
+}
+
 let getCommentById;
 let getAllComments;
 let getCommentsByAuthor;
 let writeComment;
+let processCommentResults;
 
 getCommentById = async function(client, id) {
 	let commentResults = { rows: [] };
@@ -930,6 +973,7 @@ let getAllVotes;
 let getVotesForSubject;
 let getVotesByAuthor;
 let castVote;
+let processVoteResults;
 
 getVoteByPrimaryKey = async function(client, voteKeyFields) {
 	let voteResults = { rows: [] };
