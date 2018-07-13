@@ -411,6 +411,7 @@ let getReviewsByAuthor;
 let getAllReviews;
 let getReviewsForCompany;
 let submitReview;
+let processReviewResults;
 
 getReviewById = async function(client, id) {
 
@@ -533,9 +534,26 @@ submitReview = async function(client, review) {
 	);
 
 	return {
-		review: newReview.rows[0]
+		review: newReview.rows[0],
+		// dummy values to prevent exception case
+		votes: {
+			refersto: newReview.reviewid,
+			upvotes: 0,
+			downvotes: 0
+		}
 	};
 };
+
+processReviewResults = function(reviewResults) {
+	/*
+		Translate from model function results
+		to Mongo SimplSchema format
+
+		Expects object with fields:
+		- review or reviews: singular review or array of reviews
+		- votes: singular or array depending on whether we get review or reviews
+	*/
+}
 
 let getSalaryById;
 let getAllSalaries;

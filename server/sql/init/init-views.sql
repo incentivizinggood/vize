@@ -113,15 +113,36 @@ select
 
 from
 
-	(select refersto,count(value) as upvotes from review_votes
-	group by refersto,value
-	having value='t') as votes1
+	(
+		select * from
+		(
+			(select refersto,count(value) as upvotes from review_votes
+			group by refersto,value
+			having value='t') as votes1
 
-	NATURAL FULL OUTER JOIN
+			NATURAL FULL OUTER JOIN
 
-	(select refersto,count(value) as downvotes from review_votes
-	group by refersto,value
-	having value='f') as votes2;
+			(select refersto,count(value) as downvotes from review_votes
+			group by refersto,value
+			having value='f') as votes2
+		)
+	) as reviewsVoted
+	UNION
+	(
+		select
+
+			reviewid as refersto,
+			0 as upvotes,
+			0 as downvotes
+
+		from
+		(
+			select * from
+			(select reviewid from reviews) as reviewids
+			except
+			(select refersto as reviewid from review_votes)
+		) as reviewsNotVoted
+	);
 
 -- comment upvotes and downvotes -> calculated on review_comments, from votes
 DROP VIEW IF EXISTS comment_vote_counts CASCADE;
@@ -134,31 +155,69 @@ select
 	zero_if_null(downvotes) as downvotes
 
 from
+	(
+		select * from
+		(
+			(select refersto,count(value) as upvotes from comment_votes
+			group by refersto,value
+			having value='t') as votes1
 
-	(select refersto,count(value) as upvotes from comment_votes
-	group by refersto,value
-	having value='t') as votes1
+			NATURAL FULL OUTER JOIN
 
-	NATURAL FULL OUTER JOIN
+			(select refersto,count(value) as downvotes from comment_votes
+			group by refersto,value
+			having value='f') as votes2
+		)
+	) as commentsVoted
+	UNION
+	(
+		select
 
-	(select refersto,count(value) as downvotes from comment_votes
-	group by refersto,value
-	having value='f') as votes2;
+			commentid as refersto,
+			0 as upvotes,
+			0 as downvotes
+
+		from
+		(
+			select * from
+			(select commentid from review_comments) as commentids
+			except
+			(select refersto as commentid from comment_votes)
+		) as commentsNotVoted
+	);
 
 -- job ad counts, can be used to more easily check whether
 -- companies are over their limit
 DROP VIEW IF EXISTS job_post_counts CASCADE;
 CREATE OR REPLACE VIEW job_post_counts AS
 
-select
+select * from
+	(
+		select
 
-	companyname,
-	count(jobadid) as count
+			companyname,
+			count(jobadid) as count
 
-from
+		from
 
-	jobads
+			jobads
 
-group by
+		group by
 
-	companyname;
+			companyname
+	) as companiesPosted
+	UNION
+	(
+		select
+
+			name as companyname,
+			0 as count
+
+		from
+		(
+			select * from
+			(select name from companies) as companyNames
+			except
+			(select companyName as name from jobads)
+		) as companiesNotPosted
+	);
