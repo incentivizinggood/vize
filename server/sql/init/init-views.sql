@@ -2,25 +2,51 @@
 DROP VIEW IF EXISTS company_review_statistics CASCADE;
 CREATE OR REPLACE VIEW company_review_statistics AS
 
-select
+select * from
+	(
+		select
 
-	companyname as name,
-	count(companyname) as numreviews,
-	avg(nummonthsworked) as avgnummonthsworked,
-	avg(wouldrecommend::int) as percentrecommended,
-	avg(healthandsafety) as healthandsafety,
-	avg(managerrelationship) as managerrelationship,
-	avg(workenvironment) as workenvironment,
-	avg(benefits) as benefits,
-	avg(overallsatisfaction) overallsatisfaction
+			companyname as name,
+			count(companyname) as numreviews,
+			avg(nummonthsworked) as avgnummonthsworked,
+			avg(wouldrecommend::int) as percentrecommended,
+			avg(healthandsafety) as healthandsafety,
+			avg(managerrelationship) as managerrelationship,
+			avg(workenvironment) as workenvironment,
+			avg(benefits) as benefits,
+			avg(overallsatisfaction) overallsatisfaction
 
-from
+		from
 
-	reviews
+			reviews
 
-group by
+		group by
 
-	companyname;
+			companyname
+	) as reviewStats
+	UNION
+	(
+		select
+
+			name,
+			0 as numreviews,
+			0 as avgnummonthsworked,
+			0 as percentrecommended,
+			0 as healthandsafety,
+			0 as managerrelationship,
+			0 as workenvironment,
+			0 as benefits,
+			0 as overallsatisfaction
+
+		from
+
+		(
+			select * from
+			(select name from companies) as companyNames
+			except
+			(select companyname as name from reviews)
+		) as companiesNotReviewed
+	);
 
 -- company salary statistics -> calculated on companies, from salaries
 -- NOTE this view is meant to directly satisfy a prototype page

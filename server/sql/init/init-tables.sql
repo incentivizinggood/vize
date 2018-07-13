@@ -110,7 +110,7 @@ CREATE TABLE users (
 		DEFERRABLE INITIALLY DEFERRED,
 	dateAdded			date			DEFAULT now(),
 	CHECK ( -- can't have workers with company profiles
-		(companyid IS NULL AND companyMongoId IS NULL)
+		(companyid IS NULL)
 		OR role='company' OR role='company-unverified')
 );
 

@@ -57,6 +57,7 @@ let getCompanyById;
 let companyNameRegexSearch;
 let getAllCompanies;
 let createCompany;
+let assembleCompanyResults;
 
 getCompanyByName = async function(client, name) {
 	let companyResults = { rows: [] };
@@ -221,6 +222,105 @@ createCompany = async function(client, company) {
 	};
 };
 
+assembleCompanyResults = function(companyResults) {
+	/*
+		expects object with fields:
+		company or companies -> singular company, or array of companies
+		locations -> object with arrays indexed by company name
+		optional reviewStats -> object with objects indexed by company name
+		return array of companies, or dictionary of companies indexed by name?
+		-> array is easier to iterate through
+		-> companies should be in the same order they are given,
+				assumes already sorted
+	*/
+
+	/*
+		This function is super ugly but it works. If someone knows
+		a better more functional-programming way to do this,
+		please let me know or else feel free to fix it yourself.
+	*/
+
+	// singular company
+	// might be newly-inserted, so don't get
+	// thrown off if reviewStats is undefined
+	if(companyResults.company !== undefined && companyResults.reviewStats !== undefined) {
+		return {
+			_id: Number(companyResults.company.companyid),
+			name: companyResults.company.name,
+			contactEmail: companyResults.company.contactemail,
+			dateEstablished: companyResults.company.dateestablished,
+			numEmployees: companyResults.company.numemployees,
+			industry: companyResults.company.industry,
+			locations: companyResults.locations.map(loc => loc.locationname),
+			otherContactInfo: companyResults.company.othercontactinfo,
+			websiteURL: companyResults.company.websiteurl,
+			descriptionOfCompany: companyResults.company.descriptionofcompany,
+			dateJoined: companyResults.company.dateadded,
+			numFlags: Number(companyResults.company.numflags),
+			numReviews: Number(companyResults.reviewStats.numreviews),
+			healthAndSafety: Number(companyResults.reviewStats.healthandsafety),
+			managerRelationship: Number(companyResults.reviewStats.managerrelationship),
+			workEnvironment: Number(companyResults.reviewStats.workenvironment),
+			benefits: Number(companyResults.reviewStats.benefits),
+			overallSatisfaction: Number(companyResults.reviewStats.overallsatisfaction),
+			percentRecommended: Number(companyResults.reviewStats.percentrecommended),
+			avgNumMonthsWorked: Number(companyResults.reviewStats.avgnummonthsworked)
+		};
+	}
+	else if(companyResults.company !== undefined && companyResults.reviewStats === undefined) {
+		return {
+			_id: Number(companyResults.company.companyid),
+			name: companyResults.company.name,
+			contactEmail: companyResults.company.contactemail,
+			dateEstablished: companyResults.company.dateestablished,
+			numEmployees: companyResults.company.numemployees,
+			industry: companyResults.company.industry,
+			locations: companyResults.locations.map(loc => loc.locationname),
+			otherContactInfo: companyResults.company.othercontactinfo,
+			websiteURL: companyResults.company.websiteurl,
+			descriptionOfCompany: companyResults.company.descriptionofcompany,
+			dateJoined: companyResults.company.dateadded,
+			numFlags: Number(companyResults.company.numflags),
+			numReviews: 0,
+			healthAndSafety: 0,
+			managerRelationship: 0,
+			workEnvironment: 0,
+			benefits: 0,
+			overallSatisfaction: 0,
+			percentRecommended: 0,
+			avgNumMonthsWorked: 0
+		};
+	}
+	// array of companies
+	// reviewStats should always be defined
+	else if(companyResults.companies !== undefined) {
+		return companyResults.companies.map(company => {
+			return {
+				_id: Number(company.companyid),
+				name: company.name,
+				contactEmail: company.contactemail,
+				dateEstablished: company.dateestablished,
+				numEmployees: company.numemployees,
+				industry: company.industry,
+				locations: companyResults.locations[company.name].map(loc => loc.locationname),
+				otherContactInfo: company.othercontactinfo,
+				websiteURL: company.websiteurl,
+				descriptionOfCompany: company.descriptionofcompany,
+				dateJoined: company.dateadded,
+				numFlags: Number(company.numflags),
+				numReviews: Number(companyResults.reviewStats[company.name].numreviews),
+				healthAndSafety: Number(companyResults.reviewStats[company.name].healthandsafety),
+				managerRelationship: Number(companyResults.reviewStats[company.name].managerrelationship),
+				workEnvironment: Number(companyResults.reviewStats[company.name].workenvironment),
+				benefits: Number(companyResults.reviewStats[company.name].benefits),
+				overallSatisfaction: Number(companyResults.reviewStats[company.name].overallsatisfaction),
+				percentRecommended: Number(companyResults.reviewStats[company.name].percentrecommended),
+				avgNumMonthsWorked: Number(companyResults.reviewStats[company.name].avgnummonthsworked)
+			};
+		});
+	}
+}
+
 let getUserById;
 let createUser;
 let setUserCompanyInfo;
@@ -230,12 +330,14 @@ getUserById = async function(client, id) {
 	// or a PostgreSQL id (integer)
 	let userResult = { rows: [] };
 	let selector;
-	if(typeof id === "string")
-		selector = "usermongoid";
-	else if(typeof id === "number")
-		selector = "userid";
+	if (typeof id === "string") selector = "usermongoid";
+	else if (typeof id === "number") selector = "userid";
 	else
-		throw new Error("illegal argument type: " + typeof id + " (expects string or number)");
+		throw new Error(
+			"illegal argument type: " +
+				typeof id +
+				" (expects string or number)"
+		);
 
 	userResult = await client.query(
 		"SELECT * FROM users WHERE " + selector + "=$1",
@@ -243,7 +345,7 @@ getUserById = async function(client, id) {
 	);
 
 	return {
-		user: userResult.rows[0]
+		user: userResult.rows[0],
 	};
 }
 
@@ -257,16 +359,16 @@ createUser = async function(client, user, companyPostgresId) {
 	// I want there to at least be the option
 	newUser = await client.query(
 		"INSERT INTO users (userMongoId,role,companyMongoId,companyId) " +
-		"VALUES ($1,$2,$3,$4) RETURNING *",
+			"VALUES ($1,$2,$3,$4) RETURNING *",
 		[user._id, user.role, user.companyId, companyPostgresId]
 	);
 
 	return {
-		user: newUser.rows[0]
+		user: newUser.rows[0],
 	};
 }
 
-setUserCompanyInfo = async function(client,userId,companyId,companyMongoId) {
+setUserCompanyInfo = async function(client, userId, companyId) {
 	// Expects a userId (string Mongo id
 	// or integer Postgres id), the company's
 	// integer Postgres id, and the company's
@@ -281,22 +383,26 @@ setUserCompanyInfo = async function(client,userId,companyId,companyMongoId) {
 	// that case anyway.
 	let newUser = { rows: [] };
 	let selector;
-	if(typeof userId === "string")
-		selector = "usermongoid";
-	else if(typeof userId === "number")
-		selector = "userid";
+	if (typeof userId === "string") selector = "usermongoid";
+	else if (typeof userId === "number") selector = "userid";
 	else
-		throw new Error("illegal argument type: " + typeof userId + " (expects string or number)");
+		throw new Error(
+			"illegal argument type: " +
+				typeof userId +
+				" (expects string or number)"
+		);
 
 	newUser = await client.query(
 		"UPDATE users " +
-		"SET companyid=$1,companymongoid=$2 " +
-		"WHERE " + selector + "=$3 returning *",
-		[companyId,companyMongoId,userId]
+			"SET companyid=$1 " +
+			"WHERE " +
+			selector +
+			"=$2 RETURNING *",
+		[companyId, userId]
 	);
 
 	return {
-		user: newUser.rows[0]
+		user: newUser.rows[0],
 	};
 }
 
