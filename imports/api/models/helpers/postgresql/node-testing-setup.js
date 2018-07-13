@@ -684,6 +684,46 @@ submitSalary = async function (client, salary) {
 	};
 }
 
+processSalaryResults = function(salaryResults) {
+	/*
+		Expects object as argument,
+		with single field:
+		either salary (singular salary) or salaries (array of salaries)
+	*/
+	if(salaryResults.salary !== undefined) {
+		const salary = salaryResults.salary;
+		return {
+			_id: Number(salary.salaryid),
+			submittedby: Number(salary.submittedby),
+			companyName: salary.companyname,
+			companyId: salary.companyid,
+			location: salary.salarylocation,
+			jobTitle: salary.jobtitle,
+			incomeType: salary.incometype,
+			incomeAmount: salary.incomeamount,
+			gender: salary.gender,
+			datePosted: salary.dateadded
+		}
+	}
+	else if(salaryResults.salaries !== undefined) {
+		return salaryResults.salaries.map(salary => {
+			return {
+				_id: Number(salary.salaryid),
+				submittedby: Number(salary.submittedby),
+				companyName: salary.companyname,
+				companyId: salary.companyid,
+				location: salary.salarylocation,
+				jobTitle: salary.jobtitle,
+				incomeType: salary.incometype,
+				incomeAmount: salary.incomeamount,
+				gender: salary.gender,
+				datePosted: salary.dateadded
+			}
+		});
+	}
+	return undefined;
+}
+
 let getJobAdById;
 let getAllJobAds;
 let getJobAdsByCompany;
