@@ -4,8 +4,19 @@
 // it's only ever meant to be run in the Node.js
 // REPL via copy-paste
 
+/*
+	QUESTION
+	Is it acceptable for null-values in certain fields
+	to be converted to 0 by casting to Number in the
+	various process*Results functions?
+*/
+
 const { Pool } = require("pg");
 let pool = new Pool();
+
+let castToNumberIfDefined = function(number) {
+	return (number === undefined || number === null) ? number : Number(number);
+}
 
 let wrapPgFunction;
 let PostgreSQL;
@@ -557,9 +568,9 @@ processReviewResults = function(reviewResults) {
 		const review = reviewResults.review;
 		return {
 			_id: Number(review.reviewid),
-			submittedBy: Number(review.submittedby),
+			submittedBy: castToNumberIfDefined(review.submittedby),
 			companyName: review.companyname,
-			companyId: Number(review.companyid),
+			companyId: castToNumberIfDefined(review.companyid),
 			reviewTitle: review.reviewtitle,
 			location: review.reviewlocation,
 			jobTitle: review.jobtitle,
@@ -582,9 +593,9 @@ processReviewResults = function(reviewResults) {
 		return reviewResults.reviews.map(review => {
 			return {
 				_id: Number(review.reviewid),
-				submittedBy: Number(review.submittedby),
+				submittedBy: castToNumberIfDefined(review.submittedby),
 				companyName: review.companyname,
-				companyId: Number(review.companyid),
+				companyId: castToNumberIfDefined(review.companyid),
 				reviewTitle: review.reviewtitle,
 				location: review.reviewlocation,
 				jobTitle: review.jobtitle,
@@ -694,9 +705,9 @@ processSalaryResults = function(salaryResults) {
 		const salary = salaryResults.salary;
 		return {
 			_id: Number(salary.salaryid),
-			submittedby: Number(salary.submittedby),
+			submittedby: castToNumberIfDefined(salary.submittedby),
 			companyName: salary.companyname,
-			companyId: salary.companyid,
+			companyId: castToNumberIfDefined(salary.companyid),
 			location: salary.salarylocation,
 			jobTitle: salary.jobtitle,
 			incomeType: salary.incometype,
@@ -709,9 +720,9 @@ processSalaryResults = function(salaryResults) {
 		return salaryResults.salaries.map(salary => {
 			return {
 				_id: Number(salary.salaryid),
-				submittedby: Number(salary.submittedby),
+				submittedby: castToNumberIfDefined(salary.submittedby),
 				companyName: salary.companyname,
-				companyId: salary.companyid,
+				companyId: castToNumberIfDefined(salary.companyid),
 				location: salary.salarylocation,
 				jobTitle: salary.jobtitle,
 				incomeType: salary.incometype,
@@ -849,7 +860,7 @@ processJobAdResults = function(jobAdResults) {
 		return {
 			_id: Number(jobad.jobadid),
 			companyName: jobad.companyname,
-			companyId: Number(jobad.companyid),
+			companyId: castToNumberIfDefined(jobad.companyid),
 			jobTitle: jobad.jobtitle,
 			locations: jobAdResults.locations.map(loc => loc.joblocation),
 			pesosPerHour: jobad.pesosperhour,
@@ -865,7 +876,7 @@ processJobAdResults = function(jobAdResults) {
 			return {
 				_id: Number(jobad.jobadid),
 				companyName: jobad.companyname,
-				companyId: Number(jobad.companyid),
+				companyId: castToNumberIfDefined(jobad.companyid),
 				jobTitle: jobad.jobtitle,
 				locations: jobAdResults.locations[String(jobad.jobadid)].map(loc => loc.joblocation),
 				pesosPerHour: jobad.pesosperhour,
@@ -964,8 +975,48 @@ writeComment = async function(client, comment) {
 		[comment.reviewId,comment.submittedBy,comment.content]
 	);
 	return {
-		comment: newComment.rows[0]
+		comment: newComment.rows[0],
+		votes: {
+			refersto: newComment.commentid,
+			upvotes: 0,
+			downvotes: 0
+		}
 	};
+}
+
+processCommentResults = function(commentResults) {
+	/*
+		Expects argument to have fields:
+		comment (singular) or comments(array)
+		and votes (singular or array, depending
+		on comment or comments)
+	*/
+	if(commentResults.comment !== undefined) {
+		const comment = commentResults.comment;
+		return {
+			_id: Number(comment.commentid),
+			datePosted: comment.dateadded,
+			content: comment.content,
+			refersto: Number(comment.reviewid),
+			submittedBy: castToNumberIfDefined(comment.submittedby),
+			upvotes: Number(commentResults.votes.upvotes),
+			downvotes: Number(commentResults.votes.downvotes)
+		};
+	}
+	else if(commentResults.comments !== undefined) {
+		return commentResults.comments.map(comment => {
+			return {
+				_id: Number(comment.commentid),
+				datePosted: comment.dateadded,
+				content: comment.content,
+				refersto: Number(comment.reviewid),
+				submittedBy: castToNumberIfDefined(comment.submittedby),
+				upvotes: Number(commentResults.votes[comment.commentid].upvotes),
+				downvotes: Number(commentResults.votes[comment.commentid].downvotes)
+			};
+		});
+	}
+	return undefined;
 }
 
 let getVoteByPrimaryKey;
