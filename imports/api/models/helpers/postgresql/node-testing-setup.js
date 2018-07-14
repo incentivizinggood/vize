@@ -1035,6 +1035,7 @@ getVoteByPrimaryKey = async function(client, voteKeyFields) {
 		[voteKeyFields.submittedBy, voteKeyFields.references]
 	);
 	return {
+		subject: voteKeyFields.voteSubject,
 		vote: voteResults.rows[0]
 	};
 }
@@ -1066,6 +1067,7 @@ getVotesForSubject = async function(client, subject, refersto, skip, limit) {
 		[refersto,skip,limit]
 	);
 	return {
+		subject: subject,
 		votes: voteResults.rows[0]
 	};
 }
@@ -1100,8 +1102,31 @@ castVote = async function(client, vote) {
 		[vote.references,vote.submittedBy,vote.value]
 	);
 	return {
+		subject: vote.voteSubject,
 		vote: voteResults.rows[0]
 	};
+}
+
+processVoteResults = function(voteResults) {
+	/*
+		Argument can be:
+		vote (singular) or votes (array) and subject,
+		or reviewVotes and commentVotes
+	*/
+	if(voteResults.vote !== undefined &&
+		(voteResults.subject === "review" ||
+		voteResults.subject === "comment")) {
+
+	}
+	else if(voteResults.votes !== undefined &&
+		(voteResults.subject === "review" ||
+		voteResults.subject === "comment")) {
+
+	}
+	else if(voteResults.commentVotes !== undefined &&
+		voteResults.reviewVotes !== undefined) {
+
+	}
 }
 
 let obj;
