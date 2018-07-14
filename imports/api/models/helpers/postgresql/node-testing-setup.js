@@ -1116,17 +1116,26 @@ processVoteResults = function(voteResults) {
 	if(voteResults.vote !== undefined &&
 		(voteResults.subject === "review" ||
 		voteResults.subject === "comment")) {
-
+		const vote = voteResults.vote;
+		return {
+			submittedBy: Number(vote.submittedby),
+			voteSubject: voteResults.subject,
+			references: Number(vote.refersto),
+			value: vote.value,
+			dateAdded: vote.dateadded
+		}
 	}
-	else if(voteResults.votes !== undefined &&
-		(voteResults.subject === "review" ||
-		voteResults.subject === "comment")) {
 
-	}
-	else if(voteResults.commentVotes !== undefined &&
-		voteResults.reviewVotes !== undefined) {
+	// Just realized that the votes case is equivalent
+	// to querying the object the votes are for and discarding
+	// everything about the object except the votes,
+	// which seems kind of pointless. Skipping for now,
+	// and will ignore until we think of some actual use case.
 
-	}
+	// Just realized that the reviewVotes/commentVotes case
+	// goes through the views, just like the votes case.
+	// Not sure how we would need to process the results,
+	// because I'm not sure how it would be used. Skipping for now.
 }
 
 let obj;
