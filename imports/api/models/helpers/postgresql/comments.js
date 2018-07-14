@@ -14,6 +14,8 @@
 	to either the current SimplSchema or the Flow type
 	in models/comment.js.
 */
+import castToNumberIfDefined from "./misc.js";
+
 export default class PgCommentFunctions {
 	static async getCommentById(client, id) {
 		let commentResults = { rows: [] };
@@ -95,7 +97,50 @@ export default class PgCommentFunctions {
 		);
 		return {
 			comment: newComment.rows[0],
+			votes: {
+				refersto: newComment.commentid,
+				upvotes: 0,
+				downvotes: 0,
+			},
 		};
+	}
+
+	static processCommentResults(commentResults) {
+		/*
+			Expects argument to have fields:
+			comment (singular) or comments(array)
+			and votes (singular or array, depending
+			on comment or comments)
+		*/
+		if (commentResults.comment !== undefined) {
+			const comment = commentResults.comment;
+			return {
+				_id: Number(comment.commentid),
+				datePosted: comment.dateadded,
+				content: comment.content,
+				refersto: Number(comment.reviewid),
+				submittedBy: castToNumberIfDefined(comment.submittedby),
+				upvotes: Number(commentResults.votes.upvotes),
+				downvotes: Number(commentResults.votes.downvotes),
+			};
+		} else if (commentResults.comments !== undefined) {
+			return commentResults.comments.map(comment => {
+				return {
+					_id: Number(comment.commentid),
+					datePosted: comment.dateadded,
+					content: comment.content,
+					refersto: Number(comment.reviewid),
+					submittedBy: castToNumberIfDefined(comment.submittedby),
+					upvotes: Number(
+						commentResults.votes[comment.commentid].upvotes
+					),
+					downvotes: Number(
+						commentResults.votes[comment.commentid].downvotes
+					),
+				};
+			});
+		}
+		return undefined;
 	}
 
 	//	editComment

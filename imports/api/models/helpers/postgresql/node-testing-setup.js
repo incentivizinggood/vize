@@ -329,7 +329,7 @@ processCompanyResults = function(companyResults) {
 			};
 		});
 	}
-	else return undefined;
+	return undefined;
 }
 
 let getUserById;
@@ -1110,8 +1110,11 @@ castVote = async function(client, vote) {
 processVoteResults = function(voteResults) {
 	/*
 		Argument can be:
-		vote (singular) or votes (array) and subject,
+		vote (singular) or
+		*IGNORE...*
+		votes (array) and subject,
 		or reviewVotes and commentVotes
+		*...TO HERE*
 	*/
 	if(voteResults.vote !== undefined &&
 		(voteResults.subject === "review" ||
@@ -1136,6 +1139,8 @@ processVoteResults = function(voteResults) {
 	// goes through the views, just like the votes case.
 	// Not sure how we would need to process the results,
 	// because I'm not sure how it would be used. Skipping for now.
+
+	return undefined;
 }
 
 let obj;

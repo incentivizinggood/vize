@@ -1,3 +1,5 @@
+import castToNumberIfDefined from "./misc.js";
+
 export default class PgSalaryFunctions {
 	static async getSalaryById(client, id) {
 		let salaryResults = { rows: [] };
@@ -68,6 +70,45 @@ export default class PgSalaryFunctions {
 		return {
 			salary: newSalary.rows[0],
 		};
+	}
+
+	static processSalaryResults(salaryResults) {
+		/*
+			Expects object as argument,
+			with single field:
+			either salary (singular salary) or salaries (array of salaries)
+		*/
+		if (salaryResults.salary !== undefined) {
+			const salary = salaryResults.salary;
+			return {
+				_id: Number(salary.salaryid),
+				submittedby: castToNumberIfDefined(salary.submittedby),
+				companyName: salary.companyname,
+				companyId: castToNumberIfDefined(salary.companyid),
+				location: salary.salarylocation,
+				jobTitle: salary.jobtitle,
+				incomeType: salary.incometype,
+				incomeAmount: salary.incomeamount,
+				gender: salary.gender,
+				datePosted: salary.dateadded,
+			};
+		} else if (salaryResults.salaries !== undefined) {
+			return salaryResults.salaries.map(salary => {
+				return {
+					_id: Number(salary.salaryid),
+					submittedby: castToNumberIfDefined(salary.submittedby),
+					companyName: salary.companyname,
+					companyId: castToNumberIfDefined(salary.companyid),
+					location: salary.salarylocation,
+					jobTitle: salary.jobtitle,
+					incomeType: salary.incometype,
+					incomeAmount: salary.incomeamount,
+					gender: salary.gender,
+					datePosted: salary.dateadded,
+				};
+			});
+		}
+		return undefined;
 	}
 
 	//	editSalary

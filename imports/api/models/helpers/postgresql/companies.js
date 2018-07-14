@@ -295,7 +295,6 @@ export default class PgCompanyFunctions {
 				};
 			});
 		}
-
 		return undefined;
 	}
 
