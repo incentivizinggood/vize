@@ -54,6 +54,22 @@ if (Meteor.isClient) {
 			}
 			return company.name;
 		},
+		getContractTypeOptions() {
+			return [
+				{
+					label: i18n.__("common.forms.paj.contractTypes.fullTime"),
+					value: "Full time",
+				},
+				{
+					label: i18n.__("common.forms.paj.contractTypes.partTime"),
+					value: "Part time",
+				},
+				{
+					label: i18n.__("common.forms.paj.contractTypes.contractor"),
+					value: "Contractor",
+				},
+			];
+		},
 		hasError() {
 			return paj_form_state.get("formError") !== "good";
 		},
