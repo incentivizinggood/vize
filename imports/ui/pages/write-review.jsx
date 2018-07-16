@@ -13,6 +13,9 @@ import { Reviews } from "../../api/data/reviews.js";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/write-review.html";
 
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
+
 // Weird that I have to import both of these here,
 // rather than import the .html in the .js and just
 // import the .js here, but Meteor complains if I don't,
@@ -106,8 +109,14 @@ export default class WriteReviewForm extends React.Component {
 		wr_form_state.set("companyId", this.props.companyId);
 
 		return (
-			<div className="page WriteReviewForm">
-				<Blaze template="wr_blaze_form" />
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="page WriteReviewForm">
+					<Blaze template="wr_blaze_form" />
+				</div>
+				<Footer />
 			</div>
 		);
 	}

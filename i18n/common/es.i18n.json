@@ -53,7 +53,7 @@
 		"submitForm": "Enviar",
 		"resetForm": "Restablecer formulario",
 		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
-		"companyNotFound": "EMPRESA NO SE ENCUENTRA",
+		"companyNotFound": "ESTA EMPRESA NO SE ENCUENTRA",
 		"afj": {
 			"formTitle": "Solicitar un trabajo",
 			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",
@@ -105,10 +105,9 @@
 			},
 			"formTitle": "Forma Salarial",
 			"companyNamePlaceholder":
-				"Por favor díganos el nombre de la empresa para la que trabajó",
-			"locationPlaceholder":
-				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
-			"jobTitlePlaceholder": "Por favor díganos su título de trabajo allí"
+				"Díganos el nombre de la empresa para la que trabajó",
+			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
+			"jobTitlePlaceholder": "Díganos su título de trabajo en la empresa"
 		},
 		"wr": {
 			"formTitle": "Escribe una Reseña",
@@ -116,16 +115,15 @@
 				"Ingrese el nombre de la compañía que está revisando",
 			"reviewTitlePlaceholder":
 				"Por favor, elija un título para su revisión",
-			"locationPlaceholder":
-				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
+			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
 			"jobTitlePlaceholder":
 				"Ingrese el nombre del puesto que ocupó en esta empresa",
 			"prosPlaceholder":
-				"Cuéntanos algunas ventajas de trabajar para esta empresa. Que te gusto de esta empresa?",
+				"¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona?",
 			"consPlaceholder":
-				"Por favor díganos algunas limitaciones y desventajas de trabajar para esta empresa",
+				"¿Qué fue lo que no te gustó de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
 			"additionalCommentsPlaceholder":
-				"Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
+				"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa."
 		}
 	},
 	"search": {
