@@ -41,22 +41,15 @@ Reviews.schema = new SimpleSchema(
 			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
 		},
 		submittedBy: {
 			// userId of the review author
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true,
-			autoValue() {
-				if (Meteor.isServer) {
-					// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
-					return this.userId;
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -68,7 +61,7 @@ Reviews.schema = new SimpleSchema(
 			max: 100,
 			index: true,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
+				if (this.isSet) {
 					Meteor.call(
 						"companies.isNotSessionError",
 						this.value,
@@ -83,33 +76,14 @@ Reviews.schema = new SimpleSchema(
 							}
 						}
 					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (
-						this.value ===
-							i18n.__("common.forms.companyNotFound") ||
-						this.value === i18n.__("common.forms.pleaseWait")
-					) {
-						return "sessionError";
-					}
 				}
 			},
 		},
 		companyId: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
 			index: true,
-			autoValue() {
-				if (Meteor.isServer && this.field("companyName").isSet) {
-					const company = Companies.findOne({
-						name: this.field("companyName").value,
-					});
-					if (company !== undefined) {
-						return company._id;
-					}
-					return "This company does not have a Vize profile yet";
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -150,7 +124,7 @@ Reviews.schema = new SimpleSchema(
 			optional: false,
 			max: 200,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
+				if (this.isSet) {
 					Meteor.call("hasFiveWords", this.value, (error, result) => {
 						if (!result) {
 							this.validationContext.addValidationErrors([
@@ -161,10 +135,6 @@ Reviews.schema = new SimpleSchema(
 							]);
 						}
 					});
-				} else if (Meteor.isServer && this.isSet) {
-					if (this.value.wordCount() < 5) {
-						return "needsFiveWords";
-					}
 				}
 			},
 		},
@@ -173,7 +143,7 @@ Reviews.schema = new SimpleSchema(
 			optional: false,
 			max: 200,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
+				if (this.isSet) {
 					Meteor.call("hasFiveWords", this.value, (error, result) => {
 						if (!result) {
 							this.validationContext.addValidationErrors([
@@ -184,10 +154,6 @@ Reviews.schema = new SimpleSchema(
 							]);
 						}
 					});
-				} else if (Meteor.isServer && this.isSet) {
-					if (this.value.wordCount() < 5) {
-						return "needsFiveWords";
-					}
 				}
 			},
 		},

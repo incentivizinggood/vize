@@ -114,8 +114,7 @@ Meteor.methods({
 		);
 
 		cleanReview.submittedBy = pgUser.user.userid;
-		if (typeof cleanReview.companyId === "string")
-			cleanReview.companyId = undefined;
+
 		await PostgreSQL.executeMutation(
 			PgReviewFunctions.submitReview,
 			cleanReview
