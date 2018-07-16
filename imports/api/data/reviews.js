@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import { Comments } from "./comments.js";
 import SimpleSchema from "simpl-schema";
@@ -37,7 +38,7 @@ export const Reviews = new Mongo.Collection("Reviews", {
 Reviews.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true,
 			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
