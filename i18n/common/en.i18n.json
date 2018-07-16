@@ -59,7 +59,7 @@
 			"emailPlaceholder": "example@email.com",
 			"phoneNumberPlaceholder": "###-###-####",
 			"clacPlaceholder":
-				"You may fill in this space with anything else that you want to send to the company along with your application",
+				"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			"invalidJobId": "ERROR: INVALID JOB ID"
 		},
 		"ccp": {

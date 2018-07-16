@@ -60,7 +60,8 @@
 			"emailPlaceholder": "ejemplo@gmail.com",
 			"phoneNumberPlaceholder": "###-###-####",
 			"clacPlaceholder":
-				"Puede utilizar este espacio con cualquier otra cosa que desee enviar a la compañía junto con su solicitud",
+				"
+Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
 			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
 		},
 		"ccp": {
