@@ -6,7 +6,7 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
-import { Votes } from "./votes.js";
+// import { Votes } from "./votes.js"; // this isn't used since I brought in the PostgreSQL code
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
@@ -15,7 +15,7 @@ import PgReviewFunctions from "../models/helpers/postgresql/reviews.js";
 import PgJobAdFunctions from "../models/helpers/postgresql/jobads.js";
 import PgSalaryFunctions from "../models/helpers/postgresql/salaries.js";
 import PgVoteFunctions from "../models/helpers/postgresql/votes.js";
-import PgCommentFunctions from "../models/helpers/postgresql/comments.js";
+// import PgCommentFunctions from "../models/helpers/postgresql/comments.js"; // we don't have comments yet
 import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
 /*
