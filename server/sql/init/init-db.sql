@@ -2,5 +2,7 @@
 \i ./server/sql/init/init-functions.sql;
 -- initializes tables, including most foreign key and other constraints
 \i ./server/sql/init/init-tables.sql;
--- triggers last, because they use both the functions and the tables
+-- triggers next, because they use both the functions and the tables
 \i ./server/sql/init/init-triggers.sql;
+-- views last, because they depend on everything else
+\i ./server/sql/init/init-views.sql;

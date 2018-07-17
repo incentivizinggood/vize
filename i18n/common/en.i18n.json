@@ -64,11 +64,10 @@
 		},
 		"ccp": {
 			"formTitle": "Create a New Profile",
-			"namePlaceholder": "Please enter the name of your company",
+			"namePlaceholder": "Enter the name of your company",
 			"emailPlaceholder":
-				"Please provide an email we can reach your company at (example@email.com)",
-			"industryPlaceholder":
-				"Please tell us your company's primary industry",
+				"Provide an email we can reach your company at (example@email.com)",
+			"industryPlaceholder": "Tell us your company's primary industry",
 			"otherContactInfoPlaceholder":
 				"Please enter any additional contact information you'd like to provide us with",
 			"websiteUrlPlaceholder":
@@ -78,21 +77,22 @@
 		},
 		"paj": {
 			"contractTypes": {
+				"default": "(Select One)",
 				"fullTime": "Full time",
 				"partTime": "Part time",
 				"contractor": "Contractor"
 			},
 			"formTitle": "Post a Job",
 			"jobTitlePlaceholder":
-				"Please tell us the title of the position you are advertising",
+				"Tell us the title of the position you are advertising",
 			"payRangePlaceholder":
-				"Enter a value, $.c, or a range of values, $.c - $.c",
+				"Enter a value, $x, or a range of values, $x - $y",
 			"jobDescriptionPlaceholder":
-				"Please enter a formal description of this job",
+				"Enter a formal description of this job",
 			"jobResponsibilitiesPlaceholder":
-				"Please summarize the responsibilities of this position",
+				"Summarize the responsibilities of this position",
 			"jobQualificationsPlaceholder":
-				"Please summarize the qualifications needed for this position",
+				"Summarize the qualifications needed for this position",
 			"profileNotFoundError":
 				"ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
 		},
@@ -104,26 +104,22 @@
 			},
 			"formTitle": "Submit Salary Data",
 			"companyNamePlaceholder":
-				"Please tell us the name of the company you worked for",
-			"locationPlaceholder":
-				"Please tell us where you worked for this company",
-			"jobTitlePlaceholder": "Please tell us your job title there"
+				"Tell us the name of the company you worked for",
+			"locationPlaceholder": "Tell us where you worked for this company",
+			"jobTitlePlaceholder": "Tell us your job title there"
 		},
 		"wr": {
 			"formTitle": "Write a Review",
 			"companyNamePlaceholder":
-				"Please enter the name of the company you're reviewing",
+				"Enter the name of the company you're reviewing",
 			"reviewTitlePlaceholder": "Please choose a title for your review",
-			"locationPlaceholder":
-				"Please tell us where you worked for this company",
+			"locationPlaceholder": "Tell us where you worked for this company",
 			"jobTitlePlaceholder":
-				"Please enter the name of the position you held at this company",
-			"prosPlaceholder":
-				"Please tell us some pros of working for this company",
-			"consPlaceholder":
-				"Please tell us some cons of working for this company",
+				"Enter the name of the position you held at this company",
+			"prosPlaceholder": "Tell us some pros of working for this company",
+			"consPlaceholder": "Tell us some cons of working for this company",
 			"additionalCommentsPlaceholder":
-				"Please enter any additional thoughts or comments you may have"
+				"Enter any additional thoughts or comments you may have"
 		}
 	},
 	"search": {

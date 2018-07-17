@@ -75,22 +75,6 @@ JobAds.schema = new SimpleSchema(
 				omit: true,
 			},
 		},
-		vizeApplyForJobUrl: {
-			type: String,
-			optional: true,
-			denyUpdate: true,
-			autoValue() {
-				if (this.field("_id").isSet) {
-					return Meteor.absoluteUrl(
-						`apply-for-job/?id=${this.field("_id").value}`,
-						{ secure: true }
-					);
-				}
-			},
-			autoform: {
-				omit: true,
-			},
-		},
 		jobTitle: {
 			type: String,
 			max: 100,
@@ -124,11 +108,7 @@ JobAds.schema = new SimpleSchema(
 		contractType: {
 			type: String,
 			optional: false,
-			allowedValues: [
-				i18n.__("common.forms.paj.contractTypes.fullTime"),
-				i18n.__("common.forms.paj.contractTypes.partTime"),
-				i18n.__("common.forms.paj.contractTypes.contractor"),
-			],
+			allowedValues: ["Full time", "Part time", "Contractor"],
 		},
 		jobDescription: {
 			type: String,

@@ -1,0 +1,114 @@
+//---------- Banners ---------//
+.banner, .employer {
+	min-height: 700px;
+	position: relative;
+	z-index: 1;
+}
+
+.banner {
+	background: url(../images/banner-img.jpg) no-repeat 0 0;
+	@include background-size(cover);
+	&::before {
+		@include overlay();
+	}
+	
+	&-text {
+		padding: 19em 0 0;
+		color: $white;
+		
+		@media (max-width: 768px) {
+			padding: 13em 0 0;
+		}
+		
+		&-info {
+			width: 70%;
+			text-align: center;
+			margin: 0 auto;
+			
+			input[type="text"] ::-webkit-input-placeholder,
+			input[type="text"] :-moz-placeholder,
+			input[type="text"] :-ms-input-placeholder,
+			input[type="text"] ::-moz-placeholder {
+				color: #747474;
+				opacity: 1;
+			}
+			
+		}
+		
+		h1 {
+			font-size: 3em;
+			line-height: 1.2em;
+			font-weight: bold;
+			margin-bottom: 40px;
+		}
+		h3 {
+			font-size: 1.5em;
+			margin-top: 1em;
+			letter-spacing: 3px;
+		}
+	}
+}
+
+.about {
+	padding-bottom: 6em;
+	padding-top: 4em;
+	&-banner {
+		min-height: 300px;
+		.banner-text {
+			padding-top: 11em;
+			text-align: center;
+		}
+	}
+	
+	&-info {
+		margin-top: 4em;
+	}
+	
+	&-imgs {
+		padding-left: 0;
+	}
+	
+	img {
+		width: 100%;
+	}
+	
+	.cdoun {
+		margin-top: 20px;
+	}
+	
+	.al{
+		text-align: center;
+	}
+	
+	.about-row p {
+		font-size: 19px;
+		text-align: center;
+		padding-top: 22px;
+		color: #585858;
+	}
+	
+	.emplh3 {
+		font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		line-height: 1.2em;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-weight: 600;
+		font-style: normal;
+		text-align: center;
+		margin-top: 20px;
+	}
+}
+
+.bl {
+	background-color: #f2f2f2;
+	padding-bottom: 104px;
+	padding-top: 4em;
+}
+
+.employer {
+	background: url(../images/about.jpg) no-repeat 0 0;
+	@include background-size(cover);
+}
+
+//--------------------------------------//
