@@ -683,15 +683,17 @@ Meteor.methods({
 			console.log("NEW PG COMPANY");
 			console.log(newPgCompany);
 		}
-		await PostgreSQL.executeMutation(
-			PgUserFunctions.setUserCompanyInfo,
-			this.userId,
-			newPgCompany.company.companyid
-		);
+		if (newPgCompany.company !== undefined) {
+			await PostgreSQL.executeMutation(
+				PgUserFunctions.setUserCompanyInfo,
+				this.userId,
+				newPgCompany.company.companyid
+			);
 
-		// If insertion successful, then add companyId field to user account
-		Meteor.users.update(this.userId, {
-			$set: { companyId: newPgCompany.company.companyid },
-		});
+			// If insertion successful, then add companyId field to user account
+			Meteor.users.update(this.userId, {
+				$set: { companyId: newPgCompany.company.companyid },
+			});
+		}
 	},
 });
