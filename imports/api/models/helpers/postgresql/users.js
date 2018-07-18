@@ -32,9 +32,9 @@ export default class PgUserFunctions {
 		// be undefined, but this is perfectly okay,
 		// I want there to at least be the option
 		newUser = await client.query(
-			"INSERT INTO users (userMongoId,role,companyMongoId,companyId) " +
-				"VALUES ($1,$2,$3,$4) RETURNING *",
-			[user._id, user.role, user.companyId, companyPostgresId]
+			"INSERT INTO users (userMongoId,role,companyId) " +
+				"VALUES ($1,$2,$3) RETURNING *",
+			[user._id, user.role, companyPostgresId]
 		);
 
 		return {
