@@ -42,9 +42,8 @@ wrapPgFunction = async function(func, readOnly) {
 
 		await client.query("COMMIT");
 	} catch (e) {
-		console.log(e);
+		console.error("ERROR IN WRAPPER",e.message)
 		await client.query("ROLLBACK");
-		throw e;
 	} finally {
 		await client.release();
 	}
@@ -194,71 +193,77 @@ createCompany = async function(client, company) {
 
 	// assumes that company has the well-known format
 	// from the schema in imports/api/data/companies.js
-	newCompany = await client.query(
-		"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
-			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
-		[
-			company.name,
-			company.dateEstablished,
-			company.industry,
-			company.otherContactInfo,
-			company.descriptionOfCompany,
-			company.numEmployees,
-			company.contactEmail,
-			company.websiteURL,
-		]
-	);
+	try {
+		newCompany = await client.query(
+			"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
+			[
+				company.name,
+				company.dateEstablished,
+				company.industry,
+				company.otherContactInfo,
+				company.descriptionOfCompany,
+				company.numEmployees,
+				company.contactEmail,
+				company.websiteURL,
+			]
+		);
 
-	// screw functional programming
-	const id = newCompany.rows[0].companyid;
-	let insertValues = [];
-	let insertValueString = "";
-	let index = 0;
-	for (let location of company.locations) {
-		insertValues.push(id, location);
-		insertValueString =
-			insertValueString +
-			"($" +
-			(index + 1) +
-			",$" +
-			(index + 2) +
-			"),";
-		index += 2;
-	}
-	insertValueString = insertValueString.slice(0, -1);
+		if (newCompany.rows.length > 0) {
+			// screw functional programming
+			const id = newCompany.rows[0].companyid;
+			let insertValues = [];
+			let insertValueString = "";
+			let index = 0;
+			for (let location of company.locations) {
+				insertValues.push(id, location);
+				insertValueString =
+					insertValueString +
+					"($" +
+					(index + 1) +
+					",$" +
+					(index + 2) +
+					"),";
+				index += 2;
+			}
+			insertValueString = insertValueString.slice(0, -1);
 
-	newLocations = await client.query(
-		"INSERT INTO company_locations (companyid,locationname) " +
-			"VALUES " +
-			insertValueString +
-			" RETURNING *",
-		insertValues
-	);
-
-	return {
-		company: newCompany.rows[0],
-		locations: newLocations.rows,
-		/*
-			Alas, PostgreSQL does not truly support
-			"READ UNCOMMITTED" transactions, which
-			prevents one from getting the review stats
-			as well if there were already reviews for
-			a company with the name of the new company,
-			but I still want to prevent this function
-			being yet another exception case for the
-			purposes of results-processing, so we give
-			back dummy, default values
-		*/
-		reviewStats: {
-			name: newCompany.rows[0].name,
-			numreviews: 0,
-			avgnummonthsworked: 0,
-			percentrecommended: 0,
-			healthandsafety: 0,
-			managerrelationship: 0,
-			workenvironment: 0,
-			benefits: 0,
-			overallsatisfaction: 0
+			newLocations = await client.query(
+				"INSERT INTO company_locations (companyid,locationname) " +
+					"VALUES " +
+					insertValueString +
+					" RETURNING *",
+				insertValues
+			);
+		}
+	} catch (e) {
+		console.error("ERROR IN MODEL HELPER", e.message);
+	} finally {
+		return {
+			company: newCompany.rows[0],
+			locations: newLocations.rows,
+			/*
+				Alas, PostgreSQL does not truly support
+				"READ UNCOMMITTED" transactions, which
+				prevents one from getting the review stats
+				as well if there were already reviews for
+				a company with the name of the new company,
+				but I still want to prevent this function
+				being yet another exception case for the
+				purposes of results-processing, so we give
+				back dummy, default values
+			*/
+			reviewStats: {
+				name: (newCompany.rows.length > 0) ? newCompany.rows[0].name : "",
+				numreviews: 0,
+				avgnummonthsworked: 0,
+				percentrecommended: 0,
+				healthandsafety: 0,
+				managerrelationship: 0,
+				workenvironment: 0,
+				benefits: 0,
+				overallsatisfaction: 0
+			}
 		}
 	};
 };
