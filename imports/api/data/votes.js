@@ -16,28 +16,18 @@ export const Votes = new Mongo.Collection("Votes", { idGeneration: "STRING" });
 
 Votes.schema = new SimpleSchema(
 	{
-		_id: {
-			type: String,
-			optional: true,
-			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
-		},
 		submittedBy: {
 			// userId of the review author
-			type: String,
-			index: true,
-			denyUpdate: true,
+			type: SimpleSchema.Integer,
 			optional: false,
 		},
 		voteSubject: {
 			type: String,
-			index: true,
 			optional: false,
 			allowedValues: ["review", "comment"],
 		},
 		references: {
-			type: String,
-			index: true,
+			type: SimpleSchema.Integer,
 			optional: false,
 		},
 		value: {

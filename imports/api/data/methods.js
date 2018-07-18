@@ -512,20 +512,6 @@ Meteor.methods({
 	},
 
 	async "companies.findOne"(companyIdentifier) {
-		/*
-			TODO
-			Figure out how you actually want to handle
-			these kinds of functions. Finding by ID
-			and finding by name are two different queries
-			in SQL and thus two different helper functions,
-			so you'll either want to make a Mongo-style wrapper
-			(which could be as simple as an if-statement)
-			or split this method in two and refactor all the callers.
-			Honestly, I'd rather go for the second option.
-			Friggin'...this code...at least I wrote it, so
-			there's no one else to blame for it...
-		*/
-		// const company = await PostgreSQL.executeQuery(PgCompanyFunctions.getCompany)
 		let company = {};
 		if (typeof companyIdentifier === "string")
 			company = await PostgreSQL.executeQuery(
