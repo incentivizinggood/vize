@@ -44,6 +44,7 @@ wrapPgFunction = async function(func, readOnly) {
 	} catch (e) {
 		console.log(e);
 		await client.query("ROLLBACK");
+		throw e;
 	} finally {
 		await client.release();
 	}
@@ -72,21 +73,24 @@ let processCompanyResults;
 
 getCompanyByName = async function(client, name) {
 	let companyResults = { rows: [] };
-	let locationResults = { rows: [] };
+	let locationResults = { rows: undefined };
 	let statResults = { rows: [] };
 
 	companyResults = await client.query(
 		"SELECT * FROM companies WHERE name=$1",
 		[name]
 	);
-	locationResults = await client.query(
-		"SELECT * FROM company_locations WHERE companyid=$1",
-		[companyResults.rows[0].companyid]
-	);
-	statResults = await client.query(
-		"SELECT * FROM company_review_statistics WHERE name=$1",
-		[name]
-	);
+
+	if(companyResults.rows.length > 0) {
+		locationResults = await client.query(
+			"SELECT * FROM company_locations WHERE companyid=$1",
+			[companyResults.rows[0].companyid]
+		);
+		statResults = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[name]
+		);
+	}
 
 	return {
 		company: companyResults.rows[0],
@@ -97,21 +101,24 @@ getCompanyByName = async function(client, name) {
 
 getCompanyById = async function(client, id) {
 	let companyResults = { rows: [] };
-	let locationResults = { rows: [] };
+	let locationResults = { rows: undefined };
 	let statResults = { rows: [] };
 
 	companyResults = await client.query(
 		"SELECT * FROM companies WHERE companyid=$1",
 		[id]
 	);
-	locationResults = await client.query(
-		"SELECT * FROM company_locations WHERE companyid=$1",
-		[id]
-	);
-	statResults = await client.query(
-		"SELECT * FROM company_review_statistics WHERE name=$1",
-		[companyResults.rows[0].name]
-	);
+
+	if (companyResults.rows.length > 0) {
+		locationResults = await client.query(
+			"SELECT * FROM company_locations WHERE companyid=$1",
+			[id]
+		);
+		statResults = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[companyResults.rows[0].name]
+		);
+	}
 
 	return {
 		company: companyResults.rows[0],

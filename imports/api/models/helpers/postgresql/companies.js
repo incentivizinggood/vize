@@ -4,18 +4,29 @@ export default class PgCompanyFunctions {
 		let locationResults = { rows: [] };
 		let statResults = { rows: [] };
 
+		console.log("FINDING COMPANY BY NAME: " + name);
+
 		companyResults = await client.query(
 			"SELECT * FROM companies WHERE name=$1",
 			[name]
 		);
+
+		console.log("COMPANY RESULTS");
+		console.log(companyResults);
+
 		locationResults = await client.query(
 			"SELECT * FROM company_locations WHERE companyid=$1",
 			[companyResults.rows[0].companyid]
 		);
+
+		console.log(locationResults);
+
 		statResults = await client.query(
 			"SELECT * FROM company_review_statistics WHERE name=$1",
 			[name]
 		);
+
+		console.log(statResults);
 
 		return {
 			company: companyResults.rows[0],
