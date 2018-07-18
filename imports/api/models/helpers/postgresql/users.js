@@ -13,14 +13,18 @@ export default class PgUserFunctions {
 					" (expects string or number)"
 			);
 
-		userResult = await client.query(
-			"SELECT * FROM users WHERE " + selector + "=$1",
-			[id]
-		);
-
-		return {
-			user: userResult.rows[0],
-		};
+		try {
+			userResult = await client.query(
+				"SELECT * FROM users WHERE " + selector + "=$1",
+				[id]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				user: userResult.rows[0],
+			};
+		}
 	}
 
 	static async createUser(client, user, companyPostgresId) {
@@ -28,18 +32,22 @@ export default class PgUserFunctions {
 		// imports/api/data/users.js
 		let newUser = { rows: [] };
 
-		// Some of the arguments and insertion values may
-		// be undefined, but this is perfectly okay,
-		// I want there to at least be the option
-		newUser = await client.query(
-			"INSERT INTO users (userMongoId,role,companyId) " +
-				"VALUES ($1,$2,$3) RETURNING *",
-			[user._id, user.role, companyPostgresId]
-		);
-
-		return {
-			user: newUser.rows[0],
-		};
+		try {
+			// Some of the arguments and insertion values may
+			// be undefined, but this is perfectly okay,
+			// I want there to at least be the option
+			newUser = await client.query(
+				"INSERT INTO users (userMongoId,role,companyMongoId,companyId) " +
+					"VALUES ($1,$2,$3,$4) RETURNING *",
+				[user._id, user.role, user.companyId, companyPostgresId]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				user: newUser.rows[0],
+			};
+		}
 	}
 
 	static async setUserCompanyInfo(client, userId, companyId) {
@@ -66,17 +74,21 @@ export default class PgUserFunctions {
 					" (expects string or number)"
 			);
 
-		newUser = await client.query(
-			"UPDATE users " +
-				"SET companyid=$1 " +
-				"WHERE " +
-				selector +
-				"=$2 RETURNING *",
-			[companyId, userId]
-		);
-
-		return {
-			user: newUser.rows[0],
-		};
+		try {
+			newUser = await client.query(
+				"UPDATE users " +
+					"SET companyid=$1 " +
+					"WHERE " +
+					selector +
+					"=$2 RETURNING *",
+				[companyId, userId]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				user: newUser.rows[0],
+			};
+		}
 	}
 }

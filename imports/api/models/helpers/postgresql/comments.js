@@ -21,88 +21,105 @@ export default class PgCommentFunctions {
 		let commentResults = { rows: [] };
 		let voteResults = { rows: [] };
 
-		commentResults = await client.query(
-			"SELECT * FROM review_comments WHERE commentid=$1",
-			[id]
-		);
+		try {
+			commentResults = await client.query(
+				"SELECT * FROM review_comments WHERE commentid=$1",
+				[id]
+			);
 
-		voteResults = await client.query(
-			"SELECT * FROM comment_vote_counts WHERE refersto=$1",
-			[id]
-		);
-
-		return {
-			comment: commentResults.rows[0],
-			votes: voteResults.rows[0],
-		};
+			voteResults = await client.query(
+				"SELECT * FROM comment_vote_counts WHERE refersto=$1",
+				[id]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				comment: commentResults.rows[0],
+				votes: voteResults.rows[0],
+			};
+		}
 	}
 
 	static async getAllComments(client, skip, limit) {
 		let commentResults = { rows: [] };
 		let voteResults = {};
 
-		commentResults = await client.query(
-			"SELECT * FROM review_comments OFFSET $1 LIMIT $2",
-			[skip, limit]
-		);
-
-		for (let comment of commentResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM comment_vote_counts WHERE refersto=$1",
-				[comment.commentid]
+		try {
+			commentResults = await client.query(
+				"SELECT * FROM review_comments OFFSET $1 LIMIT $2",
+				[skip, limit]
 			);
 
-			voteResults[comment.commentid] = votes.rows[0];
-		}
+			for (let comment of commentResults.rows) {
+				let votes = await client.query(
+					"SELECT * FROM comment_vote_counts WHERE refersto=$1",
+					[comment.commentid]
+				);
 
-		return {
-			comments: commentResults.rows,
-			votes: voteResults,
-		};
+				voteResults[comment.commentid] = votes.rows[0];
+			}
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				comments: commentResults.rows,
+				votes: voteResults,
+			};
+		}
 	}
 
 	static async getCommentsByAuthor(client, id, skip, limit) {
 		let commentResults = { rows: [] };
 		let voteResults = {};
 
-		commentResults = await client.query(
-			"SELECT * FROM review_comments WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
-		);
-
-		for (let comment of commentResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM comment_vote_counts WHERE refersto=$1",
-				[comment.commentid]
+		try {
+			commentResults = await client.query(
+				"SELECT * FROM review_comments WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+				[id, skip, limit]
 			);
 
-			voteResults[comment.commentid] = votes.rows[0];
-		}
+			for (let comment of commentResults.rows) {
+				let votes = await client.query(
+					"SELECT * FROM comment_vote_counts WHERE refersto=$1",
+					[comment.commentid]
+				);
 
-		return {
-			comments: commentResults.rows,
-			votes: voteResults,
-		};
+				voteResults[comment.commentid] = votes.rows[0];
+			}
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				comments: commentResults.rows,
+				votes: voteResults,
+			};
+		}
 	}
 
 	static async writeComment(client, comment) {
 		// assumes that the comment follows a SimplSchema-esque
 		// JSON format, and that it has no flags, upvotes, or
 		// downvotes yet
-		let newComment = { rows: [] };
-		newComment = await client.query(
-			"INSERT INTO review_comments (reviewid,submittedby,content)" +
-				"VALUES ($1,$2,$3) RETURNING *",
-			[comment.reviewId, comment.submittedBy, comment.content]
-		);
-		return {
-			comment: newComment.rows[0],
-			votes: {
-				refersto: newComment.commentid,
-				upvotes: 0,
-				downvotes: 0,
-			},
-		};
+		try {
+			let newComment = { rows: [] };
+			newComment = await client.query(
+				"INSERT INTO review_comments (reviewid,submittedby,content)" +
+					"VALUES ($1,$2,$3) RETURNING *",
+				[comment.reviewId, comment.submittedBy, comment.content]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				comment: newComment.rows[0],
+				votes: {
+					refersto: newComment.commentid,
+					upvotes: 0,
+					downvotes: 0,
+				},
+			};
+		}
 	}
 
 	static processCommentResults(commentResults) {

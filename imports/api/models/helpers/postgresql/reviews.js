@@ -5,92 +5,108 @@ export default class PgReviewFunctions {
 		let reviewResults = { rows: [] };
 		let voteResults = { rows: [] };
 
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE reviewid=$1",
-			[id]
-		);
+		try {
+			reviewResults = await client.query(
+				"SELECT * FROM reviews WHERE reviewid=$1",
+				[id]
+			);
 
-		voteResults = await client.query(
-			"SELECT * FROM review_vote_counts WHERE refersto=$1",
-			[id]
-		);
-
-		return {
-			review: reviewResults.rows[0],
-			votes: voteResults.rows[0],
-		};
+			voteResults = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[id]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				review: reviewResults.rows[0],
+				votes: voteResults.rows[0],
+			};
+		}
 	}
 
 	static async getReviewsByAuthor(client, id, skip, limit) {
 		let reviewResults = { rows: [] };
 		let voteResults = {};
 
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
-		);
-
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
+		try {
+			reviewResults = await client.query(
+				"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+				[id, skip, limit]
 			);
 
-			voteResults[review.reviewid] = votes.rows[0];
-		}
+			for (let review of reviewResults.rows) {
+				let votes = await client.query(
+					"SELECT * FROM review_vote_counts WHERE refersto=$1",
+					[review.reviewid]
+				);
 
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+				voteResults[review.reviewid] = votes.rows[0];
+			}
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				reviews: reviewResults.rows,
+				votes: voteResults,
+			};
+		}
 	}
 
 	static async getAllReviews(client, skip, limit) {
 		let reviewResults = { rows: [] };
 		let voteResults = {};
 
-		reviewResults = await client.query(
-			"SELECT * FROM reviews OFFSET $1 LIMIT $2",
-			[skip, limit]
-		);
-
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
+		try {
+			reviewResults = await client.query(
+				"SELECT * FROM reviews OFFSET $1 LIMIT $2",
+				[skip, limit]
 			);
 
-			voteResults[review.reviewid] = votes.rows[0];
-		}
+			for (let review of reviewResults.rows) {
+				let votes = await client.query(
+					"SELECT * FROM review_vote_counts WHERE refersto=$1",
+					[review.reviewid]
+				);
 
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+				voteResults[review.reviewid] = votes.rows[0];
+			}
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				reviews: reviewResults.rows,
+				votes: voteResults,
+			};
+		}
 	}
 
 	static async getReviewsForCompany(client, name, skip, limit) {
 		let reviewResults = { rows: [] };
 		let voteResults = {};
 
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[name, skip, limit]
-		);
-
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
+		try {
+			reviewResults = await client.query(
+				"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
+				[name, skip, limit]
 			);
 
-			voteResults[review.reviewid] = votes.rows[0];
-		}
+			for (let review of reviewResults.rows) {
+				let votes = await client.query(
+					"SELECT * FROM review_vote_counts WHERE refersto=$1",
+					[review.reviewid]
+				);
 
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+				voteResults[review.reviewid] = votes.rows[0];
+			}
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				reviews: reviewResults.rows,
+				votes: voteResults,
+			};
+		}
 	}
 
 	static async submitReview(client, review) {
@@ -101,43 +117,47 @@ export default class PgReviewFunctions {
 
 		let newReview = { rows: [] };
 
-		newReview = await client.query(
-			"INSERT INTO reviews " +
-				"(submittedBy,companyName,companyId,reviewLocation," +
-				"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
-				"wouldRecommend,healthAndSafety,managerRelationship," +
-				"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
-				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
-				"RETURNING *",
-			[
-				review.submittedBy,
-				review.companyName,
-				review.companyId,
-				review.location,
-				review.reviewTitle,
-				review.jobTitle,
-				review.numberOfMonthsWorked,
-				review.pros,
-				review.cons,
-				review.wouldRecommendToOtherJobSeekers,
-				review.healthAndSafety,
-				review.managerRelationship,
-				review.workEnvironment,
-				review.benefits,
-				review.overallSatisfaction,
-				review.additionalComments,
-			]
-		);
-
-		return {
-			review: newReview.rows[0],
-			// dummy values to prevent exception case
-			votes: {
-				refersto: newReview.rows[0].reviewid,
-				upvotes: 0,
-				downvotes: 0,
-			},
-		};
+		try {
+			newReview = await client.query(
+				"INSERT INTO reviews " +
+					"(submittedBy,companyName,companyId,reviewLocation," +
+					"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
+					"wouldRecommend,healthAndSafety,managerRelationship," +
+					"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
+					"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
+					"RETURNING *",
+				[
+					review.submittedBy,
+					review.companyName,
+					review.companyId,
+					review.location,
+					review.reviewTitle,
+					review.jobTitle,
+					review.numberOfMonthsWorked,
+					review.pros,
+					review.cons,
+					review.wouldRecommendToOtherJobSeekers,
+					review.healthAndSafety,
+					review.managerRelationship,
+					review.workEnvironment,
+					review.benefits,
+					review.overallSatisfaction,
+					review.additionalComments,
+				]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return {
+				review: newReview.rows[0],
+				// dummy values to prevent exception case
+				votes: {
+					refersto: newReview.rows[0].reviewid,
+					upvotes: 0,
+					downvotes: 0,
+				},
+			};
+		}
 	}
 
 	static processReviewResults(reviewResults) {
