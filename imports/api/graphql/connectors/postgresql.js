@@ -38,6 +38,55 @@ const wrapPgFunction = async function(func, readOnly) {
 	return result;
 };
 
+/*
+	Current Mongo publications, so we have an idea
+	of what we're trying to replace:
+	Companies:
+	Meteor.publish("CompanyProfiles", function() {
+		return Companies.find({});
+	});
+	Reviews:
+	Meteor.publish("Reviews", function() {
+		return Reviews.find({});
+	});
+	JobAds:
+	Meteor.publish("JobAds", function() {
+		return JobAds.find({});
+	});
+	Salaries:
+	Meteor.publish("Salaries", function() {
+		return Salaries.find({});
+	});
+	Comments:
+	Meteor.publish("Comments", function() {
+		return Comments.find({});
+	});
+	Votes:
+	Meteor.publish("Votes", function() {
+		return Votes.find({});
+	});
+
+	...so basically, the only publication that restricts
+	its fields is the only publication that would still
+	be using Mongo to do so: Meteor.Users
+
+	However, votes and locations make this a bit more complicated.
+	We can certainly subscribe to views, and we can certainly use
+	the subscribe functions to process the results.
+
+	...I guess we would also need a good idea of what kind
+	of subscriptions we're trying to replace. Here are some
+	data needs from around the block:
+	- count of job posts by company
+	- count of salaries posted for a company
+	- individual companies (processed)
+	- all reviews for a company (processed)
+	- all job ads by a company (processed)
+	- all salaries for a company (processed)
+	- votes by a certain user on reviews for a certain company
+
+*/
+
 export default class PostgreSQL {
 	static async executeQuery(query) {
 		return wrapPgFunction(query, true, [...arguments].slice(1));
