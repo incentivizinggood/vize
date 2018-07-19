@@ -39,20 +39,30 @@ Salaries.schema = new SimpleSchema(
 			index: true,
 			custom() {
 				if (this.isSet) {
-					Meteor.call(
-						"companies.isNotSessionError",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "sessionError",
-									},
-								]);
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.isNotSessionError",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "sessionError",
+										},
+									]);
+								}
 							}
-						}
-					);
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.isNotSessionError",
+								this.value
+							)
+						)
+							return "sessionError";
+					}
 				}
 			},
 		},
@@ -98,7 +108,6 @@ Salaries.schema = new SimpleSchema(
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
