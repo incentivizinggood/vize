@@ -13,29 +13,6 @@ export const Companies = new Mongo.Collection("CompanyProfiles", {
 	idGeneration: "STRING",
 });
 
-// Add helper functions directly to the Companies collection object
-// convert _id or name into a proper Mongo-style selector
-Companies.getSelector = function(companyIdentifier) {
-	if (typeof companyIdentifier === "string")
-		return { name: companyIdentifier };
-	else if (typeof companyIdentifier === "object")
-		// assumes type of Mongo.ObjectId for _id if not string for name
-		return { _id: companyIdentifier };
-	// don't have to wrap _id in a selector, but should do so for security anyway
-	return undefined;
-};
-
-// simple existence check//
-Companies.hasEntry = function(companyIdentifier) {
-	// Test whether a company exists yet in the
-	// CompanyProfiles collection.
-	// Returns true if the company is found, false otherwise.
-	return (
-		Companies.findOne(Companies.getSelector(companyIdentifier)) !==
-		undefined
-	);
-};
-
 Companies.schema = new SimpleSchema(
 	{
 		_id: {
