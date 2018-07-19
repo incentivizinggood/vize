@@ -40,7 +40,6 @@ Reviews.schema = new SimpleSchema(
 		_id: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
 			autoform: {
 				omit: true,
 			},
@@ -49,7 +48,6 @@ Reviews.schema = new SimpleSchema(
 			// userId of the review author
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
 			autoform: {
 				omit: true,
 			},
@@ -59,7 +57,6 @@ Reviews.schema = new SimpleSchema(
 			type: String, // case, company names are indexed so we may as well use
 			optional: false, // use this instead of companyID
 			max: 100,
-			index: true,
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {
@@ -92,8 +89,6 @@ Reviews.schema = new SimpleSchema(
 		companyId: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
-			index: true,
 			autoform: {
 				omit: true,
 			},
@@ -270,7 +265,6 @@ Reviews.schema = new SimpleSchema(
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
