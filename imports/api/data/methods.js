@@ -58,12 +58,9 @@ Meteor.methods({
 			typeof inputString !== "string" ||
 			inputString.wordCount() < 5
 		) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.needsFiveWords"),
-				i18n.__("common.methods.errorMessages.needsFiveWords")
-			);
+			return false;
 		}
-		return "all good";
+		return true;
 	},
 
 	async "reviews.submitReview"(newReview) {
