@@ -569,13 +569,9 @@ Meteor.methods({
 			companyNameString === i18n.__("common.forms.companyNotFound") ||
 			companyNameString === i18n.__("common.forms.pleaseWait")
 		) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.sessionError"),
-				i18n.__("common.methods.errorMessages.sessionError")
-			);
+			return false;
 		}
-
-		return "all good";
+		return true;
 	},
 
 	async "companies.doesCompanyWithNameNotExist"(companyName) {

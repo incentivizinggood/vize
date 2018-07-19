@@ -62,20 +62,30 @@ Reviews.schema = new SimpleSchema(
 			index: true,
 			custom() {
 				if (this.isSet) {
-					Meteor.call(
-						"companies.isNotSessionError",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "sessionError",
-									},
-								]);
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.isNotSessionError",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "sessionError",
+										},
+									]);
+								}
 							}
-						}
-					);
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.isNotSessionError",
+								this.value
+							)
+						)
+							return "sessionError";
+					}
 				}
 			},
 		},
@@ -125,16 +135,25 @@ Reviews.schema = new SimpleSchema(
 			max: 200,
 			custom() {
 				if (this.isSet) {
-					Meteor.call("hasFiveWords", this.value, (error, result) => {
-						if (!result) {
-							this.validationContext.addValidationErrors([
-								{
-									name: "pros",
-									type: "needsFiveWords",
-								},
-							]);
-						}
-					});
+					if (Meteor.isClient) {
+						Meteor.call(
+							"hasFiveWords",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "pros",
+											type: "needsFiveWords",
+										},
+									]);
+								}
+							}
+						);
+					} else if (Meteor.isServer) {
+						if (!Meteor.call("hasFiveWords", this.value))
+							return "needsFiveWords";
+					}
 				}
 			},
 		},
@@ -144,16 +163,25 @@ Reviews.schema = new SimpleSchema(
 			max: 200,
 			custom() {
 				if (this.isSet) {
-					Meteor.call("hasFiveWords", this.value, (error, result) => {
-						if (!result) {
-							this.validationContext.addValidationErrors([
-								{
-									name: "cons",
-									type: "needsFiveWords",
-								},
-							]);
-						}
-					});
+					if (Meteor.isClient) {
+						Meteor.call(
+							"hasFiveWords",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "cons",
+											type: "needsFiveWords",
+										},
+									]);
+								}
+							}
+						);
+					} else if (Meteor.isServer) {
+						if (!Meteor.call("hasFiveWords", this.value))
+							return "needsFiveWords";
+					}
 				}
 			},
 		},
