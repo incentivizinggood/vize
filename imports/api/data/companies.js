@@ -54,10 +54,9 @@ Companies.schema = new SimpleSchema(
 			unique: true /* ditto */,
 			custom() {
 				if (this.isSet) {
-					// const side = Meteor.isClient ? "CLIENT" : "SERVER";
 					if (Meteor.isClient) {
 						Meteor.call(
-							"companies.doesCompanyWithNameExist",
+							"companies.doesCompanyWithNameNotExist",
 							this.value,
 							(error, result) => {
 								console.log();
@@ -74,7 +73,7 @@ Companies.schema = new SimpleSchema(
 					} else if (Meteor.isServer) {
 						if (
 							!Meteor.call(
-								"companies.doesCompanyWithNameExist",
+								"companies.doesCompanyWithNameNotExist",
 								this.value
 							)
 						)

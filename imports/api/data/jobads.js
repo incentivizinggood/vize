@@ -27,31 +27,38 @@ JobAds.schema = new SimpleSchema(
 			type: String, // case, company names are indexed so we may as well use
 			optional: false, // use this instead of companyID
 			max: 100,
-			index: true,
 			custom() {
 				if (this.isSet) {
-					Meteor.call(
-						"companies.doesCompanyExist",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "noCompanyWithThatName",
-									},
-								]);
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameNotExist",
+							this.value,
+							(error, result) => {
+								if (result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "noCompanyWithThatName",
+										},
+									]);
+								}
 							}
-						}
-					);
+						);
+					} else if (Meteor.isServer) {
+						if (
+							Meteor.call(
+								"companies.doesCompanyWithNameNotExist",
+								this.value
+							)
+						)
+							return "noCompanyWithThatName";
+					}
 				}
 			},
 		},
 		companyId: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			index: true,
 			autoValue() {
 				if (Meteor.isServer && this.field("companyName").isSet) {
 					const company = Meteor.call(
@@ -163,20 +170,25 @@ JobAds.applicationSchema = new SimpleSchema(
 			optional: false,
 			custom() {
 				if (this.isSet) {
-					Meteor.call(
-						"jobads.doesJobAdExist",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "jobId",
-										type: "invalidJobId",
-									},
-								]);
+					if (Meteor.isClient) {
+						Meteor.call(
+							"jobads.doesJobAdExist",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "jobId",
+											type: "invalidJobId",
+										},
+									]);
+								}
 							}
-						}
-					);
+						);
+					} else if (Meteor.isServer) {
+						if (!Meteor.call("jobads.doesJobAdExist", this.value))
+							return "invalidJobId";
+					}
 				}
 			},
 			autoform: {
@@ -193,20 +205,30 @@ JobAds.applicationSchema = new SimpleSchema(
 			max: 100,
 			custom() {
 				if (this.isSet) {
-					Meteor.call(
-						"companies.doesCompanyExist",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "noCompanyWithThatName",
-									},
-								]);
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameNotExist",
+							this.value,
+							(error, result) => {
+								if (result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "noCompanyWithThatName",
+										},
+									]);
+								}
 							}
-						}
-					);
+						);
+					} else if (Meteor.isServer) {
+						if (
+							Meteor.call(
+								"companies.doesCompanyWithNameNotExist",
+								this.value
+							)
+						)
+							return "noCompanyWithThatName";
+					}
 				}
 			},
 		},

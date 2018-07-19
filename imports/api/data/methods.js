@@ -332,13 +332,9 @@ Meteor.methods({
 			jobIdentifier
 		);
 		if (job.jobAd === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			return false;
 		}
-
-		return "all good";
+		return true;
 	},
 
 	/*
@@ -582,7 +578,7 @@ Meteor.methods({
 		return "all good";
 	},
 
-	async "companies.doesCompanyWithNameExist"(companyName) {
+	async "companies.doesCompanyWithNameNotExist"(companyName) {
 		if (
 			PgCompanyFunctions.processCompanyResults(
 				await PostgreSQL.executeQuery(
@@ -594,28 +590,6 @@ Meteor.methods({
 			return false;
 		}
 		return true;
-	},
-
-	// Technically this does something different, and the return value vs
-	// thrown error and callback structure makes it easy to do this way,
-	// but is there some way to combine this method with the previous one?
-	// They're almost identical.
-	async "companies.doesCompanyExist"(companyName) {
-		if (
-			PgCompanyFunctions.processCompanyResults(
-				await PostgreSQL.executeQuery(
-					PgCompanyFunctions.getCompanyByName,
-					companyName
-				)
-			) === undefined
-		) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
-		}
-
-		return "all good";
 	},
 
 	// Add method for creating a new CompanyProfile
