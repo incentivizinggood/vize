@@ -4,6 +4,8 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
+import PostgreSQL from "../graphql/connectors/postgresql.js";
+import PgCompanyFunctions from "../models/helpers/postgresql/companies.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -52,20 +54,32 @@ Companies.schema = new SimpleSchema(
 			unique: true /* ditto */,
 			custom() {
 				if (this.isSet) {
-					Meteor.call(
-						"companies.isCompanyNameAvailable",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "name",
-										type: "nameTaken",
-									},
-								]);
+					// const side = Meteor.isClient ? "CLIENT" : "SERVER";
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameExist",
+							this.value,
+							(error, result) => {
+								console.log();
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "name",
+											type: "nameTaken",
+										},
+									]);
+								}
 							}
-						}
-					);
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.doesCompanyWithNameExist",
+								this.value
+							)
+						)
+							return "nameTaken";
+					}
 				}
 			},
 		},

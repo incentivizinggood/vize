@@ -582,7 +582,7 @@ Meteor.methods({
 		return "all good";
 	},
 
-	async "companies.isCompanyNameAvailable"(companyName) {
+	async "companies.doesCompanyWithNameExist"(companyName) {
 		if (
 			PgCompanyFunctions.processCompanyResults(
 				await PostgreSQL.executeQuery(
@@ -591,12 +591,9 @@ Meteor.methods({
 				)
 			) !== undefined
 		) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.nameTaken"),
-				i18n.__("common.methods.errorMessages.nameTaken")
-			);
+			return false;
 		}
-		return "all good";
+		return true;
 	},
 
 	// Technically this does something different, and the return value vs
