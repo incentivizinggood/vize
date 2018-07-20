@@ -13,6 +13,9 @@ import "../imports/api/data/jobads.js";
 import "../imports/api/data/votes.js";
 import "../imports/api/data/methods.js";
 
+// Initialize PostgreSQL publications
+import "./postgresql-publications.js";
+
 Meteor.startup(() => {
 	// code to run on server at startup
 });
