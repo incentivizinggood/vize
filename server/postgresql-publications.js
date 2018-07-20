@@ -84,9 +84,8 @@ import { LivePg } from "meteor/numtel:pg";
 		const companyByIdSub = PgSubscription("CompanyProfilesById",companyId);
 		const locationsForCompanySub = PgSubscription("LocationsForCompanyById",companyId);
 		const reviewsForCompanySub = PgSubscription("ReviewsForCompanyById",companyId);
-		const votesForReviewOnCompanySub = PgSubscription("VotesOnReviewsForCompanyByCompanyId",companyId);
 		const jobAdsForCompanySub = PgSubscription("JobAdsForCompanyById",companyId);
-		const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyById",companyId);
+		const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyByCompanyId",companyId);
 		const salariesForCompanySub = PgSubscription("SalariesForCompanyById",companyId);
 		const votesByUserForReviewsOnCompanySub = PgSubscription(
 			"VotesByUserForReviewsOnCompany",
@@ -98,7 +97,6 @@ import { LivePg } from "meteor/numtel:pg";
 				companyByIdSub.ready() &&
 				locationForCompanySub.ready() &&
 				reviewsForCompanySub.ready() &&
-				votesForReviewOnCompanySub.ready () &&
 				jobAdsForCompanySub.ready() &&
 				locationsForJobAdsByCompanySub.ready() &&
 				salariesForCompanySub.ready() &&
@@ -147,29 +145,65 @@ Meteor.publish("LocationsForCompanyById", function(companyId) {
 
 // const reviewsForCompanySub = PgSubscription("ReviewsForCompanyById",companyId);
 Meteor.publish("ReviewsForCompanyById", function(companyId) {
-	return liveDb.select("SELECT * FROM reviews WHERE companyid=$1", [
-		companyId,
-	]);
-});
-
-// const votesForReviewOnCompanySub = PgSubscription("VotesOnReviewsForCompanyByCompanyId",companyId);
-Meteor.publish("VotesOnReviewsForCompanyByCompanyId", function(companyId) {
 	return liveDb.select(
-		"select reviewid,upvotes,downvotes from (select refersto as reviewid,upvotes,downvotes from review_vote_counts) as countsWithReviewid NATURAL FULL OUTER JOIN reviews WHERE companyid=$1",
+		"SELECT * FROM reviews_with_vote_counts WHERE companyid=$1",
 		[companyId]
 	);
 });
 
 // const jobAdsForCompanySub = PgSubscription("JobAdsForCompanyById",companyId);
-// const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyById",companyId);
+Meteor.publish("JobAdsForCompanyById", function(companyId) {
+	return liveDb.select("SELECT * FROM jobads WHERE companyid=$1", [
+		companyId,
+	]);
+});
+
+// const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyByCompanyId",companyId);
+Meteor.publish("JobAdLocationsForCompanyByCompanyId", function(companyId) {
+	return liveDb.select(
+		"SELECT * FROM job_locations WHERE jobadid IN (SELECT jobadid FROM jobads WHERE companyid=$1)",
+		[companyId]
+	);
+});
+
 // const salariesForCompanySub = PgSubscription("SalariesForCompanyById",companyId);
+Meteor.publish("SalariesForCompanyById", function(companyId) {
+	return liveDb.select("SELECT * FROM salaries WHERE companyid=$1", [
+		companyId,
+	]);
+});
+
 // const votesByUserForReviewsOnCompanySub = PgSubscription(
 // 	"VotesByUserForReviewsOnCompany",
 // 	Meteor.userId()
 // });
+Meteor.publish("VotesByUserForReviewsOnCompany", function(userMongoId) {
+	return liveDb.select(
+		"SELECT * FROM review_votes WHERE submittedBy IN (SELECT userid AS submittedBy FROM users WHERE usermongoid=$1)",
+		[userMongoId]
+	);
+});
 
 // const jobAdCountSub = PgSubscription("CompanyJobAdCounts", company.name);
+Meteor.publish("CompanyJobAdCounts", function(companyName) {
+	return liveDb.select("SELECT * FROM job_post_counts WHERE companyname=$1", [
+		companyName,
+	]);
+});
+
 // const salaryCountSub = PgSubscription("CompanySalaryCounts", company.name);
+Meteor.publish("CompanySalaryCounts", function(companyName) {
+	return liveDb.select("SELECT * FROM salary_counts WHERE companyname=$1", [
+		companyName,
+	]);
+});
 
 // const jobAdSub = PgSubscription("JobAds");
+Meteor.publish("JobAds", function() {
+	return liveDb.select("SELECT * FROM jobads");
+});
+
 // const jobAdLocationsSub = PgSubscription("JobAdLocations");
+Meteor.publish("JobAdLocations", function() {
+	return liveDb.select("SELECT * FROM job_locations");
+});
