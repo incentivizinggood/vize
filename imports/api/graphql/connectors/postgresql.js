@@ -1,44 +1,30 @@
 import { Meteor } from "meteor/meteor";
 const { Pool } = require("pg");
+const LivePg = require("pg-live-select");
+
+/* ----------------------------
+	SETUP
+ ------------------------------ */
+
+const PG_CONNECTION_STRING = `postgresql://${process.env.PGUSER}:${
+	process.env.PGPASSWORD
+}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`;
+const PG_CHANNEL_NAME = "vize_app_pg_clients";
 
 const pool = new Pool();
+const liveDb = new LivePg(PG_CONNECTION_STRING, PG_CHANNEL_NAME);
 
 const closeAndExit = function() {
 	pool.end();
-	process.exit();
+	liveDb.cleanup(process.exit);
 };
 
-// process.on("SIGTERM", closeAndExit());
-// process.on("SIGINT", closeAndExit());
+process.on("SIGTERM", closeAndExit);
+process.on("SIGINT", closeAndExit);
 
-// assumes that arguments to func are passed as additional
-// arguments after the first two "wrapper args"
-const wrapPgFunction = async function(func, readOnly) {
-	const client = await pool.connect();
-	let result = {};
-	try {
-		if (readOnly) await client.query("START TRANSACTION READ ONLY");
-		else await client.query("START TRANSACTION");
+/* ----------------------------
+	POSTGRESQL PUBLICATIONS
 
-		// removes function name  and readOnly flag
-		// from start of args list
-		result = await func.apply(
-			null,
-			[client].concat([...arguments].slice(2)[0])
-		);
-
-		await client.query("COMMIT");
-	} catch (e) {
-		console.log(e);
-		await client.query("ROLLBACK");
-	} finally {
-		await client.release();
-	}
-
-	return result;
-};
-
-/*
 	Current Mongo publications, so we have an idea
 	of what we're trying to replace:
 	Companies:
@@ -85,7 +71,38 @@ const wrapPgFunction = async function(func, readOnly) {
 	- all salaries for a company (processed)
 	- votes by a certain user on reviews for a certain company
 
-*/
+ ------------------------------ */
+
+/* ----------------------------
+	ACCESS TO HELPER FUNCTIONS
+ ------------------------------ */
+
+// assumes that arguments to func are passed as additional
+// arguments after the first two "wrapper args"
+const wrapPgFunction = async function(func, readOnly) {
+	const client = await pool.connect();
+	let result = {};
+	try {
+		if (readOnly) await client.query("START TRANSACTION READ ONLY");
+		else await client.query("START TRANSACTION");
+
+		// removes function name  and readOnly flag
+		// from start of args list
+		result = await func.apply(
+			null,
+			[client].concat([...arguments].slice(2)[0])
+		);
+
+		await client.query("COMMIT");
+	} catch (e) {
+		console.log(e);
+		await client.query("ROLLBACK");
+	} finally {
+		await client.release();
+	}
+
+	return result;
+};
 
 export default class PostgreSQL {
 	static async executeQuery(query) {
