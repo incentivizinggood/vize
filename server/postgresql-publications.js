@@ -71,6 +71,7 @@ import { LivePg } from "meteor/numtel:pg";
 
 	export default withTracker(() => {
 		const jobAdSub = PgSubscription("JobAds");
+		const jobAdLocationsSub = PgSubscription("JobAdLocations");
 
 		return {
 			isReady: jobAdSub.ready(),
@@ -81,8 +82,11 @@ import { LivePg } from "meteor/numtel:pg";
 
 	export default withTracker(({ companyId }) => {
 		const companyByIdSub = PgSubscription("CompanyProfilesById",companyId);
+		const locationsForCompanySub = PgSubscription("LocationsForCompanyById",companyId);
 		const reviewsForCompanySub = PgSubscription("ReviewsForCompanyById",companyId);
+		const votesForReviewOnCompanySub = PgSubscription("VotesOnReviewsForCompanyByCompanyId",companyId);
 		const jobAdsForCompanySub = PgSubscription("JobAdsForCompanyById",companyId);
+		const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyById",companyId);
 		const salariesForCompanySub = PgSubscription("SalariesForCompanyById",companyId);
 		const votesByUserForReviewsOnCompanySub = PgSubscription(
 			"VotesByUserForReviewsOnCompany",
@@ -92,8 +96,11 @@ import { LivePg } from "meteor/numtel:pg";
 		return {
 			isReady:
 				companyByIdSub.ready() &&
+				locationForCompanySub.ready() &&
 				reviewsForCompanySub.ready() &&
+				votesForReviewOnCompanySub.ready () &&
 				jobAdsForCompanySub.ready() &&
+				locationsForJobAdsByCompanySub.ready() &&
 				salariesForCompanySub.ready() &&
 				votesByUserForReviewsOnCompanySub.ready(),
 			company: companyByIdSub[0] // process,
@@ -123,3 +130,46 @@ const closeAndExit = function() {
 
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
+
+// const companyByIdSub = PgSubscription("CompanyProfilesById",companyId);
+Meteor.publish("CompanyProfilesById", function(companyId) {
+	return liveDb.select("SELECT * FROM companies WHERE companyid=$1", [
+		companyId,
+	]);
+});
+
+// const locationsForCompanySub = PgSubscription("LocationsForCompanyById",companyId);
+Meteor.publish("LocationsForCompanyById", function(companyId) {
+	return liveDb.select("SELECT * FROM company_locations WHERE companyid=$1", [
+		companyId,
+	]);
+});
+
+// const reviewsForCompanySub = PgSubscription("ReviewsForCompanyById",companyId);
+Meteor.publish("ReviewsForCompanyById", function(companyId) {
+	return liveDb.select("SELECT * FROM reviews WHERE companyid=$1", [
+		companyId,
+	]);
+});
+
+// const votesForReviewOnCompanySub = PgSubscription("VotesOnReviewsForCompanyByCompanyId",companyId);
+Meteor.publish("VotesOnReviewsForCompanyByCompanyId", function(companyId) {
+	return liveDb.select(
+		"select reviewid,upvotes,downvotes from (select refersto as reviewid,upvotes,downvotes from review_vote_counts) as countsWithReviewid NATURAL FULL OUTER JOIN reviews WHERE companyid=$1",
+		[companyId]
+	);
+});
+
+// const jobAdsForCompanySub = PgSubscription("JobAdsForCompanyById",companyId);
+// const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyById",companyId);
+// const salariesForCompanySub = PgSubscription("SalariesForCompanyById",companyId);
+// const votesByUserForReviewsOnCompanySub = PgSubscription(
+// 	"VotesByUserForReviewsOnCompany",
+// 	Meteor.userId()
+// });
+
+// const jobAdCountSub = PgSubscription("CompanyJobAdCounts", company.name);
+// const salaryCountSub = PgSubscription("CompanySalaryCounts", company.name);
+
+// const jobAdSub = PgSubscription("JobAds");
+// const jobAdLocationsSub = PgSubscription("JobAdLocations");

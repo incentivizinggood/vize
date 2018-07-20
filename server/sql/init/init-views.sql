@@ -144,6 +144,29 @@ from
 		) as reviewsNotVoted
 	);
 
+-- finding this to be easier in some circumstances than having to
+-- query the other view every time I need to count votes
+DROP VIEW IF EXISTS reviews_with_vote_counts CASCADE;
+CREATE OR REPLACE VIEW reviews_with_vote_counts AS
+
+select * from
+
+	(
+		select
+
+			refersto as reviewid,
+			upvotes,
+			downvotes
+
+		from
+
+			review_vote_counts
+	) as countsWithIds
+
+	NATURAL FULL OUTER JOIN
+
+	reviews;
+
 -- comment upvotes and downvotes -> calculated on review_comments, from votes
 DROP VIEW IF EXISTS comment_vote_counts CASCADE;
 CREATE OR REPLACE VIEW comment_vote_counts AS
@@ -186,6 +209,27 @@ from
 		) as commentsNotVoted
 	);
 
+DROP VIEW IF EXISTS comments_with_vote_counts CASCADE;
+CREATE OR REPLACE VIEW comments_with_vote_counts AS
+
+select * from
+
+	(
+		select
+
+			refersto as commentid,
+			upvotes,
+			downvotes
+
+		from
+
+			comment_vote_counts
+	) as countsWithIds
+
+	NATURAL FULL OUTER JOIN
+
+	review_comments;
+
 -- job ad counts, can be used to more easily check whether
 -- companies are over their limit
 DROP VIEW IF EXISTS job_post_counts CASCADE;
@@ -220,4 +264,39 @@ select * from
 			except
 			(select companyName as name from jobads)
 		) as companiesNotPosted
+	);
+
+-- used in the UI
+DROP VIEW IF EXISTS salary_counts CASCADE;
+CREATE OR REPLACE VIEW salary_counts AS
+
+select * from
+	(
+		select
+
+			companyname,
+			count(salaryid) as count
+
+		from
+
+			salaries
+
+		group by
+
+			companyname
+	) as companiesWithSalaries
+	UNION
+	(
+		select
+
+			name as companyname,
+			0 as count
+
+		from
+		(
+			select * from
+			(select name from companies) as companyNames
+			except
+			(select companyName as name from salaries)
+		) as companiesWithoutSalaries
 	);
