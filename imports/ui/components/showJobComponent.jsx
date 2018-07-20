@@ -24,12 +24,15 @@ export default class ShowJobComponent extends React.Component {
 			month: "long",
 			day: "numeric",
 		};
+
+		const datePosted = new Date(this.props.item.created);
+
 		return (
 			<div className="col-md-12 section_rview_back_color05 ">
 				<div className="sect_re11 ">
 					<div>
 						<h3>
-							<strong>{this.props.item.companyName}</strong>
+							<strong>{this.props.item.company.name}</strong>
 						</h3>
 						<br />
 						<h4>
@@ -41,7 +44,7 @@ export default class ShowJobComponent extends React.Component {
 						<div className="add-buttons">
 							<a
 								href={urlGenerators.vizeApplyForJobUrl(
-									this.props.item._id
+									this.props.item.id
 								)}
 								className="btn btn-primary"
 							>
@@ -78,7 +81,7 @@ export default class ShowJobComponent extends React.Component {
 						<article>
 							<p>{this.props.item.jobDescription}</p>
 							<input
-								id={this.props.item._id}
+								id={this.props.item.id}
 								className="read-more-toggle"
 								type="checkbox"
 							/>
@@ -99,14 +102,14 @@ export default class ShowJobComponent extends React.Component {
 
 							<label
 								className="read-more-toggle-label"
-								htmlFor={this.props.item._id}
+								htmlFor={this.props.item.id}
 							>
 								{" "}
 							</label>
 							<div className="fl-ri">
 								<p>
 									<T>common.showjob.posted_on</T>{" "}
-									{this.props.item.datePosted.toLocaleDateString(
+									{datePosted.toLocaleDateString(
 										"en-US",
 										options
 									)}
