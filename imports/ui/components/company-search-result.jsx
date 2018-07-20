@@ -35,9 +35,7 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
-							<a href={companyProfileUrl}>
-								{props.company.name}
-							</a>
+							<a href={companyProfileUrl}>{props.company.name}</a>
 						</span>
 						&nbsp;&nbsp;<StarRatings
 							rating={
@@ -75,7 +73,9 @@ function CompanySearchResult(props) {
 					<div className="col-md-5 prostar">
 						<div className="col-md-12">
 							<div className="titlestar">
-								<WriteReviewButton companyId={props.company.id} />
+								<WriteReviewButton
+									companyId={props.company.id}
+								/>
 							</div>
 						</div>
 					</div>
@@ -146,3 +146,17 @@ export default withTracker(({ company }) => {
 		salaries: Salaries.find({ companyName: company.name }).count(),
 	};
 })(CompanySearchResult);
+
+/*
+
+	export default withTracker(({ company })) => {
+		const jobAdCountSub = PgSubscription("CompanyJobAdCounts", company.name);
+		const salaryCountSub = PgSubscription("CompanySalaryCounts", company.name);
+
+		return {
+			jobads: jobAdCountSub[0].count // process?
+			salaries: salaryCountSub[0].count // process?
+		};
+	}
+
+*/

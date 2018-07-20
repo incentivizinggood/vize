@@ -70,3 +70,18 @@ export default withTracker(() => {
 		numberofjobs: JobAds.find({}).count(),
 	};
 })(ShowJobs);
+
+/*
+
+	export default withTracker(() => {
+		const jobAdSub = PgSubscription("JobAds");
+		const jobAdLocationsSub = PgSubscription("JobAdLocations");
+
+		return {
+			isReady: jobAdSub.ready(),
+			jobads: jobAdSub.map(...process),
+			numberofjobs: jobAdSub.length, // Again, PgSubscription extends array
+		};
+	})(ShowJobs);
+
+*/
