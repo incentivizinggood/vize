@@ -105,11 +105,11 @@ Meteor.publish("CompanySalaryCounts", function(companyName) {
 });
 
 // const jobAdSub = PgSubscription("JobAds");
-Meteor.publish("JobAds", function() {
+Meteor.publish("PostgresJobAds", function() {
 	return liveDb.select("SELECT * FROM jobads");
 });
 
 // const jobAdLocationsSub = PgSubscription("JobAdLocations");
-Meteor.publish("JobAdLocations", function() {
+Meteor.publish("PostgresJobAdLocations", function() {
 	return liveDb.select("SELECT * FROM job_locations");
 });
