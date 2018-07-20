@@ -19,13 +19,13 @@ const T = i18n.createComponent(t);
 
 function CompanySearchResult(props) {
 	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
-	if (!props.ready) {
-		return (
-			<h2>
-				<T>common.companyprofile.loading</T>
-			</h2>
-		);
-	}
+	// if (!props.ready) {
+	// 	return (
+	// 		<h2>
+	// 			<T>common.companyprofile.loading</T>
+	// 		</h2>
+	// 	);
+	// }
 	return (
 		<div>
 			<div className="container box2 all_boxcolor">
@@ -132,7 +132,7 @@ function CompanySearchResult(props) {
 }
 
 CompanySearchResult.propTypes = {
-	ready: PropTypes.bool.isRequired,
+	// ready: PropTypes.bool.isRequired,
 	jobadCount: PropTypes.number.isRequired,
 	salaryCount: PropTypes.number.isRequired,
 	company: PropTypes.shape({
@@ -152,18 +152,18 @@ CompanySearchResult.propTypes = {
 export default withTracker(({ company }) => {
 	Meteor.subscribe("JobAds");
 	Meteor.subscribe("Salaries");
-
-	const jobAdCountSub = new PgSubscription(
-		"CompanyJobAdCounts",
-		company.name
-	);
-	const salaryCountSub = new PgSubscription(
-		"CompanySalaryCounts",
-		company.name
-	);
+	//
+	// const jobAdCountSub = new PgSubscription(
+	// 	"CompanyJobAdCounts",
+	// 	company.name
+	// );
+	// const salaryCountSub = new PgSubscription(
+	// 	"CompanySalaryCounts",
+	// 	company.name
+	// );
 
 	return {
-		ready: jobAdCountSub.ready() && salaryCountSub.ready(),
+		// ready: jobAdCountSub.ready() && salaryCountSub.ready(),
 		jobadCount: JobAds.find({ companyName: company.name }).count(),
 		salaryCount: Salaries.find({ companyName: company.name }).count(),
 	};
