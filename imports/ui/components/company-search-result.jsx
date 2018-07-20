@@ -3,6 +3,7 @@ import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
 
 import { Meteor } from "meteor/meteor";
+
 import { withTracker } from "meteor/react-meteor-data";
 import i18n from "meteor/universe:i18n";
 
@@ -10,11 +11,21 @@ import { JobAds } from "/imports/api/data/jobads.js";
 import { Salaries } from "/imports/api/data/salaries.js";
 import WriteReviewButton from "./write-review-button.jsx";
 
+// temporary during migration to PostgreSQL
+import { PgSubscription } from "meteor/numtel:pg";
+
 const t = i18n.createTranslator("common.CompanySearchResult");
 const T = i18n.createComponent(t);
 
 function CompanySearchResult(props) {
 	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
+	if (!props.ready) {
+		return (
+			<h2>
+				<T>common.companyprofile.loading</T>
+			</h2>
+		);
+	}
 	return (
 		<div>
 			<div className="container box2 all_boxcolor">
@@ -92,14 +103,14 @@ function CompanySearchResult(props) {
 									</span>
 								</li>
 								<li>
-									{props.salaries}
+									{props.salaryCount}
 									<br />
 									<span className="review_text">
 										<T>salaries</T>
 									</span>
 								</li>
 								<li>
-									{props.jobads}
+									{props.jobadCount}
 									<br />
 									<span className="review_text">
 										<T>jobs</T>
@@ -121,8 +132,9 @@ function CompanySearchResult(props) {
 }
 
 CompanySearchResult.propTypes = {
-	jobads: PropTypes.number.isRequired,
-	salaries: PropTypes.number.isRequired,
+	ready: PropTypes.bool.isRequired,
+	jobadCount: PropTypes.number.isRequired,
+	salaryCount: PropTypes.number.isRequired,
 	company: PropTypes.shape({
 		id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
@@ -141,9 +153,19 @@ export default withTracker(({ company }) => {
 	Meteor.subscribe("JobAds");
 	Meteor.subscribe("Salaries");
 
+	const jobAdCountSub = new PgSubscription(
+		"CompanyJobAdCounts",
+		company.name
+	);
+	const salaryCountSub = new PgSubscription(
+		"CompanySalaryCounts",
+		company.name
+	);
+
 	return {
-		jobads: JobAds.find({ companyName: company.name }).count(),
-		salaries: Salaries.find({ companyName: company.name }).count(),
+		ready: jobAdCountSub.ready() && salaryCountSub.ready(),
+		jobadCount: JobAds.find({ companyName: company.name }).count(),
+		salaryCount: Salaries.find({ companyName: company.name }).count(),
 	};
 })(CompanySearchResult);
 
@@ -154,8 +176,8 @@ export default withTracker(({ company }) => {
 		const salaryCountSub = PgSubscription("CompanySalaryCounts", company.name);
 
 		return {
-			jobads: jobAdCountSub[0].count // process?
-			salaries: salaryCountSub[0].count // process?
+			jobadCount: jobAdCountSub[0].count // process?
+			salaryCount: salaryCountSub[0].count // process?
 		};
 	}
 
