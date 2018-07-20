@@ -83,6 +83,63 @@ $$
 	return countXplan.execute([factorvalue])[0].count;
 $$ LANGUAGE plv8;
 
+-- Retrieves the name of a company with a given
+-- id if the company exists, used to help
+-- autofill/autocorrect company names
+DROP FUNCTION IF EXISTS get_name_for_id;
+CREATE OR REPLACE FUNCTION get_name_for_id
+(companyid integer)
+RETURNS text AS
+$$
+	const queryCompanyNamePlan = plv8.prepare("select name from companies where companyid=$1",['integer']);
+	const result = queryCompanyNamePlan.execute([companyid]);
+	queryCompanyNamePlan.free();
+	if(result.length > 0)
+		return result[0].name;
+	else
+		return null;
+$$ LANGUAGE plv8;
+
+-- Retrieves the id of a company with a given name,
+-- used to help figure things out in cases where
+-- name is provided and a company with that name
+-- has an entry in companies, but the id was not provided
+DROP FUNCTION IF EXISTS get_id_for_name;
+CREATE OR REPLACE FUNCTION get_id_for_name
+(companyname text)
+RETURNS integer AS
+$$
+	const queryCompanyIdPlan = plv8.prepare("select companyid from companies where name=$1",['text']);
+	const result = queryCompanyIdPlan.execute([companyname]);
+	queryCompanyIdPlan.free();
+	if(result.length > 0)
+		return result[0].companyid;
+	else
+		return null;
+$$ LANGUAGE plv8;
+
+-- where tables have both companyname and
+-- companyid fields, companyid is treated
+-- as Single Source of Truth for which company
+-- is being referenced
+DROP FUNCTION IF EXISTS correct_name_by_id;
+CREATE OR REPLACE FUNCTION correct_name_by_id() RETURNS TRIGGER AS
+$$
+	const get_name_for_id = plv8.find_function("get_name_for_id");
+	NEW.companyname = get_name_for_id(NEW.companyid);
+	return NEW;
+$$ LANGUAGE plv8;
+
+-- we choose to be a pal and try to get the companyid
+-- if the caller supplies a name without an id
+DROP FUNCTION IF EXISTS fill_id_by_name;
+CREATE OR REPLACE FUNCTION fill_id_by_name() RETURNS TRIGGER AS
+$$
+	const get_id_for_name = plv8.find_function("get_id_for_name");
+	NEW.companyid = get_id_for_name(NEW.companyname);
+	return NEW;
+$$ LANGUAGE plv8;
+
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.

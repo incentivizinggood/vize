@@ -13,13 +13,20 @@ INSERT INTO salaries
 	VALUES (0,'a','a','a','Hourly Wage',0);
 COMMIT;
 
--- fail: no company 'b'
+-- should succeed, exception case
+-- where no company with that name
+-- is in the database
 INSERT INTO salaries
 (submittedBy,companyname,salarylocation,
 	jobTitle,incomeType,incomeAmount)
 	VALUES (0,'b','a','a','Hourly Wage',0);
 
 -- fail: no company with id -1
+-- may give a message about name being null,
+-- since that's what the trigger "corrected"
+-- it to, but I guess this is fine since callers
+-- shouldn't be trying to insert with invalid id's,
+-- but the error message isn't terribly helpful
 INSERT INTO salaries
 (submittedBy,companyname,salarylocation,companyId,
 	jobTitle,incomeType,incomeAmount)
