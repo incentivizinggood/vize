@@ -2,6 +2,8 @@
 import type { Mongo } from "meteor/mongo";
 import type { ID, StarRatings, AllModels } from "./common.js";
 
+import PgCompanyFunctions from "./helpers/postgresql/companies.js";
+
 const defaultPageSize = 100;
 
 export type Company = {
@@ -37,54 +39,68 @@ export type Company = {
 };
 
 export default class CompanyModel {
-	connector: Mongo.Collection;
+	connector: Object;
 
-	constructor(connector: Mongo.Collection) {
-		this.connector = connector;
+	constructor(connector: Object) {
+		this.connector = connector; // forget this (should be PostgreSQL)
 	}
 
 	init({  }: AllModels) {
-		// This does not need any refrences to other models.
+		// This does not need any references to other models.
 	}
 
 	// Get the company with a given id.
-	getCompanyById(id: ID): Company {
-		return this.connector.findOne(id);
+	async getCompanyById(id: ID): Company {
+		// id is a string for now, and company id's
+		// are integers, so I think this should be fine
+		// for now
+		if (!Number.isNaN(Number(id)))
+			return PgCompanyFunctions.processCompanyResults(
+				await this.connector.executeQuery(
+					PgCompanyFunctions.getCompanyById,
+					Number(id)
+				)
+			);
+		return undefined;
 	}
 
 	// Get the company with a given name.
-	getCompanyByName(name: string): Company {
-		return this.connector.findOne({ name });
+	async getCompanyByName(name: string): Company {
+		return PgCompanyFunctions.processCompanyResults(
+			await this.connector.executeQuery(
+				PgCompanyFunctions.getCompanyByName,
+				name
+			)
+		);
 	}
 
 	// Get all of the companies.
-	getAllCompanies(
+	async getAllCompanies(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Company] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgCompanyFunctions.processCompanyResults(
+			await this.connector.executeQuery(
+				PgCompanyFunctions.getAllCompanies,
+				pageNumber,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
-	searchForCompanies(
+	async searchForCompanies(
 		searchText: string,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Company] {
-		const cursor = this.connector.find(
-			{ name: { $regex: `.*${searchText}.*`, $options: "i" } },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgCompanyFunctions.processCompanyResults(
+			await this.connector.executeQuery(
+				PgCompanyFunctions.companyNameRegexSearch,
+				searchText,
+				pageNumber,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
 	createCompany(companyParams: mixed): Company {

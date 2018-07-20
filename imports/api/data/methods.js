@@ -18,15 +18,6 @@ import PgVoteFunctions from "../models/helpers/postgresql/votes.js";
 // import PgCommentFunctions from "../models/helpers/postgresql/comments.js"; // we don't have comments yet
 import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
-/*
-	TODO
-	Every place a method is called
-	that queries the database, the arguments
-	need to be checked (in the code, where they
-	are actually called) for validity and format.
-	Oh my friggin' goodness, this code...
-*/
-
 Meteor.methods({
 	async "postgres.users.createUser"(user, companyPostgresId) {
 		// just trying to get this to work, will
