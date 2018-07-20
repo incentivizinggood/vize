@@ -3,7 +3,6 @@ import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
-import PgCompanyFunctions from "./helpers/postgresql/companies.js";
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
 
 const defaultPageSize = 100;
