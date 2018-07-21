@@ -1,5 +1,5 @@
 -- regex check for email w/ TLD
-DROP FUNCTION IF EXISTS is_valid_email_with_tld CASCADE;
+DROP FUNCTION IF EXISTS is_valid_email_with_tld(text) CASCADE;
 CREATE OR REPLACE FUNCTION is_valid_email_with_tld(arg text)
 RETURNS boolean AS
 $$
@@ -8,7 +8,7 @@ $$
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- regex check for URL
-DROP FUNCTION IF EXISTS is_valid_url CASCADE;
+DROP FUNCTION IF EXISTS is_valid_url(text) CASCADE;
 CREATE OR REPLACE FUNCTION is_valid_url(arg text)
 RETURNS boolean AS
 $$
@@ -17,7 +17,7 @@ $$
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- regex check for pay range
-DROP FUNCTION IF EXISTS is_valid_pay_range CASCADE;
+DROP FUNCTION IF EXISTS is_valid_pay_range(text) CASCADE;
 CREATE OR REPLACE FUNCTION is_valid_pay_range(arg text)
 RETURNS boolean AS
 $$
@@ -28,7 +28,7 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- count words in a string, used for checking pros and cons
 -- in the reviews table, hooray for plv8 letting me reuse
 -- the Javascript code that I fought so hard to get working
-DROP FUNCTION IF EXISTS word_count CASCADE;
+DROP FUNCTION IF EXISTS word_count(text) CASCADE;
 CREATE OR REPLACE FUNCTION word_count(arg text)
 RETURNS integer AS
 $$
@@ -39,7 +39,7 @@ $$ LANGUAGE plv8 IMMUTABLE;
 -- with 0's, in cases where 0 makes more sense
 -- currently only defined for bigint becuase it is
 -- only used on the results of count aggregations
-DROP FUNCTION IF EXISTS zero_if_null CASCADE;
+DROP FUNCTION IF EXISTS zero_if_null(bigint) CASCADE;
 CREATE OR REPLACE FUNCTION zero_if_null(arg bigint)
 RETURNS bigint AS
 $$
@@ -48,7 +48,7 @@ $$ LANGUAGE plv8 IMMUTABLE;
 
 -- helper function for when we want to use a trigger
 -- to blanketly disallow some action
-DROP FUNCTION IF EXISTS deny_op CASCADE;
+DROP FUNCTION IF EXISTS deny_op() CASCADE;
 CREATE OR REPLACE FUNCTION deny_op() RETURNS TRIGGER AS
 $$
 	// plv8 is very intuitive, just not in the ways you might expect XD,
@@ -64,7 +64,7 @@ $$ LANGUAGE plv8;
 -- or -1 if Z does not exist in table 2
 -- this breaks if Z's name is not the same in both table1 and table2
 -- BUG This function is highly vulnerable to SQL injection
-DROP FUNCTION IF EXISTS count_related_by_int CASCADE;
+DROP FUNCTION IF EXISTS count_related_by_int(text,text,text,integer) CASCADE;
 CREATE OR REPLACE FUNCTION count_related_by_int
 (table1 text, table2 text, factorname text, factorvalue integer)
 RETURNS integer AS
@@ -86,7 +86,7 @@ $$ LANGUAGE plv8;
 -- Retrieves the name of a company with a given
 -- id if the company exists, used to help
 -- autofill/autocorrect company names
-DROP FUNCTION IF EXISTS get_name_for_id CASCADE;
+DROP FUNCTION IF EXISTS get_name_for_id(integer) CASCADE;
 CREATE OR REPLACE FUNCTION get_name_for_id
 (companyid integer)
 RETURNS text AS
@@ -104,7 +104,7 @@ $$ LANGUAGE plv8;
 -- used to help figure things out in cases where
 -- name is provided and a company with that name
 -- has an entry in companies, but the id was not provided
-DROP FUNCTION IF EXISTS get_id_for_name CASCADE;
+DROP FUNCTION IF EXISTS get_id_for_name(text) CASCADE;
 CREATE OR REPLACE FUNCTION get_id_for_name
 (companyname text)
 RETURNS integer AS
@@ -122,7 +122,7 @@ $$ LANGUAGE plv8;
 -- companyid fields, companyid is treated
 -- as Single Source of Truth for which company
 -- is being referenced
-DROP FUNCTION IF EXISTS correct_name_by_id CASCADE;
+DROP FUNCTION IF EXISTS correct_name_by_id() CASCADE;
 CREATE OR REPLACE FUNCTION correct_name_by_id() RETURNS TRIGGER AS
 $$
 	const get_name_for_id = plv8.find_function("get_name_for_id");
@@ -132,7 +132,7 @@ $$ LANGUAGE plv8;
 
 -- we choose to be a pal and try to get the companyid
 -- if the caller supplies a name without an id
-DROP FUNCTION IF EXISTS fill_id_by_name CASCADE;
+DROP FUNCTION IF EXISTS fill_id_by_name() CASCADE;
 CREATE OR REPLACE FUNCTION fill_id_by_name() RETURNS TRIGGER AS
 $$
 	const get_id_for_name = plv8.find_function("get_id_for_name");
@@ -143,7 +143,7 @@ $$ LANGUAGE plv8;
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.
-DROP FUNCTION IF EXISTS check_company_location_count CASCADE;
+DROP FUNCTION IF EXISTS check_company_location_count() CASCADE;
 CREATE OR REPLACE FUNCTION check_company_location_count() RETURNS TRIGGER AS
 $$
 	const newcompanyid = NEW.companyid;
@@ -158,7 +158,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for review locations
-DROP FUNCTION IF EXISTS check_review_location_count CASCADE;
+DROP FUNCTION IF EXISTS check_review_location_count() CASCADE;
 CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
 $$
 	const newreviewid = NEW.reviewid;
@@ -173,7 +173,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for job locations
-DROP FUNCTION IF EXISTS check_job_location_count CASCADE;
+DROP FUNCTION IF EXISTS check_job_location_count() CASCADE;
 CREATE OR REPLACE FUNCTION check_job_location_count() RETURNS TRIGGER AS
 $$
 	const newjobadid = NEW.jobadid;
@@ -190,7 +190,7 @@ $$ LANGUAGE plv8;
 -- This is for after-delete and after-update triggers
 -- on company locations, to make sure that a company's last location
 -- doesn't accidentally get moved or deleted
-DROP FUNCTION IF EXISTS check_remaining_company_locations CASCADE;
+DROP FUNCTION IF EXISTS check_remaining_company_locations() CASCADE;
 CREATE OR REPLACE FUNCTION check_remaining_company_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
@@ -206,7 +206,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for review locations
-DROP FUNCTION IF EXISTS check_remaining_review_locations CASCADE;
+DROP FUNCTION IF EXISTS check_remaining_review_locations() CASCADE;
 CREATE OR REPLACE FUNCTION check_remaining_review_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
@@ -222,7 +222,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- ditto for job locations
-DROP FUNCTION IF EXISTS check_remaining_job_locations CASCADE;
+DROP FUNCTION IF EXISTS check_remaining_job_locations() CASCADE;
 CREATE OR REPLACE FUNCTION check_remaining_job_locations() RETURNS TRIGGER AS
 $$
 	// skip case we don't care about so we don't have to worry about NEW
@@ -238,7 +238,7 @@ $$
 $$ LANGUAGE plv8;
 
 -- make sure that users don't vote on own reviews or comments
-DROP FUNCTION IF EXISTS disallow_voting_on_self CASCADE;
+DROP FUNCTION IF EXISTS disallow_voting_on_self() CASCADE;
 CREATE OR REPLACE FUNCTION disallow_voting_on_self() RETURNS TRIGGER AS
 $$
 	if(!(TG_TABLE_NAME === "review_votes" || TG_TABLE_NAME === "comment_votes"))
