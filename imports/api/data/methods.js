@@ -302,9 +302,10 @@ Meteor.methods({
 	async "jobads.findOne"(jobIdentifier) {
 		const job = await PostgreSQL.executeQuery(
 			PgJobAdFunctions.getJobAdById,
-			jobIdentifier
+			Number(jobIdentifier)
 		);
-		if (job.jobAd === undefined) {
+
+		if (job.jobad === undefined) {
 			throw new Meteor.Error(
 				i18n.__("common.methods.meteorErrors.notFound"),
 				i18n.__("common.methods.errorMessages.notFound")
