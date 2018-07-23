@@ -497,7 +497,7 @@ Meteor.methods({
 
 	async "companies.findOne"(companyIdentifier) {
 		let company = {};
-		if (typeof companyIdentifier === "string")
+		if (Number.isNaN(Number(companyIdentifier)))
 			company = await PostgreSQL.executeQuery(
 				PgCompanyFunctions.getCompanyByName,
 				companyIdentifier
@@ -505,7 +505,7 @@ Meteor.methods({
 		else
 			company = await PostgreSQL.executeQuery(
 				PgCompanyFunctions.getCompanyById,
-				companyIdentifier
+				Number(companyIdentifier)
 			);
 
 		if (company.company === undefined) {
