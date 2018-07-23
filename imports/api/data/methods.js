@@ -537,7 +537,7 @@ Meteor.methods({
 
 		const company = PgCompanyFunctions.processCompanyResults(
 			await PostgreSQL.executeQuery(
-				PgCompanyFunctions.getCOmpanyById,
+				PgCompanyFunctions.getCompanyById,
 				user.companyId
 			)
 		);
