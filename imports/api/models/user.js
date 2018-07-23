@@ -3,6 +3,9 @@ import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
+import PgUserFunctions from "./helpers/postgresql/users.js";
+import PostgreSQL from "../graphql/connectors/postgresql.js";
+
 const defaultPageSize = 100;
 
 export type User = {
@@ -25,7 +28,16 @@ export default class UserModel {
 	}
 
 	// Get the user with a given id.
-	getUserById(id: ID): User {
+	async getUserById(id: ID): User {
+		// assumes that valid Mongo ID's
+		// are not valid Numbers
+		if (!Number.isNaN(Number(id))) {
+			const pgUser = await PostgreSQL.executeQuery(
+				PgUserFunctions.getUserById,
+				Number(id)
+			);
+			id = pgUser.user.usermongoid;
+		}
 		return this.connector.findOne(id, {
 			fields: this.connector.publicFields,
 		});
@@ -37,6 +49,14 @@ export default class UserModel {
 			{ username },
 			{ fields: this.connector.publicFields }
 		);
+	}
+
+	async getUserPostgresId(id: ID): number {
+		const pgUserResults = await PostgreSQL.executeQuery(
+			PgUserFunctions.getUserById,
+			id
+		);
+		return pgUserResults.user.userid;
 	}
 
 	// Get all users administering a given company.

@@ -4,6 +4,8 @@ import type { ID, StarRatings, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
+import PgReviewFunctions from "./helpers/postgresql/reviews.js";
+
 const defaultPageSize = 100;
 
 export type Review = {
@@ -33,10 +35,10 @@ export type Review = {
 };
 
 export default class ReviewModel {
-	connector: Mongo.Collection;
+	connector: Object;
 	userModel: UserModel;
 	companyModel: CompanyModel;
-	constructor(connector: Mongo.Collection) {
+	constructor(connector: Object) {
 		this.connector = connector;
 	}
 
@@ -46,65 +48,76 @@ export default class ReviewModel {
 	}
 
 	// Get the review with a given id.
-	getReviewById(id: ID): Review {
-		return this.connector.findOne(id);
+	async getReviewById(id: ID): Review {
+		if (!Number.isNaN(Number(id)))
+			return PgReviewFunctions.processReviewResults(
+				await this.connector.executeQuery(
+					PgReviewFunctions.getReviewById,
+					Number(id)
+				)
+			);
+		return undefined;
 	}
 
 	// Get all reviews written by a given user.
-	getReviewsByAuthor(
+	async getReviewsByAuthor(
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Review] {
-		const cursor = this.connector.find(
-			{ submittedBy: user._id },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		const authorPostgresId = await this.userModel.getUserPostgresId(
+			user._id
 		);
 
-		return cursor.fetch();
+		return this.connector.executeQuery(
+			PgReviewFunctions.getReviewsByAuthor,
+			authorPostgresId,
+			pageNumber,
+			pageSize
+		);
 	}
 	// Get the user who wrote a given review.
-	getAuthorOfReview(review: Review): User {
-		return this.userModel.getUserById(review.submittedBy);
+	// BUG Not quite sure how to handle this.
+	// getUserById expects a string, but review.submittedby
+	// is an integer, which introduces a type conflict.
+	// May need to ask Shaffer about this.
+	async getAuthorOfReview(review: Review): User {
+		return this.userModel.getUserById(String(review.submittedBy));
 	}
 
 	// Get all reviews written about a given company.
-	getReviewsByCompany(
+	async getReviewsByCompany(
 		company: Company,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Review] {
-		const cursor = this.connector.find(
-			{ companyName: company.name },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgReviewFunctions.processReviewResults(
+			await this.connector.executeQuery(
+				PgReviewFunctions.getReviewsForCompany,
+				company.name,
+				pageNumber,
+				pageSize
+			)
 		);
-
-		return cursor.fetch();
 	}
+
 	// Get the company that a given review is about.
-	getCompanyOfReview(review: Review): Company {
+	async getCompanyOfReview(review: Review): Company {
 		return this.companyModel.getCompanyByName(review.companyName);
 	}
 
 	// Get all of the reviews.
-	getAllReviews(
+	async getAllReviews(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Review] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgReviewFunctions.processReviewResults(
+			await this.connector.executeQuery(
+				PgReviewFunctions.getAllReviews,
+				pageNumber,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
 	isReview(obj: any): boolean {
