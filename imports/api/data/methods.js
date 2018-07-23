@@ -320,7 +320,7 @@ Meteor.methods({
 			PgJobAdFunctions.getJobAdById,
 			jobIdentifier
 		);
-		if (job.jobAd === undefined) {
+		if (job.jobad === undefined) {
 			return false;
 		}
 		return true;
@@ -564,17 +564,17 @@ Meteor.methods({
 	},
 
 	async "companies.doesCompanyWithNameNotExist"(companyName) {
-		if (
-			PgCompanyFunctions.processCompanyResults(
-				await PostgreSQL.executeQuery(
-					PgCompanyFunctions.getCompanyByName,
-					companyName
-				)
-			) !== undefined
-		) {
-			return false;
+		const companyResults = await PostgreSQL.executeQuery(
+			PgCompanyFunctions.getCompanyByName,
+			companyName
+		);
+		const company = PgCompanyFunctions.processCompanyResults(
+			companyResults
+		);
+		if (company === undefined) {
+			return true;
 		}
-		return true;
+		return false;
 	},
 
 	// Add method for creating a new CompanyProfile
