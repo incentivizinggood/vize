@@ -4,6 +4,8 @@ import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
+import PgSalaryFunctions from "./helpers/postgresql/salaries.js";
+
 const defaultPageSize = 100;
 
 export type Salary = {
@@ -18,11 +20,11 @@ export type Salary = {
 };
 
 export default class SalaryModel {
-	connector: Mongo.Collection;
+	connector: Object;
 	companyModel: CompanyModel;
 	userModel: UserModel;
 
-	constructor(connector: Mongo.Collection) {
+	constructor(connector: Object) {
 		this.connector = connector;
 	}
 
@@ -32,25 +34,33 @@ export default class SalaryModel {
 	}
 
 	// Get the salary with a given id.
-	getSalaryById(id: ID): Salary {
-		return this.connector.findOne(id);
+	async getSalaryById(id: ID): Salary {
+		if (!Number.isNaN(Number(id))) {
+			return PgSalaryFunctions.processSalaryResults(
+				await this.connector.executeQuery(
+					PgSalaryFunctions.getSalaryById,
+					Number(id)
+				)
+			);
+		}
+		return undefined;
 	}
 
 	// Get all salaries submitted by a given user.
-	getSalariesByAuthor(
+	async getSalariesByAuthor(
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Salary] {
-		const cursor = this.connector.find(
-			{ submittedBy: user._id },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		const authorPostgresId = await this.userModel.getUserPostgresId(
+			user._id
 		);
-
-		return cursor.fetch();
+		return this.connector.executeQuery(
+			PgSalaryFunctions.getSalariesByAuthor,
+			authorPostgresId,
+			pageNumber,
+			pageSize
+		);
 	}
 	// Get the user who submitted a given salary.
 	getAuthorOfSalary(salary: Salary): User {
@@ -58,20 +68,19 @@ export default class SalaryModel {
 	}
 
 	// Get all salaries paid by a given company.
-	getSalariesByCompany(
+	async getSalariesByCompany(
 		company: Company,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Salary] {
-		const cursor = this.connector.find(
-			{ companyName: company.name },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgSalaryFunctions.processSalaryResults(
+			await this.connector.executeQuery(
+				PgSalaryFunctions.getSalariesForCompany,
+				company.name,
+				pageNumber,
+				pageSize
+			)
 		);
-
-		return cursor.fetch();
 	}
 	// Get the company that paid a given salary.
 	getCompanyOfSalary(salary: Salary): Company {
@@ -79,18 +88,17 @@ export default class SalaryModel {
 	}
 
 	// Get all of the salaries.
-	getAllSalaries(
+	async getAllSalaries(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Salary] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgSalaryFunctions.processSalaryResults(
+			await this.connector.executeQuery(
+				PgSalaryFunctions.getAllSalaries,
+				pageNumber,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
 	submitSalary(user: User, company: Company, salaryParams: mixed): Salary {

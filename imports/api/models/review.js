@@ -68,7 +68,6 @@ export default class ReviewModel {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
-
 		return this.connector.executeQuery(
 			PgReviewFunctions.getReviewsByAuthor,
 			authorPostgresId,
