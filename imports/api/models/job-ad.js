@@ -3,6 +3,7 @@ import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
+import JobAds from "../data/jobads.js";
 
 const defaultPageSize = 100;
 
@@ -78,6 +79,20 @@ export default class JobAdModel {
 				pageSize
 			)
 		);
+	}
+
+	isJobAd(obj: any): boolean {
+		return JobAds.schema
+			.newContext()
+			.validate(obj)
+			.isValid();
+	}
+
+	isJobApplication(obj: any): boolean {
+		return JobAds.applicationSchema
+			.newContext()
+			.validate(obj)
+			.isValid();
 	}
 
 	async postJobAd(company: Company, jobAdParams: mixed): JobAd {

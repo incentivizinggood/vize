@@ -4,6 +4,7 @@ import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
 import PgSalaryFunctions from "./helpers/postgresql/salaries.js";
+import Salaries from "../data/salaries.js";
 
 const defaultPageSize = 100;
 
@@ -100,6 +101,13 @@ export default class SalaryModel {
 				pageSize
 			)
 		);
+	}
+
+	isSalary(obj: any): boolean {
+		return Salaries.schema
+			.newContext()
+			.validate(obj)
+			.isValid();
 	}
 
 	async submitSalary(

@@ -2,6 +2,7 @@
 import type { ID, StarRatings, AllModels } from "./common.js";
 
 import PgCompanyFunctions from "./helpers/postgresql/companies.js";
+import Companies from "../data/companies.js";
 
 const defaultPageSize = 100;
 
@@ -100,6 +101,13 @@ export default class CompanyModel {
 				pageSize
 			)
 		);
+	}
+
+	isCompany(obj: any): boolean {
+		return Companies.schema
+			.newContext()
+			.validate(obj)
+			.isValid();
 	}
 
 	async createCompany(companyParams: mixed): Company {

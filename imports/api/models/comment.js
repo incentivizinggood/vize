@@ -4,6 +4,7 @@ import type UserModel, { User } from "./user.js";
 import type ReviewModel, { Review } from "./review.js";
 
 import PgCommentFunctions from "./helpers/postgresql/comments.js";
+import Comments from "../data/comments.js";
 
 const defaultPageSize = 100;
 
@@ -94,7 +95,10 @@ export default class CommentModel {
 	}
 
 	isComment(obj: any): boolean {
-		throw new Error("Not implemented yet");
+		return Comments.schema
+			.newContext()
+			.validate(obj)
+			.isValid();
 	}
 
 	async writeComment(

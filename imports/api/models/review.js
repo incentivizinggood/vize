@@ -4,6 +4,7 @@ import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
 import PgReviewFunctions from "./helpers/postgresql/reviews.js";
+import Reviews from "../data/reviews.js";
 
 const defaultPageSize = 100;
 
@@ -121,7 +122,7 @@ export default class ReviewModel {
 	}
 
 	isReview(obj: any): boolean {
-		return this.connector.schema
+		return Reviews.schema
 			.newContext()
 			.validate(obj)
 			.isValid();
