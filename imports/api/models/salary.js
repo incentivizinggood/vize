@@ -1,5 +1,4 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
@@ -55,16 +54,18 @@ export default class SalaryModel {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
-		return this.connector.executeQuery(
-			PgSalaryFunctions.getSalariesByAuthor,
-			authorPostgresId,
-			pageNumber,
-			pageSize
+		return PgSalaryFunctions.processSalaryResults(
+			await this.connector.executeQuery(
+				PgSalaryFunctions.getSalariesByAuthor,
+				authorPostgresId,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
 	}
 	// Get the user who submitted a given salary.
-	getAuthorOfSalary(salary: Salary): User {
-		return this.userModel.getUserById(salary.submittedBy);
+	async getAuthorOfSalary(salary: Salary): User {
+		return this.userModel.getUserById(String(salary.submittedBy));
 	}
 
 	// Get all salaries paid by a given company.
@@ -77,13 +78,13 @@ export default class SalaryModel {
 			await this.connector.executeQuery(
 				PgSalaryFunctions.getSalariesForCompany,
 				company.name,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
 	}
 	// Get the company that paid a given salary.
-	getCompanyOfSalary(salary: Salary): Company {
+	async getCompanyOfSalary(salary: Salary): Company {
 		return this.companyModel.getCompanyByName(salary.companyName);
 	}
 
@@ -95,21 +96,25 @@ export default class SalaryModel {
 		return PgSalaryFunctions.processSalaryResults(
 			await this.connector.executeQuery(
 				PgSalaryFunctions.getAllSalaries,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
 	}
 
-	submitSalary(user: User, company: Company, salaryParams: mixed): Salary {
+	async submitSalary(
+		user: User,
+		company: Company,
+		salaryParams: mixed
+	): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	editSalary(id: ID, salaryChanges: mixed): Salary {
+	async editSalary(id: ID, salaryChanges: mixed): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteSalary(id: ID): Salary {
+	async deleteSalary(id: ID): Salary {
 		throw new Error("Not implemented yet");
 	}
 }

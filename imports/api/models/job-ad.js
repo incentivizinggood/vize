@@ -1,5 +1,4 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
@@ -57,7 +56,7 @@ export default class JobAdModel {
 			await this.connector.executeQuery(
 				PgJobAdFunctions.getJobAdsByCompany,
 				company.name,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
@@ -75,21 +74,21 @@ export default class JobAdModel {
 		return PgJobAdFunctions.processJobAdResults(
 			await this.connector.executeQuery(
 				PgJobAdFunctions.getAllJobAds,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
 	}
 
-	postJobAd(company: Company, jobAdParams: mixed): JobAd {
+	async postJobAd(company: Company, jobAdParams: mixed): JobAd {
 		throw new Error("Not implemented yet");
 	}
 
-	editJobAd(id: ID, jobAdChanges: mixed): JobAd {
+	async editJobAd(id: ID, jobAdChanges: mixed): JobAd {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteJobAd(id: ID): JobAd {
+	async deleteJobAd(id: ID): JobAd {
 		throw new Error("Not implemented yet");
 	}
 }

@@ -1,8 +1,9 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type UserModel, { User } from "./user.js";
 import type ReviewModel, { Review } from "./review.js";
+
+import PgCommentFunctions from "./helpers/postgresql/comments.js";
 
 const defaultPageSize = 100;
 
@@ -16,11 +17,11 @@ export type Comment = {
 export type CommentParent = Comment | Review;
 
 export default class CommentModel {
-	connector: Mongo.Collection;
+	connector: Object;
 	reviewModel: ReviewModel;
 	userModel: UserModel;
 
-	constructor(connector: Mongo.Collection) {
+	constructor(connector: Object) {
 		this.connector = connector;
 	}
 
@@ -30,33 +31,43 @@ export default class CommentModel {
 	}
 
 	// Get the comment with a given id.
-	getCommentById(id: ID): Comment {
-		return this.connector.findOne(id);
+	async getCommentById(id: ID): Comment {
+		if (!Number.isNaN(Number(id)))
+			return PgCommentFunctions.processCommentResults(
+				await this.connector.executeQuery(
+					PgCommentFunctions.getCommentById,
+					Number(id)
+				)
+			);
+		return undefined;
 	}
 
 	// Get all comments written by a given user.
-	getCommentsByAuthor(
+	async getCommentsByAuthor(
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Comment] {
-		const cursor = this.connector.find(
-			{ username: user.username },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		const authorPostgresId = await this.userModel.getUserPostgresId(
+			user._id
 		);
 
-		return cursor.fetch();
+		return PgCommentFunctions.processCommentResults(
+			await this.connector.executeQuery(
+				PgCommentFunctions.getCommentsByAuthor,
+				authorPostgresId,
+				pageNumber * pageSize,
+				pageSize
+			)
+		);
 	}
 	// Get the user who wrote a given comment.
-	getAuthorOfComment(comment: Comment): User {
-		return this.userModel.getUserByUsername(comment.username);
+	async getAuthorOfComment(comment: Comment): User {
+		return this.userModel.getUserById(String(comment.submittedBy));
 	}
 
 	// Get all comments that are about a given thing.
-	getCommentsByParent(
+	async getCommentsByParent(
 		parent: CommentParent,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
@@ -64,38 +75,41 @@ export default class CommentModel {
 		throw new Error("Not implemented yet");
 	}
 	// Get the thing that a given comment is about or the comment that a given comment is responding to.
-	getParentOfComment(comment: Comment): CommentParent {
+	async getParentOfComment(comment: Comment): CommentParent {
 		throw new Error("Not implemented yet");
 	}
 
 	// Get all of the comments.
-	getAllComments(
+	async getAllComments(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Comment] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgCommentFunctions.processCommentResults(
+			await this.connector.executeQuery(
+				PgCommentFunctions.getAllComments,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
 	isComment(obj: any): boolean {
 		throw new Error("Not implemented yet");
 	}
 
-	writeComment(user: User, parent: CommentParent, commentParams: mixed) {
+	async writeComment(
+		user: User,
+		parent: CommentParent,
+		commentParams: mixed
+	) {
 		throw new Error("Not implemented yet");
 	}
 
-	editComment(id: ID, commentChanges: mixed) {
+	async editComment(id: ID, commentChanges: mixed) {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteComment(id: ID) {
+	async deleteComment(id: ID) {
 		throw new Error("Not implemented yet");
 	}
 }

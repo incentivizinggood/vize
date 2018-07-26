@@ -1,5 +1,4 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, StarRatings, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
@@ -68,11 +67,13 @@ export default class ReviewModel {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
-		return this.connector.executeQuery(
-			PgReviewFunctions.getReviewsByAuthor,
-			authorPostgresId,
-			pageNumber,
-			pageSize
+		return PgReviewFunctions.processReviewResults(
+			await this.connector.executeQuery(
+				PgReviewFunctions.getReviewsByAuthor,
+				authorPostgresId,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
 	}
 	// Get the user who wrote a given review.
@@ -94,7 +95,7 @@ export default class ReviewModel {
 			await this.connector.executeQuery(
 				PgReviewFunctions.getReviewsForCompany,
 				company.name,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
@@ -113,7 +114,7 @@ export default class ReviewModel {
 		return PgReviewFunctions.processReviewResults(
 			await this.connector.executeQuery(
 				PgReviewFunctions.getAllReviews,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
@@ -126,15 +127,19 @@ export default class ReviewModel {
 			.isValid();
 	}
 
-	submitReview(user: User, company: Company, reviewParams: mixed): Review {
+	async submitReview(
+		user: User,
+		company: Company,
+		reviewParams: mixed
+	): Review {
 		throw new Error("Not implemented yet");
 	}
 
-	editReview(id: ID, reviewChanges: mixed): Review {
+	async editReview(id: ID, reviewChanges: mixed): Review {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteReview(id: ID): Review {
+	async deleteReview(id: ID): Review {
 		throw new Error("Not implemented yet");
 	}
 }

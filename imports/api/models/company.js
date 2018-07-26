@@ -1,5 +1,4 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, StarRatings, AllModels } from "./common.js";
 
 import PgCompanyFunctions from "./helpers/postgresql/companies.js";
@@ -82,7 +81,7 @@ export default class CompanyModel {
 		return PgCompanyFunctions.processCompanyResults(
 			await this.connector.executeQuery(
 				PgCompanyFunctions.getAllCompanies,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
@@ -97,21 +96,21 @@ export default class CompanyModel {
 			await this.connector.executeQuery(
 				PgCompanyFunctions.companyNameRegexSearch,
 				searchText,
-				pageNumber,
+				pageNumber * pageSize,
 				pageSize
 			)
 		);
 	}
 
-	createCompany(companyParams: mixed): Company {
+	async createCompany(companyParams: mixed): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	editCompany(id: ID, companyChanges: mixed): Company {
+	async editCompany(id: ID, companyChanges: mixed): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteCompany(id: ID): Company {
+	async deleteCompany(id: ID): Company {
 		throw new Error("Not implemented yet");
 	}
 }
