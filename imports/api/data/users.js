@@ -97,4 +97,18 @@ if (Meteor.isServer) {
 	Meteor.publish("users", function() {
 		return Meteor.users.find({}, { fields: Meteor.users.publicFields });
 	});
+
+	// Publish the data for the currently logged in user.
+	// This is nessisary for Meteor.user() to return extra fields such as role.
+	// See also /client/main.jsx for the subscription.
+	Meteor.publish("userData", function() {
+		if (this.userId) {
+			return Meteor.users.find(
+				{ _id: this.userId },
+				{ fields: Meteor.users.publicFields }
+			);
+		}
+		this.ready();
+		return null;
+	});
 }
