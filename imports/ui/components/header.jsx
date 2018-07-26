@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { If, Then, Else } from "../if-else.jsx";
@@ -20,6 +21,8 @@ class Header extends React.Component {
 	}
 
 	render() {
+		console.log("USER");
+		console.log(this.props.currentUser);
 		return (
 			<div className="top-nav">
 				<nav>
@@ -78,7 +81,10 @@ class Header extends React.Component {
 									</a>
 								</li>
 								<li>
-									<a href="/worker-resources" className="link-kumya">
+									<a
+										href="/worker-resources"
+										className="link-kumya"
+									>
 										<span>
 											<T>common.header.resources</T>
 										</span>
@@ -159,4 +165,5 @@ class Header extends React.Component {
 
 export default withTracker(() => ({
 	isLoggedIn: Meteor.userId() !== null,
+	currentUser: Meteor.user(),
 }))(Header);

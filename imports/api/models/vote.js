@@ -34,6 +34,8 @@ export default class VoteModel {
 	}
 
 	// Get the vote with a given id.
+	// BUG not completely sure what the
+	// best way to do this is going to be
 	getVoteById(id: ID): Vote {
 		return this.connector.findOne(id);
 	}
