@@ -18,12 +18,12 @@ export default class PgSalaryFunctions {
 		}
 	}
 
-	static async getAllSalaries(client, skip, limit) {
+	static async getSalariesByAuthor(client, id, skip, limit) {
 		let salaryResults = { rows: [] };
 		try {
 			salaryResults = await client.query(
-				"SELECT * FROM salaries OFFSET $1 LIMIT $2",
-				[skip, limit]
+				"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+				[id, skip, limit]
 			);
 		} catch (e) {
 			console.error("ERROR IN MODEL HELPER", e.message);
@@ -34,12 +34,12 @@ export default class PgSalaryFunctions {
 		}
 	}
 
-	static async getSalariesByAuthor(client, id, skip, limit) {
+	static async getAllSalaries(client, skip, limit) {
 		let salaryResults = { rows: [] };
 		try {
 			salaryResults = await client.query(
-				"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-				[id, skip, limit]
+				"SELECT * FROM salaries OFFSET $1 LIMIT $2",
+				[skip, limit]
 			);
 		} catch (e) {
 			console.error("ERROR IN MODEL HELPER", e.message);

@@ -15,8 +15,8 @@ const { Pool } = require("pg");
 let pool = new Pool();
 
 let castToNumberIfDefined = function(number) {
-	return (number === undefined || number === null) ? number : Number(number);
-}
+	return number === undefined || number === null ? number : Number(number);
+};
 
 let wrapPgFunction;
 let PostgreSQL;
@@ -26,7 +26,6 @@ let PostgreSQL;
 // passed after the function name, so that they
 // can be accessed and used array-style
 wrapPgFunction = async function(func, readOnly) {
-
 	const client = await pool.connect();
 	let result = {};
 	try {
@@ -42,7 +41,7 @@ wrapPgFunction = async function(func, readOnly) {
 
 		await client.query("COMMIT");
 	} catch (e) {
-		console.error("ERROR IN POSTGRES WRAPPER",e.message)
+		console.log(e);
 		await client.query("ROLLBACK");
 	} finally {
 		await client.release();
@@ -81,7 +80,7 @@ getCompanyByName = async function(client, name) {
 			[name]
 		);
 
-		if(companyResults.rows.length > 0) {
+		if (companyResults.rows.length > 0) {
 			locationResults = await client.query(
 				"SELECT * FROM company_locations WHERE companyid=$1",
 				[companyResults.rows[0].companyid]
@@ -100,7 +99,7 @@ getCompanyByName = async function(client, name) {
 			reviewStats: statResults.rows[0],
 		};
 	}
-};
+}
 
 getCompanyById = async function(client, id) {
 	let companyResults = { rows: [] };
@@ -132,7 +131,7 @@ getCompanyById = async function(client, id) {
 			reviewStats: statResults.rows[0],
 		};
 	}
-};
+}
 
 companyNameRegexSearch = async function(client, name, skip, limit) {
 	let companyResults = { rows: [] };
@@ -166,7 +165,7 @@ companyNameRegexSearch = async function(client, name, skip, limit) {
 			reviewStats: statResults,
 		};
 	}
-};
+}
 
 getAllCompanies = async function(client, skip, limit) {
 	let companyResults = { rows: [] };
@@ -200,7 +199,7 @@ getAllCompanies = async function(client, skip, limit) {
 			reviewStats: statResults,
 		};
 	}
-};
+}
 
 createCompany = async function(client, company) {
 	let newCompany = { rows: [] };
@@ -270,7 +269,10 @@ createCompany = async function(client, company) {
 				back dummy, default values
 			*/
 			reviewStats: {
-				name: (newCompany.rows.length > 0) ? newCompany.rows[0].name : "",
+				name:
+					newCompany.rows.length > 0
+						? newCompany.rows[0].name
+						: "",
 				numreviews: 0,
 				avgnummonthsworked: 0,
 				percentrecommended: 0,
@@ -278,11 +280,11 @@ createCompany = async function(client, company) {
 				managerrelationship: 0,
 				workenvironment: 0,
 				benefits: 0,
-				overallsatisfaction: 0
-			}
-		}
-	};
-};
+				overallsatisfaction: 0,
+			},
+		};
+	}
+}
 
 processCompanyResults = function(companyResults) {
 	/*
@@ -306,7 +308,7 @@ processCompanyResults = function(companyResults) {
 	*/
 
 	// singular company
-	if(companyResults.company !== undefined) {
+	if (companyResults.company !== undefined) {
 		return {
 			_id: Number(companyResults.company.companyid),
 			name: companyResults.company.name,
@@ -314,24 +316,39 @@ processCompanyResults = function(companyResults) {
 			dateEstablished: companyResults.company.dateestablished,
 			numEmployees: companyResults.company.numemployees,
 			industry: companyResults.company.industry,
-			locations: companyResults.locations.map(loc => loc.locationname),
+			locations: companyResults.locations.map(
+				loc => loc.locationname
+			),
 			otherContactInfo: companyResults.company.othercontactinfo,
 			websiteURL: companyResults.company.websiteurl,
-			descriptionOfCompany: companyResults.company.descriptionofcompany,
+			descriptionOfCompany:
+				companyResults.company.descriptionofcompany,
 			dateJoined: companyResults.company.dateadded,
 			numFlags: Number(companyResults.company.numflags),
 			numReviews: Number(companyResults.reviewStats.numreviews),
-			healthAndSafety: Number(companyResults.reviewStats.healthandsafety),
-			managerRelationship: Number(companyResults.reviewStats.managerrelationship),
-			workEnvironment: Number(companyResults.reviewStats.workenvironment),
+			healthAndSafety: Number(
+				companyResults.reviewStats.healthandsafety
+			),
+			managerRelationship: Number(
+				companyResults.reviewStats.managerrelationship
+			),
+			workEnvironment: Number(
+				companyResults.reviewStats.workenvironment
+			),
 			benefits: Number(companyResults.reviewStats.benefits),
-			overallSatisfaction: Number(companyResults.reviewStats.overallsatisfaction),
-			percentRecommended: Number(companyResults.reviewStats.percentrecommended),
-			avgNumMonthsWorked: Number(companyResults.reviewStats.avgnummonthsworked)
+			overallSatisfaction: Number(
+				companyResults.reviewStats.overallsatisfaction
+			),
+			percentRecommended: Number(
+				companyResults.reviewStats.percentrecommended
+			),
+			avgNumMonthsWorked: Number(
+				companyResults.reviewStats.avgnummonthsworked
+			),
 		};
 	}
 	// array of companies
-	else if(companyResults.companies !== undefined) {
+	else if (companyResults.companies !== undefined) {
 		return companyResults.companies.map(company => {
 			return {
 				_id: Number(company.companyid),
@@ -340,20 +357,42 @@ processCompanyResults = function(companyResults) {
 				dateEstablished: company.dateestablished,
 				numEmployees: company.numemployees,
 				industry: company.industry,
-				locations: companyResults.locations[company.name].map(loc => loc.locationname),
+				locations: companyResults.locations[company.name].map(
+					loc => loc.locationname
+				),
 				otherContactInfo: company.othercontactinfo,
 				websiteURL: company.websiteurl,
 				descriptionOfCompany: company.descriptionofcompany,
 				dateJoined: company.dateadded,
 				numFlags: Number(company.numflags),
-				numReviews: Number(companyResults.reviewStats[company.name].numreviews),
-				healthAndSafety: Number(companyResults.reviewStats[company.name].healthandsafety),
-				managerRelationship: Number(companyResults.reviewStats[company.name].managerrelationship),
-				workEnvironment: Number(companyResults.reviewStats[company.name].workenvironment),
-				benefits: Number(companyResults.reviewStats[company.name].benefits),
-				overallSatisfaction: Number(companyResults.reviewStats[company.name].overallsatisfaction),
-				percentRecommended: Number(companyResults.reviewStats[company.name].percentrecommended),
-				avgNumMonthsWorked: Number(companyResults.reviewStats[company.name].avgnummonthsworked)
+				numReviews: Number(
+					companyResults.reviewStats[company.name].numreviews
+				),
+				healthAndSafety: Number(
+					companyResults.reviewStats[company.name].healthandsafety
+				),
+				managerRelationship: Number(
+					companyResults.reviewStats[company.name]
+						.managerrelationship
+				),
+				workEnvironment: Number(
+					companyResults.reviewStats[company.name].workenvironment
+				),
+				benefits: Number(
+					companyResults.reviewStats[company.name].benefits
+				),
+				overallSatisfaction: Number(
+					companyResults.reviewStats[company.name]
+						.overallsatisfaction
+				),
+				percentRecommended: Number(
+					companyResults.reviewStats[company.name]
+						.percentrecommended
+				),
+				avgNumMonthsWorked: Number(
+					companyResults.reviewStats[company.name]
+						.avgnummonthsworked
+				),
 			};
 		});
 	}
@@ -465,7 +504,6 @@ let submitReview;
 let processReviewResults;
 
 getReviewById = async function(client, id) {
-
 	let reviewResults = { rows: [] };
 	let voteResults = { rows: [] };
 
@@ -487,10 +525,9 @@ getReviewById = async function(client, id) {
 			votes: voteResults.rows[0],
 		};
 	}
-};
+}
 
 getReviewsByAuthor = async function(client, id, skip, limit) {
-
 	let reviewResults = { rows: [] };
 	let voteResults = {};
 
@@ -516,46 +553,16 @@ getReviewsByAuthor = async function(client, id, skip, limit) {
 			votes: voteResults,
 		};
 	}
-};
+}
 
 getAllReviews = async function(client, skip, limit) {
-
 	let reviewResults = { rows: [] };
 	let voteResults = {};
 
 	try {
 		reviewResults = await client.query(
 			"SELECT * FROM reviews OFFSET $1 LIMIT $2",
-			[skip,limit]
-		);
-
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			voteResults[review.reviewid] = votes.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults
-		};
-	}
-};
-
-getReviewsForCompany = async function(client, name, skip, limit) {
-
-	let reviewResults = { rows: [] };
-	let voteResults = {};
-
-	try {
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[name,skip,limit]
+			[skip, limit]
 		);
 
 		for (let review of reviewResults.rows) {
@@ -574,7 +581,35 @@ getReviewsForCompany = async function(client, name, skip, limit) {
 			votes: voteResults,
 		};
 	}
-};
+}
+
+getReviewsForCompany = async function(client, name, skip, limit) {
+	let reviewResults = { rows: [] };
+	let voteResults = {};
+
+	try {
+		reviewResults = await client.query(
+			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
+			[name, skip, limit]
+		);
+
+		for (let review of reviewResults.rows) {
+			let votes = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[review.reviewid]
+			);
+
+			voteResults[review.reviewid] = votes.rows[0];
+		}
+	} catch (e) {
+		console.error("ERROR IN MODEL HELPER", e.message);
+	} finally {
+		return {
+			reviews: reviewResults.rows,
+			votes: voteResults,
+		};
+	}
+}
 
 submitReview = async function(client, review) {
 	// assumes review is formatted for SimplSchema conformity
@@ -586,19 +621,31 @@ submitReview = async function(client, review) {
 
 	try {
 		newReview = await client.query(
-			"INSERT INTO reviews "+
-			"(submittedBy,companyName,companyId,reviewLocation,"+
-			"reviewTitle,jobTitle,numMonthsWorked,pros,cons,"+
-			"wouldRecommend,healthAndSafety,managerRelationship,"+
-			"workEnvironment,benefits,overallSatisfaction,additionalComments) "+
-			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) "+
-			"RETURNING *",
-			[review.submittedBy,review.companyName,review.companyId,
-			review.location,review.reviewTitle,review.jobTitle,
-			review.numberOfMonthsWorked,review.pros,review.cons,
-			review.wouldRecommendToOtherJobSeekers,review.healthAndSafety,
-			review.managerRelationship,review.workEnvironment,review.benefits,
-			review.overallSatisfaction,review.additionalComments]
+			"INSERT INTO reviews " +
+				"(submittedBy,companyName,companyId,reviewLocation," +
+				"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
+				"wouldRecommend,healthAndSafety,managerRelationship," +
+				"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
+				"RETURNING *",
+			[
+				review.submittedBy,
+				review.companyName,
+				review.companyId,
+				review.location,
+				review.reviewTitle,
+				review.jobTitle,
+				review.numberOfMonthsWorked,
+				review.pros,
+				review.cons,
+				review.wouldRecommendToOtherJobSeekers,
+				review.healthAndSafety,
+				review.managerRelationship,
+				review.workEnvironment,
+				review.benefits,
+				review.overallSatisfaction,
+				review.additionalComments,
+			]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
@@ -609,11 +656,11 @@ submitReview = async function(client, review) {
 			votes: {
 				refersto: newReview.rows[0].reviewid,
 				upvotes: 0,
-				downvotes: 0
-			}
+				downvotes: 0,
+			},
 		};
 	}
-};
+}
 
 processReviewResults = function(reviewResults) {
 	/*
@@ -624,7 +671,7 @@ processReviewResults = function(reviewResults) {
 		- review or reviews: singular review or array of reviews
 		- votes: singular or array depending on whether we get review or reviews
 	*/
-	if(reviewResults.review !== undefined) {
+	if (reviewResults.review !== undefined) {
 		const review = reviewResults.review;
 		return {
 			_id: Number(review.reviewid),
@@ -646,10 +693,9 @@ processReviewResults = function(reviewResults) {
 			additionalComments: review.additionalcomments,
 			datePosted: review.dateadded,
 			upvotes: Number(reviewResults.votes.upvotes),
-			downvotes: Number(reviewResults.votes.downvotes)
-		}
-	}
-	else if(reviewResults.reviews !== undefined) {
+			downvotes: Number(reviewResults.votes.downvotes),
+		};
+	} else if (reviewResults.reviews !== undefined) {
 		return reviewResults.reviews.map(review => {
 			return {
 				_id: Number(review.reviewid),
@@ -670,8 +716,12 @@ processReviewResults = function(reviewResults) {
 				overallSatisfaction: Number(review.overallsatisfaction),
 				additionalComments: review.additionalcomments,
 				datePosted: review.dateadded,
-				upvotes: Number(reviewResults.votes[String(review.reviewid)].upvotes),
-				downvotes: Number(reviewResults.votes[String(review.reviewid)].downvotes)
+				upvotes: Number(
+					reviewResults.votes[String(review.reviewid)].upvotes
+				),
+				downvotes: Number(
+					reviewResults.votes[String(review.reviewid)].downvotes
+				),
 			};
 		});
 	}
@@ -696,7 +746,7 @@ getSalaryById = async function (client, id) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
-			salary: salaryResults.rows[0]
+			salary: salaryResults.rows[0],
 		};
 	}
 }
@@ -706,13 +756,13 @@ getSalariesByAuthor = async function (client, id, skip, limit) {
 	try {
 		salaryResults = await client.query(
 			"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id,skip,limit]
+			[id, skip, limit]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
-			salaries: salaryResults.rows
+			salaries: salaryResults.rows,
 		};
 	}
 }
@@ -722,13 +772,13 @@ getAllSalaries = async function (client, skip, limit) {
 	try {
 		salaryResults = await client.query(
 			"SELECT * FROM salaries OFFSET $1 LIMIT $2",
-			[skip,limit]
+			[skip, limit]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
-			salaries: salaryResults.rows
+			salaries: salaryResults.rows,
 		};
 	}
 }
@@ -738,13 +788,13 @@ getSalariesForCompany = async function (client, name, skip, limit) {
 	try {
 		salaryResults = await client.query(
 			"SELECT * FROM salaries WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[name,skip,limit]
+			[name, skip, limit]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
-			salaries: salaryResults.rows
+			salaries: salaryResults.rows,
 		};
 	}
 }
@@ -756,8 +806,8 @@ submitSalary = async function (client, salary) {
 	try {
 		newSalary = await client.query(
 			"INSERT INTO salaries " +
-				"(submittedby,companyname,companyid,salarylocation,"+
-				"jobtitle,incometype,incomeamount,gender) "+
+				"(submittedby,companyname,companyid,salarylocation," +
+				"jobtitle,incometype,incomeamount,gender) " +
 				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
 				"RETURNING *",
 			[
@@ -768,14 +818,14 @@ submitSalary = async function (client, salary) {
 				salary.jobTitle,
 				salary.incomeType,
 				salary.incomeAmount,
-				salary.gender
+				salary.gender,
 			]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
-			salary: newSalary.rows[0]
+			salary: newSalary.rows[0],
 		};
 	}
 }
@@ -786,7 +836,7 @@ processSalaryResults = function(salaryResults) {
 		with single field:
 		either salary (singular salary) or salaries (array of salaries)
 	*/
-	if(salaryResults.salary !== undefined) {
+	if (salaryResults.salary !== undefined) {
 		const salary = salaryResults.salary;
 		return {
 			_id: Number(salary.salaryid),
@@ -798,10 +848,9 @@ processSalaryResults = function(salaryResults) {
 			incomeType: salary.incometype,
 			incomeAmount: salary.incomeamount,
 			gender: salary.gender,
-			datePosted: salary.dateadded
-		}
-	}
-	else if(salaryResults.salaries !== undefined) {
+			datePosted: salary.dateadded,
+		};
+	} else if (salaryResults.salaries !== undefined) {
 		return salaryResults.salaries.map(salary => {
 			return {
 				_id: Number(salary.salaryid),
@@ -813,8 +862,8 @@ processSalaryResults = function(salaryResults) {
 				incomeType: salary.incometype,
 				incomeAmount: salary.incomeamount,
 				gender: salary.gender,
-				datePosted: salary.dateadded
-			}
+				datePosted: salary.dateadded,
+			};
 		});
 	}
 	return undefined;
@@ -843,10 +892,10 @@ getJobAdById = async function(client, id) {
 	} finally {
 		return {
 			jobad: jobAdResults.rows[0],
-			locations: locationResults.rows
+			locations: locationResults.rows,
 		};
 	}
-};
+}
 
 getAllJobAds = async function(client, skip, limit) {
 	let jobAdResults = { rows: [] };
@@ -854,9 +903,9 @@ getAllJobAds = async function(client, skip, limit) {
 	try {
 		jobAdResults = await client.query(
 			"SELECT * FROM jobads OFFSET $1 LIMIT $2",
-			[skip,limit]
+			[skip, limit]
 		);
-		for(let jobad of jobAdResults.rows) {
+		for (let jobad of jobAdResults.rows) {
 			let locations = await client.query(
 				"SELECT * FROM job_locations WHERE jobadid=$1",
 				[jobad.jobadid]
@@ -868,10 +917,10 @@ getAllJobAds = async function(client, skip, limit) {
 	} finally {
 		return {
 			jobads: jobAdResults.rows,
-			locations: locationResults
+			locations: locationResults,
 		};
 	}
-};
+}
 
 getJobAdsByCompany = async function(client, companyName, skip, limit) {
 	let jobAdResults = { rows: [] };
@@ -879,9 +928,9 @@ getJobAdsByCompany = async function(client, companyName, skip, limit) {
 	try {
 		jobAdResults = await client.query(
 			"SELECT * FROM jobads WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[companyName,skip,limit]
+			[companyName, skip, limit]
 		);
-		for(let jobad of jobAdResults.rows) {
+		for (let jobad of jobAdResults.rows) {
 			let locations = await client.query(
 				"SELECT * FROM job_locations WHERE jobadid=$1",
 				[jobad.jobadid]
@@ -893,10 +942,10 @@ getJobAdsByCompany = async function(client, companyName, skip, limit) {
 	} finally {
 		return {
 			jobads: jobAdResults.rows,
-			locations: locationResults
-		}
+			locations: locationResults,
+		};
 	}
-};
+}
 
 postJobAd = async function(client, jobad) {
 	let newJobAd = { rows: [] };
@@ -905,15 +954,19 @@ postJobAd = async function(client, jobad) {
 	try {
 		newJobAd = await client.query(
 			"INSERT INTO jobads " +
-			"(companyname,companyid,jobtitle,pesosperhour,"+
-			"contracttype,jobdescription,responsibilities,qualifications) "+
-			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
-			"RETURNING *",
+				"(companyname,companyid,jobtitle,pesosperhour," +
+				"contracttype,jobdescription,responsibilities,qualifications) " +
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
+				"RETURNING *",
 			[
-				jobad.companyName,jobad.companyId,
-				jobad.jobTitle,jobad.pesosPerHour,
-				jobad.contractType,jobad.jobDescription,
-				jobad.responsibilities,jobad.qualifications
+				jobad.companyName,
+				jobad.companyId,
+				jobad.jobTitle,
+				jobad.pesosPerHour,
+				jobad.contractType,
+				jobad.jobDescription,
+				jobad.responsibilities,
+				jobad.qualifications,
 			]
 		);
 
@@ -923,7 +976,7 @@ postJobAd = async function(client, jobad) {
 		let insertValues = [];
 		let insertValueString = "";
 		let index = 0;
-		for(let location of jobad.locations) {
+		for (let location of jobad.locations) {
 			insertValues.push(id, location);
 			insertValueString =
 				insertValueString +
@@ -948,10 +1001,10 @@ postJobAd = async function(client, jobad) {
 	} finally {
 		return {
 			jobad: newJobAd.rows[0],
-			locations: newLocations.rows
+			locations: newLocations.rows,
 		};
 	}
-};
+}
 
 processJobAdResults = function(jobAdResults) {
 	/*
@@ -959,7 +1012,7 @@ processJobAdResults = function(jobAdResults) {
 		jobad or jobads for single ad or array of ads
 		locations
 	*/
-	if(jobAdResults.jobad !== undefined) {
+	if (jobAdResults.jobad !== undefined) {
 		const jobad = jobAdResults.jobad;
 		return {
 			_id: Number(jobad.jobadid),
@@ -972,23 +1025,24 @@ processJobAdResults = function(jobAdResults) {
 			jobDescription: jobad.jobdescription,
 			responsibilities: jobad.responsibilities,
 			qualifications: jobad.qualifications,
-			datePosted: jobad.dateadded
-		}
-	}
-	else if(jobAdResults.jobads !== undefined) {
+			datePosted: jobad.dateadded,
+		};
+	} else if (jobAdResults.jobads !== undefined) {
 		return jobAdResults.jobads.map(jobad => {
 			return {
 				_id: Number(jobad.jobadid),
 				companyName: jobad.companyname,
 				companyId: castToNumberIfDefined(jobad.companyid),
 				jobTitle: jobad.jobtitle,
-				locations: jobAdResults.locations[String(jobad.jobadid)].map(loc => loc.joblocation),
+				locations: jobAdResults.locations[
+					String(jobad.jobadid)
+				].map(loc => loc.joblocation),
 				pesosPerHour: jobad.pesosperhour,
 				contractType: jobad.contracttype,
 				jobDescription: jobad.jobdescription,
 				responsibilities: jobad.responsibilities,
 				qualifications: jobad.qualifications,
-				datePosted: jobad.dateadded
+				datePosted: jobad.dateadded,
 			};
 		});
 	}
@@ -1010,7 +1064,7 @@ getCommentById = async function(client, id) {
 			[id]
 		);
 
-		voteResults = await client.query (
+		voteResults = await client.query(
 			"SELECT * FROM comment_vote_counts WHERE refersto=$1",
 			[id]
 		);
@@ -1019,7 +1073,7 @@ getCommentById = async function(client, id) {
 	} finally {
 		return {
 			comment: commentResults.rows[0],
-			votes: voteResults.rows[0]
+			votes: voteResults.rows[0],
 		};
 	}
 }
@@ -1031,7 +1085,7 @@ getAllComments = async function(client, skip, limit) {
 	try {
 		commentResults = await client.query(
 			"SELECT * FROM review_comments OFFSET $1 LIMIT $2",
-			[skip,limit]
+			[skip, limit]
 		);
 
 		for (let comment of commentResults.rows) {
@@ -1047,7 +1101,7 @@ getAllComments = async function(client, skip, limit) {
 	} finally {
 		return {
 			comments: commentResults.rows,
-			votes: voteResults
+			votes: voteResults,
 		};
 	}
 }
@@ -1059,7 +1113,7 @@ getCommentsByAuthor = async function(client, id, skip, limit) {
 	try {
 		commentResults = await client.query(
 			"SELECT * FROM review_comments WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id,skip,limit]
+			[id, skip, limit]
 		);
 
 		for (let comment of commentResults.rows) {
@@ -1075,7 +1129,7 @@ getCommentsByAuthor = async function(client, id, skip, limit) {
 	} finally {
 		return {
 			comments: commentResults.rows,
-			votes: voteResults
+			votes: voteResults,
 		};
 	}
 }
@@ -1088,8 +1142,8 @@ writeComment = async function(client, comment) {
 		let newComment = { rows: [] };
 		newComment = await client.query(
 			"INSERT INTO review_comments (reviewid,submittedby,content)" +
-			"VALUES ($1,$2,$3) RETURNING *",
-			[comment.reviewId,comment.submittedBy,comment.content]
+				"VALUES ($1,$2,$3) RETURNING *",
+			[comment.reviewId, comment.submittedBy, comment.content]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
@@ -1099,8 +1153,8 @@ writeComment = async function(client, comment) {
 			votes: {
 				refersto: newComment.commentid,
 				upvotes: 0,
-				downvotes: 0
-			}
+				downvotes: 0,
+			},
 		};
 	}
 }
@@ -1112,7 +1166,7 @@ processCommentResults = function(commentResults) {
 		and votes (singular or array, depending
 		on comment or comments)
 	*/
-	if(commentResults.comment !== undefined) {
+	if (commentResults.comment !== undefined) {
 		const comment = commentResults.comment;
 		return {
 			_id: Number(comment.commentid),
@@ -1121,10 +1175,9 @@ processCommentResults = function(commentResults) {
 			refersto: Number(comment.reviewid),
 			submittedBy: castToNumberIfDefined(comment.submittedby),
 			upvotes: Number(commentResults.votes.upvotes),
-			downvotes: Number(commentResults.votes.downvotes)
+			downvotes: Number(commentResults.votes.downvotes),
 		};
-	}
-	else if(commentResults.comments !== undefined) {
+	} else if (commentResults.comments !== undefined) {
 		return commentResults.comments.map(comment => {
 			return {
 				_id: Number(comment.commentid),
@@ -1132,8 +1185,12 @@ processCommentResults = function(commentResults) {
 				content: comment.content,
 				refersto: Number(comment.reviewid),
 				submittedBy: castToNumberIfDefined(comment.submittedby),
-				upvotes: Number(commentResults.votes[comment.commentid].upvotes),
-				downvotes: Number(commentResults.votes[comment.commentid].downvotes)
+				upvotes: Number(
+					commentResults.votes[comment.commentid].upvotes
+				),
+				downvotes: Number(
+					commentResults.votes[comment.commentid].downvotes
+				),
 			};
 		});
 	}
@@ -1149,11 +1206,16 @@ let processVoteResults;
 
 getVoteByPrimaryKey = async function(client, voteKeyFields) {
 	let voteResults = { rows: [] };
-	if(voteKeyFields.voteSubject !== "review" && voteKeyFields.voteSubject !== "comment")
+	if (
+		voteKeyFields.voteSubject !== "review" &&
+		voteKeyFields.voteSubject !== "comment"
+	)
 		throw new Error("Illegal subject: table does not exist");
 	try {
 		voteResults = await client.query(
-			"SELECT * FROM " + voteKeyFields.voteSubject + "_votes WHERE submittedby=$1 AND refersto=$2",
+			"SELECT * FROM " +
+				voteKeyFields.voteSubject +
+				"_votes WHERE submittedby=$1 AND refersto=$2",
 			[voteKeyFields.submittedBy, voteKeyFields.references]
 		);
 	} catch (e) {
@@ -1161,7 +1223,7 @@ getVoteByPrimaryKey = async function(client, voteKeyFields) {
 	} finally {
 		return {
 			subject: voteKeyFields.voteSubject,
-			vote: voteResults.rows[0]
+			vote: voteResults.rows[0],
 		};
 	}
 }
@@ -1172,38 +1234,40 @@ getAllVotes = async function(client, skip, limit) {
 	try {
 		reviewVoteResults = await client.query(
 			"SELECT * FROM review_vote_counts OFFSET $1 LIMIT $2",
-			[skip,limit]
+			[skip, limit]
 		);
 		commentVoteResults = await client.query(
 			"SELECT * FROM comment_vote_counts OFFSET $1 LIMIT $2",
-			[skip,limit]
+			[skip, limit]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
 			reviewVotes: reviewVoteResults.rows,
-			commentVotes: commentVoteResults.rows
+			commentVotes: commentVoteResults.rows,
 		};
 	}
 }
 
 getVotesForSubject = async function(client, subject, refersto, skip, limit) {
 	let voteResults = { rows: [] };
-	if(subject !== "review" && subject !== "comment")
+	if (subject !== "review" && subject !== "comment")
 		throw new Error("Illegal subject: table does not exist");
 	try {
 		voteResults = await client.query(
-			"SELECT * FROM " + subject + "_vote_counts WHERE " +
-			"refersto=$1 OFFSET $2 LIMIT $3",
-			[refersto,skip,limit]
+			"SELECT * FROM " +
+				subject +
+				"_vote_counts WHERE " +
+				"refersto=$1 OFFSET $2 LIMIT $3",
+			[refersto, skip, limit]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
 			subject: subject,
-			votes: voteResults.rows[0]
+			votes: voteResults.rows[0],
 		};
 	}
 }
@@ -1214,41 +1278,43 @@ getVotesByAuthor = async function(client, id, skip, limit) {
 	try {
 		reviewVoteResults = await client.query(
 			"SELECT * FROM review_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id,skip,limit]
+			[id, skip, limit]
 		);
 		commentVoteResults = await client.query(
 			"SELECT * FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id,skip,limit]
+			[id, skip, limit]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
 			reviewVotes: reviewVoteResults.rows,
-			commentVotes: commentVoteResults.rows
+			commentVotes: commentVoteResults.rows,
 		};
 	}
 }
 
 castVote = async function(client, vote) {
 	let voteResults = { rows: [] };
-	if(vote.voteSubject !== "review" && vote.voteSubject !== "comment")
+	if (vote.voteSubject !== "review" && vote.voteSubject !== "comment")
 		throw new Error("Illegal subject: table does not exist");
 	try {
 		const tblName = vote.voteSubject + "_votes";
 		voteResults = await client.query(
-			"INSERT INTO " + tblName + " (refersto,submittedby,value) " +
+			"INSERT INTO " +
+			tblName +
+			" (refersto,submittedby,value) " +
 			"VALUES ($1,$2,$3) " +
 			"ON CONFLICT (submittedby,refersto) DO UPDATE SET value=$3 " + // I love PostgreSQL
-			"RETURNING *",
-			[vote.references,vote.submittedBy,vote.value]
+				"RETURNING *",
+			[vote.references, vote.submittedBy, vote.value]
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
 		return {
 			subject: vote.voteSubject,
-			vote: voteResults.rows[0]
+			vote: voteResults.rows[0],
 		};
 	}
 }
@@ -1262,17 +1328,19 @@ processVoteResults = function(voteResults) {
 		or reviewVotes and commentVotes
 		*...TO HERE*
 	*/
-	if(voteResults.vote !== undefined &&
+	if (
+		voteResults.vote !== undefined &&
 		(voteResults.subject === "review" ||
-		voteResults.subject === "comment")) {
+			voteResults.subject === "comment")
+	) {
 		const vote = voteResults.vote;
 		return {
 			submittedBy: Number(vote.submittedby),
 			voteSubject: voteResults.subject,
 			references: Number(vote.refersto),
 			value: vote.value,
-			dateAdded: vote.dateadded
-		}
+			dateAdded: vote.dateadded,
+		};
 	}
 
 	// Just realized that the votes case is equivalent

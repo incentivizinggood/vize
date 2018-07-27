@@ -1,4 +1,3 @@
-import { Meteor } from "meteor/meteor";
 const { Pool } = require("pg");
 
 /* ----------------------------
