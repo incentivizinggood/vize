@@ -114,6 +114,14 @@ CREATE TABLE users (
 		OR role='company' OR role='company-unverified')
 );
 
+-- Dummy user to (temporarily?) allow the submitting
+-- of reviews, salaries, votes, and comments but users
+-- who do not have an account yet...such as the kind
+-- folk who submitted the first reviews on the site.
+-- BUG? Hopefully won't run into issues with there not being
+-- an associated Mongo account (this is untested)...
+INSERT INTO users (userid,role) VALUES (-1,'worker');
+
 -- NOTE submittedBy fields are numeric in this implementation,
 -- but could be displayed on the website as "user[submittedBy]"
 -- in place of a screen name

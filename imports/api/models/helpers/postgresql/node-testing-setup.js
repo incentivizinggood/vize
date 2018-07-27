@@ -12,7 +12,17 @@
 */
 
 const { Pool } = require("pg");
+const fs = require("fs");
+
 let pool = new Pool();
+
+const closeAndExit = function() {
+	console.log("goodbye");
+	pool.end();
+};
+
+process.on("SIGTERM", closeAndExit);
+process.on("SIGINT", closeAndExit);
 
 let castToNumberIfDefined = function(number) {
 	return number === undefined || number === null ? number : Number(number);
@@ -654,7 +664,7 @@ submitReview = async function(client, review) {
 			review: newReview.rows[0],
 			// dummy values to prevent exception case
 			votes: {
-				refersto: newReview.rows[0].reviewid,
+				refersto: (newReview.rows[0] === undefined) ? undefined : newReview.rows[0].reviewid,
 				upvotes: 0,
 				downvotes: 0,
 			},
@@ -1355,6 +1365,30 @@ processVoteResults = function(voteResults) {
 	// because I'm not sure how it would be used. Skipping for now.
 
 	return undefined;
+}
+
+let writeCompaniesToProductionDb;
+let writeReviewsToProductionDb;
+
+writeCompaniesToProductionDb = async function() {
+	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+	return Promise.all(companies.map(async function(company) {
+		return PostgreSQL.executeMutation(createCompany, company);
+	}));
+}
+
+writeReviewsToProductionDb = async function() {
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	return Promise.all(reviews.map(async function(review) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = -1;
+		if(Array.isArray(review.locations)) {
+			const locations = review.locations;
+			review.locations = undefined;
+			review.location = locations.join(', ');
+		}
+		return PostgreSQL.executeMutation(submitReview, review);
+	}));
 }
 
 let obj;
