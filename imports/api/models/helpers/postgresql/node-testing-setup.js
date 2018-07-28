@@ -16,11 +16,14 @@ const fs = require("fs");
 
 let pool = new Pool();
 
-const closeAndExit = function() {
-	console.log("goodbye");
-	pool.end();
+const closeAndExit = function(event) {
+	pool.end(status => {
+		console.log(`goodbye: ${event}, ${status}`);
+		// process.exit(1);
+	});
 };
 
+process.on("exit", closeAndExit);
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 

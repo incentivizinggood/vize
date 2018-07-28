@@ -6,10 +6,10 @@ const { Pool } = require("pg");
 
 const pool = new Pool();
 
-const closeAndExit = function() {
+const closeAndExit = function(event) {
 	pool.end(status => {
-		console.log(`goodbye: ${status}`);
-		process.exit(1);
+		console.log(`goodbye: ${event}, ${status}`);
+		// process.exit(1);
 	});
 };
 
@@ -49,10 +49,6 @@ const wrapPgFunction = async function(func, readOnly) {
 };
 
 export default class PostgreSQL {
-	static cleanup() {
-		closeAndExit();
-	}
-
 	static async executeQuery(query) {
 		return wrapPgFunction(query, true, [...arguments].slice(1));
 	}
