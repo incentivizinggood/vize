@@ -7,8 +7,8 @@ const { Pool } = require("pg");
 const pool = new Pool();
 
 const closeAndExit = function() {
-	pool.end(() => {
-		console.log("goodbye");
+	pool.end(status => {
+		console.log(`goodbye: ${status}`);
 		process.exit(1);
 	});
 };
