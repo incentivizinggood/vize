@@ -7,10 +7,13 @@ const { Pool } = require("pg");
 const pool = new Pool();
 
 const closeAndExit = function() {
-	console.log("goodbye");
-	pool.end();
+	pool.end(() => {
+		console.log("goodbye");
+		process.exit(1);
+	});
 };
 
+process.on("exit", closeAndExit);
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 
@@ -46,6 +49,10 @@ const wrapPgFunction = async function(func, readOnly) {
 };
 
 export default class PostgreSQL {
+	static cleanup() {
+		closeAndExit();
+	}
+
 	static async executeQuery(query) {
 		return wrapPgFunction(query, true, [...arguments].slice(1));
 	}

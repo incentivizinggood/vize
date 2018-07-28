@@ -14,7 +14,10 @@ import "../imports/api/data/votes.js";
 import "../imports/api/data/methods.js";
 
 // Initialize PostgreSQL publications
-import "./postgresql-publications.js";
+// import "./postgresql-publications.js";
+
+// Try to keep the connection pool initialized
+import "../imports/api/graphql/connectors/postgresql.js";
 
 Meteor.startup(() => {
 	// code to run on server at startup
