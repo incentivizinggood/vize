@@ -2,12 +2,8 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
 import i18n from "meteor/universe:i18n";
 
-import { JobAds } from "/imports/api/data/jobads.js";
-import { Salaries } from "/imports/api/data/salaries.js";
 import WriteReviewButton from "./write-review-button.jsx";
 
 const t = i18n.createTranslator("common.CompanySearchResult");
@@ -35,9 +31,7 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
-							<a href={companyProfileUrl}>
-								{props.company.name}
-							</a>
+							<a href={companyProfileUrl}>{props.company.name}</a>
 						</span>
 						&nbsp;&nbsp;<StarRatings
 							rating={
@@ -75,7 +69,9 @@ function CompanySearchResult(props) {
 					<div className="col-md-5 prostar">
 						<div className="col-md-12">
 							<div className="titlestar">
-								<WriteReviewButton companyId={props.company.id} />
+								<WriteReviewButton
+									companyId={props.company.id}
+								/>
 							</div>
 						</div>
 					</div>
@@ -92,14 +88,14 @@ function CompanySearchResult(props) {
 									</span>
 								</li>
 								<li>
-									{props.salaries}
+									{props.company.numSalaries}
 									<br />
 									<span className="review_text">
 										<T>salaries</T>
 									</span>
 								</li>
 								<li>
-									{props.jobads}
+									{props.company.numJobAds}
 									<br />
 									<span className="review_text">
 										<T>jobs</T>
@@ -121,8 +117,6 @@ function CompanySearchResult(props) {
 }
 
 CompanySearchResult.propTypes = {
-	jobads: PropTypes.number.isRequired,
-	salaries: PropTypes.number.isRequired,
 	company: PropTypes.shape({
 		id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
@@ -134,15 +128,9 @@ CompanySearchResult.propTypes = {
 			overallSatisfaction: PropTypes.number.isRequired,
 		}),
 		numReviews: PropTypes.number.isRequired,
+		numJobAds: PropTypes.number.isRequired,
+		numSalaries: PropTypes.number.isRequired,
 	}).isRequired,
 };
 
-export default withTracker(({ company }) => {
-	Meteor.subscribe("JobAds");
-	Meteor.subscribe("Salaries");
-
-	return {
-		jobads: JobAds.find({ companyName: company.name }).count(),
-		salaries: Salaries.find({ companyName: company.name }).count(),
-	};
-})(CompanySearchResult);
+export default CompanySearchResult;
