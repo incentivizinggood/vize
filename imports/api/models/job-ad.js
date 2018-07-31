@@ -59,6 +59,13 @@ export default class JobAdModel {
 		return this.companyModel.getCompanyByName(jobAd.companyName);
 	}
 
+	// Count the number of job ads posted by a given company.
+	countJobAdsByCompany(company: Company): number {
+		const cursor = this.connector.find({ companyName: company.name });
+
+		return cursor.count();
+	}
+
 	// Get all of the job ads.
 	getAllJobAds(
 		pageNumber: number = 0,
