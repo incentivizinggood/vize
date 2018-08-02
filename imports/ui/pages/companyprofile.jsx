@@ -3,15 +3,10 @@ import StarRatings from "react-star-ratings";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
 import i18n from "meteor/universe:i18n";
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
-import { Companies } from "/imports/api/data/companies.js";
-import { Reviews } from "/imports/api/data/reviews.js";
-import { JobAds } from "/imports/api/data/jobads.js";
-import { Salaries } from "/imports/api/data/salaries.js";
+
 import { Votes } from "/imports/api/data/votes.js";
 import Header from "/imports/ui/components/header.jsx";
 
@@ -38,29 +33,7 @@ class CompanyProfile extends React.Component {
 		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
-	changeRating(newRating) {
-		this.setState({
-			rating: newRating,
-		});
-	}
-
-	// var nojob = {
-	//   locations[0]= "",
-	//   pesosPerHour= "",
-	//   contractType= "",
-	//   jobDescription= "",
-	//   jobTitle="",
-	//   vizeApplyForJobUrl=""
-	// }
-
 	render() {
-		if (!this.props.isReady) {
-			return (
-				<h2>
-					<T>common.companyprofile.loading</T>
-				</h2>
-			);
-		}
 		if (this.props.company === undefined) {
 			return (
 				<h2>
@@ -144,9 +117,6 @@ class CompanyProfile extends React.Component {
 						<div className="col-md-4 prostar">
 							<div className="col-md-12">
 								<div className="titlestar">
-									{/* <div className="" data-toggle="buttons"> */}
-									{/* <a href={urlGenerators.vizeReviewUrl(this.props.company._id)} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
-
 									<a
 										href={urlGenerators.vizeReviewUrl(
 											this.props.company._id
@@ -162,7 +132,6 @@ class CompanyProfile extends React.Component {
 											"common.companyprofile.add_review"
 										)}
 									</a>
-									{/* </div> */}
 								</div>
 							</div>
 						</div>
@@ -171,12 +140,11 @@ class CompanyProfile extends React.Component {
 				</div>
 
 				<br />
-				{/* }//navigation */}
+				{/* navigation */}
 				<section id="back_col">
 					<div className="container  mar_lf_ri">
 						<div className="row">
 							<div className="na_tab">
-								{/* <ul className="nav nav-tabs" role="tablist"> */}
 								<ul className=" nav nav-tabs">
 									{/* Setting the width of each tab to 25% for each tab since we deleted the 5th one */}
 									<li
@@ -243,7 +211,6 @@ class CompanyProfile extends React.Component {
 
 							<div className="tab_conten_man">
 								<div className="tab-content  ">
-									{/* =====================overview tab====================  */}
 									<ErrorBoundary>
 										<OverviewTab
 											jobsCount={this.props.jobsCount}
@@ -257,10 +224,7 @@ class CompanyProfile extends React.Component {
 											userVotes={this.props.userVotes}
 										/>
 									</ErrorBoundary>
-									{/* ===============overview tab end==================
 
-        ===========review tab==================  */}
-									{/* pass both!!!! */}
 									<ErrorBoundary>
 										<ReviewTab
 											companyreview={this.props.reviews}
@@ -268,18 +232,14 @@ class CompanyProfile extends React.Component {
 											userVotes={this.props.userVotes}
 										/>
 									</ErrorBoundary>
-									{/* ===========review tab  end==================
 
-            ================job tab============== */}
 									<ErrorBoundary>
 										<JobTab
 											jobAds={this.props.jobAds}
 											jobsCount={this.props.jobsCount}
 										/>
 									</ErrorBoundary>
-									{/* ==================job tab end=====================
 
-         =================Salaries  tab====================== */}
 									<ErrorBoundary>
 										<SalaryTab
 											company={this.props.company}
@@ -289,9 +249,7 @@ class CompanyProfile extends React.Component {
 											}
 										/>
 									</ErrorBoundary>
-									{/* =================Salaries  tab  end======================
-
-            ====================contact  tab==================== */}
+									{/* ====================contact  tab==================== */}
 									<div
 										role="tabpanel"
 										className="tab-pane"
@@ -442,6 +400,7 @@ export default ({ companyId }) => (
 	</Query>
 );
 
+/* This is the data query from before GraphQL.
 withTracker(({ companyId }) => {
 	const handle1 = Meteor.subscribe("CompanyProfiles");
 	const handle2 = Meteor.subscribe("Reviews");
@@ -468,3 +427,4 @@ withTracker(({ companyId }) => {
 		userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
 	};
 })(CompanyProfile);
+*/
