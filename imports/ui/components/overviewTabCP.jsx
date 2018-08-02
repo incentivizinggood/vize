@@ -199,7 +199,11 @@ export default class OverviewTab extends React.Component {
 						</a>
 					</div>
 					<hr />
-					<CompanyRating companyrating={this.props.companyoverview} />
+					<CompanyRating
+						companyrating={
+							this.props.companyoverview.avgStarRatings
+						}
+					/>
 				</div>
 				<div className="col-md-12  section_overtopsect">
 					{to_display_review}

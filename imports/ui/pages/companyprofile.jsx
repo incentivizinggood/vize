@@ -1,10 +1,13 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import i18n from "meteor/universe:i18n";
 
+import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import { Companies } from "/imports/api/data/companies.js";
 import { Reviews } from "/imports/api/data/reviews.js";
 import { JobAds } from "/imports/api/data/jobads.js";
@@ -89,7 +92,7 @@ class CompanyProfile extends React.Component {
 									</span>
 									&nbsp;&nbsp;<StarRatings
 										rating={
-											this.props.company
+											this.props.company.avgStarRatings
 												.overallSatisfaction
 										}
 										starDimension="25px"
@@ -241,41 +244,51 @@ class CompanyProfile extends React.Component {
 							<div className="tab_conten_man">
 								<div className="tab-content  ">
 									{/* =====================overview tab====================  */}
-
-									<OverviewTab
-										jobsCount={this.props.jobsCount}
-										jobAds={this.props.jobAds}
-										salaries={this.props.salaries}
-										companyoverview={this.props.company}
-										companyreview={this.props.reviews}
-										salariesCount={this.props.salariesCount}
-										userVotes={this.props.userVotes}
-									/>
-
+									<ErrorBoundary>
+										<OverviewTab
+											jobsCount={this.props.jobsCount}
+											jobAds={this.props.jobAds}
+											salaries={this.props.salaries}
+											companyoverview={this.props.company}
+											companyreview={this.props.reviews}
+											salariesCount={
+												this.props.salariesCount
+											}
+											userVotes={this.props.userVotes}
+										/>
+									</ErrorBoundary>
 									{/* ===============overview tab end==================
 
         ===========review tab==================  */}
 									{/* pass both!!!! */}
-									<ReviewTab
-										companyreview={this.props.reviews}
-										companyinfo={this.props.company}
-										userVotes={this.props.userVotes}
-									/>
+									<ErrorBoundary>
+										<ReviewTab
+											companyreview={this.props.reviews}
+											companyinfo={this.props.company}
+											userVotes={this.props.userVotes}
+										/>
+									</ErrorBoundary>
 									{/* ===========review tab  end==================
 
             ================job tab============== */}
-									<JobTab
-										jobAds={this.props.jobAds}
-										jobsCount={this.props.jobsCount}
-									/>
+									<ErrorBoundary>
+										<JobTab
+											jobAds={this.props.jobAds}
+											jobsCount={this.props.jobsCount}
+										/>
+									</ErrorBoundary>
 									{/* ==================job tab end=====================
 
          =================Salaries  tab====================== */}
-									<SalaryTab
-										company={this.props.company}
-										salaries={this.props.salaries}
-										salariesCount={this.props.salariesCount}
-									/>
+									<ErrorBoundary>
+										<SalaryTab
+											company={this.props.company}
+											salaries={this.props.salaries}
+											salariesCount={
+												this.props.salariesCount
+											}
+										/>
+									</ErrorBoundary>
 									{/* =================Salaries  tab  end======================
 
             ====================contact  tab==================== */}
@@ -359,7 +372,77 @@ class CompanyProfile extends React.Component {
 	}
 }
 
-export default withTracker(({ companyId }) => {
+const companyProfileQuery = gql`
+	query companyProfilePage($companyId: ID!) {
+		company(id: $companyId) {
+			id
+
+			name
+			contactEmail
+			dateEstablished
+			numEmployees
+			industry
+			locations
+			otherContactInfo
+			websiteURL
+			descriptionOfCompany
+			dateJoined
+			numFlags
+			avgStarRatings {
+				healthAndSafety
+				managerRelationship
+				workEnvironment
+				benefits
+				overallSatisfaction
+			}
+			percentRecommended
+			avgNumMonthsWorked
+
+			reviews {
+				id
+			}
+			numReviews
+			jobAds {
+				id
+			}
+			numJobAds
+			salaries {
+				id
+			}
+			numSalaries
+		}
+	}
+`;
+
+export default ({ companyId }) => (
+	<Query query={companyProfileQuery} variables={{ companyId }}>
+		{({ loading, error, data }) => {
+			if (loading) {
+				return <h2>Loading</h2>;
+			}
+			if (error) {
+				console.log(error);
+				console.log(data);
+				return <h2>{`Error! ${error.message}`}</h2>;
+			}
+
+			return (
+				<CompanyProfile
+					isReady={true}
+					company={data.company}
+					reviews={data.company.reviews}
+					jobAds={data.company.jobAds}
+					jobsCount={data.company.numJobAds}
+					salaries={data.company.salaries}
+					salariesCount={data.company.numJobAds}
+					userVotes={Votes}
+				/>
+			);
+		}}
+	</Query>
+);
+
+withTracker(({ companyId }) => {
 	const handle1 = Meteor.subscribe("CompanyProfiles");
 	const handle2 = Meteor.subscribe("Reviews");
 	const handle3 = Meteor.subscribe("JobAds");

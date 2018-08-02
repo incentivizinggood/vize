@@ -76,10 +76,12 @@ export default class CompanyRating extends React.Component {
 							starSpacing="2px"
 						/>
 						&nbsp;&nbsp; &nbsp;&nbsp;<label id="overAllText">
-							{Math.round(
-								this.props.companyrating.overallSatisfaction *
-									100
-							) / 100}
+							{(
+								Math.round(
+									this.props.companyrating
+										.overallSatisfaction * 100
+								) / 100
+							).toString()}
 						</label>
 					</div>
 					<br />
@@ -109,10 +111,12 @@ export default class CompanyRating extends React.Component {
 										/>
 										&nbsp;&nbsp;{" "}
 										<label>
-											{Math.round(
-												this.props.companyrating
-													.healthAndSafety * 100
-											) / 100}
+											{(
+												Math.round(
+													this.props.companyrating
+														.healthAndSafety * 100
+												) / 100
+											).toString()}
 										</label>
 									</td>
 								</tr>
@@ -138,10 +142,12 @@ export default class CompanyRating extends React.Component {
 										/>
 										&nbsp;&nbsp;{" "}
 										<label>
-											{Math.round(
-												this.props.companyrating
-													.workEnvironment * 100
-											) / 100}
+											{(
+												Math.round(
+													this.props.companyrating
+														.workEnvironment * 100
+												) / 100
+											).toString()}
 										</label>
 									</td>
 								</tr>
@@ -167,10 +173,12 @@ export default class CompanyRating extends React.Component {
 										/>
 										&nbsp;&nbsp;{" "}
 										<label>
-											{Math.round(
-												this.props.companyrating
-													.benefits * 100
-											) / 100}
+											{(
+												Math.round(
+													this.props.companyrating
+														.benefits * 100
+												) / 100
+											).toString()}
 										</label>
 									</td>
 								</tr>
@@ -197,10 +205,13 @@ export default class CompanyRating extends React.Component {
 										/>
 										&nbsp;&nbsp;{" "}
 										<label>
-											{Math.round(
-												this.props.companyrating
-													.managerRelationship * 100
-											) / 100}
+											{(
+												Math.round(
+													this.props.companyrating
+														.managerRelationship *
+														100
+												) / 100
+											).toString()}
 										</label>
 									</td>
 								</tr>
