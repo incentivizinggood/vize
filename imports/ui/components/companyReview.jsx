@@ -1,8 +1,9 @@
 import React from "react";
-import { Meteor } from "meteor/meteor";
 import StarRatings from "react-star-ratings";
-import VoteButtons from "./voteButtons.jsx";
+
 import i18n from "meteor/universe:i18n";
+
+import VoteButtons from "./voteButtons.jsx";
 
 const T = i18n.createComponent();
 
