@@ -358,7 +358,13 @@ const companyProfileQuery = gql`
 
 			reviews {
 				id
-				datePosted: created
+				title
+				locations
+				jobTitle
+				numberOfMonthsWorked
+				pros
+				cons
+				wouldRecommendToOtherJobSeekers
 				starRatings {
 					healthAndSafety
 					managerRelationship
@@ -366,6 +372,8 @@ const companyProfileQuery = gql`
 					benefits
 					overallSatisfaction
 				}
+				additionalComments
+				datePosted: created
 			}
 			numReviews
 			jobAds {
