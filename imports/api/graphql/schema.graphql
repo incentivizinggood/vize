@@ -35,7 +35,7 @@ type Comment {
 	"What was said in this comment."
 	content: String!
 	"The date and time this was created."
-	created: Date
+	created: DateTime
 
 	"The user who wrote this."
 	author: User!
@@ -52,25 +52,31 @@ type Company {
 
 	name: String!
 	contactEmail: String!
-	dateEstablished: Date
+	dateEstablished: DateTime
 	numEmployees: String
 	industry: String
 	locations: [String!]!
 	otherContactInfo: String
 	websiteURL: String
 	descriptionOfCompany: String
-	dateJoined: Date
+	dateJoined: DateTime
 	numFlags: Int
 	avgStarRatings: StarRatings
-	numReviews: Int!
 	percentRecommended: Float
 	avgNumMonthsWorked: Float
 
 	"Reviews about this company."
 	reviews(pageNum: Int, pageSize: Int): [Review!]!
+	"Number of reviews about this company."
+	numReviews: Int!
 	"Advertisements for jobs at this company."
 	jobAds(pageNum: Int, pageSize: Int): [JobAd!]!
+	"Number of advertisements for jobs at this company."
+	numJobAds: Int!
+	"Salaries reported to be earned at this company."
 	salaries(pageNum: Int, pageSize: Int): [Salary!]!
+	"Number of salaries reported to be earned at this company."
+	numSalaries: Int!
 }
 
 type JobAd {
@@ -84,7 +90,7 @@ type JobAd {
 	responsibilities: String!
 	qualifications: String!
 	"The date and time this was created."
-	created: Date
+	created: DateTime
 
 	"The company that is hiring."
 	company: Company!
@@ -103,7 +109,7 @@ type Review {
 	starRatings: StarRatings!
 	additionalComments: String
 	"The date and time this was created."
-	created: Date
+	created: DateTime
 	upvotes: Int
 	downvotes: Int
 
@@ -124,7 +130,7 @@ type Salary {
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
-	created: Date
+	created: DateTime
 
 	"The user who submitted this."
 	author: User!
@@ -147,7 +153,7 @@ type User {
 	"The user's role."
 	role: UserRole!
 	"The date and time this was created."
-	created: Date!
+	created: DateTime!
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
@@ -182,4 +188,6 @@ type StarRatings {
 	overallSatisfaction: Float!
 }
 
-scalar Date
+# Date and time serialized as a string in the ISO 8601 format.
+# Provided by graphql-iso-date on npm.
+scalar DateTime

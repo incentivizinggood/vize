@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import type Mongo from "meteor/mongo";
 
 import i18n from "meteor/universe:i18n";
+import { urlGenerators } from "../../startup/client/router.jsx";
 
 import CompanyRating from "./companyRatingsComponent.jsx";
 import CompanyReview from "./companyReview.jsx";
@@ -86,7 +87,9 @@ export default class OverviewTab extends React.Component<OverviewTabProps> {
 					<div>
 						<div className="add-buttons">
 							<a
-								href={this.props.jobAds[0].vizeApplyForJobUrl}
+								href={urlGenerators.vizeApplyForJobUrl(
+									this.props.jobAds[0]._id
+								)}
 								className="btn btn-primary"
 							>
 								{" "}
@@ -181,9 +184,9 @@ export default class OverviewTab extends React.Component<OverviewTabProps> {
 					</h4>
 					<div className="add-buttons">
 						<a
-							href={`/write-review/?id=${
-								this.props.companyOverview._id
-							}`}
+							href={urlGenerators.vizeReviewUrl(
+								this.props.companyoverview._id
+							)}
 							className="btn btn-primary"
 						>
 							{" "}
@@ -264,9 +267,9 @@ export default class OverviewTab extends React.Component<OverviewTabProps> {
 
 						<div className="add-buttons">
 							<a
-								href={`/submit-salary-data/?id=${
-									this.props.companyOverview._id
-								}`}
+								href={urlGenerators.vizeSalaryUrl(
+									this.props.companyoverview._id
+								)}
 								className="btn btn-primary"
 							>
 								<i className="fa fa-plus" aria-hidden="true" />{" "}

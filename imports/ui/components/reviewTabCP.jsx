@@ -3,6 +3,7 @@ import StarRatings from "react-star-ratings";
 import CompanyReview from "../../ui/components/companyReview.jsx";
 import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
 import i18n from "meteor/universe:i18n";
+import { urlGenerators } from "../../startup/client/router.jsx";
 
 const T = i18n.createComponent();
 
@@ -35,7 +36,9 @@ export default class ReviewTab extends React.Component {
 					</h4>
 					<div className="add-buttons">
 						<a
-							href={this.props.companyinfo.vizeReviewUrl}
+							href={urlGenerators.vizeReviewUrl(
+								this.props.companyinfo._id
+							)}
 							className="btn btn-primary"
 						>
 							{" "}

@@ -2,6 +2,9 @@
 /* eslint-disable no-unused-vars */
 import { GraphQLScalarType } from "graphql";
 import { Kind } from "graphql/language";
+import type { ValueNode } from "graphql/language";
+import { GraphQLDateTime } from "graphql-iso-date";
+
 import type { Comment, CommentParent } from "../models/comment.js";
 import type { Company } from "../models/company.js";
 import type { JobAd } from "../models/job-ad.js";
@@ -177,12 +180,16 @@ export default {
 				args.pageNum,
 				args.pageSize
 			),
+		numJobAds: (obj: Company, args: PgnArgs, context: Context): number =>
+			context.jobAdModel.countJobAdsByCompany(obj),
 		salaries: (obj: Company, args: PgnArgs, context: Context) =>
 			context.salaryModel.getSalariesByCompany(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
+		numSalaries: (obj: Company, args: PgnArgs, context: Context): number =>
+			context.salaryModel.countSalariesByCompany(obj),
 	},
 
 	JobAd: {
@@ -298,21 +305,5 @@ export default {
 			context.voteModel.getSubjectOfVote(obj),
 	},
 
-	Date: new GraphQLScalarType({
-		name: "Date",
-		description:
-			"JavaScript Date serialized as milliseconds since midnight January 1, 1970 UTC.",
-		parseValue(value) {
-			return new Date(value); // value from the client
-		},
-		serialize(value) {
-			return value.getTime(); // value sent to the client
-		},
-		parseLiteral(ast) {
-			if (ast.kind === Kind.INT) {
-				return parseInt(ast.value, 10); // ast value is always in string format
-			}
-			return null;
-		},
-	}),
+	DateTime: GraphQLDateTime,
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import SalaryPosting from "../../ui/components/salaryPosting.jsx";
 import i18n from "meteor/universe:i18n";
+import { urlGenerators } from "../../startup/client/router.jsx";
 
 const T = i18n.createComponent();
 
@@ -30,7 +31,9 @@ export default class SalaryTab extends React.Component {
 					</h4>
 					<div className="add-buttons">
 						<a
-							href={this.props.company.vizeSalaryUrl}
+							href={urlGenerators.vizeSalaryUrl(
+								this.props.company._id
+							)}
 							className="btn btn-primary"
 						>
 							{" "}

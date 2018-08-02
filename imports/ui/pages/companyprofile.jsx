@@ -16,6 +16,8 @@ import JobTab from "../../ui/components/jobTabCP.jsx";
 import SalaryTab from "../../ui/components/salaryTabCP.jsx";
 import i18n from "meteor/universe:i18n";
 
+import { urlGenerators } from "../../startup/client/router.jsx";
+
 const T = i18n.createComponent();
 
 /* The Company Profile  page of the site. */
@@ -139,10 +141,12 @@ class CompanyProfile extends React.Component {
 							<div className="col-md-12">
 								<div className="titlestar">
 									{/* <div className="" data-toggle="buttons"> */}
-									{/* <a href={this.props.company.vizeReviewUrl} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
+									{/* <a href={urlGenerators.vizeReviewUrl(this.props.company._id)} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
 
 									<a
-										href={this.props.company.vizeReviewUrl}
+										href={urlGenerators.vizeReviewUrl(
+											this.props.company._id
+										)}
 										className="btn btn-primary  add_review replus"
 									>
 										{" "}

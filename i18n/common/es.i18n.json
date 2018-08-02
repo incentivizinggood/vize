@@ -13,11 +13,10 @@
 			"loggedIn": "Ya estas conectado.",
 			"Unrecognized options for login request":
 				"No se reconoces las opciones para la solitud de inicio.",
-			"Match failed": "Combinación incorrecta de nombre de usuario o contraseña.",
-			"User not found":
-				"No se encuentra el usuario.",
-			"Incorrect password":
-				"Contraseña incorrecta",
+			"Match failed":
+				"Combinación incorrecta de nombre de usuario o contraseña.",
+			"User not found": "No se encuentra el usuario.",
+			"Incorrect password": "Contraseña incorrecta",
 			"User has no password set":
 				"Esta cuenta de usuario no tiene contraseña establecida. Tendrá que iniciar sesión por otros medios."
 		},
@@ -33,104 +32,102 @@
 		"submit": "Regístrar",
 		"error": {
 			"loggedIn": "Ya estas conectado.",
-			"Username already exists":
-				"Ese nombre de usuario ya existe.",
+			"Username already exists": "Ese nombre de usuario ya existe.",
 			"Email already exists":
 				"Ese correo electrónico ya está siendo utilizado por otra cuenta."
 		},
 		"success": "Registracion exitosa!"
 	},
 	"passwordChanger": {
-	"oldPassword": "Contraseña actual",
-	"newPassword": "Nueva contraseña",
-	"repeatNewPassword": "Repetir nueva contraseña",
-	"submit": "Cambiar contraseña",
-	"error": {
-		"Incorrect password": "Contraseña incorrecta",
-		"New passwords do not match":
-			"Las nuevas contraseñas no coinciden"
+		"oldPassword": "Contraseña actual",
+		"newPassword": "Nueva contraseña",
+		"repeatNewPassword": "Repetir nueva contraseña",
+		"submit": "Cambiar contraseña",
+		"error": {
+			"Incorrect password": "Contraseña incorrecta",
+			"New passwords do not match": "Las nuevas contraseñas no coinciden"
+		},
+		"success": "Restablecimiento de contraseña exitoso!"
 	},
-	"success": "Restablecimiento de contraseña exitoso!"
-},
-"forms": {
-	"submitForm": "Enviar",
-	"resetForm": "Restablecer formulario",
-	"pleaseWait":
-		"Espere mientras terminamos de cargar el formulario...",
-	"companyNotFound":
-		"EMPRESA NO SE ENCUENTRA",
-	"afj": {
-		"formTitle": "Solicitar un trabajo",
-		"fullNamePlaceholder":
-			"Por favor ingrese su nombre completo aquí",
-		"emailPlaceholder": "ejemplo@gmail.com",
-		"phoneNumberPlaceholder": "###-###-####",
-		"clacPlaceholder":
-			"Puede utilizar este espacio con cualquier otra cosa que desee enviar a la compañía junto con su solicitud",
-		"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
-	},
-	"ccp": {
-	"formTitle": "Crear un nuevo perfil",
-	"namePlaceholder":
-		"Por favor ingrese el nombre de su empresa",
-	"emailPlaceholder":
-		"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
-	"industryPlaceholder":
-		"Por favor díganos la industria principal de su empresa",
-	"otherContactInfoPlaceholder":
-		"Ingrese cualquier información de contacto adicional que le gustaría proporcionarnos",
-	"websiteUrlPlaceholder":
-		"Ingrese la URL del sitio web de su empresa, si tiene una",
-	"descriptionPlaceholder":
-		"Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea"
-},
-"paj": {
-	"contractTypes": {
-		"fullTime": "Tiempo completo",
-		"partTime": "Medio tiempo",
-		"contractor": "Contratista"
-	},
-	"formTitle": "Anunciar un trabajo",
-	"jobTitlePlaceholder":
-		"Por favor díganos el título del puesto que está anunciando",
-	"payRangePlaceholder":
-		"Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
-	"jobDescriptionPlaceholder":
-		"Por favor ingrese una descripción formal de este trabajo",
-	"jobResponsibilitiesPlaceholder":
-		"Por favor resuma las responsabilidades de este puesto",
-	"jobQualificationsPlaceholder":
-		"Por favor resuma las calificaciones necesarias para este puesto",
-	"profileNotFoundError":
-		"ERROR: PERFIL DE LA EMPRESA NO SE ENCUENTRA (INICIAR SESIÓN Y / O CREAR UN PERFIL PARA PUBLICAR UN TRABAJO)"
-},
-"ssd": {
-	"payTypes": {
-		"yearlySalary": "Salario anual",
-		"monthlySalary": "Salario mensual",
-		"hourlyWage": "Salario por hora"
-	},
-	"formTitle": "Forma Salarial",
-	"companyNamePlaceholder":
-		"Por favor díganos el nombre de la empresa para la que trabajó",
-	"jobTitlePlaceholder":
-		"Por favor díganos su título de trabajo allí"
-},
-"wr": {
-	"formTitle": "Escribe una Reseña",
-	"companyNamePlaceholder":
-		"Ingrese el nombre de la compañía que está revisando",
-	"reviewTitlePlaceholder":
-		"Por favor, elija un título para su revisión",
-	"jobTitlePlaceholder":
-		"Ingrese el nombre del puesto que ocupó en esta empresa",
-	"prosPlaceholder":
-		"Cuéntanos algunas ventajas de trabajar para esta empresa. Que te gusto de esta empresa?",
-	"consPlaceholder":
-		"Por favor díganos algunas limitaciones y desventajas de trabajar para esta empresa",
-	"additionalCommentsPlaceholder":
-		"Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
-}
+	"forms": {
+		"submitForm": "Enviar",
+		"resetForm": "Restablecer formulario",
+		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
+		"companyNotFound": "EMPRESA NO SE ENCUENTRA",
+		"afj": {
+			"formTitle": "Solicitar un trabajo",
+			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",
+			"emailPlaceholder": "ejemplo@gmail.com",
+			"phoneNumberPlaceholder": "###-###-####",
+			"clacPlaceholder":
+				"Puede utilizar este espacio con cualquier otra cosa que desee enviar a la compañía junto con su solicitud",
+			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
+		},
+		"ccp": {
+			"formTitle": "Crear un nuevo perfil",
+			"namePlaceholder": "Por favor ingrese el nombre de su empresa",
+			"emailPlaceholder":
+				"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
+			"industryPlaceholder":
+				"Por favor díganos la industria principal de su empresa",
+			"otherContactInfoPlaceholder":
+				"Ingrese cualquier información de contacto adicional que le gustaría proporcionarnos",
+			"websiteUrlPlaceholder":
+				"Ingrese la URL del sitio web de su empresa, si tiene una",
+			"descriptionPlaceholder":
+				"Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea"
+		},
+		"paj": {
+			"contractTypes": {
+				"default": "(Seleccione uno)",
+				"fullTime": "Tiempo completo",
+				"partTime": "Medio tiempo",
+				"contractor": "Contratista"
+			},
+			"formTitle": "Anunciar un trabajo",
+			"jobTitlePlaceholder":
+				"Por favor díganos el título del puesto que está anunciando",
+			"payRangePlaceholder":
+				"Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
+			"jobDescriptionPlaceholder":
+				"Por favor ingrese una descripción formal de este trabajo",
+			"jobResponsibilitiesPlaceholder":
+				"Por favor resuma las responsabilidades de este puesto",
+			"jobQualificationsPlaceholder":
+				"Por favor resuma las calificaciones necesarias para este puesto",
+			"profileNotFoundError":
+				"ERROR: PERFIL DE LA EMPRESA NO SE ENCUENTRA (INICIAR SESIÓN Y / O CREAR UN PERFIL PARA PUBLICAR UN TRABAJO)"
+		},
+		"ssd": {
+			"payTypes": {
+				"yearlySalary": "Salario anual",
+				"monthlySalary": "Salario mensual",
+				"hourlyWage": "Salario por hora"
+			},
+			"formTitle": "Forma Salarial",
+			"companyNamePlaceholder":
+				"Por favor díganos el nombre de la empresa para la que trabajó",
+			"locationPlaceholder":
+				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
+			"jobTitlePlaceholder": "Por favor díganos su título de trabajo allí"
+		},
+		"wr": {
+			"formTitle": "Escribe una Reseña",
+			"companyNamePlaceholder":
+				"Ingrese el nombre de la compañía que está revisando",
+			"reviewTitlePlaceholder":
+				"Por favor, elija un título para su revisión",
+			"locationPlaceholder":
+				"<PLEASE TRANSLATE> Please tell us where you worked for this company",
+			"jobTitlePlaceholder":
+				"Ingrese el nombre del puesto que ocupó en esta empresa",
+			"prosPlaceholder":
+				"Cuéntanos algunas ventajas de trabajar para esta empresa. Que te gusto de esta empresa?",
+			"consPlaceholder":
+				"Por favor díganos algunas limitaciones y desventajas de trabajar para esta empresa",
+			"additionalCommentsPlaceholder":
+				"Por favor ingrese cualquier pensamiento o comentario adicional que pueda tener"
+		}
 	},
 	"search": {
 		"loading": "Cargando...",
@@ -169,15 +166,13 @@
 		"fairsalary_text":
 			"Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
 		"salary_button": "Agregar un Salario",
-		"discover_employers":
-			"Comience a descubrir nuevos empleadores ahora",
+		"discover_employers": "Comience a descubrir nuevos empleadores ahora",
 		"signup_button": "Registrar"
 	},
 	"footer": {
 		"about_us": "Acerca de nosotros",
 		"employers": "Empleadores",
-		"create_free_account":
-			"Crear una cuenta de empleador gratuita",
+		"create_free_account": "Crear una cuenta de empleador gratuita",
 		"all_rights_reserved": "Todos los derechos reservados"
 	},
 	"aboutUs": {
@@ -201,7 +196,8 @@
 		"find_best": "Encuentre los mejores empleados en Tijuana",
 		"find_best_part1":
 			"Proporcionamos reclutamiento económico y efectivo con una plataforma ",
-		"find_best_part2": "que le ayuda a encontrar más empleados y reducir las tasas de rotación.",
+		"find_best_part2":
+			"que le ayuda a encontrar más empleados y reducir las tasas de rotación.",
 		"get_started_button": "Comenzar",
 		"increase_workers": "Aumentar Retención",
 		"retention": "de Trabajadores",
@@ -220,156 +216,148 @@
 	},
 
 	"companyreview": {
-			"recommend": "Recomendado",
-			"not_recommend": "No recomendado",
-			"overall": "En general",
-			"health_safety": "Salud y seguridad",
-			"work_env": "Ambiente de trabajo",
-			"benefits": "Beneficios",
-			"manager_relation": "Relaciones del gerente",
-			"pros": "Ventajas",
-			"cons": "Limitaciones",
-			"additional_comments": "Comentarios adicionales"
+		"recommend": "Recomendado",
+		"not_recommend": "No recomendado",
+		"overall": "En general",
+		"health_safety": "Salud y seguridad",
+		"work_env": "Ambiente de trabajo",
+		"benefits": "Beneficios",
+		"manager_relation": "Relaciones del gerente",
+		"pros": "Ventajas",
+		"cons": "Limitaciones",
+		"additional_comments": "Comentarios adicionales"
+	},
+
+	"jobpostings": {
+		"apply_now": "Aplica ahora",
+		"hour": "Por Hora",
+		"job_description": "Descripcion del trabajo",
+		"qualifications": "Calificaciones",
+		"responsibilities": "Responsabilidades",
+		"posted_on": "Publicado en"
+	},
+
+	"company_ratings": {
+		"overall": "General",
+		"health_safety": "Salud y Seguiridad",
+		"work_env": "Ambiente de trabajo",
+		"benefits": "Beneficios",
+		"manager_relation": "Relaciones del gerente",
+		"recommend": "Recomendado",
+		"average_num": "Numero promedio",
+		"months_worked": "Meses trabajados"
+	},
+
+	"jobscomponent": {
+		"jobs_available": "Trabajos disponibles"
+	},
+
+	"overview_tab": {
+		"display_text": "No hay comentarios para mostrar en este momento",
+		"apply_now": "Aplica ahora",
+		"hour": "Por Hora",
+		"job_description": "Descripcion del trabajo",
+		"display_jobs": "No hay trabajos para mostrar en este momento",
+		"salaries_text": "No hay salarios para mostrar en este momento",
+		"overview": "Vista general",
+		"reviews": "Comentarios",
+		"add_review": "Agrega un comentario",
+		"see_all_reviews": "Ver todos los comentarios",
+		"job_salaries": "Salarios de trabajos",
+		"add_salary": "Agrega un salario",
+		"see_all_salaries": "Ver todos los salarios",
+		"see_all_jobs": "Ver todos los trabajos",
+		"jobs_available": "Trabajos disponibles"
+	},
+
+	"review_tab": {
+		"reviews": "Comentarios",
+		"add_review": "Agrega un comentario"
+	},
+
+	"salary_tab": {
+		"job_salaries": "Salarios de trabajos",
+		"add_salary": "Agrega un salario"
+	},
+
+	"showjob": {
+		"apply_now": "Aplica ahora",
+		"hour": "Por Hora",
+		"job_description": "Descripcion del trabajo",
+		"qualifications": "Calificaciones",
+		"responsibilities": "Reponsabilidades",
+		"posted_on": "Publicado en"
+	},
+
+	"CompanySearchResult": {
+		"reviews": "Comentarios",
+		"salaries": "Salarios",
+		"jobs": "Trabajos"
+	},
+
+	"companyprofile": {
+		"loading": "Cargando...",
+		"notfound": "La compañia no fue encontrada",
+		"overview": "Vision general",
+		"reviews": "Comentarios",
+		"add_review": "Agregar una reseña",
+		"jobs": "Trabajos",
+		"salaries": "Salarios",
+		"contact": "Contacto",
+		"feel_free": "No dude en",
+		"reach_us": "Comunicate con nosotros",
+		"add_review": "Agregar un comentario"
+	},
+
+	"header": {
+		"companies": "Compañias",
+		"jobs": "Empleos",
+		"resources": "Recursos",
+		"for_employers": "Para empleadores",
+		"login": "Iniciar seccion",
+		"signup": "Registrarse",
+		"logout": "Cerrar seccion",
+		"myaccount": "Mi cuenta"
+	},
+
+	"methods": {
+		"jobAppEmail": {
+			"fieldLeftEmpty": "[El solicitante no completó este campo]",
+			"subjectLine":
+				"VIZE {$wName} ha respondido a su anuncio de trabajo",
+			"emailText":
+				"Para los que están en {$cName}, \n\n\tFelicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, {$wName}, ha respondido a su puesto de trabajo (que recibió el id = {$jId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente. \n\n\t Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!\n\nLe deseamos lo mejor, \n\n\tEl equipo de VIZE\n\nINFORMACIÓN DEL SOLICITANTE \nNombre completo: {$wName} \nEmail: {$wEmail} \nNúmero de teléfono: {$wPhone} \ncarta de presentacion/Comentarios adicionales: \n{$wComments} ",
+
+			"needsFiveWords": "Necesita cinco palabras",
+			"rolePermission": "Permisos con su rol",
+			"invalidArguments": "Argumentos no válidos",
+			"loggedOut": "Desconectado",
+			"noCheating": "No hay engaño",
+			"duplicateEntry": "Entrada duplicada",
+			"notFound": "No se encuentra",
+			"sessionError": "Error de sesión",
+			"nameTaken": "Nombre en uso"
 		},
-
-		"jobpostings": {
-			"apply_now": "Aplica ahora",
-			"hour": "Por Hora",
-			"job_description": "Descripcion del trabajo",
-			"qualifications": "Calificaciones",
-			"responsibilities": "Responsabilidades",
-			"posted_on": "Publicado en"
-		},
-
-		"company_ratings": {
-			"overall": "General",
-			"health_safety": "Salud y Seguiridad",
-			"work_env": "Ambiente de trabajo",
-			"benefits": "Beneficios",
-			"manager_relation": "Relaciones del gerente",
-			"recommend": "Recomendado",
-			"average_num": "Numero promedio",
-			"months_worked": "Meses trabajados"
-		},
-
-		"jobscomponent": {
-				"jobs_available": "Trabajos disponibles"
-			},
-
-			"overview_tab": {
-				"display_text": "No hay comentarios para mostrar en este momento",
-				"apply_now": "Aplica ahora",
-				"hour": "Por Hora",
-				"job_description": "Descripcion del trabajo",
-				"display_jobs": "No hay trabajos para mostrar en este momento",
-				"salaries_text": "No hay salarios para mostrar en este momento",
-				"overview": "Vista general",
-				"reviews": "Comentarios",
-				"add_review": "Agrega un comentario",
-				"see_all_reviews": "Ver todos los comentarios",
-				"job_salaries": "Salarios de trabajos",
-				"add_salary": "Agrega un salario",
-				"see_all_salaries": "Ver todos los salarios",
-				"see_all_jobs": "Ver todos los trabajos",
-				"jobs_available": "Trabajos disponibles"
-			},
-
-			"review_tab": {
-				"reviews": "Comentarios",
-				"add_review": "Agrega un comentario"
-			},
-
-			"salary_tab": {
-				"job_salaries": "Salarios de trabajos",
-				"add_salary": "Agrega un salario"
-			},
-
-			"showjob": {
-				"apply_now": "Aplica ahora",
-				"hour": "Por Hora",
-				"job_description": "Descripcion del trabajo",
-				"qualifications": "Calificaciones",
-				"responsibilities": "Reponsabilidades",
-				"posted_on": "Publicado en"
-			},
-
-
-			"CompanySearchResult": {
-					"reviews": "Comentarios",
-					"salaries": "Salarios",
-					"jobs": "Trabajos"
-				},
-
-				"companyprofile": {
-					"loading": "Cargando...",
-					"notfound": "La compañia no fue encontrada",
-					"overview": "Vision general",
-					"reviews": "Comentarios",
-					"add_review": "Agregar una reseña",
-					"jobs": "Trabajos",
-					"salaries": "Salarios",
-					"contact": "Contacto",
-					"feel_free": "No dude en",
-					"reach_us": "Comunicate con nosotros",
-					"add_review": "Agregar un comentario"
-				},
-
-				"header": {
-					"companies": "Compañias",
-					"jobs": "Empleos",
-					"resources": "Recursos",
-					"for_employers": "Para empleadores",
-					"login": "Iniciar seccion",
-					"signup": "Registrarse",
-					"logout": "Cerrar seccion",
-					"myaccount": "Mi cuenta"
-				},
-
-				"methods": {
-					"jobAppEmail": {
-						"fieldLeftEmpty":
-							"[El solicitante no completó este campo]",
-						"subjectLine":
-							"VIZE {$wName} ha respondido a su anuncio de trabajo",
-						"emailText":
-						"Para los que están en {$cName}, \n\n\tFelicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, {$wName}, ha respondido a su puesto de trabajo (que recibió el id = {$jId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente. \n\n\t Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!\n\nLe deseamos lo mejor, \n\n\tEl equipo de VIZE\n\nINFORMACIÓN DEL SOLICITANTE \nNombre completo: {$wName} \nEmail: {$wEmail} \nNúmero de teléfono: {$wPhone} \ncarta de presentacion/Comentarios adicionales: \n{$wComments} ",
-
-						"needsFiveWords": "Necesita cinco palabras",
-						"rolePermission": "Permisos con su rol",
-						"invalidArguments": "Argumentos no válidos",
-						"loggedOut": "Desconectado",
-						"noCheating": "No hay engaño",
-						"duplicateEntry": "Entrada duplicada",
-						"notFound": "No se encuentra",
-						"sessionError": "Error de sesión",
-						"nameTaken": "Nombre en uso"
-					},
-					"errorMessages": {
-						"needsFiveWords":
-							"Debes escribir al menos 5 palabras en este campo",
-						"invalidFormInputs": "Entradas no validas",
-						"loggedOut":
-							"Debes ingresar para realizar esta acción",
-						"onlyWorkers":
-							"PLEASE TRANSLATE Only workers may perform this action",
-						"onlyCompanies":
-							"Solo los trabajadores pueden realizar esta acción",
-						"onlyOnce": "Solo se te permite hacer esto una vez",
-						"permissionDenied":
-							"No estás autorizado a realizar esta acción",
-						"noCheating":
-							"No puedes votar en tus propios comentarios",
-						"vote1stArg":
-							"El primer argumento [revisión] debe ser una revisión válida",
-						"vote2ndArg":
-							"Segundo argumento [votar] debe ser un valor lógico",
-						"voteOnNullReview":
-							"No puedes votar en revisiones que aún no existen",
-						"notFound":
-							"Tu busqueda no arrojo ningun resultado",
-						"nameTaken":
-							"La informacion proporcionada ya esta en uso",
-						"sessionError": "Por favor no juegues"
-					}
-				}
-			}
+		"errorMessages": {
+			"needsFiveWords":
+				"Debes escribir al menos 5 palabras en este campo",
+			"invalidFormInputs": "Entradas no validas",
+			"loggedOut": "Debes ingresar para realizar esta acción",
+			"onlyWorkers":
+				"PLEASE TRANSLATE Only workers may perform this action",
+			"onlyCompanies":
+				"Solo los trabajadores pueden realizar esta acción",
+			"onlyOnce": "Solo se te permite hacer esto una vez",
+			"permissionDenied": "No estás autorizado a realizar esta acción",
+			"noCheating": "No puedes votar en tus propios comentarios",
+			"vote1stArg":
+				"El primer argumento [revisión] debe ser una revisión válida",
+			"vote2ndArg": "Segundo argumento [votar] debe ser un valor lógico",
+			"voteOnNullReview":
+				"No puedes votar en revisiones que aún no existen",
+			"notFound": "Tu busqueda no arrojo ningun resultado",
+			"nameTaken": "La informacion proporcionada ya esta en uso",
+			"sessionError": "Por favor no juegues"
+		}
+	}
+}
