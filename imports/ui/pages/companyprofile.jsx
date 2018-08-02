@@ -1,22 +1,23 @@
 import React from "react";
-import { withTracker } from "meteor/react-meteor-data";
-import { Companies } from "../../api/data/companies.js";
-import { Reviews } from "../../api/data/reviews.js";
-import { JobAds } from "../../api/data/jobads.js";
-import { Salaries } from "../../api/data/salaries.js";
-import { Votes } from "../../api/data/votes.js";
-import Header from "/imports/ui/components/header.jsx";
-import Footer from "/imports/ui/components/footer.jsx";
 import StarRatings from "react-star-ratings";
 
-import OverviewTab from "../../ui/components/overviewTabCP.jsx";
-import CompanyReview from "../../ui/components/companyReview.jsx";
-import ReviewTab from "../../ui/components/reviewTabCP.jsx";
-import JobTab from "../../ui/components/jobTabCP.jsx";
-import SalaryTab from "../../ui/components/salaryTabCP.jsx";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 import i18n from "meteor/universe:i18n";
 
-import { urlGenerators } from "../../startup/client/router.jsx";
+import { Companies } from "/imports/api/data/companies.js";
+import { Reviews } from "/imports/api/data/reviews.js";
+import { JobAds } from "/imports/api/data/jobads.js";
+import { Salaries } from "/imports/api/data/salaries.js";
+import { Votes } from "/imports/api/data/votes.js";
+import Header from "/imports/ui/components/header.jsx";
+
+import OverviewTab from "/imports/ui/components/overviewTabCP.jsx";
+import ReviewTab from "/imports/ui/components/reviewTabCP.jsx";
+import JobTab from "/imports/ui/components/jobTabCP.jsx";
+import SalaryTab from "/imports/ui/components/salaryTabCP.jsx";
+
+import { urlGenerators } from "/imports/startup/client/router.jsx";
 
 const T = i18n.createComponent();
 
