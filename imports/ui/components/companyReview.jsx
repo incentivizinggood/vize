@@ -42,15 +42,14 @@ export default class ReviewComponent extends React.Component {
 			);
 		}
 
+		const datePosted = new Date(this.props.item.created);
+
 		return (
 			<div className="col-md-12  section_over_revi2 ">
 				<div className="rev_section">
 					<div className="mar_pad2">
 						<p>
-							{this.props.item.datePosted.toLocaleDateString(
-								"en-US",
-								options
-							)}
+							{datePosted.toLocaleDateString("en-US", options)}
 							<span>
 								&nbsp;&nbsp;-{" "}
 								<strong>{this.props.item.jobTitle}</strong>
@@ -68,11 +67,14 @@ export default class ReviewComponent extends React.Component {
 							>
 								<StarRatings
 									rating={
-										(this.props.item.healthAndSafety +
-											this.props.item
+										(this.props.item.starRatings
+											.healthAndSafety +
+											this.props.item.starRatings
 												.managerRelationship +
-											this.props.item.workEnvironment +
-											this.props.item.benefits) /
+											this.props.item.starRatings
+												.workEnvironment +
+											this.props.item.starRatings
+												.benefits) /
 										4
 									} // the average rating of all 5 ratings
 									starDimension="15px"
@@ -88,7 +90,8 @@ export default class ReviewComponent extends React.Component {
 									<br />
 									<StarRatings
 										rating={
-											this.props.item.overallSatisfaction
+											this.props.item.starRatings
+												.overallSatisfaction
 										}
 										starDimension="15px"
 										starSpacing="1.5px"
@@ -102,7 +105,10 @@ export default class ReviewComponent extends React.Component {
 									</label>
 									<br />
 									<StarRatings
-										rating={this.props.item.healthAndSafety}
+										rating={
+											this.props.item.starRatings
+												.healthAndSafety
+										}
 										starDimension="15px"
 										starSpacing="1.5px"
 									/>
@@ -114,7 +120,10 @@ export default class ReviewComponent extends React.Component {
 									</label>
 									<br />
 									<StarRatings
-										rating={this.props.item.workEnvironment}
+										rating={
+											this.props.item.starRatings
+												.workEnvironment
+										}
 										starDimension="15px"
 										starSpacing="1.5px"
 									/>
@@ -125,7 +134,9 @@ export default class ReviewComponent extends React.Component {
 									</label>
 									<br />
 									<StarRatings
-										rating={this.props.item.benefits}
+										rating={
+											this.props.item.starRatings.benefits
+										}
 										starDimension="15px"
 										starSpacing="1.5px"
 									/>
@@ -140,7 +151,8 @@ export default class ReviewComponent extends React.Component {
 									<br />
 									<StarRatings
 										rating={
-											this.props.item.managerRelationship
+											this.props.item.starRatings
+												.managerRelationship
 										}
 										starDimension="15px"
 										starSpacing="1.5px"

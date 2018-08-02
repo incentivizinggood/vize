@@ -358,6 +358,14 @@ const companyProfileQuery = gql`
 
 			reviews {
 				id
+				datePosted: created
+				starRatings {
+					healthAndSafety
+					managerRelationship
+					workEnvironment
+					benefits
+					overallSatisfaction
+				}
 			}
 			numReviews
 			jobAds {
