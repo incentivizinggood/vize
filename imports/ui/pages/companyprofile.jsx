@@ -7,7 +7,6 @@ import i18n from "meteor/universe:i18n";
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 
-import { Votes } from "/imports/api/data/votes.js";
 import Header from "/imports/ui/components/header.jsx";
 
 import OverviewTab from "/imports/ui/components/overviewTabCP.jsx";
@@ -221,7 +220,6 @@ class CompanyProfile extends React.Component {
 											salariesCount={
 												this.props.salariesCount
 											}
-											userVotes={this.props.userVotes}
 										/>
 									</ErrorBoundary>
 
@@ -229,7 +227,6 @@ class CompanyProfile extends React.Component {
 										<ReviewTab
 											companyreview={this.props.reviews}
 											companyinfo={this.props.company}
-											userVotes={this.props.userVotes}
 										/>
 									</ErrorBoundary>
 
@@ -402,14 +399,12 @@ export default ({ companyId }) => (
 
 			return (
 				<CompanyProfile
-					isReady={true}
 					company={data.company}
 					reviews={data.company.reviews}
 					jobAds={data.company.jobAds}
 					jobsCount={data.company.numJobAds}
 					salaries={data.company.salaries}
 					salariesCount={data.company.numJobAds}
-					userVotes={Votes}
 				/>
 			);
 		}}
