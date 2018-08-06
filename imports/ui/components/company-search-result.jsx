@@ -5,21 +5,11 @@ import i18n from "meteor/universe:i18n";
 
 import WriteReviewButton from "./write-review-button.jsx";
 
-// temporary during migration to PostgreSQL
-import { PgSubscription } from "meteor/numtel:pg";
-
 const t = i18n.createTranslator("common.CompanySearchResult");
 const T = i18n.createComponent(t);
 
 function CompanySearchResult(props) {
 	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
-	// if (!props.ready) {
-	// 	return (
-	// 		<h2>
-	// 			<T>common.companyprofile.loading</T>
-	// 		</h2>
-	// 	);
-	// }
 	return (
 		<div>
 			<div className="container box2 all_boxcolor">
