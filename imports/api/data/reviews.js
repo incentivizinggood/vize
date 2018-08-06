@@ -127,7 +127,13 @@ Reviews.schema = new SimpleSchema(
 		pros: {
 			type: String,
 			optional: false,
-			max: 200,
+			max: 600,
+			autoform: {
+				afFieldInput: {
+					type: "textarea",
+					rows: 6,
+				},
+			},
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {
@@ -155,7 +161,13 @@ Reviews.schema = new SimpleSchema(
 		cons: {
 			type: String,
 			optional: false,
-			max: 200,
+			max: 600,
+			autoform: {
+				afFieldInput: {
+					type: "textarea",
+					rows: 6,
+				},
+			},
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {
