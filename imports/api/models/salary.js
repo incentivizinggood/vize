@@ -89,6 +89,13 @@ export default class SalaryModel {
 		return this.companyModel.getCompanyByName(salary.companyName);
 	}
 
+	// Count the number of salaries paid by a given company.
+	countSalariesByCompany(company: Company): number {
+		const cursor = this.connector.find({ companyName: company.name });
+
+		return cursor.count();
+	}
+
 	// Get all of the salaries.
 	async getAllSalaries(
 		pageNumber: number = 0,
