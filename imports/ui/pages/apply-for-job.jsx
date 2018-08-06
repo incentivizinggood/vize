@@ -9,6 +9,9 @@ import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global stat
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
+
 // Specific stuff second
 import { JobAds } from "../../api/data/jobads.js";
 import { Companies } from "../../api/data/companies.js";
@@ -97,8 +100,14 @@ export default class ApplyForJobForm extends React.Component {
 		afj_form_state.set("jobId", this.props.jobId);
 
 		return (
-			<div className="page ApplyForJobForm">
-				<Blaze template="afj_blaze_form" />
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="page ApplyForJobForm">
+					<Blaze template="afj_blaze_form" />
+				</div>
+				<Footer />
 			</div>
 		);
 	}
