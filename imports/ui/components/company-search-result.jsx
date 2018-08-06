@@ -1,6 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
+
 import i18n from "meteor/universe:i18n";
 
 import WriteReviewButton from "./write-review-button.jsx";
