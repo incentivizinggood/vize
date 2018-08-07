@@ -13,6 +13,9 @@ import { Salaries } from "../../api/data/salaries.js";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/submit-salary-data.html";
 
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
+
 const ssd_form_state = new ReactiveDict();
 ssd_form_state.set("formError", "good"); // Shared with AutoForm helpers
 ssd_form_state.set("companyId", undefined); // Shared with the React wrapper
@@ -99,8 +102,14 @@ export default class SubmitSalaryDataForm extends React.Component {
 		ssd_form_state.set("companyId", this.props.companyId);
 
 		return (
-			<div className="page SubmitSalaryDataForm">
-				<Blaze template="ssd_blaze_form" />
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="page SubmitSalaryDataForm">
+					<Blaze template="ssd_blaze_form" />
+				</div>
+				<Footer />
 			</div>
 		);
 	}

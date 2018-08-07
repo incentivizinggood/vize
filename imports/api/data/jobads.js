@@ -108,11 +108,7 @@ JobAds.schema = new SimpleSchema(
 		contractType: {
 			type: String,
 			optional: false,
-			allowedValues: [
-				i18n.__("common.forms.paj.contractTypes.fullTime"),
-				i18n.__("common.forms.paj.contractTypes.partTime"),
-				i18n.__("common.forms.paj.contractTypes.contractor"),
-			],
+			allowedValues: ["Full time", "Part time", "Contractor"],
 		},
 		jobDescription: {
 			type: String,

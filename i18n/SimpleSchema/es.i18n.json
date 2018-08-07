@@ -90,7 +90,7 @@
 			"companyId": "companyId",
 			"jobTitle": "Titulo del trabajo",
 			"locations": "Localizacion",
-			"pesosPerHour": "Pesos por hora",
+			"pesosPerHour": "Pesos por semana",
 			"contractType": "Tipo de contrato",
 			"jobDescription": "Descripcion del trabajo",
 			"responsibilities": "Resposabilidades",

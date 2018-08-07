@@ -1,6 +1,8 @@
 import { Meteor } from "meteor/meteor";
 
+// Initialize GraphQL
 import "../imports/startup/server/graphql.js";
+
 // Import all of the collection and method definitions.
 // These files need to be run both on the client(s) and server.
 import "../imports/api/data/reviews.js";

@@ -4,6 +4,49 @@
 -- order by trigger name.
 -- WARNING
 
+-- SST === Single Source of Truth
+DROP TRIGGER IF EXISTS id_is_sst ON reviews;
+CREATE TRIGGER id_is_sst
+BEFORE INSERT OR UPDATE ON reviews
+FOR EACH ROW
+WHEN (NEW.companyid IS NOT NULL)
+EXECUTE PROCEDURE correct_name_by_id();
+
+DROP TRIGGER IF EXISTS id_is_sst ON salaries;
+CREATE TRIGGER id_is_sst
+BEFORE INSERT OR UPDATE ON salaries
+FOR EACH ROW
+WHEN (NEW.companyid IS NOT NULL)
+EXECUTE PROCEDURE correct_name_by_id();
+
+DROP TRIGGER IF EXISTS id_is_sst ON jobads;
+CREATE TRIGGER id_is_sst
+BEFORE INSERT OR UPDATE ON jobads
+FOR EACH ROW
+WHEN (NEW.companyid IS NOT NULL)
+EXECUTE PROCEDURE correct_name_by_id();
+
+DROP TRIGGER IF EXISTS fill_id_if_exists ON reviews;
+CREATE TRIGGER fill_id_if_exists
+BEFORE INSERT OR UPDATE ON reviews
+FOR EACH ROW
+WHEN (NEW.companyname IS NOT NULL AND NEW.companyid IS NULL)
+EXECUTE PROCEDURE fill_id_by_name();
+
+DROP TRIGGER IF EXISTS fill_id_if_exists ON salaries;
+CREATE TRIGGER fill_id_if_exists
+BEFORE INSERT OR UPDATE ON salaries
+FOR EACH ROW
+WHEN (NEW.companyname IS NOT NULL AND NEW.companyid IS NULL)
+EXECUTE PROCEDURE fill_id_by_name();
+
+DROP TRIGGER IF EXISTS fill_id_if_exists ON jobads;
+CREATE TRIGGER fill_id_if_exists
+BEFORE INSERT OR UPDATE ON jobads
+FOR EACH ROW
+WHEN (NEW.companyname IS NOT NULL AND NEW.companyid IS NULL)
+EXECUTE PROCEDURE fill_id_by_name();
+
 -- QUESTION:
 -- One-many relationship from companies to locations,
 -- many-one from locations to companies. Solved on
