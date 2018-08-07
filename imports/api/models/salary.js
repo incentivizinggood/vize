@@ -91,9 +91,13 @@ export default class SalaryModel {
 
 	// Count the number of salaries paid by a given company.
 	countSalariesByCompany(company: Company): number {
-		const cursor = this.connector.find({ companyName: company.name });
-
-		return cursor.count();
+		return this.connector.executeQuery(
+			PgSalaryFunctions.getSalaryCountForCompany,
+			company.name
+		);
+		// const cursor = this.connector.find({ companyName: company.name });
+		//
+		// return cursor.count();
 	}
 
 	// Get all of the salaries.

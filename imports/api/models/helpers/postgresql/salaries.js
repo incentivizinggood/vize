@@ -66,6 +66,23 @@ export default class PgSalaryFunctions {
 		}
 	}
 
+	static async getSalaryCountForCompany(client, name) {
+		let countResults = { rows: [{ count: undefined }] };
+
+		try {
+			countResults = await client.query(
+				"SELECT * FROM salary_counts WHERE companyname=$1",
+				[name]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return countResults.rows[0] === undefined
+				? undefined
+				: Number(countResults.rows[0].count);
+		}
+	}
+
 	static async submitSalary(client, salary) {
 		// assumes salary is formatted for SimplSchema conformity
 		let newSalary = { rows: [] };

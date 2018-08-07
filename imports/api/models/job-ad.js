@@ -69,9 +69,13 @@ export default class JobAdModel {
 
 	// Count the number of job ads posted by a given company.
 	countJobAdsByCompany(company: Company): number {
-		const cursor = this.connector.find({ companyName: company.name });
-
-		return cursor.count();
+		return this.connector.executeQuery(
+			PgJobAdFunctions.getJobAdCountForCompany,
+			company.name
+		);
+		// const cursor = this.connector.find({ companyName: company.name });
+		//
+		// return cursor.count();
 	}
 
 	// Get all of the job ads.

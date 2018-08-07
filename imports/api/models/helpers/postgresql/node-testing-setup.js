@@ -745,7 +745,9 @@ let getSalaryById;
 let getAllSalaries;
 let getSalariesByAuthor;
 let getSalariesForCompany;
+let getSalaryCountForCompany;
 let submitSalary;
+let processSalaryResults;
 
 getSalaryById = async function (client, id) {
 	let salaryResults = { rows: [] };
@@ -809,6 +811,21 @@ getSalariesForCompany = async function (client, name, skip, limit) {
 		return {
 			salaries: salaryResults.rows,
 		};
+	}
+}
+
+getSalaryCountForCompany = async function (client, name) {
+	let countResults = { rows: [ { count: undefined } ] };
+
+	try {
+		countResults = await client.query(
+			"SELECT * FROM salary_counts WHERE companyname=$1",
+			[name]
+		);
+	} catch (e) {
+		console.error("ERROR IN MODEL HELPER", e.message);
+	} finally {
+		return (countResults.rows[0] === undefined) ? undefined : Number(countResults.rows[0].count);
 	}
 }
 
@@ -885,6 +902,7 @@ processSalaryResults = function(salaryResults) {
 let getJobAdById;
 let getAllJobAds;
 let getJobAdsByCompany;
+let getJobAdCountForCompany;
 let postJobAd;
 let processJobAdResults;
 
@@ -957,6 +975,21 @@ getJobAdsByCompany = async function(client, companyName, skip, limit) {
 			jobads: jobAdResults.rows,
 			locations: locationResults,
 		};
+	}
+}
+
+getJobAdCountForCompany = async function(client, name) {
+	let countResults = { rows: [ { count: undefined } ] };
+
+	try {
+		countResults = await client.query(
+			"SELECT * FROM job_post_counts WHERE companyname=$1",
+			[name]
+		);
+	} catch (e) {
+		console.error("ERROR IN MODEL HELPER", e.message);
+	} finally {
+		return (countResults.rows[0] === undefined) ? undefined : Number(countResults.rows[0].count);
 	}
 }
 

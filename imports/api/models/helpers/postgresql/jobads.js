@@ -73,6 +73,23 @@ export default class PgJobAdFunctions {
 		}
 	}
 
+	static async getJobAdCountForCompany(client, name) {
+		let countResults = { rows: [{ count: undefined }] };
+
+		try {
+			countResults = await client.query(
+				"SELECT * FROM job_post_counts WHERE companyname=$1",
+				[name]
+			);
+		} catch (e) {
+			console.error("ERROR IN MODEL HELPER", e.message);
+		} finally {
+			return countResults.rows[0] === undefined
+				? undefined
+				: Number(countResults.rows[0].count);
+		}
+	}
+
 	static async postJobAd(client, jobad) {
 		let newJobAd = { rows: [] };
 		let newLocations = { rows: [] };
