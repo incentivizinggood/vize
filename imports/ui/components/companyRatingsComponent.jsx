@@ -52,6 +52,7 @@ ChangingProgressbar.defaultProps = {
 export default function CompanyRating(props) {
 	// The number of digits to display after the decimal point.
 	const numDigits = 2;
+
 	return (
 		<div>
 			<div className="col-md-6  bodr_lft">
@@ -205,9 +206,7 @@ export default function CompanyRating(props) {
 				>
 					<ChangingProgressbar
 						percentages={[
-							Math.round(
-								props.companyrating.percentRecommended * 100
-							),
+							Math.round(props.percentRecommended * 100),
 						]}
 						strokeWidth={10}
 						initialAnimation
@@ -217,11 +216,7 @@ export default function CompanyRating(props) {
 					<div className="col-md-6">
 						<div className="num_sett">
 							<h1>
-								{
-									NaN /* props.companyrating.avgNumMonthsWorked.toFixed(
-									numDigits
-								) */
-								}{" "}
+								{props.avgNumMonthsWorked.toFixed(numDigits)}{" "}
 							</h1>
 						</div>
 					</div>
@@ -240,3 +235,16 @@ export default function CompanyRating(props) {
 		</div>
 	);
 }
+
+// Temporary work around for missing data.
+CompanyRating.defaultProps = {
+	avgNumMonthsWorked: NaN,
+	percentRecommended: NaN,
+	companyrating: {
+		healthAndSafety: NaN,
+		managerRelationship: NaN,
+		workEnvironment: NaN,
+		benefits: NaN,
+		overallSatisfaction: NaN,
+	},
+};
