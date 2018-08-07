@@ -1,6 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import CircularProgressbar from "react-circular-progressbar";
+
 import i18n from "meteor/universe:i18n";
 
 const T = i18n.createComponent();

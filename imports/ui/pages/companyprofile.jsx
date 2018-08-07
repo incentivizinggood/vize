@@ -5,16 +5,15 @@ import { Query } from "react-apollo";
 
 import i18n from "meteor/universe:i18n";
 
-import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
+import { urlGenerators } from "/imports/startup/client/router.jsx";
 
+import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header.jsx";
 
 import OverviewTab from "/imports/ui/components/overviewTabCP.jsx";
 import ReviewTab from "/imports/ui/components/reviewTabCP.jsx";
 import JobTab from "/imports/ui/components/jobTabCP.jsx";
 import SalaryTab from "/imports/ui/components/salaryTabCP.jsx";
-
-import { urlGenerators } from "/imports/startup/client/router.jsx";
 
 const T = i18n.createComponent();
 

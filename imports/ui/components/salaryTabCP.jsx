@@ -1,7 +1,10 @@
 import React from "react";
-import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "../../startup/client/router.jsx";
+
+import { urlGenerators } from "/imports/startup/client/router.jsx";
+
+import SalaryPosting from "./salaryPosting.jsx";
 
 const T = i18n.createComponent();
 

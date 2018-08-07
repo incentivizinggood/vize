@@ -1,9 +1,11 @@
 import React from "react";
-import StarRatings from "react-star-ratings";
-import CompanyReview from "../../ui/components/companyReview.jsx";
-import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "../../startup/client/router.jsx";
+
+import { urlGenerators } from "/imports/startup/client/router.jsx";
+
+import CompanyReview from "./companyReview.jsx";
+import CompanyRating from "./companyRatingsComponent.jsx";
 
 const T = i18n.createComponent();
 

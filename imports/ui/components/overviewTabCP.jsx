@@ -1,11 +1,11 @@
 import React from "react";
-import StarRatings from "react-star-ratings";
-import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
-import CompanyReview from "../../ui/components/companyReview.jsx";
-import JobPosting from "../../ui/components/jobPosting.jsx";
-import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "../../startup/client/router.jsx";
+
+import { urlGenerators } from "/imports/startup/client/router.jsx";
+
+import CompanyRating from "./companyRatingsComponent.jsx";
+import CompanyReview from "./companyReview.jsx";
 
 const T = i18n.createComponent();
 
