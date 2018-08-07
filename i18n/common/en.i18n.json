@@ -116,10 +116,12 @@
 			"locationPlaceholder": "Tell us where you worked for this company",
 			"jobTitlePlaceholder":
 				"Enter the name of the position you held at this company",
-			"prosPlaceholder": "Tell us some pros of working for this company",
-			"consPlaceholder": "Tell us some cons of working for this company",
+			"prosPlaceholder":
+				"What did you love about this company and why would you recommend it to someone else?",
+			"consPlaceholder":
+				"What did you not like about this company? What do you think they could do to be better?",
 			"additionalCommentsPlaceholder":
-				"Enter any additional thoughts or comments you may have"
+				"Enter any additional thoughts or comments you may have on your experience working for this company."
 		}
 	},
 	"search": {
