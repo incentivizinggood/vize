@@ -10,10 +10,10 @@ import { urlGenerators } from "/imports/startup/client/router.jsx";
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header.jsx";
 
-import OverviewTab from "/imports/ui/components/overviewTabCP.jsx";
-import ReviewTab from "/imports/ui/components/reviewTabCP.jsx";
-import JobTab from "/imports/ui/components/jobTabCP.jsx";
-import SalaryTab from "/imports/ui/components/salaryTabCP.jsx";
+import OverviewTab from "/imports/ui/components/company-profile/tabs/overview.jsx";
+import ReviewTab from "/imports/ui/components/company-profile/tabs/reviews.jsx";
+import JobTab from "/imports/ui/components/company-profile/tabs/jobs.jsx";
+import SalaryTab from "/imports/ui/components/company-profile/tabs/salaries.jsx";
 
 const T = i18n.createComponent();
 
