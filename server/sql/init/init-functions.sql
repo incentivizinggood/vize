@@ -237,6 +237,26 @@ $$
 		return null;
 $$ LANGUAGE plv8;
 
+-- enforce the job post limit, which is currently set to 5 per company
+DROP FUNCTION IF EXISTS enforce_per_company_jobad_limit() CASCADE;
+CREATE OR REPLACE FUNCTION enforce_per_company_jobad_limit() RETURNS TRIGGER AS
+$$
+	// skip case we don't care about so we don't have to worry about OLD
+	// allows updates that change companyname and companyid, the
+	// correctness of which should be handled by a different trigger
+	if(TG_OP === 'UPDATE' && OLD.companyname === NEW.companyname && OLD.companyid === NEW.companyid)
+		return null;
+
+	// henceforth we assume that the relation between
+	// companyname and companyid is correct, and opt
+	// to use companyid becuase it is a required field
+	const getCountPlan = plv8.prepare("select count(jobadid) from jobads where companyname=$1",['text']);
+	const count = getCountPlan.execute([NEW.companyname])[0].count;
+	if(count > 5)
+		throw "No more than 5 job ad posts allowed per company";
+	return null;
+$$ LANGUAGE plv8;
+
 -- make sure that users don't vote on own reviews or comments
 DROP FUNCTION IF EXISTS disallow_voting_on_self() CASCADE;
 CREATE OR REPLACE FUNCTION disallow_voting_on_self() RETURNS TRIGGER AS

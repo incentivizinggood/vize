@@ -83,6 +83,12 @@ AFTER INSERT ON jobads
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE check_job_location_count();
 
+DROP TRIGGER IF EXISTS per_company_jobad_limit ON jobads;
+CREATE CONSTRAINT TRIGGER per_company_jobad_limit
+AFTER INSERT OR UPDATE ON jobads
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE enforce_per_company_jobad_limit();
+
 DROP TRIGGER IF EXISTS not_last_location ON job_locations;
 CREATE CONSTRAINT TRIGGER not_last_location
 AFTER UPDATE OR DELETE ON job_locations
