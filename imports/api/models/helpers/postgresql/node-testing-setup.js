@@ -1559,7 +1559,7 @@ obj = await PostgreSQL.executeQuery(getVotesByAuthor, 6, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "review", 1, 0, 1000);
 
-//insertion functions
+// insertion functions
 obj = await PostgreSQL.executeMutation(createCompany, vize);
 obj = await PostgreSQL.executeMutation(submitReview, vizeReview);
 obj = await PostgreSQL.executeMutation(submitSalary, vizeSalary);

@@ -152,7 +152,10 @@ export default class PgReviewFunctions {
 				review: newReview.rows[0],
 				// dummy values to prevent exception case
 				votes: {
-					refersto: newReview.rows[0].reviewid,
+					refersto:
+						newReview.rows[0] === undefined
+							? -1
+							: newReview.rows[0].reviewid,
 					upvotes: 0,
 					downvotes: 0,
 				},

@@ -103,10 +103,24 @@ Meteor.methods({
 
 		cleanReview.submittedBy = pgUser.user.userid;
 
-		await PostgreSQL.executeMutation(
-			PgReviewFunctions.submitReview,
-			cleanReview
+		const newPgReview = PgReviewFunctions.processReviewResults(
+			await PostgreSQL.executeMutation(
+				PgReviewFunctions.submitReview,
+				cleanReview
+			)
 		);
+
+		/*
+			QUESTION:
+				How do I go about actually passing those
+				SQL errors all the way up the stack?
+		*/
+		if (newPgReview === undefined) {
+			throw new Meteor.Error(
+				"SQLerror",
+				"An error occurred during database invocation"
+			);
+		}
 
 		/*
 			QUESTION:
