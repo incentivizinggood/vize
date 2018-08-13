@@ -116,6 +116,7 @@ export default class PgReviewFunctions {
 		// commented or voted on yet
 
 		let newReview = { rows: [] };
+		let error = undefined;
 
 		try {
 			newReview = await client.query(
@@ -147,19 +148,22 @@ export default class PgReviewFunctions {
 			);
 		} catch (e) {
 			console.error("ERROR IN MODEL HELPER", e.message);
+			error = e;
 		} finally {
-			return {
-				review: newReview.rows[0],
-				// dummy values to prevent exception case
-				votes: {
-					refersto:
-						newReview.rows[0] === undefined
-							? -1
-							: newReview.rows[0].reviewid,
-					upvotes: 0,
-					downvotes: 0,
-				},
-			};
+			return error === undefined
+				? {
+						review: newReview.rows[0],
+						// dummy values to prevent exception case
+						votes: {
+							refersto:
+								newReview.rows[0] === undefined
+									? -1
+									: newReview.rows[0].reviewid,
+							upvotes: 0,
+							downvotes: 0,
+						},
+				  }
+				: error;
 		}
 	}
 
@@ -172,7 +176,8 @@ export default class PgReviewFunctions {
 			- review or reviews: singular review or array of reviews
 			- votes: singular or array depending on whether we get review or reviews
 		*/
-		if (reviewResults.review !== undefined) {
+		if (reviewResults instanceof Error) return reviewResults;
+		else if (reviewResults.review !== undefined) {
 			const review = reviewResults.review;
 			return {
 				_id: Number(review.reviewid),

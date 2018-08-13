@@ -110,17 +110,13 @@ Meteor.methods({
 			)
 		);
 
-		/*
-			QUESTION:
-				How do I go about actually passing those
-				SQL errors all the way up the stack?
-		*/
-		if (newPgReview === undefined) {
+		console.log(newPgReview);
+		if (newPgReview instanceof Error) {
 			throw new Meteor.Error(
-				"SQLerror",
-				"An error occurred during database invocation"
+				`sqlState ${newPgReview.code}`,
+				`${newPgReview.constraint}: ${newPgReview.detail}`
 			);
-		}
+		} else return newPgReview;
 
 		/*
 			QUESTION:
