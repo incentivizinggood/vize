@@ -631,6 +631,7 @@ submitReview = async function(client, review) {
 	// commented or voted on yet
 
 	let newReview = { rows: [] };
+	let error = undefined;
 
 	try {
 		newReview = await client.query(
@@ -662,16 +663,22 @@ submitReview = async function(client, review) {
 		);
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
+		error = e;
 	} finally {
-		return {
-			review: newReview.rows[0],
-			// dummy values to prevent exception case
-			votes: {
-				refersto: (newReview.rows[0] === undefined) ? undefined : newReview.rows[0].reviewid,
-				upvotes: 0,
-				downvotes: 0,
-			},
-		};
+		return error === undefined
+			? {
+					review: newReview.rows[0],
+					// dummy values to prevent exception case
+					votes: {
+						refersto:
+							newReview.rows[0] === undefined
+								? -1
+								: newReview.rows[0].reviewid,
+						upvotes: 0,
+						downvotes: 0,
+					},
+			  }
+			: error;
 	}
 }
 
@@ -684,7 +691,8 @@ processReviewResults = function(reviewResults) {
 		- review or reviews: singular review or array of reviews
 		- votes: singular or array depending on whether we get review or reviews
 	*/
-	if (reviewResults.review !== undefined) {
+	if (reviewResults instanceof Error) return reviewResults;
+	else if (reviewResults.review !== undefined) {
 		const review = reviewResults.review;
 		return {
 			_id: Number(review.reviewid),
@@ -815,7 +823,7 @@ getSalariesForCompany = async function (client, name, skip, limit) {
 }
 
 getSalaryCountForCompany = async function (client, name) {
-	let countResults = { rows: [ { count: undefined } ] };
+	let countResults = { rows: [{ count: undefined }] };
 
 	try {
 		countResults = await client.query(
@@ -825,7 +833,9 @@ getSalaryCountForCompany = async function (client, name) {
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
-		return (countResults.rows[0] === undefined) ? undefined : Number(countResults.rows[0].count);
+		return countResults.rows[0] === undefined
+			? undefined
+			: Number(countResults.rows[0].count);
 	}
 }
 
@@ -979,7 +989,7 @@ getJobAdsByCompany = async function(client, companyName, skip, limit) {
 }
 
 getJobAdCountForCompany = async function(client, name) {
-	let countResults = { rows: [ { count: undefined } ] };
+	let countResults = { rows: [{ count: undefined }] };
 
 	try {
 		countResults = await client.query(
@@ -989,7 +999,9 @@ getJobAdCountForCompany = async function(client, name) {
 	} catch (e) {
 		console.error("ERROR IN MODEL HELPER", e.message);
 	} finally {
-		return (countResults.rows[0] === undefined) ? undefined : Number(countResults.rows[0].count);
+		return countResults.rows[0] === undefined
+			? undefined
+			: Number(countResults.rows[0].count);
 	}
 }
 
