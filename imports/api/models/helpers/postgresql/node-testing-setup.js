@@ -19,11 +19,9 @@ let pool = new Pool();
 const closeAndExit = function(event) {
 	pool.end(status => {
 		console.log(`goodbye: ${event}, ${status}`);
-		// process.exit(1);
 	});
 };
 
-//process.on("exit", closeAndExit);
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 
@@ -45,7 +43,7 @@ wrapPgFunction = async function(func, readOnly) {
 		if (readOnly) await client.query("START TRANSACTION READ ONLY");
 		else await client.query("START TRANSACTION");
 
-		// removes function name  and readOnly flag
+		// removes function name and readOnly flag
 		// from start of args list
 		result = await func.apply(
 			null,
@@ -56,8 +54,15 @@ wrapPgFunction = async function(func, readOnly) {
 	} catch (e) {
 		console.log(e);
 		await client.query("ROLLBACK");
+		result = e;
 	} finally {
 		await client.release();
+	}
+
+	if (result instanceof Error) {
+		throw new Error(
+			`sqlState ${result.code}` + `${result.constraint}: ${result.detail}`
+		);
 	}
 
 	return result;
@@ -87,31 +92,27 @@ getCompanyByName = async function(client, name) {
 	let locationResults = { rows: undefined };
 	let statResults = { rows: [] };
 
-	try {
-		companyResults = await client.query(
-			"SELECT * FROM companies WHERE name=$1",
+	companyResults = await client.query(
+		"SELECT * FROM companies WHERE name=$1",
+		[name]
+	);
+
+	if (companyResults.rows.length > 0) {
+		locationResults = await client.query(
+			"SELECT * FROM company_locations WHERE companyid=$1",
+			[companyResults.rows[0].companyid]
+		);
+		statResults = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
 			[name]
 		);
-
-		if (companyResults.rows.length > 0) {
-			locationResults = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[companyResults.rows[0].companyid]
-			);
-			statResults = await client.query(
-				"SELECT * FROM company_review_statistics WHERE name=$1",
-				[name]
-			);
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			company: companyResults.rows[0],
-			locations: locationResults.rows,
-			reviewStats: statResults.rows[0],
-		};
 	}
+
+	return {
+		company: companyResults.rows[0],
+		locations: locationResults.rows,
+		reviewStats: statResults.rows[0],
+	};
 }
 
 getCompanyById = async function(client, id) {
@@ -119,31 +120,27 @@ getCompanyById = async function(client, id) {
 	let locationResults = { rows: undefined };
 	let statResults = { rows: [] };
 
-	try {
-		companyResults = await client.query(
-			"SELECT * FROM companies WHERE companyid=$1",
+	companyResults = await client.query(
+		"SELECT * FROM companies WHERE companyid=$1",
+		[id]
+	);
+
+	if (companyResults.rows.length > 0) {
+		locationResults = await client.query(
+			"SELECT * FROM company_locations WHERE companyid=$1",
 			[id]
 		);
-
-		if (companyResults.rows.length > 0) {
-			locationResults = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[id]
-			);
-			statResults = await client.query(
-				"SELECT * FROM company_review_statistics WHERE name=$1",
-				[companyResults.rows[0].name]
-			);
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			company: companyResults.rows[0],
-			locations: locationResults.rows,
-			reviewStats: statResults.rows[0],
-		};
+		statResults = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[companyResults.rows[0].name]
+		);
 	}
+
+	return {
+		company: companyResults.rows[0],
+		locations: locationResults.rows,
+		reviewStats: statResults.rows[0],
+	};
 }
 
 companyNameRegexSearch = async function(client, name, skip, limit) {
@@ -151,33 +148,29 @@ companyNameRegexSearch = async function(client, name, skip, limit) {
 	let locationResults = {};
 	let statResults = {};
 
-	try {
-		companyResults = await client.query(
-			"SELECT * FROM companies WHERE name LIKE $1 OFFSET $2 LIMIT $3",
-			["%" + name + "%", skip, limit]
-		);
+	companyResults = await client.query(
+		"SELECT * FROM companies WHERE name LIKE $1 OFFSET $2 LIMIT $3",
+		["%" + name + "%", skip, limit]
+	);
 
-		for (let company of companyResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[company.companyid]
-			);
-			let stats = await client.query(
-				"SELECT * FROM company_review_statistics WHERE name=$1",
-				[company.name]
-			);
-			locationResults[company.name] = locations.rows;
-			statResults[company.name] = stats.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			companies: companyResults.rows,
-			locations: locationResults,
-			reviewStats: statResults,
-		};
+	for (let company of companyResults.rows) {
+		let locations = await client.query(
+			"SELECT * FROM company_locations WHERE companyid=$1",
+			[company.companyid]
+		);
+		let stats = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[company.name]
+		);
+		locationResults[company.name] = locations.rows;
+		statResults[company.name] = stats.rows[0];
 	}
+
+	return {
+		companies: companyResults.rows,
+		locations: locationResults,
+		reviewStats: statResults,
+	};
 }
 
 getAllCompanies = async function(client, skip, limit) {
@@ -185,33 +178,29 @@ getAllCompanies = async function(client, skip, limit) {
 	let locationResults = {};
 	let statResults = {};
 
-	try {
-		companyResults = await client.query(
-			"SELECT * FROM companies OFFSET $1 LIMIT $2",
-			[skip, limit]
-		);
+	companyResults = await client.query(
+		"SELECT * FROM companies OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
 
-		for (let company of companyResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[company.companyid]
-			);
-			let stats = await client.query(
-				"SELECT * FROM company_review_statistics WHERE name=$1",
-				[company.name]
-			);
-			locationResults[company.name] = locations.rows;
-			statResults[company.name] = stats.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			companies: companyResults.rows,
-			locations: locationResults,
-			reviewStats: statResults,
-		};
+	for (let company of companyResults.rows) {
+		let locations = await client.query(
+			"SELECT * FROM company_locations WHERE companyid=$1",
+			[company.companyid]
+		);
+		let stats = await client.query(
+			"SELECT * FROM company_review_statistics WHERE name=$1",
+			[company.name]
+		);
+		locationResults[company.name] = locations.rows;
+		statResults[company.name] = stats.rows[0];
 	}
+
+	return {
+		companies: companyResults.rows,
+		locations: locationResults,
+		reviewStats: statResults,
+	};
 }
 
 createCompany = async function(client, company) {
@@ -221,56 +210,53 @@ createCompany = async function(client, company) {
 
 	// assumes that company has the well-known format
 	// from the schema in imports/api/data/companies.js
-	try {
-		newCompany = await client.query(
-			"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
-				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
-			[
-				company.name,
-				company.dateEstablished,
-				company.industry,
-				company.otherContactInfo,
-				company.descriptionOfCompany,
-				company.numEmployees,
-				company.contactEmail,
-				company.websiteURL,
-			]
-		);
+	newCompany = await client.query(
+		"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
+		[
+			company.name,
+			company.dateEstablished,
+			company.industry,
+			company.otherContactInfo,
+			company.descriptionOfCompany,
+			company.numEmployees,
+			company.contactEmail,
+			company.websiteURL,
+		]
+	);
 
-		if (newCompany.rows.length > 0) {
-			// screw functional programming
-			const id = newCompany.rows[0].companyid;
-			let insertValues = [];
-			let insertValueString = "";
-			let index = 0;
-			for (let location of company.locations) {
-				insertValues.push(id, location);
-				insertValueString =
-					insertValueString +
-					"($" +
-					(index + 1) +
-					",$" +
-					(index + 2) +
-					"),";
-				index += 2;
-			}
-			insertValueString = insertValueString.slice(0, -1);
-
-			newLocations = await client.query(
-				"INSERT INTO company_locations (companyid,locationname) " +
-					"VALUES " +
-					insertValueString +
-					" RETURNING *",
-				insertValues
-			);
+	if (newCompany.rows.length > 0) {
+		// screw functional programming
+		const id = newCompany.rows[0].companyid;
+		let insertValues = [];
+		let insertValueString = "";
+		let index = 0;
+		for (let location of company.locations) {
+			insertValues.push(id, location);
+			insertValueString =
+				insertValueString +
+				"($" +
+				(index + 1) +
+				",$" +
+				(index + 2) +
+				"),";
+			index += 2;
 		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			company: newCompany.rows[0],
-			locations: newLocations.rows,
-			/*
+		insertValueString = insertValueString.slice(0, -1);
+
+		newLocations = await client.query(
+			"INSERT INTO company_locations (companyid,locationname) " +
+				"VALUES " +
+				insertValueString +
+				" RETURNING *",
+			insertValues
+		);
+	}
+
+	return {
+		company: newCompany.rows[0],
+		locations: newLocations.rows,
+		/*
 				Alas, PostgreSQL does not truly support
 				"READ UNCOMMITTED" transactions, which
 				prevents one from getting the review stats
@@ -281,22 +267,18 @@ createCompany = async function(client, company) {
 				purposes of results-processing, so we give
 				back dummy, default values
 			*/
-			reviewStats: {
-				name:
-					newCompany.rows.length > 0
-						? newCompany.rows[0].name
-						: "",
-				numreviews: 0,
-				avgnummonthsworked: 0,
-				percentrecommended: 0,
-				healthandsafety: 0,
-				managerrelationship: 0,
-				workenvironment: 0,
-				benefits: 0,
-				overallsatisfaction: 0,
-			},
-		};
-	}
+		reviewStats: {
+			name: newCompany.rows.length > 0 ? newCompany.rows[0].name : "",
+			numreviews: 0,
+			avgnummonthsworked: 0,
+			percentrecommended: 0,
+			healthandsafety: 0,
+			managerrelationship: 0,
+			workenvironment: 0,
+			benefits: 0,
+			overallsatisfaction: 0,
+		},
+	};
 }
 
 processCompanyResults = function(companyResults) {
@@ -430,18 +412,14 @@ getUserById = async function(client, id) {
 				" (expects string or number)"
 		);
 
-	try {
-		userResult = await client.query(
-			"SELECT * FROM users WHERE " + selector + "=$1",
-			[id]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			user: userResult.rows[0],
-		};
-	}
+	userResult = await client.query(
+		"SELECT * FROM users WHERE " + selector + "=$1",
+		[id]
+	);
+
+	return {
+		user: userResult.rows[0],
+	};
 }
 
 createUser = async function(client, user, companyPostgresId) {
@@ -449,22 +427,18 @@ createUser = async function(client, user, companyPostgresId) {
 	// imports/api/data/users.js
 	let newUser = { rows: [] };
 
-	try {
-		// Some of the arguments and insertion values may
-		// be undefined, but this is perfectly okay,
-		// I want there to at least be the option
-		newUser = await client.query(
-			"INSERT INTO users (userMongoId,role,companyId) " +
-				"VALUES ($1,$2,$3) RETURNING *",
-			[user._id, user.role, companyPostgresId]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			user: newUser.rows[0],
-		};
-	}
+	// Some of the arguments and insertion values may
+	// be undefined, but this is perfectly okay,
+	// I want there to at least be the option
+	newUser = await client.query(
+		"INSERT INTO users (userMongoId,role,companyId) " +
+			"VALUES ($1,$2,$3) RETURNING *",
+		[user._id, user.role, companyPostgresId]
+	);
+
+	return {
+		user: newUser.rows[0],
+	};
 }
 
 setUserCompanyInfo = async function(client, userId, companyId) {
@@ -491,22 +465,18 @@ setUserCompanyInfo = async function(client, userId, companyId) {
 				" (expects string or number)"
 		);
 
-	try {
-		newUser = await client.query(
-			"UPDATE users " +
-				"SET companyid=$1 " +
-				"WHERE " +
-				selector +
-				"=$2 RETURNING *",
-			[companyId, userId]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			user: newUser.rows[0],
-		};
-	}
+	newUser = await client.query(
+		"UPDATE users " +
+			"SET companyid=$1 " +
+			"WHERE " +
+			selector +
+			"=$2 RETURNING *",
+		[companyId, userId]
+	);
+
+	return {
+		user: newUser.rows[0],
+	};
 }
 
 let getReviewById;
@@ -520,108 +490,92 @@ getReviewById = async function(client, id) {
 	let reviewResults = { rows: [] };
 	let voteResults = { rows: [] };
 
-	try {
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE reviewid=$1",
-			[id]
-		);
+	reviewResults = await client.query(
+		"SELECT * FROM reviews WHERE reviewid=$1",
+		[id]
+	);
 
-		voteResults = await client.query(
-			"SELECT * FROM review_vote_counts WHERE refersto=$1",
-			[id]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			review: reviewResults.rows[0],
-			votes: voteResults.rows[0],
-		};
-	}
+	voteResults = await client.query(
+		"SELECT * FROM review_vote_counts WHERE refersto=$1",
+		[id]
+	);
+
+	return {
+		review: reviewResults.rows[0],
+		votes: voteResults.rows[0],
+	};
 }
 
 getReviewsByAuthor = async function(client, id, skip, limit) {
 	let reviewResults = { rows: [] };
 	let voteResults = {};
 
-	try {
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
+	reviewResults = await client.query(
+		"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+		[id, skip, limit]
+	);
+
+	for (let review of reviewResults.rows) {
+		let votes = await client.query(
+			"SELECT * FROM review_vote_counts WHERE refersto=$1",
+			[review.reviewid]
 		);
 
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			voteResults[review.reviewid] = votes.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+		voteResults[review.reviewid] = votes.rows[0];
 	}
+
+	return {
+		reviews: reviewResults.rows,
+		votes: voteResults,
+	};
 }
 
 getAllReviews = async function(client, skip, limit) {
 	let reviewResults = { rows: [] };
 	let voteResults = {};
 
-	try {
-		reviewResults = await client.query(
-			"SELECT * FROM reviews OFFSET $1 LIMIT $2",
-			[skip, limit]
+	reviewResults = await client.query(
+		"SELECT * FROM reviews OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
+
+	for (let review of reviewResults.rows) {
+		const votes = await client.query(
+			"SELECT * FROM review_vote_counts WHERE refersto=$1",
+			[review.reviewid]
 		);
 
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			voteResults[review.reviewid] = votes.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+		voteResults[review.reviewid] = votes.rows[0];
 	}
+
+	return {
+		reviews: reviewResults.rows,
+		votes: voteResults,
+	};
 }
 
 getReviewsForCompany = async function(client, name, skip, limit) {
 	let reviewResults = { rows: [] };
 	let voteResults = {};
 
-	try {
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[name, skip, limit]
+	reviewResults = await client.query(
+		"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
+		[name, skip, limit]
+	);
+
+	for (let review of reviewResults.rows) {
+		let votes = await client.query(
+			"SELECT * FROM review_vote_counts WHERE refersto=$1",
+			[review.reviewid]
 		);
 
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			voteResults[review.reviewid] = votes.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+		voteResults[review.reviewid] = votes.rows[0];
 	}
+
+	return {
+		reviews: reviewResults.rows,
+		votes: voteResults,
+	};
 }
 
 submitReview = async function(client, review) {
@@ -631,55 +585,47 @@ submitReview = async function(client, review) {
 	// commented or voted on yet
 
 	let newReview = { rows: [] };
-	let error = undefined;
 
-	try {
-		newReview = await client.query(
-			"INSERT INTO reviews " +
-				"(submittedBy,companyName,companyId,reviewLocation," +
-				"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
-				"wouldRecommend,healthAndSafety,managerRelationship," +
-				"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
-				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
-				"RETURNING *",
-			[
-				review.submittedBy,
-				review.companyName,
-				review.companyId,
-				review.location,
-				review.reviewTitle,
-				review.jobTitle,
-				review.numberOfMonthsWorked,
-				review.pros,
-				review.cons,
-				review.wouldRecommendToOtherJobSeekers,
-				review.healthAndSafety,
-				review.managerRelationship,
-				review.workEnvironment,
-				review.benefits,
-				review.overallSatisfaction,
-				review.additionalComments,
-			]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-		error = e;
-	} finally {
-		return error === undefined
-			? {
-					review: newReview.rows[0],
-					// dummy values to prevent exception case
-					votes: {
-						refersto:
-							newReview.rows[0] === undefined
-								? -1
-								: newReview.rows[0].reviewid,
-						upvotes: 0,
-						downvotes: 0,
-					},
-			  }
-			: error;
-	}
+	newReview = await client.query(
+		"INSERT INTO reviews " +
+			"(submittedBy,companyName,companyId,reviewLocation," +
+			"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
+			"wouldRecommend,healthAndSafety,managerRelationship," +
+			"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
+			"RETURNING *",
+		[
+			review.submittedBy,
+			review.companyName,
+			review.companyId,
+			review.location,
+			review.reviewTitle,
+			review.jobTitle,
+			review.numberOfMonthsWorked,
+			review.pros,
+			review.cons,
+			review.wouldRecommendToOtherJobSeekers,
+			review.healthAndSafety,
+			review.managerRelationship,
+			review.workEnvironment,
+			review.benefits,
+			review.overallSatisfaction,
+			review.additionalComments,
+		]
+	);
+
+	return {
+		review: newReview.rows[0],
+		// dummy values to prevent exception case
+		votes: {
+			refersto:
+				newReview.rows[0] === undefined
+					? -1
+					: newReview.rows[0].reviewid,
+			upvotes: 0,
+			downvotes: 0,
+		},
+	};
 }
 
 processReviewResults = function(reviewResults) {
@@ -691,8 +637,7 @@ processReviewResults = function(reviewResults) {
 		- review or reviews: singular review or array of reviews
 		- votes: singular or array depending on whether we get review or reviews
 	*/
-	if (reviewResults instanceof Error) return reviewResults;
-	else if (reviewResults.review !== undefined) {
+	if (reviewResults.review !== undefined) {
 		const review = reviewResults.review;
 		return {
 			_id: Number(review.reviewid),
@@ -760,114 +705,93 @@ let processSalaryResults;
 getSalaryById = async function (client, id) {
 	let salaryResults = { rows: [] };
 
-	try {
-		salaryResults = await client.query(
-			"SELECT * FROM salaries WHERE salaryid=$1",
-			[id]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			salary: salaryResults.rows[0],
-		};
-	}
+	salaryResults = await client.query(
+		"SELECT * FROM salaries WHERE salaryid=$1",
+		[id]
+	);
+
+	return {
+		salary: salaryResults.rows[0],
+	};
 }
 
 getSalariesByAuthor = async function (client, id, skip, limit) {
 	let salaryResults = { rows: [] };
-	try {
-		salaryResults = await client.query(
-			"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			salaries: salaryResults.rows,
-		};
-	}
+
+	salaryResults = await client.query(
+		"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+		[id, skip, limit]
+	);
+
+	return {
+		salaries: salaryResults.rows,
+	};
 }
 
 getAllSalaries = async function (client, skip, limit) {
 	let salaryResults = { rows: [] };
-	try {
-		salaryResults = await client.query(
-			"SELECT * FROM salaries OFFSET $1 LIMIT $2",
-			[skip, limit]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			salaries: salaryResults.rows,
-		};
-	}
+
+	salaryResults = await client.query(
+		"SELECT * FROM salaries OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
+
+	return {
+		salaries: salaryResults.rows,
+	};
 }
 
 getSalariesForCompany = async function (client, name, skip, limit) {
 	let salaryResults = { rows: [] };
-	try {
-		salaryResults = await client.query(
-			"SELECT * FROM salaries WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[name, skip, limit]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			salaries: salaryResults.rows,
-		};
-	}
+
+	salaryResults = await client.query(
+		"SELECT * FROM salaries WHERE companyname=$1 OFFSET $2 LIMIT $3",
+		[name, skip, limit]
+	);
+
+	return {
+		salaries: salaryResults.rows,
+	};
 }
 
 getSalaryCountForCompany = async function (client, name) {
 	let countResults = { rows: [{ count: undefined }] };
 
-	try {
-		countResults = await client.query(
-			"SELECT * FROM salary_counts WHERE companyname=$1",
-			[name]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return countResults.rows[0] === undefined
-			? undefined
-			: Number(countResults.rows[0].count);
-	}
+	countResults = await client.query(
+		"SELECT * FROM salary_counts WHERE companyname=$1",
+		[name]
+	);
+
+	return countResults.rows[0] === undefined
+		? undefined
+		: Number(countResults.rows[0].count);
 }
 
 submitSalary = async function (client, salary) {
 	// assumes salary is formatted for SimplSchema conformity
 	let newSalary = { rows: [] };
 
-	try {
-		newSalary = await client.query(
-			"INSERT INTO salaries " +
-				"(submittedby,companyname,companyid,salarylocation," +
-				"jobtitle,incometype,incomeamount,gender) " +
-				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
-				"RETURNING *",
-			[
-				salary.submittedBy,
-				salary.companyName,
-				salary.companyId,
-				salary.location,
-				salary.jobTitle,
-				salary.incomeType,
-				salary.incomeAmount,
-				salary.gender,
-			]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			salary: newSalary.rows[0],
-		};
-	}
+	newSalary = await client.query(
+		"INSERT INTO salaries " +
+			"(submittedby,companyname,companyid,salarylocation," +
+			"jobtitle,incometype,incomeamount,gender) " +
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
+			"RETURNING *",
+		[
+			salary.submittedBy,
+			salary.companyName,
+			salary.companyId,
+			salary.location,
+			salary.jobTitle,
+			salary.incomeType,
+			salary.incomeAmount,
+			salary.gender,
+		]
+	);
+
+	return {
+		salary: newSalary.rows[0],
+	};
 }
 
 processSalaryResults = function(salaryResults) {
@@ -919,149 +843,135 @@ let processJobAdResults;
 getJobAdById = async function(client, id) {
 	let jobAdResults = { rows: [] };
 	let locationResults = { rows: [] };
-	try {
-		jobAdResults = await client.query(
-			"SELECT * FROM jobads WHERE jobadid=$1",
-			[id]
-		);
-		locationResults = await client.query(
-			"SELECT * FROM job_locations WHERE jobadid=$1",
-			[id]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			jobad: jobAdResults.rows[0],
-			locations: locationResults.rows,
-		};
-	}
+
+	jobAdResults = await client.query(
+		"SELECT * FROM jobads WHERE jobadid=$1",
+		[id]
+	);
+
+	locationResults = await client.query(
+		"SELECT * FROM job_locations WHERE jobadid=$1",
+		[id]
+	);
+
+	return {
+		jobad: jobAdResults.rows[0],
+		locations: locationResults.rows,
+	};
 }
 
 getAllJobAds = async function(client, skip, limit) {
 	let jobAdResults = { rows: [] };
 	let locationResults = {};
-	try {
-		jobAdResults = await client.query(
-			"SELECT * FROM jobads OFFSET $1 LIMIT $2",
-			[skip, limit]
+
+	jobAdResults = await client.query(
+		"SELECT * FROM jobads OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
+
+	for (let jobad of jobAdResults.rows) {
+		let locations = await client.query(
+			"SELECT * FROM job_locations WHERE jobadid=$1",
+			[jobad.jobadid]
 		);
-		for (let jobad of jobAdResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM job_locations WHERE jobadid=$1",
-				[jobad.jobadid]
-			);
-			locationResults[jobad.jobadid] = locations.rows;
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			jobads: jobAdResults.rows,
-			locations: locationResults,
-		};
+		locationResults[jobad.jobadid] = locations.rows;
 	}
+
+	return {
+		jobads: jobAdResults.rows,
+		locations: locationResults,
+	};
 }
 
 getJobAdsByCompany = async function(client, companyName, skip, limit) {
 	let jobAdResults = { rows: [] };
 	let locationResults = {};
-	try {
-		jobAdResults = await client.query(
-			"SELECT * FROM jobads WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[companyName, skip, limit]
+
+	jobAdResults = await client.query(
+		"SELECT * FROM jobads WHERE companyname=$1 OFFSET $2 LIMIT $3",
+		[companyName, skip, limit]
+	);
+
+	for (let jobad of jobAdResults.rows) {
+		let locations = await client.query(
+			"SELECT * FROM job_locations WHERE jobadid=$1",
+			[jobad.jobadid]
 		);
-		for (let jobad of jobAdResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM job_locations WHERE jobadid=$1",
-				[jobad.jobadid]
-			);
-			locationResults[jobad.jobadid] = locations.rows;
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			jobads: jobAdResults.rows,
-			locations: locationResults,
-		};
+		locationResults[jobad.jobadid] = locations.rows;
 	}
+
+	return {
+		jobads: jobAdResults.rows,
+		locations: locationResults,
+	};
 }
 
 getJobAdCountForCompany = async function(client, name) {
 	let countResults = { rows: [{ count: undefined }] };
 
-	try {
-		countResults = await client.query(
-			"SELECT * FROM job_post_counts WHERE companyname=$1",
-			[name]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return countResults.rows[0] === undefined
-			? undefined
-			: Number(countResults.rows[0].count);
-	}
+	countResults = await client.query(
+		"SELECT * FROM job_post_counts WHERE companyname=$1",
+		[name]
+	);
+
+	return countResults.rows[0] === undefined
+		? undefined
+		: Number(countResults.rows[0].count);
 }
 
 postJobAd = async function(client, jobad) {
 	let newJobAd = { rows: [] };
 	let newLocations = { rows: [] };
 
-	try {
-		newJobAd = await client.query(
-			"INSERT INTO jobads " +
-				"(companyname,companyid,jobtitle,pesosperhour," +
-				"contracttype,jobdescription,responsibilities,qualifications) " +
-				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
-				"RETURNING *",
-			[
-				jobad.companyName,
-				jobad.companyId,
-				jobad.jobTitle,
-				jobad.pesosPerHour,
-				jobad.contractType,
-				jobad.jobDescription,
-				jobad.responsibilities,
-				jobad.qualifications,
-			]
-		);
+	newJobAd = await client.query(
+		"INSERT INTO jobads " +
+			"(companyname,companyid,jobtitle,pesosperhour," +
+			"contracttype,jobdescription,responsibilities,qualifications) " +
+			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) " +
+			"RETURNING *",
+		[
+			jobad.companyName,
+			jobad.companyId,
+			jobad.jobTitle,
+			jobad.pesosPerHour,
+			jobad.contractType,
+			jobad.jobDescription,
+			jobad.responsibilities,
+			jobad.qualifications,
+		]
+	);
 
-		// this bit could probably be refactored out into a
-		// function and used for both companies and jobads
-		const id = newJobAd.rows[0].jobadid;
-		let insertValues = [];
-		let insertValueString = "";
-		let index = 0;
-		for (let location of jobad.locations) {
-			insertValues.push(id, location);
-			insertValueString =
-				insertValueString +
-				"($" +
-				(index + 1) +
-				",$" +
-				(index + 2) +
-				"),";
-			index += 2;
-		}
-		insertValueString = insertValueString.slice(0, -1);
-
-		newLocations = await client.query(
-			"INSERT INTO job_locations (jobadid,joblocation) " +
-				"VALUES " +
-				insertValueString +
-				" RETURNING *",
-			insertValues
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			jobad: newJobAd.rows[0],
-			locations: newLocations.rows,
-		};
+	// this bit could probably be refactored out into a
+	// function and used for both companies and jobads
+	const id = newJobAd.rows[0].jobadid;
+	let insertValues = [];
+	let insertValueString = "";
+	let index = 0;
+	for (let location of jobad.locations) {
+		insertValues.push(id, location);
+		insertValueString =
+			insertValueString +
+			"($" +
+			(index + 1) +
+			",$" +
+			(index + 2) +
+			"),";
+		index += 2;
 	}
+	insertValueString = insertValueString.slice(0, -1);
+
+	newLocations = await client.query(
+		"INSERT INTO job_locations (jobadid,joblocation) " +
+			"VALUES " +
+			insertValueString +
+			" RETURNING *",
+		insertValues
+	);
+
+	return {
+		jobad: newJobAd.rows[0],
+		locations: newLocations.rows,
+	};
 }
 
 processJobAdResults = function(jobAdResults) {
@@ -1116,105 +1026,89 @@ getCommentById = async function(client, id) {
 	let commentResults = { rows: [] };
 	let voteResults = { rows: [] };
 
-	try {
-		commentResults = await client.query(
-			"SELECT * FROM review_comments WHERE commentid=$1",
-			[id]
-		);
+	commentResults = await client.query(
+		"SELECT * FROM review_comments WHERE commentid=$1",
+		[id]
+	);
 
-		voteResults = await client.query(
-			"SELECT * FROM comment_vote_counts WHERE refersto=$1",
-			[id]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			comment: commentResults.rows[0],
-			votes: voteResults.rows[0],
-		};
-	}
+	voteResults = await client.query(
+		"SELECT * FROM comment_vote_counts WHERE refersto=$1",
+		[id]
+	);
+
+	return {
+		comment: commentResults.rows[0],
+		votes: voteResults.rows[0],
+	};
 }
 
 getAllComments = async function(client, skip, limit) {
 	let commentResults = { rows: [] };
 	let voteResults = {};
 
-	try {
-		commentResults = await client.query(
-			"SELECT * FROM review_comments OFFSET $1 LIMIT $2",
-			[skip, limit]
+	commentResults = await client.query(
+		"SELECT * FROM review_comments OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
+
+	for (let comment of commentResults.rows) {
+		let votes = await client.query(
+			"SELECT * FROM comment_vote_counts WHERE refersto=$1",
+			[comment.commentid]
 		);
 
-		for (let comment of commentResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM comment_vote_counts WHERE refersto=$1",
-				[comment.commentid]
-			);
-
-			voteResults[comment.commentid] = votes.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			comments: commentResults.rows,
-			votes: voteResults,
-		};
+		voteResults[comment.commentid] = votes.rows[0];
 	}
+
+	return {
+		comments: commentResults.rows,
+		votes: voteResults,
+	};
 }
 
 getCommentsByAuthor = async function(client, id, skip, limit) {
 	let commentResults = { rows: [] };
 	let voteResults = {};
 
-	try {
-		commentResults = await client.query(
-			"SELECT * FROM review_comments WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
+	commentResults = await client.query(
+		"SELECT * FROM review_comments WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+		[id, skip, limit]
+	);
+
+	for (let comment of commentResults.rows) {
+		let votes = await client.query(
+			"SELECT * FROM comment_vote_counts WHERE refersto=$1",
+			[comment.commentid]
 		);
 
-		for (let comment of commentResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM comment_vote_counts WHERE refersto=$1",
-				[comment.commentid]
-			);
-
-			voteResults[comment.commentid] = votes.rows[0];
-		}
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			comments: commentResults.rows,
-			votes: voteResults,
-		};
+		voteResults[comment.commentid] = votes.rows[0];
 	}
+
+	return {
+		comments: commentResults.rows,
+		votes: voteResults,
+	};
 }
 
 writeComment = async function(client, comment) {
 	// assumes that the comment follows a SimplSchema-esque
 	// JSON format, and that it has no flags, upvotes, or
 	// downvotes yet
-	try {
-		let newComment = { rows: [] };
-		newComment = await client.query(
-			"INSERT INTO review_comments (reviewid,submittedby,content)" +
-				"VALUES ($1,$2,$3) RETURNING *",
-			[comment.reviewId, comment.submittedBy, comment.content]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			comment: newComment.rows[0],
-			votes: {
-				refersto: newComment.commentid,
-				upvotes: 0,
-				downvotes: 0,
-			},
-		};
-	}
+	let newComment = { rows: [] };
+	newComment = await client.query(
+		"INSERT INTO review_comments (reviewid,submittedby,content)" +
+			"VALUES ($1,$2,$3) RETURNING *",
+		[comment.reviewId, comment.submittedBy, comment.content]
+	);
+
+	return {
+		comment: newComment.rows[0],
+		votes: {
+			refersto: newComment.commentid,
+			upvotes: 0,
+			downvotes: 0,
+		},
+	};
 }
 
 processCommentResults = function(commentResults) {
@@ -1269,112 +1163,97 @@ getVoteByPrimaryKey = async function(client, voteKeyFields) {
 		voteKeyFields.voteSubject !== "comment"
 	)
 		throw new Error("Illegal subject: table does not exist");
-	try {
-		voteResults = await client.query(
-			"SELECT * FROM " +
-				voteKeyFields.voteSubject +
-				"_votes WHERE submittedby=$1 AND refersto=$2",
-			[voteKeyFields.submittedBy, voteKeyFields.references]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			subject: voteKeyFields.voteSubject,
-			vote: voteResults.rows[0],
-		};
-	}
+
+	voteResults = await client.query(
+		"SELECT * FROM " +
+			voteKeyFields.voteSubject +
+			"_votes WHERE submittedby=$1 AND refersto=$2",
+		[voteKeyFields.submittedBy, voteKeyFields.references]
+	);
+
+	return {
+		subject: voteKeyFields.voteSubject,
+		vote: voteResults.rows[0],
+	};
 }
 
 getAllVotes = async function(client, skip, limit) {
 	let reviewVoteResults = { rows: [] };
 	let commentVoteResults = { rows: [] };
-	try {
-		reviewVoteResults = await client.query(
-			"SELECT * FROM review_vote_counts OFFSET $1 LIMIT $2",
-			[skip, limit]
-		);
-		commentVoteResults = await client.query(
-			"SELECT * FROM comment_vote_counts OFFSET $1 LIMIT $2",
-			[skip, limit]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			reviewVotes: reviewVoteResults.rows,
-			commentVotes: commentVoteResults.rows,
-		};
-	}
+
+	reviewVoteResults = await client.query(
+		"SELECT * FROM review_vote_counts OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
+	commentVoteResults = await client.query(
+		"SELECT * FROM comment_vote_counts OFFSET $1 LIMIT $2",
+		[skip, limit]
+	);
+
+	return {
+		reviewVotes: reviewVoteResults.rows,
+		commentVotes: commentVoteResults.rows,
+	};
 }
 
 getVotesForSubject = async function(client, subject, refersto, skip, limit) {
 	let voteResults = { rows: [] };
 	if (subject !== "review" && subject !== "comment")
 		throw new Error("Illegal subject: table does not exist");
-	try {
-		voteResults = await client.query(
-			"SELECT * FROM " +
-				subject +
-				"_vote_counts WHERE " +
-				"refersto=$1 OFFSET $2 LIMIT $3",
-			[refersto, skip, limit]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			subject: subject,
-			votes: voteResults.rows[0],
-		};
-	}
+
+	voteResults = await client.query(
+		"SELECT * FROM " +
+			subject +
+			"_vote_counts WHERE " +
+			"refersto=$1 OFFSET $2 LIMIT $3",
+		[refersto, skip, limit]
+	);
+
+	return {
+		subject: subject,
+		votes: voteResults.rows[0],
+	};
 }
 
 getVotesByAuthor = async function(client, id, skip, limit) {
 	let reviewVoteResults = { rows: [] };
 	let commentVoteResults = { rows: [] };
-	try {
-		reviewVoteResults = await client.query(
-			"SELECT * FROM review_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
-		);
-		commentVoteResults = await client.query(
-			"SELECT * FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[id, skip, limit]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			reviewVotes: reviewVoteResults.rows,
-			commentVotes: commentVoteResults.rows,
-		};
-	}
+
+	reviewVoteResults = await client.query(
+		"SELECT * FROM review_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+		[id, skip, limit]
+	);
+	commentVoteResults = await client.query(
+		"SELECT * FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+		[id, skip, limit]
+	);
+
+	return {
+		reviewVotes: reviewVoteResults.rows,
+		commentVotes: commentVoteResults.rows,
+	};
 }
 
 castVote = async function(client, vote) {
 	let voteResults = { rows: [] };
 	if (vote.voteSubject !== "review" && vote.voteSubject !== "comment")
 		throw new Error("Illegal subject: table does not exist");
-	try {
-		const tblName = vote.voteSubject + "_votes";
-		voteResults = await client.query(
-			"INSERT INTO " +
-			tblName +
-			" (refersto,submittedby,value) " +
-			"VALUES ($1,$2,$3) " +
-			"ON CONFLICT (submittedby,refersto) DO UPDATE SET value=$3 " + // I love PostgreSQL
-				"RETURNING *",
-			[vote.references, vote.submittedBy, vote.value]
-		);
-	} catch (e) {
-		console.error("ERROR IN MODEL HELPER", e.message);
-	} finally {
-		return {
-			subject: vote.voteSubject,
-			vote: voteResults.rows[0],
-		};
-	}
+
+	const tblName = vote.voteSubject + "_votes";
+	voteResults = await client.query(
+		"INSERT INTO " +
+		tblName +
+		" (refersto,submittedby,value) " +
+		"VALUES ($1,$2,$3) " +
+		"ON CONFLICT (submittedby,refersto) DO UPDATE SET value=$3 " + // I love PostgreSQL
+			"RETURNING *",
+		[vote.references, vote.submittedBy, vote.value]
+	);
+
+	return {
+		subject: vote.voteSubject,
+		vote: voteResults.rows[0],
+	};
 }
 
 processVoteResults = function(voteResults) {

@@ -14,7 +14,6 @@ const closeAndExit = function(event) {
 	});
 };
 
-// process.on("exit", closeAndExit);
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 
@@ -31,7 +30,7 @@ const wrapPgFunction = async function(func, readOnly) {
 		if (readOnly) await client.query("START TRANSACTION READ ONLY");
 		else await client.query("START TRANSACTION");
 
-		// removes function name  and readOnly flag
+		// removes function name and readOnly flag
 		// from start of args list
 		result = await func.apply(
 			null,
