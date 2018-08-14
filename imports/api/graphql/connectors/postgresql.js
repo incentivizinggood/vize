@@ -8,6 +8,24 @@ const { Pool } = require("pg");
 
 const pool = new Pool();
 
+/*
+	NOTE
+	This seems like a good-practice cleanup step,
+	however you may notice that attempts to use the
+	pool immediately following a hot code push will
+	fail because this listener gets called. I think
+	this is because the process receives a SIGTERM
+	when hot code pushes occur. If you refresh the page,
+	the pool will get re-initialized and the error
+	will go away. This seems like normal behavior.
+	I have not noticed the bug on the GraphQL search
+	pages, only on Autoform pages. I think this is because
+	I chose to not reset the form on hot code pushes,
+	which could prevent the refresh that re-initializes
+	the pool.
+	This bug was really getting me, I'm glad it makes more
+	sense now.
+*/
 const closeAndExit = function(event) {
 	pool.end(status => {
 		console.log(`goodbye: ${event}, ${status}`);
