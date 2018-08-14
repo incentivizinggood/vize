@@ -1308,7 +1308,7 @@ writeReviewsToProductionDb = async function() {
 	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
 	return Promise.all(reviews.map(async function(review) {
 		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
-		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = -1;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
 		if(Array.isArray(review.locations)) {
 			const locations = review.locations;
 			review.locations = undefined;

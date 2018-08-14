@@ -120,7 +120,10 @@ CREATE TABLE users (
 -- folk who submitted the first reviews on the site.
 -- BUG? Hopefully won't run into issues with there not being
 -- an associated Mongo account (this is untested)...
-INSERT INTO users (userid,role) VALUES (-1,'worker');
+-- NOTE: UPDATE: this thing was starting to bug me, so
+-- I'm commenting it out for now to see if we can get along
+-- without it
+-- INSERT INTO users (userid,role) VALUES (-1,'worker');
 
 -- NOTE submittedBy fields are numeric in this implementation,
 -- but could be displayed on the website as "user[submittedBy]"
@@ -161,17 +164,32 @@ INSERT INTO users (userid,role) VALUES (-1,'worker');
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
+	-- NOTE: this value CAN BE NULL, as would be
+	-- the case with reviews and salaries submitted
+	-- from the home page by users who do not have
+	-- accounts or are not logged in
 	submittedBy			integer
 		REFERENCES users (userId)
 		ON UPDATE CASCADE ON DELETE SET NULL
 		DEFERRABLE INITIALLY DEFERRED,
-	-- BUG
 	-- companyName: non-FK required field
 	-- companyId: optional FK field
 	-- needed triggers:
 	-- 1) fix name to match id (on insert AND on update)
 	-- 2) supply id if name matches a company
 	companyName			varchar(110)	NOT NULL,
+	-- NOTE: a user may submit only one review per
+	-- company if they are logged in to their account,
+	-- but infinitely many from the home page if they are
+	-- logged out or have not created an account.
+	-- That seems a bit strange, but perhaps "authorless"
+	-- reviews can be treated differently?
+	-- QUESTION Although, they are currently prevented from submitting
+	-- salaries and reviews unless they have the "worker"
+	-- role, which requires being logged in to an account,
+	-- so that simplifies things a great deal for now, I'll
+	-- just need to make sure that that's what Bryce and Julian want.
+	UNIQUE (submittedBy,companyName),
 	companyId			integer
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
@@ -216,11 +234,15 @@ CREATE TABLE review_comments (
 DROP TABLE IF EXISTS salaries CASCADE;
 CREATE TABLE salaries (
 	salaryId			serial			PRIMARY KEY,
+	-- NOTE: all the comments on the reviews table concerning
+	-- the following two fields and corresponding constraint
+	-- apply equally here
 	submittedBy			integer
 		REFERENCES users (userId)
 		ON UPDATE CASCADE ON DELETE SET NULL
 		DEFERRABLE INITIALLY DEFERRED,
 	companyName			varchar(110)	NOT NULL,
+	UNIQUE (submittedBy,companyName),
 	companyId			integer
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
