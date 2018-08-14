@@ -116,55 +116,54 @@ export default class PgReviewFunctions {
 		// commented or voted on yet
 
 		let newReview = { rows: [] };
-		let error = undefined;
-
-		try {
-			newReview = await client.query(
-				"INSERT INTO reviews " +
-					"(submittedBy,companyName,companyId,reviewLocation," +
-					"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
-					"wouldRecommend,healthAndSafety,managerRelationship," +
-					"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
-					"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
-					"RETURNING *",
-				[
-					review.submittedBy,
-					review.companyName,
-					review.companyId,
-					review.location,
-					review.reviewTitle,
-					review.jobTitle,
-					review.numberOfMonthsWorked,
-					review.pros,
-					review.cons,
-					review.wouldRecommendToOtherJobSeekers,
-					review.healthAndSafety,
-					review.managerRelationship,
-					review.workEnvironment,
-					review.benefits,
-					review.overallSatisfaction,
-					review.additionalComments,
-				]
-			);
-		} catch (e) {
-			console.error("ERROR IN MODEL HELPER", e.message);
-			error = e;
-		} finally {
-			return error === undefined
-				? {
-						review: newReview.rows[0],
-						// dummy values to prevent exception case
-						votes: {
-							refersto:
-								newReview.rows[0] === undefined
-									? -1
-									: newReview.rows[0].reviewid,
-							upvotes: 0,
-							downvotes: 0,
-						},
-				  }
-				: error;
-		}
+		// let error = undefined;
+		//
+		// try {
+		newReview = await client.query(
+			"INSERT INTO reviews " +
+				"(submittedBy,companyName,companyId,reviewLocation," +
+				"reviewTitle,jobTitle,numMonthsWorked,pros,cons," +
+				"wouldRecommend,healthAndSafety,managerRelationship," +
+				"workEnvironment,benefits,overallSatisfaction,additionalComments) " +
+				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) " +
+				"RETURNING *",
+			[
+				review.submittedBy,
+				review.companyName,
+				review.companyId,
+				review.location,
+				review.reviewTitle,
+				review.jobTitle,
+				review.numberOfMonthsWorked,
+				review.pros,
+				review.cons,
+				review.wouldRecommendToOtherJobSeekers,
+				review.healthAndSafety,
+				review.managerRelationship,
+				review.workEnvironment,
+				review.benefits,
+				review.overallSatisfaction,
+				review.additionalComments,
+			]
+		);
+		// } catch (e) {
+		// 	console.error("ERROR IN MODEL HELPER", e.message);
+		// 	error = e;
+		// } finally {
+		return {
+			review: newReview.rows[0],
+			// dummy values to prevent exception case
+			votes: {
+				refersto:
+					newReview.rows[0] === undefined
+						? -1
+						: newReview.rows[0].reviewid,
+				upvotes: 0,
+				downvotes: 0,
+			},
+		};
+		//		: error;
+		// }
 	}
 
 	static processReviewResults(reviewResults) {

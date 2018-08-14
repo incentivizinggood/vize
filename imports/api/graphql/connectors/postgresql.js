@@ -1,3 +1,5 @@
+import { Meteor } from "meteor/meteor";
+
 const { Pool } = require("pg");
 
 /* ----------------------------
@@ -9,11 +11,10 @@ const pool = new Pool();
 const closeAndExit = function(event) {
 	pool.end(status => {
 		console.log(`goodbye: ${event}, ${status}`);
-		// process.exit(1);
 	});
 };
 
-process.on("exit", closeAndExit);
+// process.on("exit", closeAndExit);
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 
@@ -41,8 +42,16 @@ const wrapPgFunction = async function(func, readOnly) {
 	} catch (e) {
 		console.log(e);
 		await client.query("ROLLBACK");
+		result = e;
 	} finally {
 		await client.release();
+	}
+
+	if (result instanceof Error) {
+		throw new Meteor.Error(
+			`sqlState ${result.code}`,
+			`${result.constraint}: ${result.detail}`
+		);
 	}
 
 	return result;

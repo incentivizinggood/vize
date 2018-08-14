@@ -23,7 +23,7 @@ const closeAndExit = function(event) {
 	});
 };
 
-process.on("exit", closeAndExit);
+//process.on("exit", closeAndExit);
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 

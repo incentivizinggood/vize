@@ -110,13 +110,9 @@ Meteor.methods({
 			)
 		);
 
-		console.log(newPgReview);
-		if (newPgReview instanceof Error) {
-			throw new Meteor.Error(
-				`sqlState ${newPgReview.code}`,
-				`${newPgReview.constraint}: ${newPgReview.detail}`
-			);
-		} else return newPgReview;
+		if (Meteor.isDevelopment) console.log(newPgReview);
+
+		return newPgReview;
 
 		/*
 			QUESTION:
@@ -227,9 +223,12 @@ Meteor.methods({
 			value: vote,
 		};
 
-		await PostgreSQL.executeQuery(PgVoteFunctions.castVote, newVote);
+		const pgVoteResult = await PostgreSQL.executeMutation(
+			PgVoteFunctions.castVote,
+			newVote
+		);
 
-		return "I VOTED";
+		return pgVoteResult;
 	},
 
 	async "salaries.submitSalaryData"(salary) {
@@ -293,13 +292,17 @@ Meteor.methods({
 			PgUserFunctions.getUserById,
 			this.userId
 		);
+
 		newSalary.submittedBy = pgUser.user.userid;
 		if (typeof newSalary.companyId === "string")
 			newSalary.companyId = undefined;
-		await PostgreSQL.executeMutation(
+
+		const newPgSalary = await PostgreSQL.executeMutation(
 			PgSalaryFunctions.submitSalary,
 			newSalary
 		);
+
+		return newPgSalary;
 	},
 
 	/*
