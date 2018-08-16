@@ -61,7 +61,7 @@ wrapPgFunction = async function(func, readOnly) {
 
 	if (result instanceof Error) {
 		throw new Error(
-			`sqlState ${result.code}` + `${result.constraint}: ${result.detail}`
+			`${result.constraint}: ${result.detail} [sqlState ${result.code}]`
 		);
 	}
 
