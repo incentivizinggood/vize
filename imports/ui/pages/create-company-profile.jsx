@@ -1,4 +1,5 @@
 // Boilerplate first
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
@@ -59,6 +60,8 @@ AutoForm.addHooks("ccp_blaze_form", {
 			console.log(
 				`ERROR: We did a thing in a ${formType} form: ${error}`
 			);
+		console.log("HERE IS THE ERROR: ");
+		console.log(error);
 		formError.set(error.toString());
 	},
 });

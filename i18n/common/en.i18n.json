@@ -82,6 +82,7 @@
 				"contractor": "Contractor"
 			},
 			"formTitle": "Post a Job",
+			"header1": "Reach hundreds of workers instantly with our job posts",
 			"jobTitlePlaceholder":
 				"Tell us the title of the position you are advertising",
 			"payRangePlaceholder":
@@ -102,6 +103,8 @@
 				"hourlyWage": "Hourly Wage"
 			},
 			"formTitle": "Submit Salary Data",
+			"header1": "Share your salary annonomously to make ",
+			"header2": "sure others are getting compensated fairly.",
 			"companyNamePlaceholder":
 				"Tell us the name of the company you worked for",
 			"locationPlaceholder": "Tell us where you worked for this company",
@@ -109,6 +112,7 @@
 		},
 		"wr": {
 			"formTitle": "Write a Review",
+			"header1": "Contribute your annonymous feedback to the community",
 			"companyNamePlaceholder":
 				"Enter the name of the company you're reviewing",
 			"reviewTitlePlaceholder": "Please choose a title for your review",

@@ -84,6 +84,8 @@
 				"contractor": "Contratista"
 			},
 			"formTitle": "Anunciar un trabajo",
+			"header1":
+				"[PLEASE TRANSLATE] Reach hundreds of workers instantly with our job posts",
 			"jobTitlePlaceholder":
 				"Por favor díganos el título del puesto que está anunciando",
 			"payRangePlaceholder":
@@ -104,6 +106,10 @@
 				"hourlyWage": "Salario por hora"
 			},
 			"formTitle": "Forma Salarial",
+			"header1":
+				"[PLEASE TRANSLATE] Share your salary annonomously to make ",
+			"header2":
+				"[PLEASE TRANSLATE] sure others are getting compensated fairly.",
 			"companyNamePlaceholder":
 				"Díganos el nombre de la empresa para la que trabajó",
 			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
@@ -111,6 +117,8 @@
 		},
 		"wr": {
 			"formTitle": "Escribe una Reseña",
+			"header1":
+				"[PLEASE TRANSLATE] Contribute your annonymous feedback to the community",
 			"companyNamePlaceholder":
 				"Ingrese el nombre de la compañía que está revisando",
 			"reviewTitlePlaceholder":
