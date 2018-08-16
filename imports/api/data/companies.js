@@ -70,6 +70,12 @@ Companies.schema = new SimpleSchema(
 			// 	},
 			// },
 		},
+		contactPhoneNumber: {
+			type: String, // dunno what this needs to be, leaving it to the user's discretion to "validate"
+			max: 20,
+			regEx: SimpleSchema.RegEx.Phone,
+			optional: true,
+		},
 		dateEstablished: {
 			type: Date,
 			optional: true,
@@ -100,11 +106,6 @@ Companies.schema = new SimpleSchema(
 			type: String,
 			max: 150,
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
-		otherContactInfo: {
-			type: String, // dunno what this needs to be, leaving it to the user's discretion to "validate"
-			max: 200,
-			optional: true,
-		},
 		websiteURL: {
 			// the COMPANY's actual website, not their
 			type: String, // little corner of the Vize web app

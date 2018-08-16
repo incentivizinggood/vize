@@ -21,7 +21,7 @@ export type Company = {
 	),
 	industry: ?string,
 	locations: [string],
-	otherContactInfo: ?string,
+	contactPhoneNumber: ?string,
 	websiteURL: ?string,
 	descriptionOfCompany: ?string,
 	dateJoined: ?Date,

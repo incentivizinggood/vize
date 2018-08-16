@@ -56,7 +56,7 @@ type Company {
 	numEmployees: String
 	industry: String
 	locations: [String!]!
-	otherContactInfo: String
+	contactPhoneNumber: String
 	websiteURL: String
 	descriptionOfCompany: String
 	dateJoined: DateTime

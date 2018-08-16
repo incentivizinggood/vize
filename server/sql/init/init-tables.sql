@@ -28,18 +28,17 @@ CREATE TABLE companies (
 	dateAdded			date			DEFAULT now(),
 	dateEstablished		date,
 	industry			varchar(60),
-	otherContactInfo	varchar(210),
 	descriptionOfCompany	varchar(6010),
-
 	-- Other validity onstraints are straightforward via CHECK,
 	-- I love that PostgreSQL actually supports this
 	-- allowed brackets for numEmployees
 	numEmployees		varchar(20)		CHECK (numEmployees IS NULL OR numEmployees='1 - 50' OR numEmployees='51 - 500' OR numEmployees='501 - 2000' OR numEmployees='2001 - 5000' OR numEmployees='5000+'),
 	-- regex CHECK constraint for email (with TLD) validity
 	contactEmail		varchar(110)	NOT NULL CHECK (is_valid_email_with_tld(contactEmail)),
-	-- regex CHECK constraint for URL validity, a bit different
+	-- regex CHECK constraint for URL and phone no. validity, a bit different
 	-- from the email check because websiteURL is not a required field
 	websiteURL			varchar(255)	CHECK (websiteURL IS NULL OR is_valid_url(websiteURL)),
+	contactPhoneNumber	varchar(30)		CHECK (contactPhoneNumber IS NULL OR is_valid_phone_number(contactPhoneNumber)),
 	numFlags			int				DEFAULT 0 CHECK (numFlags >= 0)
 );
 

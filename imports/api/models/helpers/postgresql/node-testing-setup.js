@@ -211,13 +211,13 @@ createCompany = async function(client, company) {
 	// assumes that company has the well-known format
 	// from the schema in imports/api/data/companies.js
 	newCompany = await client.query(
-		"INSERT INTO companies (name,dateEstablished,industry,otherContactInfo,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
+		"INSERT INTO companies (name,dateEstablished,industry,contactPhoneNumber,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
 			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
 		[
 			company.name,
 			company.dateEstablished,
 			company.industry,
-			company.otherContactInfo,
+			company.contactPhoneNumber,
 			company.descriptionOfCompany,
 			company.numEmployees,
 			company.contactEmail,
@@ -314,7 +314,7 @@ processCompanyResults = function(companyResults) {
 			locations: companyResults.locations.map(
 				loc => loc.locationname
 			),
-			otherContactInfo: companyResults.company.othercontactinfo,
+			contactPhoneNumber: companyResults.company.contactphonenumber,
 			websiteURL: companyResults.company.websiteurl,
 			descriptionOfCompany:
 				companyResults.company.descriptionofcompany,
@@ -355,7 +355,7 @@ processCompanyResults = function(companyResults) {
 				locations: companyResults.locations[company.name].map(
 					loc => loc.locationname
 				),
-				otherContactInfo: company.othercontactinfo,
+				contactPhoneNumber: company.contactphonenumber,
 				websiteURL: company.websiteurl,
 				descriptionOfCompany: company.descriptionofcompany,
 				dateJoined: company.dateadded,
@@ -1331,7 +1331,7 @@ vize = {
 	name: "another round 10",
 	numEmployees: "1 - 50",
 	industry: "Software Development",
-	otherContactInfo: "None to speak of",
+	contactPhoneNumber: "None to speak of",
 	contactEmail: "incentivizinggood@gmail.com",
 	websiteURL: "https://www.incentivizinggood.com",
 	descriptionOfCompany: "Pretty leet",

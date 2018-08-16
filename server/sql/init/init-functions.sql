@@ -1,3 +1,9 @@
+-- Regexes for email w/ tld, URL, and phone number
+-- were copy-pasted from the MIT-licensed SimplSchema
+-- node package in order to tally with that package's
+-- behavior on the frontend and avoid unexpected results:
+-- https://github.com/aldeed/simple-schema-js/blob/master/package/lib/regExp.js
+
 -- regex check for email w/ TLD
 DROP FUNCTION IF EXISTS is_valid_email_with_tld(text) CASCADE;
 CREATE OR REPLACE FUNCTION is_valid_email_with_tld(arg text)
@@ -14,6 +20,15 @@ RETURNS boolean AS
 $$
 	const urlRegex=/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
 	return urlRegex.test(arg);
+$$ LANGUAGE plv8 IMMUTABLE;
+
+-- regex check for phone number
+DROP FUNCTION IF EXISTS is_valid_phone_number(text) CASCADE;
+CREATE OR REPLACE FUNCTION is_valid_phone_number(arg text)
+RETURNS boolean AS
+$$
+	const phoneNoRegex= /^[0-9０-９٠-٩۰-۹]{2}$|^[+＋]*(?:[-x‐-―−ー－-／  ­​⁠　()（）［］.\[\]/~⁓∼～*]*[0-9０-９٠-٩۰-۹]){3,}[-x‐-―−ー－-／  ­​⁠　()（）［］.\[\]/~⁓∼～0-9０-９٠-٩۰-۹]*(?:;ext=([0-9０-９٠-٩۰-۹]{1,7})|[  \t,]*(?:e?xt(?:ensi(?:ó?|ó))?n?|ｅ?ｘｔｎ?|[,xｘ#＃~～]|int|anexo|ｉｎｔ)[:\.．]?[  \t,-]*([0-9０-９٠-٩۰-۹]{1,7})#?|[- ]+([0-9０-９٠-٩۰-۹]{1,5})#)?$/i;
+	return phoneNoRegex.test(arg);
 $$ LANGUAGE plv8 IMMUTABLE;
 
 -- regex check for pay range

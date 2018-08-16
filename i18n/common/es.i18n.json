@@ -70,8 +70,7 @@
 				"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
 			"industryPlaceholder":
 				"Por favor díganos la industria principal de su empresa",
-			"otherContactInfoPlaceholder":
-				"Ingrese cualquier información de contacto adicional que le gustaría proporcionarnos",
+			"contactPhoneNumberPlaceholder": "###-###-####",
 			"websiteUrlPlaceholder":
 				"Ingrese la URL del sitio web de su empresa, si tiene una",
 			"descriptionPlaceholder":
