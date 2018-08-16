@@ -78,7 +78,10 @@ Companies.schema = new SimpleSchema(
 		},
 		yearEstablished: {
 			type: SimpleSchema.Integer,
-			allowedValues: [...Array(new Date().getFullYear()).keys()].filter(
+			allowedValues: [
+				// + 1 to include current year
+				...Array(new Date().getFullYear() + 1).keys(),
+			].filter(
 				// 1800 seems like a good minimum year for when a company
 				// could have been established
 				i => i >= 1800
