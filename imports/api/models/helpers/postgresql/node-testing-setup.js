@@ -212,7 +212,7 @@ createCompany = async function(client, company) {
 	// from the schema in imports/api/data/companies.js
 	newCompany = await client.query(
 		"INSERT INTO companies (name,dateEstablished,industry,contactPhoneNumber,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
-			"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
+			"VALUES ($1,date_trunc('year',date ($2)),$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
 		[
 			company.name,
 			company.dateEstablished,
