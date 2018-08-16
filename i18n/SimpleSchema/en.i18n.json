@@ -45,8 +45,13 @@
 			"nameTaken": "The name you provided is already taken"
 		},
 		"JobAds": {},
-		"Salaries": {},
+		"Salaries": {
+			"secondSalaryByUser":
+				"You may only post salary data once per company"
+		},
 		"Reviews": {
+			"secondReviewByUser":
+				"You may only write one review for each company",
 			"needsFiveWords": "You should write at least 5 words in this field"
 		}
 	},

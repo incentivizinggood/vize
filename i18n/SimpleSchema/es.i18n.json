@@ -45,8 +45,13 @@
 			"nameTaken": "El nombre proporcionado ya esta en uso"
 		},
 		"JobAds": {},
-		"Salaries": {},
+		"Salaries": {
+			"secondSalaryByUser":
+				"[PLEASE TRANSLATE] You may only post salary data once per company"
+		},
 		"Reviews": {
+			"secondReviewByUser":
+				"[PLEASE TRANSLATE] You may only write one review for each company",
 			"needsFiveWords":
 				"debes colocar por lo menos 5 palabras en este campo"
 		}

@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
@@ -51,6 +52,24 @@ Salaries.schema = new SimpleSchema(
 											type: "sessionError",
 										},
 									]);
+								} else {
+									Meteor.call(
+										"salaries.checkForSecondSalaryByUser",
+										this.value,
+										(error2, result2) => {
+											if (!result2) {
+												this.validationContext.addValidationErrors(
+													[
+														{
+															name: "companyName",
+															type:
+																"secondSalaryByUser",
+														},
+													]
+												);
+											}
+										}
+									);
 								}
 							}
 						);
@@ -62,6 +81,13 @@ Salaries.schema = new SimpleSchema(
 							)
 						)
 							return "sessionError";
+						else if (
+							!Meteor.call(
+								"salaries.checkForSecondSalaryByUser",
+								this.value
+							)
+						)
+							return "secondSalaryByUser";
 					}
 				}
 			},

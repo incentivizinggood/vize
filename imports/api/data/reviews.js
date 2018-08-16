@@ -71,6 +71,24 @@ Reviews.schema = new SimpleSchema(
 											type: "sessionError",
 										},
 									]);
+								} else {
+									Meteor.call(
+										"reviews.checkForSecondReviewByUser",
+										this.value,
+										(error2, result2) => {
+											if (!result2) {
+												this.validationContext.addValidationErrors(
+													[
+														{
+															name: "companyName",
+															type:
+																"secondReviewByUser",
+														},
+													]
+												);
+											}
+										}
+									);
 								}
 							}
 						);
@@ -82,6 +100,13 @@ Reviews.schema = new SimpleSchema(
 							)
 						)
 							return "sessionError";
+						else if (
+							!Meteor.call(
+								"reviews.checkForSecondReviewByUser",
+								this.value
+							)
+						)
+							return "secondReviewByUser";
 					}
 				}
 			},

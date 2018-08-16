@@ -54,30 +54,32 @@ Meteor.methods({
 		return true;
 	},
 
+	async "reviews.checkForSecondReviewByUser"(companyName) {
+		if (this.userId) {
+			const pgUser = await PostgreSQL.executeQuery(
+				PgUserFunctions.getUserById,
+				this.userId
+			);
+			const reviewsByPgUser = PgReviewFunctions.processReviewResults(
+				await PostgreSQL.executeQuery(
+					PgReviewFunctions.getReviewsByAuthor,
+					pgUser.user.userid
+				)
+			);
+			if (
+				reviewsByPgUser.filter(
+					review => review.companyName === companyName
+				).length > 0
+			)
+				return false;
+		}
+
+		return true;
+	},
+
 	async "reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
 		const cleanReview = Reviews.simpleSchema().clean(newReview);
-
-		const validationResult = Reviews.simpleSchema()
-			.namedContext()
-			.validate(cleanReview);
-		const errors = Reviews.simpleSchema()
-			.namedContext()
-			.validationErrors();
-
-		if (Meteor.isDevelopment) {
-			console.log("SERVER: Here is the validation result: ");
-			console.log(validationResult);
-			console.log(errors);
-		}
-
-		if (!validationResult) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
-				errors
-			);
-		}
 
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
@@ -102,6 +104,27 @@ Meteor.methods({
 		);
 
 		cleanReview.submittedBy = pgUser.user.userid;
+
+		const validationResult = Reviews.simpleSchema()
+			.namedContext()
+			.validate(cleanReview);
+		const errors = Reviews.simpleSchema()
+			.namedContext()
+			.validationErrors();
+
+		if (Meteor.isDevelopment) {
+			console.log("SERVER: Here is the validation result: ");
+			console.log(validationResult);
+			console.log(errors);
+		}
+
+		if (!validationResult) {
+			throw new Meteor.Error(
+				i18n.__("common.methods.meteorErrors.invalidArguments"),
+				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				errors
+			);
+		}
 
 		const newPgReview = PgReviewFunctions.processReviewResults(
 			await PostgreSQL.executeMutation(
@@ -229,6 +252,29 @@ Meteor.methods({
 		);
 
 		return pgVoteResult;
+	},
+
+	async "salaries.checkForSecondSalaryByUser"(companyName) {
+		if (this.userId) {
+			const pgUser = await PostgreSQL.executeQuery(
+				PgUserFunctions.getUserById,
+				this.userId
+			);
+			const salariesByPgUser = PgSalaryFunctions.processSalaryResults(
+				await PostgreSQL.executeQuery(
+					PgSalaryFunctions.getSalariesByAuthor,
+					pgUser.user.userid
+				)
+			);
+			if (
+				salariesByPgUser.filter(
+					salary => salary.companyName === companyName
+				).length > 0
+			)
+				return false;
+		}
+
+		return true;
 	},
 
 	async "salaries.submitSalaryData"(salary) {
