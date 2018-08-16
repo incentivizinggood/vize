@@ -198,8 +198,8 @@ CREATE TABLE reviews (
 	reviewTitle			varchar(110)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
 	jobTitle			varchar(110)	NOT NULL,
 	numMonthsWorked		smallint		NOT NULL CHECK (numMonthsWorked >= 0),
-	pros				varchar(210)	NOT NULL CHECK (word_count(pros) >= 5),
-	cons				varchar(210)	NOT NULL CHECK (word_count(cons) >= 5),
+	pros				varchar(610)	NOT NULL CHECK (word_count(pros) >= 5),
+	cons				varchar(610)	NOT NULL CHECK (word_count(cons) >= 5),
 	wouldRecommend		boolean			NOT NULL,
 	healthAndSafety		float(2)		NOT NULL CHECK (healthAndSafety >= 0 AND healthAndSafety <= 5),
 	managerRelationship	float(2)		NOT NULL CHECK (managerRelationship >= 0 AND managerRelationship <= 5),
