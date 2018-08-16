@@ -1331,7 +1331,7 @@ vize = {
 	name: "another round 10",
 	numEmployees: "1 - 50",
 	industry: "Software Development",
-	contactPhoneNumber: "None to speak of",
+	contactPhoneNumber: "5555555555",
 	contactEmail: "incentivizinggood@gmail.com",
 	websiteURL: "https://www.incentivizinggood.com",
 	descriptionOfCompany: "Pretty leet",
