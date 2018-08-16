@@ -52,7 +52,7 @@ type Company {
 
 	name: String!
 	contactEmail: String!
-	dateEstablished: DateTime
+	yearEstablished: Int
 	numEmployees: String
 	industry: String
 	locations: [String!]!

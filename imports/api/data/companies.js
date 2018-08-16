@@ -76,8 +76,13 @@ Companies.schema = new SimpleSchema(
 			regEx: SimpleSchema.RegEx.Phone,
 			optional: true,
 		},
-		dateEstablished: {
-			type: Date,
+		yearEstablished: {
+			type: SimpleSchema.Integer,
+			allowedValues: [...Array(new Date().getFullYear()).keys()].filter(
+				// 1800 seems like a good minimum year for when a company
+				// could have been established
+				i => i >= 1800
+			),
 			optional: true,
 		},
 		numEmployees: {

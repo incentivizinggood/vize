@@ -71,7 +71,7 @@
 			"_id": "_id",
 			"name": "Nombre de la empresa",
 			"contactEmail": "Email de contacto",
-			"dateEstablished": "Fecha establecida",
+			"yearEstablished": "[PLEASE TRANSLATE] Year Established",
 			"numEmployees": "Numero de empleados",
 			"industry": "Industria",
 			"locations": "Ubicaciones",

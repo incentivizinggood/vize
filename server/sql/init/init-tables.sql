@@ -26,7 +26,12 @@ CREATE TABLE companies (
 	companyId			serial			PRIMARY KEY,
 	name				varchar(110)	UNIQUE NOT NULL,
 	dateAdded			date			DEFAULT now(),
-	dateEstablished		date,
+	-- While there are range constraints for year
+	-- on the frontend, they are mostly "plausibility
+	-- constraints" and don't much matter to us here
+	-- on the backend because of how mutable they are.
+	-- In fact they change every year at the exact same time.
+	yearEstablished		int,
 	industry			varchar(60),
 	descriptionOfCompany	varchar(6010),
 	-- Other validity onstraints are straightforward via CHECK,

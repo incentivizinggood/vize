@@ -8,8 +8,8 @@
 			<div class="form-group {{#if afFieldIsInvalid name='contactEmail'}}has-error{{/if}}">
 				{{> afQuickField name='contactEmail' placeholder=(__ ".ccp.emailPlaceholder")}}
 			</div>
-			<div class="form-group {{#if afFieldIsInvalid name='dateEstablished'}}has-error{{/if}}">
-				{{> afQuickField name='dateEstablished'}}
+			<div class="form-group {{#if afFieldIsInvalid name='yearEstablished'}}has-error{{/if}}">
+				{{> afQuickField name='yearEstablished' options='allowed'}}
 			</div>
 			<div class="form-group {{#if afFieldIsInvalid name='numEmployees'}}has-error{{/if}}">
 				{{> afQuickField name='numEmployees' options='allowed'}}

@@ -123,11 +123,11 @@ export default class PgCompanyFunctions {
 		// assumes that company has the well-known format
 		// from the schema in imports/api/data/companies.js
 		newCompany = await client.query(
-			"INSERT INTO companies (name,dateEstablished,industry,contactPhoneNumber,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
+			"INSERT INTO companies (name,yearEstablished,industry,contactPhoneNumber,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
 				"VALUES ($1,date_trunc('year',date ($2)),$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
 			[
 				company.name,
-				company.dateEstablished,
+				company.yearEstablished,
 				company.industry,
 				company.contactPhoneNumber,
 				company.descriptionOfCompany,
@@ -220,7 +220,7 @@ export default class PgCompanyFunctions {
 				_id: Number(companyResults.company.companyid),
 				name: companyResults.company.name,
 				contactEmail: companyResults.company.contactemail,
-				dateEstablished: companyResults.company.dateestablished,
+				yearEstablished: companyResults.company.yearestablished,
 				numEmployees: companyResults.company.numemployees,
 				industry: companyResults.company.industry,
 				locations: companyResults.locations.map(
@@ -261,7 +261,7 @@ export default class PgCompanyFunctions {
 					_id: Number(company.companyid),
 					name: company.name,
 					contactEmail: company.contactemail,
-					dateEstablished: company.dateestablished,
+					yearEstablished: company.yearestablished,
 					numEmployees: company.numemployees,
 					industry: company.industry,
 					locations: companyResults.locations[company.name].map(

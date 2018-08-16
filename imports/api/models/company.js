@@ -11,7 +11,7 @@ export type Company = {
 	name: string,
 
 	contactEmail: string,
-	dateEstablished: ?Date,
+	yearEstablished: ?number,
 	numEmployees: ?(
 		| "1 - 50"
 		| "51 - 500"

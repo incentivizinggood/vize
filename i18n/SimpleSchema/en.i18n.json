@@ -69,7 +69,7 @@
 			"_id": "_id",
 			"name": "Company Name",
 			"contactEmail": "Contact Email",
-			"dateEstablished": "Date Established",
+			"yearEstablished": "Year Established",
 			"numEmployees": "Number of Employees",
 			"industry": "Industry",
 			"locations": "Locations",
