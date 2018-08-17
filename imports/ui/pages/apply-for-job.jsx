@@ -1,4 +1,5 @@
 // Boilerplate first
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
@@ -18,7 +19,14 @@ import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/apply-for-job.html";
 
 const afj_form_state = new ReactiveDict();
-afj_form_state.set("formError", "good"); // Shared with AutoForm helpers
+afj_form_state.set("formError", {
+	// Shared with AutoForm helpers
+	hasError: false,
+	reason: undefined,
+	error: undefined,
+	details: undefined,
+	isSqlError: false,
+});
 afj_form_state.set("jobId", undefined); // Shared with the React wrapper
 afj_form_state.set("job", {
 	companyName: i18n.__("common.forms.pleaseWait"),
@@ -60,7 +68,7 @@ if (Meteor.isClient) {
 			return job.companyName;
 		},
 		hasError() {
-			return afj_form_state.get("formError") !== "good";
+			return afj_form_state.get("formError").hasError;
 		},
 		error() {
 			return afj_form_state.get("formError");
@@ -68,7 +76,10 @@ if (Meteor.isClient) {
 		resetFormError() {
 			// called when reset button is clicked
 			if (Meteor.isDevelopment) console.log("Resetting afj_blaze_form");
-			afj_form_state.set("formError", "good");
+			afj_form_state.set("formError", {
+				hasError: false,
+				isSqlError: false,
+			});
 		},
 	});
 
@@ -79,7 +90,10 @@ if (Meteor.isClient) {
 				console.log(
 					`SUCCESS: We did a thing in a ${formType} form: ${result}`
 				);
-			afj_form_state.set("formError", "good");
+			afj_form_state.set("formError", {
+				hasError: false,
+				isSqlError: false,
+			});
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -87,7 +101,23 @@ if (Meteor.isClient) {
 				console.log(
 					`ERROR: We did a thing in a ${formType} form: ${error}`
 				);
-			afj_form_state.set("formError", error.toString());
+
+			if (error instanceof Meteor.Error)
+				afj_form_state.set("formError", {
+					hasError: true,
+					reason: error.reason,
+					error: error.error,
+					details: error.details,
+					isSqlError: error.error.substr(0, 8) === "SQLstate",
+				});
+			else
+				afj_form_state.set("formError", {
+					hasError: true,
+					reason: "invalidFormInputs",
+					error: "invalidArguments",
+					details: undefined,
+					isSqlError: false,
+				});
 		},
 	});
 }

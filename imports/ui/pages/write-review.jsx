@@ -26,14 +26,13 @@ import "../afInputStarRating.js";
 
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
+	// Shared with AutoForm helpers
 	hasError: false,
 	reason: undefined,
 	error: undefined,
 	details: undefined,
 	isSqlError: false,
 });
-
-// Shared with AutoForm helpers
 wr_form_state.set("companyId", undefined); // Shared with the React wrapper
 wr_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),

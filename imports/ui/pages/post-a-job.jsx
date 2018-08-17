@@ -17,7 +17,14 @@ import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 
 const paj_form_state = new ReactiveDict();
-paj_form_state.set("formError", "good"); // Shared with AutoForm helpers
+paj_form_state.set("formError", {
+	// Shared with AutoForm helpers
+	hasError: false,
+	reason: undefined,
+	error: undefined,
+	details: undefined,
+	isSqlError: false,
+});
 paj_form_state.set("companyId", undefined); // Shared with the React wrapper
 paj_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),
@@ -71,14 +78,17 @@ if (Meteor.isClient) {
 			];
 		},
 		hasError() {
-			return paj_form_state.get("formError") !== "good";
+			return paj_form_state.get("formError").hasError;
 		},
 		error() {
 			return paj_form_state.get("formError");
 		},
 		resetFormError() {
 			// called when reset button is clicked
-			paj_form_state.set("formError", "good");
+			paj_form_state.set("formError", {
+				hasError: false,
+				isSqlError: false,
+			});
 		},
 	});
 
@@ -89,7 +99,10 @@ if (Meteor.isClient) {
 				console.log(
 					`SUCCESS: We did a thing in a ${formType} form: ${result}`
 				);
-			paj_form_state.set("formError", "good");
+			paj_form_state.set("formError", {
+				hasError: false,
+				isSqlError: false,
+			});
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -97,7 +110,23 @@ if (Meteor.isClient) {
 				console.log(
 					`ERROR: We did a thing in a ${formType} form: ${error}`
 				);
-			paj_form_state.set("formError", error.toString());
+
+			if (error instanceof Meteor.Error)
+				paj_form_state.set("formError", {
+					hasError: true,
+					reason: error.reason,
+					error: error.error,
+					details: error.details,
+					isSqlError: error.error.substr(0, 8) === "SQLstate",
+				});
+			else
+				paj_form_state.set("formError", {
+					hasError: true,
+					reason: "invalidFormInputs",
+					error: "invalidArguments",
+					details: undefined,
+					isSqlError: false,
+				});
 		},
 	});
 }

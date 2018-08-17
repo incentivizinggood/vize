@@ -4,7 +4,7 @@ import React from "react";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
-import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
+import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
@@ -13,6 +13,16 @@ import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/create-company-profile.html";
 
 const formError = new ReactiveVar("good");
+
+const ccp_form_state = new ReactiveDict();
+ccp_form_state.set("formError", {
+	// Shared with AutoForm helpers
+	hasError: false,
+	reason: undefined,
+	error: undefined,
+	details: undefined,
+	isSqlError: false,
+});
 
 Template.ccp_blaze_form.bindI18nNamespace("common.forms");
 
@@ -34,14 +44,18 @@ Template.ccp_blaze_form.helpers({
 		return ErrorWidget;
 	},
 	hasError() {
-		return formError.get() !== "good";
+		return ccp_form_state.get("formError").hasError;
 	},
 	error() {
-		return formError.get();
+		return ccp_form_state.get("formError");
 	},
 	resetFormError() {
 		// called when reset button is clicked
-		formError.set("good");
+		if (Meteor.isDevelopment) console.log("Resetting ccp_blaze_form");
+		ccp_form_state.set("formError", {
+			hasError: false,
+			isSqlError: false,
+		});
 	},
 });
 
@@ -52,7 +66,10 @@ AutoForm.addHooks("ccp_blaze_form", {
 			console.log(
 				`SUCCESS: We did a thing in a ${formType} form: ${result}`
 			);
-		formError.set("good");
+		ccp_form_state.set("formError", {
+			hasError: false,
+			isSqlError: false,
+		});
 	},
 	onError(formType, error) {
 		// "error" contains whatever error object was thrown
@@ -60,9 +77,22 @@ AutoForm.addHooks("ccp_blaze_form", {
 			console.log(
 				`ERROR: We did a thing in a ${formType} form: ${error}`
 			);
-		console.log("HERE IS THE ERROR: ");
-		console.log(error);
-		formError.set(error.toString());
+		if (error instanceof Meteor.Error)
+			ccp_form_state.set("formError", {
+				hasError: true,
+				reason: error.reason,
+				error: error.error,
+				details: error.details,
+				isSqlError: error.error.substr(0, 8) === "SQLstate",
+			});
+		else
+			ccp_form_state.set("formError", {
+				hasError: true,
+				reason: "invalidFormInputs",
+				error: "invalidArguments",
+				details: undefined,
+				isSqlError: false,
+			});
 	},
 });
 
