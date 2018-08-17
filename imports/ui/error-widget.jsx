@@ -2,6 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import i18n from "meteor/universe:i18n";
 
+const T = i18n.createComponent();
+const ErrorMessageComponent = i18n.createComponent(
+	i18n.createTranslator("common.methods.errorMessages")
+);
+const MeteorErrorComponent = i18n.createComponent(
+	i18n.createTranslator("common.methods.meteorErrors")
+);
+
 export default class ErrorWidget extends React.Component {
 	/*
 		BUG
@@ -60,21 +68,27 @@ export default class ErrorWidget extends React.Component {
 		} else if (this.props.err.isSqlError) {
 			return (
 				<div>
-					{i18n.__("common.forms.error")}: {this.props.err.reason} [{
-						this.props.err.error
-					}]
+					<T>common.forms.error</T>
+					{": "}
+					{this.props.err.reason}
+					{" ["}
+					{this.props.err.error}
+					{"]"}
 				</div>
 			);
 		} else {
 			return (
 				<div>
-					{i18n.__("common.forms.error")}:{" "}
-					{i18n.__(
-						`common.methods.errorMessages.${this.props.err.reason}`
-					)}{" "}
-					[{i18n.__(
-						`common.methods.meteorErrors.${this.props.err.error}`
-					)}]
+					<T>common.forms.error</T>
+					{": "}
+					<ErrorMessageComponent>
+						{this.props.err.reason}
+					</ErrorMessageComponent>
+					{" ["}
+					<MeteorErrorComponent>
+						{this.props.err.error}
+					</MeteorErrorComponent>
+					{"]"}
 				</div>
 			);
 		}
