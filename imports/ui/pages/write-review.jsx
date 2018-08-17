@@ -30,7 +30,7 @@ wr_form_state.set("formError", {
 	reason: undefined,
 	error: undefined,
 	details: undefined,
-	isSqlError: undefined,
+	isSqlError: false,
 });
 
 // Shared with AutoForm helpers
@@ -86,7 +86,10 @@ if (Meteor.isClient) {
 		resetFormError() {
 			// called when reset button is clicked
 			if (Meteor.isDevelopment) console.log("Resetting wr_review_form");
-			wr_form_state.set("formError", { hasError: false });
+			wr_form_state.set("formError", {
+				hasError: false,
+				isSqlError: false,
+			});
 		},
 	});
 
@@ -97,7 +100,10 @@ if (Meteor.isClient) {
 				console.log(
 					`SUCCESS: We did a thing in a ${formType} form: ${result}`
 				);
-			wr_form_state.set("formError", { hasError: false });
+			wr_form_state.set("formError", {
+				hasError: false,
+				isSqlError: false,
+			});
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -117,8 +123,8 @@ if (Meteor.isClient) {
 			else
 				wr_form_state.set("formError", {
 					hasError: true,
-					reason: "invalidArguments",
-					error: "invalidFormInputs",
+					reason: "invalidFormInputs",
+					error: "invalidArguments",
 					details: undefined,
 					isSqlError: false,
 				});

@@ -52,6 +52,7 @@
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
 		"pleaseWait": "Please wait while we finish loading the form...",
+		"error": "Error",
 		"companyNotFound": "ERROR: COMPANY NOT FOUND",
 		"afj": {
 			"formTitle": "Apply for a Job",

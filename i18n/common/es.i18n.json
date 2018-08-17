@@ -53,6 +53,7 @@
 		"submitForm": "Enviar",
 		"resetForm": "Restablecer formulario",
 		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
+		"error": "Error",
 		"companyNotFound": "ESTA EMPRESA NO SE ENCUENTRA",
 		"afj": {
 			"formTitle": "Solicitar un trabajo",
