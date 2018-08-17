@@ -83,19 +83,13 @@ Meteor.methods({
 
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		if (user.role !== "worker") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
 		const pgUser = await PostgreSQL.executeQuery(
@@ -120,8 +114,8 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
@@ -170,10 +164,7 @@ Meteor.methods({
 		if (typeof vote !== "boolean") {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: vote is not boolean");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.vote2ndArg")
-			);
+			throw new Meteor.Error("invalidArguments", "vote2ndArg");
 		}
 
 		// validate review: must match Reviews.schema
@@ -187,30 +178,20 @@ Meteor.methods({
 		if (!validationResult) {
 			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
 			if (Meteor.isDevelopment) console.log(errors);
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.vote1stArg"),
-				errors
-			);
+			throw new Meteor.Error("invalidArguments", "vote1stArg", errors);
 		}
 
 		if (Reviews.findOne(review) === undefined) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: review does not exist");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.voteOnNullReview")
-			);
+			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
 		}
 
 		// must be logged in
 		if (!this.userId) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: user is not logged in");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
@@ -218,20 +199,14 @@ Meteor.methods({
 		// only workers
 		if (user.role === "company" || user.role === "company-unverified") {
 			if (Meteor.isDevelopment) console.log("SERVER: user is a company");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
 		// can't vote on own review
 		if (this.userId === review.submittedBy) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: user is voting on own review");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.noCheating"),
-				i18n.__("common.methods.errorMessages.noCheating")
-			);
+			throw new Meteor.Error("noCheating", "noCheating");
 		}
 
 		const pgUser = await PostgreSQL.executeQuery(
@@ -296,35 +271,29 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Make sure the user is logged and is permitted to submit their salary.
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		if (user.role !== "worker") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
 		// TODO: filter by location as well
 		// const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
 		// if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
 		// 	throw new Meteor.Error(
-		// 		i18n.__("common.methods.meteorErrors.duplicateEntry"),
-		// 		i18n.__("common.methods.errorMessages.onlyOnce")
+		// 		"duplicateEntry",
+		// 		"onlyOnce"
 		// 	);
 		// }
 
@@ -365,10 +334,7 @@ Meteor.methods({
 		);
 
 		if (job.jobad === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
 		return PgJobAdFunctions.processJobAdResults(job);
@@ -409,27 +375,21 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Only logged-in workers can apply for jobs
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		if (user.role !== "worker") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
 		const company = PgCompanyFunctions.processCompanyResults(
@@ -508,27 +468,21 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		if (user.role !== "company") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyCompanies")
-			);
+			throw new Meteor.Error("rolePermission", "onlyCompanies");
 		}
 
 		/*
@@ -544,10 +498,7 @@ Meteor.methods({
 				have been fixed as well
 		*/
 		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.permissionDenied")
-			);
+			throw new Meteor.Error("rolePermission", "permissionDenied");
 		}
 
 		if (typeof newJobAd.companyId === "string")
@@ -569,10 +520,7 @@ Meteor.methods({
 			);
 
 		if (company.company === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
 		return PgCompanyFunctions.processCompanyResults(company);
@@ -580,19 +528,13 @@ Meteor.methods({
 
 	async "companies.companyForCurrentUser"() {
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
 
 		if (user.role !== "company" || user.companyId === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
 		const company = PgCompanyFunctions.processCompanyResults(
@@ -603,10 +545,7 @@ Meteor.methods({
 		);
 
 		if (company === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
 		return company;
@@ -659,33 +598,24 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 		if (user.role !== "company") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyCompanies")
-			);
+			throw new Meteor.Error("rolePermission", "onlyCompanies");
 		}
 
 		if (user.companyId !== undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.duplicateEntry"),
-				i18n.__("common.methods.errorMessages.onlyOnce")
-			);
+			throw new Meteor.Error("duplicateEntry", "onlyOnce");
 		}
 
 		// insert company to PostgreSQL

@@ -1,4 +1,5 @@
 // Boilerplate first
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
@@ -24,7 +25,15 @@ import "../afInputStarRating.html";
 import "../afInputStarRating.js";
 
 const wr_form_state = new ReactiveDict();
-wr_form_state.set("formError", "good"); // Shared with AutoForm helpers
+wr_form_state.set("formError", {
+	hasError: false,
+	reason: undefined,
+	error: undefined,
+	details: undefined,
+	isSqlError: undefined,
+});
+
+// Shared with AutoForm helpers
 wr_form_state.set("companyId", undefined); // Shared with the React wrapper
 wr_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),
@@ -69,7 +78,7 @@ if (Meteor.isClient) {
 			return company.name;
 		},
 		hasError() {
-			return wr_form_state.get("formError") !== "good";
+			return wr_form_state.get("formError").hasError;
 		},
 		error() {
 			return wr_form_state.get("formError");
@@ -77,7 +86,7 @@ if (Meteor.isClient) {
 		resetFormError() {
 			// called when reset button is clicked
 			if (Meteor.isDevelopment) console.log("Resetting wr_review_form");
-			wr_form_state.set("formError", "good");
+			wr_form_state.set("formError", { hasError: false });
 		},
 	});
 
@@ -88,7 +97,7 @@ if (Meteor.isClient) {
 				console.log(
 					`SUCCESS: We did a thing in a ${formType} form: ${result}`
 				);
-			wr_form_state.set("formError", "good");
+			wr_form_state.set("formError", { hasError: false });
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -96,7 +105,23 @@ if (Meteor.isClient) {
 				console.log(
 					`ERROR: We did a thing in a ${formType} form: ${error}`
 				);
-			wr_form_state.set("formError", error.toString());
+
+			if (error instanceof Meteor.Error)
+				wr_form_state.set("formError", {
+					hasError: true,
+					reason: error.reason,
+					error: error.error,
+					details: error.details,
+					isSqlError: error.error.substr(0, 8) === "SQLstate",
+				});
+			else
+				wr_form_state.set("formError", {
+					hasError: true,
+					reason: "formError",
+					error: "formError",
+					details: undefined,
+					isSqlError: false,
+				});
 		},
 	});
 }

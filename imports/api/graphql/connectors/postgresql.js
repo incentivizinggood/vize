@@ -66,7 +66,7 @@ const wrapPgFunction = async function(func, readOnly) {
 
 	if (result instanceof Error) {
 		throw new Meteor.Error(
-			`sqlState ${result.code}`,
+			`SQLstate ${result.code}`,
 			`${result.constraint}: ${result.detail}`
 		);
 	}
