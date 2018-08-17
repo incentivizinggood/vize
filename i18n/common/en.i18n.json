@@ -327,7 +327,7 @@
 		"meteorErrors": {
 			"needsFiveWords": "needsFiveWords",
 			"rolePermission": "rolePermission",
-			"invalidArguments": "invalidArguments",
+			"invalidArguments": "invalidInputs",
 			"loggedOut": "loggedOut",
 			"noCheating": "noCheating",
 			"duplicateEntry": "duplicateEntry",

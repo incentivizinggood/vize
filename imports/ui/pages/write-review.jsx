@@ -117,8 +117,8 @@ if (Meteor.isClient) {
 			else
 				wr_form_state.set("formError", {
 					hasError: true,
-					reason: "formError",
-					error: "formError",
+					reason: "invalidArguments",
+					error: "invalidFormInputs",
 					details: undefined,
 					isSqlError: false,
 				});
