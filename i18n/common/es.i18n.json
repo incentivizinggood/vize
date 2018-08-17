@@ -335,7 +335,8 @@
 
 			"needsFiveWords": "Necesita cinco palabras",
 			"rolePermission": "Permisos con su rol",
-			"invalidArguments": "Argumentos no válidos",
+			"invalidArguments":
+				"[PLEASE CHECK WHETHER THIS MAKES SENSE TO NON-ENGINEERS] Argumentos no válidos",
 			"loggedOut": "Desconectado",
 			"noCheating": "No hay engaño",
 			"duplicateEntry": "Entrada duplicada",
