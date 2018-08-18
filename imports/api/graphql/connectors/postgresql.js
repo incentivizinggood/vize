@@ -25,6 +25,20 @@ const pool = new Pool();
 	the pool.
 	This bug was really getting me, I'm glad it makes more
 	sense now.
+	BUG
+	It seems that, although a page refresh will cure
+	the "already called end on pool" issue, we get an
+	ENOMEM after enough hot code pushes because of
+	too many callbacks being registered. I came to this
+	conclusion because closeAndExit would execute more
+	than once on process termination if there had been
+	multiple hot code pushes. Dunno what to do about that,
+	especially becuase...
+	NOTE
+	I have not been able to reproduce the bug, or anything
+	resembling its "buildup" phase. Seems like we'll just
+	have to pay close attention and go from there when we
+	have better information.
 */
 const closeAndExit = function(event) {
 	pool.end(status => {
