@@ -12,6 +12,10 @@ import i18n from "meteor/universe:i18n";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/create-company-profile.html";
 
+// custom location input
+import "../afInputLocation.html";
+import "../afInputLocation.js";
+
 const formError = new ReactiveVar("good");
 
 const ccp_form_state = new ReactiveDict();

@@ -3,9 +3,7 @@ import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import i18n from "meteor/universe:i18n";
-import PostgreSQL from "../graphql/connectors/postgresql.js";
-import PgCompanyFunctions from "../models/helpers/postgresql/companies.js";
+import LocationSchema from "./location.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -110,10 +108,13 @@ Companies.schema = new SimpleSchema(
 			optional: false,
 		},
 		"locations.$": {
-			// restraints on members of the "locations" array
-			type: String,
-			max: 150,
-		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
+			type: LocationSchema,
+			autoform: {
+				// afObjectField didn't seem to be behaving as expected,
+				// so I defined a custom input type as a workaround
+				type: "location",
+			},
+		},
 		websiteURL: {
 			// the COMPANY's actual website, not their
 			type: String, // little corner of the Vize web app

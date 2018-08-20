@@ -1,0 +1,20 @@
+<template name="afInputLocation">
+	<!-- This is my experimental "hacked" solution for
+ 		AutoForm's afObjectField not seeming to behave
+		properly. It renders the LocationSchema fields
+		as opaque "object" things even though I supplied
+		their types in the schema. So I'm going to force
+		Meteor to do things my way. Nyeh heh heh. -->
+	<!-- I figure out that the div wrappers, terminating
+ 		"help block", id attribute, and other things are
+		supplied by the parent AutoForm, so custom input
+		types "only have to worry about themselves", which
+	 	is nice (for a change). Although I think you still
+		have to include {{this.atts}} to pass in the other
+		attributes, but that's not too bad. -->
+	<div {{this.atts}}>
+		<input class="form-control" data-location-subfield="city" required="" type="text" maxlength="140">
+		<input class="form-control" data-location-subfield="address" required="" type="text" maxlength="140">
+		<input class="form-control" data-location-subfield="industrialHub" required="" type="text" maxlength="140">
+	</div>
+</template>
