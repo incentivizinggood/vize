@@ -54,8 +54,8 @@ CREATE TABLE company_locations (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	locationName		varchar(160),
-	PRIMARY KEY (companyId, locationName)
+	companyLocation		text,
+	PRIMARY KEY (companyId, companyLocation)
 );
 
 -- NOTE We're not actually managing user accounts in PostgreSQL
@@ -198,7 +198,7 @@ CREATE TABLE reviews (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	reviewLocation		varchar(160)	NOT NULL,
+	reviewLocation		text			NOT NULL,
 	-- QUESTION this next field might be a good index, should we do that and how?
 	reviewTitle			varchar(110)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
 	jobTitle			varchar(110)	NOT NULL,
@@ -251,7 +251,7 @@ CREATE TABLE salaries (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	salaryLocation		varchar(160)	NOT NULL,
+	salaryLocation		text			NOT NULL,
 	jobTitle			varchar(110)	NOT NULL,
 	-- This confuses me. I should think that jobTitle
 	-- would determine income type, and income type
@@ -294,7 +294,7 @@ CREATE TABLE job_locations (
 		REFERENCES jobads (jobadId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	jobLocation		varchar(160),
+	jobLocation		text,
 	PRIMARY KEY (jobadId,jobLocation)
 );
 

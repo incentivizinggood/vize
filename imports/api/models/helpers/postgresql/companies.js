@@ -157,7 +157,7 @@ export default class PgCompanyFunctions {
 			insertValueString = insertValueString.slice(0, -1);
 
 			newLocations = await client.query(
-				"INSERT INTO company_locations (companyid,locationname) " +
+				"INSERT INTO company_locations (companyid,companylocation) " +
 					"VALUES " +
 					insertValueString +
 					" RETURNING *",
@@ -224,7 +224,7 @@ export default class PgCompanyFunctions {
 				numEmployees: companyResults.company.numemployees,
 				industry: companyResults.company.industry,
 				locations: companyResults.locations.map(
-					loc => loc.locationname
+					loc => loc.companylocation
 				),
 				contactPhoneNumber: companyResults.company.contactphonenumber,
 				websiteURL: companyResults.company.websiteurl,
@@ -265,7 +265,7 @@ export default class PgCompanyFunctions {
 					numEmployees: company.numemployees,
 					industry: company.industry,
 					locations: companyResults.locations[company.name].map(
-						loc => loc.locationname
+						loc => loc.companylocation
 					),
 					contactPhoneNumber: company.contactphonenumber,
 					websiteURL: company.websiteurl,

@@ -6,9 +6,9 @@ INSERT INTO users(role) VALUES
 	('worker'),('worker'),('worker'),('worker'),('worker'),
 	('worker'),('worker'),('worker'),('worker'),('worker');
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags) VALUES ('a', '1 - 50', 'example@gmail.com', 'https://example.com',0);
-INSERT INTO company_locations(companyId,locationName) VALUES (1,'somewhere over the rainbow'),(1,'hello world'),(1,'anotherwhere'),(1,'movin right along');
+INSERT INTO company_locations(companyId,companyLocation) VALUES (1,'somewhere over the rainbow'),(1,'hello world'),(1,'anotherwhere'),(1,'movin right along');
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags) VALUES ('b', '1 - 50', 'example@gmail.com', 'https://example.com',0);
-INSERT INTO company_locations(companyId,locationName) VALUES (2,'somewhere over the rainbow'),(2,'hello world'),(2,'anotherwhere'),(2,'movin right along');
+INSERT INTO company_locations(companyId,companyLocation) VALUES (2,'somewhere over the rainbow'),(2,'hello world'),(2,'anotherwhere'),(2,'movin right along');
 INSERT INTO reviews
 (submittedBy,companyname,reviewlocation,
 	reviewTitle,jobTitle,numMonthsWorked,
