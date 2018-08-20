@@ -8,4 +8,8 @@ WORKDIR /usr/src/vize-meteor
 COPY ./package.json ./
 RUN meteor npm install
 
-CMD ["meteor", "--version"]
+COPY . .
+
+EXPOSE 3000
+
+CMD ["meteor", "run"]

@@ -1,0 +1,4 @@
+.git/
+.idea/
+.meteor/local/
+node_modules/
