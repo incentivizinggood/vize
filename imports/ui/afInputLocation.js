@@ -1,4 +1,5 @@
-import { Template } from "meteor/templating"; // Used to set up the autoform
+import { Meteor } from "meteor/meteor";
+// import { Template } from "meteor/templating"; // Used to set up the autoform
 import { AutoForm } from "meteor/aldeed:autoform";
 
 /*
@@ -12,20 +13,22 @@ import { AutoForm } from "meteor/aldeed:autoform";
 AutoForm.addInputType("location", {
 	template: "afInputLocation",
 	valueOut() {
-		// const city = this.$("[data-location-subfield=city]");
-		// const address = this.$("[data-location-subfield=city]");
-		// const industrialHub = this.$("[data-location-subfield=industrialHub]");
-		console.log("WHAT IS THIS!?!?!?!?");
-		console.log(this);
-		console.log("CUSTOM LOCATION INPUT TYPE GOT VALUES: ");
-		// console.log(city);
-		// console.log(address);
-		// console.log(industrialHub);
+		const inputFields = this.children();
+		const cityInput = inputFields[0].value;
+		const addressInput = inputFields[1].value;
+		const industrialHubInput = inputFields[2].value;
+
+		if (Meteor.isDevelopment) {
+			console.log("CUSTOM LOCATION INPUT TYPE GOT VALUES: ");
+			console.log(`city: ${cityInput}`);
+			console.log(`address: ${addressInput}`);
+			console.log(`industrialHub: ${industrialHubInput}`);
+		}
 
 		return {
-			city: "Tijuana",
-			address: "some street someplace",
-			industrialHub: "El Florido",
+			city: cityInput,
+			address: addressInput,
+			industrialHub: industrialHubInput,
 		};
 	},
 });
