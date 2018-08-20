@@ -1,4 +1,7 @@
 import { Meteor } from "meteor/meteor";
+import { WebApp } from "meteor/webapp";
+
+import express from "express";
 
 // Initialize GraphQL
 import "../imports/startup/server/graphql.js";
@@ -12,6 +15,27 @@ import "../imports/api/data/users.js";
 import "../imports/api/data/jobads.js";
 import "../imports/api/data/votes.js";
 import "../imports/api/data/methods.js";
+
+const myExpressServer = express();
+
+myExpressServer.get("/express-test", function(req, res) {
+	res.send(
+		`<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hello from Express</title>
+	</head>
+	<body>
+		<h1>Hello world!</h1>
+		<p>The Express server seems to be working.</p>
+	</body>
+</html>
+`
+	);
+});
+
+// install the express server within meteor webapp connect
+WebApp.rawConnectHandlers.use(myExpressServer);
 
 Meteor.startup(() => {
 	// code to run on server at startup
