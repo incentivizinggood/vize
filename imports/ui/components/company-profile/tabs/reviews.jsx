@@ -22,8 +22,8 @@ export default class ReviewTab extends React.Component {
 	}
 
 	renderItems() {
-		return this.props.companyreview.map(function(item, i) {
-			return <CompanyReview key={i} item={item} />;
+		return this.props.company.reviews.map(function(review) {
+			return <CompanyReview key={review.id} review={review} />;
 		});
 	}
 
@@ -32,13 +32,13 @@ export default class ReviewTab extends React.Component {
 			<div role="tabpanel" className="tab-pane" id="reviews">
 				<div className="col-md-12  section_rview_back_color2  ">
 					<h4 className="head_section_font">
-						{this.props.companyinfo.name}{" "}
+						{this.props.company.name}{" "}
 						<T>common.review_tab.reviews</T>
 					</h4>
 					<div className="add-buttons">
 						<a
 							href={urlGenerators.vizeReviewUrl(
-								this.props.companyinfo._id
+								this.props.company.id
 							)}
 							className="btn btn-primary"
 						>
@@ -50,15 +50,7 @@ export default class ReviewTab extends React.Component {
 					</div>
 					<hr />
 
-					<CompanyRating
-						companyrating={this.props.companyinfo.avgStarRatings}
-						percentRecommended={
-							this.props.companyinfo.percentRecommended
-						}
-						avgNumMonthsWorked={
-							this.props.companyinfo.avgNumMonthsWorked
-						}
-					/>
+					<CompanyRating company={this.props.company} />
 				</div>
 
 				{this.renderItems()}

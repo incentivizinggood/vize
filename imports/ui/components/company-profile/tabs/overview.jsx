@@ -8,18 +8,14 @@ import SalariesSection from "../sections/salaries.jsx";
 export default function OverviewTab(props) {
 	return (
 		<div role="tabpanel" className="tab-pane active" id="overview">
-			<OverviewSection companyoverview={props.companyoverview} />
+			<OverviewSection company={props.company} />
 			<div className="clear" />
-			<ReviewsSection
-				companyoverview={props.companyoverview}
-				companyreview={props.companyreview}
+			<ReviewsSection company={props.company} />
+			<JobsSection
+				jobAds={props.company.jobAds}
+				numJobAds={props.company.numJobAds}
 			/>
-			<JobsSection jobAds={props.jobAds} jobsCount={props.jobsCount} />
-			<SalariesSection
-				companyoverview={props.companyoverview}
-				salaries={props.salaries}
-				salariesCount={props.salariesCount}
-			/>
+			<SalariesSection company={props.company} />
 		</div>
 	);
 }

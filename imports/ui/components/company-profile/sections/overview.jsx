@@ -9,14 +9,13 @@ export default function OverviewSection(props) {
 		<div className="col-md-12  section_rview_back_color ">
 			<div className="sect_re1 ">
 				<h4 className="head_section_font">
-					{props.companyoverview.name}{" "}
-					<T>common.overview_tab.overview</T>
+					{props.company.name} <T>common.overview_tab.overview</T>
 				</h4>
 
 				<hr />
 
 				<div className="over_p">
-					<p>{props.companyoverview.descriptionOfCompany}</p>
+					<p>{props.company.descriptionOfCompany}</p>
 				</div>
 			</div>
 		</div>

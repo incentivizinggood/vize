@@ -80,7 +80,7 @@ export default class CompanyProfileSummary extends React.Component {
 							<div className="titlestar">
 								<a
 									href={urlGenerators.vizeReviewUrl(
-										this.props.company._id
+										this.props.company.id
 									)}
 									className="btn btn-primary  add_review replus"
 								>

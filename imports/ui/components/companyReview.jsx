@@ -10,7 +10,7 @@ const T = i18n.createComponent();
 function ReviewComponent(props) {
 	// IF-ELSE for the Recommended option, green tick v/s red cross
 	let className;
-	if (props.item.wouldRecommendToOtherJobSeekers) {
+	if (props.review.wouldRecommendToOtherJobSeekers) {
 		className = (
 			<p style={{ color: "#2E8B57" }}>
 				<i
@@ -32,7 +32,7 @@ function ReviewComponent(props) {
 		);
 	}
 
-	const datePosted = new Date(props.item.created).toLocaleDateString(
+	const datePosted = new Date(props.review.created).toLocaleDateString(
 		"en-US",
 		{
 			weekday: "long",
@@ -49,10 +49,11 @@ function ReviewComponent(props) {
 					<p>
 						{datePosted}
 						<span>
-							&nbsp;&nbsp;- <strong>{props.item.jobTitle}</strong>
+							&nbsp;&nbsp;-{" "}
+							<strong>{props.review.jobTitle}</strong>
 						</span>
 					</p>
-					<h2 className="head-rev-con">{props.item.title}</h2>
+					<h2 className="head-rev-con">{props.review.title}</h2>
 
 					<div className="btn-group show-on-hover">
 						<a
@@ -62,11 +63,12 @@ function ReviewComponent(props) {
 						>
 							<StarRatings
 								rating={
-									(props.item.starRatings.healthAndSafety +
-										props.item.starRatings
+									(props.review.starRatings.healthAndSafety +
+										props.review.starRatings
 											.managerRelationship +
-										props.item.starRatings.workEnvironment +
-										props.item.starRatings.benefits) /
+										props.review.starRatings
+											.workEnvironment +
+										props.review.starRatings.benefits) /
 									4
 								} // the average rating of all 5 ratings
 								starDimension="15px"
@@ -82,7 +84,7 @@ function ReviewComponent(props) {
 								<br />
 								<StarRatings
 									rating={
-										props.item.starRatings
+										props.review.starRatings
 											.overallSatisfaction
 									}
 									starDimension="15px"
@@ -96,7 +98,7 @@ function ReviewComponent(props) {
 								<br />
 								<StarRatings
 									rating={
-										props.item.starRatings.healthAndSafety
+										props.review.starRatings.healthAndSafety
 									}
 									starDimension="15px"
 									starSpacing="1.5px"
@@ -110,7 +112,7 @@ function ReviewComponent(props) {
 								<br />
 								<StarRatings
 									rating={
-										props.item.starRatings.workEnvironment
+										props.review.starRatings.workEnvironment
 									}
 									starDimension="15px"
 									starSpacing="1.5px"
@@ -122,7 +124,7 @@ function ReviewComponent(props) {
 								</label>
 								<br />
 								<StarRatings
-									rating={props.item.starRatings.benefits}
+									rating={props.review.starRatings.benefits}
 									starDimension="15px"
 									starSpacing="1.5px"
 								/>
@@ -135,7 +137,7 @@ function ReviewComponent(props) {
 								<br />
 								<StarRatings
 									rating={
-										props.item.starRatings
+										props.review.starRatings
 											.managerRelationship
 									}
 									starDimension="15px"
@@ -158,7 +160,7 @@ function ReviewComponent(props) {
 								<T>common.companyreview.pros</T>
 							</label>
 							<br />
-							<p>{props.item.pros}</p>
+							<p>{props.review.pros}</p>
 						</div>
 						<br />
 						<div className="form-group  p-c-a">
@@ -166,7 +168,7 @@ function ReviewComponent(props) {
 								<T>common.companyreview.cons</T>
 							</label>
 							<br />
-							<p>{props.item.cons}</p>
+							<p>{props.review.cons}</p>
 						</div>
 						<br />
 						<div className="form-group  p-c-a">
@@ -174,12 +176,12 @@ function ReviewComponent(props) {
 								<T>common.companyreview.additional_comments</T>
 							</label>
 							<br />
-							<p>{props.item.additionalComments}</p>
+							<p>{props.review.additionalComments}</p>
 						</div>
 					</div>
 					<div className="col-md-4 bn-col">
 						<div className="fl_ri">
-							<VoteButtons review={props.item} />
+							<VoteButtons review={props.review} />
 						</div>
 					</div>
 				</div>

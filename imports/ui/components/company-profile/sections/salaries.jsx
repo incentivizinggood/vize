@@ -20,25 +20,29 @@ export default class SalariesSection extends React.Component {
 
 	render() {
 		// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
-		let salaries_to_display;
-		if (this.props.salaries.length > 0) {
-			salaries_to_display = (
+		let salariesToDisplay;
+		if (this.props.company.salaries.length > 0) {
+			salariesToDisplay = (
 				<div>
 					<div className="hed-soft-mob">
-						<p>{this.props.salaries[0].jobTitle}</p>
+						<p>{this.props.company.salaries[0].jobTitle}</p>
 						<hr />
 					</div>
 
-					<p className="mal-r">{this.props.salaries[0].gender}</p>
+					<p className="mal-r">
+						{this.props.company.salaries[0].gender}
+					</p>
 
 					<p>
-						{this.props.salaries[0].incomeType}
-						<span>: {this.props.salaries[0].incomeAmount}</span>
+						{this.props.company.salaries[0].incomeType}
+						<span>
+							: {this.props.company.salaries[0].incomeAmount}
+						</span>
 					</p>
 				</div>
 			);
 		} else {
-			salaries_to_display = <T>common.overview_tab.salaries_text</T>;
+			salariesToDisplay = <T>common.overview_tab.salaries_text</T>;
 		}
 
 		return (
@@ -47,14 +51,14 @@ export default class SalariesSection extends React.Component {
 				{/* salaries  */}
 				<div className="sect_re1  sec_p">
 					<h4 className="head_section_font">
-						{this.props.salariesCount}{" "}
+						{this.props.company.numSalaries}{" "}
 						<T>common.overview_tab.job_salaries</T>
 					</h4>
 
 					<div className="add-buttons">
 						<a
 							href={urlGenerators.vizeSalaryUrl(
-								this.props.companyoverview._id
+								this.props.company.id
 							)}
 							className="btn btn-primary"
 						>
@@ -64,7 +68,7 @@ export default class SalariesSection extends React.Component {
 					</div>
 					<hr />
 
-					{salaries_to_display}
+					{salariesToDisplay}
 
 					<center>
 						<ul className="" role="tablist">

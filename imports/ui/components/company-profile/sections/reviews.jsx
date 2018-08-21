@@ -23,16 +23,13 @@ export default class ReviewsSection extends React.Component {
 
 	render() {
 		// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
-		let to_display_review;
-		if (this.props.companyreview.length > 0) {
-			to_display_review = (
-				<CompanyReview
-					item={this.props.companyreview[0]}
-					userVotes={this.props.userVotes}
-				/>
+		let reviewsToDisplay;
+		if (this.props.company.reviews.length > 0) {
+			reviewsToDisplay = (
+				<CompanyReview review={this.props.company.reviews[0]} />
 			);
 		} else {
-			to_display_review = <T>common.overview_tab.display_text</T>;
+			reviewsToDisplay = <T>common.overview_tab.display_text</T>;
 		}
 
 		return (
@@ -41,13 +38,13 @@ export default class ReviewsSection extends React.Component {
 					{" "}
 					{/* review link */}
 					<h4 className="head_section_font">
-						{this.props.companyoverview.name}{" "}
+						{this.props.company.name}{" "}
 						<T>common.overview_tab.reviews</T>
 					</h4>
 					<div className="add-buttons">
 						<a
 							href={urlGenerators.vizeReviewUrl(
-								this.props.companyoverview._id
+								this.props.company.id
 							)}
 							className="btn btn-primary"
 						>
@@ -57,20 +54,10 @@ export default class ReviewsSection extends React.Component {
 						</a>
 					</div>
 					<hr />
-					<CompanyRating
-						companyrating={
-							this.props.companyoverview.avgStarRatings
-						}
-						percentRecommended={
-							this.props.companyoverview.percentRecommended
-						}
-						avgNumMonthsWorked={
-							this.props.companyoverview.avgNumMonthsWorked
-						}
-					/>
+					<CompanyRating company={this.props.company} />
 				</div>
 				<div className="col-md-12  section_overtopsect">
-					{to_display_review}
+					{reviewsToDisplay}
 
 					<center>
 						<div className="na_tab1">

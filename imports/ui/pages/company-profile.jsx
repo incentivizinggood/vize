@@ -122,21 +122,13 @@ class CompanyProfile extends React.Component {
 								<div className="tab-content  ">
 									<ErrorBoundary>
 										<OverviewTab
-											jobsCount={this.props.jobsCount}
-											jobAds={this.props.jobAds}
-											salaries={this.props.salaries}
-											companyoverview={this.props.company}
-											companyreview={this.props.reviews}
-											salariesCount={
-												this.props.salariesCount
-											}
+											company={this.props.company}
 										/>
 									</ErrorBoundary>
 
 									<ErrorBoundary>
 										<ReviewTab
-											companyreview={this.props.reviews}
-											companyinfo={this.props.company}
+											company={this.props.company}
 										/>
 									</ErrorBoundary>
 
@@ -150,10 +142,6 @@ class CompanyProfile extends React.Component {
 									<ErrorBoundary>
 										<SalaryTab
 											company={this.props.company}
-											salaries={this.props.salaries}
-											salariesCount={
-												this.props.salariesCount
-											}
 										/>
 									</ErrorBoundary>
 
@@ -251,32 +239,3 @@ export default ({ companyId }) => (
 		}}
 	</Query>
 );
-
-/* This is the data query from before GraphQL.
-withTracker(({ companyId }) => {
-	const handle1 = Meteor.subscribe("CompanyProfiles");
-	const handle2 = Meteor.subscribe("Reviews");
-	const handle3 = Meteor.subscribe("JobAds");
-	const handle4 = Meteor.subscribe("Salaries");
-	const handle5 = Meteor.subscribe("Votes", {
-		submittedBy: Meteor.userId(),
-		voteSubject: "review",
-	});
-
-	return {
-		isReady:
-			handle1.ready() &&
-			handle2.ready() &&
-			handle3.ready() &&
-			handle4.ready() &&
-			handle5.ready(),
-		company: Companies.findOne(companyId),
-		reviews: Reviews.find({ companyId }).fetch(),
-		jobAds: JobAds.find({ companyId }).fetch(),
-		jobsCount: JobAds.find({ companyId }).count(),
-		salaries: Salaries.find({ companyId }).fetch(),
-		salariesCount: Salaries.find({ companyId }).count(),
-		userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
-	};
-})(CompanyProfile);
-*/

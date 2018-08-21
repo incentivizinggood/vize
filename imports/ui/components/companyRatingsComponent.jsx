@@ -62,13 +62,15 @@ export default function CompanyRating(props) {
 					</label>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<StarRatings
-						rating={props.companyrating.overallSatisfaction}
+						rating={
+							props.company.avgStarRatings.overallSatisfaction
+						}
 						starDimension="25px"
 						starSpacing="2px"
 					/>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<label id="overAllText">
-						{props.companyrating.overallSatisfaction.toFixed(
+						{props.company.avgStarRatings.overallSatisfaction.toFixed(
 							numDigits
 						)}
 					</label>
@@ -92,14 +94,15 @@ export default function CompanyRating(props) {
 									{/* star ratings are left */}
 									<StarRatings
 										rating={
-											props.companyrating.healthAndSafety
+											props.company.avgStarRatings
+												.healthAndSafety
 										}
 										starDimension="20px"
 										starSpacing="1.8px"
 									/>
 									&nbsp;&nbsp;{" "}
 									<label>
-										{props.companyrating.healthAndSafety.toFixed(
+										{props.company.avgStarRatings.healthAndSafety.toFixed(
 											numDigits
 										)}
 									</label>
@@ -117,14 +120,15 @@ export default function CompanyRating(props) {
 								<td>
 									<StarRatings
 										rating={
-											props.companyrating.workEnvironment
+											props.company.avgStarRatings
+												.workEnvironment
 										}
 										starDimension="20px"
 										starSpacing="1.8px"
 									/>
 									&nbsp;&nbsp;{" "}
 									<label>
-										{props.companyrating.workEnvironment.toFixed(
+										{props.company.avgStarRatings.workEnvironment.toFixed(
 											numDigits
 										)}
 									</label>
@@ -141,13 +145,16 @@ export default function CompanyRating(props) {
 								</td>
 								<td>
 									<StarRatings
-										rating={props.companyrating.benefits}
+										rating={
+											props.company.avgStarRatings
+												.benefits
+										}
 										starDimension="20px"
 										starSpacing="1.8px"
 									/>
 									&nbsp;&nbsp;{" "}
 									<label>
-										{props.companyrating.benefits.toFixed(
+										{props.company.avgStarRatings.benefits.toFixed(
 											numDigits
 										)}
 									</label>
@@ -168,7 +175,7 @@ export default function CompanyRating(props) {
 								<td>
 									<StarRatings
 										rating={
-											props.companyrating
+											props.company.avgStarRatings
 												.managerRelationship
 										}
 										starDimension="20px"
@@ -176,7 +183,7 @@ export default function CompanyRating(props) {
 									/>
 									&nbsp;&nbsp;{" "}
 									<label>
-										{props.companyrating.managerRelationship.toFixed(
+										{props.company.avgStarRatings.managerRelationship.toFixed(
 											numDigits
 										)}
 									</label>
@@ -206,7 +213,7 @@ export default function CompanyRating(props) {
 				>
 					<ChangingProgressbar
 						percentages={[
-							Math.round(props.percentRecommended * 100),
+							Math.round(props.company.percentRecommended * 100),
 						]}
 						strokeWidth={10}
 						initialAnimation
@@ -216,7 +223,9 @@ export default function CompanyRating(props) {
 					<div className="col-md-6">
 						<div className="num_sett">
 							<h1>
-								{props.avgNumMonthsWorked.toFixed(numDigits)}{" "}
+								{props.company.avgNumMonthsWorked.toFixed(
+									numDigits
+								)}{" "}
 							</h1>
 						</div>
 					</div>
@@ -238,13 +247,15 @@ export default function CompanyRating(props) {
 
 // Temporary work around for missing data.
 CompanyRating.defaultProps = {
-	avgNumMonthsWorked: NaN,
-	percentRecommended: NaN,
-	companyrating: {
-		healthAndSafety: NaN,
-		managerRelationship: NaN,
-		workEnvironment: NaN,
-		benefits: NaN,
-		overallSatisfaction: NaN,
+	company: {
+		avgNumMonthsWorked: NaN,
+		percentRecommended: NaN,
+		avgStarRatings: {
+			healthAndSafety: NaN,
+			managerRelationship: NaN,
+			workEnvironment: NaN,
+			benefits: NaN,
+			overallSatisfaction: NaN,
+		},
 	},
 };
