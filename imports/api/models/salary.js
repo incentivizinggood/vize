@@ -1,8 +1,10 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
+
+import PgSalaryFunctions from "./helpers/postgresql/salaries.js";
+import Salaries from "../data/salaries.js";
 
 const defaultPageSize = 100;
 
@@ -18,11 +20,11 @@ export type Salary = {
 };
 
 export default class SalaryModel {
-	connector: Mongo.Collection;
+	connector: Object;
 	companyModel: CompanyModel;
 	userModel: UserModel;
 
-	constructor(connector: Mongo.Collection) {
+	constructor(connector: Object) {
 		this.connector = connector;
 	}
 
@@ -32,83 +34,106 @@ export default class SalaryModel {
 	}
 
 	// Get the salary with a given id.
-	getSalaryById(id: ID): Salary {
-		return this.connector.findOne(id);
+	async getSalaryById(id: ID): Salary {
+		if (!Number.isNaN(Number(id))) {
+			return PgSalaryFunctions.processSalaryResults(
+				await this.connector.executeQuery(
+					PgSalaryFunctions.getSalaryById,
+					Number(id)
+				)
+			);
+		}
+		return undefined;
 	}
 
 	// Get all salaries submitted by a given user.
-	getSalariesByAuthor(
+	async getSalariesByAuthor(
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Salary] {
-		const cursor = this.connector.find(
-			{ submittedBy: user._id },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		const authorPostgresId = await this.userModel.getUserPostgresId(
+			user._id
 		);
-
-		return cursor.fetch();
+		return PgSalaryFunctions.processSalaryResults(
+			await this.connector.executeQuery(
+				PgSalaryFunctions.getSalariesByAuthor,
+				authorPostgresId,
+				pageNumber * pageSize,
+				pageSize
+			)
+		);
 	}
 	// Get the user who submitted a given salary.
-	getAuthorOfSalary(salary: Salary): User {
-		return this.userModel.getUserById(salary.submittedBy);
+	async getAuthorOfSalary(salary: Salary): User {
+		return this.userModel.getUserById(String(salary.submittedBy));
 	}
 
 	// Get all salaries paid by a given company.
-	getSalariesByCompany(
+	async getSalariesByCompany(
 		company: Company,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Salary] {
-		const cursor = this.connector.find(
-			{ companyName: company.name },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgSalaryFunctions.processSalaryResults(
+			await this.connector.executeQuery(
+				PgSalaryFunctions.getSalariesForCompany,
+				company.name,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
-
-		return cursor.fetch();
 	}
 	// Get the company that paid a given salary.
-	getCompanyOfSalary(salary: Salary): Company {
+	async getCompanyOfSalary(salary: Salary): Company {
 		return this.companyModel.getCompanyByName(salary.companyName);
 	}
 
 	// Count the number of salaries paid by a given company.
 	countSalariesByCompany(company: Company): number {
-		const cursor = this.connector.find({ companyName: company.name });
-
-		return cursor.count();
+		return this.connector.executeQuery(
+			PgSalaryFunctions.getSalaryCountForCompany,
+			company.name
+		);
+		// const cursor = this.connector.find({ companyName: company.name });
+		//
+		// return cursor.count();
 	}
 
 	// Get all of the salaries.
-	getAllSalaries(
+	async getAllSalaries(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Salary] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgSalaryFunctions.processSalaryResults(
+			await this.connector.executeQuery(
+				PgSalaryFunctions.getAllSalaries,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
-	submitSalary(user: User, company: Company, salaryParams: mixed): Salary {
+	isSalary(obj: any): boolean {
+		return Salaries.schema
+			.newContext()
+			.validate(obj)
+			.isValid();
+	}
+
+	async submitSalary(
+		user: User,
+		company: Company,
+		salaryParams: mixed
+	): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	editSalary(id: ID, salaryChanges: mixed): Salary {
+	async editSalary(id: ID, salaryChanges: mixed): Salary {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteSalary(id: ID): Salary {
+	async deleteSalary(id: ID): Salary {
 		throw new Error("Not implemented yet");
 	}
 }

@@ -1,8 +1,11 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
+import PostgreSQL from "../graphql/connectors/postgresql.js";
+import PgCompanyFunctions from "../models/helpers/postgresql/companies.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -10,36 +13,12 @@ export const Companies = new Mongo.Collection("CompanyProfiles", {
 	idGeneration: "STRING",
 });
 
-// Add helper functions directly to the Companies collection object
-// convert _id or name into a proper Mongo-style selector
-Companies.getSelector = function(companyIdentifier) {
-	if (typeof companyIdentifier === "string")
-		return { name: companyIdentifier };
-	else if (typeof companyIdentifier === "object")
-		// assumes type of Mongo.ObjectId for _id if not string for name
-		return { _id: companyIdentifier };
-	// don't have to wrap _id in a selector, but should do so for security anyway
-	return undefined;
-};
-
-// simple existence check//
-Companies.hasEntry = function(companyIdentifier) {
-	// Test whether a company exists yet in the
-	// CompanyProfiles collection.
-	// Returns true if the company is found, false otherwise.
-	return (
-		Companies.findOne(Companies.getSelector(companyIdentifier)) !==
-		undefined
-	);
-};
-
 Companies.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
@@ -51,24 +30,31 @@ Companies.schema = new SimpleSchema(
 			index: true /* requires aldeed:collection2 and simpl-schema packages */,
 			unique: true /* ditto */,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.isCompanyNameAvailable",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "name",
-										type: "nameTaken",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameNotExist",
+							this.value,
+							(error, result) => {
+								console.log();
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "name",
+											type: "nameTaken",
+										},
+									]);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (Companies.findOne({ name: this.value }) !== undefined) {
-						return "nameTaken";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.doesCompanyWithNameNotExist",
+								this.value
+							)
+						)
+							return "nameTaken";
 					}
 				}
 			},

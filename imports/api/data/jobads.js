@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
@@ -14,10 +15,9 @@ export const JobAds = new Mongo.Collection("JobAds", {
 JobAds.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
@@ -27,40 +27,44 @@ JobAds.schema = new SimpleSchema(
 			type: String, // case, company names are indexed so we may as well use
 			optional: false, // use this instead of companyID
 			max: 100,
-			index: true,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.doesCompanyExist",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "noCompanyWithThatName",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameNotExist",
+							this.value,
+							(error, result) => {
+								if (result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "noCompanyWithThatName",
+										},
+									]);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (Companies.findOne({ name: this.value }) === undefined) {
-						return "noCompanyWithThatName";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							Meteor.call(
+								"companies.doesCompanyWithNameNotExist",
+								this.value
+							)
+						)
+							return "noCompanyWithThatName";
 					}
 				}
 			},
 		},
 		companyId: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			index: true,
 			autoValue() {
 				if (Meteor.isServer && this.field("companyName").isSet) {
-					const company = Companies.findOne({
-						name: this.field("companyName").value,
-					});
+					const company = Meteor.call(
+						"companies.findOne",
+						this.field("companyName").value
+					);
 					if (company !== undefined) {
 						return company._id;
 					}
@@ -162,27 +166,28 @@ JobAds.attachSchema(JobAds.schema, { replace: true });
 JobAds.applicationSchema = new SimpleSchema(
 	{
 		jobId: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: false,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"jobads.doesJobAdExist",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "jobId",
-										type: "invalidJobId",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"jobads.doesJobAdExist",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "jobId",
+											type: "invalidJobId",
+										},
+									]);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (JobAds.findOne(this.value) === undefined) {
-						return "invalidJobId";
+						);
+					} else if (Meteor.isServer) {
+						if (!Meteor.call("jobads.doesJobAdExist", this.value))
+							return "invalidJobId";
 					}
 				}
 			},
@@ -199,24 +204,30 @@ JobAds.applicationSchema = new SimpleSchema(
 			optional: false,
 			max: 100,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.doesCompanyExist",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "noCompanyWithThatName",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameNotExist",
+							this.value,
+							(error, result) => {
+								if (result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "noCompanyWithThatName",
+										},
+									]);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (Companies.findOne({ name: this.value }) === undefined) {
-						return "noCompanyWithThatName";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							Meteor.call(
+								"companies.doesCompanyWithNameNotExist",
+								this.value
+							)
+						)
+							return "noCompanyWithThatName";
 					}
 				}
 			},

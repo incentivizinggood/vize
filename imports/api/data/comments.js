@@ -11,18 +11,33 @@ export const Comments = new Mongo.Collection("Comments", {
 });
 
 Comments.schema = new SimpleSchema({
-	username: {
-		type: String,
+	_id: {
+		type: SimpleSchema.Integer,
 		optional: false,
+		autoform: {
+			omit: true,
+		},
 	},
-	screenName: {
-		type: String,
+	submittedBy: {
+		type: SimpleSchema.Integer,
 		optional: false,
+		autoform: {
+			omit: true,
+		},
 	},
-	// might need to change the screenName 'optional:true' for anonymous profiles
+	refersto: {
+		type: SimpleSchema.Integer,
+		optional: false,
+		autoform: {
+			omit: true,
+		},
+	},
 	datePosted: {
 		type: Date,
 		optional: true,
+		autoform: {
+			omit: true,
+		},
 	},
 	content: {
 		type: String,
@@ -38,6 +53,21 @@ Comments.schema = new SimpleSchema({
 		type: Number,
 		defaultValue: 0,
 	},
+	username: {
+		type: String,
+		optional: true,
+		autoform: {
+			omit: true,
+		},
+	},
+	screenName: {
+		type: String,
+		optional: true,
+		autoform: {
+			omit: true,
+		},
+	},
+	// might need to change the screenName 'optional:true' for anonymous profiles
 });
 
 Comments.deny({

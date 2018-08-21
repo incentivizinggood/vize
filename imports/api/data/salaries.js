@@ -17,25 +17,16 @@ export const Salaries = new Mongo.Collection("Salaries", {
 Salaries.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
 		},
 		submittedBy: {
 			// userId of the review author
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			autoValue() {
-				if (Meteor.isServer) {
-					// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
-					return this.userId;
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -47,48 +38,37 @@ Salaries.schema = new SimpleSchema(
 			max: 100,
 			index: true,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.isNotSessionError",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "sessionError",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.isNotSessionError",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "sessionError",
+										},
+									]);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (
-						this.value ===
-							i18n.__("common.forms.companyNotFound") ||
-						this.value === i18n.__("common.forms.pleaseWait")
-					) {
-						return "sessionError";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.isNotSessionError",
+								this.value
+							)
+						)
+							return "sessionError";
 					}
 				}
 			},
 		},
 		companyId: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
-			index: true,
-			autoValue() {
-				if (Meteor.isServer && this.field("companyName").isSet) {
-					const company = Companies.findOne({
-						name: this.field("companyName").value,
-					});
-					if (company !== undefined) {
-						return company._id;
-					}
-					return "This company does not have a Vize profile yet";
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -128,7 +108,6 @@ Salaries.schema = new SimpleSchema(
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,

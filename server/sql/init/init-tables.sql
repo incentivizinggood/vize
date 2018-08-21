@@ -8,7 +8,6 @@
 --		-> user-related SQL fields will reference it
 --		-> will be nice if it can be used alongside current user accounts
 --			before they are replaced by GraphQL
---
 -- WARNING --
 -- Let the reader beware:
 -- camelCase is used in this file for readability, but
@@ -55,6 +54,74 @@ CREATE TABLE company_locations (
 	PRIMARY KEY (companyId, locationName)
 );
 
+-- NOTE We're not actually managing user accounts in PostgreSQL
+-- at this stage, but this table might be handy when we do.
+-- In any case, right now it helps us handle Mongo/Postgres
+-- compatibility by allowing us to translate user ID's from
+-- one DBMS to the other.
+-- NOTE Here are some features of the current SimplSchema for
+-- Meteor.users (imports/api/data/users.js) that I'm
+-- not going to worry about for now:
+-- -> keeping track of the emails array, since this requires
+--		normalization and thus an additional table
+-- -> username, because it isn't really used
+-- -> services, because it isn't really used and there
+--		are no real specifications for it
+-- QUESTION So, now that we're here, how to actually do
+-- the submittedBy fields for the other documents?
+-- I think that reviews and salaries should have it as
+-- an optional foreign key field, so that it can be NULL
+-- instead of having to be adjusted to a unique value
+-- when not provided, which would mean having to initialize
+-- the users table a particular way in order to accommodate
+-- truly anonymous submissions.
+-- This is a moot point for jobads, which already have
+-- companyId as a required foreign key.
+-- That leaves comments and votes.
+-- Comments can probably be handled in the same way as
+-- reviews and salaries, for the same reason.
+-- Votes is trickier because submittedBy is part of the
+-- primary key, which doesn't readily accommodate anonymous
+-- voting (only one person could cast a vote with submittedBy = NULL,
+-- and then the constraint would prevent further such
+-- NULL votes). But I guess if we wanted votes to be anonymous
+-- then we could implement privacy guards higher up the
+-- stack, and it makes sense to require users to have
+-- accounts before voting.
+-- So, for the PostgreSQL migration, we have the following
+-- changes to the submittedBy field in the various tables:
+-- reviews: optional foreign key to users
+-- salaries: optional foreign key to users
+-- jobads: N/A
+-- companies: N/A
+-- review_comments: optional foreign key to users
+-- review/comment_votes: required foreign key to users
+DROP TABLE IF EXISTS users CASCADE;
+CREATE TABLE users (
+	userId				serial			PRIMARY KEY,
+	-- the _id field in the Mongo document
+	-- corresponding to this user tuple
+	userMongoId			varchar(50)		UNIQUE,
+
+	role				varchar(30)		NOT NULL CHECK (role='worker' OR role='company-unverified' OR role='company'),
+	companyid			integer			UNIQUE
+		REFERENCES companies (companyId)
+		ON UPDATE CASCADE ON DELETE SET NULL
+		DEFERRABLE INITIALLY DEFERRED,
+	dateAdded			date			DEFAULT now(),
+	CHECK ( -- can't have workers with company profiles
+		(companyid IS NULL)
+		OR role='company' OR role='company-unverified')
+);
+
+-- Dummy user to (temporarily?) allow the submitting
+-- of reviews, salaries, votes, and comments but users
+-- who do not have an account yet...such as the kind
+-- folk who submitted the first reviews on the site.
+-- BUG? Hopefully won't run into issues with there not being
+-- an associated Mongo account (this is untested)...
+INSERT INTO users (userid,role) VALUES (-1,'worker');
+
 -- NOTE submittedBy fields are numeric in this implementation,
 -- but could be displayed on the website as "user[submittedBy]"
 -- in place of a screen name
@@ -94,7 +161,10 @@ CREATE TABLE company_locations (
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
-	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0  or -1 if they don't have an account
+	submittedBy			integer
+		REFERENCES users (userId)
+		ON UPDATE CASCADE ON DELETE SET NULL
+		DEFERRABLE INITIALLY DEFERRED,
 	-- BUG
 	-- companyName: non-FK required field
 	-- companyId: optional FK field
@@ -132,7 +202,10 @@ CREATE TABLE review_comments (
 		REFERENCES reviews (reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	submittedBy			integer			NOT NULL, -- same size as serial, references the poster's ID, may be 0 or -1 if they don't have an account
+	submittedBy			integer
+		REFERENCES users (userId)
+		ON UPDATE CASCADE ON DELETE SET NULL
+		DEFERRABLE INITIALLY DEFERRED,
 	dateAdded			date			DEFAULT now(),
 	-- We may want to discuss the maximum allowable size of comments,
 	-- I'm not sure if ~250 characters is enough but > 6000 (text) seems excessive.
@@ -143,7 +216,10 @@ CREATE TABLE review_comments (
 DROP TABLE IF EXISTS salaries CASCADE;
 CREATE TABLE salaries (
 	salaryId			serial			PRIMARY KEY,
-	submittedBy			integer			NOT NULL,
+	submittedBy			integer
+		REFERENCES users (userId)
+		ON UPDATE CASCADE ON DELETE SET NULL
+		DEFERRABLE INITIALLY DEFERRED,
 	companyName			varchar(110)	NOT NULL,
 	companyId			integer
 		REFERENCES companies (companyId)
@@ -199,8 +275,10 @@ CREATE TABLE job_locations (
 -- votes on reviews
 DROP TABLE IF EXISTS review_votes CASCADE;
 CREATE TABLE review_votes (
-	-- do we need a vote id field?
-	submittedBy			integer			NOT NULL, -- user ID
+	submittedBy			integer			NOT NULL
+		REFERENCES users (userId)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
 	refersTo			integer			NOT NULL
 		REFERENCES reviews (reviewid)
 		ON UPDATE CASCADE ON DELETE CASCADE
@@ -213,8 +291,10 @@ CREATE TABLE review_votes (
 -- votes on comments
 DROP TABLE IF EXISTS comment_votes CASCADE;
 CREATE TABLE comment_votes (
-	-- do we need a vote id field?
-	submittedBy			integer			NOT NULL, -- user ID
+	submittedBy			integer			NOT NULL
+		REFERENCES users (userId)
+		ON UPDATE CASCADE ON DELETE CASCADE
+		DEFERRABLE INITIALLY DEFERRED,
 	refersTo			integer			NOT NULL
 		REFERENCES review_comments (commentid)
 		ON UPDATE CASCADE ON DELETE CASCADE

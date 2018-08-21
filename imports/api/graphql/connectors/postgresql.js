@@ -1,14 +1,25 @@
 const { Pool } = require("pg");
 
+/* ----------------------------
+	SETUP
+ ------------------------------ */
+
 const pool = new Pool();
 
-const closeAndExit = function() {
-	pool.end();
-	process.exit();
+const closeAndExit = function(event) {
+	pool.end(status => {
+		console.log(`goodbye: ${event}, ${status}`);
+		// process.exit(1);
+	});
 };
 
-// process.on("SIGTERM", closeAndExit());
-// process.on("SIGINT", closeAndExit());
+process.on("exit", closeAndExit);
+process.on("SIGTERM", closeAndExit);
+process.on("SIGINT", closeAndExit);
+
+/* ----------------------------
+	ACCESS TO HELPER FUNCTIONS
+ ------------------------------ */
 
 // assumes that arguments to func are passed as additional
 // arguments after the first two "wrapper args"

@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
@@ -384,3 +385,40 @@ export default withTracker(({ companyId }) => {
 		userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
 	};
 })(CompanyProfile);
+
+/*
+
+	export default withTracker(({ companyId }) => {
+		const companyByIdSub = PgSubscription("CompanyProfilesById",companyId);
+		const locationsForCompanySub = PgSubscription("LocationsForCompanyById",companyId);
+		const reviewsForCompanySub = PgSubscription("ReviewsForCompanyById",companyId);
+		const jobAdsForCompanySub = PgSubscription("JobAdsForCompanyById",companyId);
+		const locationsForJobAdsByCompanySub = PgSubscription("JobAdLocationsForCompanyByCompanyId",companyId);
+		const salariesForCompanySub = PgSubscription("SalariesForCompanyById",companyId);
+		const votesByUserForReviewsOnCompanySub = PgSubscription(
+			"VotesByUserForReviewsOnCompany",
+			Meteor.userId()
+		});
+
+		return {
+			isReady:
+				companyByIdSub.ready() &&
+				locationForCompanySub.ready() &&
+				reviewsForCompanySub.ready() &&
+				jobAdsForCompanySub.ready() &&
+				locationsForJobAdsByCompanySub.ready() &&
+				salariesForCompanySub.ready() &&
+				votesByUserForReviewsOnCompanySub.ready(),
+			company: companyByIdSub[0] // process,
+			reviews: reviewForCompanySub.map(...process),
+			jobAds: jobAdsForCompanySub.map(...process),
+			jobsCount: jobAdsForCompanySub.length,
+			salaries: salariesForCompanySub.map(...process),
+			salariesCount: salariesForCompanySub.length,
+
+			// not sure what to do about this last one
+			userVotes: Votes, // the fetch thing doesn't suit my needs - Josh
+		};
+	})(CompanyProfile);
+
+*/
