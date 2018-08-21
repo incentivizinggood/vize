@@ -52,6 +52,12 @@ export default class ReviewTab extends React.Component {
 
 					<CompanyRating
 						companyrating={this.props.companyinfo.avgStarRatings}
+						percentRecommended={
+							this.props.companyinfo.percentRecommended
+						}
+						avgNumMonthsWorked={
+							this.props.companyinfo.avgNumMonthsWorked
+						}
 					/>
 				</div>
 
