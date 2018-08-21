@@ -168,6 +168,18 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
+	-- NOTE
+	-- We have to do some strange setup on the production database
+	-- because of the NOT NULL constraint on this field, since we
+	-- have initial reviews that are basically anomalous data points.
+	-- The way I've handled it so far is by writing the initial company
+	-- profiles to production, then disabling the submittedBy NOT NULL
+	-- constraint using ALTER TABLE, adding the initial reviews, then
+	-- adding a CHECK constraint that enforces submittedBy IS NOT NULL
+	-- via ALTER TABLE ADD CONSTRAINT NOT VALID, which allows us to
+	-- keep the initial reviews with their NULL submittedBy fields,
+	-- as opposed to re-enabling a proper NOT NULL constraint which
+	-- would not allow us to keep the "invalid" initial reviews.
 	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE -- this raises the question, should we retain reviews and salaries for users who delete their accounts?
