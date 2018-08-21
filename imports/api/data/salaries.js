@@ -5,6 +5,7 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
 import i18n from "meteor/universe:i18n";
+import LocationSchema from "./location.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -100,8 +101,8 @@ Salaries.schema = new SimpleSchema(
 			},
 		},
 		location: {
-			type: String,
-			max: 150,
+			type: LocationSchema,
+			// max: 150,
 			optional: false,
 		},
 		jobTitle: {

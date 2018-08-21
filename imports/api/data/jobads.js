@@ -5,6 +5,7 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
 import i18n from "meteor/universe:i18n";
+import LocationSchema from "./location.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -92,8 +93,8 @@ JobAds.schema = new SimpleSchema(
 		},
 		"locations.$": {
 			// restraints on members of the "locations" array
-			type: String,
-			max: 150,
+			type: LocationSchema,
+			// max: 150,
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		/*
 		QUESTION:

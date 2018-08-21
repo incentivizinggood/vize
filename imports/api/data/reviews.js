@@ -5,6 +5,7 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
+import LocationSchema from "./location.js";
 import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
@@ -134,8 +135,8 @@ Reviews.schema = new SimpleSchema(
 		},
 		location: {
 			// where they worked for the company being reviewed
-			type: String,
-			max: 150,
+			type: LocationSchema,
+			// max: 150,
 			optional: false,
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		jobTitle: {

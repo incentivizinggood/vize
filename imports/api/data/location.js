@@ -11,31 +11,16 @@ const LocationSchema = new SimpleSchema(
 			type: String,
 			max: 150,
 			optional: false,
-			autoform: {
-				afFieldInput: {
-					type: "text",
-				},
-			},
 		},
 		address: {
 			type: String,
 			max: 150,
 			optional: true,
-			autoform: {
-				afFieldInput: {
-					type: "text",
-				},
-			},
 		},
 		industrialHub: {
 			type: String,
 			max: 150,
 			optional: true,
-			autoform: {
-				afFieldInput: {
-					type: "text",
-				},
-			},
 		},
 	},
 	{ tracker: Tracker }
