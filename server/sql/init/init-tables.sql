@@ -168,13 +168,9 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
-	-- NOTE: this value CAN BE NULL, as would be
-	-- the case with reviews and salaries submitted
-	-- from the home page by users who do not have
-	-- accounts or are not logged in
-	submittedBy			integer
+	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
-		ON UPDATE CASCADE ON DELETE SET NULL
+		ON UPDATE CASCADE ON DELETE CASCADE -- this raises the question, should we retain reviews and salaries for users who delete their accounts?
 		DEFERRABLE INITIALLY DEFERRED,
 	-- companyName: non-FK required field
 	-- companyId: optional FK field
@@ -224,9 +220,9 @@ CREATE TABLE review_comments (
 		REFERENCES reviews (reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	submittedBy			integer
+	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
-		ON UPDATE CASCADE ON DELETE SET NULL
+		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	dateAdded			date			DEFAULT now(),
 	-- We may want to discuss the maximum allowable size of comments,
@@ -241,9 +237,9 @@ CREATE TABLE salaries (
 	-- NOTE: all the comments on the reviews table concerning
 	-- the following two fields and corresponding constraint
 	-- apply equally here
-	submittedBy			integer
+	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
-		ON UPDATE CASCADE ON DELETE SET NULL
+		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	companyName			varchar(110)	NOT NULL,
 	UNIQUE (submittedBy,companyName),
