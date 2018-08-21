@@ -211,7 +211,7 @@ const companyProfileQuery = gql`
 					overallSatisfaction
 				}
 				additionalComments
-				datePosted: created
+				created
 			}
 			numReviews
 			jobAds {

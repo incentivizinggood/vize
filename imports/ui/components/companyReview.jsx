@@ -52,7 +52,7 @@ function ReviewComponent(props) {
 							&nbsp;&nbsp;- <strong>{props.item.jobTitle}</strong>
 						</span>
 					</p>
-					<h2 className="head-rev-con">{props.item.reviewTitle} </h2>
+					<h2 className="head-rev-con">{props.item.title}</h2>
 
 					<div className="btn-group show-on-hover">
 						<a

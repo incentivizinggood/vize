@@ -61,6 +61,12 @@ export default class ReviewsSection extends React.Component {
 						companyrating={
 							this.props.companyoverview.avgStarRatings
 						}
+						percentRecommended={
+							this.props.companyoverview.percentRecommended
+						}
+						avgNumMonthsWorked={
+							this.props.companyoverview.avgNumMonthsWorked
+						}
 					/>
 				</div>
 				<div className="col-md-12  section_overtopsect">
