@@ -21,8 +21,10 @@ const companySearchQuery = gql`
 			locations
 			industry
 			numEmployees
-			numReviews
 			descriptionOfCompany
+			numReviews
+			numJobAds
+			numSalaries
 		}
 	}
 `;
@@ -43,7 +45,9 @@ const SearchResults = ({ searchText }) => (
 			}
 
 			const resultList = data.searchCompanies.map(function(company) {
-				return <CompanySearchResult key={company.id} company={company} />;
+				return (
+					<CompanySearchResult key={company.id} company={company} />
+				);
 			});
 
 			if (resultList.length < 1) {

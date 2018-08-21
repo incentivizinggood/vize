@@ -180,12 +180,16 @@ export default {
 				args.pageNum,
 				args.pageSize
 			),
+		numJobAds: (obj: Company, args: PgnArgs, context: Context): number =>
+			context.jobAdModel.countJobAdsByCompany(obj),
 		salaries: (obj: Company, args: PgnArgs, context: Context) =>
 			context.salaryModel.getSalariesByCompany(
 				obj,
 				args.pageNum,
 				args.pageSize
 			),
+		numSalaries: (obj: Company, args: PgnArgs, context: Context): number =>
+			context.salaryModel.countSalariesByCompany(obj),
 	},
 
 	JobAd: {

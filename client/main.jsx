@@ -15,6 +15,11 @@ Meteor.startup(() => {
 	$.getScript("js/prettySticky.js", function() {});
 	$.getScript("js/bootstrap-multiselect.js", function() {});
 
+	// Get the data for the currently logged in user.
+	// This is nessisary for Meteor.user() to return extra fields such as role.
+	// See also /imports/api/data/users.js for the publication.
+	Meteor.subscribe("userData");
+
 	ReactDOM.render(
 		<AppRoot currentPage={currentPage} apolloClient={client} />,
 		document.getElementById("app-root")
