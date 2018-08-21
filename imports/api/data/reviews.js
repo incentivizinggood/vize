@@ -147,7 +147,13 @@ Reviews.schema = new SimpleSchema(
 		pros: {
 			type: String,
 			optional: false,
-			max: 200,
+			max: 600,
+			autoform: {
+				afFieldInput: {
+					type: "textarea",
+					rows: 6,
+				},
+			},
 			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call("hasFiveWords", this.value, (error, result) => {
@@ -170,7 +176,13 @@ Reviews.schema = new SimpleSchema(
 		cons: {
 			type: String,
 			optional: false,
-			max: 200,
+			max: 600,
+			autoform: {
+				afFieldInput: {
+					type: "textarea",
+					rows: 6,
+				},
+			},
 			custom() {
 				if (Meteor.isClient && this.isSet) {
 					Meteor.call("hasFiveWords", this.value, (error, result) => {
