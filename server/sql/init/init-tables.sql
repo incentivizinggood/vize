@@ -168,13 +168,21 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
 	reviewId			serial			PRIMARY KEY,
-	-- NOTE: this value CAN BE NULL, as would be
-	-- the case with reviews and salaries submitted
-	-- from the home page by users who do not have
-	-- accounts or are not logged in
-	submittedBy			integer
+	-- NOTE
+	-- We have to do some strange setup on the production database
+	-- because of the NOT NULL constraint on this field, since we
+	-- have initial reviews that are basically anomalous data points.
+	-- The way I've handled it so far is by writing the initial company
+	-- profiles to production, then disabling the submittedBy NOT NULL
+	-- constraint using ALTER TABLE, adding the initial reviews, then
+	-- adding a CHECK constraint that enforces submittedBy IS NOT NULL
+	-- via ALTER TABLE ADD CONSTRAINT NOT VALID, which allows us to
+	-- keep the initial reviews with their NULL submittedBy fields,
+	-- as opposed to re-enabling a proper NOT NULL constraint which
+	-- would not allow us to keep the "invalid" initial reviews.
+	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
-		ON UPDATE CASCADE ON DELETE SET NULL
+		ON UPDATE CASCADE ON DELETE CASCADE -- this raises the question, should we retain reviews and salaries for users who delete their accounts?
 		DEFERRABLE INITIALLY DEFERRED,
 	-- companyName: non-FK required field
 	-- companyId: optional FK field
@@ -224,9 +232,9 @@ CREATE TABLE review_comments (
 		REFERENCES reviews (reviewId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	submittedBy			integer
+	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
-		ON UPDATE CASCADE ON DELETE SET NULL
+		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	dateAdded			date			DEFAULT now(),
 	-- We may want to discuss the maximum allowable size of comments,
@@ -241,9 +249,9 @@ CREATE TABLE salaries (
 	-- NOTE: all the comments on the reviews table concerning
 	-- the following two fields and corresponding constraint
 	-- apply equally here
-	submittedBy			integer
+	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
-		ON UPDATE CASCADE ON DELETE SET NULL
+		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
 	companyName			varchar(110)	NOT NULL,
 	UNIQUE (submittedBy,companyName),
