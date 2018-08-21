@@ -109,11 +109,6 @@ Companies.schema = new SimpleSchema(
 		},
 		"locations.$": {
 			type: LocationSchema,
-			autoform: {
-				// afObjectField didn't seem to be behaving as expected,
-				// so I defined a custom input type as a workaround
-				type: "location",
-			},
 		},
 		websiteURL: {
 			// the COMPANY's actual website, not their
