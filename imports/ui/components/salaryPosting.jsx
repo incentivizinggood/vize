@@ -11,7 +11,10 @@ export default function SalaryPosting(props) {
 							<hr />
 						</div>
 
-						<p className="mal-r">{props.salary.gender}</p>
+						{/*
+							ERROR: Gender is not in the API schema.
+							<p className="mal-r">{props.salary.gender}</p>
+						*/}
 						<div className="pad-r">
 							<p>
 								{props.salary.incomeType}

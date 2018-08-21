@@ -204,10 +204,21 @@ const companyProfileQuery = gql`
 			numReviews
 			jobAds {
 				id
+				jobTitle
+				locations
+				pesosPerHour
+				contractType
+				jobDescription
+				qualifications
+				responsibilities
+				created
 			}
 			numJobAds
 			salaries {
 				id
+				jobTitle
+				incomeType
+				incomeAmount
 			}
 			numSalaries
 		}
