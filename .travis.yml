@@ -8,21 +8,21 @@ cache:
   - .meteor/local
 jobs:
   include:
-    - stage: Prepair NPM cache
+    - stage: prepair cache
+      install:
+        - npm install
+        - [ "$(meteor --version)" == "Meteor 1.6.1.1" ] || curl 'https://install.meteor.com?release=1.6.1.1' | /bin/sh
       script: true
-    - stage: Linting
-      name: Eslint
+    - stage: lint and test
+      name: eslint
       install: true
       script: npm run lint
-    - name: Prettier
+    - name: prettier
       install: true
       script: npm run lint-formatting
-    - name: Flow type check
+    - name: flow type check
       install: true
       script: npm run type-check
-    - stage: Install meteor
-      install: "curl 'https://install.meteor.com?release=1.6.1.1' | /bin/sh"
-      script: true
-    - stage: Unit tests
+    - name: meteor and mocha tests
       install: true
       script: meteor test --once --driver-package meteortesting:mocha
