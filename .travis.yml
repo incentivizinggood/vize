@@ -1,15 +1,19 @@
 language: node_js
 node_js:
-  - "8"
+  - 8
 cache:
   directories:
   - node_modules
 jobs:
   include:
-    - stage: "Linting"
-      name: "Eslint"
-      script: "npm run lint"
-    - name: "Prettier"
-      script: "npm run lint-formatting"
-    - name: "Flow type check"
-      script: "npm run type-check"
+    - stage: Prepair cache
+      script: true
+    - stage: Linting
+      name: Eslint
+      script: npm run lint
+    - stage: Linting
+      name: Prettier
+      script: npm run lint-formatting
+    - stage: Linting
+      name: Flow type check
+      script: npm run type-check
