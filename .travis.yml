@@ -4,16 +4,25 @@ node_js:
 cache:
   directories:
   - node_modules
+  - $HOME/.meteor
+  - .meteor/local
 jobs:
   include:
-    - stage: Prepair cache
+    - stage: Prepair NPM cache
       script: true
     - stage: Linting
       name: Eslint
+      install: true
       script: npm run lint
-    - stage: Linting
-      name: Prettier
+    - name: Prettier
+      install: true
       script: npm run lint-formatting
-    - stage: Linting
-      name: Flow type check
+    - name: Flow type check
+      install: true
       script: npm run type-check
+    - stage: Install meteor
+      install: "curl 'https://install.meteor.com?release=1.6.1.1' | /bin/sh"
+      script: true
+    - stage: Unit tests
+      install: true
+      script: meteor test --once --driver-package meteortesting:mocha
