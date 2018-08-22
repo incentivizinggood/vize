@@ -1,6 +1,12 @@
 language: node_js
 node_js:
   - "8"
-script:
-  - "npm run lint"
-  - "npm run lint-formatting"
+jobs:
+  include:
+    - stage: "Linting"
+      name: "Eslint"
+      script: "npm run lint"
+    - script: "npm run lint-formatting"
+      name: "Prettier"
+    - script: "npm run type-check"
+      name: "Flow type check"
