@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "flow": "flow"
+    "type-check": "flow",
+    "lint": "eslint .",
+    "lint-formatting": "prettier --list-different ./**/*.{js,jsx,css,scss}"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.47",
