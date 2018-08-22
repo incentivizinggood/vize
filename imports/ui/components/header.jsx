@@ -78,7 +78,10 @@ class Header extends React.Component {
 									</a>
 								</li>
 								<li>
-									<a href="/worker-resources" className="link-kumya">
+									<a
+										href="/worker-resources"
+										className="link-kumya"
+									>
 										<span>
 											<T>common.header.resources</T>
 										</span>
