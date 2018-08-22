@@ -11,7 +11,7 @@ jobs:
     - stage: prepair cache
       install:
         - npm install
-        - [ "$(meteor --version)" == "Meteor 1.6.1.1" ] || curl 'https://install.meteor.com?release=1.6.1.1' | /bin/sh
+        - ./install-meteor
       script: true
     - stage: lint and test
       name: eslint
