@@ -6,11 +6,11 @@ cache:
   - node_modules
   - $HOME/.meteor
   - .meteor/local
+before_install:
+  - export PATH=$HOME/.meteor:$PATH
 install:
   - npm install
   - ./install-meteor
-before_script:
-  - export PATH=$HOME/.meteor:$PATH
 script:
   - npm run lint
   - npm run lint-formatting
