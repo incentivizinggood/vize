@@ -6,23 +6,13 @@ cache:
   - node_modules
   - $HOME/.meteor
   - .meteor/local
-jobs:
-  include:
-    - stage: prepair cache
-      install:
-        - npm install
-        - ./install-meteor
-      script: true
-    - stage: lint and test
-      name: eslint
-      install: true
-      script: npm run lint
-    - name: prettier
-      install: true
-      script: npm run lint-formatting
-    - name: flow type check
-      install: true
-      script: npm run type-check
-    - name: meteor and mocha tests
-      install: true
-      script: meteor test --once --driver-package meteortesting:mocha
+install:
+  - npm install
+  - ./install-meteor
+before_script:
+  - export PATH=$HOME/.meteor:$PATH
+script:
+  - npm run lint
+  - npm run lint-formatting
+  - npm run type-check
+  - meteor test --once --driver-package meteortesting:mocha
