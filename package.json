@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
     "type-check": "flow",
     "lint": "eslint .",
     "lint-formatting": "prettier --list-different ./**/*.{js,jsx,css,scss}"
@@ -58,6 +59,7 @@
     "nightmare": "^3.0.0",
     "phantomjs-prebuilt": "^2.1.16",
     "prettier": "1.12.1",
+    "react-test-renderer": "^16.4.2",
     "selenium-webdriver": "^4.0.0-alpha.1"
   }
 }
