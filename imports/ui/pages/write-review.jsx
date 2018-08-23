@@ -106,11 +106,13 @@ if (Meteor.isClient) {
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
-			if (Meteor.isDevelopment)
+			if (Meteor.isDevelopment) {
 				console.log(
 					`ERROR: We did a thing in a ${formType} form: ${error}`
 				);
-
+				console.log("VALIDATION CONTEXT:");
+				console.log(this.validationContext);
+			}
 			if (error instanceof Meteor.Error)
 				wr_form_state.set("formError", {
 					hasError: true,

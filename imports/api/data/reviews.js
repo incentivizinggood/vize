@@ -135,10 +135,25 @@ Reviews.schema = new SimpleSchema(
 		},
 		location: {
 			// where they worked for the company being reviewed
-			type: LocationSchema,
+			type: Object,
 			// max: 150,
 			optional: false,
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
+		"location.city": {
+			type: String,
+			max: 150,
+			optional: false,
+		},
+		"location.address": {
+			type: String,
+			max: 150,
+			optional: true,
+		},
+		"location.industrialHub": {
+			type: String,
+			max: 150,
+			optional: true,
+		},
 		jobTitle: {
 			// there are two categories -
 			type: String, // Line Worker and Upper Management, so type - String, perhaps, not sure
