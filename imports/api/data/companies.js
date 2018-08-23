@@ -3,7 +3,6 @@ import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import LocationSchema from "./location.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
