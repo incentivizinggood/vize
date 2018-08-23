@@ -101,9 +101,23 @@ Salaries.schema = new SimpleSchema(
 			},
 		},
 		location: {
-			type: LocationSchema,
-			// max: 150,
+			type: Object,
 			optional: false,
+		},
+		"location.city": {
+			type: String,
+			max: 150,
+			optional: false,
+		},
+		"location.address": {
+			type: String,
+			max: 150,
+			optional: true,
+		},
+		"location.industrialHub": {
+			type: String,
+			max: 150,
+			optional: true,
 		},
 		jobTitle: {
 			type: String,

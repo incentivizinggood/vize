@@ -108,7 +108,22 @@ Companies.schema = new SimpleSchema(
 			optional: false,
 		},
 		"locations.$": {
-			type: LocationSchema,
+			type: Object,
+		},
+		"locations.$.city": {
+			type: String,
+			max: 150,
+			optional: false,
+		},
+		"locations.$.address": {
+			type: String,
+			max: 150,
+			optional: true,
+		},
+		"locations.$.industrialHub": {
+			type: String,
+			max: 150,
+			optional: true,
 		},
 		websiteURL: {
 			// the COMPANY's actual website, not their

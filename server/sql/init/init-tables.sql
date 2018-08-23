@@ -50,11 +50,11 @@ CREATE TABLE companies (
 -- normalized company locations
 DROP TABLE IF EXISTS company_locations CASCADE;
 CREATE TABLE company_locations (
-	companyId			integer
+	companyId			integer			NOT NULL
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	companyLocation		text,
+	companyLocation		text			NOT NULL,
 	PRIMARY KEY (companyId, companyLocation)
 );
 
@@ -302,7 +302,7 @@ CREATE TABLE job_locations (
 		REFERENCES jobads (jobadId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	jobLocation		text,
+	jobLocation		text				NOT NULL,
 	PRIMARY KEY (jobadId,jobLocation)
 );
 

@@ -92,10 +92,23 @@ JobAds.schema = new SimpleSchema(
 			optional: false,
 		},
 		"locations.$": {
-			// restraints on members of the "locations" array
-			type: LocationSchema,
-			// max: 150,
-		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
+			type: Object,
+		},
+		"locations.$.city": {
+			type: String,
+			max: 150,
+			optional: false,
+		},
+		"locations.$.address": {
+			type: String,
+			max: 150,
+			optional: true,
+		},
+		"locations.$.industrialHub": {
+			type: String,
+			max: 150,
+			optional: true,
+		},
 		/*
 		QUESTION:
 			How to support different currencies,
