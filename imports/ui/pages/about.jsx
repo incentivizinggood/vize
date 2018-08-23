@@ -1,20 +1,21 @@
 import React from "react";
-import Header from "/imports/ui/components/header.jsx";
-import Footer from "/imports/ui/components/footer.jsx";
+
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
+import Header from "/imports/ui/components/header.jsx";
+import Footer from "/imports/ui/components/footer.jsx";
+
+const t = i18n.createTranslator();
+const T = i18n.createComponent(t);
+
 /* A page where visitors can get information about Vize and this app.
  */
-
-const T = i18n.createComponent();
-
 export default class AboutPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: "",
-			value: "",
 			textBox: "",
 			emailSending: "",
 		};
@@ -36,14 +37,12 @@ export default class AboutPage extends React.Component {
 	}
 
 	handleSubmit(event) {
-		// alert("Called: " + this.state.name + " Email: " + this.state.emailSending  + " TextBox: " + this.state.textBox);
-
 		Meteor.call(
 			"sendEmail",
 			"incentivizinggood@gmail.com",
 			"postmaster@incentivizinggood.com",
 			`Contacting us: ${this.state.name}`,
-			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
+			`Howdy Vize reader,\nBelow is the message: \n${
 				this.state.textBox
 			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
 				this.state.emailSending
@@ -63,7 +62,6 @@ export default class AboutPage extends React.Component {
 			}
 		);
 
-		// alert("wassup");
 		event.preventDefault();
 
 		// clearing fields
@@ -158,7 +156,7 @@ export default class AboutPage extends React.Component {
 											className="input100"
 											type="text"
 											name="first-name"
-											placeholder={i18n.__(
+											placeholder={t(
 												"common.aboutUs.placeholder_name"
 											)}
 											onChange={this.handleNameChange}
@@ -171,7 +169,7 @@ export default class AboutPage extends React.Component {
 											className="input100"
 											type="text"
 											name="email"
-											placeholder={i18n.__(
+											placeholder={t(
 												"common.aboutUs.placeholder_email"
 											)}
 											onChange={this.handleEmailChange}
@@ -183,7 +181,7 @@ export default class AboutPage extends React.Component {
 											id="message"
 											className="input100"
 											name="message"
-											placeholder={i18n.__(
+											placeholder={t(
 												"common.aboutUs.placeholder_comments"
 											)}
 											onChange={
