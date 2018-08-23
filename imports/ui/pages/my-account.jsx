@@ -1,7 +1,10 @@
 import React from "react";
+
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
+
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
-import { withTracker } from "meteor/react-meteor-data";
 
 /* The page where users can view their account details,
  * update their profiles, and change settings.
