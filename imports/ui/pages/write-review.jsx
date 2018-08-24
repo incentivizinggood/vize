@@ -39,6 +39,8 @@ wr_form_state.set("company", {
 });
 
 if (Meteor.isClient) {
+	import { translateLocationSubfieldPlaceholdersReactively } from "../../startup/client/i18n.js";
+
 	Template.wr_blaze_form.bindI18nNamespace("common.forms");
 
 	Template.wr_blaze_form.onCreated(function() {
@@ -59,6 +61,9 @@ if (Meteor.isClient) {
 
 	Template.wr_blaze_form.onRendered(function() {
 		if (Meteor.isDevelopment) console.log("Rendering wr_blaze_form");
+		this.autorun(() => {
+			translateLocationSubfieldPlaceholdersReactively(this);
+		});
 	});
 
 	Template.wr_blaze_form.helpers({

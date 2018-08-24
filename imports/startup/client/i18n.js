@@ -184,9 +184,35 @@ setUpI18nOnSchema(Reviews.schema, "Reviews");
 setUpI18nOnSchema(Salaries.schema, "Salaries");
 setUpI18nOnSchema(Votes.schema, "Votes");
 
+// This is currently only used for updating
+// placeholders in the Blaze forms
+const commonFormsReactiveTranslator = i18n.createReactiveTranslator(
+	"common.forms",
+	reactiveGetLocale()
+);
+
+function translateLocationSubfieldPlaceholdersReactively(formTemplateInstance) {
+	const locationArray = formTemplateInstance.findAll("[name^=location]");
+	for (let node of locationArray.filter(n => n.name.endsWith("city")))
+		node.placeholder = commonFormsReactiveTranslator(
+			"locationCityPlaceholder"
+		);
+	for (let node of locationArray.filter(n => n.name.endsWith("address")))
+		node.placeholder = commonFormsReactiveTranslator(
+			"locationAddressPlaceholder"
+		);
+	for (let node of locationArray.filter(n =>
+		n.name.endsWith("industrialHub")
+	))
+		node.placeholder = commonFormsReactiveTranslator(
+			"locationIndustrialHubPlaceholder"
+		);
+}
+
 export {
 	localeMetadata,
 	reactiveGetLocale,
 	getDefaultLocale,
 	getClosestSupportedLocale,
+	translateLocationSubfieldPlaceholdersReactively,
 };
