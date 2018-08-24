@@ -1,4 +1,5 @@
 import React from "react";
+import { Formik, Field, Form } from "formik";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
@@ -9,22 +10,97 @@ import Footer from "/imports/ui/components/footer.jsx";
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
 
+const formikProps = {
+	initialValues: {
+		senderName: "",
+		senderAddr: "",
+		message: "",
+	},
+	onSubmit: (values, actions) => {
+		Meteor.call(
+			"sendEmail",
+			"incentivizinggood@gmail.com",
+			"postmaster@incentivizinggood.com",
+			`Contacting us: ${values.senderName}`,
+			`Howdy Vize reader,\nBelow is the message: \n${
+				values.message
+			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
+				values.senderAddr
+			}`,
+			(err, res) => {
+				if (err) {
+					console.log("--- BEGIN error:");
+					alert("Please try again");
+					console.log(err);
+					console.log("--- END error");
+					actions.setSubmitting(false);
+					// TODO: Send errors from api and display to user.
+					// actions.setErrors(transformMyAPIErrorToAnObject(error));
+				} else {
+					console.log("--- BEGIN success:");
+					console.log(res);
+					console.log("--- END success");
+					alert("Thank you for the feedback!");
+					actions.setSubmitting(false);
+				}
+			}
+		);
+	},
+	render: ({ errors, touched, isSubmitting }) => (
+		<Form>
+			<span className="contact100-form-title">
+				<T>common.aboutUs.reach_us</T>
+			</span>
+			<div className="wrap-input100 rs1 validate-input">
+				<Field
+					type="text"
+					name="senderName"
+					id="first-name"
+					className="input100"
+					placeholder={t("common.aboutUs.placeholder_name")}
+				/>
+				<span className="focus-input100" />
+			</div>
+			<div className="wrap-input100 rs1 validate-input">
+				<Field
+					type="text"
+					name="senderAddr"
+					id="email"
+					className="input100"
+					placeholder={t("common.aboutUs.placeholder_email")}
+				/>
+				<span className="focus-input100" />
+			</div>
+			<div className="wrap-input100 validate-input">
+				<Field
+					type="text"
+					name="message"
+					component="textarea"
+					id="message"
+					className="input100"
+					placeholder={t("common.aboutUs.placeholder_comments")}
+				/>
+				<span className="focus-input100" />
+			</div>
+			<div className="container-contact100-form-btn">
+				<button
+					type="submit"
+					disabled={isSubmitting}
+					className="contact100-form-btn"
+				>
+					<span>
+						<T>common.aboutUs.submit_button</T>
+						<i className="zmdi zmdi-arrow-right m-l-8" />
+					</span>
+				</button>
+			</div>
+		</Form>
+	),
+};
+
 /* A page where visitors can get information about Vize and this app.
  */
 export default class AboutPage extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: "",
-			textBox: "",
-			emailSending: "",
-		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleEmailChange = this.handleEmailChange.bind(this);
-		this.handleNameChange = this.handleNameChange.bind(this);
-		this.handleTextBoxChanging = this.handleTextBoxChanging.bind(this);
-	}
-
 	componentDidMount() {
 		// Ask to be updated "reactively".
 		// universe:i18n cannot be trusted to do that automaticaly.
@@ -34,50 +110,6 @@ export default class AboutPage extends React.Component {
 
 	componentWillUnmount() {
 		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
-	handleSubmit(event) {
-		Meteor.call(
-			"sendEmail",
-			"incentivizinggood@gmail.com",
-			"postmaster@incentivizinggood.com",
-			`Contacting us: ${this.state.name}`,
-			`Howdy Vize reader,\nBelow is the message: \n${
-				this.state.textBox
-			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
-				this.state.emailSending
-			}`,
-			(err, res) => {
-				if (err) {
-					console.log("--- BEGIN error:");
-					alert("Please try again");
-					console.log(err);
-					console.log("--- END error");
-				} else {
-					console.log("--- BEGIN success:");
-					console.log(res);
-					console.log("--- END success");
-					alert("Thank you for the feedback!");
-				}
-			}
-		);
-
-		event.preventDefault();
-
-		// clearing fields
-		document.getElementById("first-name").value = null;
-		document.getElementById("email").value = null;
-		document.getElementById("message").value = null;
-	}
-
-	handleNameChange(event) {
-		this.setState({ name: event.target.value });
-	}
-	handleEmailChange(event) {
-		this.setState({ emailSending: event.target.value });
-	}
-	handleTextBoxChanging(event) {
-		this.setState({ textBox: event.target.value });
 	}
 
 	render() {
@@ -141,70 +173,7 @@ export default class AboutPage extends React.Component {
 					<div className="container">
 						<div className="container-contact100">
 							<div className="wrap-contact100">
-								<form
-									method="POST"
-									className="contact100-form validate-form"
-									onSubmit={this.handleSubmit}
-									id="submitForm"
-								>
-									<span className="contact100-form-title">
-										<T>common.aboutUs.reach_us</T>
-									</span>
-									<div className="wrap-input100 rs1 validate-input">
-										<input
-											id="first-name"
-											className="input100"
-											type="text"
-											name="first-name"
-											placeholder={t(
-												"common.aboutUs.placeholder_name"
-											)}
-											onChange={this.handleNameChange}
-										/>
-										<span className="focus-input100" />
-									</div>
-									<div className="wrap-input100 rs1 validate-input">
-										<input
-											id="email"
-											className="input100"
-											type="text"
-											name="email"
-											placeholder={t(
-												"common.aboutUs.placeholder_email"
-											)}
-											onChange={this.handleEmailChange}
-										/>
-										<span className="focus-input100" />
-									</div>
-									<div className="wrap-input100 validate-input">
-										<textarea
-											id="message"
-											className="input100"
-											name="message"
-											placeholder={t(
-												"common.aboutUs.placeholder_comments"
-											)}
-											onChange={
-												this.handleTextBoxChanging
-											}
-										/>
-										<span className="focus-input100" />
-									</div>
-									<div className="container-contact100-form-btn">
-										<button
-											className="contact100-form-btn"
-											form="submitForm"
-											value="Submit"
-										>
-											<span>
-												<T>
-													common.aboutUs.submit_button
-												</T>
-												<i className="zmdi zmdi-arrow-right m-l-8" />
-											</span>
-										</button>
-									</div>
-								</form>
+								<Formik {...formikProps} />
 							</div>
 						</div>
 					</div>
