@@ -1459,32 +1459,32 @@ vizeVote4 = {
 // been run on the machine that these queries are being sent to
 
 // company query functions
-obj = await PostgreSQL.executeQuery(getCompanyByName, "a");
-obj = await PostgreSQL.executeQuery(getCompanyById, 1);
-obj = await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000);
-obj = await PostgreSQL.executeQuery(getAllCompanies, 0, 1000);
+obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyByName, "a"));
+obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyById, 1));
+obj = processCompanyResults(await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000));
+obj = processCompanyResults(await PostgreSQL.executeQuery(getAllCompanies, 0, 1000));
 
 // review query functions
-obj = await PostgreSQL.executeQuery(getReviewById, 1);
-obj = await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000);
-obj = await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000);
-obj = await PostgreSQL.executeQuery(getAllReviews, 0, 1000);
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewById, 1));
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000));
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000));
+obj = processReviewResults(await PostgreSQL.executeQuery(getAllReviews, 0, 1000));
 
 // salary query functions
-obj = await PostgreSQL.executeQuery(getSalaryById, 1);
-obj = await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000);
-obj = await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000);
-obj = await PostgreSQL.executeQuery(getAllSalaries, 0, 1000);
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalaryById, 1));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getAllSalaries, 0, 1000));
 
 // jobad query functions
-obj = await PostgreSQL.executeQuery(getJobAdById, 1);
-obj = await PostgreSQL.executeQuery(getJobAdsByCompany, "b");
-obj = await PostgreSQL.executeQuery(getAllJobAds, 0, 1000);
+obj = processJobAdResults(await PostgreSQL.executeQuery(getJobAdById, 1));
+obj = processJobAdResults(await PostgreSQL.executeQuery(getJobAdsByCompany, "b"));
+obj = processJobAdResults(await PostgreSQL.executeQuery(getAllJobAds, 0, 1000));
 
 // comment query functions
-obj = await PostgreSQL.executeQuery(getCommentById, 1);
-obj = await PostgreSQL.executeQuery(getAllComments, 0, 1000);
-obj = await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000);
+obj = processCommentResults(await PostgreSQL.executeQuery(getCommentById, 1));
+obj = processCommentResults(await PostgreSQL.executeQuery(getAllComments, 0, 1000));
+obj = processCommentResults(await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000));
 
 // vote query functions
 obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 7, references: 1, voteSubject: "review"});
@@ -1495,11 +1495,14 @@ obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "review", 1, 0, 1000);
 
 // insertion functions
-obj = await PostgreSQL.executeMutation(createCompany, vize);
-obj = await PostgreSQL.executeMutation(submitReview, vizeReview);
-obj = await PostgreSQL.executeMutation(submitSalary, vizeSalary);
-obj = await PostgreSQL.executeMutation(postJobAd, vizeJobAd);
-obj = await PostgreSQL.executeMutation(writeComment, vizeComment);
+// NOTE that the review, salary, and comment insertions
+// will all fail unless/until you go and add submittedBy
+// fields and corresponding users.
+obj = processCompanyResults(await PostgreSQL.executeMutation(createCompany, vize));
+obj = processReviewResults(await PostgreSQL.executeMutation(submitReview, vizeReview));
+obj = processSalaryResults(await PostgreSQL.executeMutation(submitSalary, vizeSalary));
+obj = processJobAdResults(await PostgreSQL.executeMutation(postJobAd, vizeJobAd));
+obj = processCommentResults(await PostgreSQL.executeMutation(writeComment, vizeComment));
 obj = await PostgreSQL.executeMutation(castVote, vizeVote);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote3);

@@ -30,8 +30,8 @@ INSERT INTO review_votes(submittedBy,refersTo,value) VALUES (5,2,'f');
 INSERT INTO comment_votes(submittedBy,refersTo,value) VALUES (5,1,'t');
 
 -- these insertions should both fail: duplicate votes
-INSERT INTO review_votes(submittedBy,refersTo,value) VALUES (1,1,'t');
-INSERT INTO comment_votes(submittedBy,refersTo,value) VALUES (1,1,'t');
+INSERT INTO review_votes(submittedBy,refersTo,value) VALUES (2,1,'t');
+INSERT INTO comment_votes(submittedBy,refersTo,value) VALUES (2,1,'t');
 
 -- these insertions should both fail: voting on own review/comment
 INSERT INTO review_votes(submittedBy,refersTo,value) VALUES (3,4,'t');

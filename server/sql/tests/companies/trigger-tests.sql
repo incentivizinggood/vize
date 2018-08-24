@@ -13,8 +13,8 @@ COMMIT;
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags) VALUES ('test3', '1 - 50', 'example@gmail.com', 'https://example.com',0);
 
 -- tests for not_last_location trigger on company_locations
-DELETE FROM company_locations WHERE companyLocation='somewhere over the rainbow' or companyLocation='anotherwhere' or companyLocation='movin right along' or companyLocation='hello world';
+DELETE FROM company_locations WHERE companyLocation='{"industrialHub":"somewhere over the rainbow"}' or companyLocation='{"industrialHub":"anotherwhere"}' or companyLocation='{"industrialHub":"movin right along"}' or companyLocation='{"industrialHub":"hello world"}';
 -- these next two ops should fail with a message about
 -- it being the last location, NOT about a primary key restraint
-DELETE FROM company_locations WHERE companyLocation='one last time';
-UPDATE company_locations SET companyId=2,companyLocation='hello world' WHERE companyId=1;
+DELETE FROM company_locations WHERE companyLocation='{"industrialHub":"one last time"}';
+UPDATE company_locations SET companyId=2,companyLocation='{"industrialHub":"hello world"}' WHERE companyId=1;
