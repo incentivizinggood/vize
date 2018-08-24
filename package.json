@@ -5,7 +5,8 @@
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "type-check": "flow",
-    "lint": "eslint -c .eslintrc.json ./{client,server,imports}/**/*.{js,jsx} -f html -o ./eslint-out.html",
+    "lint": "eslint -c .eslintrc.json ./{client,server,imports}/**/*.{js,jsx}",
+    "lint-nice-out": "eslint -c .eslintrc.json ./{client,server,imports}/**/*.{js,jsx} -f html -o ./eslint-out.html",
     "lint-formatting": "prettier --list-different ./**/*.{js,jsx,css,scss}"
   },
   "dependencies": {
