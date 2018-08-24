@@ -56,6 +56,15 @@
 		}
 	},
 	"labels": {
+		"LocationSubFields": {
+			"locationCity": "City",
+			"locationAddress": "Address",
+			"locationIndustrialHub": "Industrial Hub",
+			"locationArrayItem": "Location",
+			"locationArrayItemCity": "City",
+			"locationArrayItemAddress": "Address",
+			"locationArrayItemIndustrialHub": "Industrial Hub"
+		},
 		"JobApplications": {
 			"jobId": "Job ID",
 			"companyName": "Company Name",
@@ -73,7 +82,6 @@
 			"numEmployees": "Number of Employees",
 			"industry": "Industry",
 			"locations": "Locations",
-
 			"contactPhoneNumber": "Contact Phone Number",
 			"websiteURL": "Website URL",
 			"descriptionOfCompany": "Description of Company",
@@ -94,7 +102,6 @@
 			"companyId": "Company ID",
 			"jobTitle": "Job Title",
 			"locations": "Locations",
-
 			"pesosPerHour": "Pesos per Week",
 			"contractType": "Contract Type",
 			"jobDescription": "Job Description",
@@ -109,9 +116,6 @@
 			"companyId": "Company ID",
 			"jobTitle": "Job Title",
 			"location": "Location",
-			"location.city": "City",
-			"location.address": "Address",
-			"location.industrialHub": "Industrial Hub",
 			"incomeType": "Income Type",
 			"incomeAmount": "Income Amount",
 			"gender": "Gender",
@@ -124,9 +128,6 @@
 			"companyId": "Company ID",
 			"reviewTitle": "Review Title",
 			"location": "Location",
-			"location.city": "City",
-			"location.address": "Address",
-			"location.industrialHub": "Industrial Hub",
 			"jobTitle": "Job Title",
 			"numberOfMonthsWorked": "Number of Months Worked",
 			"pros": "Pros",
