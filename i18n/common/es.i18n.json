@@ -67,6 +67,12 @@
 		"ccp": {
 			"formTitle": "Crear un nuevo perfil",
 			"namePlaceholder": "Por favor ingrese el nombre de su empresa",
+			"locationCityPlaceholder":
+				"[PLEASE TRANSLATE] Enter the city for your location",
+			"locationAddressPlaceholder":
+				"[PLEASE TRANSLATE] Enter the street address for your location",
+			"locationIndustrialHubPlaceholder":
+				"[PLEASE TRANSLATE] Enter the industrial hub for your location",
 			"emailPlaceholder":
 				"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
 			"industryPlaceholder":

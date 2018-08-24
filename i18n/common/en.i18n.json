@@ -66,6 +66,11 @@
 		"ccp": {
 			"formTitle": "Create a New Profile",
 			"namePlaceholder": "Enter the name of your company",
+			"locationCityPlaceholder": "Enter the city for your location",
+			"locationAddressPlaceholder":
+				"Enter the street address for your location",
+			"locationIndustrialHubPlaceholder":
+				"Enter the industrial hub for your location",
 			"emailPlaceholder":
 				"Provide an email we can reach your company at (example@email.com)",
 			"industryPlaceholder": "Tell us your company's primary industry",

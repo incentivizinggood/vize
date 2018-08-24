@@ -3,6 +3,7 @@ import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
+import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
