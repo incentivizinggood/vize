@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-// import { Template } from "meteor/templating"; // Used to set up the autoform
+import { Template } from "meteor/templating";
 import { AutoForm } from "meteor/aldeed:autoform";
 
 /*
@@ -14,11 +14,16 @@ import { AutoForm } from "meteor/aldeed:autoform";
 	less sense to everyone else than it does to me.
 */
 
+Template.afInputLocation.helpers({
+	subFieldNameFor(subFieldName) {
+		return `${this.name}.${subFieldName}`;
+	},
+});
+
 AutoForm.addInputType("location", {
 	template: "afInputLocation",
 	valueOut() {
 		if (this.children().length === 0) return undefined;
-
 		return {
 			city: this.children()[0].children[0].value,
 			address: this.children()[1].children[0].value,

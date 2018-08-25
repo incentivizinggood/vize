@@ -13,17 +13,17 @@
 		have to include {{this.atts}} to pass in the other
 		attributes, but that's not too bad. -->
 	<div {{this.atts}}>
-		<div class="form-group {{#if afFieldIsInvalid name='location.city'}}has-error{{/if}}">
+		<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "city")}}has-error{{/if}}">
 			<input class="form-control" type="text" name="{{this.atts.name}}.city" data-schema-key="{{this.atts.name}}.city" placeholder={{__ "common.forms.locationCityPlaceholder"}} >
-			<span class="help-block">{{afFieldMessage name='location.city'}}</span>
+			<span class="help-block">{{afFieldMessage name=(subFieldNameFor "city")}}</span>
 		</div>
-		<div class="form-group {{#if afFieldIsInvalid name='location.address'}}has-error{{/if}}">
+		<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "address")}}has-error{{/if}}">
 			<input class="form-control" type="text" name="{{this.atts.name}}.address" data-schema-key="{{this.atts.name}}.address" placeholder={{__ "common.forms.locationAddressPlaceholder"}} >
-			<span class="help-block">{{afFieldMessage name='location.address'}}</span>
+			<span class="help-block">{{afFieldMessage name=(subFieldNameFor "address")}}</span>
 		</div>
-		<div class="form-group {{#if afFieldIsInvalid name='location.industrialHub'}}has-error{{/if}}">
+		<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "industrialHub")}}has-error{{/if}}">
 			<input class="form-control" type="text" name="{{this.atts.name}}.industrialHub" data-schema-key="{{this.atts.name}}.industrialHub" placeholder={{__ "common.forms.locationIndustrialHubPlaceholder"}} >
-			<span class="help-block">{{afFieldMessage name='location.industrialHub'}}</span>
+			<span class="help-block">{{afFieldMessage name=(subFieldNameFor "industrialHub")}}</span>
 		</div>
 	</div>
 	<!-- <div {{this.atts}}>
