@@ -24,6 +24,9 @@ import Footer from "/imports/ui/components/footer.jsx";
 import "../afInputStarRating.html";
 import "../afInputStarRating.js";
 
+import "../afInputLocation.html";
+import "../afInputLocation.js";
+
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
 	// Shared with AutoForm helpers
@@ -39,7 +42,7 @@ wr_form_state.set("company", {
 });
 
 if (Meteor.isClient) {
-	import { translateLocationSubfieldPlaceholdersReactively } from "../../startup/client/i18n.js";
+	// import { translateLocationSubfieldPlaceholdersReactively } from "../../startup/client/i18n.js";
 
 	Template.wr_blaze_form.bindI18nNamespace("common.forms");
 
@@ -61,9 +64,9 @@ if (Meteor.isClient) {
 
 	Template.wr_blaze_form.onRendered(function() {
 		if (Meteor.isDevelopment) console.log("Rendering wr_blaze_form");
-		this.autorun(() => {
-			translateLocationSubfieldPlaceholdersReactively(this);
-		});
+		// this.autorun(() => {
+		// 	translateLocationSubfieldPlaceholdersReactively();
+		// });
 	});
 
 	Template.wr_blaze_form.helpers({

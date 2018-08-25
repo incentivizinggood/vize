@@ -31,7 +31,7 @@ paj_form_state.set("company", {
 });
 
 if (Meteor.isClient) {
-	import { translateLocationSubfieldPlaceholdersReactively } from "../../startup/client/i18n.js";
+	// import { translateLocationSubfieldPlaceholdersReactively } from "../../startup/client/i18n.js";
 
 	Template.paj_blaze_form.bindI18nNamespace("common.forms");
 
@@ -49,9 +49,9 @@ if (Meteor.isClient) {
 
 	Template.paj_blaze_form.onRendered(function() {
 		if (Meteor.isDevelopment) console.log("Rendering paj_blaze_form");
-		this.autorun(() => {
-			translateLocationSubfieldPlaceholdersReactively(this);
-		});
+		// this.autorun(() => {
+		// 	translateLocationSubfieldPlaceholdersReactively();
+		// });
 	});
 
 	Template.paj_blaze_form.helpers({

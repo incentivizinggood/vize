@@ -1,0 +1,31 @@
+<template name="afInputLocation">
+	<!-- This is my experimental "hacked" solution for
+ 		AutoForm's afObjectField not seeming to behave
+		properly. It renders the LocationSchema fields
+		as opaque "object" things even though I supplied
+		their types in the schema. So I'm going to force
+		Meteor to do things my way. Nyeh heh heh. -->
+	<!-- I figure out that the div wrappers, terminating
+ 		"help block", id attribute, and other things are
+		supplied by the parent AutoForm, so custom input
+		types "only have to worry about themselves", which
+	 	is nice (for a change). Although I think you still
+		have to include {{this.atts}} to pass in the other
+		attributes, but that's not too bad. -->
+	<div {{this.atts}}>
+		<div class="form-group {{#if afFieldIsInvalid name='location.city'}}has-error{{/if}}">
+			<input class="form-control" type="text" name="{{this.atts.name}}.city" data-schema-key="{{this.atts.name}}.city" placeholder={{__ "common.forms.locationCityPlaceholder"}} >
+		</div>
+		<div class="form-group {{#if afFieldIsInvalid name='location.address'}}has-error{{/if}}">
+			<input class="form-control" type="text" name="{{this.atts.name}}.address" data-schema-key="{{this.atts.name}}.address" placeholder={{__ "common.forms.locationAddressPlaceholder"}} >
+		</div>
+		<div class="form-group {{#if afFieldIsInvalid name='location.industrialHub'}}has-error{{/if}}">
+			<input class="form-control" type="text" name="{{this.atts.name}}.industrialHub" data-schema-key="{{this.atts.name}}.industrialHub" placeholder={{__ "common.forms.locationIndustrialHubPlaceholder"}} >
+		</div>
+	</div>
+	<!-- <div {{this.atts}}>
+		<input class="form-control" data-location-subfield="city" required="" type="text" maxlength="140">
+		<input class="form-control" data-location-subfield="address" type="text" maxlength="140">
+		<input class="form-control" data-location-subfield="industrialHub" type="text" maxlength="140">
+	</div> -->
+</template>

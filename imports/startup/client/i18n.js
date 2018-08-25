@@ -2,6 +2,7 @@ import find from "lodash.find";
 import merge from "lodash.merge";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
+import { Template } from "meteor/templating";
 import SimpleSchema from "simpl-schema";
 
 import { Companies } from "/imports/api/data/companies.js";
@@ -183,36 +184,37 @@ setUpI18nOnSchema(JobAds.applicationSchema, "JobApplications");
 setUpI18nOnSchema(Reviews.schema, "Reviews");
 setUpI18nOnSchema(Salaries.schema, "Salaries");
 setUpI18nOnSchema(Votes.schema, "Votes");
-
-// This is currently only used for updating
-// placeholders in the Blaze forms
-const commonFormsReactiveTranslator = i18n.createReactiveTranslator(
-	"common.forms",
-	reactiveGetLocale()
-);
-
-function translateLocationSubfieldPlaceholdersReactively(formTemplateInstance) {
-	const locationArray = formTemplateInstance.findAll("[name^=location]");
-	for (let node of locationArray.filter(n => n.name.endsWith("city")))
-		node.placeholder = commonFormsReactiveTranslator(
-			"locationCityPlaceholder"
-		);
-	for (let node of locationArray.filter(n => n.name.endsWith("address")))
-		node.placeholder = commonFormsReactiveTranslator(
-			"locationAddressPlaceholder"
-		);
-	for (let node of locationArray.filter(n =>
-		n.name.endsWith("industrialHub")
-	))
-		node.placeholder = commonFormsReactiveTranslator(
-			"locationIndustrialHubPlaceholder"
-		);
-}
+//
+// // This is currently only used for updating
+// // placeholders in the Blaze forms
+// const commonFormsReactiveTranslator = i18n.createReactiveTranslator(
+// 	"common.forms",
+// 	reactiveGetLocale()
+// );
+//
+// function translateLocationSubfieldPlaceholdersReactively() {
+// 	// console.log(Template.currentData());
+// 	const locationArray = Template.instance().findAll("[name^=location]");
+// 	for (let node of locationArray.filter(n => n.name.endsWith("city")))
+// 		node.placeholder = commonFormsReactiveTranslator(
+// 			"locationCityPlaceholder"
+// 		);
+// 	for (let node of locationArray.filter(n => n.name.endsWith("address")))
+// 		node.placeholder = commonFormsReactiveTranslator(
+// 			"locationAddressPlaceholder"
+// 		);
+// 	for (let node of locationArray.filter(n =>
+// 		n.name.endsWith("industrialHub")
+// 	))
+// 		node.placeholder = commonFormsReactiveTranslator(
+// 			"locationIndustrialHubPlaceholder"
+// 		);
+// }
 
 export {
 	localeMetadata,
 	reactiveGetLocale,
 	getDefaultLocale,
 	getClosestSupportedLocale,
-	translateLocationSubfieldPlaceholdersReactively,
+	//translateLocationSubfieldPlaceholdersReactively,
 };
