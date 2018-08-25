@@ -6,12 +6,11 @@ import { AutoForm } from "meteor/aldeed:autoform";
 	Blaze.js template code for the custom input type for locations,
 	which is used on the form for reviews, job posts, salaries, and
 	company profiles.
-	This input type is supposed to return an object that satisfies
-	the SimpleSchema constrains in imports/api/data/location.js.
-	WARNING NOTE BUG (POTENTIALLY)
-	I need to explain every stinking little aspect of this file
-	and its corresonding HTML, because otherwise it will make even
-	less sense to everyone else than it does to me.
+	This is supposed to return a "location" object that satisfies
+	the schema requirements for "location" in Reviews and Salaries,
+	and elements of the "locations" array in Companies and JobAds.
+	Both cases are slightly different, and as such are handled
+	slightly differently.
 */
 
 Template.afInputLocation.helpers({
