@@ -44,7 +44,6 @@ AutoForm.addInputType("location", {
 	valueOut() {
 		if (this.children().length === 0) return undefined;
 		const children = this.children();
-		console.log(children);
 		return {
 			city: children[0].children[1].value,
 			address: children[1].children[1].value,
