@@ -4,8 +4,6 @@ import { Comments } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import { Companies } from "./companies.js";
-import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -136,9 +134,9 @@ Reviews.schema = new SimpleSchema(
 			// where they worked for the company being reviewed
 			type: Object,
 			optional: false,
-			// autoform: {
-			// 	type: "location",
-			// },
+			autoform: {
+				type: "location",
+			},
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		"location.city": {
 			type: String,

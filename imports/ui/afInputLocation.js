@@ -15,6 +15,22 @@ import { AutoForm } from "meteor/aldeed:autoform";
 */
 
 Template.afInputLocation.helpers({
+	shouldHavePanelHeader() {
+		// don't render header for singular location,
+		// but only to differentiate multiple locations
+		return this.atts.name !== "location";
+	},
+	getItemName() {
+		return this.atts.name;
+	},
+	getItemNumber() {
+		if (this.atts.name === "location") return "1";
+		else if (this.atts.name.startsWith("locations.")) {
+			const index = Number(this.atts.name.substring(10));
+			return String(index + 1);
+		}
+		return undefined;
+	},
 	subFieldNameFor(subFieldName) {
 		return `${this.atts.name}.${subFieldName}`;
 	},
@@ -28,6 +44,7 @@ AutoForm.addInputType("location", {
 	valueOut() {
 		if (this.children().length === 0) return undefined;
 		const children = this.children();
+		console.log(children);
 		return {
 			city: children[0].children[1].value,
 			address: children[1].children[1].value,

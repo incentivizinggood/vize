@@ -5,21 +5,32 @@
 		as opaque "object" things even though I supplied
 		their types in the schema. So I'm going to force
 		Meteor to do things my way. Nyeh heh heh. -->
-	<div {{this.atts}}>
-		<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "city")}}has-error{{/if}}">
-			<label class="control-label" for={{subFieldIdFor "city"}}>{{afFieldLabelText name=(subFieldNameFor "city")}}</label>
-			<input id={{subFieldIdFor "city"}} class="form-control" type="text" name="{{this.atts.name}}.city" data-schema-key="{{this.atts.name}}.city" placeholder={{__ "common.forms.locationCityPlaceholder"}} >
-			<span class="help-block">{{afFieldMessage name=(subFieldNameFor "city")}}</span>
+	<!-- I got this to look right by "reverse engineering"
+ 		the HTML produced by AutoForms... -->
+	<div class="panel panel-default">
+		{{#if shouldHavePanelHeader}}
+		<div class="panel-heading">
+			<h3 class="panel-title">{{afFieldLabelText name=(__ (getItemName))}} {{getItemNumber}}</h3>
 		</div>
-		<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "address")}}has-error{{/if}}">
-			<label class="control-label" for={{subFieldIdFor "address"}}>{{afFieldLabelText name=(subFieldNameFor "address")}}</label>
-			<input id={{subFieldIdFor "address"}} class="form-control" type="text" name="{{this.atts.name}}.address" data-schema-key="{{this.atts.name}}.address" placeholder={{__ "common.forms.locationAddressPlaceholder"}} >
-			<span class="help-block">{{afFieldMessage name=(subFieldNameFor "address")}}</span>
-		</div>
-		<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "industrialHub")}}has-error{{/if}}">
-			<label class="control-label" for={{subFieldIdFor "industrialHub"}}>{{afFieldLabelText name=(subFieldNameFor "industrialHub")}}</label>
-			<input id={{subFieldIdFor "industrialHub"}} class="form-control" type="text" name="{{this.atts.name}}.industrialHub" data-schema-key="{{this.atts.name}}.industrialHub" placeholder={{__ "common.forms.locationIndustrialHubPlaceholder"}} >
-			<span class="help-block">{{afFieldMessage name=(subFieldNameFor "industrialHub")}}</span>
+		{{/if}}
+		<div class="panel-body">
+			<div {{this.atts}}>
+				<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "city")}}has-error{{/if}}">
+					<label class="control-label" for={{subFieldIdFor "city"}}>{{afFieldLabelText name=(subFieldNameFor "city")}}</label>
+					<input id={{subFieldIdFor "city"}} class="form-control" type="text" name="{{this.atts.name}}.city" data-schema-key="{{this.atts.name}}.city" placeholder={{__ "common.forms.locationCityPlaceholder"}} >
+					<span class="help-block">{{afFieldMessage name=(subFieldNameFor "city")}}</span>
+				</div>
+				<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "address")}}has-error{{/if}}">
+					<label class="control-label" for={{subFieldIdFor "address"}}>{{afFieldLabelText name=(subFieldNameFor "address")}}</label>
+					<input id={{subFieldIdFor "address"}} class="form-control" type="text" name="{{this.atts.name}}.address" data-schema-key="{{this.atts.name}}.address" placeholder={{__ "common.forms.locationAddressPlaceholder"}} >
+					<span class="help-block">{{afFieldMessage name=(subFieldNameFor "address")}}</span>
+				</div>
+				<div class="form-group {{#if afFieldIsInvalid name=(subFieldNameFor "industrialHub")}}has-error{{/if}}">
+					<label class="control-label" for={{subFieldIdFor "industrialHub"}}>{{afFieldLabelText name=(subFieldNameFor "industrialHub")}}</label>
+					<input id={{subFieldIdFor "industrialHub"}} class="form-control" type="text" name="{{this.atts.name}}.industrialHub" data-schema-key="{{this.atts.name}}.industrialHub" placeholder={{__ "common.forms.locationIndustrialHubPlaceholder"}} >
+					<span class="help-block">{{afFieldMessage name=(subFieldNameFor "industrialHub")}}</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
