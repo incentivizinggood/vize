@@ -7,6 +7,24 @@
 		Meteor to do things my way. Nyeh heh heh. -->
 	<!-- I got this to look right by "reverse engineering"
  		the HTML produced by AutoForms... -->
+	<!-- I named this template afInputLocation for consistency
+ 		with other AutoForm types (and do the same thing with
+		the star rating input template), but little did I know,
+		you can use AutoForm helpers outside of an AutoForm element.
+		That is, you don't have to be inside an {{> autoform}}
+		to use the template helpers defined in the AutoForm package,
+		which I have found extremely useful, if a bit difficult to
+		learn initially.
+		The helpers used here are afFieldLabelText and afFieldMessage,
+		which are used to get the translations for labels and error
+		messages respectively. You can look them up on the AutoForms
+		GitHub repo.
+		Another package that provides global template helpers is
+		universe:i18n, which gives the familiar __ function.
+		I didn't really understand how all that worked before I started
+		working on this template, so I'm explaining it here.
+		Those are the only magic bits of this code. The rest is best
+		understood by actually learning Blaze. -->
 	<div class="panel panel-default">
 		{{#if shouldHavePanelHeader}}
 		<div class="panel-heading">

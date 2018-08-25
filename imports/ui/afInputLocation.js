@@ -15,6 +15,14 @@ import { AutoForm } from "meteor/aldeed:autoform";
 */
 
 Template.afInputLocation.helpers({
+	/*
+		These helper functions are used in the template
+		HTML because I wasn't able to figure out how to
+		directly access this.atts directly in Blaze outside
+		of certain very limited contexts.
+		If you want to know how and why each one is used,
+		just look at where they're called in the HTML file.
+	*/
 	shouldHavePanelHeader() {
 		// don't render header for singular location,
 		// but only to differentiate multiple locations
@@ -24,6 +32,12 @@ Template.afInputLocation.helpers({
 		return this.atts.name;
 	},
 	getItemNumber() {
+		/*
+			This function is defined for all cases,
+			but really only the else should ever
+			get executed because of how it's called
+			from the template.
+		*/
 		if (this.atts.name === "location") return "1";
 		else if (this.atts.name.startsWith("locations.")) {
 			const index = Number(this.atts.name.substring(10));
@@ -42,7 +56,32 @@ Template.afInputLocation.helpers({
 AutoForm.addInputType("location", {
 	template: "afInputLocation",
 	valueOut() {
+		/*
+			So apparently valueOut gets called once
+			for each element that has the data-schema-key
+			attribute defined, but because I want the
+			validation and error-handling to work, not
+			only do I need to wrap 3 input fields into
+			one template, but each one needs to have
+			data-schema-key defined, and so does their
+			parent div. That is, AFAIK.
+			So there are 4 elements with data-schema-key
+			defined, and this next if statement causes
+			us to ignore all but the outermost, the parent
+			of the 3 input fields.
+		*/
 		if (this.children().length === 0) return undefined;
+
+		/*
+			I am aware that at this point I am using
+			hard-coded numbers to traverse the DOM tree.
+			This works because I personally hard-coded
+			the parts of the DOM tree in question,
+			although I grant it is not elegant.
+			If you know Blaze and/or JQuery well enough
+			to come up with a better, cleaner solution,
+			be my guest to improve this next bit of code.
+		*/
 		const children = this.children();
 		return {
 			city: children[0].children[1].value,
