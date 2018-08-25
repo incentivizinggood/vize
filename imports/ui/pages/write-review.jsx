@@ -17,13 +17,12 @@ import "/imports/ui/forms/write-review.html";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 
-// Weird that I have to import both of these here,
+// Weird that I have to import all of these here,
 // rather than import the .html in the .js and just
 // import the .js here, but Meteor complains if I don't,
 // so whatever...
 import "../afInputStarRating.html";
 import "../afInputStarRating.js";
-
 import "../afInputLocation.html";
 import "../afInputLocation.js";
 

@@ -102,6 +102,9 @@ Salaries.schema = new SimpleSchema(
 		location: {
 			type: Object,
 			optional: false,
+			autoform: {
+				type: "location",
+			},
 		},
 		"location.city": {
 			type: String,

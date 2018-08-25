@@ -6,7 +6,6 @@ import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { Companies } from "./companies.js";
 import i18n from "meteor/universe:i18n";
-import LocationSchema from "./location.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -135,9 +134,7 @@ Reviews.schema = new SimpleSchema(
 		},
 		location: {
 			// where they worked for the company being reviewed
-			// type: Object,
 			type: Object,
-			// max: 150,
 			optional: false,
 			autoform: {
 				type: "location",

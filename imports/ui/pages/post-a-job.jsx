@@ -16,6 +16,9 @@ import "/imports/ui/forms/post-a-job.html";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 
+import "../afInputLocation.html";
+import "../afInputLocation.js";
+
 const paj_form_state = new ReactiveDict();
 paj_form_state.set("formError", {
 	// Shared with AutoForm helpers

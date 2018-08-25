@@ -109,6 +109,9 @@ Companies.schema = new SimpleSchema(
 		},
 		"locations.$": {
 			type: Object,
+			autoform: {
+				type: "location",
+			},
 		},
 		"locations.$.city": {
 			type: String,
