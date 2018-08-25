@@ -28,15 +28,10 @@ ccp_form_state.set("formError", {
 });
 
 if (Meteor.isClient) {
-	// import { translateLocationSubfieldPlaceholdersReactively } from "../../startup/client/i18n.js";
-
 	Template.ccp_blaze_form.bindI18nNamespace("common.forms");
 
 	Template.ccp_blaze_form.onRendered(function() {
 		if (Meteor.isDevelopment) console.log("Rendering ccp_blaze_form");
-		// this.autorun(() => {
-		// 	translateLocationSubfieldPlaceholdersReactively();
-		// });
 	});
 
 	Template.ccp_blaze_form.helpers({

@@ -16,7 +16,10 @@ import { AutoForm } from "meteor/aldeed:autoform";
 
 Template.afInputLocation.helpers({
 	subFieldNameFor(subFieldName) {
-		return `${this.name}.${subFieldName}`;
+		return `${this.atts.name}.${subFieldName}`;
+	},
+	subFieldIdFor(subFieldName) {
+		return `${this.atts.id}.${subFieldName}`;
 	},
 });
 
@@ -24,10 +27,11 @@ AutoForm.addInputType("location", {
 	template: "afInputLocation",
 	valueOut() {
 		if (this.children().length === 0) return undefined;
+		const children = this.children();
 		return {
-			city: this.children()[0].children[0].value,
-			address: this.children()[1].children[0].value,
-			industrialHub: this.children()[2].children[0].value,
+			city: children[0].children[1].value,
+			address: children[1].children[1].value,
+			industrialHub: children[2].children[1].value,
 		};
 	},
 });

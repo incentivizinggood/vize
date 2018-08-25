@@ -136,9 +136,9 @@ Reviews.schema = new SimpleSchema(
 			// where they worked for the company being reviewed
 			type: Object,
 			optional: false,
-			autoform: {
-				type: "location",
-			},
+			// autoform: {
+			// 	type: "location",
+			// },
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		"location.city": {
 			type: String,
