@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { withFormik, Field, Form } from "formik";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
@@ -7,64 +7,7 @@ import i18n from "meteor/universe:i18n";
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
 
-const initialValues = {
-	senderName: "",
-	senderAddr: "",
-	message: "",
-};
-
-function validate(values) {
-	const errors = {};
-
-	if (!values.senderAddr) {
-		errors.senderAddr = "Required";
-	} else if (
-		!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.senderAddr)
-	) {
-		errors.senderAddr = "Invalid email address";
-	}
-
-	if (!values.message) {
-		errors.message = "Required";
-	} else if (values.message.length > 500) {
-		errors.message = "String to long";
-	}
-
-	return errors;
-}
-
-function onSubmit(values, actions) {
-	Meteor.call(
-		"sendEmail",
-		"incentivizinggood@gmail.com",
-		"postmaster@incentivizinggood.com",
-		`Contacting us: ${values.senderName}`,
-		`Howdy Vize reader,\nBelow is the message: \n${
-			values.message
-		}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
-			values.senderAddr
-		}`,
-		(err, res) => {
-			if (err) {
-				console.log("--- BEGIN error:");
-				alert("Please try again");
-				console.log(err);
-				console.log("--- END error");
-				actions.setSubmitting(false);
-				// TODO: Send errors from api and display to user.
-				// actions.setErrors(transformMyAPIErrorToAnObject(error));
-			} else {
-				console.log("--- BEGIN success:");
-				console.log(res);
-				console.log("--- END success");
-				alert("Thank you for the feedback!");
-				actions.setSubmitting(false);
-			}
-		}
-	);
-}
-
-const innerForm = ({ errors, isSubmitting }) => (
+const InnerForm = ({ errors, isSubmitting }) => (
 	<Form>
 		<span className="contact100-form-title">
 			<T>common.aboutUs.reach_us</T>
@@ -116,28 +59,61 @@ const innerForm = ({ errors, isSubmitting }) => (
 	</Form>
 );
 
-/* A page where visitors can get information about Vize and this app.
- */
-export default class ContactUs extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
+const ContactUs = withFormik({
+	initialValues: {
+		senderName: "",
+		senderAddr: "",
+		message: "",
+	},
+	validate(values) {
+		const errors = {};
 
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
+		if (!values.senderAddr) {
+			errors.senderAddr = "Required";
+		} else if (
+			!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.senderAddr)
+		) {
+			errors.senderAddr = "Invalid email address";
+		}
 
-	render() {
-		return (
-			<Formik
-				initialValues={initialValues}
-				validate={validate}
-				onSubmit={onSubmit}
-				render={innerForm}
-			/>
+		if (!values.message) {
+			errors.message = "Required";
+		} else if (values.message.length > 500) {
+			errors.message = "String to long";
+		}
+
+		return errors;
+	},
+	handleSubmit(values, actions) {
+		Meteor.call(
+			"sendEmail",
+			"incentivizinggood@gmail.com",
+			"postmaster@incentivizinggood.com",
+			`Contacting us: ${values.senderName}`,
+			`Howdy Vize reader,\nBelow is the message: \n${
+				values.message
+			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
+				values.senderAddr
+			}`,
+			(err, res) => {
+				if (err) {
+					console.log("--- BEGIN error:");
+					alert("Please try again");
+					console.log(err);
+					console.log("--- END error");
+					actions.setSubmitting(false);
+					// TODO: Send errors from api and display to user.
+					// actions.setErrors(transformMyAPIErrorToAnObject(error));
+				} else {
+					console.log("--- BEGIN success:");
+					console.log(res);
+					console.log("--- END success");
+					alert("Thank you for the feedback!");
+					actions.setSubmitting(false);
+				}
+			}
 		);
-	}
-}
+	},
+})(InnerForm);
+
+export default ContactUs;
