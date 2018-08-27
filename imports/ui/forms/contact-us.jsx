@@ -13,6 +13,26 @@ const initialValues = {
 	message: "",
 };
 
+function validate(values) {
+	const errors = {};
+
+	if (!values.senderAddr) {
+		errors.senderAddr = "Required";
+	} else if (
+		!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.senderAddr)
+	) {
+		errors.senderAddr = "Invalid email address";
+	}
+
+	if (!values.message) {
+		errors.message = "Required";
+	} else if (values.message.length > 500) {
+		errors.message = "String to long";
+	}
+
+	return errors;
+}
+
 function onSubmit(values, actions) {
 	Meteor.call(
 		"sendEmail",
@@ -92,6 +112,7 @@ const innerForm = ({ errors, isSubmitting }) => (
 				</span>
 			</button>
 		</div>
+		<div>{JSON.stringify(errors)}</div>
 	</Form>
 );
 
@@ -113,6 +134,7 @@ export default class ContactUs extends React.Component {
 		return (
 			<Formik
 				initialValues={initialValues}
+				validate={validate}
 				onSubmit={onSubmit}
 				render={innerForm}
 			/>
