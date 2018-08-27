@@ -110,7 +110,7 @@ const ContactUs = withFormik({
 					console.log(res);
 					console.log("--- END success");
 					alert("Thank you for the feedback!");
-					actions.setSubmitting(false);
+					actions.resetForm(this.initialValues);
 				}
 			}
 		);
