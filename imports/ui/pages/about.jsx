@@ -1,102 +1,12 @@
 import React from "react";
-import { Formik, Field, Form } from "formik";
 
-import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
+import ContactUs from "/imports/ui/forms/contact-us.jsx";
 
-const t = i18n.createTranslator();
-const T = i18n.createComponent(t);
-
-const formikProps = {
-	initialValues: {
-		senderName: "",
-		senderAddr: "",
-		message: "",
-	},
-	onSubmit: (values, actions) => {
-		Meteor.call(
-			"sendEmail",
-			"incentivizinggood@gmail.com",
-			"postmaster@incentivizinggood.com",
-			`Contacting us: ${values.senderName}`,
-			`Howdy Vize reader,\nBelow is the message: \n${
-				values.message
-			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
-				values.senderAddr
-			}`,
-			(err, res) => {
-				if (err) {
-					console.log("--- BEGIN error:");
-					alert("Please try again");
-					console.log(err);
-					console.log("--- END error");
-					actions.setSubmitting(false);
-					// TODO: Send errors from api and display to user.
-					// actions.setErrors(transformMyAPIErrorToAnObject(error));
-				} else {
-					console.log("--- BEGIN success:");
-					console.log(res);
-					console.log("--- END success");
-					alert("Thank you for the feedback!");
-					actions.setSubmitting(false);
-				}
-			}
-		);
-	},
-	render: ({ errors, touched, isSubmitting }) => (
-		<Form>
-			<span className="contact100-form-title">
-				<T>common.aboutUs.reach_us</T>
-			</span>
-			<div className="wrap-input100 rs1 validate-input">
-				<Field
-					type="text"
-					name="senderName"
-					id="first-name"
-					className="input100"
-					placeholder={t("common.aboutUs.placeholder_name")}
-				/>
-				<span className="focus-input100" />
-			</div>
-			<div className="wrap-input100 rs1 validate-input">
-				<Field
-					type="text"
-					name="senderAddr"
-					id="email"
-					className="input100"
-					placeholder={t("common.aboutUs.placeholder_email")}
-				/>
-				<span className="focus-input100" />
-			</div>
-			<div className="wrap-input100 validate-input">
-				<Field
-					type="text"
-					name="message"
-					component="textarea"
-					id="message"
-					className="input100"
-					placeholder={t("common.aboutUs.placeholder_comments")}
-				/>
-				<span className="focus-input100" />
-			</div>
-			<div className="container-contact100-form-btn">
-				<button
-					type="submit"
-					disabled={isSubmitting}
-					className="contact100-form-btn"
-				>
-					<span>
-						<T>common.aboutUs.submit_button</T>
-						<i className="zmdi zmdi-arrow-right m-l-8" />
-					</span>
-				</button>
-			</div>
-		</Form>
-	),
-};
+const T = i18n.createComponent();
 
 /* A page where visitors can get information about Vize and this app.
  */
@@ -173,7 +83,7 @@ export default class AboutPage extends React.Component {
 					<div className="container">
 						<div className="container-contact100">
 							<div className="wrap-contact100">
-								<Formik {...formikProps} />
+								<ContactUs />
 							</div>
 						</div>
 					</div>
