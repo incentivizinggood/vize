@@ -3,6 +3,7 @@ import { withFormik, Field, Form } from "formik";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
@@ -59,25 +60,6 @@ const InnerForm = ({ errors, isSubmitting }) => (
 	</Form>
 );
 
-function withUpdateOnLocaleChange(WrappedComponent) {
-	return class extends React.Component {
-		componentDidMount() {
-			// Ask to be updated "reactively".
-			// universe:i18n cannot be trusted to do that automaticaly.
-			this.i18nInvalidate = () => this.forceUpdate();
-			i18n.onChangeLocale(this.i18nInvalidate);
-		}
-
-		componentWillUnmount() {
-			i18n.offChangeLocale(this.i18nInvalidate);
-		}
-
-		render() {
-			return <WrappedComponent {...this.props} />;
-		}
-	};
-}
-
 const ContactUs = withFormik({
 	initialValues: {
 		senderName: "",
@@ -133,6 +115,6 @@ const ContactUs = withFormik({
 			}
 		);
 	},
-})(withUpdateOnLocaleChange(InnerForm));
+})(withUpdateOnChangeLocale(InnerForm));
 
 export default ContactUs;
