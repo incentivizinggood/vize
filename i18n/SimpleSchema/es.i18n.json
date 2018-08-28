@@ -60,12 +60,12 @@
 		"LocationSubFields": {
 			"locationCity": "[PLEASE TRANSLATE] City",
 			"locationAddress": "[PLEASE TRANSLATE] Address",
-			"locationIndustrialHub": "[PLEASE TRANSLATE] Industrial Hub",
+			"locationIndustrialHub": "[PLEASE TRANSLATE] Industrial Park",
 			"locationArrayItem": "[PLEASE TRANSLATE] Location",
 			"locationArrayItemCity": "[PLEASE TRANSLATE] City",
 			"locationArrayItemAddress": "[PLEASE TRANSLATE] Address",
 			"locationArrayItemIndustrialHub":
-				"[PLEASE TRANSLATE] Industrial Hub"
+				"[PLEASE TRANSLATE] Industrial Park"
 		},
 		"JobApplications": {
 			"jobId": "jobId",

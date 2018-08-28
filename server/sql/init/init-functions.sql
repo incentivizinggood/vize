@@ -185,7 +185,7 @@ $$ LANGUAGE plv8 IMMUTABLE;
 
 -- Checks whether a proposed location has the expected
 -- format (a string-ified JSON object with fields for
--- city, address, and industrial hub) and either passes
+-- city, address, and industrial park) and either passes
 -- it through, performs a conversion, or throws an exception.
 -- Avoids using the equivalent portions of is_valid_location
 -- because I'm not sure how error-handling would work if it did.
@@ -202,7 +202,7 @@ $$
 			obj.industrialHub === undefined)
 			// case where location is a valid JSON object
 			// but does not have any of the required fields
-			throw "Location must include either a city, an address, or an industrial hub";
+			throw "Location must include either a city, an address, or an industrial park";
 		else if (
 			(obj.city !== undefined && !(typeof obj.city === 'string')) ||
 			(obj.address !== undefined && !(typeof obj.address === 'string')) ||

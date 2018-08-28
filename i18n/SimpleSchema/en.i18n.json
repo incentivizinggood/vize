@@ -59,11 +59,11 @@
 		"LocationSubFields": {
 			"locationCity": "City",
 			"locationAddress": "Address",
-			"locationIndustrialHub": "Industrial Hub",
+			"locationIndustrialHub": "Industrial Park",
 			"locationArrayItem": "Location",
 			"locationArrayItemCity": "City",
 			"locationArrayItemAddress": "Address",
-			"locationArrayItemIndustrialHub": "Industrial Hub"
+			"locationArrayItemIndustrialHub": "Industrial Park"
 		},
 		"JobApplications": {
 			"jobId": "Job ID",

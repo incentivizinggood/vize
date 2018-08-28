@@ -60,7 +60,7 @@
 		"locationAddressPlaceholder":
 			"[PLEASE TRANSLATE] Enter the street address for your location",
 		"locationIndustrialHubPlaceholder":
-			"[PLEASE TRANSLATE] Enter the industrial hub for your location",
+			"[PLEASE TRANSLATE] Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 		"afj": {
 			"formTitle": "Solicitar un trabajo",
 			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",

@@ -58,7 +58,7 @@
 		"locationAddressPlaceholder":
 			"Enter the street address for your location",
 		"locationIndustrialHubPlaceholder":
-			"Enter the industrial hub for your location",
+			"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 		"afj": {
 			"formTitle": "Apply for a Job",
 			"fullNamePlaceholder": "Please enter your full name here",

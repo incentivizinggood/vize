@@ -140,17 +140,17 @@ Reviews.schema = new SimpleSchema(
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		"location.city": {
 			type: String,
-			max: 150,
+			max: 300,
 			optional: false,
 		},
 		"location.address": {
 			type: String,
-			max: 150,
-			optional: true,
+			max: 300,
+			optional: false,
 		},
 		"location.industrialHub": {
 			type: String,
-			max: 150,
+			max: 300,
 			optional: true,
 		},
 		jobTitle: {

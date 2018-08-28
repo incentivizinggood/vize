@@ -115,17 +115,17 @@ Companies.schema = new SimpleSchema(
 		},
 		"locations.$.city": {
 			type: String,
-			max: 150,
+			max: 300,
 			optional: false,
 		},
 		"locations.$.address": {
 			type: String,
-			max: 150,
-			optional: true,
+			max: 300,
+			optional: false,
 		},
 		"locations.$.industrialHub": {
 			type: String,
-			max: 150,
+			max: 300,
 			optional: true,
 		},
 		websiteURL: {
