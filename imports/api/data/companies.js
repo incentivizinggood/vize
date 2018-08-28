@@ -79,11 +79,14 @@ Companies.schema = new SimpleSchema(
 			allowedValues: [
 				// + 1 to include current year
 				...Array(new Date().getFullYear() + 1).keys(),
-			].filter(
-				// 1800 seems like a good minimum year for when a company
-				// could have been established
-				i => i >= 1800
-			),
+			]
+				.filter(
+					// 1800 seems like a good minimum year for when a company
+					// could have been established
+					i => i >= 1800
+				)
+				// Bryce and Julian want more recent years first
+				.reverse(),
 			optional: true,
 		},
 		numEmployees: {
