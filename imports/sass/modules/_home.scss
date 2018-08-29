@@ -6,7 +6,7 @@
 		font-weight: bold;
 		margin-bottom: 23px;
 	}
-	
+
 	&-comp-hm h4 {
 		text-align: center;
 		width: 86%;
@@ -19,7 +19,7 @@
 		margin-bottom: 23px;
 		color: $white;
 	}
-	
+
 	&-discover-emp h4 {
 		text-align: center;
 		width: 100%;
@@ -71,11 +71,11 @@
 		.pad {
 			padding: 0 15px;
 		}
-		
+
 		.action {
 			display: none;
 		}
-		
+
 		.front {
 			z-index: 900;
 			height: inherit;
@@ -86,8 +86,8 @@
 			padding-bottom: 24px;
 			padding-top: 24px;
 		}
-		
-		&.flip{
+
+		&.flip {
 			z-index: 1000;
 			background: $white;
 			@include rotate(0deg);
@@ -99,7 +99,6 @@
 				@include box-shadow(0, 15px, 50px, rgba(0, 0, 0, 0.1));
 			}
 		}
-		
 	}
 }
 
@@ -147,18 +146,17 @@
 	background-color: $primary-color;
 	color: $white;
 	font-size: 19px;
-	&:hover{
+	&:hover {
 		background-color: #3d7ba5;
 	}
 }
 
-
 @media screen and (max-width: 991px) and (min-width: 290px) {
 	.container.des-top-view {
-		display: none ;
+		display: none;
 	}
 	.container.blu-section-desc {
-		display: none ;
+		display: none;
 	}
 }
 
@@ -166,7 +164,7 @@
 	.container.mobile-view-box {
 		display: none;
 	}
-	
+
 	.blu-mobile-sect {
 		display: none;
 	}

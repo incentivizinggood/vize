@@ -7,14 +7,14 @@
 	justify-content: center;
 	align-items: center;
 	padding: 15px;
-	
+
 	&-form-btn {
 		width: 100%;
 		@include flexbox();
 		flex-wrap: wrap;
 		justify-content: center;
 		margin-top: -4px;
-		
+
 		.contact100-form-btn {
 			font-family: Raleway-Bold;
 			font-size: 16px;
@@ -33,7 +33,7 @@
 			@include linear-gradient-b(45deg, #c77ff2, #e8519e);
 			@include transition(all 0.4s);
 			@include flexbox();
-			
+
 			&::before {
 				content: "";
 				display: block;
@@ -51,10 +51,9 @@
 				-moz-transition: all 0.4s;
 				transition: all 0.4s;
 			}
-			
+
 			&:hover:before {
 				opacity: 0;
-				
 			}
 		}
 	}
@@ -71,11 +70,10 @@
 	@media (max-width: 768px) {
 		padding: 55px 45px 68px 45px;
 	}
-	
+
 	@media (max-width: 576px) {
 		padding: 55px 15px 68px 15px;
 	}
-	
 }
 
 .contact100-form {
@@ -92,7 +90,7 @@
 		text-align: center;
 		padding-bottom: 45px;
 	}
-	
+
 	.wrap-input100 {
 		width: 100%;
 		position: relative;
@@ -100,13 +98,13 @@
 		margin-bottom: 34px;
 		&.rsl {
 			width: calc((100% - 40px) / 2);
-			
+
 			@media (max-width: 576px) {
 				width: 100%;
 			}
 		}
 	}
-	
+
 	.label-input100 {
 		font-family: Raleway-SemiBold;
 		font-size: 13px;
@@ -116,7 +114,7 @@
 		width: 100%;
 		padding-bottom: 11px;
 	}
-	
+
 	.input100 {
 		display: block;
 		width: 100%;
@@ -126,7 +124,7 @@
 		line-height: 1.2;
 		padding: 0 25px;
 	}
-	
+
 	input.input100 {
 		height: 55px;
 		border: none;
@@ -134,7 +132,7 @@
 			border-color: $secondary-color;
 		}
 	}
-	
+
 	textarea.input100 {
 		min-height: 162px;
 		padding-top: 19px;
@@ -163,7 +161,7 @@ form.example {
 			width: 100%;
 		}
 	}
-	
+
 	button {
 		float: left;
 		width: 20%;
@@ -190,7 +188,7 @@ form.example {
 			margin-left: 0;
 		}
 	}
-	
+
 	&::after {
 		::after {
 			content: "";
