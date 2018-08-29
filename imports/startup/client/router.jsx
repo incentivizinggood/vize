@@ -31,6 +31,8 @@ import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "/imports/ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "/imports/ui/pages/apply-for-job.jsx";
 import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
+import ResourcesEmployers from "/imports/ui/pages/resources-employers.jsx";
+import PasswordChanger from "/imports/ui/pages/password-changer.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
 	import SimpleSchema from "simpl-schema";
@@ -72,6 +74,8 @@ routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
 routeSimplePage("/worker-resources", <ResourcesWorkers />);
+routeSimplePage("/employer-resources", <ResourcesEmployers />);
+routeSimplePage("/change-password", <PasswordChanger />);
 
 // ----- Define the more complex routes. -----//
 const queryRoutes = {
