@@ -16,7 +16,7 @@ import AboutPage from "/imports/ui/pages/about.jsx";
 import CompanySearchTrial from "/imports/ui/pages/company-search-trial.jsx";
 
 import ForEmployers from "/imports/ui/pages/foremployers.jsx";
-import CompanyProfile from "/imports/ui/pages/companyprofile.jsx";
+import CompanyProfile from "/imports/ui/pages/company-profile.jsx";
 import ContactUsPage from "/imports/ui/pages/contact-us.jsx";
 import HelpPage from "/imports/ui/pages/help.jsx";
 import LoginPage from "/imports/ui/pages/login.jsx";
@@ -31,6 +31,8 @@ import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "/imports/ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "/imports/ui/pages/apply-for-job.jsx";
 import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
+import ResourcesEmployers from "/imports/ui/pages/resources-employers.jsx";
+import PasswordChanger from "/imports/ui/pages/password-changer.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
 	import SimpleSchema from "simpl-schema";
@@ -72,6 +74,8 @@ routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/post-a-job", <PostAJobForm />);
 routeSimplePage("/worker-resources", <ResourcesWorkers />);
+routeSimplePage("/employer-resources", <ResourcesEmployers />);
+routeSimplePage("/change-password", <PasswordChanger />);
 
 // ----- Define the more complex routes. -----//
 const queryRoutes = {
