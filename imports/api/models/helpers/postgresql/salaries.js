@@ -1,4 +1,4 @@
-import castToNumberIfDefined from "./misc.js";
+import { castToNumberIfDefined, processLocation } from "./misc.js";
 
 export default class PgSalaryFunctions {
 	static async getSalaryById(client, id) {
@@ -106,7 +106,7 @@ export default class PgSalaryFunctions {
 				submittedby: castToNumberIfDefined(salary.submittedby),
 				companyName: salary.companyname,
 				companyId: castToNumberIfDefined(salary.companyid),
-				location: salary.salarylocation,
+				location: processLocation(salary.salarylocation),
 				jobTitle: salary.jobtitle,
 				incomeType: salary.incometype,
 				incomeAmount: salary.incomeamount,
@@ -120,7 +120,7 @@ export default class PgSalaryFunctions {
 					submittedby: castToNumberIfDefined(salary.submittedby),
 					companyName: salary.companyname,
 					companyId: castToNumberIfDefined(salary.companyid),
-					location: salary.salarylocation,
+					location: processLocation(salary.salarylocation),
 					jobTitle: salary.jobtitle,
 					incomeType: salary.incometype,
 					incomeAmount: salary.incomeamount,

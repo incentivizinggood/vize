@@ -4,8 +4,6 @@ import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
-import PostgreSQL from "../graphql/connectors/postgresql.js";
-import PgCompanyFunctions from "../models/helpers/postgresql/companies.js";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -81,11 +79,14 @@ Companies.schema = new SimpleSchema(
 			allowedValues: [
 				// + 1 to include current year
 				...Array(new Date().getFullYear() + 1).keys(),
-			].filter(
-				// 1800 seems like a good minimum year for when a company
-				// could have been established
-				i => i >= 1800
-			),
+			]
+				.filter(
+					// 1800 seems like a good minimum year for when a company
+					// could have been established
+					i => i >= 1800
+				)
+				// Bryce and Julian want more recent years first
+				.reverse(),
 			optional: true,
 		},
 		numEmployees: {
@@ -110,10 +111,26 @@ Companies.schema = new SimpleSchema(
 			optional: false,
 		},
 		"locations.$": {
-			// restraints on members of the "locations" array
+			type: Object,
+			autoform: {
+				type: "location",
+			},
+		},
+		"locations.$.city": {
 			type: String,
-			max: 150,
-		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
+			max: 300,
+			optional: false,
+		},
+		"locations.$.address": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"locations.$.industrialHub": {
+			type: String,
+			max: 300,
+			optional: true,
+		},
 		websiteURL: {
 			// the COMPANY's actual website, not their
 			type: String, // little corner of the Vize web app

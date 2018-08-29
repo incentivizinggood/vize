@@ -25,9 +25,53 @@ const closeAndExit = function(event) {
 process.on("SIGTERM", closeAndExit);
 process.on("SIGINT", closeAndExit);
 
-let castToNumberIfDefined = function(number) {
+let castToNumberIfDefined;
+let processLocation;
+
+castToNumberIfDefined = function(number) {
 	return number === undefined || number === null ? number : Number(number);
 };
+
+processLocation = function(location) {
+	/*
+		location is expected to be a JSON
+		string with the following format:
+		{
+			city: String
+			address: String
+			industrialHub: String
+		}
+		Right now we parse it with the purpose
+		of giving back only the industrialHub.
+		However, if one of the other two fields
+		is defined, then we prefer first the
+		city, and then the address. If none of
+		these fields are defined, then there has
+		been an error in one of the database
+		functions. However, ince the underlying
+		tables all force locations to be of type
+		text, we can just return location since
+		we know it will be a valid String, and
+		that is all that GraphQL and the frontend
+		are expecting at this point.
+	*/
+	let returnVal = "";
+	try {
+		const locationObj = JSON.parse(location);
+		if(locationObj.industrialHub !== undefined)
+			returnVal = locationObj.industrialHub;
+		else if(locationObj.city !== undefined)
+			returnVal = locationObj.city;
+		else if(locationObj.address !== undefined)
+			returnVal = locationObj.address;
+	} catch (e) {
+		returnVal = location;
+	}
+
+	if(returnVal === "")
+		return location;
+	return returnVal;
+}
 
 let wrapPgFunction;
 let PostgreSQL;
@@ -312,7 +356,7 @@ processCompanyResults = function(companyResults) {
 			numEmployees: companyResults.company.numemployees,
 			industry: companyResults.company.industry,
 			locations: companyResults.locations.map(
-				loc => loc.companylocation
+				loc => processLocation(loc.companylocation)
 			),
 			contactPhoneNumber: companyResults.company.contactphonenumber,
 			websiteURL: companyResults.company.websiteurl,
@@ -353,7 +397,7 @@ processCompanyResults = function(companyResults) {
 				numEmployees: company.numemployees,
 				industry: company.industry,
 				locations: companyResults.locations[company.name].map(
-					loc => loc.companylocation
+					loc => processLocation(loc.companylocation)
 				),
 				contactPhoneNumber: company.contactphonenumber,
 				websiteURL: company.websiteurl,
@@ -645,7 +689,7 @@ processReviewResults = function(reviewResults) {
 			companyName: review.companyname,
 			companyId: castToNumberIfDefined(review.companyid),
 			reviewTitle: review.reviewtitle,
-			location: review.reviewlocation,
+			location: processLocation(review.reviewlocation),
 			jobTitle: review.jobtitle,
 			numberOfMonthsWorked: Number(review.nummonthsworked),
 			pros: review.pros,
@@ -669,7 +713,7 @@ processReviewResults = function(reviewResults) {
 				companyName: review.companyname,
 				companyId: castToNumberIfDefined(review.companyid),
 				reviewTitle: review.reviewtitle,
-				location: review.reviewlocation,
+				location: processLocation(review.reviewlocation),
 				jobTitle: review.jobtitle,
 				numberOfMonthsWorked: Number(review.nummonthsworked),
 				pros: review.pros,
@@ -807,7 +851,7 @@ processSalaryResults = function(salaryResults) {
 			submittedby: castToNumberIfDefined(salary.submittedby),
 			companyName: salary.companyname,
 			companyId: castToNumberIfDefined(salary.companyid),
-			location: salary.salarylocation,
+			location: processLocation(salary.salarylocation),
 			jobTitle: salary.jobtitle,
 			incomeType: salary.incometype,
 			incomeAmount: salary.incomeamount,
@@ -821,7 +865,7 @@ processSalaryResults = function(salaryResults) {
 				submittedby: castToNumberIfDefined(salary.submittedby),
 				companyName: salary.companyname,
 				companyId: castToNumberIfDefined(salary.companyid),
-				location: salary.salarylocation,
+				location: processLocation(salary.salarylocation),
 				jobTitle: salary.jobtitle,
 				incomeType: salary.incometype,
 				incomeAmount: salary.incomeamount,
@@ -987,7 +1031,7 @@ processJobAdResults = function(jobAdResults) {
 			companyName: jobad.companyname,
 			companyId: castToNumberIfDefined(jobad.companyid),
 			jobTitle: jobad.jobtitle,
-			locations: jobAdResults.locations.map(loc => loc.joblocation),
+			locations: jobAdResults.locations.map(loc => processLocation(loc.joblocation)),
 			pesosPerHour: jobad.pesosperhour,
 			contractType: jobad.contracttype,
 			jobDescription: jobad.jobdescription,
@@ -1004,7 +1048,7 @@ processJobAdResults = function(jobAdResults) {
 				jobTitle: jobad.jobtitle,
 				locations: jobAdResults.locations[
 					String(jobad.jobadid)
-				].map(loc => loc.joblocation),
+				].map(loc => processLocation(loc.joblocation)),
 				pesosPerHour: jobad.pesosperhour,
 				contractType: jobad.contracttype,
 				jobDescription: jobad.jobdescription,
@@ -1415,32 +1459,32 @@ vizeVote4 = {
 // been run on the machine that these queries are being sent to
 
 // company query functions
-obj = await PostgreSQL.executeQuery(getCompanyByName, "a");
-obj = await PostgreSQL.executeQuery(getCompanyById, 1);
-obj = await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000);
-obj = await PostgreSQL.executeQuery(getAllCompanies, 0, 1000);
+obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyByName, "a"));
+obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyById, 1));
+obj = processCompanyResults(await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000));
+obj = processCompanyResults(await PostgreSQL.executeQuery(getAllCompanies, 0, 1000));
 
 // review query functions
-obj = await PostgreSQL.executeQuery(getReviewById, 1);
-obj = await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000);
-obj = await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000);
-obj = await PostgreSQL.executeQuery(getAllReviews, 0, 1000);
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewById, 1));
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000));
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000));
+obj = processReviewResults(await PostgreSQL.executeQuery(getAllReviews, 0, 1000));
 
 // salary query functions
-obj = await PostgreSQL.executeQuery(getSalaryById, 1);
-obj = await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000);
-obj = await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000);
-obj = await PostgreSQL.executeQuery(getAllSalaries, 0, 1000);
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalaryById, 1));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getAllSalaries, 0, 1000));
 
 // jobad query functions
-obj = await PostgreSQL.executeQuery(getJobAdById, 1);
-obj = await PostgreSQL.executeQuery(getJobAdsByCompany, "b");
-obj = await PostgreSQL.executeQuery(getAllJobAds, 0, 1000);
+obj = processJobAdResults(await PostgreSQL.executeQuery(getJobAdById, 1));
+obj = processJobAdResults(await PostgreSQL.executeQuery(getJobAdsByCompany, "b"));
+obj = processJobAdResults(await PostgreSQL.executeQuery(getAllJobAds, 0, 1000));
 
 // comment query functions
-obj = await PostgreSQL.executeQuery(getCommentById, 1);
-obj = await PostgreSQL.executeQuery(getAllComments, 0, 1000);
-obj = await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000);
+obj = processCommentResults(await PostgreSQL.executeQuery(getCommentById, 1));
+obj = processCommentResults(await PostgreSQL.executeQuery(getAllComments, 0, 1000));
+obj = processCommentResults(await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000));
 
 // vote query functions
 obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 7, references: 1, voteSubject: "review"});
@@ -1451,11 +1495,14 @@ obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "review", 1, 0, 1000);
 
 // insertion functions
-obj = await PostgreSQL.executeMutation(createCompany, vize);
-obj = await PostgreSQL.executeMutation(submitReview, vizeReview);
-obj = await PostgreSQL.executeMutation(submitSalary, vizeSalary);
-obj = await PostgreSQL.executeMutation(postJobAd, vizeJobAd);
-obj = await PostgreSQL.executeMutation(writeComment, vizeComment);
+// NOTE that the review, salary, and comment insertions
+// will all fail unless/until you go and add submittedBy
+// fields and corresponding users.
+obj = processCompanyResults(await PostgreSQL.executeMutation(createCompany, vize));
+obj = processReviewResults(await PostgreSQL.executeMutation(submitReview, vizeReview));
+obj = processSalaryResults(await PostgreSQL.executeMutation(submitSalary, vizeSalary));
+obj = processJobAdResults(await PostgreSQL.executeMutation(postJobAd, vizeJobAd));
+obj = processCommentResults(await PostgreSQL.executeMutation(writeComment, vizeComment));
 obj = await PostgreSQL.executeMutation(castVote, vizeVote);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote3);

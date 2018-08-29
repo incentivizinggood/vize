@@ -506,6 +506,19 @@ Meteor.methods({
 		await PostgreSQL.executeMutation(PgJobAdFunctions.postJobAd, newJobAd);
 	},
 
+	async "companies.getAllCompanyNames"() {
+		const allCompanies = PgCompanyFunctions.processCompanyResults(
+			await PostgreSQL.executeQuery(
+				PgCompanyFunctions.getAllCompanies,
+				// we'll need to make this more nuanced at some point
+				0,
+				3000
+			)
+		);
+
+		return allCompanies.map(company => company.name);
+	},
+
 	async "companies.findOne"(companyIdentifier) {
 		let company = {};
 		if (Number.isNaN(Number(companyIdentifier)))

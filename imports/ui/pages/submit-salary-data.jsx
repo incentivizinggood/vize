@@ -1,4 +1,5 @@
 // Boilerplate first
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
@@ -16,6 +17,9 @@ import "/imports/ui/forms/submit-salary-data.html";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 
+import "../afInputLocation.html";
+import "../afInputLocation.js";
+
 const ssd_form_state = new ReactiveDict();
 ssd_form_state.set("formError", {
 	// Shared with AutoForm helpers
@@ -29,6 +33,7 @@ ssd_form_state.set("companyId", undefined); // Shared with the React wrapper
 ssd_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),
 });
+ssd_form_state.set("allCompanyNames", []);
 
 if (Meteor.isClient) {
 	Template.ssd_blaze_form.bindI18nNamespace("common.forms");
@@ -45,6 +50,15 @@ if (Meteor.isClient) {
 						ssd_form_state.set("company", result);
 					}
 				});
+			});
+		} else {
+			// else be ready to offer suggestions as the user fills in the name
+			Meteor.call("companies.getAllCompanyNames", (error, result) => {
+				if (!result) {
+					ssd_form_state.set("allCompanyNames", []);
+				} else {
+					ssd_form_state.set("allCompanyNames", result);
+				}
 			});
 		}
 	});
@@ -67,6 +81,9 @@ if (Meteor.isClient) {
 				return i18n.__("common.forms.companyNotFound");
 			}
 			return company.name;
+		},
+		allCompanyNames() {
+			return ssd_form_state.get("allCompanyNames");
 		},
 		hasError() {
 			return ssd_form_state.get("formError").hasError;

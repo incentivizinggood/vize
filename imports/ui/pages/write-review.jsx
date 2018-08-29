@@ -17,12 +17,14 @@ import "/imports/ui/forms/write-review.html";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 
-// Weird that I have to import both of these here,
+// Weird that I have to import all of these here,
 // rather than import the .html in the .js and just
 // import the .js here, but Meteor complains if I don't,
 // so whatever...
 import "../afInputStarRating.html";
 import "../afInputStarRating.js";
+import "../afInputLocation.html";
+import "../afInputLocation.js";
 
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
@@ -37,6 +39,7 @@ wr_form_state.set("companyId", undefined); // Shared with the React wrapper
 wr_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),
 });
+wr_form_state.set("allCompanyNames", []);
 
 if (Meteor.isClient) {
 	Template.wr_blaze_form.bindI18nNamespace("common.forms");
@@ -53,6 +56,15 @@ if (Meteor.isClient) {
 						wr_form_state.set("company", result);
 					}
 				});
+			});
+		} else {
+			// else be ready to offer suggestions as the user fills in the name
+			Meteor.call("companies.getAllCompanyNames", (error, result) => {
+				if (!result) {
+					wr_form_state.set("allCompanyNames", []);
+				} else {
+					wr_form_state.set("allCompanyNames", result);
+				}
 			});
 		}
 	});
@@ -75,6 +87,9 @@ if (Meteor.isClient) {
 				return i18n.__("common.forms.companyNotFound");
 			}
 			return company.name;
+		},
+		allCompanyNames() {
+			return wr_form_state.get("allCompanyNames");
 		},
 		hasError() {
 			return wr_form_state.get("formError").hasError;
@@ -106,11 +121,13 @@ if (Meteor.isClient) {
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
-			if (Meteor.isDevelopment)
+			if (Meteor.isDevelopment) {
 				console.log(
 					`ERROR: We did a thing in a ${formType} form: ${error}`
 				);
-
+				console.log("VALIDATION CONTEXT:");
+				console.log(this.validationContext);
+			}
 			if (error instanceof Meteor.Error)
 				wr_form_state.set("formError", {
 					hasError: true,

@@ -56,6 +56,15 @@
 		}
 	},
 	"labels": {
+		"LocationSubFields": {
+			"locationCity": "City",
+			"locationAddress": "Address",
+			"locationIndustrialHub": "Industrial Park",
+			"locationArrayItem": "Location",
+			"locationArrayItemCity": "City",
+			"locationArrayItemAddress": "Address",
+			"locationArrayItemIndustrialHub": "Industrial Park"
+		},
 		"JobApplications": {
 			"jobId": "Job ID",
 			"companyName": "Company Name",
@@ -106,6 +115,7 @@
 			"companyName": "Company Name",
 			"companyId": "Company ID",
 			"jobTitle": "Job Title",
+			"location": "Location",
 			"incomeType": "Income Type",
 			"incomeAmount": "Income Amount",
 			"gender": "Gender",
@@ -117,7 +127,7 @@
 			"companyName": "Company Name",
 			"companyId": "Company ID",
 			"reviewTitle": "Review Title",
-			"locations": "Locations",
+			"location": "Location",
 			"jobTitle": "Job Title",
 			"numberOfMonthsWorked": "Number of Months Worked",
 			"pros": "Pros",

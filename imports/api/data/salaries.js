@@ -100,9 +100,26 @@ Salaries.schema = new SimpleSchema(
 			},
 		},
 		location: {
-			type: String,
-			max: 150,
+			type: Object,
 			optional: false,
+			autoform: {
+				type: "location",
+			},
+		},
+		"location.city": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"location.address": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"location.industrialHub": {
+			type: String,
+			max: 300,
+			optional: true,
 		},
 		jobTitle: {
 			type: String,

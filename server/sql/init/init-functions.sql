@@ -155,6 +155,123 @@ $$
 	return NEW;
 $$ LANGUAGE plv8;
 
+-- Enforces location valid location format on inserted rows.
+-- Whether this is necessary is up for debate, as later we
+-- get to function that force location validity, but I have
+-- this just in case.
+DROP FUNCTION IF EXISTS is_valid_location(text) CASCADE;
+CREATE OR REPLACE FUNCTION is_valid_location
+(location text)
+RETURNS boolean AS
+$$
+	try {
+		const obj = JSON.parse(location);
+		return (
+			(
+				(obj.city === undefined || typeof obj.city === 'string') &&
+				(obj.address === undefined || typeof obj.address === 'string') &&
+				(obj.industrialHub === undefined || typeof obj.industrialHub === 'string')
+			) &&
+			(
+				obj.city !== undefined ||
+				obj.address !== undefined ||
+				obj.industrialHub !== undefined
+			)
+		)
+	} catch (e) {
+		return false;
+	}
+$$ LANGUAGE plv8 IMMUTABLE;
+
+-- Checks whether a proposed location has the expected
+-- format (a string-ified JSON object with fields for
+-- city, address, and industrial park) and either passes
+-- it through, performs a conversion, or throws an exception.
+-- Avoids using the equivalent portions of is_valid_location
+-- because I'm not sure how error-handling would work if it did.
+DROP FUNCTION IF EXISTS process_location(text) CASCADE;
+CREATE OR REPLACE FUNCTION process_location
+(location text)
+RETURNS text AS
+$$
+	let returnVal = "";
+	try {
+		const obj = JSON.parse(location);
+		if (obj.city === undefined &&
+			obj.address === undefined &&
+			obj.industrialHub === undefined)
+			// case where location is a valid JSON object
+			// but does not have any of the required fields
+			throw "Location must include either a city, an address, or an industrial park";
+		else if (
+			(obj.city !== undefined && !(typeof obj.city === 'string')) ||
+			(obj.address !== undefined && !(typeof obj.address === 'string')) ||
+			(obj.industrialHub !== undefined && !(typeof obj.industrialHub === 'string'))
+		)
+		{
+			// case where one or more of the required fields exists but has
+			// the wrong type (non-required fields are considered harmless)
+			throw "All required fields of location must have type String";
+		}
+		// else, we are fine
+		returnVal = location;
+	} catch (e) {
+		if (e instanceof SyntaxError) {
+			// case where location is not a valid JSON object, assume
+			// "industrial hub", as in the case with the initial reviews
+			returnVal = JSON.stringify({ industrialHub: location });
+		} else
+			throw e;
+	}
+
+	return returnVal;
+$$ LANGUAGE plv8 IMMUTABLE;
+
+-- Trigger functions to make sure that company, jobad, review,
+-- and salary locations are all properly formatted. The first two
+-- go onto company_locations and job_locations, the next two go
+-- onto reviews and salaries, the idea being that each function
+-- call process exactly one location, rather than an array thereof.
+DROP FUNCTION IF EXISTS process_company_location() CASCADE;
+CREATE OR REPLACE FUNCTION process_company_location() RETURNS TRIGGER AS
+$$
+	if (NEW.companylocation !== null) {
+		const process_location = plv8.find_function("process_location");
+		NEW.companylocation = process_location(NEW.companylocation);
+		return NEW;
+	}
+$$ LANGUAGE plv8;
+
+DROP FUNCTION IF EXISTS process_job_location() CASCADE;
+CREATE OR REPLACE FUNCTION process_job_location() RETURNS TRIGGER AS
+$$
+	if (NEW.joblocation !== null) {
+		const process_location = plv8.find_function("process_location");
+		NEW.joblocation = process_location(NEW.joblocation);
+		return NEW;
+	}
+$$ LANGUAGE plv8;
+
+DROP FUNCTION IF EXISTS process_review_location() CASCADE;
+CREATE OR REPLACE FUNCTION process_review_location() RETURNS TRIGGER AS
+$$
+	if (NEW.reviewlocation !== null) {
+		const process_location = plv8.find_function("process_location");
+		NEW.reviewlocation = process_location(NEW.reviewlocation);
+		return NEW;
+	}
+$$ LANGUAGE plv8;
+
+DROP FUNCTION IF EXISTS process_salary_location() CASCADE;
+CREATE OR REPLACE FUNCTION process_salary_location() RETURNS TRIGGER AS
+$$
+	if (NEW.salarylocation !== null) {
+		const process_location = plv8.find_function("process_location");
+		NEW.salarylocation = process_location(NEW.salarylocation);
+		return NEW;
+	}
+$$ LANGUAGE plv8;
+
 -- This one is going to be used in an after-insert
 -- constraint trigger on companies so that each
 -- company starts off with at least one location.

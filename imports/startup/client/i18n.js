@@ -2,6 +2,7 @@ import find from "lodash.find";
 import merge from "lodash.merge";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
+import { Template } from "meteor/templating";
 import SimpleSchema from "simpl-schema";
 
 import { Companies } from "/imports/api/data/companies.js";
@@ -128,6 +129,50 @@ function setUpI18nOnSchema(schema, schemaName) {
 		schema.labels(
 			i18n.getTranslations(`SimpleSchema.labels.${schemaName}`, locale)
 		);
+
+		/*
+			WARNING
+
+			What follows is a load of nonsense, made necessary
+			only because meteor/universe:i18n has an INANE way
+			of parsing translation files that makes it darn near
+			impossible to add i18n for 1) array items and
+			2) anything with any sort of field nesting. Why does
+			this come up? Because the new location implementations
+			fall into one or the other of those cases depending on
+			the schema. So now I have to do this hackishly.
+
+			Thanks, Meteor.
+		*/
+
+		if (schemaName === "Companies" || schemaName === "JobAds") {
+			schema.labels({
+				"locations.$": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationArrayItem"
+				),
+				"locations.$.city": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationArrayItemCity"
+				),
+				"locations.$.address": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationArrayItemAddress"
+				),
+				"locations.$.industrialHub": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationArrayItemIndustrialHub"
+				),
+			});
+		} else if (schemaName === "Reviews" || schemaName === "Salaries") {
+			schema.labels({
+				"location.city": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationCity"
+				),
+				"location.address": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationAddress"
+				),
+				"location.industrialHub": i18n.__(
+					"SimpleSchema.labels.LocationSubFields.locationIndustrialHub"
+				),
+			});
+		}
 	}
 	thisSchemaSetLocale(getDefaultLocale());
 	i18n.onChangeLocale(thisSchemaSetLocale);

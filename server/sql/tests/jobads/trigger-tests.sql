@@ -32,8 +32,8 @@ INSERT INTO jobads(companyName,companyId,jobTitle,pesosPerHour,contractType,
 -- should fail, would leave no locations for job
 DELETE FROM job_locations WHERE jobadId=1;
 -- should succeed, one location left
-DELETE FROM job_locations WHERE jobLocation='hello world';
+DELETE FROM job_locations WHERE jobLocation='{"industrialHub":"hello world"}';
 -- these next two should both fail, as either
--- would remove a review's last location
-DELETE FROM job_locations WHERE jobLocation='somewhere over the rainbow';
-UPDATE job_locations SET jobadId=1 WHERE jobLocation='somewhere over the rainbow';
+-- would remove a last location
+DELETE FROM job_locations WHERE jobLocation='{"industrialHub":"somewhere over the rainbow"}';
+UPDATE job_locations SET jobadId=1 WHERE jobLocation='{"industrialHub":"somewhere over the rainbow"}';

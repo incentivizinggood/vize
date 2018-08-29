@@ -50,11 +50,11 @@ CREATE TABLE companies (
 -- normalized company locations
 DROP TABLE IF EXISTS company_locations CASCADE;
 CREATE TABLE company_locations (
-	companyId			integer
+	companyId			integer			NOT NULL
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	companyLocation		text,
+	companyLocation		text			NOT NULL CHECK(is_valid_location(companyLocation)),
 	PRIMARY KEY (companyId, companyLocation)
 );
 
@@ -206,7 +206,7 @@ CREATE TABLE reviews (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	reviewLocation		text			NOT NULL,
+	reviewLocation		text			NOT NULL CHECK (is_valid_location(reviewLocation)),
 	-- QUESTION this next field might be a good index, should we do that and how?
 	reviewTitle			varchar(110)	NOT NULL, -- character count is 1 more than the Mongo version, allowing for null-terminator
 	jobTitle			varchar(110)	NOT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE salaries (
 		REFERENCES companies (companyId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	salaryLocation		text			NOT NULL,
+	salaryLocation		text			NOT NULL CHECK (is_valid_location(salaryLocation)),
 	jobTitle			varchar(110)	NOT NULL,
 	-- This confuses me. I should think that jobTitle
 	-- would determine income type, and income type
@@ -302,7 +302,7 @@ CREATE TABLE job_locations (
 		REFERENCES jobads (jobadId)
 		ON UPDATE CASCADE ON DELETE CASCADE
 		DEFERRABLE INITIALLY DEFERRED,
-	jobLocation		text,
+	jobLocation		text				NOT NULL CHECK(is_valid_location(jobLocation)),
 	PRIMARY KEY (jobadId,jobLocation)
 );
 

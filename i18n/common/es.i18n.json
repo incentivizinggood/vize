@@ -55,6 +55,12 @@
 		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
 		"error": "Error",
 		"companyNotFound": "ESTA EMPRESA NO SE ENCUENTRA",
+		"locationCityPlaceholder":
+			"[PLEASE TRANSLATE] Enter the city for your location",
+		"locationAddressPlaceholder":
+			"[PLEASE TRANSLATE] Enter the street address for your location",
+		"locationIndustrialHubPlaceholder":
+			"[PLEASE TRANSLATE] Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 		"afj": {
 			"formTitle": "Solicitar un trabajo",
 			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",
@@ -113,7 +119,6 @@
 				"[PLEASE TRANSLATE] sure others are getting compensated fairly.",
 			"companyNamePlaceholder":
 				"Díganos el nombre de la empresa para la que trabajó",
-			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
 			"jobTitlePlaceholder": "Díganos su título de trabajo en la empresa"
 		},
 		"wr": {
@@ -124,7 +129,6 @@
 				"Ingrese el nombre de la compañía que está revisando",
 			"reviewTitlePlaceholder":
 				"Por favor, elija un título para su revisión",
-			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
 			"jobTitlePlaceholder":
 				"Ingrese el nombre del puesto que ocupó en esta empresa",
 			"prosPlaceholder":

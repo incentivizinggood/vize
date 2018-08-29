@@ -1,3 +1,5 @@
+import { processLocation } from "./misc.js";
+
 export default class PgCompanyFunctions {
 	static async getCompanyByName(client, name) {
 		let companyResults = { rows: [] };
@@ -223,8 +225,8 @@ export default class PgCompanyFunctions {
 				yearEstablished: companyResults.company.yearestablished,
 				numEmployees: companyResults.company.numemployees,
 				industry: companyResults.company.industry,
-				locations: companyResults.locations.map(
-					loc => loc.companylocation
+				locations: companyResults.locations.map(loc =>
+					processLocation(loc.companylocation)
 				),
 				contactPhoneNumber: companyResults.company.contactphonenumber,
 				websiteURL: companyResults.company.websiteurl,
@@ -264,8 +266,8 @@ export default class PgCompanyFunctions {
 					yearEstablished: company.yearestablished,
 					numEmployees: company.numemployees,
 					industry: company.industry,
-					locations: companyResults.locations[company.name].map(
-						loc => loc.companylocation
+					locations: companyResults.locations[company.name].map(loc =>
+						processLocation(loc.companylocation)
 					),
 					contactPhoneNumber: company.contactphonenumber,
 					websiteURL: company.websiteurl,

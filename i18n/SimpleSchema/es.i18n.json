@@ -57,6 +57,16 @@
 		}
 	},
 	"labels": {
+		"LocationSubFields": {
+			"locationCity": "[PLEASE TRANSLATE] City",
+			"locationAddress": "[PLEASE TRANSLATE] Address",
+			"locationIndustrialHub": "[PLEASE TRANSLATE] Industrial Park",
+			"locationArrayItem": "[PLEASE TRANSLATE] Location",
+			"locationArrayItemCity": "[PLEASE TRANSLATE] City",
+			"locationArrayItemAddress": "[PLEASE TRANSLATE] Address",
+			"locationArrayItemIndustrialHub":
+				"[PLEASE TRANSLATE] Industrial Park"
+		},
 		"JobApplications": {
 			"jobId": "jobId",
 			"companyName": "Nombre de la empresa",
@@ -108,6 +118,7 @@
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
 			"jobTitle": "Titulo del trabajo",
+			"location": "[PLEASE TRANSLATE] Location",
 			"incomeType": "Tipo de ingreso",
 			"incomeAmount": "Cantidad de ingresos",
 			"gender": "Genero",
@@ -119,7 +130,7 @@
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
 			"reviewTitle": "Titulo de la reseña",
-			"locations": "Localizacion",
+			"location": "[PLEASE TRANSLATE] Location",
 			"jobTitle": "Titulo del trabajo",
 			"numberOfMonthsWorked": "Numero de meses trabajados",
 			"pros": "Ventajas",
