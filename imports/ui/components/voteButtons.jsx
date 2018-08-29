@@ -1,10 +1,10 @@
 import React from "react";
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-import { Votes } from "/imports/api/data/votes.js";
 
-function VoteButtons(props) {
-	const vote = isUpvote => {
+import { Meteor } from "meteor/meteor";
+
+export default function VoteButtons(props) {
+	const vote = isUpvote => event => {
+		event.preventDefault();
 		Meteor.call("reviews.changeVote", props.review.id, isUpvote, error => {
 			props.refetch();
 			if (error) {
@@ -20,23 +20,27 @@ function VoteButtons(props) {
 		});
 	};
 
-	const upVote = event => {
-		event.preventDefault();
-		vote(true);
-	};
+	const isUp =
+		props.review.currentUserVote && props.review.currentUserVote.isUpvote;
 
-	const downVote = event => {
-		event.preventDefault();
-		vote(false);
-	};
+	const isDown =
+		props.review.currentUserVote && !props.review.currentUserVote.isUpvote;
+
+	const upButtonStyle = isUp
+		? { backgroundColor: "green" }
+		: { backgroundColor: "transparent" };
+
+	const downButtonStyle = isDown
+		? { backgroundColor: "red" }
+		: { backgroundColor: "transparent" };
 
 	const upButton = (
 		<div className="thumb_up_bn">
 			<button
 				type="button"
 				className="btn btn-default btn-circle btn-xl"
-				style={props.upStyle}
-				onClick={upVote}
+				style={upButtonStyle}
+				onClick={vote(true)}
 			>
 				<i className="fa fa-thumbs-o-up  " />
 			</button>
@@ -48,8 +52,8 @@ function VoteButtons(props) {
 			<button
 				type="button"
 				className="btn btn-default btn-circle btn-xl"
-				style={props.downStyle}
-				onClick={downVote}
+				style={downButtonStyle}
+				onClick={vote(false)}
 			>
 				<i className="fa fa-thumbs-o-down" />
 			</button>
@@ -65,28 +69,3 @@ function VoteButtons(props) {
 		</div>
 	);
 }
-
-export default withTracker(({ review, refetch }) => {
-	// One of the more ridiculous pieces of code I've had to write
-	Meteor.subscribe("Votes");
-	const userVote = Votes.findOne({
-		submittedBy: Meteor.userId(),
-		references: review.id,
-		voteSubject: "review",
-	});
-	const upButtonStyle =
-		userVote === undefined || userVote.value === false
-			? { backgroundColor: "transparent" }
-			: { backgroundColor: "green" };
-	const downButtonStyle =
-		userVote === undefined || userVote.value === true
-			? { backgroundColor: "transparent" }
-			: { backgroundColor: "red" };
-	return {
-		review,
-		refetch,
-		vote: userVote,
-		upStyle: upButtonStyle,
-		downStyle: downButtonStyle,
-	};
-})(VoteButtons);

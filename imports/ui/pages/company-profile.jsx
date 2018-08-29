@@ -201,6 +201,9 @@ const companyProfileQuery = gql`
 				}
 				additionalComments
 				created
+				currentUserVote {
+					isUpvote
+				}
 			}
 			numReviews
 			jobAds {
