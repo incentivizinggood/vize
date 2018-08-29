@@ -155,9 +155,9 @@ Meteor.methods({
 		I guess that's because we don't have the ability to
 		write or view comments yet...oh well...
 	*/
-	async "reviews.changeVote"(review, vote) {
+	async "reviews.changeVote"(reviewId, vote) {
 		console.log(
-			`SERVER: User ${this.userId} voted ${vote} on review ${review._id}`
+			`SERVER: User ${this.userId} voted ${vote} on review ${reviewId}`
 		);
 
 		// validate vote: must be boolean
@@ -165,6 +165,19 @@ Meteor.methods({
 			if (Meteor.isDevelopment)
 				console.log("SERVER: vote is not boolean");
 			throw new Meteor.Error("invalidArguments", "vote2ndArg");
+		}
+
+		const review = PgReviewFunctions.processReviewResults(
+			await PostgreSQL.executeQuery(
+				PgReviewFunctions.getReviewById,
+				reviewId
+			)
+		);
+
+		if (review === undefined) {
+			if (Meteor.isDevelopment)
+				console.log("SERVER: review does not exist");
+			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
 		}
 
 		// validate review: must match Reviews.schema
@@ -179,12 +192,6 @@ Meteor.methods({
 			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
 			if (Meteor.isDevelopment) console.log(errors);
 			throw new Meteor.Error("invalidArguments", "vote1stArg", errors);
-		}
-
-		if (Reviews.findOne(review) === undefined) {
-			if (Meteor.isDevelopment)
-				console.log("SERVER: review does not exist");
-			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
 		}
 
 		// must be logged in
@@ -202,17 +209,17 @@ Meteor.methods({
 			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
-		// can't vote on own review
-		if (this.userId === review.submittedBy) {
-			if (Meteor.isDevelopment)
-				console.log("SERVER: user is voting on own review");
-			throw new Meteor.Error("noCheating", "noCheating");
-		}
-
 		const pgUser = await PostgreSQL.executeQuery(
 			PgUserFunctions.getUserById,
 			this.userId
 		);
+
+		// can't vote on own review
+		if (pgUser.user.userid === review.submittedBy) {
+			if (Meteor.isDevelopment)
+				console.log("SERVER: user is voting on own review");
+			throw new Meteor.Error("noCheating", "noCheating");
+		}
 
 		const newVote = {
 			voteSubject: "review",
