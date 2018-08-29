@@ -185,7 +185,6 @@ const companyProfileQuery = gql`
 			reviews {
 				id
 				title
-				locations
 				jobTitle
 				numberOfMonthsWorked
 				pros
