@@ -22,15 +22,8 @@ react-meteor-data
 accounts-password@1.5.0
 accounts-ui@1.3.0
 kadira:flow-router
-practicalmeteor:mocha
 meteortesting:mocha
-xolvio:cleaner
-dburles:factory
-hwillson:stub-collections
-practicalmeteor:chai
-practicalmeteor:sinon
 underscore@1.0.10
-practicalmeteor:faker
 gadicc:blaze-react-component
 csauer:accounts-phony
 react-template-helper

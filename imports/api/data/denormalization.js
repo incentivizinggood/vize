@@ -12,9 +12,7 @@ export const addToAvg = function(x, n, avg) {
 	const w0 = n / (n + 1); // The fraction of avg that is already there.
 	const w1 = 1 / (n + 1); // The fraction of avg that will be x.
 	// Compute the new average as a weighted sum of the old average and x.
-	const returnValue = avg * w0 + x * w1;
-	// console.log("addToAvg returns: " + returnValue.toString());
-	return returnValue;
+	return avg * w0 + x * w1;
 };
 
 /**
@@ -41,9 +39,9 @@ export const subFromAvg = function(x, n, avg) {
  * @param {number} avg   The average before x is changed.
  * @return {number}      The new average with x changed.
  */
-export const changeInAvg = function(x_old, x_new, n, avg) {
+export const changeInAvg = function(xOld, xNew, n, avg) {
 	const w1 = 1 / (n + 1); // The fraction of avg that is x.
-	return avg + (x_new - x_old) * w1;
+	return avg + (xNew - xOld) * w1;
 };
 
 /*
