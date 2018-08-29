@@ -32,6 +32,8 @@ import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "/imports/ui/pages/post-a-job.jsx";
 import ApplyForJobForm from "/imports/ui/pages/apply-for-job.jsx";
 import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
+import ResourcesEmployers from "/imports/ui/pages/resources-employers.jsx";
+import PasswordChanger from "/imports/ui/pages/password-changer.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
 	import SimpleSchema from "simpl-schema";
@@ -70,6 +72,8 @@ routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
 routeSimplePage("/jobs", <ShowJobs />);
 routeSimplePage("/worker-resources", <ResourcesWorkers />);
+routeSimplePage("/employer-resources", <ResourcesEmployers />);
+routeSimplePage("/change-password", <PasswordChanger />);
 
 /*
 	These next two render AutoForms, and require
