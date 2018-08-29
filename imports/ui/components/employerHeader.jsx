@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import { If, Then, Else } from "../if-else.jsx";
 import LangSelector from "../components/lang-selector.jsx";

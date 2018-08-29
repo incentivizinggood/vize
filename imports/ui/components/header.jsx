@@ -2,7 +2,6 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 
 import { withTracker } from "meteor/react-meteor-data";
-import { Meteor } from "meteor/meteor";
 
 import WorkerHeader from "/imports/ui/components/workerHeader.jsx";
 import EmployerHeader from "/imports/ui/components/employerHeader.jsx";
