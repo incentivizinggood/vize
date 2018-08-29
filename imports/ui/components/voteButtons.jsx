@@ -1,7 +1,7 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-// import { Votes } from "../../api/data/votes.js";
+import { Votes } from "/imports/api/data/votes.js";
 
 class VoteButtons extends React.Component {
 	constructor(props) {
@@ -116,9 +116,9 @@ class VoteButtons extends React.Component {
 	}
 }
 
-export default withTracker(({ review, userVotes }) => {
+export default withTracker(({ review }) => {
 	// One of the more ridiculous pieces of code I've had to write
-	const userVote = userVotes.findOne({
+	const userVote = Votes.findOne({
 		submittedBy: Meteor.userId(),
 		references: review._id,
 		voteSubject: "review",

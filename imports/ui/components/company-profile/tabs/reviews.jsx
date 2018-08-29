@@ -1,9 +1,11 @@
 import React from "react";
-import StarRatings from "react-star-ratings";
-import CompanyReview from "../../ui/components/companyReview.jsx";
-import CompanyRating from "../../ui/components/companyRatingsComponent.jsx";
+
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "../../startup/client/router.jsx";
+
+import { urlGenerators } from "/imports/startup/client/router.jsx";
+
+import CompanyReview from "/imports/ui/components/companyReview.jsx";
+import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
 
 const T = i18n.createComponent();
 
@@ -20,9 +22,8 @@ export default class ReviewTab extends React.Component {
 	}
 
 	renderItems() {
-		const userVotes = this.props.userVotes;
-		return this.props.companyreview.map(function(item, i) {
-			return <CompanyReview key={i} item={item} userVotes={userVotes} />;
+		return this.props.company.reviews.map(function(review) {
+			return <CompanyReview key={review.id} review={review} />;
 		});
 	}
 
@@ -31,13 +32,13 @@ export default class ReviewTab extends React.Component {
 			<div role="tabpanel" className="tab-pane" id="reviews">
 				<div className="col-md-12  section_rview_back_color2  ">
 					<h4 className="head_section_font">
-						{this.props.companyinfo.name}{" "}
+						{this.props.company.name}{" "}
 						<T>common.review_tab.reviews</T>
 					</h4>
 					<div className="add-buttons">
 						<a
 							href={urlGenerators.vizeReviewUrl(
-								this.props.companyinfo._id
+								this.props.company.id
 							)}
 							className="btn btn-primary"
 						>
@@ -49,7 +50,7 @@ export default class ReviewTab extends React.Component {
 					</div>
 					<hr />
 
-					<CompanyRating companyrating={this.props.companyinfo} />
+					<CompanyRating company={this.props.company} />
 				</div>
 
 				{this.renderItems()}

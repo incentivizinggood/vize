@@ -100,7 +100,7 @@ type Review {
 	id: ID!
 
 	title: String!
-	locations: [String!]!
+	location: String!
 	jobTitle: String!
 	numberOfMonthsWorked: Int!
 	pros: String!
