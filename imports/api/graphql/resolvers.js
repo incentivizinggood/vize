@@ -236,6 +236,8 @@ export default {
 				args.pageNum,
 				args.pageSize
 			),
+		currentUserVote: (obj: Review, args: {}, context: Context) =>
+			context.voteModel.getVoteByAuthorAndSubject(context.user, obj),
 	},
 
 	Salary: {

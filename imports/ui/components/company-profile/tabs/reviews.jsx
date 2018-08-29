@@ -21,13 +21,15 @@ export default class ReviewTab extends React.Component {
 		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
-	renderItems() {
-		return this.props.company.reviews.map(function(review) {
-			return <CompanyReview key={review.id} review={review} />;
-		});
-	}
-
 	render() {
+		const renderItems = this.props.company.reviews.map(review => (
+			<CompanyReview
+				key={review.id}
+				review={review}
+				refetch={this.props.refetch}
+			/>
+		));
+
 		return (
 			<div role="tabpanel" className="tab-pane" id="reviews">
 				<div className="col-md-12  section_rview_back_color2  ">
@@ -53,7 +55,7 @@ export default class ReviewTab extends React.Component {
 					<CompanyRating company={this.props.company} />
 				</div>
 
-				{this.renderItems()}
+				{renderItems}
 			</div>
 		);
 	}
