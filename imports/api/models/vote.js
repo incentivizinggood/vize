@@ -55,11 +55,19 @@ export default class VoteModel {
 	// Get the vote cast by a given user on a given thing.
 	async getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
 		let subjectOfVote;
+		console.log("GraphQL: getVoteByAuthorAndSubject");
+		console.log("user: ");
+		console.log(user);
+		console.log("subject: ");
+		console.log(subject);
 		if (this.reviewModel.isReview(subject)) {
+			console.log("IS REVIEW");
 			subjectOfVote = "review";
 		} else if (this.commentModel.isComment(subject)) {
+			console.log("IS COMMENT");
 			subjectOfVote = "comment";
 		} else {
+			console.log("Could not determine the type of this vote subject");
 			throw new Error(
 				"Could not determine the type of this vote subject."
 			);
@@ -68,6 +76,9 @@ export default class VoteModel {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
+
+		console.log("authorPostgresId: ");
+		console.log(authorPostgresId);
 
 		return PgVoteFunctions.processVoteResults(
 			await this.connector.executeQuery(
@@ -79,6 +90,14 @@ export default class VoteModel {
 				}
 			)
 		);
+		// Assuming voteSubject's type for now.
+		// const voteSubject = "review";
+		//
+		// return this.connector.findOne({
+		// 	submittedBy: user._id,
+		// 	voteSubject,
+		// 	references: subject._id,
+		// });
 	}
 
 	// Get all votes cast by a given user.
