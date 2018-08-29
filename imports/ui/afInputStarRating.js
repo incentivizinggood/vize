@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import { AutoForm } from "meteor/aldeed:autoform";
 
@@ -14,10 +15,10 @@ import { AutoForm } from "meteor/aldeed:autoform";
 
 // copy-pasted from rateit demo code, jquery-rateit-demo.js
 if (Meteor.isClient) {
-	Template.afInputStarRating.rendered = function() {
+	Template.afInputStarRating.onRendered(function() {
 		// at .created() time, it's too early to run rateit(), so run it at rendered()
 		this.$(".rateit").rateit();
-	};
+	});
 }
 
 AutoForm.addInputType("starRating", {

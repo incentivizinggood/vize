@@ -1,10 +1,12 @@
 import React from "react";
+
 import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
+
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
-import { withTracker } from "meteor/react-meteor-data";
 
 const t = i18n.createTranslator("common.passwordChanger");
 const T = i18n.createComponent(t);
@@ -166,21 +168,19 @@ class PasswordChanger extends React.Component {
 					<br />
 				</div>
 			);
+		} else if (this.props.user) {
+			content = this.renderContent();
 		} else {
-			if (this.props.user) {
-				content = this.renderContent();
-			} else {
-				content = (
-					<div style={{ width: "80%", margin: "0 auto" }}>
-						<br />
-						You must be logged in to use this page. <br /> <br />
-						<a className="btn btn-primary" href="/login">
-							Log In
-						</a>
-						<br />
-					</div>
-				);
-			}
+			content = (
+				<div style={{ width: "80%", margin: "0 auto" }}>
+					<br />
+					You must be logged in to use this page. <br /> <br />
+					<a className="btn btn-primary" href="/login">
+						Log In
+					</a>
+					<br />
+				</div>
+			);
 		}
 
 		return (
@@ -204,6 +204,7 @@ class PasswordChanger extends React.Component {
 		);
 	}
 }
+
 export default withTracker(() => ({
 	user: Meteor.user(),
 }))(PasswordChanger);
