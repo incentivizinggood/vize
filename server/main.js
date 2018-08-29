@@ -13,9 +13,6 @@ import "../imports/api/data/jobads.js";
 import "../imports/api/data/votes.js";
 import "../imports/api/data/methods.js";
 
-// Initialize PostgreSQL publications
-// import "./postgresql-publications.js";
-
 // Try to keep the connection pool initialized
 import "../imports/api/graphql/connectors/postgresql.js";
 
