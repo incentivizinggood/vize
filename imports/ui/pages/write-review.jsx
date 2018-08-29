@@ -39,6 +39,7 @@ wr_form_state.set("companyId", undefined); // Shared with the React wrapper
 wr_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),
 });
+wr_form_state.set("allCompanyNames", []);
 
 if (Meteor.isClient) {
 	Template.wr_blaze_form.bindI18nNamespace("common.forms");
@@ -55,6 +56,15 @@ if (Meteor.isClient) {
 						wr_form_state.set("company", result);
 					}
 				});
+			});
+		} else {
+			// else be ready to offer suggestions as the user fills in the name
+			Meteor.call("companies.getAllCompanyNames", (error, result) => {
+				if (!result) {
+					wr_form_state.set("allCompanyNames", []);
+				} else {
+					wr_form_state.set("allCompanyNames", result);
+				}
 			});
 		}
 	});
@@ -77,6 +87,9 @@ if (Meteor.isClient) {
 				return i18n.__("common.forms.companyNotFound");
 			}
 			return company.name;
+		},
+		allCompanyNames() {
+			return wr_form_state.get("allCompanyNames");
 		},
 		hasError() {
 			return wr_form_state.get("formError").hasError;

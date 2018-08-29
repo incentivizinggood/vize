@@ -20,7 +20,12 @@
 										{{#if shouldHaveCompany}}
 										{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 										{{else}}
-										{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") }}
+										{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") list="wrCompanyNames"}}
+										<datalist id="wrCompanyNames">
+											{{#each companyName in allCompanyNames}}
+												<option value="{{companyName}}">{{companyName}}</option>
+											{{/each}}
+										</datalist>
 										{{/if}}
 								   </div>
 							   </div>
