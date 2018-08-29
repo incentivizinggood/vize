@@ -19,15 +19,14 @@ export default class JobPosting extends React.Component {
 	}
 
 	render() {
-		const datePosted = new Date(props.jobAd.created).toLocaleDateString(
-			"en-US",
-			{
-				weekday: "long",
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			}
-		);
+		const datePosted = new Date(
+			this.props.jobAd.created
+		).toLocaleDateString("en-US", {
+			weekday: "long",
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		});
 
 		return (
 			<div className="col-md-12 section_rview_back_color05 ">
