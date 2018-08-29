@@ -3,126 +3,74 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Votes } from "/imports/api/data/votes.js";
 
-class VoteButtons extends React.Component {
-	constructor(props) {
-		super(props);
-		this.upVote = this.upVote.bind(this);
-		this.downVote = this.downVote.bind(this);
-		this.renderUpButton = this.renderUpButton.bind(this);
-		this.renderDownButton = this.renderDownButton.bind(this);
-		if (Meteor.isDevelopment) {
-			this.state = {
-				upVotes: 0,
-				downVotes: 0,
-			};
-		}
-	}
-
-	upVote(event) {
-		event.preventDefault();
-		Meteor.call(
-			"reviews.changeVote",
-			this.props.review,
-			true,
-			(error, result) => {
-				this.props.refetch();
-				if (!result) {
-					console.log("Messed up upvote");
-					console.log(error);
-				} else {
-					// Change state here if you want to reactively update
-					// based on user vote
-					if (Meteor.isDevelopment) {
-						this.setState(prevState => ({
-							upVotes: prevState.upVotes + 1,
-						}));
-						console.log(
-							`Upvoting review ${this.props.review._id}: ${
-								this.props.review.upvotes
-							}`
-						);
-					}
-				}
+function VoteButtons(props) {
+	const vote = isUpvote => {
+		Meteor.call("reviews.changeVote", props.review.id, isUpvote, error => {
+			props.refetch();
+			if (error) {
+				console.log(`Messed up ${isUpvote ? "upvote" : "downvote"}`);
+				console.error(error);
+			} else {
+				console.log(
+					`We just ${isUpvote ? "upvoted" : "downvoted"}the review ${
+						props.review.id
+					}`
+				);
 			}
-		);
-	}
+		});
+	};
 
-	downVote(event) {
+	const upVote = event => {
 		event.preventDefault();
-		Meteor.call(
-			"reviews.changeVote",
-			this.props.review,
-			false,
-			(error, result) => {
-				this.props.refetch();
-				if (!result) {
-					console.log("Messed up downvote");
-					console.log(error);
-				} else {
-					// Change state here if you want to reactively update
-					// based on user vote
-					if (Meteor.isDevelopment) {
-						this.setState(prevState => ({
-							downVotes: prevState.downVotes + 1,
-						}));
-						console.log(
-							`Downvoting review ${this.props.review._id}: ${
-								this.props.review.downvotes
-							}`
-						);
-					}
-				}
-			}
-		);
-	}
+		vote(true);
+	};
 
-	renderUpButton() {
-		return (
-			<div className="thumb_up_bn">
-				<button
-					type="button"
-					className="btn btn-default btn-circle btn-xl"
-					style={this.props.upStyle}
-					onClick={this.upVote}
-				>
-					<i className="fa fa-thumbs-o-up  " />
-				</button>
-			</div>
-		);
-	}
+	const downVote = event => {
+		event.preventDefault();
+		vote(false);
+	};
 
-	renderDownButton() {
-		return (
-			<div className="thumb_don_bn">
-				<button
-					type="button"
-					className="btn btn-default btn-circle btn-xl"
-					style={this.props.downStyle}
-					onClick={this.downVote}
-				>
-					<i className="fa fa-thumbs-o-down" />
-				</button>
-			</div>
-		);
-	}
+	const upButton = (
+		<div className="thumb_up_bn">
+			<button
+				type="button"
+				className="btn btn-default btn-circle btn-xl"
+				style={props.upStyle}
+				onClick={upVote}
+			>
+				<i className="fa fa-thumbs-o-up  " />
+			</button>
+		</div>
+	);
 
-	render() {
-		return (
-			<div>
-				<br />
-				{this.renderUpButton()}
-				<br />
-				{this.renderDownButton()}
-			</div>
-		);
-	}
+	const downButton = (
+		<div className="thumb_don_bn">
+			<button
+				type="button"
+				className="btn btn-default btn-circle btn-xl"
+				style={props.downStyle}
+				onClick={downVote}
+			>
+				<i className="fa fa-thumbs-o-down" />
+			</button>
+		</div>
+	);
+
+	return (
+		<div>
+			<br />
+			{upButton}
+			<br />
+			{downButton}
+		</div>
+	);
 }
 
 export default withTracker(({ review, refetch }) => {
 	// One of the more ridiculous pieces of code I've had to write
 	const userVote = Votes.findOne({
 		submittedBy: Meteor.userId(),
-		references: review._id,
+		references: review.id,
 		voteSubject: "review",
 	});
 	const upButtonStyle =
