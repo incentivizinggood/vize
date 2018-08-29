@@ -123,12 +123,14 @@ class CompanyProfile extends React.Component {
 									<ErrorBoundary>
 										<OverviewTab
 											company={this.props.company}
+											refetch={this.props.refetch}
 										/>
 									</ErrorBoundary>
 
 									<ErrorBoundary>
 										<ReviewTab
 											company={this.props.company}
+											refetch={this.props.refetch}
 										/>
 									</ErrorBoundary>
 
@@ -226,7 +228,7 @@ const companyProfileQuery = gql`
 
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>
-		{({ loading, error, data }) => {
+		{({ loading, error, data, refetch }) => {
 			if (loading) {
 				return <h2>Loading</h2>;
 			}
@@ -236,6 +238,11 @@ export default ({ companyId }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
+			const refetchWithLog = () => {
+				console.log("Refetching");
+				refetch();
+			};
+
 			return (
 				<CompanyProfile
 					company={data.company}
@@ -244,6 +251,7 @@ export default ({ companyId }) => (
 					jobsCount={data.company.numJobAds}
 					salaries={data.company.salaries}
 					salariesCount={data.company.numJobAds}
+					refetch={refetchWithLog}
 				/>
 			);
 		}}

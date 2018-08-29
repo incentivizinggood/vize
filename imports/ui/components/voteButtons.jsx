@@ -25,6 +25,7 @@ class VoteButtons extends React.Component {
 			this.props.review,
 			true,
 			(error, result) => {
+				this.props.refetch();
 				if (!result) {
 					console.log("Messed up upvote");
 					console.log(error);
@@ -53,6 +54,7 @@ class VoteButtons extends React.Component {
 			this.props.review,
 			false,
 			(error, result) => {
+				this.props.refetch();
 				if (!result) {
 					console.log("Messed up downvote");
 					console.log(error);
@@ -116,7 +118,7 @@ class VoteButtons extends React.Component {
 	}
 }
 
-export default withTracker(({ review }) => {
+export default withTracker(({ review, refetch }) => {
 	// One of the more ridiculous pieces of code I've had to write
 	const userVote = Votes.findOne({
 		submittedBy: Meteor.userId(),
@@ -133,6 +135,7 @@ export default withTracker(({ review }) => {
 			: { backgroundColor: "red" };
 	return {
 		review,
+		refetch,
 		vote: userVote,
 		upStyle: upButtonStyle,
 		downStyle: downButtonStyle,
