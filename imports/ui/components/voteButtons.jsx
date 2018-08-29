@@ -68,6 +68,7 @@ function VoteButtons(props) {
 
 export default withTracker(({ review, refetch }) => {
 	// One of the more ridiculous pieces of code I've had to write
+	Meteor.subscribe("Votes");
 	const userVote = Votes.findOne({
 		submittedBy: Meteor.userId(),
 		references: review.id,
