@@ -1,4 +1,4 @@
-import { castToNumberIfDefined, processLocation } from "./misc.js";
+import { castToNumberIfDefined } from "./misc.js";
 
 export default class PgJobAdFunctions {
 	static async getJobAdById(client, id) {
@@ -149,7 +149,7 @@ export default class PgJobAdFunctions {
 				companyId: castToNumberIfDefined(jobad.companyid),
 				jobTitle: jobad.jobtitle,
 				locations: jobAdResults.locations.map(loc =>
-					processLocation(loc.joblocation)
+					JSON.parse(loc.joblocation)
 				),
 				pesosPerHour: jobad.pesosperhour,
 				contractType: jobad.contracttype,
@@ -167,7 +167,7 @@ export default class PgJobAdFunctions {
 					jobTitle: jobad.jobtitle,
 					locations: jobAdResults.locations[
 						String(jobad.jobadid)
-					].map(loc => processLocation(loc.joblocation)),
+					].map(loc => JSON.parse(loc.joblocation)),
 					pesosPerHour: jobad.pesosperhour,
 					contractType: jobad.contracttype,
 					jobDescription: jobad.jobdescription,

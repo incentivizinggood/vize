@@ -122,8 +122,6 @@ export default class ReviewModel {
 	}
 
 	isReview(obj: any): boolean {
-		console.log("VALIDATING REVIEW");
-
 		Reviews.simpleSchema()
 			.newContext()
 			.validate(obj);
@@ -133,15 +131,8 @@ export default class ReviewModel {
 				isNotASubmission: true,
 			},
 		});
-		if (
-			context.isValid() ||
-			(context.validationErrors().length === 1 &&
-				context.validationErrors()[0].name === "location" &&
-				context.validationErrors()[0].type === "expectedType")
-		) {
-			return true;
-		}
-		return false;
+
+		return context.isValid();
 	}
 
 	async submitReview(

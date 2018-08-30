@@ -1,4 +1,4 @@
-import { castToNumberIfDefined, processLocation } from "./misc.js";
+import { castToNumberIfDefined } from "./misc.js";
 
 export default class PgReviewFunctions {
 	static async getReviewById(client, id) {
@@ -160,7 +160,7 @@ export default class PgReviewFunctions {
 				companyName: review.companyname,
 				companyId: castToNumberIfDefined(review.companyid),
 				reviewTitle: review.reviewtitle,
-				location: processLocation(review.reviewlocation),
+				location: JSON.parse(review.reviewlocation),
 				jobTitle: review.jobtitle,
 				numberOfMonthsWorked: Number(review.nummonthsworked),
 				pros: review.pros,
@@ -184,7 +184,7 @@ export default class PgReviewFunctions {
 					companyName: review.companyname,
 					companyId: castToNumberIfDefined(review.companyid),
 					reviewTitle: review.reviewtitle,
-					location: processLocation(review.reviewlocation),
+					location: JSON.parse(review.reviewlocation),
 					jobTitle: review.jobtitle,
 					numberOfMonthsWorked: Number(review.nummonthsworked),
 					pros: review.pros,
