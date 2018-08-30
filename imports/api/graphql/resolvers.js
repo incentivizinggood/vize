@@ -195,8 +195,6 @@ export default {
 	JobAd: {
 		id: p("_id"),
 
-		locations: p("locations"),
-
 		created: p("datePosted"),
 
 		company: (obj: JobAd, args: {}, context: Context) =>

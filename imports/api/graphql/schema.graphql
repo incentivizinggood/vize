@@ -26,12 +26,6 @@ type Query {
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
-type Location {
-	city: String!
-	address: String!
-	industrialHub: String
-}
-
 "The kinds of things that can be commented on."
 union CommentParent = Comment | Review
 
@@ -187,6 +181,12 @@ type Vote {
 	author: User!
 	"The thing voted on."
 	subject: VoteSubject!
+}
+
+type Location {
+	city: String!
+	address: String!
+	industrialHub: String
 }
 
 type StarRatings {
