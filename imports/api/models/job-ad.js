@@ -1,5 +1,5 @@
 // @flow
-import type { ID, AllModels } from "./common.js";
+import type { ID, Location, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
@@ -14,7 +14,7 @@ export type JobAd = {
 	companyId: ?string,
 
 	jobTitle: string,
-	locations: [string],
+	locations: [Location],
 	pesosPerHour: string,
 	contractType: string,
 	jobDescription: string,

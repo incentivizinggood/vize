@@ -1,5 +1,5 @@
 // @flow
-import type { ID, AllModels } from "./common.js";
+import type { ID, Location, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
@@ -12,6 +12,7 @@ export type Salary = {
 	_id: ID,
 	submittedBy: ID,
 	companyName: string,
+	location: Location,
 	companyId: ?ID,
 	jobTitle: string,
 	incomeType: string,

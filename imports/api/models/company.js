@@ -1,5 +1,5 @@
 // @flow
-import type { ID, StarRatings, AllModels } from "./common.js";
+import type { ID, Location, AllModels } from "./common.js";
 
 import PgCompanyFunctions from "./helpers/postgresql/companies.js";
 import { Companies } from "../data/companies.js";
@@ -20,7 +20,7 @@ export type Company = {
 		| "5000+"
 	),
 	industry: ?string,
-	locations: [string],
+	locations: [Location],
 	contactPhoneNumber: ?string,
 	websiteURL: ?string,
 	descriptionOfCompany: ?string,

@@ -26,6 +26,13 @@ type Query {
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
+"Where a company or job position is located"
+type Location {
+	city: String!
+	address: String!
+	industrialHub: String
+}
+
 "The kinds of things that can be commented on."
 union CommentParent = Comment | Review
 
@@ -55,7 +62,7 @@ type Company {
 	yearEstablished: Int
 	numEmployees: String
 	industry: String
-	locations: [String!]!
+	locations: [Location!]!
 	contactPhoneNumber: String
 	websiteURL: String
 	descriptionOfCompany: String
@@ -83,7 +90,7 @@ type JobAd {
 	id: ID!
 
 	jobTitle: String!
-	locations: [String!]!
+	locations: [Location!]!
 	pesosPerHour: String! # TODO convert to unit aware system
 	contractType: String!
 	jobDescription: String!
@@ -100,8 +107,8 @@ type Review {
 	id: ID!
 
 	title: String!
-	location: String!
 	jobTitle: String!
+	location: Location!
 	numberOfMonthsWorked: Int!
 	pros: String!
 	cons: String!
@@ -129,6 +136,7 @@ type Salary {
 	id: ID!
 
 	jobTitle: String!
+	location: Location!
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
