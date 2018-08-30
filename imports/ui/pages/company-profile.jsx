@@ -188,6 +188,7 @@ const companyProfileQuery = gql`
 				id
 				title
 				jobTitle
+				location
 				numberOfMonthsWorked
 				pros
 				cons

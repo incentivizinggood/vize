@@ -55,7 +55,7 @@ type Company {
 	yearEstablished: Int
 	numEmployees: String
 	industry: String
-	locations: [Location!]!
+	locations: [String!]!
 	contactPhoneNumber: String
 	websiteURL: String
 	descriptionOfCompany: String
@@ -83,7 +83,7 @@ type JobAd {
 	id: ID!
 
 	jobTitle: String!
-	locations: [Location!]!
+	locations: [String!]!
 	pesosPerHour: String! # TODO convert to unit aware system
 	contractType: String!
 	jobDescription: String!
