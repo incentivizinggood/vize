@@ -119,8 +119,20 @@ export default class SalaryModel {
 			.newContext()
 			.validate(obj);
 		const context = Salaries.simpleSchema().newContext();
-		context.validate(obj);
-		return context.isValid();
+		context.validate(obj, {
+			extendedCustomContext: {
+				isNotASubmission: true,
+			},
+		});
+		if (
+			context.isValid() ||
+			(context.validationErrors().length === 1 &&
+				context.validationErrors()[0].name === "location" &&
+				context.validationErrors()[0].type === "expectedType")
+		) {
+			return true;
+		}
+		return false;
 	}
 
 	async submitSalary(

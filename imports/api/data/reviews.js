@@ -69,7 +69,24 @@ Reviews.schema = new SimpleSchema(
 											type: "sessionError",
 										},
 									]);
-								} else {
+								} else if (!this.isNotASubmission) {
+									/*
+									So this else-if is the result of needing to
+									distinguish between validation contexts but
+									not being able to figure out how to extend
+									the context from an AutoForm.
+									!isNotASubmission means basically isASubmission,
+									and code that needs to validate review objects
+									for format only rather than for database
+									consistency can pass the following object as
+									the second argument to to validationContext.validate
+									in order to disable the next check:
+									{
+										extendedCustomContext: {
+											isNotASubmission: true
+										}
+									}
+								*/
 									Meteor.call(
 										"reviews.checkForSecondReviewByUser",
 										this.value,
@@ -99,6 +116,7 @@ Reviews.schema = new SimpleSchema(
 						)
 							return "sessionError";
 						else if (
+							!this.isNotASubmission &&
 							!Meteor.call(
 								"reviews.checkForSecondReviewByUser",
 								this.value

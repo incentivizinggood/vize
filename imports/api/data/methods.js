@@ -183,7 +183,11 @@ Meteor.methods({
 		// validate review: must match Reviews.schema
 		const validationResult = Reviews.simpleSchema()
 			.namedContext()
-			.validate(review);
+			.validate(review, {
+				extendedCustomContext: {
+					isNotASubmission: true,
+				},
+			});
 		const errors = Reviews.simpleSchema()
 			.namedContext()
 			.validationErrors();

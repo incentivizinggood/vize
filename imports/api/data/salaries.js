@@ -52,7 +52,10 @@ Salaries.schema = new SimpleSchema(
 											type: "sessionError",
 										},
 									]);
-								} else {
+								} else if (!this.isNotASubmission) {
+									// for an explanation of this check, see comment
+									// on custom validator for this field in
+									// imports/api/data/reviews.js
 									Meteor.call(
 										"salaries.checkForSecondSalaryByUser",
 										this.value,
@@ -82,6 +85,7 @@ Salaries.schema = new SimpleSchema(
 						)
 							return "sessionError";
 						else if (
+							!this.isNotASubmission &&
 							!Meteor.call(
 								"salaries.checkForSecondSalaryByUser",
 								this.value

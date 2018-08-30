@@ -61,13 +61,10 @@ export default class VoteModel {
 		// console.log("subject: ");
 		// console.log(subject);
 		if (this.reviewModel.isReview(subject)) {
-			console.log("IS REVIEW");
 			subjectOfVote = "review";
 		} else if (this.commentModel.isComment(subject)) {
-			console.log("IS COMMENT");
 			subjectOfVote = "comment";
 		} else {
-			console.log("Could not determine the type of this vote subject");
 			throw new Error(
 				"Could not determine the type of this vote subject."
 			);
@@ -76,9 +73,6 @@ export default class VoteModel {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
-
-		console.log("authorPostgresId: ");
-		console.log(authorPostgresId);
 
 		return PgVoteFunctions.processVoteResults(
 			await this.connector.executeQuery(
