@@ -129,7 +129,7 @@ type Salary {
 	id: ID!
 
 	jobTitle: String!
-	location: Location!
+	location: String!
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
