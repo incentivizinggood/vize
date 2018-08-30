@@ -4,7 +4,7 @@ import type UserModel, { User } from "./user.js";
 import type ReviewModel, { Review } from "./review.js";
 
 import PgCommentFunctions from "./helpers/postgresql/comments.js";
-import Comments from "../data/comments.js";
+import { Comments } from "../data/comments.js";
 
 const defaultPageSize = 100;
 
@@ -95,10 +95,12 @@ export default class CommentModel {
 	}
 
 	isComment(obj: any): boolean {
-		return Comments.schema
+		Comments.simpleSchema()
 			.newContext()
-			.validate(obj)
-			.isValid();
+			.validate(obj);
+		const context = Comments.simpleSchema().newContext();
+		context.validate(obj);
+		return context.isValid();
 	}
 
 	async writeComment(

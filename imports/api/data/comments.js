@@ -70,6 +70,8 @@ Comments.schema = new SimpleSchema({
 	// might need to change the screenName 'optional:true' for anonymous profiles
 });
 
+Comments.attachSchema(Comments.schema, { replace: true });
+
 Comments.deny({
 	insert() {
 		return true;

@@ -165,11 +165,11 @@ const companyProfileQuery = gql`
 
 			name
 			contactEmail
-			dateEstablished
+			yearEstablished
 			numEmployees
 			industry
 			locations
-			otherContactInfo
+			contactPhoneNumber
 			websiteURL
 			descriptionOfCompany
 			dateJoined

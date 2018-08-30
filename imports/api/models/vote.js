@@ -5,7 +5,7 @@ import type ReviewModel, { Review } from "./review.js";
 import type UserModel, { User } from "./user.js";
 
 import PgVoteFunctions from "./helpers/postgresql/votes.js";
-import Votes from "../data/votes.js";
+import { Votes } from "../data/votes.js";
 
 const defaultPageSize = 100;
 
@@ -55,11 +55,11 @@ export default class VoteModel {
 	// Get the vote cast by a given user on a given thing.
 	async getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
 		let subjectOfVote;
-		console.log("GraphQL: getVoteByAuthorAndSubject");
-		console.log("user: ");
-		console.log(user);
-		console.log("subject: ");
-		console.log(subject);
+		// console.log("GraphQL: getVoteByAuthorAndSubject");
+		// console.log("user: ");
+		// console.log(user);
+		// console.log("subject: ");
+		// console.log(subject);
 		if (this.reviewModel.isReview(subject)) {
 			console.log("IS REVIEW");
 			subjectOfVote = "review";
@@ -187,10 +187,12 @@ export default class VoteModel {
 	}
 
 	isVote(obj: any): boolean {
-		return Votes.schema
+		Votes.simpleSchema()
 			.newContext()
-			.validate(obj)
-			.isValid();
+			.validate(obj);
+		const context = Votes.simpleSchema().newContext();
+		context.validate(obj);
+		return context.isValid();
 	}
 
 	// Create a new vote or, if the subject was already voted on, change the vote.

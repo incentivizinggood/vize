@@ -3,7 +3,7 @@ import type { ID, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
-import JobAds from "../data/jobads.js";
+import { JobAds } from "../data/jobads.js";
 
 const defaultPageSize = 100;
 
@@ -93,10 +93,12 @@ export default class JobAdModel {
 	}
 
 	isJobAd(obj: any): boolean {
-		return JobAds.schema
+		JobAds.simpleSchema()
 			.newContext()
-			.validate(obj)
-			.isValid();
+			.validate(obj);
+		const context = JobAds.simpleSchema().newContext();
+		context.validate(obj);
+		return context.isValid();
 	}
 
 	isJobApplication(obj: any): boolean {
