@@ -40,6 +40,7 @@ const ShowJobs = () => (
 			}
 
 			if (error) {
+				console.log(error);
 				return <h2>{error}</h2>;
 			}
 

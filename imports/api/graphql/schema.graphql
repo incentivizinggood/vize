@@ -26,7 +26,6 @@ type Query {
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 }
 
-"Where a company or job position is located"
 type Location {
 	city: String!
 	address: String!
