@@ -30,7 +30,7 @@ import CompanyCreateProfileForm from "/imports/ui/pages/create-company-profile.j
 import WriteReviewForm from "/imports/ui/pages/write-review";
 import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
 import PostAJobForm from "/imports/ui/pages/post-a-job.jsx";
-import ApplyForJobForm from "/imports/ui/pages/apply-for-job.jsx";
+import ApplyForJobForm from "/imports/ui/pages/apply-for-job";
 import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
 import ResourcesEmployers from "/imports/ui/pages/resources-employers.jsx";
 import PasswordChanger from "/imports/ui/pages/password-changer.jsx";
