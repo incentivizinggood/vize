@@ -100,7 +100,7 @@ type Review {
 	id: ID!
 
 	title: String!
-	locations: [String!]!
+	location: String!
 	jobTitle: String!
 	numberOfMonthsWorked: Int!
 	pros: String!
@@ -121,6 +121,8 @@ type Review {
 	comments(pageNum: Int, pageSize: Int): [Comment!]!
 	"The votes cast on this review."
 	votes(pageNum: Int, pageSize: Int): [Vote!]!
+	"The vote that the currently logged in user cast on this review."
+	currentUserVote: Vote
 }
 
 type Salary {

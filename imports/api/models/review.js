@@ -13,7 +13,7 @@ export type Review = {
 	companyName: string,
 	companyId: ?ID,
 	reviewTitle: string,
-	locations: [string],
+	location: string,
 	jobTitle: string,
 	numberOfMonthsWorked: number,
 	pros: string,

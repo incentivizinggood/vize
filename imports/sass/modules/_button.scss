@@ -11,18 +11,18 @@
 	line-height: 1.5;
 	border-radius: 0.25rem;
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-	border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-	
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
 	&:focus,
-	&:active{
+	&:active {
 		text-decoration: none;
 	}
-	
+
 	&.out-bodr:focus,
-	&.out-bodr:active{
+	&.out-bodr:active {
 		color: $white;
 	}
-	
+
 	&.out-butt-dark {
 		color: #343a40;
 		background-color: transparent;
@@ -35,4 +35,3 @@
 		}
 	}
 }
-
