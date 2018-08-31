@@ -10,23 +10,23 @@
 	}
 }
 
-.emp{
+.emp {
 	&-wel {
 		padding-bottom: 5em;
 		padding-top: 5em;
 		background-color: $white;
 	}
 	&-icon1,
-	&-icon2{
+	&-icon2 {
 		background-size: 72% auto;
 		background-position: center center;
 	}
-	
-	&-icon1{
+
+	&-icon1 {
 		background-image: url("../images/feedbackIcon2.png");
 	}
-	
-	&-icon2{
+
+	&-icon2 {
 		background-image: url("../images/upArrowIcon.png");
 	}
 }
@@ -38,8 +38,8 @@ a.button.out-bodr-get {
 	background-color: $primary-color;
 	color: $white;
 	font-size: 33px;
-	border: 1px solid #87bcdf ;
-	&:hover{
+	border: 1px solid #87bcdf;
+	&:hover {
 		background-color: #7bb3d6;
 	}
 }
@@ -52,14 +52,14 @@ a.button.out-bodr-get {
 	font-size: 24px;
 }
 
-.great{
+.great {
 	&-emp-hm h1 {
 		text-align: center;
 		font-weight: bold;
 		margin-bottom: 23px;
 		color: $white;
 	}
-	
+
 	&-discover-emp h4 {
 		text-align: center;
 		width: 100%;
@@ -69,4 +69,3 @@ a.button.out-bodr-get {
 	}
 }
 //--------------------------------------//
-

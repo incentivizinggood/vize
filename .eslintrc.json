@@ -1,3 +1,4 @@
 {
-	"extends": ["@meteorjs/eslint-config-meteor", "prettier", "prettier/react"]
+	"extends": ["@meteorjs/eslint-config-meteor", "prettier", "prettier/react"],
+	"rules": { "react/prop-types": false }
 }

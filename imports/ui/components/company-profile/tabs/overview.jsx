@@ -10,7 +10,7 @@ export default function OverviewTab(props) {
 		<div role="tabpanel" className="tab-pane active" id="overview">
 			<OverviewSection company={props.company} />
 			<div className="clear" />
-			<ReviewsSection company={props.company} />
+			<ReviewsSection company={props.company} refetch={props.refetch} />
 			<JobsSection
 				jobAds={props.company.jobAds}
 				numJobAds={props.company.numJobAds}

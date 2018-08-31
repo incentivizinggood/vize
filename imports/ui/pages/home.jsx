@@ -52,6 +52,7 @@ export default class HomePage extends React.Component {
 								<img
 									className="img-responsive"
 									src="images/home-img-2.png"
+									alt="Computer screen with example job ad."
 								/>
 							</div>
 						</div>
@@ -117,6 +118,7 @@ export default class HomePage extends React.Component {
 									<img
 										className="img-responsive"
 										src="images/mobile-1.png"
+										alt="Smart phone with example job ad."
 									/>
 								</center>
 							</div>
@@ -159,6 +161,7 @@ export default class HomePage extends React.Component {
 								<img
 									className="img-responsive"
 									src="images/home-img-1.png"
+									alt="Computer screen with example company rateings."
 								/>
 							</div>
 						</div>
@@ -200,6 +203,7 @@ export default class HomePage extends React.Component {
 									<img
 										className="img-responsive"
 										src="images/mobile-2.png"
+										alt="Smartphone with example company rateings."
 									/>
 								</center>
 							</div>

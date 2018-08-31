@@ -1,5 +1,10 @@
 # The Vize Web App
 
+Semaphore CI
+[![Semaphore Build Status](https://semaphoreci.com/api/v1/vize/vize-meteor-app/branches/master/badge.svg)](https://semaphoreci.com/vize/vize-meteor-app)
+
+---
+
 Vize is a platform for accountability and a catalyst for progress.
 
 Workers are able to share reviews of their working conditions with other

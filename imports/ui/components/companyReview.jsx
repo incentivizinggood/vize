@@ -181,7 +181,10 @@ function ReviewComponent(props) {
 					</div>
 					<div className="col-md-4 bn-col">
 						<div className="fl_ri">
-							<VoteButtons review={props.review} />
+							<VoteButtons
+								review={props.review}
+								refetch={props.refetch}
+							/>
 						</div>
 					</div>
 				</div>
