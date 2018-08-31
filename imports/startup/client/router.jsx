@@ -28,7 +28,7 @@ import UserPage from "/imports/ui/pages/user.jsx";
 
 import CompanyCreateProfileForm from "/imports/ui/pages/create-company-profile";
 import WriteReviewForm from "/imports/ui/pages/write-review";
-import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
+import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data";
 import PostAJobForm from "/imports/ui/pages/post-a-job";
 import ApplyForJobForm from "/imports/ui/pages/apply-for-job";
 import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
