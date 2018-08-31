@@ -8,11 +8,7 @@ import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header.jsx";
 
 import CompanyProfileSummary from "./summary.jsx";
-import OverviewTab from "./tabs/overview.jsx";
-import ReviewTab from "./tabs/reviews.jsx";
-import JobTab from "./tabs/jobs.jsx";
-import SalaryTab from "./tabs/salaries.jsx";
-import ContactTab from "./tabs/contact.jsx";
+import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 
 const T = i18n.createComponent();
 
