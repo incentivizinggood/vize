@@ -6,7 +6,6 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box.jsx";
 
 const t = i18n.createTranslator("common.login");
 const T = i18n.createComponent(t);
@@ -205,7 +204,6 @@ export default class LoginPage extends React.Component {
 					</div>
 				</div>
 				<Footer />
-				<Dialog />
 			</div>
 		);
 	}
