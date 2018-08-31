@@ -4,15 +4,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
+import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
-import { Reviews } from "../../api/data/reviews.js";
-import { Companies } from "../../api/data/companies.js";
-import "/imports/ui/forms/write-review.html";
+import { Reviews } from "/imports/api/data/reviews.js";
+import { Companies } from "/imports/api/data/companies.js";
+import "./write-review.html";
 
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
@@ -21,10 +21,10 @@ import Footer from "/imports/ui/components/footer.jsx";
 // rather than import the .html in the .js and just
 // import the .js here, but Meteor complains if I don't,
 // so whatever...
-import "../afInputStarRating.html";
-import "../afInputStarRating.js";
-import "../afInputLocation.html";
-import "../afInputLocation.js";
+import "/imports/ui/afInputStarRating.html";
+import "/imports/ui/afInputStarRating.js";
+import "/imports/ui/afInputLocation.html";
+import "/imports/ui/afInputLocation.js";
 
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
