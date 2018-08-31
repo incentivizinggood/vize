@@ -3,17 +3,17 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
+import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
-import { Companies } from "../../api/data/companies.js";
-import "/imports/ui/forms/create-company-profile.html";
+import { Companies } from "/imports//api/data/companies.js";
+import "./create-company-profile.html";
 
-import "../afInputLocation.html";
-import "../afInputLocation.js";
+import "/imports/ui/afInputLocation.html";
+import "/imports/ui/afInputLocation.js";
 
 const formError = new ReactiveVar("good");
 
