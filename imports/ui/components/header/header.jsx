@@ -3,8 +3,8 @@ import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 
-import WorkerHeader from "/imports/ui/components/workerHeader.jsx";
-import EmployerHeader from "/imports/ui/components/employerHeader.jsx";
+import WorkerHeader from "./worker-header.jsx";
+import EmployerHeader from "./employer-header.jsx";
 
 function Header(props) {
 	if (props.user) {

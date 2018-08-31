@@ -5,7 +5,7 @@ import { Query } from "react-apollo";
 import i18n from "meteor/universe:i18n";
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 
 import CompanyProfileSummary from "/imports/ui/components/company-profile/summary.jsx";
 import OverviewTab from "/imports/ui/components/company-profile/tabs/overview.jsx";
