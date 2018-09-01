@@ -2,8 +2,6 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import styles from "/imports/ui/components/test.scss";
-import styles1 from "/imports/ui/components/test1.css";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
@@ -33,9 +31,9 @@ export default class HomePage extends React.Component {
 						<div className="banner-text">
 							<div id="top" className="callbacks_container">
 								<ul className="rslides" id="slider3">
-									<li className={styles.testBox}>
+									<li>
 										<div className="banner-text-info">
-											<h1 className={styles1.testBox}>
+											<h1>
 												<T>mainBanner</T>
 											</h1>
 											<HomePageSearch />
