@@ -9,6 +9,14 @@
     "lint-nice-out": "eslint -c .eslintrc.json ./{client,server,imports}/**/*.{js,jsx} -f html -o ./eslint-out.html",
     "lint-formatting": "prettier --list-different ./**/*.{js,jsx,css,scss}"
   },
+  "cssModules": {
+    "extensions": [
+      "css",
+      "mss",
+      "m.css",
+      "scss"
+    ]
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.47",
     "apollo-boost": "^0.1.7",
@@ -53,6 +61,7 @@
     "eslint-plugin-meteor": "^5.0.0",
     "eslint-plugin-react": "^7.8.2",
     "flow-bin": "^0.74.0",
+    "node-sass": "^4.9.3",
     "prettier": "1.12.1",
     "react-test-renderer": "^16.4.2"
   }
