@@ -36,14 +36,18 @@ export default function VoteButtons(props) {
 				className={style.upButton}
 				onClick={vote(true)}
 			>
-				&#x1f44d;
+				<span role="img" aria-label="thumbs up">
+					&#x1f44d;
+				</span>
 			</button>
 			<button
 				type="button"
 				className={style.downButton}
 				onClick={vote(false)}
 			>
-				&#x1f44e;
+				<span role="img" aria-label="thumbs down">
+					&#x1f44e;
+				</span>
 			</button>
 		</div>
 	);
