@@ -41,7 +41,7 @@ export default class SalaryTab extends React.Component {
 							className="btn btn-primary"
 						>
 							{" "}
-							<FontAwesomeIcon icon="plus" aria-hidden="true" />
+							<FontAwesomeIcon icon="plus" />
 							{i18n.__("common.salary_tab.add_salary")}
 						</a>
 						{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
