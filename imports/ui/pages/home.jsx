@@ -1,4 +1,6 @@
 import React from "react";
+import FontAwesome from "react-fontawesome";
+
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
@@ -237,12 +239,8 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												{" "}
-												<i
-													className="fa fa-plus"
-													aria-hidden="true"
-												/>&nbsp;
-												{t("add_review_button")}
+												<FontAwesome name="plus" />
+												&nbsp;{t("add_review_button")}
 											</a>
 										</div>
 										<br />
@@ -268,12 +266,8 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												{" "}
-												<i
-													className="fa fa-plus"
-													aria-hidden="true"
-												/>&nbsp;
-												{t("salary_button")}
+												<FontAwesome name="plus" />
+												&nbsp;{t("salary_button")}
 											</a>
 										</div>
 										<br />
