@@ -15,6 +15,10 @@
       "mss",
       "m.css",
       "scss"
+    ],
+    "passthroughPaths": [
+      "^imports/sass/.*\\.scss",
+      "^client/main\\.scss"
     ]
   },
   "dependencies": {
