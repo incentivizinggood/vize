@@ -2,6 +2,8 @@ import React from "react";
 
 import { Meteor } from "meteor/meteor";
 
+import style from "./vote-buttons.scss";
+
 export default function VoteButtons(props) {
 	const vote = isUpvote => event => {
 		event.preventDefault();
@@ -20,52 +22,29 @@ export default function VoteButtons(props) {
 		});
 	};
 
-	const isUp =
-		props.review.currentUserVote && props.review.currentUserVote.isUpvote;
-
-	const isDown =
-		props.review.currentUserVote && !props.review.currentUserVote.isUpvote;
-
-	const upButtonStyle = isUp
-		? { backgroundColor: "green" }
-		: { backgroundColor: "transparent" };
-
-	const downButtonStyle = isDown
-		? { backgroundColor: "red" }
-		: { backgroundColor: "transparent" };
-
-	const upButton = (
-		<div className="thumb_up_bn">
-			<button
-				type="button"
-				className="btn btn-default btn-circle btn-xl"
-				style={upButtonStyle}
-				onClick={vote(true)}
-			>
-				<i className="fa fa-thumbs-o-up  " />
-			</button>
-		</div>
-	);
-
-	const downButton = (
-		<div className="thumb_don_bn">
-			<button
-				type="button"
-				className="btn btn-default btn-circle btn-xl"
-				style={downButtonStyle}
-				onClick={vote(false)}
-			>
-				<i className="fa fa-thumbs-o-down" />
-			</button>
-		</div>
-	);
+	let curVote;
+	if (props.review.currentUserVote) {
+		curVote = props.review.currentUserVote.isUpvote ? "up" : "down";
+	} else {
+		curVote = "none";
+	}
 
 	return (
-		<div>
-			<br />
-			{upButton}
-			<br />
-			{downButton}
+		<div className={style.voteButtons} data-vote={curVote}>
+			<button
+				type="button"
+				className={style.upButton}
+				onClick={vote(true)}
+			>
+				&#x1f44d;
+			</button>
+			<button
+				type="button"
+				className={style.downButton}
+				onClick={vote(false)}
+			>
+				&#x1f44e;
+			</button>
 		</div>
 	);
 }
