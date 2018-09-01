@@ -2,7 +2,7 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import styles from "/imports/ui/components/test.css";
+import styles from "/imports/ui/components/test.scss";
 import styles1 from "/imports/ui/components/test1.css";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
