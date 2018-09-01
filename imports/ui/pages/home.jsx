@@ -1,5 +1,5 @@
 import React from "react";
-import FontAwesome from "react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
@@ -239,7 +239,7 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												<FontAwesome name="plus" />
+												<FontAwesomeIcon icon="plus" />
 												&nbsp;{t("add_review_button")}
 											</a>
 										</div>
@@ -266,7 +266,7 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												<FontAwesome name="plus" />
+												<FontAwesomeIcon icon="plus" />
 												&nbsp;{t("salary_button")}
 											</a>
 										</div>
