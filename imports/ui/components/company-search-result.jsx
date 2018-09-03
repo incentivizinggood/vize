@@ -47,7 +47,14 @@ function CompanySearchResult(props) {
 										className="fa fa-map-marker"
 										aria-hidden="true"
 									/>{" "}
-									<span>{props.company.locations}</span>
+									{/* Gotta do a hack because I can't figure
+									out how to do this processing on a higher level
+									of the stack */}
+									<span>
+										{props.company.locations.map(
+											location => location.industrialHub
+										)}
+									</span>
 								</h4>
 								<h4>
 									<i
