@@ -16,7 +16,7 @@ import AboutPage from "/imports/ui/pages/about.jsx";
 import CompanySearchTrial from "/imports/ui/pages/company-search-trial.jsx";
 
 import ForEmployers from "/imports/ui/pages/foremployers.jsx";
-import CompanyProfile from "/imports/ui/pages/company-profile.jsx";
+import CompanyProfile from "/imports/ui/pages/company-profile";
 import ContactUsPage from "/imports/ui/pages/contact-us.jsx";
 import HelpPage from "/imports/ui/pages/help.jsx";
 import LoginPage from "/imports/ui/pages/login.jsx";
