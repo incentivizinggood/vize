@@ -43,6 +43,6 @@ okgrow:analytics
 universe:i18n
 universe:i18n-blaze
 session
-fourseven:scss
 apollo
 swydo:graphql
+nathantreid:css-modules
