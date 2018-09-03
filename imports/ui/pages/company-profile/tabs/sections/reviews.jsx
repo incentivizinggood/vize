@@ -26,7 +26,10 @@ export default class ReviewsSection extends React.Component {
 		let reviewsToDisplay;
 		if (this.props.company.reviews.length > 0) {
 			reviewsToDisplay = (
-				<CompanyReview review={this.props.company.reviews[0]} />
+				<CompanyReview
+					review={this.props.company.reviews[0]}
+					refetch={this.props.refetch}
+				/>
 			);
 		} else {
 			reviewsToDisplay = <T>common.overview_tab.display_text</T>;

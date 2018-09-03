@@ -3,7 +3,7 @@ import StarRatings from "react-star-ratings";
 
 import i18n from "meteor/universe:i18n";
 
-import VoteButtons from "./voteButtons.jsx";
+import VoteButtons from "./vote-buttons";
 
 const T = i18n.createComponent();
 
@@ -181,7 +181,10 @@ function ReviewComponent(props) {
 					</div>
 					<div className="col-md-4 bn-col">
 						<div className="fl_ri">
-							<VoteButtons review={props.review} />
+							<VoteButtons
+								review={props.review}
+								refetch={props.refetch}
+							/>
 						</div>
 					</div>
 				</div>

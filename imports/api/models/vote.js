@@ -38,6 +38,18 @@ export default class VoteModel {
 		return this.connector.findOne(id);
 	}
 
+	// Get the vote cast by a given user on a given thing.
+	getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
+		// Assuming voteSubject's type for now.
+		const voteSubject = "review";
+
+		return this.connector.findOne({
+			submittedBy: user._id,
+			voteSubject,
+			references: subject._id,
+		});
+	}
+
 	// Get all votes cast by a given user.
 	getVotesByAuthor(
 		user: User,

@@ -5,14 +5,10 @@ import { Query } from "react-apollo";
 import i18n from "meteor/universe:i18n";
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 
-import CompanyProfileSummary from "/imports/ui/components/company-profile/summary.jsx";
-import OverviewTab from "/imports/ui/components/company-profile/tabs/overview.jsx";
-import ReviewTab from "/imports/ui/components/company-profile/tabs/reviews.jsx";
-import JobTab from "/imports/ui/components/company-profile/tabs/jobs.jsx";
-import SalaryTab from "/imports/ui/components/company-profile/tabs/salaries.jsx";
-import ContactTab from "/imports/ui/components/company-profile/tabs/contact.jsx";
+import CompanyProfileSummary from "./summary.jsx";
+import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 
 const T = i18n.createComponent();
 
@@ -123,12 +119,14 @@ class CompanyProfile extends React.Component {
 									<ErrorBoundary>
 										<OverviewTab
 											company={this.props.company}
+											refetch={this.props.refetch}
 										/>
 									</ErrorBoundary>
 
 									<ErrorBoundary>
 										<ReviewTab
 											company={this.props.company}
+											refetch={this.props.refetch}
 										/>
 									</ErrorBoundary>
 
@@ -199,6 +197,9 @@ const companyProfileQuery = gql`
 				}
 				additionalComments
 				created
+				currentUserVote {
+					isUpvote
+				}
 			}
 			numReviews
 			jobAds {
@@ -226,7 +227,7 @@ const companyProfileQuery = gql`
 
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>
-		{({ loading, error, data }) => {
+		{({ loading, error, data, refetch }) => {
 			if (loading) {
 				return <h2>Loading</h2>;
 			}
@@ -236,6 +237,11 @@ export default ({ companyId }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
+			const refetchWithLog = () => {
+				console.log("Refetching");
+				refetch();
+			};
+
 			return (
 				<CompanyProfile
 					company={data.company}
@@ -244,6 +250,7 @@ export default ({ companyId }) => (
 					jobsCount={data.company.numJobAds}
 					salaries={data.company.salaries}
 					salariesCount={data.company.numJobAds}
+					refetch={refetchWithLog}
 				/>
 			);
 		}}

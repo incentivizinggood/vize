@@ -15,7 +15,7 @@ import type { Vote, VoteSubject } from "../models/vote.js";
 import type { ID, AllModels } from "../models/common.js";
 
 type Context = {
-	user: User,
+	user?: User,
 } & AllModels;
 
 type PgnArgs = {
@@ -236,6 +236,10 @@ export default {
 				args.pageNum,
 				args.pageSize
 			),
+		currentUserVote: (obj: Review, args: {}, context: Context) =>
+			context.user
+				? context.voteModel.getVoteByAuthorAndSubject(context.user, obj)
+				: null,
 	},
 
 	Salary: {

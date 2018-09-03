@@ -4,13 +4,14 @@ import Dropdown, {
 	DropdownTrigger,
 	DropdownContent,
 } from "react-simple-dropdown";
+
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import {
 	localeMetadata,
 	reactiveGetLocale,
-} from "../../startup/client/i18n.js";
+} from "/imports/startup/client/i18n.js";
 
 function CurLang({ code }) {
 	return <img src={localeMetadata[code].icon} alt={`${code} icon.`} />;
