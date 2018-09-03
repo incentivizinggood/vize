@@ -3,7 +3,7 @@ import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
 
 import i18n from "meteor/universe:i18n";
-
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import WriteReviewButton from "./write-review-button.jsx";
 
 const t = i18n.createTranslator("common.CompanySearchResult");
@@ -51,8 +51,10 @@ function CompanySearchResult(props) {
 									out how to do this processing on a higher level
 									of the stack */}
 									<span>
-										{props.company.locations.map(
-											location => location.industrialHub
+										{props.company.locations.map(location =>
+											processLocation(
+												JSON.stringify(location)
+											)
 										)}
 									</span>
 								</h4>
