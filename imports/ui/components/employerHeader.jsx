@@ -4,11 +4,20 @@ import LangSelector from "../components/lang-selector.jsx";
 import i18n from "meteor/universe:i18n";
 import { urlGenerators } from "../../startup/client/router.jsx";
 import { withTracker } from "meteor/react-meteor-data";
+import { Companies } from "../../api/data/companies.js";
 
 const T = i18n.createComponent();
 
 class EmployerHeader extends React.Component {
 	render() {
+		var companyURL;
+		if (this.props.user.companyId) {
+			console.log(this.props.user.companyId);
+			companyURL = `/companyprofile/?id=${this.props.user.companyId}`;
+		} else {
+			companyURL = "/create-company-profile";
+		}
+
 		return (
 			<div className="top-nav">
 				<nav>
@@ -28,7 +37,7 @@ class EmployerHeader extends React.Component {
 								<span className="icon-bar" />
 							</button>
 							<h2 className="site-logo">
-								<a href="/">
+								<a href={companyURL}>
 									<img src="/images/logo.png" />
 								</a>
 							</h2>
@@ -42,7 +51,7 @@ class EmployerHeader extends React.Component {
 									<If cond={this.props.isLoggedIn}>
 										<Then>
 											<a
-												href=""
+												href="/my-account"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
@@ -51,7 +60,7 @@ class EmployerHeader extends React.Component {
 										</Then>
 										<Else>
 											<a
-												href=""
+												href="/login"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
@@ -61,7 +70,10 @@ class EmployerHeader extends React.Component {
 									</If>
 								</li>
 								<li>
-									<a href="" className="link-kumya ">
+									<a
+										href={companyURL}
+										className="link-kumya "
+									>
 										<span>My Company</span>
 									</a>
 								</li>
@@ -177,4 +189,5 @@ class EmployerHeader extends React.Component {
 
 export default withTracker(() => ({
 	isLoggedIn: Meteor.userId() !== null,
+	user: Meteor.user(),
 }))(EmployerHeader);
