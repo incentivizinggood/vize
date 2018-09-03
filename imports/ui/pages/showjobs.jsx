@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 
 import i18n from "meteor/universe:i18n";
 
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header";
 
@@ -14,7 +15,11 @@ const ShowJobsQuery = gql`
 		jobAds: allJobAds {
 			id
 			jobTitle
-			locations
+			locations {
+				city
+				address
+				industrialHub
+			}
 			pesosPerHour
 			contractType
 			jobDescription
@@ -45,7 +50,16 @@ const ShowJobs = () => (
 			}
 
 			const RenderedItems = data.jobAds.map(function(jobad) {
-				return <ShowJobComponent key={jobad.id} item={jobad} />;
+				const processedJobAd = jobad;
+				processedJobAd.locations = processedJobAd.locations.map(
+					location => processLocation(JSON.stringify(location))
+				);
+				return (
+					<ShowJobComponent
+						key={processedJobAd.id}
+						item={processedJobAd}
+					/>
+				);
 			});
 			let message;
 			if (RenderedItems.length < 1) {

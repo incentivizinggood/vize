@@ -55,7 +55,7 @@ type Company {
 	yearEstablished: Int
 	numEmployees: String
 	industry: String
-	locations: [String!]!
+	locations: [Location!]!
 	contactPhoneNumber: String
 	websiteURL: String
 	descriptionOfCompany: String
@@ -83,7 +83,7 @@ type JobAd {
 	id: ID!
 
 	jobTitle: String!
-	locations: [String!]!
+	locations: [Location!]!
 	pesosPerHour: String! # TODO convert to unit aware system
 	contractType: String!
 	jobDescription: String!
@@ -129,7 +129,7 @@ type Salary {
 	id: ID!
 
 	jobTitle: String!
-	location: String!
+	location: Location!
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."

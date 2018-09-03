@@ -1,4 +1,4 @@
-import { castToNumberIfDefined, processLocation } from "./misc.js";
+import { castToNumberIfDefined } from "./misc.js";
 
 export default class PgSalaryFunctions {
 	static async getSalaryById(client, id) {

@@ -168,7 +168,11 @@ const companyProfileQuery = gql`
 			yearEstablished
 			numEmployees
 			industry
-			locations
+			locations {
+				city
+				address
+				industrialHub
+			}
 			contactPhoneNumber
 			websiteURL
 			descriptionOfCompany
@@ -188,7 +192,11 @@ const companyProfileQuery = gql`
 				id
 				title
 				jobTitle
-				location
+				location {
+					city
+					address
+					industrialHub
+				}
 				numberOfMonthsWorked
 				pros
 				cons
@@ -210,7 +218,11 @@ const companyProfileQuery = gql`
 			jobAds {
 				id
 				jobTitle
-				locations
+				locations {
+					city
+					address
+					industrialHub
+				}
 				pesosPerHour
 				contractType
 				jobDescription
@@ -246,6 +258,15 @@ export default ({ companyId }) => (
 				console.log("Refetching");
 				refetch();
 			};
+
+			// const processedCompany = data.company;
+			// const processedCompanyReviews = data.company.reviews;
+			// const processedJobAds = data.company.jobAds;
+			//
+			// processedCompany.locations = processedCompany.locations.map(location => processLocation(JSON.stringify(location)));
+			// processedCompanyReviews = processedCompanyReviews.map(
+			// 	review =>
+			// )
 
 			return (
 				<CompanyProfile
