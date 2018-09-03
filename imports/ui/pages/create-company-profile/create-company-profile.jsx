@@ -15,8 +15,6 @@ import "./create-company-profile.html";
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
 
-const formError = new ReactiveVar("good");
-
 const ccp_form_state = new ReactiveDict();
 ccp_form_state.set("formError", {
 	// Shared with AutoForm helpers
@@ -111,8 +109,14 @@ export default class CompanyCreateProfileForm extends React.Component {
 	}
 	render() {
 		return (
-			<div className="page CompanyCreateProfileForm">
-				<Blaze template="ccp_blaze_form" />
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="page CompanyCreateProfileForm">
+					<Blaze template="ccp_blaze_form" />
+				</div>
+				<Footer />
 			</div>
 		);
 	}
