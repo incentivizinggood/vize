@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 
-import VoteButtons from "./voteButtons.jsx";
+import VoteButtons from "./vote-buttons";
 
 const T = i18n.createComponent();
 

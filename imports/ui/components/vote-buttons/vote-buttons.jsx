@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Meteor } from "meteor/meteor";
 
+import style from "./vote-buttons.scss";
+
 export default function VoteButtons(props) {
 	const vote = isUpvote => event => {
 		event.preventDefault();
@@ -21,52 +23,29 @@ export default function VoteButtons(props) {
 		});
 	};
 
-	const isUp =
-		props.review.currentUserVote && props.review.currentUserVote.isUpvote;
+	let curVote;
+	if (props.review.currentUserVote) {
+		curVote = props.review.currentUserVote.isUpvote ? "up" : "down";
+	} else {
+		curVote = "none";
+	}
 
-	const isDown =
-		props.review.currentUserVote && !props.review.currentUserVote.isUpvote;
-
-	const upButtonStyle = isUp
-		? { backgroundColor: "green" }
-		: { backgroundColor: "transparent" };
-
-	const downButtonStyle = isDown
-		? { backgroundColor: "red" }
-		: { backgroundColor: "transparent" };
-
-	const upButton = (
-		<div className="thumb_up_bn">
+	return (
+		<div className={style.voteButtons} data-vote={curVote}>
 			<button
 				type="button"
-				className="btn btn-default btn-circle btn-xl"
-				style={upButtonStyle}
+				className={style.upButton}
 				onClick={vote(true)}
 			>
 				<FontAwesomeIcon icon="thumbs-up" />
 			</button>
-		</div>
-	);
-
-	const downButton = (
-		<div className="thumb_don_bn">
 			<button
 				type="button"
-				className="btn btn-default btn-circle btn-xl"
-				style={downButtonStyle}
+				className={style.downButton}
 				onClick={vote(false)}
 			>
 				<FontAwesomeIcon icon="thumbs-down" flip="horizontal" />
 			</button>
-		</div>
-	);
-
-	return (
-		<div>
-			<br />
-			{upButton}
-			<br />
-			{downButton}
 		</div>
 	);
 }

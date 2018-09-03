@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
 

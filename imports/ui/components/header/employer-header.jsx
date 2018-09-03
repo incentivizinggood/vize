@@ -1,13 +1,15 @@
 import React from "react";
+
+import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
-import { If, Then, Else } from "../if-else.jsx";
-import LangSelector from "../components/lang-selector.jsx";
-import { urlGenerators } from "../../startup/client/router.jsx";
 import { withTracker } from "meteor/react-meteor-data";
+
+import { If, Then, Else } from "/imports/ui/if-else.jsx";
+import LangSelector from "./lang-selector.jsx";
 
 const T = i18n.createComponent();
 
-class WorkerHeader extends React.Component {
+class EmployerHeader extends React.Component {
 	render() {
 		return (
 			<div className="top-nav">
@@ -61,30 +63,24 @@ class WorkerHeader extends React.Component {
 									</If>
 								</li>
 								<li>
-									<a
-										href="/companies"
-										className="link-kumya "
-									>
-										<span>
-											<T>common.header.companies</T>
-										</span>
-									</a>
-								</li>
-								<li>
-									<a href="/jobs" className="link-kumya">
-										<span>
-											<T>common.header.jobs</T>
-										</span>
+									<a href="" className="link-kumya ">
+										<span>My Company</span>
 									</a>
 								</li>
 								<li>
 									<a
-										href="/worker-resources"
+										href="/post-a-job"
 										className="link-kumya"
 									>
-										<span>
-											<T>common.header.resources</T>
-										</span>
+										<span>Post a Job</span>
+									</a>
+								</li>
+								<li>
+									<a
+										href="/employer-resources"
+										className="link-kumya"
+									>
+										<span>Resources</span>
 									</a>
 								</li>
 							</ul>
@@ -106,7 +102,7 @@ class WorkerHeader extends React.Component {
 												<li className="tr">
 													<a
 														href="/my-account"
-														className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+														className="link-kumya"
 													>
 														{i18n.__(
 															"common.header.myaccount"
@@ -116,7 +112,7 @@ class WorkerHeader extends React.Component {
 												<li className="tr">
 													<a
 														onClick={Meteor.logout}
-														className="navbar-link margin-right"
+														className="link-kumya"
 														style={{
 															cursor: "pointer",
 														}}
@@ -156,23 +152,13 @@ class WorkerHeader extends React.Component {
 								<li className="dropdown">
 									<LangSelector />
 								</li>
-								<li>
-									<a
-										href="/foremployers"
-										className="link-kumya"
-									>
-										<span>
-											<T>common.header.for_employers</T>
-										</span>
-									</a>
-								</li>
 								<br />
 								<If cond={this.props.isLoggedIn}>
 									<Then>
 										<li>
 											<a
 												onClick={Meteor.logout}
-												className="toggle-only-display navbar-link margin-right"
+												className="toggle-only-display link-kumya"
 												style={{ cursor: "pointer" }}
 											>
 												<T>common.header.logout</T>
@@ -193,4 +179,4 @@ class WorkerHeader extends React.Component {
 
 export default withTracker(() => ({
 	isLoggedIn: Meteor.userId() !== null,
-}))(WorkerHeader);
+}))(EmployerHeader);
