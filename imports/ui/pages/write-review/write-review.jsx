@@ -14,7 +14,7 @@ import { Reviews } from "/imports/api/data/reviews.js";
 import { Companies } from "/imports/api/data/companies.js";
 import "./write-review.html";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 // Weird that I have to import all of these here,

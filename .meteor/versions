@@ -45,7 +45,6 @@ ejson@1.1.0
 email@1.2.3
 erasaur:meteor-lodash@4.0.0
 es5-shim@4.7.3
-fourseven:scss@4.9.0
 gadicc:blaze-react-component@1.4.0
 geojson-utils@1.0.10
 hot-code-push@1.0.4
@@ -79,6 +78,7 @@ mongo@1.4.7
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
 mrgalaxy:stripe@2.2.2
+nathantreid:css-modules@3.1.4
 npm-bcrypt@0.9.3
 npm-mongo@2.2.34
 numtel:pg@1.0.2

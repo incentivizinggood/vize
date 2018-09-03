@@ -14,7 +14,7 @@ import { Salaries } from "/imports/api/data/salaries.js";
 import { Companies } from "/imports/api/data/companies.js";
 import "./submit-salary-data.html";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 import "/imports/ui/afInputLocation.html";

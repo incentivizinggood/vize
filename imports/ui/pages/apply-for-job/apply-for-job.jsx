@@ -10,7 +10,7 @@ import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global stat
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 // Specific stuff second

@@ -1,10 +1,12 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
-import { If, Then, Else } from "../if-else.jsx";
-import LangSelector from "../components/lang-selector.jsx";
+
+import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "../../startup/client/router.jsx";
 import { withTracker } from "meteor/react-meteor-data";
+
+import { If, Then, Else } from "/imports/ui/if-else.jsx";
+import LangSelector from "./lang-selector.jsx";
 
 const T = i18n.createComponent();
 
