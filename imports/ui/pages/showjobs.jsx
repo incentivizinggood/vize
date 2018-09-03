@@ -4,7 +4,6 @@ import { Query } from "react-apollo";
 
 import i18n from "meteor/universe:i18n";
 
-import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header";
 
@@ -50,16 +49,7 @@ const ShowJobs = () => (
 			}
 
 			const RenderedItems = data.jobAds.map(function(jobad) {
-				const processedJobAd = jobad;
-				processedJobAd.locations = processedJobAd.locations.map(
-					location => processLocation(JSON.stringify(location))
-				);
-				return (
-					<ShowJobComponent
-						key={processedJobAd.id}
-						item={processedJobAd}
-					/>
-				);
+				return <ShowJobComponent key={jobad.id} item={jobad} />;
 			});
 			let message;
 			if (RenderedItems.length < 1) {
