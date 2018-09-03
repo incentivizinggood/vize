@@ -4,7 +4,7 @@ import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/startup/client/router.jsx";
 
-import SalaryPosting from "/imports/ui/components/salaryPosting.jsx";
+import SalaryPosting from "./salary-posting.jsx";
 
 const T = i18n.createComponent();
 
