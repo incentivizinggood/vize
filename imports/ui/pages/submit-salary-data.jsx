@@ -13,7 +13,7 @@ import { Salaries } from "../../api/data/salaries.js";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/submit-salary-data.html";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 const ssd_form_state = new ReactiveDict();

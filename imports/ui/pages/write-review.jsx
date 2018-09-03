@@ -13,7 +13,7 @@ import { Reviews } from "../../api/data/reviews.js";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/write-review.html";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 // Weird that I have to import both of these here,
