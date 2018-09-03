@@ -13,7 +13,7 @@ import { JobAds } from "../../api/data/jobads.js";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/post-a-job.html";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 const paj_form_state = new ReactiveDict();
