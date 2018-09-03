@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
+import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var";
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
@@ -14,9 +14,9 @@ import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 
 // Specific stuff second
-import { JobAds } from "../../api/data/jobads.js";
-import { Companies } from "../../api/data/companies.js";
-import "/imports/ui/forms/apply-for-job.html";
+import { JobAds } from "/imports/api/data/jobads.js";
+import { Companies } from "/imports/api/data/companies.js";
+import "./apply-for-job.html";
 
 const afj_form_state = new ReactiveDict();
 afj_form_state.set("formError", {
