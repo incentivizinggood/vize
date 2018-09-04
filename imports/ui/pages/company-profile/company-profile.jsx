@@ -9,12 +9,8 @@ import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js"
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header";
 
-import CompanyProfileSummary from "/imports/ui/components/company-profile/summary.jsx";
-import OverviewTab from "/imports/ui/components/company-profile/tabs/overview.jsx";
-import ReviewTab from "/imports/ui/components/company-profile/tabs/reviews.jsx";
-import JobTab from "/imports/ui/components/company-profile/tabs/jobs.jsx";
-import SalaryTab from "/imports/ui/components/company-profile/tabs/salaries.jsx";
-import ContactTab from "/imports/ui/components/company-profile/tabs/contact.jsx";
+import CompanyProfileSummary from "./summary.jsx";
+import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 
 const T = i18n.createComponent();
 

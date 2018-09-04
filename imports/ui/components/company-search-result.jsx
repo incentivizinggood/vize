@@ -1,6 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
@@ -43,33 +44,32 @@ function CompanySearchResult(props) {
 						<div className="col-md-12 comp-class">
 							<div className="locahed">
 								<h4>
-									<i
-										className="fa fa-map-marker"
-										aria-hidden="true"
-									/>{" "}
-									{/* Gotta do a hack because I can't figure
-									out how to do this processing on a higher level
-									of the stack */}
+									<FontAwesomeIcon icon="map-marker" />{" "}
 									<span>
-										{props.company.locations.map(location =>
-											processLocation(
-												JSON.stringify(location)
-											)
+										{/* Gotta do a hack because I can't figure out
+										how to do this processing on a higher level
+										of the stack */}
+										{props.company.locations.map(
+											location =>
+												processLocation(
+													JSON.stringify(location)
+												) +
+												// separate locations with commas except the last one
+												(location ===
+												props.company.locations.slice(
+													-1
+												)[0]
+													? ""
+													: ", ")
 										)}
 									</span>
 								</h4>
 								<h4>
-									<i
-										className="fa fa-flask"
-										aria-hidden="true"
-									/>{" "}
+									<FontAwesomeIcon icon="flask" />{" "}
 									<span>{props.company.industry}</span>
 								</h4>
 								<h4>
-									<i
-										className="fa fa-users"
-										aria-hidden="true"
-									/>{" "}
+									<FontAwesomeIcon icon="users" />{" "}
 									<span>{props.company.numEmployees}</span>
 								</h4>
 							</div>

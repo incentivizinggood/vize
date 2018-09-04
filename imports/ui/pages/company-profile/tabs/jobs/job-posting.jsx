@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 
@@ -51,23 +52,18 @@ export default class JobPosting extends React.Component {
 							</a>
 						</div>
 						<p>
-							{" "}
-							<i className="fa fa-map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+							<FontAwesomeIcon icon="map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
 								JSON.stringify(this.props.jobAd.locations[0])
 							)}
 						</p>
 						<p>
-							{" "}
-							<i className="fa fa-money" />&nbsp;&nbsp;{
-								this.props.jobAd.pesosPerHour
-							}
+							<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;
+							{this.props.jobAd.pesosPerHour}
 							{i18n.__("common.jobpostings.hour")}
 						</p>
 						<p>
-							{" "}
-							<i className="fa fa-calendar" />&nbsp;&nbsp;{
-								this.props.jobAd.contractType
-							}
+							<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;
+							{this.props.jobAd.contractType}
 						</p>
 					</div>
 

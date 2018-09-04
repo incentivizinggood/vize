@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import { urlGenerators } from "../../startup/client/router.jsx";
@@ -55,20 +57,20 @@ export default class ShowJobComponent extends React.Component {
 						</div>
 						<p>
 							{" "}
-							<i className="fa fa-map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+							<FontAwesomeIcon icon="map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
 								JSON.stringify(this.props.item.locations[0])
 							)}
 						</p>
 						<p>
 							{" "}
-							<i className="fa fa-money" />&nbsp;&nbsp;{
+							<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;{
 								this.props.item.pesosPerHour
 							}
 							<T>common.showjob.hour</T>
 						</p>
 						<p>
 							{" "}
-							<i className="fa fa-calendar" />&nbsp;&nbsp;{
+							<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;{
 								this.props.item.contractType
 							}
 						</p>

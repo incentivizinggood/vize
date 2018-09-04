@@ -1,5 +1,6 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
@@ -45,12 +46,7 @@ export default class CompanyProfileSummary extends React.Component {
 						</div>
 						<div className="col-md-12 comp-prfl">
 							<p>
-								<i
-									className="fa fa-map-marker"
-									aria-hidden="true"
-								>
-									{" "}
-								</i>{" "}
+								<FontAwesomeIcon icon="map-marker" />{" "}
 								{processLocation(
 									JSON.stringify(
 										this.props.company.locations[0]
@@ -59,21 +55,15 @@ export default class CompanyProfileSummary extends React.Component {
 							</p>
 							{/* displaying just the first company location for now, from the list */}
 							<p>
-								<i className="fa fa-flask" aria-hidden="true">
-									{" "}
-								</i>{" "}
+								<FontAwesomeIcon icon="flask" />{" "}
 								{this.props.company.industry}
 							</p>
 							<p>
-								<i className="fa fa-globe" aria-hidden="true">
-									{" "}
-								</i>{" "}
+								<FontAwesomeIcon icon="globe" />{" "}
 								{this.props.company.websiteURL}
 							</p>
 							<p>
-								<i className="fa fa-users" aria-hidden="true">
-									{" "}
-								</i>{" "}
+								<FontAwesomeIcon icon="users" />{" "}
 								{this.props.company.numEmployees}
 							</p>
 						</div>
@@ -89,10 +79,7 @@ export default class CompanyProfileSummary extends React.Component {
 									className="btn btn-primary  add_review replus"
 								>
 									{" "}
-									<i
-										className="fa fa-plus"
-										aria-hidden="true"
-									/>{" "}
+									<FontAwesomeIcon icon="plus" />{" "}
 									{i18n.__(
 										"common.companyprofile.add_review"
 									)}

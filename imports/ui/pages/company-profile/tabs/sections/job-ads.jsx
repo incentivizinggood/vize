@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 
@@ -31,23 +32,18 @@ export default function JobsSection(props) {
 						</a>
 					</div>
 					<p>
-						{" "}
-						<i className="fa fa-map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+						<FontAwesomeIcon icon="map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
 							JSON.stringify(props.jobAds[0].locations[0])
 						)}
 					</p>
 					<p>
-						{" "}
-						<i className="fa fa-money" />&nbsp;&nbsp;{
-							props.jobAds[0].pesosPerHour
-						}
+						<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;
+						{props.jobAds[0].pesosPerHour}
 						<T>common.overview_tab.hour</T>
 					</p>
 					<p>
-						{" "}
-						<i className="fa fa-calendar" />&nbsp;&nbsp;{
-							props.jobAds[0].contractType
-						}
+						<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;
+						{props.jobAds[0].contractType}
 					</p>
 				</div>
 
