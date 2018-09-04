@@ -56,22 +56,32 @@ processLocation = function(location) {
 		are expecting at this point.
 	*/
 	let returnVal = "";
+
 	try {
 		const locationObj = JSON.parse(location);
-		if(locationObj.industrialHub !== undefined)
+
+		if (
+			locationObj.industrialHub !== undefined &&
+			locationObj.industrialHub !== null
+		)
 			returnVal = locationObj.industrialHub;
-		else if(locationObj.city !== undefined)
+		else if (locationObj.city !== undefined && locationObj.city !== null)
 			returnVal = locationObj.city;
-		else if(locationObj.address !== undefined)
+		else if (
+			locationObj.address !== undefined &&
+			locationObj.address !== null
+		)
 			returnVal = locationObj.address;
 	} catch (e) {
 		returnVal = location;
 	}
 
-	if(returnVal === "")
+	if (returnVal === "") {
 		return location;
+	}
+
 	return returnVal;
-}
+};
 
 let wrapPgFunction;
 let PostgreSQL;
@@ -355,8 +365,8 @@ processCompanyResults = function(companyResults) {
 			yearEstablished: companyResults.company.yearestablished,
 			numEmployees: companyResults.company.numemployees,
 			industry: companyResults.company.industry,
-			locations: companyResults.locations.map(
-				loc => processLocation(loc.companylocation)
+			locations: companyResults.locations.map(loc =>
+				JSON.parse(loc.companylocation)
 			),
 			contactPhoneNumber: companyResults.company.contactphonenumber,
 			websiteURL: companyResults.company.websiteurl,
@@ -396,8 +406,8 @@ processCompanyResults = function(companyResults) {
 				yearEstablished: company.yearestablished,
 				numEmployees: company.numemployees,
 				industry: company.industry,
-				locations: companyResults.locations[company.name].map(
-					loc => processLocation(loc.companylocation)
+				locations: companyResults.locations[company.name].map(loc =>
+					JSON.parse(loc.companylocation)
 				),
 				contactPhoneNumber: company.contactphonenumber,
 				websiteURL: company.websiteurl,
@@ -689,7 +699,7 @@ processReviewResults = function(reviewResults) {
 			companyName: review.companyname,
 			companyId: castToNumberIfDefined(review.companyid),
 			reviewTitle: review.reviewtitle,
-			location: processLocation(review.reviewlocation),
+			location: JSON.parse(review.reviewlocation),
 			jobTitle: review.jobtitle,
 			numberOfMonthsWorked: Number(review.nummonthsworked),
 			pros: review.pros,
@@ -713,7 +723,7 @@ processReviewResults = function(reviewResults) {
 				companyName: review.companyname,
 				companyId: castToNumberIfDefined(review.companyid),
 				reviewTitle: review.reviewtitle,
-				location: processLocation(review.reviewlocation),
+				location: JSON.parse(review.reviewlocation),
 				jobTitle: review.jobtitle,
 				numberOfMonthsWorked: Number(review.nummonthsworked),
 				pros: review.pros,
@@ -851,7 +861,7 @@ processSalaryResults = function(salaryResults) {
 			submittedby: castToNumberIfDefined(salary.submittedby),
 			companyName: salary.companyname,
 			companyId: castToNumberIfDefined(salary.companyid),
-			location: processLocation(salary.salarylocation),
+			location: JSON.parse(salary.salarylocation),
 			jobTitle: salary.jobtitle,
 			incomeType: salary.incometype,
 			incomeAmount: salary.incomeamount,
@@ -865,7 +875,7 @@ processSalaryResults = function(salaryResults) {
 				submittedby: castToNumberIfDefined(salary.submittedby),
 				companyName: salary.companyname,
 				companyId: castToNumberIfDefined(salary.companyid),
-				location: processLocation(salary.salarylocation),
+				location: JSON.parse(salary.salarylocation),
 				jobTitle: salary.jobtitle,
 				incomeType: salary.incometype,
 				incomeAmount: salary.incomeamount,
@@ -1031,7 +1041,9 @@ processJobAdResults = function(jobAdResults) {
 			companyName: jobad.companyname,
 			companyId: castToNumberIfDefined(jobad.companyid),
 			jobTitle: jobad.jobtitle,
-			locations: jobAdResults.locations.map(loc => processLocation(loc.joblocation)),
+			locations: jobAdResults.locations.map(loc =>
+				JSON.parse(loc.joblocation)
+			),
 			pesosPerHour: jobad.pesosperhour,
 			contractType: jobad.contracttype,
 			jobDescription: jobad.jobdescription,
@@ -1048,7 +1060,7 @@ processJobAdResults = function(jobAdResults) {
 				jobTitle: jobad.jobtitle,
 				locations: jobAdResults.locations[
 					String(jobad.jobadid)
-				].map(loc => processLocation(loc.joblocation)),
+				].map(loc => JSON.parse(loc.joblocation)),
 				pesosPerHour: jobad.pesosperhour,
 				contractType: jobad.contracttype,
 				jobDescription: jobad.jobdescription,
