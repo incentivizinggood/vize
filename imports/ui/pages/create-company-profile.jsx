@@ -11,6 +11,9 @@ import i18n from "meteor/universe:i18n";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/create-company-profile.html";
 
+import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer.jsx";
+
 const formError = new ReactiveVar("good");
 
 Template.ccp_blaze_form.bindI18nNamespace("common.forms");
@@ -69,8 +72,14 @@ export default class CompanyCreateProfileForm extends React.Component {
 	}
 	render() {
 		return (
-			<div className="page CompanyCreateProfileForm">
-				<Blaze template="ccp_blaze_form" />
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="page CompanyCreateProfileForm">
+					<Blaze template="ccp_blaze_form" />
+				</div>
+				<Footer />
 			</div>
 		);
 	}

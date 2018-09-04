@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";

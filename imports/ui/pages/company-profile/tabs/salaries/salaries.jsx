@@ -1,7 +1,11 @@
 import React from "react";
-import SalaryPosting from "../../ui/components/salaryPosting.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "../../startup/client/router.jsx";
+
+import { urlGenerators } from "/imports/startup/client/router.jsx";
+
+import SalaryPosting from "./salary-posting.jsx";
 
 const T = i18n.createComponent();
 
@@ -18,26 +22,26 @@ export default class SalaryTab extends React.Component {
 	}
 
 	render() {
-		const RenderedItems = this.props.salaries.map(function(item, i) {
-			return <SalaryPosting key={i} item={item} />;
-		});
+		const renderedSalaries = this.props.company.salaries.map(salary => (
+			<SalaryPosting key={salary.id} salary={salary} />
+		));
 
 		return (
 			<div role="tabpanel" className="tab-pane" id="salaries">
 				<div className="col-md-12  section_rview_back_color03 ">
 					<h4 className="head_section_font">
-						{this.props.salariesCount}{" "}
+						{this.props.company.numSalaries}{" "}
 						<T>common.salary_tab.job_salaries</T>
 					</h4>
 					<div className="add-buttons">
 						<a
 							href={urlGenerators.vizeSalaryUrl(
-								this.props.company._id
+								this.props.company.id
 							)}
 							className="btn btn-primary"
 						>
 							{" "}
-							<i className="fa fa-plus" aria-hidden="true" />
+							<FontAwesomeIcon icon="plus" />
 							{i18n.__("common.salary_tab.add_salary")}
 						</a>
 						{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
@@ -52,7 +56,7 @@ export default class SalaryTab extends React.Component {
             <hr />
             <SalaryPosting /> */}
 
-					{RenderedItems}
+					{renderedSalaries}
 
 					{/* mobile view range show  section 1  code */}
 

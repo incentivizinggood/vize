@@ -1,8 +1,10 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
 
@@ -52,6 +54,7 @@ export default class HomePage extends React.Component {
 								<img
 									className="img-responsive"
 									src="images/home-img-2.png"
+									alt="Computer screen with example job ad."
 								/>
 							</div>
 						</div>
@@ -117,6 +120,7 @@ export default class HomePage extends React.Component {
 									<img
 										className="img-responsive"
 										src="images/mobile-1.png"
+										alt="Smart phone with example job ad."
 									/>
 								</center>
 							</div>
@@ -159,6 +163,7 @@ export default class HomePage extends React.Component {
 								<img
 									className="img-responsive"
 									src="images/home-img-1.png"
+									alt="Computer screen with example company rateings."
 								/>
 							</div>
 						</div>
@@ -200,6 +205,7 @@ export default class HomePage extends React.Component {
 									<img
 										className="img-responsive"
 										src="images/mobile-2.png"
+										alt="Smartphone with example company rateings."
 									/>
 								</center>
 							</div>
@@ -233,12 +239,8 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												{" "}
-												<i
-													className="fa fa-plus"
-													aria-hidden="true"
-												/>&nbsp;
-												{t("add_review_button")}
+												<FontAwesomeIcon icon="plus" />
+												&nbsp;{t("add_review_button")}
 											</a>
 										</div>
 										<br />
@@ -264,12 +266,8 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												{" "}
-												<i
-													className="fa fa-plus"
-													aria-hidden="true"
-												/>&nbsp;
-												{t("salary_button")}
+												<FontAwesomeIcon icon="plus" />
+												&nbsp;{t("salary_button")}
 											</a>
 										</div>
 										<br />

@@ -177,11 +177,7 @@ Meteor.methods({
 		}
 	},
 
-	"reviews.changeVote"(review, vote) {
-		console.log(
-			`SERVER: User ${this.userId} voted ${vote} on review ${review._id}`
-		);
-
+	"reviews.changeVote"(reviewId, vote) {
 		// validate vote: must be boolean
 		if (typeof vote !== "boolean") {
 			if (Meteor.isDevelopment)
@@ -192,25 +188,9 @@ Meteor.methods({
 			);
 		}
 
-		// validate review: must match Reviews.schema
-		const validationResult = Reviews.simpleSchema()
-			.namedContext()
-			.validate(review);
-		const errors = Reviews.simpleSchema()
-			.namedContext()
-			.validationErrors();
+		const review = Reviews.findOne({ _id: reviewId });
 
-		if (!validationResult) {
-			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
-			if (Meteor.isDevelopment) console.log(errors);
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.vote1stArg"),
-				errors
-			);
-		}
-
-		if (Reviews.findOne(review) === undefined) {
+		if (review === undefined) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: review does not exist");
 			throw new Meteor.Error(

@@ -1,24 +1,15 @@
 import React from "react";
-import { withTracker } from "meteor/react-meteor-data";
-import { If, Then, Else } from "../if-else.jsx";
-import LangSelector from "../components/lang-selector.jsx";
+
+import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
+import { withTracker } from "meteor/react-meteor-data";
+
+import { If, Then, Else } from "/imports/ui/if-else.jsx";
+import LangSelector from "./lang-selector.jsx";
 
 const T = i18n.createComponent();
 
-/* The "header" page. */
-class Header extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class WorkerHeader extends React.Component {
 	render() {
 		return (
 			<div className="top-nav">
@@ -50,16 +41,27 @@ class Header extends React.Component {
 						>
 							<ul className="nav navbar-nav left_nav">
 								<li>
-									<a
-										href=""
-										type="button"
-										id="register-button-menu"
-										className=" btn navbar-btn margin-right btn-green hvr-icon-forward"
-									>
-										Sign Up or Login
-									</a>
+									<If cond={this.props.isLoggedIn}>
+										<Then>
+											<a
+												href=""
+												type="button"
+												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+											>
+												My Account
+											</a>
+										</Then>
+										<Else>
+											<a
+												href=""
+												type="button"
+												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+											>
+												Sign Up or Log In
+											</a>
+										</Else>
+									</If>
 								</li>
-								<hr className="hr_line_width1" />
 								<li>
 									<a
 										href="/companies"
@@ -78,7 +80,10 @@ class Header extends React.Component {
 									</a>
 								</li>
 								<li>
-									<a href="/worker-resources" className="link-kumya">
+									<a
+										href="/worker-resources"
+										className="link-kumya"
+									>
 										<span>
 											<T>common.header.resources</T>
 										</span>
@@ -88,25 +93,42 @@ class Header extends React.Component {
 							<ul className="nav navbar-nav navbar-right">
 								<If cond={this.props.isLoggedIn}>
 									<Then>
-										<li>
+										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
 											<a
-												href="/my-account"
-												type="button"
-												id="register-button"
-												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+												href="#"
+												className="dropdown-toggle  "
+												data-toggle="dropdown"
 											>
-												{i18n.__(
-													"common.header.myaccount"
-												)}
+												<img
+													src="images/profileIcon.png"
+													className="img-responsive  dp-profile"
+												/>{" "}
 											</a>
-										</li>
-										<li>
-											<a
-												onClick={Meteor.logout}
-												className="navbar-link margin-right"
-											>
-												<T>common.header.logout</T>
-											</a>
+											<ul className="dropdown-menu pf">
+												<li className="tr">
+													<a
+														href="/my-account"
+														className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+													>
+														{i18n.__(
+															"common.header.myaccount"
+														)}
+													</a>
+												</li>
+												<li className="tr">
+													<a
+														onClick={Meteor.logout}
+														className="navbar-link margin-right"
+														style={{
+															cursor: "pointer",
+														}}
+													>
+														<T>
+															common.header.logout
+														</T>
+													</a>
+												</li>
+											</ul>
 										</li>
 									</Then>
 									<Else>
@@ -134,7 +156,6 @@ class Header extends React.Component {
 								</If>
 
 								<li className="dropdown">
-									<hr className="hr_line_width2" />
 									<LangSelector />
 								</li>
 								<li>
@@ -147,6 +168,21 @@ class Header extends React.Component {
 										</span>
 									</a>
 								</li>
+								<br />
+								<If cond={this.props.isLoggedIn}>
+									<Then>
+										<li>
+											<a
+												onClick={Meteor.logout}
+												className="toggle-only-display navbar-link margin-right"
+												style={{ cursor: "pointer" }}
+											>
+												<T>common.header.logout</T>
+											</a>
+										</li>
+									</Then>
+									<Else> </Else>
+								</If>
 							</ul>
 							<div className="clearfix" />
 						</div>
@@ -159,4 +195,4 @@ class Header extends React.Component {
 
 export default withTracker(() => ({
 	isLoggedIn: Meteor.userId() !== null,
-}))(Header);
+}))(WorkerHeader);

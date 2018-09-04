@@ -1,14 +1,19 @@
 import React from "react";
+
 import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
+
+import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer.jsx";
 
 const t = i18n.createTranslator("common.passwordChanger");
 const T = i18n.createComponent(t);
 
 /* A form where users can change their passwords.
  */
-export default class PasswordChanger extends React.Component {
+class PasswordChanger extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -69,24 +74,27 @@ export default class PasswordChanger extends React.Component {
 		);
 	}
 
-	render() {
-		if (this.state.success) {
-			return (
-				<div className="password-reset">
-					<T>success</T>
-				</div>
-			);
-		}
+	renderContent() {
 		return (
-			<div className="password-reset">
+			<div
+				className="password-reset"
+				style={{ width: "80%", margin: "auto" }}
+			>
 				{this.state.error ? (
 					<div>
 						<T>{`error.${this.state.error}`}</T>
 					</div>
 				) : null}
+				<br />
+				<h3>
+					<strong>Change Password</strong>
+				</h3>
+				<br />
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor="passwordChangeForm-oldPassword">
-						<T>oldPassword</T>
+					<label
+						htmlFor="passwordChangeForm-oldPassword"
+						style={{ width: "100%" }}
+					>
 						<input
 							id="passwordChangeForm-oldPassword"
 							name="oldPassword"
@@ -95,10 +103,15 @@ export default class PasswordChanger extends React.Component {
 							required
 							value={this.state.oldPassword}
 							onChange={this.handleInputChange}
+							style={{ width: "100%" }}
 						/>
 					</label>
-					<label htmlFor="passwordChangeForm-newPassword">
-						<T>newPassword</T>
+					<br />
+					<br />
+					<label
+						htmlFor="passwordChangeForm-newPassword"
+						style={{ width: "100%" }}
+					>
 						<input
 							id="passwordChangeForm-newPassword"
 							name="newPassword"
@@ -107,10 +120,15 @@ export default class PasswordChanger extends React.Component {
 							required
 							value={this.state.newPassword}
 							onChange={this.handleInputChange}
+							style={{ width: "100%" }}
 						/>
 					</label>
-					<label htmlFor="passwordChangeForm-repeatNewPassword">
-						<T>repeatNewPassword</T>
+					<br />
+					<br />
+					<label
+						htmlFor="passwordChangeForm-repeatNewPassword"
+						style={{ width: "100%" }}
+					>
 						<input
 							id="passwordChangeForm-repeatNewPassword"
 							name="repeatNewPassword"
@@ -119,11 +137,74 @@ export default class PasswordChanger extends React.Component {
 							required
 							value={this.state.repeatNewPassword}
 							onChange={this.handleInputChange}
+							style={{ width: "100%" }}
 						/>
 					</label>
-					<input type="submit" value={t("submit")} />
+					<br />
+					<br />
+					<input
+						type="submit"
+						className="btn btn-primary"
+						value={t("submit")}
+					/>
+					<br />
+					<br />
 				</form>
 			</div>
 		);
 	}
+
+	render() {
+		let content = null;
+
+		if (this.state.success) {
+			content = (
+				<div
+					style={{ width: "80%", margin: "0 auto" }}
+					className="password-reset"
+				>
+					<T>success</T>
+					<br />
+					<br />
+				</div>
+			);
+		} else if (this.props.user) {
+			content = this.renderContent();
+		} else {
+			content = (
+				<div style={{ width: "80%", margin: "0 auto" }}>
+					<br />
+					You must be logged in to use this page. <br /> <br />
+					<a className="btn btn-primary" href="/login">
+						Log In
+					</a>
+					<br />
+				</div>
+			);
+		}
+
+		return (
+			<div>
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="container fom-job">
+					<div className="row">
+						<div
+							className="back_top_hover"
+							style={{ backgroundColor: "#ffffff" }}
+						>
+							<br />
+							{content}
+						</div>
+					</div>
+				</div>
+				<Footer />
+			</div>
+		);
+	}
 }
+
+export default withTracker(() => ({
+	user: Meteor.user(),
+}))(PasswordChanger);

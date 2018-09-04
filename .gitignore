@@ -1,4 +1,10 @@
+# The config/settings files contain secrets and
+# should never be checked into version control.
+config
+
+# NPM stuff
 node_modules/
+
 # Mac stuff
 ._*
 
