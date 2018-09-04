@@ -59,7 +59,7 @@ function CompanySearchResult(props) {
 												props.company.locations.slice(
 													-1
 												)[0]
-													? ""
+													? " "
 													: ", ")
 										)}
 									</span>

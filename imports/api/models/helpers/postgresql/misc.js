@@ -26,17 +26,29 @@ export const processLocation = function(location) {
 		are expecting at this point.
 	*/
 	let returnVal = "";
+
 	try {
 		const locationObj = JSON.parse(location);
-		if (locationObj.industrialHub !== undefined)
+
+		if (
+			locationObj.industrialHub !== undefined &&
+			locationObj.industrialHub !== null
+		)
 			returnVal = locationObj.industrialHub;
-		else if (locationObj.city !== undefined) returnVal = locationObj.city;
-		else if (locationObj.address !== undefined)
+		else if (locationObj.city !== undefined && locationObj.city !== null)
+			returnVal = locationObj.city;
+		else if (
+			locationObj.address !== undefined &&
+			locationObj.address !== null
+		)
 			returnVal = locationObj.address;
 	} catch (e) {
 		returnVal = location;
 	}
 
-	if (returnVal === "") return location;
+	if (returnVal === "") {
+		return location;
+	}
+
 	return returnVal;
 };

@@ -50,22 +50,22 @@ const SearchResults = ({ searchText }) => (
 			}
 
 			const resultList = data.searchCompanies.map(function(company) {
-				if (Meteor.isDevelopment) {
-					console.log("BEFORE PROCESS");
-					console.log(company.locations);
-				}
-				const newLocations = company.locations.map(location =>
-					processLocation(JSON.stringify(location))
-				);
-				if (Meteor.isDevelopment) {
-					console.log("newLocations");
-					console.log(newLocations);
-				}
-				company.locations = newLocations;
-				if (Meteor.isDevelopment) {
-					console.log("AFTER PROCESS");
-					console.log(company.locations);
-				}
+				// if (Meteor.isDevelopment) {
+				// 	console.log("BEFORE PROCESS");
+				// 	console.log(company.locations);
+				// }
+				// const newLocations = company.locations.map(location =>
+				// 	processLocation(JSON.stringify(location))
+				// );
+				// if (Meteor.isDevelopment) {
+				// 	console.log("newLocations");
+				// 	console.log(newLocations);
+				// }
+				// company.locations = newLocations;
+				// if (Meteor.isDevelopment) {
+				// 	console.log("AFTER PROCESS");
+				// 	console.log(company.locations);
+				// }
 				return (
 					<CompanySearchResult key={company.id} company={company} />
 				);
