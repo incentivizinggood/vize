@@ -1,6 +1,7 @@
 version: "3"
 services:
   web:
+    build: .
     image: vize-meteor
     ports:
       - "80:80"
@@ -8,6 +9,8 @@ services:
     image: mongo:3.4
     ports:
       - "27017:27017"
+    volumes:
+      - data-volume:/data/db
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -17,3 +20,5 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+volumes:
+  data-volume:

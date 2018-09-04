@@ -1,17 +1,13 @@
-FROM node:8
+FROM node:8.11.4-jessie as builder
 
 RUN curl "https://install.meteor.com/?release=1.6.1.1" | sh
+
 ENV METEOR_ALLOW_SUPERUSER true
-
-
 ENV APP_SOURCE_DIR /opt/meteor/src
 ENV APP_BUNDLE_DIR /opt/meteor/dist
 
-
 WORKDIR $APP_SOURCE_DIR
 
-# Only copy the files that NPM needs to install build dependencies.
-# This avoids unneeded reinstalls when other files change.
 COPY package.json ./
 RUN meteor npm install
 
@@ -25,11 +21,14 @@ COPY public/ public/
 COPY server/ server/
 COPY .meteorignore ./
 
-RUN meteor build $APP_BUNDLE_DIR --directory --server-only
-WORKDIR $APP_BUNDLE_DIR/bundle/programs/server/
-RUN meteor npm install --production --verbose
-RUN chown -R node:node $APP_BUNDLE_DIR
+COPY scripts/ scripts/
 
+RUN scripts/build-meteor
+
+
+FROM node:8.11.4-slim as prod
+
+ENV APP_BUNDLE_DIR /opt/meteor/dist
 
 # Default values for Meteor environment variables
 ENV ROOT_URL http://localhost
@@ -39,4 +38,5 @@ ENV PORT 80
 EXPOSE 80
 
 WORKDIR $APP_BUNDLE_DIR/bundle
+COPY --from=builder $APP_BUNDLE_DIR/ $APP_BUNDLE_DIR/
 CMD ["node", "main.js"]
