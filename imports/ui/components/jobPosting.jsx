@@ -3,6 +3,7 @@ import React from "react";
 import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 
 const T = i18n.createComponent();
 
@@ -51,9 +52,9 @@ export default class JobPosting extends React.Component {
 						</div>
 						<p>
 							{" "}
-							<i className="fa fa-map-marker" />&nbsp;&nbsp;&nbsp;{
-								this.props.jobAd.locations[0]
-							}
+							<i className="fa fa-map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+								JSON.stringify(this.props.jobAd.locations[0])
+							)}
 						</p>
 						<p>
 							{" "}

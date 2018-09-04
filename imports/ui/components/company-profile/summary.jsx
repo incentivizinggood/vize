@@ -2,7 +2,7 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 
 import i18n from "meteor/universe:i18n";
-
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import { urlGenerators } from "/imports/startup/client/router.jsx";
 
 export default class CompanyProfileSummary extends React.Component {
@@ -51,7 +51,11 @@ export default class CompanyProfileSummary extends React.Component {
 								>
 									{" "}
 								</i>{" "}
-								{this.props.company.locations[0]}
+								{processLocation(
+									JSON.stringify(
+										this.props.company.locations[0]
+									)
+								)}
 							</p>
 							{/* displaying just the first company location for now, from the list */}
 							<p>
