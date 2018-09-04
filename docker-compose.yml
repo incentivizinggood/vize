@@ -1,5 +1,9 @@
 version: "3"
 services:
+  web:
+    image: vize-meteor
+    ports:
+      - "80:80"
   mongo:
     image: mongo:3.4
     ports:
