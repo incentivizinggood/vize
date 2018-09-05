@@ -5,6 +5,8 @@ services:
     image: vize-meteor
     ports:
       - "80:80"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/meteor"
   mongo:
     image: mongo:3.4
     ports:
