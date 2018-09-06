@@ -72,6 +72,13 @@ const wrapPgFunction = async function(func, readOnly) {
 		await client.query("COMMIT");
 	} catch (e) {
 		console.log(e);
+		console.log("INTERESTING ERROR FIELDS: ");
+		console.log(e.error);
+		console.log(e.code);
+		console.log(e.constraint);
+		console.log(e.detail);
+		console.log("KEYS WE CAN USE: ");
+		console.log(Object.keys(e));
 		await client.query("ROLLBACK");
 		result = e;
 	} finally {

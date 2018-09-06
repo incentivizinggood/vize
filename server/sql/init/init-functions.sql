@@ -289,21 +289,6 @@ $$
 		return null;
 $$ LANGUAGE plv8;
 
--- ditto for review locations
-DROP FUNCTION IF EXISTS check_review_location_count() CASCADE;
-CREATE OR REPLACE FUNCTION check_review_location_count() RETURNS TRIGGER AS
-$$
-	const newreviewid = NEW.reviewid;
-	const count_related_by_int = plv8.find_function("count_related_by_int");
-	const result = count_related_by_int("review_locations","reviews","reviewid",newreviewid);
-	if(result === -1)
-		throw "Review doesn't exist, what in the blazes is going on?";
-	else if(result === 0)
-		throw "Each review must have at least one location";
-	else
-		return null;
-$$ LANGUAGE plv8;
-
 -- ditto for job locations
 DROP FUNCTION IF EXISTS check_job_location_count() CASCADE;
 CREATE OR REPLACE FUNCTION check_job_location_count() RETURNS TRIGGER AS
@@ -333,22 +318,6 @@ $$
 	const result = count_related_by_int("company_locations", "companies", "companyid",oldcompanyid);
 	if (result === 0)
 		throw "Each company must have at least one location (cannot remove last location)";
-	else
-		return null;
-$$ LANGUAGE plv8;
-
--- ditto for review locations
-DROP FUNCTION IF EXISTS check_remaining_review_locations() CASCADE;
-CREATE OR REPLACE FUNCTION check_remaining_review_locations() RETURNS TRIGGER AS
-$$
-	// skip case we don't care about so we don't have to worry about NEW
-	if(TG_OP === 'UPDATE' && OLD.reviewid === NEW.reviewid)
-		return null;
-	const oldreviewid = OLD.reviewid;
-	const count_related_by_int = plv8.find_function("count_related_by_int");
-	const result = count_related_by_int("review_locations","reviews","reviewid",oldreviewid);
-	if(result === 0)
-		throw "Each review must have at least one location (cannot remove last location)";
 	else
 		return null;
 $$ LANGUAGE plv8;
