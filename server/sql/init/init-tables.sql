@@ -180,6 +180,13 @@ CREATE TABLE reviews (
 	-- keep the initial reviews with their NULL submittedBy fields,
 	-- as opposed to re-enabling a proper NOT NULL constraint which
 	-- would not allow us to keep the "invalid" initial reviews.
+	-- In my current workflow, this operation looks like:
+	-- \i server/sql/wipedb.sql;
+	-- \i server/sql/init/init-db.sql;
+	-- # add companies in node REPL
+	-- ALTER TABLE reviews ALTER submittedby DROP NOT NULL;
+	-- # add reviews in node REPL
+	-- ALTER TABLE reviews ADD CHECK (submittedby IS NOT NULL) NOT VALID;
 	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE -- this raises the question, should we retain reviews and salaries for users who delete their accounts?

@@ -194,7 +194,7 @@ CREATE OR REPLACE FUNCTION process_location
 (location text)
 RETURNS text AS
 $$
-	let returnVal = "";
+	var returnVal = "";
 	try {
 		const obj = JSON.parse(location);
 		if ((obj.city === undefined || obj.city === null) &&

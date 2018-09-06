@@ -1353,14 +1353,14 @@ processVoteResults = function(voteResults) {
 let writeCompaniesToProductionDb;
 let writeReviewsToProductionDb;
 
-writeCompaniesToProductionDb = async function() {
+writeInitialCompaniesToDb = async function() {
 	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
 	return Promise.all(companies.map(async function(company) {
 		return PostgreSQL.executeMutation(createCompany, company);
 	}));
 }
 
-writeReviewsToProductionDb = async function() {
+writeInitialReviewsToDb = async function() {
 	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
 	return Promise.all(reviews.map(async function(review) {
 		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
