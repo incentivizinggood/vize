@@ -33,11 +33,58 @@ paj_form_state.set("company", {
 	name: i18n.__("common.forms.pleaseWait"),
 });
 
+// This holds the options that show up in the
+// contract type drop-down, in a reactive global
+// object so that they can be translated reactively
+// by a reactive translator which will be invoked
+// in the template's onCreated function. We give them
+// correct initial values here, but know that they
+// will be reactively clobbered and are fine with that.
+// Can you tell I hate Meteor? :) Maybe I just can't
+// read docs, but I get the impression that this
+// should have been much simpler...
+paj_form_state.set("contractTypeOptions", [
+	{
+		label: i18n.__("common.forms.paj.contractTypes.fullTime"),
+		value: "Full time",
+	},
+	{
+		label: i18n.__("common.forms.paj.contractTypes.partTime"),
+		value: "Part time",
+	},
+	{
+		label: i18n.__("common.forms.paj.contractTypes.contractor"),
+		value: "Contractor",
+	},
+]);
+
 if (Meteor.isClient) {
+	import { reactiveCommonTranslator } from "/imports/startup/client/i18n.js";
+
 	Template.paj_blaze_form.bindI18nNamespace("common.forms");
 
 	Template.paj_blaze_form.onCreated(function() {
 		this.autorun(function() {
+			paj_form_state.set("contractTypeOptions", [
+				{
+					label: reactiveCommonTranslator(
+						"forms.paj.contractTypes.fullTime"
+					),
+					value: "Full time",
+				},
+				{
+					label: reactiveCommonTranslator(
+						"forms.paj.contractTypes.partTime"
+					),
+					value: "Part time",
+				},
+				{
+					label: reactiveCommonTranslator(
+						"forms.paj.contractTypes.contractor"
+					),
+					value: "Contractor",
+				},
+			]);
 			Meteor.call("companies.companyForCurrentUser", (error, result) => {
 				if (!result) {
 					paj_form_state.set("company", undefined);
@@ -65,20 +112,7 @@ if (Meteor.isClient) {
 			return company.name;
 		},
 		getContractTypeOptions() {
-			return [
-				{
-					label: i18n.__("common.forms.paj.contractTypes.fullTime"),
-					value: "Full time",
-				},
-				{
-					label: i18n.__("common.forms.paj.contractTypes.partTime"),
-					value: "Part time",
-				},
-				{
-					label: i18n.__("common.forms.paj.contractTypes.contractor"),
-					value: "Contractor",
-				},
-			];
+			return paj_form_state.get("contractTypeOptions");
 		},
 		hasError() {
 			return paj_form_state.get("formError").hasError;

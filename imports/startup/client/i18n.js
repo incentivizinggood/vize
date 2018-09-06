@@ -185,9 +185,12 @@ setUpI18nOnSchema(Reviews.schema, "Reviews");
 setUpI18nOnSchema(Salaries.schema, "Salaries");
 setUpI18nOnSchema(Votes.schema, "Votes");
 
+const reactiveCommonTranslator = i18n.createReactiveTranslator("common");
+
 export {
 	localeMetadata,
 	reactiveGetLocale,
 	getDefaultLocale,
 	getClosestSupportedLocale,
+	reactiveCommonTranslator,
 };

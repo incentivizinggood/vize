@@ -35,12 +35,73 @@ ssd_form_state.set("company", {
 });
 ssd_form_state.set("allCompanyNames", []);
 
+// This is my technique for reactively translating
+// drop-down options. I did the same thing in post-a-job.jsx
+// for contract type options, the comments there give
+// the general idea of what I'm doing here for gender
+// and income type options.
+ssd_form_state.set("incomeTypeOptions", [
+	{
+		label: i18n.__("common.forms.ssd.payTypes.yearlySalary"),
+		value: "Yearly Salary",
+	},
+	{
+		label: i18n.__("common.forms.ssd.payTypes.monthlySalary"),
+		value: "Monthly Salary",
+	},
+	{
+		label: i18n.__("common.forms.ssd.payTypes.hourlyWage"),
+		value: "Hourly Wage",
+	},
+]);
+ssd_form_state.set("genderOptions", [
+	{ label: i18n.__("common.gender.male"), value: "Male" },
+	{
+		label: i18n.__("common.gender.female"),
+		value: "Female",
+	},
+]);
+
 if (Meteor.isClient) {
+	import { reactiveCommonTranslator } from "/imports/startup/client/i18n.js";
+
 	Template.ssd_blaze_form.bindI18nNamespace("common.forms");
 
 	Template.ssd_blaze_form.onCreated(function() {
 		const id = ssd_form_state.get("companyId");
 		if (Meteor.isDevelopment) console.log(`received id: ${id}`);
+		this.autorun(function() {
+			ssd_form_state.set("incomeTypeOptions", [
+				{
+					label: reactiveCommonTranslator(
+						"forms.ssd.payTypes.yearlySalary"
+					),
+					value: "Yearly Salary",
+				},
+				{
+					label: reactiveCommonTranslator(
+						"forms.ssd.payTypes.monthlySalary"
+					),
+					value: "Monthly Salary",
+				},
+				{
+					label: reactiveCommonTranslator(
+						"forms.ssd.payTypes.hourlyWage"
+					),
+					value: "Hourly Wage",
+				},
+			]);
+			ssd_form_state.set("genderOptions", [
+				{
+					label: reactiveCommonTranslator("gender.male"),
+					value: "Male",
+				},
+				{
+					label: reactiveCommonTranslator("gender.female"),
+					value: "Female",
+				},
+			]);
+		});
 		if (id !== undefined) {
 			this.autorun(function() {
 				Meteor.call("companies.findOne", id, (error, result) => {
@@ -86,29 +147,10 @@ if (Meteor.isClient) {
 			return ssd_form_state.get("allCompanyNames");
 		},
 		getIncomeTypeOptions() {
-			return [
-				{
-					label: i18n.__("common.forms.ssd.payTypes.yearlySalary"),
-					value: "Yearly Salary",
-				},
-				{
-					label: i18n.__("common.forms.ssd.payTypes.monthlySalary"),
-					value: "Monthly Salary",
-				},
-				{
-					label: i18n.__("common.forms.ssd.payTypes.hourlyWage"),
-					value: "Hourly Wage",
-				},
-			];
+			return ssd_form_state.get("incomeTypeOptions");
 		},
 		getGenderOptions() {
-			return [
-				{ label: i18n.__("common.gender.male"), value: "Male" },
-				{
-					label: i18n.__("common.gender.female"),
-					value: "Female",
-				},
-			];
+			return ssd_form_state.get("genderOptions");
 		},
 		hasError() {
 			return ssd_form_state.get("formError").hasError;

@@ -131,30 +131,6 @@ JobAds.schema = new SimpleSchema(
 			allowedValues() {
 				return ["Full time", "Part time", "Contractor"];
 			},
-			// autoform: {
-			// 	options() {
-			// 		return [
-			// 			{
-			// 				label: i18n.__(
-			// 					"common.forms.paj.contractTypes.fullTime"
-			// 				),
-			// 				value: "Full time",
-			// 			},
-			// 			{
-			// 				label: i18n.__(
-			// 					"common.forms.paj.contractTypes.partTime"
-			// 				),
-			// 				value: "Part time",
-			// 			},
-			// 			{
-			// 				label: i18n.__(
-			// 					"common.forms.paj.contractTypes.contractor"
-			// 				),
-			// 				value: "Contractor",
-			// 			},
-			// 		];
-			// 	},
-			// },
 		},
 		jobDescription: {
 			type: String,

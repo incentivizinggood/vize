@@ -136,30 +136,6 @@ Salaries.schema = new SimpleSchema(
 			allowedValues() {
 				return ["Yearly Salary", "Monthly Salary", "Hourly Wage"];
 			},
-			// autoform: {
-			// 	options() {
-			// 		return [
-			// 			{
-			// 				label: i18n.__(
-			// 					"common.forms.ssd.payTypes.yearlySalary"
-			// 				),
-			// 				value: "Yearly Salary",
-			// 			},
-			// 			{
-			// 				label: i18n.__(
-			// 					"common.forms.ssd.payTypes.monthlySalary"
-			// 				),
-			// 				value: "Monthly Salary",
-			// 			},
-			// 			{
-			// 				label: i18n.__(
-			// 					"common.forms.ssd.payTypes.hourlyWage"
-			// 				),
-			// 				value: "Hourly Wage",
-			// 			},
-			// 		];
-			// 	},
-			// },
 		},
 		incomeAmount: {
 			type: Number,
@@ -172,17 +148,6 @@ Salaries.schema = new SimpleSchema(
 			allowedValues() {
 				return ["Male", "Female"];
 			},
-			// autoform: {
-			// 	options() {
-			// 		return [
-			// 			{ label: i18n.__("common.gender.male"), value: "Male" },
-			// 			{
-			// 				label: i18n.__("common.gender.female"),
-			// 				value: "Female",
-			// 			},
-			// 		];
-			// 	},
-			// },
 		},
 		datePosted: {
 			type: Date,
