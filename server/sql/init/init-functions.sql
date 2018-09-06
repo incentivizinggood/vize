@@ -197,29 +197,40 @@ $$
 	let returnVal = "";
 	try {
 		const obj = JSON.parse(location);
-		if (obj.city === undefined &&
-			obj.address === undefined &&
-			obj.industrialHub === undefined)
+		if ((obj.city === undefined || obj.city === null) &&
+			(obj.address === undefined || obj.address === null) &&
+			(obj.industrialHub === undefined || obj.industrialHub === null))
 			// case where location is a valid JSON object
 			// but does not have any of the required fields
 			throw "Location must include either a city, an address, or an industrial park";
 		else if (
-			(obj.city !== undefined && !(typeof obj.city === 'string')) ||
-			(obj.address !== undefined && !(typeof obj.address === 'string')) ||
-			(obj.industrialHub !== undefined && !(typeof obj.industrialHub === 'string'))
+			(obj.city !== undefined && obj.city !== null && !(typeof obj.city === 'string')) ||
+			(obj.address !== undefined && obj.address !== null && !(typeof obj.address === 'string')) ||
+			(obj.industrialHub !== undefined && obj.industrialHub !== null && !(typeof obj.industrialHub === 'string'))
 		)
 		{
 			// case where one or more of the required fields exists but has
 			// the wrong type (non-required fields are considered harmless)
 			throw "All required fields of location must have type String";
 		}
-		// else, we are fine
-		returnVal = location;
+		// this would be the place to check for required fields,
+		// but do I care? does that matter to us here on the backend?
+		// sure, but it makes more sense to supply default values
+		// rather than reject stuff, we can let the frontend worry
+		// about what it wants to let something through or not
+		if(obj.city === undefined || obj.city === null)
+			obj.city = "(unknown or not provided by user)";
+		if(obj.address === undefined || obj.address === null)
+			obj.address = "(unknown or not provided by user)";
+		if(obj.industrialHub === undefined || obj.industrialHub === null)
+			obj.industrialHub = "(unknown or not provided by user)";
+		// return location, with any modifications we have made
+		returnVal = JSON.stringify(obj);
 	} catch (e) {
 		if (e instanceof SyntaxError) {
 			// case where location is not a valid JSON object, assume
 			// "industrial hub", as in the case with the initial reviews
-			returnVal = JSON.stringify({ industrialHub: location });
+			returnVal = JSON.stringify({ city: "(unknown or not provided by user)", address: "(unknown or not provided by user)", industrialHub: location });
 		} else
 			throw e;
 	}
