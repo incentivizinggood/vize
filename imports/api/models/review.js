@@ -122,9 +122,9 @@ export default class ReviewModel {
 	}
 
 	isReview(obj: any): boolean {
-		Reviews.simpleSchema()
-			.newContext()
-			.validate(obj);
+		// Reviews.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
 		const context = Reviews.simpleSchema().newContext();
 		context.validate(obj, {
 			extendedCustomContext: {

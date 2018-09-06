@@ -462,6 +462,18 @@ Meteor.methods({
 		Email.send(applicationEmail);
 	},
 
+	async "jobads.checkIfCompanyBelowJobPostLimit"(companyName) {
+		const count = await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdCountForCompany,
+			companyName
+		);
+		if (count === undefined || count === null) {
+			// non-existent companies have not met their limit
+			return true;
+		}
+		return !(count >= 5);
+	},
+
 	async "jobads.postJobAd"(jobAd) {
 		const newJobAd = JobAds.simpleSchema().clean(jobAd);
 		const validationResult = JobAds.simpleSchema()

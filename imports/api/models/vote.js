@@ -181,9 +181,9 @@ export default class VoteModel {
 	}
 
 	isVote(obj: any): boolean {
-		Votes.simpleSchema()
-			.newContext()
-			.validate(obj);
+		// Votes.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
 		const context = Votes.simpleSchema().newContext();
 		context.validate(obj);
 		return context.isValid();

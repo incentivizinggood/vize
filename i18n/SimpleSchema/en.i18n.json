@@ -44,7 +44,9 @@
 		"Companies": {
 			"nameTaken": "The name you provided is already taken"
 		},
-		"JobAds": {},
+		"JobAds": {
+			"maxedOutJobPosts": "You may only post up to 5 job ads"
+		},
 		"Salaries": {
 			"secondSalaryByUser":
 				"You may only post salary data once per company"

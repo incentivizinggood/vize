@@ -41,6 +41,29 @@ JobAds.schema = new SimpleSchema(
 											type: "noCompanyWithThatName",
 										},
 									]);
+								} else if (!this.isNotASubmission) {
+									// doing the same monkey business here
+									// as we have to do with checking for multiple
+									// salaries or reviews by users for a given company,
+									// see those respective schemas for comments
+									// explaining the technique
+									Meteor.call(
+										"jobads.checkIfCompanyBelowJobPostLimit",
+										this.value,
+										(error2, result2) => {
+											if (!result2) {
+												this.validationContext.addValidationErrors(
+													[
+														{
+															name: "companyName",
+															type:
+																"maxedOutJobPosts",
+														},
+													]
+												);
+											}
+										}
+									);
 								}
 							}
 						);
@@ -52,6 +75,14 @@ JobAds.schema = new SimpleSchema(
 							)
 						)
 							return "noCompanyWithThatName";
+						else if (
+							!this.isNotASubmission &&
+							!Meteor.call(
+								"jobads.checkIfCompanyBelowJobPostLimit",
+								this.value
+							)
+						)
+							return "maxedOutJobPosts";
 					}
 				}
 			},

@@ -104,9 +104,9 @@ export default class CompanyModel {
 	}
 
 	isCompany(obj: any): boolean {
-		Companies.simpleSchema()
-			.newContext()
-			.validate(obj);
+		// Companies.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
 		const context = Companies.simpleSchema().newContext();
 		context.validate(obj);
 		return context.isValid();

@@ -93,19 +93,31 @@ export default class JobAdModel {
 	}
 
 	isJobAd(obj: any): boolean {
-		JobAds.simpleSchema()
-			.newContext()
-			.validate(obj);
+		// JobAds.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
 		const context = JobAds.simpleSchema().newContext();
-		context.validate(obj);
+		context.validate(obj, {
+			extendedCustomContext: {
+				isNotASubmission: true,
+			},
+		});
 		return context.isValid();
 	}
 
 	isJobApplication(obj: any): boolean {
-		return JobAds.applicationSchema
-			.newContext()
-			.validate(obj)
-			.isValid();
+		// there's a strong chance that this validation
+		// code is broken, but I'm not sure how to go about
+		// fixing it because I don't know how/where it will be used
+		// return JobAds.applicationSchema
+		// 	.newContext()
+		// 	.validate(obj)
+		// 	.isValid();
+
+		// here's something that's more likely to work
+		const context = JobAds.applicationSchema.newContext();
+		context.validate(obj);
+		return context.isValid();
 	}
 
 	async postJobAd(company: Company, jobAdParams: mixed): JobAd {

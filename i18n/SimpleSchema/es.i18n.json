@@ -44,7 +44,10 @@
 		"Companies": {
 			"nameTaken": "El nombre proporcionado ya esta en uso"
 		},
-		"JobAds": {},
+		"JobAds": {
+			"maxedOutJobPosts":
+				"[PLEASE TRANSLATE] You may only post up to 5 job ads"
+		},
 		"Salaries": {
 			"secondSalaryByUser":
 				"[PLEASE TRANSLATE] You may only post salary data once per company"

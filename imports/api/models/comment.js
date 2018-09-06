@@ -95,9 +95,9 @@ export default class CommentModel {
 	}
 
 	isComment(obj: any): boolean {
-		Comments.simpleSchema()
-			.newContext()
-			.validate(obj);
+		// Comments.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
 		const context = Comments.simpleSchema().newContext();
 		context.validate(obj);
 		return context.isValid();
