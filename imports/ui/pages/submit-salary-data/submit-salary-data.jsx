@@ -85,6 +85,31 @@ if (Meteor.isClient) {
 		allCompanyNames() {
 			return ssd_form_state.get("allCompanyNames");
 		},
+		getIncomeTypeOptions() {
+			return [
+				{
+					label: i18n.__("common.forms.ssd.payTypes.yearlySalary"),
+					value: "Yearly Salary",
+				},
+				{
+					label: i18n.__("common.forms.ssd.payTypes.monthlySalary"),
+					value: "Monthly Salary",
+				},
+				{
+					label: i18n.__("common.forms.ssd.payTypes.hourlyWage"),
+					value: "Hourly Wage",
+				},
+			];
+		},
+		getGenderOptions() {
+			return [
+				{ label: i18n.__("common.gender.male"), value: "Male" },
+				{
+					label: i18n.__("common.gender.female"),
+					value: "Female",
+				},
+			];
+		},
 		hasError() {
 			return ssd_form_state.get("formError").hasError;
 		},
