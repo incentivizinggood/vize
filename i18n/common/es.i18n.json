@@ -2,7 +2,7 @@
 	"_locale": "es",
 	"_namespace": "common",
 	"gender": {
-		"default": "[PLEASE TRANSLATE] (Select one)",
+		"default": "(Seleccione uno)",
 		"male": "Hombre",
 		"female": "Mujer"
 	},
@@ -109,7 +109,7 @@
 		},
 		"ssd": {
 			"payTypes": {
-				"default": "[PLEASE TRANSLATE] (Select one)",
+				"default": "(Seleccione uno)",
 				"yearlySalary": "Salario anual",
 				"monthlySalary": "Salario mensual",
 				"hourlyWage": "Salario por hora"
