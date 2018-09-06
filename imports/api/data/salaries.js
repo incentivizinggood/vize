@@ -133,11 +133,13 @@ Salaries.schema = new SimpleSchema(
 		incomeType: {
 			type: String,
 			optional: false,
-			allowedValues: [
-				i18n.__("common.forms.ssd.payTypes.yearlySalary"),
-				i18n.__("common.forms.ssd.payTypes.monthlySalary"),
-				i18n.__("common.forms.ssd.payTypes.hourlyWage"),
-			],
+			allowedValues() {
+				return [
+					i18n.__("common.forms.ssd.payTypes.yearlySalary"),
+					i18n.__("common.forms.ssd.payTypes.monthlySalary"),
+					i18n.__("common.forms.ssd.payTypes.hourlyWage"),
+				];
+			},
 		},
 		incomeAmount: {
 			type: Number,
@@ -147,10 +149,12 @@ Salaries.schema = new SimpleSchema(
 		gender: {
 			type: String,
 			optional: true,
-			allowedValues: [
-				i18n.__("common.gender.male"),
-				i18n.__("common.gender.female"),
-			],
+			allowedValues() {
+				return [
+					i18n.__("common.gender.male"),
+					i18n.__("common.gender.female"),
+				];
+			},
 		},
 		datePosted: {
 			type: Date,
