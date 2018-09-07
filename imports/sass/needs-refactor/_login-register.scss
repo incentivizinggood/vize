@@ -27,14 +27,8 @@
 .icon-addon.addon-md .fa,
 .icon-addon .fa {
 	position: absolute;
-	z-index: 2;
 	left: 10px;
-	font-size: 14px;
-	width: 20px;
-	margin-left: -2.5px;
-	text-align: center;
-	padding: 10px 0;
-	top: 1px;
+	top: 10px;
 }
 
 .icon-addon.addon-md .form-control,
@@ -184,11 +178,10 @@ h3.top-head-worker {
 		font-size: 26px;
 		text-align: center;
 		font-weight: normal;
+		cursor: pointer;
 		/* Hide the browser's default checkbox */
 		input {
-			position: absolute;
-			opacity: 0;
-			cursor: pointer;
+			display: none;
 		}
 	}
 	.selected-role {

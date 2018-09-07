@@ -1,5 +1,5 @@
 import React from "react";
-import "font-awesome/css/font-awesome.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
@@ -126,31 +126,36 @@ export default class RegisterPage extends React.Component {
 
 		const usernameInput = (
 			<div className="form-group">
-				<div className="icon-addon addon-md">
+				<label
+					htmlFor="Username"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="Username"
+				>
+					<FontAwesomeIcon icon="user" className="fa" />
 					<input
 						type="text"
 						placeholder="Username"
 						className="form-control"
 						name="username"
 						id="username"
-						autoFocus
 						required
 						value={this.state.username}
 						onChange={this.handleInputChange}
 					/>
-					<label
-						htmlFor="Username"
-						className="glyphicon glyphicon-user"
-						rel="tooltip"
-						title="Username"
-					/>
-				</div>
+				</label>
 			</div>
 		);
 
 		const emailInput = (
 			<div className="form-group">
-				<div className="icon-addon addon-md">
+				<label
+					htmlFor="email"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="email"
+				>
+					<FontAwesomeIcon icon="envelope" className="fa" />
 					<input
 						type="email"
 						name="email"
@@ -160,19 +165,19 @@ export default class RegisterPage extends React.Component {
 						value={this.state.email}
 						onChange={this.handleInputChange}
 					/>
-					<label
-						htmlFor="email"
-						className="fa fa-envelope-o"
-						rel="tooltip"
-						title="email"
-					/>
-				</div>
+				</label>
 			</div>
 		);
 
 		const companyNameInput = (
 			<div className="form-group">
-				<div className="icon-addon addon-md">
+				<label
+					htmlFor="companyName"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="companyName"
+				>
+					<FontAwesomeIcon icon="building" className="fa" />
 					<input
 						type="text"
 						name="companyName"
@@ -182,19 +187,19 @@ export default class RegisterPage extends React.Component {
 						value={this.state.companyName}
 						onChange={this.handleInputChange}
 					/>
-					<label
-						htmlFor="companyName"
-						className="fa fa-building-o"
-						rel="tooltip"
-						title="companyName"
-					/>
-				</div>
+				</label>
 			</div>
 		);
 
 		const passwordInput = (
 			<div className="form-group">
-				<div className="icon-addon addon-md   pwd-line-sm">
+				<label
+					htmlFor="password"
+					className="icon-addon addon-md pwd-line-sm"
+					rel="tooltip"
+					title="password"
+				>
+					<FontAwesomeIcon icon="lock" className="fa" />
 					<input
 						type="password"
 						name="password"
@@ -205,13 +210,7 @@ export default class RegisterPage extends React.Component {
 						value={this.state.password}
 						onChange={this.handleInputChange}
 					/>
-					<label
-						htmlFor="password"
-						className="fa fa-lock"
-						rel="tooltip"
-						title="password"
-					/>
-				</div>
+				</label>
 			</div>
 		);
 
