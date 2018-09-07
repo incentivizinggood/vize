@@ -6,7 +6,7 @@ import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 const t = i18n.createTranslator("common.register");
