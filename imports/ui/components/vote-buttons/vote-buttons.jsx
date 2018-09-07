@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Meteor } from "meteor/meteor";
 
@@ -36,18 +37,14 @@ export default function VoteButtons(props) {
 				className={style.upButton}
 				onClick={vote(true)}
 			>
-				<span role="img" aria-label="thumbs up">
-					&#x1f44d;
-				</span>
+				<FontAwesomeIcon icon="thumbs-up" />
 			</button>
 			<button
 				type="button"
 				className={style.downButton}
 				onClick={vote(false)}
 			>
-				<span role="img" aria-label="thumbs down">
-					&#x1f44e;
-				</span>
+				<FontAwesomeIcon icon="thumbs-down" flip="horizontal" />
 			</button>
 		</div>
 	);

@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 
@@ -62,7 +63,7 @@ export default class SalariesSection extends React.Component {
 							)}
 							className="btn btn-primary"
 						>
-							<i className="fa fa-plus" aria-hidden="true" />{" "}
+							<FontAwesomeIcon icon="plus" />{" "}
 							{i18n.__("common.overview_tab.add_salary")}
 						</a>
 					</div>
