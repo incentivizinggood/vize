@@ -11,7 +11,7 @@ import i18n from "meteor/universe:i18n";
 import { Companies } from "../../api/data/companies.js";
 import "/imports/ui/forms/create-company-profile.html";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
 const formError = new ReactiveVar("good");

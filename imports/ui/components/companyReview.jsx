@@ -1,9 +1,10 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 
-import VoteButtons from "./voteButtons.jsx";
+import VoteButtons from "./vote-buttons";
 
 const T = i18n.createComponent();
 
@@ -13,20 +14,18 @@ function ReviewComponent(props) {
 	if (props.review.wouldRecommendToOtherJobSeekers) {
 		className = (
 			<p style={{ color: "#2E8B57" }}>
-				<i
-					className="fa fa-check-square"
+				<FontAwesomeIcon
+					icon="check-square"
 					style={{ color: "#2E8B57" }}
-					aria-hidden="true"
 				/>&nbsp;&nbsp;<T>common.companyreview.recommend</T>
 			</p>
 		);
 	} else {
 		className = (
 			<p style={{ color: "#FF4545" }}>
-				<i
-					className="far fa-times-circle"
+				<FontAwesomeIcon
+					icon="times-circle"
 					style={{ color: "#FF4545" }}
-					aria-hidden="true"
 				/>&nbsp;&nbsp;<T>common.companyreview.not_recommend</T>
 			</p>
 		);
@@ -74,7 +73,7 @@ function ReviewComponent(props) {
 								starDimension="15px"
 								starSpacing="1.5px"
 							/>
-							&nbsp;<i className="fa fa-caret-down" />
+							&nbsp;<FontAwesomeIcon icon="caret-down" />
 						</a>
 						<ul className="dropdown-menu" role="menu">
 							<li>

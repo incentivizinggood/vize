@@ -1,8 +1,10 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header.jsx";
+import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
 
@@ -237,12 +239,8 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												{" "}
-												<i
-													className="fa fa-plus"
-													aria-hidden="true"
-												/>&nbsp;
-												{t("add_review_button")}
+												<FontAwesomeIcon icon="plus" />
+												&nbsp;{t("add_review_button")}
 											</a>
 										</div>
 										<br />
@@ -268,12 +266,8 @@ export default class HomePage extends React.Component {
 												)}
 												className="btn btn-primary"
 											>
-												{" "}
-												<i
-													className="fa fa-plus"
-													aria-hidden="true"
-												/>&nbsp;
-												{t("salary_button")}
+												<FontAwesomeIcon icon="plus" />
+												&nbsp;{t("salary_button")}
 											</a>
 										</div>
 										<br />

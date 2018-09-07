@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
 
@@ -23,7 +24,7 @@ export default class WriteReviewButton extends React.Component {
 				href={`/write-review/?id=${this.props.companyId}`}
 				className="btn btn-primary  add_review replus"
 			>
-				<i className="fa fa-plus" aria-hidden="true" />{" "}
+				<FontAwesomeIcon icon="plus" />&nbsp;
 				{t("common.overview_tab.add_review")}
 			</a>
 		);
