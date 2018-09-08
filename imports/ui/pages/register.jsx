@@ -4,13 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
-import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-
-const t = i18n.createTranslator("common.register");
-const T = i18n.createComponent(t);
 
 /* The page where users can create an account.
  */
@@ -30,17 +26,6 @@ export default class RegisterPage extends React.Component {
 		// These bindings are necessary to make `this` work in callbacks.
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleInputChange(event) {

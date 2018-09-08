@@ -152,7 +152,7 @@ export default class LoginPage extends React.Component {
 						<div className="row">
 							<div className="col-lg-12">
 								<div className="text-center reg">
-									Don't have an account?{" "}
+									Don&apos;t have an account?{" "}
 									<a href="/register"> Register</a>
 								</div>
 								<br />
