@@ -72,8 +72,6 @@ export default class Dialog extends React.Component {
 				}
 			}
 		);
-
-		alert("wassup2");
 	}
 
 	render() {
