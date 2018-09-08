@@ -27,6 +27,7 @@ export default class Dialog extends React.Component {
 			count: 0,
 		};
 		this.sendClicked = this.sendClicked.bind(this);
+		this.handleTextChange = this.handleTextChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -37,26 +38,28 @@ export default class Dialog extends React.Component {
 		setUpButtons();
 	}
 
+	handleTextChange(event) {
+		this.setState({ value: event.target.value });
+	}
+
 	sendClicked(event) {
 		event.preventDefault();
-		alert("waduso"); // Send us an email
 
 		Meteor.call(
 			"sendEmail",
 			"incentivizinggood@gmail.com",
 			"postmaster@incentivizinggood.com",
-			`Contacting us: ${this.state.name}`,
+			`Contacting us: Anonymous`,
 			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
-				this.state.textBox
-			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
-				this.state.emailSending
-			}`,
+				this.state.value
+			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: Anonymous`,
 			(err, res) => {
 				if (err) {
 					console.log("--- BEGIN error:");
 					alert("Please try again");
 					console.log(err);
 					console.log("--- END error");
+					alert("System error, please refresh and try again. Thank you!");
 				} else {
 					console.log("--- BEGIN success:");
 					console.log(res);
@@ -89,10 +92,7 @@ export default class Dialog extends React.Component {
 							style={{ flex: "1", color: "#888", text: "center" }}
 						/>
 						<aside style={{ flex: "10" }}>
-							<textarea
-								type="text"
-								placeholder="Type your message here..."
-							/>
+							<textarea type="text" placeholder="Type your message here..." onChange={this.handleTextChange} />
 						</aside>
 						<aside
 							style={{
@@ -101,10 +101,7 @@ export default class Dialog extends React.Component {
 								text: "center",
 							}}
 						>
-							<i
-								className="fa fa-paper-plane"
-								aria-hidden="true"
-								onClick={this.sendClicked}
+							<i className="fa fa-paper-plane" aria-hidden="true" onClick={this.sendClicked}
 							/>
 						</aside>
 					</footer>
