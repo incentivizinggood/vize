@@ -3,6 +3,8 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import { $, jQuery } from "meteor/jquery";
 
+import style from "./dialog-box.scss";
+
 function setUpButtons() {
 	$(document).ready(function() {
 		const chatbox = jQuery.noConflict();
@@ -59,7 +61,9 @@ export default class Dialog extends React.Component {
 					alert("Please try again");
 					console.log(err);
 					console.log("--- END error");
-					alert("System error, please refresh and try again. Thank you!");
+					alert(
+						"System error, please refresh and try again. Thank you!"
+					);
 				} else {
 					console.log("--- BEGIN success:");
 					console.log(res);
@@ -88,20 +92,18 @@ export default class Dialog extends React.Component {
 						you!
 					</main>
 					<footer className="chatbox-popup__footer">
-						<aside
-							style={{ flex: "1", color: "#888", text: "center" }}
-						/>
-						<aside style={{ flex: "10" }}>
-							<textarea type="text" placeholder="Type your message here..." onChange={this.handleTextChange} />
+						<aside className={style.bar}>
+							<textarea
+								type="text"
+								placeholder="Type your message here..."
+								onChange={this.handleTextChange}
+							/>
 						</aside>
-						<aside
-							style={{
-								flex: "1",
-								color: "#2079b5",
-								text: "center",
-							}}
-						>
-							<i className="fa fa-paper-plane" aria-hidden="true" onClick={this.sendClicked}
+						<aside className={style.baz}>
+							<i
+								className="fa fa-paper-plane"
+								aria-hidden="true"
+								onClick={this.sendClicked}
 							/>
 						</aside>
 					</footer>

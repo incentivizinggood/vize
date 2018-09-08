@@ -8,7 +8,7 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 const t = i18n.createTranslator("common.register");
 const T = i18n.createComponent(t);
