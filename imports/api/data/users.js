@@ -106,6 +106,7 @@ Meteor.users.deny({
 Meteor.users.publicFields = {
 	username: 1,
 	role: 1,
+	companyId: 1,
 };
 
 if (Meteor.isServer) {
