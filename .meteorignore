@@ -10,3 +10,7 @@ scripts
 # Documentation files such as README.md LICENSE.md
 # are not part of the project's code.
 *.md
+
+# Likewise with text files
+# ...figure I'll ask first anyway
+# *.txt

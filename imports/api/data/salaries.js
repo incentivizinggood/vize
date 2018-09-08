@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
@@ -17,25 +18,16 @@ export const Salaries = new Mongo.Collection("Salaries", {
 Salaries.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
 		},
 		submittedBy: {
 			// userId of the review author
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			autoValue() {
-				if (Meteor.isServer) {
-					// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
-					return this.userId;
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -47,56 +39,91 @@ Salaries.schema = new SimpleSchema(
 			max: 100,
 			index: true,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.isNotSessionError",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "companyName",
-										type: "sessionError",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.isNotSessionError",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "sessionError",
+										},
+									]);
+								} else if (!this.isNotASubmission) {
+									// for an explanation of this check, see comment
+									// on custom validator for this field in
+									// imports/api/data/reviews.js
+									Meteor.call(
+										"salaries.checkForSecondSalaryByUser",
+										this.value,
+										(error2, result2) => {
+											if (!result2) {
+												this.validationContext.addValidationErrors(
+													[
+														{
+															name: "companyName",
+															type:
+																"secondSalaryByUser",
+														},
+													]
+												);
+											}
+										}
+									);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (
-						this.value ===
-							i18n.__("common.forms.companyNotFound") ||
-						this.value === i18n.__("common.forms.pleaseWait")
-					) {
-						return "sessionError";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.isNotSessionError",
+								this.value
+							)
+						)
+							return "sessionError";
+						else if (
+							!this.isNotASubmission &&
+							!Meteor.call(
+								"salaries.checkForSecondSalaryByUser",
+								this.value
+							)
+						)
+							return "secondSalaryByUser";
 					}
 				}
 			},
 		},
 		companyId: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
-			index: true,
-			autoValue() {
-				if (Meteor.isServer && this.field("companyName").isSet) {
-					const company = Companies.findOne({
-						name: this.field("companyName").value,
-					});
-					if (company !== undefined) {
-						return company._id;
-					}
-					return "This company does not have a Vize profile yet";
-				}
-			},
 			autoform: {
 				omit: true,
 			},
 		},
 		location: {
-			type: String,
-			max: 150,
+			type: Object,
 			optional: false,
+			autoform: {
+				type: "location",
+			},
+		},
+		"location.city": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"location.address": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"location.industrialHub": {
+			type: String,
+			max: 300,
+			optional: true,
 		},
 		jobTitle: {
 			type: String,
@@ -106,11 +133,9 @@ Salaries.schema = new SimpleSchema(
 		incomeType: {
 			type: String,
 			optional: false,
-			allowedValues: [
-				i18n.__("common.forms.ssd.payTypes.yearlySalary"),
-				i18n.__("common.forms.ssd.payTypes.monthlySalary"),
-				i18n.__("common.forms.ssd.payTypes.hourlyWage"),
-			],
+			allowedValues() {
+				return ["Yearly Salary", "Monthly Salary", "Hourly Wage"];
+			},
 		},
 		incomeAmount: {
 			type: Number,
@@ -120,15 +145,13 @@ Salaries.schema = new SimpleSchema(
 		gender: {
 			type: String,
 			optional: true,
-			allowedValues: [
-				i18n.__("common.gender.male"),
-				i18n.__("common.gender.female"),
-			],
+			allowedValues() {
+				return ["Male", "Female"];
+			},
 		},
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,

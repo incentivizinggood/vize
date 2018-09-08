@@ -1,9 +1,11 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
 import type { ID, AllModels } from "./common.js";
 import type CommentModel, { Comment } from "./comment.js";
 import type ReviewModel, { Review } from "./review.js";
 import type UserModel, { User } from "./user.js";
+
+import PgVoteFunctions from "./helpers/postgresql/votes.js";
+import { Votes } from "../data/votes.js";
 
 const defaultPageSize = 100;
 
@@ -18,12 +20,12 @@ export type Vote = {
 export type VoteSubject = Comment | Review;
 
 export default class VoteModel {
-	connector: Mongo.Collection;
+	connector: Object;
 	commentModel: CommentModel;
 	reviewModel: ReviewModel;
 	userModel: UserModel;
 
-	constructor(connector: Mongo.Collection) {
+	constructor(connector: Object) {
 		this.connector = connector;
 	}
 
@@ -34,45 +36,92 @@ export default class VoteModel {
 	}
 
 	// Get the vote with a given id.
-	getVoteById(id: ID): Vote {
-		return this.connector.findOne(id);
+	// BUG not completely sure what the
+	// best way to do this is going to be
+	async getVoteById(id: ID): Vote {
+		// requires ID to be a JSON.parse-able
+		// string with the fields/types:
+		// voteSubject: "review" or "comment"
+		// submittedBy: integer
+		// references: integer
+		return PgVoteFunctions.processVoteResults(
+			await this.connector.executeQuery(
+				PgVoteFunctions.getVoteByPrimaryKey,
+				JSON.parse(id)
+			)
+		);
 	}
 
 	// Get the vote cast by a given user on a given thing.
-	getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
-		// Assuming voteSubject's type for now.
-		const voteSubject = "review";
+	async getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
+		let subjectOfVote;
+		// console.log("GraphQL: getVoteByAuthorAndSubject");
+		// console.log("user: ");
+		// console.log(user);
+		// console.log("subject: ");
+		// console.log(subject);
+		if (this.reviewModel.isReview(subject)) {
+			subjectOfVote = "review";
+		} else if (this.commentModel.isComment(subject)) {
+			subjectOfVote = "comment";
+		} else {
+			throw new Error(
+				"Could not determine the type of this vote subject."
+			);
+		}
 
-		return this.connector.findOne({
-			submittedBy: user._id,
-			voteSubject,
-			references: subject._id,
-		});
+		const authorPostgresId = await this.userModel.getUserPostgresId(
+			user._id
+		);
+
+		return PgVoteFunctions.processVoteResults(
+			await this.connector.executeQuery(
+				PgVoteFunctions.getVoteByPrimaryKey,
+				{
+					submittedBy: authorPostgresId,
+					voteSubject: subjectOfVote,
+					references: subject._id,
+				}
+			)
+		);
+		// Assuming voteSubject's type for now.
+		// const voteSubject = "review";
+		//
+		// return this.connector.findOne({
+		// 	submittedBy: user._id,
+		// 	voteSubject,
+		// 	references: subject._id,
+		// });
 	}
 
 	// Get all votes cast by a given user.
-	getVotesByAuthor(
+	async getVotesByAuthor(
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Vote] {
-		const cursor = this.connector.find(
-			{ submittedBy: user._id },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		const authorPostgresId = await this.userModel.getUserPostgresId(
+			user._id
 		);
 
-		return cursor.fetch();
+		// result has reviewVotes and commentVotes,
+		// two arrays of votes by the author for
+		// the respective voteSubjects.
+		return this.connector.executeQuery(
+			PgVoteFunctions.getVotesByAuthor,
+			authorPostgresId,
+			pageNumber * pageSize,
+			pageSize
+		);
 	}
+
 	// Get the user who cast a given vote.
-	getAuthorOfVote(vote: Vote): User {
-		return this.userModel.getUserById(vote.submittedBy);
+	async getAuthorOfVote(vote: Vote): User {
+		return this.userModel.getUserById(String(vote.submittedBy));
 	}
 
 	// Get all votes that were cast on a given thing.
-	getVotesBySubject(
+	async getVotesBySubject(
 		subject: VoteSubject,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
@@ -88,49 +137,65 @@ export default class VoteModel {
 			);
 		}
 
-		const cursor = this.connector.find(
-			{ voteSubject, references: subject._id },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
-		);
+		// result has subject (string "review" or "comment")
+		// and votes, the query results from the underlying
+		// vote counting view for that item. Although pageNumber
+		// and pageSize are indeed use (for offset and limit)
+		// in the underlying query, they don't have much meaning
+		// as each such query should yield exactly 1 or 0 results.
 
-		return cursor.fetch();
+		return this.connector.executeQuery(
+			PgVoteFunctions.getVotesForSubject,
+			voteSubject,
+			subject._id,
+			pageNumber * pageSize,
+			pageSize
+		);
 	}
+
 	// Get the thing that a given vote was cast on.
-	getSubjectOfVote(vote: Vote): VoteSubject {
+	async getSubjectOfVote(vote: Vote): VoteSubject {
 		if (vote.voteSubject === "review")
-			return this.reviewModel.getReviewById(vote.references);
+			return this.reviewModel.getReviewById(String(vote.references));
 
 		if (vote.voteSubject === "comment")
-			return this.commentModel.getCommentById(vote.references);
+			return this.commentModel.getCommentById(String(vote.references));
 
 		throw new Error("vote.voteSubject is not a valid value");
 	}
 
 	// Get all of the votes.
-	getAllVotes(
+	async getAllVotes(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Vote] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		// result has reviewVotes and commentVotes,
+		// two arrays of votes which contain all the
+		// vote counts for every review and comment respectively.
+
+		return this.connector.executeQuery(
+			PgVoteFunctions.getAllVotes,
+			pageNumber * pageSize,
+			pageSize
 		);
-		return cursor.fetch();
+	}
+
+	isVote(obj: any): boolean {
+		// Votes.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
+		const context = Votes.simpleSchema().newContext();
+		context.validate(obj);
+		return context.isValid();
 	}
 
 	// Create a new vote or, if the subject was already voted on, change the vote.
-	castVote(user: User, subject: VoteSubject, isUpvote: boolean): Vote {
+	async castVote(user: User, subject: VoteSubject, isUpvote: boolean): Vote {
 		throw new Error("Not implemented yet");
 	}
 
 	// Remove a vote. If there is no vote, do nothing.
-	removeVote(user: User, subject: VoteSubject): Vote {
+	async removeVote(user: User, subject: VoteSubject): Vote {
 		throw new Error("Not implemented yet");
 	}
 }

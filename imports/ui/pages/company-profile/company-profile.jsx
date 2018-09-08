@@ -4,6 +4,8 @@ import { Query } from "react-apollo";
 
 import i18n from "meteor/universe:i18n";
 
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
+
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header";
 
@@ -161,11 +163,15 @@ const companyProfileQuery = gql`
 
 			name
 			contactEmail
-			dateEstablished
+			yearEstablished
 			numEmployees
 			industry
-			locations
-			otherContactInfo
+			locations {
+				city
+				address
+				industrialHub
+			}
+			contactPhoneNumber
 			websiteURL
 			descriptionOfCompany
 			dateJoined
@@ -184,6 +190,11 @@ const companyProfileQuery = gql`
 				id
 				title
 				jobTitle
+				location {
+					city
+					address
+					industrialHub
+				}
 				numberOfMonthsWorked
 				pros
 				cons
@@ -205,7 +216,11 @@ const companyProfileQuery = gql`
 			jobAds {
 				id
 				jobTitle
-				locations
+				locations {
+					city
+					address
+					industrialHub
+				}
 				pesosPerHour
 				contractType
 				jobDescription
@@ -242,11 +257,33 @@ export default ({ companyId }) => (
 				refetch();
 			};
 
+			const processedCompany = data.company;
+			let processedCompanyReviews = data.company.reviews;
+			let processedJobAds = data.company.jobAds;
+
+			processedCompany.locations = processedCompany.locations.map(
+				location => processLocation(JSON.stringify(location))
+			);
+			processedCompanyReviews = processedCompanyReviews.map(review => {
+				const processedReview = review;
+				processedReview.location = processLocation(
+					JSON.stringify(processedReview.location)
+				);
+				return processedReview;
+			});
+			processedJobAds = processedJobAds.map(jobad => {
+				const processedJobAd = jobad;
+				processedJobAd.location = processLocation(
+					JSON.stringify(processedJobAd.location)
+				);
+				return jobad;
+			});
+
 			return (
 				<CompanyProfile
-					company={data.company}
-					reviews={data.company.reviews}
-					jobAds={data.company.jobAds}
+					company={processedCompany}
+					reviews={processedCompanyReviews}
+					jobAds={processedJobAds}
 					jobsCount={data.company.numJobAds}
 					salaries={data.company.salaries}
 					salariesCount={data.company.numJobAds}

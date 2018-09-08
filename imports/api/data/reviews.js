@@ -1,10 +1,9 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import { Comments } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import { Companies } from "./companies.js";
-import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -37,25 +36,16 @@ export const Reviews = new Mongo.Collection("Reviews", {
 Reviews.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
 		},
 		submittedBy: {
 			// userId of the review author
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
-			autoValue() {
-				if (Meteor.isServer) {
-					// userId is not normally part of the autoValue "this" context, but the collection2 package adds it automatically
-					return this.userId;
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -65,50 +55,81 @@ Reviews.schema = new SimpleSchema(
 			type: String, // case, company names are indexed so we may as well use
 			optional: false, // use this instead of companyID
 			max: 100,
-			index: true,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.isNotSessionError",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.isNotSessionError",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "companyName",
+											type: "sessionError",
+										},
+									]);
+								} else if (!this.isNotASubmission) {
+									/*
+									So this else-if is the result of needing to
+									distinguish between validation contexts but
+									not being able to figure out how to extend
+									the context from an AutoForm.
+									!isNotASubmission means basically isASubmission,
+									and code that needs to validate review objects
+									for format only rather than for database
+									consistency can pass the following object as
+									the second argument to to validationContext.validate
+									in order to disable the next check:
 									{
-										name: "companyName",
-										type: "sessionError",
-									},
-								]);
+										extendedCustomContext: {
+											isNotASubmission: true
+										}
+									}
+								*/
+									Meteor.call(
+										"reviews.checkForSecondReviewByUser",
+										this.value,
+										(error2, result2) => {
+											if (!result2) {
+												this.validationContext.addValidationErrors(
+													[
+														{
+															name: "companyName",
+															type:
+																"secondReviewByUser",
+														},
+													]
+												);
+											}
+										}
+									);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (
-						this.value ===
-							i18n.__("common.forms.companyNotFound") ||
-						this.value === i18n.__("common.forms.pleaseWait")
-					) {
-						return "sessionError";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.isNotSessionError",
+								this.value
+							)
+						)
+							return "sessionError";
+						else if (
+							!this.isNotASubmission &&
+							!Meteor.call(
+								"reviews.checkForSecondReviewByUser",
+								this.value
+							)
+						)
+							return "secondReviewByUser";
 					}
 				}
 			},
 		},
 		companyId: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true, // Yes, the company might be "created" at some point, but then we should update this field by Mongo scripting, not with JS code
-			index: true,
-			autoValue() {
-				if (Meteor.isServer && this.field("companyName").isSet) {
-					const company = Companies.findOne({
-						name: this.field("companyName").value,
-					});
-					if (company !== undefined) {
-						return company._id;
-					}
-					return "This company does not have a Vize profile yet";
-				}
-			},
 			autoform: {
 				omit: true,
 			},
@@ -129,10 +150,27 @@ Reviews.schema = new SimpleSchema(
 		},
 		location: {
 			// where they worked for the company being reviewed
-			type: String,
-			max: 150,
+			type: Object,
 			optional: false,
+			autoform: {
+				type: "location",
+			},
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
+		"location.city": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"location.address": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"location.industrialHub": {
+			type: String,
+			max: 300,
+			optional: true,
+		},
 		jobTitle: {
 			// there are two categories -
 			type: String, // Line Worker and Upper Management, so type - String, perhaps, not sure
@@ -155,20 +193,25 @@ Reviews.schema = new SimpleSchema(
 				},
 			},
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call("hasFiveWords", this.value, (error, result) => {
-						if (!result) {
-							this.validationContext.addValidationErrors([
-								{
-									name: "pros",
-									type: "needsFiveWords",
-								},
-							]);
-						}
-					});
-				} else if (Meteor.isServer && this.isSet) {
-					if (this.value.wordCount() < 5) {
-						return "needsFiveWords";
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"hasFiveWords",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "pros",
+											type: "needsFiveWords",
+										},
+									]);
+								}
+							}
+						);
+					} else if (Meteor.isServer) {
+						if (!Meteor.call("hasFiveWords", this.value))
+							return "needsFiveWords";
 					}
 				}
 			},
@@ -184,20 +227,25 @@ Reviews.schema = new SimpleSchema(
 				},
 			},
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call("hasFiveWords", this.value, (error, result) => {
-						if (!result) {
-							this.validationContext.addValidationErrors([
-								{
-									name: "cons",
-									type: "needsFiveWords",
-								},
-							]);
-						}
-					});
-				} else if (Meteor.isServer && this.isSet) {
-					if (this.value.wordCount() < 5) {
-						return "needsFiveWords";
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"hasFiveWords",
+							this.value,
+							(error, result) => {
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "cons",
+											type: "needsFiveWords",
+										},
+									]);
+								}
+							}
+						);
+					} else if (Meteor.isServer) {
+						if (!Meteor.call("hasFiveWords", this.value))
+							return "needsFiveWords";
 					}
 				}
 			},
@@ -287,7 +335,6 @@ Reviews.schema = new SimpleSchema(
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,

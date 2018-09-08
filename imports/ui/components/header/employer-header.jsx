@@ -1,6 +1,6 @@
+import { Meteor } from "meteor/meteor";
 import React from "react";
 
-import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 import { Companies } from "../../api/data/companies.js";
