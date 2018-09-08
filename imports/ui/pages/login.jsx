@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
@@ -79,11 +80,16 @@ export default class LoginPage extends React.Component {
 
 		const usernameInput = (
 			<div className="form-group">
-				<div className="icon-addon addon-md">
+				<label
+					htmlFor="username"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="Username"
+				>
+					<FontAwesomeIcon icon="user" className="fa" />
 					<input
 						type="text"
-						placeholder="Username"
-						className="form-control  "
+						className="form-control"
 						name="username"
 						id="username"
 						placeholder={t("username")}
@@ -91,39 +97,30 @@ export default class LoginPage extends React.Component {
 						value={this.state.username}
 						onChange={this.handleInputChange}
 					/>
-					<label
-						htmlFor="loginform-username"
-						for="Username"
-						className="glyphicon glyphicon-user"
-						rel="tooltip"
-						title="Username"
-					/>
-				</div>
+				</label>
 			</div>
 		);
 
 		const passwordInput = (
 			<div className="form-group">
-				<div className="icon-addon addon-md">
+				<label
+					htmlFor="password"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="password"
+				>
+					<FontAwesomeIcon icon="lock" className="fa" />
 					<input
 						type="password"
 						name="password"
 						id="password"
 						className="form-control"
-						placeholder="Password"
-						value=""
 						placeholder={t("password")}
 						required
 						value={this.state.password}
 						onChange={this.handleInputChange}
 					/>
-					<label
-						for="password"
-						className="fa fa-lock"
-						rel="tooltip"
-						title="password"
-					/>
-				</div>
+				</label>
 			</div>
 		);
 
