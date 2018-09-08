@@ -42,7 +42,7 @@ class EmployerHeader extends React.Component {
 								<span className="icon-bar" />
 							</button>
 							<h2 className="site-logo">
-								<a href={companyURL}>
+								<a href="/">
 									<img src="/images/logo.png" />
 								</a>
 							</h2>
