@@ -1,5 +1,21 @@
 import React from "react";
+
 import { Meteor } from "meteor/meteor";
+import { $, jQuery } from "meteor/jquery";
+
+function setUpButtons() {
+	$(document).ready(function() {
+		const chatbox = jQuery.noConflict();
+		chatbox(() => {
+			chatbox(".chatbox-open").click(() =>
+				chatbox(".chatbox-popup, .chatbox-close").fadeIn()
+			);
+			chatbox(".chatbox-close").click(() =>
+				chatbox(".chatbox-popup, .chatbox-close").fadeOut()
+			);
+		});
+	});
+}
 
 /* The "Dialog" page. */
 export default class Dialog extends React.Component {
@@ -10,21 +26,15 @@ export default class Dialog extends React.Component {
 			value: "",
 			count: 0,
 		};
-		this.buttonClicked = this.buttonClicked.bind(this);
+		this.sendClicked = this.sendClicked.bind(this);
 	}
-	buttonClicked(event) {
-		event.preventDefault(); // Prevent the default behavior for this event
-		$(document).ready(function() {
-			const chatbox = jQuery.noConflict();
-			chatbox(() => {
-				chatbox(".chatbox-open").click(() =>
-					chatbox(".chatbox-popup, .chatbox-close").fadeIn()
-				);
-				chatbox(".chatbox-close").click(() =>
-					chatbox(".chatbox-popup, .chatbox-close").fadeOut()
-				);
-			});
-		});
+
+	componentDidMount() {
+		setUpButtons();
+	}
+
+	componentDidUpdate() {
+		setUpButtons();
 	}
 
 	sendClicked(event) {
@@ -62,10 +72,10 @@ export default class Dialog extends React.Component {
 	render() {
 		return (
 			<div>
-				<button className="chatbox-open" onClick={this.buttonClicked}>
+				<button className="chatbox-open">
 					<i className="fa fa-comments fa-2x" aria-hidden="true" />
 				</button>
-				<button className="chatbox-close" onClick={this.buttonClicked}>
+				<button className="chatbox-close">
 					<i className="fa fa-close fa-2x" aria-hidden="true" />
 				</button>
 				<section className="chatbox-popup">
