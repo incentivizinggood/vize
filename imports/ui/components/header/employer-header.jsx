@@ -3,6 +3,7 @@ import React from "react";
 
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
+import urlGenerators from "/imports/api/startup/client/router.jsx";
 import { Companies } from "../../api/data/companies.js";
 
 import { If, Then, Else } from "/imports/ui/if-else.jsx";
@@ -14,8 +15,10 @@ class EmployerHeader extends React.Component {
 	render() {
 		var companyURL;
 		if (this.props.user.companyId) {
-			console.log(this.props.user.companyId);
-			companyURL = `/companyprofile/?id=${this.props.user.companyId}`;
+			if (Meteor.isDevelopment) console.log(this.props.user.companyId);
+			companyUrl = urlGenerators.vizeProfileUrl(
+				this.props.user.companyId
+			);
 		} else {
 			companyURL = "/create-company-profile";
 		}
