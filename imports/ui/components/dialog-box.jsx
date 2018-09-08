@@ -71,7 +71,7 @@ export default class Dialog extends React.Component {
 				<section className="chatbox-popup">
 					<header className="chatbox-popup__header" />
 					<main className="chatbox-popup__main">
-						Please send us feedback on how to improve below... thank
+						Please send us feedback on how to improve below. Thank
 						you!
 					</main>
 					<footer className="chatbox-popup__footer">
