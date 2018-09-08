@@ -13,6 +13,9 @@ import "../imports/api/data/jobads.js";
 import "../imports/api/data/votes.js";
 import "../imports/api/data/methods.js";
 
+// Try to keep the connection pool initialized
+import "../imports/api/graphql/connectors/postgresql.js";
+
 Meteor.startup(() => {
 	// code to run on server at startup
 });

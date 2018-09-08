@@ -2,6 +2,7 @@
 	"_locale": "es",
 	"_namespace": "common",
 	"gender": {
+		"default": "(Seleccione uno)",
 		"male": "Hombre",
 		"female": "Mujer"
 	},
@@ -53,7 +54,14 @@
 		"submitForm": "Enviar",
 		"resetForm": "Restablecer formulario",
 		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
+		"error": "Error",
 		"companyNotFound": "ESTA EMPRESA NO SE ENCUENTRA",
+		"locationCityPlaceholder":
+			"[PLEASE TRANSLATE] Enter the city for your location",
+		"locationAddressPlaceholder":
+			"[PLEASE TRANSLATE] Enter the street address for your location",
+		"locationIndustrialHubPlaceholder":
+			"[PLEASE TRANSLATE] Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 		"afj": {
 			"formTitle": "Solicitar un trabajo",
 			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",
@@ -70,8 +78,7 @@
 				"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
 			"industryPlaceholder":
 				"Por favor díganos la industria principal de su empresa",
-			"otherContactInfoPlaceholder":
-				"Ingrese cualquier información de contacto adicional que le gustaría proporcionarnos",
+			"contactPhoneNumberPlaceholder": "###-###-####",
 			"websiteUrlPlaceholder":
 				"Ingrese la URL del sitio web de su empresa, si tiene una",
 			"descriptionPlaceholder":
@@ -85,6 +92,8 @@
 				"contractor": "Contratista"
 			},
 			"formTitle": "Anunciar un trabajo",
+			"header1":
+				"[PLEASE TRANSLATE] Reach hundreds of workers instantly with our job posts",
 			"jobTitlePlaceholder":
 				"Por favor díganos el título del puesto que está anunciando",
 			"payRangePlaceholder":
@@ -100,23 +109,28 @@
 		},
 		"ssd": {
 			"payTypes": {
+				"default": "(Seleccione uno)",
 				"yearlySalary": "Salario anual",
 				"monthlySalary": "Salario mensual",
 				"hourlyWage": "Salario por hora"
 			},
 			"formTitle": "Forma Salarial",
+			"header1":
+				"[PLEASE TRANSLATE] Share your salary annonomously to make ",
+			"header2":
+				"[PLEASE TRANSLATE] sure others are getting compensated fairly.",
 			"companyNamePlaceholder":
 				"Díganos el nombre de la empresa para la que trabajó",
-			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
 			"jobTitlePlaceholder": "Díganos su título de trabajo en la empresa"
 		},
 		"wr": {
 			"formTitle": "Escribe una Reseña",
+			"header1":
+				"[PLEASE TRANSLATE] Contribute your annonymous feedback to the community",
 			"companyNamePlaceholder":
 				"Ingrese el nombre de la compañía que está revisando",
 			"reviewTitlePlaceholder":
 				"Por favor, elija un título para su revisión",
-			"locationPlaceholder": "¿Dónde trabajaste para esta empresa?",
 			"jobTitlePlaceholder":
 				"Ingrese el nombre del puesto que ocupó en esta empresa",
 			"prosPlaceholder":
@@ -328,7 +342,8 @@
 
 			"needsFiveWords": "Necesita cinco palabras",
 			"rolePermission": "Permisos con su rol",
-			"invalidArguments": "Argumentos no válidos",
+			"invalidArguments":
+				"[PLEASE CHECK WHETHER THIS MAKES SENSE TO NON-ENGINEERS] Argumentos no válidos",
 			"loggedOut": "Desconectado",
 			"noCheating": "No hay engaño",
 			"duplicateEntry": "Entrada duplicada",

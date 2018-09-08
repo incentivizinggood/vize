@@ -47,6 +47,26 @@ FOR EACH ROW
 WHEN (NEW.companyname IS NOT NULL AND NEW.companyid IS NULL)
 EXECUTE PROCEDURE fill_id_by_name();
 
+DROP TRIGGER IF EXISTS enforce_location_format ON company_locations;
+CREATE TRIGGER enforce_location_format
+BEFORE INSERT OR UPDATE ON company_locations
+FOR EACH ROW EXECUTE PROCEDURE process_company_location();
+
+DROP TRIGGER IF EXISTS enforce_location_format ON job_locations;
+CREATE TRIGGER enforce_location_format
+BEFORE INSERT OR UPDATE ON job_locations
+FOR EACH ROW EXECUTE PROCEDURE process_job_location();
+
+DROP TRIGGER IF EXISTS enforce_location_format ON reviews;
+CREATE TRIGGER enforce_location_format
+BEFORE INSERT OR UPDATE ON reviews
+FOR EACH ROW EXECUTE PROCEDURE process_review_location();
+
+DROP TRIGGER IF EXISTS enforce_location_format ON salaries;
+CREATE TRIGGER enforce_location_format
+BEFORE INSERT OR UPDATE ON salaries
+FOR EACH ROW EXECUTE PROCEDURE process_salary_location();
+
 -- QUESTION:
 -- One-many relationship from companies to locations,
 -- many-one from locations to companies. Solved on
@@ -82,6 +102,12 @@ CREATE CONSTRAINT TRIGGER geq_one_locations
 AFTER INSERT ON jobads
 DEFERRABLE INITIALLY DEFERRED
 FOR EACH ROW EXECUTE PROCEDURE check_job_location_count();
+
+DROP TRIGGER IF EXISTS per_company_jobad_limit ON jobads;
+CREATE CONSTRAINT TRIGGER per_company_jobad_limit
+AFTER INSERT OR UPDATE ON jobads
+DEFERRABLE INITIALLY DEFERRED
+FOR EACH ROW EXECUTE PROCEDURE enforce_per_company_jobad_limit();
 
 DROP TRIGGER IF EXISTS not_last_location ON job_locations;
 CREATE CONSTRAINT TRIGGER not_last_location

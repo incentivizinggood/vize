@@ -7,10 +7,12 @@
 				 <div class="row ">
 				   <div class="col-md-12 back_top_hover">
 					  <div class="form-container">
+						  <!-- QUESTION Why is the class of this
+					   		next div 'post-a-job' instead of 'write-review'? -->
 							<div class="post-a-job">
-							   <h3>Write a Review</h3>
+							   <h3>{{__ ".wr.formTitle"}}</h3>
 							   <br>
-							   <h4>Contribute your annonymous feedback to the community</h4>
+							   <h4>{{__ ".wr.header1"}}</h4>
 							</div>
 						   <fieldset>
 							   <div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
@@ -18,7 +20,12 @@
 										{{#if shouldHaveCompany}}
 										{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
 										{{else}}
-										{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") }}
+										{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") list="wrCompanyNames"}}
+										<datalist id="wrCompanyNames">
+											{{#each companyName in allCompanyNames}}
+												<option value="{{companyName}}">{{companyName}}</option>
+											{{/each}}
+										</datalist>
 										{{/if}}
 								   </div>
 							   </div>
@@ -29,7 +36,7 @@
 							   </div>
 							  <div class="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
 								 <div class="col-lg-12">
-									{{> afQuickField name='location' placeholder=(__ ".wr.locationPlaceholder")}}
+									{{> afQuickField name='location'}}
 								 </div>
 							  </div>
 							  <div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">

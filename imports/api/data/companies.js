@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
@@ -10,36 +11,12 @@ export const Companies = new Mongo.Collection("CompanyProfiles", {
 	idGeneration: "STRING",
 });
 
-// Add helper functions directly to the Companies collection object
-// convert _id or name into a proper Mongo-style selector
-Companies.getSelector = function(companyIdentifier) {
-	if (typeof companyIdentifier === "string")
-		return { name: companyIdentifier };
-	else if (typeof companyIdentifier === "object")
-		// assumes type of Mongo.ObjectId for _id if not string for name
-		return { _id: companyIdentifier };
-	// don't have to wrap _id in a selector, but should do so for security anyway
-	return undefined;
-};
-
-// simple existence check//
-Companies.hasEntry = function(companyIdentifier) {
-	// Test whether a company exists yet in the
-	// CompanyProfiles collection.
-	// Returns true if the company is found, false otherwise.
-	return (
-		Companies.findOne(Companies.getSelector(companyIdentifier)) !==
-		undefined
-	);
-};
-
 Companies.schema = new SimpleSchema(
 	{
 		_id: {
-			type: String,
+			type: SimpleSchema.Integer,
 			optional: true,
 			denyUpdate: true,
-			autoValue: new Meteor.Collection.ObjectID(), // forces a correct value
 			autoform: {
 				omit: true,
 			},
@@ -51,24 +28,31 @@ Companies.schema = new SimpleSchema(
 			index: true /* requires aldeed:collection2 and simpl-schema packages */,
 			unique: true /* ditto */,
 			custom() {
-				if (Meteor.isClient && this.isSet) {
-					Meteor.call(
-						"companies.isCompanyNameAvailable",
-						this.value,
-						(error, result) => {
-							if (!result) {
-								this.validationContext.addValidationErrors([
-									{
-										name: "name",
-										type: "nameTaken",
-									},
-								]);
+				if (this.isSet) {
+					if (Meteor.isClient) {
+						Meteor.call(
+							"companies.doesCompanyWithNameNotExist",
+							this.value,
+							(error, result) => {
+								console.log();
+								if (!result) {
+									this.validationContext.addValidationErrors([
+										{
+											name: "name",
+											type: "nameTaken",
+										},
+									]);
+								}
 							}
-						}
-					);
-				} else if (Meteor.isServer && this.isSet) {
-					if (Companies.findOne({ name: this.value }) !== undefined) {
-						return "nameTaken";
+						);
+					} else if (Meteor.isServer) {
+						if (
+							!Meteor.call(
+								"companies.doesCompanyWithNameNotExist",
+								this.value
+							)
+						)
+							return "nameTaken";
 					}
 				}
 			},
@@ -84,8 +68,25 @@ Companies.schema = new SimpleSchema(
 			// 	},
 			// },
 		},
-		dateEstablished: {
-			type: Date,
+		contactPhoneNumber: {
+			type: String, // dunno what this needs to be, leaving it to the user's discretion to "validate"
+			max: 20,
+			regEx: SimpleSchema.RegEx.Phone,
+			optional: true,
+		},
+		yearEstablished: {
+			type: SimpleSchema.Integer,
+			allowedValues: [
+				// + 1 to include current year
+				...Array(new Date().getFullYear() + 1).keys(),
+			]
+				.filter(
+					// 1800 seems like a good minimum year for when a company
+					// could have been established
+					i => i >= 1800
+				)
+				// Bryce and Julian want more recent years first
+				.reverse(),
 			optional: true,
 		},
 		numEmployees: {
@@ -110,13 +111,24 @@ Companies.schema = new SimpleSchema(
 			optional: false,
 		},
 		"locations.$": {
-			// restraints on members of the "locations" array
+			type: Object,
+			autoform: {
+				type: "location",
+			},
+		},
+		"locations.$.city": {
 			type: String,
-			max: 150,
-		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
-		otherContactInfo: {
-			type: String, // dunno what this needs to be, leaving it to the user's discretion to "validate"
-			max: 200,
+			max: 300,
+			optional: false,
+		},
+		"locations.$.address": {
+			type: String,
+			max: 300,
+			optional: false,
+		},
+		"locations.$.industrialHub": {
+			type: String,
+			max: 300,
 			optional: true,
 		},
 		websiteURL: {

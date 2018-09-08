@@ -12,35 +12,38 @@ import UserModel from "/imports/api/models/user.js";
 import VoteModel from "/imports/api/models/vote.js";
 
 // Import connectors
-import { Comments } from "./../../api/data/comments.js";
-import { Companies } from "./../../api/data/companies.js";
-import { JobAds } from "./../../api/data/jobads.js";
-import { Reviews } from "./../../api/data/reviews.js";
-import { Salaries } from "./../../api/data/salaries.js";
-// The users connector is Meteor.users which is imported above.
-import { Votes } from "./../../api/data/votes.js";
+// import { Comments } from "./../../api/data/comments.js";
+// import { Companies } from "./../../api/data/companies.js";
+// import { JobAds } from "./../../api/data/jobads.js";
+// import { Reviews } from "./../../api/data/reviews.js";
+// import { Salaries } from "./../../api/data/salaries.js";
+// // The users connector is Meteor.users which is imported above.
+// import { Votes } from "./../../api/data/votes.js";
+
+// PostgreSQL connector
+import PostgreSQL from "../graphql/connectors/postgresql.js";
 
 import type { AllModels } from "./common.js";
 
 type AllConnectors = {
-	commentConnector: Mongo.Collection,
-	companyConnector: Mongo.Collection,
-	jobAdConnector: Mongo.Collection,
-	reviewConnector: Mongo.Collection,
-	salaryConnector: Mongo.Collection,
+	commentConnector: Object,
+	companyConnector: Object,
+	jobAdConnector: Object,
+	reviewConnector: Object,
+	salaryConnector: Object,
 	userConnector: Mongo.Collection,
-	voteConnector: Mongo.Collection,
+	voteConnector: Object,
 };
 
 function createConnectors(): AllConnectors {
 	const connectors = {
-		commentConnector: Comments,
-		companyConnector: Companies,
-		jobAdConnector: JobAds,
-		reviewConnector: Reviews,
-		salaryConnector: Salaries,
+		commentConnector: PostgreSQL,
+		companyConnector: PostgreSQL,
+		jobAdConnector: PostgreSQL,
+		reviewConnector: PostgreSQL,
+		salaryConnector: PostgreSQL,
 		userConnector: Meteor.users,
-		voteConnector: Votes,
+		voteConnector: PostgreSQL,
 	};
 	return connectors;
 }

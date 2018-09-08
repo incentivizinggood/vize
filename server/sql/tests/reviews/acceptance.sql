@@ -15,6 +15,6 @@ INSERT INTO reviews
 	numMonthsWorked,pros,cons,wouldRecommend,healthAndSafety,
 	managerRelationship,workEnvironment,benefits,
 	overallSatisfaction)
-	VALUES (0,'a','a','a','a',9999,
+	VALUES (1,'a','a','a','a',9999,
 			'a a a a a','a a a a a',TRUE,
 			5,5,5,5,5);

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
-
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import WriteReviewButton from "./write-review-button.jsx";
 
 const t = i18n.createTranslator("common.CompanySearchResult");
@@ -45,7 +45,24 @@ function CompanySearchResult(props) {
 							<div className="locahed">
 								<h4>
 									<FontAwesomeIcon icon="map-marker" />{" "}
-									<span>{props.company.locations}</span>
+									<span>
+										{/* Gotta do a hack because I can't figure out
+										how to do this processing on a higher level
+										of the stack */}
+										{props.company.locations.map(
+											location =>
+												processLocation(
+													JSON.stringify(location)
+												) +
+												// separate locations with commas except the last one
+												(location ===
+												props.company.locations.slice(
+													-1
+												)[0]
+													? " "
+													: ", ")
+										)}
+									</span>
 								</h4>
 								<h4>
 									<FontAwesomeIcon icon="flask" />{" "}

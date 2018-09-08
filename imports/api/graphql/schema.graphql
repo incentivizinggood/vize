@@ -52,11 +52,11 @@ type Company {
 
 	name: String!
 	contactEmail: String!
-	dateEstablished: DateTime
+	yearEstablished: Int
 	numEmployees: String
 	industry: String
-	locations: [String!]!
-	otherContactInfo: String
+	locations: [Location!]!
+	contactPhoneNumber: String
 	websiteURL: String
 	descriptionOfCompany: String
 	dateJoined: DateTime
@@ -83,7 +83,7 @@ type JobAd {
 	id: ID!
 
 	jobTitle: String!
-	locations: [String!]!
+	locations: [Location!]!
 	pesosPerHour: String! # TODO convert to unit aware system
 	contractType: String!
 	jobDescription: String!
@@ -100,8 +100,8 @@ type Review {
 	id: ID!
 
 	title: String!
-	location: String!
 	jobTitle: String!
+	location: Location!
 	numberOfMonthsWorked: Int!
 	pros: String!
 	cons: String!
@@ -129,6 +129,7 @@ type Salary {
 	id: ID!
 
 	jobTitle: String!
+	location: Location!
 	incomeType: String! # TODO change to enum
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
@@ -180,6 +181,12 @@ type Vote {
 	author: User!
 	"The thing voted on."
 	subject: VoteSubject!
+}
+
+type Location {
+	city: String!
+	address: String!
+	industrialHub: String
 }
 
 type StarRatings {

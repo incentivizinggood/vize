@@ -45,4 +45,5 @@ universe:i18n-blaze
 session
 apollo
 swydo:graphql
+numtel:pg
 nathantreid:css-modules

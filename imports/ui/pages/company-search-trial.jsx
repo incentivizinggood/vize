@@ -1,9 +1,10 @@
+import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import i18n from "meteor/universe:i18n";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
 
@@ -18,7 +19,11 @@ const companySearchQuery = gql`
 			avgStarRatings {
 				overallSatisfaction
 			}
-			locations
+			locations {
+				city
+				address
+				industrialHub
+			}
 			industry
 			numEmployees
 			descriptionOfCompany
@@ -45,6 +50,22 @@ const SearchResults = ({ searchText }) => (
 			}
 
 			const resultList = data.searchCompanies.map(function(company) {
+				// if (Meteor.isDevelopment) {
+				// 	console.log("BEFORE PROCESS");
+				// 	console.log(company.locations);
+				// }
+				// const newLocations = company.locations.map(location =>
+				// 	processLocation(JSON.stringify(location))
+				// );
+				// if (Meteor.isDevelopment) {
+				// 	console.log("newLocations");
+				// 	console.log(newLocations);
+				// }
+				// company.locations = newLocations;
+				// if (Meteor.isDevelopment) {
+				// 	console.log("AFTER PROCESS");
+				// 	console.log(company.locations);
+				// }
 				return (
 					<CompanySearchResult key={company.id} company={company} />
 				);

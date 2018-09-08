@@ -1,6 +1,8 @@
 // @flow
-import type { Mongo } from "meteor/mongo";
-import type { ID, StarRatings, AllModels } from "./common.js";
+import type { ID, Location, AllModels } from "./common.js";
+
+import PgCompanyFunctions from "./helpers/postgresql/companies.js";
+import { Companies } from "../data/companies.js";
 
 const defaultPageSize = 100;
 
@@ -9,7 +11,7 @@ export type Company = {
 	name: string,
 
 	contactEmail: string,
-	dateEstablished: ?Date,
+	yearEstablished: ?number,
 	numEmployees: ?(
 		| "1 - 50"
 		| "51 - 500"
@@ -18,8 +20,8 @@ export type Company = {
 		| "5000+"
 	),
 	industry: ?string,
-	locations: [string],
-	otherContactInfo: ?string,
+	locations: [Location],
+	contactPhoneNumber: ?string,
 	websiteURL: ?string,
 	descriptionOfCompany: ?string,
 	dateJoined: ?Date,
@@ -37,65 +39,88 @@ export type Company = {
 };
 
 export default class CompanyModel {
-	connector: Mongo.Collection;
+	connector: Object;
 
-	constructor(connector: Mongo.Collection) {
-		this.connector = connector;
+	constructor(connector: Object) {
+		this.connector = connector; // forget this (should be PostgreSQL)
 	}
 
 	init({  }: AllModels) {
-		// This does not need any refrences to other models.
+		// This does not need any references to other models.
 	}
 
 	// Get the company with a given id.
-	getCompanyById(id: ID): Company {
-		return this.connector.findOne(id);
+	async getCompanyById(id: ID): Company {
+		// id is a string for now, and company id's
+		// are integers, so I think this should be fine
+		// for now
+		if (!Number.isNaN(Number(id)))
+			return PgCompanyFunctions.processCompanyResults(
+				await this.connector.executeQuery(
+					PgCompanyFunctions.getCompanyById,
+					Number(id)
+				)
+			);
+		return undefined;
 	}
 
 	// Get the company with a given name.
-	getCompanyByName(name: string): Company {
-		return this.connector.findOne({ name });
+	async getCompanyByName(name: string): Company {
+		return PgCompanyFunctions.processCompanyResults(
+			await this.connector.executeQuery(
+				PgCompanyFunctions.getCompanyByName,
+				name
+			)
+		);
 	}
 
 	// Get all of the companies.
-	getAllCompanies(
+	async getAllCompanies(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Company] {
-		const cursor = this.connector.find(
-			{},
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgCompanyFunctions.processCompanyResults(
+			await this.connector.executeQuery(
+				PgCompanyFunctions.getAllCompanies,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
-	searchForCompanies(
+	async searchForCompanies(
 		searchText: string,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): [Company] {
-		const cursor = this.connector.find(
-			{ name: { $regex: `.*${searchText}.*`, $options: "i" } },
-			{
-				skip: pageNumber * pageSize,
-				limit: pageSize,
-			}
+		return PgCompanyFunctions.processCompanyResults(
+			await this.connector.executeQuery(
+				PgCompanyFunctions.companyNameRegexSearch,
+				searchText,
+				pageNumber * pageSize,
+				pageSize
+			)
 		);
-		return cursor.fetch();
 	}
 
-	createCompany(companyParams: mixed): Company {
+	isCompany(obj: any): boolean {
+		// Companies.simpleSchema()
+		// 	.newContext()
+		// 	.validate(obj);
+		const context = Companies.simpleSchema().newContext();
+		context.validate(obj);
+		return context.isValid();
+	}
+
+	async createCompany(companyParams: mixed): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	editCompany(id: ID, companyChanges: mixed): Company {
+	async editCompany(id: ID, companyChanges: mixed): Company {
 		throw new Error("Not implemented yet");
 	}
 
-	deleteCompany(id: ID): Company {
+	async deleteCompany(id: ID): Company {
 		throw new Error("Not implemented yet");
 	}
 }
