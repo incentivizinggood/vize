@@ -1,22 +1,20 @@
 import React from "react";
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from "meteor/meteor";
 
 /* The "Dialog" page. */
 export default class Dialog extends React.Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: '',
-			value:'',
+			name: "",
+			value: "",
 			count: 0,
 		};
-		this.buttonClicked = this.buttonClicked.bind(this)
-
+		this.buttonClicked = this.buttonClicked.bind(this);
 	}
-	buttonClicked(event){
+	buttonClicked(event) {
 		event.preventDefault(); // Prevent the default behavior for this event
-		$(document).ready(function(){
+		$(document).ready(function() {
 			const chatbox = jQuery.noConflict();
 			chatbox(() => {
 				chatbox(".chatbox-open").click(() =>
@@ -25,16 +23,13 @@ export default class Dialog extends React.Component {
 				chatbox(".chatbox-close").click(() =>
 					chatbox(".chatbox-popup, .chatbox-close").fadeOut()
 				);
-
 			});
 		});
-
 	}
 
 	sendClicked(event) {
 		event.preventDefault();
-		alert("waduso");  // Send us an email
-
+		alert("waduso"); // Send us an email
 
 		Meteor.call(
 			"sendEmail",
@@ -43,9 +38,9 @@ export default class Dialog extends React.Component {
 			`Contacting us: ${this.state.name}`,
 			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
 				this.state.textBox
-				}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
+			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
 				this.state.emailSending
-				}`,
+			}`,
 			(err, res) => {
 				if (err) {
 					console.log("--- BEGIN error:");
@@ -62,33 +57,45 @@ export default class Dialog extends React.Component {
 		);
 
 		alert("wassup2");
-
 	}
-
 
 	render() {
 		return (
 			<div>
-				<button className="chatbox-open">
-					<i className="fa fa-comments fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
+				<button className="chatbox-open" onClick={this.buttonClicked}>
+					<i className="fa fa-comments fa-2x" aria-hidden="true" />
 				</button>
-				<button className="chatbox-close">
-					<i className="fa fa-close fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
-					</button>
+				<button className="chatbox-close" onClick={this.buttonClicked}>
+					<i className="fa fa-close fa-2x" aria-hidden="true" />
+				</button>
 				<section className="chatbox-popup">
-					<header className="chatbox-popup__header">
-					</header>
+					<header className="chatbox-popup__header" />
 					<main className="chatbox-popup__main">
-						Please send us feedback on how to improve below... thank you!
+						Please send us feedback on how to improve below... thank
+						you!
 					</main>
 					<footer className="chatbox-popup__footer">
-						<aside style={{flex:"1",color:"#888", text:"center"}}>
+						<aside
+							style={{ flex: "1", color: "#888", text: "center" }}
+						/>
+						<aside style={{ flex: "10" }}>
+							<textarea
+								type="text"
+								placeholder="Type your message here..."
+							/>
 						</aside>
-						<aside style={{flex:"10"}}>
-							<textarea type="text" placeholder="Type your message here..." autofocus/>
-						</aside>
-						<aside style={{flex:"1",color:"#2079b5", text:"center"}}>
-							<i className="fa fa-paper-plane" aria-hidden="true" onClick={this.sendClicked}/>
+						<aside
+							style={{
+								flex: "1",
+								color: "#2079b5",
+								text: "center",
+							}}
+						>
+							<i
+								className="fa fa-paper-plane"
+								aria-hidden="true"
+								onClick={this.sendClicked}
+							/>
 						</aside>
 					</footer>
 				</section>
@@ -96,4 +103,3 @@ export default class Dialog extends React.Component {
 		);
 	}
 }
-
