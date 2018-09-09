@@ -43,15 +43,6 @@ services:
       POSTGRES_USER: meteor
       POSTGRES_PASSWORD: "123456789"
       POSTGRES_DB: meteor
-  visualizer:
-    image: dockersamples/visualizer:stable
-    ports:
-      - "8080:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      placement:
-        constraints: [node.role == manager]
 volumes:
   mongo-data:
   postgres-data:
