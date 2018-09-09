@@ -1,18 +1,28 @@
 version: "3"
 services:
-  web:
-    build: .
-    image: vize-meteor
+  dev:
+    image: vize-meteor-dev
     ports:
-      - "80:80"
+      - "3000:3000"
+    volumes:
+        # Allow meteor to read the project's source code.
+        # Make this read only because the build should not change the src.
+      - ".:/opt/meteor/src:ro"
+        # Use these volumes to cache builds and dependencies.
+      - node-modules:/opt/meteor/src/node_modules
+      - meteor-local:/opt/meteor/src/.meteor/local
+        # Meteor is stupid and tries to delete and move around it's dotfile
+        # during installation. So we are forced to volume the whole home
+        # directory.
+      - meteor-dotfile:/root
     environment:
-      MONGO_URL: "mongodb://mongo:27017/meteor"
+      MONGO_URL: mongodb://mongo:27017/meteor
   mongo:
     image: mongo:3.4
     ports:
       - "27017:27017"
     volumes:
-      - data-volume:/data/db
+      - mongo-data:/data/db
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -23,4 +33,7 @@ services:
       placement:
         constraints: [node.role == manager]
 volumes:
-  data-volume:
+  mongo-data:
+  node-modules:
+  meteor-local:
+  meteor-dotfile:
