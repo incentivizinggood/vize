@@ -44,14 +44,32 @@
 		"Companies": {
 			"nameTaken": "El nombre proporcionado ya esta en uso"
 		},
-		"JobAds": {},
-		"Salaries": {},
+		"JobAds": {
+			"maxedOutJobPosts":
+				"[PLEASE TRANSLATE] You may only post up to 5 job ads"
+		},
+		"Salaries": {
+			"secondSalaryByUser":
+				"[PLEASE TRANSLATE] You may only post salary data once per company"
+		},
 		"Reviews": {
+			"secondReviewByUser":
+				"[PLEASE TRANSLATE] You may only write one review for each company",
 			"needsFiveWords":
 				"debes colocar por lo menos 5 palabras en este campo"
 		}
 	},
 	"labels": {
+		"LocationSubFields": {
+			"locationCity": "[PLEASE TRANSLATE] City",
+			"locationAddress": "[PLEASE TRANSLATE] Address",
+			"locationIndustrialHub": "[PLEASE TRANSLATE] Industrial Park",
+			"locationArrayItem": "[PLEASE TRANSLATE] Location",
+			"locationArrayItemCity": "[PLEASE TRANSLATE] City",
+			"locationArrayItemAddress": "[PLEASE TRANSLATE] Address",
+			"locationArrayItemIndustrialHub":
+				"[PLEASE TRANSLATE] Industrial Park"
+		},
 		"JobApplications": {
 			"jobId": "jobId",
 			"companyName": "Nombre de la empresa",
@@ -66,11 +84,11 @@
 			"_id": "_id",
 			"name": "Nombre de la empresa",
 			"contactEmail": "Email de contacto",
-			"dateEstablished": "Fecha establecida",
+			"yearEstablished": "[PLEASE TRANSLATE] Year Established",
 			"numEmployees": "Numero de empleados",
 			"industry": "Industria",
 			"locations": "Ubicaciones",
-			"otherContactInfo": "Otra informacion de contacto",
+			"contactPhoneNumber": "[PLEASE TRANSLATE] Contact Phone Number",
 			"websiteURL": "Url pagina de internet",
 			"descriptionOfCompany": "Descripcion de la compañia",
 			"dateJoined": "Fecha en que se unió Vize",
@@ -103,6 +121,7 @@
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
 			"jobTitle": "Titulo del trabajo",
+			"location": "[PLEASE TRANSLATE] Location",
 			"incomeType": "Tipo de ingreso",
 			"incomeAmount": "Cantidad de ingresos",
 			"gender": "Genero",
@@ -114,7 +133,7 @@
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
 			"reviewTitle": "Titulo de la reseña",
-			"locations": "Localizacion",
+			"location": "[PLEASE TRANSLATE] Location",
 			"jobTitle": "Titulo del trabajo",
 			"numberOfMonthsWorked": "Numero de meses trabajados",
 			"pros": "Ventajas",

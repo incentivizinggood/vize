@@ -5,9 +5,9 @@
 -- this transaction should go through
 START TRANSACTION;
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags) VALUES ('a', '1 - 50', 'example@gmail.com', 'https://example.com',0);
-INSERT INTO company_locations(companyId,locationName) VALUES (1,'somewhere over the rainbow'),(1,'hello world'),(1,'anotherwhere'),(1,'movin right along');
+INSERT INTO company_locations(companyId,companyLocation) VALUES (1,'somewhere over the rainbow'),(1,'hello world'),(1,'anotherwhere'),(1,'movin right along');
 INSERT INTO companies (name,numEmployees,contactEmail,websiteURL,numFlags) VALUES ('b', '1 - 50', 'example@gmail.com', 'https://example.com',0);
-INSERT INTO company_locations(companyId,locationName) VALUES (2,'somewhere over the rainbow'),(2,'hello world'),(2,'anotherwhere'),(2,'movin right along');
+INSERT INTO company_locations(companyId,companyLocation) VALUES (2,'somewhere over the rainbow'),(2,'hello world'),(2,'anotherwhere'),(2,'movin right along');
 INSERT INTO jobads(companyName,companyId,jobTitle,pesosPerHour,contractType,
 				jobDescription,responsibilities,qualifications)
 	VALUES ('a',1,'a','1.00','Part time','a','a','a');
@@ -32,8 +32,8 @@ INSERT INTO jobads(companyName,companyId,jobTitle,pesosPerHour,contractType,
 -- should fail, would leave no locations for job
 DELETE FROM job_locations WHERE jobadId=1;
 -- should succeed, one location left
-DELETE FROM job_locations WHERE jobLocation='hello world';
+DELETE FROM job_locations WHERE jobLocation='{"industrialHub":"hello world"}';
 -- these next two should both fail, as either
--- would remove a review's last location
-DELETE FROM job_locations WHERE jobLocation='somewhere over the rainbow';
-UPDATE job_locations SET jobadId=1 WHERE jobLocation='somewhere over the rainbow';
+-- would remove a last location
+DELETE FROM job_locations WHERE jobLocation='{"industrialHub":"somewhere over the rainbow"}';
+UPDATE job_locations SET jobadId=1 WHERE jobLocation='{"industrialHub":"somewhere over the rainbow"}';

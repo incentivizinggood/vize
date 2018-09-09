@@ -8,6 +8,7 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import { ReactiveVar } from "meteor/reactive-var";
+import { AutoForm } from "meteor/aldeed:autoform";
 
 import ShowJobs from "/imports/ui/pages/showjobs.jsx";
 
@@ -25,18 +26,17 @@ import NotFoundPage from "/imports/ui/pages/not-found.jsx";
 import RegisterPage from "/imports/ui/pages/register.jsx";
 import UserPage from "/imports/ui/pages/user.jsx";
 
-import CompanyCreateProfileForm from "/imports/ui/pages/create-company-profile.jsx";
-import WriteReviewForm from "/imports/ui/pages/write-review.jsx";
-import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data.jsx";
-import PostAJobForm from "/imports/ui/pages/post-a-job.jsx";
-import ApplyForJobForm from "/imports/ui/pages/apply-for-job.jsx";
+import CompanyCreateProfileForm from "/imports/ui/pages/create-company-profile";
+import WriteReviewForm from "/imports/ui/pages/write-review";
+import SubmitSalaryDataForm from "/imports/ui/pages/submit-salary-data";
+import PostAJobForm from "/imports/ui/pages/post-a-job";
+import ApplyForJobForm from "/imports/ui/pages/apply-for-job";
 import ResourcesWorkers from "/imports/ui/pages/resources-workers.jsx";
 import ResourcesEmployers from "/imports/ui/pages/resources-employers.jsx";
 import PasswordChanger from "/imports/ui/pages/password-changer.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
 	import SimpleSchema from "simpl-schema";
-	import { AutoForm } from "meteor/aldeed:autoform";
 
 	SimpleSchema.debug = true;
 	AutoForm.debug();
@@ -70,12 +70,43 @@ routeSimplePage("/help", <HelpPage />);
 routeSimplePage("/login", <LoginPage />);
 routeSimplePage("/my-account", <MyAccountPage />);
 routeSimplePage("/register", <RegisterPage />);
-routeSimplePage("/create-company-profile", <CompanyCreateProfileForm />);
 routeSimplePage("/jobs", <ShowJobs />);
-routeSimplePage("/post-a-job", <PostAJobForm />);
 routeSimplePage("/worker-resources", <ResourcesWorkers />);
 routeSimplePage("/employer-resources", <ResourcesEmployers />);
 routeSimplePage("/change-password", <PasswordChanger />);
+
+/*
+	These next two render AutoForms, and require
+	special exit triggers to remove so-called
+	"sticky validation errors", which could cause
+	someone to, say, fail to submit a review for
+	one company, go back to the search results page,
+	go to the review form for a different company,
+	and see the errors from their failed attempt
+	to submit a review for the first company.
+*/
+
+FlowRouter.route(`/create-company-profile`, {
+	action() {
+		currentPage.set(<CompanyCreateProfileForm />);
+	},
+	triggersExit: [
+		function() {
+			AutoForm.getValidationContext("ccp_blaze_form").reset();
+		},
+	],
+});
+
+FlowRouter.route(`/post-a-job`, {
+	action() {
+		currentPage.set(<PostAJobForm />);
+	},
+	triggersExit: [
+		function() {
+			AutoForm.getValidationContext("paj_blaze_form").reset();
+		},
+	],
+});
 
 // ----- Define the more complex routes. -----//
 const queryRoutes = {
@@ -107,18 +138,33 @@ FlowRouter.route(`/${queryRoutes.writeReview}`, {
 	action(params, queryParams) {
 		currentPage.set(<WriteReviewForm companyId={queryParams.id} />);
 	},
+	triggersExit: [
+		function() {
+			AutoForm.getValidationContext("wr_blaze_form").reset();
+		},
+	],
 });
 
 FlowRouter.route(`/${queryRoutes.submitSalaryData}`, {
 	action(params, queryParams) {
 		currentPage.set(<SubmitSalaryDataForm companyId={queryParams.id} />);
 	},
+	triggersExit: [
+		function() {
+			AutoForm.getValidationContext("ssd_blaze_form").reset();
+		},
+	],
 });
 
 FlowRouter.route(`/${queryRoutes.applyForJob}`, {
 	action(params, queryParams) {
 		currentPage.set(<ApplyForJobForm jobId={queryParams.id} />);
 	},
+	triggersExit: [
+		function() {
+			AutoForm.getValidationContext("afj_blaze_form").reset();
+		},
+	],
 });
 
 FlowRouter.route(`/${queryRoutes.user}`, {

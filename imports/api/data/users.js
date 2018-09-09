@@ -45,7 +45,7 @@ Meteor.users.schema = new SimpleSchema({
 	},
 	companyId: {
 		// If role === "company", the ID of the company that this user is administering.
-		type: String,
+		type: SimpleSchema.Integer,
 		optional: true,
 	},
 });
@@ -53,6 +53,22 @@ Meteor.users.schema = new SimpleSchema({
 Accounts.onCreateUser(function(options, user) {
 	// Transfer the custom data fields given to Accounts.createUser into the
 	// new user. By default only username, password, and email go though.
+	if (Meteor.isDevelopment) {
+		console.log("OPTIONS");
+		console.log(options);
+		console.log("USER");
+		console.log(user);
+	}
+
+	const newUser = Meteor.call("postgres.users.createUser", {
+		_id: user._id,
+		role: options.role,
+	});
+
+	if (Meteor.isDevelopment) {
+		console.log(newUser);
+		console.log("RETURNING");
+	}
 	return { ...user, role: options.role };
 });
 
@@ -90,6 +106,7 @@ Meteor.users.deny({
 Meteor.users.publicFields = {
 	username: 1,
 	role: 1,
+	companyId: 1,
 };
 
 if (Meteor.isServer) {

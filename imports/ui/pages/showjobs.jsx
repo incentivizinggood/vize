@@ -14,7 +14,11 @@ const ShowJobsQuery = gql`
 		jobAds: allJobAds {
 			id
 			jobTitle
-			locations
+			locations {
+				city
+				address
+				industrialHub
+			}
 			pesosPerHour
 			contractType
 			jobDescription
@@ -40,6 +44,7 @@ const ShowJobs = () => (
 			}
 
 			if (error) {
+				console.log(error);
 				return <h2>{error}</h2>;
 			}
 

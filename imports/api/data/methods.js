@@ -6,8 +6,7 @@ import { Reviews } from "./reviews.js";
 import { Companies } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
-import { Votes } from "./votes.js";
-import { addToAvg } from "./denormalization.js";
+// import { Votes } from "./votes.js"; // this isn't used since I brought in the PostgreSQL code
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
@@ -16,9 +15,16 @@ import PgReviewFunctions from "../models/helpers/postgresql/reviews.js";
 import PgJobAdFunctions from "../models/helpers/postgresql/jobads.js";
 import PgSalaryFunctions from "../models/helpers/postgresql/salaries.js";
 import PgVoteFunctions from "../models/helpers/postgresql/votes.js";
-import PgCommentFunctions from "../models/helpers/postgresql/comments.js";
+// import PgCommentFunctions from "../models/helpers/postgresql/comments.js"; // we don't have comments yet
+import PgUserFunctions from "../models/helpers/postgresql/users.js";
 
 Meteor.methods({
+	async "postgres.users.createUser"(user, companyPostgresId) {
+		// just trying to get this to work, will
+		// add security and validation later
+		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
+	},
+
 	sendEmail(to, from, subject, text) {
 		if (Meteor.isDevelopment)
 			console.log("SERVER sendEmail: checking arguments");
@@ -43,21 +49,59 @@ Meteor.methods({
 			typeof inputString !== "string" ||
 			inputString.wordCount() < 5
 		) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.needsFiveWords"),
-				i18n.__("common.methods.errorMessages.needsFiveWords")
-			);
+			return false;
 		}
-		return "all good";
+		return true;
 	},
 
-	"reviews.submitReview"(newReview) {
+	async "reviews.checkForSecondReviewByUser"(companyName) {
+		if (this.userId) {
+			const pgUser = await PostgreSQL.executeQuery(
+				PgUserFunctions.getUserById,
+				this.userId
+			);
+			const reviewsByPgUser = PgReviewFunctions.processReviewResults(
+				await PostgreSQL.executeQuery(
+					PgReviewFunctions.getReviewsByAuthor,
+					pgUser.user.userid
+				)
+			);
+			if (
+				reviewsByPgUser.filter(
+					review => review.companyName === companyName
+				).length > 0
+			)
+				return false;
+		}
+
+		return true;
+	},
+
+	async "reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
-		newReview = Reviews.simpleSchema().clean(newReview);
+		const cleanReview = Reviews.simpleSchema().clean(newReview);
+
+		// Make sure the user is logged and is permitted to write a review.
+		if (!this.userId) {
+			throw new Meteor.Error("loggedOut", "loggedOut");
+		}
+
+		const user = Meteor.users.findOne(this.userId);
+
+		if (user.role !== "worker") {
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
+		}
+
+		const pgUser = await PostgreSQL.executeQuery(
+			PgUserFunctions.getUserById,
+			this.userId
+		);
+
+		cleanReview.submittedBy = pgUser.user.userid;
 
 		const validationResult = Reviews.simpleSchema()
 			.namedContext()
-			.validate(newReview);
+			.validate(cleanReview);
 		const errors = Reviews.simpleSchema()
 			.namedContext()
 			.validationErrors();
@@ -70,32 +114,22 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
-		// Make sure the user is logged and is permitted to write a review.
-		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
-		}
+		const newPgReview = PgReviewFunctions.processReviewResults(
+			await PostgreSQL.executeMutation(
+				PgReviewFunctions.submitReview,
+				cleanReview
+			)
+		);
 
-		const user = Meteor.users.findOne(this.userId);
+		if (Meteor.isDevelopment) console.log(newPgReview);
 
-		if (user.role !== "worker") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
-		}
-
-		// TODO: use user to fill in the "who wrote this" info in this review.
-
-		Reviews.insert(newReview);
+		return newPgReview;
 
 		/*
 			QUESTION:
@@ -103,195 +137,135 @@ Meteor.methods({
 				the company is verified or unverified, how do I handle
 				that?
 		*/
-
-		// Can assume this to be defined since it is checked for
-		// in the schema validation for companyName
-		const company = Companies.findOne({ name: newReview.companyName });
-
-		// Update denormalizations.
-		if (company !== undefined) {
-			if (Meteor.isDevelopment) {
-				console.log("SERVER: before update");
-				console.log(
-					Companies.findOne(
-						Companies.findOne({ name: newReview.companyName })
-					)
-				);
-			}
-
-			/*
-				QUESTION:
-					Do we need some kind of hook to periodically re-check the
-					averages in case something happens where a review gets
-					inserted before the averages are updated?
-			*/
-
-			Companies.update(
-				{ name: newReview.companyName },
-				{
-					$set: {
-						healthAndSafety: addToAvg(
-							newReview.healthAndSafety,
-							company.numReviews,
-							company.healthAndSafety
-						),
-						managerRelationship: addToAvg(
-							newReview.managerRelationship,
-							company.numReviews,
-							company.managerRelationship
-						),
-						workEnvironment: addToAvg(
-							newReview.workEnvironment,
-							company.numReviews,
-							company.workEnvironment
-						),
-						benefits: addToAvg(
-							newReview.benefits,
-							company.numReviews,
-							company.benefits
-						),
-						overallSatisfaction: addToAvg(
-							newReview.overallSatisfaction,
-							company.numReviews,
-							company.overallSatisfaction
-						),
-						percentRecommended: addToAvg(
-							newReview.wouldRecommendToOtherJobSeekers ? 1 : 0,
-							company.numReviews,
-							company.percentRecommended
-						),
-						avgNumMonthsWorked: addToAvg(
-							newReview.numberOfMonthsWorked,
-							company.numReviews,
-							company.avgNumMonthsWorked
-						),
-					},
-					$inc: { numReviews: 1 }, // this will increment the numReviews by 1
-				}
-			);
-
-			if (Meteor.isDevelopment) {
-				console.log("SERVER: after update");
-				console.log(Companies.findOne({ name: newReview.companyName }));
-			}
-		}
 	},
 
-	"reviews.changeVote"(reviewId, vote) {
+	/*
+		TODO
+		I won't be able to test reviews.changeVote in
+		its proper context until the review ID
+		format is changed. Submitting reviews works fine,
+		but this method takes input from the frontend,
+		which doesn't know about the changes yet.
+		Also the schemas and validation will have to
+		be updated as well.
+		Dang.
+
+		TODO
+		We don't yet have the ability to vote on comments.
+		I guess that's because we don't have the ability to
+		write or view comments yet...oh well...
+	*/
+	async "reviews.changeVote"(reviewId, vote) {
+		console.log(
+			`SERVER: User ${this.userId} voted ${vote} on review ${reviewId}`
+		);
+
 		// validate vote: must be boolean
 		if (typeof vote !== "boolean") {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: vote is not boolean");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.vote2ndArg")
-			);
+			throw new Meteor.Error("invalidArguments", "vote2ndArg");
 		}
 
-		const review = Reviews.findOne({ _id: reviewId });
+		const review = PgReviewFunctions.processReviewResults(
+			await PostgreSQL.executeQuery(
+				PgReviewFunctions.getReviewById,
+				reviewId
+			)
+		);
 
 		if (review === undefined) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: review does not exist");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.voteOnNullReview")
-			);
+			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
+		}
+
+		// validate review: must match Reviews.schema
+		const validationResult = Reviews.simpleSchema()
+			.namedContext()
+			.validate(review, {
+				extendedCustomContext: {
+					isNotASubmission: true,
+				},
+			});
+		const errors = Reviews.simpleSchema()
+			.namedContext()
+			.validationErrors();
+
+		if (!validationResult) {
+			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
+			if (Meteor.isDevelopment) console.log(errors);
+			throw new Meteor.Error("invalidArguments", "vote1stArg", errors);
 		}
 
 		// must be logged in
 		if (!this.userId) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: user is not logged in");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		// only workers
-		if (user.role === "company") {
+		if (user.role === "company" || user.role === "company-unverified") {
 			if (Meteor.isDevelopment) console.log("SERVER: user is a company");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
+
+		const pgUser = await PostgreSQL.executeQuery(
+			PgUserFunctions.getUserById,
+			this.userId
+		);
 
 		// can't vote on own review
-		if (this.userId === review.submittedBy) {
+		if (pgUser.user.userid === review.submittedBy) {
 			if (Meteor.isDevelopment)
 				console.log("SERVER: user is voting on own review");
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.noCheating"),
-				i18n.__("common.methods.errorMessages.noCheating")
-			);
+			throw new Meteor.Error("noCheating", "noCheating");
 		}
 
-		// This next bit was a pain to write
-
-		const previousVote = Votes.findOne({
-			submittedBy: this.userId,
-			references: review._id,
+		const newVote = {
 			voteSubject: "review",
-		});
+			references: review._id,
+			submittedBy: pgUser.user.userid,
+			value: vote,
+		};
 
-		// This is completely ridiculous, I wanted to use
-		// upsert but it just got too complicated
-		let result;
-		if (previousVote === undefined) {
-			result = Votes.insert({
-				submittedBy: this.userId,
-				references: review._id,
-				voteSubject: "review",
-				value: vote,
-			});
-		} else {
-			result = Votes.update(
-				{
-					submittedBy: this.userId,
-					references: review._id,
-					voteSubject: "review",
-				},
-				{ $set: { value: vote } }
-			);
-		}
+		const pgVoteResult = await PostgreSQL.executeMutation(
+			PgVoteFunctions.castVote,
+			newVote
+		);
 
-		// again with the doing things the first way that comes to mind
-		const proceed =
-			((previousVote === undefined && result !== undefined) ||
-				(previousVote !== undefined && result !== 0)) &&
-			(previousVote === undefined || vote !== previousVote.value);
-		if (proceed) {
-			if (vote === true) {
-				const decNum =
-					previousVote === undefined || review.downvotes === 0
-						? 0
-						: -1;
-				Reviews.update(
-					review._id,
-					{ $inc: { upvotes: 1, downvotes: decNum } },
-					{ getAutoValues: false }
-				);
-			} else {
-				const decNum =
-					previousVote === undefined || review.upvotes === 0 ? 0 : -1;
-				Reviews.update(
-					review._id,
-					{ $inc: { downvotes: 1, upvotes: decNum } },
-					{ getAutoValues: false }
-				);
-			}
-		}
-
-		return "I VOTED";
+		return pgVoteResult;
 	},
 
-	"salaries.submitSalaryData"(newSalary) {
+	async "salaries.checkForSecondSalaryByUser"(companyName) {
+		if (this.userId) {
+			const pgUser = await PostgreSQL.executeQuery(
+				PgUserFunctions.getUserById,
+				this.userId
+			);
+			const salariesByPgUser = PgSalaryFunctions.processSalaryResults(
+				await PostgreSQL.executeQuery(
+					PgSalaryFunctions.getSalariesByAuthor,
+					pgUser.user.userid
+				)
+			);
+			if (
+				salariesByPgUser.filter(
+					salary => salary.companyName === companyName
+				).length > 0
+			)
+				return false;
+		}
+
+		return true;
+	},
+
+	async "salaries.submitSalaryData"(salary) {
 		// This avoids a lot of problems
-		newSalary = Salaries.simpleSchema().clean(newSalary);
+		const newSalary = Salaries.simpleSchema().clean(salary);
 
 		const validationResult = Salaries.simpleSchema()
 			.namedContext()
@@ -308,70 +282,94 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Make sure the user is logged and is permitted to submit their salary.
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		if (user.role !== "worker") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
 		// TODO: filter by location as well
-		const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
-		if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.duplicateEntry"),
-				i18n.__("common.methods.errorMessages.onlyOnce")
-			);
-		}
+		// const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
+		// if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
+		// 	throw new Meteor.Error(
+		// 		"duplicateEntry",
+		// 		"onlyOnce"
+		// 	);
+		// }
 
-		console.log("SERVER: inserting");
+		if (Meteor.isDevelopment) console.log("SERVER: inserting");
 
 		// TODO: use upsert to prevent duplicate salaries.
+		// QUESTION: do we actually want to prevent duplicate salaries?
+		//			I was under the impression that we didn't.
 		// Salaries.upsert({userId, companyId, jobTitle, location}, newSalary);
-		Salaries.insert(newSalary);
+		const pgUser = await PostgreSQL.executeQuery(
+			PgUserFunctions.getUserById,
+			this.userId
+		);
+
+		newSalary.submittedBy = pgUser.user.userid;
+		if (typeof newSalary.companyId === "string")
+			newSalary.companyId = undefined;
+
+		const newPgSalary = await PostgreSQL.executeMutation(
+			PgSalaryFunctions.submitSalary,
+			newSalary
+		);
+
+		return newPgSalary;
 	},
 
-	"jobads.findOne"(jobIdentifier) {
-		const job = JobAds.findOne(jobIdentifier);
-		if (job === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+	/*
+		TODO
+		This is another function that can't be
+		tested until the frontend is updated,
+		since it is accessed from the company
+		profile page.
+	*/
+	async "jobads.findOne"(jobIdentifier) {
+		const job = await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdById,
+			Number(jobIdentifier)
+		);
+
+		if (job.jobad === undefined) {
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
-		return job;
+		return PgJobAdFunctions.processJobAdResults(job);
 	},
 
-	"jobads.doesJobAdExist"(jobIdentifier) {
-		const job = JobAds.findOne(jobIdentifier);
-		if (job === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+	async "jobads.doesJobAdExist"(jobIdentifier) {
+		const job = await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdById,
+			jobIdentifier
+		);
+		if (job.jobad === undefined) {
+			return false;
 		}
-
-		return "all good";
+		return true;
 	},
 
-	"jobads.applyForJob"(jobApplication) {
+	/*
+		TODO
+		This one doesn't write to any of the collections,
+		but it does read from them pretty extensively,
+		so you can probably go ahead and fix it up to
+		start using mostly PostgreSQL.
+	*/
+	async "jobads.applyForJob"(jobApplication) {
 		jobApplication = JobAds.applicationSchema.clean(jobApplication);
 		const validationResult = JobAds.applicationSchema
 			.namedContext()
@@ -388,30 +386,30 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Only logged-in workers can apply for jobs
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 
 		if (user.role !== "worker") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyWorkers")
-			);
+			throw new Meteor.Error("rolePermission", "onlyWorkers");
 		}
 
-		const company = Companies.findOne({ name: jobApplication.companyName });
+		const company = PgCompanyFunctions.processCompanyResults(
+			await PostgreSQL.executeQuery(
+				PgCompanyFunctions.getCompanyByName,
+				jobApplication.companyName
+			)
+		);
+
 		const companyEmailAddress = company.contactEmail;
 		const companyName = jobApplication.companyName;
 		const workerName = jobApplication.fullName;
@@ -464,8 +462,20 @@ Meteor.methods({
 		Email.send(applicationEmail);
 	},
 
-	"jobads.postJobAd"(newJobAd) {
-		newJobAd = JobAds.simpleSchema().clean(newJobAd);
+	async "jobads.checkIfCompanyBelowJobPostLimit"(companyName) {
+		const count = await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdCountForCompany,
+			companyName
+		);
+		if (count === undefined || count === null) {
+			// non-existent companies have not met their limit
+			return true;
+		}
+		return !(count >= 5);
+	},
+
+	async "jobads.postJobAd"(jobAd) {
+		const newJobAd = JobAds.simpleSchema().clean(jobAd);
 		const validationResult = JobAds.simpleSchema()
 			.namedContext()
 			.validate(newJobAd);
@@ -481,74 +491,97 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
+
 		if (user.role !== "company") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyCompanies")
-			);
+			throw new Meteor.Error("rolePermission", "onlyCompanies");
 		}
 
+		/*
+			TODO
+			This check will have to be properly re-implemented
+			once you've fixed the other methods, and perhaps the
+			form and schema as well.
+			-> required the job ad company id to have the same type
+				as the user's company id, SimplSchema.integer,
+				which affects the way this form is initially populated,
+				so the changes are going to be mostly in the schema
+			-> also requires that certain company-related methods
+				have been fixed as well
+		*/
 		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.permissionDenied")
-			);
+			throw new Meteor.Error("rolePermission", "permissionDenied");
 		}
 
-		JobAds.insert(newJobAd);
+		if (typeof newJobAd.companyId === "string")
+			newJobAd.companyId = undefined;
+		await PostgreSQL.executeMutation(PgJobAdFunctions.postJobAd, newJobAd);
 	},
 
-	"companies.findOne"(companyIdentifier) {
-		const company = Companies.findOne(companyIdentifier);
-		if (company === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
+	async "companies.getAllCompanyNames"() {
+		const allCompanies = PgCompanyFunctions.processCompanyResults(
+			await PostgreSQL.executeQuery(
+				PgCompanyFunctions.getAllCompanies,
+				// we'll need to make this more nuanced at some point
+				0,
+				3000
+			)
+		);
+
+		return allCompanies.map(company => company.name);
+	},
+
+	async "companies.findOne"(companyIdentifier) {
+		let company = {};
+		if (Number.isNaN(Number(companyIdentifier)))
+			company = await PostgreSQL.executeQuery(
+				PgCompanyFunctions.getCompanyByName,
+				companyIdentifier
 			);
+		else
+			company = await PostgreSQL.executeQuery(
+				PgCompanyFunctions.getCompanyById,
+				Number(companyIdentifier)
+			);
+
+		if (company.company === undefined) {
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
-		return company;
+		return PgCompanyFunctions.processCompanyResults(company);
 	},
 
-	"companies.companyForCurrentUser"() {
+	async "companies.companyForCurrentUser"() {
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
 
 		if (user.role !== "company" || user.companyId === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
-		const company = Companies.findOne(user.companyId);
+		const company = PgCompanyFunctions.processCompanyResults(
+			await PostgreSQL.executeQuery(
+				PgCompanyFunctions.getCompanyById,
+				user.companyId
+			)
+		);
 
 		if (company === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
+			throw new Meteor.Error("notFound", "notFound");
 		}
 
 		return company;
@@ -559,45 +592,33 @@ Meteor.methods({
 			companyNameString === i18n.__("common.forms.companyNotFound") ||
 			companyNameString === i18n.__("common.forms.pleaseWait")
 		) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.sessionError"),
-				i18n.__("common.methods.errorMessages.sessionError")
-			);
+			return false;
 		}
-
-		return "all good";
+		return true;
 	},
 
-	"companies.isCompanyNameAvailable"(companyName) {
-		if (Companies.hasEntry(companyName)) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.nameTaken"),
-				i18n.__("common.methods.errorMessages.nameTaken")
-			);
+	async "companies.doesCompanyWithNameNotExist"(companyName) {
+		const companyResults = await PostgreSQL.executeQuery(
+			PgCompanyFunctions.getCompanyByName,
+			companyName
+		);
+		const company = PgCompanyFunctions.processCompanyResults(
+			companyResults
+		);
+		if (company === undefined) {
+			return true;
 		}
-		return "all good";
-	},
-
-	// Technically this does something different, and the return value vs
-	// thrown error and callback structure makes it easy to do this way,
-	// but is there some way to combine this method with the previous one?
-	// They're almost identical.
-	"companies.doesCompanyExist"(companyName) {
-		if (Companies.findOne({ name: companyName }) === undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.notFound"),
-				i18n.__("common.methods.errorMessages.notFound")
-			);
-		}
-		return "all good";
+		return false;
 	},
 
 	// Add method for creating a new CompanyProfile
 	//	--> The full solution will require cross-validation
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
-	"companies.createProfile"(newCompanyProfile) {
-		newCompanyProfile = Companies.simpleSchema().clean(newCompanyProfile);
+	async "companies.createProfile"(companyProfile) {
+		const newCompanyProfile = Companies.simpleSchema().clean(
+			companyProfile
+		);
 		const validationResult = Companies.simpleSchema()
 			.namedContext()
 			.validate(newCompanyProfile);
@@ -613,42 +634,47 @@ Meteor.methods({
 
 		if (!validationResult) {
 			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.invalidArguments"),
-				i18n.__("common.methods.errorMessages.invalidFormInputs"),
+				"invalidArguments",
+				"invalidFormInputs",
 				errors
 			);
 		}
 
 		// Make sure the user is logged in before inserting a task
 		if (!this.userId) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.loggedOut"),
-				i18n.__("common.methods.errorMessages.loggedOut")
-			);
+			throw new Meteor.Error("loggedOut", "loggedOut");
 		}
 
 		const user = Meteor.users.findOne(this.userId);
 		if (user.role !== "company") {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.rolePermission"),
-				i18n.__("common.methods.errorMessages.onlyCompanies")
-			);
+			throw new Meteor.Error("rolePermission", "onlyCompanies");
 		}
 
 		if (user.companyId !== undefined) {
-			throw new Meteor.Error(
-				i18n.__("common.methods.meteorErrors.duplicateEntry"),
-				i18n.__("common.methods.errorMessages.onlyOnce")
-			);
+			throw new Meteor.Error("duplicateEntry", "onlyOnce");
 		}
 
-		/* We will probably end up needing more checks here,
-		I just don't immediately know what they need to be. */
-		Companies.insert(newCompanyProfile);
+		// insert company to PostgreSQL
+		// update user info in PostgreSQL
+		const newPgCompany = await PostgreSQL.executeMutation(
+			PgCompanyFunctions.createCompany,
+			newCompanyProfile
+		);
+		if (Meteor.isDevelopment) {
+			console.log("NEW PG COMPANY");
+			console.log(newPgCompany);
+		}
+		if (newPgCompany.company !== undefined) {
+			await PostgreSQL.executeMutation(
+				PgUserFunctions.setUserCompanyInfo,
+				this.userId,
+				newPgCompany.company.companyid
+			);
 
-		// If insertion successful, then add companyId field to user account
-		Meteor.users.update(this.userId, {
-			$set: { companyId: newCompanyProfile._id },
-		});
+			// If insertion successful, then add companyId field to user account
+			Meteor.users.update(this.userId, {
+				$set: { companyId: newPgCompany.company.companyid },
+			});
+		}
 	},
 });

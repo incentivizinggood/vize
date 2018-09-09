@@ -2,6 +2,7 @@
 	"_locale": "en",
 	"_namespace": "common",
 	"gender": {
+		"default": "(Select one)",
 		"male": "Male",
 		"female": "Female"
 	},
@@ -52,7 +53,13 @@
 		"submitForm": "Submit",
 		"resetForm": "Reset Form",
 		"pleaseWait": "Please wait while we finish loading the form...",
+		"error": "Error",
 		"companyNotFound": "ERROR: COMPANY NOT FOUND",
+		"locationCityPlaceholder": "Enter the city for your location",
+		"locationAddressPlaceholder":
+			"Enter the street address for your location",
+		"locationIndustrialHubPlaceholder":
+			"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 		"afj": {
 			"formTitle": "Apply for a Job",
 			"fullNamePlaceholder": "Please enter your full name here",
@@ -68,8 +75,7 @@
 			"emailPlaceholder":
 				"Provide an email we can reach your company at (example@email.com)",
 			"industryPlaceholder": "Tell us your company's primary industry",
-			"otherContactInfoPlaceholder":
-				"Please enter any additional contact information you'd like to provide us with",
+			"contactPhoneNumberPlaceholder": "###-###-####",
 			"websiteUrlPlaceholder":
 				"Please enter the URL of your company's website, if it has one",
 			"descriptionPlaceholder":
@@ -77,12 +83,13 @@
 		},
 		"paj": {
 			"contractTypes": {
-				"default": "(Select One)",
+				"default": "(Select one)",
 				"fullTime": "Full time",
 				"partTime": "Part time",
 				"contractor": "Contractor"
 			},
 			"formTitle": "Post a Job",
+			"header1": "Reach hundreds of workers instantly with our job posts",
 			"jobTitlePlaceholder":
 				"Tell us the title of the position you are advertising",
 			"payRangePlaceholder":
@@ -98,22 +105,24 @@
 		},
 		"ssd": {
 			"payTypes": {
+				"default": "(Select one)",
 				"yearlySalary": "Yearly Salary",
 				"monthlySalary": "Monthly Salary",
 				"hourlyWage": "Hourly Wage"
 			},
 			"formTitle": "Submit Salary Data",
+			"header1": "Share your salary annonomously to make ",
+			"header2": "sure others are getting compensated fairly.",
 			"companyNamePlaceholder":
 				"Tell us the name of the company you worked for",
-			"locationPlaceholder": "Tell us where you worked for this company",
 			"jobTitlePlaceholder": "Tell us your job title there"
 		},
 		"wr": {
 			"formTitle": "Write a Review",
+			"header1": "Contribute your annonymous feedback to the community",
 			"companyNamePlaceholder":
 				"Enter the name of the company you're reviewing",
 			"reviewTitlePlaceholder": "Please choose a title for your review",
-			"locationPlaceholder": "Tell us where you worked for this company",
 			"jobTitlePlaceholder":
 				"Enter the name of the position you held at this company",
 			"prosPlaceholder":
@@ -324,7 +333,7 @@
 		"meteorErrors": {
 			"needsFiveWords": "needsFiveWords",
 			"rolePermission": "rolePermission",
-			"invalidArguments": "invalidArguments",
+			"invalidArguments": "invalidInputs",
 			"loggedOut": "loggedOut",
 			"noCheating": "noCheating",
 			"duplicateEntry": "duplicateEntry",
