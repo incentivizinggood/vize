@@ -18,14 +18,31 @@ services:
       - meteor-dotfile:/root
     environment:
       MONGO_URL: mongodb://mongo:27017/meteor
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: meteor
+      PGPASSWORD: "123456789"
+      PGDATABASE: meteor
     depends_on:
       - mongo
+      - postgres
   mongo:
     image: mongo:3.4
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: meteor
+      POSTGRES_PASSWORD: "123456789"
+      POSTGRES_DB: meteor
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -37,6 +54,7 @@ services:
         constraints: [node.role == manager]
 volumes:
   mongo-data:
+  postgres-data:
   node-modules:
   meteor-local:
   meteor-dotfile:
