@@ -1,13 +1,14 @@
 version: "3"
 services:
-  dev:
+  web-dev:
+    build: ./meteor-dev
     image: vize-meteor-dev
     ports:
       - "3000:3000"
     volumes:
         # Allow meteor to read the project's source code.
         # Make this read only because the build should not change the src.
-      - ".:/opt/meteor/src:ro"
+      - "./meteor-app:/opt/meteor/src:ro"
         # Use these volumes to cache builds and dependencies.
       - node-modules:/opt/meteor/src/node_modules
       - meteor-local:/opt/meteor/src/.meteor/local
@@ -17,6 +18,8 @@ services:
       - meteor-dotfile:/root
     environment:
       MONGO_URL: mongodb://mongo:27017/meteor
+    depends_on:
+      - mongo
   mongo:
     image: mongo:3.4
     ports:
