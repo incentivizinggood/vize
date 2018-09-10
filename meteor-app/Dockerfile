@@ -28,7 +28,7 @@ COPY .meteorignore ./
 
 RUN meteor build $APP_BUNDLE_DIR --directory --server-only \
 	&& cd $APP_BUNDLE_DIR/bundle/programs/server/ \
-	&& meteor npm install --production --verbose \
+	&& meteor npm install --production \
 	&& chown -R node:node $APP_BUNDLE_DIR
 
 
