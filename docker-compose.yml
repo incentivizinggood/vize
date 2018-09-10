@@ -31,12 +31,19 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: meteor
-      POSTGRES_PASSWORD: "123456789"
-      POSTGRES_DB: meteor
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_DB_FILE: /run/secrets/postgres_db
     deploy:
       restart_policy:
         condition: on-failure
+secrets:
+  postgres_user:
+    file: secrets/postgres_user.txt
+  postgres_password:
+    file: secrets/postgres_password.txt
+  postgres_db:
+    file: secrets/postgres_db.txt
 volumes:
   # These database volumes ensure that the data in the databases is durable and
   # persistaint (ie. does not get deleted every so often).
