@@ -2,6 +2,7 @@ import React from "react";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 import i18n from "meteor/universe:i18n";
+import Dialog from "/imports/ui/components/dialog-box";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();
@@ -168,6 +169,7 @@ export default class ForEmployers extends React.Component {
 				{/* //section */}
 
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}

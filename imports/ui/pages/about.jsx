@@ -3,6 +3,7 @@ import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
+import Dialog from "/imports/ui/components/dialog-box";
 
 /* A page where visitors can get information about Vize and this app.
  */
@@ -213,6 +214,7 @@ export default class AboutPage extends React.Component {
 				</div>
 
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
-
+import Dialog from "/imports/ui/components/dialog-box";
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
@@ -318,6 +318,7 @@ export default class HomePage extends React.Component {
 					</div>
 				</div>
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}

@@ -4,6 +4,7 @@ import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "../error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveVar } from "meteor/reactive-var"; // used to hold global state because...you can't "pass props" to Blaze templates
+import Dialog from "/imports/ui/components/dialog-box";
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
@@ -80,6 +81,7 @@ export default class CompanyCreateProfileForm extends React.Component {
 					<Blaze template="ccp_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}
