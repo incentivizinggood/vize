@@ -1,35 +1,5 @@
 version: "3"
 services:
-  web-dev:
-    build: ./meteor-dev
-    image: vize-meteor-dev
-    ports:
-      - "3000:3000"
-    volumes:
-        # Allow meteor to read the project's source code.
-        # This is done as a volume instead of COPY so that
-        # Meteor can live reload as you edit the source code.
-        # Make this read only because the build should not change the src.
-      - "./meteor-app:/opt/meteor/src:ro"
-        # Use these volumes to cache builds and dependencies.
-        # NOTE: These can not automaticaly make their own mount points because
-        #       the parent volume is read-only. If you get errors when starting
-        #       this sevice, try creating the directories
-        #       `meteor-app/node_modules` and `meteor-app/.meteor/local`.
-        #       It does not matter what is inside them, they just need to exist.
-      - node-modules:/opt/meteor/src/node_modules
-      - meteor-local:/opt/meteor/src/.meteor/local
-      - meteor-dotfile:/root
-    environment:
-      MONGO_URL: mongodb://mongo:27017/meteor
-      PGHOST: postgres
-      PGPORT: 5432
-      PGUSER: meteor
-      PGPASSWORD: "123456789"
-      PGDATABASE: meteor
-    depends_on:
-      - mongo
-      - postgres
   mongo:
     image: mongo:3.4
     ports:
@@ -54,16 +24,3 @@ volumes:
   # delete all data) just delete these "*-data" volumes and rerun this stack.
   mongo-data:
   postgres-data:
-  # Meteor build caches. Meteor and NPM download and create a lot of files.
-  # We store this data in volumes so that is does not need to be redownloaded
-  # and duplicated any more than nessisary.
-  node-modules:
-    # NPM's cache of dependencies.
-  meteor-local:
-    # Meteor's cache of build artifacts. Allows for faster rebuilds.
-  meteor-dotfile:
-    # Meteor's dotfile (actualy it's the whole home directory)
-    # where meteor is installed and caches its packages.
-    # Meteor is stupid and tries to delete and move around it's dotfile
-    # during installation. So we are forced to volume the whole home
-    # directory. Normaly we would just volume the dotfile itself.
