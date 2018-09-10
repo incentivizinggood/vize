@@ -1,3 +1,8 @@
+# This docker file is for building a production image.
+# This build can take several minutes to finish.
+# If you are doing development level testing use the docker-compose.yml.
+# It's much faster.
+
 FROM node:8.11.4-jessie as builder
 
 RUN curl "https://install.meteor.com/?release=1.6.1.1" | sh
@@ -21,22 +26,19 @@ COPY public/ public/
 COPY server/ server/
 COPY .meteorignore ./
 
-COPY scripts/ scripts/
-
-RUN scripts/build-meteor
+RUN meteor build $APP_BUNDLE_DIR --directory --server-only \
+	&& cd $APP_BUNDLE_DIR/bundle/programs/server/ \
+	&& meteor npm install --production --verbose \
+	&& chown -R node:node $APP_BUNDLE_DIR
 
 
 FROM node:8.11.4-slim as prod
 
 ENV APP_BUNDLE_DIR /opt/meteor/dist
 
-# Default values for Meteor environment variables
-ENV ROOT_URL http://localhost
-ENV MONGO_URL mongodb://mongo:27017/meteor
-ENV PORT 80
-
-EXPOSE 80
-
 WORKDIR $APP_BUNDLE_DIR/bundle
 COPY --from=builder $APP_BUNDLE_DIR/ $APP_BUNDLE_DIR/
+
+# Expecting environment vars to be set outside of this image.
+
 CMD ["node", "main.js"]
