@@ -1,9 +1,9 @@
 CREATE EXTENSION plv8;
 -- functions first, because our table creation statements use them
-\i ./docker-entrypoint-initdb.d/init-functions.sql;
+\i /opt/vize/db-scripts/init/init-functions.sql;
 -- initializes tables, including most foreign key and other constraints
-\i ./docker-entrypoint-initdb.d/init-tables.sql;
+\i /opt/vize/db-scripts/init/init-tables.sql;
 -- triggers next, because they use both the functions and the tables
-\i ./docker-entrypoint-initdb.d/init-triggers.sql;
+\i /opt/vize/db-scripts/init/init-triggers.sql;
 -- views last, because they depend on everything else
-\i ./docker-entrypoint-initdb.d/init-views.sql;
+\i /opt/vize/db-scripts/init/init-views.sql;
