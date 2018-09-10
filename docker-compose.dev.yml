@@ -20,16 +20,6 @@ services:
       - node-modules:/opt/meteor/src/node_modules
       - meteor-local:/opt/meteor/src/.meteor/local
       - meteor-dotfile:/root
-    environment:
-      MONGO_URL: mongodb://mongo:27017/meteor
-      PGHOST: postgres
-      PGPORT: 5432
-      PGUSER: meteor
-      PGPASSWORD: "123456789"
-      PGDATABASE: meteor
-    depends_on:
-      - mongo
-      - postgres
 volumes:
   # Meteor build caches. Meteor and NPM download and create a lot of files.
   # We store this data in volumes so that is does not need to be redownloaded

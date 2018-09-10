@@ -1,5 +1,16 @@
 version: "3"
 services:
+  web:
+    environment:
+      MONGO_URL: mongodb://mongo:27017/meteor
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: meteor
+      PGPASSWORD: "123456789"
+      PGDATABASE: meteor
+    depends_on:
+      - mongo
+      - postgres
   mongo:
     image: mongo:3.4
     ports:

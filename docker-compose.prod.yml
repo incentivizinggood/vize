@@ -8,12 +8,3 @@ services:
     environment:
       PORT: 80
       ROOT_URL: http://localhost/
-      MONGO_URL: mongodb://mongo:27017/meteor
-      PGHOST: postgres
-      PGPORT: 5432
-      PGUSER: meteor
-      PGPASSWORD: "123456789"
-      PGDATABASE: meteor
-    depends_on:
-      - mongo
-      - postgres
