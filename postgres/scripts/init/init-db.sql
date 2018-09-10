@@ -1,8 +1,9 @@
+CREATE EXTENSION plv8;
 -- functions first, because our table creation statements use them
-\i ./server/sql/init/init-functions.sql;
+\i ./docker-entrypoint-initdb.d/init-functions.sql;
 -- initializes tables, including most foreign key and other constraints
-\i ./server/sql/init/init-tables.sql;
+\i ./docker-entrypoint-initdb.d/init-tables.sql;
 -- triggers next, because they use both the functions and the tables
-\i ./server/sql/init/init-triggers.sql;
+\i ./docker-entrypoint-initdb.d/init-triggers.sql;
 -- views last, because they depend on everything else
-\i ./server/sql/init/init-views.sql;
+\i ./docker-entrypoint-initdb.d/init-views.sql;
