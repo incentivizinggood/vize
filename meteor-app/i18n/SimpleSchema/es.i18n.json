@@ -1,0 +1,161 @@
+{
+	"_locale": "es",
+	"_namespace": "SimpleSchema",
+	"messages": {
+		"defaults": {
+			"required": "{{{label}}} es requerida",
+			"minString": "{{{label}}} debe ser al menos {{min}} caracteres",
+			"maxString": "{{{label}}} no puede exceder {{max}} caracteres",
+			"minNumber": "{{{label}}} deben ser al menos {{min}}",
+			"maxNumber": "{{{label}}} no puede exceder {{max}}",
+			"minNumberExclusive": "{{{label}}} debe ser mayor que {{min}}",
+			"maxNumberExclusive": "{{{label}}} debe ser menor que {{max}}",
+			"minDate": "{{{label}}} debe estar en o después de {{min}}",
+			"maxDate": "{{{label}}} no puede ser después de {{max}}",
+			"badDate": "{{{label}}} no es una fecha valida",
+			"minCount": "Debes especificar al menos {{maxCount}} valores",
+			"maxCount": "No debes colocar mas que {{maxCount}} valores",
+			"noDecimal": "{{{label}}} debe ser un numero entero",
+			"notAllowed": "{{{value}}} no es un valor permitido",
+			"expectedType": "{{{label}}} debe ser un {{dataType}}",
+			"regExMsgStubs": {
+				"msg": "la validación de expresiones regulares fallado",
+				"Email": "Colocar una direccion de correo correcta",
+				"EmailWithTLD": "Colocar una direccion de correo correcta",
+				"Domain": "Debe ser un dominio válido",
+				"WeakDomain": "Debe ser un dominio válido",
+				"IP": "Debe ser una dirección IPv4 o IPv6 válida",
+				"IPv4": "Debe ser una dirección IPv4 válida",
+				"IPv6": "Debe ser una dirección IPv6 válida",
+				"Url": "Debe ser una URL correcta",
+				"Id": "Debe ser una identificación alfanumérica válida",
+				"ZipCode": "Debe ser un código postal válido",
+				"Phone": "Debe ser un numero de telefono valido"
+			},
+			"keyNotInSchema": "{{name}} no está permitido por el esquema",
+			"noCompanyWithThatName":
+				"No hay una empresa con ese nombre en nuestra base de datos",
+			"sessionError": "Por favor, dejar de jugar un poco"
+		},
+		"JobApplications": {
+			"invalidJobId":
+				"Proporcione una identificación de trabajo válida para el trabajo al que desea postularse"
+		},
+		"Companies": {
+			"nameTaken": "El nombre proporcionado ya esta en uso"
+		},
+		"JobAds": {
+			"maxedOutJobPosts":
+				"[PLEASE TRANSLATE] You may only post up to 5 job ads"
+		},
+		"Salaries": {
+			"secondSalaryByUser":
+				"[PLEASE TRANSLATE] You may only post salary data once per company"
+		},
+		"Reviews": {
+			"secondReviewByUser":
+				"[PLEASE TRANSLATE] You may only write one review for each company",
+			"needsFiveWords":
+				"debes colocar por lo menos 5 palabras en este campo"
+		}
+	},
+	"labels": {
+		"LocationSubFields": {
+			"locationCity": "[PLEASE TRANSLATE] City",
+			"locationAddress": "[PLEASE TRANSLATE] Address",
+			"locationIndustrialHub": "[PLEASE TRANSLATE] Industrial Park",
+			"locationArrayItem": "[PLEASE TRANSLATE] Location",
+			"locationArrayItemCity": "[PLEASE TRANSLATE] City",
+			"locationArrayItemAddress": "[PLEASE TRANSLATE] Address",
+			"locationArrayItemIndustrialHub":
+				"[PLEASE TRANSLATE] Industrial Park"
+		},
+		"JobApplications": {
+			"jobId": "jobId",
+			"companyName": "Nombre de la empresa",
+			"fullName": "Nombre completo",
+			"email": "Direccion de correo electronico",
+			"phoneNumber": "Numero telefonico",
+			"coverLetterAndComments":
+				"Carta de presentación / Comentarios adicionales",
+			"dateSent": "Feha de envio"
+		},
+		"Companies": {
+			"_id": "_id",
+			"name": "Nombre de la empresa",
+			"contactEmail": "Email de contacto",
+			"yearEstablished": "[PLEASE TRANSLATE] Year Established",
+			"numEmployees": "Numero de empleados",
+			"industry": "Industria",
+			"locations": "Ubicaciones",
+			"contactPhoneNumber": "[PLEASE TRANSLATE] Contact Phone Number",
+			"websiteURL": "Url pagina de internet",
+			"descriptionOfCompany": "Descripcion de la compañia",
+			"dateJoined": "Fecha en que se unió Vize",
+			"numFlags": "Numero de banderas",
+			"healthAndSafety": "Salud y Bienestar",
+			"managerRelationship": "Relacion del Gerente",
+			"workEnvironment": "Ambiente Laboral",
+			"benefits": "Beneficios",
+			"overallSatisfaction": "Satisfacción General",
+			"numReviews": "Numero de comentarios",
+			"percentRecommended": "Porcentaje recomendado",
+			"avgNumMonthsWorked": "Numero de meses trabajados"
+		},
+		"JobAds": {
+			"_id": "_id",
+			"companyName": "Nombre de la empresa",
+			"companyId": "companyId",
+			"jobTitle": "Titulo del trabajo",
+			"locations": "Localizacion",
+			"pesosPerHour": "Pesos por semana",
+			"contractType": "Tipo de contrato",
+			"jobDescription": "Descripcion del trabajo",
+			"responsibilities": "Resposabilidades",
+			"qualifications": "Calificaciones",
+			"datePosted": "fecha de publicacion"
+		},
+		"Salaries": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"companyName": "Nombre de la empresa",
+			"companyId": "companyId",
+			"jobTitle": "Titulo del trabajo",
+			"location": "[PLEASE TRANSLATE] Location",
+			"incomeType": "Tipo de ingreso",
+			"incomeAmount": "Cantidad de ingresos",
+			"gender": "Genero",
+			"datePosted": "Fecha de publicacion"
+		},
+		"Reviews": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"companyName": "Nombre de la empresa",
+			"companyId": "companyId",
+			"reviewTitle": "Titulo de la reseña",
+			"location": "[PLEASE TRANSLATE] Location",
+			"jobTitle": "Titulo del trabajo",
+			"numberOfMonthsWorked": "Numero de meses trabajados",
+			"pros": "Ventajas",
+			"cons": "Limitaciones",
+			"wouldRecommendToOtherJobSeekers":
+				"Would Recommend to Other Job Seekers",
+			"healthAndSafety": "Salud y Beneficios",
+			"managerRelationship": "Relaciones del Gerente",
+			"workEnvironment": "Ambiente Laboral",
+			"benefits": "Beneficios",
+			"overallSatisfaction": "Satisfacción General",
+			"additionalComments": "Comentarios Adicionales",
+			"datePosted": "Fecha de Publicacion",
+			"upvotes": "Votos a favor",
+			"downvotes": "Votos en contra"
+		},
+		"Votes": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"voteSubject": "Asunto del voto",
+			"references": "Referencias",
+			"value": "Valor"
+		}
+	}
+}
