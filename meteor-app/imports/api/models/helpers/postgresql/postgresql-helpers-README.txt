@@ -158,11 +158,14 @@ its use case can be met by the judicious use of getVoteByPrimaryKey.
 
 This, the connector documentation, and a knowledge of the node-pg documentation,
 is what you need to know to understand the "helper classes". You should be able
-to read the model code and have a decent grasp of what the different functions
+to read both the model code and have a decent grasp of what the different functions
 are doing and how they're being called.
 
 node-pg documentation:
 https://node-postgres.com/
+
+PostgreSQL documentation:
+https://www.postgresql.org/docs/manuals/
 
 /*
 	misc.js

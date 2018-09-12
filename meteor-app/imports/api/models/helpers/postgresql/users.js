@@ -28,9 +28,6 @@ export default class PgUserFunctions {
 		// imports/api/data/users.js
 		let newUser = { rows: [] };
 
-		// Some of the arguments and insertion values may
-		// be undefined, but this is perfectly okay,
-		// I want there to at least be the option
 		newUser = await client.query(
 			"INSERT INTO users (userMongoId,role,companyId) " +
 				"VALUES ($1,$2,$3) RETURNING *",
