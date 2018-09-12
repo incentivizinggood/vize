@@ -1,11 +1,12 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
-import i18n from "meteor/universe:i18n";
 
-const t = i18n.createTranslator("common.register");
-const T = i18n.createComponent(t);
+import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer.jsx";
 
 /* The page where users can create an account.
  */
@@ -16,6 +17,8 @@ export default class RegisterPage extends React.Component {
 			error: Meteor.userId() === null ? null : "loggedIn",
 			success: false,
 			username: "",
+			email: "",
+			companyName: "",
 			password: "",
 			role: "",
 		};
@@ -23,17 +26,6 @@ export default class RegisterPage extends React.Component {
 		// These bindings are necessary to make `this` work in callbacks.
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleInputChange(event) {
@@ -48,7 +40,7 @@ export default class RegisterPage extends React.Component {
 	}
 
 	handleSubmit(event) {
-		event.preventDefault(); // Prevent the default behavior for this event.
+		event.preventDefault(); // Prevent the default behavior for this event
 		const createUserCallback = error => {
 			if (error) console.error(error);
 			this.setState({
@@ -71,70 +63,212 @@ export default class RegisterPage extends React.Component {
 
 	render() {
 		if (this.state.success) {
-			return (
-				<div className="page register">
-					<T>success</T>
-				</div>
-			);
+			return <div className="page register">Sign up successful!</div>;
 		}
-		return (
-			<div className="page register">
-				{this.state.error ? (
-					<div>
-						<T>{`error.${this.state.error}`}</T>
+
+		const roleInput = (
+			<>
+				<label
+					className={
+						this.state.role === "worker"
+							? "role selected-role"
+							: "role"
+					}
+					htmlFor="registerform-role-worker"
+				>
+					<input
+						id="registerform-role-worker"
+						name="role"
+						type="radio"
+						required
+						value="worker"
+						checked={this.state.role === "worker"}
+						onChange={this.handleInputChange}
+					/>
+					Employee
+				</label>
+				<label
+					className={
+						this.state.role === "company"
+							? "role selected-role"
+							: "role"
+					}
+					htmlFor="registerform-role-company"
+				>
+					<input
+						id="registerform-role-company"
+						name="role"
+						type="radio"
+						required
+						value="company"
+						checked={this.state.role === "company"}
+						onChange={this.handleInputChange}
+					/>
+					Employer
+				</label>
+			</>
+		);
+
+		const usernameInput = (
+			<div className="form-group">
+				<label
+					htmlFor="Username"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="Username"
+				>
+					<FontAwesomeIcon icon="user" className="fa" />
+					<input
+						type="text"
+						placeholder="Username"
+						className="form-control"
+						name="username"
+						id="username"
+						required
+						value={this.state.username}
+						onChange={this.handleInputChange}
+					/>
+				</label>
+			</div>
+		);
+
+		const emailInput = (
+			<div className="form-group">
+				<label
+					htmlFor="email"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="email"
+				>
+					<FontAwesomeIcon icon="envelope" className="fa" />
+					<input
+						type="email"
+						name="email"
+						id="email"
+						className="form-control"
+						placeholder="Email"
+						value={this.state.email}
+						onChange={this.handleInputChange}
+					/>
+				</label>
+			</div>
+		);
+
+		const companyNameInput = (
+			<div className="form-group">
+				<label
+					htmlFor="companyName"
+					className="icon-addon addon-md"
+					rel="tooltip"
+					title="companyName"
+				>
+					<FontAwesomeIcon icon="building" className="fa" />
+					<input
+						type="text"
+						name="companyName"
+						id="companyName"
+						className="form-control"
+						placeholder="Company Name"
+						value={this.state.companyName}
+						onChange={this.handleInputChange}
+					/>
+				</label>
+			</div>
+		);
+
+		const passwordInput = (
+			<div className="form-group">
+				<label
+					htmlFor="password"
+					className="icon-addon addon-md pwd-line-sm"
+					rel="tooltip"
+					title="password"
+				>
+					<FontAwesomeIcon icon="lock" className="fa" />
+					<input
+						type="password"
+						name="password"
+						id="password"
+						className="form-control"
+						placeholder="Password"
+						required
+						value={this.state.password}
+						onChange={this.handleInputChange}
+					/>
+				</label>
+			</div>
+		);
+
+		const registerForm = (
+			<form
+				id="register-form"
+				style={{ display: "block" }}
+				onSubmit={this.handleSubmit}
+			>
+				<h3 className="top-head-employer" align="center">
+					Register
+				</h3>
+				{roleInput}
+				<br />
+
+				{this.state.role === "worker" ||
+				this.state.role === "company" ? (
+					<div className="employer-fm">
+						{usernameInput}
+
+						{emailInput}
+
+						{this.state.role === "company"
+							? companyNameInput
+							: null}
+
+						{passwordInput}
+
+						<div className="button-center">
+							<button
+								form="register-form"
+								type="submit"
+								className="button out-bodr-get1"
+							>
+								Get Started
+							</button>
+						</div>
 					</div>
 				) : null}
-				<form onSubmit={this.handleSubmit}>
-					<label htmlFor="registerform-username">
-						<T>username</T>
-						<input
-							id="registerform-username"
-							name="username"
-							type="text"
-							placeholder={t("username")}
-							required
-							value={this.state.username}
-							onChange={this.handleInputChange}
-						/>
-					</label>
-					<label htmlFor="registerform-password">
-						<T>password</T>
-						<input
-							id="registerform-password"
-							name="password"
-							type="password"
-							placeholder={t("password")}
-							required
-							value={this.state.password}
-							onChange={this.handleInputChange}
-						/>
-					</label>
-					<label htmlFor="registerform-role-worker">
-						<input
-							id="registerform-role-worker"
-							name="role"
-							type="radio"
-							required
-							value="worker"
-							checked={this.state.role === "worker"}
-							onChange={this.handleInputChange}
-						/>
-						<T>role.worker</T>
-					</label>
-					<label htmlFor="registerform-role-company">
-						<input
-							id="registerform-role-company"
-							name="role"
-							type="radio"
-							required
-							value="company"
-							checked={this.state.role === "company"}
-							onChange={this.handleInputChange}
-						/>
-						<T>role.company</T>
-					</label>
-					<input type="submit" value={t("submit")} />
-				</form>
+			</form>
+		);
+
+		return (
+			<div className="page register">
+				{this.state.error ? <div>{this.state.error}</div> : null}
+				<Header />
+				<div className="container login-top-spce">
+					<div className="row">
+						<div className="col-md-6 col-md-offset-3">
+							<div className="panel panel-login register-work-employee">
+								<div className="panel-body">
+									<div className="row">
+										<div className="col-lg-12">
+											{registerForm}
+										</div>
+									</div>
+								</div>
+								<div className="panel-heading p-head">
+									<div className="row">
+										<div className="col-lg-12">
+											<div className="text-center login-link-cs">
+												Already have an account?{" "}
+												<a href="/login"> Log In </a>
+											</div>
+											<div className="clearfix" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<Footer />
 			</div>
 		);
 	}
