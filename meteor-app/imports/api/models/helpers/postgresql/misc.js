@@ -26,6 +26,7 @@ export const castToNumberIfDefined = function(number) {
 	sense to GraphQL, while this function is currently
 	used to turn GraphQL results into what the frontend
 	wants, which for now is just the industrialHub.
+
 	location is expected to be a JSON
 	string with the following format:
 	{
@@ -33,6 +34,7 @@ export const castToNumberIfDefined = function(number) {
 		address: String
 		industrialHub: String
 	}
+
 	Right now we parse it with the purpose
 	of giving back only the industrialHub.
 	However, if one of the other two fields

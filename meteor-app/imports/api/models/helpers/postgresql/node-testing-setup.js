@@ -5,6 +5,7 @@
 	if this code looks bad or improper, don't worry:
 	it's only ever meant to be run in the Node.js
 	REPL via copy-paste.
+
 	WARNING
 	I have not yet discovered and elegant way to synchronize
 	this code with /imports/api/models/helpers/postgresql
@@ -14,6 +15,7 @@
 	forget to copy them back to here, so maybe double-check
 	before you try running this code, and if you end up
 	maintaining this code, make sure it stays in a usable state.
+
 	WARNING
 	The most recent version Node.js that I know to be compatible
 	with this code is 10.6.0. It appears that later versions
@@ -21,6 +23,7 @@
 	--experimental-repl-await command-line flag) that this file
 	depends on. Hopefully that problem either gets fixed, or we
 	figure out a more long-term way to develop this code.
+
 	WARNING
 	Don't expect to get meaningful test results by doing a
 	Ctrl-A -> Ctrl-C -> Ctrl-V (to REPL) just because the code
@@ -34,6 +37,7 @@
 	copy-pasting everything down to the last test variable
 	definition into the REPL in one step, and copy-pasting the
 	tests in a second step.
+
 	WARNING
 	The implementation of wrapPgFunction cannot be exactly the
 	same in this file as in the production code, due to the fact
@@ -43,6 +47,7 @@
 	overwrite that accidentally, otherwise you will get strange
 	errors. This can be fixed if you can figure out a way to
 	import { Meteor } from "meteor/meteor" in the REPL.
+
 	QUESTION
 	Is it acceptable for null-values in certain fields
 	to be converted to 0 by casting to Number in the
