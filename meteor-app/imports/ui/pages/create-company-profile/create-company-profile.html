@@ -1,0 +1,80 @@
+<template name="ccp_blaze_form">
+   {{#autoForm collection=companyProfiles id="ccp_blaze_form" type="method" meteormethod="companies.createProfile" preserveForm=false}}
+   <section   id="back_col">
+      <div class="container  fom-job">
+         <div class="row ">
+            <div  class="col-md-12 back_top_hover">
+               <div  class="form-container">
+                  <div  class="post-a-job">
+                     <h3>Create a Company Profile</h3>
+                     <br>
+                     <h4>Create a new profile for your company by providing the following information</h4>
+                  </div>
+                  <fieldset>
+                     <div class="form-group {{#if afFieldIsInvalid name='name'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='name' placeholder=(__ ".ccp.namePlaceholder")}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='contactEmail'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='contactEmail' placeholder=(__ ".ccp.emailPlaceholder")}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='yearEstablished'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='yearEstablished' options='allowed'}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='numEmployees'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='numEmployees' options='allowed'}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='industry'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='industry' placeholder=(__ ".ccp.industryPlaceholder")}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='locations'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afArrayField name='locations'}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='contactPhoneNumber'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='contactPhoneNumber' placeholder=(__ ".ccp.contactPhoneNumberPlaceholder")}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='websiteURL'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='websiteURL' placeholder=(__ ".ccp.websiteUrlPlaceholder")}}
+                        </div>
+                     </div>
+                     <div class="form-group {{#if afFieldIsInvalid name='descriptionOfCompany'}}has-error{{/if}}">
+                        <div class="col-lg-12">
+                           {{> afQuickField name='descriptionOfCompany' class="text-area" placeholder=(__ ".ccp.descriptionPlaceholder")}}
+                        </div>
+                     </div>
+                  </fieldset>
+                  <div class="form-group">
+                     <br>
+                     <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary">{{__ ".submitForm"}}</button>
+                        <button type="reset" class="btn btn-default" onclick={{resetFormError}} >{{__ ".resetForm"}}</button>
+                     </div>
+                     <br>
+                  </div>
+               </div>
+            </div>
+            <div class="clear"></div>
+         </div>
+      </div>
+   </section>
+   {{/autoForm}}
+   {{#if hasError}}
+   <div>
+      {{> React component=ErrorWidget err=error}}
+   </div>
+   {{/if}}
+</template>

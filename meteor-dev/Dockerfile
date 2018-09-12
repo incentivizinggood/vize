@@ -1,0 +1,13 @@
+FROM node:8.11.4-jessie as builder
+
+ENV METEOR_ALLOW_SUPERUSER true
+
+ENV APP_SCRIPTS_DIR /opt/meteor/scripts
+ENV APP_SOURCE_DIR /opt/meteor/src
+ENV APP_BUNDLE_DIR /opt/meteor/dist
+
+COPY dev-run $APP_SCRIPTS_DIR/
+
+WORKDIR $APP_SOURCE_DIR
+
+CMD $APP_SCRIPTS_DIR/dev-run

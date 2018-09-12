@@ -1,0 +1,71 @@
+//---------- Employers page ---------//
+
+.back-img-emp {
+	background: url("../images/employersBackground.png") no-repeat 0 0;
+	height: 472px;
+	@include background-size(cover);
+	padding-top: 148px;
+	@media (max-width: 544px) {
+		height: 530px;
+	}
+}
+
+.emp {
+	&-wel {
+		padding-bottom: 5em;
+		padding-top: 5em;
+		background-color: $white;
+	}
+	&-icon1,
+	&-icon2 {
+		background-size: 72% auto;
+		background-position: center center;
+	}
+
+	&-icon1 {
+		background-image: url("../images/feedbackIcon2.png");
+	}
+
+	&-icon2 {
+		background-image: url("../images/upArrowIcon.png");
+	}
+}
+.frontLocation.plu {
+	margin-bottom: 25px;
+}
+
+a.button.out-bodr-get {
+	background-color: $primary-color;
+	color: $white;
+	font-size: 33px;
+	border: 1px solid #87bcdf;
+	&:hover {
+		background-color: #7bb3d6;
+	}
+}
+
+.titlestar22 {
+	margin-top: 40px;
+	color: #222;
+	font-weight: 300;
+	margin-bottom: 30px;
+	font-size: 24px;
+}
+
+.great {
+	&-emp-hm h1 {
+		text-align: center;
+		font-weight: bold;
+		margin-bottom: 23px;
+		color: $white;
+	}
+
+	&-discover-emp h4 {
+		text-align: center;
+		width: 100%;
+		margin: 0 auto;
+		line-height: 27px;
+		color: $white;
+	}
+}
+//--------------------------------------//
