@@ -2,8 +2,8 @@
 
 ## Description
 
-This directory contains all of the core database code. This includes collection
-definitions, schemas, denormalization helpers, and Meteor methods.
+This directory contains all of the core Meteor code. This includes MongoDB collection
+definitions, MongoDB "schemas", denormalization helpers, and methods.
 
 Most of the code can be understood by reading the documentation for the respective
 Meteor pacakges and features being used. Code comments will be reserved for
