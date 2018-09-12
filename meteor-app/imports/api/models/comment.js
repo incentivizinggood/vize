@@ -62,6 +62,7 @@ export default class CommentModel {
 			)
 		);
 	}
+
 	// Get the user who wrote a given comment.
 	async getAuthorOfComment(comment: Comment): User {
 		return this.userModel.getUserById(String(comment.submittedBy));
@@ -75,6 +76,7 @@ export default class CommentModel {
 	): [Comment] {
 		throw new Error("Not implemented yet");
 	}
+
 	// Get the thing that a given comment is about or the comment that a given comment is responding to.
 	async getParentOfComment(comment: Comment): CommentParent {
 		throw new Error("Not implemented yet");

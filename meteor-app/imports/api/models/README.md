@@ -62,6 +62,10 @@ low-level error handling, and (in the case of SQL databases) transaction
 management. Then you also have helper functions that wrap the database routines
 that the models ask the connectors to execute.
 
+Thirdly, in addition to the layers immediately above and below models, many
+times one model needs to reference one or more _other models_, for instance
+when we need to figure out who wrote a review or salary.
+
 Put that all together and yes, you get some really, _really_ funny-looking code.
 But trust me, keep digging around in the documentation (both for the project
 and for the packages used by the project) and eventually it should make sense.

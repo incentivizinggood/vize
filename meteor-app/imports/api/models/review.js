@@ -77,6 +77,7 @@ export default class ReviewModel {
 			)
 		);
 	}
+
 	// Get the user who wrote a given review.
 	// BUG Not quite sure how to handle this.
 	// getUserById expects a string, but review.submittedby
