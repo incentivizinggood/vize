@@ -10,6 +10,144 @@ import LangSelector from "./lang-selector.jsx";
 const T = i18n.createComponent();
 
 function WorkerHeader(props) {
+	const workerLinks = [
+		{
+			href: "/companies",
+			Text: () => <T>common.header.companies</T>,
+		},
+		{
+			href: "/jobs",
+			Text: () => <T>common.header.jobs</T>,
+		},
+		{
+			href: "/worker-resources",
+			Text: () => <T>common.header.resources</T>,
+		},
+	];
+
+	const links = workerLinks.map(({ href, Text }) => (
+		<li key={href}>
+			<a href={href} className="link-kumya ">
+				<span>
+					<Text />
+				</span>
+			</a>
+		</li>
+	));
+
+	const navbarLeft = (
+		<ul className="nav navbar-nav left_nav">
+			<li>
+				<If cond={props.isLoggedIn}>
+					<Then>
+						<a
+							href=""
+							type="button"
+							className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+						>
+							My Account
+						</a>
+					</Then>
+					<Else>
+						<a
+							href=""
+							type="button"
+							className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+						>
+							Sign Up or Log In
+						</a>
+					</Else>
+				</If>
+			</li>
+			{links}
+		</ul>
+	);
+
+	const navbarRight = (
+		<ul className="nav navbar-nav navbar-right">
+			<If cond={props.isLoggedIn}>
+				<Then>
+					<li className="navigation-only-display dropdown pf  show-on-hover-pf">
+						<a
+							href="#"
+							className="dropdown-toggle  "
+							data-toggle="dropdown"
+						>
+							<img
+								src="images/profileIcon.png"
+								className="img-responsive  dp-profile"
+							/>{" "}
+						</a>
+						<ul className="dropdown-menu pf">
+							<li className="tr">
+								<a
+									href="/my-account"
+									className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+								>
+									{i18n.__("common.header.myaccount")}
+								</a>
+							</li>
+							<li className="tr">
+								<a
+									onClick={Meteor.logout}
+									className="navbar-link margin-right"
+									style={{
+										cursor: "pointer",
+									}}
+								>
+									<T>common.header.logout</T>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</Then>
+				<Else>
+					<li>
+						<a
+							href="/register"
+							type="button"
+							id="register-button"
+							className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+						>
+							{i18n.__("common.header.signup")}
+						</a>
+					</li>
+					<li>
+						<a href="/login" className="navbar-link margin-right">
+							<T>common.header.login</T>
+						</a>
+					</li>
+				</Else>
+			</If>
+
+			<li className="dropdown">
+				<LangSelector />
+			</li>
+			<li>
+				<a href="/foremployers" className="link-kumya">
+					<span>
+						<T>common.header.for_employers</T>
+					</span>
+				</a>
+			</li>
+			<br />
+			<If cond={props.isLoggedIn}>
+				<Then>
+					<li>
+						<a
+							onClick={Meteor.logout}
+							className="toggle-only-display navbar-link margin-right"
+							style={{ cursor: "pointer" }}
+						>
+							<T>common.header.logout</T>
+						</a>
+					</li>
+				</Then>
+				<Else> </Else>
+			</If>
+		</ul>
+	);
+
 	return (
 		<div className="top-nav">
 			<nav>
@@ -36,141 +174,8 @@ function WorkerHeader(props) {
 						className="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1"
 					>
-						<ul className="nav navbar-nav left_nav">
-							<li>
-								<If cond={props.isLoggedIn}>
-									<Then>
-										<a
-											href=""
-											type="button"
-											className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
-										>
-											My Account
-										</a>
-									</Then>
-									<Else>
-										<a
-											href=""
-											type="button"
-											className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
-										>
-											Sign Up or Log In
-										</a>
-									</Else>
-								</If>
-							</li>
-							<li>
-								<a href="/companies" className="link-kumya ">
-									<span>
-										<T>common.header.companies</T>
-									</span>
-								</a>
-							</li>
-							<li>
-								<a href="/jobs" className="link-kumya">
-									<span>
-										<T>common.header.jobs</T>
-									</span>
-								</a>
-							</li>
-							<li>
-								<a
-									href="/worker-resources"
-									className="link-kumya"
-								>
-									<span>
-										<T>common.header.resources</T>
-									</span>
-								</a>
-							</li>
-						</ul>
-						<ul className="nav navbar-nav navbar-right">
-							<If cond={props.isLoggedIn}>
-								<Then>
-									<li className="navigation-only-display dropdown pf  show-on-hover-pf">
-										<a
-											href="#"
-											className="dropdown-toggle  "
-											data-toggle="dropdown"
-										>
-											<img
-												src="images/profileIcon.png"
-												className="img-responsive  dp-profile"
-											/>{" "}
-										</a>
-										<ul className="dropdown-menu pf">
-											<li className="tr">
-												<a
-													href="/my-account"
-													className="btn navbar-btn margin-right btn-green hvr-icon-forward"
-												>
-													{i18n.__(
-														"common.header.myaccount"
-													)}
-												</a>
-											</li>
-											<li className="tr">
-												<a
-													onClick={Meteor.logout}
-													className="navbar-link margin-right"
-													style={{
-														cursor: "pointer",
-													}}
-												>
-													<T>common.header.logout</T>
-												</a>
-											</li>
-										</ul>
-									</li>
-								</Then>
-								<Else>
-									<li>
-										<a
-											href="/register"
-											type="button"
-											id="register-button"
-											className="btn navbar-btn margin-right btn-green hvr-icon-forward"
-										>
-											{i18n.__("common.header.signup")}
-										</a>
-									</li>
-									<li>
-										<a
-											href="/login"
-											className="navbar-link margin-right"
-										>
-											<T>common.header.login</T>
-										</a>
-									</li>
-								</Else>
-							</If>
-
-							<li className="dropdown">
-								<LangSelector />
-							</li>
-							<li>
-								<a href="/foremployers" className="link-kumya">
-									<span>
-										<T>common.header.for_employers</T>
-									</span>
-								</a>
-							</li>
-							<br />
-							<If cond={props.isLoggedIn}>
-								<Then>
-									<li>
-										<a
-											onClick={Meteor.logout}
-											className="toggle-only-display navbar-link margin-right"
-											style={{ cursor: "pointer" }}
-										>
-											<T>common.header.logout</T>
-										</a>
-									</li>
-								</Then>
-								<Else> </Else>
-							</If>
-						</ul>
+						{navbarLeft}
+						{navbarRight}
 						<div className="clearfix" />
 					</div>
 				</div>
