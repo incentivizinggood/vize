@@ -1,8 +1,9 @@
+CREATE EXTENSION plv8;
 -- functions first, because our table creation statements use them
-\i ./server/sql/init/init-functions.sql;
+\i /opt/vize/db-scripts/init/init-functions.sql;
 -- initializes tables, including most foreign key and other constraints
-\i ./server/sql/init/init-tables.sql;
+\i /opt/vize/db-scripts/init/init-tables.sql;
 -- triggers next, because they use both the functions and the tables
-\i ./server/sql/init/init-triggers.sql;
+\i /opt/vize/db-scripts/init/init-triggers.sql;
 -- views last, because they depend on everything else
-\i ./server/sql/init/init-views.sql;
+\i /opt/vize/db-scripts/init/init-views.sql;

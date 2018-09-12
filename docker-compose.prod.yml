@@ -1,0 +1,10 @@
+version: "3"
+services:
+  web:
+    build: ./meteor-app
+    image: vize-meteor-app
+    ports:
+      - "80:80"
+    environment:
+      PORT: 80
+      ROOT_URL: http://localhost/
