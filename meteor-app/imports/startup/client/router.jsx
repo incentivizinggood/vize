@@ -36,6 +36,10 @@ import ResourcesEmployers from "/imports/ui/pages/resources-employers.jsx";
 import PasswordChanger from "/imports/ui/pages/password-changer.jsx";
 
 if (Meteor.isDevelopment && Meteor.isClient) {
+	/*
+		This just provides additional debug information
+		to developers via the browser console
+	*/
 	import SimpleSchema from "simpl-schema";
 
 	SimpleSchema.debug = true;
@@ -109,6 +113,22 @@ FlowRouter.route(`/post-a-job`, {
 });
 
 // ----- Define the more complex routes. -----//
+
+/*
+	NOTE
+	The site makes use of URL query arguments for navigation,
+	often using these to indicate things like what company a
+	page is supposed to be about so that it can load that company's
+	information. The queryRoutes object, the subsequent FlowRouter
+	invocations that use it, and the so-called "URL generator functions"
+	that come a few lines further down, serve two purposes:
+	1) They make the URL handling more robust, so that it requires
+	fewer changes when we need to rename, reroute, or redesign something
+	2) It allows us to determine what the URL is supposed to be at any
+	time and at any place in the code, rather than storing that information
+	in the backend, which was a disgusting temporary solution
+*/
+
 const queryRoutes = {
 	companies: "companies",
 	companyProfile: "companyprofile",

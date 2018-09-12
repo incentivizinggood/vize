@@ -1,5 +1,25 @@
+/*
+	NOTE
+	This file contains a GraphQL "connector". The idea isn't to
+	have a bunch of SQL queries, but just to provide a nice interface
+	to the database itself, or rather to the database driver package node-pg.
+	It handles transaction management and error reporting such that
+	other pieces of code that need to use the database don't have to
+	worry about those things, rather they can assume that those things
+	are taken care of if they use the connector to wrap the database
+	helper functions they want to execute (see imports/api/models/postgresql
+	for files containing these "helper functions").
+*/
+
 import { Meteor } from "meteor/meteor";
 
+/*
+	NOTE
+	We use node-pg's provided connection pooling features so that we
+	don't have to worry about the details of connection management.
+	All we have to worry about is making sure that clients acquired
+	from the pool get returned to it, so that we don't leak clients.
+*/
 const { Pool } = require("pg");
 
 /* ----------------------------
@@ -53,6 +73,23 @@ process.on("SIGINT", closeAndExit);
 	ACCESS TO HELPER FUNCTIONS
  ------------------------------ */
 
+ /*
+ 	NOTE
+ 	The basic logic of wrapPgFunction goes like this:
+ 	Get a client from the pool. Start a transation with
+ 	the client, read-only if needed. Execute the provided
+ 	query, and commit the transaction. Release the client
+ 	back to the pool. Return the results of the query.
+ 	If something goes wrong, roll back the transaction and
+ 	put the error where we can get back to it later, then
+ 	release the client back to the pool, then report the
+ 	error as a Meteor error rather than returning the
+ 	results of the query.
+ 	The cool part is that try-catch-finally can ensure
+ 	that results are returned and errors reported as necessary,
+ 	but that the client is always released back to the pool.
+ */
+
 // assumes that arguments to func are passed as additional
 // arguments after the first two "wrapper args"
 const wrapPgFunction = async function(func, readOnly) {
@@ -64,8 +101,19 @@ const wrapPgFunction = async function(func, readOnly) {
 
 		// removes function name and readOnly flag
 		// from start of args list
+		// as ugly as this code bit of code is, the only
+		// thing you need to do to understand it is to
+		// read the JavaScript documentation LOL
 		result = await func.apply(
 			null,
+			// okay fine I'll tell you:
+			// it means call "func" with an array of
+			// arguments which is the second argument
+			// to "apply". I construct this array by
+			// concatenating an array containing only
+			// client (which all the helper functions need)
+			// with other the arguments that are supposed to
+			// be passed in to func
 			[client].concat([...arguments].slice(2)[0])
 		);
 
@@ -78,6 +126,9 @@ const wrapPgFunction = async function(func, readOnly) {
 		await client.release();
 	}
 
+	// Try to format SQL errors into nice
+	// Meteor errors so they can be displayed
+	// sensibly on the client.
 	if (result instanceof Error) {
 		throw new Meteor.Error(
 			`SQLstate ${result.code}`,
@@ -87,6 +138,15 @@ const wrapPgFunction = async function(func, readOnly) {
 
 	return result;
 };
+
+/*
+	NOTE
+	Wrappers separated into Query and Mutation so
+	that we can take advantage of the READ ONLY optimization.
+	Arguments to the query and mutation functions are passed
+	in as well, but JavaScript lets you get away with not including
+	them in the function declaration.
+*/
 
 export default class PostgreSQL {
 	static async executeQuery(query) {
