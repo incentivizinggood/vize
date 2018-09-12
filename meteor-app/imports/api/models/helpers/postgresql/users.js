@@ -41,17 +41,8 @@ export default class PgUserFunctions {
 
 	static async setUserCompanyInfo(client, userId, companyId) {
 		// Expects a userId (string Mongo id
-		// or integer Postgres id), the company's
-		// integer Postgres id, and the company's
-		// string Mongo id. We assume that the
-		// caller is the only one who knows all
-		// these things, and make no attempt to
-		// calculate any of them.
-		// Of course, this doesn't particularly
-		// handle the case where we want to set
-		// companyId or companyMongoId but not both,
-		// but I'm not sure when we would encounter
-		// that case anyway.
+		// or integer Postgres id) and the company's
+		// integer Postgres id.
 		let newUser = { rows: [] };
 		let selector;
 		if (typeof userId === "string") selector = "usermongoid";
