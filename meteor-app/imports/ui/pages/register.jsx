@@ -241,7 +241,9 @@ export default class RegisterPage extends React.Component {
 		return (
 			<div className="page register">
 				{this.state.error ? <div>{this.state.error}</div> : null}
-				<Header />
+				<div className="navbarwhite">
+					<Header />
+				</div>
 				<div className="container login-top-spce">
 					<div className="row">
 						<div className="col-md-6 col-md-offset-3">

@@ -144,7 +144,7 @@ export default class LoginPage extends React.Component {
 							className="enterTriggers"
 							value={t("submit")}
 						>
-							Login
+							<T>common.header.login</T>
 						</button>
 					</div>
 
@@ -170,7 +170,9 @@ export default class LoginPage extends React.Component {
 						<T>{`error.${this.state.error}`}</T>
 					</div>
 				) : null}
-				<Header />
+				<div className="navbarwhite">
+					<Header />
+				</div>
 				<div className="container  login-top-spce">
 					<div className="row">
 						<div className="col-md-6 col-md-offset-3">

@@ -50,6 +50,10 @@ ssd_form_state.set("incomeTypeOptions", [
 		value: "Monthly Salary",
 	},
 	{
+		label: i18n.__("common.forms.ssd.payTypes.weeklySalary"),
+		value: "Weekly Salary",
+	},
+	{
 		label: i18n.__("common.forms.ssd.payTypes.hourlyWage"),
 		value: "Hourly Wage",
 	},
