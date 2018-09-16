@@ -1,11 +1,9 @@
 import React from "react";
 import "font-awesome/css/font-awesome.min.css";
-
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
-
 import Header from "/imports/ui/components/header.jsx";
 import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
@@ -285,8 +283,8 @@ export default class RegisterPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Footer />
-				<Dialog />
+				<Dialog/>
+				<Footer/>
 			</div>
 		);
 	}

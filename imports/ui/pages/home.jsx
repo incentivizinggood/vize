@@ -317,8 +317,8 @@ export default class HomePage extends React.Component {
 						<div className="clearfix" />
 					</div>
 				</div>
-				<Footer />
 				<Dialog/>
+				<Footer />
 			</div>
 		);
 	}

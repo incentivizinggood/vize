@@ -1,8 +1,6 @@
 import React from "react";
-
 import { Meteor } from "meteor/meteor";
 import { $, jQuery } from "meteor/jquery";
-
 import style from "./dialog-box.scss";
 
 function setUpButtons() {
@@ -18,6 +16,11 @@ function setUpButtons() {
 		});
 	});
 }
+
+function removeEvent() {
+	$("#changer").click();
+}
+
 
 /* The "Dialog" page. */
 export default class Dialog extends React.Component {
@@ -64,11 +67,13 @@ export default class Dialog extends React.Component {
 					alert(
 						"System error, please refresh and try again. Thank you!"
 					);
+					removeEvent();
 				} else {
 					console.log("--- BEGIN success:");
 					console.log(res);
 					console.log("--- END success");
 					alert("Thank you for the feedback!");
+					removeEvent();
 				}
 			}
 		);
@@ -81,7 +86,7 @@ export default class Dialog extends React.Component {
 					<i className="fa fa-comments fa-2x" aria-hidden="true" />
 				</button>
 				<button className="chatbox-close">
-					<i className="fa fa-close fa-2x" aria-hidden="true" />
+					<i className="fa fa-close fa-2x" aria-hidden="true" id = "changer"/>
 				</button>
 				<section className="chatbox-popup">
 					<header className="chatbox-popup__header" />

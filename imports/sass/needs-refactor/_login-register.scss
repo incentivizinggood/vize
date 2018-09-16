@@ -283,118 +283,6 @@ a.button.out-bodr-login {
 /*=================login page end ==============*/
 
 /*=================Start of Dialog box ==============*/
-
-/* ---------- LIVE-CHAT ---------- */
-
-$blue: #00aeef;
-$white: #fff;
-$gray: #333;
-$lightgray: #808080;
-$lightergray: #f1f1f1;
-$evenlightergray: #f5f5f5;
-
-#ip1 {
-	border-radius: 18px;
-	background: $lightgray;
-	padding: 20px;
-	width: 200px;
-	height: 15px;
-}
-p {
-	font-weight: 400;
-	font-size: 15px;
-}
-.chat-widget-wrapper {
-	display: block;
-	width: 300px;
-	height: 62px;
-	position: fixed;
-	bottom: 10px;
-	right: 0;
-	padding: 10px;
-	cursor: pointer;
-	animation: all 2s linear;
-	font-family: "Roboto", sans-serif;
-	text-rendering: optimizeLegibility;
-	line-height: 1.4;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.chat-widget-container {
-	position: relative;
-	padding: 10px;
-	background-color: $evenlightergray;
-	border-radius: 4px;
-
-	&.open {
-		border-top-right-radius: 0;
-		border-top-left-radius: 0;
-	}
-
-	.chat-widget-text {
-		p {
-			margin: 0 auto;
-			color: $lightgray;
-
-			&.heading {
-				color: $blue;
-				font-weight: 600;
-			}
-		}
-	}
-}
-
-.chat-box-container {
-	position: absolute;
-	width: 300px;
-	height: 0;
-	background-color: $lightergray;
-	bottom: 10px;
-	border-top-right-radius: 4px;
-	border-top-left-radius: 4px;
-	overflow: hidden;
-	-webkit-transition: all 0.2s ease 0s;
-	-moz-transition: all 0.2s ease 0s;
-	-ms-transition: all 0.2s ease 0s;
-	-o-transition: all 0.2s ease 0s;
-	transition: all 0.2s ease 0s;
-	z-index: -1;
-
-	&.show {
-		bottom: 72px;
-		height: 300px;
-	}
-	.textbox-content {
-		margin: auto;
-		width: 290px;
-		height: 200px;
-	}
-	.send-button {
-		float: right;
-	}
-
-	.chat-box-nav {
-		background-color: $blue;
-		width: 100%;
-		height: 40px;
-		text-color: $white;
-		p {
-			margin: 0 auto;
-			color: $lightgray;
-
-			&.heading-2 {
-				color: $white;
-				font-weight: 400;
-				text-align: center;
-				line-height: 2.5em;
-			}
-		}
-	}
-}
-
-/*=================Start of Dialog box 2 ==============*/
-
 $base-height: 377px;
 $base-dimension: 16px;
 $base-border-radius: 12px;
@@ -480,7 +368,7 @@ textarea {
 	font-size: $base-dimension;
 	line-height: calc(#{$base-dimension} + #{$base-dimension} / 2);
 	color: $font-color;
-	background-color: none;
+	background-color: white;
 	border: 0;
 	outline: 0 !important;
 	resize: none;
@@ -498,6 +386,7 @@ textarea {
 	height: auto;
 	background-color: $background-color;
 	border-radius: $base-dimension;
+	position: fixed;
 
 	.chatbox-popup__main {
 		@include chatbox-main;
