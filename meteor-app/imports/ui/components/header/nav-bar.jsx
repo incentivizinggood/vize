@@ -12,28 +12,6 @@ const T = i18n.createComponent();
 export default function NavBar(props) {
 	const navbarLeft = (
 		<ul className="nav navbar-nav left_nav">
-			<li>
-				<If cond={props.user}>
-					<Then>
-						<a
-							href="/my-account"
-							type="button"
-							className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
-						>
-							My Account
-						</a>
-					</Then>
-					<Else>
-						<a
-							href="/login"
-							type="button"
-							className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
-						>
-							Sign Up or Log In
-						</a>
-					</Else>
-				</If>
-			</li>
 			<Links user={props.user} />
 		</ul>
 	);
@@ -105,21 +83,6 @@ export default function NavBar(props) {
 					</span>
 				</a>
 			</li>
-			<br />
-			<If cond={props.user}>
-				<Then>
-					<li>
-						<a
-							onClick={Meteor.logout}
-							className="toggle-only-display navbar-link margin-right"
-							style={{ cursor: "pointer" }}
-						>
-							<T>common.header.logout</T>
-						</a>
-					</li>
-				</Then>
-				<Else> </Else>
-			</If>
 		</ul>
 	);
 
@@ -128,17 +91,6 @@ export default function NavBar(props) {
 			<nav>
 				<div className="container">
 					<div className="navbar-header logo">
-						<button
-							type="button"
-							className="navbar-toggle collapsed slide-toggle "
-							data-toggle="collapse"
-							data-target="#bs-example-navbar-collapse-1"
-						>
-							<span className="sr-only">Toggle navigation</span>
-							<span className="icon-bar" />
-							<span className="icon-bar" />
-							<span className="icon-bar" />
-						</button>
 						<h2 className="site-logo">
 							<a href="/">
 								<img src="/images/logo.png" />

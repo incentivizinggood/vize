@@ -1,0 +1,10 @@
+$menu-width: 200px;
+
+.menuContent {
+	position: fixed;
+	right: $menu-width * -1;
+	transition: transform 0.5s;
+	&[data-is-open="true"] {
+		transform: translate($menu-width * -1, 0);
+	}
+}
