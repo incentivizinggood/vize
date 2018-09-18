@@ -1,6 +1,9 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Meteor } from "meteor/meteor";
 import { $, jQuery } from "meteor/jquery";
+
 import style from "./dialog-box.scss";
 
 function setUpButtons() {
@@ -21,15 +24,12 @@ function removeEvent() {
 	$("#changer").click();
 }
 
-
 /* The "Dialog" page. */
 export default class Dialog extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: "",
 			value: "",
-			count: 0,
 		};
 		this.sendClicked = this.sendClicked.bind(this);
 		this.handleTextChange = this.handleTextChange.bind(this);
@@ -55,7 +55,7 @@ export default class Dialog extends React.Component {
 			"incentivizinggood@gmail.com",
 			"postmaster@incentivizinggood.com",
 			`Contacting us: Anonymous`,
-			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
+			`${"Howdy Vize reader,\nBelow is the message: \n"}${
 				this.state.value
 			}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: Anonymous`,
 			(err, res) => {
@@ -83,10 +83,10 @@ export default class Dialog extends React.Component {
 		return (
 			<div>
 				<button className="chatbox-open">
-					<i className="fa fa-comments fa-2x" aria-hidden="true" />
+					<FontAwesomeIcon icon="comments" size="2x" />
 				</button>
 				<button className="chatbox-close">
-					<i className="fa fa-close fa-2x" aria-hidden="true" id = "changer"/>
+					<FontAwesomeIcon icon="times" id="changer" size="2x" />
 				</button>
 				<section className="chatbox-popup">
 					<header className="chatbox-popup__header" />
@@ -103,9 +103,8 @@ export default class Dialog extends React.Component {
 							/>
 						</aside>
 						<aside className={style.baz}>
-							<i
-								className="fa fa-paper-plane"
-								aria-hidden="true"
+							<FontAwesomeIcon
+								icon="paper-plane"
 								onClick={this.sendClicked}
 							/>
 						</aside>
