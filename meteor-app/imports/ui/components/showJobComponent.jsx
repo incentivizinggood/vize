@@ -2,23 +2,14 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
+
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "../../startup/client/router.jsx";
+import { urlGenerators } from "/imports/startup/client/router.jsx";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const T = i18n.createComponent();
 
-export default class ShowJobComponent extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class ShowJobComponent extends React.Component {
 	render() {
 		// @options -  For the date formatting
 		const options = {
@@ -125,3 +116,5 @@ export default class ShowJobComponent extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(ShowJobComponent);

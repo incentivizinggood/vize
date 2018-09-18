@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
@@ -11,18 +12,7 @@ import HomePageSearch from "../components/home-page-search.jsx";
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
 
-export default class HomePage extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class HomePage extends React.Component {
 	render() {
 		return (
 			<div>
@@ -316,3 +306,5 @@ export default class HomePage extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(HomePage);

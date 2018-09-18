@@ -5,6 +5,7 @@ import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import i18n from "meteor/universe:i18n";
 
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
@@ -13,7 +14,7 @@ const T = i18n.createComponent(t);
 
 /* The page where users can login to the app.
  */
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,17 +27,6 @@ export default class LoginPage extends React.Component {
 		// These bindings are necessary to make `this` work in callbacks.
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleInputChange(event) {
@@ -205,3 +195,5 @@ export default class LoginPage extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(LoginPage);
