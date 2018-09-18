@@ -78,89 +78,92 @@ class CompanyProfile extends React.Component {
 						<div className="col-md-2  prostar">
 							<img
 								src="/images/default-company.png"
-								className="img-responsive  hi"
+								className="img-responsive"
 							/>
 						</div>
 						<div className="col-md-6  prostar">
-							<div className="col-md-12">
-								<fieldset className="rating">
-									<span className="headingoo">
-										{this.props.company.name}
-									</span>
-									&nbsp;&nbsp;<StarRatings
-										rating={
-											this.props.company
-												.overallSatisfaction
-										}
-										starDimension="25px"
-										starSpacing="2px"
-									/>
-								</fieldset>
+							<div class="row">
+								<div className="col-md-12">
+									<fieldset className="rating">
+										<span className="headingoo">
+											{this.props.company.name}
+										</span>
+										&nbsp;&nbsp;<StarRatings
+											rating={
+												this.props.company
+													.overallSatisfaction
+											}
+											starDimension="25px"
+											starSpacing="2px"
+										/>
+									</fieldset>
+								</div>
 							</div>
-							<div className="col-md-12 comp-prfl">
-								<p>
-									<i
-										className="fa fa-map-marker"
-										aria-hidden="true"
-									>
-										{" "}
-									</i>{" "}
-									{this.props.company.locations[0]}
-								</p>
-								{/* displaying just the first company location for now, from the list */}
-								<p>
-									<i
-										className="fa fa-flask"
-										aria-hidden="true"
-									>
-										{" "}
-									</i>{" "}
-									{this.props.company.industry}
-								</p>
-								<p>
-									<i
-										className="fa fa-globe"
-										aria-hidden="true"
-									>
-										{" "}
-									</i>{" "}
-									{this.props.company.websiteURL}
-								</p>
-								<p>
-									<i
-										className="fa fa-users"
-										aria-hidden="true"
-									>
-										{" "}
-									</i>{" "}
-									{this.props.company.numEmployees}
-								</p>
+						</div>
+						<div className="col-md-12 comp-prfl">
+							<div class="row">
+								<div className="col-md-12">
+									<p>
+										<i
+											className="fa fa-map-marker"
+											aria-hidden="true"
+										>
+											{" "}
+										</i>{" "}
+										{this.props.company.locations[0]}
+									</p>
+									{/* displaying just the first company location for now, from the list */}
+									<p>
+										<i
+											className="fa fa-flask"
+											aria-hidden="true"
+										>
+											{" "}
+										</i>{" "}
+										{this.props.company.industry}
+									</p>
+									<p>
+										<i
+											className="fa fa-globe"
+											aria-hidden="true"
+										>
+											{" "}
+										</i>{" "}
+										<a href={this.props.company.websiteURL}>
+											{this.props.company.websiteURL}
+										</a>
+									</p>
+									<p>
+										<i
+											className="fa fa-users"
+											aria-hidden="true"
+										>
+											{" "}
+										</i>{" "}
+										{this.props.company.numEmployees}
+									</p>
+								</div>
 							</div>
 						</div>
 
 						<div className="col-md-4 prostar">
 							<div className="col-md-12">
-								<div className="titlestar">
-									{/* <div className="" data-toggle="buttons"> */}
-									{/* <a href={urlGenerators.vizeReviewUrl(this.props.company._id)} className="btn btn-primary  add_review replus"> <i className="fa fa-plus" aria-hidden="true"></i>   Add a Review</a> */}
-
-									<a
-										href={urlGenerators.vizeReviewUrl(
-											this.props.company._id
-										)}
-										className="btn btn-primary  add_review replus"
-									>
-										{" "}
-										<i
-											className="fa fa-plus"
-											aria-hidden="true"
-										/>{" "}
-										{i18n.__(
-											"common.companyprofile.add_review"
-										)}
-									</a>
-									{/* </div> */}
-								</div>
+								<a
+									href={urlGenerators.vizeReviewUrl(
+										this.props.company._id
+									)}
+									className="btn btn-primary btn-lg"
+									style={{ float: "right" }}
+								>
+									{" "}
+									<i
+										className="fa fa-plus"
+										aria-hidden="true"
+									/>{" "}
+									{i18n.__(
+										"common.companyprofile.add_review"
+									)}
+								</a>
 							</div>
 						</div>
 					</div>
@@ -170,7 +173,7 @@ class CompanyProfile extends React.Component {
 				<br />
 				{/* }//navigation */}
 				<section id="back_col">
-					<div className="container  mar_lf_ri">
+					<div className="container container-margin">
 						<div className="row">
 							<div className="na_tab">
 								{/* <ul className="nav nav-tabs" role="tablist"> */}
@@ -238,8 +241,8 @@ class CompanyProfile extends React.Component {
 								</ul>
 							</div>
 
-							<div className="tab_conten_man">
-								<div className="tab-content  ">
+							<div>
+								<div className="tab-content">
 									{/* =====================overview tab====================  */}
 
 									<OverviewTab

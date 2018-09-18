@@ -56,7 +56,7 @@ export default function CompanyRating(props) {
 	return (
 		<div>
 			<div className="col-md-6  bodr_lft">
-				<div className="star_boder ">
+				<div className="star_border ">
 					<label>
 						<T>common.company_ratings.overall</T>
 					</label>
@@ -77,7 +77,7 @@ export default function CompanyRating(props) {
 				</div>
 				<br />
 				<div className="tab_str">
-					<table className="table">
+					<table>
 						<tbody>
 							<tr>
 								<td>
@@ -92,46 +92,50 @@ export default function CompanyRating(props) {
 								</td>
 								<td>
 									{/* star ratings are left */}
-									<StarRatings
-										rating={
-											props.company.avgStarRatings
-												.healthAndSafety
-										}
-										starDimension="20px"
-										starSpacing="1.8px"
-									/>
-									&nbsp;&nbsp;{" "}
-									<label>
-										{props.company.avgStarRatings.healthAndSafety.toFixed(
-											numDigits
-										)}
-									</label>
+									<div className="row">
+										<StarRatings
+											rating={
+												props.company.avgStarRatings
+													.healthAndSafety
+											}
+											starDimension="20px"
+											starSpacing="1.8px"
+										/>
+										&nbsp;&nbsp;{" "}
+										<label>
+											{props.company.avgStarRatings.healthAndSafety.toFixed(
+												numDigits
+											)}
+										</label>
+									</div>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<label
 										htmlFor="input-3"
-										className="control-label   lef_label"
+										className="control-label lef_label"
 									>
 										<T>common.company_ratings.work_env</T>
 									</label>
 								</td>
 								<td>
-									<StarRatings
-										rating={
-											props.company.avgStarRatings
-												.workEnvironment
-										}
-										starDimension="20px"
-										starSpacing="1.8px"
-									/>
-									&nbsp;&nbsp;{" "}
-									<label>
-										{props.company.avgStarRatings.workEnvironment.toFixed(
-											numDigits
-										)}
-									</label>
+									<div className="row">
+										<StarRatings
+											rating={
+												props.company.avgStarRatings
+													.workEnvironment
+											}
+											starDimension="20px"
+											starSpacing="1.8px"
+										/>
+										&nbsp;&nbsp;{" "}
+										<label>
+											{props.company.avgStarRatings.workEnvironment.toFixed(
+												numDigits
+											)}
+										</label>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -144,20 +148,22 @@ export default function CompanyRating(props) {
 									</label>
 								</td>
 								<td>
-									<StarRatings
-										rating={
-											props.company.avgStarRatings
-												.benefits
-										}
-										starDimension="20px"
-										starSpacing="1.8px"
-									/>
-									&nbsp;&nbsp;{" "}
-									<label>
-										{props.company.avgStarRatings.benefits.toFixed(
-											numDigits
-										)}
-									</label>
+									<div className="row">
+										<StarRatings
+											rating={
+												props.company.avgStarRatings
+													.benefits
+											}
+											starDimension="20px"
+											starSpacing="1.8px"
+										/>
+										&nbsp;&nbsp;{" "}
+										<label>
+											{props.company.avgStarRatings.benefits.toFixed(
+												numDigits
+											)}
+										</label>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -173,20 +179,22 @@ export default function CompanyRating(props) {
 									</label>
 								</td>
 								<td>
-									<StarRatings
-										rating={
-											props.company.avgStarRatings
-												.managerRelationship
-										}
-										starDimension="20px"
-										starSpacing="1.8px"
-									/>
-									&nbsp;&nbsp;{" "}
-									<label>
-										{props.company.avgStarRatings.managerRelationship.toFixed(
-											numDigits
-										)}
-									</label>
+									<div className="row">
+										<StarRatings
+											rating={
+												props.company.avgStarRatings
+													.managerRelationship
+											}
+											starDimension="20px"
+											starSpacing="1.8px"
+										/>
+										&nbsp;&nbsp;{" "}
+										<label>
+											{props.company.avgStarRatings.managerRelationship.toFixed(
+												numDigits
+											)}
+										</label>
+									</div>
 								</td>
 							</tr>
 						</tbody>

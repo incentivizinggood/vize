@@ -7,6 +7,7 @@ import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
+import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
@@ -130,22 +131,9 @@ export default class CompanySearchTrial extends React.Component {
 	}
 
 	render() {
-		const form = (
-			<form className="example" onSubmit={this.handleSubmit}>
-				<input
-					name="searchTextInput"
-					type="text"
-					placeholder={t("placeholder")}
-					value={this.state.searchTextInput}
-					onChange={this.handleInputChange}
-				/>
-				<button type="submit">
-					<T>button</T>
-				</button>
-			</form>
-		);
+		const form = <CompaniesSearchBar />;
 		return (
-			<div className="customcompanypage">
+			<div>
 				<div className="navbarwhite">
 					<Header />
 				</div>

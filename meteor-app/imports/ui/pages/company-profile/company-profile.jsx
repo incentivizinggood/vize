@@ -48,8 +48,8 @@ class CompanyProfile extends React.Component {
 
 				<br />
 				{/* navigation */}
-				<section id="back_col">
-					<div className="container  mar_lf_ri">
+				<section id="back_col" className="company-profile">
+					<div className="container container-margin">
 						<div className="row">
 							<div className="na_tab">
 								<ul className=" nav nav-tabs">
