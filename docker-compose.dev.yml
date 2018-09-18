@@ -29,8 +29,4 @@ volumes:
   meteor-local:
     # Meteor's cache of build artifacts. Allows for faster rebuilds.
   meteor-dotfile:
-    # Meteor's dotfile (actualy it's the whole home directory)
-    # where meteor is installed and caches its packages.
-    # Meteor is stupid and tries to delete and move around it's dotfile
-    # during installation. So we are forced to volume the whole home
-    # directory. Normaly we would just volume the dotfile itself.
+    # Meteor's dotfile where meteor is installed and caches its packages.
