@@ -1,7 +1,14 @@
 #!/bin/bash
 
+set -e
+
 function install-meteor {
-	curl "https://install.meteor.com/?release=1.6.1.1" | sh
+	echo "Cleaning out the Meteor dotfile..."
+	rm -rfv ~/.meteor/*
+	echo "Installing Meteor..."
+	curl "https://install.meteor.com/?release=1.6.1.1" | HOME="$HOME/.meteor" sh
+	mv ~/.meteor/.meteor/* ~/.meteor/
+	rm -d ~/.meteor/.meteor
 }
 
 export PATH="$HOME/.meteor:$PATH"

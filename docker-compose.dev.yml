@@ -19,7 +19,7 @@ services:
         #       It does not matter what is inside them, they just need to exist.
       - node-modules:/opt/meteor/src/node_modules
       - meteor-local:/opt/meteor/src/.meteor/local
-      - meteor-dotfile:/root
+      - meteor-dotfile:/root/.meteor
 volumes:
   # Meteor build caches. Meteor and NPM download and create a lot of files.
   # We store this data in volumes so that is does not need to be redownloaded
