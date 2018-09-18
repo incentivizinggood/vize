@@ -1,72 +1,99 @@
 import React from "react";
-import { Meteor } from "meteor/meteor";
+import { Meteor } from 'meteor/meteor'
 
 /* The "Dialog" page. */
 export default class Dialog extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: "",
-			value: "",
+			name: '',
+			value:'',
 			count: 0,
 		};
-		this.buttonClicked = this.buttonClicked.bind(this);
+		this.buttonClicked = this.buttonClicked.bind(this)
+
 	}
-	buttonClicked(event) {
-		event.preventDefault();
-		$(document).ready(function() {
-			$("#live-chat header").on("click", function() {
-				$(".chat").slideToggle(300, "swing");
-			});
-			$(".chat-close").on("click", function(e) {
-				$("#live-chat").fadeOut(300);
+	buttonClicked(event){
+		event.preventDefault(); // Prevent the default behavior for this event
+		$(document).ready(function(){
+			const chatbox = jQuery.noConflict();
+			chatbox(() => {
+				chatbox(".chatbox-open").click(() =>
+					chatbox(".chatbox-popup, .chatbox-close").fadeIn()
+				);
+				chatbox(".chatbox-close").click(() =>
+					chatbox(".chatbox-popup, .chatbox-close").fadeOut()
+				);
+
 			});
 		});
+
 	}
+
+	sendClicked(event) {
+		event.preventDefault();
+		alert("waduso");  // Send us an email
+
+
+		Meteor.call(
+			"sendEmail",
+			"incentivizinggood@gmail.com",
+			"postmaster@incentivizinggood.com",
+			`Contacting us: ${this.state.name}`,
+			`${"Howdy Vize reader,\n" + "Below is the message: \n"}${
+				this.state.textBox
+				}.\n\nSincerely,\n\n Vize Inc.\n\n Sender's email: ${
+				this.state.emailSending
+				}`,
+			(err, res) => {
+				if (err) {
+					console.log("--- BEGIN error:");
+					alert("Please try again");
+					console.log(err);
+					console.log("--- END error");
+				} else {
+					console.log("--- BEGIN success:");
+					console.log(res);
+					console.log("--- END success");
+					alert("Thank you for the feedback!");
+				}
+			}
+		);
+
+		alert("wassup2");
+
+	}
+
 
 	render() {
 		return (
 			<div>
-				<div id="live-chat">
-					<header className="clearfix">
-						<a
-							href="#"
-							className="chat-close"
-							onClick={this.buttonClicked}
-						>
-							x
-						</a>
-						<h4>Live feedback</h4>
-						<span className="chat-message-counter">3</span>
+				<button className="chatbox-open">
+					<i className="fa fa-comments fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
+				</button>
+				<button className="chatbox-close">
+					<i className="fa fa-close fa-2x" aria-hidden="true" onClick={this.buttonClicked}/>
+					</button>
+				<section className="chatbox-popup">
+					<header className="chatbox-popup__header">
 					</header>
-					<div className="chat">
-						<p className="chat-feedback">
-							Send us immediate feedback using this chat
-						</p>
-						<form action="#" method="post">
-							<fieldset>
-								<textarea
-									rows="4"
-									cols="40"
-									placeholder="Type your message…"
-									className="dialog_button"
-									autoFocus="true"
-								/>
-								<input type="hidden" />
-							</fieldset>
-							<button
-								type="submit"
-								className="sendMessage"
-								form="submitForm"
-								value="Submit"
-							>
-								{" "}
-								send message{" "}
-							</button>
-						</form>
-					</div>
-				</div>
+					<main className="chatbox-popup__main">
+						Please send us feedback on how to improve below... thank you!
+					</main>
+					<footer className="chatbox-popup__footer">
+						<aside style={{flex:"1",color:"#888", text:"center"}}>
+						</aside>
+						<aside style={{flex:"10"}}>
+							<textarea type="text" placeholder="Type your message here..." autofocus/>
+						</aside>
+						<aside style={{flex:"1",color:"#2079b5", text:"center"}}>
+							<i className="fa fa-paper-plane" aria-hidden="true" onClick={this.sendClicked}/>
+						</aside>
+					</footer>
+				</section>
 			</div>
 		);
 	}
 }
+

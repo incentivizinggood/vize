@@ -12,6 +12,10 @@ import {
 	faThumbsUp,
 	faThumbsDown,
 	faGlobe,
+	faLock,
+	faUser,
+	faEnvelope,
+	faBuilding,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -26,5 +30,9 @@ library.add(
 	faCalendar,
 	faThumbsUp,
 	faThumbsDown,
-	faGlobe
+	faGlobe,
+	faLock,
+	faUser,
+	faEnvelope,
+	faBuilding
 );

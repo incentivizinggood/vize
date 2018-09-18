@@ -97,3 +97,20 @@ export default class PostgreSQL {
 		return wrapPgFunction(mutation, false, [...arguments].slice(1));
 	}
 }
+
+// Test the connection to the database by querying the current time.
+// Run this on server startup to catch errors sooner.
+export function testConnection() {
+	pool
+		.query("SELECT NOW() as now")
+		.then(res => {
+			console.log("PostgreSQL connection test succeded.");
+			console.log(
+				`"SELECT NOW() as now" -> ${JSON.stringify(res.rows[0])}`
+			);
+		})
+		.catch(e => {
+			console.error("PostgreSQL connection test failed.");
+			console.error(e.stack);
+		});
+}
