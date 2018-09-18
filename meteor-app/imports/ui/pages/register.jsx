@@ -4,9 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
+import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+
+const t = i18n.createTranslator("common.loginRegister");
+const T = i18n.createComponent(t);
 
 /* The page where users can create an account.
  */
@@ -63,7 +67,11 @@ export default class RegisterPage extends React.Component {
 
 	render() {
 		if (this.state.success) {
-			return <div className="page register">Sign up successful!</div>;
+			return (
+				<div className="page register">
+					<T>registrationSuccess</T>
+				</div>
+			);
 		}
 
 		const roleInput = (
@@ -85,7 +93,7 @@ export default class RegisterPage extends React.Component {
 						checked={this.state.role === "worker"}
 						onChange={this.handleInputChange}
 					/>
-					Employee
+					<T>employee</T>
 				</label>
 				<label
 					className={
@@ -104,7 +112,7 @@ export default class RegisterPage extends React.Component {
 						checked={this.state.role === "company"}
 						onChange={this.handleInputChange}
 					/>
-					Employer
+					<T>employer</T>
 				</label>
 			</>
 		);
@@ -120,7 +128,7 @@ export default class RegisterPage extends React.Component {
 					<FontAwesomeIcon icon="user" className="fa" />
 					<input
 						type="text"
-						placeholder="Username"
+						placeholder={t("username")}
 						className="form-control"
 						name="username"
 						id="username"
@@ -146,7 +154,7 @@ export default class RegisterPage extends React.Component {
 						name="email"
 						id="email"
 						className="form-control"
-						placeholder="Email"
+						placeholder={t("email")}
 						value={this.state.email}
 						onChange={this.handleInputChange}
 					/>
@@ -168,7 +176,7 @@ export default class RegisterPage extends React.Component {
 						name="companyName"
 						id="companyName"
 						className="form-control"
-						placeholder="Company Name"
+						placeholder={t("companyName")}
 						value={this.state.companyName}
 						onChange={this.handleInputChange}
 					/>
@@ -190,7 +198,7 @@ export default class RegisterPage extends React.Component {
 						name="password"
 						id="password"
 						className="form-control"
-						placeholder="Password"
+						placeholder={t("password")}
 						required
 						value={this.state.password}
 						onChange={this.handleInputChange}
@@ -206,7 +214,7 @@ export default class RegisterPage extends React.Component {
 				onSubmit={this.handleSubmit}
 			>
 				<h3 className="top-head-employer" align="center">
-					Register
+					<T>register</T>
 				</h3>
 				{roleInput}
 				<br />
@@ -230,7 +238,7 @@ export default class RegisterPage extends React.Component {
 								type="submit"
 								className="button out-bodr-get1"
 							>
-								Get Started
+								<T>createAccount</T>
 							</button>
 						</div>
 					</div>
@@ -259,8 +267,11 @@ export default class RegisterPage extends React.Component {
 									<div className="row">
 										<div className="col-lg-12">
 											<div className="text-center login-link-cs">
-												Already have an account?{" "}
-												<a href="/login"> Log In </a>
+												<T>alreadyAccount</T>
+												<a href="/login">
+													{" "}
+													<T>login</T>{" "}
+												</a>
 											</div>
 											<div className="clearfix" />
 										</div>

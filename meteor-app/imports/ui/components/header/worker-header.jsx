@@ -112,7 +112,7 @@ class WorkerHeader extends React.Component {
 												<li className="tr">
 													<a
 														href="/my-account"
-														className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+														className="navbar-link margin-right"
 													>
 														<T>
 															common.header.myaccount
@@ -143,9 +143,7 @@ class WorkerHeader extends React.Component {
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												{i18n.__(
-													"common.header.signup"
-												)}
+												<T>common.header.signup</T>
 											</a>
 										</li>
 										<li>

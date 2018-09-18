@@ -261,7 +261,7 @@ h4.head_section_font_job {
 }
 
 .read-more-toggle-label:after {
-	content: "Read More >";
+	content: ">";
 	display: inline-block;
 }
 
@@ -273,7 +273,7 @@ h4.head_section_font_job {
 }
 
 .read-more-toggle:checked + .read-more-content + .read-more-toggle-label:after {
-	content: "Less <";
+	content: "<";
 }
 
 article {

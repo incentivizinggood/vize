@@ -80,29 +80,35 @@ if (Meteor.isClient) {
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.yearlySalary"
 					),
-					value: "Yearly Salary",
+					value: reactiveCommonTranslator(
+						"forms.ssd.payTypes.yearlySalary"
+					),
 				},
 				{
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.monthlySalary"
 					),
-					value: "Monthly Salary",
+					value: reactiveCommonTranslator(
+						"forms.ssd.payTypes.monthlySalary"
+					),
 				},
 				{
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.hourlyWage"
 					),
-					value: "Hourly Wage",
+					value: reactiveCommonTranslator(
+						"forms.ssd.payTypes.hourlyWage"
+					),
 				},
 			]);
 			ssd_form_state.set("genderOptions", [
 				{
 					label: reactiveCommonTranslator("gender.male"),
-					value: "Male",
+					value: reactiveCommonTranslator("gender.male"),
 				},
 				{
 					label: reactiveCommonTranslator("gender.female"),
-					value: "Female",
+					value: reactiveCommonTranslator("gender.female"),
 				},
 			]);
 		});

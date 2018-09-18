@@ -46,15 +46,15 @@ paj_form_state.set("company", {
 paj_form_state.set("contractTypeOptions", [
 	{
 		label: i18n.__("common.forms.paj.contractTypes.fullTime"),
-		value: "Full time",
+		value: i18n.__("common.forms.paj.contractTypes.fullTime"),
 	},
 	{
 		label: i18n.__("common.forms.paj.contractTypes.partTime"),
-		value: "Part time",
+		value: i18n.__("common.forms.paj.contractTypes.partTime"),
 	},
 	{
 		label: i18n.__("common.forms.paj.contractTypes.contractor"),
-		value: "Contractor",
+		value: i18n.__("common.forms.paj.contractTypes.contractor"),
 	},
 ]);
 

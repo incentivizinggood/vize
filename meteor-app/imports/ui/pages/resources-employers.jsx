@@ -65,7 +65,11 @@ export default class ResourcesEmployers extends React.Component {
 
 								<p>
 									<ModalToggle
-										title="Worker Engagement"
+										title={
+											<T>
+												common.resourcesEmployers.workerEngagementTitle
+											</T>
+										}
 										content={[
 											<T>
 												common.resourcesEmployers.workerEngagementArticle
@@ -105,7 +109,11 @@ export default class ResourcesEmployers extends React.Component {
 									</T>
 								</p>
 								<ModalToggle
-									title="Responsible Business Alliance"
+									title={
+										<T>
+											common.resourcesEmployers.AllianceTitle
+										</T>
+									}
 									content={[
 										<T>
 											common.resourcesEmployers.AllianceArticlePt1
@@ -149,7 +157,11 @@ export default class ResourcesEmployers extends React.Component {
 								</p>
 
 								<ModalToggle
-									title="Learn from your Employees"
+									title={
+										<T>
+											common.resourcesEmployers.learnEmployeesTitle
+										</T>
+									}
 									content={[
 										<T>
 											common.resourcesEmployers.learnEmployeesArticlePt1

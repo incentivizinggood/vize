@@ -63,7 +63,7 @@ if (Meteor.isClient) {
 		getCompanyName() {
 			const job = afj_form_state.get("job");
 			if (job === undefined) {
-				return "ERROR: INVALID JOB ID";
+				return i18n.__("common.afj.invalidJobId");
 			}
 			return job.companyName;
 		},

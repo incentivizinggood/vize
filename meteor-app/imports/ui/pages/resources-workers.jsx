@@ -3,6 +3,9 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { Meteor } from "meteor/meteor";
 import Modal from "react-modal";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 const customStyles = {
 	content: {
@@ -62,14 +65,18 @@ export default class ResourcesWorkers extends React.Component {
 
 								<p>
 									<ModalToggle
-										title="Training Programs at UABC"
+										title={
+											<T>
+												common.resourcesWorkers.trainingProgramsTitle
+											</T>
+										}
 										content={[
 											<T>
 												common.resourcesWorkers.trainingProgramsArticle
 											</T>,
 											<a href="http://www.uabc.mx/institucion/catalogo/spanish.html">
 												<T>
-													common.resourcesWorker.here
+													common.resourcesWorkers.here
 												</T>
 											</a>,
 											".",
@@ -102,13 +109,17 @@ export default class ResourcesWorkers extends React.Component {
 									<T>common.resourcesWorkers.laborLawsDesc</T>
 								</p>
 								<ModalToggle
-									title="Learing about Labor Laws"
+									title={
+										<T>
+											common.resourcesWorkers.laborLawsTitle
+										</T>
+									}
 									content={[
 										<T>
 											common.resourcesWorkers.laborLawsArticle
 										</T>,
 										<a href="https://www.facebook.com/Ollin-Calli-450536781717887/">
-											<T>common.resourcesWorker.here</T>
+											<T>common.resourcesWorkers.here</T>
 										</a>,
 										".",
 									]}
@@ -142,13 +153,17 @@ export default class ResourcesWorkers extends React.Component {
 								</p>
 
 								<ModalToggle
-									title="Education at a Distance - Tecnologico Nacional de Mexico"
+									title={
+										<T>
+											common.resourcesWorkers.educationDistanceTitle
+										</T>
+									}
 									content={[
 										<T>
 											common.resourcesWorkers.educationDistanceArticlePt1
 										</T>,
 										<a href="http://tectijuana.edu.mx/educacion-a-distancia/">
-											<T>common.resourcesWorker.here</T>
+											<T>common.resourcesWorkers.here</T>
 										</a>,
 										<T>
 											common.resourcesWorkers.educationDistanceArticlePt2
@@ -185,7 +200,11 @@ export default class ResourcesWorkers extends React.Component {
 							</p>
 
 							<ModalToggle
-								title="Become Bilingual!"
+								title={
+									<T>
+										common.resourcesWorkers.becomeBilingualTitle
+									</T>
+								}
 								content={[
 									<T>
 										common.resourcesWorkers.becomeBilingualArticle
