@@ -1,0 +1,46 @@
+version: "3"
+services:
+  web:
+    environment:
+      MONGO_URL: mongodb://mongo:27017/meteor
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: meteor
+      PGPASSWORD: "123456789"
+      PGDATABASE: meteor
+    depends_on:
+      - mongo
+      - postgres
+    deploy:
+      restart_policy:
+        condition: on-failure
+  mongo:
+    image: mongo:3.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    deploy:
+      restart_policy:
+        condition: on-failure
+  postgres:
+    build: ./postgres
+    image: vize-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: meteor
+      POSTGRES_PASSWORD: "123456789"
+      POSTGRES_DB: meteor
+    deploy:
+      restart_policy:
+        condition: on-failure
+volumes:
+  # These database volumes ensure that the data in the databases is durable and
+  # persistaint (ie. does not get deleted every so often).
+  # NOTE: If you need to start fresh (eg. test out the init scripts or
+  # delete all data) just delete these "*-data" volumes and rerun this stack.
+  mongo-data:
+  postgres-data:
