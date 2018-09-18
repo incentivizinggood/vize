@@ -63,10 +63,8 @@
 }
 
 div.star_border {
-	width: 80%;
-	padding-top: 11px;
+	padding: 10px;
 	background-color: #f2f2f2;
-	padding-bottom: 9px;
 	padding-left: 9px;
 }
 
@@ -283,12 +281,6 @@ li.te_deco > a {
 
 .mar_lf_ri {
 	padding-bottom: 60px;
-}
-
-div[class^="sect_re"] {
-	@media (max-width: 544px) {
-		padding: 0;
-	}
 }
 
 .tab-pane {
@@ -1069,7 +1061,7 @@ h3.head_section_font_25 {
 		h4.head_section_font {
 			padding: 10px 0 0 10px;
 		}
-		h4.head_section_font + hr{
+		h4.head_section_font + hr {
 			width: 97%;
 			margin-bottom: 0;
 		}
@@ -1168,7 +1160,8 @@ h3.head_section_font_25 {
 	fill: #d6d6d6;
 }
 
-.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
+.CircularProgressbar.CircularProgressbar-inverted
+	.CircularProgressbar-background {
 	fill: #3e98c7;
 }
 

@@ -116,8 +116,8 @@ class CompanyProfile extends React.Component {
 								</ul>
 							</div>
 
-							<div className="tab_conten_man">
-								<div className="tab-content  ">
+							<div>
+								<div className="tab-content">
 									<ErrorBoundary>
 										<OverviewTab
 											company={this.props.company}
