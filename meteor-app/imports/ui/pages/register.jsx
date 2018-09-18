@@ -7,6 +7,7 @@ import { Accounts } from "meteor/accounts-base";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 /* The page where users can create an account.
  */
@@ -268,6 +269,7 @@ export default class RegisterPage extends React.Component {
 						</div>
 					</div>
 				</div>
+				<Dialog />
 				<Footer />
 			</div>
 		);

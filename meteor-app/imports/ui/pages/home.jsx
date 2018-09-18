@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
+import Dialog from "/imports/ui/components/dialog-box";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import HomePageSearch from "../components/home-page-search.jsx";
@@ -311,6 +312,7 @@ export default class HomePage extends React.Component {
 						<div className="clearfix" />
 					</div>
 				</div>
+				<Dialog />
 				<Footer />
 			</div>
 		);

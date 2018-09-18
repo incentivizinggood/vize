@@ -5,6 +5,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
 
+import Dialog from "/imports/ui/components/dialog-box";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
@@ -200,6 +201,7 @@ class PasswordChanger extends React.Component {
 					</div>
 				</div>
 				<Footer />
+				<Dialog />
 			</div>
 		);
 	}
