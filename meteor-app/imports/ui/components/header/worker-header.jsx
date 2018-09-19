@@ -44,20 +44,24 @@ class WorkerHeader extends React.Component {
 									<If cond={this.props.isLoggedIn}>
 										<Then>
 											<a
-												href=""
+												href="/my-account"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												My Account
+												<T>common.header.myaccount</T>
 											</a>
 										</Then>
 										<Else>
 											<a
-												href=""
+												href="/login"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												Sign Up or Log In
+												<span>
+													<T>
+														common.header.signup_or_login
+													</T>
+												</span>
 											</a>
 										</Else>
 									</If>
@@ -108,11 +112,11 @@ class WorkerHeader extends React.Component {
 												<li className="tr">
 													<a
 														href="/my-account"
-														className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+														className="navbar-link margin-right"
 													>
-														{i18n.__(
-															"common.header.myaccount"
-														)}
+														<T>
+															common.header.myaccount
+														</T>
 													</a>
 												</li>
 												<li className="tr">
@@ -139,9 +143,7 @@ class WorkerHeader extends React.Component {
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												{i18n.__(
-													"common.header.signup"
-												)}
+												<T>common.header.signup</T>
 											</a>
 										</li>
 										<li>

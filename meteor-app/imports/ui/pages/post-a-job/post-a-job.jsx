@@ -15,6 +15,7 @@ import "./post-a-job.html";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
@@ -46,15 +47,15 @@ paj_form_state.set("company", {
 paj_form_state.set("contractTypeOptions", [
 	{
 		label: i18n.__("common.forms.paj.contractTypes.fullTime"),
-		value: "Full time",
+		value: i18n.__("common.forms.paj.contractTypes.fullTime"),
 	},
 	{
 		label: i18n.__("common.forms.paj.contractTypes.partTime"),
-		value: "Part time",
+		value: i18n.__("common.forms.paj.contractTypes.partTime"),
 	},
 	{
 		label: i18n.__("common.forms.paj.contractTypes.contractor"),
-		value: "Contractor",
+		value: i18n.__("common.forms.paj.contractTypes.contractor"),
 	},
 ]);
 
@@ -182,6 +183,7 @@ export default class PostAJobForm extends React.Component {
 					<Blaze template="paj_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog />
 			</div>
 		);
 	}

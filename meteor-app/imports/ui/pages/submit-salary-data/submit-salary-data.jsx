@@ -16,6 +16,7 @@ import "./submit-salary-data.html";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
@@ -50,6 +51,10 @@ ssd_form_state.set("incomeTypeOptions", [
 		value: "Monthly Salary",
 	},
 	{
+		label: i18n.__("common.forms.ssd.payTypes.weeklySalary"),
+		value: "Weekly Salary",
+	},
+	{
 		label: i18n.__("common.forms.ssd.payTypes.hourlyWage"),
 		value: "Hourly Wage",
 	},
@@ -76,29 +81,35 @@ if (Meteor.isClient) {
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.yearlySalary"
 					),
-					value: "Yearly Salary",
+					value: reactiveCommonTranslator(
+						"forms.ssd.payTypes.yearlySalary"
+					),
 				},
 				{
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.monthlySalary"
 					),
-					value: "Monthly Salary",
+					value: reactiveCommonTranslator(
+						"forms.ssd.payTypes.monthlySalary"
+					),
 				},
 				{
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.hourlyWage"
 					),
-					value: "Hourly Wage",
+					value: reactiveCommonTranslator(
+						"forms.ssd.payTypes.hourlyWage"
+					),
 				},
 			]);
 			ssd_form_state.set("genderOptions", [
 				{
 					label: reactiveCommonTranslator("gender.male"),
-					value: "Male",
+					value: reactiveCommonTranslator("gender.male"),
 				},
 				{
 					label: reactiveCommonTranslator("gender.female"),
-					value: "Female",
+					value: reactiveCommonTranslator("gender.female"),
 				},
 			]);
 		});
@@ -223,6 +234,7 @@ export default class SubmitSalaryDataForm extends React.Component {
 					<Blaze template="ssd_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog />
 			</div>
 		);
 	}

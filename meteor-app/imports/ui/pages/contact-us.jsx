@@ -2,6 +2,7 @@ import React from "react";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { Meteor } from "meteor/meteor";
+import Dialog from "/imports/ui/components/dialog-box";
 
 /* A page where visitors can contact Vize for buisness inqueries.
  * Help and support contact may be handled here as well,
@@ -146,6 +147,7 @@ export default class ContactUsPage extends React.Component {
 				</div>
 
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}

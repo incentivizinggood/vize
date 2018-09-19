@@ -16,6 +16,9 @@ import {
 	faUser,
 	faEnvelope,
 	faBuilding,
+	faComments,
+	faPaperPlane,
+	faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -34,5 +37,8 @@ library.add(
 	faLock,
 	faUser,
 	faEnvelope,
-	faBuilding
+	faBuilding,
+	faComments,
+	faPaperPlane,
+	faTimes
 );
