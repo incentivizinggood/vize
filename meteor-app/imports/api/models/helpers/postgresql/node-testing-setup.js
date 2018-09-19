@@ -1350,8 +1350,8 @@ processVoteResults = function(voteResults) {
 	return undefined;
 }
 
-let writeCompaniesToProductionDb;
-let writeReviewsToProductionDb;
+let writeCompaniesToDb;
+let writeReviewsToDb;
 
 writeInitialCompaniesToDb = async function() {
 	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
@@ -1371,6 +1371,48 @@ writeInitialReviewsToDb = async function() {
 			review.location = locations.join(', ');
 		}
 		return PostgreSQL.executeMutation(submitReview, review);
+	}));
+}
+
+let arraysAreEqual;
+let numEmployeesIsValid;
+let writeOneKritCompanyToDb;
+let writeKritsCompaniesToDb;
+
+arraysAreEqual = function(array1, array2) {
+	return array1.length === array2.length && array1.every((value, index) => value === array2[index]);
+}
+
+numEmployeesIsValid = function(numEmployees) {
+	return (
+		numEmployees === '1 - 50' || numEmployees === '51 - 500' || numEmployees === '501 - 2000' || numEmployees === '2001 - 5000' || numEmployees === '5000+'
+	)
+}
+
+writeOneKritCompanyToDb = async function(kritCompany) {
+	const emailWithTldRegex= /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const urlRegex=/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+	let obj = {};
+	obj.name = kritCompany.name;
+	obj.descriptionOfCompany = kritCompany.description;
+	obj.contactEmail = (emailWithTldRegex.test(kritCompany.email)) ? kritCompany.email : "unknown@unknown.com";
+	obj.numEmployees = (numEmployeesIsValid(kritCompany.company_size)) ? kritCompany.company_size : undefined;
+	obj.websiteURL = (urlRegex.test(kritCompany.url)) ? kritCompany.url : undefined;
+	obj.industry = kritCompany.industry;
+	obj.locations = [
+		JSON.stringify({
+			address: kritCompany.address,
+			industrialHub: kritCompany.industrial_hub
+		})
+	];
+	const res = PostgreSQL.executeMutation(createCompany, obj);
+	return res;
+}
+
+writeKritsCompaniesToDb = async function() {
+	const kritCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+	return Promise.all(kritCompanies.map(async function(company) {
+		return writeOneKritCompanyToDb(company);
 	}));
 }
 
