@@ -1376,9 +1376,12 @@ writeInitialReviewsToDb = async function() {
 
 let arraysAreEqual;
 let numEmployeesIsValid;
+let translateNumEmployees;
+let findDuplicatesInArray;
 let writeOneKritCompanyToDb;
 let writeKritsCompaniesToDb;
 
+// https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
 arraysAreEqual = function(array1, array2) {
 	return array1.length === array2.length && array1.every((value, index) => value === array2[index]);
 }
@@ -1389,6 +1392,43 @@ numEmployeesIsValid = function(numEmployees) {
 	)
 }
 
+// can fix simple stuff, but not more complex stuff
+// like invalid ranges or things with weird formats
+translateNumEmployees = function(numEmployees) {
+	if(numEmployeesIsValid(numEmployees)) {
+		return numEmployees;
+	}
+	let num = Number(numEmployees);
+	if(!Number.isNaN(num)) {
+		if(num <= 0)
+			return undefined;
+		if(num >= 1 && num <= 50)
+			return '1 - 50';
+		else if(num >= 51 && num <= 500)
+			return '51 - 500';
+		else if(num >= 501 && num <= 2000)
+			return '501 - 2000';
+		else if(num >= 2001 && num <= 5000)
+			return '2001 - 5000';
+		else
+			return '5000+';
+	}
+
+	return undefined;
+}
+
+// https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array#840808
+findDuplicatesInArray = function(array) {
+	let sorted_arr = array.slice().sort();
+	let results = [];
+	for (let i = 0; i < sorted_arr.length - 1; i++) {
+		if (sorted_arr[i + 1] == sorted_arr[i]) {
+			results.push(sorted_arr[i]);
+		}
+	}
+	return results;
+}
+
 writeOneKritCompanyToDb = async function(kritCompany) {
 	const emailWithTldRegex= /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	const urlRegex=/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
@@ -1396,7 +1436,7 @@ writeOneKritCompanyToDb = async function(kritCompany) {
 	obj.name = kritCompany.name;
 	obj.descriptionOfCompany = kritCompany.description;
 	obj.contactEmail = (emailWithTldRegex.test(kritCompany.email)) ? kritCompany.email : "unknown@unknown.com";
-	obj.numEmployees = (numEmployeesIsValid(kritCompany.company_size)) ? kritCompany.company_size : undefined;
+	obj.numEmployees = translateNumEmployees(kritCompany.company_size);
 	obj.websiteURL = (urlRegex.test(kritCompany.url)) ? kritCompany.url : undefined;
 	obj.industry = kritCompany.industry;
 	obj.locations = [
@@ -1415,6 +1455,25 @@ writeKritsCompaniesToDb = async function() {
 		return writeOneKritCompanyToDb(company);
 	}));
 }
+
+// other things helpful to keep in mind while scratchpad-ing,
+// please note that I have made sure that all of the "newCompanies"
+// have the exact same key sets, so each one can be processed
+// in pretty much the same manner
+let originalCompanies;
+let newCompanies;
+let originalCompanyNames;
+let newCompanyNames;
+let originalNamesDuplicatedInNew;
+let newNamesDuplicatedInSelf;
+
+originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+originalCompanyNames = originalCompanies.map(c => c.name);
+newCompanyNames = newCompanies.map(c => c.name);
+originalNamesDuplicatedInNew = originalCompanyNames.filter(n => newCompanyNames.includes(n));
+newNamesDuplicatedInSelf = findDuplicatesInArray(newCompanyNames);
+allDuplicatesInNew = newCompanies.filter(c => newNamesDuplicatedInSelf.includes(c.name) || originalNamesDuplicatedInNew.includes(c.name));
 
 let obj;
 let vize;
