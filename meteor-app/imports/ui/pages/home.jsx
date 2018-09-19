@@ -6,7 +6,7 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import CompaniesSearchBar from "../components/companies-search-bar.jsx";
+import HomePageSearch from "../components/home-page-search.jsx";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
@@ -38,7 +38,7 @@ export default class HomePage extends React.Component {
 											<h1>
 												<T>mainBanner</T>
 											</h1>
-											<CompaniesSearchBar />
+											<HomePageSearch />
 										</div>
 									</li>
 								</ul>
