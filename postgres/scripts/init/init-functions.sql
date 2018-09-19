@@ -219,18 +219,18 @@ $$
 		// rather than reject stuff, we can let the frontend worry
 		// about what it wants to let something through or not
 		if(obj.city === undefined || obj.city === null)
-			obj.city = "(unknown or not provided by user)";
+			obj.city = "-";
 		if(obj.address === undefined || obj.address === null)
-			obj.address = "(unknown or not provided by user)";
+			obj.address = "-";
 		if(obj.industrialHub === undefined || obj.industrialHub === null)
-			obj.industrialHub = "(unknown or not provided by user)";
+			obj.industrialHub = "-";
 		// return location, with any modifications we have made
 		returnVal = JSON.stringify(obj);
 	} catch (e) {
 		if (e instanceof SyntaxError) {
 			// case where location is not a valid JSON object, assume
 			// "industrial hub", as in the case with the initial reviews
-			returnVal = JSON.stringify({ city: "(unknown or not provided by user)", address: "(unknown or not provided by user)", industrialHub: location });
+			returnVal = JSON.stringify({ city: "-", address: "-", industrialHub: location });
 		} else
 			throw e;
 	}

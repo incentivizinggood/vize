@@ -4,6 +4,9 @@ import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
 import { Meteor } from "meteor/meteor";
 import Modal from "react-modal";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 const customStyles = {
 	content: {
@@ -49,23 +52,33 @@ export default class ResourcesWorkers extends React.Component {
 								target="_blank"
 							/>
 							<div>
-								<h2>Training Programs at UABC</h2>
+								<h2>
+									<T>
+										common.resourcesWorkers.trainingProgramsTitle
+									</T>
+								</h2>
 
 								<p>
-									Going back to school and getting a degree
-									can be an enormous opportunity to increase
-									your skill set as well as your wages, but
-									many people don’t have the time or the money
-									to finish an entire program.{" "}
+									<T>
+										common.resourcesWorkers.trainingProgramsDesc
+									</T>
 								</p>
 
 								<p>
 									<ModalToggle
-										title="Training Programs at UABC"
+										title={
+											<T>
+												common.resourcesWorkers.trainingProgramsTitle
+											</T>
+										}
 										content={[
-											"Going back to school and getting a degree can be an enormous opportunity to increase your skill set as well as your wages, but many people don’t have the time or the money to finish an entire program. A degree can take years to complete and cost thousands of dollars. If you are working full time this can seem nearly impossible. There is another option, short-term training programs. These courses can give you a experience in accounting, management, writing, or much more. They generally only last about 1 month and are a fraction of the cost of a full degree. If you are interested in finding a course that fits your job and gives you the opportunity to increase your wages, you can find UABC’s programs ",
+											<T>
+												common.resourcesWorkers.trainingProgramsArticle
+											</T>,
 											<a href="http://www.uabc.mx/institucion/catalogo/spanish.html">
-												here
+												<T>
+													common.resourcesWorkers.here
+												</T>
 											</a>,
 											".",
 										]}
@@ -87,21 +100,27 @@ export default class ResourcesWorkers extends React.Component {
 								target="_blank"
 							/>
 							<div>
-								<h2>Learing about Labor Laws</h2>
+								<h2>
+									<T>
+										common.resourcesWorkers.laborLawsTitle
+									</T>
+								</h2>
 
 								<p>
-									It can be very difficult to know if your
-									employer has broken labor laws in Mexico. If
-									you’ve been having issues with your
-									employer, an organization in downtown
-									Tijuana, Ollin Calli may be able to help.{" "}
+									<T>common.resourcesWorkers.laborLawsDesc</T>
 								</p>
 								<ModalToggle
-									title="Learing about Labor Laws"
+									title={
+										<T>
+											common.resourcesWorkers.laborLawsTitle
+										</T>
+									}
 									content={[
-										"It can be very difficult to know if your employer has broken labor laws in Mexico. The legal system is very complicated especially if you’ve never been trained, but Mexico’s labor laws cover many more abuses than you would expect. If you’ve been having issues with your employer, an organization in downtown Tijuana, Ollin Calli may be able to help. They are a nonprofit that helps employees that have been taken advantage of by their employer. They can help with certain legal issues, provide you with more information about your rights, or give you a variety of options. If you want to reach them you can find their website ",
+										<T>
+											common.resourcesWorkers.laborLawsArticle
+										</T>,
 										<a href="https://www.facebook.com/Ollin-Calli-450536781717887/">
-											here
+											<T>common.resourcesWorkers.here</T>
 										</a>,
 										".",
 									]}
@@ -122,25 +141,34 @@ export default class ResourcesWorkers extends React.Component {
 								target="_blank"
 							/>
 							<div>
-								<h2>Education at a Distance</h2>
+								<h2>
+									<T>
+										common.resourcesWorkers.educationDistanceTitle
+									</T>
+								</h2>
 
 								<p>
-									Increase your level of education with
-									"Educacion a Distancia", a course designed
-									by Tecnologico Nacional de Mexico for people
-									that work full-time but want to increase
-									their skills to find a new and better paying
-									job.{" "}
+									<T>
+										common.resourcesWorkers.educationDistanceDesc
+									</T>
 								</p>
 
 								<ModalToggle
-									title="Education at a Distance - Tecnologico Nacional de Mexico"
+									title={
+										<T>
+											common.resourcesWorkers.educationDistanceTitle
+										</T>
+									}
 									content={[
-										"Making time to increase your level of education while working a full-time job can be very difficult. You may have to work 5 - 6 days a week with long hours, so going to a normal class during the week is impossible. The key is to find an education that allows you to be flexible with your schedule, and doesn’t require going to class every day. This is why the Tecnologico Nacional de Mexico created the Educacion a Distancia, a course designed for people that work full-time but want to increase their skills to find a new and better paying job. The courses are taught only on Saturdays for 4 - 6 hours and the rest of the class can be done entirely online with your phone or a computer. Right now there are two majors provided, Industrial Engineering and Logistics Engineering. If you’re interested you can check out their website ",
+										<T>
+											common.resourcesWorkers.educationDistanceArticlePt1
+										</T>,
 										<a href="http://tectijuana.edu.mx/educacion-a-distancia/">
-											here
+											<T>common.resourcesWorkers.here</T>
 										</a>,
-										", or contact the Department of Academic Development at (664) 607-8410 ext 127 or email at desarrollo@tectijuana.mx.",
+										<T>
+											common.resourcesWorkers.educationDistanceArticlePt2
+										</T>,
 									]}
 								/>
 							</div>
@@ -160,21 +188,28 @@ export default class ResourcesWorkers extends React.Component {
 							target="_blank"
 						/>
 						<div>
-							<h2>Become Bilingual!</h2>
+							<h2>
+								<T>
+									common.resourcesWorkers.becomeBilingualTitle
+								</T>
+							</h2>
 
 							<p>
-								If you can speak English you can often negotiate
-								a much higher wage with your employer or find a
-								higher paying job. We’ve listed the top five
-								bilingual classes in Tijuana below with their
-								contact information. Feel free to check them
-								out!
+								<T>
+									common.resourcesWorkers.becomeBilingualDesc
+								</T>
 							</p>
 
 							<ModalToggle
-								title="Become Bilingual!"
+								title={
+									<T>
+										common.resourcesWorkers.becomeBilingualTitle
+									</T>
+								}
 								content={[
-									"Tijuana is the city of maquiladoras. Companies from all over the world come here to manufacture their products including Japan, Korea, and of course the United States. The one thing all of these companies have in common, is that their staff often speaks English. If you can speak English you can often negotiate a much higher wage with your employer or find a higher paying job. We’ve listed the top five bilingual classes in Tijuana below with their contact information. Feel free to check them out!",
+									<T>
+										common.resourcesWorkers.becomeBilingualArticle
+									</T>,
 									<br />,
 
 									<p>
@@ -256,52 +291,6 @@ export default class ResourcesWorkers extends React.Component {
 					</li>
 				</ul>
 
-				<div id="vizeModal" className="modal">
-					<div className="modal-content">
-						<span className="close">&times;</span>
-						<h1> Vize </h1>
-						<h6> November 2017 - Present </h6>
-						<h4> Overview </h4>
-						<p>
-							Vize is a platform where workers in developing
-							countries will be able to find reviews of companies
-							with details on safety, wages, working conditions,
-							and much more. I am currently working as a front end
-							web developer using the react framework and am also
-							leading the technical team by managing the project
-							workflow and coordinating the engineers in their
-							efforts.
-						</p>
-						<br />
-						<h4> Experience </h4>
-						<p>
-							Vize offers a unique experience where I have the
-							opportunity to exercise my technical ability and my
-							business/leadership insights to be an influential
-							part of the startup. As a front end web developer I
-							used HTML, CSS, & Javascript to design the website
-							and then integrated it into components on the react
-							platform. Managing the technical team has been a
-							challenging role that has taught me the importance
-							of designing a software structure that facilitates
-							the coordination of all of the engineer's efforts. I
-							also took the time to research tools and software
-							that could facilitate the project and work flow
-							management so that there can be open lines of
-							communication between what everyone is working on.
-						</p>
-						<p>
-							I'm motivated to work at Vize because of the social
-							impact that the platform can have in improving the
-							working conditions in developing countries. With a
-							review and rating systems, there is a form of
-							accountability for factories to have safe working
-							conditions, reasonable working hours, and fair wages
-							across different jobs for both genders.
-						</p>
-					</div>
-				</div>
-
 				<div className="star" id="services">
 					<div className="container">
 						<div className="row">
@@ -311,7 +300,10 @@ export default class ResourcesWorkers extends React.Component {
 									<h1 className="titlestar22">
 										Would you like to publish an article on
 										our site? Email us your article to
-										incentivizinggood@gmail.com.
+										<a href="mailto:incentivizinggood@gmail.com">
+											incentivizinggood@gmail.com
+										</a>
+										.
 									</h1>
 								</center>
 							</div>
@@ -362,7 +354,7 @@ class ModalToggle extends React.Component {
 						className="btn btn-success button"
 						onClick={this.openModal}
 					>
-						Read More →
+						<T>common.resourcesWorkers.readMore</T>
 					</button>
 				</p>
 				<Modal
