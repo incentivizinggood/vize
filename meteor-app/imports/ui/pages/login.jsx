@@ -9,7 +9,7 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
 
-const t = i18n.createTranslator("common.login");
+const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
 /* The page where users can login to the app.
@@ -145,7 +145,7 @@ export default class LoginPage extends React.Component {
 							className="enterTriggers"
 							value={t("submit")}
 						>
-							Login
+							<T>login</T>
 						</button>
 					</div>
 
@@ -153,8 +153,8 @@ export default class LoginPage extends React.Component {
 						<div className="row">
 							<div className="col-lg-12">
 								<div className="text-center reg">
-									Don&apos;t have an account?{" "}
-									<a href="/register"> Register</a>
+									<T>noAccount</T>
+									<a href="/register"> <T>register</T></a>
 								</div>
 								<br />
 							</div>
@@ -171,7 +171,9 @@ export default class LoginPage extends React.Component {
 						<T>{`error.${this.state.error}`}</T>
 					</div>
 				) : null}
-				<Header />
+				<div className="navbarwhite">
+					<Header />
+				</div>
 				<div className="container  login-top-spce">
 					<div className="row">
 						<div className="col-md-6 col-md-offset-3">
@@ -184,7 +186,7 @@ export default class LoginPage extends React.Component {
 												className="top-head-employer"
 												align="center"
 											>
-												Login
+												<T>login</T>
 											</h3>
 											<hr />
 										</div>

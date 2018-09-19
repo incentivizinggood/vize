@@ -62,9 +62,11 @@
 	margin-top: 16px;
 }
 
-div.star_border {
-	padding: 10px;
+.star_border {
+	width: 80%;
+	padding-top: 11px;
 	background-color: #f2f2f2;
+	padding-bottom: 9px;
 	padding-left: 9px;
 }
 
@@ -281,6 +283,12 @@ li.te_deco > a {
 
 .mar_lf_ri {
 	padding-bottom: 60px;
+}
+
+div[class^="sect_re"] {
+	@media (max-width: 544px) {
+		padding: 0;
+	}
 }
 
 .tab-pane {
@@ -781,7 +789,7 @@ h4.head_section_font_job {
 }
 
 .read-more-toggle-label:after {
-	content: "Read More >";
+	content: ">";
 	display: inline-block;
 }
 
@@ -793,7 +801,7 @@ h4.head_section_font_job {
 }
 
 .read-more-toggle:checked + .read-more-content + .read-more-toggle-label:after {
-	content: "Less <";
+	content: "<";
 }
 
 article {
