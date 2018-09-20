@@ -1557,7 +1557,6 @@ obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote3);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote4);
 
-
 /*
 	NOTE
 	This next bit is the scratchpad I use for
