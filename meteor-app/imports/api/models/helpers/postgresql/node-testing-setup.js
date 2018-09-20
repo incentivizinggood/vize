@@ -1466,6 +1466,12 @@ let originalCompanyNames;
 let newCompanyNames;
 let originalNamesDuplicatedInNew;
 let newNamesDuplicatedInSelf;
+let allDuplicatesInNewAndOld;
+let allDuplicateNames;
+let tempDupHolderObj
+let allDuplicatedNames;
+let getDuplicatesForName;
+let sortedDuplicates;
 
 originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
 newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
@@ -1473,7 +1479,19 @@ originalCompanyNames = originalCompanies.map(c => c.name);
 newCompanyNames = newCompanies.map(c => c.name);
 originalNamesDuplicatedInNew = originalCompanyNames.filter(n => newCompanyNames.includes(n));
 newNamesDuplicatedInSelf = findDuplicatesInArray(newCompanyNames);
-allDuplicatesInNew = newCompanies.filter(c => newNamesDuplicatedInSelf.includes(c.name) || originalNamesDuplicatedInNew.includes(c.name));
+allDuplicatesInNewAndOld = newCompanies.filter(c => newNamesDuplicatedInSelf.includes(c.name) || originalNamesDuplicatedInNew.includes(c.name)).concat(originalCompanies.filter(c => originalNamesDuplicatedInNew.includes(c.name)));
+allDuplicateNames = allDuplicatesInNewAndOld.map(c => c.name).slice().sort();
+tempDupHolderobj = {};
+// screw hashsets
+allDuplicateNames.forEach(n => tempDupHolderobj[n] = n);
+// allDuplicat[ed]Names !== allDuplicat[e]Names
+allDuplicatedNames = Object.values(tempDupHolderobj);
+
+getDuplicatesForName = function(companyName) {
+	return allDuplicatesInNewAndOld.filter(c => c.name === companyName);
+}
+
+sortedDuplicates = allDuplicatedNames.map(n => getDuplicatesForName(n));
 
 let obj;
 let vize;
