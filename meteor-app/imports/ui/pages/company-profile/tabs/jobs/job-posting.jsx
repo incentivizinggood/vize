@@ -59,7 +59,7 @@ export default class JobPosting extends React.Component {
 						<p>
 							<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;
 							{this.props.jobAd.pesosPerHour}
-							{i18n.__("common.jobpostings.hour")}
+							{i18n.__("common.jobpostings.week")}
 						</p>
 						<p>
 							<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;

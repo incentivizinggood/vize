@@ -4,6 +4,9 @@ import { Comments } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
+import i18n from "meteor/universe:i18n";
+
+const T = i18n.createComponent();
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 

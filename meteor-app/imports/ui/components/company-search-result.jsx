@@ -14,11 +14,11 @@ function CompanySearchResult(props) {
 	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
 	return (
 		<div>
-			<div className="container box2 all_boxcolor">
-				<div className="container  welpad1">
+			<div className="container company-search-container">
+				<div className="container">
 					<div className="col-md-3  prostar">
-						<a href={companyProfileUrl}>
-							<div className="shdo">
+						<a href={companyProfileUrl} target="_blank">
+							<div className="company-search-img">
 								<img
 									src="/images/default-company.png"
 									className="img-responsive"
@@ -80,6 +80,8 @@ function CompanySearchResult(props) {
 							<div className="titlestar">
 								<WriteReviewButton
 									companyId={props.company.id}
+									styleField="float: 'right'"
+									classField="btn btn-primary btn-lg hide-button-mobile float-right"
 								/>
 							</div>
 						</div>
@@ -114,8 +116,36 @@ function CompanySearchResult(props) {
 						</div>
 					</div>
 					<div className="col-md-9">
-						<div className="pargrf">
+						<div className="company-search-desc">
 							<p>{props.company.descriptionOfCompany}</p>
+						</div>
+						<WriteReviewButton
+							companyId={props.company.id}
+							classField="btn btn-primary btn-lg add-review-btn-mobile"
+						/>
+						<div className="btn_mob_view_only">
+							<div className="group_all_btn">
+								<div className="btn-group btn-group-justified ">
+									<a
+										href="#"
+										className="btn btn-primary border_btn color_btn"
+									>
+										Reviews
+									</a>
+									<a
+										href="#"
+										className="btn btn-primary color_btn"
+									>
+										Jobs
+									</a>
+									<a
+										href="#"
+										className="btn btn-primary border_btn color_btn"
+									>
+										Salaries
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

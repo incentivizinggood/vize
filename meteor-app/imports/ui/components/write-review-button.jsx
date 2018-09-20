@@ -22,7 +22,7 @@ export default class WriteReviewButton extends React.Component {
 		return (
 			<a
 				href={`/write-review/?id=${this.props.companyId}`}
-				className="btn btn-primary  add_review replus"
+				className={this.props.classField}
 			>
 				<FontAwesomeIcon icon="plus" />&nbsp;
 				{t("common.overview_tab.add_review")}
@@ -33,4 +33,5 @@ export default class WriteReviewButton extends React.Component {
 
 WriteReviewButton.propTypes = {
 	companyId: PropTypes.string.isRequired,
+	classField: PropTypes.string.isRequired,
 };

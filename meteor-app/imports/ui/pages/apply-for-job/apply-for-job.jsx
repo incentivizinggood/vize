@@ -12,6 +12,7 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 // Specific stuff second
 import { JobAds } from "/imports/api/data/jobads.js";
@@ -63,7 +64,7 @@ if (Meteor.isClient) {
 		getCompanyName() {
 			const job = afj_form_state.get("job");
 			if (job === undefined) {
-				return "ERROR: INVALID JOB ID";
+				return i18n.__("common.afj.invalidJobId");
 			}
 			return job.companyName;
 		},
@@ -138,6 +139,7 @@ export default class ApplyForJobForm extends React.Component {
 					<Blaze template="afj_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}

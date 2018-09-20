@@ -60,62 +60,6 @@ export default class SalaryTab extends React.Component {
 
 					{/* mobile view range show  section 1  code */}
 
-					<div className="mobile_view">
-						<div>
-							<div className="hed-soft-mob">
-								<p>Software Engineer</p>
-							</div>
-
-							<p className="mal-r">Male</p>
-							<div className="pad-r">
-								<p>
-									Average<span>:$125,333</span>
-								</p>
-								<p>
-									Range<span>:$99k-166k</span>
-								</p>
-							</div>
-
-							<p className="mal-r">Female</p>
-							<div className="pad-r">
-								<p>
-									Average<span>:$125,333</span>
-								</p>
-								<p>
-									Range<span>:$99k-166k</span>
-								</p>
-							</div>
-						</div>
-
-						<div>
-							<hr />
-							<div className="hed-soft-mob">
-								<p>Product Manager</p>
-							</div>
-
-							<p className="mal-r">Male</p>
-							<div className="pad-r">
-								<p>
-									Average<span>:$125,333</span>
-								</p>
-								<p>
-									Range<span>:$99k-166k</span>
-								</p>
-							</div>
-
-							<p className="mal-r">Female</p>
-							<div className="pad-r">
-								<p>
-									Average<span>:$125,333</span>
-								</p>
-								<p>
-									Range<span>:$99k-166k</span>
-								</p>
-							</div>
-						</div>
-
-						{/* mobile view range show   code  end */}
-					</div>
 					<div className="clear" />
 				</div>
 			</div>
