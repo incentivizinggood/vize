@@ -1,14 +1,58 @@
-// this is where I compile all the things
-// while I test and figure them out in the REPL
-// if this code looks bad or improper, don't worry:
-// it's only ever meant to be run in the Node.js
-// REPL via copy-paste
-
 /*
+	NOTE
+	This is where I compile all the things
+	while I test and figure them out in the REPL
+	if this code looks bad or improper, don't worry:
+	it's only ever meant to be run in the Node.js
+	REPL via copy-paste.
+
+	WARNING
+	I have not yet discovered and elegant way to synchronize
+	this code with /imports/api/models/helpers/postgresql
+	and imports/api/graphql/connectors/postgresql.js, where
+	it is ultimately used, and a lot of times I edit things
+	in those directories during a live testing session and
+	forget to copy them back to here, so maybe double-check
+	before you try running this code, and if you end up
+	maintaining this code, make sure it stays in a usable state.
+
+	WARNING
+	The most recent version Node.js that I know to be compatible
+	with this code is 10.6.0. It appears that later versions
+	have broken the REPL async/await capabilities (enabled via the
+	--experimental-repl-await command-line flag) that this file
+	depends on. Hopefully that problem either gets fixed, or we
+	figure out a more long-term way to develop this code.
+
+	WARNING
+	Don't expect to get meaningful test results by doing a
+	Ctrl-A -> Ctrl-C -> Ctrl-V (to REPL) just because the code
+	looks like it would work. I've organized it the way I have
+	(declarations before definitions in sections, and all
+	definitions before any test calls) to enable more rapid
+	REPL testing sessions, but I've found that if you try to run
+	all the code at once then there's a strong chance that part
+	of it is going to mess up. Not completely sure why. The
+	easiest way around this I've found is to make a habit of
+	copy-pasting everything down to the last test variable
+	definition into the REPL in one step, and copy-pasting the
+	tests in a second step.
+
+	WARNING
+	The implementation of wrapPgFunction cannot be exactly the
+	same in this file as in the production code, due to the fact
+	that error-handling is slightly different in the REPL and in
+	a running Meteor project. I've commented what parts of the
+	function are different, please pay close attention and do not
+	overwrite that accidentally, otherwise you will get strange
+	errors. This can be fixed if you can figure out a way to
+	import { Meteor } from "meteor/meteor" in the REPL.
+
 	QUESTION
 	Is it acceptable for null-values in certain fields
 	to be converted to 0 by casting to Number in the
-	various process*Results functions?
+	various process*Results functions? So far I've
+	been assuming "yes".
 */
 
 const { Pool } = require("pg");
@@ -99,8 +143,19 @@ wrapPgFunction = async function(func, readOnly) {
 
 		// removes function name and readOnly flag
 		// from start of args list
+		// as ugly as this code bit of code is, the only
+		// thing you need to do to understand it is to
+		// read the JavaScript documentation LOL
 		result = await func.apply(
 			null,
+			// okay fine I'll tell you:
+			// it means call "func" with an array of
+			// arguments which is the second argument
+			// to "apply". I construct this array by
+			// concatenating an array containing only
+			// client (which all the helper functions need)
+			// with other the arguments that are supposed to
+			// be passed in to func
 			[client].concat([...arguments].slice(2)[0])
 		);
 
@@ -113,6 +168,10 @@ wrapPgFunction = async function(func, readOnly) {
 		await client.release();
 	}
 
+	// WARNING
+	// This part differs from the actual production code
+	// because I couldn't figure out how to import the Meteor
+	// package in the REPL
 	if (result instanceof Error) {
 		throw new Error(
 			`${result.constraint}: ${result.detail} [sqlState ${result.code}]`
