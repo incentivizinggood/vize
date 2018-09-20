@@ -1472,6 +1472,8 @@ let tempDupHolderObj
 let allDuplicatedNames;
 let getDuplicatesForName;
 let sortedDuplicates;
+let areThereAnyActualDuplicates;
+let theActualDuplicatesIfAny;
 
 originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
 newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
@@ -1491,7 +1493,14 @@ getDuplicatesForName = function(companyName) {
 	return allDuplicatesInNewAndOld.filter(c => c.name === companyName);
 }
 
+getDuplicateValuesForName = function(companyName) {
+	return allDuplicatesInNewAndOld.filter(c => c.name === companyName).map(c => Object.values(c));
+}
+
 sortedDuplicates = allDuplicatedNames.map(n => getDuplicatesForName(n));
+sortedDuplicateValues = allDuplicatedNames.map(n => getDuplicateValuesForName(n));
+areThereAnyActualDuplicates = sortedDuplicateValues.map(arr => arraysAreEqual(arr[0],arr[1]));
+theActualDuplicatesIfAny = sortedDuplicateValues.filter(arr => arraysAreEqual(arr[0],arr[1]));
 
 let obj;
 let vize;
