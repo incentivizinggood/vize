@@ -1641,9 +1641,21 @@ writeKritsCompaniesToDb = async function() {
 /*
 	NOTE
 	This next bit where I did a bunch of scratchpadding
-	in the REPL trying to figure out why some of Krit's
-	companies weren't playing nice with the database.
-
+	in the REPL trying to figure out what was going on
+	with Krit's data set where multiple entries had
+	the same name field, or where entries in Krit's
+	data set had the same name field as entries in
+	the original data set.
+	This also revealed that some entries in Krit's data
+	set had very similar names to one in the original
+	data set, which in the worst case translates to two
+	profiles for the same company under slightly different
+	names.
+	Only one such duplicate-name-pair, in Krit's data set,
+	turned out to be a case of genuinely identical entries.
+	All the others differed in important ways, which means
+	we'll have to cull through them and figure out which
+	ones we want to keep and/or how to reconcile and "fix" them.
 */
 
 let arraysAreEqual;
