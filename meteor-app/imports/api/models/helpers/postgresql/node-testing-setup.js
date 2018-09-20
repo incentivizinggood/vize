@@ -1350,158 +1350,6 @@ processVoteResults = function(voteResults) {
 	return undefined;
 }
 
-let writeCompaniesToDb;
-let writeReviewsToDb;
-
-writeInitialCompaniesToDb = async function() {
-	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
-	return Promise.all(companies.map(async function(company) {
-		return PostgreSQL.executeMutation(createCompany, company);
-	}));
-}
-
-writeInitialReviewsToDb = async function() {
-	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
-	return Promise.all(reviews.map(async function(review) {
-		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
-		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
-		if(Array.isArray(review.locations)) {
-			const locations = review.locations;
-			review.locations = undefined;
-			review.location = locations.join(', ');
-		}
-		return PostgreSQL.executeMutation(submitReview, review);
-	}));
-}
-
-let arraysAreEqual;
-let numEmployeesIsValid;
-let translateNumEmployees;
-let findDuplicatesInArray;
-let writeOneKritCompanyToDb;
-let writeKritsCompaniesToDb;
-
-// https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
-arraysAreEqual = function(array1, array2) {
-	return array1.length === array2.length && array1.every((value, index) => value === array2[index]);
-}
-
-numEmployeesIsValid = function(numEmployees) {
-	return (
-		numEmployees === '1 - 50' || numEmployees === '51 - 500' || numEmployees === '501 - 2000' || numEmployees === '2001 - 5000' || numEmployees === '5000+'
-	)
-}
-
-// can fix simple stuff, but not more complex stuff
-// like invalid ranges or things with weird formats
-translateNumEmployees = function(numEmployees) {
-	if(numEmployeesIsValid(numEmployees)) {
-		return numEmployees;
-	}
-	let num = Number(numEmployees);
-	if(!Number.isNaN(num)) {
-		if(num <= 0)
-			return undefined;
-		if(num >= 1 && num <= 50)
-			return '1 - 50';
-		else if(num >= 51 && num <= 500)
-			return '51 - 500';
-		else if(num >= 501 && num <= 2000)
-			return '501 - 2000';
-		else if(num >= 2001 && num <= 5000)
-			return '2001 - 5000';
-		else
-			return '5000+';
-	}
-
-	return undefined;
-}
-
-// https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array#840808
-findDuplicatesInArray = function(array) {
-	let sorted_arr = array.slice().sort();
-	let results = [];
-	for (let i = 0; i < sorted_arr.length - 1; i++) {
-		if (sorted_arr[i + 1] == sorted_arr[i]) {
-			results.push(sorted_arr[i]);
-		}
-	}
-	return results;
-}
-
-writeOneKritCompanyToDb = async function(kritCompany) {
-	const emailWithTldRegex= /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	const urlRegex=/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
-	let obj = {};
-	obj.name = kritCompany.name;
-	obj.descriptionOfCompany = kritCompany.description;
-	obj.contactEmail = (emailWithTldRegex.test(kritCompany.email)) ? kritCompany.email : "unknown@unknown.com";
-	obj.numEmployees = translateNumEmployees(kritCompany.company_size);
-	obj.websiteURL = (urlRegex.test(kritCompany.url)) ? kritCompany.url : undefined;
-	obj.industry = kritCompany.industry;
-	obj.locations = [
-		JSON.stringify({
-			address: kritCompany.address,
-			industrialHub: kritCompany.industrial_hub
-		})
-	];
-	const res = PostgreSQL.executeMutation(createCompany, obj);
-	return res;
-}
-
-writeKritsCompaniesToDb = async function() {
-	const kritCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
-	return Promise.all(kritCompanies.map(async function(company) {
-		return writeOneKritCompanyToDb(company);
-	}));
-}
-
-// other things helpful to keep in mind while scratchpad-ing,
-// please note that I have made sure that all of the "newCompanies"
-// have the exact same key sets, so each one can be processed
-// in pretty much the same manner
-let originalCompanies;
-let newCompanies;
-let originalCompanyNames;
-let newCompanyNames;
-let originalNamesDuplicatedInNew;
-let newNamesDuplicatedInSelf;
-let allDuplicatesInNewAndOld;
-let allDuplicateNames;
-let tempDupHolderObj
-let allDuplicatedNames;
-let getDuplicatesForName;
-let sortedDuplicates;
-let areThereAnyActualDuplicates;
-let theActualDuplicatesIfAny;
-
-originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
-newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
-originalCompanyNames = originalCompanies.map(c => c.name);
-newCompanyNames = newCompanies.map(c => c.name);
-originalNamesDuplicatedInNew = originalCompanyNames.filter(n => newCompanyNames.includes(n));
-newNamesDuplicatedInSelf = findDuplicatesInArray(newCompanyNames);
-allDuplicatesInNewAndOld = newCompanies.filter(c => newNamesDuplicatedInSelf.includes(c.name) || originalNamesDuplicatedInNew.includes(c.name)).concat(originalCompanies.filter(c => originalNamesDuplicatedInNew.includes(c.name)));
-allDuplicateNames = allDuplicatesInNewAndOld.map(c => c.name).slice().sort();
-tempDupHolderobj = {};
-// screw hashsets
-allDuplicateNames.forEach(n => tempDupHolderobj[n] = n);
-// allDuplicat[ed]Names !== allDuplicat[e]Names
-allDuplicatedNames = Object.values(tempDupHolderobj);
-
-getDuplicatesForName = function(companyName) {
-	return allDuplicatesInNewAndOld.filter(c => c.name === companyName);
-}
-
-getDuplicateValuesForName = function(companyName) {
-	return allDuplicatesInNewAndOld.filter(c => c.name === companyName).map(c => Object.values(c));
-}
-
-sortedDuplicates = allDuplicatedNames.map(n => getDuplicatesForName(n));
-sortedDuplicateValues = allDuplicatedNames.map(n => getDuplicateValuesForName(n));
-areThereAnyActualDuplicates = sortedDuplicateValues.map(arr => arraysAreEqual(arr[0],arr[1]));
-theActualDuplicatesIfAny = sortedDuplicateValues.filter(arr => arraysAreEqual(arr[0],arr[1]));
-
 let obj;
 let vize;
 let vizeReview;
@@ -1647,3 +1495,214 @@ obj = await PostgreSQL.executeMutation(castVote, vizeVote);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote3);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote4);
+
+/*
+	NOTE
+	This next bit is the scratchpad I use for
+	things related to manual database maintenance,
+	many tasks of which are easiest to accomplish
+	by utilizing the tools and functions implemented
+	in the earlier portions of this file.
+*/
+
+/*
+	NOTE
+	This first section is for taking the "original"
+	reviews and company profiles, parsing them,
+	translating them to the latests schema version
+	if necessary, and inserting them to whatever
+	database instance we connected to earlier
+	in the file.
+	Pathnames are hard-coded based on my personal
+	Arch Linux installation. You will probably need
+	to change them if you want to use them yourself.
+	Otherwise, when I think of a better way to do things,
+	I will update this code.
+	The current way has worked well because of how
+	the project structure has kept changing. However,
+	if we were to designate a directory where this data
+	could be kept and committed it to source control,
+	we could update the pathnames and make them relative,
+	which would enable anyone to use this bit of code.
+*/
+
+let writeInitialCompaniesToDb;
+let writeInitialReviewsToDb;
+
+writeInitialCompaniesToDb = async function() {
+	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+	return Promise.all(companies.map(async function(company) {
+		return PostgreSQL.executeMutation(createCompany, company);
+	}));
+}
+
+writeInitialReviewsToDb = async function() {
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	return Promise.all(reviews.map(async function(review) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
+		if(Array.isArray(review.locations)) {
+			const locations = review.locations;
+			review.locations = undefined;
+			review.location = locations.join(', ');
+		}
+		return PostgreSQL.executeMutation(submitReview, review);
+	}));
+}
+
+/*
+	NOTE
+	The next two sections are for working with Krit's data set,
+	which contains the info for 400+ company profiles. There
+	are a few helper functions for helping me analyze and
+	translate the JSON file, and then functions for actually
+	sending the profiles to the database.
+	There ended up being several issues with the data,
+	some of which are resolved by code in the following section
+	section, and some of which are still unresolved
+	but can be analyzed and demonstrated using the code
+	in the section after.
+	The first problems were "invalid" emails and URL's.
+	This was fixed by processing the companies in a way
+	that set those fields to undefined if they were invalid.
+	Next up were invalid employee counts, which I could
+	only partially fix by saying "If it's not one of the
+	allowed values but it's still a plain number, translate
+	to the range it falls in," which fixes many cases
+	but not ones in which an invalid range is given.
+	Then of course there was the fact that Krit's companies
+	didn't have a location field but rather an address and
+	an industrial park, which was pretty simple to fix.
+*/
+
+let numEmployeesIsValid;
+let translateNumEmployees;
+let writeOneKritCompanyToDb;
+let writeKritsCompaniesToDb;
+
+numEmployeesIsValid = function(numEmployees) {
+	return (
+		numEmployees === '1 - 50' || numEmployees === '51 - 500' || numEmployees === '501 - 2000' || numEmployees === '2001 - 5000' || numEmployees === '5000+'
+	)
+}
+
+// can fix simple stuff, but not more complex stuff
+// like invalid ranges or things with weird formats
+translateNumEmployees = function(numEmployees) {
+	if(numEmployeesIsValid(numEmployees)) {
+		return numEmployees;
+	}
+	let num = Number(numEmployees);
+	if(!Number.isNaN(num)) {
+		if(num <= 0)
+			return undefined;
+		if(num >= 1 && num <= 50)
+			return '1 - 50';
+		else if(num >= 51 && num <= 500)
+			return '51 - 500';
+		else if(num >= 501 && num <= 2000)
+			return '501 - 2000';
+		else if(num >= 2001 && num <= 5000)
+			return '2001 - 5000';
+		else
+			return '5000+';
+	}
+
+	return undefined;
+}
+
+writeOneKritCompanyToDb = async function(kritCompany) {
+	const emailWithTldRegex= /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const urlRegex=/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+	let obj = {};
+	obj.name = kritCompany.name;
+	obj.descriptionOfCompany = kritCompany.description;
+	obj.contactEmail = (emailWithTldRegex.test(kritCompany.email)) ? kritCompany.email : "unknown@unknown.com";
+	obj.numEmployees = translateNumEmployees(kritCompany.company_size);
+	obj.websiteURL = (urlRegex.test(kritCompany.url)) ? kritCompany.url : undefined;
+	obj.industry = kritCompany.industry;
+	obj.locations = [
+		JSON.stringify({
+			address: kritCompany.address,
+			industrialHub: kritCompany.industrial_hub
+		})
+	];
+	const res = PostgreSQL.executeMutation(createCompany, obj);
+	return res;
+}
+
+writeKritsCompaniesToDb = async function() {
+	const kritCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+	return Promise.all(kritCompanies.map(async function(company) {
+		return writeOneKritCompanyToDb(company);
+	}));
+}
+
+/*
+	NOTE
+	This next bit where I did a bunch of scratchpadding
+	in the REPL trying to figure out why some of Krit's
+	companies weren't playing nice with the database.
+
+*/
+
+let arraysAreEqual;
+let findDuplicatesInArray;
+let originalCompanies;
+let newCompanies;
+let originalCompanyNames;
+let newCompanyNames;
+let originalNamesDuplicatedInNew;
+let newNamesDuplicatedInSelf;
+let allDuplicatesInNewAndOld;
+let allDuplicateNames;
+let tempDupHolderObj;
+let allDuplicatedNames;
+let getDuplicatesForName;
+let sortedDuplicates;
+let areThereAnyActualDuplicates;
+let theActualDuplicatesIfAny;
+
+// https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
+arraysAreEqual = function(array1, array2) {
+	return array1.length === array2.length && array1.every((value, index) => value === array2[index]);
+}
+
+// https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array#840808
+findDuplicatesInArray = function(array) {
+	let sorted_arr = array.slice().sort();
+	let results = [];
+	for (let i = 0; i < sorted_arr.length - 1; i++) {
+		if (sorted_arr[i + 1] == sorted_arr[i]) {
+			results.push(sorted_arr[i]);
+		}
+	}
+	return results;
+}
+
+originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+originalCompanyNames = originalCompanies.map(c => c.name);
+newCompanyNames = newCompanies.map(c => c.name);
+originalNamesDuplicatedInNew = originalCompanyNames.filter(n => newCompanyNames.includes(n));
+newNamesDuplicatedInSelf = findDuplicatesInArray(newCompanyNames);
+allDuplicatesInNewAndOld = newCompanies.filter(c => newNamesDuplicatedInSelf.includes(c.name) || originalNamesDuplicatedInNew.includes(c.name)).concat(originalCompanies.filter(c => originalNamesDuplicatedInNew.includes(c.name)));
+allDuplicateNames = allDuplicatesInNewAndOld.map(c => c.name).slice().sort();
+tempDupHolderobj = {};
+// screw hashsets
+allDuplicateNames.forEach(n => tempDupHolderobj[n] = n);
+// NOTE allDuplicat[ed]Names !== allDuplicat[e]Names
+allDuplicatedNames = Object.values(tempDupHolderobj);
+
+getDuplicatesForName = function(companyName) {
+	return allDuplicatesInNewAndOld.filter(c => c.name === companyName);
+}
+
+getDuplicateValuesForName = function(companyName) {
+	return allDuplicatesInNewAndOld.filter(c => c.name === companyName).map(c => Object.values(c));
+}
+
+sortedDuplicates = allDuplicatedNames.map(n => getDuplicatesForName(n));
+sortedDuplicateValues = allDuplicatedNames.map(n => getDuplicateValuesForName(n));
+areThereAnyActualDuplicates = sortedDuplicateValues.map(arr => arraysAreEqual(arr[0],arr[1]));
+theActualDuplicatesIfAny = sortedDuplicateValues.filter(arr => arraysAreEqual(arr[0],arr[1]));
