@@ -16,6 +16,7 @@ import {
 	faUser,
 	faEnvelope,
 	faBuilding,
+	faSearch,
 	faComments,
 	faPaperPlane,
 	faTimes,
@@ -38,6 +39,7 @@ library.add(
 	faUser,
 	faEnvelope,
 	faBuilding,
+	faSearch,
 	faComments,
 	faPaperPlane,
 	faTimes
