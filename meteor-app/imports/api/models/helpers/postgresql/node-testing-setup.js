@@ -1409,46 +1409,6 @@ processVoteResults = function(voteResults) {
 	return undefined;
 }
 
-let writeCompaniesToProductionDb;
-let writeReviewsToProductionDb;
-
-writeInitialCompaniesToDb = async function() {
-	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
-	return Promise.all(companies.map(async function(company) {
-		return PostgreSQL.executeMutation(createCompany, company);
-	}));
-}
-
-writeInitialReviewsToDb = async function() {
-	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
-	return Promise.all(reviews.map(async function(review) {
-		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
-		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
-		if(Array.isArray(review.locations)) {
-			const locations = review.locations;
-			review.locations = undefined;
-			review.location = locations.join(', ');
-		}
-		return PostgreSQL.executeMutation(submitReview, review);
-	}));
-}
-
-writeInitialReviewsToJSON = async function() {
-	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
-	const formattedReviews = reviews.map(function(review) {
-		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
-		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
-		if(Array.isArray(review.locations)) {
-			const locations = review.locations;
-			review.locations = undefined;
-			review.location = locations.join(', ');
-		}
-		return review;
-	});
-	console.log(formattedReviews);
-	return fs.writeFileSync('/home/jhigginbotham64/Desktop/vize/initial-reviews.json', JSON.stringify(formattedReviews));
-}
-
 // object declarations/definitions for use in later tests
 let obj;
 let vize;
@@ -1596,3 +1556,79 @@ obj = await PostgreSQL.executeMutation(castVote, vizeVote);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote3);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote4);
+
+
+/*
+	NOTE
+	This next bit is the scratchpad I use for
+	things related to manual database maintenance,
+	many tasks of which are easiest to accomplish
+	by utilizing the tools and functions implemented
+	in the earlier portions of this file.
+*/
+
+/*
+	NOTE
+	This first section is for taking the "original"
+	reviews and company profiles, parsing them,
+	translating them to the latests schema version
+	if necessary, and inserting them to whatever
+	database instance we connected to earlier
+	in the file.
+	Pathnames are hard-coded based on my personal
+	Arch Linux installation. You will probably need
+	to change them if you want to use them yourself.
+	Otherwise, when I think of a better way to do things,
+	I will update this code.
+	The current way has worked well because of how
+	the project structure has kept changing. However,
+	if we were to designate a directory where this data
+	could be kept and committed it to source control,
+	we could update the pathnames and make them relative,
+	which would enable anyone to use this bit of code.
+*/
+
+let writeInitialCompaniesToDb;
+let writeInitialReviewsToDb;
+let writeInitialReviewsToJSON;
+
+writeInitialCompaniesToDb = async function() {
+	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+	return Promise.all(companies.map(async function(company) {
+		return PostgreSQL.executeMutation(createCompany, company);
+	}));
+}
+
+writeInitialReviewsToDb = async function() {
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	return Promise.all(reviews.map(async function(review) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
+		if(Array.isArray(review.locations)) {
+			const locations = review.locations;
+			review.locations = undefined;
+			review.location = locations.join(', ');
+		}
+		return PostgreSQL.executeMutation(submitReview, review);
+	}));
+}
+
+// NOTE
+// This was my experiment in writing the Reviews
+// to a new .json file with the new schema, in preparation
+// for the data analytics meeting with Bryce and Charter.
+writeInitialReviewsToJSON = async function() {
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	const formattedReviews = reviews.map(function(review) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
+		if(Array.isArray(review.locations)) {
+			const locations = review.locations;
+			review.locations = undefined;
+			review.location = locations.join(', ');
+		}
+		return review;
+	});
+	console.log(formattedReviews);
+	return fs.writeFileSync('/home/jhigginbotham64/Desktop/vize/initial-reviews.json', JSON.stringify(formattedReviews));
+}
