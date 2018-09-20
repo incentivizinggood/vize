@@ -1350,6 +1350,7 @@ processVoteResults = function(voteResults) {
 	return undefined;
 }
 
+// object declarations/definitions for use in later tests
 let obj;
 let vize;
 let vizeReview;
@@ -1443,8 +1444,9 @@ vizeVote4 = {
 	value: false
 }
 
-// NOTE requires that server/sql/tests/setup-playground.sql has
-// been run on the machine that these queries are being sent to
+// NOTE
+// These tests require that server/sql/tests/setup-playground.sql has
+// been run on the database that these queries are being sent to.
 
 // company query functions
 obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyByName, "a"));
@@ -1528,6 +1530,7 @@ obj = await PostgreSQL.executeMutation(castVote, vizeVote4);
 
 let writeInitialCompaniesToDb;
 let writeInitialReviewsToDb;
+let writeInitialReviewsToJSON;
 
 writeInitialCompaniesToDb = async function() {
 	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
@@ -1548,6 +1551,26 @@ writeInitialReviewsToDb = async function() {
 		}
 		return PostgreSQL.executeMutation(submitReview, review);
 	}));
+}
+
+// NOTE
+// This was my experiment in writing the Reviews
+// to a new .json file with the new schema, in preparation
+// for the data analytics meeting with Bryce and Charter.
+writeInitialReviewsToJSON = async function() {
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	const formattedReviews = reviews.map(function(review) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
+		if(Array.isArray(review.locations)) {
+			const locations = review.locations;
+			review.locations = undefined;
+			review.location = locations.join(', ');
+		}
+		return review;
+	});
+	console.log(formattedReviews);
+	return fs.writeFileSync('/home/jhigginbotham64/Desktop/vize/initial-reviews.json', JSON.stringify(formattedReviews));
 }
 
 /*
