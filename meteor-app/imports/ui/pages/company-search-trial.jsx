@@ -145,7 +145,7 @@ export default class CompanySearchTrial extends React.Component {
 			</form>
 		);
 		return (
-			<div className="customcompanypage">
+			<div>
 				<div className="navbarwhite">
 					<Header />
 				</div>

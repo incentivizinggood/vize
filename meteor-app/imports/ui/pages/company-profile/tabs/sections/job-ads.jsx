@@ -20,11 +20,15 @@ export default function JobsSection(props) {
 					</h4>
 				</div>
 				<div>
-					<div className="add-buttons">
+					<div
+						className="add-buttons"
+						style={{ float: "right", marginTop: "0px" }}
+					>
 						<a
 							href={urlGenerators.vizeApplyForJobUrl(
 								props.jobAds[0].id
 							)}
+							style={{ float: "right" }}
 							className="btn btn-primary"
 						>
 							{" "}
@@ -72,6 +76,8 @@ export default function JobsSection(props) {
 				<h4 className="head_section_font">
 					{props.numJobAds} <T>common.overview_tab.jobs_available</T>
 				</h4>
+				<br />
+				<br />
 				<hr />
 
 				{jobAdsToDisplay}

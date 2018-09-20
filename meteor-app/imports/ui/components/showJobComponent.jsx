@@ -44,7 +44,10 @@ export default class ShowJobComponent extends React.Component {
 					</div>
 
 					<div>
-						<div className="add-buttons">
+						<div
+							className="add-buttons"
+							style={{ float: "right", marginTop: "0px" }}
+						>
 							<a
 								href={urlGenerators.vizeApplyForJobUrl(
 									this.props.item.id
