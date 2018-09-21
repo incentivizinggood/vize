@@ -11,8 +11,8 @@ const t = i18n.createTranslator();
 function WriteReviewButton(props) {
 		return (
 			<a
-				href={`/write-review/?id=${this.props.companyId}`}
-				className={this.props.classField}
+				href={`/write-review/?id=${props.companyId}`}
+				className={props.classField}
 			>
 				<FontAwesomeIcon icon="plus" />&nbsp;
 				{t("common.overview_tab.add_review")}
