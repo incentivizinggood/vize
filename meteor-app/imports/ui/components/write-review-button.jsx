@@ -9,19 +9,22 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
 const t = i18n.createTranslator();
 
 function WriteReviewButton(props) {
-	return (
-		<a
-			href={`/write-review/?id=${props.companyId}`}
-			className="btn btn-primary  add_review replus"
-		>
-			<FontAwesomeIcon icon="plus" />&nbsp;
-			{t("common.overview_tab.add_review")}
-		</a>
-	);
-}
+		return (
+			<a
+				href={`/write-review/?id=${this.props.companyId}`}
+				className={this.props.classField}
+			>
+				<FontAwesomeIcon icon="plus" />&nbsp;
+				{t("common.overview_tab.add_review")}
+			</a>
+		);
+	}
+
+
 
 WriteReviewButton.propTypes = {
 	companyId: PropTypes.string.isRequired,
+	classField: PropTypes.string.isRequired,
 };
 
 export default withUpdateOnChangeLocale(WriteReviewButton);

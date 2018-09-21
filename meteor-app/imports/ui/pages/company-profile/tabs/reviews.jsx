@@ -33,27 +33,29 @@ export default class ReviewTab extends React.Component {
 
 		return (
 			<div role="tabpanel" className="tab-pane" id="reviews">
-				<div className="col-md-12  section_rview_back_color2  ">
-					<h4 className="head_section_font">
-						{this.props.company.name}{" "}
-						<T>common.review_tab.reviews</T>
-					</h4>
-					<div className="add-buttons">
-						<a
-							href={urlGenerators.vizeReviewUrl(
-								this.props.company.id
-							)}
-							className="btn btn-primary"
-						>
-							{" "}
-							<FontAwesomeIcon icon="plus" />{" "}
-							{i18n.__("common.overview_tab.add_review")}
-						</a>
-						{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
-					</div>
-					<hr />
+				<div className="row">
+					<div className="col-md-12  section_rview_back_color2  ">
+						<h4 className="head_section_font">
+							{this.props.company.name}{" "}
+							<T>common.review_tab.reviews</T>
+						</h4>
+						<div className="add-buttons">
+							<a
+								href={urlGenerators.vizeReviewUrl(
+									this.props.company.id
+								)}
+								className="btn btn-primary"
+							>
+								{" "}
+								<FontAwesomeIcon icon="plus" />{" "}
+								{i18n.__("common.overview_tab.add_review")}
+							</a>
+							{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
+						</div>
+						<hr />
 
-					<CompanyRating company={this.props.company} />
+						<CompanyRating company={this.props.company} />
+					</div>
 				</div>
 
 				{renderItems}

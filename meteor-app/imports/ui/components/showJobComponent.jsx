@@ -34,10 +34,12 @@ function ShowJobComponent(props) {
 				</div>
 
 				<div>
-					<div className="add-buttons">
+					<div className="add-buttons"
+            style={{ float: "right", marginTop: "0px" }}>
 						<a
 							href={urlGenerators.vizeApplyForJobUrl(
 								props.item.id
+
 							)}
 							className="btn btn-primary"
 						>
