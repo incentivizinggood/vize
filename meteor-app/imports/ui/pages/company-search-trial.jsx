@@ -7,6 +7,7 @@ import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
@@ -89,7 +90,7 @@ SearchResults.propTypes = {
 };
 
 // /////////////Company Search -- Main Component////////////////////
-export default class CompanySearchTrial extends React.Component {
+class CompanySearchTrial extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -98,17 +99,6 @@ export default class CompanySearchTrial extends React.Component {
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleInputChange(event) {
@@ -183,3 +173,5 @@ CompanySearchTrial.propTypes = {
 CompanySearchTrial.defaultProps = {
 	searchText: "",
 };
+
+export default withUpdateOnChangeLocale(CompanySearchTrial);
