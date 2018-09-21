@@ -60,6 +60,17 @@ Accounts.onCreateUser(function(options, user) {
 		console.log(user);
 	}
 
+	/*
+		The hodge-podge nature of our current database
+		solution requires duplicating some data over to
+		PostgreSQL. Which is to say, user accounts are
+		the only element of the data model kept in MongoDB,
+		but other elements in the data model (such as the
+		submittedby fields on reviews and salaries) depend
+		on the user accounts despite being kept in PostgreSQL,
+		and the easiest solution for now is to duplicate
+		some information between the two databases.
+	*/
 	const newUser = Meteor.call("postgres.users.createUser", {
 		_id: user._id,
 		role: options.role,
