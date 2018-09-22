@@ -51,10 +51,6 @@ ssd_form_state.set("incomeTypeOptions", [
 		value: "Monthly Salary",
 	},
 	{
-		label: i18n.__("common.forms.ssd.payTypes.weeklySalary"),
-		value: "Weekly Salary",
-	},
-	{
 		label: i18n.__("common.forms.ssd.payTypes.hourlyWage"),
 		value: "Hourly Wage",
 	},
@@ -81,35 +77,29 @@ if (Meteor.isClient) {
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.yearlySalary"
 					),
-					value: reactiveCommonTranslator(
-						"forms.ssd.payTypes.yearlySalary"
-					),
+					value: "Yearly Salary",
 				},
 				{
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.monthlySalary"
 					),
-					value: reactiveCommonTranslator(
-						"forms.ssd.payTypes.monthlySalary"
-					),
+					value: "Monthly Salary",
 				},
 				{
 					label: reactiveCommonTranslator(
 						"forms.ssd.payTypes.hourlyWage"
 					),
-					value: reactiveCommonTranslator(
-						"forms.ssd.payTypes.hourlyWage"
-					),
+					value: "Hourly Wage",
 				},
 			]);
 			ssd_form_state.set("genderOptions", [
 				{
 					label: reactiveCommonTranslator("gender.male"),
-					value: reactiveCommonTranslator("gender.male"),
+					value: "Male",
 				},
 				{
 					label: reactiveCommonTranslator("gender.female"),
-					value: reactiveCommonTranslator("gender.female"),
+					value: "Female",
 				},
 			]);
 		});
