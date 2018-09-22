@@ -57,14 +57,19 @@ export const processLocation = function(location) {
 
 		if (
 			locationObj.industrialHub !== undefined &&
-			locationObj.industrialHub !== null
+			locationObj.industrialHub !== null &&
+			locationObj.industrialHub !== "-" &&
+			locationObj.industrialHub !== "(unknown or not provided by user)"
+
 		)
 			returnVal = locationObj.industrialHub;
-		else if (locationObj.city !== undefined && locationObj.city !== null)
+		else if (locationObj.city !== undefined && locationObj.city !== null && locationObj.city !== "-" && locationObj.city !== "(unknown or not provided by user)")
 			returnVal = locationObj.city;
 		else if (
 			locationObj.address !== undefined &&
-			locationObj.address !== null
+			locationObj.address !== null &&
+			locationObj.address !== "-" &&
+			locationObj.address !== "(unknown or not provided by user)"
 		)
 			returnVal = locationObj.address;
 	} catch (e) {
