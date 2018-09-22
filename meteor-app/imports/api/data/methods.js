@@ -141,16 +141,6 @@ Meteor.methods({
 
 	/*
 		TODO
-		I won't be able to test reviews.changeVote in
-		its proper context until the review ID
-		format is changed. Submitting reviews works fine,
-		but this method takes input from the frontend,
-		which doesn't know about the changes yet.
-		Also the schemas and validation will have to
-		be updated as well.
-		Dang.
-
-		TODO
 		We don't yet have the ability to vote on comments.
 		I guess that's because we don't have the ability to
 		write or view comments yet...oh well...
@@ -331,13 +321,6 @@ Meteor.methods({
 		return newPgSalary;
 	},
 
-	/*
-		TODO
-		This is another function that can't be
-		tested until the frontend is updated,
-		since it is accessed from the company
-		profile page.
-	*/
 	async "jobads.findOne"(jobIdentifier) {
 		const job = await PostgreSQL.executeQuery(
 			PgJobAdFunctions.getJobAdById,
@@ -362,13 +345,6 @@ Meteor.methods({
 		return true;
 	},
 
-	/*
-		TODO
-		This one doesn't write to any of the collections,
-		but it does read from them pretty extensively,
-		so you can probably go ahead and fix it up to
-		start using mostly PostgreSQL.
-	*/
 	async "jobads.applyForJob"(jobApplication) {
 		jobApplication = JobAds.applicationSchema.clean(jobApplication);
 		const validationResult = JobAds.applicationSchema

@@ -55,11 +55,7 @@ export default class VoteModel {
 	// Get the vote cast by a given user on a given thing.
 	async getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
 		let subjectOfVote;
-		// console.log("GraphQL: getVoteByAuthorAndSubject");
-		// console.log("user: ");
-		// console.log(user);
-		// console.log("subject: ");
-		// console.log(subject);
+
 		if (this.reviewModel.isReview(subject)) {
 			subjectOfVote = "review";
 		} else if (this.commentModel.isComment(subject)) {
@@ -84,14 +80,6 @@ export default class VoteModel {
 				}
 			)
 		);
-		// Assuming voteSubject's type for now.
-		// const voteSubject = "review";
-		//
-		// return this.connector.findOne({
-		// 	submittedBy: user._id,
-		// 	voteSubject,
-		// 	references: subject._id,
-		// });
 	}
 
 	// Get all votes cast by a given user.

@@ -187,6 +187,11 @@ CREATE TABLE reviews (
 	-- ALTER TABLE reviews ALTER submittedby DROP NOT NULL;
 	-- # add reviews in node REPL
 	-- ALTER TABLE reviews ADD CHECK (submittedby IS NOT NULL) NOT VALID;
+	-- ...and if, for some reason, you need to do a refresh "in flight",
+	-- after this point, you can simply run
+	-- ALTER TABLE reviews DROP CONSTRAINT reviews_submittedby_check;
+	-- ...then do whatever you need with the reviews, then add
+	-- them back in if necessary, then re-run the ADD CHECK.
 	submittedBy			integer			NOT NULL
 		REFERENCES users (userId)
 		ON UPDATE CASCADE ON DELETE CASCADE -- this raises the question, should we retain reviews and salaries for users who delete their accounts?

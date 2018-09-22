@@ -81,6 +81,7 @@ export default class PgJobAdFunctions {
 	}
 
 	static async postJobAd(client, jobad) {
+		// assumes SimpleSchema format for jobad
 		let newJobAd = { rows: [] };
 		let newLocations = { rows: [] };
 

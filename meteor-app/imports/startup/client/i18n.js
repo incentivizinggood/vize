@@ -185,6 +185,11 @@ setUpI18nOnSchema(Reviews.schema, "Reviews");
 setUpI18nOnSchema(Salaries.schema, "Salaries");
 setUpI18nOnSchema(Votes.schema, "Votes");
 
+// This is used on input forms whenever I couldn't
+// figure out an easier way to do things. I thin it was
+// either/both field labels and selector drop-downs
+// that need this for reactive translation. Look at the
+// code in /imports/ui if you want to be sure.
 const reactiveCommonTranslator = i18n.createReactiveTranslator("common");
 
 export {

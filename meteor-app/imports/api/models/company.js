@@ -88,6 +88,8 @@ export default class CompanyModel {
 		);
 	}
 
+	// return all companies whose name
+	// contains the given search text
 	async searchForCompanies(
 		searchText: string,
 		pageNumber: number = 0,

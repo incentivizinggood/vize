@@ -132,10 +132,7 @@ export default class PgVoteFunctions {
 		// which seems kind of pointless. Skipping for now,
 		// and will ignore until we think of some actual use case.
 
-		// Just realized that the reviewVotes/commentVotes case
-		// goes through the views, just like the votes case.
-		// Not sure how we would need to process the results,
-		// because I'm not sure how it would be used. Skipping for now.
+		// TODO add case for reviewVotes/commentVotes in case it's ever needed
 
 		return undefined;
 	}
