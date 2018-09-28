@@ -36,7 +36,9 @@ turn. These components are:
 
 
 
-## Meteor Guide References:
+## Links to External Documentation
+
+Meteor Guide References:
 
 Methods: https://guide.meteor.com/methods.html
 
