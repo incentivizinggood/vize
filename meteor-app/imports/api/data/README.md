@@ -41,6 +41,18 @@ and votes.js, you will see a line like this:
         idGeneration: "STRING",
     });
 
+This creates a special object, an instance of a class provided by Meteor to
+interface with Mongo collections. The object can in many ways be thought of
+as literally being Mongo collection with the name "UnderTheHoodCollectionName",
+and indeed if no Collection with the name "UnderTheHoodCollectionName" exists
+when that line is executed, then Meteor will ask Mongo to create one.
+
+The second argument is a JSON object with "creation options" for the Mongo
+collection. There may be several possible options you can specify, but the
+only one that concerns us is idGeneration. This changes how Mongo generates
+the \_id fields for newly-inserted documents, which is supposed to uniquely
+identify each document and serve as a "primary key" of sorts.
+
 __3. Remote Procedure Calls ("methods")__
 
 
