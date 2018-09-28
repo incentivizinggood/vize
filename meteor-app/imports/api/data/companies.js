@@ -299,7 +299,7 @@ Companies.deny({
 });
 
 if (Meteor.isServer) {
-	Companies.rawCollection().createIndex({ name: "text" });
+	// Companies.rawCollection().createIndex({ name: "text" });
 
 	Meteor.publish("CompanyProfiles", function() {
 		return Companies.find({});
