@@ -20,19 +20,19 @@ turn. These components are:
 3) Remote Procedure Call implementations (handled through Meteor's "Method" construct)
 4) Client-side data validation (handled through Collection2, SimpleSchema, and AutoForms in concert)
 
-*1. JSON Object Validation*
+_1. JSON Object Validation_
 
 
 
-*2. Mongo Collections (legacy)*
+_2. Mongo Collections (legacy)_
 
 
 
-*3. Remote Procedure Calls ("methods")*
+_3. Remote Procedure Calls ("methods")_
 
 
 
-*4. Client-side Input Validation*
+_4. Client-side Input Validation_
 
 
 
