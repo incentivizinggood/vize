@@ -8,7 +8,8 @@ definitions, MongoDB "schemas", denormalization helpers, and methods.
 Most of the code can be understood by reading the documentation for the respective
 Meteor packages and features being used. Code comments will be reserved for
 implementation and design details. Nonetheless, here follows an explanation to help
-so-and-so get started with this code.
+so-and-so get started with this code. If all you want is the references to the
+documentation, just hold PgDn until you get to the end.
 
 This directory contains a variety of interesting and important components
 of our current solution stack, each of which deserve to be discussed in
@@ -19,9 +20,23 @@ turn. These components are:
 3) Remote Procedure Call implementations (handled through Meteor's "Method" construct)
 4) Client-side data validation (handled through Collection2, SimpleSchema, and AutoForms in concert)
 
--- TO BE CONTINUED --
+## 1. JSON Object Validation
 
-Meteor Guide References:
+
+
+## 2. Mongo Collections (legacy)
+
+
+
+## 3. Remote Procedure Calls ("methods")
+
+
+
+## 4. Client-side Input Validation
+
+
+
+## Meteor Guide References:
 
 Methods: https://guide.meteor.com/methods.html
 
