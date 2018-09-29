@@ -72,6 +72,43 @@ any personal information in any of the collections except Meteor.users.
 
 __Speaking of which, what about Meteor.users?__ Excellent question.
 
+All that users.js has in common with the other "collection files" in this directory
+is a schema, deny rules, and "a publication". Everything else, including the nature
+of the publication, is specific to Meteor.users.
+
+With that out of the way, what is Meteor.users? The answer is, it is Meteor's
+in-house user account management solution. And as such, it runs *only* on
+MongoDB. Notice that we don't even create a collection: Meteor's accounts package
+does that for us, and we don't really have the power to change it.
+
+Each document in the collection contains all the information pertaining to a
+user's account, including their username, email(s), and a couple of domain-specific
+fields: whether they are a worker, company, or unverified company, and if they are
+a company, the integer companyId of the corresponding entry in the PostgreSQL companies
+table.
+
+Which means I need to talk a bit about the app design. First up is the domain-specific
+stuff. Vize's goal as a company, and the purpose of Vize's product (this web app),
+is to facilitate and improve relationships and interactions between workers and
+employers. There are thus two corresponding kinds of user-entities supported by
+the app: worker and employer (or worker and "company"). Workers are allowed to be
+anonymous, and indeed part of the whole idea is that workers will feel safer using
+the website if their identities are kept safe. You know, "retribution" and all that.
+Companies, on the other hand, are public entities, and anyone who claims to represent
+such-and-such a company must be able to verify both their own identity and that
+they represent the entity they claim to represent, but that doesn't prevent them
+from creating an account on the website. We thus have "company-unverified" for users
+who are still in the process of verifying their company's information on the site
+and setting up their public profile.
+
+These "roles" are (aptly) represented in the "role" field of the user document.
+Users in different roles perform different functions on the site, and in fact,
+the server-side code does permission checks against the role field. Workers are
+allowed to post reviews, salary reports, vote on reviews (other than their own),
+and apply for jobs. Companies can create company profiles and post jobs. Once
+we implement comments on reviews, both workers and companies will be able to post
+comments.
+
 __2. JSON Object/Document Validation (legacy)__
 
 
