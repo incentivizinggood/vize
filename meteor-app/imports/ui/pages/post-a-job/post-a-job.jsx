@@ -10,7 +10,6 @@ import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { JobAds } from "/imports/api/data/jobads.js";
-import { Companies } from "/imports/api/data/companies.js";
 import "./post-a-job.html";
 
 import Header from "/imports/ui/components/header";

@@ -3,7 +3,7 @@ import { Email } from "meteor/email";
 import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
 import { Reviews } from "./reviews.js";
-import { Companies } from "./companies.js";
+import { CompanySchema } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
 // import { Votes } from "./votes.js"; // this isn't used since I brought in the PostgreSQL code
@@ -592,13 +592,13 @@ Meteor.methods({
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
 	async "companies.createProfile"(companyProfile) {
-		const newCompanyProfile = Companies.simpleSchema().clean(
+		const newCompanyProfile = CompanySchema.clean(
 			companyProfile
 		);
-		const validationResult = Companies.simpleSchema()
+		const validationResult = CompanySchema
 			.namedContext()
 			.validate(newCompanyProfile);
-		const errors = Companies.simpleSchema()
+		const errors = CompanySchema
 			.namedContext()
 			.validationErrors();
 

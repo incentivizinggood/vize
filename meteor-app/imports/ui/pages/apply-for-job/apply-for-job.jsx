@@ -16,7 +16,6 @@ import Dialog from "/imports/ui/components/dialog-box";
 
 // Specific stuff second
 import { JobAds } from "/imports/api/data/jobads.js";
-import { Companies } from "/imports/api/data/companies.js";
 import "./apply-for-job.html";
 
 const afj_form_state = new ReactiveDict();

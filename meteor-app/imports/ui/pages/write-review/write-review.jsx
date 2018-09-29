@@ -12,7 +12,6 @@ import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { Reviews } from "/imports/api/data/reviews.js";
-import { Companies } from "/imports/api/data/companies.js";
 import "./write-review.html";
 
 import Header from "/imports/ui/components/header";

@@ -11,7 +11,6 @@ import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { Salaries } from "/imports/api/data/salaries.js";
-import { Companies } from "/imports/api/data/companies.js";
 import "./submit-salary-data.html";
 
 import Header from "/imports/ui/components/header";

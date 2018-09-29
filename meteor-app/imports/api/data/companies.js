@@ -7,11 +7,7 @@ import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-export const Companies = new Mongo.Collection("CompanyProfiles", {
-	idGeneration: "STRING",
-});
-
-Companies.schema = new SimpleSchema(
+export const CompanySchema = new SimpleSchema(
 	{
 		_id: {
 			type: SimpleSchema.Integer,
@@ -280,28 +276,3 @@ Companies.schema = new SimpleSchema(
 	},
 	{ tracker: Tracker }
 );
-
-// db.CompanyProfiles.find({$text: {$search: "vize"}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}})
-
-// Added line for autoforms and collection2 usage
-Companies.attachSchema(Companies.schema, { replace: true });
-
-Companies.deny({
-	insert() {
-		return true;
-	},
-	update() {
-		return true;
-	},
-	remove() {
-		return true;
-	},
-});
-
-if (Meteor.isServer) {
-	Companies.rawCollection().createIndex({ name: "text" });
-
-	Meteor.publish("CompanyProfiles", function() {
-		return Companies.find({});
-	});
-}
