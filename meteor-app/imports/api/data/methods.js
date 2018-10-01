@@ -5,7 +5,7 @@ import i18n from "meteor/universe:i18n";
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
-import { JobAdSchema } from "./jobads.js";
+import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
@@ -334,11 +334,11 @@ Meteor.methods({
 	},
 
 	async "jobads.applyForJob"(jobApplication) {
-		jobApplication = JobAds.applicationSchema.clean(jobApplication);
-		const validationResult = JobAds.applicationSchema
+		jobApplication = JobApplicationSchema.clean(jobApplication);
+		const validationResult = JobApplicationSchema
 			.namedContext()
 			.validate(jobApplication);
-		const errors = JobAds.applicationSchema
+		const errors = JobApplicationSchema
 			.namedContext()
 			.validationErrors();
 
@@ -439,11 +439,11 @@ Meteor.methods({
 	},
 
 	async "jobads.postJobAd"(jobAd) {
-		const newJobAd = JobAds.simpleSchema().clean(jobAd);
-		const validationResult = JobAds.simpleSchema()
+		const newJobAd = JobAdSchema.clean(jobAd);
+		const validationResult = JobAdSchema
 			.namedContext()
 			.validate(newJobAd);
-		const errors = JobAds.simpleSchema()
+		const errors = JobAdSchema
 			.namedContext()
 			.validationErrors();
 

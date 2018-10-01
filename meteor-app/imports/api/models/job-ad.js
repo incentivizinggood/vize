@@ -3,7 +3,7 @@ import type { ID, Location, AllModels } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
-import { JobAds } from "../data/jobads.js";
+import { JobAdSchema, JobApplicationSchema } from "../data/jobads.js";
 
 const defaultPageSize = 100;
 
@@ -93,10 +93,10 @@ export default class JobAdModel {
 	}
 
 	isJobAd(obj: any): boolean {
-		// JobAds.simpleSchema()
+		// JobAdSchema
 		// 	.newContext()
 		// 	.validate(obj);
-		const context = JobAds.simpleSchema().newContext();
+		const context = JobAdSchema.newContext();
 		context.validate(obj, {
 			extendedCustomContext: {
 				isNotASubmission: true,
@@ -109,13 +109,13 @@ export default class JobAdModel {
 		// there's a strong chance that this validation
 		// code is broken, but I'm not sure how to go about
 		// fixing it because I don't know how/where it will be used
-		// return JobAds.applicationSchema
+		// return JobApplicationSchema
 		// 	.newContext()
 		// 	.validate(obj)
 		// 	.isValid();
 
 		// here's something that's more likely to work
-		const context = JobAds.applicationSchema.newContext();
+		const context = JobApplicationSchema.newContext();
 		context.validate(obj);
 		return context.isValid();
 	}
