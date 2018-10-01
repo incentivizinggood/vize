@@ -20,17 +20,17 @@
 			"expectedType": "{{{label}}} debe ser un {{dataType}}",
 			"regExMsgStubs": {
 				"msg": "la validación de expresiones regulares fallado",
-				"Email": "Colocar una direccion de correo correcta",
-				"EmailWithTLD": "Colocar una direccion de correo correcta",
-				"Domain": "Debe ser un dominio válido",
-				"WeakDomain": "Debe ser un dominio válido",
-				"IP": "Debe ser una dirección IPv4 o IPv6 válida",
-				"IPv4": "Debe ser una dirección IPv4 válida",
-				"IPv6": "Debe ser una dirección IPv6 válida",
-				"Url": "Debe ser una URL correcta",
-				"Id": "Debe ser una identificación alfanumérica válida",
-				"ZipCode": "Debe ser un código postal válido",
-				"Phone": "Debe ser un numero de telefono valido"
+				"Email": "colocar una direccion de correo correcta",
+				"EmailWithTLD": "colocar una direccion de correo correcta",
+				"Domain": "debe ser un dominio válido",
+				"WeakDomain": "debe ser un dominio válido",
+				"IP": "debe ser una dirección IPv4 o IPv6 válida",
+				"IPv4": "debe ser una dirección IPv4 válida",
+				"IPv6": "debe ser una dirección IPv6 válida",
+				"Url": "debe ser una URL correcta",
+				"Id": "debe ser una identificación alfanumérica válida",
+				"ZipCode": "debe ser un código postal válido",
+				"Phone": "debe ser un numero de telefono valido"
 			},
 			"keyNotInSchema": "{{name}} no está permitido por el esquema",
 			"noCompanyWithThatName":
