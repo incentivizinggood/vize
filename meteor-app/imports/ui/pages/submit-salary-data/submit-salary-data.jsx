@@ -10,7 +10,7 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
-import { Salaries } from "/imports/api/data/salaries.js";
+import { SalarySchema } from "/imports/api/data/salaries.js";
 import "./submit-salary-data.html";
 
 import Header from "/imports/ui/components/header";
@@ -129,7 +129,7 @@ if (Meteor.isClient) {
 	});
 
 	Template.ssd_blaze_form.helpers({
-		salaries: Salaries,
+		salarySchema: SalarySchema,
 		ErrorWidget() {
 			return ErrorWidget;
 		},

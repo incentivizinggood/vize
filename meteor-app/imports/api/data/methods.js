@@ -4,8 +4,8 @@ import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
-import { Salaries } from "./salaries.js";
-import { JobAds } from "./jobads.js";
+import { SalarySchema } from "./salaries.js";
+import { JobAdSchema } from "./jobads.js";
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
@@ -254,12 +254,12 @@ Meteor.methods({
 
 	async "salaries.submitSalaryData"(salary) {
 		// This avoids a lot of problems
-		const newSalary = Salaries.simpleSchema().clean(salary);
+		const newSalary = SalarySchema.clean(salary);
 
-		const validationResult = Salaries.simpleSchema()
+		const validationResult = SalarySchema
 			.namedContext()
 			.validate(newSalary);
-		const errors = Salaries.simpleSchema()
+		const errors = SalarySchema
 			.namedContext()
 			.validationErrors();
 
@@ -289,20 +289,9 @@ Meteor.methods({
 		}
 
 		// TODO: filter by location as well
-		// const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
-		// if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
-		// 	throw new Meteor.Error(
-		// 		"duplicateEntry",
-		// 		"onlyOnce"
-		// 	);
-		// }
 
 		if (Meteor.isDevelopment) console.log("SERVER: inserting");
 
-		// TODO: use upsert to prevent duplicate salaries.
-		// QUESTION: do we actually want to prevent duplicate salaries?
-		//			I was under the impression that we didn't.
-		// Salaries.upsert({userId, companyId, jobTitle, location}, newSalary);
 		const pgUser = await PostgreSQL.executeQuery(
 			PgUserFunctions.getUserById,
 			this.userId
