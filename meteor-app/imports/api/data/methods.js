@@ -2,11 +2,10 @@ import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
-import { Reviews } from "./reviews.js";
+import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { Salaries } from "./salaries.js";
 import { JobAds } from "./jobads.js";
-// import { Votes } from "./votes.js"; // this isn't used since I brought in the PostgreSQL code
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
@@ -79,7 +78,7 @@ Meteor.methods({
 
 	async "reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
-		const cleanReview = Reviews.simpleSchema().clean(newReview);
+		const cleanReview = ReviewSchema.clean(newReview);
 
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
@@ -99,10 +98,10 @@ Meteor.methods({
 
 		cleanReview.submittedBy = pgUser.user.userid;
 
-		const validationResult = Reviews.simpleSchema()
+		const validationResult = ReviewSchema
 			.namedContext()
 			.validate(cleanReview);
-		const errors = Reviews.simpleSchema()
+		const errors = ReviewSchema
 			.namedContext()
 			.validationErrors();
 
@@ -170,15 +169,15 @@ Meteor.methods({
 			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
 		}
 
-		// validate review: must match Reviews.schema
-		const validationResult = Reviews.simpleSchema()
+		// validate review: must match ReviewSchema
+		const validationResult = ReviewSchema
 			.namedContext()
 			.validate(review, {
 				extendedCustomContext: {
 					isNotASubmission: true,
 				},
 			});
-		const errors = Reviews.simpleSchema()
+		const errors = ReviewSchema
 			.namedContext()
 			.validationErrors();
 

@@ -1,12 +1,8 @@
 import { Meteor } from "meteor/meteor";
-import { Mongo } from "meteor/mongo";
 import { Comments } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import i18n from "meteor/universe:i18n";
-
-const T = i18n.createComponent();
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
@@ -19,12 +15,6 @@ String.prototype.wordCount = function() {
 	return this.split(/\s+\b/).length;
 };
 
-// Constructor called - created new Collection named 'Reviews'
-// Collection can be edited by the object Reviews
-export const Reviews = new Mongo.Collection("Reviews", {
-	idGeneration: "STRING",
-});
-
 /*
 	Desirable features:
 	- Drop-down list of known companies to choose from
@@ -36,7 +26,7 @@ export const Reviews = new Mongo.Collection("Reviews", {
 */
 
 // Schema for the Collection
-Reviews.schema = new SimpleSchema(
+export const ReviewSchema = new SimpleSchema(
 	{
 		_id: {
 			type: SimpleSchema.Integer,
@@ -382,23 +372,3 @@ Reviews.schema = new SimpleSchema(
 	},
 	{ tracker: Tracker }
 );
-
-Reviews.attachSchema(Reviews.schema, { replace: true });
-
-Reviews.deny({
-	insert() {
-		return true;
-	},
-	update() {
-		return true;
-	},
-	remove() {
-		return true;
-	},
-});
-
-if (Meteor.isServer) {
-	Meteor.publish("Reviews", function() {
-		return Reviews.find({});
-	});
-}
