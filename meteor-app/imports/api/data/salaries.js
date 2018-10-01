@@ -27,7 +27,6 @@ export const SalarySchema = new SimpleSchema(
 			type: String, // case, company names are indexed so we may as well use
 			optional: false, // use this instead of companyID
 			max: 100,
-			index: true,
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {

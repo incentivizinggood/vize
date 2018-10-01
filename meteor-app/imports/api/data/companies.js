@@ -10,7 +10,6 @@ export const CompanySchema = new SimpleSchema(
 		_id: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
 			autoform: {
 				omit: true,
 			},
@@ -19,8 +18,6 @@ export const CompanySchema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 100,
-			index: true /* requires aldeed:collection2 and simpl-schema packages */,
-			unique: true /* ditto */,
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {

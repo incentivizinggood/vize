@@ -10,7 +10,6 @@ export const JobAdSchema = new SimpleSchema(
 		_id: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
 			autoform: {
 				omit: true,
 			},
@@ -192,7 +191,6 @@ export const JobAdSchema = new SimpleSchema(
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
@@ -315,7 +313,6 @@ export const JobApplicationSchema = new SimpleSchema(
 		dateSent: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,

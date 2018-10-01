@@ -139,7 +139,6 @@ export const ReviewSchema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 100,
-			index: true,
 		},
 		location: {
 			// where they worked for the company being reviewed
