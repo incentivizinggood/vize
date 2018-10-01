@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { Comments } from "./comments.js";
+import { CommentSchema } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
@@ -364,7 +364,7 @@ export const ReviewSchema = new SimpleSchema(
 		"Comments.$": {
 			type: Object,
 			custom() {
-				Comments.schema.validate(this);
+				CommentSchema.validate(this);
 			},
 		}, // Custom validation with an external schema,
 		// not sure if this works for now but it at least
