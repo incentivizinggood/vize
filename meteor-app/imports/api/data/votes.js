@@ -1,4 +1,3 @@
-import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 
@@ -11,9 +10,7 @@ import { Tracker } from "meteor/tracker";
 	The actual vote is the value field: true == up, false == down
 */
 
-export const Votes = new Mongo.Collection("Votes", { idGeneration: "STRING" });
-
-Votes.schema = new SimpleSchema(
+export const VoteSchema = new SimpleSchema(
 	{
 		submittedBy: {
 			// userId of the review author
@@ -36,23 +33,3 @@ Votes.schema = new SimpleSchema(
 	},
 	{ tracker: Tracker }
 );
-
-Votes.attachSchema(Votes.schema, { replace: true });
-
-Votes.deny({
-	insert() {
-		return true;
-	},
-	update() {
-		return true;
-	},
-	remove() {
-		return true;
-	},
-});
-
-if (Meteor.isServer) {
-	Meteor.publish("Votes", function() {
-		return Votes.find({});
-	});
-}
