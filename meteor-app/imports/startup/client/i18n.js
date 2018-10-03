@@ -185,7 +185,7 @@ setUpI18nOnSchema(SalarySchema, "Salaries");
 setUpI18nOnSchema(VoteSchema, "Votes");
 
 // This is used on input forms whenever I couldn't
-// figure out an easier way to do things. I thin it was
+// figure out an easier way to do things. I think it was
 // either/both field labels and selector drop-downs
 // that need this for reactive translation. Look at the
 // code in /imports/ui if you want to be sure.
