@@ -158,3 +158,29 @@ WriteReviewForm.propTypes = {
 // 		},
 // 	});
 // }
+//
+// export default class WriteReviewForm extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+// 	}
+// 	render() {
+// 		wr_form_state.set("companyId", this.props.companyId);
+//
+// 		return (
+// 			<div>
+// 				<div className="navbarwhite">
+// 					<Header />
+// 				</div>
+// 				<div className="page WriteReviewForm">
+// 					<Blaze template="wr_blaze_form" />
+// 				</div>
+// 				<Footer />
+// 				<Dialog />
+// 			</div>
+// 		);
+// 	}
+// }
+//
+// WriteReviewForm.propTypes = {
+// 	companyId: PropTypes.string,
+// };
