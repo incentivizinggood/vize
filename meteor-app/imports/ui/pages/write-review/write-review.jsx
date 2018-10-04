@@ -1,14 +1,19 @@
 // Boilerplate first
 // import { Meteor } from "meteor/meteor";
 import React from "react";
+import { withFormik, Field, Form } from "formik";
 import PropTypes from "prop-types";
 import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import Dialog from "/imports/ui/components/dialog-box";
 import i18n from "meteor/universe:i18n";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
+
+const t = i18n.createTranslator();
+const T = i18n.createComponent(t);
 
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
