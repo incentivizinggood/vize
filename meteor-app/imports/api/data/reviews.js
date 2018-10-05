@@ -2,9 +2,6 @@ import { Meteor } from "meteor/meteor";
 import { CommentSchema } from "./comments.js";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
-import { AutoForm } from "meteor/aldeed:autoform";
-
-SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
 // Stole this code from an answer to a StackOverflow question,
 // to use for validating pros and cons (which must have >= 5 words each),
@@ -31,17 +28,17 @@ export const ReviewSchema = new SimpleSchema(
 		_id: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 		submittedBy: {
 			// userId of the review author
 			type: SimpleSchema.Integer,
 			optional: true,
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 		companyName: {
 			// Filled in by user, or auto-filled by form, but in any
@@ -123,9 +120,9 @@ export const ReviewSchema = new SimpleSchema(
 		companyId: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 
 		// BUG will eventually need a username, screenname, or userID to
@@ -144,9 +141,9 @@ export const ReviewSchema = new SimpleSchema(
 			// where they worked for the company being reviewed
 			type: Object,
 			optional: false,
-			autoform: {
-				type: "location",
-			},
+			// autoform: {
+			// 	type: "location",
+			// },
 		}, // more refined address-checking or validation? dunno, I don't see the need for it immediately
 		"location.city": {
 			type: String,
@@ -178,12 +175,12 @@ export const ReviewSchema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 600,
-			autoform: {
-				afFieldInput: {
-					type: "textarea",
-					rows: 6,
-				},
-			},
+			// autoform: {
+			// 	afFieldInput: {
+			// 		type: "textarea",
+			// 		rows: 6,
+			// 	},
+			// },
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {
@@ -212,12 +209,12 @@ export const ReviewSchema = new SimpleSchema(
 			type: String,
 			optional: false,
 			max: 600,
-			autoform: {
-				afFieldInput: {
-					type: "textarea",
-					rows: 6,
-				},
-			},
+			// autoform: {
+			// 	afFieldInput: {
+			// 		type: "textarea",
+			// 		rows: 6,
+			// 	},
+			// },
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {
@@ -246,11 +243,11 @@ export const ReviewSchema = new SimpleSchema(
 			type: Boolean,
 			optional: false,
 			defaultValue: false,
-			autoform: {
-				type: "boolean-radios",
-				trueLabel: "Yes",
-				falseLabel: "No",
-			},
+			// autoform: {
+			// 	type: "boolean-radios",
+			// 	trueLabel: "Yes",
+			// 	falseLabel: "No",
+			// },
 		},
 
 		/*
@@ -263,58 +260,58 @@ export const ReviewSchema = new SimpleSchema(
 			min: 0,
 			max: 5,
 			optional: false,
-			autoform: {
-				// only possible because I added the starRating type
-				// to AutoForm, see afInputStarRating.[js,html]
-				type: "starRating",
-			},
+			// autoform: {
+			// 	// only possible because I added the starRating type
+			// 	// to AutoForm, see afInputStarRating.[js,html]
+			// 	type: "starRating",
+			// },
 		},
 		managerRelationship: {
 			type: Number,
 			min: 0,
 			max: 5,
 			optional: false,
-			autoform: {
-				type: "starRating",
-			},
+			// autoform: {
+			// 	type: "starRating",
+			// },
 		},
 		workEnvironment: {
 			type: Number,
 			min: 0,
 			max: 5,
 			optional: false,
-			autoform: {
-				type: "starRating",
-			},
+			// autoform: {
+			// 	type: "starRating",
+			// },
 		},
 		benefits: {
 			type: Number,
 			min: 0,
 			max: 5,
 			optional: false,
-			autoform: {
-				type: "starRating",
-			},
+			// autoform: {
+			// 	type: "starRating",
+			// },
 		},
 		overallSatisfaction: {
 			type: Number,
 			min: 0,
 			max: 5,
 			optional: false,
-			autoform: {
-				type: "starRating",
-			},
+			// autoform: {
+			// 	type: "starRating",
+			// },
 		},
 		additionalComments: {
 			type: String,
 			optional: true,
 			max: 6000,
-			autoform: {
-				afFieldInput: {
-					type: "textarea",
-					rows: 6,
-				},
-			},
+			// autoform: {
+			// 	afFieldInput: {
+			// 		type: "textarea",
+			// 		rows: 6,
+			// 	},
+			// },
 		},
 
 		// These last ones have to do with internal bookkeeping
@@ -328,27 +325,27 @@ export const ReviewSchema = new SimpleSchema(
 			type: Date,
 			optional: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 		upvotes: {
 			type: SimpleSchema.Integer,
 			min: 0,
 			defaultValue: 0,
 			optional: true,
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 		downvotes: {
 			type: SimpleSchema.Integer,
 			min: 0,
 			defaultValue: 0,
 			optional: true,
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 		//* * Each review has an array of comments attached with it.
 		//* * upvotes/downvotes and comments are not there in the form
@@ -356,9 +353,9 @@ export const ReviewSchema = new SimpleSchema(
 			type: Array,
 			optional: true,
 			defaultValue: [],
-			autoform: {
-				omit: true,
-			},
+			// autoform: {
+			// 	omit: true,
+			// },
 		},
 		"Comments.$": {
 			type: Object,

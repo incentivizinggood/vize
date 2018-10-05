@@ -125,12 +125,12 @@ const WriteReviewInnerForm = function(props) {
 											{{> afQuickField style="float:right" name='overallSatisfaction'}}
 										</div>
 									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
+									<div className="form-group">
 										<div className="col-lg-12">
-											<br>
-											{{> afQuickField name='additionalComments' placeholder=(__ ".wr.additionalCommentsPlaceholder")}}
+											<br/>
+											<Field component="textarea" name="additionalComments" rows="6" className="form-control" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 										</div>
-									</div> */}
+									</div>
 									<div className="form-group">
 										<div className="col-lg-12">
 											<div className="submit_div">
@@ -161,6 +161,7 @@ const WriteReviewInnerForm = function(props) {
 };
 
 const WriteReviewForm = withFormik({
+	// Initial field values can be set with mapPropsToValues
 	initialValues: {
 		companyName: "",
 		healthAndSafety: 0,
