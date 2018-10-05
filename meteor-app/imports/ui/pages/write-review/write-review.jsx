@@ -30,131 +30,136 @@ wr_form_state.set("company", {
 });
 wr_form_state.set("allCompanyNames", []);
 
-const WriteReviewInnerForm = ({ errors, isSubmitting }) => (
-	<Form>
-		<div className="navbarwhite">
-			<Header />
-		</div>
-		<section id="back_col">
-			<div className="container  fom-job">
-				<div className="row ">
-					<div className="col-md-12 back_top_hover">
-						<div className="form-container">
-							{/* QUESTION Why is the class of this
-							next div 'post-a-job' instead of 'write-review'? */}
-							<div className="post-a-job">
-								<h3>{t("common.forms.wr.formTitle")}</h3>
-								<br/>
-								<h4>{t("common.forms.wr.header1")}</h4>
-							</div>
-							<fieldset>
-								{/* <div className="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{#if shouldHaveCompany}}
-										{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
-										{{else}}
-										{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") list="wrCompanyNames"}}
-										<datalist id="wrCompanyNames">
-											{{#each companyName in allCompanyNames}}
-											<option value="{{companyName}}">{{companyName}}</option>
-											{{/each}}
-										</datalist>
-										{{/if}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='reviewTitle' placeholder=(__ ".wr.reviewTitlePlaceholder")}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='location'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='numberOfMonthsWorked'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='pros' className="text-area" placeholder=(__ ".wr.prosPlaceholder")}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='cons' className="text-area" placeholder=(__ ".wr.consPlaceholder")}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										<br>
-										{{> afQuickField style="float:right" name='healthAndSafety'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField style="float:right" name='managerRelationship'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField style="float:right" name='workEnvironment'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField style="float:right" name='benefits'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										{{> afQuickField style="float:right" name='overallSatisfaction'}}
-									</div>
-								</div> */}
-								{/* <div className="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
-									<div className="col-lg-12">
-										<br>
-										{{> afQuickField name='additionalComments' placeholder=(__ ".wr.additionalCommentsPlaceholder")}}
-									</div>
-								</div> */}
-								<div className="form-group">
-									<div className="col-lg-12">
-										<div className="submit_div">
-											{/* BUG These buttons need to be hooked up to functions.
-												BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
-											<button type="submit" className="btn btn-primary" >{t("common.forms.submitForm")}</button>
-											<button type="reset" className="btn btn-default" >{t("common.forms.resetForm")}</button>
+const WriteReviewInnerForm = function({ errors, isSubmitting }) {
+	//console.log("Hello, world");
+	console.log(...arguments);
+	return (
+		<Form>
+			<div className="navbarwhite">
+				<Header />
+			</div>
+			<section id="back_col">
+				<div className="container  fom-job">
+					<div className="row ">
+						<div className="col-md-12 back_top_hover">
+							<div className="form-container">
+								{/* QUESTION Why is the class of this
+								next div 'post-a-job' instead of 'write-review'? */}
+								<div className="post-a-job">
+									<h3>{t("common.forms.wr.formTitle")}</h3>
+									<br/>
+									<h4>{t("common.forms.wr.header1")}</h4>
+								</div>
+								<fieldset>
+									{/* <div className="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{#if shouldHaveCompany}}
+											{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+											{{else}}
+											{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") list="wrCompanyNames"}}
+											<datalist id="wrCompanyNames">
+												{{#each companyName in allCompanyNames}}
+												<option value="{{companyName}}">{{companyName}}</option>
+												{{/each}}
+											</datalist>
+											{{/if}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='reviewTitle' placeholder=(__ ".wr.reviewTitlePlaceholder")}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='location'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='numberOfMonthsWorked'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='pros' className="text-area" placeholder=(__ ".wr.prosPlaceholder")}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='cons' className="text-area" placeholder=(__ ".wr.consPlaceholder")}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											<br>
+											{{> afQuickField style="float:right" name='healthAndSafety'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField style="float:right" name='managerRelationship'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField style="float:right" name='workEnvironment'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField style="float:right" name='benefits'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											{{> afQuickField style="float:right" name='overallSatisfaction'}}
+										</div>
+									</div> */}
+									{/* <div className="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
+										<div className="col-lg-12">
+											<br>
+											{{> afQuickField name='additionalComments' placeholder=(__ ".wr.additionalCommentsPlaceholder")}}
+										</div>
+									</div> */}
+									<div className="form-group">
+										<div className="col-lg-12">
+											<div className="submit_div">
+												{/* BUG These buttons need to be hooked up to functions.
+													BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
+												<button type="submit" className="btn btn-primary" >{t("common.forms.submitForm")}</button>
+												<button type="reset" className="btn btn-default" >{t("common.forms.resetForm")}</button>
+											</div>
 										</div>
 									</div>
-								</div>
-							</fieldset>
+								</fieldset>
+							</div>
 						</div>
+						<div className="clear" />
 					</div>
-					<div className="clear" />
 				</div>
+				<div>{JSON.stringify(...arguments)}</div>
+			</section>
+			<Footer />
+			<Dialog />
+			{/* {{#if hasError}}
+			<div>
+				{{> React component=ErrorWidget err=error}}
 			</div>
-		</section>
-		<Footer />
-		<Dialog />
-		{/* {{#if hasError}}
-		<div>
-			{{> React component=ErrorWidget err=error}}
-		</div>
-		{{/if}} */}
-	</Form>
-);
+			{{/if}} */}
+		</Form>
+	);
+};
 
 const WriteReviewForm = withFormik({
 	initialValues: {
@@ -165,11 +170,13 @@ const WriteReviewForm = withFormik({
 		benefits: 0,
 		overallSatisfaction: 0,
 	},
-	validate(values) {
+	validate(values, props) {
+		console.log("WE ARE VALIDATING");
 		const errors = {};
 		return errors;
 	},
-	handleSubmit(values, actions) {
+	handleSubmit(values, formikbag) {
+		console.log("WE ARE SUBMITTING");
 		return {};
 	},
 })(withUpdateOnChangeLocale(WriteReviewInnerForm));
