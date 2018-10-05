@@ -2,7 +2,7 @@
 // import { Meteor } from "meteor/meteor";
 import React from "react";
 import { withFormik, Field, Form } from "formik";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import Dialog from "/imports/ui/components/dialog-box";
@@ -30,32 +30,175 @@ wr_form_state.set("company", {
 });
 wr_form_state.set("allCompanyNames", []);
 
-export default class WriteReviewForm extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
-		wr_form_state.set("companyId", this.props.companyId);
-
-		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
+const WriteReviewInnerForm = ({ errors, isSubmitting }) => (
+	<Form>
+		<div className="navbarwhite">
+			<Header />
+		</div>
+		<section id="back_col">
+			<div class="container  fom-job">
+				<div class="row ">
+					<div class="col-md-12 back_top_hover">
+						<div class="form-container">
+							{/* QUESTION Why is the class of this
+							next div 'post-a-job' instead of 'write-review'? */}
+							<div class="post-a-job">
+								<h3><T>common.forms.wr.formTitle</T></h3>
+								{/* <br> */}
+								<h4><T>common.forms.wr.header1</T></h4>
+							</div>
+							{/* <fieldset>
+								<div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{#if shouldHaveCompany}}
+										{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+										{{else}}
+										{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") list="wrCompanyNames"}}
+										<datalist id="wrCompanyNames">
+											{{#each companyName in allCompanyNames}}
+											<option value="{{companyName}}">{{companyName}}</option>
+											{{/each}}
+										</datalist>
+										{{/if}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='reviewTitle' placeholder=(__ ".wr.reviewTitlePlaceholder")}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='location'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='numberOfMonthsWorked'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='pros' class="text-area" placeholder=(__ ".wr.prosPlaceholder")}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='cons' class="text-area" placeholder=(__ ".wr.consPlaceholder")}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										<br>
+										{{> afQuickField style="float:right" name='healthAndSafety'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField style="float:right" name='managerRelationship'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField style="float:right" name='workEnvironment'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField style="float:right" name='benefits'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										{{> afQuickField style="float:right" name='overallSatisfaction'}}
+									</div>
+								</div>
+								<div class="form-group {{#if afFieldIsInvalid name='additionalComments'}}has-error{{/if}}">
+									<div class="col-lg-12">
+										<br>
+										{{> afQuickField name='additionalComments' placeholder=(__ ".wr.additionalCommentsPlaceholder")}}
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-lg-12">
+										<div class="submit_div">
+											<button type="submit" class="btn btn-primary">{{__ ".submitForm"}}</button>
+											<button type="reset" class="btn btn-default" onclick={{resetFormError}} >{{__ ".resetForm"}}</button>
+										</div>
+									</div>
+								</div>
+							</fieldset> */}
+						</div>
+					</div>
+					<div class="clear"></div>
 				</div>
-				{/* <div className="page WriteReviewForm">
-					<Blaze template="wr_blaze_form" />
-				</div> */}
-				<Footer />
-				<Dialog />
 			</div>
-		);
-	}
-}
+		</section>
+		<Footer />
+		<Dialog />
+		{/* {{#if hasError}}
+		<div>
+			{{> React component=ErrorWidget err=error}}
+		</div>
+		{{/if}} */}
+	</Form>
+);
 
-WriteReviewForm.propTypes = {
-	companyId: PropTypes.string,
-};
+const WriteReviewForm = withFormik({
+	initialValues: {
+		companyName: "",
+		healthAndSafety: 0,
+		managerRelationship: 0,
+		workEnvironment: 0,
+		benefits: 0,
+		overallSatisfaction: 0,
+	},
+	validate(values) {
+		const errors = {};
+		return errors;
+	},
+	handleSubmit(values, actions) {
+		return {};
+	},
+})(withUpdateOnChangeLocale(WriteReviewInnerForm));
 
+export default WriteReviewForm;
+
+// export default class WriteReviewForm extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+// 	}
+// 	render() {
+// 		wr_form_state.set("companyId", this.props.companyId);
+//
+// 		return (
+// 			<div>
+				// <div className="navbarwhite">
+				// 	<Header />
+				// </div>
+// 				{/* <div className="page WriteReviewForm">
+// 					<Blaze template="wr_blaze_form" />
+// 				</div> */}
+				// <Footer />
+				// <Dialog />
+// 			</div>
+// 		);
+// 	}
+// }
+//
+// WriteReviewForm.propTypes = {
+// 	companyId: PropTypes.string,
+// }
 //
 // if (Meteor.isClient) {
 // 	Template.wr_blaze_form.bindI18nNamespace("common.forms");
