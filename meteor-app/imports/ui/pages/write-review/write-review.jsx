@@ -30,9 +30,8 @@ wr_form_state.set("company", {
 });
 wr_form_state.set("allCompanyNames", []);
 
-const WriteReviewInnerForm = function({ errors, isSubmitting }) {
-	//console.log("Hello, world");
-	console.log(...arguments);
+const WriteReviewInnerForm = function(props) {
+	console.log(props);
 	return (
 		<Form>
 			<div className="navbarwhite">
@@ -148,7 +147,7 @@ const WriteReviewInnerForm = function({ errors, isSubmitting }) {
 						<div className="clear" />
 					</div>
 				</div>
-				<div>{JSON.stringify(...arguments)}</div>
+				<div>{JSON.stringify(props)}</div>
 			</section>
 			<Footer />
 			<Dialog />
