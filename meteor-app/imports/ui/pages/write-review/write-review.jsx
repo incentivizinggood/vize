@@ -127,7 +127,6 @@ const WriteReviewInnerForm = function(props) {
 									</div> */}
 									<div className="form-group">
 										<div className="col-lg-12">
-											<br/>
 											<Field component="textarea" name="additionalComments" rows="6" className="form-control" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 										</div>
 									</div>
