@@ -1,21 +1,11 @@
 import { Meteor } from "meteor/meteor";
-import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import { Companies } from "./companies.js";
-import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-export const Salaries = new Mongo.Collection("Salaries", {
-	idGeneration: "STRING",
-});
-
-/*
-	Change this all from "Salaries" to "Incomes" or "Pay"?
-*/
-Salaries.schema = new SimpleSchema(
+export const SalarySchema = new SimpleSchema(
 	{
 		_id: {
 			type: SimpleSchema.Integer,
@@ -37,7 +27,6 @@ Salaries.schema = new SimpleSchema(
 			type: String, // case, company names are indexed so we may as well use
 			optional: false, // use this instead of companyID
 			max: 100,
-			index: true,
 			custom() {
 				if (this.isSet) {
 					if (Meteor.isClient) {
@@ -160,23 +149,3 @@ Salaries.schema = new SimpleSchema(
 	},
 	{ tracker: Tracker }
 );
-
-Salaries.attachSchema(Salaries.schema, { replace: true });
-
-Salaries.deny({
-	insert() {
-		return true;
-	},
-	update() {
-		return true;
-	},
-	remove() {
-		return true;
-	},
-});
-
-if (Meteor.isServer) {
-	Meteor.publish("Salaries", function() {
-		return Salaries.find({});
-	});
-}

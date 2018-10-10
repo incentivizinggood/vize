@@ -4,7 +4,6 @@ import React from "react";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 import { urlGenerators } from "/imports/startup/client/router.jsx";
-import { Companies } from "/imports/api/data/companies.js";
 
 import { If, Then, Else } from "/imports/ui/if-else.jsx";
 import LangSelector from "./lang-selector.jsx";

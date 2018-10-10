@@ -1,23 +1,15 @@
 import { Meteor } from "meteor/meteor";
-import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";
-import { Companies } from "./companies.js";
-import i18n from "meteor/universe:i18n";
 
 SimpleSchema.extendOptions(["autoform"]); // gives us the "autoform" schema option
 
-export const JobAds = new Mongo.Collection("JobAds", {
-	idGeneration: "STRING",
-});
-
-JobAds.schema = new SimpleSchema(
+export const JobAdSchema = new SimpleSchema(
 	{
 		_id: {
 			type: SimpleSchema.Integer,
 			optional: true,
-			denyUpdate: true,
 			autoform: {
 				omit: true,
 			},
@@ -199,7 +191,6 @@ JobAds.schema = new SimpleSchema(
 		datePosted: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
@@ -209,10 +200,8 @@ JobAds.schema = new SimpleSchema(
 	{ tracker: Tracker }
 );
 
-JobAds.attachSchema(JobAds.schema, { replace: true });
-
 // This is used by the "Apply for a Job" form
-JobAds.applicationSchema = new SimpleSchema(
+export const JobApplicationSchema = new SimpleSchema(
 	{
 		jobId: {
 			type: SimpleSchema.Integer,
@@ -324,7 +313,6 @@ JobAds.applicationSchema = new SimpleSchema(
 		dateSent: {
 			type: Date,
 			optional: true,
-			denyUpdate: true,
 			defaultValue: new Date(), // obviously, assumes it cannot possibly have been posted before it is posted
 			autoform: {
 				omit: true,
@@ -333,21 +321,3 @@ JobAds.applicationSchema = new SimpleSchema(
 	},
 	{ tracker: Tracker }
 );
-
-JobAds.deny({
-	insert() {
-		return true;
-	},
-	update() {
-		return true;
-	},
-	remove() {
-		return true;
-	},
-});
-
-if (Meteor.isServer) {
-	Meteor.publish("JobAds", function() {
-		return JobAds.find({});
-	});
-}
