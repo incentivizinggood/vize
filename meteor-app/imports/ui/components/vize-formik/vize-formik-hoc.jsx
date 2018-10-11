@@ -1,6 +1,6 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
-import { Field, FieldArray, ErrorMessage, connect } from "formik";
+import { Field, FieldArray, ErrorMessage } from "formik";
 
 // import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx"; // not sure if I need this yet
 
@@ -73,49 +73,40 @@ import { Field, FieldArray, ErrorMessage, connect } from "formik";
 
 const t = i18n.createTranslator();
 
-const doVizeFormikFieldBoilerplate = connect(
-	function({ fieldName, labelGroupName, vfComponent}) {
-		// BUG errorAwareClassName is hard-coded, but needs to be
-		// determined by validating the field
-		const errorAwareClassName = "form-group has-error";
-		const vfComponentId = `${labelGroupName}.${fieldName}`; // BUG flesh this out later
-		return (
-			<div className="form-group">
-				<div className={errorAwareClassName}>
-					<label className="control-label" for={vfComponentId}>
-						{t(`SimpleSchema.labels.${vfComponentId}`)}
-					</label>
-					<Field name={fieldName} component={vfComponent} id={vfComponentId} />
-					<span className="help-block">
-						<ErrorMessage name={fieldName} />
-					</span>
-				</div>
-			</div>
-		)
-	}
-);
-
-const doVizeFormikArrayFieldBoilerplate = connect(
-	function({ fieldName, labelGroupName, vfComponent}) {
-		// BUG errorAwareClassName is hard-coded, but needs to be
-		// determined by validating the field
-		const errorAwareClassName = "form-group has-error";
-		const vfComponentId = `${labelGroupName}.${fieldName}`; // QUESTION Will this need to be fleshed out later?
-		return (
-			<div className="form-group">
-				<div className={errorAwareClassName}>
-					<label className="control-label" for={vfComponentId}>
-						{t(`SimpleSchema.labels.${vfComponentId}`)}
-					</label>
-					<FieldArray name={fieldName} component={vfComponent} id={vfComponentId} />
+export const withVizeFormikField = function(vfComponent, fieldName, labelGroupName) {
+	// BUG errorAwareClassName is hard-coded, but needs to be
+	// determined by validating the field
+	const errorAwareClassName = "form-group has-error";
+	const vfComponentId = `${labelGroupName}.${fieldName}`; // BUG flesh this out later
+	return (
+		<div className="form-group">
+			<div className={errorAwareClassName}>
+				<label className="control-label" for={vfComponentId}>
+					{t(`SimpleSchema.labels.${vfComponentId}`)}
+				</label>
+				<Field name={fieldName} component={vfComponent} id={vfComponentId} />
+				<span className="help-block">
 					<ErrorMessage name={fieldName} />
-				</div>
+				</span>
 			</div>
-		)
-	}
-);
+		</div>
+	)
+};
 
-export default {
-	doVizeFormikFieldBoilerplate,
-	doVizeFormikArrayFieldBoilerplate
+export const withVizeFormikArrayField = function(vfComponent, fieldName, labelGroupName) {
+	// BUG errorAwareClassName is hard-coded, but needs to be
+	// determined by validating the field
+	const errorAwareClassName = "form-group has-error";
+	const vfComponentId = `${labelGroupName}.${fieldName}`; // QUESTION Will this need to be fleshed out later?
+	return (
+		<div className="form-group">
+			<div className={errorAwareClassName}>
+				<label className="control-label" for={vfComponentId}>
+					{t(`SimpleSchema.labels.${vfComponentId}`)}
+				</label>
+				<FieldArray name={fieldName} component={vfComponent} id={vfComponentId} />
+				<ErrorMessage name={fieldName} />
+			</div>
+		</div>
+	)
 };

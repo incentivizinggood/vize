@@ -1,10 +1,15 @@
 import React from "react";
-import { doVizeFormikFieldBoilerplate } from "./vize-formik-hoc.jsx";
+import { connect } from "formik";
+import { withVizeFormikField } from "./vize-formik-hoc.jsx";
 
-const VizeFormikInputText = ({field, form, ...props}) => (
-	<div>
-		<input type="text" className="form-control" {...field} {...props} />
-	</div>
+const VizeFormikInputText = ({field, form, ...props}) => withVizeFormikField(
+	() => (
+		<div>
+			<input type="text" className="form-control" {...field} {...props} />
+		</div>
+	),
+	props.name,
+	props.labelGroupName
 );
 
-export default doVizeFormikFieldBoilerplate(VizeFormikInputText);
+export default connect(VizeFormikInputText);

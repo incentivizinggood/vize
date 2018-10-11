@@ -12,7 +12,7 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
 
-import { VizeFormikInputText } from "/imports/ui/components/vize-formik/vize-formik-input-text.jsx";
+import VizeFormikInputText from "/imports/ui/components/vize-formik/vize-formik-input-text.jsx";
 
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
