@@ -34,7 +34,30 @@ import { Field, FieldArray, ErrorMessage, connect } from "formik";
 
 const t = i18n.createTranslator();
 
-const withVizeFormikField = function(vfComponent, fieldname, labelgroupname) {
+/*
+	NOTE: next steps ->
+	QUESTION:
+		How do we determine errorAwareClassName? Ideally we would
+		hook into Formik using fieldname rather than going directly
+		to SimpleSchema, but it is possible that either solution
+		might involve rethinking the architecture of this part of
+		the component hierarchy so as to bring in whatever contextual
+		information that is needed.
+	QUESTION:
+		Will the current vfComponentId scheme be viable long-term?
+		If not, what would be better?
+	QUESTION:
+		Is it possible to remove the jsx-ally/label-has-for red
+		squiggly error by actually "giving it what it wants"?
+		If so, how?
+	QUESTION:
+		How to we make sure that these components are using Formik's
+		validation context properly? For that matter, how are we going
+		to set up that validation context, since it's not being done
+		automagically any longer?
+*/
+
+const withVizeFormatting = function(vfComponent, fieldname, labelgroupname) {
 	// BUG errorAwareClassName is hard-coded, but needs to be
 	// determined by validating the field
 	const errorAwareClassName = "form-group has-error";
@@ -45,7 +68,6 @@ const withVizeFormikField = function(vfComponent, fieldname, labelgroupname) {
 				<label className="control-label" htmlFor={vfComponentId}>
 					{t(`SimpleSchema.labels.${vfComponentId}`)}
 				</label>
-				{/* <Field name={fieldname} component={vfComponent} id={vfComponentId} /> */}
 				{vfComponent(fieldname, labelgroupname)}
 				<span className="help-block">
 					<ErrorMessage name={fieldname} />
@@ -55,7 +77,7 @@ const withVizeFormikField = function(vfComponent, fieldname, labelgroupname) {
 	)
 };
 
-const VizeFormikInputText = ({field, form, ...props}) => withVizeFormikField(
+const VizeFormikInputText = ({field, form, ...props}) => withVizeFormatting(
 	(fieldname, vfComponentId) => (
 		<Field name={fieldname} id={vfComponentId} component={() => (
 			<input type="text" className="form-control" {...field} {...props} />
