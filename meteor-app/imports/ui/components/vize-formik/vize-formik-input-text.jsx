@@ -3,7 +3,7 @@ import { doVizeFormikFieldBoilerplate } from "./vize-formik-hoc.jsx";
 
 const VizeFormikInputText = ({field, form, ...props}) => (
 	<div>
-		<input type="text" {...field} {...props} />
+		<input type="text" className="form-control" {...field} {...props} />
 	</div>
 );
 

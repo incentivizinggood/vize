@@ -66,7 +66,7 @@ const WriteReviewInnerForm = function(props) {
 											{{/if}}
 										</div>
 									</div> */}
-									<VizeFormikInputText
+									<VizeFormikInputText name="reviewTitle" required="" maxlength="100" placeholder={t(".wr.reviewTitlePlaceholder")}/>
 									{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
 										<div className="col-lg-12">
 											{{> afQuickField name='location'}}
