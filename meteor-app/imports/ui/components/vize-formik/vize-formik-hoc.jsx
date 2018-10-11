@@ -73,39 +73,39 @@ import { Field, FieldArray, ErrorMessage } from "formik";
 
 const t = i18n.createTranslator();
 
-export const withVizeFormikField = function(vfComponent, fieldName, labelGroupName) {
+export const withVizeFormikField = function(vfComponent, fieldname, labelgroupname) {
 	// BUG errorAwareClassName is hard-coded, but needs to be
 	// determined by validating the field
 	const errorAwareClassName = "form-group has-error";
-	const vfComponentId = `${labelGroupName}.${fieldName}`; // BUG flesh this out later
+	const vfComponentId = `${labelgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
 		<div className="form-group">
 			<div className={errorAwareClassName}>
-				<label className="control-label" for={vfComponentId}>
+				<label className="control-label" htmlFor={vfComponentId}>
 					{t(`SimpleSchema.labels.${vfComponentId}`)}
 				</label>
-				<Field name={fieldName} component={vfComponent} id={vfComponentId} />
+				<Field name={fieldname} component={vfComponent} id={vfComponentId} />
 				<span className="help-block">
-					<ErrorMessage name={fieldName} />
+					<ErrorMessage name={fieldname} />
 				</span>
 			</div>
 		</div>
 	)
 };
 
-export const withVizeFormikArrayField = function(vfComponent, fieldName, labelGroupName) {
+export const withVizeFormikArrayField = function(vfComponent, fieldname, labelgroupname) {
 	// BUG errorAwareClassName is hard-coded, but needs to be
 	// determined by validating the field
 	const errorAwareClassName = "form-group has-error";
-	const vfComponentId = `${labelGroupName}.${fieldName}`; // QUESTION Will this need to be fleshed out later?
+	const vfComponentId = `${labelgroupname}.${fieldname}`; // QUESTION Will this need to be fleshed out later?
 	return (
 		<div className="form-group">
 			<div className={errorAwareClassName}>
 				<label className="control-label" for={vfComponentId}>
 					{t(`SimpleSchema.labels.${vfComponentId}`)}
 				</label>
-				<FieldArray name={fieldName} component={vfComponent} id={vfComponentId} />
-				<ErrorMessage name={fieldName} />
+				<FieldArray name={fieldname} component={vfComponent} id={vfComponentId} />
+				<ErrorMessage name={fieldname} />
 			</div>
 		</div>
 	)

@@ -9,7 +9,7 @@ const VizeFormikInputText = ({field, form, ...props}) => withVizeFormikField(
 		</div>
 	),
 	props.name,
-	props.labelGroupName
+	props.labelgroupname
 );
 
 export default connect(VizeFormikInputText);
