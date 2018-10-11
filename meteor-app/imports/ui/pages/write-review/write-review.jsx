@@ -155,6 +155,7 @@ const WriteReviewInnerForm = function(props) {
 
 const WriteReviewForm = withFormik({
 	// Initial field values can be set with mapPropsToValues
+	// BUG I may want to start using this because of warnings React is giving me...
 	initialValues: {
 		companyName: "",
 		healthAndSafety: 0,
