@@ -55,6 +55,13 @@ const t = i18n.createTranslator();
 		validation context properly? For that matter, how are we going
 		to set up that validation context, since it's not being done
 		automagically any longer?
+	QUESTION:
+		How will manually-calling SimpleSchema's validators affect
+		the reactivity context assumed by the custom validators?
+	QUESTION:
+		Is it truly necessary to connect any of the custom components
+		to the Formik context if this is done automatically with the
+		provided Field, FieldArray, and ErrorMessage components?
 */
 
 const withVizeFormatting = function(vfComponent, fieldname, labelgroupname) {
