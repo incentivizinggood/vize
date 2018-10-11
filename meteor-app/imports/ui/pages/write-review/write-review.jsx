@@ -12,7 +12,7 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
 
-import { VfInputText } from "/imports/ui/components/vize-formik-components.jsx";
+import { VfInputText, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
 
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
@@ -66,7 +66,7 @@ const WriteReviewInnerForm = function(props) {
 											{{/if}}
 										</div>
 									</div> */}
-									<VfInputText name="reviewTitle" labelgroupname="Reviews" required="" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
+									<VfInputText name="reviewTitle" labelgroupname="Reviews" required="true" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
 									{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
 										<div className="col-lg-12">
 											{{> afQuickField name='location'}}
@@ -123,11 +123,7 @@ const WriteReviewInnerForm = function(props) {
 											{{> afQuickField style="float:right" name='overallSatisfaction'}}
 										</div>
 									</div> */}
-									<div className="form-group">
-										<div className="col-lg-12">
-											<Field component="textarea" name="additionalComments" rows="6" className="form-control" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
-										</div>
-									</div>
+									<VfInputTextArea name="additionalComments" labelgroupname="Reviews" rows="6" maxLength="6000" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 									<div className="form-group">
 										<div className="col-lg-12">
 											<div className="submit_div">
