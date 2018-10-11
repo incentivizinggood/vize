@@ -12,6 +12,8 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
 
+import { VizeFormikInputText } from "/imports/ui/components/vize-formik/vize-formik-input-text.jsx";
+
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
 
@@ -64,11 +66,7 @@ const WriteReviewInnerForm = function(props) {
 											{{/if}}
 										</div>
 									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='reviewTitle'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='reviewTitle' placeholder=(__ ".wr.reviewTitlePlaceholder")}}
-										</div>
-									</div> */}
+									<VizeFormikInputText
 									{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
 										<div className="col-lg-12">
 											{{> afQuickField name='location'}}

@@ -1,6 +1,7 @@
-import { Field, FieldArray, ErrorMessage, connect } from "formik";
 import React from "react";
 import i18n from "meteor/universe:i18n";
+import { Field, FieldArray, ErrorMessage, connect } from "formik";
+
 // import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx"; // not sure if I need this yet
 
 /*
@@ -99,7 +100,7 @@ const doVizeFormikArrayFieldBoilerplate = connect(
 		// BUG errorAwareClassName is hard-coded, but needs to be
 		// determined by validating the field
 		const errorAwareClassName = "form-group has-error";
-		const vfComponentId = `${labelGroupName}.${fieldName}`; // BUG flesh this out later
+		const vfComponentId = `${labelGroupName}.${fieldName}`; // QUESTION Will this need to be fleshed out later?
 		return (
 			<div className="form-group">
 				<div className={errorAwareClassName}>
