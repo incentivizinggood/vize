@@ -31,6 +31,36 @@ import { Field, FieldArray, ErrorMessage, connect } from "formik";
 	- regex validation
 	- date fields (if necessary)
 	- hidden fields (if necessary)
+
+	QUESTION:
+		Given the above validation requirements, what are
+	my current options for validation with Formik?
+	#1 Manually call SimpleSchema.validate for every field,
+		and transform the results into what Formik wants
+	#2 Use Yup/validationSchema for the whole thing, and
+		replace SimpleSchema custom validators and other
+		tricky stuff with yup.addMethod
+	#3 ...a third solution would be either a piecemeal combo
+		of Yup and SimpleSchema, or some from-scratch thing,
+		and I don't have time for either of those.
+
+	Pros/cons of #1 and #2? I like #2 better because it means
+	removing SimpleSchema dependencies, but it does mean
+	accepting the learning curve for Yup and yup.addMethod.
+	#1 requires converting between SimpleSchema and Formik
+	error types, which would make for some horrendous code,
+	but it would be likely to work the first time.
+	If we implemented #2 correctly, we could probably just
+	replace the schemas in imports/api/data with Yup schemas.
+	This raises a couple of interesting questions:
+	QUESTION What ramifications would this have on i18n,
+		and how might that code need to be refactored?
+	QUESTION What other parts of the code would be affected
+		by this change? We can assume that the forms won't
+		mind, because they would have switched to Yup anyway,
+		and GraphQL validation functions only require a very
+		simple rewrite of a few lines, but I need to do some
+		more homework on this.
 */
 
 const t = i18n.createTranslator();
