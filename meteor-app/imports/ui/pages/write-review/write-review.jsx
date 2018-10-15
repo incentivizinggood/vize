@@ -10,7 +10,7 @@ import i18n from "meteor/universe:i18n";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import { ReviewSchema } from "/imports/api/data/reviews.js";
+import { ReviewSchema } from "/imports/api/data/yup-schemas.js";
 
 import { VfInputText, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
 
@@ -66,7 +66,7 @@ const WriteReviewInnerForm = function(props) {
 											{{/if}}
 										</div>
 									</div> */}
-									<VfInputText name="reviewTitle" labelgroupname="Reviews" required="true" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
+									<VfInputText name="reviewTitle" labelgroupname="Reviews" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
 									{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
 										<div className="col-lg-12">
 											{{> afQuickField name='location'}}
@@ -164,11 +164,7 @@ const WriteReviewForm = withFormik({
 		benefits: 0,
 		overallSatisfaction: 0,
 	},
-	validate(values, props) {
-		console.log("WE ARE VALIDATING");
-		const errors = {};
-		return errors;
-	},
+	validationSchema: ReviewSchema,
 	handleSubmit(values, formikbag) {
 		console.log("WE ARE SUBMITTING");
 		return {};
