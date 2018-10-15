@@ -39,20 +39,6 @@ Meteor.methods({
 		return "we made it";
 	},
 
-	hasFiveWords(inputString) {
-		// Funny story, String.prototype.wordCount is actually
-		// defined in reviews.js because I couldn't find a
-		// better place for it. Just in case you're wondering.
-		if (
-			inputString === undefined ||
-			typeof inputString !== "string" ||
-			inputString.wordCount() < 5
-		) {
-			return false;
-		}
-		return true;
-	},
-
 	async "reviews.checkForSecondReviewByUser"(companyName) {
 		if (this.userId) {
 			const pgUser = await PostgreSQL.executeQuery(
