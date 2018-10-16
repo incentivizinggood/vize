@@ -58,7 +58,6 @@ const WriteReviewInnerForm = function(props) {
 											renderReadOnlyCompanyNameField({
 												...props,
 												labelgroupname: "Reviews",
-												placeholdergroupname: "wr"
 											}) :
 											renderEmptyCompanyNameField({
 												...props,
