@@ -8,7 +8,7 @@ const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
 
 const companyNameForIdQuery = gql`
-	query companyNameForId($companyId: String!) {
+	query companyNameForId($companyId: ID!) {
 		company(id: $companyId) {
 			name
 		}
@@ -24,33 +24,27 @@ const allCompanyNamesQuery = gql`
 `;
 
 export const renderReadOnlyCompanyNameField = (props) => (
-	<Query query={companyNameForIdQuery} variables={{ companyId }}>
+	<Query query={companyNameForIdQuery} variables={{companyId: props.companyId}}>
 		{({ loading, error, data }) => {
 			const companyName = () => {
 				if (loading) {
 					return t("common.forms.pleaseWait");
 				}
-				// If you want to check for "no results", you would
-				// do it here, in the same place as the check for errors,
-				// unless you want to handle them differently. The original
-				// form logic handled them the exact same way.
-				else if (error) {
+				else if (error || data.company === undefined || data.company === null) {
+					console.log(error);
 					return t("common.forms.companyNotFound");
 				}
-				return "Thanks for playing!";
+				return data.company.name;
 			}
-
-			console.log(data);
 
 			return (
 				<VfInputText
 					name="companyName"
 					labelgroupname={props.labelgroupname}
 					value={companyName()}
-					readonly="true"
+					readOnly="true"
 				/>
 			);
-
 		}}
 	</Query>
 );
@@ -58,26 +52,21 @@ export const renderReadOnlyCompanyNameField = (props) => (
 export const renderEmptyCompanyNameField = (props) => (
 	<Query query={allCompanyNamesQuery} variables={{  }}>
 		{({ loading, error, data }) => {
-			console.log("ALL COMPANY NAMES QUERY");
-			console.log(data);
 			const listOfCompanyNames = () => {
 				if (loading) {
-					return ["Loading..."];
+					return [t("common.forms.pleaseWait")];
 				}
-				// If you want to check for "no results", you would
-				// do it here, in the same place as the check for errors,
-				// unless you want to handle them differently. The original
-				// form logic handled them the exact same way.
-				else if (error) {
-					return ["Something bad happened! PANIC!"];
+				else if (error || data.allCompanies === undefined || data.allCompanies === null || data.allCompanies.length === 0) {
+					return [];
 				}
-				return ["Thanks for playing!"];
+				return data.allCompanies.map(result => result.name);
 			}
 
 			return (
 				<VfInputTextWithOptionList
 					name="companyName"
 					labelgroupname={props.labelgroupname}
+					maxLength="100"
 					optionlist={listOfCompanyNames()}
 					placeholder={t(`common.forms.${props.placeholdergroupname}.companyNamePlaceholder`)}
 				/>

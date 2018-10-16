@@ -133,7 +133,7 @@ const VizeFormikInputTextWithOptionList = (props) => withVizeFormatting(
 				<input type="text" className="form-control" id={vfComponentId} list={`${vfComponentId}.list`} {...field} {...props} />
 				<datalist id={`${vfComponentId}.list`}>
 					{props.optionlist.map(
-						option => <option value={option}>{option}</option>
+						option => <option value={option} key={`${vfComponentId}.${option}`}>{option}</option>
 					)}
 				</datalist>
 				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
