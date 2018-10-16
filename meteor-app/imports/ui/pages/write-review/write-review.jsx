@@ -15,6 +15,7 @@ import { ReviewSchema } from "/imports/api/data/yup-schemas.js";
 import {
 	VfInputText,
 	VfInputTextArea,
+	VfInputLocation,
 	readOnlyCompanyNameField,
 	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
 
@@ -69,12 +70,8 @@ const WriteReviewInnerForm = function(props) {
 											})
 									}
 									<VfInputText name="reviewTitle" labelgroupname="Reviews" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
+									<VfInputLocation name="location" labelgroupname="Reviews" />
 									{/*
-										<div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField name='location'}}
-											</div>
-										</div>
 										<div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 											<div className="col-lg-12">
 												{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
@@ -144,7 +141,7 @@ const WriteReviewInnerForm = function(props) {
 						<div className="clear" />
 					</div>
 				</div>
-				<div>{JSON.stringify(props)}</div>
+				{/* <div>{JSON.stringify(props)}</div> */}
 			</section>
 			<Footer />
 			<Dialog />

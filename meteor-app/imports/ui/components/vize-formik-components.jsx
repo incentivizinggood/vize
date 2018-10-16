@@ -107,28 +107,34 @@ const withVizeFormatting = function(vfComponent, fieldname, labelgroupname, erro
 				</label>
 				{vfComponent(vfComponentId)}
 				<span className="help-block">
-					{ErrorMessage({name: fieldname})}
+					<ErrorMessage name={fieldname}>
+						{(msg) => (
+							<div>
+								{(typeof msg === 'string') ? msg : ""}
+							</div>
+						)}
+					</ErrorMessage>
 				</span>
 			</div>
 		</div>
 	)
 };
 
-const VizeFormikInputText = (props) => withVizeFormatting(
+const VfInputText = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
 				<input type="text" className="form-control" id={vfComponentId} {...field} {...props} />
-				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
+				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
 	),
 	props.name,
 	props.labelgroupname,
 	props.formik.errors[props.name]
-);
+));
 
-const VizeFormikInputTextWithOptionList = (props) => withVizeFormatting(
+const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
@@ -138,32 +144,48 @@ const VizeFormikInputTextWithOptionList = (props) => withVizeFormatting(
 						option => <option value={option} key={`${vfComponentId}.${option}`}>{option}</option>
 					)}
 				</datalist>
-				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
+				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
 	),
 	props.name,
 	props.labelgroupname,
 	props.formik.errors[props.name]
-)
+));
 
-const VizeFormikInputTextArea = (props) => withVizeFormatting(
+const VfInputTextArea = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
 				<textarea className="form-control" id={vfComponentId} {...field} {...props} />
-				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
+				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
 	),
 	props.name,
 	props.labelgroupname,
 	props.formik.errors[props.name]
-);
+));
 
-const VfInputText = connect(VizeFormikInputText);
-const VfInputTextWithOptionList = connect(VizeFormikInputTextWithOptionList);
-const VfInputTextArea = connect(VizeFormikInputTextArea);
+const VfInputLocation = connect((props) => withVizeFormatting(
+	(vfComponentId) => (
+		<div className="panel panel-default">
+			<div className="panel-body">
+				<Field name={props.name} render={() => (
+					<div id={vfComponentId}>
+						<VfInputText name={`${props.name}.city`} labelgroupname={`${props.labelgroupname}.locationSubfields`} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
+						<VfInputText name={`${props.name}.address`} labelgroupname={`${props.labelgroupname}.locationSubfields`} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
+						<VfInputText name={`${props.name}.industrialHub`} labelgroupname={`${props.labelgroupname}.locationSubfields`} maxLength="300" placeholder={t("common.forms.locationIndustrialHubPlaceholder")}/>
+						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+					</div>
+				)}/>
+			</div>
+		</div>
+	),
+	props.name,
+	props.labelgroupname,
+	props.formik.errors[props.name]
+));
 
 const companyNameForIdQuery = gql`
 	query companyNameForId($companyId: ID!) {
@@ -237,5 +259,6 @@ export {
 	VfInputText,
 	VfInputTextWithOptionList,
 	VfInputTextArea,
+	VfInputLocation,
  	readOnlyCompanyNameField,
 	emptyCompanyNameField };
