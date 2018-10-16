@@ -2,6 +2,8 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import { Field, FieldArray, ErrorMessage, connect } from "formik";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
 /*
 	WARNING
@@ -159,9 +161,81 @@ const VizeFormikInputTextArea = (props) => withVizeFormatting(
 	props.formik.errors[props.name]
 );
 
-// This looks like a badly-written export section,
-// but it's written this way in case I want to experiment
-// with using Formik's connect HOC.
-export const VfInputText = connect(VizeFormikInputText);
-export const VfInputTextWithOptionList = connect(VizeFormikInputTextWithOptionList);
-export const VfInputTextArea = connect(VizeFormikInputTextArea);
+const VfInputText = connect(VizeFormikInputText);
+const VfInputTextWithOptionList = connect(VizeFormikInputTextWithOptionList);
+const VfInputTextArea = connect(VizeFormikInputTextArea);
+
+const companyNameForIdQuery = gql`
+	query companyNameForId($companyId: ID!) {
+		company(id: $companyId) {
+			name
+		}
+	}
+`;
+
+const allCompanyNamesQuery = gql`
+	query getAllCompanyNames {
+		allCompanies {
+			name
+		}
+	}
+`;
+
+const readOnlyCompanyNameField = (props) => (
+	<Query query={companyNameForIdQuery} variables={{companyId: props.companyId}}>
+		{({ loading, error, data }) => {
+			const companyName = () => {
+				if (loading) {
+					return t("common.forms.pleaseWait");
+				}
+				else if (error || data.company === undefined || data.company === null) {
+					console.log(error);
+					return t("common.forms.companyNotFound");
+				}
+				return data.company.name;
+			}
+
+			return (
+				<VfInputText
+					name="companyName"
+					labelgroupname={props.labelgroupname}
+					value={companyName()}
+					readOnly="true"
+				/>
+			);
+		}}
+	</Query>
+);
+
+const emptyCompanyNameField = (props) => (
+	<Query query={allCompanyNamesQuery} variables={{  }}>
+		{({ loading, error, data }) => {
+			const listOfCompanyNames = () => {
+				if (loading) {
+					return [t("common.forms.pleaseWait")];
+				}
+				else if (error || data.allCompanies === undefined || data.allCompanies === null || data.allCompanies.length === 0) {
+					return [];
+				}
+				return data.allCompanies.map(result => result.name);
+			}
+
+			return (
+				<VfInputTextWithOptionList
+					name="companyName"
+					labelgroupname={props.labelgroupname}
+					maxLength="100"
+					optionlist={listOfCompanyNames()}
+					placeholder={t(`common.forms.${props.placeholdergroupname}.companyNamePlaceholder`)}
+				/>
+			);
+		}}
+	</Query>
+);
+
+export {
+	VfInputText,
+	VfInputTextWithOptionList,
+	VfInputTextArea,
+ 	readOnlyCompanyNameField,
+	emptyCompanyNameField };

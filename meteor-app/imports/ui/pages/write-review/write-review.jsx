@@ -12,8 +12,11 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/yup-schemas.js";
 
-import { VfInputText, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
-import { renderReadOnlyCompanyNameField, renderEmptyCompanyNameField } from "/imports/ui/vize-form-helpers.jsx";
+import {
+	VfInputText,
+	VfInputTextArea,
+	readOnlyCompanyNameField,
+	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
 
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
@@ -55,11 +58,11 @@ const WriteReviewInnerForm = function(props) {
 								<fieldset>
 									{
 										(props.companyId !== undefined) ?
-											renderReadOnlyCompanyNameField({
+											readOnlyCompanyNameField({
 												...props,
 												labelgroupname: "Reviews",
 											}) :
-											renderEmptyCompanyNameField({
+											emptyCompanyNameField({
 												...props,
 												labelgroupname: "Reviews",
 												placeholdergroupname: "wr"
