@@ -96,19 +96,16 @@ const t = i18n.createTranslator();
 */
 
 const withVizeFormatting = function(vfComponent, fieldname, labelgroupname, errors) {
-	// BUG errorAwareClassName is hard-coded, but needs to be
-	// determined by validating the field
-	const errorAwareClassName = `form-group ${(errors !== undefined) ? "has-error" : ""}`;
 	const vfComponentId = `${labelgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
 		<div className="form-group">
-			<div className={errorAwareClassName}>
+			<div className={`form-group ${(errors !== undefined) ? "has-error" : ""}`}>
 				<label className="control-label" htmlFor={vfComponentId}>
 					{t(`SimpleSchema.labels.${vfComponentId}`)}
 				</label>
-				{vfComponent(fieldname, labelgroupname)}
+				{vfComponent(vfComponentId)}
 				<span className="help-block">
-					<ErrorMessage name={fieldname} />
+					{ErrorMessage({name: fieldname})}
 				</span>
 			</div>
 		</div>
@@ -116,11 +113,11 @@ const withVizeFormatting = function(vfComponent, fieldname, labelgroupname, erro
 };
 
 const VizeFormikInputText = (props) => withVizeFormatting(
-	(fieldname, vfComponentId) => (
-		<Field name={fieldname} id={vfComponentId} render={({field}) => (
+	(vfComponentId) => (
+		<Field name={props.name} render={({field}) => (
 			<div>
-				<input type="text" className="form-control" {...field} {...props} />
-				<div>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</div>
+				<input type="text" className="form-control" id={vfComponentId} {...field} {...props} />
+				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
 			</div>
 		)}/>
 	),
@@ -129,12 +126,31 @@ const VizeFormikInputText = (props) => withVizeFormatting(
 	props.formik.errors[props.name]
 );
 
-const VizeFormikInputTextArea = (props) => withVizeFormatting(
-	(fieldname, vfComponentId) => (
-		<Field name={fieldname} id={vfComponentId} render={({field}) => (
+const VizeFormikInputTextWithOptionList = (props) => withVizeFormatting(
+	(vfComponentId) => (
+		<Field name={props.name} render={({field}) => (
 			<div>
-				<textarea className="form-control" {...field} {...props} />
-				<div>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</div>
+				<input type="text" className="form-control" id={vfComponentId} list={`${vfComponentId}.list`} {...field} {...props} />
+				<datalist id={`${vfComponentId}.list`}>
+					{props.optionlist.map(
+						option => <option value={option}>{option}</option>
+					)}
+				</datalist>
+				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
+			</div>
+		)}/>
+	),
+	props.name,
+	props.labelgroupname,
+	props.formik.errors[props.name]
+)
+
+const VizeFormikInputTextArea = (props) => withVizeFormatting(
+	(vfComponentId) => (
+		<Field name={props.name} render={({field}) => (
+			<div>
+				<textarea className="form-control" id={vfComponentId} {...field} {...props} />
+				<span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span>
 			</div>
 		)}/>
 	),
@@ -147,4 +163,5 @@ const VizeFormikInputTextArea = (props) => withVizeFormatting(
 // but it's written this way in case I want to experiment
 // with using Formik's connect HOC.
 export const VfInputText = connect(VizeFormikInputText);
+export const VfInputTextWithOptionList = connect(VizeFormikInputTextWithOptionList);
 export const VfInputTextArea = connect(VizeFormikInputTextArea);

@@ -12,7 +12,7 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/yup-schemas.js";
 
-import { VfInputText, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
+import { VfInputText, VfInputTextWithOptionList, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
 
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
@@ -28,9 +28,39 @@ wr_form_state.set("formError", {
 });
 wr_form_state.set("companyId", undefined); // Shared with the React wrapper
 wr_form_state.set("company", {
-	name: i18n.__("common.forms.pleaseWait"),
+	name: t("common.forms.pleaseWait"),
 });
 wr_form_state.set("allCompanyNames", []);
+
+const getCompanyNameForId = (companyId) => {
+	return "";
+};
+
+const getAllCompanyNames = () => {
+	return [];
+};
+
+const renderReadOnlyNameField = (props) => {
+	return (
+		<VfInputText
+			name="companyName"
+			labelgroupname="Reviews"
+			value={props.companyName}
+			readonly="true"
+		/>
+	);
+};
+
+const renderEmptyNameField = (props) => {
+	return (
+		<VfInputTextWithOptionList
+			name="companyName"
+			labelgroupname="Reviews"
+			optionlist={props.listOfCompanyNames}
+			placeholder={t("common.forms.wr.companyNamePlaceholder")}
+		/>
+	);
+};
 
 const WriteReviewInnerForm = function(props) {
 	console.log(props);
@@ -52,77 +82,76 @@ const WriteReviewInnerForm = function(props) {
 									<h4>{t("common.forms.wr.header1")}</h4>
 								</div>
 								<fieldset>
-									{/* <div className="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{#if shouldHaveCompany}}
-											{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
-											{{else}}
-											{{> afQuickField name='companyName' placeholder=(__ ".wr.companyNamePlaceholder") list="wrCompanyNames"}}
-											<datalist id="wrCompanyNames">
-												{{#each companyName in allCompanyNames}}
-												<option value="{{companyName}}">{{companyName}}</option>
-												{{/each}}
-											</datalist>
-											{{/if}}
-										</div>
-									</div> */}
+									{
+										(props.companyId !== undefined) ?
+											renderReadOnlyNameField({
+												...props,
+												companyName: getCompanyNameForId(props.companyId)
+											}) :
+											renderEmptyNameField({
+												...props,
+												listOfCompanyNames: getAllCompanyNames()
+											})
+									}
 									<VfInputText name="reviewTitle" labelgroupname="Reviews" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
-									{/* <div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='location'}}
+									{/*
+										<div className="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField name='location'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
+										<div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='numberOfMonthsWorked'}}
+										<div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField name='numberOfMonthsWorked'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='pros' className="text-area" placeholder=(__ ".wr.prosPlaceholder")}}
+										<div className="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField name='pros' className="text-area" placeholder=(__ ".wr.prosPlaceholder")}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='cons' className="text-area" placeholder=(__ ".wr.consPlaceholder")}}
+										<div className="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField name='cons' className="text-area" placeholder=(__ ".wr.consPlaceholder")}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
+										<div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											<br>
-											{{> afQuickField style="float:right" name='healthAndSafety'}}
+										<div className="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												<br>
+												{{> afQuickField style="float:right" name='healthAndSafety'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField style="float:right" name='managerRelationship'}}
+										<div className="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField style="float:right" name='managerRelationship'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField style="float:right" name='workEnvironment'}}
+										<div className="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField style="float:right" name='workEnvironment'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField style="float:right" name='benefits'}}
+										<div className="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField style="float:right" name='benefits'}}
+											</div>
 										</div>
-									</div> */}
-									{/* <div className="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
-										<div className="col-lg-12">
-											{{> afQuickField style="float:right" name='overallSatisfaction'}}
+										<div className="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
+											<div className="col-lg-12">
+												{{> afQuickField style="float:right" name='overallSatisfaction'}}
+											</div>
 										</div>
-									</div> */}
+									 */}
 									<VfInputTextArea name="additionalComments" labelgroupname="Reviews" rows="6" maxLength="6000" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 									<div className="form-group">
 										<div className="col-lg-12">
