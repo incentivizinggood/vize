@@ -36,7 +36,7 @@ class HomePageSearch extends React.Component {
 
 	render() {
 		return (
-			<form className="example" onSubmit={this.handleSubmit}>
+			<form className="searchForm" onSubmit={this.handleSubmit}>
 				<input
 					name="search"
 					type="text"

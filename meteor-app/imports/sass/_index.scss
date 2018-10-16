@@ -1,23 +1,42 @@
-@import url("https://fonts.googleapis.com/css?family=Lato");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css");
-@import "needs-refactor/login-register";
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
-//@import "dropdown";
-@import "additions/mixins";
-@import "additions/variables";
+// VENDORS
+@import
+  url("https://fonts.googleapis.com/css?family=Lato"),
+  url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"),
+  url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
 
-@import "post-job";
-@import "old-main";
+// BASE
+@import
+  "base/variables",
+  "base/mixins",
+  "base/fonts",
+  "base/reset";
 
-@import "modules/banner";
-@import "modules/button";
-@import "modules/company-profile";
-@import "modules/dropdown";
-@import "modules/for-employers";
-@import "modules/forms";
-@import "modules/header-footer";
-@import "modules/home";
-@import "modules/resources";
-@import "modules/responsive";
-@import "modules/review-form";
-@import "modules/review-profile";
+// SHARED
+@import
+  "shared/welcome",
+  "shared/star";
+
+// Module-specific styles
+@import 
+  "modules/banner",
+  "modules/button",
+  "modules/company-profile",
+  "modules/dropdown",
+  "modules/for-employers",
+  "modules/forms",
+  "modules/header",
+  "modules/footer",
+  "modules/home",
+  "modules/resources",
+  "modules/responsive",
+  "modules/review-form",
+  "modules/review-profile",
+  "modules/search-companies";
+
+// Components
+@import
+  "components/post-job",
+  "components/about",
+  "components/profile",
+  "components/great",
+  "components/search-form";

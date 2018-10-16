@@ -45,44 +45,46 @@
 	color: #2580db;
 }
 
-.employer-fm .form-control {
-	display: block;
-	width: 100%;
-	height: 34px;
-	padding: 6px 12px;
-	font-size: 14px;
-	line-height: 1.428571429;
-	color: #555;
-	background-color: #fff;
-	background-image: none;
-	border: 0px solid #ccc;
-	border-radius: 0px;
+.employer-fm {
+	.form-control {
+		display: block;
+		width: 100%;
+		height: 34px;
+		padding: 6px 12px;
+		font-size: 14px;
+		line-height: 1.428571429;
+		color: #555;
+		background-color: $white;
+		background-image: none;
+		border: 0px solid #ccc;
+		border-radius: 0px;
+	
+		-webkit-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.075);
+		box-shadow: inset 0 -1px 0px rgba(0, 0, 0, 0.075);
 
-	-webkit-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.075);
-	box-shadow: inset 0 -1px 0px rgba(0, 0, 0, 0.075);
+		&:focus {
+			border-bottom: 1px solid #439bd5 !important;
+		}
+
+		&:hover {
+			border-bottom: 1px solid #439bd5 !important;
+		}
+	}
 }
-
-.employer-fm .form-control:focus {
-	border-bottom: 1px solid #439bd5 !important;
-}
-
-.employer-fm .form-control:hover {
-	border-bottom: 1px solid #439bd5 !important;
-}
-
-/*=================employer and worker ==============*/
 
 a.button.out-bodr-get1 {
 	background-color: #439bd5;
-	color: #ffffff;
+	color: $white;
 	font-size: 33px;
 	font-family: initial;
 	border: 1px solid #87bcdf !important;
 	margin-top: 42px;
+
+	&:hover {
+		background-color: #7bb3d6;
+	}
 }
-a.button.out-bodr-get1:hover {
-	background-color: #7bb3d6;
-}
+
 .employer-btn-get {
 	margin-top: 50px;
 	color: #222;
@@ -92,6 +94,7 @@ a.button.out-bodr-get1:hover {
 a.employer-btn {
 	text-decoration: none;
 }
+
 a.worker-btn {
 	text-decoration: none;
 }
@@ -113,19 +116,14 @@ a.worker-btn {
 	border-right: 0;
 	border: none;
 	border-bottom: 1px solid #bdb9b9;
-	background-color: #fff;
+	background-color: $white;
 }
 
-.text-center .login-link-cs {
-	margin-top: -2px;
-	padding-bottom: 31px;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.text-center.login-link-cs a {
-	font-size: 17px;
-	font-weight: 700;
+.login-link-cs {
+	a {
+		font-size: 17px;
+		font-weight: 700;
+	}
 }
 
 .panel-heading.p-head {
@@ -133,12 +131,12 @@ a.worker-btn {
 	padding: 0px 0px !important;
 }
 
-h3.top-head-employer {
+.top-head-employer {
 	font-family: initial;
 	font-size: 32px;
 }
 
-h3.top-head-worker {
+.top-head-worker {
 	font-family: initial;
 	font-size: 32px;
 }
@@ -147,26 +145,27 @@ h3.top-head-worker {
 	width: 66% !important;
 }
 
-.text-center.reg {
+.reg {
 	font-size: 16px;
 	font-weight: 700;
 }
 
-/*=================employer and worker ==============*/
+.btn {
+	&-emp,
+	&-work {
+		width: 50%;	
+		text-align: center;
+	}
 
-/*================== employer button and worker button  start================*/
-
-.btn-emp {
-	width: 50%;
-	background-color: #f2f2f2;
-	float: left;
-	text-align: center;
-}
-.btn-work {
-	width: 50%;
-	background-color: bisque;
-	float: right;
-	text-align: center;
+	&-emp {
+		background-color: $concrete;
+		float: left;
+	}
+	
+	&-work {
+		background-color: bisque;
+		float: right;
+	}
 }
 
 #register-form {
@@ -179,28 +178,26 @@ h3.top-head-worker {
 		text-align: center;
 		font-weight: normal;
 		cursor: pointer;
-		/* Hide the browser's default checkbox */
+		
 		input {
 			display: none;
 		}
 	}
+
 	.selected-role {
 		background-color: #dcdada;
 	}
+
+	&-link {
+		width: 100%;
+		background-color: #f3f3f3;
+		font-family: initial;
+		color: #000;
+		font-size: 26px;
+		border-right: 1px solid;	
+	}
 }
 
-a#register-form-link {
-	width: 100%;
-	background-color: #f3f3f3;
-	font-family: initial;
-	color: #000;
-	font-size: 26px;
-	border-right: 1px solid;
-}
-
-div.button-center {
-	text-align: center;
-}
 .enterTriggers {
 	background-color: #2079b5;
 	color: white;
@@ -209,128 +206,58 @@ div.button-center {
 	font-size: 15px;
 }
 
-/*==============employer button and worker button end===============*/
-
-/*=================login page  ==============*/
 a.button.out-bodr-login:hover {
 	background-color: #48acef;
 }
 
-.login-fm .input-group .form-control {
-	position: relative;
-	z-index: 2;
-	float: left;
-	width: 100%;
-	margin-bottom: 0;
-	border: none;
-	border-bottom: 1px solid #bdb9b9;
-	outline: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-}
+.login-fm {
+	.input-group {
+		&-addon:first-child {
+			border-right: 0;
+			border: none;
+			border-bottom: 1px solid #bdb9b9;
+			background-color: $white;
+		}
 
-.login-fm .input-group-addon:first-child {
-	border-right: 0;
-	border: none;
-	border-bottom: 1px solid #bdb9b9;
-	background-color: #fff;
-}
+		.form-control {
+			position: relative;
+			z-index: 2;
+			float: left;
+			margin-bottom: 0;
+			border-bottom: 1px solid #bdb9b9;
+			outline: none;
+			display: block;
+			width: 100%;
+			height: 34px;
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 1.428571429;
+			color: #555;
+			background-color: $white;
+			background-image: none;
+			border: 0px solid #ccc;
+			border-radius: 0px;
+			-webkit-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.075);
+			box-shadow: inset 0 -1px 0px rgba(0, 0, 0, 0.075);
 
-.login-fm .form-control {
-	display: block;
-	width: 100%;
-	height: 34px;
-	padding: 6px 12px;
-	font-size: 14px;
-	line-height: 1.428571429;
-	color: #555;
-	background-color: #fff;
-	background-image: none;
-	border: 0px solid #ccc;
-	border-radius: 0px;
-
-	-webkit-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.075);
-	box-shadow: inset 0 -1px 0px rgba(0, 0, 0, 0.075);
-}
-
-.login-fm .form-control:focus {
-	border-bottom: 1px solid #439bd5 !important;
-}
-
-.login-fm .form-control:hover {
-	border-bottom: 1px solid #439bd5 !important;
+			&:focus,
+			&:hover {
+				border-bottom: 1px solid #439bd5 !important;
+			}
+		}
+	}
 }
 
 a.button.out-bodr-login {
 	background-color: #439bd5;
-	color: #ffffff;
+	color: $white;
 	font-size: 33px;
 	border: 1px solid #87bcdf !important;
 	margin-bottom: 15px;
 	padding-left: 2em;
 	padding-right: 2em;
-
 	font-family: initial;
 	margin-top: 55px;
-}
-/*=================login page end ==============*/
-
-/*=================Start of Dialog box ==============*/
-$base-height: 377px;
-$base-dimension: 16px;
-$base-border-radius: 12px;
-$base-button-size: 52px;
-$primary-color: #0360a5;
-$accent-color: #f6f7f9;
-$background-color: #fff;
-$font-color: #888;
-@mixin chabox-container {
-	display: flex;
-	position: absolute;
-	box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, 0.2);
-	flex-direction: column;
-}
-@mixin chatbox-header {
-	box-sizing: border-box;
-	display: flex;
-	width: 100%;
-	padding: $base-dimension;
-	color: $background-color;
-	background-color: $primary-color;
-	align-items: center;
-	justify-content: space-around;
-}
-@mixin chatbox-main {
-	box-sizing: border-box;
-	width: 100%;
-	padding: calc(2 * #{$base-dimension}) #{$base-dimension};
-	line-height: calc(#{$base-dimension} + #{$base-dimension} / 2);
-	color: $font-color;
-	text-align: center;
-}
-@mixin chatbox-footer {
-	box-sizing: border-box;
-	display: flex;
-	width: 100%;
-	padding: $base-dimension;
-	border-top: 1px solid #ddd;
-	align-items: center;
-	justify-content: space-around;
-}
-@mixin chatbox-floating-button {
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: $base-button-size;
-	height: $base-button-size;
-	color: $background-color;
-	background-color: $primary-color;
-	background-position: center center;
-	background-repeat: no-repeat;
-	box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
-	border: 0;
-	border-radius: 50%;
-	cursor: pointer;
 }
 
 button {
@@ -339,10 +266,12 @@ button {
 	border: 0;
 	outline: 0 !important;
 	cursor: pointer;
+
 	&.chatbox-open {
 		@include chatbox-floating-button;
 		margin: $base-dimension;
 	}
+
 	&.chatbox-close {
 		@include chatbox-floating-button;
 		display: none;
@@ -351,6 +280,7 @@ button {
 			$base-dimension;
 	}
 }
+
 textarea {
 	box-sizing: border-box;
 	width: 100%;
@@ -366,10 +296,12 @@ textarea {
 	outline: 0 !important;
 	resize: none;
 	overflow: hidden;
+
 	&::placeholder {
 		color: $font-color;
 	}
 }
+
 .chatbox-popup {
 	@include chabox-container;
 	display: none;
@@ -377,13 +309,14 @@ textarea {
 	right: $base-dimension;
 	width: $base-height;
 	height: auto;
-	background-color: $background-color;
+	background-color: $white;
 	border-radius: $base-dimension;
 	position: fixed;
 
 	.chatbox-popup__main {
 		@include chatbox-main;
 	}
+	
 	.chatbox-popup__footer {
 		@include chatbox-footer;
 		border-bottom-right-radius: $base-border-radius;

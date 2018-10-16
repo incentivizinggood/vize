@@ -1,13 +1,15 @@
 .dropdown {
-	display: inline-block;
-}
+  $this: &;
+  display: inline-block;
 
-.dropdown__content {
-	display: none;
-	position: absolute;
-	z-index: 99;
-}
+  &__content {
+    display: none;
+    position: absolute;
+  }
 
-.dropdown--active .dropdown__content {
-	display: block;
+  &--active {
+    #{$this}-content {
+      display: block;
+    }
+  }
 }

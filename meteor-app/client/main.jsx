@@ -13,7 +13,7 @@ import "../imports/startup/client/i18n.js";
 import client from "../imports/startup/client/graphql.js";
 
 Meteor.startup(() => {
-	$.getScript("js/prettySticky.js", function() {});
+	$.getScript("../public/js/prettySticky.js", function() {});
 	$.getScript("js/bootstrap-multiselect.js", function() {});
 
 	// Get the data for the currently logged in user.

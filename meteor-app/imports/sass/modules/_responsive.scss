@@ -424,7 +424,7 @@
 		width: 230px;
 		height: 157px;
 		margin: 5px;
-		border: 5px solid #fff;
+		border: 5px solid $white;
 	}
 	.view p {
 		margin: 3em auto 0;
@@ -633,10 +633,10 @@
 @media (max-width: 1267px) {
 	button.navbar-toggle {
 		background: #439bd5;
-		border-color: #fff;
+		border-color: $white;
 	}
 	.navbar-toggle .icon-bar {
-		background: #fff;
+		background: $white;
 	}
 	.top-nav ul li {
 		display: block;
@@ -1210,7 +1210,7 @@
 		padding: 2em 0;
 	}
 	nav.navScroll ul li a {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 }
 @media screen and (max-width: 992px) and (min-width: 320px) {
@@ -1240,7 +1240,7 @@
 		padding-top: 3em !important;
 	}
 	nav.navScroll ul li a {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	#register-button {
 	}
@@ -1264,7 +1264,7 @@
 	}
 
 	.top-nav ul li a {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 
 	.great-job-hm {
@@ -1288,16 +1288,16 @@
 		background-color: #132437 !important;
 	}
 	a#navEng {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#navIta {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#navEng:hover {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#navIta:hover {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	nav {
 		padding: 0em 0em !important;
@@ -1314,7 +1314,7 @@
 		background-color: #fb406f !important;
 	}
 	nav.navScroll ul li a {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	ul.dropdown-menu.header_drop_language li:hover {
 		background: #132437;
@@ -1367,13 +1367,6 @@
 	.top-nav ul li a {
 		letter-spacing: 0;
 		padding: 10px 35px !important;
-	}
-	hr.hr_line_width1 {
-		width: 38%;
-		margin-top: 30px;
-		display: block !important;
-		border-top: 2px dotted #2b3a4b !important;
-		margin-left: 48px;
 	}
 	hr.hr_line_width2 {
 		width: 64%;
@@ -1467,11 +1460,11 @@
 		margin-left: -6px;
 	}
 	ul.dropdown-menu.header_drop_language {
-		background-color: #ffffff !important;
+		background-color: $white !important;
 		margin-left: -15px;
 	}
 	ul.dropdown-menu {
-		background-color: #ffffff !important;
+		background-color: $white !important;
 		margin-left: -15px;
 	}
 }
@@ -1479,11 +1472,11 @@
 
 @media screen and (max-width: 1267px) and (min-width: 320px) {
 	ul.dropdown-menu.header_drop_language {
-		background-color: #ffffff !important;
+		background-color: $white !important;
 		margin-left: -17px;
 	}
 	ul.dropdown-menu {
-		background-color: #ffffff !important;
+		background-color: $white !important;
 		margin-left: -17px;
 	}
 	a.dropdown-toggle.boderbtn {
@@ -1542,16 +1535,16 @@
 		background-color: #132437 !important;
 	}
 	a#navEng {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#navIta {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#navEng:hover {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#navIta:hover {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	nav {
 		padding: 0em 0em !important;
@@ -1568,7 +1561,7 @@
 		background-color: #fb406f !important;
 	}
 	nav.navScroll ul li a {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	ul.dropdown-menu.header_drop_language li:hover {
 		background: #132437;
@@ -1621,13 +1614,6 @@
 	.top-nav ul li a {
 		letter-spacing: 0;
 		padding: 10px 35px !important;
-	}
-	hr.hr_line_width1 {
-		width: 38%;
-		margin-top: 30px;
-		display: block !important;
-		border-top: 2px dotted #2b3a4b !important;
-		margin-left: 48px;
 	}
 	hr.hr_line_width2 {
 		width: 64%;
@@ -1812,12 +1798,12 @@
 	}
 
 	.navbar-toggle .icon-bar {
-		background: #fff;
+		background: $white;
 	}
 	.navbar-toggle {
 		display: block;
 		background-color: #439bd5;
-		border: 1px solid #fff;
+		border: 1px solid $white;
 		margin-top: 15px;
 	}
 	.navbar-collapse {
@@ -1850,11 +1836,11 @@
 		background: #132437;
 	}
 	.top-nav ul li a {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 
 	.top-nav ul li a:hover {
-		color: #ffffff !important;
+		color: $white !important;
 	}
 	a#register-button-menu {
 		display: block !important;
@@ -1887,7 +1873,7 @@
 	}
 
 	.show-on-hover-pf:hover > ul.dropdown-menu {
-		background-color: #fff !important;
+		background-color: $white !important;
 		color: #000000;
 	}
 	.pf.dropdown {

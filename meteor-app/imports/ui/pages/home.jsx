@@ -16,8 +16,9 @@ const T = i18n.createComponent(t);
 function HomePage() {
 	return (
 		<div>
-			<Header />
-
+			<div className="navbarwhite">
+				<Header />
+			</div>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">

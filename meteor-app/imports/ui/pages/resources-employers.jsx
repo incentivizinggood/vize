@@ -10,14 +10,9 @@ const T = i18n.createComponent();
 
 const customStyles = {
 	content: {
-		//top: "50%",
-		//left: "50%",
 		position: "relative",
 		marginTop: "90px",
 		maxHeight: "80%",
-		//	width 								: '80%',
-
-		//transform: "translate(-50%, -50%)",
 	},
 };
 
