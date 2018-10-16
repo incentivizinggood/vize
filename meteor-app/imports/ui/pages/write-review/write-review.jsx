@@ -1,7 +1,7 @@
 // Boilerplate first
 // import { Meteor } from "meteor/meteor";
 import React from "react";
-import { withFormik, Field, Form } from "formik";
+import { withFormik, Form } from "formik";
 // import PropTypes from "prop-types";
 import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
@@ -12,7 +12,8 @@ import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import { ReviewSchema } from "/imports/api/data/yup-schemas.js";
 
-import { VfInputText, VfInputTextWithOptionList, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
+import { VfInputText, VfInputTextArea } from "/imports/ui/components/vize-formik-components.jsx";
+import { renderReadOnlyCompanyNameField, renderEmptyCompanyNameField } from "/imports/ui/vize-form-helpers.jsx";
 
 const t = i18n.createTranslator();
 const T = i18n.createComponent(t);
@@ -31,36 +32,6 @@ wr_form_state.set("company", {
 	name: t("common.forms.pleaseWait"),
 });
 wr_form_state.set("allCompanyNames", []);
-
-const getCompanyNameForId = (companyId) => {
-	return "";
-};
-
-const getAllCompanyNames = () => {
-	return [];
-};
-
-const renderReadOnlyNameField = (props) => {
-	return (
-		<VfInputText
-			name="companyName"
-			labelgroupname="Reviews"
-			value={props.companyName}
-			readonly="true"
-		/>
-	);
-};
-
-const renderEmptyNameField = (props) => {
-	return (
-		<VfInputTextWithOptionList
-			name="companyName"
-			labelgroupname="Reviews"
-			optionlist={props.listOfCompanyNames}
-			placeholder={t("common.forms.wr.companyNamePlaceholder")}
-		/>
-	);
-};
 
 const WriteReviewInnerForm = function(props) {
 	console.log(props);
@@ -84,13 +55,13 @@ const WriteReviewInnerForm = function(props) {
 								<fieldset>
 									{
 										(props.companyId !== undefined) ?
-											renderReadOnlyNameField({
+											renderReadOnlyCompanyNameField({
 												...props,
-												companyName: getCompanyNameForId(props.companyId)
+												labelgroupname: "Reviews",
 											}) :
-											renderEmptyNameField({
+											renderEmptyCompanyNameField({
 												...props,
-												listOfCompanyNames: getAllCompanyNames()
+												labelgroupname: "Reviews",
 											})
 									}
 									<VfInputText name="reviewTitle" labelgroupname="Reviews" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
