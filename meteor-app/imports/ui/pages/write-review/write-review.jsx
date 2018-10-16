@@ -58,10 +58,12 @@ const WriteReviewInnerForm = function(props) {
 											renderReadOnlyCompanyNameField({
 												...props,
 												labelgroupname: "Reviews",
+												placeholdergroupname: "wr"
 											}) :
 											renderEmptyCompanyNameField({
 												...props,
 												labelgroupname: "Reviews",
+												placeholdergroupname: "wr"
 											})
 									}
 									<VfInputText name="reviewTitle" labelgroupname="Reviews" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
