@@ -6,7 +6,14 @@ import * as yup from "yup";
 // not sure how good of a long-term solution it is but it seems fine for now.
 // https://stackoverflow.com/questions/6543917/count-number-of-words-in-string-using-javascript
 
-const wordCount = (inputString) => inputString.split(/\s+\b/).length;
+const wordCount = (inputString) => {
+	if(inputString === undefined ||
+		inputString === null ||
+		typeof inputString !== 'string' ||
+		inputString.length === 0)
+		return 0;
+	else return inputString.split(/\s+\b/).length;
+};
 
 // QUESTION Are the defaults acceptable for most validation
 // error messages, or will we always need to define our own
@@ -179,12 +186,12 @@ export const ReviewSchema = yup.object().shape({
 	submittedBy: yup.number().integer().required(),
 	companyName: yup.string().max(100).required().test('reviewCompanyNameTest', 'test not yet implemented!', () => false),
 	companyId: yup.number().integer().notRequired(),
-	reviewTitle: yup.string().max(100).required("Review title is required!"),
+	reviewTitle: yup.string().max(100).required(),
 	location: LocationSchema.required(), // if only it had always been this easy...
 	jobTitle: yup.string().max(100).required(),
 	numberOfMonthsWorked: yup.number().integer().min(0).required(),
-	pros: yup.string().max(600).required().test('prosHasFiveWords', '${path} must have at least five words', () => false),
-	cons: yup.string().max(600).required().test('consHasFiveWords', '${path} must have at least five words', () => false),
+	pros: yup.string().max(600).required().test('prosHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
+	cons: yup.string().max(600).required().test('consHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
 	wouldRecommendToOtherJobSeekers: yup.boolean().required(),
 	healthAndSafety: yup.number().min(0).max(5).required(),
 	managerRelationship: yup.number().min(0).max(5).required(),
