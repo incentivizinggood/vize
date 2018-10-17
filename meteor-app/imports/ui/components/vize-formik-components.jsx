@@ -136,6 +136,25 @@ const t = i18n.createTranslator();
 
 */
 
+/*
+	BUG
+	The logic and architecture of these components cannot
+	handle label translation for array member fields.
+	Probably most of it needs to be moved out of withVizeFormatting,
+	higher up the stack, probably into the custom components.
+	That would seem to make the most sense, since the custom component
+	will know both the labelgroupname, fieldname, in short everything
+	that is currently used to calculate vfComponentId to generate
+	the label, and also know enough about itself to tell withVizeFormatting
+	whether anything different needs to be done.
+	My current idea is to change labelgroupname to formgroupname,
+	and add a prop for labelIdentifier that the custom component
+	can pass in.
+	TODO refactor the code in question, and make any then-necessary
+	changes to the i18n JSON files. Hopefully this will make it easier
+	to move forward, and less of a hassle to replace universe:i18n later.
+*/
+
 const withVizeFormatting = function(vfComponent, fieldname, labelgroupname, errors) {
 	const vfComponentId = `${labelgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
