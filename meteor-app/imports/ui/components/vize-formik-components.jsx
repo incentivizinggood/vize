@@ -5,6 +5,10 @@ import { Field, FieldArray, ErrorMessage, connect } from "formik";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
+const t = i18n.createTranslator();
+const messageFor = i18n.createTranslator("SimpleSchema.messages");
+const labelFor = i18n.createTranslator("SimpleSchema.labels");
+
 /*
 	WARNING
 	Don't be fooled: I don't actually know what I'm doing.
@@ -95,8 +99,6 @@ import { Query } from "react-apollo";
 	file.
 */
 
-const t = i18n.createTranslator();
-
 /*
 	NOTE: next steps ->
 	QUESTION:
@@ -170,11 +172,24 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 				{vfComponent(vfComponentId)}
 				<span className="help-block">
 					<ErrorMessage name={fieldname}>
-						{(msg) => (
-							<div>
-								{(typeof msg === 'string') ? msg : ""}
-							</div>
-						)}
+						{(msg) => {
+							if(typeof msg === 'string')
+								return (
+									<div>
+										{(typeof msg === 'string') ? msg : ""}
+									</div>
+								);
+							else if(typeof msg === 'object')
+								if(msg.args.label !== undefined)
+									msg.args.label = t(msg.args.label);
+								return (
+									<div>
+										{t(msg.key, msg.args)}
+									</div>
+								);
+
+							return undefined;
+						}}
 					</ErrorMessage>
 				</span>
 			</div>

@@ -1,5 +1,6 @@
 // import { Meteor } from "meteor/meteor";
 import * as yup from "yup";
+import { i18nReq } from "/i18n/helpers.js";
 
 // Stole this code from an answer to a StackOverflow question,
 // to use for validating pros and cons (which must have >= 5 words each),
@@ -183,21 +184,23 @@ export const ReviewSchema = yup.object().shape({
 	// QUESTION: should submittedBy be notRequired, or do we trust
 	// that it's always automatically set? Users currently
 	// must have accounts in order to submit reviews...
-	submittedBy: yup.number().integer().required(),
-	companyName: yup.string().max(100).required().test('reviewCompanyNameTest', 'test not yet implemented!', () => false),
+	submittedBy: yup.number().integer().required(i18nReq("Reviews.submittedBy")),
+	companyName: yup.string().max(100).required(i18nReq("Reviews.companyName")).test('reviewCompanyNameTest', 'test not yet implemented!', () => false),
 	companyId: yup.number().integer().notRequired(),
-	reviewTitle: yup.string().max(100).required(),
-	location: LocationSchema.required(), // if only it had always been this easy...
-	jobTitle: yup.string().max(100).required(),
-	numberOfMonthsWorked: yup.number().integer().min(0).required(),
-	pros: yup.string().max(600).required().test('prosHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
-	cons: yup.string().max(600).required().test('consHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
-	wouldRecommendToOtherJobSeekers: yup.boolean().required(),
-	healthAndSafety: yup.number().min(0).max(5).required(),
-	managerRelationship: yup.number().min(0).max(5).required(),
-	workEnvironment: yup.number().min(0).max(5).required(),
-	benefits: yup.number().min(0).max(5).required(),
-	overallSatisfaction: yup.number().min(0).max(5).required(),
+	// SimpleSchema.messages.defaults.required
+	// label: SimpleSchema.labels.Reviews.reviewTitle
+	reviewTitle: yup.string().max(100).required(i18nReq("Reviews.reviewTitle")),
+	location: LocationSchema.required(i18nReq("Reviews.location")), // if only it had always been this easy...
+	jobTitle: yup.string().max(100).required(i18nReq("Reviews.jobTitle")),
+	numberOfMonthsWorked: yup.number().integer().min(0).required(i18nReq("Reviews.numberOfMonthsWorked")),
+	pros: yup.string().max(600).required(i18nReq("Reviews.pros")).test('prosHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
+	cons: yup.string().max(600).required(i18nReq("Reviews.cons")).test('consHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
+	wouldRecommendToOtherJobSeekers: yup.boolean().required(i18nReq("Reviews.wouldRecommendToOtherJobSeekers")),
+	healthAndSafety: yup.number().min(0).max(5).required(i18nReq("Reviews.healthAndSafety")),
+	managerRelationship: yup.number().min(0).max(5).required(i18nReq("Reviews.managerRelationship")),
+	workEnvironment: yup.number().min(0).max(5).required(i18nReq("Reviews.workEnvironment")),
+	benefits: yup.number().min(0).max(5).required(i18nReq("Reviews.benefits")),
+	overallSatisfaction: yup.number().min(0).max(5).required(i18nReq("Reviews.overallSatisfaction")),
 	additionalComments: yup.string().max(6000).notRequired(),
 	datePosted: yup.date().notRequired(),
 	upvotes: yup.number().integer().min(0).notRequired(),
