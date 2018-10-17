@@ -120,7 +120,7 @@ const withVizeFormatting = function(vfComponent, fieldname, labelgroupname, erro
 	)
 };
 
-const VfInputText = connect((props) => withVizeFormatting(
+export const VfInputText = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
@@ -134,7 +134,7 @@ const VfInputText = connect((props) => withVizeFormatting(
 	props.formik.errors[props.name]
 ));
 
-const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
+export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
@@ -153,7 +153,7 @@ const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	props.formik.errors[props.name]
 ));
 
-const VfInputTextArea = connect((props) => withVizeFormatting(
+export const VfInputTextArea = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
@@ -167,7 +167,7 @@ const VfInputTextArea = connect((props) => withVizeFormatting(
 	props.formik.errors[props.name]
 ));
 
-const VfInputLocation = connect((props) => withVizeFormatting(
+export const VfInputLocation = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<div className="panel panel-default">
 			<div className="panel-body">
@@ -203,7 +203,7 @@ const allCompanyNamesQuery = gql`
 	}
 `;
 
-const readOnlyCompanyNameField = (props) => (
+export const readOnlyCompanyNameField = (props) => (
 	<Query query={companyNameForIdQuery} variables={{companyId: props.companyId}}>
 		{({ loading, error, data }) => {
 			const companyName = () => {
@@ -229,7 +229,7 @@ const readOnlyCompanyNameField = (props) => (
 	</Query>
 );
 
-const emptyCompanyNameField = (props) => (
+export const emptyCompanyNameField = (props) => (
 	<Query query={allCompanyNamesQuery} variables={{  }}>
 		{({ loading, error, data }) => {
 			const listOfCompanyNames = () => {
@@ -254,11 +254,3 @@ const emptyCompanyNameField = (props) => (
 		}}
 	</Query>
 );
-
-export {
-	VfInputText,
-	VfInputTextWithOptionList,
-	VfInputTextArea,
-	VfInputLocation,
- 	readOnlyCompanyNameField,
-	emptyCompanyNameField };
