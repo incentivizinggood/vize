@@ -87,13 +87,6 @@
 			"numEmployees": "Numero de empleados",
 			"industry": "Industria",
 			"locations": "Ubicaciones",
-			"locationSubfields": {
-				"location": {
-					"city": "Ciudad",
-					"address": "Dirección",
-					"industrialHub": "Parque Industrial"
-				}
-			},
 			"contactPhoneNumber": "Numbero de Contacto",
 			"websiteURL": "Url pagina de internet",
 			"descriptionOfCompany": "Descripcion de la compañia",
@@ -114,13 +107,6 @@
 			"companyId": "companyId",
 			"jobTitle": "Titulo del Trabajo",
 			"locations": "Localizacion",
-			"locationSubfields": {
-				"location": {
-					"city": "Ciudad",
-					"address": "Dirección",
-					"industrialHub": "Parque Industrial"
-				}
-			},
 			"pesosPerHour": "Pesos por Semana",
 			"contractType": "Tipo de Contrato",
 			"jobDescription": "Descripcion del Trabajo",
@@ -135,13 +121,6 @@
 			"companyId": "companyId",
 			"jobTitle": "Titulo del Trabajo",
 			"location": "Localización",
-			"locationSubfields": {
-				"location": {
-					"city": "Ciudad",
-					"address": "Dirección",
-					"industrialHub": "Parque Industrial"
-				}
-			},
 			"incomeType": "Tipo de Ingreso (en Pesos)",
 			"incomeAmount": "Cantidad de Ingresos",
 			"gender": "Genero",
@@ -154,13 +133,6 @@
 			"companyId": "companyId",
 			"reviewTitle": "Titulo de la revisión",
 			"location": "Localización",
-			"locationSubfields": {
-				"location": {
-					"city": "Ciudad",
-					"address": "Dirección",
-					"industrialHub": "Parque Industrial"
-				}
-			},
 			"jobTitle": "Titulo del Trabajo",
 			"numberOfMonthsWorked": "Numero de meses trabajados",
 			"pros": "Ventajas",

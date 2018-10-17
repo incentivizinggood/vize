@@ -61,16 +61,16 @@ const WriteReviewInnerForm = function(props) {
 										(props.companyId !== undefined) ?
 											readOnlyCompanyNameField({
 												...props,
-												labelgroupname: "Reviews",
+												formgroupname: "Reviews",
 											}) :
 											emptyCompanyNameField({
 												...props,
-												labelgroupname: "Reviews",
+												formgroupname: "Reviews",
 												placeholdergroupname: "wr"
 											})
 									}
-									<VfInputText name="reviewTitle" labelgroupname="Reviews" maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
-									<VfInputLocation name="location" labelgroupname="Reviews" />
+									<VfInputText name="reviewTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.reviewTitle")} maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
+									<VfInputLocation name="location" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.location")}/>
 									{/*
 										<div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
 											<div className="col-lg-12">
@@ -124,7 +124,7 @@ const WriteReviewInnerForm = function(props) {
 											</div>
 										</div>
 									 */}
-									<VfInputTextArea name="additionalComments" labelgroupname="Reviews" rows="6" maxLength="6000" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
+									<VfInputTextArea name="additionalComments" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.additionalComments")} rows="6" maxLength="6000" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 									<div className="form-group">
 										<div className="col-lg-12">
 											<div className="submit_div">

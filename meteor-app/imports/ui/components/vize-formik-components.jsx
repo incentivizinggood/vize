@@ -153,15 +153,19 @@ const t = i18n.createTranslator();
 	TODO refactor the code in question, and make any then-necessary
 	changes to the i18n JSON files. Hopefully this will make it easier
 	to move forward, and less of a hassle to replace universe:i18n later.
+	NOTE/UPDATE I decided to go further even than that, and just force
+	the caller to pass in the label string as a prop to the custom component.
+	This is *much* more straightforward than anything else I had come up with.
+
 */
 
-const withVizeFormatting = function(vfComponent, fieldname, labelgroupname, errors) {
-	const vfComponentId = `${labelgroupname}.${fieldname}`; // BUG flesh this out later
+const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, errors) {
+	const vfComponentId = `${formgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
 		<div className="form-group">
 			<div className={`form-group ${(errors !== undefined) ? "has-error" : ""}`}>
 				<label className="control-label" htmlFor={vfComponentId}>
-					{t(`SimpleSchema.labels.${vfComponentId}`)}
+					{labelstring}
 				</label>
 				{vfComponent(vfComponentId)}
 				<span className="help-block">
@@ -188,7 +192,8 @@ export const VfInputText = connect((props) => withVizeFormatting(
 		)}/>
 	),
 	props.name,
-	props.labelgroupname,
+	props.formgroupname,
+	props.labelstring,
 	props.formik.errors[props.name]
 ));
 
@@ -207,7 +212,8 @@ export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 		)}/>
 	),
 	props.name,
-	props.labelgroupname,
+	props.formgroupname,
+	props.labelstring,
 	props.formik.errors[props.name]
 ));
 
@@ -221,7 +227,8 @@ export const VfInputTextArea = connect((props) => withVizeFormatting(
 		)}/>
 	),
 	props.name,
-	props.labelgroupname,
+	props.formgroupname,
+	props.labelstring,
 	props.formik.errors[props.name]
 ));
 
@@ -231,9 +238,9 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 			<div className="panel-body">
 				<Field name={props.name} render={() => (
 					<div id={vfComponentId}>
-						<VfInputText name={`${props.name}.city`} labelgroupname={`${props.labelgroupname}.locationSubfields`} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
-						<VfInputText name={`${props.name}.address`} labelgroupname={`${props.labelgroupname}.locationSubfields`} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
-						<VfInputText name={`${props.name}.industrialHub`} labelgroupname={`${props.labelgroupname}.locationSubfields`} maxLength="300" placeholder={t("common.forms.locationIndustrialHubPlaceholder")}/>
+						<VfInputText name={`${props.name}.city`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationCity")} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
+						<VfInputText name={`${props.name}.address`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationAddress")} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
+						<VfInputText name={`${props.name}.industrialHub`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationIndustrialHub")} maxLength="300" placeholder={t("common.forms.locationIndustrialHubPlaceholder")}/>
 						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 					</div>
 				)}/>
@@ -241,7 +248,8 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 		</div>
 	),
 	props.name,
-	props.labelgroupname,
+	props.formgroupname,
+	props.labelstring,
 	props.formik.errors[props.name]
 ));
 
@@ -278,8 +286,9 @@ export const readOnlyCompanyNameField = (props) => (
 			return (
 				<VfInputText
 					name="companyName"
-					labelgroupname={props.labelgroupname}
+					formgroupname={props.formgroupname}
 					value={companyName()}
+					labelstring={t(`SimpleSchema.labels.${props.formgroupname}.companyName`)}
 					readOnly="true"
 				/>
 			);
@@ -303,9 +312,10 @@ export const emptyCompanyNameField = (props) => (
 			return (
 				<VfInputTextWithOptionList
 					name="companyName"
-					labelgroupname={props.labelgroupname}
+					formgroupname={props.formgroupname}
 					maxLength="100"
 					optionlist={listOfCompanyNames()}
+					labelstring={t(`SimpleSchema.labels.${props.formgroupname}.companyName`)}
 					placeholder={t(`common.forms.${props.placeholdergroupname}.companyNamePlaceholder`)}
 				/>
 			);
