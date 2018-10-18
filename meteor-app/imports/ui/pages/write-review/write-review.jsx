@@ -71,12 +71,8 @@ const WriteReviewInnerForm = function(props) {
 									}
 									<VfInputText name="reviewTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.reviewTitle")} maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
 									<VfInputLocation name="location" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.location")}/>
+									<VfInputText name="jobTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.jobTitle")} maxLength="100" placeholder={t("common.forms.wr.jobTitlePlaceholder")}/>
 									{/*
-										<div className="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField name='jobTitle' placeholder=(__ ".wr.jobTitlePlaceholder")}}
-											</div>
-										</div>
 										<div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
 											<div className="col-lg-12">
 												{{> afQuickField name='numberOfMonthsWorked'}}

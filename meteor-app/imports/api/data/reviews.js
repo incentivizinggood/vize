@@ -181,29 +181,29 @@ export const ReviewSchema = new SimpleSchema(
 			// 		rows: 6,
 			// 	},
 			// },
-			custom() {
-				if (this.isSet) {
-					if (Meteor.isClient) {
-						Meteor.call(
-							"hasFiveWords",
-							this.value,
-							(error, result) => {
-								if (!result) {
-									this.validationContext.addValidationErrors([
-										{
-											name: "pros",
-											type: "needsFiveWords",
-										},
-									]);
-								}
-							}
-						);
-					} else if (Meteor.isServer) {
-						if (!Meteor.call("hasFiveWords", this.value))
-							return "needsFiveWords";
-					}
-				}
-			},
+			// custom() {
+			// 	if (this.isSet) {
+			// 		if (Meteor.isClient) {
+			// 			Meteor.call(
+			// 				"hasFiveWords",
+			// 				this.value,
+			// 				(error, result) => {
+			// 					if (!result) {
+			// 						this.validationContext.addValidationErrors([
+			// 							{
+			// 								name: "pros",
+			// 								type: "needsFiveWords",
+			// 							},
+			// 						]);
+			// 					}
+			// 				}
+			// 			);
+			// 		} else if (Meteor.isServer) {
+			// 			if (!Meteor.call("hasFiveWords", this.value))
+			// 				return "needsFiveWords";
+			// 		}
+			// 	}
+			// },
 		},
 		cons: {
 			type: String,
@@ -215,29 +215,29 @@ export const ReviewSchema = new SimpleSchema(
 			// 		rows: 6,
 			// 	},
 			// },
-			custom() {
-				if (this.isSet) {
-					if (Meteor.isClient) {
-						Meteor.call(
-							"hasFiveWords",
-							this.value,
-							(error, result) => {
-								if (!result) {
-									this.validationContext.addValidationErrors([
-										{
-											name: "cons",
-											type: "needsFiveWords",
-										},
-									]);
-								}
-							}
-						);
-					} else if (Meteor.isServer) {
-						if (!Meteor.call("hasFiveWords", this.value))
-							return "needsFiveWords";
-					}
-				}
-			},
+			// custom() {
+			// 	if (this.isSet) {
+			// 		if (Meteor.isClient) {
+			// 			Meteor.call(
+			// 				"hasFiveWords",
+			// 				this.value,
+			// 				(error, result) => {
+			// 					if (!result) {
+			// 						this.validationContext.addValidationErrors([
+			// 							{
+			// 								name: "cons",
+			// 								type: "needsFiveWords",
+			// 							},
+			// 						]);
+			// 					}
+			// 				}
+			// 			);
+			// 		} else if (Meteor.isServer) {
+			// 			if (!Meteor.call("hasFiveWords", this.value))
+			// 				return "needsFiveWords";
+			// 		}
+			// 	}
+			// },
 		},
 		wouldRecommendToOtherJobSeekers: {
 			type: Boolean,
