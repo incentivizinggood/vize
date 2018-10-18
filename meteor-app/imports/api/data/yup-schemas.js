@@ -8,7 +8,8 @@ import {
 	i18nNoDecimal,
 	i18nNotAllowed,
 	i18nTypeError,
-	i18nRegEx } from "/i18n/helpers.js";
+	i18nRegEx,
+ 	i18nFiveWords } from "/i18n/helpers.js";
 
 // Stole this code from an answer to a StackOverflow question,
 // to use for validating pros and cons (which must have >= 5 words each),
@@ -21,7 +22,7 @@ const wordCount = (inputString) => {
 		typeof inputString !== 'string' ||
 		inputString.length === 0)
 		return 0;
-	else return inputString.split(/\s+\b/).length;
+	return inputString.split(/\s+\b/).length;
 };
 
 // QUESTION Are the defaults acceptable for most validation
@@ -100,8 +101,21 @@ export const CompanySchema = yup.object().shape({
 	name: yup.string()
 		.typeError(i18nTypeError.string("Companies.name"))
 		.max(100,i18nMaxString("Companies.name",100))
-		.required(i18nReq("Companies.name"))
-		.test('companyNameTest', 'test not yet implemented!', () => false),
+		.required(i18nReq("Companies.name")),
+		// NOTE The next test used to check whether the company name
+		// was a duplicate. This is already checked in the backend,
+		// and it isn't really part of the company JSON schema,
+		// so I think that the client-side check for this should be
+		// not in the schema, but in the validate prop of Formik's
+		// Field component. I think the old way was a holdover from
+		// Mongo/SimpleSchema logic, trying to enforce uniqueness
+		// on the name field, but in the new structure the database
+		// has its checks and the form has its checks and neither
+		// of those need to be the same as the checks for a JSON
+		// validation schema. Plus the new way allows us to use
+		// GraphQL instead of Meteor methods, which is a huge bonus
+		// while we're in the process of migrating the code base.
+		// .test('companyNameTest', 'test not yet implemented!', () => false),
 	contactEmail: yup.string()
 		.typeError(i18nTypeError.string("Companies.contactEmail"))
 		.max(100,i18nMaxString("Companies.contactEmail",100))
@@ -239,8 +253,13 @@ export const JobAdSchema = yup.object().shape({
 	companyName: yup.string()
 		.typeError(i18nTypeError.string("JobAds.companyName"))
 		.max(100,i18nMaxString("JobAds.companyName",100))
-		.required(i18nReq("JobAds.companyName"))
-		.test('jobAdCompanyNameTest', 'test not yet implemented!', () => false),
+		.required(i18nReq("JobAds.companyName")),
+		// NOTE This test was supposed to make sure that
+		// the posting company actually had a profile
+		// (i.e. their name is in the database) and that
+		// it is not over the posting limit. This can
+		// be done more easily in Formik/GraphQL.
+		// .test('jobAdCompanyNameTest', 'test not yet implemented!', () => false),
 	// NOTE This used to be optional, now it is required,
 	// because it is in fact required for companies to have
 	// both a name and an ID, but the ID is easier to set automatically.
@@ -289,13 +308,24 @@ export const JobApplicationSchema = yup.object().shape({
 	jobId: yup.number()
 		.typeError(i18nTypeError.number("JobApplications.jobId"))
 		.integer(i18nNoDecimal("JobApplications.jobId"))
-		.required(i18nReq("JobApplications.jobId"))
-		.test('jobApplicationCompanyIdTest', 'test not yet implemented!', () => false),
+		.required(i18nReq("JobApplications.jobId")),
+		// NOTE This next test was supposed to make sure that
+		// the jobId referred to a real job post in the database.
+		// This check is being moved to Formik/GraphQL.
+		// .test('jobApplicationCompanyIdTest', 'test not yet implemented!', () => false),
 	companyName: yup.string()
 		.typeError(i18nTypeError.string("JobApplications.companyName"))
 		.max(100,i18nMaxString("JobApplications.companyName",100))
-		.required(i18nReq("JobApplications.companyName"))
-		.test('jobApplicationCompanyNameTest', 'test not yet implemented!', () => false),
+		.required(i18nReq("JobApplications.companyName")),
+		// NOTE This field technically is determined by jobId,
+		// I wish I could come up with a way to refactor it out...
+		// Actually, the corresponding field is always read-only
+		// anyway, so maybe the check isn't even needed? Heck,
+		// I'm not sure that the field really even means anything,
+		// it's just there to be displayed...well in any case,
+		// this next test can be moved into Formik/GraphQL with
+		// all the others...
+		// .test('jobApplicationCompanyNameTest', 'test not yet implemented!', () => false),
 	fullName: yup.string()
 		.typeError(i18nTypeError.string("JobApplications.fullName"))
 		.max(150,i18nMaxString("JobApplications.fullName",150))
@@ -334,8 +364,11 @@ export const SalarySchema = yup.object().shape({
 	companyName: yup.string()
 		.typeError(i18nTypeError.string("Salaries.companyName"))
 		.max(100,i18nMaxString("Salaries.companyName",100))
-		.required(i18nReq("Salaries.companyName"))
-		.test('salaryCompanyNameTest', 'test not yet implemented!', () => false),
+		.required(i18nReq("Salaries.companyName")),
+		// NOTE This next test was supposed to be a check for
+		// invalid names, and also for duplicate submissions.
+		// It has been moved to Formik/GraphQL.
+		// .test('salaryCompanyNameTest', 'test not yet implemented!', () => false),
 	companyId: yup.number()
 		.typeError(i18nTypeError.number("Salaries.companyId"))
 		.integer(i18nNoDecimal("Salaries.companyId"))
@@ -391,14 +424,15 @@ export const ReviewSchema = yup.object().shape({
 	companyName: yup.string()
 		.typeError(i18nTypeError.string("Reviews.companyName"))
 		.max(100,i18nMaxString("Reviews.companyName",100))
-		.required(i18nReq("Reviews.companyName"))
-		.test('reviewCompanyNameTest', 'test not yet implemented!', () => false),
+		.required(i18nReq("Reviews.companyName")),
+		// NOTE This next test did the same thing for reviews
+		// as the corresponding one for salaries, and I', doing
+		// the same thing with it: moving it to Formik/GraphQL.
+		// .test('reviewCompanyNameTest', 'test not yet implemented!', () => false),
 	companyId: yup.number()
 		.typeError(i18nTypeError.number("Reviews.companyId"))
 		.integer(i18nNoDecimal("Reviews.companyId"))
 		.notRequired(),
-	// SimpleSchema.messages.defaults.required
-	// label: SimpleSchema.labels.Reviews.reviewTitle
 	reviewTitle: yup.string()
 		.typeError(i18nTypeError.string("Reviews.reviewTitle"))
 		.max(100,i18nMaxString("Reviews.reviewTitle",100))
@@ -417,12 +451,14 @@ export const ReviewSchema = yup.object().shape({
 		.typeError(i18nTypeError.string("Reviews.pros"))
 		.max(600,i18nMaxString("Reviews.pros",600))
 		.required(i18nReq("Reviews.pros"))
-		.test('prosHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
+		.test('prosHasFiveWords', i18nFiveWords("Reviews.pros"),
+			(value) => wordCount(value) >= 5),
 	cons: yup.string()
 		.typeError(i18nTypeError.string("Reviews.cons"))
 		.max(600,i18nMaxString("Reviews.cons",600))
 		.required(i18nReq("Reviews.cons"))
-		.test('consHasFiveWords', '${path} must have at least five words', (value) => wordCount(value) >= 5),
+		.test('consHasFiveWords', i18nFiveWords("Reviews.cons"),
+			(value) => wordCount(value) >= 5),
 	wouldRecommendToOtherJobSeekers: yup.boolean()
 		.typeError(i18nTypeError.boolean("Reviews.wouldRecommendToOtherJobSeekers"))
 		.required(i18nReq("Reviews.wouldRecommendToOtherJobSeekers")),

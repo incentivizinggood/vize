@@ -233,3 +233,8 @@ export const i18nRegEx = {
 			args: {label: `SimpleSchema.labels.${labelId}`}
 		}),
 };
+
+export const i18nFiveWords = (labelId) => ({
+		key: "SimpleSchema.messages.Reviews.needsFiveWords",
+		args: {label: `SimpleSchema.labels.${labelId}`}
+	});
