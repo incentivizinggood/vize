@@ -155,7 +155,8 @@
 			"additionalComments": "Comentarios Adicionales",
 			"datePosted": "Fecha de Publicacion",
 			"upvotes": "Votos a favor",
-			"downvotes": "Votos en contra"
+			"downvotes": "Votos en contra",
+			"Comments": "--PLEASE TRANSLATE-- Comments"
 		},
 		"Comments": {
 			"_id": "_id",

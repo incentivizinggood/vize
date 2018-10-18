@@ -152,7 +152,8 @@
 			"additionalComments": "Additional Comments",
 			"datePosted": "Date Posted",
 			"upvotes": "Upvotes",
-			"downvotes": "Downvotes"
+			"downvotes": "Downvotes",
+			"Comments": "Comments"
 		},
 		"Comments": {
 			"_id": "_id",
