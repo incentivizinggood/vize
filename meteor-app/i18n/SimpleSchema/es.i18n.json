@@ -157,6 +157,17 @@
 			"upvotes": "Votos a favor",
 			"downvotes": "Votos en contra"
 		},
+		"Comments": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"refersto": "--PLEASE TRANSLATE-- Refers To",
+			"datePosted": "Fecha de Publicacion",
+			"content": "--PLEASE TRANSLATE-- Content",
+			"upvotes": "Votos a favor",
+			"downvotes": "Votos en contra",
+			"username": "--PLEASE TRANSLATE-- Username",
+			"screenname": "--PLEASE TRANSLATE-- Screen Name"
+		},
 		"Votes": {
 			"_id": "_id",
 			"submittedBy": "Presentado por",

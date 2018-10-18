@@ -154,6 +154,17 @@
 			"upvotes": "Upvotes",
 			"downvotes": "Downvotes"
 		},
+		"Comments": {
+			"_id": "_id",
+			"submittedBy": "Submitted By",
+			"refersto": "Refers To",
+			"datePosted": "Date Posted",
+			"content": "Content",
+			"upvotes": "Upvotes",
+			"downvotes": "Downvotes",
+			"username": "Username",
+			"screenname": "Screen Name"
+		},
 		"Votes": {
 			"_id": "_id",
 			"submittedBy": "Submitted By",
