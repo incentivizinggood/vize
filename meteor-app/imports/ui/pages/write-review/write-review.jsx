@@ -72,22 +72,14 @@ const WriteReviewInnerForm = function(props) {
 									<VfInputText name="reviewTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.reviewTitle")} maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
 									<VfInputLocation name="location" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.location")}/>
 									<VfInputText name="jobTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.jobTitle")} maxLength="100" placeholder={t("common.forms.wr.jobTitlePlaceholder")}/>
-									{/*
-										<div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
+									{/* <div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
 											<div className="col-lg-12">
 												{{> afQuickField name='numberOfMonthsWorked'}}
 											</div>
-										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='pros'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField name='pros' className="text-area" placeholder=(__ ".wr.prosPlaceholder")}}
-											</div>
-										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='cons'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField name='cons' className="text-area" placeholder=(__ ".wr.consPlaceholder")}}
-											</div>
-										</div>
+										</div> */}
+									<VfInputText name="pros" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.pros")} maxLength="600" placeholder={t("common.forms.wr.prosPlaceholder")}/>
+									<VfInputText name="cons" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.cons")} maxLength="600" placeholder={t("common.forms.wr.consPlaceholder")}/>
+									{/*
 										<div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
 											<div className="col-lg-12">
 												{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
