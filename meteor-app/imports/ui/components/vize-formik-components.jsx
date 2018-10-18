@@ -183,7 +183,7 @@ export const VfInputText = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
-				<input type="text" className="form-control" id={vfComponentId} {...field} {...props} />
+				<input type="text" {...field} {...props} className="form-control" id={vfComponentId}/>
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
@@ -198,7 +198,7 @@ export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
-				<input type="text" className="form-control" id={vfComponentId} list={`${vfComponentId}.list`} {...field} {...props} />
+				<input type="text" list={`${vfComponentId}.list`} {...field} {...props} className="form-control" id={vfComponentId} />
 				<datalist id={`${vfComponentId}.list`}>
 					{props.optionlist.map(
 						option => <option value={option} key={`${vfComponentId}.${option}`}>{option}</option>
@@ -218,7 +218,7 @@ export const VfInputTextArea = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
-				<textarea className="form-control" id={vfComponentId} {...field} {...props} />
+				<textarea {...field} {...props} className="form-control" id={vfComponentId}/>
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
@@ -243,6 +243,21 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 				)}/>
 			</div>
 		</div>
+	),
+	props.name,
+	props.formgroupname,
+	props.labelstring,
+	props.formik.errors[props.name]
+));
+
+export const VfInputInteger = connect((props) => withVizeFormatting(
+	(vfComponentId) => (
+		<Field name={props.name} render={({field}) => (
+			<div>
+				<input type="number" step="1" {...field} {...props} className="form-control" id={vfComponentId}/>
+				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+			</div>
+		)}/>
 	),
 	props.name,
 	props.formgroupname,

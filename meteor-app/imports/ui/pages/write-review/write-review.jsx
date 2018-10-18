@@ -16,6 +16,7 @@ import {
 	VfInputText,
 	VfInputTextArea,
 	VfInputLocation,
+	VfInputInteger,
 	readOnlyCompanyNameField,
 	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
 
@@ -72,13 +73,14 @@ const WriteReviewInnerForm = function(props) {
 									<VfInputText name="reviewTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.reviewTitle")} maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
 									<VfInputLocation name="location" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.location")}/>
 									<VfInputText name="jobTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.jobTitle")} maxLength="100" placeholder={t("common.forms.wr.jobTitlePlaceholder")}/>
+									<VfInputInteger name="numberOfMonthsWorked" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.numberOfMonthsWorked")} min="0"/>
 									{/* <div className="form-group {{#if afFieldIsInvalid name='numberOfMonthsWorked'}}has-error{{/if}}">
 											<div className="col-lg-12">
 												{{> afQuickField name='numberOfMonthsWorked'}}
 											</div>
 										</div> */}
-									<VfInputText name="pros" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.pros")} maxLength="600" placeholder={t("common.forms.wr.prosPlaceholder")}/>
-									<VfInputText name="cons" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.cons")} maxLength="600" placeholder={t("common.forms.wr.consPlaceholder")}/>
+									<VfInputTextArea name="pros" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.pros")} rows="6" maxLength="600" placeholder={t("common.forms.wr.prosPlaceholder")}/>
+									<VfInputTextArea name="cons" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.cons")} rows="6" maxLength="600" placeholder={t("common.forms.wr.consPlaceholder")}/>
 									{/*
 										<div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
 											<div className="col-lg-12">
