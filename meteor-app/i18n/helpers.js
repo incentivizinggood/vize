@@ -53,15 +53,20 @@ import i18n from "meteor/universe:i18n";
 const t = i18n.createTranslator();
 
 export const translateError = (error) => {
+	console.log(error);
 	if(typeof error === 'string')
 		return (typeof error === 'string') ? error : "";
 	else if(typeof error === 'object') {
 		const { key, args } = error;
-		if(args.label !== undefined)
-			args.label = t(args.label);
-		return t(key, args);
+		if(key !== undefined && args !== undefined) {
+			if(args.label !== undefined)
+				args.label = t(args.label);
+			if(args.dataType !== undefined)
+				args.dataType = t(args.dataType);
+			return t(key, args);
+		}
 	}
-	return undefined;
+	return "";
 };
 
 export const i18nReq = (labelId) => ({
@@ -143,7 +148,88 @@ export const i18nNotAllowed = (_value) => ({
 // of a few places where it might be needed already. They would
 // have to be under SimpleSchema.dataTypes, which would fortunately
 // be a very simple sub-namespace.
-export const i18nExpectedType = (labelId, _dataType) => ({
-		key: "SimpleSchema.messages.defaults.expectedType",
-		args: {label: `SimpleSchema.labels.${labelId}`, dataType: _dataType}
-	});
+// Okay, fine then:
+// Types to support:
+// - boolean
+// - string
+// - number
+// - date
+// - object
+// - array
+export const i18nTypeError = {
+	boolean: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.expectedType",
+			args: {label: `SimpleSchema.labels.${labelId}`, dataType: "SimpleSchema.dataTypes.boolean"}
+		}),
+	string: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.expectedType",
+			args: {label: `SimpleSchema.labels.${labelId}`, dataType: "SimpleSchema.dataTypes.string"}
+		}),
+	number: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.expectedType",
+			args: {label: `SimpleSchema.labels.${labelId}`, dataType: "SimpleSchema.dataTypes.number"}
+		}),
+	date: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.expectedType",
+			args: {label: `SimpleSchema.labels.${labelId}`, dataType: "SimpleSchema.dataTypes.date"}
+		}),
+	object: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.expectedType",
+			args: {label: `SimpleSchema.labels.${labelId}`, dataType: "SimpleSchema.dataTypes.array"}
+		}),
+	array: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.expectedType",
+			args: {label: `SimpleSchema.labels.${labelId}`, dataType: "SimpleSchema.dataTypes.object"}
+		}),
+}
+
+export const i18nRegEx = {
+	msg: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.msg",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	Email: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.Email",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	EmailWithTLD: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.EmailWithTLD",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	Domain: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.Domain",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	WeakDomain: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.WeakDomain",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	IP: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.IP",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	IPv4: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.IPv4",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	IPv6: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.IPv6",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	Url: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.Url",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	Id: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.Id",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	ZipCode: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.ZipCode",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+	Phone: (labelId) => ({
+			key: "SimpleSchema.messages.defaults.regEx.Phone",
+			args: {label: `SimpleSchema.labels.${labelId}`}
+		}),
+};
