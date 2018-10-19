@@ -6,8 +6,10 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
@@ -120,20 +122,6 @@ class CompanySearchTrial extends React.Component {
 	}
 
 	render() {
-		const form = (
-			<form className="example" onSubmit={this.handleSubmit}>
-				<input
-					name="searchTextInput"
-					type="text"
-					placeholder={t("placeholder")}
-					value={this.state.searchTextInput}
-					onChange={this.handleInputChange}
-				/>
-				<button type="submit">
-					<T>button</T>
-				</button>
-			</form>
-		);
 		return (
 			<div>
 				<div className="navbarwhite">
@@ -146,13 +134,7 @@ class CompanySearchTrial extends React.Component {
 								id="companies_header1"
 								className="callbacks_container"
 							>
-								<ul className="rslides" id="slider3">
-									<li>
-										<div className="banner-text-info">
-											{form}
-										</div>
-									</li>
-								</ul>
+								<CompaniesSearchBar />
 							</div>
 						</div>
 					</div>
@@ -161,6 +143,9 @@ class CompanySearchTrial extends React.Component {
 				<div className="clearfix" />
 				<br />
 				<SearchResults searchText={this.state.searchText} />
+				<div>
+					<Footer />
+				</div>
 			</div>
 		);
 	}

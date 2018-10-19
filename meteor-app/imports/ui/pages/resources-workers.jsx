@@ -11,7 +11,7 @@ const T = i18n.createComponent();
 const customStyles = {
 	content: {
 		position: "relative",
-		marginTop: "90px",
+		marginTop: "110px",
 		maxHeight: "80%",
 	},
 };
@@ -293,8 +293,9 @@ export default class ResourcesWorkers extends React.Component {
 							<div className="col-md-8">
 								<center>
 									<h1 className="titlestar22">
-										Would you like to publish an article on
-										our site? Email us your article to
+										<T>
+											common.resourcesWorkers.publishArticleMessage
+										</T>
 										<a href="mailto:incentivizinggood@gmail.com">
 											incentivizinggood@gmail.com
 										</a>
@@ -310,7 +311,7 @@ export default class ResourcesWorkers extends React.Component {
 				</div>
 
 				<Footer />
-				<Dialog/>
+				<Dialog />
 			</div>
 		);
 	}

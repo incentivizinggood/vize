@@ -8,7 +8,7 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
 import Dialog from "/imports/ui/components/dialog-box";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import HomePageSearch from "../components/home-page-search.jsx";
+import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
@@ -29,7 +29,7 @@ function HomePage() {
 										<h1>
 											<T>mainBanner</T>
 										</h1>
-										<HomePageSearch />
+										<CompaniesSearchBar />
 									</div>
 								</li>
 							</ul>

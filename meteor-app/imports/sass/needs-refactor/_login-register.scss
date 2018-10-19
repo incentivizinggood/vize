@@ -1,3 +1,65 @@
+$base-height: 377px;
+$base-dimension: 16px;
+$base-border-radius: 12px;
+$base-button-size: 52px;
+$primary-color: #0360a5;
+$accent-color: #f6f7f9;
+$background-color: #fff;
+$font-color: #888;
+
+@mixin chabox-container {
+	display: flex;
+	position: absolute;
+	box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, 0.2);
+	flex-direction: column;
+}
+
+@mixin chatbox-header {
+	box-sizing: border-box;
+	display: flex;
+	width: 100%;
+	padding: $base-dimension;
+	color: $background-color;
+	background-color: $primary-color;
+	align-items: center;
+	justify-content: space-around;
+}
+
+@mixin chatbox-main {
+	box-sizing: border-box;
+	width: 100%;
+	padding: calc(2 * #{$base-dimension}) #{$base-dimension};
+	line-height: calc(#{$base-dimension} + #{$base-dimension} / 2);
+	color: $font-color;
+	text-align: center;
+}
+
+@mixin chatbox-footer {
+	box-sizing: border-box;
+	display: flex;
+	width: 100%;
+	padding: $base-dimension;
+	border-top: 1px solid #ddd;
+	align-items: center;
+	justify-content: space-around;
+}
+
+@mixin chatbox-floating-button {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: $base-button-size;
+	height: $base-button-size;
+	color: $background-color;
+	background-color: $primary-color;
+	background-position: center center;
+	background-repeat: no-repeat;
+	box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
+	border: 0;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
 .container.login-top-spce {
 	padding-top: 112px;
 }
