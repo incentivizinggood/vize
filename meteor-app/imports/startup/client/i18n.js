@@ -10,6 +10,10 @@ import { ReactiveVar } from "meteor/reactive-var";
 // import { SalarySchema } from "/imports/api/data/salaries.js";
 // import { VoteSchema } from "/imports/api/data/votes.js";
 
+i18n.setOptions({
+	defaultLocale: "es",
+});
+
 const localeMetadata = {
 	en: { nativeName: "English", icon: "/images/flags/us.jpg" },
 	es: { nativeName: "Español", icon: "/images/flags/mx.jpg" },
@@ -49,7 +53,7 @@ function getDefaultLocale() {
 			navigator.language ||
 			navigator.browserLanguage ||
 			navigator.userLanguage ||
-			"en"
+			"es"
 	);
 }
 
