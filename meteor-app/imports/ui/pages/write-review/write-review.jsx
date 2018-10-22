@@ -17,6 +17,7 @@ import {
 	VfInputTextArea,
 	VfInputLocation,
 	VfInputInteger,
+	VfInputStarRating,
 	readOnlyCompanyNameField,
 	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
 
@@ -82,33 +83,13 @@ const WriteReviewInnerForm = function(props) {
 												{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
 											</div>
 										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='healthAndSafety'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												<br>
-												{{> afQuickField style="float:right" name='healthAndSafety'}}
-											</div>
-										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='managerRelationship'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField style="float:right" name='managerRelationship'}}
-											</div>
-										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='workEnvironment'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField style="float:right" name='workEnvironment'}}
-											</div>
-										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='benefits'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField style="float:right" name='benefits'}}
-											</div>
-										</div>
-										<div className="form-group {{#if afFieldIsInvalid name='overallSatisfaction'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField style="float:right" name='overallSatisfaction'}}
-											</div>
-										</div>
-									 */}
+									*/}
+
+									<VfInputStarRating name="healthAndSafety" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.healthAndSafety")} style={{"float":"right"}}/>
+									<VfInputStarRating name="managerRelationship" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.managerRelationship")} style={{"float":"right"}}/>
+									<VfInputStarRating name="workEnvironment" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.workEnvironment")} style={{"float":"right"}}/>
+									<VfInputStarRating name="benefits" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.benefits")} style={{"float":"right"}}/>
+									<VfInputStarRating name="overallSatisfaction" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.overallSatisfaction")} style={{"float":"right"}}/>
 									<VfInputTextArea name="additionalComments" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.additionalComments")} rows="6" maxLength="6000" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 									<div className="form-group">
 										<div className="col-lg-12">

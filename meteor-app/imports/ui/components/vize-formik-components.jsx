@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
+import StarRatingComponent from 'react-star-rating-component';
 import i18n from "meteor/universe:i18n";
 import { Field, FieldArray, ErrorMessage, connect } from "formik";
 import gql from "graphql-tag";
@@ -255,6 +256,21 @@ export const VfInputInteger = connect((props) => withVizeFormatting(
 		<Field name={props.name} render={({field}) => (
 			<div>
 				<input type="number" step="1" {...field} {...props} className="form-control" id={vfComponentId}/>
+				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+			</div>
+		)}/>
+	),
+	props.name,
+	props.formgroupname,
+	props.labelstring,
+	props.formik.errors[props.name]
+));
+
+export const VfInputStarRating = connect((props) => withVizeFormatting(
+	(vfComponentId) => (
+		<Field name={props.name} render={({field}) => (
+			<div>
+				<input type="range" min="0" max="5" step="0.5" defaultValue="0" {...field} {...props} className="form-control" id={vfComponentId}/>
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>

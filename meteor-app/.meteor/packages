@@ -29,7 +29,6 @@ csauer:accounts-phony
 react-template-helper
 reactive-dict
 aldeed:autoform
-dandv:jquery-rateit
 mrgalaxy:stripe
 easy:search
 easysearch:elasticsearch
