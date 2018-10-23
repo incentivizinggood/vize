@@ -10,11 +10,11 @@ import { FlowRouter } from "meteor/kadira:flow-router";
 import { ReactiveVar } from "meteor/reactive-var";
 import { AutoForm } from "meteor/aldeed:autoform";
 
-import ShowJobs from "/imports/ui/pages/showjobs.jsx";
+import ShowJobs from "/imports/ui/pages/show-jobs";
 
 import HomePage from "/imports/ui/pages/home.jsx";
 import AboutPage from "/imports/ui/pages/about.jsx";
-import CompanySearchTrial from "/imports/ui/pages/company-search-trial.jsx";
+import CompanySearchTrial from "/imports/ui/pages/company-search";
 
 import ForEmployers from "/imports/ui/pages/foremployers.jsx";
 import CompanyProfile from "/imports/ui/pages/company-profile";
@@ -24,7 +24,7 @@ import LoginPage from "/imports/ui/pages/login.jsx";
 import MyAccountPage from "/imports/ui/pages/my-account.jsx";
 import NotFoundPage from "/imports/ui/pages/not-found.jsx";
 import RegisterPage from "/imports/ui/pages/register.jsx";
-import UserPage from "/imports/ui/pages/user.jsx";
+import UserPage from "/imports/ui/pages/user";
 
 import CompanyCreateProfileForm from "/imports/ui/pages/create-company-profile";
 import WriteReviewForm from "/imports/ui/pages/write-review";

@@ -6,7 +6,7 @@ import i18n from "meteor/universe:i18n";
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header";
 
-import ShowJobsQuery from "./showjobs.graphql";
+import ShowJobsQuery from "./show-jobs.graphql";
 
 const T = i18n.createComponent();
 

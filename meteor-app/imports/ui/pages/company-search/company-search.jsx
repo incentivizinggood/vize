@@ -7,7 +7,7 @@ import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js"
 import Header from "/imports/ui/components/header";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import companySearchQuery from "./company-search-trial.graphql";
+import companySearchQuery from "./company-search.graphql";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
