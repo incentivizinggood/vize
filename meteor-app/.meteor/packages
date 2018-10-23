@@ -22,11 +22,9 @@ react-meteor-data
 accounts-password@1.5.0
 accounts-ui@1.3.0
 kadira:flow-router
-underscore@1.0.10
 email
 okgrow:analytics
 universe:i18n
-session
 apollo
 swydo:graphql
 nathantreid:css-modules
