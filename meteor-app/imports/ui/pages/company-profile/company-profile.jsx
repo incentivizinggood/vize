@@ -1,5 +1,4 @@
 import React from "react";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import i18n from "meteor/universe:i18n";
@@ -11,6 +10,7 @@ import Header from "/imports/ui/components/header";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
+import companyProfileQuery from "./company-profile.graphql";
 
 const T = i18n.createComponent();
 
@@ -155,90 +155,6 @@ class CompanyProfile extends React.Component {
 		);
 	}
 }
-
-const companyProfileQuery = gql`
-	query companyProfilePage($companyId: ID!) {
-		company(id: $companyId) {
-			id
-
-			name
-			contactEmail
-			yearEstablished
-			numEmployees
-			industry
-			locations {
-				city
-				address
-				industrialHub
-			}
-			contactPhoneNumber
-			websiteURL
-			descriptionOfCompany
-			dateJoined
-			numFlags
-			avgStarRatings {
-				healthAndSafety
-				managerRelationship
-				workEnvironment
-				benefits
-				overallSatisfaction
-			}
-			percentRecommended
-			avgNumMonthsWorked
-
-			reviews {
-				id
-				title
-				jobTitle
-				location {
-					city
-					address
-					industrialHub
-				}
-				numberOfMonthsWorked
-				pros
-				cons
-				wouldRecommendToOtherJobSeekers
-				starRatings {
-					healthAndSafety
-					managerRelationship
-					workEnvironment
-					benefits
-					overallSatisfaction
-				}
-				additionalComments
-				created
-				currentUserVote {
-					isUpvote
-				}
-			}
-			numReviews
-			jobAds {
-				id
-				jobTitle
-				locations {
-					city
-					address
-					industrialHub
-				}
-				pesosPerHour
-				contractType
-				jobDescription
-				qualifications
-				responsibilities
-				created
-			}
-			numJobAds
-			salaries {
-				id
-				jobTitle
-				incomeType
-				incomeAmount
-			}
-			numSalaries
-		}
-	}
-`;
 
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>

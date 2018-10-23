@@ -1,0 +1,81 @@
+query companyProfilePage($companyId: ID!) {
+	company(id: $companyId) {
+		id
+
+		name
+		contactEmail
+		yearEstablished
+		numEmployees
+		industry
+		locations {
+			city
+			address
+			industrialHub
+		}
+		contactPhoneNumber
+		websiteURL
+		descriptionOfCompany
+		dateJoined
+		numFlags
+		avgStarRatings {
+			healthAndSafety
+			managerRelationship
+			workEnvironment
+			benefits
+			overallSatisfaction
+		}
+		percentRecommended
+		avgNumMonthsWorked
+
+		reviews {
+			id
+			title
+			jobTitle
+			location {
+				city
+				address
+				industrialHub
+			}
+			numberOfMonthsWorked
+			pros
+			cons
+			wouldRecommendToOtherJobSeekers
+			starRatings {
+				healthAndSafety
+				managerRelationship
+				workEnvironment
+				benefits
+				overallSatisfaction
+			}
+			additionalComments
+			created
+			currentUserVote {
+				isUpvote
+			}
+		}
+		numReviews
+		jobAds {
+			id
+			jobTitle
+			locations {
+				city
+				address
+				industrialHub
+			}
+			pesosPerHour
+			contractType
+			jobDescription
+			qualifications
+			responsibilities
+			created
+		}
+		numJobAds
+		salaries {
+			id
+			jobTitle
+			incomeType
+			incomeAmount
+		}
+		numSalaries
+	}
+}

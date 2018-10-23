@@ -1,5 +1,4 @@
 import React from "react";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import i18n from "meteor/universe:i18n";
@@ -7,30 +6,9 @@ import i18n from "meteor/universe:i18n";
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header";
 
-const T = i18n.createComponent();
+import ShowJobsQuery from "./showjobs.graphql";
 
-const ShowJobsQuery = gql`
-	{
-		jobAds: allJobAds {
-			id
-			jobTitle
-			locations {
-				city
-				address
-				industrialHub
-			}
-			pesosPerHour
-			contractType
-			jobDescription
-			responsibilities
-			qualifications
-			created
-			company {
-				name
-			}
-		}
-	}
-`;
+const T = i18n.createComponent();
 
 const ShowJobs = () => (
 	<Query query={ShowJobsQuery}>
