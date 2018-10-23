@@ -10,16 +10,18 @@
 .*/.meteor/packages/.*
 
 # This package can give you a lot of flow errors, better ignore it
-.*/node_modules/fbjs/.*
+.*/node_modules/.*
 
 [include]
 
 [libs]
+flow-typed
 
 [lints]
 
 [options]
 
+all=true
 # Absolute path support:
 # e.g. "/collections/todos"
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/\1'

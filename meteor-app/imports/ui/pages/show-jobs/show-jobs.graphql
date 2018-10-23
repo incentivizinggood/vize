@@ -1,4 +1,4 @@
-query {
+query showJobsPage {
 	jobAds: allJobAds {
 		id
 		jobTitle

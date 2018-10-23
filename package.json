@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "type-check": "flow",
     "lint": "eslint -c .eslintrc.json ./{client,server,imports}/**/*.{js,jsx}",
     "lint-nice-out": "eslint -c .eslintrc.json ./{client,server,imports}/**/*.{js,jsx} -f html -o ./eslint-out.html",
     "lint-formatting": "prettier --list-different ./**/*.{js,jsx,css,scss}"
@@ -17,7 +16,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^5.0.0",
     "eslint-plugin-react": "^7.8.2",
-    "flow-bin": "^0.74.0",
     "prettier": "^1.13.4"
   }
 }
