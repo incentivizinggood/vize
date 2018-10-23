@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
-import StarRatingComponent from 'react-star-rating-component';
 import i18n from "meteor/universe:i18n";
 import { Field, FieldArray, ErrorMessage, connect } from "formik";
 import gql from "graphql-tag";

@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
-import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
@@ -24,20 +23,29 @@ Meteor.methods({
 		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
 	},
 
-	sendEmail(to, from, subject, text) {
-		if (Meteor.isDevelopment)
-			console.log("SERVER sendEmail: checking arguments");
-		check([to, from, subject, text], [String]);
-		const realEmail = { to, from, subject, text };
-		if (Meteor.isDevelopment) {
-			console.log("SERVER sendEmail: before send, here is the email:");
-			console.log(realEmail);
-		}
-		this.unblock();
-		Email.send(realEmail);
-		if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
-		return "we made it";
-	},
+	/*
+		I'm removing the check call from this method because
+		this method...is not supposed to be a method. There
+		is no scenario where we will want users to have this
+		kind of access to our email system, email functionality
+		should be provided through server-only functions.
+		The code that uses this Method should be refactored
+		anyway, and I'm not concerned with a temporary breakage.
+	*/
+	// sendEmail(to, from, subject, text) {
+	// 	if (Meteor.isDevelopment)
+	// 		console.log("SERVER sendEmail: checking arguments");
+	// 	// check([to, from, subject, text], [String]);
+	// 	const realEmail = { to, from, subject, text };
+	// 	if (Meteor.isDevelopment) {
+	// 		console.log("SERVER sendEmail: before send, here is the email:");
+	// 		console.log(realEmail);
+	// 	}
+	// 	this.unblock();
+	// 	Email.send(realEmail);
+	// 	if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
+	// 	return "we made it";
+	// },
 
 	hasFiveWords(inputString) {
 		// Funny story, String.prototype.wordCount is actually
