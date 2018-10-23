@@ -5,7 +5,7 @@
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "type-check": "flow --show-all-errors",
-    "apollo": "apollo codegen:generate --schema='./imports/api/graphql/schema.graphql' --queries='./imports/ui/pages/**/*.graphql' --target=flow query-types"
+    "apollo-codegen": "apollo codegen:generate --schema='./imports/api/graphql/schema.graphql' --queries='./imports/ui/**/*.graphql' --target=flow query-types"
   },
   "cssModules": {
     "extensions": [
