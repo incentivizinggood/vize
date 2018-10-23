@@ -2,7 +2,7 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
 import { Template } from "meteor/templating"; // Used to set up the autoform
-import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
+// import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
@@ -117,9 +117,9 @@ export default class CompanyCreateProfileForm extends React.Component {
 				<div className="navbarwhite">
 					<Header />
 				</div>
-				<div className="page CompanyCreateProfileForm">
+				{/* <div className="page CompanyCreateProfileForm">
 					<Blaze template="ccp_blaze_form" />
-				</div>
+				</div> */}
 				<Footer />
 				<Dialog />
 			</div>

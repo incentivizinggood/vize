@@ -3,8 +3,8 @@
 import React from "react";
 import { withFormik, Form } from "formik";
 // import PropTypes from "prop-types";
-import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
-import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
+// import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
+// import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import Dialog from "/imports/ui/components/dialog-box";
 import i18n from "meteor/universe:i18n";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
@@ -22,22 +22,22 @@ import {
 	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
 
 const t = i18n.createTranslator();
-const T = i18n.createComponent(t);
+// const T = i18n.createComponent(t);
 
-const wr_form_state = new ReactiveDict();
-wr_form_state.set("formError", {
-	// Shared with AutoForm helpers
-	hasError: false,
-	reason: undefined,
-	error: undefined,
-	details: undefined,
-	isSqlError: false,
-});
-wr_form_state.set("companyId", undefined); // Shared with the React wrapper
-wr_form_state.set("company", {
-	name: t("common.forms.pleaseWait"),
-});
-wr_form_state.set("allCompanyNames", []);
+// const wr_form_state = new ReactiveDict();
+// wr_form_state.set("formError", {
+// 	// Shared with AutoForm helpers
+// 	hasError: false,
+// 	reason: undefined,
+// 	error: undefined,
+// 	details: undefined,
+// 	isSqlError: false,
+// });
+// wr_form_state.set("companyId", undefined); // Shared with the React wrapper
+// wr_form_state.set("company", {
+// 	name: t("common.forms.pleaseWait"),
+// });
+// wr_form_state.set("allCompanyNames", []);
 
 const WriteReviewInnerForm = function(props) {
 	console.log(props);
