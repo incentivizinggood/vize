@@ -1,5 +1,5 @@
-\i server/sql/wipedb.sql;
-\i server/sql/init/init-db.sql
+\i ./wipedb.sql;
+\i ./init/initdb-dev.sql
 START TRANSACTION;
 INSERT INTO users(role) VALUES
 	('worker'),('worker'),('worker'),('worker'),('worker'),
