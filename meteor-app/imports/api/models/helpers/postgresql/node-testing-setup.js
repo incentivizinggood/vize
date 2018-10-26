@@ -1432,7 +1432,8 @@ vize = {
 
 vizeReview = {
 	companyName: 'a',
-	companyId: 1,
+	companyId: 3,
+	submittedBy: 1,
 	location: "asdf",
 	reviewTitle: "Hello World",
 	jobTitle: "Web developer",
@@ -1450,7 +1451,8 @@ vizeReview = {
 
 vizeSalary = {
 	companyName: "a",
-	companyId: 1,
+	submittedBy: 1,
+	companyId: 3,
 	location: "asdf",
 	jobTitle: "Web developer",
 	incomeType: "Yearly Salary",
@@ -1459,8 +1461,8 @@ vizeSalary = {
 };
 
 vizeJobAd = {
-	companyName: 'a',
-	companyId: 1,
+	companyName: 'another round 10',
+	companyId: 3,
 	jobTitle: "Web developer",
 	locations: ["My house", "Shaffer's aparment", "Tijuana"],
 	pesosPerHour: "100 - 200",
@@ -1472,6 +1474,7 @@ vizeJobAd = {
 
 vizeComment = {
 	reviewId: 1,
+	submittedBy: 1,
 	content: "FIRST!"
 }
 
