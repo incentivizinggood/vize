@@ -1521,7 +1521,7 @@ obj = processReviewResults(await PostgreSQL.executeQuery(getAllReviews, 0, 1000)
 
 // salary query functions
 obj = processSalaryResults(await PostgreSQL.executeQuery(getSalaryById, 1));
-obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesByAuthor, 1, 0, 1000));
 obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000));
 obj = processSalaryResults(await PostgreSQL.executeQuery(getAllSalaries, 0, 1000));
 
