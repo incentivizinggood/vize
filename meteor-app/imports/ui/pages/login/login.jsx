@@ -1,4 +1,5 @@
 import React from "react";
+import { withFormik, Field, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Meteor } from "meteor/meteor";
@@ -13,191 +14,166 @@ import Dialog from "/imports/ui/components/dialog-box";
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-/* The page where users can login to the app.
- */
-class LoginPage extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			error: Meteor.userId() === null ? null : "loggedIn",
-			success: false,
-			username: "",
-			password: "",
-		};
+function InnerForm({ errors, isSubmitting }) {
+	const usernameInput = (
+		<div className="form-group">
+			<label
+				htmlFor="username"
+				className="icon-addon addon-md"
+				rel="tooltip"
+				title="Username"
+			>
+				<FontAwesomeIcon icon="user" className="fa" />
+				<Field
+					type="text"
+					className="form-control"
+					name="username"
+					id="username"
+					placeholder={t("username")}
+					required
+				/>
+			</label>
+		</div>
+	);
 
-		// These bindings are necessary to make `this` work in callbacks.
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+	const passwordInput = (
+		<div className="form-group">
+			<label
+				htmlFor="password"
+				className="icon-addon addon-md"
+				rel="tooltip"
+				title="password"
+			>
+				<FontAwesomeIcon icon="lock" className="fa" />
+				<Field
+					type="password"
+					name="password"
+					id="password"
+					className="form-control"
+					placeholder={t("password")}
+					required
+				/>
+			</label>
+		</div>
+	);
 
-	handleInputChange(event) {
-		const { target } = event;
-		const value =
-			target.type === "checkbox" ? target.checked : target.value;
-		const { name } = target;
+	return (
+		<Form>
+			<div className="login-fm">
+				{usernameInput}
 
-		this.setState({
-			[name]: value,
-		});
-	}
+				{passwordInput}
 
-	handleSubmit(event) {
-		event.preventDefault(); // Prevent the default behavior for this event.
+				<div className="form-group text-center" />
+
+				<div className="button-center">
+					<button
+						type="submit"
+						disabled={isSubmitting}
+						className="enterTriggers"
+					>
+						<T>login</T>
+					</button>
+				</div>
+
+				<div className="form-group">
+					<div className="row">
+						<div className="col-lg-12">
+							<div className="text-center reg">
+								<T>noAccount</T>
+								<a href="/register">
+									{" "}
+									<T>register</T>
+								</a>
+							</div>
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>{JSON.stringify(errors)}</div>
+		</Form>
+	);
+}
+
+const LoginForm = withFormik({
+	initialValues: {
+		username: "",
+		password: "",
+	},
+	validate(values) {
+		const errors = {};
+
+		if (!values.username) {
+			errors.username = "Required";
+		}
+
+		if (!values.password) {
+			errors.password = "Required";
+		}
+
+		return errors;
+	},
+	handleSubmit(values, actions) {
 		const loginCallback = error => {
-			if (error) console.error(error);
-			this.setState({
-				error: error ? error.reason : null,
-				success: !error,
-			});
-			if (this.state.success) {
+			if (error) {
+				console.error(error);
+				actions.setSubmitting(false);
+			} else {
+				actions.resetForm(this.initialValues);
 				FlowRouter.go("/");
 			}
 		};
+
 		Meteor.loginWithPassword(
-			this.state.username,
-			this.state.password,
+			values.username,
+			values.password,
 			loginCallback
 		);
-	}
+	},
+})(withUpdateOnChangeLocale(InnerForm));
 
-	render() {
-		if (this.state.success) {
-			return (
-				<div className="page login">
-					<T>success</T>
-				</div>
-			);
-		}
-
-		const usernameInput = (
-			<div className="form-group">
-				<label
-					htmlFor="username"
-					className="icon-addon addon-md"
-					rel="tooltip"
-					title="Username"
-				>
-					<FontAwesomeIcon icon="user" className="fa" />
-					<input
-						type="text"
-						className="form-control"
-						name="username"
-						id="username"
-						placeholder={t("username")}
-						required
-						value={this.state.username}
-						onChange={this.handleInputChange}
-					/>
-				</label>
+/* The page where users can login to the app.
+ */
+function LoginPage() {
+	return (
+		<div className="page login">
+			<div className="navbarwhite">
+				<Header />
 			</div>
-		);
-
-		const passwordInput = (
-			<div className="form-group">
-				<label
-					htmlFor="password"
-					className="icon-addon addon-md"
-					rel="tooltip"
-					title="password"
-				>
-					<FontAwesomeIcon icon="lock" className="fa" />
-					<input
-						type="password"
-						name="password"
-						id="password"
-						className="form-control"
-						placeholder={t("password")}
-						required
-						value={this.state.password}
-						onChange={this.handleInputChange}
-					/>
-				</label>
-			</div>
-		);
-
-		const loginForm = (
-			<form
-				id="login-form"
-				style={{ display: "block" }}
-				onSubmit={this.handleSubmit}
-			>
-				<div className="login-fm">
-					{usernameInput}
-
-					{passwordInput}
-
-					<div className="form-group text-center" />
-
-					<div className="button-center">
-						<button
-							form="login-form"
-							type="submit"
-							className="enterTriggers"
-							value={t("submit")}
-						>
-							<T>login</T>
-						</button>
-					</div>
-
-					<div className="form-group">
-						<div className="row">
-							<div className="col-lg-12">
-								<div className="text-center reg">
-									<T>noAccount</T>
-									<a href="/register"> <T>register</T></a>
-								</div>
-								<br />
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		);
-
-		return (
-			<div className="page login">
-				{this.state.error ? (
-					<div>
-						<T>{`error.${this.state.error}`}</T>
-					</div>
-				) : null}
-				<div className="navbarwhite">
-					<Header />
-				</div>
-				<div className="container  login-top-spce">
-					<div className="row">
-						<div className="col-md-6 col-md-offset-3">
-							<div className="panel panel-login">
-								<div className="panel-heading">
-									<div className="row">
-										<div className="col-xs-12">
-											<br />
-											<h3
-												className="top-head-employer"
-												align="center"
-											>
-												<T>login</T>
-											</h3>
-											<hr />
-										</div>
+			<div className="container  login-top-spce">
+				<div className="row">
+					<div className="col-md-6 col-md-offset-3">
+						<div className="panel panel-login">
+							<div className="panel-heading">
+								<div className="row">
+									<div className="col-xs-12">
+										<br />
+										<h3
+											className="top-head-employer"
+											align="center"
+										>
+											<T>login</T>
+										</h3>
+										<hr />
 									</div>
 								</div>
-								<div className="panel-body">
-									<div className="row">
-										<div className="col-lg-12">
-											{loginForm}
-										</div>
+							</div>
+							<div className="panel-body">
+								<div className="row">
+									<div className="col-lg-12">
+										<LoginForm />
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<Dialog />
-				<Footer />
 			</div>
-		);
-	}
+			<Dialog />
+			<Footer />
+		</div>
+	);
 }
 
-export default withUpdateOnChangeLocale(LoginPage);
+export default LoginPage;
