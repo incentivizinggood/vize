@@ -20,7 +20,7 @@ import ForEmployers from "/imports/ui/pages/foremployers.jsx";
 import CompanyProfile from "/imports/ui/pages/company-profile";
 import ContactUsPage from "/imports/ui/pages/contact-us.jsx";
 import HelpPage from "/imports/ui/pages/help.jsx";
-import LoginPage from "/imports/ui/pages/login.jsx";
+import LoginPage from "/imports/ui/pages/login";
 import MyAccountPage from "/imports/ui/pages/my-account.jsx";
 import NotFoundPage from "/imports/ui/pages/not-found.jsx";
 import RegisterPage from "/imports/ui/pages/register.jsx";
