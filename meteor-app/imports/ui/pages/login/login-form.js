@@ -27,6 +27,19 @@ const LoginForm = withFormik({
 		const loginCallback = error => {
 			if (error) {
 				console.error(error);
+
+				// Errors to display on form fields
+				const formErrors = {};
+
+				if (error.reason === "User not found") {
+					formErrors.username = "User not found";
+				}
+				if (error.reason === "Incorrect password") {
+					// TODO: clear the password input on this error
+					formErrors.password = "Incorrect password";
+				}
+
+				actions.setErrors(formErrors);
 				actions.setSubmitting(false);
 			} else {
 				actions.resetForm(this.initialValues);
