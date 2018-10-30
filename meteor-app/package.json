@@ -42,6 +42,7 @@
     "npm": "^6.4.1",
     "pg": "^7.4.3",
     "prop-types": "^15.6.1",
+    "rc-rate": "^2.4.2",
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-apollo": "^2.1.4",
@@ -51,6 +52,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-simple-dropdown": "^3.2.0",
+    "react-star-rating-component": "^1.4.1",
     "react-star-ratings": "^2.3.0",
     "simpl-schema": "1.4.3",
     "yup": "^0.26.6"
