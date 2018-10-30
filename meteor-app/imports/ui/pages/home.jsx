@@ -38,7 +38,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="welcome  welpad">
+			<div className="welcome welpad">
 				<div className="container  des-top-view">
 					<div className="col-md-8 ">
 						<div>
