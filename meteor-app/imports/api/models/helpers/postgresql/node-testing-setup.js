@@ -1595,14 +1595,14 @@ let writeInitialReviewsToDb;
 let writeInitialReviewsToJSON;
 
 writeInitialCompaniesToDb = async function() {
-	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/vize/old-production/CompanyProfiles.json','utf8'));
 	return Promise.all(companies.map(async function(company) {
 		return PostgreSQL.executeMutation(createCompany, company);
 	}));
 }
 
 writeInitialReviewsToDb = async function() {
-	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/vize/old-production/Reviews.json','utf8'));
 	return Promise.all(reviews.map(async function(review) {
 		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
 		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
@@ -1620,7 +1620,7 @@ writeInitialReviewsToDb = async function() {
 // to a new .json file with the new schema, in preparation
 // for the data analytics meeting with Bryce and Charter.
 writeInitialReviewsToJSON = async function() {
-	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/vize/old-production/Reviews.json','utf8'));
 	const formattedReviews = reviews.map(function(review) {
 		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
 		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
@@ -1717,7 +1717,7 @@ writeOneKritCompanyToDb = async function(kritCompany) {
 }
 
 writeKritsCompaniesToDb = async function() {
-	const kritCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+	const kritCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/vize/data-files/krit-companies.json','utf8')));
 	return Promise.all(kritCompanies.map(async function(company) {
 		return writeOneKritCompanyToDb(company);
 	}));
@@ -1777,8 +1777,8 @@ findDuplicatesInArray = function(array) {
 	return results;
 }
 
-originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
-newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/vize/old-production/CompanyProfiles.json','utf8'));
+newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/vize/data-files/krit-companies.json','utf8')));
 originalCompanyNames = originalCompanies.map(c => c.name);
 newCompanyNames = newCompanies.map(c => c.name);
 originalNamesDuplicatedInNew = originalCompanyNames.filter(n => newCompanyNames.includes(n));
