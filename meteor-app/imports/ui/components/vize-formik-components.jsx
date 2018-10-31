@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import { Field, FieldArray, ErrorMessage, connect } from "formik";
-import StarRatings from "react-star-ratings";
+import StarRatingComponent from 'react-star-rating-component';
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { translateError } from "/i18n/helpers.js";
@@ -270,7 +270,65 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
 			<div>
-				<StarRatings
+				<StarRatingComponent
+					starCount={5}
+					// Functions for onStarClick, renderStarIcon,
+					// and renderStarIconHalf are *heavily* borrowed
+					// from the MIT-licensed example code for
+					// react-star-rating-component:
+					// https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js
+					// And in case you're wondering, then...
+					// WARNING
+					// I only have a vague idea of what's going on with this code,
+					// easily the most mysterious part in onStarClick, which
+					// somehow Just Works. Also I copy-pasted all the styling-related
+					// code, and even added a line to /client/main.html in order
+					// to get it to work.
+					starColor="#ffb400"
+					emptyStarColor="#ffb400"
+					onStarClick={
+						(nextValue, prevValue, name, e) =>{
+							const xPos = (e.pageX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
+
+							if (xPos <= 0.5) {
+								nextValue -= 0.5;
+							}
+
+							props.formik.setFieldValue(props.name, nextValue, true)
+						}
+					}
+					renderStarIcon={(index, value) => {
+						return (
+							<span>
+								<i className={index <= value ? 'fas fa-star' : 'far fa-star'} />
+							</span>
+						);
+					}}
+					renderStarIconHalf={() => {
+						return (
+							<span>
+								<span style={{position: 'absolute'}}><i className="far fa-star" /></span>
+								<span><i className="fas fa-star-half" /></span>
+							</span>
+						);
+					}}
+					id={vfComponentId}
+					{...field}
+					{...props}
+				/>
+				{/* <Rate
+					count={5}
+					allowHalf
+					allowClear
+					onChange={
+						(rating) => props.formik.setFieldValue(props.name, rating, true)
+					}
+					className="form-control"
+					id={vfComponentId}
+					{...field}
+					{...props}
+				/> */}
+				{/* <StarRatings
 					rating={props.formik.values[props.name]}
 					isSelectable
 					isAggregateRating
@@ -282,7 +340,7 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 					id={vfComponentId}
 					{...field}
 					{...props}
-				/>
+				/> */}
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
