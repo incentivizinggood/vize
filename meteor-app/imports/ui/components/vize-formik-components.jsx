@@ -276,7 +276,7 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 					// and renderStarIconHalf are *heavily* borrowed
 					// from the MIT-licensed example code for
 					// react-star-rating-component:
-					// https://github.com/voronianski/react-star-rating-component/blob/master/example/index.js
+					// https://github.com/voronianski/react-star-rating-component/blob/master/example
 					// And in case you're wondering, then...
 					// WARNING
 					// I only have a vague idea of what's going on with this code,
