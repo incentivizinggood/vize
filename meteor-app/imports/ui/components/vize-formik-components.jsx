@@ -286,6 +286,9 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 					// to get it to work.
 					// NOTE
 					// Don't ask me how to change the star size. I don't know.
+					// BUG
+					// I still don't really know why the error messages for the
+					// star ratings won't display.
 					starColor="#ffb400"
 					emptyStarColor="#ffb400"
 					onStarClick={
@@ -318,31 +321,6 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 					{...field}
 					{...props}
 				/>
-				{/* <Rate
-					count={5}
-					allowHalf
-					allowClear
-					onChange={
-						(rating) => props.formik.setFieldValue(props.name, rating, true)
-					}
-					className="form-control"
-					id={vfComponentId}
-					{...field}
-					{...props}
-				/> */}
-				{/* <StarRatings
-					rating={props.formik.values[props.name]}
-					isSelectable
-					isAggregateRating
-					numberOfStars={5}
-					changeRating={
-						(rating) => props.formik.setFieldValue(props.name, rating, true)
-					}
-					className="form-control"
-					id={vfComponentId}
-					{...field}
-					{...props}
-				/> */}
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>
