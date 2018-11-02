@@ -4,7 +4,7 @@ import type UserModel, { User } from "./user.js";
 import type ReviewModel, { Review } from "./review.js";
 
 import PgCommentFunctions from "./helpers/postgresql/comments.js";
-import { Comments } from "../data/comments.js";
+import { CommentSchema } from "../data/comments.js";
 
 const defaultPageSize = 100;
 
@@ -62,6 +62,7 @@ export default class CommentModel {
 			)
 		);
 	}
+
 	// Get the user who wrote a given comment.
 	async getAuthorOfComment(comment: Comment): User {
 		return this.userModel.getUserById(String(comment.submittedBy));
@@ -75,6 +76,7 @@ export default class CommentModel {
 	): [Comment] {
 		throw new Error("Not implemented yet");
 	}
+
 	// Get the thing that a given comment is about or the comment that a given comment is responding to.
 	async getParentOfComment(comment: Comment): CommentParent {
 		throw new Error("Not implemented yet");
@@ -95,10 +97,10 @@ export default class CommentModel {
 	}
 
 	isComment(obj: any): boolean {
-		// Comments.simpleSchema()
+		// CommentSchema
 		// 	.newContext()
 		// 	.validate(obj);
-		const context = Comments.simpleSchema().newContext();
+		const context = CommentSchema.newContext();
 		context.validate(obj);
 		return context.isValid();
 	}

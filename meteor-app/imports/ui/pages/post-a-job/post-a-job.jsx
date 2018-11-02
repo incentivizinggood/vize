@@ -9,12 +9,12 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
-import { JobAds } from "/imports/api/data/jobads.js";
-import { Companies } from "/imports/api/data/companies.js";
+import { JobAdSchema } from "/imports/api/data/jobads.js";
 import "./post-a-job.html";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
@@ -100,7 +100,7 @@ if (Meteor.isClient) {
 	});
 
 	Template.paj_blaze_form.helpers({
-		jobAds: JobAds,
+		jobAdSchema: JobAdSchema,
 		ErrorWidget() {
 			return ErrorWidget;
 		},
@@ -182,6 +182,7 @@ export default class PostAJobForm extends React.Component {
 					<Blaze template="paj_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog />
 			</div>
 		);
 	}

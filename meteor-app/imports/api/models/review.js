@@ -4,7 +4,7 @@ import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
 import PgReviewFunctions from "./helpers/postgresql/reviews.js";
-import { Reviews } from "../data/reviews.js";
+import { ReviewSchema } from "../data/reviews.js";
 
 const defaultPageSize = 100;
 
@@ -77,6 +77,7 @@ export default class ReviewModel {
 			)
 		);
 	}
+
 	// Get the user who wrote a given review.
 	// BUG Not quite sure how to handle this.
 	// getUserById expects a string, but review.submittedby
@@ -122,10 +123,10 @@ export default class ReviewModel {
 	}
 
 	isReview(obj: any): boolean {
-		// Reviews.simpleSchema()
+		// ReviewSchema
 		// 	.newContext()
 		// 	.validate(obj);
-		const context = Reviews.simpleSchema().newContext();
+		const context = ReviewSchema.newContext();
 		context.validate(obj, {
 			extendedCustomContext: {
 				isNotASubmission: true,

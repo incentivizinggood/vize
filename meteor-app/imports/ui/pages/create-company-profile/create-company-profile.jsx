@@ -10,9 +10,10 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
 // Specific stuff second
-import { Companies } from "/imports//api/data/companies.js";
+import { CompanySchema } from "/imports//api/data/companies.js";
 import "./create-company-profile.html";
 
 import "/imports/ui/afInputLocation.html";
@@ -36,7 +37,7 @@ if (Meteor.isClient) {
 	});
 
 	Template.ccp_blaze_form.helpers({
-		companyProfiles: Companies,
+		companySchema: CompanySchema,
 		ErrorWidget() {
 			/*
 			This is a good place to talk about the little error blurb
@@ -120,6 +121,7 @@ export default class CompanyCreateProfileForm extends React.Component {
 					<Blaze template="ccp_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog />
 			</div>
 		);
 	}

@@ -5,15 +5,17 @@ import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
 import i18n from "meteor/universe:i18n";
 
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 
-const t = i18n.createTranslator("common.login");
+const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
 /* The page where users can login to the app.
  */
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,17 +28,6 @@ export default class LoginPage extends React.Component {
 		// These bindings are necessary to make `this` work in callbacks.
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleInputChange(event) {
@@ -144,7 +135,7 @@ export default class LoginPage extends React.Component {
 							className="enterTriggers"
 							value={t("submit")}
 						>
-							Login
+							<T>login</T>
 						</button>
 					</div>
 
@@ -152,8 +143,8 @@ export default class LoginPage extends React.Component {
 						<div className="row">
 							<div className="col-lg-12">
 								<div className="text-center reg">
-									Don&apos;t have an account?{" "}
-									<a href="/register"> Register</a>
+									<T>noAccount</T>
+									<a href="/register"> <T>register</T></a>
 								</div>
 								<br />
 							</div>
@@ -170,7 +161,9 @@ export default class LoginPage extends React.Component {
 						<T>{`error.${this.state.error}`}</T>
 					</div>
 				) : null}
-				<Header />
+				<div className="navbarwhite">
+					<Header />
+				</div>
 				<div className="container  login-top-spce">
 					<div className="row">
 						<div className="col-md-6 col-md-offset-3">
@@ -183,7 +176,7 @@ export default class LoginPage extends React.Component {
 												className="top-head-employer"
 												align="center"
 											>
-												Login
+												<T>login</T>
 											</h3>
 											<hr />
 										</div>
@@ -200,8 +193,11 @@ export default class LoginPage extends React.Component {
 						</div>
 					</div>
 				</div>
+				<Dialog />
 				<Footer />
 			</div>
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(LoginPage);

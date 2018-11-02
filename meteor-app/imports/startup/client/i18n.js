@@ -2,14 +2,17 @@ import find from "lodash.find";
 import merge from "lodash.merge";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
-import { Template } from "meteor/templating";
 import SimpleSchema from "simpl-schema";
 
-import { Companies } from "/imports/api/data/companies.js";
-import { JobAds } from "/imports/api/data/jobads.js";
-import { Reviews } from "/imports/api/data/reviews.js";
-import { Salaries } from "/imports/api/data/salaries.js";
-import { Votes } from "/imports/api/data/votes.js";
+import { CompanySchema } from "/imports/api/data/companies.js";
+import { JobAdSchema, JobApplicationSchema } from "/imports/api/data/jobads.js";
+import { ReviewSchema } from "/imports/api/data/reviews.js";
+import { SalarySchema } from "/imports/api/data/salaries.js";
+import { VoteSchema } from "/imports/api/data/votes.js";
+
+i18n.setOptions({
+	defaultLocale: "es",
+});
 
 const localeMetadata = {
 	en: { nativeName: "English", icon: "/images/flags/us.jpg" },
@@ -50,7 +53,7 @@ function getDefaultLocale() {
 			navigator.language ||
 			navigator.browserLanguage ||
 			navigator.userLanguage ||
-			"en"
+			"es"
 	);
 }
 
@@ -178,13 +181,18 @@ function setUpI18nOnSchema(schema, schemaName) {
 	i18n.onChangeLocale(thisSchemaSetLocale);
 }
 
-setUpI18nOnSchema(Companies.schema, "Companies");
-setUpI18nOnSchema(JobAds.schema, "JobAds");
-setUpI18nOnSchema(JobAds.applicationSchema, "JobApplications");
-setUpI18nOnSchema(Reviews.schema, "Reviews");
-setUpI18nOnSchema(Salaries.schema, "Salaries");
-setUpI18nOnSchema(Votes.schema, "Votes");
+setUpI18nOnSchema(CompanySchema, "Companies");
+setUpI18nOnSchema(JobAdSchema, "JobAds");
+setUpI18nOnSchema(JobApplicationSchema, "JobApplications");
+setUpI18nOnSchema(ReviewSchema, "Reviews");
+setUpI18nOnSchema(SalarySchema, "Salaries");
+setUpI18nOnSchema(VoteSchema, "Votes");
 
+// This is used on input forms whenever I couldn't
+// figure out an easier way to do things. I think it was
+// either/both field labels and selector drop-downs
+// that need this for reactive translation. Look at the
+// code in /imports/ui if you want to be sure.
 const reactiveCommonTranslator = i18n.createReactiveTranslator("common");
 
 export {

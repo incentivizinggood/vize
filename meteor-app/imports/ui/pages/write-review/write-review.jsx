@@ -6,12 +6,12 @@ import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
+import Dialog from "/imports/ui/components/dialog-box";
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
-import { Reviews } from "/imports/api/data/reviews.js";
-import { Companies } from "/imports/api/data/companies.js";
+import { ReviewSchema } from "/imports/api/data/reviews.js";
 import "./write-review.html";
 
 import Header from "/imports/ui/components/header";
@@ -74,7 +74,7 @@ if (Meteor.isClient) {
 	});
 
 	Template.wr_blaze_form.helpers({
-		reviews: Reviews,
+		reviewSchema: ReviewSchema,
 		ErrorWidget() {
 			return ErrorWidget;
 		},
@@ -164,6 +164,7 @@ export default class WriteReviewForm extends React.Component {
 					<Blaze template="wr_blaze_form" />
 				</div>
 				<Footer />
+				<Dialog/>
 			</div>
 		);
 	}

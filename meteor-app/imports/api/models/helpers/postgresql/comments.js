@@ -13,6 +13,11 @@
 	to the current PostgreSQL review_comments shema than
 	to either the current SimplSchema or the Flow type
 	in models/comment.js.
+
+	UPDATE - 9/12/2018
+	The SimplSchema is much better now, but still not
+	actually being used, so we still don't know what
+	this class is really supposed to look like...
 */
 import castToNumberIfDefined from "./misc.js";
 

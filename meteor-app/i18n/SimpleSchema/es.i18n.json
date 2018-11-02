@@ -20,17 +20,17 @@
 			"expectedType": "{{{label}}} debe ser un {{dataType}}",
 			"regExMsgStubs": {
 				"msg": "la validación de expresiones regulares fallado",
-				"Email": "Colocar una direccion de correo correcta",
-				"EmailWithTLD": "Colocar una direccion de correo correcta",
-				"Domain": "Debe ser un dominio válido",
-				"WeakDomain": "Debe ser un dominio válido",
-				"IP": "Debe ser una dirección IPv4 o IPv6 válida",
-				"IPv4": "Debe ser una dirección IPv4 válida",
-				"IPv6": "Debe ser una dirección IPv6 válida",
-				"Url": "Debe ser una URL correcta",
-				"Id": "Debe ser una identificación alfanumérica válida",
-				"ZipCode": "Debe ser un código postal válido",
-				"Phone": "Debe ser un numero de telefono valido"
+				"Email": "colocar una direccion de correo correcta",
+				"EmailWithTLD": "colocar una direccion de correo correcta",
+				"Domain": "debe ser un dominio válido",
+				"WeakDomain": "debe ser un dominio válido",
+				"IP": "debe ser una dirección IPv4 o IPv6 válida",
+				"IPv4": "debe ser una dirección IPv4 válida",
+				"IPv6": "debe ser una dirección IPv6 válida",
+				"Url": "debe ser una URL correcta",
+				"Id": "debe ser una identificación alfanumérica válida",
+				"ZipCode": "debe ser un código postal válido",
+				"Phone": "debe ser un numero de telefono valido"
 			},
 			"keyNotInSchema": "{{name}} no está permitido por el esquema",
 			"noCompanyWithThatName":
@@ -46,29 +46,28 @@
 		},
 		"JobAds": {
 			"maxedOutJobPosts":
-				"[PLEASE TRANSLATE] You may only post up to 5 job ads"
+				"Solo puede publicar hasta 5 anuncios de trabajo"
 		},
 		"Salaries": {
 			"secondSalaryByUser":
-				"[PLEASE TRANSLATE] You may only post salary data once per company"
+				"Solo puede publicar datos de salario una vez por compañía"
 		},
 		"Reviews": {
 			"secondReviewByUser":
-				"[PLEASE TRANSLATE] You may only write one review for each company",
+				"Solo puede escribir una revisión para cada compañía",
 			"needsFiveWords":
-				"debes colocar por lo menos 5 palabras en este campo"
+				"Debes colocar por lo menos 5 palabras en este campo"
 		}
 	},
 	"labels": {
 		"LocationSubFields": {
-			"locationCity": "[PLEASE TRANSLATE] City",
-			"locationAddress": "[PLEASE TRANSLATE] Address",
-			"locationIndustrialHub": "[PLEASE TRANSLATE] Industrial Park",
-			"locationArrayItem": "[PLEASE TRANSLATE] Location",
-			"locationArrayItemCity": "[PLEASE TRANSLATE] City",
-			"locationArrayItemAddress": "[PLEASE TRANSLATE] Address",
-			"locationArrayItemIndustrialHub":
-				"[PLEASE TRANSLATE] Industrial Park"
+			"locationCity": "Ciudad",
+			"locationAddress": "Dirección",
+			"locationIndustrialHub": "Parque Industrial",
+			"locationArrayItem": "Localización",
+			"locationArrayItemCity": "Ciudad",
+			"locationArrayItemAddress": "Dirección",
+			"locationArrayItemIndustrialHub": "Parque Industrial"
 		},
 		"JobApplications": {
 			"jobId": "jobId",
@@ -84,11 +83,11 @@
 			"_id": "_id",
 			"name": "Nombre de la empresa",
 			"contactEmail": "Email de contacto",
-			"yearEstablished": "[PLEASE TRANSLATE] Year Established",
+			"yearEstablished": "Año Establecido",
 			"numEmployees": "Numero de empleados",
 			"industry": "Industria",
 			"locations": "Ubicaciones",
-			"contactPhoneNumber": "[PLEASE TRANSLATE] Contact Phone Number",
+			"contactPhoneNumber": "Numbero de Contacto",
 			"websiteURL": "Url pagina de internet",
 			"descriptionOfCompany": "Descripcion de la compañia",
 			"dateJoined": "Fecha en que se unió Vize",
@@ -99,18 +98,18 @@
 			"benefits": "Beneficios",
 			"overallSatisfaction": "Satisfacción General",
 			"numReviews": "Numero de comentarios",
-			"percentRecommended": "Porcentaje recomendado",
+			"percentRecommended": "Porcentaje Recomendado",
 			"avgNumMonthsWorked": "Numero de meses trabajados"
 		},
 		"JobAds": {
 			"_id": "_id",
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
-			"jobTitle": "Titulo del trabajo",
+			"jobTitle": "Titulo del Trabajo",
 			"locations": "Localizacion",
-			"pesosPerHour": "Pesos por semana",
-			"contractType": "Tipo de contrato",
-			"jobDescription": "Descripcion del trabajo",
+			"pesosPerHour": "Pesos por Semana",
+			"contractType": "Tipo de Contrato",
+			"jobDescription": "Descripcion del Trabajo",
 			"responsibilities": "Resposabilidades",
 			"qualifications": "Calificaciones",
 			"datePosted": "fecha de publicacion"
@@ -120,10 +119,10 @@
 			"submittedBy": "Presentado por",
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
-			"jobTitle": "Titulo del trabajo",
-			"location": "[PLEASE TRANSLATE] Location",
-			"incomeType": "Tipo de ingreso",
-			"incomeAmount": "Cantidad de ingresos",
+			"jobTitle": "Titulo del Trabajo",
+			"location": "Localización",
+			"incomeType": "Tipo de Ingreso (en Pesos)",
+			"incomeAmount": "Cantidad de Ingresos",
 			"gender": "Genero",
 			"datePosted": "Fecha de publicacion"
 		},
@@ -132,14 +131,14 @@
 			"submittedBy": "Presentado por",
 			"companyName": "Nombre de la empresa",
 			"companyId": "companyId",
-			"reviewTitle": "Titulo de la reseña",
-			"location": "[PLEASE TRANSLATE] Location",
-			"jobTitle": "Titulo del trabajo",
+			"reviewTitle": "Titulo de la revisión",
+			"location": "Localización",
+			"jobTitle": "Titulo del Trabajo",
 			"numberOfMonthsWorked": "Numero de meses trabajados",
 			"pros": "Ventajas",
 			"cons": "Limitaciones",
 			"wouldRecommendToOtherJobSeekers":
-				"Would Recommend to Other Job Seekers",
+				"Recomendaría a otros solicitantes de empleo",
 			"healthAndSafety": "Salud y Beneficios",
 			"managerRelationship": "Relaciones del Gerente",
 			"workEnvironment": "Ambiente Laboral",

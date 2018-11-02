@@ -11,20 +11,18 @@ import SalaryModel from "/imports/api/models/salary.js";
 import UserModel from "/imports/api/models/user.js";
 import VoteModel from "/imports/api/models/vote.js";
 
-// Import connectors
-// import { Comments } from "./../../api/data/comments.js";
-// import { Companies } from "./../../api/data/companies.js";
-// import { JobAds } from "./../../api/data/jobads.js";
-// import { Reviews } from "./../../api/data/reviews.js";
-// import { Salaries } from "./../../api/data/salaries.js";
-// // The users connector is Meteor.users which is imported above.
-// import { Votes } from "./../../api/data/votes.js";
-
 // PostgreSQL connector
 import PostgreSQL from "../graphql/connectors/postgresql.js";
 
 import type { AllModels } from "./common.js";
 
+/*
+	We are stuck using Mongo.Collection and Meteor.users until we
+	are able to migrate to a more long-term solution for the
+	user accounts. Everything else goes through PostgreSQL,
+	and the various cross-dependencies have to be accounted for
+	on other levels of the stack.
+*/
 type AllConnectors = {
 	commentConnector: Object,
 	companyConnector: Object,

@@ -51,6 +51,7 @@ export default class UserModel {
 		);
 	}
 
+	// Get the integer ID of a user's PostgreSQL entry
 	async getUserPostgresId(id: ID): number {
 		const pgUserResults = await PostgreSQL.executeQuery(
 			PgUserFunctions.getUserById,
@@ -75,6 +76,7 @@ export default class UserModel {
 
 		return cursor.fetch();
 	}
+
 	// Get the company administered by a given user.
 	getCompanyOfUser(user: User): ?Company {
 		if (user.companyId) {

@@ -118,7 +118,7 @@
 			"companyId": "Company ID",
 			"jobTitle": "Job Title",
 			"location": "Location",
-			"incomeType": "Income Type",
+			"incomeType": "Income Type (in Pesos)",
 			"incomeAmount": "Income Amount",
 			"gender": "Gender",
 			"datePosted": "Date Posted"

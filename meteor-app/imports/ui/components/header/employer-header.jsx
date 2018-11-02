@@ -4,7 +4,6 @@ import React from "react";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 import { urlGenerators } from "/imports/startup/client/router.jsx";
-import { Companies } from "/imports/api/data/companies.js";
 
 import { If, Then, Else } from "/imports/ui/if-else.jsx";
 import LangSelector from "./lang-selector.jsx";
@@ -60,7 +59,7 @@ class EmployerHeader extends React.Component {
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												My Account
+												<T>common.header.myaccount</T>
 											</a>
 										</Then>
 										<Else>
@@ -69,7 +68,9 @@ class EmployerHeader extends React.Component {
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												Sign Up or Log In
+												<T>
+													common.header.signup_or_login
+												</T>
 											</a>
 										</Else>
 									</If>
@@ -79,7 +80,9 @@ class EmployerHeader extends React.Component {
 										href={companyURL}
 										className="link-kumya "
 									>
-										<span>My Company</span>
+										<span>
+											<T>common.header.my_company</T>
+										</span>
 									</a>
 								</li>
 								<li>
@@ -87,7 +90,9 @@ class EmployerHeader extends React.Component {
 										href="/post-a-job"
 										className="link-kumya"
 									>
-										<span>Post a Job</span>
+										<span>
+											<T>common.header.post_a_job</T>
+										</span>
 									</a>
 								</li>
 								<li>
@@ -95,7 +100,9 @@ class EmployerHeader extends React.Component {
 										href="/employer-resources"
 										className="link-kumya"
 									>
-										<span>Resources</span>
+										<span>
+											<T>common.header.resources</T>
+										</span>
 									</a>
 								</li>
 							</ul>
@@ -119,9 +126,9 @@ class EmployerHeader extends React.Component {
 														href="/my-account"
 														className="link-kumya"
 													>
-														{i18n.__(
-															"common.header.myaccount"
-														)}
+														<T>
+															common.header.myaccount
+														</T>
 													</a>
 												</li>
 												<li className="tr">
@@ -148,9 +155,7 @@ class EmployerHeader extends React.Component {
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
-												{i18n.__(
-													"common.header.signup"
-												)}
+												<T>common.header.signup</T>
 											</a>
 										</li>
 										<li>

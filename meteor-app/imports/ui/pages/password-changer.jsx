@@ -5,6 +5,8 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
 
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import Dialog from "/imports/ui/components/dialog-box";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 
@@ -27,17 +29,6 @@ class PasswordChanger extends React.Component {
 		// These bindings are necessary to make `this` work in callbacks.
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleInputChange(event) {
@@ -200,11 +191,14 @@ class PasswordChanger extends React.Component {
 					</div>
 				</div>
 				<Footer />
+				<Dialog />
 			</div>
 		);
 	}
 }
 
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(PasswordChanger);
+export default withUpdateOnChangeLocale(
+	withTracker(() => ({
+		user: Meteor.user(),
+	}))(PasswordChanger)
+);

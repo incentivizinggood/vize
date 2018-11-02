@@ -15,8 +15,8 @@ RUN mkdir -p \
 	$APP_SOURCE_DIR/node_modules \
 	$APP_SOURCE_DIR/.meteor/local
 
-COPY dev-run $APP_SCRIPTS_DIR/
+COPY entrypoint-dev.sh $APP_SCRIPTS_DIR/
 
 WORKDIR $APP_SOURCE_DIR
 
-CMD $APP_SCRIPTS_DIR/dev-run
+ENTRYPOINT $APP_SCRIPTS_DIR/entrypoint-dev.sh
