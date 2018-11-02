@@ -12,7 +12,7 @@
 // Pages
 @import "pages/company-profile", "pages/for-employers", "pages/home",
 	"pages/resources", "pages/review-profile", "pages/about",
-	"pages/search-companies";
+	"pages/search-companies", "pages/login-register";
 
 // Components
 @import "components/banner", "components/button", "components/dropdown",
@@ -25,5 +25,3 @@
 	"responsive/640", "responsive/767", "responsive/900", "responsive/1080",
 	"responsive/1020", "responsive/1024", "responsive/1240", "responsive/1280",
 	"responsive/1267", "responsive/1291", "responsive/responsive";
-
-@import "needs-refactor/login-register";
