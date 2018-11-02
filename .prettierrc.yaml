@@ -14,15 +14,18 @@ useTabs: true
 trailingComma: "es5"
 
 overrides:
-# Use prose wrapping to make Markdown documents more readable when displayed as
-# plain text.
-  - files: "*.md"
-    options:
-        proseWrap: "always"
-# The Markdown format requires space intentions and YAML considers them invalid
-# characters.
-  - files: "*.{md,yaml}"
-    options:
-        useTabs: false
+    # Use prose wrapping to make Markdown documents more readable when displayed as
+    # plain text.
+    - files: "*.md"
+      options:
+          proseWrap: "always"
+    # The Markdown format requires space intentions and YAML considers them invalid
+    # characters.
+    - files: "*.{md,yaml,yml}"
+      options:
+          useTabs: false
+    - files: "*.{yaml,yml}"
+      options:
+          tabWidth: 2
 
 # All other options are left at their default values.

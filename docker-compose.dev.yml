@@ -1,36 +1,41 @@
 version: "3"
 services:
   web:
-    build: ./meteor-dev
+    build:
+      context: ./meteor-app
+      dockerfile: Dockerfile-dev
     image: vize-meteor-dev
     ports:
       - "3000:3000"
     volumes:
-        # Allow meteor to read the project's source code.
+      - # Allow meteor to read the project's source code.
         # This is done as a volume instead of COPY so that
         # Meteor can live reload as you edit the source code.
         # Make this read only because the build should not change the src.
-      - "./meteor-app:/opt/meteor/src:ro"
-        # Use these volumes to cache builds and dependencies.
+        "./meteor-app:/opt/meteor/src:ro"
+      - # Use these volumes to cache builds and dependencies.
         # NOTE: These can not automaticaly make their own mount points because
         #       the parent volume is read-only. If you get errors when starting
         #       this sevice, try creating the directories
         #       `meteor-app/node_modules` and `meteor-app/.meteor/local`.
         #       It does not matter what is inside them, they just need to exist.
-      - node-modules:/opt/meteor/src/node_modules
+        node-modules:/opt/meteor/src/node_modules
       - meteor-local:/opt/meteor/src/.meteor/local
       - meteor-dotfile:/root
 volumes:
   # Meteor build caches. Meteor and NPM download and create a lot of files.
   # We store this data in volumes so that is does not need to be redownloaded
   # and duplicated any more than nessisary.
-  node-modules:
-    # NPM's cache of dependencies.
-  meteor-local:
-    # Meteor's cache of build artifacts. Allows for faster rebuilds.
-  meteor-dotfile:
-    # Meteor's dotfile (actualy it's the whole home directory)
-    # where meteor is installed and caches its packages.
-    # Meteor is stupid and tries to delete and move around it's dotfile
-    # during installation. So we are forced to volume the whole home
-    # directory. Normaly we would just volume the dotfile itself.
+
+  # NPM's cache of dependencies.
+  ? node-modules
+
+  # Meteor's cache of build artifacts. Allows for faster rebuilds.
+  ? meteor-local
+
+  # Meteor's dotfile (actualy it's the whole home directory)
+  # where meteor is installed and caches its packages.
+  # Meteor is stupid and tries to delete and move around it's dotfile
+  # during installation. So we are forced to volume the whole home
+  # directory. Normaly we would just volume the dotfile itself.
+  ? meteor-dotfile
