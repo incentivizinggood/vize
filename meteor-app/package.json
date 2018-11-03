@@ -4,7 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
-    "type-check": "flow --show-all-errors",
+    "type-check": "flow; flow stop",
     "apollo-codegen": "apollo codegen:generate --schema='./imports/api/graphql/schema.graphql' --queries='./imports/ui/**/*.graphql' --target=flow query-types"
   },
   "cssModules": {

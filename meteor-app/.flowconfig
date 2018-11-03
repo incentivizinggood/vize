@@ -10,6 +10,9 @@
 .*/.meteor/packages/.*
 
 # This package can give you a lot of flow errors, better ignore it
+.*/node_modules/fbjs/.*
+
+.*/.meteor/.*
 .*/node_modules/.*
 
 [include]
@@ -22,20 +25,16 @@ flow-typed
 [options]
 
 all=true
-# Absolute path support:
-# e.g. "/collections/todos"
+
+# Absolute path support
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/\1'
 
-# Meteor non-core package support
-# e.g. "meteor/kadira:flow-router"
-module.name_mapper='^meteor\/\(.*\):\(.*\)$' -> '<PROJECT_ROOT>/.meteor/local/build/programs/server/packages/\1_\2'
+# Stubs for non-JavaScript files
+module.name_mapper.extension='css' -> '<PROJECT_ROOT>/flowstubs/css-modules.js'
+module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/flowstubs/css-modules.js'
 
-# Meteor core package support
-# e.g. "meteor/meteor"
-module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/.meteor/local/build/programs/server/packages/\1'
-
-# Fallback for Meteor core client package
-# e.g. "meteor/meteor"
-module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/.meteor/local/build/programs/web.browser/packages/\1'
+# Stubs for Meteor packages
+module.name_mapper='^meteor\/\(.*\):\(.*\)$' -> '<PROJECT_ROOT>/flowstubs/meteor/\1_\2'
+module.name_mapper='^meteor\/\(.*\)$' -> '<PROJECT_ROOT>/flowstubs/meteor/\1'
 
 [strict]
