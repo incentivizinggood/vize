@@ -42,9 +42,9 @@ const RegisterForm = withFormik({
 			}
 		};
 		const options = {
-			username: this.state.username,
-			password: this.state.password,
-			role: this.state.role,
+			username: values.username,
+			password: values.password,
+			role: values.role,
 		};
 		Accounts.createUser(options, createUserCallback);
 	},
