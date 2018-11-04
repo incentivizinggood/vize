@@ -1,19 +1,9 @@
 [ignore]
 
-# Ignore the `.meteor/local` packages that aren't important
-.*/.meteor/local/build/programs/server/app/.*
-.*/.meteor/local/build/programs/server/assets/.*
-.*/.meteor/local/build/programs/server/npm/.*
-.*/.meteor/local/build/programs/server/node_modules/.*
-.*/.meteor/local/build/programs/web.browser/app/.*
-.*/.meteor/local/build/main.js
-.*/.meteor/packages/.*
-
-# This package can give you a lot of flow errors, better ignore it
-.*/node_modules/fbjs/.*
-
+# Meteor does not cooperate with Flow. 
+# Ignore Meteor's version of node_modules to silence wierd errors. 
+# These also means that all the meteor/* imports need stubs. See "Stubs for Meteor packages" below.
 .*/.meteor/.*
-.*/node_modules/.*
 
 [include]
 
@@ -23,8 +13,6 @@ flow-typed
 [lints]
 
 [options]
-
-all=true
 
 # Absolute path support
 module.name_mapper='^\/\(.*\)$' -> '<PROJECT_ROOT>/\1'
