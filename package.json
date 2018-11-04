@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "lint": "eslint -c .eslintrc.json ./meteor-app/{client,server,imports}/**/*.{js,jsx}",
-    "lint-nice-out": "eslint -c .eslintrc.json ./meteor-app/{client,server,imports}/**/*.{js,jsx} -f html -o ./eslint-out.html",
-    "lint-formatting": "prettier --list-different ./**/*.{js,jsx,css,scss}"
+    "lint": "./scripts/lint.sh",
+    "lint-nice-out": "./scripts/lint-nice-out.sh",
+    "lint-formatting": "./scripts/lint-formatting.sh",
+    "fix-formatting": "./scripts/fix-formatting.sh"
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
