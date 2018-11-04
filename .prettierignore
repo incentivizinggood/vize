@@ -6,3 +6,6 @@ node_modules
 # package-lock.json. Those files are auto-generated and should be left alone.
 package.json
 package-lock.json
+
+# prettier does not seem to handle this files right.
+#docker-compose*yml
