@@ -13,7 +13,10 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js,jsx,json,yaml,yml,css,scss,md}": ["prettier --write", "git add"]
+      "*.{js,jsx,json,yaml,yml,css,scss,md}": [
+        "prettier --write",
+        "git add"
+      ]
     }
   },
   "devDependencies": {
