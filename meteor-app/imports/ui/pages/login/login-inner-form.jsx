@@ -1,63 +1,21 @@
 import React from "react";
-import { Field, Form } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form } from "formik";
 
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
+import FormGroup from "./form-group.jsx";
+
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
 function InnerForm({ errors, isSubmitting }) {
-	const usernameInput = (
-		<div className="form-group">
-			<label
-				htmlFor="username"
-				className="icon-addon addon-md"
-				rel="tooltip"
-				title="Username"
-			>
-				<FontAwesomeIcon icon="user" className="fa" />
-				<Field
-					type="text"
-					className="form-control"
-					name="username"
-					id="username"
-					placeholder={t("username")}
-					required
-				/>
-			</label>
-		</div>
-	);
-
-	const passwordInput = (
-		<div className="form-group">
-			<label
-				htmlFor="password"
-				className="icon-addon addon-md"
-				rel="tooltip"
-				title="password"
-			>
-				<FontAwesomeIcon icon="lock" className="fa" />
-				<Field
-					type="password"
-					name="password"
-					id="password"
-					className="form-control"
-					placeholder={t("password")}
-					required
-				/>
-			</label>
-		</div>
-	);
-
 	return (
 		<Form>
 			<div className="login-fm">
-				{usernameInput}
-
-				{passwordInput}
+				<FormGroup name="username" type="text" icon="user" />
+				<FormGroup name="password" type="password" icon="lock" />
 
 				<div className="form-group text-center" />
 
