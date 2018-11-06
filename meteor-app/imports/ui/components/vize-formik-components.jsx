@@ -165,6 +165,13 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 	const vfComponentId = `${formgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
 		<div className="form-group">
+			{/*
+				BUG
+				As per comments elsewhere in this file,
+				I'm getting the feeling that the logic
+				for determining whether to change a field's
+				label to the "error class" is too simplistic.
+				 */}
 			<div className={`form-group ${(errors !== undefined) ? "has-error" : ""}`}>
 				<label className="control-label" htmlFor={vfComponentId}>
 					{labelstring}
