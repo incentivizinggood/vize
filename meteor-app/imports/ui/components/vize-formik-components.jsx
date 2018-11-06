@@ -16,7 +16,6 @@ const t = i18n.createTranslator();
 	NOTE
 	Here are the remaining "custom types" I still need to "implement":
 	- star ratings
-	- integers
 	- floats
 	- booleans
 	- arrays (of objects, perhaps of other custom types)
@@ -27,6 +26,7 @@ const t = i18n.createTranslator();
 	- strings (VfInputText)
 	- string with externally-passed drop-down options (VfInputTextWithOptionList)
 	- text areas (VfInputTextArea)
+	- integers (VfInputInteger)
 
 	NOTE
 	And here are some other features that I will need to
