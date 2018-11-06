@@ -261,6 +261,15 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 							accommodate this case easily, or perhaps even at all.
 							I feel like there's some way to do it with "pure Formik",
 							but I'm not yet sure how.
+							More specifically, withVizeFormatting depends on its
+							arguments for displaying errors, and the format of
+							Formik's formik.errors is *nested* for nested subfields,
+							which completely screws up any normal attempt to fetch
+							an error by the "name" of a nested subfield: at some
+							point you get an object instead of a string, and nothing
+							after that point can be expected to work.
+							There may be an even simpler solution that involves just
+							changing some of the arguments, but I'm not quite sure yet...
 							 */}
 						<VfInputText name={`${props.name}.city`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationCity")} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
 						<VfInputText name={`${props.name}.address`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationAddress")} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
