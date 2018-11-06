@@ -5,7 +5,7 @@ import type ReviewModel, { Review } from "./review.js";
 import type UserModel, { User } from "./user.js";
 
 import PgVoteFunctions from "./helpers/postgresql/votes.js";
-import { Votes } from "../data/votes.js";
+import { VoteSchema } from "../data/votes.js";
 
 const defaultPageSize = 100;
 
@@ -169,10 +169,10 @@ export default class VoteModel {
 	}
 
 	isVote(obj: any): boolean {
-		// Votes.simpleSchema()
+		// VoteSchema
 		// 	.newContext()
 		// 	.validate(obj);
-		const context = Votes.simpleSchema().newContext();
+		const context = VoteSchema.newContext();
 		context.validate(obj);
 		return context.isValid();
 	}

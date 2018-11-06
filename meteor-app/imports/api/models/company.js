@@ -2,7 +2,7 @@
 import type { ID, Location, AllModels } from "./common.js";
 
 import PgCompanyFunctions from "./helpers/postgresql/companies.js";
-import { Companies } from "../data/companies.js";
+import { CompanySchema } from "../data/companies.js";
 
 const defaultPageSize = 100;
 
@@ -106,10 +106,10 @@ export default class CompanyModel {
 	}
 
 	isCompany(obj: any): boolean {
-		// Companies.simpleSchema()
+		// CompanySchema
 		// 	.newContext()
 		// 	.validate(obj);
-		const context = Companies.simpleSchema().newContext();
+		const context = CompanySchema.newContext();
 		context.validate(obj);
 		return context.isValid();
 	}
