@@ -171,9 +171,23 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 				</label>
 				{vfComponent(vfComponentId)}
 				<span className="help-block">
-					<ErrorMessage name={fieldname}>
+					{/*
+						BUG
+						The current error-handling method reports all errors
+						whatsoever. The commented-out method reports errors
+						only for fields that have been "touched", which makes
+						it sometimes visually inconsistent with the label class
+						(which "shows errors" for untouched fields), and also
+						never allows it to show error for irregular fields that
+						don't seem to ever get touched, such as star ratings.
+						What we currently have is an intermediate solution,
+						useful during development, but it must ultimately be
+						replaced with something more robust and user-friendly.
+						 */}
+					{errors ? translateError(errors) : ""}
+					{/* <ErrorMessage name={fieldname}>
 						{msg => translateError(msg)}
-					</ErrorMessage>
+					</ErrorMessage> */}
 				</span>
 			</div>
 		</div>
@@ -236,6 +250,18 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 			<div className="panel-body">
 				<Field name={props.name} render={() => (
 					<div id={vfComponentId}>
+						{/*
+							BUG
+							These fields all have their labels "go to error"
+							if the location is not valid, but what I want is
+							only for the subfields that have errors to display
+							their errors.
+							The current structures for displaying error messages
+							and updating field labels correspondingly does not
+							accommodate this case easily, or perhaps even at all.
+							I feel like there's some way to do it with "pure Formik",
+							but I'm not yet sure how.
+							 */}
 						<VfInputText name={`${props.name}.city`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationCity")} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
 						<VfInputText name={`${props.name}.address`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationAddress")} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
 						<VfInputText name={`${props.name}.industrialHub`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationIndustrialHub")} maxLength="300" placeholder={t("common.forms.locationIndustrialHubPlaceholder")}/>
