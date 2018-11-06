@@ -121,7 +121,7 @@ Meteor.users.publicFields = {
 };
 
 if (Meteor.isServer) {
-	// Only publish the bear minimum fields by default.
+	// Only publish the bare minimum fields by default.
 	Meteor.publish("users", function() {
 		return Meteor.users.find({}, { fields: Meteor.users.publicFields });
 	});
