@@ -53,7 +53,7 @@ import i18n from "meteor/universe:i18n";
 const t = i18n.createTranslator();
 
 export const translateError = (error) => {
-	console.log(error);
+	// if(Meteor.isDevelopment) console.log(error);
 	if(typeof error === 'string')
 		return (typeof error === 'string') ? error : "";
 	else if(typeof error === 'object') {

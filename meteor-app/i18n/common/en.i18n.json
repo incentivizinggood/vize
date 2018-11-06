@@ -6,6 +6,8 @@
 		"male": "Male",
 		"female": "Female"
 	},
+	"yes": "Yes",
+	"no": "No",
 	"login": {
 		"username": "Username",
 		"password": "Password",

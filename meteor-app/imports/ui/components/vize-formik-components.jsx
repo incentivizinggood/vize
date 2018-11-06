@@ -161,6 +161,18 @@ const t = i18n.createTranslator();
 
 */
 
+/*
+	WARNING
+	There are many places in this code where the self-established standard
+	practice of passing things like props all the way down to the lowest
+	child on the stack causes there to be duplicate HTML attribute definitions.
+	Generally speaking, the first attribute takes precedent, and this is what
+	is generally responsible for how the code actually gets executed or rendered:
+	https://stackoverflow.com/questions/26341507/can-an-html-element-have-the-same-attribute-twice#26341866
+	*BUT TECHNICALLY THIS IS UNDEFINED BEHAVIOR*
+	This is kind of a design flaw, but I'm not immediately sure how to remove it.
+*/
+
 const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, errors) {
 	const vfComponentId = `${formgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
@@ -302,6 +314,38 @@ export const VfInputInteger = connect((props) => withVizeFormatting(
 		<Field name={props.name} render={({field}) => (
 			<div>
 				<input type="number" step="1" {...field} {...props} className="form-control" id={vfComponentId}/>
+				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+			</div>
+		)}/>
+	),
+	props.name,
+	props.formgroupname,
+	props.labelstring,
+	props.formik.errors[props.name]
+));
+
+export const VfInputRadioGroup = connect((props) => withVizeFormatting(
+	(vfComponentId) => (
+		<Field name={props.name} render={({field}) => (
+			// Expects props.optionlist to be an array of
+			// two-field objects describing the keys and values
+			// for the radio group options
+			<div {...field} {...props} id={vfComponentId}>
+				{
+					props.optionlist.map(
+						option => (
+							<div className="radio" key={`${vfComponentId}.${option.value}`}>
+								<label>
+									<input type="radio"
+										name={`${props.name}-radio-group`}
+										onClick={() => props.formik.setFieldValue(props.name, option.value, true)}
+									/>
+									{option.key}
+								</label>
+							</div>
+						)
+					)
+				}
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 			</div>
 		)}/>

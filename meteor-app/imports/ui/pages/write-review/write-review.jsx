@@ -17,6 +17,7 @@ import {
 	VfInputTextArea,
 	VfInputLocation,
 	VfInputInteger,
+	VfInputRadioGroup,
 	VfInputStarRating,
 	readOnlyCompanyNameField,
 	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
@@ -73,24 +74,22 @@ const WriteReviewInnerForm = function(props) {
 									}
 									<VfInputText name="reviewTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.reviewTitle")} maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
 									<VfInputLocation name="location" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.location")}/>
-									<VfInputText name="jobTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.jobTitle")} maxLength="100" placeholder={t("common.forms.wr.jobTitlePlaceholder")}/>
-									<VfInputInteger name="numberOfMonthsWorked" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.numberOfMonthsWorked")} min="0"/>
-									<VfInputTextArea name="pros" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.pros")} rows="6" maxLength="600" placeholder={t("common.forms.wr.prosPlaceholder")}/>
-									<VfInputTextArea name="cons" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.cons")} rows="6" maxLength="600" placeholder={t("common.forms.wr.consPlaceholder")}/>
-									{/*
-										<div className="form-group {{#if afFieldIsInvalid name='wouldRecommendToOtherJobSeekers'}}has-error{{/if}}">
-											<div className="col-lg-12">
-												{{> afQuickField name='wouldRecommendToOtherJobSeekers'}}
-											</div>
-										</div>
-									*/}
-
-									<VfInputStarRating name="healthAndSafety" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.healthAndSafety")} style={{"float":"right"}}/>
-									<VfInputStarRating name="managerRelationship" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.managerRelationship")} style={{"float":"right"}}/>
-									<VfInputStarRating name="workEnvironment" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.workEnvironment")} style={{"float":"right"}}/>
-									<VfInputStarRating name="benefits" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.benefits")} style={{"float":"right"}}/>
-									<VfInputStarRating name="overallSatisfaction" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.overallSatisfaction")} style={{"float":"right"}}/>
-									<VfInputTextArea name="additionalComments" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.additionalComments")} rows="6" maxLength="6000" placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
+									<VfInputText maxLength="100" name="jobTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.jobTitle")} placeholder={t("common.forms.wr.jobTitlePlaceholder")}/>
+									<VfInputInteger min="0" name="numberOfMonthsWorked" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.numberOfMonthsWorked")}/>
+									<VfInputTextArea rows="6" maxLength="600" name="pros" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.pros")} placeholder={t("common.forms.wr.prosPlaceholder")}/>
+									<VfInputTextArea rows="6" maxLength="600" name="cons" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.cons")} placeholder={t("common.forms.wr.consPlaceholder")}/>
+									<VfInputRadioGroup
+										optionlist={[
+											{key: t("common.yes"), value: true},
+											{key: t("common.no"), value: false}
+										]}
+										name="wouldRecommendToOtherJobSeekers" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers")}/>
+									<VfInputStarRating style={{"float":"right"}} name="healthAndSafety" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.healthAndSafety")}/>
+									<VfInputStarRating style={{"float":"right"}} name="managerRelationship" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.managerRelationship")}/>
+									<VfInputStarRating style={{"float":"right"}} name="workEnvironment" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.workEnvironment")}/>
+									<VfInputStarRating style={{"float":"right"}} name="benefits" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.benefits")}/>
+									<VfInputStarRating style={{"float":"right"}} name="overallSatisfaction" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.overallSatisfaction")}/>
+									<VfInputTextArea rows="6" maxLength="6000" name="additionalComments" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.additionalComments")} placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
 									<div className="form-group">
 										<div className="col-lg-12">
 											<div className="submit_div">
@@ -123,6 +122,7 @@ const WriteReviewInnerForm = function(props) {
 const WriteReviewForm = withFormik({
 	// Initial field values can be set with mapPropsToValues
 	// BUG I may want to start using this because of warnings React is giving me...
+	// BUG "Hidden fields" have not been implemented/filled yet
 	initialValues: {
 		companyName: "",
 		healthAndSafety: 0,
