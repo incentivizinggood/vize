@@ -183,6 +183,10 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 						What we currently have is an intermediate solution,
 						useful during development, but it must ultimately be
 						replaced with something more robust and user-friendly.
+						NOTE
+						This is actually a very important form design question:
+						the architecture could possibly be affected by the kind
+						of UX we want.
 						 */}
 					{errors ? translateError(errors) : ""}
 					{/* <ErrorMessage name={fieldname}>
