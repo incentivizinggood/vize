@@ -123,13 +123,27 @@ const WriteReviewForm = withFormik({
 	// Initial field values can be set with mapPropsToValues
 	// BUG I may want to start using this because of warnings React is giving me...
 	// BUG "Hidden fields" have not been implemented/filled yet
-	initialValues: {
-		companyName: "",
-		healthAndSafety: 0,
-		managerRelationship: 0,
-		workEnvironment: 0,
-		benefits: 0,
-		overallSatisfaction: 0,
+	// NOTE There's a strong chance that the only "hidden field"
+	// you'll need to worry about will be submittedBy, the others
+	// may be read-only, or auto-filled by the database.
+	// QUESTION How will we handle "one review per company per user" errors?
+	// NOTE ...nest the input field inside another GraphQL query?
+	// QUESTION Even if we did that, what kind of GraphQL query would we use?
+	// We could just get all the reviews for a user and check reactively
+	// against the company name, but that seems like massive overkill...
+	// Maybe we could handle it in the submission logic by just letting
+	// the other stack layers do the work and reporting their results?
+	// That's my favorite idea so far.
+	// NOTE Actually, if the submission logic was handled by a GraphQL
+	// Mutation, you might be able to do it reactively there. That
+	// would make heaps and heaps of sense.
+	mapPropsToValues() {
+		return {
+			// submittedBy is given a dummy value here because it is required,
+			// but really it is always overwritten and checked server-side using
+			// the id of the currently-logged-in user
+			submittedBy: 0,
+		};
 	},
 	validationSchema: ReviewSchema,
 	handleSubmit(values, formikbag) {

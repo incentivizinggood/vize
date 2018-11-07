@@ -173,7 +173,7 @@ const t = i18n.createTranslator();
 	This is kind of a design flaw, but I'm not immediately sure how to remove it.
 */
 
-const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, errors) {
+const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, shoulddisplayerrors, errors) {
 	const vfComponentId = `${formgroupname}.${fieldname}`; // BUG flesh this out later
 	return (
 		<div className="form-group">
@@ -184,7 +184,7 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 				for determining whether to change a field's
 				label to the "error class" is too simplistic.
 				 */}
-			<div className={`form-group ${(errors !== undefined) ? "has-error" : ""}`}>
+			<div className={`form-group ${(shoulddisplayerrors) ? "has-error" : ""}`}>
 				<label className="control-label" htmlFor={vfComponentId}>
 					{labelstring}
 				</label>
@@ -207,7 +207,7 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 						the architecture could possibly be affected by the kind
 						of UX we want.
 						 */}
-					{errors ? translateError(errors) : ""}
+					{shoulddisplayerrors ? translateError(errors) : ""}
 					{/* <ErrorMessage name={fieldname}>
 						{msg => translateError(msg)}
 					</ErrorMessage> */}
@@ -229,17 +229,21 @@ export const VfInputText = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
 export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	(vfComponentId) => (
 		<Field name={props.name} render={({field}) => (
+			// Expects props.optionlist to be an array of
+			// two-field objects describing the keys and values
+			// for the radio group options
 			<div>
 				<input type="text" list={`${vfComponentId}.list`} {...field} {...props} className="form-control" id={vfComponentId} />
 				<datalist id={`${vfComponentId}.list`}>
 					{props.optionlist.map(
-						option => <option value={option} key={`${vfComponentId}.${option}`}>{option}</option>
+						option => <option value={option.value} key={`${vfComponentId}.${option.key}`}>{option.key}</option>
 					)}
 				</datalist>
 				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
@@ -249,6 +253,7 @@ export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
@@ -264,6 +269,7 @@ export const VfInputTextArea = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
@@ -306,6 +312,7 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	props.formik.touched[props.name] && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
@@ -321,6 +328,7 @@ export const VfInputInteger = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
@@ -353,6 +361,7 @@ export const VfInputRadioGroup = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	props.formik.submitCount > 0 && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
@@ -418,6 +427,7 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
+	props.formik.submitCount > 0 && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
@@ -445,7 +455,7 @@ export const readOnlyCompanyNameField = (props) => (
 					return t("common.forms.pleaseWait");
 				}
 				else if (error || data.company === undefined || data.company === null) {
-					console.log(error);
+					if(Meteor.isDevelopment) console.log(error);
 					return t("common.forms.companyNotFound");
 				}
 				return data.company.name;
@@ -458,6 +468,7 @@ export const readOnlyCompanyNameField = (props) => (
 					value={companyName()}
 					labelstring={t(`SimpleSchema.labels.${props.formgroupname}.companyName`)}
 					readOnly="true"
+					disabled={loading || error || data.company === undefined || data.company === null}
 				/>
 			);
 		}}
@@ -474,7 +485,7 @@ export const emptyCompanyNameField = (props) => (
 				else if (error || data.allCompanies === undefined || data.allCompanies === null || data.allCompanies.length === 0) {
 					return [];
 				}
-				return data.allCompanies.map(result => result.name);
+				return data.allCompanies.map(result => ({key: result.name, value: result.name}));
 			}
 
 			return (
@@ -485,6 +496,7 @@ export const emptyCompanyNameField = (props) => (
 					optionlist={listOfCompanyNames()}
 					labelstring={t(`SimpleSchema.labels.${props.formgroupname}.companyName`)}
 					placeholder={t(`common.forms.${props.placeholdergroupname}.companyNamePlaceholder`)}
+					disabled={loading}
 				/>
 			);
 		}}
