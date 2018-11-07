@@ -312,7 +312,7 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	props.formik.touched[props.name] && props.formik.errors[props.name],
+	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
 	props.formik.errors[props.name]
 ));
 
