@@ -39,6 +39,13 @@ const t = i18n.createTranslator();
 	Implement submission logic with GraphQL mutation,
 	replacing everything currently contained in the
 	corresponding method (reviews.submitReview)
+	TODO
+	Re-doing the form to use Mutation seems like
+	a golden opportunity to make the UI and form
+	workflow more sensible and user-friendly.
+	Like that thing where they don't know if the
+	form submission was successful, or the form
+	doesn't always clear when it needs to.
 */
 
 const WriteReviewInnerForm = function(props) {
