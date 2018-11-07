@@ -23,22 +23,23 @@ import {
 	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
 
 const t = i18n.createTranslator();
-// const T = i18n.createComponent(t);
 
-// const wr_form_state = new ReactiveDict();
-// wr_form_state.set("formError", {
-// 	// Shared with AutoForm helpers
-// 	hasError: false,
-// 	reason: undefined,
-// 	error: undefined,
-// 	details: undefined,
-// 	isSqlError: false,
-// });
-// wr_form_state.set("companyId", undefined); // Shared with the React wrapper
-// wr_form_state.set("company", {
-// 	name: t("common.forms.pleaseWait"),
-// });
-// wr_form_state.set("allCompanyNames", []);
+/*
+	TODO
+	Fix location field
+	TODO
+	Fix submit-on-change-locale bug
+	TODO
+	Fix submission logic
+	TODO
+	Fix submit/reset buttons
+	TODO
+	Fix/implement reset logic
+	TODO
+	Implement submission logic with GraphQL mutation,
+	replacing everything currently contained in the
+	corresponding method (reviews.submitReview)
+*/
 
 const WriteReviewInnerForm = function(props) {
 	console.log(props);
@@ -122,7 +123,6 @@ const WriteReviewInnerForm = function(props) {
 const WriteReviewForm = withFormik({
 	// Initial field values can be set with mapPropsToValues
 	// BUG I may want to start using this because of warnings React is giving me...
-	// BUG "Hidden fields" have not been implemented/filled yet
 	// NOTE There's a strong chance that the only "hidden field"
 	// you'll need to worry about will be submittedBy, the others
 	// may be read-only, or auto-filled by the database.

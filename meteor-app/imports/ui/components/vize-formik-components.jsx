@@ -174,39 +174,15 @@ const t = i18n.createTranslator();
 */
 
 const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, shoulddisplayerrors, errors) {
-	const vfComponentId = `${formgroupname}.${fieldname}`; // BUG flesh this out later
+	const vfComponentId = `${formgroupname}.${fieldname}`; // QUESTION flesh this out later?
 	return (
 		<div className="form-group">
-			{/*
-				BUG
-				As per comments elsewhere in this file,
-				I'm getting the feeling that the logic
-				for determining whether to change a field's
-				label to the "error class" is too simplistic.
-				 */}
 			<div className={`form-group ${(shoulddisplayerrors) ? "has-error" : ""}`}>
 				<label className="control-label" htmlFor={vfComponentId}>
 					{labelstring}
 				</label>
 				{vfComponent(vfComponentId)}
 				<span className="help-block">
-					{/*
-						BUG
-						The current error-handling method reports all errors
-						whatsoever. The commented-out method reports errors
-						only for fields that have been "touched", which makes
-						it sometimes visually inconsistent with the label class
-						(which "shows errors" for untouched fields), and also
-						never allows it to show error for irregular fields that
-						don't seem to ever get touched, such as star ratings.
-						What we currently have is an intermediate solution,
-						useful during development, but it must ultimately be
-						replaced with something more robust and user-friendly.
-						NOTE
-						This is actually a very important form design question:
-						the architecture could possibly be affected by the kind
-						of UX we want.
-						 */}
 					{shoulddisplayerrors ? translateError(errors) : ""}
 					{/* <ErrorMessage name={fieldname}>
 						{msg => translateError(msg)}
@@ -279,27 +255,6 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 			<div className="panel-body">
 				<Field name={props.name} render={() => (
 					<div id={vfComponentId}>
-						{/*
-							BUG
-							These fields all have their labels "go to error"
-							if the location is not valid, but what I want is
-							only for the subfields that have errors to display
-							their errors.
-							The current structures for displaying error messages
-							and updating field labels correspondingly does not
-							accommodate this case easily, or perhaps even at all.
-							I feel like there's some way to do it with "pure Formik",
-							but I'm not yet sure how.
-							More specifically, withVizeFormatting depends on its
-							arguments for displaying errors, and the format of
-							Formik's formik.errors is *nested* for nested subfields,
-							which completely screws up any normal attempt to fetch
-							an error by the "name" of a nested subfield: at some
-							point you get an object instead of a string, and nothing
-							after that point can be expected to work.
-							There may be an even simpler solution that involves just
-							changing some of the arguments, but I'm not quite sure yet...
-							 */}
 						<VfInputText name={`${props.name}.city`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationCity")} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
 						<VfInputText name={`${props.name}.address`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationAddress")} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
 						<VfInputText name={`${props.name}.industrialHub`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationIndustrialHub")} maxLength="300" placeholder={t("common.forms.locationIndustrialHubPlaceholder")}/>
@@ -384,10 +339,7 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 					// code, and even added a line to /client/main.html in order
 					// to get it to work.
 					// NOTE
-					// Don't ask me how to change the star size. I don't know.
-					// BUG
-					// I still don't really know why the error messages for the
-					// star ratings won't display.
+					// Don't ask me how to change the star size. I don't know
 					starColor="#ffb400"
 					emptyStarColor="#ffb400"
 					onStarClick={
