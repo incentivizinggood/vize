@@ -16,6 +16,14 @@
       "*.{js,jsx,json,yaml,yml,css,scss,md}": [
         "prettier --write",
         "git add"
+      ],
+      "!*.sh": [
+        "chmod 644",
+        "git add"
+      ],
+      "*.sh": [
+        "chmod 755",
+        "git add"
       ]
     }
   },
