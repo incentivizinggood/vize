@@ -339,7 +339,7 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 					// code, and even added a line to /client/main.html in order
 					// to get it to work.
 					// NOTE
-					// Don't ask me how to change the star size. I don't know
+					// Don't ask me how to change the star size. I don't know.
 					starColor="#ffb400"
 					emptyStarColor="#ffb400"
 					onStarClick={
