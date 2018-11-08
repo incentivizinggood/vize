@@ -1,0 +1,140 @@
+@media (max-width: 1080px) {
+	.top-nav ul li {
+		margin: 0 0.2em;
+	}
+
+	.banner {
+		min-height: 660px;
+
+		&-text {
+			h2 {
+				font-size: 2.8em;
+			}
+
+			&-info {
+				width: 61%;
+				min-height: 660px;
+			}
+	
+			h3 {
+				font-size: 1.3em;
+			}
+		}
+	}
+
+	.callbacks_tabs {
+		left: 45%;
+	}
+
+	.welcome,
+	.tabs,
+	.services,
+	.slid,
+	.footer,
+	.about,
+	.team,
+	.codes,
+	.contact,
+	.gallery,
+	.blog {
+		padding: 7em 0;
+	}
+
+	.welcome {
+		&-right {
+			padding: 0;
+		}
+
+		&-text.wtext-right {
+			padding: 0;
+		}
+	}
+
+	.tabs-left {
+		padding: 0;
+	}
+
+	.tab-grid-right {
+		padding: 0 0 0 3em;
+	}
+
+	.slid-grids {
+		margin: 0 2em;
+	}
+	.banner.about-banner,
+	.about-banner .banner-info {
+		min-height: 270px;
+	}
+
+	.pince-right {
+		width: 80%;
+	}
+
+	.about h4 {
+		font-size: 1.7em;
+	}
+
+	.flexslider {
+		width: 75%;
+	}
+
+	.testimonials-grid p {
+		margin: 1.3em 0;
+		font-size: 1.4em;
+	}
+
+	.ch-grid li {
+		width: 200px;
+		height: 200px;
+		margin: 15px;
+	}
+
+	.ch-info h3 {
+		padding: 52px 0 0 0;
+	}
+
+	.view {
+		width: 293px;
+		height: 202px;
+
+		p {
+			margin: 3.5em auto 0;
+			width: 73%;
+		}
+
+		.mask,
+		.content {
+			width: 274px;
+			height: 183px;
+		}
+	}
+
+	.blog-tags ul li a {
+		padding: 0.5em 1.6em;
+	}
+
+	.comment-icons ul li {
+		margin-right: 2em;
+	}
+
+	.related-grids h5 {
+		font-size: 1.1em;
+	}
+
+	.coment-form input[type="text"] {
+		width: 48.5%;
+	}
+
+	.address ul li {
+		font-size: 1.3em;
+		margin-right: 2em;
+	}
+
+	.servc-grids {
+		margin-top: 4em;
+	}
+
+	.testimonials-grid {
+		margin-top: 2em;
+	}
+}

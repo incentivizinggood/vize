@@ -1,34 +1,3 @@
-//---------- Home page ---------//
-
-.great {
-	&-job-hm h1 {
-		text-align: center;
-		font-weight: bold;
-		margin-bottom: 23px;
-	}
-
-	&-comp-hm h4 {
-		text-align: center;
-		width: 86%;
-		margin: 0 auto 40px;
-		line-height: 25px;
-	}
-	&-emp-hm h1 {
-		text-align: center;
-		font-weight: bold;
-		margin-bottom: 23px;
-		color: $white;
-	}
-
-	&-discover-emp h4 {
-		text-align: center;
-		width: 100%;
-		margin: 0 auto;
-		line-height: 27px;
-		color: $white;
-	}
-}
-
 .back-hm-sect-colr {
 	background-color: $primary-color;
 }
@@ -44,15 +13,16 @@
 	background-color: transparent;
 	background-image: none;
 	border-color: $white !important;
+
 	&:hover {
 		color: $white;
-		background-color: #343a40;
-		border-color: #343a40;
+		background-color: $outerSpace;
+		border-color: $outerSpace;
 	}
 }
 
 .back-hm-community {
-	background-color: #f2f2f2;
+	background-color: $concrete;
 }
 
 .panel {
@@ -64,10 +34,12 @@
 		-webkit-perspective: 600px;
 		-moz-perspective: 600px;
 		padding: 10px;
+
 		@media (max-width: 544px) {
 			width: auto;
 			margin: 0;
 		}
+
 		.pad {
 			padding: 0 15px;
 		}
@@ -152,11 +124,11 @@
 }
 
 @media screen and (max-width: 991px) and (min-width: 290px) {
-	.container.des-top-view {
-		display: none;
-	}
-	.container.blu-section-desc {
-		display: none;
+	.container {
+		&.des-top-view,
+		&.blu-section-desc {
+			display: none;
+		}
 	}
 }
 

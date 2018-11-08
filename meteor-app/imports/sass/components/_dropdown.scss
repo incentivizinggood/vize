@@ -1,0 +1,19 @@
+.dropdown {
+  $this: &;
+  display: inline-block;
+
+  &__content {
+    display: none;
+    position: absolute;
+  }
+
+  &--active {
+    #{$this}__content {
+      display: block;
+
+      ul {
+        list-style-type: none;
+      }
+    }
+  }
+}

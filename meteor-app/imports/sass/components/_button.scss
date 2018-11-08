@@ -18,20 +18,21 @@
 		text-decoration: none;
 	}
 
-	&.out-bodr:focus,
-	&.out-bodr:active {
-		color: $white;
+	&.out-bodr {
+		&:focus, &:active {
+			color: $white;
+		}
 	}
 
 	&.out-butt-dark {
-		color: #343a40;
+		color: $outerSpace;
 		background-color: transparent;
 		background-image: none;
-		border-color: #343a40;
+		border-color: $outerSpace;
+
 		&:hover {
 			color: $white;
-			background-color: #343a40;
-			border-color: #343a40;
+			background-color: $outerSpace;
 		}
 	}
 }
