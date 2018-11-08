@@ -1,5 +1,3 @@
-/*=================page  employers   start==================*/
-
 .emp-wel {
 	padding-bottom: 5em;
 	padding-top: 5em;
@@ -14,17 +12,22 @@
 	padding-top: 148px;
 }
 
-.emp-icon1 {
-	background-image: url("../images/feedbackIcon2.png");
-	background-size: 72% auto;
-	background-position: center center;
+.emp {
+	&-icon1,
+	&-icon2 {
+		background-size: 72% auto;
+		background-position: center center;
+	}
+
+	&-icon1 {
+		background-image: url("../images/feedbackIcon2.png");
+	}
+
+	&-icon2 {
+		background-image: url("../images/upArrowIcon.png");
+	}
 }
 
-.emp-icon2 {
-	background-image: url("../images/upArrowIcon.png");
-	background-size: 72% auto;
-	background-position: center center;
-}
 
 .frontLocation.plu {
 	margin-bottom: 25px;
@@ -35,9 +38,10 @@ a.button.out-bodr-get {
 	color: #ffffff;
 	font-size: 33px;
 	border: 1px solid #87bcdf !important;
-}
-a.button.out-bodr-get:hover {
-	background-color: #7bb3d6;
+
+	&:hover {
+		background-color: #7bb3d6;
+	}
 }
 
 .titlestar22 {
@@ -63,5 +67,3 @@ a.button.out-bodr-get:hover {
 	font-family: initial;
 	color: #ffffff;
 }
-
-/*=================page  employers  end==================*/

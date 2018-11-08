@@ -4,6 +4,7 @@
 	max-width: 650px;
 	text-align: center;
 	padding: 0;
+	margin-top: 20px;
 
 	li {
 		display: block;
@@ -15,7 +16,7 @@
 		overflow: hidden;
 		background-color: $white;
 		font: normal 13px sans-serif;
-		margin-bottom: 30px;
+		margin-bottom: 20px;
 		max-height: 600px;
 		max-width: 650px;
 
@@ -30,22 +31,22 @@
 			margin: 20px 0;
 			font-weight: bold;
 		}
-	}
 
-	& > a {
-		float: left;
-		width: 230px;
-		height: 230px;
-		display: block;
-		background-size: cover;
-	}
+		> a {
+			float: left;
+			width: 230px;
+			height: 230px;
+			display: block;
+			background-size: cover;
+		}
 
-	& > img {
-		float: left;
-		width: 230px;
-		height: 230px;
-		display: block;
-		background-size: cover;
+		> img {
+			float: left;
+			width: 230px;
+			height: 230px;
+			display: block;
+			background-size: cover;
+		}
 	}
 
 	div {
@@ -118,8 +119,8 @@
 	h4,
 	h5,
 	h6 {
-		font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica,
-			Arial, sans-serif;
+		font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue",
+			Helvetica, Arial, sans-serif;
 	}
 
 	h1 {
@@ -164,7 +165,8 @@
 	font-size: 48px;
 	font-weight: bold;
 
-	&:hover, &:focus {
+	&:hover,
+	&:focus {
 		color: $black;
 		text-decoration: none;
 		cursor: pointer;
@@ -186,7 +188,7 @@
 				text-align: center;
 				max-height: 250px;
 				max-height: 250px;
-		
+
 				margin-left: 90px;
 			}
 
@@ -237,6 +239,40 @@
 	}
 }
 
+@media (max-width: 800px) {
+	.article-list-vertical {
+		max-width: 450px;
+		min-height: 450px;
+
+		li {
+			max-width: 425px;
+			min-height: 50px;
+
+			img {
+				float: none;
+				display: block;
+				text-align: center;
+				vertical-align: middle;
+				max-height: 250px;
+				max-height: 250px;
+
+				margin: 0 auto;
+				padding-bottom: 15px;
+			}
+
+			div {
+				float: none;
+				padding: 30px;
+				padding-top: 0;
+				display: block;
+				text-align: center;
+				vertical-align: middle;
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
 @media (max-width: 600px) {
 	.modal-content {
 		width: 95%;
@@ -244,6 +280,37 @@
 		p {
 			color: black;
 			font-size: 18px;
+		}
+	}
+
+	.article-list-vertical {
+		max-width: 350px;
+		min-height: 450px;
+
+		li {
+			max-width: 350px;
+			min-height: 50px;
+
+			> img {
+				float: none;
+				display: block;
+				text-align: center;
+				vertical-align: middle;
+				max-height: 250px;
+				max-height: 250px;
+
+				margin: 0 auto;
+				padding-bottom: 15px;
+			}
+
+			div {
+				float: none;
+				padding: 30px;
+				padding-top: 0;
+				display: block;
+				text-align: center;
+				vertical-align: middle;
+			}
 		}
 	}
 }

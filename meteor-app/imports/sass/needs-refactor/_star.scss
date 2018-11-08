@@ -3,7 +3,7 @@
 .star_boder {
 	width: 80%;
 	padding-top: 11px;
-	background-color: #f2f2f2;
+	background-color: $concrete;
 	padding-bottom: 9px;
 	padding-left: 9px;
 	border: 1px solid #000;
@@ -34,7 +34,7 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	border: 12px solid #fff;
+	border: 12px solid $white;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -85,7 +85,7 @@
 	border-radius: 50%;
 	background: #44484b;
 	font-size: 24px;
-	color: #fff;
+	color: $white;
 	line-height: 135px;
 	text-align: center;
 	position: absolute;
@@ -198,7 +198,7 @@
 
 .wrap-contact100 {
 	width: 790px;
-	background: #f2f2f2;
+	background: $concrete;
 	border-radius: 2px;
 	/*padding: 55px 95px 68px 95px;*/
 	padding: 25px 39px 45px 39px;
@@ -341,7 +341,7 @@ textarea.input100 {
 .contact100-form-btn {
 	font-family: Raleway-Bold;
 	font-size: 16px;
-	color: #fff;
+	color: $white;
 	line-height: 1.2;
 
 	display: -webkit-box;
@@ -477,7 +477,7 @@ textarea.input100 {
 }
 
 .rs1-alert-validate.alert-validate::before {
-	background-color: #fff;
+	background-color: $white;
 }
 
 .true-validate::after {
