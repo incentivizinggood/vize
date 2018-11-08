@@ -42,5 +42,5 @@ volumes:
   # persistaint (ie. does not get deleted every so often).
   # NOTE: If you need to start fresh (eg. test out the init scripts or
   # delete all data) just delete these "*-data" volumes and rerun this stack.
-  mongo-data:
-  postgres-data:
+  ? mongo-data
+  ? postgres-data

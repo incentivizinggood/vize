@@ -4,7 +4,7 @@ import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
 import PgSalaryFunctions from "./helpers/postgresql/salaries.js";
-import { Salaries } from "../data/salaries.js";
+import { SalarySchema } from "../data/salaries.js";
 
 const defaultPageSize = 100;
 
@@ -116,10 +116,10 @@ export default class SalaryModel {
 	}
 
 	isSalary(obj: any): boolean {
-		Salaries.simpleSchema()
-			.newContext()
-			.validate(obj);
-		const context = Salaries.simpleSchema().newContext();
+		// SalarySchema
+		// 	.newContext()
+		// 	.validate(obj);
+		const context = SalarySchema.newContext();
 		context.validate(obj, {
 			extendedCustomContext: {
 				isNotASubmission: true,

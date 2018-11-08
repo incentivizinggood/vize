@@ -15,8 +15,7 @@ import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
 
 // Specific stuff second
-import { JobAds } from "/imports/api/data/jobads.js";
-import { Companies } from "/imports/api/data/companies.js";
+import { JobApplicationSchema } from "/imports/api/data/jobads.js";
 import "./apply-for-job.html";
 
 const afj_form_state = new ReactiveDict();
@@ -54,7 +53,7 @@ if (Meteor.isClient) {
 	});
 
 	Template.afj_blaze_form.helpers({
-		jobApplicationSchema: JobAds.applicationSchema,
+		jobApplicationSchema: JobApplicationSchema,
 		ErrorWidget() {
 			return ErrorWidget;
 		},

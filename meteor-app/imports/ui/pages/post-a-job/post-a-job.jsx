@@ -9,8 +9,7 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
-import { JobAds } from "/imports/api/data/jobads.js";
-import { Companies } from "/imports/api/data/companies.js";
+import { JobAdSchema } from "/imports/api/data/jobads.js";
 import "./post-a-job.html";
 
 import Header from "/imports/ui/components/header";
@@ -101,7 +100,7 @@ if (Meteor.isClient) {
 	});
 
 	Template.paj_blaze_form.helpers({
-		jobAds: JobAds,
+		jobAdSchema: JobAdSchema,
 		ErrorWidget() {
 			return ErrorWidget;
 		},

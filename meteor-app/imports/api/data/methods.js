@@ -2,11 +2,10 @@ import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
-import { Reviews } from "./reviews.js";
-import { Companies } from "./companies.js";
-import { Salaries } from "./salaries.js";
-import { JobAds } from "./jobads.js";
-// import { Votes } from "./votes.js"; // this isn't used since I brought in the PostgreSQL code
+import { ReviewSchema } from "./reviews.js";
+import { CompanySchema } from "./companies.js";
+import { SalarySchema } from "./salaries.js";
+import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
 
 // Testing with PostgreSQL
 import PostgreSQL from "../graphql/connectors/postgresql.js";
@@ -79,7 +78,7 @@ Meteor.methods({
 
 	async "reviews.submitReview"(newReview) {
 		// This avoids a lot of problems
-		const cleanReview = Reviews.simpleSchema().clean(newReview);
+		const cleanReview = ReviewSchema.clean(newReview);
 
 		// Make sure the user is logged and is permitted to write a review.
 		if (!this.userId) {
@@ -99,10 +98,10 @@ Meteor.methods({
 
 		cleanReview.submittedBy = pgUser.user.userid;
 
-		const validationResult = Reviews.simpleSchema()
+		const validationResult = ReviewSchema
 			.namedContext()
 			.validate(cleanReview);
-		const errors = Reviews.simpleSchema()
+		const errors = ReviewSchema
 			.namedContext()
 			.validationErrors();
 
@@ -170,15 +169,15 @@ Meteor.methods({
 			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
 		}
 
-		// validate review: must match Reviews.schema
-		const validationResult = Reviews.simpleSchema()
+		// validate review: must match ReviewSchema
+		const validationResult = ReviewSchema
 			.namedContext()
 			.validate(review, {
 				extendedCustomContext: {
 					isNotASubmission: true,
 				},
 			});
-		const errors = Reviews.simpleSchema()
+		const errors = ReviewSchema
 			.namedContext()
 			.validationErrors();
 
@@ -255,12 +254,12 @@ Meteor.methods({
 
 	async "salaries.submitSalaryData"(salary) {
 		// This avoids a lot of problems
-		const newSalary = Salaries.simpleSchema().clean(salary);
+		const newSalary = SalarySchema.clean(salary);
 
-		const validationResult = Salaries.simpleSchema()
+		const validationResult = SalarySchema
 			.namedContext()
 			.validate(newSalary);
-		const errors = Salaries.simpleSchema()
+		const errors = SalarySchema
 			.namedContext()
 			.validationErrors();
 
@@ -290,20 +289,9 @@ Meteor.methods({
 		}
 
 		// TODO: filter by location as well
-		// const { companyName, jobTitle } = newSalary; // changed to use companyName: names uniquely identify companies as well, but salaries might have the same companyId (the one for un-verified companies) if submitted from the home page
-		// if (Salaries.find({ companyName, jobTitle }).count() !== 0) {
-		// 	throw new Meteor.Error(
-		// 		"duplicateEntry",
-		// 		"onlyOnce"
-		// 	);
-		// }
 
 		if (Meteor.isDevelopment) console.log("SERVER: inserting");
 
-		// TODO: use upsert to prevent duplicate salaries.
-		// QUESTION: do we actually want to prevent duplicate salaries?
-		//			I was under the impression that we didn't.
-		// Salaries.upsert({userId, companyId, jobTitle, location}, newSalary);
 		const pgUser = await PostgreSQL.executeQuery(
 			PgUserFunctions.getUserById,
 			this.userId
@@ -346,11 +334,11 @@ Meteor.methods({
 	},
 
 	async "jobads.applyForJob"(jobApplication) {
-		jobApplication = JobAds.applicationSchema.clean(jobApplication);
-		const validationResult = JobAds.applicationSchema
+		jobApplication = JobApplicationSchema.clean(jobApplication);
+		const validationResult = JobApplicationSchema
 			.namedContext()
 			.validate(jobApplication);
-		const errors = JobAds.applicationSchema
+		const errors = JobApplicationSchema
 			.namedContext()
 			.validationErrors();
 
@@ -451,11 +439,11 @@ Meteor.methods({
 	},
 
 	async "jobads.postJobAd"(jobAd) {
-		const newJobAd = JobAds.simpleSchema().clean(jobAd);
-		const validationResult = JobAds.simpleSchema()
+		const newJobAd = JobAdSchema.clean(jobAd);
+		const validationResult = JobAdSchema
 			.namedContext()
 			.validate(newJobAd);
-		const errors = JobAds.simpleSchema()
+		const errors = JobAdSchema
 			.namedContext()
 			.validationErrors();
 
@@ -592,13 +580,13 @@ Meteor.methods({
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
 	async "companies.createProfile"(companyProfile) {
-		const newCompanyProfile = Companies.simpleSchema().clean(
+		const newCompanyProfile = CompanySchema.clean(
 			companyProfile
 		);
-		const validationResult = Companies.simpleSchema()
+		const validationResult = CompanySchema
 			.namedContext()
 			.validate(newCompanyProfile);
-		const errors = Companies.simpleSchema()
+		const errors = CompanySchema
 			.namedContext()
 			.validationErrors();
 

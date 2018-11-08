@@ -1,16 +1,9 @@
-import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
-
-// AutoForm business
 import { AutoForm } from "meteor/aldeed:autoform";
 
 SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
 
-export const Comments = new Mongo.Collection("Comments", {
-	idGeneration: "MONGO",
-});
-
-Comments.schema = new SimpleSchema({
+CommentSchema = new SimpleSchema({
 	_id: {
 		type: SimpleSchema.Integer,
 		optional: false,
@@ -69,23 +62,3 @@ Comments.schema = new SimpleSchema({
 	},
 	// might need to change the screenName 'optional:true' for anonymous profiles
 });
-
-Comments.attachSchema(Comments.schema, { replace: true });
-
-Comments.deny({
-	insert() {
-		return true;
-	},
-	update() {
-		return true;
-	},
-	remove() {
-		return true;
-	},
-});
-
-if (Meteor.isServer) {
-	Meteor.publish("Comments", function() {
-		return Comments.find({});
-	});
-}
