@@ -86,7 +86,9 @@ export default class AboutPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header/>
+				<div className="navbarwhite">
+					<Header />
+				</div>
 				<div id="home" className="banner about-banner">
 					<div className="banner-info">
 						<div className="banner-text">
@@ -212,7 +214,7 @@ export default class AboutPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Dialog/>
+				<Dialog />
 				<Footer />
 			</div>
 		);
