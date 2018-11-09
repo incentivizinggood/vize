@@ -65,6 +65,10 @@ export const translateError = (error) => {
 				args.dataType = t(args.dataType);
 			return t(key, args);
 		}
+		// I'm really using recursion to translate
+		// nested errors. This is kind of ridiculous.
+		else if(Object.values(error).length)
+			return translateError(Object.values(error)[0]);
 	}
 	return "";
 };
