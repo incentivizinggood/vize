@@ -59,22 +59,3 @@ without ever changing your settings.
     prevent ESLint from running on any other projects that you may work on.
 
 See https://guide.meteor.com/code-style.html#eslint-atom for more info.
-
-## Setup on WebStorm
-
-The one who wrote this does not use WebStorm. This section will be filled in
-later.
-
-### Editor Settings
-
-To do.
-
-### Prettier
-
-To do.
-
-### ESLint
-
-To do.
-
-See https://guide.meteor.com/code-style.html#eslint-webstorm for more info.
