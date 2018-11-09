@@ -173,6 +173,29 @@ const t = i18n.createTranslator();
 	This is kind of a design flaw, but I'm not immediately sure how to remove it.
 */
 
+/*
+	NOTE
+	JavaScript hack for resolving object and array field names
+	at run-time without using eval():
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
+*/
+
+function getDescendantProp(obj, desc) {
+	let arr = desc.split('.');
+	while (arr.length) {
+		obj = obj[arr.shift()];
+	}
+	return obj;
+}
+
+function setDescendantProp(obj, desc, value) {
+	var arr = desc.split('.');
+	while (arr.length > 1) {
+		obj = obj[arr.shift()];
+	}
+	return obj[arr[0]] = value;
+}
+
 const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, shoulddisplayerrors, errors) {
 	const vfComponentId = `${formgroupname}.${fieldname}`; // QUESTION flesh this out later?
 	return (
@@ -205,8 +228,8 @@ export const VfInputText = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
@@ -229,8 +252,8 @@ export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 export const VfInputTextArea = connect((props) => withVizeFormatting(
@@ -245,8 +268,8 @@ export const VfInputTextArea = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 export const VfInputLocation = connect((props) => withVizeFormatting(
@@ -267,8 +290,8 @@ export const VfInputLocation = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 export const VfInputInteger = connect((props) => withVizeFormatting(
@@ -283,8 +306,8 @@ export const VfInputInteger = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	(props.formik.submitCount > 0 || props.formik.touched[props.name]) && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 export const VfInputRadioGroup = connect((props) => withVizeFormatting(
@@ -316,8 +339,8 @@ export const VfInputRadioGroup = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	props.formik.submitCount > 0 && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	props.formik.submitCount > 0 && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 export const VfInputStarRating = connect((props) => withVizeFormatting(
@@ -379,8 +402,8 @@ export const VfInputStarRating = connect((props) => withVizeFormatting(
 	props.name,
 	props.formgroupname,
 	props.labelstring,
-	props.formik.submitCount > 0 && props.formik.errors[props.name],
-	props.formik.errors[props.name]
+	props.formik.submitCount > 0 && getDescendantProp(props.formik.errors, props.name),
+	getDescendantProp(props.formik.errors, props.name)
 ));
 
 const companyNameForIdQuery = gql`
