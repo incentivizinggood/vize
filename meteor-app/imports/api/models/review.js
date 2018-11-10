@@ -2,11 +2,15 @@
 import type { ID, Location, StarRatings } from "./common.js";
 import type { Company } from "./company.js";
 import type { User } from "./user.js";
+import { castToNumberIfDefined } from "./helpers/postgresql/misc.js";
 
 import { getUserPostgresId, getUserById, getCompanyByName } from ".";
 
-import PgReviewFunctions from "./helpers/postgresql/reviews.js";
-import PostgreSQL from "../graphql/connectors/postgresql.js";
+import {
+	execTransactionRO,
+	execTransactionRW,
+} from "../connectors/postgresql.js";
+
 import { ReviewSchema } from "../data/reviews.js";
 
 const defaultPageSize = 100;
@@ -37,16 +41,97 @@ export type Review = {
 	downvotes: ?number,
 };
 
+function processReviewResults(reviewResults): Review | [Review] {
+	/*
+		Translate from model function results
+		to Mongo SimplSchema format
+
+		Expects object with fields:
+		- review or reviews: singular review or array of reviews
+		- votes: singular or array depending on whether we get review or reviews
+	*/
+	if (reviewResults.review !== undefined) {
+		const review = reviewResults.review;
+		return {
+			_id: Number(review.reviewid),
+			submittedBy: castToNumberIfDefined(review.submittedby),
+			companyName: review.companyname,
+			companyId: castToNumberIfDefined(review.companyid),
+			reviewTitle: review.reviewtitle,
+			location: JSON.parse(review.reviewlocation),
+			jobTitle: review.jobtitle,
+			numberOfMonthsWorked: Number(review.nummonthsworked),
+			pros: review.pros,
+			cons: review.cons,
+			wouldRecommendToOtherJobSeekers: review.wouldrecommend,
+			healthAndSafety: Number(review.healthandsafety),
+			managerRelationship: Number(review.managerrelationship),
+			workEnvironment: Number(review.workenvironment),
+			benefits: Number(review.benefits),
+			overallSatisfaction: Number(review.overallsatisfaction),
+			additionalComments: review.additionalcomments,
+			datePosted: review.dateadded,
+			upvotes: Number(reviewResults.votes.upvotes),
+			downvotes: Number(reviewResults.votes.downvotes),
+		};
+	} else if (reviewResults.reviews !== undefined) {
+		return reviewResults.reviews.map(review => {
+			return {
+				_id: Number(review.reviewid),
+				submittedBy: castToNumberIfDefined(review.submittedby),
+				companyName: review.companyname,
+				companyId: castToNumberIfDefined(review.companyid),
+				reviewTitle: review.reviewtitle,
+				location: JSON.parse(review.reviewlocation),
+				jobTitle: review.jobtitle,
+				numberOfMonthsWorked: Number(review.nummonthsworked),
+				pros: review.pros,
+				cons: review.cons,
+				wouldRecommendToOtherJobSeekers: review.wouldrecommend,
+				healthAndSafety: Number(review.healthandsafety),
+				managerRelationship: Number(review.managerrelationship),
+				workEnvironment: Number(review.workenvironment),
+				benefits: Number(review.benefits),
+				overallSatisfaction: Number(review.overallsatisfaction),
+				additionalComments: review.additionalcomments,
+				datePosted: review.dateadded,
+				upvotes: Number(
+					reviewResults.votes[String(review.reviewid)].upvotes
+				),
+				downvotes: Number(
+					reviewResults.votes[String(review.reviewid)].downvotes
+				),
+			};
+		});
+	}
+	return undefined;
+}
+
 // Get the review with a given id.
 export async function getReviewById(id: ID): Promise<?Review> {
-	if (!Number.isNaN(Number(id)))
-		return PgReviewFunctions.processReviewResults(
-			await PostgreSQL.executeQuery(
-				PgReviewFunctions.getReviewById,
-				Number(id)
-			)
+	if (Number.isNaN(Number(id))) return undefined;
+
+	const transaction = async client => {
+		let reviewResults = { rows: [] };
+		let voteResults = { rows: [] };
+
+		reviewResults = await client.query(
+			"SELECT * FROM reviews WHERE reviewid=$1",
+			[Number(id)]
 		);
-	return undefined;
+
+		voteResults = await client.query(
+			"SELECT * FROM review_vote_counts WHERE refersto=$1",
+			[Number(id)]
+		);
+
+		return {
+			review: reviewResults.rows[0],
+			votes: voteResults.rows[0],
+		};
+	};
+
+	return execTransactionRO(transaction).then(processReviewResults);
 }
 
 // Get all reviews written by a given user.
@@ -56,14 +141,32 @@ export async function getReviewsByAuthor(
 	pageSize: number = defaultPageSize
 ): Promise<[Review]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
-	return PgReviewFunctions.processReviewResults(
-		await PostgreSQL.executeQuery(
-			PgReviewFunctions.getReviewsByAuthor,
-			authorPostgresId,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+
+	const transaction = async client => {
+		let reviewResults = { rows: [] };
+		let voteResults = {};
+
+		reviewResults = await client.query(
+			"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[authorPostgresId, pageNumber * pageSize, pageSize]
+		);
+
+		for (let review of reviewResults.rows) {
+			let votes = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[review.reviewid]
+			);
+
+			voteResults[review.reviewid] = votes.rows[0];
+		}
+
+		return {
+			reviews: reviewResults.rows,
+			votes: voteResults,
+		};
+	};
+
+	return execTransactionRO(transaction).then(processReviewResults);
 }
 
 // Get the user who wrote a given review.
@@ -81,14 +184,31 @@ export async function getReviewsByCompany(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<[Review]> {
-	return PgReviewFunctions.processReviewResults(
-		await PostgreSQL.executeQuery(
-			PgReviewFunctions.getReviewsForCompany,
-			company.name,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+	const transaction = async client => {
+		let reviewResults = { rows: [] };
+		let voteResults = {};
+
+		reviewResults = await client.query(
+			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
+			[company.name, pageNumber * pageSize, pageSize]
+		);
+
+		for (let review of reviewResults.rows) {
+			let votes = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[review.reviewid]
+			);
+
+			voteResults[review.reviewid] = votes.rows[0];
+		}
+
+		return {
+			reviews: reviewResults.rows,
+			votes: voteResults,
+		};
+	};
+
+	return execTransactionRO(transaction).then(processReviewResults);
 }
 
 // Get the company that a given review is about.
@@ -101,13 +221,31 @@ export async function getAllReviews(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<[Review]> {
-	return PgReviewFunctions.processReviewResults(
-		await PostgreSQL.executeQuery(
-			PgReviewFunctions.getAllReviews,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+	const transaction = async client => {
+		let reviewResults = { rows: [] };
+		let voteResults = {};
+
+		reviewResults = await client.query(
+			"SELECT * FROM reviews OFFSET $1 LIMIT $2",
+			[pageNumber * pageSize, pageSize]
+		);
+
+		for (let review of reviewResults.rows) {
+			const votes = await client.query(
+				"SELECT * FROM review_vote_counts WHERE refersto=$1",
+				[review.reviewid]
+			);
+
+			voteResults[review.reviewid] = votes.rows[0];
+		}
+
+		return {
+			reviews: reviewResults.rows,
+			votes: voteResults,
+		};
+	};
+
+	return execTransactionRO(transaction).then(processReviewResults);
 }
 
 export function isReview(obj: any): boolean {
