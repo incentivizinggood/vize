@@ -1,10 +1,11 @@
 // @flow
-import type { ID, AllModels } from "./common.js";
+import type { ID } from "./common.js";
 import type CommentModel, { Comment } from "./comment.js";
 import type ReviewModel, { Review } from "./review.js";
 import type UserModel, { User } from "./user.js";
 
 import PgVoteFunctions from "./helpers/postgresql/votes.js";
+import type PostgreSQL from "../graphql/connectors/postgresql.js";
 import { VoteSchema } from "../data/votes.js";
 
 const defaultPageSize = 100;
@@ -19,22 +20,7 @@ export type Vote = {
 
 export type VoteSubject = Comment | Review;
 
-export default class VoteModel {
-	connector: Object;
-	commentModel: CommentModel;
-	reviewModel: ReviewModel;
-	userModel: UserModel;
-
-	constructor(connector: Object) {
-		this.connector = connector;
-	}
-
-	init({ commentModel, reviewModel, userModel }: AllModels) {
-		this.commentModel = commentModel;
-		this.reviewModel = reviewModel;
-		this.userModel = userModel;
-	}
-
+const voteModel = (dataModel, postgreSQL: PostgreSQL) => ({
 	// Get the vote with a given id.
 	// BUG not completely sure what the
 	// best way to do this is going to be
@@ -45,12 +31,12 @@ export default class VoteModel {
 		// submittedBy: integer
 		// references: integer
 		return PgVoteFunctions.processVoteResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgVoteFunctions.getVoteByPrimaryKey,
 				JSON.parse(id)
 			)
 		);
-	}
+	},
 
 	// Get the vote cast by a given user on a given thing.
 	async getVoteByAuthorAndSubject(
@@ -59,9 +45,9 @@ export default class VoteModel {
 	): Promise<Vote> {
 		let subjectOfVote;
 
-		if (this.reviewModel.isReview(subject)) {
+		if (dataModel.isReview(subject)) {
 			subjectOfVote = "review";
-		} else if (this.commentModel.isComment(subject)) {
+		} else if (dataModel.isComment(subject)) {
 			subjectOfVote = "comment";
 		} else {
 			throw new Error(
@@ -69,21 +55,16 @@ export default class VoteModel {
 			);
 		}
 
-		const authorPostgresId = await this.userModel.getUserPostgresId(
-			user._id
-		);
+		const authorPostgresId = await dataModel.getUserPostgresId(user._id);
 
 		return PgVoteFunctions.processVoteResults(
-			await this.connector.executeQuery(
-				PgVoteFunctions.getVoteByPrimaryKey,
-				{
-					submittedBy: authorPostgresId,
-					voteSubject: subjectOfVote,
-					references: subject._id,
-				}
-			)
+			await postgreSQL.executeQuery(PgVoteFunctions.getVoteByPrimaryKey, {
+				submittedBy: authorPostgresId,
+				voteSubject: subjectOfVote,
+				references: subject._id,
+			})
 		);
-	}
+	},
 
 	// Get all votes cast by a given user.
 	async getVotesByAuthor(
@@ -91,25 +72,23 @@ export default class VoteModel {
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): Promise<[Vote]> {
-		const authorPostgresId = await this.userModel.getUserPostgresId(
-			user._id
-		);
+		const authorPostgresId = await dataModel.getUserPostgresId(user._id);
 
 		// result has reviewVotes and commentVotes,
 		// two arrays of votes by the author for
 		// the respective voteSubjects.
-		return this.connector.executeQuery(
+		return postgreSQL.executeQuery(
 			PgVoteFunctions.getVotesByAuthor,
 			authorPostgresId,
 			pageNumber * pageSize,
 			pageSize
 		);
-	}
+	},
 
 	// Get the user who cast a given vote.
 	async getAuthorOfVote(vote: Vote): Promise<User> {
-		return this.userModel.getUserById(String(vote.submittedBy));
-	}
+		return dataModel.getUserById(String(vote.submittedBy));
+	},
 
 	// Get all votes that were cast on a given thing.
 	async getVotesBySubject(
@@ -118,9 +97,9 @@ export default class VoteModel {
 		pageSize: number = defaultPageSize
 	): Promise<[Vote]> {
 		let voteSubject;
-		if (this.reviewModel.isReview(subject)) {
+		if (dataModel.isReview(subject)) {
 			voteSubject = "review";
-		} else if (this.commentModel.isComment(subject)) {
+		} else if (dataModel.isComment(subject)) {
 			voteSubject = "comment";
 		} else {
 			throw new Error(
@@ -135,25 +114,25 @@ export default class VoteModel {
 		// in the underlying query, they don't have much meaning
 		// as each such query should yield exactly 1 or 0 results.
 
-		return this.connector.executeQuery(
+		return postgreSQL.executeQuery(
 			PgVoteFunctions.getVotesForSubject,
 			voteSubject,
 			subject._id,
 			pageNumber * pageSize,
 			pageSize
 		);
-	}
+	},
 
 	// Get the thing that a given vote was cast on.
 	async getSubjectOfVote(vote: Vote): Promise<?VoteSubject> {
 		if (vote.voteSubject === "review")
-			return this.reviewModel.getReviewById(String(vote.references));
+			return dataModel.getReviewById(String(vote.references));
 
 		if (vote.voteSubject === "comment")
-			return this.commentModel.getCommentById(String(vote.references));
+			return dataModel.getCommentById(String(vote.references));
 
 		throw new Error("vote.voteSubject is not a valid value");
-	}
+	},
 
 	// Get all of the votes.
 	async getAllVotes(
@@ -164,12 +143,12 @@ export default class VoteModel {
 		// two arrays of votes which contain all the
 		// vote counts for every review and comment respectively.
 
-		return this.connector.executeQuery(
+		return postgreSQL.executeQuery(
 			PgVoteFunctions.getAllVotes,
 			pageNumber * pageSize,
 			pageSize
 		);
-	}
+	},
 
 	isVote(obj: any): boolean {
 		// VoteSchema
@@ -178,15 +157,17 @@ export default class VoteModel {
 		const context = VoteSchema.newContext();
 		context.validate(obj);
 		return context.isValid();
-	}
+	},
 
 	// Create a new vote or, if the subject was already voted on, change the vote.
 	async castVote(user: User, subject: VoteSubject, isUpvote: boolean): Vote {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	// Remove a vote. If there is no vote, do nothing.
 	async removeVote(user: User, subject: VoteSubject): Vote {
 		throw new Error("Not implemented yet");
-	}
-}
+	},
+});
+
+export default voteModel;

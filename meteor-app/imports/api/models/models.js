@@ -2,18 +2,16 @@
 import { Meteor } from "meteor/meteor";
 
 // Import models.
-import CommentModel from "/imports/api/models/comment.js";
-import CompanyModel from "/imports/api/models/company.js";
-import JobAdModel from "/imports/api/models/job-ad.js";
-import ReviewModel from "/imports/api/models/review.js";
-import SalaryModel from "/imports/api/models/salary.js";
-import UserModel from "/imports/api/models/user.js";
-import VoteModel from "/imports/api/models/vote.js";
+import commentModel from "./comment.js";
+import companyModel from "./company.js";
+import jobAdModel from "./job-ad.js";
+import reviewModel from "./review.js";
+import salaryModel from "./salary.js";
+import userModel from "./user.js";
+import voteModel from "./vote.js";
 
 // PostgreSQL connector
 import PostgreSQL from "../graphql/connectors/postgresql.js";
-
-import type { AllModels } from "./common.js";
 
 /*
 	We are stuck using Mongo.Collection and Meteor.users until we
@@ -24,16 +22,15 @@ import type { AllModels } from "./common.js";
 */
 
 // This object constructing function is used to help pass references around.
-export default function constructModels(): AllModels {
-	const models: AllModels = {
-		commentModel: new CommentModel(PostgreSQL),
-		companyModel: new CompanyModel(PostgreSQL),
-		jobAdModel: new JobAdModel(PostgreSQL),
-		reviewModel: new ReviewModel(PostgreSQL),
-		salaryModel: new SalaryModel(PostgreSQL),
-		userModel: new UserModel(Meteor.users),
-		voteModel: new VoteModel(PostgreSQL),
+export default function constructModels() {
+	const model = {
+		...commentModel(this, PostgreSQL),
+		...companyModel(this, PostgreSQL),
+		...jobAdModel(this, PostgreSQL),
+		...reviewModel(this, PostgreSQL),
+		...salaryModel(this, PostgreSQL),
+		...userModel(this, PostgreSQL, Meteor.users),
+		...voteModel(this, PostgreSQL),
 	};
-	Object.values(models).forEach(model => model.init(models));
-	return models;
+	return model;
 }

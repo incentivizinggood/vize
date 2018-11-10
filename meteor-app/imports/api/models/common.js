@@ -22,13 +22,3 @@ export type StarRatings = {
 	benefits: number,
 	overallSatisfaction: number,
 };
-
-export type AllModels = {
-	commentModel: CommentModel,
-	companyModel: CompanyModel,
-	jobAdModel: JobAdModel,
-	reviewModel: ReviewModel,
-	salaryModel: SalaryModel,
-	userModel: UserModel,
-	voteModel: VoteModel,
-};

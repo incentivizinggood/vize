@@ -1,8 +1,9 @@
 // @flow
-import type { ID, Location, AllModels } from "./common.js";
+import type { ID, Location } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
+import type PostgreSQL from "../graphql/connectors/postgresql.js";
 import { JobAdSchema, JobApplicationSchema } from "../data/jobads.js";
 
 const defaultPageSize = 100;
@@ -23,29 +24,18 @@ export type JobAd = {
 	datePosted: ?Date,
 };
 
-export default class JobAdModel {
-	connector: Object;
-	companyModel: CompanyModel;
-
-	constructor(connector: Object) {
-		this.connector = connector;
-	}
-
-	init({ companyModel }: AllModels) {
-		this.companyModel = companyModel;
-	}
-
+const jobAdModel = (dataModel, postgreSQL: PostgreSQL) => ({
 	// Get the job ad with a given id.
 	async getJobAdById(id: ID) {
 		if (!Number.isNaN(Number(id)))
 			return PgJobAdFunctions.processJobAdResults(
-				await this.connector.executeQuery(
+				await postgreSQL.executeQuery(
 					PgJobAdFunctions.getJobAdById,
 					Number(id)
 				)
 			);
 		return undefined;
-	}
+	},
 
 	// Get all job ads posted by a given company.
 	async getJobAdsByCompany(
@@ -54,29 +44,29 @@ export default class JobAdModel {
 		pageSize: number = defaultPageSize
 	): Promise<[JobAd]> {
 		return PgJobAdFunctions.processJobAdResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgJobAdFunctions.getJobAdsByCompany,
 				company.name,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 	// Get the company that posted a given review.
 	async getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
-		return this.companyModel.getCompanyByName(jobAd.companyName);
-	}
+		return dataModel.getCompanyByName(jobAd.companyName);
+	},
 
 	// Count the number of job ads posted by a given company.
 	countJobAdsByCompany(company: Company): number {
-		return this.connector.executeQuery(
+		return postgreSQL.executeQuery(
 			PgJobAdFunctions.getJobAdCountForCompany,
 			company.name
 		);
-		// const cursor = this.connector.find({ companyName: company.name });
+		// const cursor = postgreSQL.find({ companyName: company.name });
 		//
 		// return cursor.count();
-	}
+	},
 
 	// Get all of the job ads.
 	async getAllJobAds(
@@ -84,13 +74,13 @@ export default class JobAdModel {
 		pageSize: number = defaultPageSize
 	): Promise<[JobAd]> {
 		return PgJobAdFunctions.processJobAdResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgJobAdFunctions.getAllJobAds,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 
 	isJobAd(obj: any): boolean {
 		// JobAdSchema
@@ -103,7 +93,7 @@ export default class JobAdModel {
 			},
 		});
 		return context.isValid();
-	}
+	},
 
 	isJobApplication(obj: any): boolean {
 		// there's a strong chance that this validation
@@ -118,17 +108,19 @@ export default class JobAdModel {
 		const context = JobApplicationSchema.newContext();
 		context.validate(obj);
 		return context.isValid();
-	}
+	},
 
 	async postJobAd(company: Company, jobAdParams: mixed): JobAd {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async editJobAd(id: ID, jobAdChanges: mixed): JobAd {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async deleteJobAd(id: ID): JobAd {
 		throw new Error("Not implemented yet");
-	}
-}
+	},
+});
+
+export default jobAdModel;

@@ -1,9 +1,10 @@
 // @flow
-import type { ID, Location, AllModels } from "./common.js";
+import type { ID, Location } from "./common.js";
 import type CompanyModel, { Company } from "./company.js";
 import type UserModel, { User } from "./user.js";
 
 import PgSalaryFunctions from "./helpers/postgresql/salaries.js";
+import type PostgreSQL from "../graphql/connectors/postgresql.js";
 import { SalarySchema } from "../data/salaries.js";
 
 const defaultPageSize = 100;
@@ -20,32 +21,19 @@ export type Salary = {
 	datePosted: ?Date,
 };
 
-export default class SalaryModel {
-	connector: Object;
-	companyModel: CompanyModel;
-	userModel: UserModel;
-
-	constructor(connector: Object) {
-		this.connector = connector;
-	}
-
-	init({ userModel, companyModel }: AllModels) {
-		this.userModel = userModel;
-		this.companyModel = companyModel;
-	}
-
+const salaryModel = (dataModel, postgreSQL: PostgreSQL) => ({
 	// Get the salary with a given id.
 	async getSalaryById(id: ID): Promise<?Salary> {
 		if (!Number.isNaN(Number(id))) {
 			return PgSalaryFunctions.processSalaryResults(
-				await this.connector.executeQuery(
+				await postgreSQL.executeQuery(
 					PgSalaryFunctions.getSalaryById,
 					Number(id)
 				)
 			);
 		}
 		return undefined;
-	}
+	},
 
 	// Get all salaries submitted by a given user.
 	async getSalariesByAuthor(
@@ -53,22 +41,20 @@ export default class SalaryModel {
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): Promise<[Salary]> {
-		const authorPostgresId = await this.userModel.getUserPostgresId(
-			user._id
-		);
+		const authorPostgresId = await dataModel.getUserPostgresId(user._id);
 		return PgSalaryFunctions.processSalaryResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgSalaryFunctions.getSalariesByAuthor,
 				authorPostgresId,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 	// Get the user who submitted a given salary.
 	async getAuthorOfSalary(salary: Salary): Promise<User> {
-		return this.userModel.getUserById(String(salary.submittedBy));
-	}
+		return dataModel.getUserById(String(salary.submittedBy));
+	},
 
 	// Get all salaries paid by a given company.
 	async getSalariesByCompany(
@@ -77,29 +63,29 @@ export default class SalaryModel {
 		pageSize: number = defaultPageSize
 	): Promise<[Salary]> {
 		return PgSalaryFunctions.processSalaryResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgSalaryFunctions.getSalariesForCompany,
 				company.name,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 	// Get the company that paid a given salary.
 	async getCompanyOfSalary(salary: Salary): Promise<Company> {
-		return this.companyModel.getCompanyByName(salary.companyName);
-	}
+		return dataModel.getCompanyByName(salary.companyName);
+	},
 
 	// Count the number of salaries paid by a given company.
 	countSalariesByCompany(company: Company): number {
-		return this.connector.executeQuery(
+		return postgreSQL.executeQuery(
 			PgSalaryFunctions.getSalaryCountForCompany,
 			company.name
 		);
-		// const cursor = this.connector.find({ companyName: company.name });
+		// const cursor = postgreSQL.find({ companyName: company.name });
 		//
 		// return cursor.count();
-	}
+	},
 
 	// Get all of the salaries.
 	async getAllSalaries(
@@ -107,13 +93,13 @@ export default class SalaryModel {
 		pageSize: number = defaultPageSize
 	): Promise<[Salary]> {
 		return PgSalaryFunctions.processSalaryResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgSalaryFunctions.getAllSalaries,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 
 	isSalary(obj: any): boolean {
 		// SalarySchema
@@ -127,7 +113,7 @@ export default class SalaryModel {
 		});
 
 		return context.isValid();
-	}
+	},
 
 	async submitSalary(
 		user: User,
@@ -135,13 +121,15 @@ export default class SalaryModel {
 		salaryParams: mixed
 	): Salary {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async editSalary(id: ID, salaryChanges: mixed): Salary {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async deleteSalary(id: ID): Salary {
 		throw new Error("Not implemented yet");
-	}
-}
+	},
+});
+
+export default salaryModel;

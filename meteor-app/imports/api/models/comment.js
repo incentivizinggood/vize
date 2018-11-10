@@ -1,9 +1,10 @@
 // @flow
-import type { ID, AllModels } from "./common.js";
+import type { ID } from "./common.js";
 import type UserModel, { User } from "./user.js";
 import type ReviewModel, { Review } from "./review.js";
 
 import PgCommentFunctions from "./helpers/postgresql/comments.js";
+import type PostgreSQL from "../graphql/connectors/postgresql.js";
 import { CommentSchema } from "../data/comments.js";
 
 const defaultPageSize = 100;
@@ -17,31 +18,18 @@ export type Comment = {
 
 export type CommentParent = Comment | Review;
 
-export default class CommentModel {
-	connector: Object;
-	reviewModel: ReviewModel;
-	userModel: UserModel;
-
-	constructor(connector: Object) {
-		this.connector = connector;
-	}
-
-	init({ reviewModel, userModel }: AllModels) {
-		this.reviewModel = reviewModel;
-		this.userModel = userModel;
-	}
-
+const commentModel = (dataModel, postgreSQL: PostgreSQL) => ({
 	// Get the comment with a given id.
 	async getCommentById(id: ID): Promise<?Comment> {
 		if (!Number.isNaN(Number(id)))
 			return PgCommentFunctions.processCommentResults(
-				await this.connector.executeQuery(
+				await postgreSQL.executeQuery(
 					PgCommentFunctions.getCommentById,
 					Number(id)
 				)
 			);
 		return undefined;
-	}
+	},
 
 	// Get all comments written by a given user.
 	async getCommentsByAuthor(
@@ -49,24 +37,22 @@ export default class CommentModel {
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
 	): Promise<[Comment]> {
-		const authorPostgresId = await this.userModel.getUserPostgresId(
-			user._id
-		);
+		const authorPostgresId = await dataModel.getUserPostgresId(user._id);
 
 		return PgCommentFunctions.processCommentResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgCommentFunctions.getCommentsByAuthor,
 				authorPostgresId,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 
 	// Get the user who wrote a given comment.
 	async getAuthorOfComment(comment: Comment): Promise<User> {
-		return this.userModel.getUserById(String(comment.submittedBy));
-	}
+		return dataModel.getUserById(String(comment.submittedBy));
+	},
 
 	// Get all comments that are about a given thing.
 	async getCommentsByParent(
@@ -75,12 +61,12 @@ export default class CommentModel {
 		pageSize: number = defaultPageSize
 	): [Comment] {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	// Get the thing that a given comment is about or the comment that a given comment is responding to.
 	async getParentOfComment(comment: Comment): CommentParent {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	// Get all of the comments.
 	async getAllComments(
@@ -88,13 +74,13 @@ export default class CommentModel {
 		pageSize: number = defaultPageSize
 	): Promise<[Comment]> {
 		return PgCommentFunctions.processCommentResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgCommentFunctions.getAllComments,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 
 	isComment(obj: any): boolean {
 		// CommentSchema
@@ -103,7 +89,7 @@ export default class CommentModel {
 		const context = CommentSchema.newContext();
 		context.validate(obj);
 		return context.isValid();
-	}
+	},
 
 	async writeComment(
 		user: User,
@@ -111,13 +97,14 @@ export default class CommentModel {
 		commentParams: mixed
 	) {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async editComment(id: ID, commentChanges: mixed) {
 		throw new Error("Not implemented yet");
-	}
-
+	},
 	async deleteComment(id: ID) {
 		throw new Error("Not implemented yet");
-	}
-}
+	},
+});
+
+export default commentModel;

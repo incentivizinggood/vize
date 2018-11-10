@@ -1,7 +1,8 @@
 // @flow
-import type { ID, Location, AllModels } from "./common.js";
+import type { ID, Location } from "./common.js";
 
 import PgCompanyFunctions from "./helpers/postgresql/companies.js";
+import type PostgreSQL from "../graphql/connectors/postgresql.js";
 import { CompanySchema } from "../data/companies.js";
 
 const defaultPageSize = 100;
@@ -38,17 +39,7 @@ export type Company = {
 	avgNumMonthsWorked: ?number,
 };
 
-export default class CompanyModel {
-	connector: Object;
-
-	constructor(connector: Object) {
-		this.connector = connector; // forget this (should be PostgreSQL)
-	}
-
-	init({  }: AllModels) {
-		// This does not need any references to other models.
-	}
-
+const companyModel = (dataModel, postgreSQL: PostgreSQL) => ({
 	// Get the company with a given id.
 	async getCompanyById(id: ID): Promise<?Company> {
 		// id is a string for now, and company id's
@@ -56,23 +47,23 @@ export default class CompanyModel {
 		// for now
 		if (!Number.isNaN(Number(id)))
 			return PgCompanyFunctions.processCompanyResults(
-				await this.connector.executeQuery(
+				await postgreSQL.executeQuery(
 					PgCompanyFunctions.getCompanyById,
 					Number(id)
 				)
 			);
 		return undefined;
-	}
+	},
 
 	// Get the company with a given name.
 	async getCompanyByName(name: string): Promise<Company> {
 		return PgCompanyFunctions.processCompanyResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgCompanyFunctions.getCompanyByName,
 				name
 			)
 		);
-	}
+	},
 
 	// Get all of the companies.
 	async getAllCompanies(
@@ -80,13 +71,13 @@ export default class CompanyModel {
 		pageSize: number = defaultPageSize
 	): Promise<[Company]> {
 		return PgCompanyFunctions.processCompanyResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgCompanyFunctions.getAllCompanies,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 
 	// return all companies whose name
 	// contains the given search text
@@ -96,14 +87,14 @@ export default class CompanyModel {
 		pageSize: number = defaultPageSize
 	): Promise<[Company]> {
 		return PgCompanyFunctions.processCompanyResults(
-			await this.connector.executeQuery(
+			await postgreSQL.executeQuery(
 				PgCompanyFunctions.companyNameRegexSearch,
 				searchText,
 				pageNumber * pageSize,
 				pageSize
 			)
 		);
-	}
+	},
 
 	isCompany(obj: any): boolean {
 		// CompanySchema
@@ -112,17 +103,19 @@ export default class CompanyModel {
 		const context = CompanySchema.newContext();
 		context.validate(obj);
 		return context.isValid();
-	}
+	},
 
 	async createCompany(companyParams: mixed): Company {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async editCompany(id: ID, companyChanges: mixed): Company {
 		throw new Error("Not implemented yet");
-	}
+	},
 
 	async deleteCompany(id: ID): Company {
 		throw new Error("Not implemented yet");
-	}
-}
+	},
+});
+
+export default companyModel;
