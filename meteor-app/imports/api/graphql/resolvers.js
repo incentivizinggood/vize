@@ -14,9 +14,11 @@ import type { Salary } from "../models/salary.js";
 import type { Vote, VoteSubject } from "../models/vote.js";
 import type { ID } from "../models/common.js";
 
+import * as dataModel from "../models";
+
 type Context = {
 	user?: User,
-} & AllModels;
+};
 
 type PgnArgs = {
 	pageNum?: number,
@@ -43,56 +45,47 @@ export default {
 		},
 
 		allComments(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllComments(
-				args.pageNum,
-				args.pageSize
-			);
+			return dataModel.getAllComments(args.pageNum, args.pageSize);
 		},
 		allCompanies(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllCompanies(
-				args.pageNum,
-				args.pageSize
-			);
+			return dataModel.getAllCompanies(args.pageNum, args.pageSize);
 		},
 		allJobAds(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllJobAds(args.pageNum, args.pageSize);
+			return dataModel.getAllJobAds(args.pageNum, args.pageSize);
 		},
 		allReviews(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllReviews(args.pageNum, args.pageSize);
+			return dataModel.getAllReviews(args.pageNum, args.pageSize);
 		},
 		allSalaries(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllSalaries(
-				args.pageNum,
-				args.pageSize
-			);
+			return dataModel.getAllSalaries(args.pageNum, args.pageSize);
 		},
 		allUsers(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllUsers(args.pageNum, args.pageSize);
+			return dataModel.getAllUsers(args.pageNum, args.pageSize);
 		},
 		allVotes(obj: {}, args: PgnArgs, context: Context) {
-			return context.dataModel.getAllVotes(args.pageNum, args.pageSize);
+			return dataModel.getAllVotes(args.pageNum, args.pageSize);
 		},
 
 		comment(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getCommentById(args.id);
+			return dataModel.getCommentById(args.id);
 		},
 		company(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getCompanyById(args.id);
+			return dataModel.getCompanyById(args.id);
 		},
 		jobAd(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getJobAdById(args.id);
+			return dataModel.getJobAdById(args.id);
 		},
 		review(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getReviewById(args.id);
+			return dataModel.getReviewById(args.id);
 		},
 		salary(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getSalaryById(args.id);
+			return dataModel.getSalaryById(args.id);
 		},
 		user(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getUserById(args.id);
+			return dataModel.getUserById(args.id);
 		},
 		vote(obj: {}, args: IdArg, context: Context) {
-			return context.dataModel.getVoteById(args.id);
+			return dataModel.getVoteById(args.id);
 		},
 
 		searchCompanies(
@@ -100,7 +93,7 @@ export default {
 			args: { searchText: string } & PgnArgs,
 			context: Context
 		) {
-			return context.dataModel.searchForCompanies(
+			return dataModel.searchForCompanies(
 				args.searchText,
 				args.pageNum,
 				args.pageSize
@@ -111,11 +104,11 @@ export default {
 	CommentParent: {
 		__resolveType(obj: CommentParent, context: Context, info: mixed) {
 			// Test for the existance of fields unique to each type.
-			if (context.dataModel.isComment(obj)) {
+			if (dataModel.isComment(obj)) {
 				return "Comment";
 			}
 
-			if (context.dataModel.isReview(obj)) {
+			if (dataModel.isReview(obj)) {
 				return "Review";
 			}
 
@@ -131,21 +124,13 @@ export default {
 		created: p("datePosted"),
 
 		author: (obj: Comment, args: {}, context: Context) =>
-			context.dataModel.getAuthorOfComment(obj),
+			dataModel.getAuthorOfComment(obj),
 		parent: (obj: Comment, args: {}, context: Context) =>
-			context.dataModel.getParentOfComment(obj),
+			dataModel.getParentOfComment(obj),
 		children: (obj: Comment, args: PgnArgs, context: Context) =>
-			context.dataModel.getCommentsByParent(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
 		votes: (obj: Comment, args: PgnArgs, context: Context) =>
-			context.dataModel.getVotesBySubject(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
 	},
 
 	Company: {
@@ -166,31 +151,19 @@ export default {
 		}),
 
 		reviews: (obj: Company, args: PgnArgs, context: Context) =>
-			context.dataModel.getReviewsByCompany(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
 		jobAds: (
 			obj: Company,
 			args: PgnArgs,
 			context: Context
 		): Promise<[JobAd]> =>
-			context.dataModel.getJobAdsByCompany(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
 		numJobAds: (obj: Company, args: PgnArgs, context: Context): number =>
-			context.dataModel.countJobAdsByCompany(obj),
+			dataModel.countJobAdsByCompany(obj),
 		salaries: (obj: Company, args: PgnArgs, context: Context) =>
-			context.dataModel.getSalariesByCompany(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
 		numSalaries: (obj: Company, args: PgnArgs, context: Context): number =>
-			context.dataModel.countSalariesByCompany(obj),
+			dataModel.countSalariesByCompany(obj),
 	},
 
 	JobAd: {
@@ -199,7 +172,7 @@ export default {
 		created: p("datePosted"),
 
 		company: (obj: JobAd, args: {}, context: Context) =>
-			context.dataModel.getCompanyOfJobAd(obj),
+			dataModel.getCompanyOfJobAd(obj),
 	},
 
 	Review: {
@@ -222,24 +195,16 @@ export default {
 		created: p("datePosted"),
 
 		author: (obj: Review, args: {}, context: Context) =>
-			context.dataModel.getAuthorOfReview(obj),
+			dataModel.getAuthorOfReview(obj),
 		company: (obj: Review, args: {}, context: Context) =>
-			context.dataModel.getCompanyOfReview(obj),
+			dataModel.getCompanyOfReview(obj),
 		comments: (obj: Review, args: PgnArgs, context: Context) =>
-			context.dataModel.getCommentsByParent(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
 		votes: (obj: Review, args: PgnArgs, context: Context) =>
-			context.dataModel.getVotesBySubject(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
 		currentUserVote: (obj: Review, args: {}, context: Context) =>
 			context.user
-				? context.dataModel.getVoteByAuthorAndSubject(context.user, obj)
+				? dataModel.getVoteByAuthorAndSubject(context.user, obj)
 				: null,
 	},
 
@@ -249,9 +214,9 @@ export default {
 		created: p("datePosted"),
 
 		author: (obj: Salary, args: {}, context: Context) =>
-			context.dataModel.getAuthorOfSalary(obj),
+			dataModel.getAuthorOfSalary(obj),
 		company: (obj: Salary, args: {}, context: Context) =>
-			context.dataModel.getCompanyOfSalary(obj),
+			dataModel.getCompanyOfSalary(obj),
 	},
 
 	User: {
@@ -261,35 +226,23 @@ export default {
 		created: p("createdAt"),
 
 		company: (obj: User, args: {}, context: Context) =>
-			context.dataModel.getCompanyOfUser(obj),
+			dataModel.getCompanyOfUser(obj),
 		reviews: (obj: User, args: PgnArgs, context: Context) =>
-			context.dataModel.getReviewsByAuthor(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getReviewsByAuthor(obj, args.pageNum, args.pageSize),
 		comments: (obj: User, args: PgnArgs, context: Context) =>
-			context.dataModel.getCommentsByAuthor(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getCommentsByAuthor(obj, args.pageNum, args.pageSize),
 		votes: (obj: User, args: PgnArgs, context: Context) =>
-			context.dataModel.getVotesByAuthor(
-				obj,
-				args.pageNum,
-				args.pageSize
-			),
+			dataModel.getVotesByAuthor(obj, args.pageNum, args.pageSize),
 	},
 
 	VoteSubject: {
 		__resolveType(obj: VoteSubject, context: Context, info: mixed) {
 			// Test for the existance of fields unique to each type.
-			if (context.dataModel.isComment(obj)) {
+			if (dataModel.isComment(obj)) {
 				return "Comment";
 			}
 
-			if (context.dataModel.isReview(obj)) {
+			if (dataModel.isReview(obj)) {
 				return "Review";
 			}
 
@@ -305,9 +258,9 @@ export default {
 		isUpvote: p("value"),
 
 		author: (obj: Vote, args: {}, context: Context) =>
-			context.dataModel.getAuthorOfVote(obj),
+			dataModel.getAuthorOfVote(obj),
 		subject: (obj: Vote, args: {}, context: Context) =>
-			context.dataModel.getSubjectOfVote(obj),
+			dataModel.getSubjectOfVote(obj),
 	},
 
 	DateTime: GraphQLDateTime,

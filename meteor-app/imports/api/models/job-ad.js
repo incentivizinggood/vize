@@ -1,9 +1,11 @@
 // @flow
 import type { ID, Location } from "./common.js";
-import type CompanyModel, { Company } from "./company.js";
+import type { Company } from "./company.js";
+
+import { getCompanyByName } from ".";
 
 import PgJobAdFunctions from "./helpers/postgresql/jobads.js";
-import type PostgreSQL from "../graphql/connectors/postgresql.js";
+import PostgreSQL from "../graphql/connectors/postgresql.js";
 import { JobAdSchema, JobApplicationSchema } from "../data/jobads.js";
 
 const defaultPageSize = 100;
@@ -24,103 +26,99 @@ export type JobAd = {
 	datePosted: ?Date,
 };
 
-const jobAdModel = (dataModel, postgreSQL: PostgreSQL) => ({
-	// Get the job ad with a given id.
-	async getJobAdById(id: ID) {
-		if (!Number.isNaN(Number(id)))
-			return PgJobAdFunctions.processJobAdResults(
-				await postgreSQL.executeQuery(
-					PgJobAdFunctions.getJobAdById,
-					Number(id)
-				)
-			);
-		return undefined;
-	},
-
-	// Get all job ads posted by a given company.
-	async getJobAdsByCompany(
-		company: Company,
-		pageNumber: number = 0,
-		pageSize: number = defaultPageSize
-	): Promise<[JobAd]> {
+// Get the job ad with a given id.
+export async function getJobAdById(id: ID) {
+	if (!Number.isNaN(Number(id)))
 		return PgJobAdFunctions.processJobAdResults(
-			await postgreSQL.executeQuery(
-				PgJobAdFunctions.getJobAdsByCompany,
-				company.name,
-				pageNumber * pageSize,
-				pageSize
+			await PostgreSQL.executeQuery(
+				PgJobAdFunctions.getJobAdById,
+				Number(id)
 			)
 		);
-	},
-	// Get the company that posted a given review.
-	async getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
-		return dataModel.getCompanyByName(jobAd.companyName);
-	},
+	return undefined;
+}
 
-	// Count the number of job ads posted by a given company.
-	countJobAdsByCompany(company: Company): number {
-		return postgreSQL.executeQuery(
-			PgJobAdFunctions.getJobAdCountForCompany,
-			company.name
-		);
-		// const cursor = postgreSQL.find({ companyName: company.name });
-		//
-		// return cursor.count();
-	},
+// Get all job ads posted by a given company.
+export async function getJobAdsByCompany(
+	company: Company,
+	pageNumber: number = 0,
+	pageSize: number = defaultPageSize
+): Promise<[JobAd]> {
+	return PgJobAdFunctions.processJobAdResults(
+		await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getJobAdsByCompany,
+			company.name,
+			pageNumber * pageSize,
+			pageSize
+		)
+	);
+}
+// Get the company that posted a given review.
+export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
+	return getCompanyByName(jobAd.companyName);
+}
 
-	// Get all of the job ads.
-	async getAllJobAds(
-		pageNumber: number = 0,
-		pageSize: number = defaultPageSize
-	): Promise<[JobAd]> {
-		return PgJobAdFunctions.processJobAdResults(
-			await postgreSQL.executeQuery(
-				PgJobAdFunctions.getAllJobAds,
-				pageNumber * pageSize,
-				pageSize
-			)
-		);
-	},
+// Count the number of job ads posted by a given company.
+export function countJobAdsByCompany(company: Company): number {
+	return PostgreSQL.executeQuery(
+		PgJobAdFunctions.getJobAdCountForCompany,
+		company.name
+	);
+	// const cursor = PostgreSQL.find({ companyName: company.name });
+	//
+	// return cursor.count();
+}
 
-	isJobAd(obj: any): boolean {
-		// JobAdSchema
-		// 	.newContext()
-		// 	.validate(obj);
-		const context = JobAdSchema.newContext();
-		context.validate(obj, {
-			extendedCustomContext: {
-				isNotASubmission: true,
-			},
-		});
-		return context.isValid();
-	},
+// Get all of the job ads.
+export async function getAllJobAds(
+	pageNumber: number = 0,
+	pageSize: number = defaultPageSize
+): Promise<[JobAd]> {
+	return PgJobAdFunctions.processJobAdResults(
+		await PostgreSQL.executeQuery(
+			PgJobAdFunctions.getAllJobAds,
+			pageNumber * pageSize,
+			pageSize
+		)
+	);
+}
 
-	isJobApplication(obj: any): boolean {
-		// there's a strong chance that this validation
-		// code is broken, but I'm not sure how to go about
-		// fixing it because I don't know how/where it will be used
-		// return JobApplicationSchema
-		// 	.newContext()
-		// 	.validate(obj)
-		// 	.isValid();
+export function isJobAd(obj: any): boolean {
+	// JobAdSchema
+	// 	.newContext()
+	// 	.validate(obj);
+	const context = JobAdSchema.newContext();
+	context.validate(obj, {
+		extendedCustomContext: {
+			isNotASubmission: true,
+		},
+	});
+	return context.isValid();
+}
 
-		// here's something that's more likely to work
-		const context = JobApplicationSchema.newContext();
-		context.validate(obj);
-		return context.isValid();
-	},
+export function isJobApplication(obj: any): boolean {
+	// there's a strong chance that this validation
+	// code is broken, but I'm not sure how to go about
+	// fixing it because I don't know how/where it will be used
+	// return JobApplicationSchema
+	// 	.newContext()
+	// 	.validate(obj)
+	// 	.isValid();
 
-	async postJobAd(company: Company, jobAdParams: mixed): JobAd {
-		throw new Error("Not implemented yet");
-	},
+	// here's something that's more likely to work
+	const context = JobApplicationSchema.newContext();
+	context.validate(obj);
+	return context.isValid();
+}
 
-	async editJobAd(id: ID, jobAdChanges: mixed): JobAd {
-		throw new Error("Not implemented yet");
-	},
+export async function postJobAd(company: Company, jobAdParams: mixed): JobAd {
+	throw new Error("Not implemented yet");
+}
 
-	async deleteJobAd(id: ID): JobAd {
-		throw new Error("Not implemented yet");
-	},
-});
+export async function editJobAd(id: ID, jobAdChanges: mixed): JobAd {
+	throw new Error("Not implemented yet");
+}
 
-export default jobAdModel;
+export async function deleteJobAd(id: ID): JobAd {
+	throw new Error("Not implemented yet");
+}

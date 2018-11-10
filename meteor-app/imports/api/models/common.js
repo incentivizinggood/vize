@@ -1,11 +1,4 @@
 // @flow
-import type CommentModel from "./comment.js";
-import type CompanyModel from "./company.js";
-import type JobAdModel from "./job-ad.js";
-import type ReviewModel from "./review.js";
-import type SalaryModel from "./salary.js";
-import type UserModel from "./user.js";
-import type VoteModel from "./vote.js";
 
 export type ID = string;
 
