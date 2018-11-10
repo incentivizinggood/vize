@@ -52,7 +52,7 @@ export default class JobAdModel {
 		company: Company,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [JobAd] {
+	): Promise<[JobAd]> {
 		return PgJobAdFunctions.processJobAdResults(
 			await this.connector.executeQuery(
 				PgJobAdFunctions.getJobAdsByCompany,
@@ -63,7 +63,7 @@ export default class JobAdModel {
 		);
 	}
 	// Get the company that posted a given review.
-	async getCompanyOfJobAd(jobAd: JobAd): Company {
+	async getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 		return this.companyModel.getCompanyByName(jobAd.companyName);
 	}
 
@@ -82,7 +82,7 @@ export default class JobAdModel {
 	async getAllJobAds(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [JobAd] {
+	): Promise<[JobAd]> {
 		return PgJobAdFunctions.processJobAdResults(
 			await this.connector.executeQuery(
 				PgJobAdFunctions.getAllJobAds,

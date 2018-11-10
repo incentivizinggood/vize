@@ -38,7 +38,7 @@ export default class VoteModel {
 	// Get the vote with a given id.
 	// BUG not completely sure what the
 	// best way to do this is going to be
-	async getVoteById(id: ID): Vote {
+	async getVoteById(id: ID): Promise<Vote> {
 		// requires ID to be a JSON.parse-able
 		// string with the fields/types:
 		// voteSubject: "review" or "comment"
@@ -53,7 +53,10 @@ export default class VoteModel {
 	}
 
 	// Get the vote cast by a given user on a given thing.
-	async getVoteByAuthorAndSubject(user: User, subject: VoteSubject): Vote {
+	async getVoteByAuthorAndSubject(
+		user: User,
+		subject: VoteSubject
+	): Promise<Vote> {
 		let subjectOfVote;
 
 		if (this.reviewModel.isReview(subject)) {
@@ -87,7 +90,7 @@ export default class VoteModel {
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Vote] {
+	): Promise<[Vote]> {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
@@ -104,7 +107,7 @@ export default class VoteModel {
 	}
 
 	// Get the user who cast a given vote.
-	async getAuthorOfVote(vote: Vote): User {
+	async getAuthorOfVote(vote: Vote): Promise<User> {
 		return this.userModel.getUserById(String(vote.submittedBy));
 	}
 
@@ -113,7 +116,7 @@ export default class VoteModel {
 		subject: VoteSubject,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Vote] {
+	): Promise<[Vote]> {
 		let voteSubject;
 		if (this.reviewModel.isReview(subject)) {
 			voteSubject = "review";
@@ -142,7 +145,7 @@ export default class VoteModel {
 	}
 
 	// Get the thing that a given vote was cast on.
-	async getSubjectOfVote(vote: Vote): VoteSubject {
+	async getSubjectOfVote(vote: Vote): Promise<?VoteSubject> {
 		if (vote.voteSubject === "review")
 			return this.reviewModel.getReviewById(String(vote.references));
 
@@ -156,7 +159,7 @@ export default class VoteModel {
 	async getAllVotes(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Vote] {
+	): Promise<[Vote]> {
 		// result has reviewVotes and commentVotes,
 		// two arrays of votes which contain all the
 		// vote counts for every review and comment respectively.

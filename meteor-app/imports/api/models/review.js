@@ -48,7 +48,7 @@ export default class ReviewModel {
 	}
 
 	// Get the review with a given id.
-	async getReviewById(id: ID): Review {
+	async getReviewById(id: ID): Promise<?Review> {
 		if (!Number.isNaN(Number(id)))
 			return PgReviewFunctions.processReviewResults(
 				await this.connector.executeQuery(
@@ -64,7 +64,7 @@ export default class ReviewModel {
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Review] {
+	): Promise<[Review]> {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
@@ -83,7 +83,7 @@ export default class ReviewModel {
 	// getUserById expects a string, but review.submittedby
 	// is an integer, which introduces a type conflict.
 	// May need to ask Shaffer about this.
-	async getAuthorOfReview(review: Review): User {
+	async getAuthorOfReview(review: Review): Promise<User> {
 		return this.userModel.getUserById(String(review.submittedBy));
 	}
 
@@ -92,7 +92,7 @@ export default class ReviewModel {
 		company: Company,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Review] {
+	): Promise<[Review]> {
 		return PgReviewFunctions.processReviewResults(
 			await this.connector.executeQuery(
 				PgReviewFunctions.getReviewsForCompany,
@@ -104,7 +104,7 @@ export default class ReviewModel {
 	}
 
 	// Get the company that a given review is about.
-	async getCompanyOfReview(review: Review): Company {
+	async getCompanyOfReview(review: Review): Promise<Company> {
 		return this.companyModel.getCompanyByName(review.companyName);
 	}
 
@@ -112,7 +112,7 @@ export default class ReviewModel {
 	async getAllReviews(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Review] {
+	): Promise<[Review]> {
 		return PgReviewFunctions.processReviewResults(
 			await this.connector.executeQuery(
 				PgReviewFunctions.getAllReviews,

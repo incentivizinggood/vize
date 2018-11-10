@@ -28,7 +28,7 @@ export default class UserModel {
 	}
 
 	// Get the user with a given id.
-	async getUserById(id: ID): User {
+	async getUserById(id: ID): Promise<User> {
 		// assumes that valid Mongo ID's
 		// are not valid Numbers
 		if (!Number.isNaN(Number(id))) {
@@ -52,7 +52,7 @@ export default class UserModel {
 	}
 
 	// Get the integer ID of a user's PostgreSQL entry
-	async getUserPostgresId(id: ID): number {
+	async getUserPostgresId(id: ID): Promise<number> {
 		const pgUserResults = await PostgreSQL.executeQuery(
 			PgUserFunctions.getUserById,
 			id
@@ -78,7 +78,7 @@ export default class UserModel {
 	}
 
 	// Get the company administered by a given user.
-	getCompanyOfUser(user: User): ?Company {
+	getCompanyOfUser(user: User): ?Promise<?Company> {
 		if (user.companyId) {
 			return this.companyModel.getCompanyById(user.companyId);
 		}

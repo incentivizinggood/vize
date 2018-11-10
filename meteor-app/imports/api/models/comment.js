@@ -10,7 +10,7 @@ const defaultPageSize = 100;
 
 export type Comment = {
 	_id: ID,
-	username: string,
+	submittedBy: ID,
 	datePosted: ?Date,
 	content: string,
 };
@@ -32,7 +32,7 @@ export default class CommentModel {
 	}
 
 	// Get the comment with a given id.
-	async getCommentById(id: ID): Comment {
+	async getCommentById(id: ID): Promise<?Comment> {
 		if (!Number.isNaN(Number(id)))
 			return PgCommentFunctions.processCommentResults(
 				await this.connector.executeQuery(
@@ -48,7 +48,7 @@ export default class CommentModel {
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Comment] {
+	): Promise<[Comment]> {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
@@ -64,7 +64,7 @@ export default class CommentModel {
 	}
 
 	// Get the user who wrote a given comment.
-	async getAuthorOfComment(comment: Comment): User {
+	async getAuthorOfComment(comment: Comment): Promise<User> {
 		return this.userModel.getUserById(String(comment.submittedBy));
 	}
 
@@ -86,7 +86,7 @@ export default class CommentModel {
 	async getAllComments(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Comment] {
+	): Promise<[Comment]> {
 		return PgCommentFunctions.processCommentResults(
 			await this.connector.executeQuery(
 				PgCommentFunctions.getAllComments,

@@ -35,7 +35,7 @@ export default class SalaryModel {
 	}
 
 	// Get the salary with a given id.
-	async getSalaryById(id: ID): Salary {
+	async getSalaryById(id: ID): Promise<?Salary> {
 		if (!Number.isNaN(Number(id))) {
 			return PgSalaryFunctions.processSalaryResults(
 				await this.connector.executeQuery(
@@ -52,7 +52,7 @@ export default class SalaryModel {
 		user: User,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Salary] {
+	): Promise<[Salary]> {
 		const authorPostgresId = await this.userModel.getUserPostgresId(
 			user._id
 		);
@@ -66,7 +66,7 @@ export default class SalaryModel {
 		);
 	}
 	// Get the user who submitted a given salary.
-	async getAuthorOfSalary(salary: Salary): User {
+	async getAuthorOfSalary(salary: Salary): Promise<User> {
 		return this.userModel.getUserById(String(salary.submittedBy));
 	}
 
@@ -75,7 +75,7 @@ export default class SalaryModel {
 		company: Company,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Salary] {
+	): Promise<[Salary]> {
 		return PgSalaryFunctions.processSalaryResults(
 			await this.connector.executeQuery(
 				PgSalaryFunctions.getSalariesForCompany,
@@ -86,7 +86,7 @@ export default class SalaryModel {
 		);
 	}
 	// Get the company that paid a given salary.
-	async getCompanyOfSalary(salary: Salary): Company {
+	async getCompanyOfSalary(salary: Salary): Promise<Company> {
 		return this.companyModel.getCompanyByName(salary.companyName);
 	}
 
@@ -105,7 +105,7 @@ export default class SalaryModel {
 	async getAllSalaries(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Salary] {
+	): Promise<[Salary]> {
 		return PgSalaryFunctions.processSalaryResults(
 			await this.connector.executeQuery(
 				PgSalaryFunctions.getAllSalaries,

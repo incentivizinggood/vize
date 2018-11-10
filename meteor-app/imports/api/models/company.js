@@ -50,7 +50,7 @@ export default class CompanyModel {
 	}
 
 	// Get the company with a given id.
-	async getCompanyById(id: ID): Company {
+	async getCompanyById(id: ID): Promise<?Company> {
 		// id is a string for now, and company id's
 		// are integers, so I think this should be fine
 		// for now
@@ -65,7 +65,7 @@ export default class CompanyModel {
 	}
 
 	// Get the company with a given name.
-	async getCompanyByName(name: string): Company {
+	async getCompanyByName(name: string): Promise<Company> {
 		return PgCompanyFunctions.processCompanyResults(
 			await this.connector.executeQuery(
 				PgCompanyFunctions.getCompanyByName,
@@ -78,7 +78,7 @@ export default class CompanyModel {
 	async getAllCompanies(
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Company] {
+	): Promise<[Company]> {
 		return PgCompanyFunctions.processCompanyResults(
 			await this.connector.executeQuery(
 				PgCompanyFunctions.getAllCompanies,
@@ -94,7 +94,7 @@ export default class CompanyModel {
 		searchText: string,
 		pageNumber: number = 0,
 		pageSize: number = defaultPageSize
-	): [Company] {
+	): Promise<[Company]> {
 		return PgCompanyFunctions.processCompanyResults(
 			await this.connector.executeQuery(
 				PgCompanyFunctions.companyNameRegexSearch,

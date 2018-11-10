@@ -174,7 +174,11 @@ export default {
 				args.pageNum,
 				args.pageSize
 			),
-		jobAds: (obj: Company, args: PgnArgs, context: Context): [JobAd] =>
+		jobAds: (
+			obj: Company,
+			args: PgnArgs,
+			context: Context
+		): Promise<[JobAd]> =>
 			context.jobAdModel.getJobAdsByCompany(
 				obj,
 				args.pageNum,
