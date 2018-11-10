@@ -25,7 +25,8 @@
         "chmod 755",
         "git add"
       ]
-    }
+    },
+    "concurrent": false
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
