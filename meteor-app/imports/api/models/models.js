@@ -1,6 +1,5 @@
 // @flow
 import { Meteor } from "meteor/meteor";
-import type { Mongo } from "meteor/mongo";
 
 // Import models.
 import CommentModel from "/imports/api/models/comment.js";
@@ -23,41 +22,17 @@ import type { AllModels } from "./common.js";
 	and the various cross-dependencies have to be accounted for
 	on other levels of the stack.
 */
-type AllConnectors = {
-	commentConnector: Object,
-	companyConnector: Object,
-	jobAdConnector: Object,
-	reviewConnector: Object,
-	salaryConnector: Object,
-	userConnector: Mongo.Collection,
-	voteConnector: Object,
-};
-
-function createConnectors(): AllConnectors {
-	const connectors = {
-		commentConnector: PostgreSQL,
-		companyConnector: PostgreSQL,
-		jobAdConnector: PostgreSQL,
-		reviewConnector: PostgreSQL,
-		salaryConnector: PostgreSQL,
-		userConnector: Meteor.users,
-		voteConnector: PostgreSQL,
-	};
-	return connectors;
-}
 
 // This object constructing function is used to help pass references around.
-export default function constructModels(
-	connectors: AllConnectors = createConnectors()
-): AllModels {
+export default function constructModels(): AllModels {
 	const models: AllModels = {
-		commentModel: new CommentModel(connectors.commentConnector),
-		companyModel: new CompanyModel(connectors.companyConnector),
-		jobAdModel: new JobAdModel(connectors.jobAdConnector),
-		reviewModel: new ReviewModel(connectors.reviewConnector),
-		salaryModel: new SalaryModel(connectors.salaryConnector),
-		userModel: new UserModel(connectors.userConnector),
-		voteModel: new VoteModel(connectors.voteConnector),
+		commentModel: new CommentModel(PostgreSQL),
+		companyModel: new CompanyModel(PostgreSQL),
+		jobAdModel: new JobAdModel(PostgreSQL),
+		reviewModel: new ReviewModel(PostgreSQL),
+		salaryModel: new SalaryModel(PostgreSQL),
+		userModel: new UserModel(Meteor.users),
+		voteModel: new VoteModel(PostgreSQL),
 	};
 	Object.values(models).forEach(model => model.init(models));
 	return models;
