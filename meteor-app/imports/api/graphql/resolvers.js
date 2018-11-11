@@ -158,8 +158,11 @@ export default {
 			context: Context
 		): Promise<[JobAd]> =>
 			dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
-		numJobAds: (obj: Company, args: PgnArgs, context: Context): number =>
-			dataModel.countJobAdsByCompany(obj),
+		numJobAds: (
+			obj: Company,
+			args: PgnArgs,
+			context: Context
+		): Promise<?number> => dataModel.countJobAdsByCompany(obj),
 		salaries: (obj: Company, args: PgnArgs, context: Context) =>
 			dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
 		numSalaries: (obj: Company, args: PgnArgs, context: Context): number =>
