@@ -35,56 +35,72 @@ function p(path: string): ({ [path: string]: any }, {}, Context) => any {
 
 export default {
 	Query: {
-		say(obj: {}, args: {}, context: Context) {
+		say(obj: {}, args: {}, context: Context): string {
 			return "Hello world.";
 		},
-		currentUser(obj: {}, args: {}, context: Context) {
+		currentUser(obj: {}, args: {}, context: Context): ?User {
 			// The current user is added to the context
 			// by the `meteor/apollo` package.
 			return context.user;
 		},
 
-		allComments(obj: {}, args: PgnArgs, context: Context) {
+		allComments(
+			obj: {},
+			args: PgnArgs,
+			context: Context
+		): Promise<[Comment]> {
 			return dataModel.getAllComments(args.pageNum, args.pageSize);
 		},
-		allCompanies(obj: {}, args: PgnArgs, context: Context) {
+		allCompanies(
+			obj: {},
+			args: PgnArgs,
+			context: Context
+		): Promise<[Company]> {
 			return dataModel.getAllCompanies(args.pageNum, args.pageSize);
 		},
-		allJobAds(obj: {}, args: PgnArgs, context: Context) {
+		allJobAds(obj: {}, args: PgnArgs, context: Context): Promise<[JobAd]> {
 			return dataModel.getAllJobAds(args.pageNum, args.pageSize);
 		},
-		allReviews(obj: {}, args: PgnArgs, context: Context) {
+		allReviews(
+			obj: {},
+			args: PgnArgs,
+			context: Context
+		): Promise<[Review]> {
 			return dataModel.getAllReviews(args.pageNum, args.pageSize);
 		},
-		allSalaries(obj: {}, args: PgnArgs, context: Context) {
+		allSalaries(
+			obj: {},
+			args: PgnArgs,
+			context: Context
+		): Promise<[Salary]> {
 			return dataModel.getAllSalaries(args.pageNum, args.pageSize);
 		},
-		allUsers(obj: {}, args: PgnArgs, context: Context) {
+		allUsers(obj: {}, args: PgnArgs, context: Context): [User] {
 			return dataModel.getAllUsers(args.pageNum, args.pageSize);
 		},
-		allVotes(obj: {}, args: PgnArgs, context: Context) {
+		allVotes(obj: {}, args: PgnArgs, context: Context): Promise<[Vote]> {
 			return dataModel.getAllVotes(args.pageNum, args.pageSize);
 		},
 
-		comment(obj: {}, args: IdArg, context: Context) {
+		comment(obj: {}, args: IdArg, context: Context): Promise<?Comment> {
 			return dataModel.getCommentById(args.id);
 		},
-		company(obj: {}, args: IdArg, context: Context) {
+		company(obj: {}, args: IdArg, context: Context): Promise<?Company> {
 			return dataModel.getCompanyById(args.id);
 		},
-		jobAd(obj: {}, args: IdArg, context: Context) {
+		jobAd(obj: {}, args: IdArg, context: Context): Promise<?JobAd> {
 			return dataModel.getJobAdById(args.id);
 		},
-		review(obj: {}, args: IdArg, context: Context) {
+		review(obj: {}, args: IdArg, context: Context): Promise<?Review> {
 			return dataModel.getReviewById(args.id);
 		},
-		salary(obj: {}, args: IdArg, context: Context) {
+		salary(obj: {}, args: IdArg, context: Context): Promise<?Salary> {
 			return dataModel.getSalaryById(args.id);
 		},
-		user(obj: {}, args: IdArg, context: Context) {
+		user(obj: {}, args: IdArg, context: Context): Promise<User> {
 			return dataModel.getUserById(args.id);
 		},
-		vote(obj: {}, args: IdArg, context: Context) {
+		vote(obj: {}, args: IdArg, context: Context): Promise<Vote> {
 			return dataModel.getVoteById(args.id);
 		},
 
@@ -92,7 +108,7 @@ export default {
 			obj: {},
 			args: { searchText: string } & PgnArgs,
 			context: Context
-		) {
+		): Promise<[Company]> {
 			return dataModel.searchForCompanies(
 				args.searchText,
 				args.pageNum,
@@ -123,13 +139,17 @@ export default {
 
 		created: p("datePosted"),
 
-		author: (obj: Comment, args: {}, context: Context) =>
+		author: (obj: Comment, args: {}, context: Context): Promise<User> =>
 			dataModel.getAuthorOfComment(obj),
-		parent: (obj: Comment, args: {}, context: Context) =>
+		parent: (obj: Comment, args: {}, context: Context): CommentParent =>
 			dataModel.getParentOfComment(obj),
-		children: (obj: Comment, args: PgnArgs, context: Context) =>
+		children: (obj: Comment, args: PgnArgs, context: Context): [Comment] =>
 			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
-		votes: (obj: Comment, args: PgnArgs, context: Context) =>
+		votes: (
+			obj: Comment,
+			args: PgnArgs,
+			context: Context
+		): Promise<[Vote]> =>
 			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
 	},
 
@@ -150,7 +170,11 @@ export default {
 			overallSatisfaction,
 		}),
 
-		reviews: (obj: Company, args: PgnArgs, context: Context) =>
+		reviews: (
+			obj: Company,
+			args: PgnArgs,
+			context: Context
+		): Promise<[Review]> =>
 			dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
 		jobAds: (
 			obj: Company,
@@ -163,7 +187,11 @@ export default {
 			args: PgnArgs,
 			context: Context
 		): Promise<?number> => dataModel.countJobAdsByCompany(obj),
-		salaries: (obj: Company, args: PgnArgs, context: Context) =>
+		salaries: (
+			obj: Company,
+			args: PgnArgs,
+			context: Context
+		): Promise<[Salary]> =>
 			dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
 		numSalaries: (
 			obj: Company,
@@ -177,7 +205,7 @@ export default {
 
 		created: p("datePosted"),
 
-		company: (obj: JobAd, args: {}, context: Context) =>
+		company: (obj: JobAd, args: {}, context: Context): Promise<Company> =>
 			dataModel.getCompanyOfJobAd(obj),
 	},
 
@@ -200,15 +228,23 @@ export default {
 		}),
 		created: p("datePosted"),
 
-		author: (obj: Review, args: {}, context: Context) =>
+		author: (obj: Review, args: {}, context: Context): Promise<User> =>
 			dataModel.getAuthorOfReview(obj),
-		company: (obj: Review, args: {}, context: Context) =>
+		company: (obj: Review, args: {}, context: Context): Promise<Company> =>
 			dataModel.getCompanyOfReview(obj),
-		comments: (obj: Review, args: PgnArgs, context: Context) =>
+		comments: (obj: Review, args: PgnArgs, context: Context): [Comment] =>
 			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
-		votes: (obj: Review, args: PgnArgs, context: Context) =>
+		votes: (
+			obj: Review,
+			args: PgnArgs,
+			context: Context
+		): Promise<[Vote]> =>
 			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
-		currentUserVote: (obj: Review, args: {}, context: Context) =>
+		currentUserVote: (
+			obj: Review,
+			args: {},
+			context: Context
+		): ?Promise<Vote> =>
 			context.user
 				? dataModel.getVoteByAuthorAndSubject(context.user, obj)
 				: null,
@@ -219,9 +255,9 @@ export default {
 
 		created: p("datePosted"),
 
-		author: (obj: Salary, args: {}, context: Context) =>
+		author: (obj: Salary, args: {}, context: Context): Promise<User> =>
 			dataModel.getAuthorOfSalary(obj),
-		company: (obj: Salary, args: {}, context: Context) =>
+		company: (obj: Salary, args: {}, context: Context): Promise<Company> =>
 			dataModel.getCompanyOfSalary(obj),
 	},
 
@@ -231,18 +267,30 @@ export default {
 		role: ({ role }: User) => role.toUpperCase().replace("-", "_"),
 		created: p("createdAt"),
 
-		company: (obj: User, args: {}, context: Context) =>
+		company: (obj: User, args: {}, context: Context): ?Promise<?Company> =>
 			dataModel.getCompanyOfUser(obj),
-		reviews: (obj: User, args: PgnArgs, context: Context) =>
+		reviews: (
+			obj: User,
+			args: PgnArgs,
+			context: Context
+		): Promise<[Review]> =>
 			dataModel.getReviewsByAuthor(obj, args.pageNum, args.pageSize),
-		comments: (obj: User, args: PgnArgs, context: Context) =>
+		comments: (
+			obj: User,
+			args: PgnArgs,
+			context: Context
+		): Promise<[Comment]> =>
 			dataModel.getCommentsByAuthor(obj, args.pageNum, args.pageSize),
-		votes: (obj: User, args: PgnArgs, context: Context) =>
+		votes: (obj: User, args: PgnArgs, context: Context): Promise<[Vote]> =>
 			dataModel.getVotesByAuthor(obj, args.pageNum, args.pageSize),
 	},
 
 	VoteSubject: {
-		__resolveType(obj: VoteSubject, context: Context, info: mixed) {
+		__resolveType(
+			obj: VoteSubject,
+			context: Context,
+			info: mixed
+		): "Comment" | "Review" {
 			// Test for the existance of fields unique to each type.
 			if (dataModel.isComment(obj)) {
 				return "Comment";
@@ -263,10 +311,13 @@ export default {
 
 		isUpvote: p("value"),
 
-		author: (obj: Vote, args: {}, context: Context) =>
+		author: (obj: Vote, args: {}, context: Context): Promise<User> =>
 			dataModel.getAuthorOfVote(obj),
-		subject: (obj: Vote, args: {}, context: Context) =>
-			dataModel.getSubjectOfVote(obj),
+		subject: (
+			obj: Vote,
+			args: {},
+			context: Context
+		): Promise<?VoteSubject> => dataModel.getSubjectOfVote(obj),
 	},
 
 	DateTime: GraphQLDateTime,
