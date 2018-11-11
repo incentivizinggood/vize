@@ -4,6 +4,17 @@
 
 # This project can be run in different "modes". The default mode is dev.
 case $1 in
+"i")
+	# Install/update the project's dependencies.
+	echo "Installing project root npm packages"
+	npm i
+	cd meteor-app
+	echo "Installing meteor-app npm packages"
+	npm i
+	echo "Installing Meteor packages"
+	meteor lint
+	cd ..
+	;;
 "prod")
 	# This is the "proper" way to build and run a docker stack. This will
 	# compile the meteor-app without caching between compiles and thus is VERY

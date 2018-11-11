@@ -1,0 +1,131 @@
+.container-contact100 {
+	width: 100%;
+	min-height: 100vh;
+	@include flexbox();
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+
+	&-form-btn {
+		width: 100%;
+		@include flexbox();
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-top: -4px;
+
+		.contact100-form-btn {
+			font-family: Raleway-Bold;
+			font-size: 16px;
+			color: $white;
+			line-height: 1.2;
+			justify-content: center;
+			align-items: center;
+			padding: 0 20px;
+			min-width: 150px;
+			height: 55px;
+			border-radius: 27px;
+			background: #d867c6;
+			position: relative;
+			z-index: 1;
+			border: none;
+			@include linear-gradient-b(45deg, #c77ff2, #e8519e);
+			@include transition(all 0.4s);
+			@include flexbox();
+
+			&::before {
+				content: "";
+				display: block;
+				position: absolute;
+				z-index: -1;
+				border-radius: 27px;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: #333;
+				opacity: 1;
+				-webkit-transition: all 0.4s;
+				-o-transition: all 0.4s;
+				-moz-transition: all 0.4s;
+				transition: all 0.4s;
+			}
+
+			&:hover:before {
+				opacity: 0;
+			}
+		}
+	}
+
+	.wrap-contact100 {
+		width: 790px;
+		background: $concrete;
+		border-radius: 2px;
+		padding: 25px 39px 45px 39px;
+		@media (max-width: 768px) {
+			padding: 55px 45px 68px 45px;
+		}
+		@media (max-width: 768px) {
+			padding: 55px 45px 68px 45px;
+		}
+
+		@media (max-width: 576px) {
+			padding: 55px 15px 68px 15px;
+		}
+	}
+
+	.contact100-form {
+		width: 100%;
+		@include flexbox();
+		flex-wrap: wrap;
+		justify-content: space-between;
+		&-title {
+			width: 100%;
+			display: block;
+			font-size: 30px;
+			color: #585858;
+			line-height: 1.2;
+			text-align: center;
+			padding-bottom: 45px;
+		}
+
+		.wrap-input100 {
+			width: 100%;
+			position: relative;
+			border-radius: 2px;
+			margin-bottom: 34px;
+			&.rsl {
+				width: calc((100% - 40px) / 2);
+
+				@media (max-width: 576px) {
+					width: 100%;
+				}
+			}
+		}
+
+		.input100 {
+			display: block;
+			width: 100%;
+			font-family: Raleway-SemiBold;
+			font-size: 18px;
+			color: #333;
+			line-height: 1.2;
+			padding: 0 25px;
+		}
+
+		input.input100 {
+			height: 55px;
+			border: none;
+			&:hover {
+				border-color: $secondary-color;
+			}
+		}
+
+		textarea.input100 {
+			min-height: 162px;
+			padding-top: 19px;
+			padding-bottom: 15px;
+			border: none;
+		}
+	}
+}
