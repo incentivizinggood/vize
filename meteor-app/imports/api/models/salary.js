@@ -3,9 +3,12 @@ import type { ID, Location } from "./common.js";
 import type { Company } from "./company.js";
 import type { User } from "./user.js";
 import { getUserById, getUserPostgresId, getCompanyByName } from ".";
+import { castToNumberIfDefined } from "./helpers/postgresql/misc.js";
 
-import PgSalaryFunctions from "./helpers/postgresql/salaries.js";
-import PostgreSQL from "../graphql/connectors/postgresql.js";
+import {
+	execTransactionRO,
+	execTransactionRW,
+} from "../connectors/postgresql.js";
 import { SalarySchema } from "../data/salaries.js";
 
 const defaultPageSize = 100;
@@ -22,17 +25,43 @@ export type Salary = {
 	datePosted: ?Date,
 };
 
+function processResultsToSalary({ salary }): Salary {
+	return {
+		_id: salary.salaryid,
+		submittedBy: castToNumberIfDefined(salary.submittedby),
+		companyName: salary.companyname,
+		companyId: castToNumberIfDefined(salary.companyid),
+		location: JSON.parse(salary.salarylocation),
+		jobTitle: salary.jobtitle,
+		incomeType: salary.incometype,
+		incomeAmount: salary.incomeamount,
+		gender: salary.gender,
+		datePosted: salary.dateadded,
+	};
+}
+
+function processResultsToSalaries({ salaries }): [Salary] {
+	return salaries.map(salary => processResultsToSalary({ salary }));
+}
+
 // Get the salary with a given id.
 export async function getSalaryById(id: ID): Promise<?Salary> {
-	if (!Number.isNaN(Number(id))) {
-		return PgSalaryFunctions.processSalaryResults(
-			await PostgreSQL.executeQuery(
-				PgSalaryFunctions.getSalaryById,
-				Number(id)
-			)
+	if (Number.isNaN(Number(id))) return undefined;
+
+	const transaction = async client => {
+		let salaryResults = { rows: [] };
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries WHERE salaryid=$1",
+			[Number(id)]
 		);
-	}
-	return undefined;
+
+		return {
+			salary: salaryResults.rows[0],
+		};
+	};
+
+	return execTransactionRO(transaction).then(processResultsToSalary);
 }
 
 // Get all salaries submitted by a given user.
@@ -42,14 +71,21 @@ export async function getSalariesByAuthor(
 	pageSize: number = defaultPageSize
 ): Promise<[Salary]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
-	return PgSalaryFunctions.processSalaryResults(
-		await PostgreSQL.executeQuery(
-			PgSalaryFunctions.getSalariesByAuthor,
-			authorPostgresId,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+
+	const transaction = async client => {
+		let salaryResults = { rows: [] };
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[authorPostgresId, pageNumber * pageSize, pageSize]
+		);
+
+		return {
+			salaries: salaryResults.rows,
+		};
+	};
+
+	return execTransactionRO(transaction).then(processResultsToSalaries);
 }
 // Get the user who submitted a given salary.
 export async function getAuthorOfSalary(salary: Salary): Promise<User> {
@@ -62,14 +98,20 @@ export async function getSalariesByCompany(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<[Salary]> {
-	return PgSalaryFunctions.processSalaryResults(
-		await PostgreSQL.executeQuery(
-			PgSalaryFunctions.getSalariesForCompany,
-			company.name,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+	const transaction = async client => {
+		let salaryResults = { rows: [] };
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries WHERE companyname=$1 OFFSET $2 LIMIT $3",
+			[company.name, pageNumber * pageSize, pageSize]
+		);
+
+		return {
+			salaries: salaryResults.rows,
+		};
+	};
+
+	return execTransactionRO(transaction).then(processResultsToSalaries);
 }
 // Get the company that paid a given salary.
 export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
@@ -77,14 +119,21 @@ export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
 }
 
 // Count the number of salaries paid by a given company.
-export function countSalariesByCompany(company: Company): number {
-	return PostgreSQL.executeQuery(
-		PgSalaryFunctions.getSalaryCountForCompany,
-		company.name
-	);
-	// const cursor = PostgreSQL.find({ companyName: company.name });
-	//
-	// return cursor.count();
+export function countSalariesByCompany(company: Company): Promise<?number> {
+	const transaction = async client => {
+		let countResults = { rows: [{ count: undefined }] };
+
+		countResults = await client.query(
+			"SELECT * FROM salary_counts WHERE companyname=$1",
+			[company.name]
+		);
+
+		return countResults.rows[0] === undefined
+			? undefined
+			: Number(countResults.rows[0].count);
+	};
+
+	return execTransactionRO(transaction);
 }
 
 // Get all of the salaries.
@@ -92,13 +141,20 @@ export async function getAllSalaries(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<[Salary]> {
-	return PgSalaryFunctions.processSalaryResults(
-		await PostgreSQL.executeQuery(
-			PgSalaryFunctions.getAllSalaries,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+	const transaction = async client => {
+		let salaryResults = { rows: [] };
+
+		salaryResults = await client.query(
+			"SELECT * FROM salaries OFFSET $1 LIMIT $2",
+			[pageNumber * pageSize, pageSize]
+		);
+
+		return {
+			salaries: salaryResults.rows,
+		};
+	};
+
+	return execTransactionRO(transaction).then(processResultsToSalaries);
 }
 
 export function isSalary(obj: any): boolean {
