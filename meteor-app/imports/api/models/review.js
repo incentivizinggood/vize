@@ -41,70 +41,38 @@ export type Review = {
 	downvotes: ?number,
 };
 
-function processReviewResults(reviewResults): Review | [Review] {
-	/*
-		Translate from model function results
-		to Mongo SimplSchema format
+function processResultToReview({ review, votes }): Review {
+	return {
+		_id: review.reviewid,
+		submittedBy: castToNumberIfDefined(review.submittedby),
+		companyName: review.companyname,
+		companyId: castToNumberIfDefined(review.companyid),
+		reviewTitle: review.reviewtitle,
+		location: JSON.parse(review.reviewlocation),
+		jobTitle: review.jobtitle,
+		numberOfMonthsWorked: Number(review.nummonthsworked),
+		pros: review.pros,
+		cons: review.cons,
+		wouldRecommendToOtherJobSeekers: review.wouldrecommend,
+		healthAndSafety: Number(review.healthandsafety),
+		managerRelationship: Number(review.managerrelationship),
+		workEnvironment: Number(review.workenvironment),
+		benefits: Number(review.benefits),
+		overallSatisfaction: Number(review.overallsatisfaction),
+		additionalComments: review.additionalcomments,
+		datePosted: review.dateadded,
+		upvotes: Number(votes.upvotes),
+		downvotes: Number(votes.downvotes),
+	};
+}
 
-		Expects object with fields:
-		- review or reviews: singular review or array of reviews
-		- votes: singular or array depending on whether we get review or reviews
-	*/
-	if (reviewResults.review !== undefined) {
-		const review = reviewResults.review;
-		return {
-			_id: Number(review.reviewid),
-			submittedBy: castToNumberIfDefined(review.submittedby),
-			companyName: review.companyname,
-			companyId: castToNumberIfDefined(review.companyid),
-			reviewTitle: review.reviewtitle,
-			location: JSON.parse(review.reviewlocation),
-			jobTitle: review.jobtitle,
-			numberOfMonthsWorked: Number(review.nummonthsworked),
-			pros: review.pros,
-			cons: review.cons,
-			wouldRecommendToOtherJobSeekers: review.wouldrecommend,
-			healthAndSafety: Number(review.healthandsafety),
-			managerRelationship: Number(review.managerrelationship),
-			workEnvironment: Number(review.workenvironment),
-			benefits: Number(review.benefits),
-			overallSatisfaction: Number(review.overallsatisfaction),
-			additionalComments: review.additionalcomments,
-			datePosted: review.dateadded,
-			upvotes: Number(reviewResults.votes.upvotes),
-			downvotes: Number(reviewResults.votes.downvotes),
-		};
-	} else if (reviewResults.reviews !== undefined) {
-		return reviewResults.reviews.map(review => {
-			return {
-				_id: Number(review.reviewid),
-				submittedBy: castToNumberIfDefined(review.submittedby),
-				companyName: review.companyname,
-				companyId: castToNumberIfDefined(review.companyid),
-				reviewTitle: review.reviewtitle,
-				location: JSON.parse(review.reviewlocation),
-				jobTitle: review.jobtitle,
-				numberOfMonthsWorked: Number(review.nummonthsworked),
-				pros: review.pros,
-				cons: review.cons,
-				wouldRecommendToOtherJobSeekers: review.wouldrecommend,
-				healthAndSafety: Number(review.healthandsafety),
-				managerRelationship: Number(review.managerrelationship),
-				workEnvironment: Number(review.workenvironment),
-				benefits: Number(review.benefits),
-				overallSatisfaction: Number(review.overallsatisfaction),
-				additionalComments: review.additionalcomments,
-				datePosted: review.dateadded,
-				upvotes: Number(
-					reviewResults.votes[String(review.reviewid)].upvotes
-				),
-				downvotes: Number(
-					reviewResults.votes[String(review.reviewid)].downvotes
-				),
-			};
-		});
-	}
-	return undefined;
+function processResultToReviews({ reviews, votes }): [Review] {
+	return reviews.map(review =>
+		processResultToReview({
+			review,
+			votes: votes[String(review.reviewid)],
+		})
+	);
 }
 
 // Get the review with a given id.
@@ -131,7 +99,7 @@ export async function getReviewById(id: ID): Promise<?Review> {
 		};
 	};
 
-	return execTransactionRO(transaction).then(processReviewResults);
+	return execTransactionRO(transaction).then(processResultToReview);
 }
 
 // Get all reviews written by a given user.
@@ -166,7 +134,7 @@ export async function getReviewsByAuthor(
 		};
 	};
 
-	return execTransactionRO(transaction).then(processReviewResults);
+	return execTransactionRO(transaction).then(processResultToReviews);
 }
 
 // Get the user who wrote a given review.
@@ -208,7 +176,7 @@ export async function getReviewsByCompany(
 		};
 	};
 
-	return execTransactionRO(transaction).then(processReviewResults);
+	return execTransactionRO(transaction).then(processResultToReviews);
 }
 
 // Get the company that a given review is about.
@@ -245,7 +213,7 @@ export async function getAllReviews(
 		};
 	};
 
-	return execTransactionRO(transaction).then(processReviewResults);
+	return execTransactionRO(transaction).then(processResultToReviews);
 }
 
 export function isReview(obj: any): boolean {
