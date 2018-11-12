@@ -1,0 +1,20 @@
+language: flow
+
+schema: ./schema.graphql
+context: ./resolvers.js:Context
+models:
+  files:
+    - ../models/comment.js
+    - ../models/common.js
+    - ../models/company.js
+    - ../models/job-ad.js
+    - ../models/review.js
+    - ../models/salary.js
+    - ../models/user.js
+    - ../models/vote.js
+
+output: ./graphqlgen.js
+
+resolver-scaffolding:
+  output: ./tmp-resolvers/
+  layout: file-per-type

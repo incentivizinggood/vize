@@ -13,9 +13,13 @@ import type { User } from "../models/user.js";
 import type { Salary } from "../models/salary.js";
 import type { Vote, VoteSubject } from "../models/vote.js";
 import type { ID } from "../models/common.js";
-import type { Resolvers, Context } from "./resolver-types.js";
+import type { Resolvers } from "./graphqlgen.js";
 
 import * as dataModel from "../models";
+
+export type Context = {
+	user: User,
+};
 
 // A helper function that produces simple resolvers.
 function p(path: string): ({ [path: string]: any }, {}, Context) => any {
