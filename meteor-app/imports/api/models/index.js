@@ -1,5 +1,6 @@
 // @flow
 export * from "./comment.js";
+export * from "./common.js";
 export * from "./company.js";
 export * from "./job-ad.js";
 export * from "./review.js";

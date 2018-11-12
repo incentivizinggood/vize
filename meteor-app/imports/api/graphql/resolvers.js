@@ -1,19 +1,21 @@
 // @flow
 /* eslint-disable no-unused-vars */
-import { GraphQLScalarType } from "graphql";
-import { Kind } from "graphql/language";
-import type { ValueNode } from "graphql/language";
+
 import { GraphQLDateTime } from "graphql-iso-date";
 
-import type { Comment, CommentParent } from "../models/comment.js";
-import type { Company } from "../models/company.js";
-import type { JobAd } from "../models/job-ad.js";
-import type { Review } from "../models/review.js";
-import type { User } from "../models/user.js";
-import type { Salary } from "../models/salary.js";
-import type { Vote, VoteSubject } from "../models/vote.js";
-import type { ID } from "../models/common.js";
-import type { Resolvers } from "./graphqlgen.js";
+import type { User } from "../models";
+import {
+	Resolvers,
+	Comment_defaultResolvers,
+	Company_defaultResolvers,
+	JobAd_defaultResolvers,
+	Review_defaultResolvers,
+	Salary_defaultResolvers,
+	User_defaultResolvers,
+	Vote_defaultResolvers,
+	Location_defaultResolvers,
+	StarRatings_defaultResolvers,
+} from "./graphqlgen.js";
 
 import * as dataModel from "../models";
 
@@ -21,74 +23,58 @@ export type Context = {
 	user: User,
 };
 
-// A helper function that produces simple resolvers.
-function p(path: string): ({ [path: string]: any }, {}, Context) => any {
-	return (obj: { [path: string]: any }, args: {}, context: Context): any =>
-		obj[path];
-}
-
 const resolvers: Resolvers = {
 	Query: {
-		say(obj, args, context) {
-			return "Hello world.";
-		},
-		currentUser(obj, args, context) {
+		say: (obj, args, context, info) => "Hello world.",
+
+		currentUser: (obj, args, context, info) =>
 			// The current user is added to the context
 			// by the `meteor/apollo` package.
-			return context.user;
-		},
+			context.user,
 
-		allComments(obj, args, context) {
-			return dataModel.getAllComments(args.pageNum, args.pageSize);
-		},
-		allCompanies(obj, args, context) {
-			return dataModel.getAllCompanies(args.pageNum, args.pageSize);
-		},
-		allJobAds(obj, args, context) {
-			return dataModel.getAllJobAds(args.pageNum, args.pageSize);
-		},
-		allReviews(obj, args, context) {
-			return dataModel.getAllReviews(args.pageNum, args.pageSize);
-		},
-		allSalaries(obj, args, context) {
-			return dataModel.getAllSalaries(args.pageNum, args.pageSize);
-		},
-		allUsers(obj, args, context): [User] {
-			return dataModel.getAllUsers(args.pageNum, args.pageSize);
-		},
-		allVotes(obj, args, context) {
-			return dataModel.getAllVotes(args.pageNum, args.pageSize);
-		},
+		allComments: (obj, args, context, info) =>
+			dataModel.getAllComments(args.pageNum, args.pageSize),
 
-		comment(obj, args, context) {
-			return dataModel.getCommentById(args.id);
-		},
-		company(obj, args, context) {
-			return dataModel.getCompanyById(args.id);
-		},
-		jobAd(obj, args, context) {
-			return dataModel.getJobAdById(args.id);
-		},
-		review(obj, args, context) {
-			return dataModel.getReviewById(args.id);
-		},
-		salary(obj, args, context) {
-			return dataModel.getSalaryById(args.id);
-		},
-		user(obj, args, context) {
-			return dataModel.getUserById(args.id);
-		},
-		vote(obj, args, context) {
-			return dataModel.getVoteById(args.id);
-		},
+		allCompanies: (obj, args, context, info) =>
+			dataModel.getAllCompanies(args.pageNum, args.pageSize),
 
-		searchCompanies(obj, args, context) {
-			return dataModel.searchForCompanies(
+		allJobAds: (obj, args, context, info) =>
+			dataModel.getAllJobAds(args.pageNum, args.pageSize),
+
+		allReviews: (obj, args, context, info) =>
+			dataModel.getAllReviews(args.pageNum, args.pageSize),
+
+		allSalaries: (obj, args, context, info) =>
+			dataModel.getAllSalaries(args.pageNum, args.pageSize),
+
+		allUsers: (obj, args, context, info) =>
+			dataModel.getAllUsers(args.pageNum, args.pageSize),
+
+		allVotes: (obj, args, context, info) =>
+			dataModel.getAllVotes(args.pageNum, args.pageSize),
+
+		comment: (obj, args, context, info) =>
+			dataModel.getCommentById(args.id),
+
+		company: (obj, args, context, info) =>
+			dataModel.getCompanyById(args.id),
+
+		jobAd: (obj, args, context, info) => dataModel.getJobAdById(args.id),
+
+		review: (obj, args, context, info) => dataModel.getReviewById(args.id),
+
+		salary: (obj, args, context, info) => dataModel.getSalaryById(args.id),
+
+		user: (obj, args, context, info) => dataModel.getUserById(args.id),
+
+		vote: (obj, args, context, info) => dataModel.getVoteById(args.id),
+
+		searchCompanies: (obj, args, context, info) =>
+			dataModel.searchForCompanies(
 				args.searchText,
 				args.pageNum,
 				args.pageSize
-			);
-		},
+			),
 	},
 
 	CommentParent: {
@@ -109,20 +95,27 @@ const resolvers: Resolvers = {
 	},
 
 	Comment: {
-		id: p("_id"),
+		...Comment_defaultResolvers,
 
-		created: p("datePosted"),
+		id: (obj, args, context, info) => obj._id,
 
-		author: (obj, args, context) => dataModel.getAuthorOfComment(obj),
-		parent: (obj, args, context) => dataModel.getParentOfComment(obj),
-		children: (obj, args, context) =>
+		created: (obj, args, context, info) => obj.datePosted,
+
+		author: (obj, args, context, info) => dataModel.getAuthorOfComment(obj),
+
+		parent: (obj, args, context, info) => dataModel.getParentOfComment(obj),
+
+		children: (obj, args, context, info) =>
 			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
-		votes: (obj, args, context) =>
+
+		votes: (obj, args, context, info) =>
 			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
 	},
 
 	Company: {
-		id: p("_id"),
+		...Company_defaultResolvers,
+
+		id: (obj, args, context, info) => obj._id,
 
 		avgStarRatings: ({
 			healthAndSafety,
@@ -138,29 +131,38 @@ const resolvers: Resolvers = {
 			overallSatisfaction,
 		}),
 
-		reviews: (obj, args, context) =>
+		reviews: (obj, args, context, info) =>
 			dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
-		jobAds: (obj, args, context) =>
+
+		jobAds: (obj, args, context, info) =>
 			dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
-		numJobAds: (obj, args, context) => dataModel.countJobAdsByCompany(obj),
-		salaries: (obj, args, context) =>
+
+		numJobAds: (obj, args, context, info) =>
+			dataModel.countJobAdsByCompany(obj),
+		salaries: (obj, args, context, info) =>
 			dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
-		numSalaries: (obj, args, context) =>
+
+		numSalaries: (obj, args, context, info) =>
 			dataModel.countSalariesByCompany(obj),
 	},
 
 	JobAd: {
-		id: p("_id"),
+		...JobAd_defaultResolvers,
 
-		created: p("datePosted"),
+		id: (obj, args, context, info) => obj._id,
 
-		company: (obj, args, context) => dataModel.getCompanyOfJobAd(obj),
+		created: (obj, args, context, info) => obj.datePosted,
+
+		company: (obj, args, context, info) => dataModel.getCompanyOfJobAd(obj),
 	},
 
 	Review: {
-		id: p("_id"),
+		...Review_defaultResolvers,
 
-		title: p("reviewTitle"),
+		id: (obj, args, context, info) => obj._id,
+
+		title: (obj, args, context, info) => obj.reviewTitle,
+
 		starRatings: ({
 			healthAndSafety,
 			managerRelationship,
@@ -174,41 +176,57 @@ const resolvers: Resolvers = {
 			benefits,
 			overallSatisfaction,
 		}),
-		created: p("datePosted"),
 
-		author: (obj, args, context) => dataModel.getAuthorOfReview(obj),
-		company: (obj, args, context) => dataModel.getCompanyOfReview(obj),
-		comments: (obj, args, context) =>
+		created: (obj, args, context, info) => obj.datePosted,
+
+		author: (obj, args, context, info) => dataModel.getAuthorOfReview(obj),
+
+		company: (obj, args, context, info) =>
+			dataModel.getCompanyOfReview(obj),
+
+		comments: (obj, args, context, info) =>
 			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
-		votes: (obj, args, context) =>
+
+		votes: (obj, args, context, info) =>
 			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
-		currentUserVote: (obj, args, context) =>
+
+		currentUserVote: (obj, args, context, info) =>
 			context.user
 				? dataModel.getVoteByAuthorAndSubject(context.user, obj)
 				: null,
 	},
 
 	Salary: {
-		id: p("_id"),
+		...Salary_defaultResolvers,
 
-		created: p("datePosted"),
+		id: (obj, args, context, info) => obj._id,
 
-		author: (obj, args, context) => dataModel.getAuthorOfSalary(obj),
-		company: (obj, args, context) => dataModel.getCompanyOfSalary(obj),
+		created: (obj, args, context, info) => obj.datePosted,
+
+		author: (obj, args, context, info) => dataModel.getAuthorOfSalary(obj),
+
+		company: (obj, args, context, info) =>
+			dataModel.getCompanyOfSalary(obj),
 	},
 
 	User: {
-		id: p("_id"),
+		...User_defaultResolvers,
+
+		id: (obj, args, context, info) => obj._id,
 
 		role: ({ role }) => role.toUpperCase().replace("-", "_"),
-		created: p("createdAt"),
 
-		company: (obj, args, context) => dataModel.getCompanyOfUser(obj),
-		reviews: (obj, args, context) =>
+		created: (obj, args, context, info) => obj.createdAt,
+
+		company: (obj, args, context, info) => dataModel.getCompanyOfUser(obj),
+
+		reviews: (obj, args, context, info) =>
 			dataModel.getReviewsByAuthor(obj, args.pageNum, args.pageSize),
-		comments: (obj, args, context) =>
+
+		comments: (obj, args, context, info) =>
 			dataModel.getCommentsByAuthor(obj, args.pageNum, args.pageSize),
-		votes: (obj, args, context) =>
+
+		votes: (obj, args, context, info) =>
 			dataModel.getVotesByAuthor(obj, args.pageNum, args.pageSize),
 	},
 
@@ -230,12 +248,28 @@ const resolvers: Resolvers = {
 	},
 
 	Vote: {
-		id: p("_id"),
+		...Vote_defaultResolvers,
 
-		isUpvote: p("value"),
+		id: (obj, args, context, info) =>
+			JSON.stringify({
+				submittedBy: obj.submittedBy,
+				subjectType: obj.subjectType,
+				refersTo: obj.refersTo,
+			}),
 
-		author: (obj, args, context) => dataModel.getAuthorOfVote(obj),
-		subject: (obj, args, context) => dataModel.getSubjectOfVote(obj),
+		isUpvote: (obj, args, context, info) => obj.value,
+
+		author: (obj, args, context, info) => dataModel.getAuthorOfVote(obj),
+
+		subject: (obj, args, context, info) => dataModel.getSubjectOfVote(obj),
+	},
+
+	Location: {
+		...Location_defaultResolvers,
+	},
+
+	StarRatings: {
+		...StarRatings_defaultResolvers,
 	},
 
 	DateTime: GraphQLDateTime,
