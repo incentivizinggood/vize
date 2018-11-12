@@ -22,9 +22,9 @@ import { VoteSchema } from "../data/votes.js";
 const defaultPageSize = 100;
 
 export type Vote = {
-	submittedBy: ID,
-	subjectType: "review" | "comment",
-	refersTo: ID,
+	submittedby: ID,
+	subjecttype: "review" | "comment",
+	refersto: ID,
 	value: boolean,
 };
 
@@ -36,11 +36,11 @@ export type VoteSubject = Comment | Review;
 export async function getVoteById(id: ID): Promise<Vote> {
 	// requires ID to be a JSON.parse-able
 	// string with the fields/types:
-	// subjectType: "review" or "comment"
-	// submittedBy: integer
-	// refersTo: integer
-	const { subjectType, submittedBy, refersTo } = JSON.parse(id);
-	if (subjectType !== "review" && subjectType !== "comment")
+	// subjecttype: "review" or "comment"
+	// submittedby: integer
+	// refersto: integer
+	const { subjecttype, submittedby, refersto } = JSON.parse(id);
+	if (subjecttype !== "review" && subjecttype !== "comment")
 		throw new Error("Illegal subject: table does not exist");
 
 	const transaction = async client => {
@@ -48,14 +48,14 @@ export async function getVoteById(id: ID): Promise<Vote> {
 
 		voteResults = await client.query(
 			"SELECT * FROM " +
-				subjectType +
+				subjecttype +
 				"_votes WHERE submittedby=$1 AND refersto=$2",
-			[submittedBy, refersTo]
+			[submittedby, refersto]
 		);
 
 		return {
 			...voteResults.rows[0],
-			subjectType: subjectType,
+			subjecttype: subjecttype,
 		};
 	};
 
@@ -67,33 +67,33 @@ export async function getVoteByAuthorAndSubject(
 	user: User,
 	subject: VoteSubject
 ): Promise<Vote> {
-	let subjectType;
+	let subjecttype;
 
 	if (isReview(subject)) {
-		subjectType = "review";
+		subjecttype = "review";
 	} else if (isComment(subject)) {
-		subjectType = "comment";
+		subjecttype = "comment";
 	} else {
 		throw new Error("Could not determine the type of this vote subject.");
 	}
 
-	const submittedBy = await getUserPostgresId(user._id);
+	const submittedby = await getUserPostgresId(user._id);
 
-	const refersTo = subject._id;
+	const refersto = subject._id;
 
 	const transaction = async client => {
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(
 			"SELECT * FROM " +
-				subjectType +
+				subjecttype +
 				"_votes WHERE submittedby=$1 AND refersto=$2",
-			[submittedBy, refersTo]
+			[submittedby, refersto]
 		);
 
 		return {
 			...voteResults.rows[0],
-			subjectType: subjectType,
+			subjecttype: subjecttype,
 		};
 	};
 
@@ -106,14 +106,14 @@ export async function getVotesByAuthor(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Vote[]> {
-	const submittedBy = await getUserPostgresId(user._id);
+	const submittedby = await getUserPostgresId(user._id);
 
 	const transaction = async client => {
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(
-			"SELECT *, 'review' AS subjectType FROM review_votes WHERE submittedby=$1 UNION ALL SELECT *, 'comment' AS subjectType  FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[submittedBy, pageNumber * pageSize, pageSize]
+			"SELECT *, 'review' AS subjecttype FROM review_votes WHERE submittedby=$1 UNION ALL SELECT *, 'comment' AS subjecttype  FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[submittedby, pageNumber * pageSize, pageSize]
 		);
 
 		return voteResults.rows;
@@ -124,7 +124,7 @@ export async function getVotesByAuthor(
 
 // Get the user who cast a given vote.
 export async function getAuthorOfVote(vote: Vote): Promise<User> {
-	return getUserById(String(vote.submittedBy));
+	return getUserById(String(vote.submittedby));
 }
 
 // Get all votes that were cast on a given thing.
@@ -133,11 +133,11 @@ export async function getVotesBySubject(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Vote[]> {
-	let subjectType;
+	let subjecttype;
 	if (isReview(subject)) {
-		subjectType = "review";
+		subjecttype = "review";
 	} else if (isComment(subject)) {
-		subjectType = "comment";
+		subjecttype = "comment";
 	} else {
 		throw new Error("Could not determine the type of this vote subject.");
 	}
@@ -154,13 +154,13 @@ export async function getVotesBySubject(
 
 		voteResults = await client.query(
 			"SELECT * FROM " +
-				subjectType +
+				subjecttype +
 				"_votes WHERE " +
 				"refersto=$1 OFFSET $2 LIMIT $3",
 			[subject._id, pageNumber * pageSize, pageSize]
 		);
 
-		return voteResults.rows.map(vote => ({ ...vote, subjectType }));
+		return voteResults.rows.map(vote => ({ ...vote, subjecttype }));
 	};
 
 	return execTransactionRO(transaction);
@@ -168,11 +168,11 @@ export async function getVotesBySubject(
 
 // Get the thing that a given vote was cast on.
 export async function getSubjectOfVote(vote: Vote): Promise<?VoteSubject> {
-	if (vote.subjectType === "review") return getReviewById(vote.refersTo);
+	if (vote.subjecttype === "review") return getReviewById(vote.refersto);
 
-	if (vote.subjectType === "comment") return getCommentById(vote.refersTo);
+	if (vote.subjecttype === "comment") return getCommentById(vote.refersto);
 
-	throw new Error("vote.subjectType is not a valid value");
+	throw new Error("vote.subjecttype is not a valid value");
 }
 
 // Get all of the votes.
@@ -184,7 +184,7 @@ export async function getAllVotes(
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(
-			"SELECT *, 'review' AS subjectType FROM review_votes UNION ALL SELECT *, 'comment' AS subjectType FROM comment_votes OFFSET $1 LIMIT $2",
+			"SELECT *, 'review' AS subjecttype FROM review_votes UNION ALL SELECT *, 'comment' AS subjecttype FROM comment_votes OFFSET $1 LIMIT $2",
 			[pageNumber * pageSize, pageSize]
 		);
 

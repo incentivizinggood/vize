@@ -331,9 +331,9 @@ const resolvers: Resolvers = {
 
 		id: (obj, args, context, info) =>
 			JSON.stringify({
-				submittedBy: obj.submittedBy,
-				subjectType: obj.subjectType,
-				refersTo: obj.refersTo,
+				submittedby: obj.submittedby,
+				subjecttype: obj.subjecttype,
+				refersto: obj.refersto,
 			}),
 
 		isUpvote: (obj, args, context, info) => obj.value,
