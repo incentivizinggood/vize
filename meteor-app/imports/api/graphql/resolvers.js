@@ -23,6 +23,8 @@ export type Context = {
 	user: User,
 };
 
+const defaultPageSize = 100;
+
 const resolvers: Resolvers = {
 	Query: {
 		say: (obj, args, context, info) => "Hello world.",
@@ -33,25 +35,46 @@ const resolvers: Resolvers = {
 			context.user,
 
 		allComments: (obj, args, context, info) =>
-			dataModel.getAllComments(args.pageNum, args.pageSize),
+			dataModel.getAllComments(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		allCompanies: (obj, args, context, info) =>
-			dataModel.getAllCompanies(args.pageNum, args.pageSize),
+			dataModel.getAllCompanies(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		allJobAds: (obj, args, context, info) =>
-			dataModel.getAllJobAds(args.pageNum, args.pageSize),
+			dataModel.getAllJobAds(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		allReviews: (obj, args, context, info) =>
-			dataModel.getAllReviews(args.pageNum, args.pageSize),
+			dataModel.getAllReviews(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		allSalaries: (obj, args, context, info) =>
-			dataModel.getAllSalaries(args.pageNum, args.pageSize),
+			dataModel.getAllSalaries(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		allUsers: (obj, args, context, info) =>
-			dataModel.getAllUsers(args.pageNum, args.pageSize),
+			dataModel.getAllUsers(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		allVotes: (obj, args, context, info) =>
-			dataModel.getAllVotes(args.pageNum, args.pageSize),
+			dataModel.getAllVotes(
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		comment: (obj, args, context, info) =>
 			dataModel.getCommentById(args.id),
@@ -71,9 +94,9 @@ const resolvers: Resolvers = {
 
 		searchCompanies: (obj, args, context, info) =>
 			dataModel.searchForCompanies(
-				args.searchText,
-				args.pageNum,
-				args.pageSize
+				args.searchText || "",
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
 			),
 	},
 
@@ -106,10 +129,18 @@ const resolvers: Resolvers = {
 		parent: (obj, args, context, info) => dataModel.getParentOfComment(obj),
 
 		children: (obj, args, context, info) =>
-			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
+			dataModel.getCommentsByParent(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		votes: (obj, args, context, info) =>
-			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
+			dataModel.getVotesBySubject(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 	},
 
 	Company: {
@@ -117,30 +148,53 @@ const resolvers: Resolvers = {
 
 		id: (obj, args, context, info) => obj._id,
 
-		avgStarRatings: ({
-			healthAndSafety,
-			managerRelationship,
-			workEnvironment,
-			benefits,
-			overallSatisfaction,
-		}) => ({
-			healthAndSafety,
-			managerRelationship,
-			workEnvironment,
-			benefits,
-			overallSatisfaction,
-		}),
+		avgStarRatings: (obj, args, context, info) => {
+			if (
+				obj.healthAndSafety === null ||
+				obj.healthAndSafety === undefined ||
+				obj.managerRelationship === null ||
+				obj.managerRelationship === undefined ||
+				obj.workEnvironment === null ||
+				obj.workEnvironment === undefined ||
+				obj.benefits === null ||
+				obj.benefits === undefined ||
+				obj.overallSatisfaction === null ||
+				obj.overallSatisfaction === undefined
+			) {
+				return null;
+			} else {
+				return {
+					healthAndSafety: obj.healthAndSafety,
+					managerRelationship: obj.managerRelationship,
+					workEnvironment: obj.workEnvironment,
+					benefits: obj.benefits,
+					overallSatisfaction: obj.overallSatisfaction,
+				};
+			}
+		},
 
 		reviews: (obj, args, context, info) =>
-			dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
+			dataModel.getReviewsByCompany(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		jobAds: (obj, args, context, info) =>
-			dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
+			dataModel.getJobAdsByCompany(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		numJobAds: (obj, args, context, info) =>
 			dataModel.countJobAdsByCompany(obj),
 		salaries: (obj, args, context, info) =>
-			dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
+			dataModel.getSalariesByCompany(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		numSalaries: (obj, args, context, info) =>
 			dataModel.countSalariesByCompany(obj),
@@ -185,10 +239,18 @@ const resolvers: Resolvers = {
 			dataModel.getCompanyOfReview(obj),
 
 		comments: (obj, args, context, info) =>
-			dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
+			dataModel.getCommentsByParent(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		votes: (obj, args, context, info) =>
-			dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
+			dataModel.getVotesBySubject(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		currentUserVote: (obj, args, context, info) =>
 			context.user
@@ -214,20 +276,37 @@ const resolvers: Resolvers = {
 
 		id: (obj, args, context, info) => obj._id,
 
-		role: ({ role }) => role.toUpperCase().replace("-", "_"),
+		role: (obj, args, context, info) => {
+			if (obj.role === "worker") return "WORKER";
+			if (obj.role === "company-unverified") return "COMPANY_UNVERIFIED";
+			if (obj.role === "company") return "COMPANY";
+			throw Error("User role is not valid.");
+		},
 
 		created: (obj, args, context, info) => obj.createdAt,
 
 		company: (obj, args, context, info) => dataModel.getCompanyOfUser(obj),
 
 		reviews: (obj, args, context, info) =>
-			dataModel.getReviewsByAuthor(obj, args.pageNum, args.pageSize),
+			dataModel.getReviewsByAuthor(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		comments: (obj, args, context, info) =>
-			dataModel.getCommentsByAuthor(obj, args.pageNum, args.pageSize),
+			dataModel.getCommentsByAuthor(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 
 		votes: (obj, args, context, info) =>
-			dataModel.getVotesByAuthor(obj, args.pageNum, args.pageSize),
+			dataModel.getVotesByAuthor(
+				obj,
+				args.pageNum || 0,
+				args.pageSize || defaultPageSize
+			),
 	},
 
 	VoteSubject: {
