@@ -13,8 +13,10 @@ import {
 	getCommentById,
 } from ".";
 
-import PgVoteFunctions from "./helpers/postgresql/votes.js";
-import PostgreSQL from "../graphql/connectors/postgresql.js";
+import {
+	execTransactionRO,
+	execTransactionRW,
+} from "../connectors/postgresql.js";
 import { VoteSchema } from "../data/votes.js";
 
 const defaultPageSize = 100;
@@ -38,12 +40,29 @@ export async function getVoteById(id: ID): Promise<Vote> {
 	// voteSubject: "review" or "comment"
 	// submittedBy: integer
 	// references: integer
-	return PgVoteFunctions.processVoteResults(
-		await PostgreSQL.executeQuery(
-			PgVoteFunctions.getVoteByPrimaryKey,
-			JSON.parse(id)
+	const voteKeyFields = JSON.parse(id);
+	const transaction = async client => {
+		let voteResults = { rows: [] };
+		if (
+			voteKeyFields.voteSubject !== "review" &&
+			voteKeyFields.voteSubject !== "comment"
 		)
-	);
+			throw new Error("Illegal subject: table does not exist");
+
+		voteResults = await client.query(
+			"SELECT * FROM " +
+				voteKeyFields.voteSubject +
+				"_votes WHERE submittedby=$1 AND refersto=$2",
+			[voteKeyFields.submittedBy, voteKeyFields.references]
+		);
+
+		return {
+			subject: voteKeyFields.voteSubject,
+			vote: voteResults.rows[0],
+		};
+	};
+
+	return execTransactionRO(transaction).then(processVoteResults);
 }
 
 // Get the vote cast by a given user on a given thing.
@@ -63,13 +82,34 @@ export async function getVoteByAuthorAndSubject(
 
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	return PgVoteFunctions.processVoteResults(
-		await PostgreSQL.executeQuery(PgVoteFunctions.getVoteByPrimaryKey, {
-			submittedBy: authorPostgresId,
-			voteSubject: subjectOfVote,
-			references: subject._id,
-		})
-	);
+	const voteKeyFields = {
+		submittedBy: authorPostgresId,
+		voteSubject: subjectOfVote,
+		references: subject._id,
+	};
+
+	const transaction = async client => {
+		let voteResults = { rows: [] };
+		if (
+			voteKeyFields.voteSubject !== "review" &&
+			voteKeyFields.voteSubject !== "comment"
+		)
+			throw new Error("Illegal subject: table does not exist");
+
+		voteResults = await client.query(
+			"SELECT * FROM " +
+				voteKeyFields.voteSubject +
+				"_votes WHERE submittedby=$1 AND refersto=$2",
+			[voteKeyFields.submittedBy, voteKeyFields.references]
+		);
+
+		return {
+			subject: voteKeyFields.voteSubject,
+			vote: voteResults.rows[0],
+		};
+	};
+
+	return execTransactionRO(transaction).then(processVoteResults);
 }
 
 // Get all votes cast by a given user.
@@ -83,12 +123,26 @@ export async function getVotesByAuthor(
 	// result has reviewVotes and commentVotes,
 	// two arrays of votes by the author for
 	// the respective voteSubjects.
-	return PostgreSQL.executeQuery(
-		PgVoteFunctions.getVotesByAuthor,
-		authorPostgresId,
-		pageNumber * pageSize,
-		pageSize
-	);
+	const transaction = async client => {
+		let reviewVoteResults = { rows: [] };
+		let commentVoteResults = { rows: [] };
+
+		reviewVoteResults = await client.query(
+			"SELECT * FROM review_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[authorPostgresId, pageNumber * pageSize, pageSize]
+		);
+		commentVoteResults = await client.query(
+			"SELECT * FROM comment_votes WHERE submittedby=$1 OFFSET $2 LIMIT $3",
+			[authorPostgresId, pageNumber * pageSize, pageSize]
+		);
+
+		return {
+			reviewVotes: reviewVoteResults.rows,
+			commentVotes: commentVoteResults.rows,
+		};
+	};
+
+	return execTransactionRO(transaction);
 }
 
 // Get the user who cast a given vote.
@@ -118,13 +172,26 @@ export async function getVotesBySubject(
 	// in the underlying query, they don't have much meaning
 	// as each such query should yield exactly 1 or 0 results.
 
-	return PostgreSQL.executeQuery(
-		PgVoteFunctions.getVotesForSubject,
-		voteSubject,
-		subject._id,
-		pageNumber * pageSize,
-		pageSize
-	);
+	const transaction = async client => {
+		let voteResults = { rows: [] };
+		if (voteSubject !== "review" && voteSubject !== "comment")
+			throw new Error("Illegal subject: table does not exist");
+
+		voteResults = await client.query(
+			"SELECT * FROM " +
+				voteSubject +
+				"_vote_counts WHERE " +
+				"refersto=$1 OFFSET $2 LIMIT $3",
+			[subject._id, pageNumber * pageSize, pageSize]
+		);
+
+		return {
+			subject: voteSubject,
+			votes: voteResults.rows[0],
+		};
+	};
+
+	return execTransactionRO(transaction);
 }
 
 // Get the thing that a given vote was cast on.
@@ -147,11 +214,26 @@ export async function getAllVotes(
 	// two arrays of votes which contain all the
 	// vote counts for every review and comment respectively.
 
-	return PostgreSQL.executeQuery(
-		PgVoteFunctions.getAllVotes,
-		pageNumber * pageSize,
-		pageSize
-	);
+	const transaction = async client => {
+		let reviewVoteResults = { rows: [] };
+		let commentVoteResults = { rows: [] };
+
+		reviewVoteResults = await client.query(
+			"SELECT * FROM review_vote_counts OFFSET $1 LIMIT $2",
+			[pageNumber * pageSize, pageSize]
+		);
+		commentVoteResults = await client.query(
+			"SELECT * FROM comment_vote_counts OFFSET $1 LIMIT $2",
+			[pageNumber * pageSize, pageSize]
+		);
+
+		return {
+			reviewVotes: reviewVoteResults.rows,
+			commentVotes: commentVoteResults.rows,
+		};
+	};
+
+	return execTransactionRO(transaction);
 }
 
 export function isVote(obj: any): boolean {
