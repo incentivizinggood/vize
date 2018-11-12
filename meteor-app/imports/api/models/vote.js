@@ -105,7 +105,7 @@ export async function getVotesByAuthor(
 	user: User,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Vote]> {
+): Promise<Vote[]> {
 	const submittedBy = await getUserPostgresId(user._id);
 
 	const transaction = async client => {
@@ -132,7 +132,7 @@ export async function getVotesBySubject(
 	subject: VoteSubject,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Vote]> {
+): Promise<Vote[]> {
 	let subjectType;
 	if (isReview(subject)) {
 		subjectType = "review";
@@ -179,7 +179,7 @@ export async function getSubjectOfVote(vote: Vote): Promise<?VoteSubject> {
 export async function getAllVotes(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Vote]> {
+): Promise<Vote[]> {
 	const transaction = async client => {
 		let voteResults = { rows: [] };
 

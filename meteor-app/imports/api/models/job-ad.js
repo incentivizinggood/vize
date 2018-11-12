@@ -46,7 +46,7 @@ function processResultsToJobAd({ jobad, locations }): JobAd {
 	};
 }
 
-function processResultsToJobAds({ jobads, locations }): [JobAd] {
+function processResultsToJobAds({ jobads, locations }): JobAd[] {
 	return jobads.map(jobad =>
 		processResultsToJobAd({
 			jobad,
@@ -87,7 +87,7 @@ export async function getJobAdsByCompany(
 	company: Company,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[JobAd]> {
+): Promise<JobAd[]> {
 	const transaction = async client => {
 		let jobAdResults = { rows: [] };
 		let locationResults = {};
@@ -140,7 +140,7 @@ export function countJobAdsByCompany(company: Company): Promise<?number> {
 export async function getAllJobAds(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[JobAd]> {
+): Promise<JobAd[]> {
 	const transaction = async client => {
 		let jobAdResults = { rows: [] };
 		let locationResults = {};

@@ -66,7 +66,7 @@ function processResultToReview({ review, votes }): Review {
 	};
 }
 
-function processResultToReviews({ reviews, votes }): [Review] {
+function processResultToReviews({ reviews, votes }): Review[] {
 	return reviews.map(review =>
 		processResultToReview({
 			review,
@@ -107,7 +107,7 @@ export async function getReviewsByAuthor(
 	user: User,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Review]> {
+): Promise<Review[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
 	const transaction = async client => {
@@ -151,7 +151,7 @@ export async function getReviewsByCompany(
 	company: Company,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Review]> {
+): Promise<Review[]> {
 	const transaction = async client => {
 		let reviewResults = { rows: [] };
 		let voteResults = {};
@@ -188,7 +188,7 @@ export async function getCompanyOfReview(review: Review): Promise<Company> {
 export async function getAllReviews(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Review]> {
+): Promise<Review[]> {
 	const transaction = async client => {
 		let reviewResults = { rows: [] };
 		let voteResults = {};

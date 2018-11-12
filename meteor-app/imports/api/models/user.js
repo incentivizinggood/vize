@@ -92,7 +92,7 @@ export function getUsersByCompany(
 	company: Company,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): [User] {
+): User[] {
 	const cursor = Meteor.users.find(
 		{ companyId: company._id },
 		{
@@ -116,7 +116,7 @@ export function getCompanyOfUser(user: User): ?Promise<?Company> {
 export function getAllUsers(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): [User] {
+): User[] {
 	const cursor = Meteor.users.find(
 		{},
 		{

@@ -36,7 +36,7 @@ export async function getCommentsByAuthor(
 	user: User,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Comment]> {
+): Promise<Comment[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
 	return PgCommentFunctions.processCommentResults(
@@ -59,7 +59,7 @@ export async function getCommentsByParent(
 	parent: CommentParent,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): [Comment] {
+): Comment[] {
 	throw new Error("Not implemented yet");
 }
 
@@ -72,7 +72,7 @@ export async function getParentOfComment(comment: Comment): CommentParent {
 export async function getAllComments(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Comment]> {
+): Promise<Comment[]> {
 	return PgCommentFunctions.processCommentResults(
 		await PostgreSQL.executeQuery(
 			PgCommentFunctions.getAllComments,

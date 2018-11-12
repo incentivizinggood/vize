@@ -69,7 +69,7 @@ function processResultsToCompanies({
 	companies,
 	reviewStats,
 	locations,
-}): [Company] {
+}): Company[] {
 	return companies.map(company =>
 		processResultsToCompany({
 			company,
@@ -154,7 +154,7 @@ export async function getCompanyByName(name: string): Promise<Company> {
 export async function getAllCompanies(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Company]> {
+): Promise<Company[]> {
 	const transaction = async client => {
 		let companyResults = { rows: [] };
 		let locationResults = {};
@@ -194,7 +194,7 @@ export async function searchForCompanies(
 	searchText: string,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Company]> {
+): Promise<Company[]> {
 	const transaction = async client => {
 		let companyResults = { rows: [] };
 		let locationResults = {};

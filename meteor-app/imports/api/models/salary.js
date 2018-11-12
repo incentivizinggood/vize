@@ -40,7 +40,7 @@ function processResultsToSalary({ salary }): Salary {
 	};
 }
 
-function processResultsToSalaries({ salaries }): [Salary] {
+function processResultsToSalaries({ salaries }): Salary[] {
 	return salaries.map(salary => processResultsToSalary({ salary }));
 }
 
@@ -69,7 +69,7 @@ export async function getSalariesByAuthor(
 	user: User,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Salary]> {
+): Promise<Salary[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
 	const transaction = async client => {
@@ -97,7 +97,7 @@ export async function getSalariesByCompany(
 	company: Company,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Salary]> {
+): Promise<Salary[]> {
 	const transaction = async client => {
 		let salaryResults = { rows: [] };
 
@@ -140,7 +140,7 @@ export function countSalariesByCompany(company: Company): Promise<?number> {
 export async function getAllSalaries(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Promise<[Salary]> {
+): Promise<Salary[]> {
 	const transaction = async client => {
 		let salaryResults = { rows: [] };
 
