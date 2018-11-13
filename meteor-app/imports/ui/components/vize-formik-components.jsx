@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import { Field, FieldArray, ErrorMessage, connect } from "formik";
-import StarRatingComponent from 'react-star-rating-component';
+import StarRatingComponent from "react-star-rating-component";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { translateError } from "/i18n/helpers.js";
@@ -15,9 +15,7 @@ const t = i18n.createTranslator();
 
 	NOTE
 	Here are the remaining "custom types" I still need to "implement":
-	- star ratings
 	- floats
-	- booleans
 	- arrays (of objects, perhaps of other custom types)
 
 	NOTE
@@ -27,16 +25,18 @@ const t = i18n.createTranslator();
 	- string with externally-passed drop-down options (VfInputTextWithOptionList)
 	- text areas (VfInputTextArea)
 	- integers (VfInputInteger)
+	- star ratings (VfInputStarRating)
+	- booleans (for our current cases, VfInputRadioGroup suffices)
 
 	NOTE
 	And here are some other features that I will need to
 	figure out where and how they fit in:
-	- translation of allowed values
 	- *custom validators involving Meteor Methods*
 	- date fields (if necessary)
 
 	NOTE
 	Here are features that I have already hashed-out how to handle:
+	- translation of allowed values
 	- allowed values (yup.mixed.oneOf)
 	- company name drop-downs (emptyCompanyNameField)
 	- max length check for strings (yup.mixed.max)
@@ -181,7 +181,7 @@ const t = i18n.createTranslator();
 */
 
 function getDescendantProp(obj, desc) {
-	let arr = desc.split('.');
+	let arr = desc.split(".");
 	while (obj && arr.length) {
 		obj = obj[arr.shift()];
 	}
@@ -189,18 +189,29 @@ function getDescendantProp(obj, desc) {
 }
 
 function setDescendantProp(obj, desc, value) {
-	var arr = desc.split('.');
+	var arr = desc.split(".");
 	while (obj && arr.length > 1) {
 		obj = obj[arr.shift()];
 	}
-	return obj[arr[0]] = value;
+	return (obj[arr[0]] = value);
 }
 
-const withVizeFormatting = function(vfComponent, fieldname, formgroupname, labelstring, shoulddisplayerrors, errors) {
+const withVizeFormatting = function(
+	vfComponent,
+	fieldname,
+	formgroupname,
+	labelstring,
+	shoulddisplayerrors,
+	errors
+) {
 	const vfComponentId = `${formgroupname}.${fieldname}`; // QUESTION flesh this out later?
 	return (
 		<div className="form-group">
-			<div className={`form-group ${(shoulddisplayerrors) ? "has-error" : ""}`}>
+			<div
+				className={`form-group ${
+					shoulddisplayerrors ? "has-error" : ""
+				}`}
+			>
 				<label className="control-label" htmlFor={vfComponentId}>
 					{labelstring}
 				</label>
@@ -213,198 +224,327 @@ const withVizeFormatting = function(vfComponent, fieldname, formgroupname, label
 				</span>
 			</div>
 		</div>
-	)
+	);
 };
 
-export const VfInputText = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<Field name={props.name} render={({field}) => (
-			<div>
-				<input type="text" {...field} {...props} className="form-control" id={vfComponentId}/>
-				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
-			</div>
-		)}/>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
-
-export const VfInputTextWithOptionList = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<Field name={props.name} render={({field}) => (
-			// Expects props.optionlist to be an array of
-			// two-field objects describing the keys and values
-			// for the radio group options
-			<div>
-				<input type="text" list={`${vfComponentId}.list`} {...field} {...props} className="form-control" id={vfComponentId} />
-				<datalist id={`${vfComponentId}.list`}>
-					{props.optionlist.map(
-						option => <option value={option.value} key={`${vfComponentId}.${option.key}`}>{option.key}</option>
-					)}
-				</datalist>
-				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
-			</div>
-		)}/>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
-
-export const VfInputTextArea = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<Field name={props.name} render={({field}) => (
-			<div>
-				<textarea {...field} {...props} className="form-control" id={vfComponentId}/>
-				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
-			</div>
-		)}/>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
-
-export const VfInputLocation = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<div className="panel panel-default">
-			<div className="panel-body">
-				<Field name={props.name} render={() => (
-					<div id={vfComponentId}>
-						<VfInputText name={`${props.name}.city`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationCity")} maxLength="300" placeholder={t("common.forms.locationCityPlaceholder")}/>
-						<VfInputText name={`${props.name}.address`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationAddress")} maxLength="300" placeholder={t("common.forms.locationAddressPlaceholder")}/>
-						<VfInputText name={`${props.name}.industrialHub`} formgroupname={props.formgroupname} labelstring={t("SimpleSchema.labels.LocationSubFields.locationIndustrialHub")} maxLength="300" placeholder={t("common.forms.locationIndustrialHubPlaceholder")}/>
+export const VfInputText = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<Field
+				name={props.name}
+				render={({ field }) => (
+					<div>
+						<input
+							type="text"
+							{...field}
+							{...props}
+							className="form-control"
+							id={vfComponentId}
+						/>
 						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
 					</div>
-				)}/>
-			</div>
-		</div>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
+				)}
+			/>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		(props.formik.submitCount > 0 ||
+			getDescendantProp(props.formik.touched, props.name)) &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
 
-export const VfInputInteger = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<Field name={props.name} render={({field}) => (
-			<div>
-				<input type="number" step="1" {...field} {...props} className="form-control" id={vfComponentId}/>
-				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
-			</div>
-		)}/>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	(props.formik.submitCount > 0 || getDescendantProp(props.formik.touched, props.name)) && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
+export const VfInputTextWithOptionList = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<Field
+				name={props.name}
+				render={({ field }) => (
+					// Expects props.optionlist to be an array of
+					// two-field objects describing the keys and values
+					// for the radio group options
+					<div>
+						<input
+							type="text"
+							list={`${vfComponentId}.list`}
+							{...field}
+							{...props}
+							className="form-control"
+							id={vfComponentId}
+						/>
+						<datalist id={`${vfComponentId}.list`}>
+							{props.optionlist.map(option => (
+								<option
+									value={option.value}
+									key={`${vfComponentId}.${option.key}`}
+								>
+									{option.key}
+								</option>
+							))}
+						</datalist>
+						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+					</div>
+				)}
+			/>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		(props.formik.submitCount > 0 ||
+			getDescendantProp(props.formik.touched, props.name)) &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
 
-export const VfInputRadioGroup = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<Field name={props.name} render={({field}) => (
-			// Expects props.optionlist to be an array of
-			// two-field objects describing the keys and values
-			// for the radio group options
-			<div {...field} {...props} id={vfComponentId}>
-				{
-					props.optionlist.map(
-						option => (
-							<div className="radio" key={`${vfComponentId}.${option.value}`}>
+export const VfInputTextArea = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<Field
+				name={props.name}
+				render={({ field }) => (
+					<div>
+						<textarea
+							{...field}
+							{...props}
+							className="form-control"
+							id={vfComponentId}
+						/>
+						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+					</div>
+				)}
+			/>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		(props.formik.submitCount > 0 ||
+			getDescendantProp(props.formik.touched, props.name)) &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
+
+export const VfInputLocation = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<div className="panel panel-default">
+				<div className="panel-body">
+					<Field
+						name={props.name}
+						render={() => (
+							<div id={vfComponentId}>
+								<VfInputText
+									name={`${props.name}.city`}
+									formgroupname={props.formgroupname}
+									labelstring={t(
+										"SimpleSchema.labels.LocationSubFields.locationCity"
+									)}
+									maxLength="300"
+									placeholder={t(
+										"common.forms.locationCityPlaceholder"
+									)}
+								/>
+								<VfInputText
+									name={`${props.name}.address`}
+									formgroupname={props.formgroupname}
+									labelstring={t(
+										"SimpleSchema.labels.LocationSubFields.locationAddress"
+									)}
+									maxLength="300"
+									placeholder={t(
+										"common.forms.locationAddressPlaceholder"
+									)}
+								/>
+								<VfInputText
+									name={`${props.name}.industrialHub`}
+									formgroupname={props.formgroupname}
+									labelstring={t(
+										"SimpleSchema.labels.LocationSubFields.locationIndustrialHub"
+									)}
+									maxLength="300"
+									placeholder={t(
+										"common.forms.locationIndustrialHubPlaceholder"
+									)}
+								/>
+								{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+							</div>
+						)}
+					/>
+				</div>
+			</div>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		(props.formik.submitCount > 0 ||
+			getDescendantProp(props.formik.touched, props.name)) &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
+
+export const VfInputInteger = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<Field
+				name={props.name}
+				render={({ field }) => (
+					<div>
+						<input
+							type="number"
+							step="1"
+							{...field}
+							{...props}
+							className="form-control"
+							id={vfComponentId}
+						/>
+						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+					</div>
+				)}
+			/>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		(props.formik.submitCount > 0 ||
+			getDescendantProp(props.formik.touched, props.name)) &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
+
+export const VfInputRadioGroup = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<Field
+				name={props.name}
+				render={({ field }) => (
+					// Expects props.optionlist to be an array of
+					// two-field objects describing the keys and values
+					// for the radio group options
+					<div {...field} {...props} id={vfComponentId}>
+						{props.optionlist.map(option => (
+							<div
+								className="radio"
+								key={`${vfComponentId}.${option.value}`}
+							>
 								<label>
-									<input type="radio"
+									<input
+										type="radio"
 										name={`${props.name}-radio-group`}
-										onClick={() => props.formik.setFieldValue(props.name, option.value, true)}
+										onClick={() =>
+											props.formik.setFieldValue(
+												props.name,
+												option.value,
+												true
+											)
+										}
 									/>
 									{option.key}
 								</label>
 							</div>
-						)
-					)
-				}
-				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
-			</div>
-		)}/>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	props.formik.submitCount > 0 && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
+						))}
+						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+					</div>
+				)}
+			/>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		props.formik.submitCount > 0 &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
 
-export const VfInputStarRating = connect((props) => withVizeFormatting(
-	(vfComponentId) => (
-		<Field name={props.name} render={({field}) => (
-			<div>
-				<StarRatingComponent
-					starCount={5}
-					// Functions for onStarClick, renderStarIcon,
-					// and renderStarIconHalf are *heavily* borrowed
-					// from the MIT-licensed example code for
-					// react-star-rating-component:
-					// https://github.com/voronianski/react-star-rating-component/blob/master/example
-					// And in case you're wondering, then...
-					// WARNING
-					// I only have a vague idea of what's going on with this code,
-					// easily the most mysterious part in onStarClick, which
-					// somehow Just Works. Also I copy-pasted all the styling-related
-					// code, and even added a line to /client/main.html in order
-					// to get it to work.
-					// NOTE
-					// Don't ask me how to change the star size. I don't know.
-					starColor="#ffb400"
-					emptyStarColor="#ffb400"
-					onStarClick={
-						(nextValue, prevValue, name, e) =>{
-							const xPos = (e.pageX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
+export const VfInputStarRating = connect(props =>
+	withVizeFormatting(
+		vfComponentId => (
+			<Field
+				name={props.name}
+				render={({ field }) => (
+					<div>
+						<StarRatingComponent
+							starCount={5}
+							// Functions for onStarClick, renderStarIcon,
+							// and renderStarIconHalf are *heavily* borrowed
+							// from the MIT-licensed example code for
+							// react-star-rating-component:
+							// https://github.com/voronianski/react-star-rating-component/blob/master/example
+							// And in case you're wondering, then...
+							// WARNING
+							// I only have a vague idea of what's going on with this code,
+							// easily the most mysterious part in onStarClick, which
+							// somehow Just Works. Also I copy-pasted all the styling-related
+							// code, and even added a line to /client/main.html in order
+							// to get it to work.
+							// NOTE
+							// Don't ask me how to change the star size. I don't know.
+							starColor="#ffb400"
+							emptyStarColor="#ffb400"
+							onStarClick={(nextValue, prevValue, name, e) => {
+								const xPos =
+									(e.pageX -
+										e.currentTarget.getBoundingClientRect()
+											.left) /
+									e.currentTarget.offsetWidth;
 
-							if (xPos <= 0.5) {
-								nextValue -= 0.5;
-							}
+								if (xPos <= 0.5) {
+									nextValue -= 0.5;
+								}
 
-							props.formik.setFieldValue(props.name, nextValue, true)
-						}
-					}
-					renderStarIcon={(index, value) => {
-						return (
-							<span>
-								<i className={index <= value ? 'fas fa-star' : 'far fa-star'} />
-							</span>
-						);
-					}}
-					renderStarIconHalf={() => {
-						return (
-							<span>
-								<span style={{position: 'absolute'}}><i className="far fa-star" /></span>
-								<span><i className="fas fa-star-half" /></span>
-							</span>
-						);
-					}}
-					id={vfComponentId}
-					{...field}
-					{...props}
-				/>
-				{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
-			</div>
-		)}/>
-	),
-	props.name,
-	props.formgroupname,
-	props.labelstring,
-	props.formik.submitCount > 0 && getDescendantProp(props.formik.errors, props.name),
-	getDescendantProp(props.formik.errors, props.name)
-));
+								props.formik.setFieldValue(
+									props.name,
+									nextValue,
+									true
+								);
+							}}
+							renderStarIcon={(index, value) => {
+								return (
+									<span>
+										<i
+											className={
+												index <= value
+													? "fas fa-star"
+													: "far fa-star"
+											}
+										/>
+									</span>
+								);
+							}}
+							renderStarIconHalf={() => {
+								return (
+									<span>
+										<span style={{ position: "absolute" }}>
+											<i className="far fa-star" />
+										</span>
+										<span>
+											<i className="fas fa-star-half" />
+										</span>
+									</span>
+								);
+							}}
+							id={vfComponentId}
+							{...field}
+							{...props}
+						/>
+						{/* <span>{(Meteor.isDevelopment) ? `${JSON.stringify(field)}\n${JSON.stringify(props)}` : ""}</span> */}
+					</div>
+				)}
+			/>
+		),
+		props.name,
+		props.formgroupname,
+		props.labelstring,
+		props.formik.submitCount > 0 &&
+			getDescendantProp(props.formik.errors, props.name),
+		getDescendantProp(props.formik.errors, props.name)
+	)
+);
 
 const companyNameForIdQuery = gql`
 	query companyNameForId($companyId: ID!) {
@@ -422,46 +562,66 @@ const allCompanyNamesQuery = gql`
 	}
 `;
 
-export const readOnlyCompanyNameField = (props) => (
-	<Query query={companyNameForIdQuery} variables={{companyId: props.companyId}}>
+export const readOnlyCompanyNameField = props => (
+	<Query
+		query={companyNameForIdQuery}
+		variables={{ companyId: props.companyId }}
+	>
 		{({ loading, error, data }) => {
 			const companyName = () => {
 				if (loading) {
 					return t("common.forms.pleaseWait");
-				}
-				else if (error || data.company === undefined || data.company === null) {
-					if(Meteor.isDevelopment) console.log(error);
+				} else if (
+					error ||
+					data.company === undefined ||
+					data.company === null
+				) {
+					if (Meteor.isDevelopment) console.log(error);
 					return t("common.forms.companyNotFound");
 				}
 				return data.company.name;
-			}
+			};
 
 			return (
 				<VfInputText
 					name="companyName"
 					formgroupname={props.formgroupname}
 					value={companyName()}
-					labelstring={t(`SimpleSchema.labels.${props.formgroupname}.companyName`)}
+					labelstring={t(
+						`SimpleSchema.labels.${props.formgroupname}.companyName`
+					)}
 					readOnly="true"
-					disabled={loading || error || data.company === undefined || data.company === null}
+					disabled={
+						loading ||
+						error ||
+						data.company === undefined ||
+						data.company === null
+					}
 				/>
 			);
 		}}
 	</Query>
 );
 
-export const emptyCompanyNameField = (props) => (
-	<Query query={allCompanyNamesQuery} variables={{  }}>
+export const emptyCompanyNameField = props => (
+	<Query query={allCompanyNamesQuery} variables={{}}>
 		{({ loading, error, data }) => {
 			const listOfCompanyNames = () => {
 				if (loading) {
 					return [t("common.forms.pleaseWait")];
-				}
-				else if (error || data.allCompanies === undefined || data.allCompanies === null || data.allCompanies.length === 0) {
+				} else if (
+					error ||
+					data.allCompanies === undefined ||
+					data.allCompanies === null ||
+					data.allCompanies.length === 0
+				) {
 					return [];
 				}
-				return data.allCompanies.map(result => ({key: result.name, value: result.name}));
-			}
+				return data.allCompanies.map(result => ({
+					key: result.name,
+					value: result.name,
+				}));
+			};
 
 			return (
 				<VfInputTextWithOptionList
@@ -469,8 +629,14 @@ export const emptyCompanyNameField = (props) => (
 					formgroupname={props.formgroupname}
 					maxLength="100"
 					optionlist={listOfCompanyNames()}
-					labelstring={t(`SimpleSchema.labels.${props.formgroupname}.companyName`)}
-					placeholder={t(`common.forms.${props.placeholdergroupname}.companyNamePlaceholder`)}
+					labelstring={t(
+						`SimpleSchema.labels.${props.formgroupname}.companyName`
+					)}
+					placeholder={t(
+						`common.forms.${
+							props.placeholdergroupname
+						}.companyNamePlaceholder`
+					)}
 					disabled={loading}
 				/>
 			);

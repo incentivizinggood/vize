@@ -255,7 +255,11 @@ export default {
 
 	User: {
 		id: p("_id"),
-
+		// QUESTION is this resolver a security/privacy breach? If so, we
+		// will have to forgo certain points of client-side input validation,
+		// or else redesign/reimplement them
+		postgresId: ({ _id }: User, args: {}, context: Context) =>
+			context.userModel.getUserPostgresId(_id),
 		role: ({ role }: User) => role.toUpperCase().replace("-", "_"),
 		created: p("createdAt"),
 

@@ -150,6 +150,8 @@ enum UserRole {
 
 type User {
 	id: ID!
+	"The user's numeric id in the PostgreSQL users table"
+	postgresId: Int
 	"The user's username, as would be typed in the login field."
 	username: String!
 

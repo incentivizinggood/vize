@@ -1,10 +1,9 @@
 // Boilerplate first
-// import { Meteor } from "meteor/meteor";
 import React from "react";
 import { withFormik, Form } from "formik";
-// import PropTypes from "prop-types";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 // import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
-// import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import Dialog from "/imports/ui/components/dialog-box";
 import i18n from "meteor/universe:i18n";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
@@ -20,13 +19,12 @@ import {
 	VfInputRadioGroup,
 	VfInputStarRating,
 	readOnlyCompanyNameField,
-	emptyCompanyNameField } from "/imports/ui/components/vize-formik-components.jsx";
+	emptyCompanyNameField,
+} from "/imports/ui/components/vize-formik-components.jsx";
 
 const t = i18n.createTranslator();
 
 /*
-	TODO
-	Fix location field
 	TODO
 	Fix submit-on-change-locale bug
 	TODO
@@ -48,6 +46,15 @@ const t = i18n.createTranslator();
 	doesn't always clear when it needs to.
 */
 
+const reviewFormUserInfo = gql`
+	query currentUserPostgresIdWithReviews {
+		currentUser {
+			postgresId
+			reviews
+		}
+	}
+`;
+
 const WriteReviewInnerForm = function(props) {
 	console.log(props);
 	return (
@@ -64,47 +71,171 @@ const WriteReviewInnerForm = function(props) {
 								next div 'post-a-job' instead of 'write-review'? */}
 								<div className="post-a-job">
 									<h3>{t("common.forms.wr.formTitle")}</h3>
-									<br/>
+									<br />
 									<h4>{t("common.forms.wr.header1")}</h4>
 								</div>
 								<fieldset>
-									{
-										(props.companyId !== undefined) ?
-											readOnlyCompanyNameField({
+									{props.companyId !== undefined
+										? readOnlyCompanyNameField({
 												...props,
 												formgroupname: "Reviews",
-											}) :
-											emptyCompanyNameField({
+										  })
+										: emptyCompanyNameField({
 												...props,
 												formgroupname: "Reviews",
-												placeholdergroupname: "wr"
-											})
-									}
-									<VfInputText name="reviewTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.reviewTitle")} maxLength="100" placeholder={t("common.forms.wr.reviewTitlePlaceholder")}/>
-									<VfInputLocation name="location" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.location")}/>
-									<VfInputText maxLength="100" name="jobTitle" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.jobTitle")} placeholder={t("common.forms.wr.jobTitlePlaceholder")}/>
-									<VfInputInteger min="0" name="numberOfMonthsWorked" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.numberOfMonthsWorked")}/>
-									<VfInputTextArea rows="6" maxLength="600" name="pros" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.pros")} placeholder={t("common.forms.wr.prosPlaceholder")}/>
-									<VfInputTextArea rows="6" maxLength="600" name="cons" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.cons")} placeholder={t("common.forms.wr.consPlaceholder")}/>
+												placeholdergroupname: "wr",
+										  })}
+									<VfInputText
+										name="reviewTitle"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.reviewTitle"
+										)}
+										maxLength="100"
+										placeholder={t(
+											"common.forms.wr.reviewTitlePlaceholder"
+										)}
+									/>
+									<VfInputLocation
+										name="location"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.location"
+										)}
+									/>
+									<VfInputText
+										maxLength="100"
+										name="jobTitle"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.jobTitle"
+										)}
+										placeholder={t(
+											"common.forms.wr.jobTitlePlaceholder"
+										)}
+									/>
+									<VfInputInteger
+										min="0"
+										name="numberOfMonthsWorked"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
+										)}
+									/>
+									<VfInputTextArea
+										rows="6"
+										maxLength="600"
+										name="pros"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.pros"
+										)}
+										placeholder={t(
+											"common.forms.wr.prosPlaceholder"
+										)}
+									/>
+									<VfInputTextArea
+										rows="6"
+										maxLength="600"
+										name="cons"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.cons"
+										)}
+										placeholder={t(
+											"common.forms.wr.consPlaceholder"
+										)}
+									/>
 									<VfInputRadioGroup
 										optionlist={[
-											{key: t("common.yes"), value: true},
-											{key: t("common.no"), value: false}
+											{
+												key: t("common.yes"),
+												value: true,
+											},
+											{
+												key: t("common.no"),
+												value: false,
+											},
 										]}
-										name="wouldRecommendToOtherJobSeekers" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers")}/>
-									<VfInputStarRating style={{"float":"right"}} name="healthAndSafety" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.healthAndSafety")}/>
-									<VfInputStarRating style={{"float":"right"}} name="managerRelationship" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.managerRelationship")}/>
-									<VfInputStarRating style={{"float":"right"}} name="workEnvironment" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.workEnvironment")}/>
-									<VfInputStarRating style={{"float":"right"}} name="benefits" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.benefits")}/>
-									<VfInputStarRating style={{"float":"right"}} name="overallSatisfaction" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.overallSatisfaction")}/>
-									<VfInputTextArea rows="6" maxLength="6000" name="additionalComments" formgroupname="Reviews" labelstring={t("SimpleSchema.labels.Reviews.additionalComments")} placeholder={t("common.forms.wr.additionalCommentsPlaceholder")}/>
+										name="wouldRecommendToOtherJobSeekers"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="healthAndSafety"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.healthAndSafety"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="managerRelationship"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.managerRelationship"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="workEnvironment"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.workEnvironment"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="benefits"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.benefits"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="overallSatisfaction"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.overallSatisfaction"
+										)}
+									/>
+									<VfInputTextArea
+										rows="6"
+										maxLength="6000"
+										name="additionalComments"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.additionalComments"
+										)}
+										placeholder={t(
+											"common.forms.wr.additionalCommentsPlaceholder"
+										)}
+									/>
 									<div className="form-group">
 										<div className="col-lg-12">
 											<div className="submit_div">
 												{/* BUG These buttons need to be hooked up to functions.
 													BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
-												<button type="submit" className="btn btn-primary" >{t("common.forms.submitForm")}</button>
-												<button type="reset" className="btn btn-default" >{t("common.forms.resetForm")}</button>
+												<button
+													type="submit"
+													className="btn btn-primary"
+												>
+													{t(
+														"common.forms.submitForm"
+													)}
+												</button>
+												<button
+													type="reset"
+													className="btn btn-default"
+												>
+													{t(
+														"common.forms.resetForm"
+													)}
+												</button>
 											</div>
 										</div>
 									</div>
