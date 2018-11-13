@@ -3,14 +3,14 @@
 The coding style we use is almost identical to Meteor's recommended style and
 Prettier's default style. The only differences are:
 
-*   We use a larger indention size of 4 characters so that the code's structure
+-   We use a larger indention size of 4 characters so that the code's structure
     is easier to see.
-*   We put trailing commas in multi-line object and array literals. This is done
+-   We put trailing commas in multi-line object and array literals. This is done
     so that new fields/elements can be appended without changing the line above
     them.
-*   We use prose wrapping to make Markdown documents more readable when
+-   We use prose wrapping to make Markdown documents more readable when
     displayed as plain text.
-*   We are using tabs for indention for all code except YAML and Markdown. These
+-   We are using tabs for indention for all code except YAML and Markdown. These
     languages are excluded because they require spaces for indention.
 
 It should be noted that these changes are not applied to the files
@@ -59,22 +59,3 @@ without ever changing your settings.
     prevent ESLint from running on any other projects that you may work on.
 
 See https://guide.meteor.com/code-style.html#eslint-atom for more info.
-
-## Setup on WebStorm
-
-The one who wrote this does not use WebStorm. This section will be filled in
-later.
-
-### Editor Settings
-
-To do.
-
-### Prettier
-
-To do.
-
-### ESLint
-
-To do.
-
-See https://guide.meteor.com/code-style.html#eslint-webstorm for more info.
