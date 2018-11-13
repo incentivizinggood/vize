@@ -46,217 +46,261 @@ const t = i18n.createTranslator();
 	doesn't always clear when it needs to.
 */
 
+/*
+	BUG
+	DUDE. Reviews have a companyName field.
+	I shouldn't have to fetch a company and then
+	get the name off of that, that's WAAAAAY
+	too much work.
+*/
 const reviewFormUserInfo = gql`
 	query currentUserPostgresIdWithReviews {
 		currentUser {
 			postgresId
-			reviews
+			reviews {
+				company {
+					name
+				}
+			}
 		}
 	}
 `;
 
-const WriteReviewInnerForm = function(props) {
-	console.log(props);
-	return (
-		<Form>
-			<div className="navbarwhite">
-				<Header />
-			</div>
-			<section id="back_col">
-				<div className="container  fom-job">
-					<div className="row ">
-						<div className="col-md-12 back_top_hover">
-							<div className="form-container">
-								{/* QUESTION Why is the class of this
-								next div 'post-a-job' instead of 'write-review'? */}
-								<div className="post-a-job">
-									<h3>{t("common.forms.wr.formTitle")}</h3>
-									<br />
-									<h4>{t("common.forms.wr.header1")}</h4>
-								</div>
-								<fieldset>
-									{props.companyId !== undefined
-										? readOnlyCompanyNameField({
-												...props,
-												formgroupname: "Reviews",
-										  })
-										: emptyCompanyNameField({
-												...props,
-												formgroupname: "Reviews",
-												placeholdergroupname: "wr",
-										  })}
-									<VfInputText
-										name="reviewTitle"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.reviewTitle"
-										)}
-										maxLength="100"
-										placeholder={t(
-											"common.forms.wr.reviewTitlePlaceholder"
-										)}
-									/>
-									<VfInputLocation
-										name="location"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.location"
-										)}
-									/>
-									<VfInputText
-										maxLength="100"
-										name="jobTitle"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.jobTitle"
-										)}
-										placeholder={t(
-											"common.forms.wr.jobTitlePlaceholder"
-										)}
-									/>
-									<VfInputInteger
-										min="0"
-										name="numberOfMonthsWorked"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
-										)}
-									/>
-									<VfInputTextArea
-										rows="6"
-										maxLength="600"
-										name="pros"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.pros"
-										)}
-										placeholder={t(
-											"common.forms.wr.prosPlaceholder"
-										)}
-									/>
-									<VfInputTextArea
-										rows="6"
-										maxLength="600"
-										name="cons"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.cons"
-										)}
-										placeholder={t(
-											"common.forms.wr.consPlaceholder"
-										)}
-									/>
-									<VfInputRadioGroup
-										optionlist={[
-											{
-												key: t("common.yes"),
-												value: true,
-											},
-											{
-												key: t("common.no"),
-												value: false,
-											},
-										]}
-										name="wouldRecommendToOtherJobSeekers"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="healthAndSafety"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.healthAndSafety"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="managerRelationship"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.managerRelationship"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="workEnvironment"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.workEnvironment"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="benefits"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.benefits"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="overallSatisfaction"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.overallSatisfaction"
-										)}
-									/>
-									<VfInputTextArea
-										rows="6"
-										maxLength="6000"
-										name="additionalComments"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.additionalComments"
-										)}
-										placeholder={t(
-											"common.forms.wr.additionalCommentsPlaceholder"
-										)}
-									/>
-									<div className="form-group">
-										<div className="col-lg-12">
-											<div className="submit_div">
-												{/* BUG These buttons need to be hooked up to functions.
-													BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
-												<button
-													type="submit"
-													className="btn btn-primary"
-												>
-													{t(
-														"common.forms.submitForm"
-													)}
-												</button>
-												<button
-													type="reset"
-													className="btn btn-default"
-												>
-													{t(
-														"common.forms.resetForm"
-													)}
-												</button>
-											</div>
+const WriteReviewInnerForm = props => (
+	<Query query={reviewFormUserInfo}>
+		{({ loading, error, data }) => {
+			// TODO These loading and error results could be
+			// made A LOT nicer
+			if (loading) return <h1>{t("common.forms.pleaseWait")}</h1>;
+			else if (error)
+				return (
+					<h1>
+						{typeof error === "string"
+							? error
+							: JSON.stringify(error)}
+					</h1>
+				);
+
+			console.log(props);
+			console.log(data);
+
+			const namesOfCompaniesReviewedByUser = data.currentUser.reviews.map(
+				review => review.company.name
+			);
+			const userPostgresId = data.currentUser.postgresId;
+
+			console.log(namesOfCompaniesReviewedByUser);
+			console.log(userPostgresId);
+
+			return (
+				<Form>
+					<div className="navbarwhite">
+						<Header />
+					</div>
+					<section id="back_col">
+						<div className="container  fom-job">
+							<div className="row ">
+								<div className="col-md-12 back_top_hover">
+									<div className="form-container">
+										{/* QUESTION Why is the class of this
+										next div 'post-a-job' instead of 'write-review'? */}
+										<div className="post-a-job">
+											<h3>
+												{t("common.forms.wr.formTitle")}
+											</h3>
+											<br />
+											<h4>
+												{t("common.forms.wr.header1")}
+											</h4>
 										</div>
+										<fieldset>
+											{props.companyId !== undefined
+												? readOnlyCompanyNameField({
+														...props,
+														formgroupname:
+															"Reviews",
+												  })
+												: emptyCompanyNameField({
+														...props,
+														formgroupname:
+															"Reviews",
+														placeholdergroupname:
+															"wr",
+												  })}
+											<VfInputText
+												name="reviewTitle"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.reviewTitle"
+												)}
+												maxLength="100"
+												placeholder={t(
+													"common.forms.wr.reviewTitlePlaceholder"
+												)}
+											/>
+											<VfInputLocation
+												name="location"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.location"
+												)}
+											/>
+											<VfInputText
+												maxLength="100"
+												name="jobTitle"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.jobTitle"
+												)}
+												placeholder={t(
+													"common.forms.wr.jobTitlePlaceholder"
+												)}
+											/>
+											<VfInputInteger
+												min="0"
+												name="numberOfMonthsWorked"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
+												)}
+											/>
+											<VfInputTextArea
+												rows="6"
+												maxLength="600"
+												name="pros"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.pros"
+												)}
+												placeholder={t(
+													"common.forms.wr.prosPlaceholder"
+												)}
+											/>
+											<VfInputTextArea
+												rows="6"
+												maxLength="600"
+												name="cons"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.cons"
+												)}
+												placeholder={t(
+													"common.forms.wr.consPlaceholder"
+												)}
+											/>
+											<VfInputRadioGroup
+												optionlist={[
+													{
+														key: t("common.yes"),
+														value: true,
+													},
+													{
+														key: t("common.no"),
+														value: false,
+													},
+												]}
+												name="wouldRecommendToOtherJobSeekers"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
+												)}
+											/>
+											<VfInputStarRating
+												style={{ float: "right" }}
+												name="healthAndSafety"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.healthAndSafety"
+												)}
+											/>
+											<VfInputStarRating
+												style={{ float: "right" }}
+												name="managerRelationship"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.managerRelationship"
+												)}
+											/>
+											<VfInputStarRating
+												style={{ float: "right" }}
+												name="workEnvironment"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.workEnvironment"
+												)}
+											/>
+											<VfInputStarRating
+												style={{ float: "right" }}
+												name="benefits"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.benefits"
+												)}
+											/>
+											<VfInputStarRating
+												style={{ float: "right" }}
+												name="overallSatisfaction"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.overallSatisfaction"
+												)}
+											/>
+											<VfInputTextArea
+												rows="6"
+												maxLength="6000"
+												name="additionalComments"
+												formgroupname="Reviews"
+												labelstring={t(
+													"SimpleSchema.labels.Reviews.additionalComments"
+												)}
+												placeholder={t(
+													"common.forms.wr.additionalCommentsPlaceholder"
+												)}
+											/>
+											<div className="form-group">
+												<div className="col-lg-12">
+													<div className="submit_div">
+														{/* BUG These buttons need to be hooked up to functions.
+															BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
+														<button
+															type="submit"
+															className="btn btn-primary"
+														>
+															{t(
+																"common.forms.submitForm"
+															)}
+														</button>
+														<button
+															type="reset"
+															className="btn btn-default"
+														>
+															{t(
+																"common.forms.resetForm"
+															)}
+														</button>
+													</div>
+												</div>
+											</div>
+										</fieldset>
 									</div>
-								</fieldset>
+								</div>
+								<div className="clear" />
 							</div>
 						</div>
-						<div className="clear" />
+						{/* <div>{JSON.stringify(props)}</div> */}
+					</section>
+					<Footer />
+					<Dialog />
+					{/* {{#if hasError}}
+					<div>
+						{{> React component=ErrorWidget err=error}}
 					</div>
-				</div>
-				{/* <div>{JSON.stringify(props)}</div> */}
-			</section>
-			<Footer />
-			<Dialog />
-			{/* {{#if hasError}}
-			<div>
-				{{> React component=ErrorWidget err=error}}
-			</div>
-			{{/if}} */}
-		</Form>
-	);
-};
+					{{/if}} */}
+				</Form>
+			);
+		}}
+	</Query>
+);
 
 const WriteReviewForm = withFormik({
 	// Initial field values can be set with mapPropsToValues

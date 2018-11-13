@@ -94,22 +94,12 @@ FlowRouter.route(`/create-company-profile`, {
 	action() {
 		currentPage.set(<CompanyCreateProfileForm />);
 	},
-	triggersExit: [
-		function() {
-			AutoForm.getValidationContext("ccp_blaze_form").reset();
-		},
-	],
 });
 
 FlowRouter.route(`/post-a-job`, {
 	action() {
 		currentPage.set(<PostAJobForm />);
 	},
-	triggersExit: [
-		function() {
-			AutoForm.getValidationContext("paj_blaze_form").reset();
-		},
-	],
 });
 
 // ----- Define the more complex routes. -----//
@@ -158,33 +148,18 @@ FlowRouter.route(`/${queryRoutes.writeReview}`, {
 	action(params, queryParams) {
 		currentPage.set(<WriteReviewForm companyId={queryParams.id} />);
 	},
-	triggersExit: [
-		function() {
-			AutoForm.getValidationContext("wr_blaze_form").reset();
-		},
-	],
 });
 
 FlowRouter.route(`/${queryRoutes.submitSalaryData}`, {
 	action(params, queryParams) {
 		currentPage.set(<SubmitSalaryDataForm companyId={queryParams.id} />);
 	},
-	triggersExit: [
-		function() {
-			AutoForm.getValidationContext("ssd_blaze_form").reset();
-		},
-	],
 });
 
 FlowRouter.route(`/${queryRoutes.applyForJob}`, {
 	action(params, queryParams) {
 		currentPage.set(<ApplyForJobForm jobId={queryParams.id} />);
 	},
-	triggersExit: [
-		function() {
-			AutoForm.getValidationContext("afj_blaze_form").reset();
-		},
-	],
 });
 
 FlowRouter.route(`/${queryRoutes.user}`, {
