@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about.jsx";
 import ApplyForJobForm from "./apply-for-job";
@@ -25,8 +25,15 @@ import WriteReviewForm from "./write-review";
 
 import { queryRoutes } from "./url-generators.js";
 
-function Pages() {
-	const params = new URLSearchParams(window.location.search);
+// Replace null with undefined.
+// TODO: Make pages handel nulls properly on their own.
+function fixNullParams(param) {
+	if (param === null) return undefined;
+	return param;
+}
+
+function Pages(props) {
+	const params = new URLSearchParams(props.location.search);
 
 	return (
 		<Switch>
@@ -51,34 +58,46 @@ function Pages() {
 			<Route
 				path={`/${queryRoutes.companies}`}
 				component={() => (
-					<CompanySearchTrial searchText={params.get("search")} />
+					<CompanySearchTrial
+						searchText={fixNullParams(params.get("search"))}
+					/>
 				)}
 			/>
 			<Route
 				path={`/${queryRoutes.companyProfile}`}
 				component={() => (
-					<CompanyProfile companyId={params.get("id")} />
+					<CompanyProfile
+						companyId={fixNullParams(params.get("id"))}
+					/>
 				)}
 			/>
 			<Route
 				path={`/${queryRoutes.writeReview}`}
 				component={() => (
-					<WriteReviewForm companyId={params.get("id")} />
+					<WriteReviewForm
+						companyId={fixNullParams(params.get("id"))}
+					/>
 				)}
 			/>
 			<Route
 				path={`/${queryRoutes.submitSalaryData}`}
 				component={() => (
-					<SubmitSalaryDataForm companyId={params.get("id")} />
+					<SubmitSalaryDataForm
+						companyId={fixNullParams(params.get("id"))}
+					/>
 				)}
 			/>
 			<Route
 				path={`/${queryRoutes.applyForJob}`}
-				component={() => <ApplyForJobForm jobId={params.get("id")} />}
+				component={() => (
+					<ApplyForJobForm jobId={fixNullParams(params.get("id"))} />
+				)}
 			/>
 			<Route
 				path={`/${queryRoutes.user}`}
-				component={() => <UserPage user_id={params.get("id")} />}
+				component={() => (
+					<UserPage user_id={fixNullParams(params.get("id"))} />
+				)}
 			/>
 
 			<Route component={NotFoundPage} />
@@ -86,4 +105,4 @@ function Pages() {
 	);
 }
 
-export default Pages;
+export default withRouter(Pages);
