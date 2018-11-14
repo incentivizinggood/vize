@@ -19,7 +19,8 @@
 	}
 
 	&.out-bodr {
-		&:focus, &:active {
+		&:focus,
+		&:active {
 			color: $white;
 		}
 	}

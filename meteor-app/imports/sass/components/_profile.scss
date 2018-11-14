@@ -15,7 +15,7 @@
 		left: 5px;
 
 		&:before {
-			content: '';
+			content: "";
 			border-bottom: 10px solid $white;
 			border-right: 10px solid transparent;
 			border-left: 10px solid transparent;
@@ -26,7 +26,7 @@
 		}
 
 		&:after {
-			content: '';
+			content: "";
 			border-bottom: 12px solid #ccc;
 			border-right: 12px solid transparent;
 			border-left: 12px solid transparent;
@@ -35,7 +35,7 @@
 			left: 19px;
 			z-index: 9;
 		}
-	
+
 		& > li {
 			& > a {
 				color: #428bca;

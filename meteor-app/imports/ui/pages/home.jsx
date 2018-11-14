@@ -229,7 +229,8 @@ function HomePage() {
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
-											&nbsp;{t("add_review_button")}
+											&nbsp;
+											{t("add_review_button")}
 										</a>
 									</div>
 									<br />
@@ -244,7 +245,8 @@ function HomePage() {
 									</div>
 									<div className="frontLogo boisedigital" />
 									<div className="frontLocation">
-										<T>fairsalary_text</T>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<T>fairsalary_text</T>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
 									<div className="fl-ri-re">
@@ -256,7 +258,8 @@ function HomePage() {
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
-											&nbsp;{t("salary_button")}
+											&nbsp;
+											{t("salary_button")}
 										</a>
 									</div>
 									<br />
