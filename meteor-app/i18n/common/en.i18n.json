@@ -12,13 +12,11 @@
 		"submit": "Login",
 		"error": {
 			"loggedIn": "Already logged in.",
-			"Unrecognized options for login request":
-				"Unrecognized options for login request.",
+			"Unrecognized options for login request": "Unrecognized options for login request.",
 			"Match failed": "Match failed.",
 			"User not found": "There is no user with that name.",
 			"Incorrect password": "The password you gave is incorrect.",
-			"User has no password set":
-				"This user account has no password set. You will need to login by some other means."
+			"User has no password set": "This user account has no password set. You will need to login by some other means."
 		},
 		"success": "Login successful!"
 	},
@@ -33,8 +31,7 @@
 		"error": {
 			"loggedIn": "Already logged in",
 			"Username already exists": "That username is already taken.",
-			"Email already exists":
-				"That email is already used by annother account."
+			"Email already exists": "That email is already used by annother account."
 		},
 		"success": "Sign up successful!"
 	},
@@ -56,30 +53,24 @@
 		"error": "Error",
 		"companyNotFound": "ERROR: COMPANY NOT FOUND",
 		"locationCityPlaceholder": "Enter the city for your location",
-		"locationAddressPlaceholder":
-			"Enter the street address for your location",
-		"locationIndustrialHubPlaceholder":
-			"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+		"locationAddressPlaceholder": "Enter the street address for your location",
+		"locationIndustrialHubPlaceholder": "Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 		"afj": {
 			"formTitle": "Apply for a Job",
 			"fullNamePlaceholder": "Please enter your full name here",
 			"emailPlaceholder": "example@email.com",
 			"phoneNumberPlaceholder": "###-###-####",
-			"clacPlaceholder":
-				"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
+			"clacPlaceholder": "Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			"invalidJobId": "ERROR: INVALID JOB ID"
 		},
 		"ccp": {
 			"formTitle": "Create a New Profile",
 			"namePlaceholder": "Enter the name of your company",
-			"emailPlaceholder":
-				"Provide an email we can reach your company at (example@email.com)",
+			"emailPlaceholder": "Provide an email we can reach your company at (example@email.com)",
 			"industryPlaceholder": "Tell us your company's primary industry",
 			"contactPhoneNumberPlaceholder": "###-###-####",
-			"websiteUrlPlaceholder":
-				"Please enter the URL of your company's website, if it has one",
-			"descriptionPlaceholder":
-				"Enter a brief description of your company for others to see on its profile page, if you'd like"
+			"websiteUrlPlaceholder": "Please enter the URL of your company's website, if it has one",
+			"descriptionPlaceholder": "Enter a brief description of your company for others to see on its profile page, if you'd like"
 		},
 		"paj": {
 			"contractTypes": {
@@ -90,18 +81,12 @@
 			},
 			"formTitle": "Post a Job",
 			"header1": "Reach hundreds of workers instantly with our job posts",
-			"jobTitlePlaceholder":
-				"Tell us the title of the position you are advertising",
-			"payRangePlaceholder":
-				"Enter a value, $x, or a range of values, $x - $y",
-			"jobDescriptionPlaceholder":
-				"Enter a formal description of this job",
-			"jobResponsibilitiesPlaceholder":
-				"Summarize the responsibilities of this position",
-			"jobQualificationsPlaceholder":
-				"Summarize the qualifications needed for this position",
-			"profileNotFoundError":
-				"ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
+			"jobTitlePlaceholder": "Tell us the title of the position you are advertising",
+			"payRangePlaceholder": "Enter a value, $x, or a range of values, $x - $y",
+			"jobDescriptionPlaceholder": "Enter a formal description of this job",
+			"jobResponsibilitiesPlaceholder": "Summarize the responsibilities of this position",
+			"jobQualificationsPlaceholder": "Summarize the qualifications needed for this position",
+			"profileNotFoundError": "ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
 		},
 		"ssd": {
 			"payTypes": {
@@ -114,24 +99,18 @@
 			"formTitle": "Submit Salary Data",
 			"header1": "Share your salary anonymously to make ",
 			"header2": "sure others are getting compensated fairly.",
-			"companyNamePlaceholder":
-				"Tell us the name of the company you worked for",
+			"companyNamePlaceholder": "Tell us the name of the company you worked for",
 			"jobTitlePlaceholder": "Tell us your job title there"
 		},
 		"wr": {
 			"formTitle": "Write a Review",
 			"header1": "Contribute your anonymous feedback to the community",
-			"companyNamePlaceholder":
-				"Enter the name of the company you're reviewing",
+			"companyNamePlaceholder": "Enter the name of the company you're reviewing",
 			"reviewTitlePlaceholder": "Please choose a title for your review",
-			"jobTitlePlaceholder":
-				"Enter the name of the position you held at this company",
-			"prosPlaceholder":
-				"What did you love about this company and why would you recommend it to someone else?",
-			"consPlaceholder":
-				"What did you not like about this company? What do you think they could do to be better?",
-			"additionalCommentsPlaceholder":
-				"Enter any additional thoughts or comments you may have on your experience working for this company."
+			"jobTitlePlaceholder": "Enter the name of the position you held at this company",
+			"prosPlaceholder": "What did you love about this company and why would you recommend it to someone else?",
+			"consPlaceholder": "What did you not like about this company? What do you think they could do to be better?",
+			"additionalCommentsPlaceholder": "Enter any additional thoughts or comments you may have on your experience working for this company."
 		}
 	},
 	"search": {
@@ -152,23 +131,19 @@
 		"placeholder": "Search for a Company...",
 		"findjob_part1": "Find a Great Job",
 		"commonLine": "Near You",
-		"findjob_text":
-			"With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory or company to work for",
+		"findjob_text": "With thousands of companies in Mexico on our site and hundreds of job posts, you'll be able to find a great factory or company to work for",
 		"jobsButton": "Jobs",
 		"findemp_part1": "Find an Employer",
 		"findemp_part2": "That Treats You Right",
-		"findemp_text":
-			"Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
+		"findemp_text": "Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
 		"companiesButton": "Companies",
 		"hear": "Hear From Your",
 		"community": "Community",
-		"hear_text":
-			"See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.",
+		"hear_text": "See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.",
 		"add_review_button": "Add a Review",
 		"get_fair_salary": "Get a Fair Salary For",
 		"your_work": "Your Work",
-		"fairsalary_text":
-			"Find hundreds of salaries for different job positions by gender. Share your salary anonymously to make sure others are getting fairly compensated.",
+		"fairsalary_text": "Find hundreds of salaries for different job positions by gender. Share your salary anonymously to make sure others are getting fairly compensated.",
 		"salary_button": "Add a Salary",
 		"discover_employers": "Start discovering new employers now",
 		"signup_button": "SIGN UP"
@@ -183,12 +158,10 @@
 		"about": "About",
 		"the_problem": "The Problem",
 		"noLeverage": "EMPLOYEES DON'T HAVE LEVERAGE",
-		"problem_text":
-			"To fill large orders in a timely manner and get enough business to survive as a company, factories cuts corners, working their employees beyond their limits and not taking the time to ensure that the job is safe. In highly developed legal systems this would be stopped by the police and enforced with legislation that protects workers' labor rights. In most developing countries, such legislation either doesn't exist or they lack the capacity to enforce it. In short, factories have every incentive to cut corners, and no incentive to be held accountable to their employees. So how do we increase the leverage that workers have in this circumstance?",
+		"problem_text": "To fill large orders in a timely manner and get enough business to survive as a company, factories cuts corners, working their employees beyond their limits and not taking the time to ensure that the job is safe. In highly developed legal systems this would be stopped by the police and enforced with legislation that protects workers' labor rights. In most developing countries, such legislation either doesn't exist or they lack the capacity to enforce it. In short, factories have every incentive to cut corners, and no incentive to be held accountable to their employees. So how do we increase the leverage that workers have in this circumstance?",
 		"our_solution": "Our Solution",
 		"reviews_accountability": "REVIEWS ARE A FORM OF ACCOUNTABILITY",
-		"solution_text":
-			"To provide employees in developing countries with more leverage, we're creating a platform for workers to share reviews of their working conditions with all other workers in their region. This will give workers the information they need to avoid factories with terrible working conditions. Factories with poor reviews will get fewer workers, thus be unable to fill large orders from buyers, and lose profits. This will create a direct incentive for factories to improve conditions based on feedback coming directly from the workers themselves.",
+		"solution_text": "To provide employees in developing countries with more leverage, we're creating a platform for workers to share reviews of their working conditions with all other workers in their region. This will give workers the information they need to avoid factories with terrible working conditions. Factories with poor reviews will get fewer workers, thus be unable to fill large orders from buyers, and lose profits. This will create a direct incentive for factories to improve conditions based on feedback coming directly from the workers themselves.",
 		"reach_us": "Feel free to reach out to us",
 		"submit_button": "Submit",
 		"placeholder_name": "Your Name",
@@ -197,24 +170,18 @@
 	},
 	"forEmployers": {
 		"find_best": "Find the Best Employees in Tijuana",
-		"find_best_part1":
-			"We provide affordable and effective recruiting by helping ",
-		"find_best_part2":
-			"you find more employees and reducing turnover rates.",
+		"find_best_part1": "We provide affordable and effective recruiting by helping ",
+		"find_best_part2": "you find more employees and reducing turnover rates.",
 		"get_started_button": "Get Started",
 		"increase_workers": "Increase Worker",
 		"retention": "Retention",
-		"increase_workers_text":
-			"With more potential employees on our site, you can find the perfect match for the position you’re hiring for.",
+		"increase_workers_text": "With more potential employees on our site, you can find the perfect match for the position you’re hiring for.",
 		"grow_in_response": "Grow In Response",
 		"to_worker_feedback": "To Worker Feedback",
-		"grow_response_text":
-			"We provide data directly from your workforce, so you know exactly what to do to increase retention and productivity",
+		"grow_response_text": "We provide data directly from your workforce, so you know exactly what to do to increase retention and productivity",
 		"reach_thousand": "Reach Thousands of Workers",
-		"reach_thousand_text":
-			"Register your company today to get instant and free access to thousands of potential employees near you.",
-		"accelerate":
-			"Accelerate your growth and discover thousands of potential employees",
+		"reach_thousand_text": "Register your company today to get instant and free access to thousands of potential employees near you.",
+		"accelerate": "Accelerate your growth and discover thousands of potential employees",
 		"register_button": "Register"
 	},
 
@@ -344,10 +311,8 @@
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",
-			"subjectLine":
-				"VIZE {$wName} has responded to your job advertisement",
-			"emailText":
-				"To those at {$cName},\n\n\tCongratulations, you just received a new job application! A Vize user, {$wName}, has responded to your job post (which was given id={$jId}). They provided the contact information below, feel free to contact them directly.\n\n\tIf you have any issues with this process, please let us know. If you hire this employee, please send us a message letting us know what you think of our service. We hope you've found the perfect employee for your company and the position!\n\nAll the best,\n\n\tThe Vize Team\n\nAPPLICANT INFORMATION\nFull name: {$wName}\nEmail: {$wEmail}\nPhone number:  {$wPhone}\nCover letter/Additional comments:\n{$wComments}"
+			"subjectLine": "VIZE {$wName} has responded to your job advertisement",
+			"emailText": "To those at {$cName},\n\n\tCongratulations, you just received a new job application! A Vize user, {$wName}, has responded to your job post (which was given id={$jId}). They provided the contact information below, feel free to contact them directly.\n\n\tIf you have any issues with this process, please let us know. If you hire this employee, please send us a message letting us know what you think of our service. We hope you've found the perfect employee for your company and the position!\n\nAll the best,\n\n\tThe Vize Team\n\nAPPLICANT INFORMATION\nFull name: {$wName}\nEmail: {$wEmail}\nPhone number:  {$wPhone}\nCover letter/Additional comments:\n{$wComments}"
 		},
 		"meteorErrors": {
 			"needsFiveWords": "needsFiveWords",
@@ -371,8 +336,7 @@
 			"noCheating": "You may not vote on your own reviews",
 			"vote1stArg": "First argument [review] must be a valid review",
 			"vote2ndArg": "Second argument [vote] must be a boolean",
-			"voteOnNullReview":
-				"You may not vote on reviews that do not exist yet",
+			"voteOnNullReview": "You may not vote on reviews that do not exist yet",
 			"notFound": "Your search did not return any results",
 			"nameTaken": "The name you provided is already taken",
 			"sessionError": "Please stop messing around"
@@ -381,51 +345,33 @@
 	"resourcesWorkers": {
 		"readMore": "Read More →",
 		"here": "here",
-		"publishArticle":
-			"Would you like to publish an article on our site? Email us your article to incentivizinggood@gmail.com.",
+		"publishArticleMessage": "Would you likew to publish an article on our site? Email us your article to ",
 		"trainingProgramsTitle": "Training Programs at UABC",
-		"trainingProgramsDesc":
-			"Going back to school and getting a degree can be an enormous opportunity to increase your skill set as well as your wages, but many people don’t have the time or the money to finish an entire program.",
-		"trainingProgramsArticle":
-			"Going back to school and getting a degree can be an enormous opportunity to increase your skill set as well as your wages, but many people don’t have the time or the money to finish an entire program. A degree can take years to complete and cost thousands of dollars. If you are working full time this can seem nearly impossible. There is another option, short-term training programs. These courses can give you a experience in accounting, management, writing, or much more. They generally only last about 1 month and are a fraction of the cost of a full degree. If you are interested in finding a course that fits your job and gives you the opportunity to increase your wages, you can find UABC’s programs ",
+		"trainingProgramsDesc": "Going back to school and getting a degree can be an enormous opportunity to increase your skill set as well as your wages, but many people don’t have the time or the money to finish an entire program.",
+		"trainingProgramsArticle": "Going back to school and getting a degree can be an enormous opportunity to increase your skill set as well as your wages, but many people don’t have the time or the money to finish an entire program. A degree can take years to complete and cost thousands of dollars. If you are working full time this can seem nearly impossible. There is another option, short-term training programs. These courses can give you a experience in accounting, management, writing, or much more. They generally only last about 1 month and are a fraction of the cost of a full degree. If you are interested in finding a course that fits your job and gives you the opportunity to increase your wages, you can find UABC’s programs ",
 		"laborLawsTitle": "Learning about Labor Laws",
-		"laborLawsDesc":
-			"It can be very difficult to know if your employer has broken labor laws in Mexico. If you’ve been having issues with your employer, an organization in downtown Tijuana, Ollin Calli may be able to help.",
-		"laborLawsArticle":
-			"It can be very difficult to know if your employer has broken labor laws in Mexico. The legal system is very complicated especially if you’ve never been trained, but Mexico’s labor laws cover many more abuses than you would expect. If you’ve been having issues with your employer, an organization in downtown Tijuana, Ollin Calli may be able to help. They are a nonprofit that helps employees that have been taken advantage of by their employer. They can help with certain legal issues, provide you with more information about your rights, or give you a variety of options. If you want to reach them you can find their website ",
+		"laborLawsDesc": "It can be very difficult to know if your employer has broken labor laws in Mexico. If you’ve been having issues with your employer, an organization in downtown Tijuana, Ollin Calli may be able to help.",
+		"laborLawsArticle": "It can be very difficult to know if your employer has broken labor laws in Mexico. The legal system is very complicated especially if you’ve never been trained, but Mexico’s labor laws cover many more abuses than you would expect. If you’ve been having issues with your employer, an organization in downtown Tijuana, Ollin Calli may be able to help. They are a nonprofit that helps employees that have been taken advantage of by their employer. They can help with certain legal issues, provide you with more information about your rights, or give you a variety of options. If you want to reach them you can find their website ",
 		"educationDistanceTitle": "Education at a Distance",
-		"educationDistanceDesc":
-			"Increase your level of education with 'Educacion a Distancia', a course designed by Tecnologico Nacional de Mexico for people that work full-time but want to increase their skills to find a new and better paying job.",
-		"educationDistanceArticlePt1":
-			"Making time to increase your level of education while working a full-time job can be very difficult. You may have to work 5 - 6 days a week with long hours, so going to a normal class during the week is impossible. The key is to find an education that allows you to be flexible with your schedule, and doesn’t require going to class every day. This is why the Tecnologico Nacional de Mexico created the Educacion a Distancia, a course designed for people that work full-time but want to increase their skills to find a new and better paying job. The courses are taught only on Saturdays for 4 - 6 hours and the rest of the class can be done entirely online with your phone or a computer. Right now there are two majors provided, Industrial Engineering and Logistics Engineering. If you’re interested you can check out their website ",
-		"educationDistanceArticlePt2":
-			", or contact the Department of Academic Development at (664) 607-8410 ext 127 or email at ",
+		"educationDistanceDesc": "Increase your level of education with 'Educacion a Distancia', a course designed by Tecnologico Nacional de Mexico for people that work full-time but want to increase their skills to find a new and better paying job.",
+		"educationDistanceArticlePt1": "Making time to increase your level of education while working a full-time job can be very difficult. You may have to work 5 - 6 days a week with long hours, so going to a normal class during the week is impossible. The key is to find an education that allows you to be flexible with your schedule, and doesn’t require going to class every day. This is why the Tecnologico Nacional de Mexico created the Educacion a Distancia, a course designed for people that work full-time but want to increase their skills to find a new and better paying job. The courses are taught only on Saturdays for 4 - 6 hours and the rest of the class can be done entirely online with your phone or a computer. Right now there are two majors provided, Industrial Engineering and Logistics Engineering. If you’re interested you can check out their website ",
+		"educationDistanceArticlePt2": ", or contact the Department of Academic Development at (664) 607-8410 ext 127 or email at ",
 		"becomeBilingualTitle": "Become Bilingual!",
-		"becomeBilingualDesc":
-			"If you can speak English you can often negotiate a much higher wage with your employer or find a higher paying job. We’ve listed the top five bilingual classes in Tijuana below with their contact information. Feel free to check them out!",
-		"becomeBilingualArticle":
-			"Tijuana is the city of maquiladoras. Companies from all over the world come here to manufacture their products including Japan, Korea, and of course the United States. The one thing all of these companies have in common, is that their staff often speaks English. If you can speak English you can often negotiate a much higher wage with your employer or find a higher paying job. We’ve listed the top five bilingual classes in Tijuana below with their contact information. Feel free to check them out!"
+		"becomeBilingualDesc": "If you can speak English you can often negotiate a much higher wage with your employer or find a higher paying job. We’ve listed the top five bilingual classes in Tijuana below with their contact information. Feel free to check them out!",
+		"becomeBilingualArticle": "Tijuana is the city of maquiladoras. Companies from all over the world come here to manufacture their products including Japan, Korea, and of course the United States. The one thing all of these companies have in common, is that their staff often speaks English. If you can speak English you can often negotiate a much higher wage with your employer or find a higher paying job. We’ve listed the top five bilingual classes in Tijuana below with their contact information. Feel free to check them out!"
 	},
 	"resourcesEmployers": {
 		"here": "here",
 		"workerEngagementTitle": "Worker Engagement",
-		"workerEngagementDesc":
-			"Figuring out what your employees actually think and want from your company can be very difficult. How do you learn what your employees really want to ensure they stay and don’t become another turnover statistic?",
-		"workerEngagementArticle":
-			"Figuring out what your employees actually think and want from your company can be very difficult. Often times they are afraid of upsetting their managers because they don’t want to lose their jobs or be punished.  Instead many employees would rather just leave for a different company. So how do you learn what your employees really want to ensure they stay and don’t become another turnover statistic? We at Vize want to help. We’ve created a platform for employees to tell you what is great and what could be improved in your factory. You can read their ratings on various aspects of your company like wages, benefits, manager relationship, and health and safety. With this general knowledge you can then read their reviews to get a more in-depth understanding of your employees. If you contact the Vize team we can also help analyze those reviews and give you direct feedback on your employees deepest concerns and how to use these insights to lower the turnover rate. If you’d be interested in contacting the Vize team please email us at ",
+		"workerEngagementDesc": "Figuring out what your employees actually think and want from your company can be very difficult. How do you learn what your employees really want to ensure they stay and don’t become another turnover statistic?",
+		"workerEngagementArticle": "Figuring out what your employees actually think and want from your company can be very difficult. Often times they are afraid of upsetting their managers because they don’t want to lose their jobs or be punished.  Instead many employees would rather just leave for a different company. So how do you learn what your employees really want to ensure they stay and don’t become another turnover statistic? We at Vize want to help. We’ve created a platform for employees to tell you what is great and what could be improved in your factory. You can read their ratings on various aspects of your company like wages, benefits, manager relationship, and health and safety. With this general knowledge you can then read their reviews to get a more in-depth understanding of your employees. If you contact the Vize team we can also help analyze those reviews and give you direct feedback on your employees deepest concerns and how to use these insights to lower the turnover rate. If you’d be interested in contacting the Vize team please email us at ",
 		"AllianceTitle": "Responsible Business Alliance",
-		"AllianceDesc":
-			"The Responsible Business Alliance (RBA) is an association of companies in the electronics, retail, auto, and toy industry that have come together to improve conditions for their employees.",
-		"AllianceArticlePt1":
-			"The Responsible Business Alliance (RBA) is an association of companies in the electronics, retail, auto, and toy industry that have come together to improve conditions for their employees. As a result, the retainment in the companies they assist has increased. These improvements is believed to lead to greater productivity and profitability as employees are better trained and more highly motivated. RBA’s staff helps these companies perform assessments of their workforce and train the management on how best to tackle the challenges they find. A full list of their services can be found ",
-		"AllianceArticlePt2":
-			". They also have an online academy to provide a more affordable option to consulting. ",
+		"AllianceDesc": "The Responsible Business Alliance (RBA) is an association of companies in the electronics, retail, auto, and toy industry that have come together to improve conditions for their employees.",
+		"AllianceArticlePt1": "The Responsible Business Alliance (RBA) is an association of companies in the electronics, retail, auto, and toy industry that have come together to improve conditions for their employees. As a result, the retainment in the companies they assist has increased. These improvements is believed to lead to greater productivity and profitability as employees are better trained and more highly motivated. RBA’s staff helps these companies perform assessments of their workforce and train the management on how best to tackle the challenges they find. A full list of their services can be found ",
+		"AllianceArticlePt2": ". They also have an online academy to provide a more affordable option to consulting. ",
 		"learnEmployeesTitle": "Learn from your Employees",
-		"learnEmployeesDesc":
-			"The competition for labor right now is as high as it has ever been. Employees will often leave a position if another job pays just an extra few pesos.  To keep great  employees, your company must differentiate itself.",
-		"learnEmployeesArticlePt1":
-			"The competition for labor right now is as high as it has ever been. Employees will often leave a position if another job pays just an extra few pesos. Turnover rates in many factories are 8% of their entire workforce every month. This increases the cost of retraining and recruiting new employees. To keep great  employees, your company must differentiate itself. Elevate Limited can help you do just that by learning what your employees really want, and how to act on that information. They use a program called ",
-		"learnEmployeesArticlePt2":
-			" to get direct and honest feedback from your employees through a phone survey. Consultants can then help you formulate a plan for how to meet those employees’ needs. If you are interested in learning more about their services, you can find their website "
+		"learnEmployeesDesc": "The competition for labor right now is as high as it has ever been. Employees will often leave a position if another job pays just an extra few pesos.  To keep great  employees, your company must differentiate itself.",
+		"learnEmployeesArticlePt1": "The competition for labor right now is as high as it has ever been. Employees will often leave a position if another job pays just an extra few pesos. Turnover rates in many factories are 8% of their entire workforce every month. This increases the cost of retraining and recruiting new employees. To keep great  employees, your company must differentiate itself. Elevate Limited can help you do just that by learning what your employees really want, and how to act on that information. They use a program called ",
+		"learnEmployeesArticlePt2": " to get direct and honest feedback from your employees through a phone survey. Consultants can then help you formulate a plan for how to meet those employees’ needs. If you are interested in learning more about their services, you can find their website "
 	}
 }

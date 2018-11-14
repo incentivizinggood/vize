@@ -17,7 +17,9 @@ function ReviewComponent(props) {
 				<FontAwesomeIcon
 					icon="check-square"
 					style={{ color: "#2E8B57" }}
-				/>&nbsp;&nbsp;<T>common.companyreview.recommend</T>
+				/>
+				&nbsp;&nbsp;
+				<T>common.companyreview.recommend</T>
 			</p>
 		);
 	} else {
@@ -26,7 +28,9 @@ function ReviewComponent(props) {
 				<FontAwesomeIcon
 					icon="times-circle"
 					style={{ color: "#FF4545" }}
-				/>&nbsp;&nbsp;<T>common.companyreview.not_recommend</T>
+				/>
+				&nbsp;&nbsp;
+				<T>common.companyreview.not_recommend</T>
 			</p>
 		);
 	}
@@ -73,7 +77,8 @@ function ReviewComponent(props) {
 								starDimension="15px"
 								starSpacing="1.5px"
 							/>
-							&nbsp;<FontAwesomeIcon icon="caret-down" />
+							&nbsp;
+							<FontAwesomeIcon icon="caret-down" />
 						</a>
 						<ul className="dropdown-menu" role="menu">
 							<li>
@@ -179,7 +184,7 @@ function ReviewComponent(props) {
 						</div>
 					</div>
 					<div className="col-md-4 bn-col">
-						<div className="fl_ri">
+						<div className="float-right">
 							<VoteButtons
 								review={props.review}
 								refetch={props.refetch}

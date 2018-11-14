@@ -5,6 +5,7 @@ import i18n from "meteor/universe:i18n";
 
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/header";
 
 import ShowJobsQuery from "./show-jobs.graphql";
 
@@ -65,6 +66,9 @@ const ShowJobs = () => (
 								</ul>
 							</div>
 						</div>
+					</div>
+					<div>
+						<Footer />
 					</div>
 				</div>
 			);

@@ -8,7 +8,7 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
 import Dialog from "/imports/ui/components/dialog-box";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import HomePageSearch from "../components/home-page-search.jsx";
+import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
@@ -16,8 +16,9 @@ const T = i18n.createComponent(t);
 function HomePage() {
 	return (
 		<div>
-			<Header />
-
+			<div className="navbarwhite">
+				<Header />
+			</div>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">
@@ -28,7 +29,7 @@ function HomePage() {
 										<h1>
 											<T>mainBanner</T>
 										</h1>
-										<HomePageSearch />
+										<CompaniesSearchBar />
 									</div>
 								</li>
 							</ul>
@@ -37,7 +38,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="welcome  welpad">
+			<div className="welcome welpad">
 				<div className="container  des-top-view">
 					<div className="col-md-8 ">
 						<div>
@@ -228,7 +229,8 @@ function HomePage() {
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
-											&nbsp;{t("add_review_button")}
+											&nbsp;
+											{t("add_review_button")}
 										</a>
 									</div>
 									<br />
@@ -243,7 +245,8 @@ function HomePage() {
 									</div>
 									<div className="frontLogo boisedigital" />
 									<div className="frontLocation">
-										<T>fairsalary_text</T>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<T>fairsalary_text</T>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
 									<div className="fl-ri-re">
@@ -255,7 +258,8 @@ function HomePage() {
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
-											&nbsp;{t("salary_button")}
+											&nbsp;
+											{t("salary_button")}
 										</a>
 									</div>
 									<br />

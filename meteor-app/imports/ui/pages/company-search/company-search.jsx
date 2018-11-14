@@ -5,7 +5,9 @@ import i18n from "meteor/universe:i18n";
 import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer.jsx";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
+import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import companySearchQuery from "./company-search.graphql";
 
@@ -27,27 +29,35 @@ const SearchResults = ({ searchText }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
-			const resultList = data.searchCompanies.map(function(company) {
-				// if (Meteor.isDevelopment) {
-				// 	console.log("BEFORE PROCESS");
-				// 	console.log(company.locations);
-				// }
-				// const newLocations = company.locations.map(location =>
-				// 	processLocation(JSON.stringify(location))
-				// );
-				// if (Meteor.isDevelopment) {
-				// 	console.log("newLocations");
-				// 	console.log(newLocations);
-				// }
-				// company.locations = newLocations;
-				// if (Meteor.isDevelopment) {
-				// 	console.log("AFTER PROCESS");
-				// 	console.log(company.locations);
-				// }
-				return (
-					<CompanySearchResult key={company.id} company={company} />
-				);
-			});
+			// searchCompanies is read-only, we do a
+			// deep copy before we mutate it with sort:
+			// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
+			const resultList = data.searchCompanies
+				.map(c => Object.assign({}, c))
+				// Array.prototype.sort is in-place and returns the new array
+				.sort(function(a, b) {
+					// This scoring method was given to me by Krit,
+					// who told me that Julian wanted it this way.
+					const score = company =>
+						company.numJobAds * 2 +
+						company.numReviews * 1.5 +
+						company.numSalaries * 1;
+					const aScore = score(a);
+					const bScore = score(b);
+					if (aScore === bScore) return 0;
+					else if (aScore > bScore) return -1;
+					return 1;
+				})
+				// Finally, do React stuff
+				.map(function(company) {
+					console.log(company);
+					return (
+						<CompanySearchResult
+							key={company.id}
+							company={company}
+						/>
+					);
+				});
 
 			if (resultList.length < 1) {
 				return (
@@ -97,20 +107,6 @@ class CompanySearchTrial extends React.Component {
 	}
 
 	render() {
-		const form = (
-			<form className="example" onSubmit={this.handleSubmit}>
-				<input
-					name="searchTextInput"
-					type="text"
-					placeholder={t("placeholder")}
-					value={this.state.searchTextInput}
-					onChange={this.handleInputChange}
-				/>
-				<button type="submit">
-					<T>button</T>
-				</button>
-			</form>
-		);
 		return (
 			<div>
 				<div className="navbarwhite">
@@ -123,13 +119,7 @@ class CompanySearchTrial extends React.Component {
 								id="companies_header1"
 								className="callbacks_container"
 							>
-								<ul className="rslides" id="slider3">
-									<li>
-										<div className="banner-text-info">
-											{form}
-										</div>
-									</li>
-								</ul>
+								<CompaniesSearchBar />
 							</div>
 						</div>
 					</div>
@@ -138,6 +128,9 @@ class CompanySearchTrial extends React.Component {
 				<div className="clearfix" />
 				<br />
 				<SearchResults searchText={this.state.searchText} />
+				<div>
+					<Footer />
+				</div>
 			</div>
 		);
 	}

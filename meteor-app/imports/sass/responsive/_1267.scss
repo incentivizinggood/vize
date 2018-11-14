@@ -1,0 +1,29 @@
+@media (max-width: 1267px) {
+	button.navbar-toggle {
+		background: #439bd5;
+		border-color: $white;
+	}
+
+	.navbar-toggle .icon-bar {
+		background: $white;
+	}
+
+	.top-nav ul li {
+		display: block;
+		margin: 0.5em 0;
+	}
+
+	#bs-example-navbar-collapse-1 {
+		background: rgba(0, 0, 0, 0.82);
+	}
+
+	ul.nav.navbar-right {
+		text-align: center;
+	}
+
+	.navbar-right .dropdown-menu {
+		min-width: 100%;
+		position: relative;
+		text-align: center;
+	}
+}

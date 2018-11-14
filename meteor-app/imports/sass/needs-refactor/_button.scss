@@ -309,8 +309,8 @@ fieldset:disabled a.button {
 
 .button-dark {
 	color: #fff;
-	background-color: #343a40;
-	border-color: #343a40;
+	background-color: $outerSpace;
+	border-color: $outerSpace;
 }
 
 .button-dark:hover {
@@ -327,8 +327,8 @@ fieldset:disabled a.button {
 .button-dark.disabled,
 .button-dark:disabled {
 	color: #fff;
-	background-color: #343a40;
-	border-color: #343a40;
+	background-color: $outerSpace;
+	border-color: $outerSpace;
 }
 
 .button-dark:not(:disabled):not(.disabled):active,
@@ -612,21 +612,21 @@ fieldset:disabled a.button {
 }
 
 .out-butt-dark {
-	color: #343a40;
+	color: $outerSpace;
 	background-color: transparent;
 	background-image: none;
-	border-color: #343a40;
+	border-color: $outerSpace;
 }
 
 .out-butt-dark:hover {
 	color: #fff;
-	background-color: #343a40;
-	border-color: #343a40;
+	background-color: $outerSpace;
+	border-color: $outerSpace;
 }
 
 .out-butt-dark.disabled,
 .out-butt-dark:disabled {
-	color: #343a40;
+	color: $outerSpace;
 	background-color: transparent;
 }
 
@@ -634,8 +634,8 @@ fieldset:disabled a.button {
 .out-butt-dark:not(:disabled):not(.disabled).active,
 .show > .out-butt-dark.dropdown-toggle {
 	color: #fff;
-	background-color: #343a40;
-	border-color: #343a40;
+	background-color: $outerSpace;
+	border-color: $outerSpace;
 }
 
 .out-butt-dark:not(:disabled):not(.disabled):active:focus,
