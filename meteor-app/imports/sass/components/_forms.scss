@@ -68,7 +68,7 @@
 		@media (max-width: 768px) {
 			padding: 55px 45px 68px 45px;
 		}
-	
+
 		@media (max-width: 576px) {
 			padding: 55px 15px 68px 15px;
 		}
@@ -88,7 +88,7 @@
 			text-align: center;
 			padding-bottom: 45px;
 		}
-	
+
 		.wrap-input100 {
 			width: 100%;
 			position: relative;
@@ -96,13 +96,13 @@
 			margin-bottom: 34px;
 			&.rsl {
 				width: calc((100% - 40px) / 2);
-	
+
 				@media (max-width: 576px) {
 					width: 100%;
 				}
 			}
 		}
-	
+
 		.input100 {
 			display: block;
 			width: 100%;
@@ -112,7 +112,7 @@
 			line-height: 1.2;
 			padding: 0 25px;
 		}
-	
+
 		input.input100 {
 			height: 55px;
 			border: none;
@@ -120,7 +120,7 @@
 				border-color: $secondary-color;
 			}
 		}
-	
+
 		textarea.input100 {
 			min-height: 162px;
 			padding-top: 19px;

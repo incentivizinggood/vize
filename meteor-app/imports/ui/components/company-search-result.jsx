@@ -34,7 +34,8 @@ function CompanySearchResult(props) {
 							{" "}
 							<a href={companyProfileUrl}>{props.company.name}</a>
 						</span>
-						&nbsp;&nbsp;<StarRatings
+						&nbsp;&nbsp;
+						<StarRatings
 							rating={
 								props.company.avgStarRatings.overallSatisfaction
 							}
