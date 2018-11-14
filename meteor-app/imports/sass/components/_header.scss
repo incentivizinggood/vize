@@ -97,7 +97,9 @@ nav {
 			color: $black;
 
 			&:not(#register-button) {
-				&:hover, &:focus, &:active {
+				&:hover,
+				&:focus,
+				&:active {
 					color: $black;
 				}
 			}
