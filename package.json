@@ -6,6 +6,28 @@
     "lint-formatting": "./scripts/lint-formatting.sh",
     "fix-formatting": "./scripts/fix-formatting.sh"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,jsx,json,yaml,yml,css,scss,md}": [
+        "prettier --write",
+        "git add"
+      ],
+      "!*.sh": [
+        "chmod 644",
+        "git add"
+      ],
+      "*.sh": [
+        "chmod 755",
+        "git add"
+      ]
+    },
+    "concurrent": false
+  },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
     "babel-eslint": "^8.2.3",
@@ -18,6 +40,9 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^5.0.0",
     "eslint-plugin-react": "^7.8.2",
+    "flow-bin": "^0.74.0",
+    "husky": "^1.1.3",
+    "lint-staged": "^8.0.4",
     "prettier": "^1.13.4"
   }
 }

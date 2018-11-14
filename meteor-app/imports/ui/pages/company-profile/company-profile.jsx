@@ -7,6 +7,7 @@ import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js"
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/header";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
@@ -151,6 +152,9 @@ class CompanyProfile extends React.Component {
 						</div>
 					</div>
 				</section>
+				<div>
+					<Footer />
+				</div>
 			</div>
 		);
 	}
