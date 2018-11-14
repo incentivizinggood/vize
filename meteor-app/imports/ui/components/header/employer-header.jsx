@@ -8,6 +8,7 @@ import { urlGenerators } from "/imports/startup/client/router.jsx";
 
 import { If, Then, Else } from "/imports/ui/if-else.jsx";
 import LangSelector from "./lang-selector.jsx";
+import LogoutButton from "./logout-button.jsx";
 
 const T = i18n.createComponent();
 
@@ -133,17 +134,11 @@ class EmployerHeader extends React.Component {
 													</Link>
 												</li>
 												<li className="tr">
-													<a
-														onClick={Meteor.logout}
-														className="link-kumya"
-														style={{
-															cursor: "pointer",
-														}}
-													>
+													<LogoutButton className="link-kumya">
 														<T>
 															common.header.logout
 														</T>
-													</a>
+													</LogoutButton>
 												</li>
 											</ul>
 										</li>
@@ -177,13 +172,9 @@ class EmployerHeader extends React.Component {
 								<If cond={this.props.isLoggedIn}>
 									<Then>
 										<li>
-											<a
-												onClick={Meteor.logout}
-												className="toggle-only-display link-kumya"
-												style={{ cursor: "pointer" }}
-											>
+											<LogoutButton className="toggle-only-display link-kumya">
 												<T>common.header.logout</T>
-											</a>
+											</LogoutButton>
 										</li>
 									</Then>
 									<Else> </Else>

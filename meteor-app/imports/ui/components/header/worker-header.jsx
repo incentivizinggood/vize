@@ -7,6 +7,7 @@ import { withTracker } from "meteor/react-meteor-data";
 
 import { If, Then, Else } from "/imports/ui/if-else.jsx";
 import LangSelector from "./lang-selector.jsx";
+import LogoutButton from "./logout-button.jsx";
 
 const T = i18n.createComponent();
 
@@ -121,17 +122,11 @@ class WorkerHeader extends React.Component {
 													</Link>
 												</li>
 												<li className="tr">
-													<a
-														onClick={Meteor.logout}
-														className="navbar-link margin-right"
-														style={{
-															cursor: "pointer",
-														}}
-													>
+													<LogoutButton className="navbar-link margin-right">
 														<T>
 															common.header.logout
 														</T>
-													</a>
+													</LogoutButton>
 												</li>
 											</ul>
 										</li>
@@ -175,13 +170,9 @@ class WorkerHeader extends React.Component {
 								<If cond={this.props.isLoggedIn}>
 									<Then>
 										<li>
-											<a
-												onClick={Meteor.logout}
-												className="toggle-only-display navbar-link margin-right"
-												style={{ cursor: "pointer" }}
-											>
+											<LogoutButton className="toggle-only-display navbar-link margin-right">
 												<T>common.header.logout</T>
-											</a>
+											</LogoutButton>
 										</li>
 									</Then>
 									<Else> </Else>
