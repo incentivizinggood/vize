@@ -1,0 +1,95 @@
+@media only screen and (max-width: 767px) {
+	.company-search-container {
+		width: 90%;
+	}
+
+	.reviews1 {
+		display: none;
+	}
+
+	.add-review-btn-mobile {
+		padding: 12px;
+		margin: 0 auto;
+		margin-top: 20px;
+		font-size: calc(85% + 1.2vw);
+		background-color: #337ab7;
+		display: block !important;
+		width: 80%;
+		text-transform: capitalize;
+		font-weight: bold;
+	}
+
+	.company-search-img {
+		height: auto;
+		width: 190px;
+		margin: 0 auto;
+	}
+
+	.company-search-desc p {
+		font-size: 15px;
+	}
+
+	.btn_mob_view_only {
+		display: none;
+	}
+
+	.group_all_btn {
+		width: 100%;
+		margin: 0 auto;
+		display: none;
+		padding-top: 10px;
+	}
+
+	.hide-button-mobile {
+		display: none;
+	}
+
+	.banner-text {
+		h2 {
+			font-size: 2.1em;
+		}
+
+		h3 {
+			font-size: 1.1em;
+		}
+	}
+
+	.callbacks_tabs {
+		left: 43.5%;
+		bottom: 12%;
+	}
+
+	.banner,
+	.banner-info {
+		min-height: 460px;
+	}
+
+	.banner-text-info {
+		margin: 12em auto 0;
+	}
+
+	.slid {
+		padding: 3em 0;
+	}
+
+	.banner.about-banner,
+	.about-banner .banner-info {
+		min-height: 210px;
+	}
+
+	.about-banner .banner-text {
+		padding-top: 8em;
+	}
+
+	.testimonials {
+		padding: 3em 0 6em;
+
+		&-grid p {
+			font-size: 1.1em;
+		}
+	}
+
+	.ch-info h3 {
+		padding: 40px 0 0 0;
+	}
+}

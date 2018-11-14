@@ -21,5 +21,9 @@ indent_size = 2
 
 # The Markdown format requires space indentions and YAML considers them invalid
 # characters.
-[*.{md,yaml}]
+[*.{md,yaml,yml}]
 indent_style = space
+
+[docker-compose*yml]
+indent_style = space
+indent_size = 2
