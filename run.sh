@@ -11,6 +11,8 @@ case $1 in
 	cd meteor-app
 	echo "Installing meteor-app npm packages"
 	npm i
+	echo "Installing flow-typed library definitions"
+	./node_modules/.bin/flow-typed install --overwrite
 	echo "Installing Meteor packages"
 	meteor lint
 	cd ..
