@@ -1,9 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
-import { FlowRouter } from "meteor/kadira:flow-router";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
@@ -51,7 +50,7 @@ class LoginPage extends React.Component {
 				success: !error,
 			});
 			if (this.state.success) {
-				FlowRouter.go("/");
+				this.props.history.push("/");
 			}
 		};
 		Meteor.loginWithPassword(
@@ -204,4 +203,4 @@ class LoginPage extends React.Component {
 	}
 }
 
-export default withUpdateOnChangeLocale(LoginPage);
+export default withRouter(withUpdateOnChangeLocale(LoginPage));

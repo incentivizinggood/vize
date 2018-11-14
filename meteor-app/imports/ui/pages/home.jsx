@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
@@ -223,10 +222,7 @@ function HomePage() {
 									<br />
 									<div className="fl-ri-re">
 										<Link
-											to={Meteor.absoluteUrl(
-												"write-review/",
-												{ secure: true }
-											)}
+											to="/write-review"
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
@@ -252,10 +248,7 @@ function HomePage() {
 									<br />
 									<div className="fl-ri-re">
 										<Link
-											to={Meteor.absoluteUrl(
-												"submit-salary-data/",
-												{ secure: true }
-											)}
+											to="/submit-salary-data"
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />

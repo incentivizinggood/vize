@@ -1,9 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
-import { FlowRouter } from "meteor/kadira:flow-router";
 import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
 
@@ -16,7 +15,7 @@ const T = i18n.createComponent(t);
 
 /* The page where users can create an account.
  */
-export default class RegisterPage extends React.Component {
+class RegisterPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -56,7 +55,7 @@ export default class RegisterPage extends React.Component {
 				success: !error,
 			});
 			if (this.state.success) {
-				FlowRouter.go("/");
+				this.props.history.push("/");
 			}
 		};
 		const options = {
@@ -289,3 +288,5 @@ export default class RegisterPage extends React.Component {
 		);
 	}
 }
+
+export default withRouter(RegisterPage);

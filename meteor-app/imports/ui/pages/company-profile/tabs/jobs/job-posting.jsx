@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 
 const T = i18n.createComponent();

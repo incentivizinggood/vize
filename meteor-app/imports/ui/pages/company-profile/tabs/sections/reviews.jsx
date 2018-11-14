@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
 

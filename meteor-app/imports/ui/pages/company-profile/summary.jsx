@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 
 export default class CompanyProfileSummary extends React.Component {
 	componentDidMount() {
@@ -67,7 +67,7 @@ export default class CompanyProfileSummary extends React.Component {
 								<p>
 									<FontAwesomeIcon icon="globe" />{" "}
 									<Link
-										to={this.props.company.websiteURL}
+										to={this.props.company.websiteURL || ""}
 										target="_blank"
 									>
 										{this.props.company.websiteURL}
