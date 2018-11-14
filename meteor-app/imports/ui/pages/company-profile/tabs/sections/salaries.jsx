@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -57,15 +58,15 @@ export default class SalariesSection extends React.Component {
 					</h4>
 
 					<div className="add-buttons">
-						<a
-							href={urlGenerators.vizeSalaryUrl(
+						<Link
+							to={urlGenerators.vizeSalaryUrl(
 								this.props.company.id
 							)}
 							className="btn btn-primary"
 						>
 							<FontAwesomeIcon icon="plus" />{" "}
 							{i18n.__("common.overview_tab.add_salary")}
-						</a>
+						</Link>
 					</div>
 					<hr />
 
@@ -78,8 +79,8 @@ export default class SalariesSection extends React.Component {
 								id="see_all_salaries"
 								className="te_deco"
 							>
-								<a
-									href="#salaries"
+								<Link
+									to="#salaries"
 									aria-controls="salaries"
 									role="tab"
 									data-toggle="tab"
@@ -89,7 +90,7 @@ export default class SalariesSection extends React.Component {
 											common.overview_tab.see_all_salaries
 										</T>
 									</strong>
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</center>

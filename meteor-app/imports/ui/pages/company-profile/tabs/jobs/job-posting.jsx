@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -41,28 +42,32 @@ export default class JobPosting extends React.Component {
 
 					<div>
 						<div className="add-buttons">
-							<a
-								href={urlGenerators.vizeApplyForJobUrl(
+							<Link
+								to={urlGenerators.vizeApplyForJobUrl(
 									this.props.jobAd.id
 								)}
 								className="btn btn-primary"
 							>
 								{" "}
 								{i18n.__("common.jobpostings.apply_now")}
-							</a>
+							</Link>
 						</div>
 						<p>
-							<FontAwesomeIcon icon="map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+							<FontAwesomeIcon icon="map-marker" />
+							&nbsp;&nbsp;&nbsp;
+							{processLocation(
 								JSON.stringify(this.props.jobAd.locations[0])
 							)}
 						</p>
 						<p>
-							<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;
+							<FontAwesomeIcon icon="money-bill-alt" />
+							&nbsp;&nbsp;
 							{this.props.jobAd.pesosPerHour}
 							{i18n.__("common.jobpostings.week")}
 						</p>
 						<p>
-							<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;
+							<FontAwesomeIcon icon="calendar" />
+							&nbsp;&nbsp;
 							{this.props.jobAd.contractType}
 						</p>
 					</div>

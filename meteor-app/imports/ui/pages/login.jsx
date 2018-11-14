@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import { FlowRouter } from "meteor/kadira:flow-router";
@@ -144,7 +145,10 @@ class LoginPage extends React.Component {
 							<div className="col-lg-12">
 								<div className="text-center reg">
 									<T>noAccount</T>
-									<a href="/register"> <T>register</T></a>
+									<Link to="/register">
+										{" "}
+										<T>register</T>
+									</Link>
 								</div>
 								<br />
 							</div>

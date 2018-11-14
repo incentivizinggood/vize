@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -166,9 +167,9 @@ class PasswordChanger extends React.Component {
 				<div style={{ width: "80%", margin: "0 auto" }}>
 					<br />
 					You must be logged in to use this page. <br /> <br />
-					<a className="btn btn-primary" href="/login">
+					<Link className="btn btn-primary" to="/login">
 						Log In
-					</a>
+					</Link>
 					<br />
 				</div>
 			);

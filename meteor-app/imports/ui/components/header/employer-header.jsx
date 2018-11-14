@@ -1,6 +1,7 @@
-import { Meteor } from "meteor/meteor";
 import React from "react";
+import { Link } from "react-router-dom";
 
+import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 import { urlGenerators } from "/imports/startup/client/router.jsx";
@@ -41,9 +42,9 @@ class EmployerHeader extends React.Component {
 								<span className="icon-bar" />
 							</button>
 							<h2 className="site-logo">
-								<a href="/">
+								<Link to="/">
 									<img src="/images/logo.png" />
-								</a>
+								</Link>
 							</h2>
 						</div>
 						<div
@@ -54,64 +55,64 @@ class EmployerHeader extends React.Component {
 								<li>
 									<If cond={this.props.isLoggedIn}>
 										<Then>
-											<a
-												href="/my-account"
+											<Link
+												to="/my-account"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>common.header.myaccount</T>
-											</a>
+											</Link>
 										</Then>
 										<Else>
-											<a
-												href="/login"
+											<Link
+												to="/login"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>
 													common.header.signup_or_login
 												</T>
-											</a>
+											</Link>
 										</Else>
 									</If>
 								</li>
 								<li>
-									<a
-										href={companyURL}
+									<Link
+										to={companyURL}
 										className="link-kumya "
 									>
 										<span>
 											<T>common.header.my_company</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li>
-									<a
-										href="/post-a-job"
+									<Link
+										to="/post-a-job"
 										className="link-kumya"
 									>
 										<span>
 											<T>common.header.post_a_job</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li>
-									<a
-										href="/employer-resources"
+									<Link
+										to="/employer-resources"
 										className="link-kumya"
 									>
 										<span>
 											<T>common.header.resources</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 							</ul>
 							<ul className="nav navbar-nav navbar-right">
 								<If cond={this.props.isLoggedIn}>
 									<Then>
 										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
-											<a
-												href="#"
+											<Link
+												to="#"
 												className="dropdown-toggle  "
 												data-toggle="dropdown"
 											>
@@ -119,17 +120,17 @@ class EmployerHeader extends React.Component {
 													src="images/profileIcon.png"
 													className="img-responsive  dp-profile"
 												/>{" "}
-											</a>
+											</Link>
 											<ul className="dropdown-menu pf">
 												<li className="tr">
-													<a
-														href="/my-account"
+													<Link
+														to="/my-account"
 														className="link-kumya"
 													>
 														<T>
 															common.header.myaccount
 														</T>
-													</a>
+													</Link>
 												</li>
 												<li className="tr">
 													<a
@@ -149,22 +150,22 @@ class EmployerHeader extends React.Component {
 									</Then>
 									<Else>
 										<li>
-											<a
-												href="/register"
+											<Link
+												to="/register"
 												type="button"
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>common.header.signup</T>
-											</a>
+											</Link>
 										</li>
 										<li>
-											<a
-												href="/login"
+											<Link
+												to="/login"
 												className="navbar-link margin-right"
 											>
 												<T>common.header.login</T>
-											</a>
+											</Link>
 										</li>
 									</Else>
 								</If>

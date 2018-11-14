@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
@@ -62,12 +63,12 @@ function HomePage() {
 						</div>
 						<div className="titlestar  ">
 							<center>
-								<a
-									href="/jobs"
+								<Link
+									to="/jobs"
 									className="button out-butt-dark  "
 								>
 									<T>jobsButton</T>
-								</a>
+								</Link>
 							</center>
 						</div>
 					</div>
@@ -91,12 +92,12 @@ function HomePage() {
 						</div>
 						<div className="titlestar  ">
 							<center>
-								<a
-									href="/jobs"
+								<Link
+									to="/jobs"
 									className="button out-butt-dark  "
 								>
 									<T>jobsButton</T>
-								</a>
+								</Link>
 							</center>
 						</div>
 					</div>
@@ -138,12 +139,12 @@ function HomePage() {
 						</div>
 						<div className="companies-btn  ">
 							<center>
-								<a
-									href="/companies"
+								<Link
+									to="/companies"
 									className="button out-bodr  "
 								>
 									<T>companiesButton</T>
-								</a>
+								</Link>
 							</center>
 						</div>
 					</div>
@@ -176,12 +177,12 @@ function HomePage() {
 						</div>
 						<div className="companies-btn  ">
 							<center>
-								<a
-									href="/companies"
+								<Link
+									to="/companies"
 									className="button out-bodr  "
 								>
 									<T>companiesButton</T>
-								</a>
+								</Link>
 							</center>
 						</div>
 					</div>
@@ -221,16 +222,17 @@ function HomePage() {
 									</div>
 									<br />
 									<div className="fl-ri-re">
-										<a
-											href={Meteor.absoluteUrl(
+										<Link
+											to={Meteor.absoluteUrl(
 												"write-review/",
 												{ secure: true }
 											)}
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
-											&nbsp;{t("add_review_button")}
-										</a>
+											&nbsp;
+											{t("add_review_button")}
+										</Link>
 									</div>
 									<br />
 								</div>
@@ -244,20 +246,22 @@ function HomePage() {
 									</div>
 									<div className="frontLogo boisedigital" />
 									<div className="frontLocation">
-										<T>fairsalary_text</T>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<T>fairsalary_text</T>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
 									<div className="fl-ri-re">
-										<a
-											href={Meteor.absoluteUrl(
+										<Link
+											to={Meteor.absoluteUrl(
 												"submit-salary-data/",
 												{ secure: true }
 											)}
 											className="btn btn-primary"
 										>
 											<FontAwesomeIcon icon="plus" />
-											&nbsp;{t("salary_button")}
-										</a>
+											&nbsp;
+											{t("salary_button")}
+										</Link>
 									</div>
 									<br />
 								</div>
@@ -286,12 +290,12 @@ function HomePage() {
 							<div className="titlestar">
 								<center>
 									{" "}
-									<a
-										href="/register"
+									<Link
+										to="/register"
 										className="button out-butt-dark"
 									>
 										<T>signup_button</T>
-									</a>
+									</Link>
 								</center>
 							</div>
 						</div>

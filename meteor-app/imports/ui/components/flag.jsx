@@ -1,10 +1,12 @@
 import React from "react";
-import { Meteor } from "meteor/meteor";
-import "../../api/data/methods.js";
-import Dialog from "./dialog-box.jsx";
+import { Link } from "react-router-dom";
 
+import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { Accounts } from "meteor/accounts-base";
+
+import "../../api/data/methods.js";
+import Dialog from "./dialog-box.jsx";
 
 /* The page where users write/edit their reviews.
    imports/ui/pages/dialog-box.jsx:22:20: Unexpected token (22:20)
@@ -96,18 +98,18 @@ export default class FlagSystem extends React.Component {
 				<label> {`Counter: ${this.state.count}`}</label>
 				<br />
 				<br />
-				<a href="#modal" className="modal-trigger">
+				<Link to="#modal" className="modal-trigger">
 					Push
-				</a>
+				</Link>
 				<div className="modal" id="modal">
 					<div className="modal__dialog">
 						/* Section begins here */
 						<section className="modal__content">
 							<header className="modal__header">
 								<h2 className="modal__title">Report comment</h2>
-								<a href="#" className="modal__close">
+								<Link to="#" className="modal__close">
 									&times;
-								</a>
+								</Link>
 							</header>
 
 							<form onSubmit={this.handleSubmit} id="submitForm">
