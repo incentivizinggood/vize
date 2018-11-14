@@ -1,11 +1,12 @@
 // Boilerplate first
 import React from "react";
-import { withFormik, Form } from "formik";
+import { withFormik, Field, ErrorMessage, Form } from "formik";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 // import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import Dialog from "/imports/ui/components/dialog-box";
 import i18n from "meteor/universe:i18n";
+import { translateError } from "/i18n/helpers.js";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
@@ -46,21 +47,13 @@ const t = i18n.createTranslator();
 	doesn't always clear when it needs to.
 */
 
-/*
-	BUG
-	DUDE. Reviews have a companyName field.
-	I shouldn't have to fetch a company and then
-	get the name off of that, that's WAAAAAY
-	too much work.
-*/
 const reviewFormUserInfo = gql`
 	query currentUserPostgresIdWithReviews {
 		currentUser {
+			role
 			postgresId
 			reviews {
-				company {
-					name
-				}
+				companyName
 			}
 		}
 	}
@@ -84,13 +77,62 @@ const WriteReviewInnerForm = props => (
 			console.log(props);
 			console.log(data);
 
-			const namesOfCompaniesReviewedByUser = data.currentUser.reviews.map(
-				review => review.company.name
-			);
-			const userPostgresId = data.currentUser.postgresId;
+			let reviewedCompanyNames;
+			let userRole;
+			let userPostgresId;
 
-			console.log(namesOfCompaniesReviewedByUser);
-			console.log(userPostgresId);
+			if (data.currentUser) {
+				reviewedCompanyNames = data.currentUser.reviews.map(
+					review => review.companyName
+				);
+				userPostgresId = data.currentUser.postgresId;
+				userRole = data.currentUser.role;
+			}
+
+			// There's probably a more elegant way to do this,
+			// but this is the first way that came to mind...
+			props.setFieldValue("submittedBy", userPostgresId);
+			props.setFieldTouched("submittedBy", true);
+			const hiddenSubmittedByField = () => (
+				<Field
+					name="submittedBy"
+					value={userPostgresId}
+					component="input"
+					type="number"
+					hidden
+					readOnly
+					validate={() => {
+						// BUG
+						// These error-messages can be made form-specific more
+						// easily now that we're outside some of Meteor's constraints
+						if (!userPostgresId) {
+							// add validation error for logged-out
+							// common.methods.errorMessages.loggedOut
+							return () =>
+								t("common.methods.errorMessages.loggedOut");
+						} else if (userRole !== "worker") {
+							// add validation error for permission-denied
+							// common.methods.errorMessages.onlyWorkers
+							return () =>
+								t("common.methods.errorMessages.onlyWorkers");
+						}
+						const [companyName] = props.values;
+						if (
+							companyName &&
+							reviewedCompanyNames.includes(companyName)
+						) {
+							// add validation error for duplicate-review
+							// SimpleSchema.messages.Reviews.secondReviewByUser
+							return () =>
+								t(
+									"SimpleSchema.messages.Reviews.secondReviewByUser"
+								);
+						}
+
+						return undefined;
+					}}
+				/>
+			);
 
 			return (
 				<Form>
@@ -114,6 +156,14 @@ const WriteReviewInnerForm = props => (
 											</h4>
 										</div>
 										<fieldset>
+											{hiddenSubmittedByField()}
+											<div className="form-group has-error">
+												<span className="help-block">
+													{props.errors.submittedBy
+														? props.errors.submittedBy()
+														: undefined}
+												</span>
+											</div>
 											{props.companyId !== undefined
 												? readOnlyCompanyNameField({
 														...props,

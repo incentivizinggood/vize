@@ -98,7 +98,7 @@ type JobAd {
 
 type Review {
 	id: ID!
-
+	companyName: String!
 	title: String!
 	jobTitle: String!
 	location: Location!
