@@ -1,17 +1,17 @@
 body {
-  margin: 0;
-  font-family: $lato-light, sans-serifs;
-  background: $white;
-  font-weight: normal;
+	margin: 0;
+	font-family: $lato-light, sans-serifs;
+	background: $white;
+	font-weight: normal;
 }
 
 a {
-  @include transition(0.5s all ease);
-  text-decoration: none;
+	@include transition(0.5s all ease);
+	text-decoration: none;
 
-  &:hover {
-    text-decoration: none;
-  }
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 h1,
@@ -21,13 +21,13 @@ h4,
 h5,
 h6,
 p {
-  margin: 0;
+	margin: 0;
 }
 
 ul,
 label {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .welcome,
@@ -41,14 +41,14 @@ label {
 .contact,
 .gallery,
 .blog {
-  padding: 8em 0;
+	padding: 8em 0;
 }
 
 p {
-  font-size: 1.1em;
-  color: #aaa;
-  line-height: 1.6em;
-  margin-top: 0.5em;
+	font-size: 1.1em;
+	color: #aaa;
+	line-height: 1.6em;
+	margin-top: 0.5em;
 }
 
 .clear {

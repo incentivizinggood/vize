@@ -1,19 +1,19 @@
 .dropdown {
-  $this: &;
-  display: inline-block;
+	$this: &;
+	display: inline-block;
 
-  &__content {
-    display: none;
-    position: absolute;
-  }
+	&__content {
+		display: none;
+		position: absolute;
+	}
 
-  &--active {
-    #{$this}__content {
-      display: block;
+	&--active {
+		#{$this}__content {
+			display: block;
 
-      ul {
-        list-style-type: none;
-      }
-    }
-  }
+			ul {
+				list-style-type: none;
+			}
+		}
+	}
 }
