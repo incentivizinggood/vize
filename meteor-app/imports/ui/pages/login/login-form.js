@@ -1,17 +1,18 @@
-import { withFormik } from "formik";
+import React from "react";
+import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 
 import InnerForm from "./login-inner-form.jsx";
 
-const LoginForm = props =>
-	withFormik({
-		initialValues: {
+const LoginForm = props => (
+	<Formik
+		initialValues={{
 			username: "",
 			password: "",
-		},
-		validate(values) {
+		}}
+		validate={values => {
 			const errors = {};
 
 			if (!values.username) {
@@ -23,8 +24,8 @@ const LoginForm = props =>
 			}
 
 			return errors;
-		},
-		handleSubmit(values, actions) {
+		}}
+		onSubmit={(values, actions) => {
 			const loginCallback = error => {
 				if (error) {
 					console.error(error);
@@ -53,7 +54,10 @@ const LoginForm = props =>
 				values.password,
 				loginCallback
 			);
-		},
-	})(InnerForm);
+		}}
+	>
+		<InnerForm />
+	</Formik>
+);
 
 export default withRouter(LoginForm);

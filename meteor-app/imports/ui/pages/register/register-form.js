@@ -1,4 +1,5 @@
-import { withFormik } from "formik";
+import React from "react";
+import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 
 import { Accounts } from "meteor/accounts-base";
@@ -7,16 +8,16 @@ import InnerForm from "./register-inner-form.jsx";
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const RegisterForm = props =>
-	withFormik({
-		initialValues: {
+const RegisterForm = props => (
+	<Formik
+		initialValues={{
 			username: "",
 			email: "",
 			companyName: "",
 			password: "",
 			role: "",
-		},
-		validate(values) {
+		}}
+		validate={values => {
 			const errors = {};
 
 			if (!values.username) {
@@ -32,8 +33,8 @@ const RegisterForm = props =>
 			}
 
 			return errors;
-		},
-		handleSubmit(values, actions) {
+		}}
+		onSubmit={(values, actions) => {
 			const createUserCallback = error => {
 				if (error) {
 					console.error(error);
@@ -58,7 +59,10 @@ const RegisterForm = props =>
 				role: values.role,
 			};
 			Accounts.createUser(options, createUserCallback);
-		},
-	})(InnerForm);
+		}}
+	>
+		<InnerForm />
+	</Formik>
+);
 
 export default withRouter(RegisterForm);
