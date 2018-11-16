@@ -4,7 +4,7 @@ import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { If, Then, Else } from "/imports/ui/if-else.jsx";
+import { If, FirstIf } from "/imports/ui/components/if";
 import LangSelector from "./lang-selector.jsx";
 
 const T = i18n.createComponent();
@@ -41,8 +41,8 @@ class WorkerHeader extends React.Component {
 						>
 							<ul className="nav navbar-nav left_nav">
 								<li>
-									<If cond={this.props.isLoggedIn}>
-										<Then>
+									<FirstIf>
+										<If cond={this.props.isLoggedIn}>
 											<a
 												href="/my-account"
 												type="button"
@@ -50,8 +50,8 @@ class WorkerHeader extends React.Component {
 											>
 												<T>common.header.myaccount</T>
 											</a>
-										</Then>
-										<Else>
+										</If>
+										<If cond>
 											<a
 												href="/login"
 												type="button"
@@ -63,8 +63,8 @@ class WorkerHeader extends React.Component {
 													</T>
 												</span>
 											</a>
-										</Else>
-									</If>
+										</If>
+									</FirstIf>
 								</li>
 								<li>
 									<a
@@ -95,8 +95,8 @@ class WorkerHeader extends React.Component {
 								</li>
 							</ul>
 							<ul className="nav navbar-nav navbar-right">
-								<If cond={this.props.isLoggedIn}>
-									<Then>
+								<FirstIf>
+									<If cond={this.props.isLoggedIn}>
 										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
 											<a
 												href="#"
@@ -134,8 +134,8 @@ class WorkerHeader extends React.Component {
 												</li>
 											</ul>
 										</li>
-									</Then>
-									<Else>
+									</If>
+									<If cond>
 										<li>
 											<a
 												href="/register"
@@ -154,8 +154,8 @@ class WorkerHeader extends React.Component {
 												<T>common.header.login</T>
 											</a>
 										</li>
-									</Else>
-								</If>
+									</If>
+								</FirstIf>
 
 								<li className="dropdown">
 									<LangSelector />
@@ -172,18 +172,15 @@ class WorkerHeader extends React.Component {
 								</li>
 								<br />
 								<If cond={this.props.isLoggedIn}>
-									<Then>
-										<li>
-											<a
-												onClick={Meteor.logout}
-												className="toggle-only-display navbar-link margin-right"
-												style={{ cursor: "pointer" }}
-											>
-												<T>common.header.logout</T>
-											</a>
-										</li>
-									</Then>
-									<Else> </Else>
+									<li>
+										<a
+											onClick={Meteor.logout}
+											className="toggle-only-display navbar-link margin-right"
+											style={{ cursor: "pointer" }}
+										>
+											<T>common.header.logout</T>
+										</a>
+									</li>
 								</If>
 							</ul>
 							<div className="clearfix" />
