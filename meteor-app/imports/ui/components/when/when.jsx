@@ -1,4 +1,4 @@
-export default function If(props) {
+export default function When(props) {
 	if (props.cond) {
 		return props.children;
 	}
