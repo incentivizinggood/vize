@@ -1,10 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 
 const T = i18n.createComponent();
 
@@ -24,8 +25,8 @@ export default function JobsSection(props) {
 						className="add-buttons"
 						style={{ float: "right", marginTop: "0px" }}
 					>
-						<a
-							href={urlGenerators.vizeApplyForJobUrl(
+						<Link
+							to={urlGenerators.vizeApplyForJobUrl(
 								props.jobAds[0].id
 							)}
 							style={{ float: "right" }}
@@ -33,20 +34,24 @@ export default function JobsSection(props) {
 						>
 							{" "}
 							{i18n.__("common.overview_tab.apply_now")}
-						</a>
+						</Link>
 					</div>
 					<p>
-						<FontAwesomeIcon icon="map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+						<FontAwesomeIcon icon="map-marker" />
+						&nbsp;&nbsp;&nbsp;
+						{processLocation(
 							JSON.stringify(props.jobAds[0].locations[0])
 						)}
 					</p>
 					<p>
-						<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;
+						<FontAwesomeIcon icon="money-bill-alt" />
+						&nbsp;&nbsp;
 						{props.jobAds[0].pesosPerHour}
 						<T>common.overview_tab.hour</T>
 					</p>
 					<p>
-						<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;
+						<FontAwesomeIcon icon="calendar" />
+						&nbsp;&nbsp;
 						{props.jobAds[0].contractType}
 					</p>
 				</div>
@@ -86,8 +91,8 @@ export default function JobsSection(props) {
 					<div className="na_tab1">
 						<ul className="" role="tablist">
 							<li role="presentation" className="te_deco">
-								<a
-									href="#jobs"
+								<Link
+									to="#jobs"
 									aria-controls="jobs"
 									aria-expanded="true"
 									role="tab"
@@ -97,7 +102,7 @@ export default function JobsSection(props) {
 									<strong>
 										<T>common.overview_tab.see_all_jobs</T>
 									</strong>
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>

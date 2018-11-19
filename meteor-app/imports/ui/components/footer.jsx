@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -12,9 +13,9 @@ export default function Footer() {
 					<h4>Vize</h4>
 					<ul className=" footer_nav navigation1 ">
 						<li>
-							<a href="/about">
+							<Link to="/about">
 								<T>common.footer.about_us</T>
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>
@@ -24,9 +25,9 @@ export default function Footer() {
 					</h4>
 					<ul className=" footer_nav navigation2">
 						<li>
-							<a href="/register">
+							<Link to="/register">
 								<T>common.footer.create_free_account</T>
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>

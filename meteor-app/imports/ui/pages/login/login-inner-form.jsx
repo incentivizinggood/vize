@@ -1,5 +1,6 @@
 import React from "react";
 import { Form } from "formik";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -34,10 +35,10 @@ function InnerForm({ errors, isSubmitting }) {
 						<div className="col-lg-12">
 							<div className="text-center reg">
 								<T>noAccount</T>
-								<a href="/register">
+								<Link to="/register">
 									{" "}
 									<T>register</T>
-								</a>
+								</Link>
 							</div>
 							<br />
 						</div>

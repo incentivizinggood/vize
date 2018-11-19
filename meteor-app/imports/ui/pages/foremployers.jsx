@@ -1,7 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import i18n from "meteor/universe:i18n";
+
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import i18n from "meteor/universe:i18n";
 import Dialog from "/imports/ui/components/dialog-box";
 
 /* A page Foremployers  */
@@ -30,14 +33,14 @@ export default class ForEmployers extends React.Component {
 							</div>
 							<div className="companies-btn  ">
 								<center>
-									<a
-										href="/register"
+									<Link
+										to="/register"
 										className="button out-bodr-get  "
 									>
 										<T>
 											common.forEmployers.get_started_button
 										</T>
-									</a>
+									</Link>
 								</center>
 							</div>
 						</div>
@@ -150,14 +153,14 @@ export default class ForEmployers extends React.Component {
 								<div className="titlestar">
 									<center>
 										{" "}
-										<a
-											href="/register"
+										<Link
+											to="/register"
 											className="button out-butt-dark"
 										>
 											<T>
 												common.forEmployers.register_button
 											</T>
-										</a>
+										</Link>
 									</center>
 								</div>
 							</div>
@@ -169,7 +172,7 @@ export default class ForEmployers extends React.Component {
 				{/* //section */}
 
 				<Footer />
-				<Dialog/>
+				<Dialog />
 			</div>
 		);
 	}

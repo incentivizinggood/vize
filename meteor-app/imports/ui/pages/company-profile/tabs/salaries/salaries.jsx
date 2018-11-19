@@ -1,9 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 
 import SalaryPosting from "./salary-posting.jsx";
 
@@ -34,8 +35,8 @@ export default class SalaryTab extends React.Component {
 						<T>common.salary_tab.job_salaries</T>
 					</h4>
 					<div className="add-buttons">
-						<a
-							href={urlGenerators.vizeSalaryUrl(
+						<Link
+							to={urlGenerators.vizeSalaryUrl(
 								this.props.company.id
 							)}
 							className="btn btn-primary"
@@ -43,7 +44,7 @@ export default class SalaryTab extends React.Component {
 							{" "}
 							<FontAwesomeIcon icon="plus" />
 							{i18n.__("common.salary_tab.add_salary")}
-						</a>
+						</Link>
 						{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 					</div>
 
