@@ -45,8 +45,8 @@ function processResultsToSalaries({ salaries }): Salary[] {
 }
 
 // Get the salary with a given id.
-export async function getSalaryById(id: ID): Promise<?Salary> {
-	if (Number.isNaN(Number(id))) return undefined;
+export async function getSalaryById(id: ID): Promise<Salary> {
+	if (Number.isNaN(Number(id))) throw Error("not a valid salary id");
 
 	const transaction = async client => {
 		let salaryResults = { rows: [] };
@@ -119,7 +119,7 @@ export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
 }
 
 // Count the number of salaries paid by a given company.
-export function countSalariesByCompany(company: Company): Promise<?number> {
+export function countSalariesByCompany(company: Company): Promise<number> {
 	const transaction = async client => {
 		let countResults = { rows: [{ count: undefined }] };
 
@@ -129,7 +129,7 @@ export function countSalariesByCompany(company: Company): Promise<?number> {
 		);
 
 		return countResults.rows[0] === undefined
-			? undefined
+			? 0
 			: Number(countResults.rows[0].count);
 	};
 

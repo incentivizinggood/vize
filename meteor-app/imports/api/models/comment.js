@@ -20,15 +20,15 @@ export type Comment = {
 export type CommentParent = Comment | Review;
 
 // Get the comment with a given id.
-export async function getCommentById(id: ID): Promise<?Comment> {
-	if (!Number.isNaN(Number(id)))
-		return PgCommentFunctions.processCommentResults(
-			await PostgreSQL.executeQuery(
-				PgCommentFunctions.getCommentById,
-				Number(id)
-			)
-		);
-	return undefined;
+export async function getCommentById(id: ID): Promise<Comment> {
+	if (Number.isNaN(Number(id))) throw Error("not a valid comment id");
+
+	return PgCommentFunctions.processCommentResults(
+		await PostgreSQL.executeQuery(
+			PgCommentFunctions.getCommentById,
+			Number(id)
+		)
+	);
 }
 
 // Get all comments written by a given user.

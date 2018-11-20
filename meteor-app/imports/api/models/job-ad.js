@@ -56,8 +56,8 @@ function processResultsToJobAds({ jobads, locations }): JobAd[] {
 }
 
 // Get the job ad with a given id.
-export async function getJobAdById(id: ID): Promise<?JobAd> {
-	if (Number.isNaN(Number(id))) return undefined;
+export async function getJobAdById(id: ID): Promise<JobAd> {
+	if (Number.isNaN(Number(id))) throw Error("not a valid job ad id");
 
 	const transaction = async client => {
 		let jobAdResults = { rows: [] };
@@ -119,7 +119,7 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 }
 
 // Count the number of job ads posted by a given company.
-export function countJobAdsByCompany(company: Company): Promise<?number> {
+export function countJobAdsByCompany(company: Company): Promise<number> {
 	const transaction = async client => {
 		let countResults = { rows: [{ count: undefined }] };
 
@@ -129,7 +129,7 @@ export function countJobAdsByCompany(company: Company): Promise<?number> {
 		);
 
 		return countResults.rows[0] === undefined
-			? undefined
+			? 0
 			: Number(countResults.rows[0].count);
 	};
 

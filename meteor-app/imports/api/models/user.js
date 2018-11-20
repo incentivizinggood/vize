@@ -1,5 +1,6 @@
 // @flow
 import { Meteor } from "meteor/meteor";
+
 import type { ID } from "./common.js";
 import type { Company } from "./company.js";
 import { getCompanyById } from ".";
@@ -105,7 +106,7 @@ export function getUsersByCompany(
 }
 
 // Get the company administered by a given user.
-export function getCompanyOfUser(user: User): ?Promise<?Company> {
+export function getCompanyOfUser(user: User): Promise<Company> | null {
 	if (user.companyId) {
 		return getCompanyById(user.companyId);
 	}

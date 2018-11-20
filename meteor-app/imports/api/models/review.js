@@ -76,8 +76,8 @@ function processResultToReviews({ reviews, votes }): Review[] {
 }
 
 // Get the review with a given id.
-export async function getReviewById(id: ID): Promise<?Review> {
-	if (Number.isNaN(Number(id))) return undefined;
+export async function getReviewById(id: ID): Promise<Review> {
+	if (Number.isNaN(Number(id))) throw Error("not a valid review id");
 
 	const transaction = async client => {
 		let reviewResults = { rows: [] };

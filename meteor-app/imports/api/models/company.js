@@ -23,7 +23,7 @@ export type Company = {
 		| "5000+"
 	),
 	industry: ?string,
-	locations: [Location],
+	locations: Location[],
 	contactPhoneNumber: ?string,
 	websiteURL: ?string,
 	descriptionOfCompany: ?string,
@@ -80,11 +80,11 @@ function processResultsToCompanies({
 }
 
 // Get the company with a given id.
-export async function getCompanyById(id: ID): Promise<?Company> {
+export async function getCompanyById(id: ID): Promise<Company> {
 	// id is a string for now, and company id's
 	// are integers, so I think this should be fine
 	// for now
-	if (Number.isNaN(Number(id))) return undefined;
+	if (Number.isNaN(Number(id))) throw Error("not a valid company id");
 
 	const transaction = async client => {
 		let companyResults = { rows: [] };

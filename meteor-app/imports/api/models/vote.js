@@ -191,7 +191,7 @@ export async function getVotesBySubject(
 }
 
 // Get the thing that a given vote was cast on.
-export async function getSubjectOfVote(vote: Vote): Promise<?VoteSubject> {
+export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
 	if (vote.subjectType === "review") return getReviewById(vote.refersTo);
 
 	if (vote.subjectType === "comment") return getCommentById(vote.refersTo);
