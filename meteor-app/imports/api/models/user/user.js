@@ -1,14 +1,14 @@
 // @flow
 import { Meteor } from "meteor/meteor";
 
-import type { ID } from "./common.js";
-import type { Company } from "./company.js";
-import { getCompanyById } from ".";
+import type { ID } from "../misc.js";
+import type { Company } from "../company";
+import { getCompanyById } from "..";
 
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "../connectors/postgresql.js";
+} from "../../connectors/postgresql.js";
 
 const defaultPageSize = 100;
 

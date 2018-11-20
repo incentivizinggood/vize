@@ -1,15 +1,15 @@
 // @flow
-import type { ID, Location } from "./common.js";
-import type { Company } from "./company.js";
-import type { User } from "./user.js";
-import { getUserById, getUserPostgresId, getCompanyByName } from ".";
-import { castToNumberIfDefined } from "./helpers/postgresql/misc.js";
+import type { ID, Location } from "../misc.js";
+import type { Company } from "../company";
+import type { User } from "../user";
+import { getUserById, getUserPostgresId, getCompanyByName } from "..";
+import { castToNumberIfDefined } from "../helpers/postgresql/misc.js";
 
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "../connectors/postgresql.js";
-import { SalarySchema } from "../data/salaries.js";
+} from "../../connectors/postgresql.js";
+import { SalarySchema } from "../../data/salaries.js";
 
 const defaultPageSize = 100;
 

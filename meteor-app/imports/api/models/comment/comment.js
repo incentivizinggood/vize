@@ -1,12 +1,12 @@
 // @flow
-import type { ID } from "./common.js";
-import type { User } from "./user.js";
-import type { Review } from "./review.js";
-import { getUserPostgresId, getUserById } from ".";
+import type { ID } from "../misc.js";
+import type { User } from "../user";
+import type { Review } from "../review";
+import { getUserPostgresId, getUserById } from "..";
 
-import PgCommentFunctions from "./helpers/postgresql/comments.js";
-import PostgreSQL from "../graphql/connectors/postgresql.js";
-import { CommentSchema } from "../data/comments.js";
+import PgCommentFunctions from "../helpers/postgresql/comments.js";
+import PostgreSQL from "../../graphql/connectors/postgresql.js";
+import { CommentSchema } from "../../data/comments.js";
 
 const defaultPageSize = 100;
 

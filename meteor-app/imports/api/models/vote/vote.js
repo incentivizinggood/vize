@@ -1,8 +1,8 @@
 // @flow
-import type { ID } from "./common.js";
-import type { Comment } from "./comment.js";
-import type { Review } from "./review.js";
-import type { User } from "./user.js";
+import type { ID } from "../misc.js";
+import type { Comment } from "../comment";
+import type { Review } from "../review";
+import type { User } from "../user";
 
 import {
 	isReview,
@@ -11,13 +11,13 @@ import {
 	getUserById,
 	getReviewById,
 	getCommentById,
-} from ".";
+} from "..";
 
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "../connectors/postgresql.js";
-import { VoteSchema } from "../data/votes.js";
+} from "../../connectors/postgresql.js";
+import { VoteSchema } from "../../data/votes.js";
 
 const defaultPageSize = 100;
 
@@ -41,6 +41,11 @@ type VoteData = {
 };
 
 function processResultsToVote(voteResult: VoteData): Vote {
+	console.log(`voteResult is`);
+	console.log(voteResult);
+	Object.entries(voteResult).forEach(([k, v]) => {
+		console.log(k, ":", typeof v);
+	});
 	return {
 		id: JSON.stringify({
 			submittedBy: voteResult.submittedby,
