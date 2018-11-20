@@ -1,10 +1,13 @@
 import React from "react";
+import Modal from "react-modal";
+import { Link } from "react-router-dom";
+
+import { Meteor } from "meteor/meteor";
+import i18n from "meteor/universe:i18n";
+
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
-import { Meteor } from "meteor/meteor";
-import Modal from "react-modal";
-import i18n from "meteor/universe:i18n";
 
 const T = i18n.createComponent();
 
@@ -70,9 +73,9 @@ export default class ResourcesEmployers extends React.Component {
 											<T>
 												common.resourcesEmployers.workerEngagementArticle
 											</T>,
-											<a href="mailto:incentiviizinggood@gmail.com">
+											<Link to="mailto:incentiviizinggood@gmail.com">
 												incentiviizinggood@gmail.com
-											</a>,
+											</Link>,
 											".",
 										]}
 									/>
@@ -114,11 +117,11 @@ export default class ResourcesEmployers extends React.Component {
 										<T>
 											common.resourcesEmployers.AllianceArticlePt1
 										</T>,
-										<a href="http://www.responsiblebusiness.org/">
+										<Link to="http://www.responsiblebusiness.org/">
 											<T>
 												common.resourcesEmployers.here
 											</T>
-										</a>,
+										</Link>,
 										<T>
 											common.resourcesEmployers.AllianceArticlePt2
 										</T>,
@@ -162,17 +165,17 @@ export default class ResourcesEmployers extends React.Component {
 										<T>
 											common.resourcesEmployers.learnEmployeesArticlePt1
 										</T>,
-										<a href="https://www.mylaborlink.org/">
+										<Link to="https://www.mylaborlink.org/">
 											LaborLink
-										</a>,
+										</Link>,
 										<T>
 											common.resourcesEmployers.learnEmployeesArticlePt2
 										</T>,
-										<a href="https://www.mylaborlink.org/">
+										<Link to="https://www.mylaborlink.org/">
 											<T>
 												common.resourcesEmployers.here
 											</T>
-										</a>,
+										</Link>,
 										<br />,
 
 										<p>
@@ -203,9 +206,9 @@ export default class ResourcesEmployers extends React.Component {
 										<T>
 											common.resourcesWorkers.publishArticleMessage
 										</T>
-										<a href="mailto:incentivizinggood@gmail.com">
+										<Link to="mailto:incentivizinggood@gmail.com">
 											incentivizinggood@gmail.com
-										</a>
+										</Link>
 										.
 									</h1>
 								</center>

@@ -1,4 +1,13 @@
 {
 	"extends": ["@meteorjs/eslint-config-meteor", "prettier", "prettier/react"],
-	"rules": { "react/prop-types": false }
+	"rules": {
+		"react/prop-types": false,
+		"jsx-a11y/anchor-is-valid": [
+			"error",
+			{
+				"components": ["Link"],
+				"specialLink": ["to"]
+			}
+		]
+	}
 }

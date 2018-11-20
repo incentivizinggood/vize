@@ -2,6 +2,7 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
@@ -17,7 +18,7 @@ function CompanySearchResult(props) {
 			<div className="container company-search-container">
 				<div className="container">
 					<div className="col-md-3  prostar">
-						<a href={companyProfileUrl} target="_blank">
+						<Link to={companyProfileUrl} target="_blank">
 							<div className="company-search-img">
 								<img
 									src="/images/default-company.png"
@@ -27,12 +28,14 @@ function CompanySearchResult(props) {
 									}`}
 								/>
 							</div>
-						</a>
+						</Link>
 					</div>
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
-							<a href={companyProfileUrl}>{props.company.name}</a>
+							<Link to={companyProfileUrl}>
+								{props.company.name}
+							</Link>
 						</span>
 						&nbsp;&nbsp;
 						<StarRatings
@@ -127,24 +130,24 @@ function CompanySearchResult(props) {
 						<div className="btn_mob_view_only">
 							<div className="group_all_btn">
 								<div className="btn-group btn-group-justified ">
-									<a
-										href="#"
+									<Link
+										to="#"
 										className="btn btn-primary border_btn color_btn"
 									>
 										Reviews
-									</a>
-									<a
-										href="#"
+									</Link>
+									<Link
+										to="#"
 										className="btn btn-primary color_btn"
 									>
 										Jobs
-									</a>
-									<a
-										href="#"
+									</Link>
+									<Link
+										to="#"
 										className="btn btn-primary border_btn color_btn"
 									>
 										Salaries
-									</a>
+									</Link>
 								</div>
 							</div>
 						</div>

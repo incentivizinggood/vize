@@ -1,12 +1,13 @@
 import React from "react";
-import { FlowRouter } from "meteor/kadira:flow-router";
-import i18n from "meteor/universe:i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withRouter } from "react-router-dom";
+
+import i18n from "meteor/universe:i18n";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
 
-export default class CompaniesSearchBar extends React.Component {
+class CompaniesSearchBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { search: "" };
@@ -40,7 +41,7 @@ export default class CompaniesSearchBar extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		FlowRouter.go(`/companies/?search=${this.state.search}`);
+		this.props.history.push(`/companies/?search=${this.state.search}`);
 	}
 
 	render() {
@@ -63,3 +64,5 @@ export default class CompaniesSearchBar extends React.Component {
 		);
 	}
 }
+
+export default withRouter(CompaniesSearchBar);
