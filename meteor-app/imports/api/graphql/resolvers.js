@@ -329,15 +329,6 @@ const resolvers: Resolvers = {
 	Vote: {
 		...Vote_defaultResolvers,
 
-		id: (obj, args, context, info) =>
-			JSON.stringify({
-				submittedby: obj.submittedby,
-				subjecttype: obj.subjecttype,
-				refersto: obj.refersto,
-			}),
-
-		isUpvote: (obj, args, context, info) => obj.value,
-
 		author: (obj, args, context, info) => dataModel.getAuthorOfVote(obj),
 
 		subject: (obj, args, context, info) => dataModel.getSubjectOfVote(obj),
