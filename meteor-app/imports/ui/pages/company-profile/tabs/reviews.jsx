@@ -1,9 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
@@ -40,8 +41,8 @@ export default class ReviewTab extends React.Component {
 							<T>common.review_tab.reviews</T>
 						</h4>
 						<div className="add-buttons">
-							<a
-								href={urlGenerators.vizeReviewUrl(
+							<Link
+								to={urlGenerators.vizeReviewUrl(
 									this.props.company.id
 								)}
 								className="btn btn-primary"
@@ -49,7 +50,7 @@ export default class ReviewTab extends React.Component {
 								{" "}
 								<FontAwesomeIcon icon="plus" />{" "}
 								{i18n.__("common.overview_tab.add_review")}
-							</a>
+							</Link>
 							{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 						</div>
 						<hr />
