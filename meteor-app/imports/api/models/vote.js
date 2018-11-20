@@ -32,22 +32,30 @@ export type Vote = {
 
 export type VoteSubject = Comment | Review;
 
-function processResultsToVote(voteResult): Vote {
+type VoteData = {
+	submittedby: number,
+	subjecttype: "review" | "comment",
+	refersto: number,
+	value: boolean,
+	dateadded: Date,
+};
+
+function processResultsToVote(voteResult: VoteData): Vote {
 	return {
 		id: JSON.stringify({
 			submittedBy: voteResult.submittedby,
 			subjectType: voteResult.subjecttype,
 			refersTo: voteResult.refersto,
 		}),
-		submittedBy: voteResult.submittedby,
+		submittedBy: String(voteResult.submittedby),
 		subjectType: voteResult.subjecttype,
-		refersTo: voteResult.refersto,
+		refersTo: String(voteResult.refersto),
 		isUpvote: voteResult.value,
 		created: new Date(voteResult.dateadded),
 	};
 }
 
-function processResultsToVotes(voteResults): Vote[] {
+function processResultsToVotes(voteResults: VoteData[]): Vote[] {
 	return voteResults.map(processResultsToVote);
 }
 
@@ -87,7 +95,7 @@ export async function getVoteById(id: ID): Promise<Vote> {
 export async function getVoteByAuthorAndSubject(
 	user: User,
 	subject: VoteSubject
-): Promise<Vote> {
+): Promise<Vote | null> {
 	let subjectType;
 
 	if (isReview(subject)) {
@@ -111,14 +119,18 @@ export async function getVoteByAuthorAndSubject(
 				"_votes WHERE submittedby=$1 AND refersto=$2",
 			[submittedBy, refersTo]
 		);
+		console.log("voteResults is ");
+		console.log(voteResults);
 
-		return {
+		if (voteResults.rowCount == 0) return null;
+
+		return processResultsToVote({
 			...voteResults.rows[0],
 			subjecttype: subjectType,
-		};
+		});
 	};
 
-	return execTransactionRO(transaction).then(processResultsToVote);
+	return execTransactionRO(transaction);
 }
 
 // Get all votes cast by a given user.
