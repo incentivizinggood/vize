@@ -1,10 +1,13 @@
 import React from "react";
+import Modal from "react-modal";
+import { Link } from "react-router-dom";
+
+import { Meteor } from "meteor/meteor";
+import i18n from "meteor/universe:i18n";
+
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
-import { Meteor } from "meteor/meteor";
-import Modal from "react-modal";
-import i18n from "meteor/universe:i18n";
 
 const T = i18n.createComponent();
 
@@ -70,11 +73,11 @@ export default class ResourcesWorkers extends React.Component {
 											<T>
 												common.resourcesWorkers.trainingProgramsArticle
 											</T>,
-											<a href="http://www.uabc.mx/institucion/catalogo/spanish.html">
+											<Link to="http://www.uabc.mx/institucion/catalogo/spanish.html">
 												<T>
 													common.resourcesWorkers.here
 												</T>
-											</a>,
+											</Link>,
 											".",
 										]}
 									/>
@@ -114,9 +117,9 @@ export default class ResourcesWorkers extends React.Component {
 										<T>
 											common.resourcesWorkers.laborLawsArticle
 										</T>,
-										<a href="https://www.facebook.com/Ollin-Calli-450536781717887/">
+										<Link to="https://www.facebook.com/Ollin-Calli-450536781717887/">
 											<T>common.resourcesWorkers.here</T>
-										</a>,
+										</Link>,
 										".",
 									]}
 								/>
@@ -158,9 +161,9 @@ export default class ResourcesWorkers extends React.Component {
 										<T>
 											common.resourcesWorkers.educationDistanceArticlePt1
 										</T>,
-										<a href="http://tectijuana.edu.mx/educacion-a-distancia/">
+										<Link to="http://tectijuana.edu.mx/educacion-a-distancia/">
 											<T>common.resourcesWorkers.here</T>
-										</a>,
+										</Link>,
 										<T>
 											common.resourcesWorkers.educationDistanceArticlePt2
 										</T>,
@@ -208,11 +211,11 @@ export default class ResourcesWorkers extends React.Component {
 									<br />,
 
 									<p>
-										<a href="http://www.berlitz.com.mx/">
+										<Link to="http://www.berlitz.com.mx/">
 											<u>
 												<strong>Berlitz</strong>
 											</u>
-										</a>
+										</Link>
 										<br />
 										Boulevard Sánchez Taboada #10488 Local 9
 										(Torre Platino), Zona Urbana, Río
@@ -222,13 +225,13 @@ export default class ResourcesWorkers extends React.Component {
 										(664) 634-3814
 									</p>,
 									<p>
-										<a href="https://alianzafrancesa.org.mx/tijuana/">
+										<Link to="https://alianzafrancesa.org.mx/tijuana/">
 											<u>
 												<strong>
 													Alianza Francesa Tijuana
 												</strong>
 											</u>
-										</a>
+										</Link>
 										<br />
 										Azucena 3934-C, El Prado, 22105 Tijuana,
 										B.C.
@@ -236,13 +239,13 @@ export default class ResourcesWorkers extends React.Component {
 										Tel: (664) 622-1522
 									</p>,
 									<p>
-										<a href="https://www.facebook.com/Centro-de-Idiomas-Le-Monde-119981528034199/">
+										<Link to="https://www.facebook.com/Centro-de-Idiomas-Le-Monde-119981528034199/">
 											<u>
 												<strong>
 													Centro de Idiomas Le Monde
 												</strong>
 											</u>
-										</a>
+										</Link>
 										<br />
 										Misión de Loreto #2936-A, Tijuana, Baja
 										California Tijuana, B.C.
@@ -250,7 +253,7 @@ export default class ResourcesWorkers extends React.Component {
 										Tel: (664) 622-1522
 									</p>,
 									<p>
-										<a href="http://admisiones.celexbc.com.mx:81/html/jpa/">
+										<Link to="http://admisiones.celexbc.com.mx:81/html/jpa/">
 											<u>
 												<strong>
 													UABC - Centro Universitario
@@ -258,7 +261,7 @@ export default class ResourcesWorkers extends React.Component {
 													(CELEX)
 												</strong>
 											</u>
-										</a>
+										</Link>
 										<br />
 										Calzada Universidad #14418, Parque
 										Industrial Internacional, C.P. 22427
@@ -266,13 +269,13 @@ export default class ResourcesWorkers extends React.Component {
 										Tel: (664) 979-7568 Ext. 54920
 									</p>,
 									<p>
-										<a href="https://langlab.com/index.php">
+										<Link to="https://langlab.com/index.php">
 											<u>
 												<strong>
 													Academia de Inglés Lang-Lab
 												</strong>
 											</u>
-										</a>
+										</Link>
 										<br />
 										Fresnillo #2500, Col. Cacho, Tijuana
 										Baja California, México C.P. 22150
@@ -296,9 +299,9 @@ export default class ResourcesWorkers extends React.Component {
 										<T>
 											common.resourcesWorkers.publishArticleMessage
 										</T>
-										<a href="mailto:incentivizinggood@gmail.com">
+										<Link to="mailto:incentivizinggood@gmail.com">
 											incentivizinggood@gmail.com
-										</a>
+										</Link>
 										.
 									</h1>
 								</center>

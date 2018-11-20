@@ -1,6 +1,6 @@
 # This docker file is for building a production image.
 # This build can take several minutes to finish.
-# If you are doing development level testing use the docker-compose.yml.
+# If you are doing development level testing use the docker-compose.dev.yml.
 # It's much faster.
 
 FROM node:8.11.4-jessie as builder
@@ -34,10 +34,12 @@ RUN meteor build $APP_BUNDLE_DIR --directory --server-only \
 
 FROM node:8.11.4-slim as prod
 
-ENV APP_BUNDLE_DIR /opt/meteor/dist
+USER node
 
-WORKDIR $APP_BUNDLE_DIR/bundle
-COPY --from=builder $APP_BUNDLE_DIR/ $APP_BUNDLE_DIR/
+ENV APP_DIR /home/node/app
+
+WORKDIR $APP_DIR
+COPY --from=builder /opt/meteor/dist/bundle/ $APP_DIR/
 
 # Expecting environment vars to be set outside of this image.
 

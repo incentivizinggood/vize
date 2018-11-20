@@ -1,0 +1,20 @@
+query companySearchPage($searchText: String!) {
+	searchCompanies(searchText: $searchText) {
+		id
+		name
+		avgStarRatings {
+			overallSatisfaction
+		}
+		locations {
+			city
+			address
+			industrialHub
+		}
+		industry
+		numEmployees
+		descriptionOfCompany
+		numReviews
+		numJobAds
+		numSalaries
+	}
+}
