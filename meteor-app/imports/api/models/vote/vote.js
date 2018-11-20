@@ -1,9 +1,11 @@
 // @flow
-import type { ID } from "../misc.js";
-import type { Comment } from "../comment";
-import type { Review } from "../review";
-import type { User } from "../user";
+import {
+	execTransactionRO,
+	execTransactionRW,
+} from "/imports/api/connectors/postgresql.js";
+import { VoteSchema } from "/imports/api/data/votes.js";
 
+import type { ID, Comment, Review, User } from "/imports/api/models";
 import {
 	isReview,
 	isComment,
@@ -11,13 +13,7 @@ import {
 	getUserById,
 	getReviewById,
 	getCommentById,
-} from "..";
-
-import {
-	execTransactionRO,
-	execTransactionRW,
-} from "../../connectors/postgresql.js";
-import { VoteSchema } from "../../data/votes.js";
+} from "/imports/api/models";
 
 const defaultPageSize = 100;
 

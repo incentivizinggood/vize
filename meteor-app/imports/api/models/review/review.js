@@ -1,17 +1,23 @@
 // @flow
-import type { ID, Location, StarRatings } from "../misc.js";
-import type { Company } from "../company";
-import type { User } from "../user";
-import { castToNumberIfDefined } from "../helpers/postgresql/misc.js";
-
-import { getUserPostgresId, getUserById, getCompanyByName } from "..";
-
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "../../connectors/postgresql.js";
+} from "/imports/api/connectors/postgresql.js";
+import { ReviewSchema } from "/imports/api/data/reviews.js";
 
-import { ReviewSchema } from "../../data/reviews.js";
+import { castToNumberIfDefined } from "/imports/api/models/helpers/postgresql/misc.js";
+import type {
+	ID,
+	Location,
+	StarRatings,
+	Company,
+	User,
+} from "/imports/api/models";
+import {
+	getUserPostgresId,
+	getUserById,
+	getCompanyByName,
+} from "/imports/api/models";
 
 const defaultPageSize = 100;
 

@@ -1,16 +1,13 @@
 // @flow
-import type { ID, Location } from "../misc.js";
-import type { Company } from "../company";
-
-import { getCompanyByName } from "..";
-
-import { castToNumberIfDefined } from "../helpers/postgresql/misc.js";
-
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "../../connectors/postgresql.js";
-import { JobAdSchema, JobApplicationSchema } from "../../data/jobads.js";
+} from "/imports/api/connectors/postgresql.js";
+import { JobAdSchema, JobApplicationSchema } from "/imports/api/data/jobads.js";
+
+import { castToNumberIfDefined } from "/imports/api/models/helpers/postgresql/misc.js";
+import type { ID, Location, Company } from "/imports/api/models";
+import { getCompanyByName } from "/imports/api/models";
 
 const defaultPageSize = 100;
 

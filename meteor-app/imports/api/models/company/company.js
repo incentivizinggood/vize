@@ -1,11 +1,11 @@
 // @flow
-import type { ID, Location } from "../misc.js";
-
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "../../connectors/postgresql.js";
-import { CompanySchema } from "../../data/companies.js";
+} from "/imports/api/connectors/postgresql.js";
+import { CompanySchema } from "/imports/api/data/companies.js";
+
+import type { ID, Location } from "/imports/api/models";
 
 const defaultPageSize = 100;
 
