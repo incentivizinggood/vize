@@ -41,19 +41,36 @@ export type Company = {
 	avgNumMonthsWorked: ?number,
 };
 
-function processResultsToCompany({ company, reviewStats, locations }): Company {
+type CompanyData = {
+	[string]: string,
+	numemployees: ?(
+		| "1 - 50"
+		| "51 - 500"
+		| "501 - 2000"
+		| "2001 - 5000"
+		| "5000+"
+	),
+};
+type ReviewStatsData = { [string]: string };
+type LocationsData = { companylocation: string }[];
+
+function processResultsToCompany(
+	company: CompanyData,
+	reviewStats: ReviewStatsData,
+	locations: LocationsData
+): Company {
 	return {
 		_id: company.companyid,
 		name: company.name,
 		contactEmail: company.contactemail,
-		yearEstablished: company.yearestablished,
+		yearEstablished: Number(company.yearestablished),
 		numEmployees: company.numemployees,
 		industry: company.industry,
 		locations: locations.map(loc => JSON.parse(loc.companylocation)),
 		contactPhoneNumber: company.contactphonenumber,
 		websiteURL: company.websiteurl,
 		descriptionOfCompany: company.descriptionofcompany,
-		dateJoined: company.dateadded,
+		dateJoined: new Date(company.dateadded),
 		numFlags: Number(company.numflags),
 		numReviews: Number(reviewStats.numreviews),
 		healthAndSafety: Number(reviewStats.healthandsafety),
@@ -65,17 +82,17 @@ function processResultsToCompany({ company, reviewStats, locations }): Company {
 		avgNumMonthsWorked: Number(reviewStats.avgnummonthsworked),
 	};
 }
-function processResultsToCompanies({
-	companies,
-	reviewStats,
-	locations,
-}): Company[] {
+function processResultsToCompanies(
+	companies: CompanyData[],
+	reviewStats: { [string]: ReviewStatsData },
+	locations: { [string]: LocationsData }
+): Company[] {
 	return companies.map(company =>
-		processResultsToCompany({
+		processResultsToCompany(
 			company,
-			reviewStats: reviewStats[company.name],
-			locations: locations[company.name],
-		})
+			reviewStats[company.name],
+			locations[company.name]
+		)
 	);
 }
 
@@ -107,14 +124,14 @@ export async function getCompanyById(id: ID): Promise<Company> {
 			);
 		}
 
-		return {
-			company: companyResults.rows[0],
-			locations: locationResults.rows,
-			reviewStats: statResults.rows[0],
-		};
+		return processResultsToCompany(
+			companyResults.rows[0],
+			statResults.rows[0],
+			locationResults.rows || []
+		);
 	};
 
-	return execTransactionRO(transaction).then(processResultsToCompany);
+	return execTransactionRO(transaction);
 }
 
 // Get the company with a given name.
@@ -140,14 +157,14 @@ export async function getCompanyByName(name: string): Promise<Company> {
 			);
 		}
 
-		return {
-			company: companyResults.rows[0],
-			locations: locationResults.rows,
-			reviewStats: statResults.rows[0],
-		};
+		return processResultsToCompany(
+			companyResults.rows[0],
+			statResults.rows[0],
+			locationResults.rows || []
+		);
 	};
 
-	return execTransactionRO(transaction).then(processResultsToCompany);
+	return execTransactionRO(transaction);
 }
 
 // Get all of the companies.
@@ -178,14 +195,14 @@ export async function getAllCompanies(
 			statResults[company.name] = stats.rows[0];
 		}
 
-		return {
-			companies: companyResults.rows,
-			locations: locationResults,
-			reviewStats: statResults,
-		};
+		return processResultsToCompanies(
+			companyResults.rows,
+			statResults,
+			locationResults
+		);
 	};
 
-	return execTransactionRO(transaction).then(processResultsToCompanies);
+	return execTransactionRO(transaction);
 }
 
 // return all companies whose name
@@ -218,14 +235,14 @@ export async function searchForCompanies(
 			statResults[company.name] = stats.rows[0];
 		}
 
-		return {
-			companies: companyResults.rows,
-			locations: locationResults,
-			reviewStats: statResults,
-		};
+		return processResultsToCompanies(
+			companyResults.rows,
+			statResults,
+			locationResults
+		);
 	};
 
-	return execTransactionRO(transaction).then(processResultsToCompanies);
+	return execTransactionRO(transaction);
 }
 
 export function isCompany(obj: any): boolean {
