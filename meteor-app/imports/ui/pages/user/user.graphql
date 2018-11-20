@@ -1,0 +1,6 @@
+query userPage($userId: ID!) {
+	user(id: $userId) {
+		username
+		role
+	}
+}
