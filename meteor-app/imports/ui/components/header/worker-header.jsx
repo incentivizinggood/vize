@@ -5,7 +5,7 @@ import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { If, Then, Else } from "/imports/ui/if-else.jsx";
+import { When, Case } from "/imports/ui/components/when";
 import LangSelector from "./lang-selector.jsx";
 import LogoutButton from "./logout-button.jsx";
 
@@ -43,8 +43,8 @@ class WorkerHeader extends React.Component {
 						>
 							<ul className="nav navbar-nav left_nav">
 								<li>
-									<If cond={this.props.isLoggedIn}>
-										<Then>
+									<Case>
+										<When cond={this.props.isLoggedIn}>
 											<Link
 												to="/my-account"
 												type="button"
@@ -52,8 +52,8 @@ class WorkerHeader extends React.Component {
 											>
 												<T>common.header.myaccount</T>
 											</Link>
-										</Then>
-										<Else>
+										</When>
+										<When default>
 											<Link
 												to="/login"
 												type="button"
@@ -65,8 +65,8 @@ class WorkerHeader extends React.Component {
 													</T>
 												</span>
 											</Link>
-										</Else>
-									</If>
+										</When>
+									</Case>
 								</li>
 								<li>
 									<Link
@@ -97,8 +97,8 @@ class WorkerHeader extends React.Component {
 								</li>
 							</ul>
 							<ul className="nav navbar-nav navbar-right">
-								<If cond={this.props.isLoggedIn}>
-									<Then>
+								<Case>
+									<When cond={this.props.isLoggedIn}>
 										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
 											<Link
 												to="#"
@@ -130,8 +130,8 @@ class WorkerHeader extends React.Component {
 												</li>
 											</ul>
 										</li>
-									</Then>
-									<Else>
+									</When>
+									<When default>
 										<li>
 											<Link
 												to="/register"
@@ -150,8 +150,8 @@ class WorkerHeader extends React.Component {
 												<T>common.header.login</T>
 											</Link>
 										</li>
-									</Else>
-								</If>
+									</When>
+								</Case>
 
 								<li className="dropdown">
 									<LangSelector />
@@ -167,16 +167,13 @@ class WorkerHeader extends React.Component {
 									</Link>
 								</li>
 								<br />
-								<If cond={this.props.isLoggedIn}>
-									<Then>
-										<li>
-											<LogoutButton className="toggle-only-display navbar-link margin-right">
-												<T>common.header.logout</T>
-											</LogoutButton>
-										</li>
-									</Then>
-									<Else> </Else>
-								</If>
+								<When cond={this.props.isLoggedIn}>
+									<li>
+										<LogoutButton className="toggle-only-display navbar-link margin-right">
+											<T>common.header.logout</T>
+										</LogoutButton>
+									</li>
+								</When>
 							</ul>
 							<div className="clearfix" />
 						</div>
