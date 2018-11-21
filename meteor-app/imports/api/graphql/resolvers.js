@@ -242,25 +242,27 @@ const resolvers: Resolvers = {
 	Review: {
 		...Review_defaultResolvers,
 
-		id: (obj, args, context, info) => obj._id,
+		id: (obj, args, context, info) => String(obj.reviewid),
 
-		title: (obj, args, context, info) => obj.reviewTitle,
+		title: (obj, args, context, info) => obj.reviewtitle,
 
-		starRatings: ({
-			healthAndSafety,
-			managerRelationship,
-			workEnvironment,
-			benefits,
-			overallSatisfaction,
-		}) => ({
-			healthAndSafety,
-			managerRelationship,
-			workEnvironment,
-			benefits,
-			overallSatisfaction,
+		jobTitle: (obj, args, context, info) => obj.jobtitle,
+		location: (obj, args, context, info) => JSON.parse(obj.reviewlocation),
+		numberOfMonthsWorked: (obj, args, context, info) => obj.nummonthsworked,
+		wouldRecommendToOtherJobSeekers: (obj, args, context, info) =>
+			obj.wouldrecommend,
+
+		starRatings: (obj, args, context, info) => ({
+			healthAndSafety: obj.healthandsafety,
+			managerRelationship: obj.managerrelationship,
+			workEnvironment: obj.workenvironment,
+			benefits: obj.benefits,
+			overallSatisfaction: obj.overallsatisfaction,
 		}),
 
-		created: (obj, args, context, info) => obj.datePosted,
+		additionalComments: (obj, args, context, info) =>
+			obj.additionalcomments,
+		created: (obj, args, context, info) => obj.dateadded,
 
 		author: (obj, args, context, info) => dataModel.getAuthorOfReview(obj),
 

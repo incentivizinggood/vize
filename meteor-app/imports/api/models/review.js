@@ -22,64 +22,30 @@ import {
 const defaultPageSize = 100;
 
 export type Review = {
-	_id: ID,
+	reviewid: number,
 
-	submittedBy: ID,
-	companyName: string,
-	companyId: ?ID,
-	reviewTitle: string,
-	location: Location,
-	jobTitle: string,
-	numberOfMonthsWorked: number,
+	submittedby: number,
+	companyname: string,
+	companyid: number | null,
+	reviewlocation: string,
+	reviewtitle: string,
+	jobtitle: string,
+	nummonthsworked: number,
 	pros: string,
 	cons: string,
-	wouldRecommendToOtherJobSeekers: boolean,
+	wouldrecommend: boolean,
 
-	healthAndSafety: number,
-	managerRelationship: number,
-	workEnvironment: number,
+	healthandsafety: number,
+	managerrelationship: number,
+	workenvironment: number,
 	benefits: number,
-	overallSatisfaction: number,
+	overallsatisfaction: number,
 
-	additionalComments: ?string,
-	datePosted: ?Date,
-	upvotes: ?number,
-	downvotes: ?number,
+	additionalcomments: string | null,
+	dateadded: Date,
+	upvotes: number,
+	downvotes: number,
 };
-
-function processResultToReview({ review, votes }): Review {
-	return {
-		_id: review.reviewid,
-		submittedBy: castToNumberIfDefined(review.submittedby),
-		companyName: review.companyname,
-		companyId: castToNumberIfDefined(review.companyid),
-		reviewTitle: review.reviewtitle,
-		location: JSON.parse(review.reviewlocation),
-		jobTitle: review.jobtitle,
-		numberOfMonthsWorked: Number(review.nummonthsworked),
-		pros: review.pros,
-		cons: review.cons,
-		wouldRecommendToOtherJobSeekers: review.wouldrecommend,
-		healthAndSafety: Number(review.healthandsafety),
-		managerRelationship: Number(review.managerrelationship),
-		workEnvironment: Number(review.workenvironment),
-		benefits: Number(review.benefits),
-		overallSatisfaction: Number(review.overallsatisfaction),
-		additionalComments: review.additionalcomments,
-		datePosted: review.dateadded,
-		upvotes: Number(votes.upvotes),
-		downvotes: Number(votes.downvotes),
-	};
-}
-
-function processResultToReviews({ reviews, votes }): Review[] {
-	return reviews.map(review =>
-		processResultToReview({
-			review,
-			votes: votes[String(review.reviewid)],
-		})
-	);
-}
 
 // Get the review with a given id.
 export async function getReviewById(id: ID): Promise<Review> {
@@ -100,12 +66,13 @@ export async function getReviewById(id: ID): Promise<Review> {
 		);
 
 		return {
-			review: reviewResults.rows[0],
-			votes: voteResults.rows[0],
+			...reviewResults.rows[0],
+			upvotes: voteResults.rows[0].upvotes,
+			downvotes: voteResults.rows[0].downvotes,
 		};
 	};
 
-	return execTransactionRO(transaction).then(processResultToReview);
+	return execTransactionRO(transaction);
 }
 
 // Get all reviews written by a given user.
@@ -118,29 +85,30 @@ export async function getReviewsByAuthor(
 
 	const transaction = async client => {
 		let reviewResults = { rows: [] };
-		let voteResults = {};
 
 		reviewResults = await client.query(
 			"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
 			[authorPostgresId, pageNumber * pageSize, pageSize]
 		);
 
+		let finalResults = [];
 		for (let review of reviewResults.rows) {
 			let votes = await client.query(
 				"SELECT * FROM review_vote_counts WHERE refersto=$1",
 				[review.reviewid]
 			);
 
-			voteResults[review.reviewid] = votes.rows[0];
+			finalResults.push({
+				...review,
+				upvotes: votes.rows[0].upvotes,
+				downvotes: votes.rows[0].downvotes,
+			});
 		}
 
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+		return finalResults;
 	};
 
-	return execTransactionRO(transaction).then(processResultToReviews);
+	return execTransactionRO(transaction);
 }
 
 // Get the user who wrote a given review.
@@ -149,7 +117,7 @@ export async function getReviewsByAuthor(
 // is an integer, which introduces a type conflict.
 // May need to ask Shaffer about this.
 export async function getAuthorOfReview(review: Review): Promise<User> {
-	return getUserById(String(review.submittedBy));
+	return getUserById(String(review.submittedby));
 }
 
 // Get all reviews written about a given company.
@@ -160,34 +128,35 @@ export async function getReviewsByCompany(
 ): Promise<Review[]> {
 	const transaction = async client => {
 		let reviewResults = { rows: [] };
-		let voteResults = {};
 
 		reviewResults = await client.query(
 			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
 			[company.name, pageNumber * pageSize, pageSize]
 		);
 
+		let finalResults = [];
 		for (let review of reviewResults.rows) {
 			let votes = await client.query(
 				"SELECT * FROM review_vote_counts WHERE refersto=$1",
 				[review.reviewid]
 			);
 
-			voteResults[review.reviewid] = votes.rows[0];
+			finalResults.push({
+				...review,
+				upvotes: votes.rows[0].upvotes,
+				downvotes: votes.rows[0].downvotes,
+			});
 		}
 
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+		return finalResults;
 	};
 
-	return execTransactionRO(transaction).then(processResultToReviews);
+	return execTransactionRO(transaction);
 }
 
 // Get the company that a given review is about.
 export async function getCompanyOfReview(review: Review): Promise<Company> {
-	return getCompanyByName(review.companyName);
+	return getCompanyByName(review.companyname);
 }
 
 // Get all of the reviews.
@@ -197,29 +166,30 @@ export async function getAllReviews(
 ): Promise<Review[]> {
 	const transaction = async client => {
 		let reviewResults = { rows: [] };
-		let voteResults = {};
 
 		reviewResults = await client.query(
 			"SELECT * FROM reviews OFFSET $1 LIMIT $2",
 			[pageNumber * pageSize, pageSize]
 		);
 
+		let finalResults = [];
 		for (let review of reviewResults.rows) {
 			const votes = await client.query(
 				"SELECT * FROM review_vote_counts WHERE refersto=$1",
 				[review.reviewid]
 			);
 
-			voteResults[review.reviewid] = votes.rows[0];
+			finalResults.push({
+				...review,
+				upvotes: votes.rows[0].upvotes,
+				downvotes: votes.rows[0].downvotes,
+			});
 		}
 
-		return {
-			reviews: reviewResults.rows,
-			votes: voteResults,
-		};
+		return finalResults;
 	};
 
-	return execTransactionRO(transaction).then(processResultToReviews);
+	return execTransactionRO(transaction);
 }
 
 export function isReview(obj: any): boolean {
