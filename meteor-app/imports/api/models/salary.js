@@ -16,35 +16,17 @@ import {
 const defaultPageSize = 100;
 
 export type Salary = {
-	_id: ID,
-	submittedBy: ID,
-	companyName: string,
-	location: Location,
-	companyId: ?ID,
-	jobTitle: string,
-	incomeType: string,
-	incomeAmount: number,
-	datePosted: ?Date,
+	salaryid: number,
+	submittedby: number,
+	companyname: string,
+	companyid: number | null,
+	salarylocation: string,
+	jobtitle: string,
+	incometype: string,
+	incomeamount: number,
+	gender: null | "Male" | "Female",
+	dateadded: Date,
 };
-
-function processResultsToSalary({ salary }): Salary {
-	return {
-		_id: salary.salaryid,
-		submittedBy: castToNumberIfDefined(salary.submittedby),
-		companyName: salary.companyname,
-		companyId: castToNumberIfDefined(salary.companyid),
-		location: JSON.parse(salary.salarylocation),
-		jobTitle: salary.jobtitle,
-		incomeType: salary.incometype,
-		incomeAmount: salary.incomeamount,
-		gender: salary.gender,
-		datePosted: salary.dateadded,
-	};
-}
-
-function processResultsToSalaries({ salaries }): Salary[] {
-	return salaries.map(salary => processResultsToSalary({ salary }));
-}
 
 // Get the salary with a given id.
 export async function getSalaryById(id: ID): Promise<Salary> {
@@ -58,12 +40,10 @@ export async function getSalaryById(id: ID): Promise<Salary> {
 			[Number(id)]
 		);
 
-		return {
-			salary: salaryResults.rows[0],
-		};
+		return salaryResults.rows[0];
 	};
 
-	return execTransactionRO(transaction).then(processResultsToSalary);
+	return execTransactionRO(transaction);
 }
 
 // Get all salaries submitted by a given user.
@@ -82,16 +62,14 @@ export async function getSalariesByAuthor(
 			[authorPostgresId, pageNumber * pageSize, pageSize]
 		);
 
-		return {
-			salaries: salaryResults.rows,
-		};
+		return salaryResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToSalaries);
+	return execTransactionRO(transaction);
 }
 // Get the user who submitted a given salary.
 export async function getAuthorOfSalary(salary: Salary): Promise<User> {
-	return getUserById(String(salary.submittedBy));
+	return getUserById(String(salary.submittedby));
 }
 
 // Get all salaries paid by a given company.
@@ -108,16 +86,14 @@ export async function getSalariesByCompany(
 			[company.name, pageNumber * pageSize, pageSize]
 		);
 
-		return {
-			salaries: salaryResults.rows,
-		};
+		return salaryResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToSalaries);
+	return execTransactionRO(transaction);
 }
 // Get the company that paid a given salary.
 export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
-	return getCompanyByName(salary.companyName);
+	return getCompanyByName(salary.companyname);
 }
 
 // Count the number of salaries paid by a given company.
@@ -151,12 +127,10 @@ export async function getAllSalaries(
 			[pageNumber * pageSize, pageSize]
 		);
 
-		return {
-			salaries: salaryResults.rows,
-		};
+		return salaryResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToSalaries);
+	return execTransactionRO(transaction);
 }
 
 export function isSalary(obj: any): boolean {

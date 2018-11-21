@@ -292,9 +292,13 @@ const resolvers: Resolvers = {
 	Salary: {
 		...Salary_defaultResolvers,
 
-		id: (obj, args, context, info) => obj._id,
+		id: (obj, args, context, info) => String(obj.salaryid),
 
-		created: (obj, args, context, info) => obj.datePosted,
+		jobTitle: (obj, args, context, info) => obj.jobtitle,
+		location: (obj, args, context, info) => JSON.parse(obj.salarylocation),
+		incomeType: (obj, args, context, info) => obj.incometype,
+		incomeAmount: (obj, args, context, info) => obj.incomeamount,
+		created: (obj, args, context, info) => obj.dateadded,
 
 		author: (obj, args, context, info) => dataModel.getAuthorOfSalary(obj),
 
