@@ -1,6 +1,6 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
-import type { Company, JobAd } from "/imports/api/models";
+import type { Company, JobAd } from ".";
 
 export type Location = {
 	city: string,

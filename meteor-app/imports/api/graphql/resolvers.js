@@ -3,7 +3,9 @@
 
 import { GraphQLDateTime } from "graphql-iso-date";
 
-import type { User } from "../models";
+import type { User } from "/imports/api/models";
+import * as dataModel from "/imports/api/models";
+
 import {
 	Resolvers,
 	Comment_defaultResolvers,
@@ -16,8 +18,6 @@ import {
 	Location_defaultResolvers,
 	StarRatings_defaultResolvers,
 } from "./graphqlgen.js";
-
-import * as dataModel from "../models";
 
 export type Context = {
 	user: User,
