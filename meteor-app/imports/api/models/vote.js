@@ -18,17 +18,6 @@ import {
 const defaultPageSize = 100;
 
 export type Vote = {
-	id: ID,
-	submittedBy: ID,
-	subjectType: "review" | "comment",
-	refersTo: ID,
-	isUpvote: boolean,
-	created: Date,
-};
-
-export type VoteSubject = Comment | Review;
-
-type VoteData = {
 	submittedby: number,
 	subjecttype: "review" | "comment",
 	refersto: number,
@@ -36,23 +25,18 @@ type VoteData = {
 	dateadded: Date,
 };
 
-function processResultsToVote(voteResult: VoteData): Vote {
-	return {
-		id: JSON.stringify({
-			submittedBy: voteResult.submittedby,
-			subjectType: voteResult.subjecttype,
-			refersTo: voteResult.refersto,
-		}),
-		submittedBy: String(voteResult.submittedby),
-		subjectType: voteResult.subjecttype,
-		refersTo: String(voteResult.refersto),
-		isUpvote: voteResult.value,
-		created: new Date(voteResult.dateadded),
-	};
-}
+export type VoteSubject = Comment | Review;
 
-function processResultsToVotes(voteResults: VoteData[]): Vote[] {
-	return voteResults.map(processResultsToVote);
+function unpackSubjectInfo(
+	subject: VoteSubject
+): { subjectType: "review" | "comment", refersTo: number | ID } {
+	if (isReview(subject)) {
+		return { subjectType: "review", refersTo: subject.reviewid };
+	} else if (isComment(subject)) {
+		return { subjectType: "comment", refersTo: subject._id };
+	} else {
+		throw new Error("Could not determine the type of this vote subject.");
+	}
 }
 
 // Get the vote with a given id.
@@ -84,7 +68,7 @@ export async function getVoteById(id: ID): Promise<Vote> {
 		};
 	};
 
-	return execTransactionRO(transaction).then(processResultsToVote);
+	return execTransactionRO(transaction);
 }
 
 // Get the vote cast by a given user on a given thing.
@@ -92,19 +76,9 @@ export async function getVoteByAuthorAndSubject(
 	user: User,
 	subject: VoteSubject
 ): Promise<Vote | null> {
-	let subjectType;
-
-	if (isReview(subject)) {
-		subjectType = "review";
-	} else if (isComment(subject)) {
-		subjectType = "comment";
-	} else {
-		throw new Error("Could not determine the type of this vote subject.");
-	}
+	let { subjectType, refersTo } = unpackSubjectInfo(subject);
 
 	const submittedBy = await getUserPostgresId(user._id);
-
-	const refersTo = subject._id;
 
 	const transaction = async client => {
 		let voteResults = { rows: [] };
@@ -118,10 +92,10 @@ export async function getVoteByAuthorAndSubject(
 
 		if (voteResults.rowCount == 0) return null;
 
-		return processResultsToVote({
+		return {
 			...voteResults.rows[0],
 			subjecttype: subjectType,
-		});
+		};
 	};
 
 	return execTransactionRO(transaction);
@@ -146,12 +120,12 @@ export async function getVotesByAuthor(
 		return voteResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToVotes);
+	return execTransactionRO(transaction);
 }
 
 // Get the user who cast a given vote.
 export async function getAuthorOfVote(vote: Vote): Promise<User> {
-	return getUserById(String(vote.submittedBy));
+	return getUserById(String(vote.submittedby));
 }
 
 // Get all votes that were cast on a given thing.
@@ -160,14 +134,7 @@ export async function getVotesBySubject(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Vote[]> {
-	let subjectType;
-	if (isReview(subject)) {
-		subjectType = "review";
-	} else if (isComment(subject)) {
-		subjectType = "comment";
-	} else {
-		throw new Error("Could not determine the type of this vote subject.");
-	}
+	let { subjectType, refersTo } = unpackSubjectInfo(subject);
 
 	// result has subject (string "review" or "comment")
 	// and votes, the query results from the underlying
@@ -184,7 +151,7 @@ export async function getVotesBySubject(
 				subjectType +
 				"_votes WHERE " +
 				"refersto=$1 OFFSET $2 LIMIT $3",
-			[subject._id, pageNumber * pageSize, pageSize]
+			[refersTo, pageNumber * pageSize, pageSize]
 		);
 
 		return voteResults.rows.map(vote => ({
@@ -193,14 +160,16 @@ export async function getVotesBySubject(
 		}));
 	};
 
-	return execTransactionRO(transaction).then(processResultsToVotes);
+	return execTransactionRO(transaction);
 }
 
 // Get the thing that a given vote was cast on.
 export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
-	if (vote.subjectType === "review") return getReviewById(vote.refersTo);
+	if (vote.subjecttype === "review")
+		return getReviewById(String(vote.refersto));
 
-	if (vote.subjectType === "comment") return getCommentById(vote.refersTo);
+	if (vote.subjecttype === "comment")
+		return getCommentById(String(vote.refersto));
 
 	throw new Error("vote.subjectType is not a valid value");
 }
@@ -221,7 +190,7 @@ export async function getAllVotes(
 		return voteResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToVotes);
+	return execTransactionRO(transaction);
 }
 
 export function isVote(obj: any): boolean {
