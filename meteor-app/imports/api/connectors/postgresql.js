@@ -1,4 +1,5 @@
 // @flow
+// TODO: Merge /imports/api/graphql/connectors/postgresql.js into this file.
 
 import type { PoolClient } from "pg";
 import PostgreSQL from "../graphql/connectors/postgresql.js";

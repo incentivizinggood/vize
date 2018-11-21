@@ -29,6 +29,8 @@ type Query {
 "The kinds of things that can be commented on."
 union CommentParent = Comment | Review
 
+# WARNING: Comments have not been fully implemented yet. The code for them is a
+# half done mess. Keep that in mind when working with it.
 type Comment {
 	id: ID!
 

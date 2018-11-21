@@ -29,6 +29,8 @@ export type Review = {
 	downvotes: number,
 };
 
+// Determine if obj is a valid review. This is used for both data
+// validation/sanity checking and to discriminate between other types in unions.
 export function isReview(obj: any): boolean {
 	// ReviewSchema
 	// 	.newContext()

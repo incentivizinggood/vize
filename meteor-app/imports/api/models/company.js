@@ -39,6 +39,8 @@ type ReviewStatsData = {
 
 export type Company = CompanyData & ReviewStatsData;
 
+// Determine if obj is a valid company. This is used for both data
+// validation/sanity checking and to discriminate between other types in unions.
 export function isCompany(obj: any): boolean {
 	// CompanySchema
 	// 	.newContext()

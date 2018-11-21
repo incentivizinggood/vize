@@ -14,6 +14,7 @@ export type Vote = {
 
 export type VoteSubject = Comment | Review;
 
+// Get the foreign key that a vote cast on this subject would have.
 export function unpackSubjectInfo(
 	subject: VoteSubject
 ): { subjectType: "review" | "comment", refersTo: number | ID } {
@@ -26,6 +27,8 @@ export function unpackSubjectInfo(
 	}
 }
 
+// Determine if obj is a valid vote. This is used for both data
+// validation/sanity checking and to discriminate between other types in unions.
 export function isVote(obj: any): boolean {
 	// VoteSchema
 	// 	.newContext()

@@ -1,3 +1,5 @@
+// TODO: Merge this file into /imports/api/connectors/postgresql.js
+
 /*
 	NOTE
 	This file contains a GraphQL "connector". The idea isn't to

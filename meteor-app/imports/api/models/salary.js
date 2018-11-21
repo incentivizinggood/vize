@@ -16,6 +16,8 @@ export type Salary = {
 	dateadded: Date,
 };
 
+// Determine if obj is a valid salary. This is used for both data
+// validation/sanity checking and to discriminate between other types in unions.
 export function isSalary(obj: any): boolean {
 	// SalarySchema
 	// 	.newContext()

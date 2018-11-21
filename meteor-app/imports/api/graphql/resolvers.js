@@ -101,6 +101,8 @@ const resolvers: Resolvers = {
 	},
 
 	CommentParent: {
+		// WARNING: Comments have not been fully implemented yet. The code for
+		// them is a half done mess. Keep that in mind when working with it.
 		__resolveType(obj, context, info) {
 			// Test for the existance of fields unique to each type.
 			if (dataModel.isComment(obj)) {
@@ -118,6 +120,8 @@ const resolvers: Resolvers = {
 	},
 
 	Comment: {
+		// WARNING: Comments have not been fully implemented yet. The code for
+		// them is a half done mess. Keep that in mind when working with it.
 		...Comment_defaultResolvers,
 
 		id: (obj, args, context, info) => obj._id,

@@ -1,4 +1,6 @@
 // @flow
+// WARNING: Comments have not been fully implemented yet. This code is a half
+// done mess. Keep that in mind when working with it.
 import type { ID, Comment, CommentParent, User } from ".";
 
 export async function writeComment(

@@ -1,4 +1,5 @@
 // @flow
+// This file is for all of the model code that didn't make to put into the other files.
 
 export type ID = string;
 

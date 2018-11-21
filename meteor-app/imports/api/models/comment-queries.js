@@ -1,4 +1,6 @@
 // @flow
+// WARNING: Comments have not been fully implemented yet. This code is a half
+// done mess. Keep that in mind when working with it.
 import PostgreSQL from "/imports/api/graphql/connectors/postgresql.js";
 
 import PgCommentFunctions from "/imports/api/models/helpers/postgresql/comments.js";
