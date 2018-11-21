@@ -16,7 +16,7 @@ export async function getLocationsByCompany(
 
 		locationResults = await client.query(
 			"SELECT * FROM company_locations WHERE companyid=$1",
-			[company._id]
+			[company.companyid]
 		);
 
 		return locationResults.rows.map(loc => JSON.parse(loc.companylocation));

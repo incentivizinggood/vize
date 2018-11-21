@@ -146,35 +146,55 @@ const resolvers: Resolvers = {
 	Company: {
 		...Company_defaultResolvers,
 
-		id: (obj, args, context, info) => obj._id,
+		id: (obj, args, context, info) => String(obj.companyid),
+		name: (obj, args, context, info) => obj.name,
+
+		contactEmail: (obj, args, context, info) => obj.contactemail,
+		yearEstablished: (obj, args, context, info) => obj.yearestablished,
+		numEmployees: (obj, args, context, info) => obj.numemployees,
+		industry: (obj, args, context, info) => obj.industry,
 
 		locations: (obj, args, context, info) =>
 			dataModel.getLocationsByCompany(obj),
 
+		contactPhoneNumber: (obj, args, context, info) =>
+			obj.contactphonenumber,
+		websiteURL: (obj, args, context, info) => obj.websiteurl,
+		descriptionOfCompany: (obj, args, context, info) =>
+			obj.descriptionofcompany,
+		dateJoined: (obj, args, context, info) => obj.datejoined,
+		numFlags: (obj, args, context, info) => obj.numflags,
+
 		avgStarRatings: (obj, args, context, info) => {
 			if (
-				obj.healthAndSafety === null ||
-				obj.healthAndSafety === undefined ||
-				obj.managerRelationship === null ||
-				obj.managerRelationship === undefined ||
-				obj.workEnvironment === null ||
-				obj.workEnvironment === undefined ||
+				obj.healthandsafety === null ||
+				obj.healthandsafety === undefined ||
+				obj.managerrelationship === null ||
+				obj.managerrelationship === undefined ||
+				obj.workenvironment === null ||
+				obj.workenvironment === undefined ||
 				obj.benefits === null ||
 				obj.benefits === undefined ||
-				obj.overallSatisfaction === null ||
-				obj.overallSatisfaction === undefined
+				obj.overallsatisfaction === null ||
+				obj.overallsatisfaction === undefined
 			) {
 				return null;
 			} else {
 				return {
-					healthAndSafety: obj.healthAndSafety,
-					managerRelationship: obj.managerRelationship,
-					workEnvironment: obj.workEnvironment,
+					healthAndSafety: obj.healthandsafety,
+					managerRelationship: obj.managerrelationship,
+					workEnvironment: obj.workenvironment,
 					benefits: obj.benefits,
-					overallSatisfaction: obj.overallSatisfaction,
+					overallSatisfaction: obj.overallsatisfaction,
 				};
 			}
 		},
+
+		percentRecommended: (obj, args, context, info) =>
+			obj.percentrecommended,
+		avgNumMonthsWorked: (obj, args, context, info) =>
+			obj.avgnummonthsworked,
+		numReviews: (obj, args, context, info) => obj.numreviews,
 
 		reviews: (obj, args, context, info) =>
 			dataModel.getReviewsByCompany(

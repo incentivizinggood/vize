@@ -9,84 +9,41 @@ import type { ID } from "/imports/api/models";
 
 const defaultPageSize = 100;
 
-export type Company = {
-	_id: ID,
-	name: string,
-
-	contactEmail: string,
-	yearEstablished: ?number,
-	numEmployees: ?(
-		| "1 - 50"
-		| "51 - 500"
-		| "501 - 2000"
-		| "2001 - 5000"
-		| "5000+"
-	),
-	industry: ?string,
-	contactPhoneNumber: ?string,
-	websiteURL: ?string,
-	descriptionOfCompany: ?string,
-	dateJoined: ?Date,
-	numFlags: ?number,
-
-	healthAndSafety: ?number,
-	managerRelationship: ?number,
-	workEnvironment: ?number,
-	benefits: ?number,
-	overallSatisfaction: ?number,
-
-	numReviews: number,
-	percentRecommended: ?number,
-	avgNumMonthsWorked: ?number,
-};
-
 type CompanyData = {
-	[string]: string,
-	numemployees: ?(
+	companyid: number,
+	name: string,
+	dateadded: Date,
+	yearestablished: number,
+	industry: string,
+	descriptionofcompany: string,
+	numemployees:
+		| null
 		| "1 - 50"
 		| "51 - 500"
 		| "501 - 2000"
 		| "2001 - 5000"
-		| "5000+"
-	),
+		| "5000+",
+	contactemail: string,
+	websiteurl: string,
+	contactphonenumber: string,
+	numflags: number,
 };
-type ReviewStatsData = { [string]: string };
 
-function processResultsToCompany(
-	company: CompanyData,
-	reviewStats: ReviewStatsData
-): Company {
-	return {
-		_id: company.companyid,
-		name: company.name,
-		contactEmail: company.contactemail,
-		yearEstablished: Number(company.yearestablished),
-		numEmployees: company.numemployees,
-		industry: company.industry,
-		contactPhoneNumber: company.contactphonenumber,
-		websiteURL: company.websiteurl,
-		descriptionOfCompany: company.descriptionofcompany,
-		dateJoined: new Date(company.dateadded),
-		numFlags: Number(company.numflags),
-		numReviews: Number(reviewStats.numreviews),
-		healthAndSafety: Number(reviewStats.healthandsafety),
-		managerRelationship: Number(reviewStats.managerrelationship),
-		workEnvironment: Number(reviewStats.workenvironment),
-		benefits: Number(reviewStats.benefits),
-		overallSatisfaction: Number(reviewStats.overallsatisfaction),
-		percentRecommended: Number(reviewStats.percentrecommended),
-		avgNumMonthsWorked: Number(reviewStats.avgnummonthsworked),
-	};
-}
+// TODO: separate the review stats into a separate  graphql type so that we do
+// not have to do this weird joining.
+type ReviewStatsData = {
+	name: string,
+	numreviews: number,
+	avgnummonthsworked: number,
+	percentrecommended: number,
+	healthandsafety: number,
+	managerrelationship: number,
+	workenvironment: number,
+	benefits: number,
+	overallsatisfaction: number,
+};
 
-function processResultsToCompanies(
-	companies: CompanyData[],
-	reviewStats: { [string]: ReviewStatsData }
-): Company[] {
-	return companies.map(company =>
-		processResultsToCompany(company, reviewStats[company.name])
-	);
-}
+export type Company = CompanyData & ReviewStatsData;
 
 // Get the company with a given id.
 export async function getCompanyById(id: ID): Promise<Company> {
@@ -112,10 +69,10 @@ export async function getCompanyById(id: ID): Promise<Company> {
 			);
 		}
 
-		return processResultsToCompany(
-			companyResults.rows[0],
-			statResults.rows[0]
-		);
+		return {
+			...companyResults.rows[0],
+			...statResults.rows[0],
+		};
 	};
 
 	return execTransactionRO(transaction);
@@ -140,10 +97,10 @@ export async function getCompanyByName(name: string): Promise<Company> {
 			);
 		}
 
-		return processResultsToCompany(
-			companyResults.rows[0],
-			statResults.rows[0]
-		);
+		return {
+			...companyResults.rows[0],
+			...statResults.rows[0],
+		};
 	};
 
 	return execTransactionRO(transaction);
@@ -164,15 +121,19 @@ export async function getAllCompanies(
 			[pageNumber * pageSize, pageSize]
 		);
 
+		let finalResults = [];
 		for (let company of companyResults.rows) {
 			let stats = await client.query(
 				"SELECT * FROM company_review_statistics WHERE name=$1",
 				[company.name]
 			);
-			statResults[company.name] = stats.rows[0];
+			finalResults.push({
+				...company,
+				...stats.rows[0],
+			});
 		}
 
-		return processResultsToCompanies(companyResults.rows, statResults);
+		return finalResults;
 	};
 
 	return execTransactionRO(transaction);
@@ -195,15 +156,19 @@ export async function searchForCompanies(
 			["%" + searchText + "%", pageNumber * pageSize, pageSize]
 		);
 
+		let finalResults = [];
 		for (let company of companyResults.rows) {
 			let stats = await client.query(
 				"SELECT * FROM company_review_statistics WHERE name=$1",
 				[company.name]
 			);
-			statResults[company.name] = stats.rows[0];
+			finalResults.push({
+				...company,
+				...stats.rows[0],
+			});
 		}
 
-		return processResultsToCompanies(companyResults.rows, statResults);
+		return finalResults;
 	};
 
 	return execTransactionRO(transaction);
