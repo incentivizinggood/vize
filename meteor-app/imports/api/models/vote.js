@@ -37,11 +37,6 @@ type VoteData = {
 };
 
 function processResultsToVote(voteResult: VoteData): Vote {
-	console.log(`voteResult is`);
-	console.log(voteResult);
-	Object.entries(voteResult).forEach(([k, v]) => {
-		console.log(k, ":", typeof v);
-	});
 	return {
 		id: JSON.stringify({
 			submittedBy: voteResult.submittedby,
@@ -120,8 +115,6 @@ export async function getVoteByAuthorAndSubject(
 				"_votes WHERE submittedby=$1 AND refersto=$2",
 			[submittedBy, refersTo]
 		);
-		console.log("voteResults is ");
-		console.log(voteResults);
 
 		if (voteResults.rowCount == 0) return null;
 

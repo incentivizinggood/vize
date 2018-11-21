@@ -1,9 +1,9 @@
 // @flow
-export * from "./comment";
+export * from "./comment.js";
 export * from "./misc.js";
-export * from "./company";
-export * from "./job-ad";
-export * from "./review";
-export * from "./salary";
-export * from "./user";
-export * from "./vote";
+export * from "./company.js";
+export * from "./job-ad.js";
+export * from "./review.js";
+export * from "./salary.js";
+export * from "./user.js";
+export * from "./vote.js";
