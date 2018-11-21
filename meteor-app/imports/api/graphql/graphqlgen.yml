@@ -8,6 +8,7 @@ models:
     - ../models/misc.js
     - ../models/company.js
     - ../models/job-ad.js
+    - ../models/location.js
     - ../models/review.js
     - ../models/salary.js
     - ../models/user.js

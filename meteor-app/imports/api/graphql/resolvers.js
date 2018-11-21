@@ -148,6 +148,9 @@ const resolvers: Resolvers = {
 
 		id: (obj, args, context, info) => obj._id,
 
+		locations: (obj, args, context, info) =>
+			dataModel.getLocationsByCompany(obj),
+
 		avgStarRatings: (obj, args, context, info) => {
 			if (
 				obj.healthAndSafety === null ||

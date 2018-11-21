@@ -5,7 +5,7 @@ import {
 } from "/imports/api/connectors/postgresql.js";
 import { CompanySchema } from "/imports/api/data/companies.js";
 
-import type { ID, Location } from "/imports/api/models";
+import type { ID } from "/imports/api/models";
 
 const defaultPageSize = 100;
 
@@ -23,7 +23,6 @@ export type Company = {
 		| "5000+"
 	),
 	industry: ?string,
-	locations: Location[],
 	contactPhoneNumber: ?string,
 	websiteURL: ?string,
 	descriptionOfCompany: ?string,
@@ -52,12 +51,10 @@ type CompanyData = {
 	),
 };
 type ReviewStatsData = { [string]: string };
-type LocationsData = { companylocation: string }[];
 
 function processResultsToCompany(
 	company: CompanyData,
-	reviewStats: ReviewStatsData,
-	locations: LocationsData
+	reviewStats: ReviewStatsData
 ): Company {
 	return {
 		_id: company.companyid,
@@ -66,7 +63,6 @@ function processResultsToCompany(
 		yearEstablished: Number(company.yearestablished),
 		numEmployees: company.numemployees,
 		industry: company.industry,
-		locations: locations.map(loc => JSON.parse(loc.companylocation)),
 		contactPhoneNumber: company.contactphonenumber,
 		websiteURL: company.websiteurl,
 		descriptionOfCompany: company.descriptionofcompany,
@@ -82,17 +78,13 @@ function processResultsToCompany(
 		avgNumMonthsWorked: Number(reviewStats.avgnummonthsworked),
 	};
 }
+
 function processResultsToCompanies(
 	companies: CompanyData[],
-	reviewStats: { [string]: ReviewStatsData },
-	locations: { [string]: LocationsData }
+	reviewStats: { [string]: ReviewStatsData }
 ): Company[] {
 	return companies.map(company =>
-		processResultsToCompany(
-			company,
-			reviewStats[company.name],
-			locations[company.name]
-		)
+		processResultsToCompany(company, reviewStats[company.name])
 	);
 }
 
@@ -114,10 +106,6 @@ export async function getCompanyById(id: ID): Promise<Company> {
 		);
 
 		if (companyResults.rows.length > 0) {
-			locationResults = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[Number(id)]
-			);
 			statResults = await client.query(
 				"SELECT * FROM company_review_statistics WHERE name=$1",
 				[companyResults.rows[0].name]
@@ -126,8 +114,7 @@ export async function getCompanyById(id: ID): Promise<Company> {
 
 		return processResultsToCompany(
 			companyResults.rows[0],
-			statResults.rows[0],
-			locationResults.rows || []
+			statResults.rows[0]
 		);
 	};
 
@@ -147,10 +134,6 @@ export async function getCompanyByName(name: string): Promise<Company> {
 		);
 
 		if (companyResults.rows.length > 0) {
-			locationResults = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[companyResults.rows[0].companyid]
-			);
 			statResults = await client.query(
 				"SELECT * FROM company_review_statistics WHERE name=$1",
 				[name]
@@ -159,8 +142,7 @@ export async function getCompanyByName(name: string): Promise<Company> {
 
 		return processResultsToCompany(
 			companyResults.rows[0],
-			statResults.rows[0],
-			locationResults.rows || []
+			statResults.rows[0]
 		);
 	};
 
@@ -183,23 +165,14 @@ export async function getAllCompanies(
 		);
 
 		for (let company of companyResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[company.companyid]
-			);
 			let stats = await client.query(
 				"SELECT * FROM company_review_statistics WHERE name=$1",
 				[company.name]
 			);
-			locationResults[company.name] = locations.rows;
 			statResults[company.name] = stats.rows[0];
 		}
 
-		return processResultsToCompanies(
-			companyResults.rows,
-			statResults,
-			locationResults
-		);
+		return processResultsToCompanies(companyResults.rows, statResults);
 	};
 
 	return execTransactionRO(transaction);
@@ -223,23 +196,14 @@ export async function searchForCompanies(
 		);
 
 		for (let company of companyResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[company.companyid]
-			);
 			let stats = await client.query(
 				"SELECT * FROM company_review_statistics WHERE name=$1",
 				[company.name]
 			);
-			locationResults[company.name] = locations.rows;
 			statResults[company.name] = stats.rows[0];
 		}
 
-		return processResultsToCompanies(
-			companyResults.rows,
-			statResults,
-			locationResults
-		);
+		return processResultsToCompanies(companyResults.rows, statResults);
 	};
 
 	return execTransactionRO(transaction);
