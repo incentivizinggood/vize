@@ -226,9 +226,15 @@ const resolvers: Resolvers = {
 	JobAd: {
 		...JobAd_defaultResolvers,
 
-		id: (obj, args, context, info) => obj._id,
+		id: (obj, args, context, info) => String(obj.jobadid),
 
-		created: (obj, args, context, info) => obj.datePosted,
+		jobTitle: (obj, args, context, info) => obj.jobtitle,
+		locations: (obj, args, context, info) =>
+			dataModel.getLocationsByJobAd(obj),
+		pesosPerHour: (obj, args, context, info) => obj.pesosperhour,
+		contractType: (obj, args, context, info) => obj.contracttype,
+		jobDescription: (obj, args, context, info) => obj.jobdescription,
+		created: (obj, args, context, info) => obj.dateadded,
 
 		company: (obj, args, context, info) => dataModel.getCompanyOfJobAd(obj),
 	},

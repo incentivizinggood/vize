@@ -12,45 +12,19 @@ import { getCompanyByName } from "/imports/api/models";
 const defaultPageSize = 100;
 
 export type JobAd = {
-	_id: ID,
+	jobadid: number,
 
-	companyName: string,
-	companyId: ?string,
+	companyname: string | null,
+	companyid: string,
 
-	jobTitle: string,
-	locations: [Location],
-	pesosPerHour: string,
-	contractType: string,
-	jobDescription: string,
+	jobtitle: string,
+	pesosperhour: string,
+	contracttype: string,
+	jobdescription: string,
 	responsibilities: string,
 	qualifications: string,
-	datePosted: ?Date,
+	dateadded: Date,
 };
-
-function processResultsToJobAd({ jobad, locations }): JobAd {
-	return {
-		_id: jobad.jobadid,
-		companyName: jobad.companyname,
-		companyId: castToNumberIfDefined(jobad.companyid),
-		jobTitle: jobad.jobtitle,
-		locations: locations.map(loc => JSON.parse(loc.joblocation)),
-		pesosPerHour: jobad.pesosperhour,
-		contractType: jobad.contracttype,
-		jobDescription: jobad.jobdescription,
-		responsibilities: jobad.responsibilities,
-		qualifications: jobad.qualifications,
-		datePosted: jobad.dateadded,
-	};
-}
-
-function processResultsToJobAds({ jobads, locations }): JobAd[] {
-	return jobads.map(jobad =>
-		processResultsToJobAd({
-			jobad,
-			locations: locations[String(jobad.jobadid)],
-		})
-	);
-}
 
 // Get the job ad with a given id.
 export async function getJobAdById(id: ID): Promise<JobAd> {
@@ -58,25 +32,16 @@ export async function getJobAdById(id: ID): Promise<JobAd> {
 
 	const transaction = async client => {
 		let jobAdResults = { rows: [] };
-		let locationResults = { rows: [] };
 
 		jobAdResults = await client.query(
 			"SELECT * FROM jobads WHERE jobadid=$1",
 			[Number(id)]
 		);
 
-		locationResults = await client.query(
-			"SELECT * FROM job_locations WHERE jobadid=$1",
-			[Number(id)]
-		);
-
-		return {
-			jobad: jobAdResults.rows[0],
-			locations: locationResults.rows,
-		};
+		return jobAdResults.rows[0];
 	};
 
-	return execTransactionRO(transaction).then(processResultsToJobAd);
+	return execTransactionRO(transaction);
 }
 
 // Get all job ads posted by a given company.
@@ -87,32 +52,20 @@ export async function getJobAdsByCompany(
 ): Promise<JobAd[]> {
 	const transaction = async client => {
 		let jobAdResults = { rows: [] };
-		let locationResults = {};
 
 		jobAdResults = await client.query(
 			"SELECT * FROM jobads WHERE companyname=$1 OFFSET $2 LIMIT $3",
 			[company.name, pageNumber * pageSize, pageSize]
 		);
 
-		for (let jobad of jobAdResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM job_locations WHERE jobadid=$1",
-				[jobad.jobadid]
-			);
-			locationResults[jobad.jobadid] = locations.rows;
-		}
-
-		return {
-			jobads: jobAdResults.rows,
-			locations: locationResults,
-		};
+		return jobAdResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToJobAds);
+	return execTransactionRO(transaction);
 }
 // Get the company that posted a given review.
 export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
-	return getCompanyByName(jobAd.companyName);
+	return getCompanyByName(jobAd.companyname || "");
 }
 
 // Count the number of job ads posted by a given company.
@@ -140,28 +93,16 @@ export async function getAllJobAds(
 ): Promise<JobAd[]> {
 	const transaction = async client => {
 		let jobAdResults = { rows: [] };
-		let locationResults = {};
 
 		jobAdResults = await client.query(
 			"SELECT * FROM jobads OFFSET $1 LIMIT $2",
 			[pageNumber * pageSize, pageSize]
 		);
 
-		for (let jobad of jobAdResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM job_locations WHERE jobadid=$1",
-				[jobad.jobadid]
-			);
-			locationResults[jobad.jobadid] = locations.rows;
-		}
-
-		return {
-			jobads: jobAdResults.rows,
-			locations: locationResults,
-		};
+		return jobAdResults.rows;
 	};
 
-	return execTransactionRO(transaction).then(processResultsToJobAds);
+	return execTransactionRO(transaction);
 }
 
 export function isJobAd(obj: any): boolean {

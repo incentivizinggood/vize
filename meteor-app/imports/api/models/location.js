@@ -1,6 +1,6 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
-import type { Company } from "/imports/api/models";
+import type { Company, JobAd } from "/imports/api/models";
 
 export type Location = {
 	city: string,
@@ -20,6 +20,21 @@ export async function getLocationsByCompany(
 		);
 
 		return locationResults.rows.map(loc => JSON.parse(loc.companylocation));
+	};
+
+	return execTransactionRO(transaction);
+}
+
+export async function getLocationsByJobAd(jobAd: JobAd): Promise<Location[]> {
+	const transaction = async client => {
+		let locationResults = { rows: [] };
+
+		locationResults = await client.query(
+			"SELECT * FROM job_locations WHERE jobadid=$1",
+			[jobAd.jobadid]
+		);
+
+		return locationResults.rows.map(loc => JSON.parse(loc.joblocation));
 	};
 
 	return execTransactionRO(transaction);
