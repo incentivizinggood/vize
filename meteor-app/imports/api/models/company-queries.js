@@ -1,12 +1,12 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Company } from ".";
+import type { CompanyId, Company } from ".";
 
 const defaultPageSize = 100;
 
 // Get the company with a given id.
-export async function getCompanyById(id: ID): Promise<Company> {
+export async function getCompanyById(id: CompanyId): Promise<Company> {
 	// id is a string for now, and company id's
 	// are integers, so I think this should be fine
 	// for now

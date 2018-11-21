@@ -4,13 +4,13 @@
 import PostgreSQL from "/imports/api/graphql/connectors/postgresql.js";
 
 import PgCommentFunctions from "/imports/api/models/helpers/postgresql/comments.js";
-import type { ID, Comment, CommentParent, Review, User } from ".";
+import type { CommentId, Comment, CommentParent, Review, User } from ".";
 import { getUserPostgresId, getUserById } from ".";
 
 const defaultPageSize = 100;
 
 // Get the comment with a given id.
-export async function getCommentById(id: ID): Promise<Comment> {
+export async function getCommentById(id: CommentId): Promise<Comment> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid comment id");
 
 	return PgCommentFunctions.processCommentResults(
@@ -41,7 +41,7 @@ export async function getCommentsByAuthor(
 
 // Get the user who wrote a given comment.
 export async function getAuthorOfComment(comment: Comment): Promise<User> {
-	return getUserById(String(comment.submittedBy));
+	return getUserById(comment.submittedBy);
 }
 
 // Get all comments that are about a given thing.

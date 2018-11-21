@@ -1,13 +1,13 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Location, StarRatings, Company, Review, User } from ".";
+import type { ReviewId, Location, StarRatings, Company, Review, User } from ".";
 import { getUserPostgresId, getUserById, getCompanyByName } from ".";
 
 const defaultPageSize = 100;
 
 // Get the review with a given id.
-export async function getReviewById(id: ID): Promise<Review> {
+export async function getReviewById(id: ReviewId): Promise<Review> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid review id");
 
 	const transaction = async client => {
@@ -76,7 +76,7 @@ export async function getReviewsByAuthor(
 // is an integer, which introduces a type conflict.
 // May need to ask Shaffer about this.
 export async function getAuthorOfReview(review: Review): Promise<User> {
-	return getUserById(String(review.submittedby));
+	return getUserById(review.submittedby);
 }
 
 // Get all reviews written about a given company.

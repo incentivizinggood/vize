@@ -1,13 +1,13 @@
 // @flow
 import { SalarySchema } from "/imports/api/data/salaries.js";
 
-import type { ID, Location, Company, User } from ".";
+import type { SalaryId, CompanyId, UserId, Location, Company, User } from ".";
 
 export type Salary = {
-	salaryid: number,
-	submittedby: number,
+	salaryid: SalaryId,
+	submittedby: UserId,
 	companyname: string,
-	companyid: number | null,
+	companyid: CompanyId | null,
 	salarylocation: string,
 	jobtitle: string,
 	incometype: string,

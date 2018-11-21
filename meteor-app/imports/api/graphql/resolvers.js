@@ -77,20 +77,25 @@ const resolvers: Resolvers = {
 			),
 
 		comment: (obj, args, context, info) =>
-			dataModel.getCommentById(args.id),
+			dataModel.getCommentById(dataModel.stringToCommentId(args.id)),
 
 		company: (obj, args, context, info) =>
-			dataModel.getCompanyById(args.id),
+			dataModel.getCompanyById(dataModel.stringToCompanyId(args.id)),
 
-		jobAd: (obj, args, context, info) => dataModel.getJobAdById(args.id),
+		jobAd: (obj, args, context, info) =>
+			dataModel.getJobAdById(dataModel.stringToJobAdId(args.id)),
 
-		review: (obj, args, context, info) => dataModel.getReviewById(args.id),
+		review: (obj, args, context, info) =>
+			dataModel.getReviewById(dataModel.stringToReviewId(args.id)),
 
-		salary: (obj, args, context, info) => dataModel.getSalaryById(args.id),
+		salary: (obj, args, context, info) =>
+			dataModel.getSalaryById(dataModel.stringToSalaryId(args.id)),
 
-		user: (obj, args, context, info) => dataModel.getUserById(args.id),
+		user: (obj, args, context, info) =>
+			dataModel.getUserById(dataModel.stringToUserId(args.id)),
 
-		vote: (obj, args, context, info) => dataModel.getVoteById(args.id),
+		vote: (obj, args, context, info) =>
+			dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 
 		searchCompanies: (obj, args, context, info) =>
 			dataModel.searchForCompanies(
@@ -124,7 +129,7 @@ const resolvers: Resolvers = {
 		// them is a half done mess. Keep that in mind when working with it.
 		...Comment_defaultResolvers,
 
-		id: (obj, args, context, info) => obj._id,
+		id: (obj, args, context, info) => dataModel.commentIdToString(obj._id),
 
 		created: (obj, args, context, info) => obj.datePosted,
 
@@ -150,7 +155,8 @@ const resolvers: Resolvers = {
 	Company: {
 		...Company_defaultResolvers,
 
-		id: (obj, args, context, info) => String(obj.companyid),
+		id: (obj, args, context, info) =>
+			dataModel.companyIdToString(obj.companyid),
 		name: (obj, args, context, info) => obj.name,
 
 		contactEmail: (obj, args, context, info) => obj.contactemail,
@@ -230,7 +236,8 @@ const resolvers: Resolvers = {
 	JobAd: {
 		...JobAd_defaultResolvers,
 
-		id: (obj, args, context, info) => String(obj.jobadid),
+		id: (obj, args, context, info) =>
+			dataModel.jobAdIdToString(obj.jobadid),
 
 		jobTitle: (obj, args, context, info) => obj.jobtitle,
 		locations: (obj, args, context, info) =>
@@ -246,7 +253,8 @@ const resolvers: Resolvers = {
 	Review: {
 		...Review_defaultResolvers,
 
-		id: (obj, args, context, info) => String(obj.reviewid),
+		id: (obj, args, context, info) =>
+			dataModel.reviewIdToString(obj.reviewid),
 
 		title: (obj, args, context, info) => obj.reviewtitle,
 
@@ -296,7 +304,8 @@ const resolvers: Resolvers = {
 	Salary: {
 		...Salary_defaultResolvers,
 
-		id: (obj, args, context, info) => String(obj.salaryid),
+		id: (obj, args, context, info) =>
+			dataModel.salaryIdToString(obj.salaryid),
 
 		jobTitle: (obj, args, context, info) => obj.jobtitle,
 		location: (obj, args, context, info) => JSON.parse(obj.salarylocation),
@@ -313,7 +322,7 @@ const resolvers: Resolvers = {
 	User: {
 		...User_defaultResolvers,
 
-		id: (obj, args, context, info) => obj._id,
+		id: (obj, args, context, info) => dataModel.userIdToString(obj._id),
 
 		role: (obj, args, context, info) => {
 			if (obj.role === "worker") return "WORKER";
@@ -369,11 +378,7 @@ const resolvers: Resolvers = {
 		...Vote_defaultResolvers,
 
 		id: (obj, args, context, info) =>
-			JSON.stringify({
-				submittedBy: obj.submittedby,
-				subjectType: obj.subjecttype,
-				refersTo: obj.refersto,
-			}),
+			dataModel.voteIdToString(dataModel.getIdOfVote(obj)),
 		isUpvote: (obj, args, context, info) => obj.value,
 
 		author: (obj, args, context, info) => dataModel.getAuthorOfVote(obj),

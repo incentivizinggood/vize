@@ -1,7 +1,7 @@
 // @flow
 import { execTransactionRW } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Company, Review, User } from ".";
+import type { ReviewId, Company, Review, User } from ".";
 
 export async function submitReview(
 	user: User,
@@ -11,10 +11,10 @@ export async function submitReview(
 	throw new Error("Not implemented yet");
 }
 
-export async function editReview(id: ID, reviewChanges: mixed): Review {
+export async function editReview(id: ReviewId, reviewChanges: mixed): Review {
 	throw new Error("Not implemented yet");
 }
 
-export async function deleteReview(id: ID): Review {
+export async function deleteReview(id: ReviewId): Review {
 	throw new Error("Not implemented yet");
 }

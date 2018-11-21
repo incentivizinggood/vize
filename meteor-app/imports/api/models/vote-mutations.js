@@ -1,7 +1,7 @@
 // @flow
 import { execTransactionRW } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, User, Vote, VoteSubject } from ".";
+import type { VoteId, User, Vote, VoteSubject } from ".";
 
 // Create a new vote or, if the subject was already voted on, change the vote.
 export async function castVote(

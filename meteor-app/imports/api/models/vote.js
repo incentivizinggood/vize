@@ -1,23 +1,33 @@
 // @flow
 import { VoteSchema } from "/imports/api/data/votes.js";
 
-import type { ID, Comment, Review, User } from ".";
+import type { CommentId, ReviewId, UserPId, Comment, Review, User } from ".";
 import { isReview, isComment } from ".";
 
-export type Vote = {
-	submittedby: number,
-	subjecttype: "review" | "comment",
-	refersto: number,
+export type CommentVote = {
+	submittedby: UserPId,
+	subjecttype: "comment",
+	refersto: CommentId,
 	value: boolean,
 	dateadded: Date,
 };
 
+export type ReviewVote = {
+	submittedby: UserPId,
+	subjecttype: "review",
+	refersto: ReviewId,
+	value: boolean,
+	dateadded: Date,
+};
+
+export type Vote = ReviewVote | CommentVote;
+
 export type VoteSubject = Comment | Review;
 
 // Get the foreign key that a vote cast on this subject would have.
-export function unpackSubjectInfo(
+export function getVoteSubjectRef(
 	subject: VoteSubject
-): { subjectType: "review" | "comment", refersTo: number | ID } {
+): { subjectType: "review" | "comment", refersTo: CommentId | ReviewId } {
 	if (isReview(subject)) {
 		return { subjectType: "review", refersTo: subject.reviewid };
 	} else if (isComment(subject)) {

@@ -3,13 +3,13 @@ import { Meteor } from "meteor/meteor";
 
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Company, User } from ".";
-import { getCompanyById } from ".";
+import type { UserId, Company, User } from ".";
+import { getCompanyById, getUserMongoId } from ".";
 
 const defaultPageSize = 100;
 
 // Get the user with a given id.
-export async function getUserById(id: ID): Promise<User> {
+export async function getUserById(id: UserId): Promise<User> {
 	return Meteor.users.findOne(getUserMongoId(id), {
 		fields: Meteor.users.publicFields,
 	});
@@ -21,59 +21,6 @@ export function getUserByUsername(username: string): User {
 		{ username },
 		{ fields: Meteor.users.publicFields }
 	);
-}
-
-// Get the integer ID of a user's PostgreSQL entry
-export async function getUserPostgresId(id: ID): Promise<number> {
-	// assumes that valid Mongo ID's
-	// are not valid Numbers
-	if (!Number.isNaN(Number(id))) {
-		// The given id is either a number or a string encoding a number.
-		// Assume it is already a PostgreSQL id.
-		return Number(id);
-	}
-
-	const transaction = async client => {
-		let userResult = { rows: [] };
-
-		userResult = await client.query(
-			"SELECT * FROM users WHERE usermongoid=$1",
-			[id]
-		);
-
-		return {
-			user: userResult.rows[0],
-		};
-	};
-
-	const pgUserResults = await execTransactionRO(transaction);
-	return pgUserResults.user.userid;
-}
-
-// Get the string ID of a user's MongoDB document
-export async function getUserMongoId(id: ID): Promise<string> {
-	// assumes that valid Mongo ID's
-	// are not valid Numbers
-	if (Number.isNaN(Number(id))) {
-		// The given id is nither a number nor a string encoding a number.
-		// Assume it is already a MongoDB id.
-		return id;
-	}
-
-	const transaction = async client => {
-		let userResult = { rows: [] };
-
-		userResult = await client.query("SELECT * FROM users WHERE userid=$1", [
-			Number(id),
-		]);
-
-		return {
-			user: userResult.rows[0],
-		};
-	};
-
-	const pgUserResults = await execTransactionRO(transaction);
-	return pgUserResults.user.usermongoid;
 }
 
 // Get all users administering a given company.

@@ -3,11 +3,11 @@
 // done mess. Keep that in mind when working with it.
 import { CommentSchema } from "/imports/api/data/comments.js";
 
-import type { ID, Review } from ".";
+import type { CommentId, UserId, Review } from ".";
 
 export type Comment = {
-	_id: ID,
-	submittedBy: ID,
+	_id: CommentId,
+	submittedBy: UserId,
 	datePosted: ?Date,
 	content: string,
 };

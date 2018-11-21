@@ -1,10 +1,10 @@
 // @flow
 import { CompanySchema } from "/imports/api/data/companies.js";
 
-import type { ID } from ".";
+import type { CompanyId } from ".";
 
 type CompanyData = {
-	companyid: number,
+	companyid: CompanyId,
 	name: string,
 	dateadded: Date,
 	yearestablished: number,

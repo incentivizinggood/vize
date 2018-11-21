@@ -3,16 +3,16 @@ import { Meteor } from "meteor/meteor";
 
 import { execTransactionRW } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, User } from ".";
+import type { UserId, User } from ".";
 
 export function createUser(userParams: mixed): User {
 	throw new Error("Not implemented yet");
 }
 
-export function editUser(id: ID, userChanges: mixed): User {
+export function editUser(id: UserId, userChanges: mixed): User {
 	throw new Error("Not implemented yet");
 }
 
-export function deleteUser(id: ID): User {
+export function deleteUser(id: UserId): User {
 	throw new Error("Not implemented yet");
 }

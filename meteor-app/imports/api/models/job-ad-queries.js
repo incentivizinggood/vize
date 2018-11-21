@@ -1,13 +1,13 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Location, Company, JobAd } from ".";
+import type { JobAdId, Location, Company, JobAd } from ".";
 import { getCompanyByName } from ".";
 
 const defaultPageSize = 100;
 
 // Get the job ad with a given id.
-export async function getJobAdById(id: ID): Promise<JobAd> {
+export async function getJobAdById(id: JobAdId): Promise<JobAd> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid job ad id");
 
 	const transaction = async client => {

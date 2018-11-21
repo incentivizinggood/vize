@@ -1,13 +1,13 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Location, Company, Salary, User } from ".";
+import type { SalaryId, Location, Company, Salary, User } from ".";
 import { getUserById, getUserPostgresId, getCompanyByName } from ".";
 
 const defaultPageSize = 100;
 
 // Get the salary with a given id.
-export async function getSalaryById(id: ID): Promise<Salary> {
+export async function getSalaryById(id: SalaryId): Promise<Salary> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid salary id");
 
 	const transaction = async client => {
@@ -47,7 +47,7 @@ export async function getSalariesByAuthor(
 }
 // Get the user who submitted a given salary.
 export async function getAuthorOfSalary(salary: Salary): Promise<User> {
-	return getUserById(String(salary.submittedby));
+	return getUserById(salary.submittedby);
 }
 
 // Get all salaries paid by a given company.

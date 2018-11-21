@@ -1,7 +1,7 @@
 // @flow
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
-import type { ID, Comment, Review, User, Vote, VoteSubject } from ".";
+import type { VoteId, Comment, Review, User, Vote, VoteSubject } from ".";
 import {
 	isReview,
 	isComment,
@@ -9,7 +9,8 @@ import {
 	getUserById,
 	getReviewById,
 	getCommentById,
-	unpackSubjectInfo,
+	getVoteSubjectRef,
+	unpackVoteId,
 } from ".";
 
 const defaultPageSize = 100;
@@ -17,15 +18,13 @@ const defaultPageSize = 100;
 // Get the vote with a given id.
 // BUG not completely sure what the
 // best way to do this is going to be
-export async function getVoteById(id: ID): Promise<Vote> {
-	// requires ID to be a JSON.parse-able
+export async function getVoteById(id: VoteId): Promise<Vote> {
+	// requires VoteId to be a JSON.parse-able
 	// string with the fields/types:
 	// subjectType: "review" or "comment"
 	// submittedBy: integer
 	// refersTo: integer
-	const { subjectType, submittedBy, refersTo } = JSON.parse(id);
-	if (subjectType !== "review" && subjectType !== "comment")
-		throw new Error("Illegal subject: table does not exist");
+	const { subjectType, submittedBy, refersTo } = unpackVoteId(id);
 
 	const transaction = async client => {
 		let voteResults = { rows: [] };
@@ -51,7 +50,7 @@ export async function getVoteByAuthorAndSubject(
 	user: User,
 	subject: VoteSubject
 ): Promise<Vote | null> {
-	let { subjectType, refersTo } = unpackSubjectInfo(subject);
+	let { subjectType, refersTo } = getVoteSubjectRef(subject);
 
 	const submittedBy = await getUserPostgresId(user._id);
 
@@ -100,7 +99,7 @@ export async function getVotesByAuthor(
 
 // Get the user who cast a given vote.
 export async function getAuthorOfVote(vote: Vote): Promise<User> {
-	return getUserById(String(vote.submittedby));
+	return getUserById(vote.submittedby);
 }
 
 // Get all votes that were cast on a given thing.
@@ -109,7 +108,7 @@ export async function getVotesBySubject(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Vote[]> {
-	let { subjectType, refersTo } = unpackSubjectInfo(subject);
+	let { subjectType, refersTo } = getVoteSubjectRef(subject);
 
 	// result has subject (string "review" or "comment")
 	// and votes, the query results from the underlying
@@ -140,11 +139,9 @@ export async function getVotesBySubject(
 
 // Get the thing that a given vote was cast on.
 export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
-	if (vote.subjecttype === "review")
-		return getReviewById(String(vote.refersto));
+	if (vote.subjecttype === "review") return getReviewById(vote.refersto);
 
-	if (vote.subjecttype === "comment")
-		return getCommentById(String(vote.refersto));
+	if (vote.subjecttype === "comment") return getCommentById(vote.refersto);
 
 	throw new Error("vote.subjectType is not a valid value");
 }

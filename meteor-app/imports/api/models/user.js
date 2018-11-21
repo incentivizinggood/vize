@@ -1,11 +1,29 @@
 // @flow
 
-import type { ID, Company } from ".";
+import type { UserMId, CompanyId, Company } from ".";
 
-export type User = {
-	_id: ID,
+type UserBase = {
+	_id: UserMId,
 	username: string,
 	createdAt: Date,
-	role: "worker" | "company-unverified" | "company",
-	companyId: ?ID,
 };
+
+// We use these separate cases to establish a dependency between the role and
+// companyId fields.
+
+export type CompanyUser = UserBase & {
+	role: "company",
+	companyId: CompanyId,
+};
+
+export type UvCompanyUser = UserBase & {
+	role: "company-unverified",
+	companyId: null,
+};
+
+export type WorkerUser = UserBase & {
+	role: "worker",
+	companyId: null,
+};
+
+export type User = WorkerUser | UvCompanyUser | CompanyUser;

@@ -1,15 +1,13 @@
 // @flow
 import { JobAdSchema, JobApplicationSchema } from "/imports/api/data/jobads.js";
 
-import type { ID, Location, Company } from ".";
-
-const defaultPageSize = 100;
+import type { JobAdId, CompanyId, Location, Company } from ".";
 
 export type JobAd = {
-	jobadid: number,
+	jobadid: JobAdId,
 
 	companyname: string | null,
-	companyid: string,
+	companyid: CompanyId,
 
 	jobtitle: string,
 	pesosperhour: string,

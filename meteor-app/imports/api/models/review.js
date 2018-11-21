@@ -1,14 +1,14 @@
 // @flow
 import { ReviewSchema } from "/imports/api/data/reviews.js";
 
-import type { ID, Location, StarRatings } from ".";
+import type { CompanyId, ReviewId, UserId, Location, StarRatings } from ".";
 
 export type Review = {
-	reviewid: number,
+	reviewid: ReviewId,
 
-	submittedby: number,
+	submittedby: UserId,
 	companyname: string,
-	companyid: number | null,
+	companyid: CompanyId | null,
 	reviewlocation: string,
 	reviewtitle: string,
 	jobtitle: string,
