@@ -1,9 +1,8 @@
 // @flow
 /* eslint-disable no-unused-vars */
-
+import type { GraphQLResolveInfo } from "graphql";
 import { GraphQLDateTime } from "graphql-iso-date";
 
-import type { User } from "/imports/api/models";
 import * as dataModel from "/imports/api/models";
 
 import {
@@ -20,7 +19,7 @@ import {
 } from "./graphqlgen.js";
 
 export type Context = {
-	user: User,
+	user: dataModel.User,
 };
 
 const defaultPageSize = 100;
@@ -108,13 +107,19 @@ const resolvers: Resolvers = {
 	CommentParent: {
 		// WARNING: Comments have not been fully implemented yet. The code for
 		// them is a half done mess. Keep that in mind when working with it.
-		__resolveType(obj, context, info) {
+		__resolveType(
+			obj: dataModel.CommentParent,
+			context: Context,
+			info: GraphQLResolveInfo
+		) {
 			// Test for the existance of fields unique to each type.
-			if (dataModel.isComment(obj)) {
+			if (obj._id) {
+				(obj: dataModel.Comment);
 				return "Comment";
 			}
 
-			if (dataModel.isReview(obj)) {
+			if (obj.reviewid) {
+				(obj: dataModel.Review);
 				return "Review";
 			}
 
@@ -358,13 +363,19 @@ const resolvers: Resolvers = {
 	},
 
 	VoteSubject: {
-		__resolveType(obj, context, info) {
+		__resolveType(
+			obj: dataModel.VoteSubject,
+			context: Context,
+			info: GraphQLResolveInfo
+		) {
 			// Test for the existance of fields unique to each type.
-			if (dataModel.isComment(obj)) {
+			if (obj._id) {
+				(obj: dataModel.Comment);
 				return "Comment";
 			}
 
-			if (dataModel.isReview(obj)) {
+			if (obj.reviewid) {
+				(obj: dataModel.Review);
 				return "Review";
 			}
 

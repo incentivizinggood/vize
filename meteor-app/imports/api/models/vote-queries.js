@@ -3,8 +3,6 @@ import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 
 import type { VoteId, Comment, Review, User, Vote, VoteSubject } from ".";
 import {
-	isReview,
-	isComment,
 	getUserPostgresId,
 	getUserById,
 	getReviewById,

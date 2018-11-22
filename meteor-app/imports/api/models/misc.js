@@ -4,10 +4,10 @@
 export type MongoId = string;
 export type PgId = number;
 
-export type StarRatings = {
+export type StarRatings = {|
 	healthAndSafety: number,
 	managerRelationship: number,
 	workEnvironment: number,
 	benefits: number,
 	overallSatisfaction: number,
-};
+|};

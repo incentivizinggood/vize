@@ -2,11 +2,11 @@
 import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
 import type { Company, JobAd } from ".";
 
-export type Location = {
+export type Location = {|
 	city: string,
 	address: string,
 	industrialHub: ?string,
-};
+|};
 
 export async function getLocationsByCompany(
 	company: Company

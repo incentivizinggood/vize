@@ -28,8 +28,8 @@ export function getIdOfVote(vote: Vote): VoteId {
 export function unpackVoteId(
 	id: VoteId
 ):
-	| { subjectType: "comment", refersTo: CommentId, submittedBy: UserId }
-	| { subjectType: "review", refersTo: ReviewId, submittedBy: UserId } {
+	| {| subjectType: "comment", refersTo: CommentId, submittedBy: UserId |}
+	| {| subjectType: "review", refersTo: ReviewId, submittedBy: UserId |} {
 	// We do no validation here, but if all other code treats VoteIds as opaque
 	// strings, then this should be fine.
 	return JSON.parse(id);
