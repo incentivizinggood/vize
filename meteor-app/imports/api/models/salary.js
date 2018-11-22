@@ -1,12 +1,12 @@
 // @flow
-import type { SalaryId, CompanyId, UserId, Location, Company, User } from ".";
+import type { SalaryId, CompanyId, UserId, LocationString } from ".";
 
 export type Salary = {|
 	salaryid: SalaryId,
 	submittedby: UserId,
 	companyname: string,
 	companyid: CompanyId | null,
-	salarylocation: string,
+	salarylocation: LocationString,
 	jobtitle: string,
 	incometype: string,
 	incomeamount: number,

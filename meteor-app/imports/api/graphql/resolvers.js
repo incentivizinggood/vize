@@ -264,7 +264,8 @@ const resolvers: Resolvers = {
 		title: (obj, args, context, info) => obj.reviewtitle,
 
 		jobTitle: (obj, args, context, info) => obj.jobtitle,
-		location: (obj, args, context, info) => JSON.parse(obj.reviewlocation),
+		location: (obj, args, context, info) =>
+			dataModel.parseLocationString(obj.reviewlocation),
 		numberOfMonthsWorked: (obj, args, context, info) => obj.nummonthsworked,
 		wouldRecommendToOtherJobSeekers: (obj, args, context, info) =>
 			obj.wouldrecommend,
@@ -313,7 +314,8 @@ const resolvers: Resolvers = {
 			dataModel.salaryIdToString(obj.salaryid),
 
 		jobTitle: (obj, args, context, info) => obj.jobtitle,
-		location: (obj, args, context, info) => JSON.parse(obj.salarylocation),
+		location: (obj, args, context, info) =>
+			dataModel.parseLocationString(obj.salarylocation),
 		incomeType: (obj, args, context, info) => obj.incometype,
 		incomeAmount: (obj, args, context, info) => obj.incomeamount,
 		created: (obj, args, context, info) => obj.dateadded,

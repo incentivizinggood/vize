@@ -14,6 +14,7 @@ export * from "./job-ad-mutations.js";
 export * from "./job-ad-queries.js";
 export * from "./job-ad.js";
 
+export * from "./location-queries.js";
 export * from "./location.js";
 
 export * from "./misc.js";

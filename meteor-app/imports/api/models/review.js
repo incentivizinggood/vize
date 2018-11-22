@@ -1,5 +1,5 @@
 // @flow
-import type { CompanyId, ReviewId, UserId, Location, StarRatings } from ".";
+import type { CompanyId, ReviewId, UserId, LocationString } from ".";
 
 export type Review = {|
 	reviewid: ReviewId,
@@ -7,7 +7,7 @@ export type Review = {|
 	submittedby: UserId,
 	companyname: string,
 	companyid: CompanyId | null,
-	reviewlocation: string,
+	reviewlocation: LocationString,
 	reviewtitle: string,
 	jobtitle: string,
 	nummonthsworked: number,
