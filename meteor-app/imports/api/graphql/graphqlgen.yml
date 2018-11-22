@@ -15,7 +15,3 @@ models:
     - ../models/vote.js
 
 output: ./graphqlgen.js
-
-resolver-scaffolding:
-  output: ./tmp-resolvers/
-  layout: file-per-type
