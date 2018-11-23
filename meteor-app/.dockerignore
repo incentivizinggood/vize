@@ -1,2 +1,4 @@
 .meteor/local/
 node_modules/
+.dockerignore
+Dockerfile

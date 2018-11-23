@@ -1,10 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const T = i18n.createComponent();
@@ -34,37 +35,38 @@ function ShowJobComponent(props) {
 				</div>
 
 				<div>
-					<div className="add-buttons"
-            style={{ float: "right", marginTop: "0px" }}>
-						<a
-							href={urlGenerators.vizeApplyForJobUrl(
-								props.item.id
-
-							)}
+					<div
+						className="add-buttons"
+						style={{ float: "right", marginTop: "0px" }}
+					>
+						<Link
+							to={urlGenerators.vizeApplyForJobUrl(props.item.id)}
 							className="btn btn-primary"
 						>
 							{" "}
 							{i18n.__("common.showjob.apply_now")}
-						</a>
+						</Link>
 					</div>
 					<p>
 						{" "}
-						<FontAwesomeIcon icon="map-marker" />&nbsp;&nbsp;&nbsp;{processLocation(
+						<FontAwesomeIcon icon="map-marker" />
+						&nbsp;&nbsp;&nbsp;
+						{processLocation(
 							JSON.stringify(props.item.locations[0])
 						)}
 					</p>
 					<p>
 						{" "}
-						<FontAwesomeIcon icon="money-bill-alt" />&nbsp;&nbsp;{
-							props.item.pesosPerHour
-						}
+						<FontAwesomeIcon icon="money-bill-alt" />
+						&nbsp;&nbsp;
+						{props.item.pesosPerHour}
 						<T>common.showjob.hour</T>
 					</p>
 					<p>
 						{" "}
-						<FontAwesomeIcon icon="calendar" />&nbsp;&nbsp;{
-							props.item.contractType
-						}
+						<FontAwesomeIcon icon="calendar" />
+						&nbsp;&nbsp;
+						{props.item.contractType}
 					</p>
 				</div>
 

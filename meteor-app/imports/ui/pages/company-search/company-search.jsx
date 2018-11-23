@@ -2,40 +2,17 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import i18n from "meteor/universe:i18n";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer";
+import Footer from "/imports/ui/components/footer.jsx";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
+import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import CompaniesSearchBar from "../components/companies-search-bar.jsx";
+import companySearchQuery from "./company-search.graphql";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
-
-const companySearchQuery = gql`
-	query companySearchPage($searchText: String!) {
-		searchCompanies(searchText: $searchText) {
-			id
-			name
-			avgStarRatings {
-				overallSatisfaction
-			}
-			locations {
-				city
-				address
-				industrialHub
-			}
-			industry
-			numEmployees
-			descriptionOfCompany
-			numReviews
-			numJobAds
-			numSalaries
-		}
-	}
-`;
 
 // //////////////////CHILD COMPONENT///////////////////
 const SearchResults = ({ searchText }) => (

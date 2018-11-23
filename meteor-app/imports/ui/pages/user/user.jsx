@@ -1,16 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
-const userPageQuery = gql`
-	query userPage($userId: ID!) {
-		user(id: $userId) {
-			username
-			role
-		}
-	}
-`;
+import userPageQuery from "./user.graphql";
 
 /* Users can view the public information of other users on this page.
  */

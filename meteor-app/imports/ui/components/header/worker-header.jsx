@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { If, Then, Else } from "/imports/ui/if-else.jsx";
+import { When, Case } from "/imports/ui/components/when";
 import LangSelector from "./lang-selector.jsx";
+import LogoutButton from "./logout-button.jsx";
 
 const T = i18n.createComponent();
 
@@ -30,9 +32,9 @@ class WorkerHeader extends React.Component {
 								<span className="icon-bar" />
 							</button>
 							<h2 className="site-logo">
-								<a href="/">
+								<Link to="/">
 									<img src="/images/logo.png" />
-								</a>
+								</Link>
 							</h2>
 						</div>
 						<div
@@ -41,19 +43,19 @@ class WorkerHeader extends React.Component {
 						>
 							<ul className="nav navbar-nav left_nav">
 								<li>
-									<If cond={this.props.isLoggedIn}>
-										<Then>
-											<a
-												href="/my-account"
+									<Case>
+										<When cond={this.props.isLoggedIn}>
+											<Link
+												to="/my-account"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>common.header.myaccount</T>
-											</a>
-										</Then>
-										<Else>
-											<a
-												href="/login"
+											</Link>
+										</When>
+										<When default>
+											<Link
+												to="/login"
 												type="button"
 												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
@@ -62,44 +64,44 @@ class WorkerHeader extends React.Component {
 														common.header.signup_or_login
 													</T>
 												</span>
-											</a>
-										</Else>
-									</If>
+											</Link>
+										</When>
+									</Case>
 								</li>
 								<li>
-									<a
-										href="/companies"
+									<Link
+										to="/companies"
 										className="link-kumya "
 									>
 										<span>
 											<T>common.header.companies</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li>
-									<a href="/jobs" className="link-kumya">
+									<Link to="/jobs" className="link-kumya">
 										<span>
 											<T>common.header.jobs</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 								<li>
-									<a
-										href="/worker-resources"
+									<Link
+										to="/worker-resources"
 										className="link-kumya"
 									>
 										<span>
 											<T>common.header.resources</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 							</ul>
 							<ul className="nav navbar-nav navbar-right">
-								<If cond={this.props.isLoggedIn}>
-									<Then>
+								<Case>
+									<When cond={this.props.isLoggedIn}>
 										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
-											<a
-												href="#"
+											<Link
+												to="#"
 												className="dropdown-toggle  "
 												data-toggle="dropdown"
 											>
@@ -107,84 +109,71 @@ class WorkerHeader extends React.Component {
 													src="images/profileIcon.png"
 													className="img-responsive  dp-profile"
 												/>{" "}
-											</a>
+											</Link>
 											<ul className="dropdown-menu pf">
 												<li className="tr">
-													<a
-														href="/my-account"
+													<Link
+														to="/my-account"
 														className="navbar-link margin-right"
 													>
 														<T>
 															common.header.myaccount
 														</T>
-													</a>
+													</Link>
 												</li>
 												<li className="tr">
-													<a
-														onClick={Meteor.logout}
-														className="navbar-link margin-right"
-														style={{
-															cursor: "pointer",
-														}}
-													>
+													<LogoutButton className="navbar-link margin-right">
 														<T>
 															common.header.logout
 														</T>
-													</a>
+													</LogoutButton>
 												</li>
 											</ul>
 										</li>
-									</Then>
-									<Else>
+									</When>
+									<When default>
 										<li>
-											<a
-												href="/register"
+											<Link
+												to="/register"
 												type="button"
 												id="register-button"
 												className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>common.header.signup</T>
-											</a>
+											</Link>
 										</li>
 										<li>
-											<a
-												href="/login"
+											<Link
+												to="/login"
 												className="navbar-link margin-right"
 											>
 												<T>common.header.login</T>
-											</a>
+											</Link>
 										</li>
-									</Else>
-								</If>
+									</When>
+								</Case>
 
 								<li className="dropdown">
 									<LangSelector />
 								</li>
 								<li>
-									<a
-										href="/foremployers"
+									<Link
+										to="/foremployers"
 										className="link-kumya"
 									>
 										<span>
 											<T>common.header.for_employers</T>
 										</span>
-									</a>
+									</Link>
 								</li>
 								<br />
-								<If cond={this.props.isLoggedIn}>
-									<Then>
-										<li>
-											<a
-												onClick={Meteor.logout}
-												className="toggle-only-display navbar-link margin-right"
-												style={{ cursor: "pointer" }}
-											>
-												<T>common.header.logout</T>
-											</a>
-										</li>
-									</Then>
-									<Else> </Else>
-								</If>
+								<When cond={this.props.isLoggedIn}>
+									<li>
+										<LogoutButton className="toggle-only-display navbar-link margin-right">
+											<T>common.header.logout</T>
+										</LogoutButton>
+									</li>
+								</When>
 							</ul>
 							<div className="clearfix" />
 						</div>

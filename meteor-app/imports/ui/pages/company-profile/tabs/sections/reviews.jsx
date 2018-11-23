@@ -1,8 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
 
@@ -44,8 +45,8 @@ export default class ReviewsSection extends React.Component {
 						<T>common.overview_tab.reviews</T>
 					</h4>
 					<div className="add-buttons">
-						<a
-							href={urlGenerators.vizeReviewUrl(
+						<Link
+							to={urlGenerators.vizeReviewUrl(
 								this.props.company.id
 							)}
 							className="btn btn-primary"
@@ -53,7 +54,7 @@ export default class ReviewsSection extends React.Component {
 							{" "}
 							<FontAwesomeIcon icon="plus" />{" "}
 							{i18n.__("common.overview_tab.add_review")}
-						</a>
+						</Link>
 					</div>
 					<hr />
 					<CompanyRating company={this.props.company} />
@@ -65,8 +66,8 @@ export default class ReviewsSection extends React.Component {
 						<div className="na_tab1">
 							<ul className="" role="tablist">
 								<li role="presentation" className="te_deco">
-									<a
-										href="#reviews"
+									<Link
+										to="#reviews"
 										aria-controls="reviews"
 										role="tab"
 										data-toggle="tab"
@@ -76,7 +77,7 @@ export default class ReviewsSection extends React.Component {
 												common.overview_tab.see_all_reviews
 											</T>
 										</strong>
-									</a>
+									</Link>
 								</li>
 							</ul>
 						</div>

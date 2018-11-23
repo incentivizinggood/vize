@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -9,18 +10,17 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
 const t = i18n.createTranslator();
 
 function WriteReviewButton(props) {
-		return (
-			<a
-				href={`/write-review/?id=${props.companyId}`}
-				className={props.classField}
-			>
-				<FontAwesomeIcon icon="plus" />&nbsp;
-				{t("common.overview_tab.add_review")}
-			</a>
-		);
-	}
-
-
+	return (
+		<Link
+			to={`/write-review/?id=${props.companyId}`}
+			className={props.classField}
+		>
+			<FontAwesomeIcon icon="plus" />
+			&nbsp;
+			{t("common.overview_tab.add_review")}
+		</Link>
+	);
+}
 
 WriteReviewButton.propTypes = {
 	companyId: PropTypes.string.isRequired,
