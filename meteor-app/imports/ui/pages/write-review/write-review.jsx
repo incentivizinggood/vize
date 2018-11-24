@@ -1,8 +1,8 @@
 // Boilerplate first
 import React from "react";
-import { withFormik, Field, ErrorMessage, Form } from "formik";
+import { withFormik, connect, Field, ErrorMessage, Form } from "formik";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 // import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import Dialog from "/imports/ui/components/dialog-box";
 import i18n from "meteor/universe:i18n";
@@ -59,7 +59,21 @@ const reviewFormUserInfo = gql`
 	}
 `;
 
+// NOTE This is an example of what I start
+// to do with variable and function names
+// when I feel like I've been working on something
+// for too long
+const figureOutSubmittedBy = function(submittedBy) {
+	if (typeof submittedBy === "function") return submittedBy();
+	else if (typeof submittedBy === "object")
+		return translateError(submittedBy);
+	return submittedBy;
+};
+
 const WriteReviewInnerForm = props => (
+	// NOTE Don't be confused by props not being
+	// used in this outer query, it's used in another
+	// query later (by the specific field that it's used for)
 	<Query query={reviewFormUserInfo}>
 		{({ loading, error, data }) => {
 			// TODO These loading and error results could be
@@ -89,50 +103,9 @@ const WriteReviewInnerForm = props => (
 				userRole = data.currentUser.role;
 			}
 
-			// There's probably a more elegant way to do this,
-			// but this is the first way that came to mind...
-			props.setFieldValue("submittedBy", userPostgresId);
-			props.setFieldTouched("submittedBy", true);
-			const hiddenSubmittedByField = () => (
-				<Field
-					name="submittedBy"
-					value={userPostgresId}
-					component="input"
-					type="number"
-					hidden
-					readOnly
-					validate={() => {
-						// BUG
-						// These error-messages can be made form-specific more
-						// easily now that we're outside some of Meteor's constraints
-						if (!userPostgresId) {
-							// add validation error for logged-out
-							// common.methods.errorMessages.loggedOut
-							return () =>
-								t("common.methods.errorMessages.loggedOut");
-						} else if (userRole !== "worker") {
-							// add validation error for permission-denied
-							// common.methods.errorMessages.onlyWorkers
-							return () =>
-								t("common.methods.errorMessages.onlyWorkers");
-						}
-						const [companyName] = props.values;
-						if (
-							companyName &&
-							reviewedCompanyNames.includes(companyName)
-						) {
-							// add validation error for duplicate-review
-							// SimpleSchema.messages.Reviews.secondReviewByUser
-							return () =>
-								t(
-									"SimpleSchema.messages.Reviews.secondReviewByUser"
-								);
-						}
-
-						return undefined;
-					}}
-				/>
-			);
+			console.log(`reviewedCompanyNames === ${reviewedCompanyNames}`);
+			console.log(`userRole === ${userRole}`);
+			console.log(`userPostgresId === ${userPostgresId}`);
 
 			return (
 				<Form>
@@ -156,11 +129,66 @@ const WriteReviewInnerForm = props => (
 											</h4>
 										</div>
 										<fieldset>
-											{hiddenSubmittedByField()}
+											{/*  */}
+											<Field
+												name="submittedBy"
+												value={userPostgresId}
+												component="input"
+												type="number"
+												hidden
+												readOnly
+												validate={submittedByValue => {
+													console.log(
+														`validating for submittedBy === ${submittedByValue}`
+													);
+													// BUG
+													// These error-messages can be made form-specific more
+													// easily now that we're outside some of Meteor's constraints
+													if (!submittedByValue) {
+														// add validation error for logged-out
+														// common.methods.errorMessages.loggedOut
+														return () =>
+															t(
+																"common.methods.errorMessages.loggedOut"
+															);
+													} else if (
+														userRole.toLowerCase() !==
+														"worker"
+													) {
+														// add validation error for permission-denied
+														// common.methods.errorMessages.onlyWorkers
+														return () =>
+															t(
+																"common.methods.errorMessages.onlyWorkers"
+															);
+													}
+													const [
+														companyName,
+													] = props.values;
+													if (
+														companyName &&
+														reviewedCompanyNames.includes(
+															companyName
+														)
+													) {
+														// add validation error for duplicate-review
+														// SimpleSchema.messages.Reviews.secondReviewByUser
+														return () =>
+															t(
+																"SimpleSchema.messages.Reviews.secondReviewByUser"
+															);
+													}
+
+													return undefined;
+												}}
+											/>
 											<div className="form-group has-error">
 												<span className="help-block">
 													{props.errors.submittedBy
-														? props.errors.submittedBy()
+														? figureOutSubmittedBy(
+																props.errors
+																	.submittedBy
+														  )
 														: undefined}
 												</span>
 											</div>
@@ -369,14 +397,14 @@ const WriteReviewForm = withFormik({
 	// NOTE Actually, if the submission logic was handled by a GraphQL
 	// Mutation, you might be able to do it reactively there. That
 	// would make heaps and heaps of sense.
-	mapPropsToValues() {
-		return {
-			// submittedBy is given a dummy value here because it is required,
-			// but really it is always overwritten and checked server-side using
-			// the id of the currently-logged-in user
-			submittedBy: 0,
-		};
-	},
+	// mapPropsToValues() {
+	// 	return {
+	// 		// submittedBy is given a dummy value here because it is required,
+	// 		// but really it is always overwritten and checked server-side using
+	// 		// the id of the currently-logged-in user
+	// 		submittedBy: 0,
+	// 	};
+	// },
 	validationSchema: ReviewSchema,
 	handleSubmit(values, formikbag) {
 		console.log("WE ARE SUBMITTING");
