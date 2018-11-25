@@ -31,6 +31,33 @@ export default function Footer() {
 						</li>
 					</ul>
 				</div>
+				<div className="col-md-3 footer-grids">
+					<h4>
+						<T>common.footer.social</T>
+					</h4>
+					<ul className=" footer_nav navigation3">
+						<li>
+							<Link to="instagram.com">
+								<T>common.footer.instagram</T>
+							</Link>
+							//
+							<Link to="/social">
+								// <T>common.footer.social</T>
+								//
+							</Link>
+						</li>
+						<li>
+							<Link to="facebook.com">
+								<T>common.footer.facebook</T>
+							</Link>
+						</li>
+						<li>
+							<Link to="twitter.com">
+								<T>common.footer.twitter</T>
+							</Link>
+						</li>
+					</ul>
+				</div>
 				<div className="clearfix" />
 				<div>
 					<div className="container">

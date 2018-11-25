@@ -150,6 +150,10 @@
 	},
 	"footer": {
 		"about_us": "About Us",
+		"social": "Social Media",
+		"instagram": "Instagram",
+		"facebook": "Facebook",
+		"twitter": "Twitter",
 		"employers": "Employers",
 		"create_free_account": "Create a Free Employer Account",
 		"all_rights_reserved": "All rights reserved"
