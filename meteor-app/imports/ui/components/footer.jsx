@@ -37,24 +37,23 @@ export default function Footer() {
 					</h4>
 					<ul className=" footer_nav navigation3">
 						<li>
-							<Link to="instagram.com">
-								<T>common.footer.instagram</T>
-							</Link>
-							//
-							<Link to="/social">
-								// <T>common.footer.social</T>
-								//{" "}
-							</Link>
+							<a href="https://www.linkedin.com/company/incentivizinggood">
+								<T>common.footer.linkedin</T>
+							</a>
 						</li>
+					</ul>
+					<ul className=" footer_nav navigation3">
 						<li>
-							<Link to="facebook.com">
+							<a href="https://www.facebook.com/incentivizinggood">
 								<T>common.footer.facebook</T>
-							</Link>
+							</a>
 						</li>
+					</ul>
+					<ul className=" footer_nav navigation3">
 						<li>
-							<Link to="twitter.com">
+							<a href="https://www.twitter.com/vizeglobal">
 								<T>common.footer.twitter</T>
-							</Link>
+							</a>
 						</li>
 					</ul>
 				</div>
