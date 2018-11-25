@@ -25,6 +25,25 @@ import {
 
 const t = i18n.createTranslator();
 
+// NOTE
+// HEY, check out this cool thing I found
+// on Stack Overflow, I'm using it inside
+// Formik's validate function to simplify
+// figuring out how to construct the results:
+// https://stackoverflow.com/questions/5072136/javascript-filter-for-objects
+const filterObjectKeys = (obj, predicate) => {
+	let result = {},
+		key;
+
+	for (key of Object.keys(obj)) {
+		if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+			result[key] = obj[key];
+		}
+	}
+
+	return result;
+};
+
 /*
 	TODO/BUG
 	Fix submit-on-change-locale bug
@@ -98,210 +117,217 @@ const getCustomErrorsForSubmittedBy = (submittedByValue, companyName) => {
 	return undefined;
 };
 
-const WriteReviewInnerForm = props => (
-	<Form>
-		<div className="navbarwhite">
-			<Header />
-		</div>
-		<section id="back_col">
-			<div className="container  fom-job">
-				<div className="row ">
-					<div className="col-md-12 back_top_hover">
-						<div className="form-container">
-							{/* QUESTION Why is the class of this
+const WriteReviewInnerForm = props => {
+	console.log(props);
+	return (
+		<Form>
+			<div className="navbarwhite">
+				<Header />
+			</div>
+			<section id="back_col">
+				<div className="container  fom-job">
+					<div className="row ">
+						<div className="col-md-12 back_top_hover">
+							<div className="form-container">
+								{/* QUESTION Why is the class of this
 							next div 'post-a-job' instead of 'write-review'? */}
-							<div className="post-a-job">
-								<h3>{t("common.forms.wr.formTitle")}</h3>
-								<br />
-								<h4>{t("common.forms.wr.header1")}</h4>
-							</div>
-							<fieldset>
-								<div className="form-group has-error">
-									<span className="help-block">
-										{props.errors.submittedBy
-											? figureOutSubmittedBy(
-													props.errors.submittedBy
-											  )
-											: undefined}
-									</span>
+								<div className="post-a-job">
+									<h3>{t("common.forms.wr.formTitle")}</h3>
+									<br />
+									<h4>{t("common.forms.wr.header1")}</h4>
 								</div>
-								{props.companyId !== undefined
-									? readOnlyCompanyNameField({
-											...props,
-											formgroupname: "Reviews",
-									  })
-									: emptyCompanyNameField({
-											...props,
-											formgroupname: "Reviews",
-											placeholdergroupname: "wr",
-									  })}
-								<VfInputText
-									name="reviewTitle"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.reviewTitle"
-									)}
-									maxLength="100"
-									placeholder={t(
-										"common.forms.wr.reviewTitlePlaceholder"
-									)}
-								/>
-								<VfInputLocation
-									name="location"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.location"
-									)}
-								/>
-								<VfInputText
-									maxLength="100"
-									name="jobTitle"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.jobTitle"
-									)}
-									placeholder={t(
-										"common.forms.wr.jobTitlePlaceholder"
-									)}
-								/>
-								<VfInputInteger
-									min="0"
-									name="numberOfMonthsWorked"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
-									)}
-								/>
-								<VfInputTextArea
-									rows="6"
-									maxLength="600"
-									name="pros"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.pros"
-									)}
-									placeholder={t(
-										"common.forms.wr.prosPlaceholder"
-									)}
-								/>
-								<VfInputTextArea
-									rows="6"
-									maxLength="600"
-									name="cons"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.cons"
-									)}
-									placeholder={t(
-										"common.forms.wr.consPlaceholder"
-									)}
-								/>
-								<VfInputRadioGroup
-									optionlist={[
-										{
-											key: t("common.yes"),
-											value: true,
-										},
-										{
-											key: t("common.no"),
-											value: false,
-										},
-									]}
-									name="wouldRecommendToOtherJobSeekers"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
-									)}
-								/>
-								<VfInputStarRating
-									style={{ float: "right" }}
-									name="healthAndSafety"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.healthAndSafety"
-									)}
-								/>
-								<VfInputStarRating
-									style={{ float: "right" }}
-									name="managerRelationship"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.managerRelationship"
-									)}
-								/>
-								<VfInputStarRating
-									style={{ float: "right" }}
-									name="workEnvironment"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.workEnvironment"
-									)}
-								/>
-								<VfInputStarRating
-									style={{ float: "right" }}
-									name="benefits"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.benefits"
-									)}
-								/>
-								<VfInputStarRating
-									style={{ float: "right" }}
-									name="overallSatisfaction"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.overallSatisfaction"
-									)}
-								/>
-								<VfInputTextArea
-									rows="6"
-									maxLength="6000"
-									name="additionalComments"
-									formgroupname="Reviews"
-									labelstring={t(
-										"SimpleSchema.labels.Reviews.additionalComments"
-									)}
-									placeholder={t(
-										"common.forms.wr.additionalCommentsPlaceholder"
-									)}
-								/>
-								<div className="form-group">
-									<div className="col-lg-12">
-										<div className="submit_div">
-											{/* BUG These buttons need to be hooked up to functions.
+								<fieldset>
+									<div className="form-group has-error">
+										<span className="help-block">
+											{props.errors.submittedBy
+												? figureOutSubmittedBy(
+														props.errors.submittedBy
+												  )
+												: undefined}
+										</span>
+									</div>
+									{props.companyId !== undefined
+										? readOnlyCompanyNameField({
+												...props,
+												formgroupname: "Reviews",
+										  })
+										: emptyCompanyNameField({
+												...props,
+												formgroupname: "Reviews",
+												placeholdergroupname: "wr",
+										  })}
+									<VfInputText
+										name="reviewTitle"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.reviewTitle"
+										)}
+										maxLength="100"
+										placeholder={t(
+											"common.forms.wr.reviewTitlePlaceholder"
+										)}
+									/>
+									<VfInputLocation
+										name="location"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.location"
+										)}
+									/>
+									<VfInputText
+										maxLength="100"
+										name="jobTitle"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.jobTitle"
+										)}
+										placeholder={t(
+											"common.forms.wr.jobTitlePlaceholder"
+										)}
+									/>
+									<VfInputInteger
+										min="0"
+										name="numberOfMonthsWorked"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
+										)}
+									/>
+									<VfInputTextArea
+										rows="6"
+										maxLength="600"
+										name="pros"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.pros"
+										)}
+										placeholder={t(
+											"common.forms.wr.prosPlaceholder"
+										)}
+									/>
+									<VfInputTextArea
+										rows="6"
+										maxLength="600"
+										name="cons"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.cons"
+										)}
+										placeholder={t(
+											"common.forms.wr.consPlaceholder"
+										)}
+									/>
+									<VfInputRadioGroup
+										optionlist={[
+											{
+												key: t("common.yes"),
+												value: true,
+											},
+											{
+												key: t("common.no"),
+												value: false,
+											},
+										]}
+										name="wouldRecommendToOtherJobSeekers"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="healthAndSafety"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.healthAndSafety"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="managerRelationship"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.managerRelationship"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="workEnvironment"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.workEnvironment"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="benefits"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.benefits"
+										)}
+									/>
+									<VfInputStarRating
+										style={{ float: "right" }}
+										name="overallSatisfaction"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.overallSatisfaction"
+										)}
+									/>
+									<VfInputTextArea
+										rows="6"
+										maxLength="6000"
+										name="additionalComments"
+										formgroupname="Reviews"
+										labelstring={t(
+											"SimpleSchema.labels.Reviews.additionalComments"
+										)}
+										placeholder={t(
+											"common.forms.wr.additionalCommentsPlaceholder"
+										)}
+									/>
+									<div className="form-group">
+										<div className="col-lg-12">
+											<div className="submit_div">
+												{/* BUG These buttons need to be hooked up to functions.
 												BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
-											<button
-												type="submit"
-												className="btn btn-primary"
-											>
-												{t("common.forms.submitForm")}
-											</button>
-											<button
-												type="reset"
-												className="btn btn-default"
-											>
-												{t("common.forms.resetForm")}
-											</button>
+												<button
+													type="submit"
+													className="btn btn-primary"
+												>
+													{t(
+														"common.forms.submitForm"
+													)}
+												</button>
+												<button
+													type="reset"
+													className="btn btn-default"
+												>
+													{t(
+														"common.forms.resetForm"
+													)}
+												</button>
+											</div>
 										</div>
 									</div>
-								</div>
-							</fieldset>
+								</fieldset>
+							</div>
 						</div>
+						<div className="clear" />
 					</div>
-					<div className="clear" />
 				</div>
-			</div>
-			{/* <div>{JSON.stringify(props)}</div> */}
-		</section>
-		<Footer />
-		<Dialog />
-		{/* {{#if hasError}}
+				{/* <div>{JSON.stringify(props)}</div> */}
+			</section>
+			<Footer />
+			<Dialog />
+			{/* {{#if hasError}}
 		<div>
 			{{> React component=ErrorWidget err=error}}
 		</div>
 		{{/if}} */}
-	</Form>
-);
+		</Form>
+	);
+};
 
 const WriteReviewOuterForm = () => (
 	// BUG
@@ -360,7 +386,10 @@ const WriteReviewOuterForm = () => (
 							submittedBy,
 							companyName
 						);
-						return errors;
+						return filterObjectKeys(
+							errors,
+							thing => thing === undefined || thing === null
+						);
 					}}
 					// validateOnChange={false}
 					// validateOnBlur={false}
