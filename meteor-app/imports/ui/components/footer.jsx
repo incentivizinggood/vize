@@ -38,21 +38,21 @@ export default function Footer() {
 					<ul className=" footer_nav navigation3">
 						<li>
 							<a href="https://www.linkedin.com/company/incentivizinggood">
-								<T>common.footer.linkedin</T>
+								<img src="images/linkedin.png" />
 							</a>
 						</li>
 					</ul>
 					<ul className=" footer_nav navigation3">
 						<li>
 							<a href="https://www.facebook.com/incentivizinggood">
-								<T>common.footer.facebook</T>
+								<img src="images/facebook.png" />
 							</a>
 						</li>
 					</ul>
 					<ul className=" footer_nav navigation3">
 						<li>
 							<a href="https://www.twitter.com/vizeglobal">
-								<T>common.footer.twitter</T>
+								<img src="images/twitter.png" />
 							</a>
 						</li>
 					</ul>
