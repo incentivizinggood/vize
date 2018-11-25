@@ -43,7 +43,7 @@ export default function Footer() {
 							//
 							<Link to="/social">
 								// <T>common.footer.social</T>
-								//
+								//{" "}
 							</Link>
 						</li>
 						<li>
