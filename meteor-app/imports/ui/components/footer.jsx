@@ -38,21 +38,36 @@ export default function Footer() {
 					<ul className=" footer_nav navigation3">
 						<li>
 							<a href="https://www.linkedin.com/company/incentivizinggood">
-								<img src="images/linkedin.png" />
+								<img
+									src="images/linkedin.png"
+									width={50}
+									height={50}
+									mode="fit"
+								/>
 							</a>
-						</li>
-					</ul>
-					<ul className=" footer_nav navigation3">
-						<li>
 							<a href="https://www.facebook.com/incentivizinggood">
-								<img src="images/facebook.png" />
+								<img
+									src="images/facebook.png"
+									width={50}
+									height={50}
+									mode="fit"
+								/>
 							</a>
-						</li>
-					</ul>
-					<ul className=" footer_nav navigation3">
-						<li>
 							<a href="https://www.twitter.com/vizeglobal">
-								<img src="images/twitter.png" />
+								<img
+									src="images/twitter.png"
+									width={50}
+									height={50}
+									mode="fit"
+								/>
+							</a>
+							<a href="https://www.instagram.com/incentivandoelbien/">
+								<img
+									src="images/instagram.png"
+									width={50}
+									height={50}
+									mode="fit"
+								/>
 							</a>
 						</li>
 					</ul>
