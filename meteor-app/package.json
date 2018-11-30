@@ -4,7 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
-    "gen-resolve-types": "cd imports/api/graphql && graphqlgen"
+    "gen": "cd imports/api/graphql && graphqlgen"
   },
   "cssModules": {
     "extensions": [
