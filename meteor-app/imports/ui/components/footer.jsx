@@ -42,7 +42,7 @@ export default function Footer() {
 									src="images/linkedin.png"
 									width={50}
 									height={50}
-									mode="fit"
+									style={{ maxWidth: 50 }}
 								/>
 							</a>
 							<a href="https://www.facebook.com/incentivizinggood">
@@ -50,7 +50,7 @@ export default function Footer() {
 									src="images/facebook.png"
 									width={50}
 									height={50}
-									mode="fit"
+									style={{ maxWidth: 50 }}
 								/>
 							</a>
 							<a href="https://www.twitter.com/vizeglobal">
@@ -58,7 +58,7 @@ export default function Footer() {
 									src="images/twitter.png"
 									width={50}
 									height={50}
-									mode="fit"
+									style={{ maxWidth: 50 }}
 								/>
 							</a>
 							<a href="https://www.instagram.com/incentivandoelbien/">
@@ -66,7 +66,7 @@ export default function Footer() {
 									src="images/instagram.png"
 									width={50}
 									height={50}
-									mode="fit"
+									style={{ maxWidth: 50 }}
 								/>
 							</a>
 						</li>
