@@ -31,6 +31,51 @@ export default function Footer() {
 						</li>
 					</ul>
 				</div>
+				<div className="col-md-3 footer-grids">
+					<h4>
+						<T>common.footer.social</T>
+					</h4>
+					<ul className=" footer_nav navigation3">
+						<li>
+							<a href="https://www.linkedin.com/company/incentivizinggood">
+								<img
+									src="images/linkedin.png"
+									alt="LinkedIn"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+							<a href="https://www.facebook.com/incentivizinggood">
+								<img
+									src="images/facebook.png"
+									alt="Facebook"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+							<a href="https://www.twitter.com/vizeglobal">
+								<img
+									src="images/twitter.png"
+									alt="Twitter"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+							<a href="https://www.instagram.com/incentivandoelbien/">
+								<img
+									src="images/instagram.png"
+									alt="Instagram"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+						</li>
+					</ul>
+				</div>
 				<div className="clearfix" />
 				<div>
 					<div className="container">
