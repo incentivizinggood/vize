@@ -63,6 +63,9 @@ type Company {
 	descriptionOfCompany: String
 	dateJoined: DateTime
 	numFlags: Int
+
+	# TODO: Move these fields into a ReviewStats type for better preformance and
+	# code quality.
 	avgStarRatings: StarRatings
 	percentRecommended: Float
 	avgNumMonthsWorked: Float
@@ -112,6 +115,9 @@ type Review {
 	additionalComments: String
 	"The date and time this was created."
 	created: DateTime
+
+	# TODO: Move these fields into a VoteStats type for better preformance and
+	# code quality.
 	upvotes: Int
 	downvotes: Int
 
