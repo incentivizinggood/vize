@@ -11,6 +11,8 @@ case $1 in
 	cd meteor-app
 	echo "Installing meteor-app npm packages"
 	npm i
+	echo "Generating code"
+	npm run gen
 	echo "Installing Meteor packages"
 	meteor lint
 	cd ..

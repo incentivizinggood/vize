@@ -1,128 +1,38 @@
 // @flow
-import type { ID, Location, AllModels } from "./common.js";
+import type { CompanyId } from ".";
 
-import PgCompanyFunctions from "./helpers/postgresql/companies.js";
-import { CompanySchema } from "../data/companies.js";
-
-const defaultPageSize = 100;
-
-export type Company = {
-	_id: ID,
+type CompanyData = {|
+	companyid: CompanyId,
 	name: string,
-
-	contactEmail: string,
-	yearEstablished: ?number,
-	numEmployees: ?(
+	dateadded: Date,
+	yearestablished: number,
+	industry: string,
+	descriptionofcompany: string,
+	numemployees:
+		| null
 		| "1 - 50"
 		| "51 - 500"
 		| "501 - 2000"
 		| "2001 - 5000"
-		| "5000+"
-	),
-	industry: ?string,
-	locations: [Location],
-	contactPhoneNumber: ?string,
-	websiteURL: ?string,
-	descriptionOfCompany: ?string,
-	dateJoined: ?Date,
-	numFlags: ?number,
+		| "5000+",
+	contactemail: string,
+	websiteurl: string,
+	contactphonenumber: string,
+	numflags: number,
+|};
 
-	healthAndSafety: ?number,
-	managerRelationship: ?number,
-	workEnvironment: ?number,
-	benefits: ?number,
-	overallSatisfaction: ?number,
+// TODO: separate the review stats into a separate  graphql type so that we do
+// not have to do this weird joining.
+type ReviewStatsData = {|
+	name: string,
+	numreviews: number,
+	avgnummonthsworked: number,
+	percentrecommended: number,
+	healthandsafety: number,
+	managerrelationship: number,
+	workenvironment: number,
+	benefits: number,
+	overallsatisfaction: number,
+|};
 
-	numReviews: number,
-	percentRecommended: ?number,
-	avgNumMonthsWorked: ?number,
-};
-
-export default class CompanyModel {
-	connector: Object;
-
-	constructor(connector: Object) {
-		this.connector = connector; // forget this (should be PostgreSQL)
-	}
-
-	init({  }: AllModels) {
-		// This does not need any references to other models.
-	}
-
-	// Get the company with a given id.
-	async getCompanyById(id: ID): Company {
-		// id is a string for now, and company id's
-		// are integers, so I think this should be fine
-		// for now
-		if (!Number.isNaN(Number(id)))
-			return PgCompanyFunctions.processCompanyResults(
-				await this.connector.executeQuery(
-					PgCompanyFunctions.getCompanyById,
-					Number(id)
-				)
-			);
-		return undefined;
-	}
-
-	// Get the company with a given name.
-	async getCompanyByName(name: string): Company {
-		return PgCompanyFunctions.processCompanyResults(
-			await this.connector.executeQuery(
-				PgCompanyFunctions.getCompanyByName,
-				name
-			)
-		);
-	}
-
-	// Get all of the companies.
-	async getAllCompanies(
-		pageNumber: number = 0,
-		pageSize: number = defaultPageSize
-	): [Company] {
-		return PgCompanyFunctions.processCompanyResults(
-			await this.connector.executeQuery(
-				PgCompanyFunctions.getAllCompanies,
-				pageNumber * pageSize,
-				pageSize
-			)
-		);
-	}
-
-	// return all companies whose name
-	// contains the given search text
-	async searchForCompanies(
-		searchText: string,
-		pageNumber: number = 0,
-		pageSize: number = defaultPageSize
-	): [Company] {
-		return PgCompanyFunctions.processCompanyResults(
-			await this.connector.executeQuery(
-				PgCompanyFunctions.companyNameRegexSearch,
-				searchText,
-				pageNumber * pageSize,
-				pageSize
-			)
-		);
-	}
-
-	isCompany(obj: any): boolean {
-		// CompanySchema
-		// 	.newContext()
-		// 	.validate(obj);
-		const context = CompanySchema.newContext();
-		context.validate(obj);
-		return context.isValid();
-	}
-
-	async createCompany(companyParams: mixed): Company {
-		throw new Error("Not implemented yet");
-	}
-
-	async editCompany(id: ID, companyChanges: mixed): Company {
-		throw new Error("Not implemented yet");
-	}
-
-	async deleteCompany(id: ID): Company {
-		throw new Error("Not implemented yet");
-	}
-}
+export type Company = CompanyData & ReviewStatsData;
