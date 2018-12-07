@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "meteor test --once --driver-package meteortesting:mocha"
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "gen": "cd imports/api/graphql && graphqlgen"
   },
   "cssModules": {
     "extensions": [
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "graphqlgen": "^0.3.0",
     "node-sass": "^4.9.3",
     "react-test-renderer": "^16.4.2"
   }
