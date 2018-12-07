@@ -171,7 +171,7 @@ type User {
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
 	"Reviews written by this user. Will be null if this user cannot write reviews."
-	reviews(pageNum: Int, pageSize: Int): [Review!]
+	reviews(pageNum: Int, pageSize: Int): [Review!]!
 	"Comments written by this user."
 	comments(pageNum: Int, pageSize: Int): [Comment!]!
 	"Votes cast by this user."

@@ -363,8 +363,8 @@ const resolvers: Resolvers = {
 		// QUESTION is this resolver a security/privacy breach? If so, we
 		// will have to forgo certain points of client-side input validation,
 		// or else redesign/reimplement them
-		postgresId: ({ _id }: User, args: {}, context: Context) =>
-			context.userModel.getUserPostgresId(_id),
+		postgresId: (obj, args, context, info) =>
+			dataModel.getUserPostgresId(obj._id),
 
 		role: (obj, args, context, info) => {
 			if (obj.role === "worker") return "WORKER";

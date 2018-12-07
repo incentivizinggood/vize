@@ -23,27 +23,6 @@ import {
 	emptyCompanyNameField,
 } from "/imports/ui/components/vize-formik-components.jsx";
 
-const t = i18n.createTranslator();
-
-// NOTE
-// HEY, check out this cool thing I found
-// on Stack Overflow, I'm using it inside
-// Formik's validate function to simplify
-// figuring out how to construct the results:
-// https://stackoverflow.com/questions/5072136/javascript-filter-for-objects
-const filterObjectKeys = (obj, predicate) => {
-	let result = {},
-		key;
-
-	for (key of Object.keys(obj)) {
-		if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
-			result[key] = obj[key];
-		}
-	}
-
-	return result;
-};
-
 /*
 	TODO/BUG
 	Fix submit-on-change-locale bug
@@ -65,6 +44,28 @@ const filterObjectKeys = (obj, predicate) => {
 	form submission was successful, or the form
 	doesn't always clear when it needs to.
 */
+
+// NOTE
+// HEY, check out this cool thing I found
+// on Stack Overflow, I'm using it inside
+// Formik's validate function to simplify
+// figuring out how to construct the results:
+// https://stackoverflow.com/questions/5072136/javascript-filter-for-objects
+
+const t = i18n.createTranslator();
+
+const filterObjectKeys = (obj, predicate) => {
+	let result = {},
+		key;
+
+	for (key of Object.keys(obj)) {
+		if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+			result[key] = obj[key];
+		}
+	}
+
+	return result;
+};
 
 const reviewFormUserInfo = gql`
 	query currentUserPostgresIdWithReviews {
