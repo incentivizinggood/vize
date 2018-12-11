@@ -24,14 +24,24 @@ import {
 } from "/imports/ui/components/vize-formik-components.jsx";
 
 /*
+	NOTE
+	Formik is hooking up the reset button automatically,
+	and it seems to be working just fine. Preliminary tests
+	are all clear, so not going to fix it until it breaks...
 	TODO/BUG
 	Fix submit-on-change-locale bug
+	TODO/BUG
+	Go through code and docs and make sure that double-submits
+	and other invalid states are properly prevented/preempted.
+	TODO
+	Refactor GraphQL queries into .graphql files
+	TODO
+	Refactor readOnlyCompanyNameField and emptyCompanyNameField
+	to...not exist. Move the GraphQL queries into the components
+	in this file, and just add the proper logic. No reason to have
+	more components (or more GraphQL Queries...) than we need.
 	TODO
 	Fix submission logic
-	TODO
-	Fix submit/reset buttons
-	TODO
-	Fix/implement reset logic
 	TODO
 	Implement submission logic with GraphQL mutation,
 	replacing everything currently contained in the
@@ -45,28 +55,22 @@ import {
 	doesn't always clear when it needs to.
 */
 
-// NOTE
-// HEY, check out this cool thing I found
-// on Stack Overflow, I'm using it inside
-// Formik's validate function to simplify
-// figuring out how to construct the results:
-// https://stackoverflow.com/questions/5072136/javascript-filter-for-objects
+// NOTE used to "filter events" and prevent
+// undesired form submissions, such as one
+// that occur due to locale changes causing
+// withUpdateOnChangeLocale to force a re-render...
+let submitButtonClicked = false;
 
+// NOTE variables used while parsing Query results
+let reviewedCompanyNames;
+let userRole;
+let userPostgresId;
+
+// Everyone's favorite...
 const t = i18n.createTranslator();
 
-const filterObjectKeys = (obj, predicate) => {
-	let result = {},
-		key;
-
-	for (key of Object.keys(obj)) {
-		if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
-			result[key] = obj[key];
-		}
-	}
-
-	return result;
-};
-
+// TODO This GraphQL query that needs
+// to be move to a .graphql file
 const reviewFormUserInfo = gql`
 	query currentUserPostgresIdWithReviews {
 		currentUser {
@@ -93,9 +97,25 @@ const reviewFormUserInfo = gql`
 	}
 `;
 
-let reviewedCompanyNames;
-let userRole;
-let userPostgresId;
+// NOTE
+// HEY, check out this cool thing I found
+// on Stack Overflow, I'm using it inside
+// Formik's validate function to simplify
+// figuring out how to construct the results:
+// https://stackoverflow.com/questions/5072136/javascript-filter-for-objects
+
+const filterObjectKeys = (obj, predicate) => {
+	let result = {},
+		key;
+
+	for (key of Object.keys(obj)) {
+		if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+			result[key] = obj[key];
+		}
+	}
+
+	return result;
+};
 
 // NOTE This is an example of what I start
 // to do with variable and function names
@@ -109,7 +129,7 @@ const figureOutSubmittedBy = submittedBy => {
 };
 
 const getCustomErrorsForSubmittedBy = (submittedByValue, companyName) => {
-	console.log(`validating for submittedBy === ${submittedByValue}`);
+	// console.log(`validating for submittedBy === ${submittedByValue}`);
 	// TODO/REFACTOR?
 	// These error-messages can be made form-specific more
 	// easily now that we're outside some of Meteor's constraints
@@ -133,7 +153,8 @@ const getCustomErrorsForSubmittedBy = (submittedByValue, companyName) => {
 };
 
 const WriteReviewInnerForm = props => {
-	console.log(props);
+	// console.log("WriteReviewInnerForm: ");
+	// console.log(props);
 	return (
 		<Form>
 			<div className="navbarwhite">
@@ -309,6 +330,9 @@ const WriteReviewInnerForm = props => {
 												<button
 													type="submit"
 													className="btn btn-primary"
+													onClick={() => {
+														submitButtonClicked = true;
+													}}
 												>
 													{t(
 														"common.forms.submitForm"
@@ -410,8 +434,15 @@ const WriteReviewOuterForm = () => (
 					// validateOnChange={false}
 					// validateOnBlur={false}
 					onSubmit={(values, actions) => {
+						// submitButtonClicked usage helps us prevent
+						// extraneous submissions, such as those caused
+						// by re-renders from withUpdateOnChangeLocale
+						if (!submitButtonClicked) return;
+						submitButtonClicked = false;
+
 						console.log("WE ARE SUBMITTING");
-						return {};
+						console.log(values);
+						console.log(actions);
 					}}
 					render={connect(WriteReviewInnerForm)}
 				/>
