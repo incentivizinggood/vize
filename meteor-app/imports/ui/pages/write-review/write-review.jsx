@@ -73,7 +73,21 @@ const reviewFormUserInfo = gql`
 			role
 			postgresId
 			reviews {
-				companyName
+				# BUG
+				# Why am I not able to resolve companyName?
+				# After I merged Shaffer's model refactor pull
+				# request, this query started giving me the
+				# following error:
+				# {"graphQLErrors":[{"message":"Cannot return null
+				# for non-nullable field Review.companyName.","locations":
+				# [{"line":6,"column":7}],"path":["currentUser","reviews",0,
+				# "companyName"]}],"networkError":null,"message":"GraphQL
+				# error: Cannot return null for non-nullable field Review.companyName."}
+				#
+				# companyName
+				company {
+					name
+				}
 			}
 		}
 	}
@@ -361,7 +375,8 @@ const WriteReviewOuterForm = () => (
 
 			if (data.currentUser) {
 				reviewedCompanyNames = data.currentUser.reviews.map(
-					review => review.companyName
+					review => review.company.name
+					// review => review.companyName
 				);
 				userPostgresId = data.currentUser.postgresId;
 				userRole = data.currentUser.role;
