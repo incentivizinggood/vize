@@ -103,7 +103,13 @@ type JobAd {
 
 type Review {
 	id: ID!
+
+	"The name of the company this review is about."
 	companyName: String!
+		@deprecated(
+			reason: "This violates the 2nd normal form. Use `company { name }` instead."
+		)
+
 	title: String!
 	jobTitle: String!
 	location: Location!

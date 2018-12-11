@@ -282,6 +282,8 @@ const resolvers: Resolvers = {
 		id: (obj, args, context, info) =>
 			dataModel.reviewIdToString(obj.reviewid),
 
+		companyName: (obj, args, context, info) => obj.companyname,
+
 		title: (obj, args, context, info) => obj.reviewtitle,
 
 		jobTitle: (obj, args, context, info) => obj.jobtitle,
