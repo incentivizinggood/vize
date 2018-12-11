@@ -28,8 +28,13 @@ import {
 	Formik is hooking up the reset button automatically,
 	and it seems to be working just fine. Preliminary tests
 	are all clear, so not going to fix it until it breaks...
-	TODO/BUG
-	Fix submit-on-change-locale bug
+	NOTE
+	The usage and logic surrounding the submitButtonClicked
+	variable is meant to prevent undesired form submissions
+	caused by externally-triggered re-renders, such as from
+	withUpdateOnChangeLocale. I make no guarantees as to the
+	robustness of this solution, only that it seems to fix
+	most of the symptoms I was seeing.
 	TODO/BUG
 	Go through code and docs and make sure that double-submits
 	and other invalid states are properly prevented/preempted.
@@ -40,6 +45,11 @@ import {
 	to...not exist. Move the GraphQL queries into the components
 	in this file, and just add the proper logic. No reason to have
 	more components (or more GraphQL Queries...) than we need.
+	Well...this is a bit more difficult than it sounds.
+	We can move the other Queries into this file and avoid
+	extraneous components, and we can move the query definitions
+	into .graphql files, but I'm not sure if it's possible or
+	desirable to combine all the queries.
 	TODO
 	Fix submission logic
 	TODO
@@ -71,8 +81,8 @@ const t = i18n.createTranslator();
 
 // TODO This GraphQL query that needs
 // to be move to a .graphql file
-const reviewFormUserInfo = gql`
-	query currentUserPostgresIdWithReviews {
+const reviewFormQuery = gql`
+	query reviewFormQuery {
 		currentUser {
 			role
 			postgresId
@@ -368,7 +378,7 @@ const WriteReviewInnerForm = props => {
 	);
 };
 
-const WriteReviewOuterForm = () => (
+const WriteReviewOuterForm = props => (
 	// BUG
 	// GraphQL caches the results of this query
 	// incorrectly, so that if a user logs out
@@ -383,7 +393,11 @@ const WriteReviewOuterForm = () => (
 	// logs out. I'm not sure if the best way to fix this
 	// is to fix the login button, or to do something different
 	// with the query. Gonna leave it alone for now.
-	<Query query={reviewFormUserInfo} fetchPolicy="network-only">
+	<Query
+		query={reviewFormQuery}
+		variables={{ companyId: props.companyId }}
+		fetchPolicy="network-only"
+	>
 		{({ loading, error, data }) => {
 			// TODO These loading and error results could be
 			// made A LOT nicer
