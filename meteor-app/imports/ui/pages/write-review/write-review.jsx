@@ -23,6 +23,8 @@ import {
 	emptyCompanyNameField,
 } from "/imports/ui/components/vize-formik-components.jsx";
 
+import UserInfoQuery from "./write-review.graphql";
+
 /*
 	NOTE
 	Formik is hooking up the reset button automatically,
@@ -50,6 +52,9 @@ import {
 	extraneous components, and we can move the query definitions
 	into .graphql files, but I'm not sure if it's possible or
 	desirable to combine all the queries.
+	NOTE
+	They're not actually extraneous, they get re-used on
+	the salaries form.
 	TODO
 	Fix submission logic
 	TODO
@@ -63,6 +68,11 @@ import {
 	Like that thing where they don't know if the
 	form submission was successful, or the form
 	doesn't always clear when it needs to.
+	BUG
+	I'm convinced that some of my connect calls
+	can be refactored out, I'm just not sure how
+	and I'm not going to try to figure it out because...
+	it works, and I have more important things to do.
 */
 
 // NOTE used to "filter events" and prevent
@@ -78,34 +88,6 @@ let userPostgresId;
 
 // Everyone's favorite...
 const t = i18n.createTranslator();
-
-// TODO This GraphQL query that needs
-// to be move to a .graphql file
-const reviewFormQuery = gql`
-	query reviewFormQuery {
-		currentUser {
-			role
-			postgresId
-			reviews {
-				# BUG
-				# Why am I not able to resolve companyName?
-				# After I merged Shaffer's model refactor pull
-				# request, this query started giving me the
-				# following error:
-				# {"graphQLErrors":[{"message":"Cannot return null
-				# for non-nullable field Review.companyName.","locations":
-				# [{"line":6,"column":7}],"path":["currentUser","reviews",0,
-				# "companyName"]}],"networkError":null,"message":"GraphQL
-				# error: Cannot return null for non-nullable field Review.companyName."}
-				#
-				# companyName
-				company {
-					name
-				}
-			}
-		}
-	}
-`;
 
 // NOTE
 // HEY, check out this cool thing I found
@@ -162,9 +144,9 @@ const getCustomErrorsForSubmittedBy = (submittedByValue, companyName) => {
 	return undefined;
 };
 
-const WriteReviewInnerForm = props => {
-	// console.log("WriteReviewInnerForm: ");
-	// console.log(props);
+const WriteReviewInnerForm = connect(props => {
+	console.log("WriteReviewInnerForm: ");
+	console.log(props);
 	return (
 		<Form>
 			<div className="navbarwhite">
@@ -185,9 +167,10 @@ const WriteReviewInnerForm = props => {
 								<fieldset>
 									<div className="form-group has-error">
 										<span className="help-block">
-											{props.errors.submittedBy
+											{props.formik.errors.submittedBy
 												? figureOutSubmittedBy(
-														props.errors.submittedBy
+														props.formik.errors
+															.submittedBy
 												  )
 												: undefined}
 										</span>
@@ -376,7 +359,7 @@ const WriteReviewInnerForm = props => {
 		{{/if}} */}
 		</Form>
 	);
-};
+});
 
 const WriteReviewOuterForm = props => (
 	// BUG
@@ -393,11 +376,7 @@ const WriteReviewOuterForm = props => (
 	// logs out. I'm not sure if the best way to fix this
 	// is to fix the login button, or to do something different
 	// with the query. Gonna leave it alone for now.
-	<Query
-		query={reviewFormQuery}
-		variables={{ companyId: props.companyId }}
-		fetchPolicy="network-only"
-	>
+	<Query query={UserInfoQuery} fetchPolicy="network-only">
 		{({ loading, error, data }) => {
 			// TODO These loading and error results could be
 			// made A LOT nicer
@@ -414,7 +393,6 @@ const WriteReviewOuterForm = props => (
 			if (data.currentUser) {
 				reviewedCompanyNames = data.currentUser.reviews.map(
 					review => review.company.name
-					// review => review.companyName
 				);
 				userPostgresId = data.currentUser.postgresId;
 				userRole = data.currentUser.role;
@@ -425,9 +403,8 @@ const WriteReviewOuterForm = props => (
 			console.log(`userRole === ${userRole}`);
 			console.log(`userPostgresId === ${userPostgresId}`);
 
-			// props.setFieldValue("submittedBy", userPostgresId, false);
-			// props.setFieldError("submittedBy", getCustomErrorsForSubmittedBy(userPostgresId));
-			// props.setFieldTouched("submittedBy", true, false);
+			// console.log("WriteReviewOuterForm: ")
+			// console.log(props);
 
 			return (
 				<Formik
@@ -458,7 +435,9 @@ const WriteReviewOuterForm = props => (
 						console.log(values);
 						console.log(actions);
 					}}
-					render={connect(WriteReviewInnerForm)}
+					// This feels like such a disgusting hack,
+					// what has my life become...
+					component={() => WriteReviewInnerForm(props)}
 				/>
 			);
 		}}

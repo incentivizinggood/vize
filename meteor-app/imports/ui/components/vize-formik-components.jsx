@@ -581,6 +581,8 @@ export const readOnlyCompanyNameField = props => (
 				}
 				return data.company.name;
 			};
+			console.log("readOnlyCompanyNameField: ");
+			console.log(props);
 
 			return (
 				<VfInputText
