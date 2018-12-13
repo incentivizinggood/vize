@@ -1,0 +1,11 @@
+query {
+	userInfo: currentUser {
+		role
+		postgresId
+		reviews {
+			company {
+				name
+			}
+		}
+	}
+}
