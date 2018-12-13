@@ -23,7 +23,7 @@ import {
 	emptyCompanyNameField,
 } from "/imports/ui/components/vize-formik-components.jsx";
 
-import UserInfoQuery from "./write-review.graphql";
+import ReviewFormQuery from "./write-review.graphql";
 
 /*
 	NOTE
@@ -361,7 +361,7 @@ const WriteReviewInnerForm = connect(props => {
 	);
 });
 
-const WriteReviewOuterForm = props => (
+const WriteReviewOuterForm = props => {
 	// BUG
 	// GraphQL caches the results of this query
 	// incorrectly, so that if a user logs out
@@ -376,73 +376,85 @@ const WriteReviewOuterForm = props => (
 	// logs out. I'm not sure if the best way to fix this
 	// is to fix the login button, or to do something different
 	// with the query. Gonna leave it alone for now.
-	<Query query={UserInfoQuery} fetchPolicy="network-only">
-		{({ loading, error, data }) => {
-			// TODO These loading and error results could be
-			// made A LOT nicer
-			if (loading) return <h1>{t("common.forms.pleaseWait")}</h1>;
-			else if (error)
+	const companyIdArg =
+		props.companyId !== undefined && props.companyId !== null
+			? props.companyId
+			: "";
+	return (
+		<Query
+			query={ReviewFormQuery}
+			variables={{ companyId: companyIdArg }}
+			fetchPolicy="network-only"
+		>
+			{({ loading, error, data }) => {
+				// TODO These loading and error results could be
+				// made A LOT nicer
+				console.log(data);
+				console.log(error);
+				if (loading) return <h1>{t("common.forms.pleaseWait")}</h1>;
+				else if (error)
+					return (
+						<h1>
+							{typeof error === "string"
+								? error
+								: JSON.stringify(error)}
+						</h1>
+					);
+
+				if (data.userInfo) {
+					reviewedCompanyNames = data.userInfo.reviews.map(
+						review => review.company.name
+					);
+					userPostgresId = data.userInfo.postgresId;
+					userRole = data.userInfo.role;
+				}
+
+				console.log(data);
+				console.log(`reviewedCompanyNames === ${reviewedCompanyNames}`);
+				console.log(`userRole === ${userRole}`);
+				console.log(`userPostgresId === ${userPostgresId}`);
+
+				// console.log("WriteReviewOuterForm: ")
+				// console.log(props);
+
 				return (
-					<h1>
-						{typeof error === "string"
-							? error
-							: JSON.stringify(error)}
-					</h1>
+					<Formik
+						initialValues={{ submittedBy: userPostgresId }}
+						validationSchema={ReviewSchema}
+						validate={values => {
+							let errors = {};
+							const { submittedBy, companyName } = values;
+							errors.submittedBy = getCustomErrorsForSubmittedBy(
+								submittedBy,
+								companyName
+							);
+							return filterObjectKeys(
+								errors,
+								thing => thing === undefined || thing === null
+							);
+						}}
+						// validateOnChange={false}
+						// validateOnBlur={false}
+						onSubmit={(values, actions) => {
+							// submitButtonClicked usage helps us prevent
+							// extraneous submissions, such as those caused
+							// by re-renders from withUpdateOnChangeLocale
+							if (!submitButtonClicked) return;
+							submitButtonClicked = false;
+
+							console.log("WE ARE SUBMITTING");
+							console.log(values);
+							console.log(actions);
+						}}
+						// This feels like such a disgusting hack,
+						// what has my life become...
+						component={() => WriteReviewInnerForm(props)}
+					/>
 				);
-
-			if (data.userInfo) {
-				reviewedCompanyNames = data.userInfo.reviews.map(
-					review => review.company.name
-				);
-				userPostgresId = data.userInfo.postgresId;
-				userRole = data.userInfo.role;
-			}
-
-			console.log(data);
-			console.log(`reviewedCompanyNames === ${reviewedCompanyNames}`);
-			console.log(`userRole === ${userRole}`);
-			console.log(`userPostgresId === ${userPostgresId}`);
-
-			// console.log("WriteReviewOuterForm: ")
-			// console.log(props);
-
-			return (
-				<Formik
-					initialValues={{ submittedBy: userPostgresId }}
-					validationSchema={ReviewSchema}
-					validate={values => {
-						let errors = {};
-						const { submittedBy, companyName } = values;
-						errors.submittedBy = getCustomErrorsForSubmittedBy(
-							submittedBy,
-							companyName
-						);
-						return filterObjectKeys(
-							errors,
-							thing => thing === undefined || thing === null
-						);
-					}}
-					// validateOnChange={false}
-					// validateOnBlur={false}
-					onSubmit={(values, actions) => {
-						// submitButtonClicked usage helps us prevent
-						// extraneous submissions, such as those caused
-						// by re-renders from withUpdateOnChangeLocale
-						if (!submitButtonClicked) return;
-						submitButtonClicked = false;
-
-						console.log("WE ARE SUBMITTING");
-						console.log(values);
-						console.log(actions);
-					}}
-					// This feels like such a disgusting hack,
-					// what has my life become...
-					component={() => WriteReviewInnerForm(props)}
-				/>
-			);
-		}}
-	</Query>
-);
+			}}
+		</Query>
+	);
+};
 
 const WriteReviewForm = withUpdateOnChangeLocale(WriteReviewOuterForm);
 

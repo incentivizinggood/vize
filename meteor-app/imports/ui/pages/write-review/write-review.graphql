@@ -1,4 +1,4 @@
-query {
+query ($companyId: ID!){
 	userInfo: currentUser {
 		role
 		postgresId
@@ -7,5 +7,12 @@ query {
 				name
 			}
 		}
+	}
+	companyName: company(id: $companyId)  {
+		name
+	}
+	allCompanyNames: allCompanies {
+		id
+		name
 	}
 }

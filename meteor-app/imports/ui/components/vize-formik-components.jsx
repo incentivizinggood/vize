@@ -588,7 +588,14 @@ export const readOnlyCompanyNameField = props => (
 				<VfInputText
 					name="companyName"
 					formgroupname={props.formgroupname}
-					value={companyName()}
+					// Trying to assign a fields value
+					// this way seems to circumvent Formik's
+					// value-tracking (via the underlying Field),
+					// and I haven't figured out a way to make
+					// it work yet. I may just need to figure
+					// out another way to assign the value of
+					// this field.
+					// value={companyName()}
 					labelstring={t(
 						`SimpleSchema.labels.${props.formgroupname}.companyName`
 					)}
