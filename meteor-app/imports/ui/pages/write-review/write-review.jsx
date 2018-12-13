@@ -390,12 +390,12 @@ const WriteReviewOuterForm = props => (
 					</h1>
 				);
 
-			if (data.currentUser) {
-				reviewedCompanyNames = data.currentUser.reviews.map(
+			if (data.userInfo) {
+				reviewedCompanyNames = data.userInfo.reviews.map(
 					review => review.company.name
 				);
-				userPostgresId = data.currentUser.postgresId;
-				userRole = data.currentUser.role;
+				userPostgresId = data.userInfo.postgresId;
+				userRole = data.userInfo.role;
 			}
 
 			console.log(data);
