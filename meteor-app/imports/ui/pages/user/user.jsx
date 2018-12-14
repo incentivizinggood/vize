@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-import Spinner from "../components/Spinner";
+import Spinner from "../../components/Spinner";
 import userPageQuery from "./user.graphql";
 
 /* Users can view the public information of other users on this page.
