@@ -164,7 +164,7 @@ export default class WriteReviewForm extends React.Component {
 					<Blaze template="wr_blaze_form" />
 				</div>
 				<Footer />
-				<Dialog/>
+				<Dialog />
 			</div>
 		);
 	}
