@@ -1,8 +1,11 @@
 // Boilerplate first
+import { Meteor } from "meteor/meteor";
 import React from "react";
-import { withFormik, connect, ErrorMessage, Formik, Form } from "formik";
-import gql from "graphql-tag";
-import { Query, Mutation } from "react-apollo";
+// import { withFormik, connect, ErrorMessage, Formik, Form } from "formik";
+import { Formik, Form } from "formik";
+// import gql from "graphql-tag";
+// import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 // import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
 import Dialog from "/imports/ui/components/dialog-box";
 import i18n from "meteor/universe:i18n";
@@ -143,256 +146,7 @@ const getCustomErrorsForSubmittedBy = (submittedByValue, companyName) => {
 	return undefined;
 };
 
-const WriteReviewInnerForm = connect(props => {
-	console.log("WriteReviewInnerForm: ");
-	console.log(props);
-	return (
-		<Form>
-			<div className="navbarwhite">
-				<Header />
-			</div>
-			<section id="back_col">
-				<div className="container fom-job">
-					<div className="row ">
-						<div className="col-md-12 back_top_hover">
-							<div className="form-container">
-								{/* QUESTION Why is the class of this
-							next div 'post-a-job' instead of 'write-review'? */}
-								<div className="post-a-job">
-									<h3>{t("common.forms.wr.formTitle")}</h3>
-									<br />
-									<h4>{t("common.forms.wr.header1")}</h4>
-								</div>
-								<fieldset>
-									<div className="form-group has-error">
-										<span className="help-block">
-											{props.formik.errors.submittedBy
-												? figureOutSubmittedBy(
-														props.formik.errors
-															.submittedBy
-												  )
-												: undefined}
-										</span>
-									</div>
-									{props.companyId !== undefined ? (
-										<VfInputText
-											name="companyName"
-											formgroupname={props.formgroupname}
-											// Trying to assign a fields value
-											// this way seems to circumvent Formik's
-											// value-tracking (via the underlying Field),
-											// and I haven't figured out a way to make
-											// it work yet. I may just need to figure
-											// out another way to assign the value of
-											// this field.
-											// value={companyName()}
-											labelstring={t(
-												`SimpleSchema.labels.Reviews.companyName`
-											)}
-											readOnly="true"
-											placeholder={t(
-												`common.forms.wr.companyNamePlaceholder`
-											)}
-											// disabled={
-											// 	loading ||
-											// 	error ||
-											// 	data.company === undefined ||
-											// 	data.company === null
-											// }
-										/>
-									) : (
-										<VfInputTextWithOptionList
-											name="companyName"
-											formgroupname="Reviews"
-											maxLength="100"
-											// optionlist={listOfCompanyNames()}
-											optionlist={[]}
-											labelstring={t(
-												`SimpleSchema.labels.Reviews.companyName`
-											)}
-											placeholder={t(
-												`common.forms.wr.companyNamePlaceholder`
-											)}
-											// disabled={loading}
-										/>
-									)}
-									<VfInputText
-										name="reviewTitle"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.reviewTitle"
-										)}
-										maxLength="100"
-										placeholder={t(
-											"common.forms.wr.reviewTitlePlaceholder"
-										)}
-									/>
-									<VfInputLocation
-										name="location"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.location"
-										)}
-									/>
-									<VfInputText
-										maxLength="100"
-										name="jobTitle"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.jobTitle"
-										)}
-										placeholder={t(
-											"common.forms.wr.jobTitlePlaceholder"
-										)}
-									/>
-									<VfInputInteger
-										min="0"
-										name="numberOfMonthsWorked"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
-										)}
-									/>
-									<VfInputTextArea
-										rows="6"
-										maxLength="600"
-										name="pros"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.pros"
-										)}
-										placeholder={t(
-											"common.forms.wr.prosPlaceholder"
-										)}
-									/>
-									<VfInputTextArea
-										rows="6"
-										maxLength="600"
-										name="cons"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.cons"
-										)}
-										placeholder={t(
-											"common.forms.wr.consPlaceholder"
-										)}
-									/>
-									<VfInputRadioGroup
-										optionlist={[
-											{
-												key: t("common.yes"),
-												value: true,
-											},
-											{
-												key: t("common.no"),
-												value: false,
-											},
-										]}
-										name="wouldRecommendToOtherJobSeekers"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="healthAndSafety"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.healthAndSafety"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="managerRelationship"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.managerRelationship"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="workEnvironment"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.workEnvironment"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="benefits"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.benefits"
-										)}
-									/>
-									<VfInputStarRating
-										style={{ float: "right" }}
-										name="overallSatisfaction"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.overallSatisfaction"
-										)}
-									/>
-									<VfInputTextArea
-										rows="6"
-										maxLength="6000"
-										name="additionalComments"
-										formgroupname="Reviews"
-										labelstring={t(
-											"SimpleSchema.labels.Reviews.additionalComments"
-										)}
-										placeholder={t(
-											"common.forms.wr.additionalCommentsPlaceholder"
-										)}
-									/>
-									<div className="form-group">
-										<div className="col-lg-12">
-											<div className="submit_div">
-												{/* BUG These buttons need to be hooked up to functions.
-												BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
-												<button
-													type="submit"
-													className="btn btn-primary"
-													onClick={() => {
-														submitButtonClicked = true;
-													}}
-												>
-													{t(
-														"common.forms.submitForm"
-													)}
-												</button>
-												<button
-													type="reset"
-													className="btn btn-default"
-												>
-													{t(
-														"common.forms.resetForm"
-													)}
-												</button>
-											</div>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-						</div>
-						<div className="clear" />
-					</div>
-				</div>
-				{/* <div>{JSON.stringify(props)}</div> */}
-			</section>
-			<Footer />
-			<Dialog />
-			{/* {{#if hasError}}
-		<div>
-			{{> React component=ErrorWidget err=error}}
-		</div>
-		{{/if}} */}
-		</Form>
-	);
-});
-
-const WriteReviewOuterForm = props => {
+const WriteReviewForm = withUpdateOnChangeLocale(props => {
 	// BUG
 	// GraphQL caches the results of this query
 	// incorrectly, so that if a user logs out
@@ -417,13 +171,17 @@ const WriteReviewOuterForm = props => {
 			{({ loading, error, data }) => {
 				// TODO These loading and error results could be
 				// made A LOT nicer
-				console.log("QUERY LOADING: ");
-				console.log(loading);
-				console.log("QUERY DATA: ");
-				console.log(data);
-				console.log("QUERY ERRORS: ");
-				if (!loading && !data) console.log(Object.keys(error));
-				if (!loading && !data) console.log(Object.values(error));
+				if (Meteor.isDevelopment) {
+					console.log("QUERY LOADING: ");
+					console.log(loading);
+					console.log("QUERY DATA: ");
+					console.log(data);
+					console.log("QUERY ERRORS: ");
+					console.log(error);
+					if (!loading && !data) console.log(Object.keys(error));
+					if (!loading && !data) console.log(Object.values(error));
+				}
+
 				if (loading) return <h1>{t("common.forms.pleaseWait")}</h1>;
 				else if (error)
 					return (
@@ -442,17 +200,57 @@ const WriteReviewOuterForm = props => {
 					userRole = data.userInfo.role;
 				}
 
-				console.log(data);
-				console.log(`reviewedCompanyNames === ${reviewedCompanyNames}`);
-				console.log(`userRole === ${userRole}`);
-				console.log(`userPostgresId === ${userPostgresId}`);
+				if (Meteor.isDevelopment) {
+					console.log("reviewedCompanyNames === ");
+					console.log(reviewedCompanyNames);
+					console.log("userRole === ");
+					console.log(userRole);
+					console.log("userPostgresId === ");
+					console.log(userPostgresId);
+				}
 
-				// console.log("WriteReviewOuterForm: ")
-				// console.log(props);
+				const listOfCompanyNames = () => {
+					if (loading) {
+						return [t("common.forms.pleaseWait")];
+					} else if (
+						error ||
+						data.allCompanies === undefined ||
+						data.allCompanies === null ||
+						data.allCompanies.length === 0
+					) {
+						return [];
+					}
+					return data.allCompanies.map(result => ({
+						key: result.name,
+						value: result.name,
+					}));
+				};
+
+				const calculateCompanyName = () => {
+					if (loading) {
+						return t("common.forms.pleaseWait");
+					} else if (
+						error ||
+						data.company === undefined ||
+						data.company === null
+					) {
+						if (Meteor.isDevelopment) console.log(error);
+						return props.companyId
+							? t("common.forms.companyNotFound")
+							: undefined;
+					}
+					return data.company.name;
+				};
 
 				return (
 					<Formik
-						initialValues={{ submittedBy: userPostgresId }}
+						// added enableReinitialize mostly so that
+						// initialValues will refresh on locale change
+						enableReinitialize
+						initialValues={{
+							submittedBy: userPostgresId,
+							companyName: calculateCompanyName(),
+						}}
 						validationSchema={ReviewSchema}
 						validate={values => {
 							let errors = {};
@@ -475,20 +273,295 @@ const WriteReviewOuterForm = props => {
 							if (!submitButtonClicked) return;
 							submitButtonClicked = false;
 
-							console.log("WE ARE SUBMITTING");
-							console.log(values);
-							console.log(actions);
+							if (Meteor.isDevelopment) {
+								console.log("WE ARE SUBMITTING");
+								console.log(values);
+								console.log(actions);
+							}
 						}}
-						// This feels like such a disgusting hack,
-						// what has my life become...
-						component={() => WriteReviewInnerForm(props)}
+						component={formikProps => {
+							if (Meteor.isDevelopment) {
+								console.log("formikProps: ");
+								console.log(formikProps);
+							}
+							return (
+								<Form>
+									<div className="navbarwhite">
+										<Header />
+									</div>
+									<section id="back_col">
+										<div className="container fom-job">
+											<div className="row ">
+												<div className="col-md-12 back_top_hover">
+													<div className="form-container">
+														{/* QUESTION Why is the class of this
+													next div 'post-a-job' instead of 'write-review'? */}
+														<div className="post-a-job">
+															<h3>
+																{t(
+																	"common.forms.wr.formTitle"
+																)}
+															</h3>
+															<br />
+															<h4>
+																{t(
+																	"common.forms.wr.header1"
+																)}
+															</h4>
+														</div>
+														<fieldset>
+															<div className="form-group has-error">
+																<span className="help-block">
+																	{formikProps
+																		.errors
+																		.submittedBy
+																		? figureOutSubmittedBy(
+																				formikProps
+																					.errors
+																					.submittedBy
+																		  )
+																		: undefined}
+																</span>
+															</div>
+															{props.companyId !==
+															undefined ? (
+																<VfInputText
+																	name="companyName"
+																	formgroupname="Reviews"
+																	// initial value comes from Formik's
+																	// initialValues prop
+																	labelstring={t(
+																		`SimpleSchema.labels.Reviews.companyName`
+																	)}
+																	readOnly="true"
+																	placeholder={t(
+																		`common.forms.wr.companyNamePlaceholder`
+																	)}
+																	disabled={
+																		loading ||
+																		error ||
+																		data.company ===
+																			undefined ||
+																		data.company ===
+																			null
+																	}
+																/>
+															) : (
+																<VfInputTextWithOptionList
+																	name="companyName"
+																	formgroupname="Reviews"
+																	maxLength="100"
+																	optionlist={listOfCompanyNames()}
+																	labelstring={t(
+																		`SimpleSchema.labels.Reviews.companyName`
+																	)}
+																	placeholder={t(
+																		`common.forms.wr.companyNamePlaceholder`
+																	)}
+																	disabled={
+																		loading
+																	}
+																/>
+															)}
+															<VfInputText
+																name="reviewTitle"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.reviewTitle"
+																)}
+																maxLength="100"
+																placeholder={t(
+																	"common.forms.wr.reviewTitlePlaceholder"
+																)}
+															/>
+															<VfInputLocation
+																name="location"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.location"
+																)}
+															/>
+															<VfInputText
+																maxLength="100"
+																name="jobTitle"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.jobTitle"
+																)}
+																placeholder={t(
+																	"common.forms.wr.jobTitlePlaceholder"
+																)}
+															/>
+															<VfInputInteger
+																min="0"
+																name="numberOfMonthsWorked"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.numberOfMonthsWorked"
+																)}
+															/>
+															<VfInputTextArea
+																rows="6"
+																maxLength="600"
+																name="pros"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.pros"
+																)}
+																placeholder={t(
+																	"common.forms.wr.prosPlaceholder"
+																)}
+															/>
+															<VfInputTextArea
+																rows="6"
+																maxLength="600"
+																name="cons"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.cons"
+																)}
+																placeholder={t(
+																	"common.forms.wr.consPlaceholder"
+																)}
+															/>
+															<VfInputRadioGroup
+																optionlist={[
+																	{
+																		key: t(
+																			"common.yes"
+																		),
+																		value: true,
+																	},
+																	{
+																		key: t(
+																			"common.no"
+																		),
+																		value: false,
+																	},
+																]}
+																name="wouldRecommendToOtherJobSeekers"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.wouldRecommendToOtherJobSeekers"
+																)}
+															/>
+															<VfInputStarRating
+																style={{
+																	float:
+																		"right",
+																}}
+																name="healthAndSafety"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.healthAndSafety"
+																)}
+															/>
+															<VfInputStarRating
+																style={{
+																	float:
+																		"right",
+																}}
+																name="managerRelationship"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.managerRelationship"
+																)}
+															/>
+															<VfInputStarRating
+																style={{
+																	float:
+																		"right",
+																}}
+																name="workEnvironment"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.workEnvironment"
+																)}
+															/>
+															<VfInputStarRating
+																style={{
+																	float:
+																		"right",
+																}}
+																name="benefits"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.benefits"
+																)}
+															/>
+															<VfInputStarRating
+																style={{
+																	float:
+																		"right",
+																}}
+																name="overallSatisfaction"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.overallSatisfaction"
+																)}
+															/>
+															<VfInputTextArea
+																rows="6"
+																maxLength="6000"
+																name="additionalComments"
+																formgroupname="Reviews"
+																labelstring={t(
+																	"SimpleSchema.labels.Reviews.additionalComments"
+																)}
+																placeholder={t(
+																	"common.forms.wr.additionalCommentsPlaceholder"
+																)}
+															/>
+															<div className="form-group">
+																<div className="col-lg-12">
+																	<div className="submit_div">
+																		{/* BUG These buttons need to be hooked up to functions.
+																		BUG Also, the buttons no longer render with proper spacing. They're fine with the original Blaze code. */}
+																		<button
+																			type="submit"
+																			className="btn btn-primary"
+																			onClick={() => {
+																				submitButtonClicked = true;
+																			}}
+																		>
+																			{t(
+																				"common.forms.submitForm"
+																			)}
+																		</button>
+																		<button
+																			type="reset"
+																			className="btn btn-default"
+																		>
+																			{t(
+																				"common.forms.resetForm"
+																			)}
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</fieldset>
+													</div>
+												</div>
+												<div className="clear" />
+											</div>
+										</div>
+										{/* <div>{JSON.stringify(props)}</div> */}
+									</section>
+									<Footer />
+									<Dialog />
+									{/* {{#if hasError}}
+									<div>
+										{{> React component=ErrorWidget err=error}}
+									</div>
+									{{/if}} */}
+								</Form>
+							);
+						}}
 					/>
 				);
 			}}
 		</Query>
 	);
-};
-
-const WriteReviewForm = withUpdateOnChangeLocale(WriteReviewOuterForm);
+});
 
 export default WriteReviewForm;
