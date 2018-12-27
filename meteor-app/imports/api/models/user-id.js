@@ -39,7 +39,7 @@ export async function getUserPostgresId(id: UserId): Promise<UserPId> {
 
 	const pgUserResults = await execTransactionRO(transaction);
 	// Gonna say for now that -1 is the "error code" for "no such user"
-	return pgUserResults.user ? pgUserResults.userid : -1;
+	return pgUserResults.user ? pgUserResults.user.userid : -1;
 }
 
 // Get the string ID of a user's MongoDB document
