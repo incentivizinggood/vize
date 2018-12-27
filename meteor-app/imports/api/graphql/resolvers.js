@@ -175,7 +175,12 @@ const resolvers: Resolvers = {
 
 		id: (obj, args, context, info) =>
 			dataModel.companyIdToString(obj.companyid),
-		name: (obj, args, context, info) => obj.name,
+
+		// BUG kinda going like ¯\_(ツ)_/¯ on this one,
+		// name is non-nullable but sometimes the underlying
+		// company wasn't found so you have to manage anyway.
+		// Is there some way to handle such cases more elegantly?
+		name: (obj, args, context, info) => (obj.name ? obj.name : ""),
 
 		contactEmail: (obj, args, context, info) => obj.contactemail,
 		yearEstablished: (obj, args, context, info) => obj.yearestablished,

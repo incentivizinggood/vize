@@ -19,8 +19,7 @@ import {
 	VfInputInteger,
 	VfInputRadioGroup,
 	VfInputStarRating,
-	readOnlyCompanyNameField,
-	emptyCompanyNameField,
+	VfInputTextWithOptionList,
 } from "/imports/ui/components/vize-formik-components.jsx";
 
 import ReviewFormQuery from "./write-review.graphql";
@@ -153,7 +152,7 @@ const WriteReviewInnerForm = connect(props => {
 				<Header />
 			</div>
 			<section id="back_col">
-				<div className="container  fom-job">
+				<div className="container fom-job">
 					<div className="row ">
 						<div className="col-md-12 back_top_hover">
 							<div className="form-container">
@@ -175,16 +174,48 @@ const WriteReviewInnerForm = connect(props => {
 												: undefined}
 										</span>
 									</div>
-									{props.companyId !== undefined
-										? readOnlyCompanyNameField({
-												...props,
-												formgroupname: "Reviews",
-										  })
-										: emptyCompanyNameField({
-												...props,
-												formgroupname: "Reviews",
-												placeholdergroupname: "wr",
-										  })}
+									{props.companyId !== undefined ? (
+										<VfInputText
+											name="companyName"
+											formgroupname={props.formgroupname}
+											// Trying to assign a fields value
+											// this way seems to circumvent Formik's
+											// value-tracking (via the underlying Field),
+											// and I haven't figured out a way to make
+											// it work yet. I may just need to figure
+											// out another way to assign the value of
+											// this field.
+											// value={companyName()}
+											labelstring={t(
+												`SimpleSchema.labels.Reviews.companyName`
+											)}
+											readOnly="true"
+											placeholder={t(
+												`common.forms.wr.companyNamePlaceholder`
+											)}
+											// disabled={
+											// 	loading ||
+											// 	error ||
+											// 	data.company === undefined ||
+											// 	data.company === null
+											// }
+										/>
+									) : (
+										<VfInputTextWithOptionList
+											name="companyName"
+											formgroupname="Reviews"
+											maxLength="100"
+											// optionlist={listOfCompanyNames()}
+											optionlist={[]}
+											labelstring={t(
+												`SimpleSchema.labels.Reviews.companyName`
+											)}
+											placeholder={t(
+												`common.forms.wr.companyNamePlaceholder`
+											)}
+											// disabled={loading}
+										/>
+									)}
 									<VfInputText
 										name="reviewTitle"
 										formgroupname="Reviews"
@@ -376,10 +407,7 @@ const WriteReviewOuterForm = props => {
 	// logs out. I'm not sure if the best way to fix this
 	// is to fix the login button, or to do something different
 	// with the query. Gonna leave it alone for now.
-	const companyIdArg =
-		props.companyId !== undefined && props.companyId !== null
-			? props.companyId
-			: "";
+	const companyIdArg = props.companyId ? props.companyId : "";
 	return (
 		<Query
 			query={ReviewFormQuery}
@@ -389,8 +417,13 @@ const WriteReviewOuterForm = props => {
 			{({ loading, error, data }) => {
 				// TODO These loading and error results could be
 				// made A LOT nicer
+				console.log("QUERY LOADING: ");
+				console.log(loading);
+				console.log("QUERY DATA: ");
 				console.log(data);
-				console.log(error);
+				console.log("QUERY ERRORS: ");
+				if (!loading && !data) console.log(Object.keys(error));
+				if (!loading && !data) console.log(Object.values(error));
 				if (loading) return <h1>{t("common.forms.pleaseWait")}</h1>;
 				else if (error)
 					return (
