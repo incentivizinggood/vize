@@ -3,7 +3,6 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 // import { withFormik, connect, ErrorMessage, Formik, Form } from "formik";
 import { Formik, Form } from "formik";
-// import gql from "graphql-tag";
 // import { Query, Mutation } from "react-apollo";
 import { Query } from "react-apollo";
 // import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
@@ -214,33 +213,40 @@ const WriteReviewForm = withUpdateOnChangeLocale(props => {
 						return [t("common.forms.pleaseWait")];
 					} else if (
 						error ||
-						data.allCompanies === undefined ||
-						data.allCompanies === null ||
-						data.allCompanies.length === 0
+						data.allCompanyNames === undefined ||
+						data.allCompanyNames === null ||
+						data.allCompanyNames.length === 0
 					) {
 						return [];
 					}
-					return data.allCompanies.map(result => ({
+					return data.allCompanyNames.map(result => ({
 						key: result.name,
 						value: result.name,
 					}));
 				};
+
+				if (Meteor.isDevelopment) {
+					console.log("LIST OF COMPANY NAMES: ");
+					console.log(listOfCompanyNames());
+				}
 
 				const calculateCompanyName = () => {
 					if (loading) {
 						return t("common.forms.pleaseWait");
 					} else if (
 						error ||
-						data.company === undefined ||
-						data.company === null
+						data.companyName === undefined ||
+						data.companyName === null
 					) {
 						if (Meteor.isDevelopment) console.log(error);
 						return props.companyId
 							? t("common.forms.companyNotFound")
 							: undefined;
 					}
-					return data.company.name;
+					return data.companyName.name;
 				};
+
+				console.log(calculateCompanyName());
 
 				return (
 					<Formik
@@ -259,6 +265,10 @@ const WriteReviewForm = withUpdateOnChangeLocale(props => {
 								submittedBy,
 								companyName
 							);
+							// TODO
+							// Need to implement a function that provides sensible
+							// error messages for when a submission is made but
+							// the companyName field has error'd-out for some other reason.
 							return filterObjectKeys(
 								errors,
 								thing => thing === undefined || thing === null
@@ -340,9 +350,9 @@ const WriteReviewForm = withUpdateOnChangeLocale(props => {
 																	disabled={
 																		loading ||
 																		error ||
-																		data.company ===
+																		data.companyName ===
 																			undefined ||
-																		data.company ===
+																		data.companyName ===
 																			null
 																	}
 																/>
