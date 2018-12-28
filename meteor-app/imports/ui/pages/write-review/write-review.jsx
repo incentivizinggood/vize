@@ -246,7 +246,7 @@ const WriteReviewForm = withUpdateOnChangeLocale(props => {
 					return data.companyName.name;
 				};
 
-				console.log(calculateCompanyName());
+				if (Meteor.isDevelopment) console.log(calculateCompanyName());
 
 				return (
 					<Formik
@@ -289,7 +289,7 @@ const WriteReviewForm = withUpdateOnChangeLocale(props => {
 								console.log(actions);
 							}
 						}}
-						component={formikProps => {
+						render={formikProps => {
 							if (Meteor.isDevelopment) {
 								console.log("formikProps: ");
 								console.log(formikProps);

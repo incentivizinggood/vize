@@ -1,10 +1,7 @@
-import { Meteor } from "meteor/meteor";
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import { Field, FieldArray, ErrorMessage, connect } from "formik";
 import StarRatingComponent from "react-star-rating-component";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
 import { translateError } from "/i18n/helpers.js";
 
 const t = i18n.createTranslator();
