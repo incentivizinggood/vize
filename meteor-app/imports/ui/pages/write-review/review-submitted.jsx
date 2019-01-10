@@ -10,6 +10,8 @@ import Dialog from "/imports/ui/components/dialog-box";
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
 
+Modal.setAppElement("body");
+
 export default class ReviewSubmitted extends React.Component {
 	constructor() {
 		super();
@@ -56,9 +58,6 @@ export default class ReviewSubmitted extends React.Component {
 				left: 0,
 				bottom: 0,
 				right: 0,
-				width: "60%",
-				height: "200px",
-				maxWidth: "450px",
 				borderRadius: "4px",
 			},
 		};

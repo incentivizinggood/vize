@@ -1,13 +1,25 @@
 .review-submitted {
 	margin-top: 250px;
 	margin-bottom: 250px;
+	@media only screen and (max-width: 767px) {
+		margin-top: 170px;
+		margin-bottom: 130px;
+	}
 
 	.container {
 		padding: 50px;
+		@media only screen and (max-width: 767px) {
+			padding: 20px;
+			width: 95%;
+		}
 	}
 
 	h2 {
 		font-weight: bold;
+		@media only screen and (max-width: 767px) {
+			font-size: 25px;
+			margin-top: 1px;
+		}
 	}
 
 	p {
@@ -77,7 +89,6 @@
 
 			a {
 				font-weight: bold;
-				font-size: 18px;
 				padding: 15px;
 				margin: 10px;
 				border: 1px solid #d4d1d1;
@@ -93,25 +104,42 @@
 }
 
 // modal inner markup styling
-form {
-	input[type="tel"] {
-		width: 100%;
-		padding: 2px;
+.ReactModalPortal {
+	.ReactModal__Content.ReactModal__Content--after-open {
+		width: 60%;
+		max-width: 550px;
+		height: 200px;
+		@media only screen and (max-width: 625px) {
+			width: 90%;
+			max-width: 500px;
+			height: 200px;
+		}
+		@media only screen and (max-width: 400px) {
+			height: 250px;
+			form {
+				padding-top: 20px;
+			}
+		}
 	}
-	input[type="submit"] {
-		float: right;
-		margin-top: 5px;
-		padding: 5px;
-		padding-left: 15px;
-		padding-right: 15px;
-		background-color: $primary-color;
-		border: 1px solid #d4d1d1;
-		outline: none;
-		color: white;
-		font-weight: bolder;
+	form {
+		input[type="tel"] {
+			width: 100%;
+			padding: 2px;
+		}
+		input[type="submit"] {
+			float: right;
+			margin-top: 5px;
+			padding: 5px;
+			padding-left: 15px;
+			padding-right: 15px;
+			background-color: $primary-color;
+			border: 1px solid #d4d1d1;
+			outline: none;
+			color: white;
+			font-weight: bolder;
+		}
 	}
 }
-
 // widget styling
 // can be refactored if we needed to refactor success widget to a component
 .success-widget {
@@ -122,8 +150,10 @@ form {
 		font-weight: bold;
 		padding: 25px;
 		font-size: 40px;
-		@media only screen and (max-width: 1292px) {
-			margin-top: 68px;
+		@media only screen and (max-width: 767px) {
+			font-size: 25px;
+			margin-top: 1px;
+			padding: 10px 10px 10px 25px;
 		}
 	}
 }
