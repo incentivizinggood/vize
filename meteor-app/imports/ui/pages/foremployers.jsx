@@ -14,7 +14,9 @@ export default class ForEmployers extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header />
+				<div className="navbarwhite">
+					<Header />
+				</div>
 				{/* find great employer */}
 				<div className="welcome  back-img-emp ">
 					<div className="container ">

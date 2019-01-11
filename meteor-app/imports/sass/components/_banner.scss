@@ -35,15 +35,12 @@
 		}
 
 		@media (max-width: 768px) {
-			padding: 13em 0 0;
+			padding: 1px 0;
+			h1 {
+				font-size: 2.2em;
+			}
 		}
 	}
-}
-
-.bl {
-	background-color: $concrete;
-	padding-bottom: 104px;
-	padding-top: 4em;
 }
 
 .open > a,
@@ -71,5 +68,21 @@ ul.dropdown-menu.pf {
 				color: #ffffff !important;
 			}
 		}
+	}
+}
+
+#app-root > div {
+	padding-top: 1px;
+}
+
+@media only screen and (min-width: 370px) and (max-width: 575px) {
+	.banner-text-info {
+		padding-top: 80px;
+	}
+}
+
+@media only screen and (min-width: 575px) and (max-width: 769px) {
+	.banner-text-info {
+		padding-top: 180px;
 	}
 }

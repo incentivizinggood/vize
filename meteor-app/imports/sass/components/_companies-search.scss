@@ -9,6 +9,10 @@
 	font-weight: bold;
 	line-height: 39px;
 	margin: 0 auto;
+
+	@media only screen and (max-width: 767px) {
+		width: 95%;
+	}
 }
 .companies-search-input {
 	width: 85%;
