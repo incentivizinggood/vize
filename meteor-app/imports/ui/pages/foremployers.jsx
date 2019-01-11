@@ -18,7 +18,7 @@ export default class ForEmployers extends React.Component {
 					<Header />
 				</div>
 				{/* find great employer */}
-				<div className="welcome  back-img-emp ">
+				<div className="full-width-container back-img-emp ">
 					<div className="container ">
 						<div className="col-md-12 ">
 							<div className="great-emp-hm">
@@ -51,7 +51,7 @@ export default class ForEmployers extends React.Component {
 				</div>
 				{/* find great employer */}
 				{/* find card sect */}
-				<div className="welcome  welpad  back-hm-community">
+				<div className="full-width-container welpad back-hm-community">
 					<div className="container">
 						<div className="col-md-12 ">
 							<center>
@@ -64,8 +64,8 @@ export default class ForEmployers extends React.Component {
 											<br />
 											<T>common.forEmployers.retention</T>
 										</div>
-										<div className="frontLogo    emp-icon2" />
-										<div className="frontLocation   plu">
+										<div className="frontLogo emp-icon2" />
+										<div className="frontLocation plu">
 											<T>
 												common.forEmployers.increase_workers_text
 											</T>
@@ -109,9 +109,9 @@ export default class ForEmployers extends React.Component {
 				</div>
 				{/* find card sect
 													     find great sect */}
-				<div className="welcome  emp-wel">
-					<div className="container ">
-						<div className="col-md-6 ">
+				<div className="full-width-container emp-wel">
+					<div className="container">
+						<div className="col-md-6">
 							<div>
 								<center>
 									<img
