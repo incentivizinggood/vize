@@ -10,6 +10,7 @@ import CompanySearchResult from "/imports/ui/components/company-search-result.js
 import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import companySearchQuery from "./company-search.graphql";
+import Spinner from "../../components/Spinner";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
@@ -19,11 +20,7 @@ const SearchResults = ({ searchText }) => (
 	<Query query={companySearchQuery} variables={{ searchText }}>
 		{({ loading, error, data }) => {
 			if (loading) {
-				return (
-					<h2>
-						<T>loading</T>
-					</h2>
-				);
+				return <Spinner />;
 			}
 			if (error) {
 				return <h2>{`Error! ${error.message}`}</h2>;

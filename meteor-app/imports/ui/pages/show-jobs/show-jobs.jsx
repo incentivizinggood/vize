@@ -5,7 +5,7 @@ import i18n from "meteor/universe:i18n";
 
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer";
 
 import ShowJobsQuery from "./show-jobs.graphql";
 
