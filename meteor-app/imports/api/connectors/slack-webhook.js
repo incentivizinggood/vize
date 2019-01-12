@@ -1,54 +1,43 @@
 // @flow
 import request from "request-promise-native";
 
-opaque type MessageText = string;
-opaque type Message = {|
-	text: string,
-	username: string,
-	icon_emoji?: string,
-	icon_url?: string,
-|};
+opaque type MessageDecoration = string;
 
-function buildMessageTypes(f: MessageText => Message) {
-	const wrap = (mt: string => MessageText) => (text: string) => f(mt(text));
-	return {
-		celebrate: wrap(text => `:tada: ${text}`),
-		inform: wrap(text => `:information_source: ${text}`),
-		warn: wrap(text => `:warning: ${text}`),
-		reportError: wrap(text => `:skull_and_crossbones: ${text}`),
+export const celebrate: MessageDecoration = ":tada:";
+export const inform: MessageDecoration = ":information_source:";
+export const warn: MessageDecoration = ":warning:";
+export const reportError: MessageDecoration = ":skull_and_crossbones:";
+
+export function postToSlack(
+	messageKind: MessageDecoration,
+	messageText: string
+) {
+	const body = {
+		text: `${messageKind} ${messageText}`,
+		username: `Server at ${process.env.ROOT_URL}`,
+		icon_emoji: ":server:",
 	};
-}
 
-function buildMessageSources(f: Message => any) {
-	const wrap = (ms: MessageText => Message) =>
-		buildMessageTypes(messageText => f(ms(messageText)));
-	return {
-		asThisServer: wrap(messageText => ({
-			text: messageText,
-			username: `Server at ${process.env.ROOT_URL}`,
-			icon_emoji: ":server:",
-		})),
+	const options = {
+		method: "POST",
+		uri: process.env.SLACK_WEBHOOK_URL,
+		body,
+		json: true,
 	};
+
+	return request(options);
 }
 
-function buildPostToSlack() {
-	return buildMessageSources(message => {
-		const options = {
-			method: "POST",
-			uri: process.env.SLACK_WEBHOOK_URL,
-			body: message,
-			json: true,
-		};
+// These functions need to be moved to the models after goodbye-autoforms has been merged.
 
-		return request(options);
-	});
+function newUser(user) {
+	// TODO: Escape inputs to prevent markdown code injection.
+
+	`A new user has joined Vize. Please welcome \`${user.username}\`.`;
 }
 
-// Transform function compositions into an object hiegharchy.
-// instead of having to write postToSlack(asThisServer(celebrate(text)))
-// one would write postToSlack.asThisServer.celebrate(text)
-const postToSlack = buildPostToSlack();
-
-postToSlack.asThisServer.celebrate("This pattern");
-
-export default postToSlack;
+// postToSlack(celebrate, "something good happened")
+/*
+username submitted a review link to review on company name.
+A new user has joined vize. please welcome username.
+ */
