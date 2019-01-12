@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-
+import Spinner from "../../components/Spinner";
 import userPageQuery from "./user.graphql";
 
 /* Users can view the public information of other users on this page.
@@ -12,7 +12,7 @@ export default function UserPage(props) {
 			<Query query={userPageQuery} variables={{ userId: props.user_id }}>
 				{({ loading, error, data }) => {
 					if (loading) {
-						return <h2>Loading...</h2>;
+						return <Spinner />;
 					}
 					if (error) {
 						return <h2>{`Error! ${error.message}`}</h2>;
