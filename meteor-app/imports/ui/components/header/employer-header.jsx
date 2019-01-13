@@ -13,6 +13,7 @@ import LogoutButton from "./logout-button.jsx";
 const T = i18n.createComponent();
 
 class EmployerHeader extends React.Component {
+	state = {};
 	render() {
 		let companyURL;
 		if (this.props.user.companyId) {

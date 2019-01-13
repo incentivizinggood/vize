@@ -27,4 +27,5 @@
 	"responsive/1267", "responsive/1291", "responsive/responsive";
 
 // helpers
-@import "helpers/spacing-helpers";
+@import "helpers/spacing-helpers", "helpers/display-helpers",
+	"helpers/text-helpers";

@@ -2,6 +2,12 @@
 	padding-bottom: 6em;
 	padding-top: 4em;
 
+	&.contrast {
+		background-color: $concrete;
+		padding-bottom: 104px;
+		padding-top: 6em;
+	}
+
 	&-banner {
 		min-height: 300px;
 		.banner-text {
@@ -18,22 +24,14 @@
 		width: 100%;
 	}
 
-	.cdoun {
-		margin-top: 20px;
-	}
-
-	.al {
-		text-align: center;
-	}
-
-	.about-row p {
+	.about-paragraph {
 		font-size: 19px;
 		text-align: center;
 		padding-top: 22px;
 		color: #585858;
 	}
 
-	.emplh3 {
+	.about-subheader {
 		font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial,
 			sans-serif;
 		font-size: 16px;
