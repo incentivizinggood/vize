@@ -13,6 +13,7 @@ import Footer from "/imports/ui/components/footer.jsx";
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 import companyProfileQuery from "./company-profile.graphql";
+import Spinner from "../../components/Spinner";
 
 const T = i18n.createComponent();
 
@@ -162,7 +163,7 @@ export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>
 		{({ loading, error, data, refetch }) => {
 			if (loading) {
-				return <h2>Loading</h2>;
+				return <Spinner />;
 			}
 			if (error) {
 				console.log(error);
