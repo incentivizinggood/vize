@@ -6,6 +6,8 @@ const client = new ApolloClient({
 	request: operation =>
 		operation.setContext(() => ({
 			headers: {
+				// Store the login token in a header so that the app server
+				// knows who the user is.
 				authorization: Accounts._storedLoginToken(),
 			},
 		})),

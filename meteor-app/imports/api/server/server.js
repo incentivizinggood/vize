@@ -1,7 +1,14 @@
 import express from "express";
+import { ApolloServer } from "apollo-server-express";
+
+import { getUser } from "meteor/apollo";
+
+import typeDefs from "/imports/api/graphql/schema.graphql";
+import resolvers from "/imports/api/graphql/resolvers.js";
 
 const app = express();
 
+// A hello world for testing the Express server.
 app.get("/express-test", function(req, res) {
 	res.send(
 		`<!DOCTYPE html>
@@ -16,6 +23,28 @@ app.get("/express-test", function(req, res) {
 </html>
 `
 	);
+});
+
+// Setup the GraphQL API endpoint.
+const server = new ApolloServer({
+	typeDefs,
+	resolvers,
+	context: async ({ req }) => ({
+		// Get the user using a token in the headers. Will be changed when
+		// switching away from Meteor's authorization framework.
+		user: await getUser(req.headers.authorization),
+	}),
+});
+
+server.applyMiddleware({
+	app,
+	path: "/graphql",
+});
+
+app.use("/graphql", (req, res) => {
+	if (req.method === "GET") {
+		res.end();
+	}
 });
 
 // TODO: When we stop using Meteor, `app` will be the main server.
