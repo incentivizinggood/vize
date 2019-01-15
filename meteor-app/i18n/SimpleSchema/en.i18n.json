@@ -1,0 +1,152 @@
+{
+	"_locale": "en",
+	"_namespace": "SimpleSchema",
+	"messages": {
+		"defaults": {
+			"required": "{{{label}}} is required",
+			"minString": "{{{label}}} must be at least {{min}} characters",
+			"maxString": "{{{label}}} cannot exceed {{max}} characters",
+			"minNumber": "{{{label}}} must be at least {{min}}",
+			"maxNumber": "{{{label}}} cannot exceed {{max}}",
+			"minNumberExclusive": "{{{label}}} must be greater than {{min}}",
+			"maxNumberExclusive": "{{{label}}} must be less than {{max}}",
+			"minDate": "{{{label}}} must be on or after {{min}}",
+			"maxDate": "{{{label}}} cannot be after {{max}}",
+			"badDate": "{{{label}}} is not a valid date",
+			"minCount": "You must specify at least {{maxCount}} values",
+			"maxCount": "You cannot specify more than {{maxCount}} values",
+			"noDecimal": "{{{label}}} must be an integer",
+			"notAllowed": "{{{value}}} is not an allowed value",
+			"expectedType": "{{{label}}} must be a {{dataType}}",
+			"regExMsgStubs": {
+				"msg": "failed regular expression validation",
+				"Email": "must be a valid e-mail address",
+				"EmailWithTLD": "must be a valid e-mail address",
+				"Domain": "must be a valid domain",
+				"WeakDomain": "must be a valid domain",
+				"IP": "must be a valid IPv4 or IPv6 address",
+				"IPv4": "must be a valid IPv4 address",
+				"IPv6": "must be a valid IPv6 address",
+				"Url": "must be a valid URL",
+				"Id": "must be a valid alphanumeric ID",
+				"ZipCode": "must be a valid ZIP code",
+				"Phone": "must be a valid phone number"
+			},
+			"keyNotInSchema": "{{name}} is not allowed by the schema",
+			"noCompanyWithThatName": "There is no company with that name in our database",
+			"sessionError": "Please stop messing around"
+		},
+		"JobApplications": {
+			"invalidJobId": "Please provide a valid job id for the job you wish to apply for"
+		},
+		"Companies": {
+			"nameTaken": "The name you provided is already taken"
+		},
+		"JobAds": {
+			"maxedOutJobPosts": "You may only post up to 5 job ads"
+		},
+		"Salaries": {
+			"secondSalaryByUser": "You may only post salary data once per company"
+		},
+		"Reviews": {
+			"secondReviewByUser": "You may only write one review for each company",
+			"needsFiveWords": "You should write at least 5 words in this field"
+		}
+	},
+	"labels": {
+		"LocationSubFields": {
+			"locationCity": "City",
+			"locationAddress": "Address",
+			"locationIndustrialHub": "Industrial Park",
+			"locationArrayItem": "Location",
+			"locationArrayItemCity": "City",
+			"locationArrayItemAddress": "Address",
+			"locationArrayItemIndustrialHub": "Industrial Park"
+		},
+		"JobApplications": {
+			"jobId": "Job ID",
+			"companyName": "Company Name",
+			"fullName": "Full Name",
+			"email": "Email",
+			"phoneNumber": "Phone Number",
+			"coverLetterAndComments": "Cover Letter/Additional Comments",
+			"dateSent": "Date Sent"
+		},
+		"Companies": {
+			"_id": "_id",
+			"name": "Company Name",
+			"contactEmail": "Contact Email",
+			"yearEstablished": "Year Established",
+			"numEmployees": "Number of Employees",
+			"industry": "Industry",
+			"locations": "Locations",
+			"contactPhoneNumber": "Contact Phone Number",
+			"websiteURL": "Website URL",
+			"descriptionOfCompany": "Description of Company",
+			"dateJoined": "Date Joined Vize",
+			"numFlags": "Number of Flags",
+			"healthAndSafety": "Health and Safety",
+			"managerRelationship": "Manager Relationship",
+			"workEnvironment": "Work Environment",
+			"benefits": "Benefits",
+			"overallSatisfaction": "Overall Satisfaction",
+			"numReviews": "Number of Reviews",
+			"percentRecommended": "Percent Recommended",
+			"avgNumMonthsWorked": "Average Number of Months Worked"
+		},
+		"JobAds": {
+			"_id": "_id",
+			"companyName": "Company Name",
+			"companyId": "Company ID",
+			"jobTitle": "Job Title",
+			"locations": "Locations",
+			"pesosPerHour": "Pesos per Week",
+			"contractType": "Contract Type",
+			"jobDescription": "Job Description",
+			"responsibilities": "Responsibilities",
+			"qualifications": "Qualifications",
+			"datePosted": "Date Posted"
+		},
+		"Salaries": {
+			"_id": "_id",
+			"submittedBy": "Submitted By",
+			"companyName": "Company Name",
+			"companyId": "Company ID",
+			"jobTitle": "Job Title",
+			"location": "Location",
+			"incomeType": "Income Type (in Pesos)",
+			"incomeAmount": "Income Amount",
+			"gender": "Gender",
+			"datePosted": "Date Posted"
+		},
+		"Reviews": {
+			"_id": "_id",
+			"submittedBy": "Submitted By",
+			"companyName": "Company Name",
+			"companyId": "Company ID",
+			"reviewTitle": "Review Title",
+			"location": "Location",
+			"jobTitle": "Job Title",
+			"numberOfMonthsWorked": "Number of Months Worked",
+			"pros": "Pros",
+			"cons": "Cons",
+			"wouldRecommendToOtherJobSeekers": "Would Recommend to Other Job Seekers",
+			"healthAndSafety": "Health and Safety",
+			"managerRelationship": "Manager Relationship",
+			"workEnvironment": "Work Environment",
+			"benefits": "Benefits",
+			"overallSatisfaction": "Overall Satisfaction",
+			"additionalComments": "Additional Comments",
+			"datePosted": "Date Posted",
+			"upvotes": "Upvotes",
+			"downvotes": "Downvotes"
+		},
+		"Votes": {
+			"_id": "_id",
+			"submittedBy": "Submitted By",
+			"voteSubject": "Vote Subject",
+			"references": "References",
+			"value": "Value"
+		}
+	}
+}

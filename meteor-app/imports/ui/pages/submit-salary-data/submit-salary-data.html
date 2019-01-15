@@ -1,0 +1,78 @@
+<template name="ssd_blaze_form">
+	{{#autoForm schema=salarySchema id="ssd_blaze_form" type="method" meteormethod="salaries.submitSalaryData" preserveForm=false}}
+
+		  <div class="container  fom-job">
+			 <div class="row ">
+				   <div  class="col-md-12 back_top_hover">
+					  <div  class="form-container">
+						  <br>
+					   	<h3>{{__ ".ssd.formTitle"}}</h3>
+ 					  	<p>{{__ ".ssd.header1"}}</p>
+ 					  	<p>{{__ ".ssd.header2"}}</p>
+						<br>
+						   <fieldset>
+							 <div class="form-group {{#if afFieldIsInvalid name='companyName'}}has-error{{/if}}">
+								 <div class="col-lg-12">
+									{{#if shouldHaveCompany}}
+									{{> afQuickField name='companyName' value=getCompanyName readonly=true }}
+									{{else}}
+									{{> afQuickField name='companyName' placeholder=(__ ".ssd.companyNamePlaceholder") list="ssdCompanyNames"}}
+									<datalist id="ssdCompanyNames">
+										{{#each companyName in allCompanyNames}}
+											<option value="{{companyName}}">{{companyName}}</option>
+										{{/each}}
+									</datalist>
+									{{/if}}
+								 </div>
+							  </div>
+							 <div class="form-group {{#if afFieldIsInvalid name='location'}}has-error{{/if}}">
+								 <div class="col-lg-12">
+									{{> afQuickField name='location'}}
+								 </div>
+							  </div>
+
+							  <div class="form-group {{#if afFieldIsInvalid name='jobTitle'}}has-error{{/if}}">
+								 <div class="col-lg-12">
+									   {{> afQuickField name='jobTitle' placeholder=(__ ".ssd.jobTitlePlaceholder")}}
+									   <!-- <span class="input-group-addon  kk">MXN</span> -->
+								 </div>
+							  </div>
+							 <div class="form-group {{#if afFieldIsInvalid name='incomeType'}}has-error{{/if}}">
+								 <div class="col-lg-12">
+									{{> afQuickField name='incomeType' options=getIncomeTypeOptions firstOption=(__ ".ssd.payTypes.default")}}
+								 </div>
+							  </div>
+							  <div class="form-group {{#if afFieldIsInvalid name='incomeAmount'}}has-error{{/if}}">
+								 <div class="col-lg-12">
+									{{> afQuickField name='incomeAmount'}}
+								 </div>
+							  </div>
+							  <div class="form-group {{#if afFieldIsInvalid name='gender'}}has-error{{/if}}">
+								 <div class="col-lg-12">
+									{{> afQuickField name='gender' options=getGenderOptions firstOption=(__ "common.gender.default")}}
+								 </div>
+							  </div>
+
+							  <div class="form-group">
+								 <div class="col-lg-12">
+									<div class="submit_div">
+ 							   			<button type="submit" class="btn btn-primary">{{__ ".submitForm"}}</button>
+ 							   			<button type="reset" class="btn btn-default" onclick={{resetFormError}} >{{__ ".resetForm"}}</button>
+										<br>
+									</div>
+									<br>
+								 </div>
+							  </div>
+						   </fieldset>
+					  </div>
+				   </div>
+				   <div class="clear"></div>
+			 </div>
+		  </div>
+	{{/autoForm}}
+	{{#if hasError}}
+		<div>
+			{{> React component=ErrorWidget err=error}}
+		</div>
+	{{/if}}
+</template>

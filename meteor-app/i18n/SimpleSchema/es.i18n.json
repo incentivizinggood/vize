@@ -1,0 +1,152 @@
+{
+	"_locale": "es",
+	"_namespace": "SimpleSchema",
+	"messages": {
+		"defaults": {
+			"required": "{{{label}}} es requerida",
+			"minString": "{{{label}}} debe ser al menos {{min}} caracteres",
+			"maxString": "{{{label}}} no puede exceder {{max}} caracteres",
+			"minNumber": "{{{label}}} deben ser al menos {{min}}",
+			"maxNumber": "{{{label}}} no puede exceder {{max}}",
+			"minNumberExclusive": "{{{label}}} debe ser mayor que {{min}}",
+			"maxNumberExclusive": "{{{label}}} debe ser menor que {{max}}",
+			"minDate": "{{{label}}} debe estar en o después de {{min}}",
+			"maxDate": "{{{label}}} no puede ser después de {{max}}",
+			"badDate": "{{{label}}} no es una fecha valida",
+			"minCount": "Debes especificar al menos {{maxCount}} valores",
+			"maxCount": "No debes colocar mas que {{maxCount}} valores",
+			"noDecimal": "{{{label}}} debe ser un numero entero",
+			"notAllowed": "{{{value}}} no es un valor permitido",
+			"expectedType": "{{{label}}} debe ser un {{dataType}}",
+			"regExMsgStubs": {
+				"msg": "la validación de expresiones regulares fallado",
+				"Email": "colocar una direccion de correo correcta",
+				"EmailWithTLD": "colocar una direccion de correo correcta",
+				"Domain": "debe ser un dominio válido",
+				"WeakDomain": "debe ser un dominio válido",
+				"IP": "debe ser una dirección IPv4 o IPv6 válida",
+				"IPv4": "debe ser una dirección IPv4 válida",
+				"IPv6": "debe ser una dirección IPv6 válida",
+				"Url": "debe ser una URL correcta",
+				"Id": "debe ser una identificación alfanumérica válida",
+				"ZipCode": "debe ser un código postal válido",
+				"Phone": "debe ser un numero de telefono valido"
+			},
+			"keyNotInSchema": "{{name}} no está permitido por el esquema",
+			"noCompanyWithThatName": "No hay una empresa con ese nombre en nuestra base de datos",
+			"sessionError": "Por favor, dejar de jugar un poco"
+		},
+		"JobApplications": {
+			"invalidJobId": "Proporcione una identificación de trabajo válida para el trabajo al que desea postularse"
+		},
+		"Companies": {
+			"nameTaken": "El nombre proporcionado ya esta en uso"
+		},
+		"JobAds": {
+			"maxedOutJobPosts": "Solo puede publicar hasta 5 anuncios de trabajo"
+		},
+		"Salaries": {
+			"secondSalaryByUser": "Solo puede publicar datos de salario una vez por compañía"
+		},
+		"Reviews": {
+			"secondReviewByUser": "Solo puede escribir una revisión para cada compañía",
+			"needsFiveWords": "Debes colocar por lo menos 5 palabras en este campo"
+		}
+	},
+	"labels": {
+		"LocationSubFields": {
+			"locationCity": "Ciudad",
+			"locationAddress": "Dirección",
+			"locationIndustrialHub": "Parque Industrial",
+			"locationArrayItem": "Localización",
+			"locationArrayItemCity": "Ciudad",
+			"locationArrayItemAddress": "Dirección",
+			"locationArrayItemIndustrialHub": "Parque Industrial"
+		},
+		"JobApplications": {
+			"jobId": "jobId",
+			"companyName": "Nombre de la empresa",
+			"fullName": "Nombre completo",
+			"email": "Direccion de correo electronico",
+			"phoneNumber": "Numero telefonico",
+			"coverLetterAndComments": "Carta de presentación / Comentarios adicionales",
+			"dateSent": "Feha de envio"
+		},
+		"Companies": {
+			"_id": "_id",
+			"name": "Nombre de la empresa",
+			"contactEmail": "Email de contacto",
+			"yearEstablished": "Año Establecido",
+			"numEmployees": "Numero de empleados",
+			"industry": "Industria",
+			"locations": "Ubicaciones",
+			"contactPhoneNumber": "Numbero de Contacto",
+			"websiteURL": "Url pagina de internet",
+			"descriptionOfCompany": "Descripcion de la compañia",
+			"dateJoined": "Fecha en que se unió Vize",
+			"numFlags": "Numero de banderas",
+			"healthAndSafety": "Salud y Bienestar",
+			"managerRelationship": "Relacion del Gerente",
+			"workEnvironment": "Ambiente Laboral",
+			"benefits": "Beneficios",
+			"overallSatisfaction": "Satisfacción General",
+			"numReviews": "Numero de comentarios",
+			"percentRecommended": "Porcentaje Recomendado",
+			"avgNumMonthsWorked": "Numero de meses trabajados"
+		},
+		"JobAds": {
+			"_id": "_id",
+			"companyName": "Nombre de la empresa",
+			"companyId": "companyId",
+			"jobTitle": "Titulo del Trabajo",
+			"locations": "Localizacion",
+			"pesosPerHour": "Pesos por Semana",
+			"contractType": "Tipo de Contrato",
+			"jobDescription": "Descripcion del Trabajo",
+			"responsibilities": "Resposabilidades",
+			"qualifications": "Calificaciones",
+			"datePosted": "fecha de publicacion"
+		},
+		"Salaries": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"companyName": "Nombre de la empresa",
+			"companyId": "companyId",
+			"jobTitle": "Titulo del Trabajo",
+			"location": "Localización",
+			"incomeType": "Tipo de Ingreso (en Pesos)",
+			"incomeAmount": "Cantidad de Ingresos",
+			"gender": "Genero",
+			"datePosted": "Fecha de publicacion"
+		},
+		"Reviews": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"companyName": "Nombre de la empresa",
+			"companyId": "companyId",
+			"reviewTitle": "Titulo de la revisión",
+			"location": "Localización",
+			"jobTitle": "Titulo del Trabajo",
+			"numberOfMonthsWorked": "Numero de meses trabajados",
+			"pros": "Ventajas",
+			"cons": "Limitaciones",
+			"wouldRecommendToOtherJobSeekers": "Recomendaría a otros solicitantes de empleo",
+			"healthAndSafety": "Salud y Beneficios",
+			"managerRelationship": "Relaciones del Gerente",
+			"workEnvironment": "Ambiente Laboral",
+			"benefits": "Beneficios",
+			"overallSatisfaction": "Satisfacción General",
+			"additionalComments": "Comentarios Adicionales",
+			"datePosted": "Fecha de Publicacion",
+			"upvotes": "Votos a favor",
+			"downvotes": "Votos en contra"
+		},
+		"Votes": {
+			"_id": "_id",
+			"submittedBy": "Presentado por",
+			"voteSubject": "Asunto del voto",
+			"references": "Referencias",
+			"value": "Valor"
+		}
+	}
+}
