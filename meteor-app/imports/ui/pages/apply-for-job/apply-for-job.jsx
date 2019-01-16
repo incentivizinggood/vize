@@ -138,7 +138,7 @@ export default class ApplyForJobForm extends React.Component {
 					<Blaze template="afj_blaze_form" />
 				</div>
 				<Footer />
-				<Dialog />
+				<Dialog/>
 			</div>
 		);
 	}

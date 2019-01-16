@@ -87,18 +87,20 @@
 				if (allBindings.has("value")) {
 					const value = allBindings.get("value");
 					if (ko.isObservable(value)) {
-						ko.computed({
-							read() {
-								value();
-								setTimeout(function() {
-									$element.multiselect("refresh");
-								}, 1);
-							},
-							disposeWhenNodeIsRemoved: element,
-						}).extend({
-							rateLimit: 100,
-							notifyWhenChangesStop: true,
-						});
+						ko
+							.computed({
+								read() {
+									value();
+									setTimeout(function() {
+										$element.multiselect("refresh");
+									}, 1);
+								},
+								disposeWhenNodeIsRemoved: element,
+							})
+							.extend({
+								rateLimit: 100,
+								notifyWhenChangesStop: true,
+							});
 					}
 				}
 
@@ -107,18 +109,20 @@
 				if (allBindings.has("selectedOptions")) {
 					const selectedOptions = allBindings.get("selectedOptions");
 					if (ko.isObservable(selectedOptions)) {
-						ko.computed({
-							read() {
-								selectedOptions();
-								setTimeout(function() {
-									$element.multiselect("refresh");
-								}, 1);
-							},
-							disposeWhenNodeIsRemoved: element,
-						}).extend({
-							rateLimit: 100,
-							notifyWhenChangesStop: true,
-						});
+						ko
+							.computed({
+								read() {
+									selectedOptions();
+									setTimeout(function() {
+										$element.multiselect("refresh");
+									}, 1);
+								},
+								disposeWhenNodeIsRemoved: element,
+							})
+							.extend({
+								rateLimit: 100,
+								notifyWhenChangesStop: true,
+							});
 					}
 				}
 
@@ -132,15 +136,17 @@
 				if (allBindings.has("enable")) {
 					const enable = allBindings.get("enable");
 					if (ko.isObservable(enable)) {
-						ko.computed({
-							read() {
-								setEnabled(enable());
-							},
-							disposeWhenNodeIsRemoved: element,
-						}).extend({
-							rateLimit: 100,
-							notifyWhenChangesStop: true,
-						});
+						ko
+							.computed({
+								read() {
+									setEnabled(enable());
+								},
+								disposeWhenNodeIsRemoved: element,
+							})
+							.extend({
+								rateLimit: 100,
+								notifyWhenChangesStop: true,
+							});
 					} else {
 						setEnabled(enable);
 					}
@@ -149,15 +155,17 @@
 				if (allBindings.has("disable")) {
 					const disable = allBindings.get("disable");
 					if (ko.isObservable(disable)) {
-						ko.computed({
-							read() {
-								setEnabled(!disable());
-							},
-							disposeWhenNodeIsRemoved: element,
-						}).extend({
-							rateLimit: 100,
-							notifyWhenChangesStop: true,
-						});
+						ko
+							.computed({
+								read() {
+									setEnabled(!disable());
+								},
+								disposeWhenNodeIsRemoved: element,
+							})
+							.extend({
+								rateLimit: 100,
+								notifyWhenChangesStop: true,
+							});
 					} else {
 						setEnabled(!disable);
 					}
@@ -953,7 +961,8 @@
 							i = i && $(this).prop("checked");
 						});
 
-						n.prevAll(".multiselect-group")
+						n
+							.prevAll(".multiselect-group")
 							.find("input")
 							.prop("checked", i);
 					}, this)

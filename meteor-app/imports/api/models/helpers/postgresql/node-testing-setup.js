@@ -189,7 +189,7 @@ PostgreSQL = class {
 	static async executeMutation(mutation) {
 		return wrapPgFunction(mutation, false, [...arguments].slice(1));
 	}
-};
+}
 
 // variable declarations, so I can freely
 // reassign them via copy-paste
@@ -226,7 +226,7 @@ getCompanyByName = async function(client, name) {
 		locations: locationResults.rows,
 		reviewStats: statResults.rows[0],
 	};
-};
+}
 
 getCompanyById = async function(client, id) {
 	let companyResults = { rows: [] };
@@ -254,7 +254,7 @@ getCompanyById = async function(client, id) {
 		locations: locationResults.rows,
 		reviewStats: statResults.rows[0],
 	};
-};
+}
 
 companyNameRegexSearch = async function(client, name, skip, limit) {
 	let companyResults = { rows: [] };
@@ -284,7 +284,7 @@ companyNameRegexSearch = async function(client, name, skip, limit) {
 		locations: locationResults,
 		reviewStats: statResults,
 	};
-};
+}
 
 getAllCompanies = async function(client, skip, limit) {
 	let companyResults = { rows: [] };
@@ -314,7 +314,7 @@ getAllCompanies = async function(client, skip, limit) {
 		locations: locationResults,
 		reviewStats: statResults,
 	};
-};
+}
 
 createCompany = async function(client, company) {
 	let newCompany = { rows: [] };
@@ -392,7 +392,7 @@ createCompany = async function(client, company) {
 			overallsatisfaction: 0,
 		},
 	};
-};
+}
 
 processCompanyResults = function(companyResults) {
 	/*
@@ -429,15 +429,20 @@ processCompanyResults = function(companyResults) {
 			),
 			contactPhoneNumber: companyResults.company.contactphonenumber,
 			websiteURL: companyResults.company.websiteurl,
-			descriptionOfCompany: companyResults.company.descriptionofcompany,
+			descriptionOfCompany:
+				companyResults.company.descriptionofcompany,
 			dateJoined: companyResults.company.dateadded,
 			numFlags: Number(companyResults.company.numflags),
 			numReviews: Number(companyResults.reviewStats.numreviews),
-			healthAndSafety: Number(companyResults.reviewStats.healthandsafety),
+			healthAndSafety: Number(
+				companyResults.reviewStats.healthandsafety
+			),
 			managerRelationship: Number(
 				companyResults.reviewStats.managerrelationship
 			),
-			workEnvironment: Number(companyResults.reviewStats.workenvironment),
+			workEnvironment: Number(
+				companyResults.reviewStats.workenvironment
+			),
 			benefits: Number(companyResults.reviewStats.benefits),
 			overallSatisfaction: Number(
 				companyResults.reviewStats.overallsatisfaction
@@ -475,7 +480,8 @@ processCompanyResults = function(companyResults) {
 					companyResults.reviewStats[company.name].healthandsafety
 				),
 				managerRelationship: Number(
-					companyResults.reviewStats[company.name].managerrelationship
+					companyResults.reviewStats[company.name]
+						.managerrelationship
 				),
 				workEnvironment: Number(
 					companyResults.reviewStats[company.name].workenvironment
@@ -484,19 +490,22 @@ processCompanyResults = function(companyResults) {
 					companyResults.reviewStats[company.name].benefits
 				),
 				overallSatisfaction: Number(
-					companyResults.reviewStats[company.name].overallsatisfaction
+					companyResults.reviewStats[company.name]
+						.overallsatisfaction
 				),
 				percentRecommended: Number(
-					companyResults.reviewStats[company.name].percentrecommended
+					companyResults.reviewStats[company.name]
+						.percentrecommended
 				),
 				avgNumMonthsWorked: Number(
-					companyResults.reviewStats[company.name].avgnummonthsworked
+					companyResults.reviewStats[company.name]
+						.avgnummonthsworked
 				),
 			};
 		});
 	}
 	return undefined;
-};
+}
 
 let getUserById;
 let createUser;
@@ -524,7 +533,7 @@ getUserById = async function(client, id) {
 	return {
 		user: userResult.rows[0],
 	};
-};
+}
 
 createUser = async function(client, user, companyPostgresId) {
 	// Assumes that user follows the schema in
@@ -543,7 +552,7 @@ createUser = async function(client, user, companyPostgresId) {
 	return {
 		user: newUser.rows[0],
 	};
-};
+}
 
 setUserCompanyInfo = async function(client, userId, companyId) {
 	// Expects a userId (string Mongo id
@@ -581,7 +590,7 @@ setUserCompanyInfo = async function(client, userId, companyId) {
 	return {
 		user: newUser.rows[0],
 	};
-};
+}
 
 let getReviewById;
 let getReviewsByAuthor;
@@ -608,7 +617,7 @@ getReviewById = async function(client, id) {
 		review: reviewResults.rows[0],
 		votes: voteResults.rows[0],
 	};
-};
+}
 
 getReviewsByAuthor = async function(client, id, skip, limit) {
 	let reviewResults = { rows: [] };
@@ -632,7 +641,7 @@ getReviewsByAuthor = async function(client, id, skip, limit) {
 		reviews: reviewResults.rows,
 		votes: voteResults,
 	};
-};
+}
 
 getAllReviews = async function(client, skip, limit) {
 	let reviewResults = { rows: [] };
@@ -656,7 +665,7 @@ getAllReviews = async function(client, skip, limit) {
 		reviews: reviewResults.rows,
 		votes: voteResults,
 	};
-};
+}
 
 getReviewsForCompany = async function(client, name, skip, limit) {
 	let reviewResults = { rows: [] };
@@ -680,7 +689,7 @@ getReviewsForCompany = async function(client, name, skip, limit) {
 		reviews: reviewResults.rows,
 		votes: voteResults,
 	};
-};
+}
 
 submitReview = async function(client, review) {
 	// assumes review is formatted for SimplSchema conformity
@@ -730,7 +739,7 @@ submitReview = async function(client, review) {
 			downvotes: 0,
 		},
 	};
-};
+}
 
 processReviewResults = function(reviewResults) {
 	/*
@@ -796,7 +805,7 @@ processReviewResults = function(reviewResults) {
 		});
 	}
 	return undefined;
-};
+}
 
 let getSalaryById;
 let getAllSalaries;
@@ -806,7 +815,7 @@ let getSalaryCountForCompany;
 let submitSalary;
 let processSalaryResults;
 
-getSalaryById = async function(client, id) {
+getSalaryById = async function (client, id) {
 	let salaryResults = { rows: [] };
 
 	salaryResults = await client.query(
@@ -817,9 +826,9 @@ getSalaryById = async function(client, id) {
 	return {
 		salary: salaryResults.rows[0],
 	};
-};
+}
 
-getSalariesByAuthor = async function(client, id, skip, limit) {
+getSalariesByAuthor = async function (client, id, skip, limit) {
 	let salaryResults = { rows: [] };
 
 	salaryResults = await client.query(
@@ -830,9 +839,9 @@ getSalariesByAuthor = async function(client, id, skip, limit) {
 	return {
 		salaries: salaryResults.rows,
 	};
-};
+}
 
-getAllSalaries = async function(client, skip, limit) {
+getAllSalaries = async function (client, skip, limit) {
 	let salaryResults = { rows: [] };
 
 	salaryResults = await client.query(
@@ -843,9 +852,9 @@ getAllSalaries = async function(client, skip, limit) {
 	return {
 		salaries: salaryResults.rows,
 	};
-};
+}
 
-getSalariesForCompany = async function(client, name, skip, limit) {
+getSalariesForCompany = async function (client, name, skip, limit) {
 	let salaryResults = { rows: [] };
 
 	salaryResults = await client.query(
@@ -856,9 +865,9 @@ getSalariesForCompany = async function(client, name, skip, limit) {
 	return {
 		salaries: salaryResults.rows,
 	};
-};
+}
 
-getSalaryCountForCompany = async function(client, name) {
+getSalaryCountForCompany = async function (client, name) {
 	let countResults = { rows: [{ count: undefined }] };
 
 	countResults = await client.query(
@@ -869,9 +878,9 @@ getSalaryCountForCompany = async function(client, name) {
 	return countResults.rows[0] === undefined
 		? undefined
 		: Number(countResults.rows[0].count);
-};
+}
 
-submitSalary = async function(client, salary) {
+submitSalary = async function (client, salary) {
 	// assumes salary is formatted for SimplSchema conformity
 	let newSalary = { rows: [] };
 
@@ -896,7 +905,7 @@ submitSalary = async function(client, salary) {
 	return {
 		salary: newSalary.rows[0],
 	};
-};
+}
 
 processSalaryResults = function(salaryResults) {
 	/*
@@ -935,7 +944,7 @@ processSalaryResults = function(salaryResults) {
 		});
 	}
 	return undefined;
-};
+}
 
 let getJobAdById;
 let getAllJobAds;
@@ -948,9 +957,10 @@ getJobAdById = async function(client, id) {
 	let jobAdResults = { rows: [] };
 	let locationResults = { rows: [] };
 
-	jobAdResults = await client.query("SELECT * FROM jobads WHERE jobadid=$1", [
-		id,
-	]);
+	jobAdResults = await client.query(
+		"SELECT * FROM jobads WHERE jobadid=$1",
+		[id]
+	);
 
 	locationResults = await client.query(
 		"SELECT * FROM job_locations WHERE jobadid=$1",
@@ -961,7 +971,7 @@ getJobAdById = async function(client, id) {
 		jobad: jobAdResults.rows[0],
 		locations: locationResults.rows,
 	};
-};
+}
 
 getAllJobAds = async function(client, skip, limit) {
 	let jobAdResults = { rows: [] };
@@ -984,7 +994,7 @@ getAllJobAds = async function(client, skip, limit) {
 		jobads: jobAdResults.rows,
 		locations: locationResults,
 	};
-};
+}
 
 getJobAdsByCompany = async function(client, companyName, skip, limit) {
 	let jobAdResults = { rows: [] };
@@ -1007,7 +1017,7 @@ getJobAdsByCompany = async function(client, companyName, skip, limit) {
 		jobads: jobAdResults.rows,
 		locations: locationResults,
 	};
-};
+}
 
 getJobAdCountForCompany = async function(client, name) {
 	let countResults = { rows: [{ count: undefined }] };
@@ -1020,7 +1030,7 @@ getJobAdCountForCompany = async function(client, name) {
 	return countResults.rows[0] === undefined
 		? undefined
 		: Number(countResults.rows[0].count);
-};
+}
 
 postJobAd = async function(client, jobad) {
 	let newJobAd = { rows: [] };
@@ -1053,7 +1063,12 @@ postJobAd = async function(client, jobad) {
 	for (let location of jobad.locations) {
 		insertValues.push(id, location);
 		insertValueString =
-			insertValueString + "($" + (index + 1) + ",$" + (index + 2) + "),";
+			insertValueString +
+			"($" +
+			(index + 1) +
+			",$" +
+			(index + 2) +
+			"),";
 		index += 2;
 	}
 	insertValueString = insertValueString.slice(0, -1);
@@ -1070,7 +1085,7 @@ postJobAd = async function(client, jobad) {
 		jobad: newJobAd.rows[0],
 		locations: newLocations.rows,
 	};
-};
+}
 
 processJobAdResults = function(jobAdResults) {
 	/*
@@ -1102,9 +1117,9 @@ processJobAdResults = function(jobAdResults) {
 				companyName: jobad.companyname,
 				companyId: castToNumberIfDefined(jobad.companyid),
 				jobTitle: jobad.jobtitle,
-				locations: jobAdResults.locations[String(jobad.jobadid)].map(
-					loc => JSON.parse(loc.joblocation)
-				),
+				locations: jobAdResults.locations[
+					String(jobad.jobadid)
+				].map(loc => JSON.parse(loc.joblocation)),
 				pesosPerHour: jobad.pesosperhour,
 				contractType: jobad.contracttype,
 				jobDescription: jobad.jobdescription,
@@ -1114,7 +1129,7 @@ processJobAdResults = function(jobAdResults) {
 			};
 		});
 	}
-};
+}
 
 let getCommentById;
 let getAllComments;
@@ -1140,7 +1155,7 @@ getCommentById = async function(client, id) {
 		comment: commentResults.rows[0],
 		votes: voteResults.rows[0],
 	};
-};
+}
 
 getAllComments = async function(client, skip, limit) {
 	let commentResults = { rows: [] };
@@ -1164,7 +1179,7 @@ getAllComments = async function(client, skip, limit) {
 		comments: commentResults.rows,
 		votes: voteResults,
 	};
-};
+}
 
 getCommentsByAuthor = async function(client, id, skip, limit) {
 	let commentResults = { rows: [] };
@@ -1188,7 +1203,7 @@ getCommentsByAuthor = async function(client, id, skip, limit) {
 		comments: commentResults.rows,
 		votes: voteResults,
 	};
-};
+}
 
 writeComment = async function(client, comment) {
 	// assumes that the comment follows a SimplSchema-esque
@@ -1209,7 +1224,7 @@ writeComment = async function(client, comment) {
 			downvotes: 0,
 		},
 	};
-};
+}
 
 processCommentResults = function(commentResults) {
 	/*
@@ -1247,7 +1262,7 @@ processCommentResults = function(commentResults) {
 		});
 	}
 	return undefined;
-};
+}
 
 let getVoteByPrimaryKey;
 let getAllVotes;
@@ -1275,7 +1290,7 @@ getVoteByPrimaryKey = async function(client, voteKeyFields) {
 		subject: voteKeyFields.voteSubject,
 		vote: voteResults.rows[0],
 	};
-};
+}
 
 getAllVotes = async function(client, skip, limit) {
 	let reviewVoteResults = { rows: [] };
@@ -1294,7 +1309,7 @@ getAllVotes = async function(client, skip, limit) {
 		reviewVotes: reviewVoteResults.rows,
 		commentVotes: commentVoteResults.rows,
 	};
-};
+}
 
 getVotesForSubject = async function(client, subject, refersto, skip, limit) {
 	let voteResults = { rows: [] };
@@ -1313,7 +1328,7 @@ getVotesForSubject = async function(client, subject, refersto, skip, limit) {
 		subject: subject,
 		votes: voteResults.rows[0],
 	};
-};
+}
 
 getVotesByAuthor = async function(client, id, skip, limit) {
 	let reviewVoteResults = { rows: [] };
@@ -1332,7 +1347,7 @@ getVotesByAuthor = async function(client, id, skip, limit) {
 		reviewVotes: reviewVoteResults.rows,
 		commentVotes: commentVoteResults.rows,
 	};
-};
+}
 
 castVote = async function(client, vote) {
 	let voteResults = { rows: [] };
@@ -1354,7 +1369,7 @@ castVote = async function(client, vote) {
 		subject: vote.voteSubject,
 		vote: voteResults.rows[0],
 	};
-};
+}
 
 processVoteResults = function(voteResults) {
 	/*
@@ -1367,7 +1382,8 @@ processVoteResults = function(voteResults) {
 	*/
 	if (
 		voteResults.vote !== undefined &&
-		(voteResults.subject === "review" || voteResults.subject === "comment")
+		(voteResults.subject === "review" ||
+			voteResults.subject === "comment")
 	) {
 		const vote = voteResults.vote;
 		return {
@@ -1391,7 +1407,7 @@ processVoteResults = function(voteResults) {
 	// because I'm not sure how it would be used. Skipping for now.
 
 	return undefined;
-};
+}
 
 // object declarations/definitions for use in later tests
 let obj;
@@ -1411,11 +1427,11 @@ vize = {
 	contactEmail: "incentivizinggood@gmail.com",
 	websiteURL: "https://www.incentivizinggood.com",
 	descriptionOfCompany: "Pretty leet",
-	locations: ["My house", "Shaffer's aparment", "Tijuana"],
+	locations: ["My house", "Shaffer's aparment", "Tijuana"]
 };
 
 vizeReview = {
-	companyName: "a",
+	companyName: 'a',
 	companyId: 1,
 	location: "asdf",
 	reviewTitle: "Hello World",
@@ -1429,7 +1445,7 @@ vizeReview = {
 	workEnvironment: 1.7,
 	benefits: 2.8,
 	overallSatisfaction: 4.3,
-	additionalComments: "Hello World",
+	additionalComments: "Hello World"
 };
 
 vizeSalary = {
@@ -1439,11 +1455,11 @@ vizeSalary = {
 	jobTitle: "Web developer",
 	incomeType: "Yearly Salary",
 	incomeAmount: 50,
-	gender: "Male",
+	gender: "Male"
 };
 
 vizeJobAd = {
-	companyName: "a",
+	companyName: 'a',
 	companyId: 1,
 	jobTitle: "Web developer",
 	locations: ["My house", "Shaffer's aparment", "Tijuana"],
@@ -1451,109 +1467,77 @@ vizeJobAd = {
 	contractType: "Full time",
 	jobDescription: "Pretty leet for a web dev",
 	responsibilities: "Do stuff",
-	qualifications: "Be able to do stuff",
-};
+	qualifications: "Be able to do stuff"
+}
 
 vizeComment = {
 	reviewId: 1,
-	content: "FIRST!",
-};
+	content: "FIRST!"
+}
 
 vizeVote = {
 	submittedBy: 11,
 	voteSubject: "comment",
 	references: 1,
-	value: true,
-};
+	value: true
+}
 
 vizeVote2 = {
 	submittedBy: 11,
 	voteSubject: "comment",
 	references: 1,
-	value: false,
-};
+	value: false
+}
 
 vizeVote3 = {
 	submittedBy: 11,
 	voteSubject: "review",
 	references: 1,
-	value: true,
-};
+	value: true
+}
 
 vizeVote4 = {
 	submittedBy: 11,
 	voteSubject: "review",
 	references: 1,
-	value: false,
-};
+	value: false
+}
 
 // NOTE
 // These tests require that server/sql/tests/setup-playground.sql has
 // been run on the database that these queries are being sent to.
 
 // company query functions
-obj = processCompanyResults(
-	await PostgreSQL.executeQuery(getCompanyByName, "a")
-);
+obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyByName, "a"));
 obj = processCompanyResults(await PostgreSQL.executeQuery(getCompanyById, 1));
-obj = processCompanyResults(
-	await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000)
-);
-obj = processCompanyResults(
-	await PostgreSQL.executeQuery(getAllCompanies, 0, 1000)
-);
+obj = processCompanyResults(await PostgreSQL.executeQuery(companyNameRegexSearch, "a", 0, 1000));
+obj = processCompanyResults(await PostgreSQL.executeQuery(getAllCompanies, 0, 1000));
 
 // review query functions
 obj = processReviewResults(await PostgreSQL.executeQuery(getReviewById, 1));
-obj = processReviewResults(
-	await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000)
-);
-obj = processReviewResults(
-	await PostgreSQL.executeQuery(getReviewsForCompany, "a", 0, 1000)
-);
-obj = processReviewResults(
-	await PostgreSQL.executeQuery(getAllReviews, 0, 1000)
-);
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewsByAuthor, 1, 0, 1000));
+obj = processReviewResults(await PostgreSQL.executeQuery(getReviewsForCompany, 'a', 0, 1000));
+obj = processReviewResults(await PostgreSQL.executeQuery(getAllReviews, 0, 1000));
 
 // salary query functions
 obj = processSalaryResults(await PostgreSQL.executeQuery(getSalaryById, 1));
-obj = processSalaryResults(
-	await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000)
-);
-obj = processSalaryResults(
-	await PostgreSQL.executeQuery(getSalariesForCompany, "a", 0, 1000)
-);
-obj = processSalaryResults(
-	await PostgreSQL.executeQuery(getAllSalaries, 0, 1000)
-);
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesByAuthor, 3, 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getSalariesForCompany, 'a', 0, 1000));
+obj = processSalaryResults(await PostgreSQL.executeQuery(getAllSalaries, 0, 1000));
 
 // jobad query functions
 obj = processJobAdResults(await PostgreSQL.executeQuery(getJobAdById, 1));
-obj = processJobAdResults(
-	await PostgreSQL.executeQuery(getJobAdsByCompany, "b")
-);
+obj = processJobAdResults(await PostgreSQL.executeQuery(getJobAdsByCompany, "b"));
 obj = processJobAdResults(await PostgreSQL.executeQuery(getAllJobAds, 0, 1000));
 
 // comment query functions
 obj = processCommentResults(await PostgreSQL.executeQuery(getCommentById, 1));
-obj = processCommentResults(
-	await PostgreSQL.executeQuery(getAllComments, 0, 1000)
-);
-obj = processCommentResults(
-	await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000)
-);
+obj = processCommentResults(await PostgreSQL.executeQuery(getAllComments, 0, 1000));
+obj = processCommentResults(await PostgreSQL.executeQuery(getCommentsByAuthor, 2, 0, 1000));
 
 // vote query functions
-obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {
-	submittedBy: 7,
-	references: 1,
-	voteSubject: "review",
-});
-obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {
-	submittedBy: 7,
-	references: 1,
-	voteSubject: "comment",
-});
+obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 7, references: 1, voteSubject: "review"});
+obj = await PostgreSQL.executeQuery(getVoteByPrimaryKey, {submittedBy: 7, references: 1, voteSubject: "comment"});
 obj = await PostgreSQL.executeQuery(getAllVotes, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesByAuthor, 6, 0, 1000);
 obj = await PostgreSQL.executeQuery(getVotesForSubject, "comment", 1, 0, 1000);
@@ -1563,21 +1547,11 @@ obj = await PostgreSQL.executeQuery(getVotesForSubject, "review", 1, 0, 1000);
 // NOTE that the review, salary, and comment insertions
 // will all fail unless/until you go and add submittedBy
 // fields and corresponding users.
-obj = processCompanyResults(
-	await PostgreSQL.executeMutation(createCompany, vize)
-);
-obj = processReviewResults(
-	await PostgreSQL.executeMutation(submitReview, vizeReview)
-);
-obj = processSalaryResults(
-	await PostgreSQL.executeMutation(submitSalary, vizeSalary)
-);
-obj = processJobAdResults(
-	await PostgreSQL.executeMutation(postJobAd, vizeJobAd)
-);
-obj = processCommentResults(
-	await PostgreSQL.executeMutation(writeComment, vizeComment)
-);
+obj = processCompanyResults(await PostgreSQL.executeMutation(createCompany, vize));
+obj = processReviewResults(await PostgreSQL.executeMutation(submitReview, vizeReview));
+obj = processSalaryResults(await PostgreSQL.executeMutation(submitSalary, vizeSalary));
+obj = processJobAdResults(await PostgreSQL.executeMutation(postJobAd, vizeJobAd));
+obj = processCommentResults(await PostgreSQL.executeMutation(writeComment, vizeComment));
 obj = await PostgreSQL.executeMutation(castVote, vizeVote);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote2);
 obj = await PostgreSQL.executeMutation(castVote, vizeVote3);
@@ -1618,71 +1592,45 @@ let writeInitialReviewsToDb;
 let writeInitialReviewsToJSON;
 
 writeInitialCompaniesToDb = async function() {
-	const companies = JSON.parse(
-		fs.readFileSync(
-			"/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json",
-			"utf8"
-		)
-	);
-	return Promise.all(
-		companies.map(async function(company) {
-			return PostgreSQL.executeMutation(createCompany, company);
-		})
-	);
-};
+	const companies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+	return Promise.all(companies.map(async function(company) {
+		return PostgreSQL.executeMutation(createCompany, company);
+	}));
+}
 
 writeInitialReviewsToDb = async function() {
-	const reviews = JSON.parse(
-		fs.readFileSync(
-			"/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json",
-			"utf8"
-		)
-	);
-	return Promise.all(
-		reviews.map(async function(review) {
-			if (Number.isNaN(Number(review.companyId)))
-				review.companyId = undefined;
-			if (Number.isNaN(Number(review.submittedBy)))
-				review.submittedBy = undefined; // this may need to be -1, I still have to check
-			if (Array.isArray(review.locations)) {
-				const locations = review.locations;
-				review.locations = undefined;
-				review.location = locations.join(", ");
-			}
-			return PostgreSQL.executeMutation(submitReview, review);
-		})
-	);
-};
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
+	return Promise.all(reviews.map(async function(review) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
+		if(Array.isArray(review.locations)) {
+			const locations = review.locations;
+			review.locations = undefined;
+			review.location = locations.join(', ');
+		}
+		return PostgreSQL.executeMutation(submitReview, review);
+	}));
+}
 
 // NOTE
 // This was my experiment in writing the Reviews
 // to a new .json file with the new schema, in preparation
 // for the data analytics meeting with Bryce and Charter.
 writeInitialReviewsToJSON = async function() {
-	const reviews = JSON.parse(
-		fs.readFileSync(
-			"/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json",
-			"utf8"
-		)
-	);
+	const reviews = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/Reviews.json','utf8'));
 	const formattedReviews = reviews.map(function(review) {
-		if (Number.isNaN(Number(review.companyId)))
-			review.companyId = undefined;
-		if (Number.isNaN(Number(review.submittedBy)))
-			review.submittedBy = undefined; // this may need to be -1, I still have to check
-		if (Array.isArray(review.locations)) {
+		if(Number.isNaN(Number(review.companyId))) review.companyId = undefined;
+		if(Number.isNaN(Number(review.submittedBy))) review.submittedBy = undefined; // this may need to be -1, I still have to check
+		if(Array.isArray(review.locations)) {
 			const locations = review.locations;
 			review.locations = undefined;
-			review.location = locations.join(", ");
+			review.location = locations.join(', ');
 		}
 		return review;
 	});
 	console.log(formattedReviews);
-	return fs.writeFileSync(
-		"/home/jhigginbotham64/Desktop/vize/initial-reviews.json",
-		JSON.stringify(formattedReviews)
-	);
-};
+	return fs.writeFileSync('/home/jhigginbotham64/Desktop/vize/initial-reviews.json', JSON.stringify(formattedReviews));
+}
 
 /*
 	NOTE
@@ -1716,69 +1664,61 @@ let writeKritsCompaniesToDb;
 
 numEmployeesIsValid = function(numEmployees) {
 	return (
-		numEmployees === "1 - 50" ||
-		numEmployees === "51 - 500" ||
-		numEmployees === "501 - 2000" ||
-		numEmployees === "2001 - 5000" ||
-		numEmployees === "5000+"
-	);
-};
+		numEmployees === '1 - 50' || numEmployees === '51 - 500' || numEmployees === '501 - 2000' || numEmployees === '2001 - 5000' || numEmployees === '5000+'
+	)
+}
 
 // can fix simple stuff, but not more complex stuff
 // like invalid ranges or things with weird formats
 translateNumEmployees = function(numEmployees) {
-	if (numEmployeesIsValid(numEmployees)) {
+	if(numEmployeesIsValid(numEmployees)) {
 		return numEmployees;
 	}
 	let num = Number(numEmployees);
-	if (!Number.isNaN(num)) {
-		if (num <= 0) return undefined;
-		if (num >= 1 && num <= 50) return "1 - 50";
-		else if (num >= 51 && num <= 500) return "51 - 500";
-		else if (num >= 501 && num <= 2000) return "501 - 2000";
-		else if (num >= 2001 && num <= 5000) return "2001 - 5000";
-		else return "5000+";
+	if(!Number.isNaN(num)) {
+		if(num <= 0)
+			return undefined;
+		if(num >= 1 && num <= 50)
+			return '1 - 50';
+		else if(num >= 51 && num <= 500)
+			return '51 - 500';
+		else if(num >= 501 && num <= 2000)
+			return '501 - 2000';
+		else if(num >= 2001 && num <= 5000)
+			return '2001 - 5000';
+		else
+			return '5000+';
 	}
 
 	return undefined;
-};
+}
 
 writeOneKritCompanyToDb = async function(kritCompany) {
-	const emailWithTldRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	const urlRegex = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+	const emailWithTldRegex= /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const urlRegex=/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
 	let obj = {};
 	obj.name = kritCompany.name;
 	obj.descriptionOfCompany = kritCompany.description;
-	obj.contactEmail = emailWithTldRegex.test(kritCompany.email)
-		? kritCompany.email
-		: "unknown@unknown.com";
+	obj.contactEmail = (emailWithTldRegex.test(kritCompany.email)) ? kritCompany.email : "unknown@unknown.com";
 	obj.numEmployees = translateNumEmployees(kritCompany.company_size);
-	obj.websiteURL = urlRegex.test(kritCompany.url)
-		? kritCompany.url
-		: undefined;
+	obj.websiteURL = (urlRegex.test(kritCompany.url)) ? kritCompany.url : undefined;
 	obj.industry = kritCompany.industry;
 	obj.locations = [
 		JSON.stringify({
 			address: kritCompany.address,
-			industrialHub: kritCompany.industrial_hub,
-		}),
+			industrialHub: kritCompany.industrial_hub
+		})
 	];
 	const res = PostgreSQL.executeMutation(createCompany, obj);
 	return res;
-};
+}
 
 writeKritsCompaniesToDb = async function() {
-	const kritCompanies = Object.values(
-		JSON.parse(
-			fs.readFileSync("/home/jhigginbotham64/Downloads/data.json", "utf8")
-		)
-	);
-	return Promise.all(
-		kritCompanies.map(async function(company) {
-			return writeOneKritCompanyToDb(company);
-		})
-	);
-};
+	const kritCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
+	return Promise.all(kritCompanies.map(async function(company) {
+		return writeOneKritCompanyToDb(company);
+	}));
+}
 
 /*
 	NOTE
@@ -1819,11 +1759,8 @@ let theActualDuplicatesIfAny;
 
 // https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
 arraysAreEqual = function(array1, array2) {
-	return (
-		array1.length === array2.length &&
-		array1.every((value, index) => value === array2[index])
-	);
-};
+	return array1.length === array2.length && array1.every((value, index) => value === array2[index]);
+}
 
 // https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array#840808
 findDuplicatesInArray = function(array) {
@@ -1835,63 +1772,31 @@ findDuplicatesInArray = function(array) {
 		}
 	}
 	return results;
-};
+}
 
-originalCompanies = JSON.parse(
-	fs.readFileSync(
-		"/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json",
-		"utf8"
-	)
-);
-newCompanies = Object.values(
-	JSON.parse(
-		fs.readFileSync("/home/jhigginbotham64/Downloads/data.json", "utf8")
-	)
-);
+originalCompanies = JSON.parse(fs.readFileSync('/home/jhigginbotham64/Desktop/Downloads/vize-production/CompanyProfiles.json','utf8'));
+newCompanies = Object.values(JSON.parse(fs.readFileSync('/home/jhigginbotham64/Downloads/data.json','utf8')));
 originalCompanyNames = originalCompanies.map(c => c.name);
 newCompanyNames = newCompanies.map(c => c.name);
-originalNamesDuplicatedInNew = originalCompanyNames.filter(n =>
-	newCompanyNames.includes(n)
-);
+originalNamesDuplicatedInNew = originalCompanyNames.filter(n => newCompanyNames.includes(n));
 newNamesDuplicatedInSelf = findDuplicatesInArray(newCompanyNames);
-allDuplicatesInNewAndOld = newCompanies
-	.filter(
-		c =>
-			newNamesDuplicatedInSelf.includes(c.name) ||
-			originalNamesDuplicatedInNew.includes(c.name)
-	)
-	.concat(
-		originalCompanies.filter(c =>
-			originalNamesDuplicatedInNew.includes(c.name)
-		)
-	);
-allDuplicateNames = allDuplicatesInNewAndOld
-	.map(c => c.name)
-	.slice()
-	.sort();
+allDuplicatesInNewAndOld = newCompanies.filter(c => newNamesDuplicatedInSelf.includes(c.name) || originalNamesDuplicatedInNew.includes(c.name)).concat(originalCompanies.filter(c => originalNamesDuplicatedInNew.includes(c.name)));
+allDuplicateNames = allDuplicatesInNewAndOld.map(c => c.name).slice().sort();
 tempDupHolderobj = {};
 // screw hashsets
-allDuplicateNames.forEach(n => (tempDupHolderobj[n] = n));
+allDuplicateNames.forEach(n => tempDupHolderobj[n] = n);
 // NOTE allDuplicat[ed]Names !== allDuplicat[e]Names
 allDuplicatedNames = Object.values(tempDupHolderobj);
 
 getDuplicatesForName = function(companyName) {
 	return allDuplicatesInNewAndOld.filter(c => c.name === companyName);
-};
+}
 
 getDuplicateValuesForName = function(companyName) {
-	return allDuplicatesInNewAndOld
-		.filter(c => c.name === companyName)
-		.map(c => Object.values(c));
-};
+	return allDuplicatesInNewAndOld.filter(c => c.name === companyName).map(c => Object.values(c));
+}
 
 sortedDuplicates = allDuplicatedNames.map(n => getDuplicatesForName(n));
-sortedDuplicateValues = allDuplicatedNames.map(n =>
-	getDuplicateValuesForName(n)
-);
-areThereAnyActualDuplicates = sortedDuplicateValues.map(arr =>
-	arraysAreEqual(arr[0], arr[1])
-);
-theActualDuplicatesIfAny = sortedDuplicateValues.filter(arr =>
-	arraysAreEqual(arr[0], arr[1])
-);
+sortedDuplicateValues = allDuplicatedNames.map(n => getDuplicateValuesForName(n));
+areThereAnyActualDuplicates = sortedDuplicateValues.map(arr => arraysAreEqual(arr[0],arr[1]));
+theActualDuplicatesIfAny = sortedDuplicateValues.filter(arr => arraysAreEqual(arr[0],arr[1]));

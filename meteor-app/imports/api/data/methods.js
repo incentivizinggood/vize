@@ -98,10 +98,12 @@ Meteor.methods({
 
 		cleanReview.submittedBy = pgUser.user.userid;
 
-		const validationResult = ReviewSchema.namedContext().validate(
-			cleanReview
-		);
-		const errors = ReviewSchema.namedContext().validationErrors();
+		const validationResult = ReviewSchema
+			.namedContext()
+			.validate(cleanReview);
+		const errors = ReviewSchema
+			.namedContext()
+			.validationErrors();
 
 		if (Meteor.isDevelopment) {
 			console.log("SERVER: Here is the validation result: ");
@@ -168,12 +170,16 @@ Meteor.methods({
 		}
 
 		// validate review: must match ReviewSchema
-		const validationResult = ReviewSchema.namedContext().validate(review, {
-			extendedCustomContext: {
-				isNotASubmission: true,
-			},
-		});
-		const errors = ReviewSchema.namedContext().validationErrors();
+		const validationResult = ReviewSchema
+			.namedContext()
+			.validate(review, {
+				extendedCustomContext: {
+					isNotASubmission: true,
+				},
+			});
+		const errors = ReviewSchema
+			.namedContext()
+			.validationErrors();
 
 		if (!validationResult) {
 			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
@@ -250,10 +256,12 @@ Meteor.methods({
 		// This avoids a lot of problems
 		const newSalary = SalarySchema.clean(salary);
 
-		const validationResult = SalarySchema.namedContext().validate(
-			newSalary
-		);
-		const errors = SalarySchema.namedContext().validationErrors();
+		const validationResult = SalarySchema
+			.namedContext()
+			.validate(newSalary);
+		const errors = SalarySchema
+			.namedContext()
+			.validationErrors();
 
 		if (Meteor.isDevelopment) {
 			console.log("SERVER: Here is the validation result: ");
@@ -327,10 +335,12 @@ Meteor.methods({
 
 	async "jobads.applyForJob"(jobApplication) {
 		jobApplication = JobApplicationSchema.clean(jobApplication);
-		const validationResult = JobApplicationSchema.namedContext().validate(
-			jobApplication
-		);
-		const errors = JobApplicationSchema.namedContext().validationErrors();
+		const validationResult = JobApplicationSchema
+			.namedContext()
+			.validate(jobApplication);
+		const errors = JobApplicationSchema
+			.namedContext()
+			.validationErrors();
 
 		if (Meteor.isDevelopment) {
 			console.log("SERVER: Here is the validation result: ");
@@ -430,8 +440,12 @@ Meteor.methods({
 
 	async "jobads.postJobAd"(jobAd) {
 		const newJobAd = JobAdSchema.clean(jobAd);
-		const validationResult = JobAdSchema.namedContext().validate(newJobAd);
-		const errors = JobAdSchema.namedContext().validationErrors();
+		const validationResult = JobAdSchema
+			.namedContext()
+			.validate(newJobAd);
+		const errors = JobAdSchema
+			.namedContext()
+			.validationErrors();
 
 		if (Meteor.isDevelopment) {
 			console.log("SERVER: Here is the validation result: ");
@@ -566,11 +580,15 @@ Meteor.methods({
 	//	--> with the collection of companies that have not
 	//	--> yet set up accounts. We're not ready for that quite yet.
 	async "companies.createProfile"(companyProfile) {
-		const newCompanyProfile = CompanySchema.clean(companyProfile);
-		const validationResult = CompanySchema.namedContext().validate(
-			newCompanyProfile
+		const newCompanyProfile = CompanySchema.clean(
+			companyProfile
 		);
-		const errors = CompanySchema.namedContext().validationErrors();
+		const validationResult = CompanySchema
+			.namedContext()
+			.validate(newCompanyProfile);
+		const errors = CompanySchema
+			.namedContext()
+			.validationErrors();
 
 		if (Meteor.isDevelopment) {
 			console.log("SERVER: Here is the validation result: ");

@@ -60,14 +60,10 @@ export const processLocation = function(location) {
 			locationObj.industrialHub !== null &&
 			locationObj.industrialHub !== "-" &&
 			locationObj.industrialHub !== "(unknown or not provided by user)"
+
 		)
 			returnVal = locationObj.industrialHub;
-		else if (
-			locationObj.city !== undefined &&
-			locationObj.city !== null &&
-			locationObj.city !== "-" &&
-			locationObj.city !== "(unknown or not provided by user)"
-		)
+		else if (locationObj.city !== undefined && locationObj.city !== null && locationObj.city !== "-" && locationObj.city !== "(unknown or not provided by user)")
 			returnVal = locationObj.city;
 		else if (
 			locationObj.address !== undefined &&

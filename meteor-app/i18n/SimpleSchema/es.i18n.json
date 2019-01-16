@@ -33,24 +33,30 @@
 				"Phone": "debe ser un numero de telefono valido"
 			},
 			"keyNotInSchema": "{{name}} no está permitido por el esquema",
-			"noCompanyWithThatName": "No hay una empresa con ese nombre en nuestra base de datos",
+			"noCompanyWithThatName":
+				"No hay una empresa con ese nombre en nuestra base de datos",
 			"sessionError": "Por favor, dejar de jugar un poco"
 		},
 		"JobApplications": {
-			"invalidJobId": "Proporcione una identificación de trabajo válida para el trabajo al que desea postularse"
+			"invalidJobId":
+				"Proporcione una identificación de trabajo válida para el trabajo al que desea postularse"
 		},
 		"Companies": {
 			"nameTaken": "El nombre proporcionado ya esta en uso"
 		},
 		"JobAds": {
-			"maxedOutJobPosts": "Solo puede publicar hasta 5 anuncios de trabajo"
+			"maxedOutJobPosts":
+				"Solo puede publicar hasta 5 anuncios de trabajo"
 		},
 		"Salaries": {
-			"secondSalaryByUser": "Solo puede publicar datos de salario una vez por compañía"
+			"secondSalaryByUser":
+				"Solo puede publicar datos de salario una vez por compañía"
 		},
 		"Reviews": {
-			"secondReviewByUser": "Solo puede escribir una revisión para cada compañía",
-			"needsFiveWords": "Debes colocar por lo menos 5 palabras en este campo"
+			"secondReviewByUser":
+				"Solo puede escribir una revisión para cada compañía",
+			"needsFiveWords":
+				"Debes colocar por lo menos 5 palabras en este campo"
 		}
 	},
 	"labels": {
@@ -69,7 +75,8 @@
 			"fullName": "Nombre completo",
 			"email": "Direccion de correo electronico",
 			"phoneNumber": "Numero telefonico",
-			"coverLetterAndComments": "Carta de presentación / Comentarios adicionales",
+			"coverLetterAndComments":
+				"Carta de presentación / Comentarios adicionales",
 			"dateSent": "Feha de envio"
 		},
 		"Companies": {
@@ -130,7 +137,8 @@
 			"numberOfMonthsWorked": "Numero de meses trabajados",
 			"pros": "Ventajas",
 			"cons": "Limitaciones",
-			"wouldRecommendToOtherJobSeekers": "Recomendaría a otros solicitantes de empleo",
+			"wouldRecommendToOtherJobSeekers":
+				"Recomendaría a otros solicitantes de empleo",
 			"healthAndSafety": "Salud y Beneficios",
 			"managerRelationship": "Relaciones del Gerente",
 			"workEnvironment": "Ambiente Laboral",
