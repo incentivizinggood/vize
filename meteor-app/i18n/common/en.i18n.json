@@ -119,6 +119,19 @@
 		"placeholder": "Search for a Company...",
 		"button": "SEARCH"
 	},
+	"reviewSubmitted": {
+		"contributing": "Thank you for contributing to your community!",
+		"phoneFaiure": "Error: Your phone number has already been registered",
+		"phoneSuccess": "Your phone number was registered successfully",
+		"phoneSuccess2": "We will be sending you your reward within 24 hours",
+		"rewardYou": "We would like to reward you for taking the time to write a review.",
+		"rewardOptions": "Please select from the following reward options:",
+		"paypalCash": "Receive $5 through PayPal",
+		"minutesReward": "Receive $5 worth of minutes",
+		"getReward": "Get Reward",
+		"enterPhone": "Please enter your phone number",
+		"submit": "Submit"
+	},
 
 	"jobsearch": {
 		"loading": "Loading...",
