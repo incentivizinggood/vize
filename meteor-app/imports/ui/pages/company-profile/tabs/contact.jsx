@@ -14,44 +14,44 @@ export default function ContactTab() {
 					</h4>
 					<hr />
 
-					<div className="container-contact100">
-						<div className="wrap-contact100">
-							<form className="contact100-form validate-form">
-								<span className="contact100-form-title">
+					<div className="container-contact">
+						<div className="wrap-contact">
+							<form className="contact-form validate-form">
+								<span className="contact-form-title">
 									<T>common.companyprofile.feel_free</T>
 									<T>common.companyprofile.reach_us</T>
 								</span>
-								<div className="wrap-input100 rs1 validate-input">
+								<div className="wrap-input rs1 validate-input">
 									<input
 										id="first-name"
-										className="input100"
+										className="input"
 										type="text"
 										name="first-name"
 										placeholder="Your Name"
 									/>
-									<span className="focus-input100" />
+									<span className="focus-input" />
 								</div>
-								<div className="wrap-input100 rs1 validate-input">
+								<div className="wrap-input rs1 validate-input">
 									<input
 										id="email"
-										className="input100"
+										className="input"
 										type="text"
 										name="email"
 										placeholder="Eg. example@email.com"
 									/>
-									<span className="focus-input100" />
+									<span className="focus-input" />
 								</div>
-								<div className="wrap-input100 validate-input">
+								<div className="wrap-input validate-input">
 									<textarea
 										id="message"
-										className="input100"
+										className="input"
 										name="message"
 										placeholder="Please enter your comments..."
 									/>
-									<span className="focus-input100" />
+									<span className="focus-input" />
 								</div>
-								<div className="container-contact100-form-btn">
-									<button className="contact100-form-btn">
+								<div className="container-contact-form-btn">
+									<button className="contact-form-btn">
 										<span>
 											Submit
 											<i className="zmdi zmdi-arrow-right m-l-8" />

@@ -10,10 +10,10 @@
 	}
 
 	.banner {
-		min-height: 410px;
+		min-height: 75vh;
 
 		&-info {
-			min-height: 410px;
+			min-height: 75vh;
 		}
 
 		&-text-info {
@@ -25,17 +25,10 @@
 		left: 42.5%;
 	}
 
-	.welcome-left,
 	.tabs-right {
 		float: none;
 		width: 60%;
 		margin: 0 auto;
-	}
-
-	.welcome-right {
-		float: none;
-		width: 100%;
-		margin-top: 2em;
 	}
 
 	.tabs-left {
@@ -48,7 +41,7 @@
 		padding: 1.5em;
 	}
 
-	.welcome,
+	.full-width-container,
 	.tabs,
 	.services,
 	.footer,
@@ -137,8 +130,8 @@
 		}
 	}
 
-	.banner.about-banner,
-	.about-banner .banner-info {
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
 		min-height: 190px;
 	}
 

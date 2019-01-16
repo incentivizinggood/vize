@@ -43,9 +43,6 @@ class CompanyProfile extends React.Component {
 		return (
 			<div className="navbarwhite">
 				<Header />
-				<br />
-				<br />
-				<br />
 
 				<CompanyProfileSummary company={this.props.company} />
 

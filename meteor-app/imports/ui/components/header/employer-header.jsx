@@ -13,6 +13,7 @@ import LogoutButton from "./logout-button.jsx";
 const T = i18n.createComponent();
 
 class EmployerHeader extends React.Component {
+	state = {};
 	render() {
 		let companyURL;
 		if (this.props.user.companyId) {
@@ -27,11 +28,11 @@ class EmployerHeader extends React.Component {
 		return (
 			<div className="top-nav">
 				<nav>
-					<div className="container">
-						<div className="navbar-header logo">
+					<div className="container container--ui-fix">
+						<div className="navbar-header logo navbar-header--ui-fix">
 							<button
 								type="button"
-								className="navbar-toggle collapsed slide-toggle "
+								className="navbar-toggle collapsed slide-toggle navbar-toggle--ui-fix"
 								data-toggle="collapse"
 								data-target="#bs-example-navbar-collapse-1"
 							>
@@ -44,22 +45,25 @@ class EmployerHeader extends React.Component {
 							</button>
 							<h2 className="site-logo">
 								<Link to="/">
-									<img src="/images/logo.png" />
+									<img
+										src="/images/logo.png"
+										alt="Vize Logo"
+									/>
 								</Link>
 							</h2>
 						</div>
 						<div
-							className="collapse navbar-collapse"
+							className="collapse navbar-collapse navbar-collapse--ui-fix"
 							id="bs-example-navbar-collapse-1"
 						>
-							<ul className="nav navbar-nav left_nav">
+							<ul className="nav navbar-nav left_nav navbar-nav--ui-fix">
 								<li>
 									<If cond={this.props.isLoggedIn}>
 										<Then>
 											<Link
 												to="/my-account"
 												type="button"
-												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+												className="toggle-only-display toggle-only-display--ui-fix btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>common.header.myaccount</T>
 											</Link>
@@ -68,7 +72,7 @@ class EmployerHeader extends React.Component {
 											<Link
 												to="/login"
 												type="button"
-												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+												className="toggle-only-display toggle-only-display--ui-fix btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<T>
 													common.header.signup_or_login
@@ -108,10 +112,10 @@ class EmployerHeader extends React.Component {
 									</Link>
 								</li>
 							</ul>
-							<ul className="nav navbar-nav navbar-right">
+							<ul className="nav navbar-nav navbar-right navbar-right--ui-fix">
 								<If cond={this.props.isLoggedIn}>
 									<Then>
-										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
+										<li className="navigation-only-display dropdown pf  show-on-hover-pf navigation-only-display--ui-fix">
 											<Link
 												to="#"
 												className="dropdown-toggle  "
@@ -172,7 +176,7 @@ class EmployerHeader extends React.Component {
 								<If cond={this.props.isLoggedIn}>
 									<Then>
 										<li>
-											<LogoutButton className="toggle-only-display link-kumya">
+											<LogoutButton className="toggle-only-display toggle-only-display--ui-fix link-kumya">
 												<T>common.header.logout</T>
 											</LogoutButton>
 										</li>

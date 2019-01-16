@@ -119,7 +119,19 @@
 		"placeholder": "Busquar una empresa...",
 		"button": "Buscar"
 	},
-
+	"reviewSubmitted": {
+		"contributing": "¡Gracias por contribuir a su comunidad!",
+		"phoneFaiure": "Error: su número de teléfono ya ha sido registrado",
+		"phoneSuccess": "Su número de teléfono ha sido registrado exitosamente",
+		"phoneSuccess2": "Le enviaremos su recompensa dentro de 24 horas",
+		"rewardYou": "Nos gustaría recompensarlo por tomar el tiempo para escribir una revision.",
+		"rewardOptions": "Por favor seleccione de las siguientes opciones de recompensa:",
+		"paypalCash": "Recibe $5 a través de PayPal",
+		"minutesReward": "Recibe $5 en minutos",
+		"getReward": "Recibir Recompensa",
+		"enterPhone": "Por favor, ingrese su número de teléfono",
+		"submit": "Enviar"
+	},
 	"jobsearch": {
 		"loading": "Cargando...",
 		"nojobs": "No hay anuncios de trabajo disponibles en este momento.",

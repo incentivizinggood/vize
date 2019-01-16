@@ -1,4 +1,3 @@
-.welcome,
 .tabs,
 .services,
 .slid,
@@ -10,36 +9,6 @@
 .gallery,
 .blog {
 	padding: 8em 0;
-}
-
-.welcome h3.title,
-.tabs h3.title {
-	text-align: left;
-}
-
-.welcome {
-	h4 {
-		font-size: 1.5em;
-		color: #000;
-		font-weight: 700;
-	}
-
-	.glyphicon {
-		font-size: 1.2em;
-		border: 2px solid #aaa;
-		border-radius: 50%;
-		padding: 0.8em;
-		color: #555;
-	}
-
-	.welpadgo {
-		padding-top: 5em;
-		padding-bottom: 3em;
-
-		&.wel_profile {
-			padding-bottom: 0em !important;
-		}
-	}
 }
 
 .welpad12 {
@@ -333,7 +302,7 @@ div[class^="sect_re"] {
 	}
 }
 
-.welcome.welpadgo.wel_profile,
+.full-width-container.welpadgo.wel_profile,
 .mar_lf_ri .na_tab,
 .tab-content .tab-pane {
 	@media (max-width: 768px) {
