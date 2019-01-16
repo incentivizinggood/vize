@@ -3,8 +3,8 @@ import { ApolloServer } from "apollo-server-express";
 
 import { getUser } from "meteor/apollo";
 
-import typeDefs from "/imports/api/graphql/schema.graphql";
-import resolvers from "/imports/api/graphql/resolvers.js";
+import { typeDefs, resolvers } from "./graphql";
+import { testConnection as testPgConnection } from "./graphql/connectors/postgresql.js";
 
 const app = express();
 
@@ -49,4 +49,10 @@ app.use("/graphql", (req, res) => {
 
 // TODO: When we stop using Meteor, `app` will be the main server.
 //       We will need to call app.listen to start the server.
-export default app;
+
+function onServerReady() {
+	console.log("Server ready.");
+	testPgConnection();
+}
+
+export { app, onServerReady };
