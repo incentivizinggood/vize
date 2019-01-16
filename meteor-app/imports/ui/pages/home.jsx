@@ -38,9 +38,9 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="welcome welpad">
-				<div className="container  des-top-view">
-					<div className="col-md-8 ">
+			<div className="full-width-container">
+				<div className="container desktop-view">
+					<div className="col-md-8">
 						<div>
 							<img
 								className="img-responsive"
@@ -49,7 +49,7 @@ function HomePage() {
 							/>
 						</div>
 					</div>
-					<div className="col-md-4 ">
+					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
 								<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
@@ -60,11 +60,11 @@ function HomePage() {
 								<T>findjob_text</T>
 							</h4>
 						</div>
-						<div className="titlestar  ">
+						<div className="titlestar">
 							<center>
 								<Link
 									to="/jobs"
-									className="button out-butt-dark  "
+									className="button out-butt-dark"
 								>
 									<T>jobsButton</T>
 								</Link>
@@ -78,7 +78,7 @@ function HomePage() {
 				{/* =====mobile view show====  */}
 
 				<div className="container  mobile-view-box">
-					<div className="col-md-4 ">
+					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
 								<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
@@ -89,11 +89,11 @@ function HomePage() {
 								<T>findjob_text</T>
 							</h4>
 						</div>
-						<div className="titlestar  ">
+						<div className="titlestar">
 							<center>
 								<Link
 									to="/jobs"
-									className="button out-butt-dark  "
+									className="button out-butt-dark"
 								>
 									<T>jobsButton</T>
 								</Link>
@@ -102,7 +102,7 @@ function HomePage() {
 					</div>
 					<br />
 					<br />
-					<div className="col-md-8 ">
+					<div className="col-md-8">
 						<div>
 							<center>
 								{" "}
@@ -120,11 +120,9 @@ function HomePage() {
 				{/* ====mobile view show  end==== */}
 			</div>
 
-			{/*  find great employer */}
-
-			<div className="welcome  welpad   back-hm-sect-colr">
-				<div className="container  blu-section-desc">
-					<div className="col-md-5 ">
+			<div className="full-width-container background-primary">
+				<div className="container blu-section-desc">
+					<div className="col-md-5">
 						<div className="great-emp-hm">
 							<h1>
 								<T>findemp_part1</T> <br />
@@ -136,23 +134,23 @@ function HomePage() {
 								<T>findemp_text</T>
 							</h4>
 						</div>
-						<div className="companies-btn  ">
+						<div className="companies-btn">
 							<center>
 								<Link
 									to="/companies"
-									className="button out-bodr  "
+									className="button out-bodr"
 								>
 									<T>companiesButton</T>
 								</Link>
 							</center>
 						</div>
 					</div>
-					<div className="col-md-7 ">
+					<div className="col-md-7">
 						<div>
 							<img
 								className="img-responsive"
 								src="images/home-img-1.png"
-								alt="Computer screen with example company rateings."
+								alt="Company Ratings"
 							/>
 						</div>
 					</div>
@@ -161,8 +159,8 @@ function HomePage() {
 
 				{/* ===mobile view blue section==== */}
 
-				<div className="container  blu-mobile-sect">
-					<div className="col-md-5 ">
+				<div className="container blu-mobile-sect">
+					<div className="col-md-5">
 						<div className="great-emp-hm">
 							<h1>
 								<T>findemp_part1</T> <br />
@@ -174,11 +172,11 @@ function HomePage() {
 								<T>findemp_text</T>
 							</h4>
 						</div>
-						<div className="companies-btn  ">
+						<div className="companies-btn">
 							<center>
 								<Link
 									to="/companies"
-									className="button out-bodr  "
+									className="button out-bodr"
 								>
 									<T>companiesButton</T>
 								</Link>
@@ -194,7 +192,7 @@ function HomePage() {
 								<img
 									className="img-responsive"
 									src="images/mobile-2.png"
-									alt="Smartphone with example company rateings."
+									alt="Company ratings"
 								/>
 							</center>
 						</div>
@@ -203,10 +201,9 @@ function HomePage() {
 				</div>
 			</div>
 
-			{/* 2 cards section */}
-			<div className="welcome  welpad  back-hm-community">
+			<div className="full-width-container background-offwhite">
 				<div className="container">
-					<div className="col-md-12 ">
+					<div className="col-md-12">
 						<center>
 							<div className="hover panel-hm">
 								<div className="front">

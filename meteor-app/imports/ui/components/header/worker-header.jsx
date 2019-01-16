@@ -16,11 +16,11 @@ class WorkerHeader extends React.Component {
 		return (
 			<div className="top-nav">
 				<nav>
-					<div className="container">
-						<div className="navbar-header logo">
+					<div className="container container--ui-fix">
+						<div className="navbar-header logo navbar-header--ui-fix">
 							<button
 								type="button"
-								className="navbar-toggle collapsed slide-toggle "
+								className="navbar-toggle collapsed slide-toggle navbar-toggle--ui-fix"
 								data-toggle="collapse"
 								data-target="#bs-example-navbar-collapse-1"
 							>
@@ -38,17 +38,17 @@ class WorkerHeader extends React.Component {
 							</h2>
 						</div>
 						<div
-							className="collapse navbar-collapse"
+							className="collapse navbar-collapse navbar-collapse--ui-fix"
 							id="bs-example-navbar-collapse-1"
 						>
-							<ul className="nav navbar-nav left_nav">
+							<ul className="nav navbar-nav left_nav navbar-nav--ui-fix">
 								<li>
 									<Case>
 										<When cond={this.props.isLoggedIn}>
 											<Link
 												to="/my-account"
 												type="button"
-												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+												className="toggle-only-display toggle-only-display--ui-fix btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
 											>
 												<T>common.header.myaccount</T>
 											</Link>
@@ -57,7 +57,7 @@ class WorkerHeader extends React.Component {
 											<Link
 												to="/login"
 												type="button"
-												className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+												className="toggle-only-display toggle-only-display--ui-fix btn navbar-btn margin-right btn-green hvr-icon-forward"
 											>
 												<span>
 													<T>
@@ -96,10 +96,10 @@ class WorkerHeader extends React.Component {
 									</Link>
 								</li>
 							</ul>
-							<ul className="nav navbar-nav navbar-right">
+							<ul className="nav navbar-nav navbar-right navbar-right--ui-fix">
 								<Case>
 									<When cond={this.props.isLoggedIn}>
-										<li className="navigation-only-display dropdown pf  show-on-hover-pf">
+										<li className="navigation-only-display dropdown pf  show-on-hover-pf navigation-only-display--ui-fix">
 											<Link
 												to="#"
 												className="dropdown-toggle  "
@@ -108,6 +108,7 @@ class WorkerHeader extends React.Component {
 												<img
 													src="images/profileIcon.png"
 													className="img-responsive  dp-profile"
+													alt="Profile Icon"
 												/>{" "}
 											</Link>
 											<ul className="dropdown-menu pf">
@@ -169,7 +170,7 @@ class WorkerHeader extends React.Component {
 								<br />
 								<When cond={this.props.isLoggedIn}>
 									<li>
-										<LogoutButton className="toggle-only-display navbar-link margin-right">
+										<LogoutButton className="toggle-only-display toggle-only-display--ui-fix navbar-link margin-right">
 											<T>common.header.logout</T>
 										</LogoutButton>
 									</li>

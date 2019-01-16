@@ -114,10 +114,6 @@
 		display: none;
 	}
 
-	.navbar-collapse {
-		padding-bottom: 250px !important;
-	}
-
 	button.navbar-toggle {
 		margin-top: 1.3em;
 	}
@@ -396,10 +392,6 @@
 		display: none;
 	}
 
-	.navbar-collapse {
-		padding-bottom: 250px !important;
-	}
-
 	button.navbar-toggle {
 		margin-top: 1.3em;
 	}
@@ -611,7 +603,7 @@
 }
 
 @media screen and (max-width: 1291px) and (min-width: 290px) {
-	.container.des-top-view {
+	.container.desktop-view {
 		display: none !important;
 	}
 

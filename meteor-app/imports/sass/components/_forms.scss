@@ -1,4 +1,4 @@
-.container-contact100 {
+.container-contact {
 	width: 100%;
 	min-height: 100vh;
 	@include flexbox();
@@ -14,7 +14,7 @@
 		justify-content: center;
 		margin-top: -4px;
 
-		.contact100-form-btn {
+		.contact-form-btn {
 			font-family: Raleway-Bold;
 			font-size: 16px;
 			color: $white;
@@ -57,7 +57,7 @@
 		}
 	}
 
-	.wrap-contact100 {
+	.wrap-contact {
 		width: 790px;
 		background: $concrete;
 		border-radius: 2px;
@@ -74,7 +74,7 @@
 		}
 	}
 
-	.contact100-form {
+	.contact-form {
 		width: 100%;
 		@include flexbox();
 		flex-wrap: wrap;
@@ -89,7 +89,7 @@
 			padding-bottom: 45px;
 		}
 
-		.wrap-input100 {
+		.wrap-input {
 			width: 100%;
 			position: relative;
 			border-radius: 2px;
@@ -103,7 +103,7 @@
 			}
 		}
 
-		.input100 {
+		.input {
 			display: block;
 			width: 100%;
 			font-family: Raleway-SemiBold;
@@ -113,7 +113,7 @@
 			padding: 0 25px;
 		}
 
-		input.input100 {
+		input.input {
 			height: 55px;
 			border: none;
 			&:hover {
@@ -121,7 +121,7 @@
 			}
 		}
 
-		textarea.input100 {
+		textarea.input {
 			min-height: 162px;
 			padding-top: 19px;
 			padding-bottom: 15px;

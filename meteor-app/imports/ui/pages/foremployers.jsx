@@ -14,11 +14,12 @@ export default class ForEmployers extends React.Component {
 	render() {
 		return (
 			<div>
-				<Header />
-				{/* find great employer */}
-				<div className="welcome  back-img-emp ">
+				<div className="navbarwhite">
+					<Header />
+				</div>
+				<div className="full-width-container forEmployees-header">
 					<div className="container ">
-						<div className="col-md-12 ">
+						<div className="col-md-12">
 							<div className="great-emp-hm">
 								<h1>
 									<T>common.forEmployers.find_best</T>
@@ -31,11 +32,11 @@ export default class ForEmployers extends React.Component {
 									<T>common.forEmployers.find_best_part2</T>
 								</h4>
 							</div>
-							<div className="companies-btn  ">
+							<div className="companies-btn">
 								<center>
 									<Link
 										to="/register"
-										className="button out-bodr-get  "
+										className="button out-bodr-get"
 									>
 										<T>
 											common.forEmployers.get_started_button
@@ -47,11 +48,10 @@ export default class ForEmployers extends React.Component {
 						<div className="clearfix" />
 					</div>
 				</div>
-				{/* find great employer */}
-				{/* find card sect */}
-				<div className="welcome  welpad  back-hm-community">
+
+				<div className="full-width-container">
 					<div className="container">
-						<div className="col-md-12 ">
+						<div className="col-md-12">
 							<center>
 								<div className="hover panel-hm">
 									<div className="front">
@@ -62,8 +62,8 @@ export default class ForEmployers extends React.Component {
 											<br />
 											<T>common.forEmployers.retention</T>
 										</div>
-										<div className="frontLogo    emp-icon2" />
-										<div className="frontLocation   plu">
+										<div className="frontLogo emp-icon2" />
+										<div className="frontLocation plu">
 											<T>
 												common.forEmployers.increase_workers_text
 											</T>
@@ -107,9 +107,9 @@ export default class ForEmployers extends React.Component {
 				</div>
 				{/* find card sect
 													     find great sect */}
-				<div className="welcome  emp-wel">
-					<div className="container ">
-						<div className="col-md-6 ">
+				<div className="full-width-container emp-wel">
+					<div className="container">
+						<div className="col-md-6">
 							<div>
 								<center>
 									<img

@@ -1,7 +1,3 @@
-.back-hm-sect-colr {
-	background-color: $primary-color;
-}
-
 .companies-btn {
 	margin-top: 50px;
 	color: #222;
@@ -19,10 +15,6 @@
 		background-color: $outerSpace;
 		border-color: $outerSpace;
 	}
-}
-
-.back-hm-community {
-	background-color: $concrete;
 }
 
 .panel {
@@ -125,7 +117,7 @@
 
 @media screen and (max-width: 991px) and (min-width: 290px) {
 	.container {
-		&.des-top-view,
+		&.desktop-view,
 		&.blu-section-desc {
 			display: none;
 		}

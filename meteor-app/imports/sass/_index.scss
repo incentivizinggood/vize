@@ -7,7 +7,7 @@
 @import "base/variables", "base/mixins", "base/fonts", "base/reset";
 
 // SHARED
-@import "shared/welcome", "shared/star", "shared/spinner";
+@import "shared/full-width-container", "shared/star", "shared/spinner";
 
 // Pages
 @import "pages/company-profile", "pages/for-employers", "pages/home",
@@ -27,4 +27,5 @@
 	"responsive/1267", "responsive/1291", "responsive/responsive";
 
 // helpers
-@import "helpers/spacing-helpers";
+@import "helpers/spacing-helpers", "helpers/display-helpers",
+	"helpers/text-helpers";
