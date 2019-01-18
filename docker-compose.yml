@@ -14,6 +14,13 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+  flyway:
+    image: boxfuse/flyway:5.2.1
+    command: -url=jdbc:postgresql://postgres:5432/meteor -user=meteor -password=123456789 -connectRetries=60 migrate
+    volumes:
+      - ./postgres/migrations:/flyway/sql
+    depends_on:
+      - postgres
   mongo:
     image: mongo:3.4
     ports:
