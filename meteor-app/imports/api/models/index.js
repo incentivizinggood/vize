@@ -24,6 +24,8 @@ export * from "./review-mutations.js";
 export * from "./review-queries.js";
 export * from "./review.js";
 
+export * from "./reward-wrote-a-review.js";
+
 export * from "./salary-id.js";
 export * from "./salary-mutations.js";
 export * from "./salary-queries.js";

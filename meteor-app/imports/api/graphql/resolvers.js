@@ -107,6 +107,18 @@ const resolvers: Resolvers = {
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
+
+		wroteAReview: (obj, args, context, info) =>
+			dataModel.wroteAReviewStatus(context.user),
+	},
+
+	Mutation: {
+		claimWroteAReview: (obj, args, context, info) =>
+			dataModel.claimWroteAReview(
+				context.user,
+				args.phoneNumber,
+				args.paymentMethod
+			),
 	},
 
 	CommentParent: {
