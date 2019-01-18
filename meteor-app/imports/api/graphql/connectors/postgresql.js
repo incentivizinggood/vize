@@ -1,3 +1,5 @@
+// TODO: Merge this file into /imports/api/connectors/postgresql.js
+
 /*
 	NOTE
 	This file contains a GraphQL "connector". The idea isn't to
@@ -73,9 +75,9 @@ process.on("SIGINT", closeAndExit);
 	ACCESS TO HELPER FUNCTIONS
  ------------------------------ */
 
- /*
+/*
  	NOTE
- 	The basic logic of wrapPgFunction goes like this:
+ 	The basic logic of withPgClient goes like this:
  	Get a client from the pool. Start a transation with
  	the client, read-only if needed. Execute the provided
  	query, and commit the transaction. Release the client
@@ -92,30 +94,14 @@ process.on("SIGINT", closeAndExit);
 
 // assumes that arguments to func are passed as additional
 // arguments after the first two "wrapper args"
-const wrapPgFunction = async function(func, readOnly) {
+async function withPgClient(func, readOnly, ...args) {
 	const client = await pool.connect();
 	let result = {};
 	try {
 		if (readOnly) await client.query("START TRANSACTION READ ONLY");
 		else await client.query("START TRANSACTION");
 
-		// removes function name and readOnly flag
-		// from start of args list
-		// as ugly as this code bit of code is, the only
-		// thing you need to do to understand it is to
-		// read the JavaScript documentation LOL
-		result = await func.apply(
-			null,
-			// okay fine I'll tell you:
-			// it means call "func" with an array of
-			// arguments which is the second argument
-			// to "apply". I construct this array by
-			// concatenating an array containing only
-			// client (which all the helper functions need)
-			// with other the arguments that are supposed to
-			// be passed in to func
-			[client].concat([...arguments].slice(2)[0])
-		);
+		result = await func(client, ...args);
 
 		await client.query("COMMIT");
 	} catch (e) {
@@ -137,7 +123,7 @@ const wrapPgFunction = async function(func, readOnly) {
 	}
 
 	return result;
-};
+}
 
 /*
 	NOTE
@@ -149,20 +135,19 @@ const wrapPgFunction = async function(func, readOnly) {
 */
 
 export default class PostgreSQL {
-	static async executeQuery(query) {
-		return wrapPgFunction(query, true, [...arguments].slice(1));
+	static async executeQuery(query, ...args) {
+		return withPgClient(query, true, ...args);
 	}
 
-	static async executeMutation(mutation) {
-		return wrapPgFunction(mutation, false, [...arguments].slice(1));
+	static async executeMutation(mutation, ...args) {
+		return withPgClient(mutation, false, ...args);
 	}
 }
 
 // Test the connection to the database by querying the current time.
 // Run this on server startup to catch errors sooner.
 export function testConnection() {
-	pool
-		.query("SELECT NOW() as now")
+	pool.query("SELECT NOW() as now")
 		.then(res => {
 			console.log("PostgreSQL connection test succeded.");
 			console.log(

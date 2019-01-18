@@ -1,47 +1,46 @@
 .about {
-  padding-bottom: 6em;
+	padding-bottom: 6em;
 	padding-top: 4em;
 
-  &-banner {
-    min-height: 300px;
-    .banner-text {
-      padding-top: 11em;
-      text-align: center;
-    }
+	&.contrast {
+		background-color: $concrete;
+		padding-bottom: 104px;
+		padding-top: 6em;
+	}
 
-    &-info {
-      margin-top: 4em;
-    }
-  }
+	&-banner {
+		min-height: 300px;
+		.banner-text {
+			padding-top: 11em;
+			text-align: center;
+		}
 
-  img {
-    width: 100%;
-  }
+		&-info {
+			margin-top: 4em;
+		}
+	}
 
-  .cdoun {
-    margin-top: 20px;
-  }
+	img {
+		width: 100%;
+	}
 
-  .al {
-    text-align: center;
-  }
+	.about-paragraph {
+		font-size: 19px;
+		text-align: center;
+		padding-top: 22px;
+		color: #585858;
+	}
 
-  .about-row p {
-    font-size: 19px;
-    text-align: center;
-    padding-top: 22px;
-    color: #585858;
-  }
-
-  .emplh3 {
-    font-family: 'proxima-nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.2em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-    font-style: normal;
-    text-align: center;
-    margin-top: 20px;
-  }
+	.about-subheader {
+		font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial,
+			sans-serif;
+		font-size: 16px;
+		line-height: 1.2em;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-weight: 600;
+		font-style: normal;
+		text-align: center;
+		margin-top: 20px;
+	}
 }

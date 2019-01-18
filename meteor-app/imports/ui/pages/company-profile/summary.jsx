@@ -1,10 +1,11 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/startup/client/router.jsx";
+import { urlGenerators } from "/imports/ui/pages";
 
 export default class CompanyProfileSummary extends React.Component {
 	componentDidMount() {
@@ -20,9 +21,9 @@ export default class CompanyProfileSummary extends React.Component {
 
 	render() {
 		return (
-			<div className="welcome  welpadgo wel_profile">
-				<div className="container  welpad12 box_shadow">
-					<div className="col-md-2  prostar">
+			<div className="full-width-container welpadgo wel_profile no-padding--bottom">
+				<div className="container welpad12 box_shadow">
+					<div className="col-md-2 prostar">
 						<img
 							src="/images/default-company.png"
 							className="img-responsive"
@@ -36,7 +37,8 @@ export default class CompanyProfileSummary extends React.Component {
 									<span className="headingoo">
 										{this.props.company.name}
 									</span>
-									&nbsp;&nbsp;<StarRatings
+									&nbsp;&nbsp;
+									<StarRatings
 										rating={
 											this.props.company.avgStarRatings
 												.overallSatisfaction
@@ -64,12 +66,12 @@ export default class CompanyProfileSummary extends React.Component {
 								</p>
 								<p>
 									<FontAwesomeIcon icon="globe" />{" "}
-									<a
-										href={this.props.company.websiteURL}
+									<Link
+										to={this.props.company.websiteURL || ""}
 										target="_blank"
 									>
 										{this.props.company.websiteURL}
-									</a>
+									</Link>
 								</p>
 								<p>
 									<FontAwesomeIcon icon="users" />{" "}
@@ -81,8 +83,8 @@ export default class CompanyProfileSummary extends React.Component {
 
 					<div className="col-md-4 prostar">
 						<div className="col-md-12">
-							<a
-								href={urlGenerators.vizeReviewUrl(
+							<Link
+								to={urlGenerators.vizeReviewUrl(
 									this.props.company.id
 								)}
 								className="btn btn-primary btn-lg"
@@ -90,7 +92,7 @@ export default class CompanyProfileSummary extends React.Component {
 								{" "}
 								<FontAwesomeIcon icon="plus" />{" "}
 								{i18n.__("common.companyprofile.add_review")}
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>

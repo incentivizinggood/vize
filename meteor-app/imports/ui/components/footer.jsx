@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -12,9 +13,9 @@ export default function Footer() {
 					<h4>Vize</h4>
 					<ul className=" footer_nav navigation1 ">
 						<li>
-							<a href="/about">
+							<Link to="/about">
 								<T>common.footer.about_us</T>
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>
@@ -24,8 +25,53 @@ export default function Footer() {
 					</h4>
 					<ul className=" footer_nav navigation2">
 						<li>
-							<a href="/register">
+							<Link to="/register">
 								<T>common.footer.create_free_account</T>
+							</Link>
+						</li>
+					</ul>
+				</div>
+				<div className="col-md-3 footer-grids">
+					<h4>
+						<T>common.footer.social</T>
+					</h4>
+					<ul className=" footer_nav navigation3">
+						<li>
+							<a href="https://www.linkedin.com/company/incentivizinggood">
+								<img
+									src="images/linkedin.png"
+									alt="LinkedIn"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+							<a href="https://www.facebook.com/incentivizinggood">
+								<img
+									src="images/facebook.png"
+									alt="Facebook"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+							<a href="https://www.twitter.com/vizeglobal">
+								<img
+									src="images/twitter.png"
+									alt="Twitter"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
+							</a>
+							<a href="https://www.instagram.com/incentivandoelbien/">
+								<img
+									src="images/instagram.png"
+									alt="Instagram"
+									width={50}
+									height={50}
+									style={{ maxWidth: 50 }}
+								/>
 							</a>
 						</li>
 					</ul>

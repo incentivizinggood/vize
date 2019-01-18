@@ -29,6 +29,8 @@ type Query {
 "The kinds of things that can be commented on."
 union CommentParent = Comment | Review
 
+# WARNING: Comments have not been fully implemented yet. The code for them is a
+# half done mess. Keep that in mind when working with it.
 type Comment {
 	id: ID!
 
@@ -61,6 +63,9 @@ type Company {
 	descriptionOfCompany: String
 	dateJoined: DateTime
 	numFlags: Int
+
+	# TODO: Move these fields into a ReviewStats type for better preformance and
+	# code quality.
 	avgStarRatings: StarRatings
 	percentRecommended: Float
 	avgNumMonthsWorked: Float
@@ -110,6 +115,9 @@ type Review {
 	additionalComments: String
 	"The date and time this was created."
 	created: DateTime
+
+	# TODO: Move these fields into a VoteStats type for better preformance and
+	# code quality.
 	upvotes: Int
 	downvotes: Int
 

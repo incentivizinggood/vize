@@ -3,21 +3,23 @@
 		margin: 0 0.2em;
 	}
 
-	.banner {
-		min-height: 660px;
+	@media screen and (min-width: 768px) {
+		.banner {
+			min-height: 660px;
 
-		&-text {
-			h2 {
-				font-size: 2.8em;
-			}
+			&-text {
+				h2 {
+					font-size: 2.8em;
+				}
 
-			&-info {
-				width: 61%;
-				min-height: 660px;
-			}
-	
-			h3 {
-				font-size: 1.3em;
+				&-info {
+					width: 61%;
+					min-height: 660px;
+				}
+
+				h3 {
+					font-size: 1.3em;
+				}
 			}
 		}
 	}
@@ -26,7 +28,7 @@
 		left: 45%;
 	}
 
-	.welcome,
+	.full-width-container,
 	.tabs,
 	.services,
 	.slid,
@@ -40,7 +42,7 @@
 		padding: 7em 0;
 	}
 
-	.welcome {
+	.full-width-container {
 		&-right {
 			padding: 0;
 		}
@@ -61,8 +63,8 @@
 	.slid-grids {
 		margin: 0 2em;
 	}
-	.banner.about-banner,
-	.about-banner .banner-info {
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
 		min-height: 270px;
 	}
 

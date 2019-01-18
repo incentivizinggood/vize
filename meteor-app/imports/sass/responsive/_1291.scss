@@ -5,10 +5,10 @@
 	}
 
 	.banner-text-info {
-		margin: 16em auto 0;
+		margin: 11em auto 0;
 	}
 
-	.welcome {
+	.full-width-container {
 		&-left {
 			float: left;
 			width: 40%;
@@ -29,10 +29,10 @@
 		font-size: 1em;
 	}
 
-	.welcome {
+	.full-width-container {
 		&-text {
 			float: left;
-	
+
 			&.wtext-right {
 				padding: 0;
 				width: 84%;
@@ -129,7 +129,7 @@
 			float: left;
 			width: 33.33%;
 			padding: 0 0.5em;
-	
+
 			&:nth-child(1) {
 				padding: 0 1em 0 0;
 			}
@@ -184,11 +184,11 @@
 			inset 0 0 0 10px rgba(255, 255, 255, 0.6),
 			0 1px 2px rgba(0, 0, 0, 0.1);
 
-			&:hover {
-				box-shadow: inset 0 0 0 110px rgb(116, 94, 197),
-					inset 0 0 0 10px rgba(255, 255, 255, 0.8),
-					0 1px 2px rgba(0, 0, 0, 0.1);
-			}
+		&:hover {
+			box-shadow: inset 0 0 0 110px rgb(116, 94, 197),
+				inset 0 0 0 10px rgba(255, 255, 255, 0.8),
+				0 1px 2px rgba(0, 0, 0, 0.1);
+		}
 	}
 
 	.footer-copy {
@@ -353,7 +353,7 @@
 	.collapse.in {
 		display: block !important;
 	}
-	
+
 	nav.header_main {
 		background: #132437;
 	}
@@ -364,7 +364,7 @@
 			color: $white !important;
 		}
 	}
-	
+
 	a#register-button-menu {
 		display: block !important;
 		height: 55px;
@@ -382,7 +382,7 @@
 		width: 100%;
 		display: none;
 	}
-	
+
 	a.navbar-link.margin-right {
 		display: none;
 	}
@@ -394,11 +394,11 @@
 	span#lanNavIta {
 		color: #252121 !important;
 	}
-	
+
 	ul.nav.navbar-right {
 		margin-bottom: 95px;
 	}
-	
+
 	.show-on-hover-pf:hover > ul.dropdown-menu {
 		background-color: $white !important;
 		color: #000000;
@@ -425,8 +425,14 @@
 			color: #272829 !important;
 		}
 	}
-	
+
 	.navbar-right .dropdown-menu {
 		min-width: 50% !important;
+	}
+}
+
+@media only screen and (min-width: 426px) and (max-width: 1291) {
+	.banner-text-info {
+		margin: 14em 0 !important;
 	}
 }

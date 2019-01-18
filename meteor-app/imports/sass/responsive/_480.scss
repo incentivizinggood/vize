@@ -48,12 +48,12 @@
 		}
 	}
 
-	.banner.about-banner,
-	.about-banner .banner-info {
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
 		min-height: 165px;
 	}
 
-	.about-banner .banner-text {
+	.static-page-banner .banner-text {
 		padding-top: 7em;
 	}
 
@@ -68,7 +68,7 @@
 			h2 {
 				font-size: 1.6em;
 			}
-	
+
 			&-info {
 				width: 81%;
 			}
@@ -137,7 +137,7 @@
 		margin-top: 2em;
 		padding: 0;
 	}
-	
+
 	.view {
 		width: 206px;
 		height: 137px;

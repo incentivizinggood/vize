@@ -74,7 +74,7 @@ export default class ContactUsPage extends React.Component {
 		return (
 			<div>
 				<Header />
-				<div id="home" className="banner about-banner">
+				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">
 							<h1>Contact us</h1>
@@ -83,54 +83,54 @@ export default class ContactUsPage extends React.Component {
 				</div>
 				<div className="cont about-cont">
 					<div className="container">
-						<div className="container-contact100">
-							<div className="wrap-contact100">
+						<div className="container-contact">
+							<div className="wrap-contact">
 								<form
 									method="POST"
-									className="contact100-form validate-form"
+									className="contact-form validate-form"
 									onSubmit={this.handleSubmit}
 									id="submitForm"
 								>
-									<span className="contact100-form-title">
+									<span className="contact-form-title">
 										Feel free to reach out to us
 									</span>
-									<div className="wrap-input100 rs1 validate-input">
+									<div className="wrap-input rs1 validate-input">
 										<input
 											id="first-name"
-											className="input100"
+											className="input"
 											type="text"
 											name="first-name"
 											placeholder="Your Name"
 											onChange={this.handleNameChange}
 										/>
-										<span className="focus-input100" />
+										<span className="focus-input" />
 									</div>
-									<div className="wrap-input100 rs1 validate-input">
+									<div className="wrap-input rs1 validate-input">
 										<input
 											id="email"
-											className="input100"
+											className="input"
 											type="text"
 											name="email"
 											placeholder="Eg. example@email.com"
 											onChange={this.handleEmailChange}
 										/>
-										<span className="focus-input100" />
+										<span className="focus-input" />
 									</div>
-									<div className="wrap-input100 validate-input">
+									<div className="wrap-input validate-input">
 										<textarea
 											id="message"
-											className="input100"
+											className="input"
 											name="message"
 											placeholder="Please enter your comments..."
 											onChange={
 												this.handleTextBoxChanging
 											}
 										/>
-										<span className="focus-input100" />
+										<span className="focus-input" />
 									</div>
-									<div className="container-contact100-form-btn">
+									<div className="container-contact-form-btn">
 										<button
-											className="contact100-form-btn"
+											className="contact-form-btn"
 											form="submitForm"
 											value="Submit"
 										>
@@ -147,7 +147,7 @@ export default class ContactUsPage extends React.Component {
 				</div>
 
 				<Footer />
-				<Dialog/>
+				<Dialog />
 			</div>
 		);
 	}

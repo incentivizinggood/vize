@@ -24,7 +24,7 @@
 	.row.all_boxcolor1.select_box {
 		padding-top: 3em !important;
 	}
-	
+
 	nav.navScroll ul li a {
 		color: $white !important;
 	}
@@ -112,10 +112,6 @@
 	#register-button {
 		width: 100%;
 		display: none;
-	}
-
-	.navbar-collapse {
-		padding-bottom: 250px !important;
 	}
 
 	button.navbar-toggle {
@@ -208,7 +204,6 @@
 		margin-bottom: 9px;
 	}
 
-
 	.border_btn {
 		border-top-left-radius: 12px;
 		border-bottom-left-radius: 12px;
@@ -229,7 +224,6 @@
 		padding-left: 3em !important;
 		padding-right: 3em !important;
 	}
-
 
 	.fom-siz-post {
 		width: 100%;
@@ -345,7 +339,6 @@
 		padding-right: 3em !important;
 	}
 
-
 	.fom-job {
 		padding-left: 3em !important;
 		padding-right: 3em !important;
@@ -397,10 +390,6 @@
 	#register-button {
 		width: 100%;
 		display: none;
-	}
-
-	.navbar-collapse {
-		padding-bottom: 250px !important;
 	}
 
 	button.navbar-toggle {
@@ -529,7 +518,6 @@
 	form.example {
 		margin-bottom: 21px;
 	}
-
 }
 
 @media screen and (max-width: 767px) and (min-width: 599px) {
@@ -615,7 +603,7 @@
 }
 
 @media screen and (max-width: 1291px) and (min-width: 290px) {
-	.container.des-top-view {
+	.container.desktop-view {
 		display: none !important;
 	}
 
@@ -650,7 +638,6 @@
 		width: 50%;
 	}
 }
-
 
 @media screen and (max-width: 992px) and (min-width: 320px) {
 	.tabpanel {

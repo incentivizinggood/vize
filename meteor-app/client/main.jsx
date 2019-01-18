@@ -7,7 +7,6 @@ import { $ } from "meteor/jquery";
  * The routes only need to be imported here. No other code is needed.
  */
 import "/imports/startup/client/font-awesome.js";
-import { currentPage } from "../imports/startup/client/router.jsx";
 import AppRoot from "../imports/ui/app-root.jsx";
 import "../imports/startup/client/i18n.js";
 import client from "../imports/startup/client/graphql.js";
@@ -22,7 +21,7 @@ Meteor.startup(() => {
 	Meteor.subscribe("userData");
 
 	ReactDOM.render(
-		<AppRoot currentPage={currentPage} apolloClient={client} />,
+		<AppRoot apolloClient={client} />,
 		document.getElementById("app-root")
 	);
 });

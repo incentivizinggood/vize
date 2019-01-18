@@ -2,51 +2,25 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import i18n from "meteor/universe:i18n";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer";
+import Footer from "/imports/ui/components/footer.jsx";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
+import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import CompaniesSearchBar from "../components/companies-search-bar.jsx";
+import companySearchQuery from "./company-search.graphql";
+import Spinner from "../../components/Spinner";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
-
-const companySearchQuery = gql`
-	query companySearchPage($searchText: String!) {
-		searchCompanies(searchText: $searchText) {
-			id
-			name
-			avgStarRatings {
-				overallSatisfaction
-			}
-			locations {
-				city
-				address
-				industrialHub
-			}
-			industry
-			numEmployees
-			descriptionOfCompany
-			numReviews
-			numJobAds
-			numSalaries
-		}
-	}
-`;
 
 // //////////////////CHILD COMPONENT///////////////////
 const SearchResults = ({ searchText }) => (
 	<Query query={companySearchQuery} variables={{ searchText }}>
 		{({ loading, error, data }) => {
 			if (loading) {
-				return (
-					<h2>
-						<T>loading</T>
-					</h2>
-				);
+				return <Spinner />;
 			}
 			if (error) {
 				return <h2>{`Error! ${error.message}`}</h2>;
@@ -56,25 +30,31 @@ const SearchResults = ({ searchText }) => (
 			// deep copy before we mutate it with sort:
 			// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
 			const resultList = data.searchCompanies
-			.map(c => Object.assign({}, c))
-			// Array.prototype.sort is in-place and returns the new array
-			.sort(function(a, b) {
-				// This scoring method was given to me by Krit,
-				// who told me that Julian wanted it this way.
-				const score = (company) => (company.numJobAds * 2) + (company.numReviews * 1.5) + (company.numSalaries * 1);
-				const aScore = score(a);
-				const bScore = score(b);
-				if(aScore === bScore) return 0;
-				else if(aScore > bScore) return -1;
-				return 1;
-			})
-			// Finally, do React stuff
-			.map(function(company) {
-				console.log(company);
-				return (
-					<CompanySearchResult key={company.id} company={company} />
-				);
-			});
+				.map(c => Object.assign({}, c))
+				// Array.prototype.sort is in-place and returns the new array
+				.sort(function(a, b) {
+					// This scoring method was given to me by Krit,
+					// who told me that Julian wanted it this way.
+					const score = company =>
+						company.numJobAds * 2 +
+						company.numReviews * 1.5 +
+						company.numSalaries * 1;
+					const aScore = score(a);
+					const bScore = score(b);
+					if (aScore === bScore) return 0;
+					else if (aScore > bScore) return -1;
+					return 1;
+				})
+				// Finally, do React stuff
+				.map(function(company) {
+					console.log(company);
+					return (
+						<CompanySearchResult
+							key={company.id}
+							company={company}
+						/>
+					);
+				});
 
 			if (resultList.length < 1) {
 				return (

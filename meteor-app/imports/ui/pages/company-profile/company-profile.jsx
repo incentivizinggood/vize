@@ -1,6 +1,6 @@
 import React from "react";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -8,10 +8,12 @@ import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js"
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/header";
+import Footer from "/imports/ui/components/footer.jsx";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
+import companyProfileQuery from "./company-profile.graphql";
+import Spinner from "../../components/Spinner";
 
 const T = i18n.createComponent();
 
@@ -41,9 +43,6 @@ class CompanyProfile extends React.Component {
 		return (
 			<div className="navbarwhite">
 				<Header />
-				<br />
-				<br />
-				<br />
 
 				<CompanyProfileSummary company={this.props.company} />
 
@@ -60,8 +59,8 @@ class CompanyProfile extends React.Component {
 										role="presentation"
 										style={{ width: "25%" }}
 									>
-										<a
-											href="#overview"
+										<Link
+											to="#overview"
 											aria-controls="overview"
 											role="tab"
 											data-toggle="tab"
@@ -69,40 +68,40 @@ class CompanyProfile extends React.Component {
 											<T>
 												common.companyprofile.overview
 											</T>
-										</a>
+										</Link>
 									</li>
 									<li
 										role="presentation"
 										style={{ width: "25%" }}
 									>
-										<a
-											href="#reviews"
+										<Link
+											to="#reviews"
 											aria-controls="reviews"
 											role="tab"
 											data-toggle="tab"
 										>
 											<T>common.companyprofile.reviews</T>
-										</a>
+										</Link>
 									</li>
 									<li
 										role="presentation"
 										style={{ width: "25%" }}
 									>
-										<a
-											href="#jobs"
+										<Link
+											to="#jobs"
 											aria-controls="jobs"
 											role="tab"
 											data-toggle="tab"
 										>
 											<T>common.companyprofile.jobs</T>
-										</a>
+										</Link>
 									</li>
 									<li
 										role="presentation"
 										style={{ width: "25%" }}
 									>
-										<a
-											href="#salaries"
+										<Link
+											to="#salaries"
 											aria-controls="salaries"
 											role="tab"
 											data-toggle="tab"
@@ -110,10 +109,10 @@ class CompanyProfile extends React.Component {
 											<T>
 												common.companyprofile.salaries
 											</T>
-										</a>
+										</Link>
 									</li>
 									{/* Commenting out the Contact Us form for now */}
-									{/* <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</a></li> */}
+									{/* <li role="presentation"><Link to="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</Link></li> */}
 								</ul>
 							</div>
 
@@ -160,95 +159,11 @@ class CompanyProfile extends React.Component {
 	}
 }
 
-const companyProfileQuery = gql`
-	query companyProfilePage($companyId: ID!) {
-		company(id: $companyId) {
-			id
-
-			name
-			contactEmail
-			yearEstablished
-			numEmployees
-			industry
-			locations {
-				city
-				address
-				industrialHub
-			}
-			contactPhoneNumber
-			websiteURL
-			descriptionOfCompany
-			dateJoined
-			numFlags
-			avgStarRatings {
-				healthAndSafety
-				managerRelationship
-				workEnvironment
-				benefits
-				overallSatisfaction
-			}
-			percentRecommended
-			avgNumMonthsWorked
-
-			reviews {
-				id
-				title
-				jobTitle
-				location {
-					city
-					address
-					industrialHub
-				}
-				numberOfMonthsWorked
-				pros
-				cons
-				wouldRecommendToOtherJobSeekers
-				starRatings {
-					healthAndSafety
-					managerRelationship
-					workEnvironment
-					benefits
-					overallSatisfaction
-				}
-				additionalComments
-				created
-				currentUserVote {
-					isUpvote
-				}
-			}
-			numReviews
-			jobAds {
-				id
-				jobTitle
-				locations {
-					city
-					address
-					industrialHub
-				}
-				pesosPerHour
-				contractType
-				jobDescription
-				qualifications
-				responsibilities
-				created
-			}
-			numJobAds
-			salaries {
-				id
-				jobTitle
-				incomeType
-				incomeAmount
-			}
-			numSalaries
-		}
-	}
-`;
-
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>
 		{({ loading, error, data, refetch }) => {
 			if (loading) {
-				return <h2>Loading</h2>;
+				return <Spinner />;
 			}
 			if (error) {
 				console.log(error);
