@@ -28,6 +28,7 @@ function HomePage() {
 									<div className="banner-text-info">
 										<h1>
 											<T>mainBanner</T>
+											cfghvjbknlm
 										</h1>
 										<CompaniesSearchBar />
 									</div>
