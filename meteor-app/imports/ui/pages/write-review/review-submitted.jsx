@@ -72,6 +72,15 @@ export default class ReviewSubmitted extends React.Component {
 							<h2 className="text-center">
 								<T>contributing</T>
 							</h2>
+							<p>
+								<T>rewardDetails</T>
+							</p>
+						</div>
+						<div className="congratulations">
+							<div className="congratulations-gif" />
+							<p className="rewarded">
+								<T>earnedReward</T>
+							</p>
 						</div>
 						<CSSTransitionGroup
 							transitionName="success"
@@ -89,6 +98,8 @@ export default class ReviewSubmitted extends React.Component {
 								</div>
 							)}
 						</CSSTransitionGroup>
+
+						{/* ends here */}
 						{!hasRegisteredPhone && (
 							<div className="col-md-12">
 								<div>
@@ -167,17 +178,3 @@ export default class ReviewSubmitted extends React.Component {
 		);
 	}
 }
-/*<CSSTransitionGroup
-	transitionName="success"
-	transitionEnterTimeout={1000}
-	transitionLeaveTimeout={1000}
->
-	{hasRegisteredPhone && (
-		<div className="success-widget">
-			<h3>
-				Your phone number was registered
-				successfully
-			</h3>
-		</div>
-	)}
-</CSSTransitionGroup>*/

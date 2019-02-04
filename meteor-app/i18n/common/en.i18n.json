@@ -121,9 +121,11 @@
 	},
 	"reviewSubmitted": {
 		"contributing": "Thank you for contributing to your community!",
+		"rewardDetails": "Your review was successfully submitted and has been added to the company's profile",
 		"phoneFaiure": "Error: Your phone number has already been registered",
 		"phoneSuccess": "Your phone number was registered successfully",
 		"phoneSuccess2": "We will be sending you your reward within 24 hours",
+		"earnedReward": "You have earned a reward!",
 		"rewardYou": "We would like to reward you for taking the time to write a review.",
 		"rewardOptions": "Please select from the following reward options:",
 		"paypalCash": "Receive $5 through PayPal",
@@ -132,7 +134,6 @@
 		"enterPhone": "Please enter your phone number",
 		"submit": "Submit"
 	},
-
 	"jobsearch": {
 		"loading": "Loading...",
 		"nojobs": "No Jobs Available right now.",
@@ -202,7 +203,6 @@
 		"accelerate": "Accelerate your growth and discover thousands of potential employees",
 		"register_button": "Register"
 	},
-
 	"companyreview": {
 		"recommend": "Recommended",
 		"not_recommend": "Not Recommended",
@@ -215,7 +215,6 @@
 		"cons": "Cons",
 		"additional_comments": "Additional Comments"
 	},
-
 	"jobpostings": {
 		"apply_now": "Apply Now",
 		"hour": "/Hourly",
@@ -225,7 +224,6 @@
 		"responsibilities": "Responsibilities",
 		"posted_on": "posted on"
 	},
-
 	"company_ratings": {
 		"overall": "Overall",
 		"health_safety": "Health & Safety",
@@ -236,11 +234,9 @@
 		"average_num": "Average number",
 		"months_worked": "of months worked"
 	},
-
 	"jobscomponent": {
 		"jobs_available": "Job(s) Available"
 	},
-
 	"overview_tab": {
 		"display_text": "No reviews to show right now",
 		"apply_now": "Apply Now",
@@ -258,17 +254,14 @@
 		"see_all_jobs": "See All Jobs",
 		"jobs_available": "Job(s) Available"
 	},
-
 	"review_tab": {
 		"reviews": "Reviews",
 		"add_review": "Add a Review"
 	},
-
 	"salary_tab": {
 		"job_salaries": "Job Salaries",
 		"add_salary": "Add a Salary"
 	},
-
 	"showjob": {
 		"apply_now": "Apply Now",
 		"hour": "/Hour",
@@ -277,13 +270,11 @@
 		"responsibilities": "Responsibilities",
 		"posted_on": "posted on"
 	},
-
 	"CompanySearchResult": {
 		"reviews": "Reviews",
 		"salaries": "Salaries",
 		"jobs": "Jobs"
 	},
-
 	"companyprofile": {
 		"loading": "Loading...",
 		"notfound": "That company was not found",
@@ -297,7 +288,6 @@
 		"reach_us": "reach out to us",
 		"add_review": "Add a Review"
 	},
-
 	"header": {
 		"companies": "Companies",
 		"jobs": "Jobs",
@@ -325,7 +315,6 @@
 		"email": "Email",
 		"createAccount": "Create Account"
 	},
-
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",

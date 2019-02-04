@@ -32,6 +32,22 @@
 			margin-top: 10px;
 		}
 	}
+	.congratulations {
+		text-align: center;
+		margin-bottom: 30px;
+
+		&-gif {
+			background-image: url(images/rewarding.gif);
+			height: 300px;
+			clear: left;
+			background-size: 420px 320px;
+			background-repeat: no-repeat;
+			background-position: 50%;
+		}
+		p {
+			font-size: 1.3em;
+		}
+	}
 
 	.rewards {
 		display: flex;
@@ -46,6 +62,9 @@
 			margin: 5px;
 			margin-top: 15px;
 			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
 			@media only screen and (max-width: 993px) {
 				width: 35%;
 			}

@@ -121,6 +121,8 @@
 	},
 	"reviewSubmitted": {
 		"contributing": "¡Gracias por contribuir a su comunidad!",
+		"rewardDetails": "Su revisión se envió con éxito y ha sido agregada al perfil de la empresa.",
+		"earnedReward": "¡Has ganado una recompensa!",
 		"phoneFaiure": "Error: su número de teléfono ya ha sido registrado",
 		"phoneSuccess": "Su número de teléfono ha sido registrado exitosamente",
 		"phoneSuccess2": "Le enviaremos su recompensa dentro de 24 horas",
@@ -196,7 +198,6 @@
 		"accelerate": "Acelere su crecimiento y descubra miles de empleados potenciales",
 		"register_button": "Registrar"
 	},
-
 	"companyreview": {
 		"recommend": "Recomendado",
 		"not_recommend": "No recomendado",
@@ -209,7 +210,6 @@
 		"cons": "Limitaciones",
 		"additional_comments": "Comentarios Adicionales"
 	},
-
 	"jobpostings": {
 		"apply_now": "Aplica Ahora",
 		"hour": " Por Hora",
@@ -219,7 +219,6 @@
 		"responsibilities": "Responsabilidades",
 		"posted_on": "Publicado en"
 	},
-
 	"company_ratings": {
 		"overall": "General",
 		"health_safety": "Salud y Seguiridad",
@@ -230,11 +229,9 @@
 		"average_num": "Numero promedio de",
 		"months_worked": "meses trabajados"
 	},
-
 	"jobscomponent": {
 		"jobs_available": "Trabajo(s) disponible(s)"
 	},
-
 	"overview_tab": {
 		"display_text": "No hay revisiones para mostrar en este momento",
 		"apply_now": "Aplica Ahora",
@@ -252,17 +249,14 @@
 		"see_all_jobs": "Ver todos los trabajos",
 		"jobs_available": "Trabajos Disponibles"
 	},
-
 	"review_tab": {
 		"reviews": "Revisiones",
 		"add_review": "Agregar una revisión"
 	},
-
 	"salary_tab": {
 		"job_salaries": "Salario(s) de Trabajo(s)",
 		"add_salary": "Agregar un Salario"
 	},
-
 	"showjob": {
 		"apply_now": "Aplica Ahora",
 		"hour": " Por Hora",
@@ -272,13 +266,11 @@
 		"responsibilities": "Reponsabilidades",
 		"posted_on": "Publicado en"
 	},
-
 	"CompanySearchResult": {
 		"reviews": "Revisiones",
 		"salaries": "Salarios",
 		"jobs": "Trabajos"
 	},
-
 	"companyprofile": {
 		"loading": "Cargando...",
 		"notfound": "La compañia no fue encontrada",
@@ -291,7 +283,6 @@
 		"reach_us": "Comunícate con nosotros",
 		"add_review": "Agregar una Revisión"
 	},
-
 	"header": {
 		"companies": "Compañias",
 		"jobs": "Trabajos",
@@ -305,7 +296,6 @@
 		"logout": "Cerrar Seccion",
 		"myaccount": "Mi Cuenta"
 	},
-
 	"loginRegister": {
 		"login": "Iniciar Sesión",
 		"noAccount": "¿No tienes una cuenta? ",
@@ -325,7 +315,6 @@
 			"fieldLeftEmpty": "[El solicitante no completó este campo]",
 			"subjectLine": "VIZE {$wName} ha respondido a su anuncio de trabajo",
 			"emailText": "Para los que están en {$cName}, \n\n\tFelicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, {$wName}, ha respondido a su puesto de trabajo (que recibió el id = {$jId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente. \n\n\t Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!\n\nLe deseamos lo mejor, \n\n\tEl equipo de VIZE\n\nINFORMACIÓN DEL SOLICITANTE \nNombre completo: {$wName} \nEmail: {$wEmail} \nNúmero de teléfono: {$wPhone} \ncarta de presentacion/Comentarios adicionales: \n{$wComments} ",
-
 			"needsFiveWords": "Necesita cinco palabras",
 			"rolePermission": "Permisos con su rol",
 			"invalidArguments": "Argumentos inválidos",
