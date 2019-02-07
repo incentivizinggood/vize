@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
@@ -15,10 +13,7 @@ const T = i18n.createComponent(t);
 
 function HomePage() {
 	return (
-		<div>
-			<div className="navbarwhite">
-				<Header />
-			</div>
+		<PageWrapper>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">
@@ -294,9 +289,7 @@ function HomePage() {
 					<div className="clearfix" />
 				</div>
 			</div>
-			<Dialog />
-			<Footer />
-		</div>
+		</PageWrapper>
 	);
 }
 

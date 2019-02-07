@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
-import Dialog from "/imports/ui/components/dialog-box";
+
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* A page where visitors can get information about Vize and this app.
  */
@@ -85,10 +85,7 @@ export default class AboutPage extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">
@@ -214,9 +211,7 @@ export default class AboutPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Dialog />
-				<Footer />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

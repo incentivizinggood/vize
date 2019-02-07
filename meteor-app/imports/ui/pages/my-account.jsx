@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 
-import Dialog from "/imports/ui/components/dialog-box";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* The page where users can view their account details,
  * update their profiles, and change settings.
@@ -53,10 +51,7 @@ class MyAccountPage extends React.Component {
 		}
 
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="container fom-job">
 					<div className="row">
 						<div
@@ -68,9 +63,7 @@ class MyAccountPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Footer />
-				<Dialog />
-			</div>
+			</PageWrapper>
 		);
 	}
 }
