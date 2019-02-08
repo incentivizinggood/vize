@@ -13,7 +13,7 @@ const T = i18n.createComponent(t);
 
 function HomePage() {
 	return (
-		<PageWrapper>
+		<PageWrapper navIsAnimated>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">

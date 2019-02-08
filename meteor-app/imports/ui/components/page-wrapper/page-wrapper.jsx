@@ -7,9 +7,7 @@ import Footer from "/imports/ui/components/footer.jsx";
 function PageWrapper(props) {
 	return (
 		<div>
-			<div className={props.navIsAnimated ? "" : "navbarwhite"}>
-				<Header />
-			</div>
+			<Header navIsAnimated={props.navIsAnimated} />
 			{props.children}
 			<Dialog />
 			<Footer />
