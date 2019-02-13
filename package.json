@@ -31,7 +31,7 @@
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
     "babel-eslint": "^8.2.3",
-    "eslint": "^4.19.1",
+    "eslint": "^5.13.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-import-resolver-meteor": "^0.4.0",
