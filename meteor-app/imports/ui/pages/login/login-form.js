@@ -6,6 +6,7 @@ import { Meteor } from "meteor/meteor";
 
 import InnerForm from "./login-inner-form.jsx";
 
+//high ordered component
 const LoginForm = props => (
 	<Formik
 		initialValues={{
@@ -29,6 +30,7 @@ const LoginForm = props => (
 			const loginCallback = error => {
 				if (error) {
 					console.error(error);
+					React.render;
 
 					// Errors to display on form fields
 					const formErrors = {};

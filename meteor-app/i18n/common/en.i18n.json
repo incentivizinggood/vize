@@ -121,7 +121,7 @@
 	},
 	"reviewSubmitted": {
 		"contributing": "Thank you for contributing to your community!",
-		"rewardDetails": "Your review was successfully submitted and has been added to the company's profile",
+		"reviewSubmitted": "Your review was successfully submitted and has been added to the company's profile",
 		"phoneFaiure": "Error: Your phone number has already been registered",
 		"phoneSuccess": "Your phone number was registered successfully",
 		"phoneSuccess2": "We will be sending you your reward within 24 hours",

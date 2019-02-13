@@ -1,16 +1,31 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
-import { CSSTransitionGroup } from "react-transition-group";
+import { Query } from "react-apollo";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
+import RewardsComponent from "/imports/ui/components/rewardsComponent.jsx";
+
+import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
 
 Modal.setAppElement("body");
+
+const Reward = () => (
+	<Query query={rewardsEligibility}>
+		{({ loading, error, data }) => {
+			if (data.wroteAReview === "CAN_CLAIM") {
+				return <RewardsComponent />;
+			} else {
+				return <p>hi</p>;
+			}
+		}}
+	</Query>
+);
 
 export default class ReviewSubmitted extends React.Component {
 	constructor() {
@@ -66,6 +81,7 @@ export default class ReviewSubmitted extends React.Component {
 				<div className="navbarwhite">
 					<Header />
 				</div>
+
 				<section className="review-submitted">
 					<div className="container back_top_hover">
 						<div className="col-md-12">
@@ -73,77 +89,11 @@ export default class ReviewSubmitted extends React.Component {
 								<T>contributing</T>
 							</h2>
 							<p>
-								<T>rewardDetails</T>
+								<T>reviewSubmitted</T>
 							</p>
 						</div>
-						<div className="congratulations">
-							<div className="congratulations-gif" />
-							<p className="rewarded">
-								<T>earnedReward</T>
-							</p>
-						</div>
-						<CSSTransitionGroup
-							transitionName="success"
-							transitionEnterTimeout={1000}
-							transitionLeaveTimeout={1000}
-						>
-							{hasRegisteredPhone && (
-								<div className="success-widget">
-									<h3>
-										<T>phoneSuccess</T>
-									</h3>
-									<h3>
-										<T>phoneSuccess2</T>
-									</h3>
-								</div>
-							)}
-						</CSSTransitionGroup>
 
-						{/* ends here */}
-						{!hasRegisteredPhone && (
-							<div className="col-md-12">
-								<div>
-									<p>
-										<T>rewardYou</T>
-									</p>
-									<p>
-										<T>rewardOptions</T>
-									</p>
-									<div className="rewards">
-										<div className="reward">
-											<div className="reward-visual">
-												<img
-													src="images/payPal.png"
-													alt="payPal logo"
-												/>
-												<p className="price-tag">$5</p>
-											</div>
-											<p>
-												<T>paypalCash</T>
-											</p>
-											<a onClick={this.openModal}>
-												<T>getReward</T>
-											</a>
-										</div>
-										<div className="reward">
-											<div className="reward-visual">
-												<img
-													src="images/xoom.png"
-													alt="xoom logo"
-												/>
-												<p className="price-tag">$5</p>
-											</div>
-											<p>
-												<T>minutesReward</T>
-											</p>
-											<a onClick={this.openModal}>
-												<T>getReward</T>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						)}
+						<Reward />
 					</div>
 				</section>
 				<Dialog />

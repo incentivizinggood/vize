@@ -121,7 +121,7 @@
 	},
 	"reviewSubmitted": {
 		"contributing": "¡Gracias por contribuir a su comunidad!",
-		"rewardDetails": "Su revisión se envió con éxito y ha sido agregada al perfil de la empresa.",
+		"reviewSubmitted": "Su revisión se envió con éxito y ha sido agregada al perfil de la empresa.",
 		"earnedReward": "¡Has ganado una recompensa!",
 		"phoneFaiure": "Error: su número de teléfono ya ha sido registrado",
 		"phoneSuccess": "Su número de teléfono ha sido registrado exitosamente",
