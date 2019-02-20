@@ -6,6 +6,7 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import ModalButton from "/imports/ui/components/modal-button";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
@@ -32,6 +33,10 @@ function HomePage() {
 					</div>
 				</div>
 			</div>
+
+			<ModalButton modalContent={() => <p>This is my modal.</p>}>
+				Click to open modal.
+			</ModalButton>
 
 			<div className="full-width-container">
 				<div className="container desktop-view">

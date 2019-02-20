@@ -1,0 +1,22 @@
+.portal {
+	z-index: 1;
+}
+
+.overlay {
+}
+
+.content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 50%;
+	height: 30%;
+	margin: auto;
+	background-color: #fefefe;
+	padding: 20px;
+	border: 1px solid #888;
+	font-family: "Times New Roman";
+	overflow-y: auto;
+}
