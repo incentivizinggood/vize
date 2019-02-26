@@ -15,8 +15,6 @@ import "./submit-salary-data.html";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
-
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
 
@@ -223,7 +221,6 @@ export default class SubmitSalaryDataForm extends React.Component {
 					<Blaze template="ssd_blaze_form" />
 				</div>
 				<Footer />
-				<Dialog />
 			</div>
 		);
 	}

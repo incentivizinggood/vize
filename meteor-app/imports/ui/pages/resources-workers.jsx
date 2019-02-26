@@ -7,7 +7,6 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
 
 const T = i18n.createComponent();
 
@@ -314,7 +313,6 @@ export default class ResourcesWorkers extends React.Component {
 				</div>
 
 				<Footer />
-				<Dialog />
 			</div>
 		);
 	}

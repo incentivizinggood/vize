@@ -4,7 +4,6 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
 
 import LoginForm from "./login-form.js";
 
@@ -48,7 +47,6 @@ function LoginPage() {
 					</div>
 				</div>
 			</div>
-			<Dialog />
 			<Footer />
 		</div>
 	);

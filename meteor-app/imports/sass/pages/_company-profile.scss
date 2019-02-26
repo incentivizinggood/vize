@@ -453,18 +453,6 @@ path.CircularProgressbar-trail {
 	}
 }
 
-div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
-	@media (max-width: 768px) {
-		text-align: center;
-
-		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
-		button._imports_ui_components_vote_buttons__vote_buttons__downButton {
-			display: inline-block;
-			margin: 0 5px;
-		}
-	}
-}
-
 #reviews {
 	.section_over_revi2 {
 		margin-top: 15px;

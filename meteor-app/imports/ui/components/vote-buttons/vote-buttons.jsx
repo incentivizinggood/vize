@@ -6,17 +6,18 @@ import { Meteor } from "meteor/meteor";
 import style from "./vote-buttons.scss";
 
 export default function VoteButtons(props) {
+	const { review, refetch, className, ...otherProps } = props;
 	const vote = isUpvote => event => {
 		event.preventDefault();
-		Meteor.call("reviews.changeVote", props.review.id, isUpvote, error => {
-			props.refetch();
+		Meteor.call("reviews.changeVote", review.id, isUpvote, error => {
+			refetch();
 			if (error) {
 				console.log(`Messed up ${isUpvote ? "upvote" : "downvote"}`);
 				console.error(error);
 			} else {
 				console.log(
 					`We just ${isUpvote ? "upvoted" : "downvoted"}the review ${
-						props.review.id
+						review.id
 					}`
 				);
 			}
@@ -24,14 +25,18 @@ export default function VoteButtons(props) {
 	};
 
 	let curVote;
-	if (props.review.currentUserVote) {
-		curVote = props.review.currentUserVote.isUpvote ? "up" : "down";
+	if (review.currentUserVote) {
+		curVote = review.currentUserVote.isUpvote ? "up" : "down";
 	} else {
 		curVote = "none";
 	}
 
 	return (
-		<div className={style.voteButtons} data-vote={curVote}>
+		<div
+			{...otherProps}
+			className={style.voteButtons + (className || "")}
+			data-vote={curVote}
+		>
 			<button
 				type="button"
 				className={style.upButton}

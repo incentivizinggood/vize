@@ -1,10 +1,9 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import i18n from "meteor/universe:i18n";
-
 import VoteButtons from "./vote-buttons";
+import FlagSystem from "./flag";
 
 const T = i18n.createComponent();
 
@@ -188,7 +187,15 @@ function ReviewComponent(props) {
 							<VoteButtons
 								review={props.review}
 								refetch={props.refetch}
+								c
 							/>
+						</div>
+					</div>
+					<div className="float-right">
+						<div className="flag-style">
+							<button className="flag-style-btn">
+								<T>common.companyreview.report</T>
+							</button>
 						</div>
 					</div>
 				</div>
