@@ -211,6 +211,9 @@ export default class SubmitSalaryDataForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
 	render() {
 		ssd_form_state.set("companyId", this.props.companyId);
 

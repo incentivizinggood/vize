@@ -181,7 +181,7 @@ class EmployerHeader extends React.Component {
 											</LogoutButton>
 										</li>
 									</Then>
-									<Else> </Else>
+									<Else />
 								</If>
 							</ul>
 							<div className="clearfix" />

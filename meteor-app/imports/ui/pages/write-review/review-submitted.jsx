@@ -2,6 +2,10 @@ import React from "react";
 import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
 import { Query } from "react-apollo";
+import { Link } from "react-router-dom";
+
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
@@ -18,16 +22,19 @@ Modal.setAppElement("body");
 const Reward = () => (
 	<Query query={rewardsEligibility}>
 		{({ loading, error, data }) => {
-			if (data.wroteAReview === "CAN_CLAIM") {
-				return <RewardsComponent />;
-			} else {
+			if (data) {
+				if (data.wroteAReview === "CAN_CLAIM") {
+					return <RewardsComponent />;
+				}
+				console.log(data);
 				return <p>hi</p>;
 			}
+			return <p />;
 		}}
 	</Query>
 );
 
-export default class ReviewSubmitted extends React.Component {
+class ReviewSubmitted extends React.Component {
 	constructor() {
 		super();
 
@@ -41,6 +48,10 @@ export default class ReviewSubmitted extends React.Component {
 		this.closeModal = this.closeModal.bind(this);
 		this.handelPhoneSubmitting = this.handelPhoneSubmitting.bind(this);
 		this.handlePhoneChange = this.handlePhoneChange.bind(this);
+	}
+
+	componentDidMount() {
+		window.scrollTo(0, 0);
 	}
 
 	openModal() {
@@ -63,6 +74,21 @@ export default class ReviewSubmitted extends React.Component {
 		this.setState({ phoneNumber: event.target.value });
 	}
 
+	renderContent() {
+		return (
+			<div className="col-md-12">
+				<h2 className="text-center">
+					<T>contributing</T>
+				</h2>
+				<p>
+					<T>reviewSubmitted</T>
+				</p>
+
+				<Reward />
+			</div>
+		);
+	}
+
 	render() {
 		const { hasRegisteredPhone, phoneNumber } = this.state;
 		const customStyles = {
@@ -76,6 +102,26 @@ export default class ReviewSubmitted extends React.Component {
 				borderRadius: "4px",
 			},
 		};
+
+		let content = null;
+		console.log("user");
+		console.log(this.props.user);
+		if (this.props.user) {
+			content = this.renderContent();
+		} else {
+			content = (
+				<div style={{ width: "80%", margin: "0 auto" }}>
+					<br />
+					<h3>You must be logged in to use this page. </h3>
+					<br />
+					<Link className="btn btn-primary" to="/login">
+						Log In
+					</Link>
+					<br />
+				</div>
+			);
+		}
+
 		return (
 			<div className="padding-fix">
 				<div className="navbarwhite">
@@ -83,18 +129,7 @@ export default class ReviewSubmitted extends React.Component {
 				</div>
 
 				<section className="review-submitted">
-					<div className="container back_top_hover">
-						<div className="col-md-12">
-							<h2 className="text-center">
-								<T>contributing</T>
-							</h2>
-							<p>
-								<T>reviewSubmitted</T>
-							</p>
-						</div>
-
-						<Reward />
-					</div>
+					<div className="container back_top_hover">{content}</div>
 				</section>
 				<Dialog />
 				<Footer />
@@ -128,3 +163,6 @@ export default class ReviewSubmitted extends React.Component {
 		);
 	}
 }
+export default withTracker(() => ({
+	user: Meteor.user(),
+}))(ReviewSubmitted);
