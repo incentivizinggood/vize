@@ -1,5 +1,3 @@
-import { postToSlack } from "/imports/api/connectors/slack-webhook.js";
-
 export default class PgUserFunctions {
 	static async getUserById(client, id) {
 		// Can take a MongoId (string)
@@ -34,12 +32,6 @@ export default class PgUserFunctions {
 			"INSERT INTO users (userMongoId,role,companyId) " +
 				"VALUES ($1,$2,$3) RETURNING *",
 			[user._id, user.role, companyPostgresId]
-		);
-
-		postToSlack(
-			`:tada: A new user has joined Vize. Please welcome \`${
-				user.username
-			}\`.`
 		);
 
 		return {
