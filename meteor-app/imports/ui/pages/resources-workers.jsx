@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 const T = i18n.createComponent();
 
@@ -30,10 +28,7 @@ const glyphStyle = {
 export default class ResourcesWorkers extends React.Component {
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<br />
 				<br />
 				<br />
@@ -312,10 +307,7 @@ export default class ResourcesWorkers extends React.Component {
 						<div className="clearfix" />
 					</div>
 				</div>
-
-				<Footer />
-				<Dialog />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

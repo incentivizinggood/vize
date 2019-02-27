@@ -7,8 +7,7 @@ import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
@@ -41,9 +40,7 @@ class CompanyProfile extends React.Component {
 		}
 
 		return (
-			<div className="navbarwhite">
-				<Header />
-
+			<PageWrapper>
 				<CompanyProfileSummary company={this.props.company} />
 
 				<br />
@@ -151,10 +148,7 @@ class CompanyProfile extends React.Component {
 						</div>
 					</div>
 				</section>
-				<div>
-					<Footer />
-				</div>
-			</div>
+			</PageWrapper>
 		);
 	}
 }

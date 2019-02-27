@@ -2,6 +2,8 @@ import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 import SimpleSchema from "simpl-schema";
 
+import { postToSlack } from "/imports/api/connectors/slack-webhook.js";
+
 // The users collection is handled differently than the other collections.
 // It exists by default and has some built-in fields. As such it is not created
 // here, but is instead modified and tweaked.
@@ -80,6 +82,13 @@ Accounts.onCreateUser(function(options, user) {
 		console.log(newUser);
 		console.log("RETURNING");
 	}
+
+	postToSlack(
+		`:tada: A new user has joined Vize. Please welcome \`${
+			user.username
+		}\`.`
+	);
+
 	return { ...user, role: options.role };
 });
 
