@@ -7,12 +7,12 @@
 @import "base/variables", "base/mixins", "base/fonts", "base/reset";
 
 // SHARED
-@import "shared/welcome", "shared/star";
+@import "shared/full-width-container", "shared/star", "shared/spinner";
 
 // Pages
 @import "pages/company-profile", "pages/for-employers", "pages/home",
 	"pages/resources", "pages/review-profile", "pages/about",
-	"pages/search-companies", "pages/login-register";
+	"pages/search-companies", "pages/login-register", "pages/review-submitted";
 
 // Components
 @import "components/banner", "components/button", "components/dropdown",
@@ -25,3 +25,7 @@
 	"responsive/640", "responsive/767", "responsive/900", "responsive/1080",
 	"responsive/1020", "responsive/1024", "responsive/1240", "responsive/1280",
 	"responsive/1267", "responsive/1291", "responsive/responsive";
+
+// helpers
+@import "helpers/spacing-helpers", "helpers/display-helpers",
+	"helpers/text-helpers";

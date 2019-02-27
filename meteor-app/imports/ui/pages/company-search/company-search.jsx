@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import i18n from "meteor/universe:i18n";
 import { Query } from "react-apollo";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
 import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import companySearchQuery from "./company-search.graphql";
+import Spinner from "../../components/Spinner";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
@@ -19,11 +19,7 @@ const SearchResults = ({ searchText }) => (
 	<Query query={companySearchQuery} variables={{ searchText }}>
 		{({ loading, error, data }) => {
 			if (loading) {
-				return (
-					<h2>
-						<T>loading</T>
-					</h2>
-				);
+				return <Spinner />;
 			}
 			if (error) {
 				return <h2>{`Error! ${error.message}`}</h2>;
@@ -108,10 +104,7 @@ class CompanySearchTrial extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="container-fluid  search_companies">
 					<div className="row all_boxcolor1 select_box1">
 						<div>
@@ -128,10 +121,7 @@ class CompanySearchTrial extends React.Component {
 				<div className="clearfix" />
 				<br />
 				<SearchResults searchText={this.state.searchText} />
-				<div>
-					<Footer />
-				</div>
-			</div>
+			</PageWrapper>
 		);
 	}
 }

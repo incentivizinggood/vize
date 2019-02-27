@@ -24,6 +24,36 @@ type Query {
 		pageNum: Int
 	): [Company!]!
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
+
+	wroteAReview: RewardStatus!
+}
+
+type Mutation {
+	claimWroteAReview(
+		phoneNumber: String!
+		paymentMethod: PaymentMethod!
+	): ClaimWroteAReviewResult!
+}
+
+enum RewardStatus {
+	CAN_EARN
+	CAN_CLAIM
+	CLAIMED
+	INELEGABLE
+}
+
+enum ClaimWroteAReviewResult {
+	OK
+	NOT_EARNED
+	ALREADY_CLAIMED
+	INELEGABLE
+	PHONENUMBER_INVALID
+	PHONENUMBER_ALREADY_USED
+}
+
+enum PaymentMethod {
+	PAYPAL
+	XOOM
 }
 
 "The kinds of things that can be commented on."

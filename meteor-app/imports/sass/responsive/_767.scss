@@ -66,18 +66,19 @@
 
 	.banner-text-info {
 		margin: 12em auto 0;
+		width: 90% !important;
 	}
 
 	.slid {
 		padding: 3em 0;
 	}
 
-	.banner.about-banner,
-	.about-banner .banner-info {
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
 		min-height: 210px;
 	}
 
-	.about-banner .banner-text {
+	.static-page-banner .banner-text {
 		padding-top: 8em;
 	}
 

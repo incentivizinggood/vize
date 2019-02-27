@@ -4,8 +4,7 @@ import { Query } from "react-apollo";
 import i18n from "meteor/universe:i18n";
 
 import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/header";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 import ShowJobsQuery from "./show-jobs.graphql";
 
@@ -42,10 +41,7 @@ const ShowJobs = () => (
 			}
 
 			return (
-				<div>
-					<div className="navbarwhite">
-						<Header />
-					</div>
+				<PageWrapper>
 					<div className="container-fluid  search_companies">
 						<div className="row all_boxcolor1 select_box1">
 							<div
@@ -67,10 +63,7 @@ const ShowJobs = () => (
 							</div>
 						</div>
 					</div>
-					<div>
-						<Footer />
-					</div>
-				</div>
+				</PageWrapper>
 			);
 		}}
 	</Query>

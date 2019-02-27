@@ -7,12 +7,12 @@ import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 import companyProfileQuery from "./company-profile.graphql";
+import Spinner from "../../components/Spinner";
 
 const T = i18n.createComponent();
 
@@ -40,12 +40,7 @@ class CompanyProfile extends React.Component {
 		}
 
 		return (
-			<div className="navbarwhite">
-				<Header />
-				<br />
-				<br />
-				<br />
-
+			<PageWrapper>
 				<CompanyProfileSummary company={this.props.company} />
 
 				<br />
@@ -153,10 +148,7 @@ class CompanyProfile extends React.Component {
 						</div>
 					</div>
 				</section>
-				<div>
-					<Footer />
-				</div>
-			</div>
+			</PageWrapper>
 		);
 	}
 }
@@ -165,7 +157,7 @@ export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>
 		{({ loading, error, data, refetch }) => {
 			if (loading) {
-				return <h2>Loading</h2>;
+				return <Spinner />;
 			}
 			if (error) {
 				console.log(error);

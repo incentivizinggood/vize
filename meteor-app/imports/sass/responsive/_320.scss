@@ -82,20 +82,7 @@
 		bottom: 7%;
 	}
 
-	.welcome-text {
-		float: none;
-		padding: 0;
-
-		&.wtext-right {
-			width: 100%;
-		}
-	}
-
-	.welcome-info {
-		text-align: center;
-	}
-
-	.welcome h4 {
+	full-width-container h4 {
 		font-size: 1.1em;
 		margin-top: 0.5em;
 	}

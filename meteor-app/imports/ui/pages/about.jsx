@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
-import Dialog from "/imports/ui/components/dialog-box";
+
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* A page where visitors can get information about Vize and this app.
  */
@@ -85,14 +85,11 @@ export default class AboutPage extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
-				<div id="home" className="banner about-banner">
+			<PageWrapper>
+				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">
-							<h1>
+							<h1 className="text-center">
 								<T>common.aboutUs.about</T>
 							</h1>
 						</div>
@@ -102,10 +99,10 @@ export default class AboutPage extends React.Component {
 				<div className="about">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="al">
+							<h1 className="text-center">
 								<T>common.aboutUs.the_problem</T>
 							</h1>
-							<h3 className="emplh3">
+							<h3 className="about-subheader">
 								<T>common.aboutUs.noLeverage</T>
 							</h3>
 						</div>
@@ -120,20 +117,20 @@ export default class AboutPage extends React.Component {
 					</div>
 				</div>
 
-				<div className="about  bl">
+				<div className="about contrast">
 					<div className="container">
-						<div className="col-md-12  cdoun">
-							<h1 className="al">
+						<div className="col-md-12">
+							<h1 className="text-center">
 								<T>common.aboutUs.our_solution</T>
 							</h1>
 
-							<h3 className="emplh3">
+							<h3 className="about-subheader">
 								<T>common.aboutUs.reviews_accountability</T>
 							</h3>
 						</div>
-						<div className="col-md-12 ">
-							<div className="about-row">
-								<p>
+						<div className="col-md-12">
+							<div>
+								<p className="about-paragraph">
 									<T>common.aboutUs.solution_text</T>{" "}
 								</p>
 							</div>
@@ -142,23 +139,23 @@ export default class AboutPage extends React.Component {
 					</div>
 				</div>
 
-				<div className="cont about-cont">
+				<div className="cont">
 					<div className="container">
-						<div className="container-contact100">
-							<div className="wrap-contact100">
+						<div className="container-contact">
+							<div className="wrap-contact">
 								<form
 									method="POST"
-									className="contact100-form validate-form"
+									className="contact-form validate-form"
 									onSubmit={this.handleSubmit}
 									id="submitForm"
 								>
-									<span className="contact100-form-title">
+									<span className="contact-form-title">
 										<T>common.aboutUs.reach_us</T>
 									</span>
-									<div className="wrap-input100 rs1 validate-input">
+									<div className="wrap-input rs1 validate-input">
 										<input
 											id="first-name"
-											className="input100"
+											className="input"
 											type="text"
 											name="first-name"
 											placeholder={i18n.__(
@@ -166,12 +163,12 @@ export default class AboutPage extends React.Component {
 											)}
 											onChange={this.handleNameChange}
 										/>
-										<span className="focus-input100" />
+										<span className="focus-input" />
 									</div>
-									<div className="wrap-input100 rs1 validate-input">
+									<div className="wrap-input rs1 validate-input">
 										<input
 											id="email"
-											className="input100"
+											className="input"
 											type="text"
 											name="email"
 											placeholder={i18n.__(
@@ -179,12 +176,12 @@ export default class AboutPage extends React.Component {
 											)}
 											onChange={this.handleEmailChange}
 										/>
-										<span className="focus-input100" />
+										<span className="focus-input" />
 									</div>
-									<div className="wrap-input100 validate-input">
+									<div className="wrap-input validate-input">
 										<textarea
 											id="message"
-											className="input100"
+											className="input"
 											name="message"
 											placeholder={i18n.__(
 												"common.aboutUs.placeholder_comments"
@@ -193,11 +190,11 @@ export default class AboutPage extends React.Component {
 												this.handleTextBoxChanging
 											}
 										/>
-										<span className="focus-input100" />
+										<span className="focus-input" />
 									</div>
-									<div className="container-contact100-form-btn">
+									<div className="container-contact-form-btn">
 										<button
-											className="contact100-form-btn"
+											className="contact-form-btn"
 											form="submitForm"
 											value="Submit"
 										>
@@ -214,9 +211,7 @@ export default class AboutPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Dialog />
-				<Footer />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

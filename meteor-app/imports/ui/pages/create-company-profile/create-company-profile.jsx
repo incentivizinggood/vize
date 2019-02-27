@@ -8,9 +8,7 @@ import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global stat
 import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 // Specific stuff second
 import { CompanySchema } from "/imports//api/data/companies.js";
@@ -113,16 +111,11 @@ export default class CompanyCreateProfileForm extends React.Component {
 	}
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="page CompanyCreateProfileForm">
 					<Blaze template="ccp_blaze_form" />
 				</div>
-				<Footer />
-				<Dialog />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

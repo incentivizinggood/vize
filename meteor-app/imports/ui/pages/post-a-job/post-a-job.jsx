@@ -12,9 +12,7 @@ import i18n from "meteor/universe:i18n";
 import { JobAdSchema } from "/imports/api/data/jobads.js";
 import "./post-a-job.html";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
@@ -174,16 +172,11 @@ export default class PostAJobForm extends React.Component {
 	}
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="page PostAJobForm">
 					<Blaze template="paj_blaze_form" />
 				</div>
-				<Footer />
-				<Dialog />
-			</div>
+			</PageWrapper>
 		);
 	}
 }
