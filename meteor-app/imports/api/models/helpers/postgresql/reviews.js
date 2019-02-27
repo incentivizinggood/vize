@@ -1,3 +1,4 @@
+import { postToSlack } from "/imports/api/connectors/slack-webhook.js";
 import { castToNumberIfDefined } from "./misc.js";
 
 export default class PgReviewFunctions {
@@ -127,6 +128,12 @@ export default class PgReviewFunctions {
 				review.overallSatisfaction,
 				review.additionalComments,
 			]
+		);
+
+		postToSlack(
+			`The user with ID \`${review.submittedBy}\` reviewed ${
+				review.companyName
+			}`
 		);
 
 		return {
