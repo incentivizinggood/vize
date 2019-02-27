@@ -8,12 +8,10 @@ export const inform: MessageDecoration = ":information_source:";
 export const warn: MessageDecoration = ":warning:";
 export const reportError: MessageDecoration = ":skull_and_crossbones:";
 
-export function postToSlack(
-	messageKind: MessageDecoration,
-	messageText: string
-) {
+// TODO: Escape inputs to prevent markdown code injection.
+export function postToSlack(text: string) {
 	const body = {
-		text: `${messageKind} ${messageText}`,
+		text,
 		username: `Server at ${process.env.ROOT_URL}`,
 		icon_emoji: ":server:",
 	};
@@ -27,17 +25,3 @@ export function postToSlack(
 
 	return request(options);
 }
-
-// These functions need to be moved to the models after goodbye-autoforms has been merged.
-
-function newUser(user) {
-	// TODO: Escape inputs to prevent markdown code injection.
-
-	`A new user has joined Vize. Please welcome \`${user.username}\`.`;
-}
-
-// postToSlack(celebrate, "something good happened")
-/*
-username submitted a review link to review on company name.
-A new user has joined vize. please welcome username.
- */

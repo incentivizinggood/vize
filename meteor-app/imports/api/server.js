@@ -5,6 +5,7 @@ import { getUser } from "meteor/apollo";
 
 import { typeDefs, resolvers } from "./graphql";
 import { testConnection as testPgConnection } from "./graphql/connectors/postgresql.js";
+import { postToSlack } from "./connectors/slack-webhook.js";
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use("/graphql", (req, res) => {
 function onServerReady() {
 	console.log("Server ready.");
 	testPgConnection();
+	postToSlack(`:tada: Hello world.`);
 }
 
 export { app, onServerReady };
