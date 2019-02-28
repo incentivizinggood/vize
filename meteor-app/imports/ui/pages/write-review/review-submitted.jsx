@@ -10,7 +10,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import Dialog from "/imports/ui/components/dialog-box";
-import RewardsComponent from "/imports/ui/components/rewardsComponent.jsx";
+import RewardsComponent from "./rewardsComponent.jsx";
 
 import rewardsEligibility from "./rewards-eligibility.graphql";
 

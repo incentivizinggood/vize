@@ -6,6 +6,7 @@ import { $ } from "meteor/jquery";
 /* The FlowRouter is automaticaly initialized on Meteor.startup.
  * The routes only need to be imported here. No other code is needed.
  */
+
 import "/imports/startup/client/font-awesome.js";
 import AppRoot from "../imports/ui/app-root.jsx";
 import "../imports/startup/client/i18n.js";
