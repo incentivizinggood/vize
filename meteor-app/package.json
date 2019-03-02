@@ -39,6 +39,7 @@
     "i": "^0.3.6",
     "lint": "^1.1.2",
     "lodash.find": "^4.6.0",
+    "mdbreact": "^4.11.0",
     "message-box": "^0.2.0",
     "meteor-node-stubs": "^0.2.11",
     "npm": "^6.4.1",
