@@ -13,8 +13,7 @@ import i18n from "meteor/universe:i18n";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
 import "./write-review.html";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 // Weird that I have to import all of these here,
 // rather than import the .html in the .js and just
@@ -155,15 +154,11 @@ export default class WriteReviewForm extends React.Component {
 		wr_form_state.set("companyId", this.props.companyId);
 
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="page WriteReviewForm">
 					<Blaze template="wr_blaze_form" />
 				</div>
-				<Footer />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

@@ -7,8 +7,7 @@ import { Accounts } from "meteor/accounts-base";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 const t = i18n.createTranslator("common.passwordChanger");
 const T = i18n.createComponent(t);
@@ -175,10 +174,7 @@ class PasswordChanger extends React.Component {
 		}
 
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="container fom-job">
 					<div className="row">
 						<div
@@ -190,8 +186,7 @@ class PasswordChanger extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Footer />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

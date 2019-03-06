@@ -2,8 +2,8 @@ import React from "react";
 
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
+
 import RegisterForm from "./register-form.js";
 
 const t = i18n.createTranslator("common.loginRegister");
@@ -13,10 +13,7 @@ const T = i18n.createComponent(t);
  */
 function RegisterPage() {
 	return (
-		<div className="page register">
-			<div className="navbarwhite">
-				<Header />
-			</div>
+		<PageWrapper>
 			<div className="container login-top-spce">
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">
@@ -46,8 +43,7 @@ function RegisterPage() {
 					</div>
 				</div>
 			</div>
-			<Footer />
-		</div>
+		</PageWrapper>
 	);
 }
 export default RegisterPage;

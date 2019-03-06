@@ -39,7 +39,7 @@ okgrow:analytics
 universe:i18n
 universe:i18n-blaze
 session
-apollo
+apollo@3.0.1
 swydo:graphql
 numtel:pg
 nathantreid:css-modules

@@ -1,7 +1,8 @@
 import React from "react";
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+
 import { Meteor } from "meteor/meteor";
+
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* A page where visitors can contact Vize for buisness inqueries.
  * Help and support contact may be handled here as well,
@@ -71,8 +72,7 @@ export default class ContactUsPage extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<Header />
+			<PageWrapper>
 				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">
@@ -144,9 +144,7 @@ export default class ContactUsPage extends React.Component {
 						</div>
 					</div>
 				</div>
-
-				<Footer />
-			</div>
+			</PageWrapper>
 		);
 	}
 }
