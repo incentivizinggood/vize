@@ -187,7 +187,6 @@ function ReviewComponent(props) {
 							<VoteButtons
 								review={props.review}
 								refetch={props.refetch}
-								c
 							/>
 						</div>
 					</div>
