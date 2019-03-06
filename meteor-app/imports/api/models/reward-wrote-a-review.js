@@ -7,20 +7,20 @@ import {
 import type { User } from ".";
 import { getReviewsByAuthor, getUserPostgresId } from ".";
 
-export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELEGABLE";
+export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELIGIBLE";
 
 export type ClaimWroteAReviewResult =
 	| "OK"
 	| "NOT_EARNED"
 	| "ALREADY_CLAIMED"
-	| "INELEGABLE"
+	| "INELIGIBLE"
 	| "PHONENUMBER_INVALID"
 	| "PHONENUMBER_ALREADY_USED";
 
 export type PaymentMethod = "PAYPAL" | "XOOM";
 
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
-	if (user.role !== "worker") return "INELEGABLE";
+	if (user.role !== "worker") return "INELIGIBLE";
 
 	const transaction = async client => {
 		const userPId = await getUserPostgresId(user._id);
@@ -51,8 +51,8 @@ export async function claimWroteAReview(
 			return "NOT_EARNED";
 		case "CLAIMED":
 			return "ALREADY_CLAIMED";
-		case "INELEGABLE":
-			return "INELEGABLE";
+		case "INELIGIBLE":
+			return "INELIGIBLE";
 		default:
 	}
 

@@ -4,8 +4,6 @@ import Modal from "react-modal";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 
-import { useAlert } from "react-alert";
-
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { MDBContainer, MDBAlert } from "mdbreact";
@@ -33,6 +31,48 @@ const Reward = () => (
 		}}
 	</Query>
 );
+/*
+const Alert = ( function() {return (
+	<div className="container alert-container">
+		<div className="row">
+			<div className="col-sm" />
+			<div className="col-8">
+				<MDBContainer>
+					<MDBAlert color="success">
+						<h4 className="alert-heading">
+							<T>phoneSuccess</T>
+						</h4>
+						<p>
+							<T>phoneSuccess2</T>
+						</p>
+					</MDBAlert>
+				</MDBContainer>
+			</div>
+			<div className="col-sm" />
+		</div>
+	</div>
+);}) ();
+	return (
+		<div className="container alert-container">
+			<div className="row">
+				<div className="col-sm" />
+				<div className="col-8">
+					<MDBContainer>
+						<MDBAlert color="success">
+							<h4 className="alert-heading">
+								<T>phoneSuccess</T>
+							</h4>
+							<p>
+								<T>phoneSuccess2</T>
+							</p>
+						</MDBAlert>
+					</MDBContainer>
+				</div>
+				<div className="col-sm" />
+			</div>
+		</div>
+	);
+); */
 
 class ReviewSubmitted extends React.Component {
 	constructor() {
@@ -84,33 +124,6 @@ class ReviewSubmitted extends React.Component {
 					<T>reviewSubmitted</T>
 				</p>
 
-				<MDBContainer>
-					<MDBAlert color="primary">
-						A simple primary alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="secondary">
-						A simple secondary alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="success">
-						A simple success alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="danger">
-						A simple success alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="warning">
-						A simple warning alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="info">
-						A simple info alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="light">
-						A simple light alert—check it out!
-					</MDBAlert>
-					<MDBAlert color="dark">
-						A simple dark alert—check it out!
-					</MDBAlert>
-				</MDBContainer>
-
 				<Reward />
 			</div>
 		);
@@ -157,13 +170,6 @@ class ReviewSubmitted extends React.Component {
 
 				<section className="review-submitted">
 					<div className="container back_top_hover">{content}</div>
-					<button
-						onClick={() => {
-							useAlert().show("Oh look, an alert!");
-						}}
-					>
-						Show Alert
-					</button>
 				</section>
 				<Dialog />
 				<Footer />

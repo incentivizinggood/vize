@@ -1,6 +1,8 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
+// import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -119,14 +121,14 @@ export default class RewardsComponent extends React.Component {
 								<T>enterPhone</T>
 							</legend>
 							<label htmlFor="phone-number" />
-							<input
-								type="tel"
-								id="phone-number"
-								value={phoneNumber}
-								onChange={this.handlePhoneChange}
-								placeholder="(541)754-3010"
-								required
+							<PhoneInput
+								placeholder="Enter phone number"
+								countries={["MX"]}
+								international={false}
+								value={this.state.phone}
+								onChange={phone => this.setState({ phone })}
 							/>
+
 							<input type="submit" value={t("submit")} />
 						</fieldset>
 					</form>
@@ -135,3 +137,12 @@ export default class RewardsComponent extends React.Component {
 		);
 	}
 }
+/*
+<input
+	type="tel"
+	id="phone-number"
+	value={phoneNumber}
+	onChange={this.handlePhoneChange}
+	placeholder="(541)754-3010"
+	required
+/> */
