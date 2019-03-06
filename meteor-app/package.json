@@ -67,8 +67,6 @@
     "cheerio": "^1.0.0-rc.2",
     "graphqlgen": "^0.3.0",
     "node-sass": "^4.9.3",
-    "react-test-renderer": "^16.4.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "react-test-renderer": "^16.4.2"
   }
 }
