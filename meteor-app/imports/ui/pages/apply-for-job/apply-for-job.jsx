@@ -12,7 +12,6 @@ import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
 
 // Specific stuff second
 import { JobApplicationSchema } from "/imports/api/data/jobads.js";
@@ -138,7 +137,6 @@ export default class ApplyForJobForm extends React.Component {
 					<Blaze template="afj_blaze_form" />
 				</div>
 				<Footer />
-				<Dialog/>
 			</div>
 		);
 	}

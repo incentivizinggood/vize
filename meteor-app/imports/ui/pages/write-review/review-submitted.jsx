@@ -5,7 +5,6 @@ import { CSSTransitionGroup } from "react-transition-group";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -146,7 +145,6 @@ export default class ReviewSubmitted extends React.Component {
 						)}
 					</div>
 				</section>
-				<Dialog />
 				<Footer />
 				<Modal
 					isOpen={this.state.modalIsOpen}

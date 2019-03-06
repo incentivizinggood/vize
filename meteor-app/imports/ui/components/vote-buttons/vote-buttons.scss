@@ -35,3 +35,14 @@ $button-diameter: 70px;
 		background-color: red;
 	}
 }
+@media (max-width: 768px) {
+	.voteButtons {
+		text-align: center;
+
+		.upButton,
+		.downButton {
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
+}
