@@ -1,0 +1,23 @@
+.modalView {
+	left: 50%;
+	top: 50%;
+	position: fixed;
+	background-color: white;
+	z-index: 1000;
+	margin-top: -200px;
+	margin-left: -300px;
+	border-style: solid;
+	border-width: thin;
+}
+.closeButton {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 32px;
+	height: 32px;
+	opacity: 0.3;
+	color: grey;
+}
+.closeButton:hover {
+	opacity: 10;
+}
