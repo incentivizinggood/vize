@@ -3,6 +3,7 @@ import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
 // import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -12,9 +13,9 @@ export default class RewardsComponent extends React.Component {
 		super();
 
 		this.state = {
-			modalIsOpen: false,
-			hasRegisteredPhone: false,
 			phoneNumber: "",
+			phoneError: "",
+			paymentMethod: "",
 		};
 
 		this.openModal = this.openModal.bind(this);
@@ -28,7 +29,24 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	closeModal() {
-		this.setState({ modalIsOpen: false });
+		if (
+			this.state.phoneNumber &&
+			isValidPhoneNumber(this.state.phoneNumber)
+		) {
+			this.setState({ modalIsOpen: false });
+		} else {
+			this.state.phoneError = "Invalid Phone";
+		}
+	}
+
+	setPaymentMethodPaypal() {
+		this.state.paymentMethod = "PAYPAL";
+		this.openModal();
+	}
+
+	setPaymentMethodXoom() {
+		this.state.paymentMethod = "XOOM";
+		this.openModal();
 	}
 
 	handelPhoneSubmitting(e) {
@@ -56,6 +74,14 @@ export default class RewardsComponent extends React.Component {
 				borderRadius: "4px",
 			},
 		};
+
+		if (
+			this.state.phoneNumber &&
+			isValidPhoneNumber(this.state.phoneNumber)
+		) {
+			this.state.phoneError = "";
+		}
+
 		return (
 			<div>
 				<div className="congratulations">
@@ -85,7 +111,7 @@ export default class RewardsComponent extends React.Component {
 								<p>
 									<T>paypalCash</T>
 								</p>
-								<a onClick={this.openModal}>
+								<a onClick={this.setPaymentMethodPaypal}>
 									<T>getReward</T>
 								</a>
 							</div>
@@ -100,7 +126,7 @@ export default class RewardsComponent extends React.Component {
 								<p>
 									<T>minutesReward</T>
 								</p>
-								<a onClick={this.openModal}>
+								<a onClick={this.setPaymentMethodXoom}>
 									<T>getReward</T>
 								</a>
 							</div>
@@ -124,12 +150,22 @@ export default class RewardsComponent extends React.Component {
 							<PhoneInput
 								placeholder="Enter phone number"
 								countries={["MX"]}
+								error={this.state.phoneError}
 								international={false}
-								value={this.state.phone}
-								onChange={phone => this.setState({ phone })}
+								value={this.state.phoneNumber}
+								onChange={phoneNumber =>
+									this.setState({ phoneNumber })
+								}
 							/>
 
-							<input type="submit" value={t("submit")} />
+							<br />
+							<button
+								className="btn btn-primary"
+								style={{ float: "right" }}
+								onClick={this.closeModal}
+							>
+								<T>submit</T>
+							</button>
 						</fieldset>
 					</form>
 				</Modal>
@@ -145,4 +181,7 @@ export default class RewardsComponent extends React.Component {
 	onChange={this.handlePhoneChange}
 	placeholder="(541)754-3010"
 	required
-/> */
+/>
+
+<input type="submit" value={t("submit")} />
+*/
