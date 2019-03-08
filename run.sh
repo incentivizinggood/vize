@@ -39,6 +39,22 @@ case $1 in
 		-f docker-compose.yml \
 		up --build
 	;;
+"deploy-staging")
+	# Migrate the database with Flyway.
+	sudo docker run \
+		-v "$(pwd)/postgres/migrations:/flyway/sql" \
+		--rm boxfuse/flyway:5.2.1 \
+		-url=jdbc:postgresql://<redacted>.us-east-2.rds.amazonaws.com:5432/vizedb \
+		-user=vize \
+		-password='<redacted>' \
+		migrate
+	# Deploy the Meteor app to Galaxy.
+	cd meteor-app
+	DEPLOY_HOSTNAME=galaxy.meteor.com \
+		meteor deploy \
+		vize-staging-0.meteorapp.com \
+		--settings '../../secrets/meteor-settings.json'
+	;;
 *)
 	echo '"'$1'" is not a mode in which this project can be run.'
 	exit -1
