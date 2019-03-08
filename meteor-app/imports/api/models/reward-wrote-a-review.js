@@ -1,4 +1,6 @@
 // @flow
+import { parsePhoneNumber } from "libphonenumber-js/max";
+
 import {
 	execTransactionRO,
 	execTransactionRW,
@@ -57,6 +59,10 @@ export async function claimWroteAReview(
 	}
 
 	// Check if the phone number is valid.
+	const phoneNumberInfo = parsePhoneNumber(phoneNumber);
+	// We only accept mexico phone numbers to prevent fake numbers from services
+	// like Google Voice.
+	if (phoneNumberInfo.country !== "MX") throw Error("NON_MEXICO_NUMBER");
 
 	const transaction = async client => {
 		// Check if the phone number has already been used.
