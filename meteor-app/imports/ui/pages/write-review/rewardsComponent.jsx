@@ -66,6 +66,7 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	handelPhoneSubmitting(e) {
+		console.log("ssuuubb");
 		e.preventDefault();
 		// here you can run validation and prevent submitting
 		// and then save the phone number to the db
@@ -159,7 +160,7 @@ export default class RewardsComponent extends React.Component {
 					ariaHideApp={false}
 					style={customStyles}
 				>
-					<form onSubmit={this.handelPhoneSubmitting}>
+					<form onSubmit={this.handelPhoneSubmitting} id="rewardForm">
 						<fieldset>
 							<legend>
 								<T>enterPhone</T>
@@ -175,33 +176,34 @@ export default class RewardsComponent extends React.Component {
 									this.setState({ phoneNumber })
 								}
 							/>
+							<button type="submit" value="asdfasdf">
+								{" "}
+								asdf
+							</button>
 
 							<br />
 							<Mutation mutation={REWARD_DATA_SUBMISSION}>
 								{(claimWroteAReview, data) => (
-									<div>
-										<form
-											onSubmit={e => {
-												e.preventDefault();
+									<button
+										className="btn btn-primary"
+										type="submit"
+										form="rewardForm"
+										style={{ float: "right" }}
+										onClick={e => {
+											e.preventDefault();
 
-												claimWroteAReview({
-													variables: {
-														phoneNumber: phoneNum,
-														paymentMethod: paymentM,
-													},
-												});
-											}}
-										>
-											<button
-												className="btn btn-primary"
-												style={{ float: "right" }}
-												onClick={this.closeModal}
-											>
-												<T>submit</T>
-											</button>
-										</form>
-										{JSON.stringify(data)}
-									</div>
+											console.log(data);
+											claimWroteAReview({
+												variables: {
+													phoneNumber: phoneNum,
+													paymentMethod: paymentM,
+												},
+											});
+											console.log(data);
+										}}
+									>
+										<T>submit</T>
+									</button>
 								)}
 							</Mutation>
 						</fieldset>

@@ -169,30 +169,7 @@ class ReviewSubmitted extends React.Component {
 				</div>
 
 				<section className="review-submitted">
-					<div className="container back_top_hover">
-						<Mutation mutation={REWARD_DATA_SUBMISSION}>
-							{(claimWroteAReview, data) => (
-								<div>
-									<form
-										onSubmit={e => {
-											e.preventDefault();
-
-											claimWroteAReview({
-												variables: {
-													phoneNumber: phoneNum,
-													paymentMethod: paymentM,
-												},
-											});
-										}}
-									>
-										<button type="submit">Add Todo</button>
-									</form>
-									{JSON.stringify(data)}
-								</div>
-							)}
-						</Mutation>
-						{content}
-					</div>
+					<div className="container back_top_hover">{content}</div>
 				</section>
 				<Footer />
 			</div>
