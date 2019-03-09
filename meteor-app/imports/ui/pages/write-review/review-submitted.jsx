@@ -1,8 +1,11 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
-import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
+
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import { Mutation } from "react-apollo";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -19,6 +22,23 @@ const T = i18n.createComponent(t);
 
 Modal.setAppElement("body");
 
+const REWARD_DATA_SUBMISSION = gql`
+	mutation {
+		claimWroteAReview(phoneNumber: "+529565960697", paymentMethod: PAYPAL)
+	}
+`;
+
+/*
+mutation RewardDataSubmission(
+	$phoneNumber: String!
+	$paymentMethod: PaymentMethod!
+) {
+	claimWroteAReview(
+		phoneNumber: $phoneNumber
+		paymentMethod: $paymentMethod
+	)
+}
+*/
 const Reward = () => (
 	<Query query={rewardsEligibility}>
 		{({ loading, error, data }) => {
@@ -75,31 +95,8 @@ const Alert = ( function() {return (
 ); */
 
 class ReviewSubmitted extends React.Component {
-	constructor() {
-		super();
-
-		this.state = {
-			modalIsOpen: false,
-			hasRegisteredPhone: false,
-			phoneNumber: "",
-		};
-
-		this.openModal = this.openModal.bind(this);
-		this.closeModal = this.closeModal.bind(this);
-		this.handelPhoneSubmitting = this.handelPhoneSubmitting.bind(this);
-		this.handlePhoneChange = this.handlePhoneChange.bind(this);
-	}
-
 	componentDidMount() {
 		window.scrollTo(0, 0);
-	}
-
-	openModal() {
-		this.setState({ modalIsOpen: true });
-	}
-
-	closeModal() {
-		this.setState({ modalIsOpen: false });
 	}
 
 	handelPhoneSubmitting(e) {
@@ -130,7 +127,6 @@ class ReviewSubmitted extends React.Component {
 	}
 
 	render() {
-		const { hasRegisteredPhone, phoneNumber } = this.state;
 		const customStyles = {
 			content: {
 				margin: "auto",
@@ -161,6 +157,8 @@ class ReviewSubmitted extends React.Component {
 				</div>
 			);
 		}
+		const phoneNum = "9567484856";
+		const paymentM = "paypal";
 
 		return (
 			<div className="padding-fix">
@@ -169,36 +167,31 @@ class ReviewSubmitted extends React.Component {
 				</div>
 
 				<section className="review-submitted">
-					<div className="container back_top_hover">{content}</div>
+					<div className="container back_top_hover">
+						<Mutation mutation={REWARD_DATA_SUBMISSION}>
+							{(claimWroteAReview, { data }) => (
+								<div>
+									<form
+										onSubmit={e => {
+											e.preventDefault();
+											claimWroteAReview({
+												variables: {
+													phoneNumber: phoneNum,
+													paymentMethod: paymentM,
+												},
+											});
+										}}
+									>
+										<button type="submit">Add Todo</button>
+									</form>
+								</div>
+							)}
+						</Mutation>
+						{content}
+					</div>
 				</section>
 				<Dialog />
 				<Footer />
-				<Modal
-					isOpen={this.state.modalIsOpen}
-					onAfterOpen={this.afterOpenModal}
-					onRequestClose={this.closeModal}
-					contentLabel="Example Modal"
-					ariaHideApp={false}
-					style={customStyles}
-				>
-					<form onSubmit={this.handelPhoneSubmitting}>
-						<fieldset>
-							<legend>
-								<T>enterPhone</T>
-							</legend>
-							<label htmlFor="phone-number" />
-							<input
-								type="tel"
-								id="phone-number"
-								value={phoneNumber}
-								onChange={this.handlePhoneChange}
-								placeholder="(541)754-3010"
-								required
-							/>
-							<input type="submit" value={t("submit")} />
-						</fieldset>
-					</form>
-				</Modal>
 			</div>
 		);
 	}
