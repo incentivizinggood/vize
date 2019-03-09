@@ -23,31 +23,34 @@ const T = i18n.createComponent(t);
 Modal.setAppElement("body");
 
 const REWARD_DATA_SUBMISSION = gql`
-	mutation {
-		claimWroteAReview(phoneNumber: "+529565960697", paymentMethod: PAYPAL)
+	mutation RewardDataSubmission(
+		$phoneNumber: String!
+		$paymentMethod: PaymentMethod!
+	) {
+		claimWroteAReview(
+			phoneNumber: $phoneNumber
+			paymentMethod: $paymentMethod
+		)
 	}
 `;
 
 /*
-mutation RewardDataSubmission(
-	$phoneNumber: String!
-	$paymentMethod: PaymentMethod!
-) {
-	claimWroteAReview(
-		phoneNumber: $phoneNumber
-		paymentMethod: $paymentMethod
-	)
+mutation {
+	claimWroteAReview(phoneNumber: "+529565960697", paymentMethod: PAYPAL)
 }
+
+
 */
 const Reward = () => (
 	<Query query={rewardsEligibility}>
 		{({ loading, error, data }) => {
 			if (data) {
+				console.log(data);
 				if (data.wroteAReview === "CAN_CLAIM") {
 					return <RewardsComponent />;
 				}
 			}
-			return <p />;
+			return <RewardsComponent />;
 		}}
 	</Query>
 );
@@ -158,7 +161,7 @@ class ReviewSubmitted extends React.Component {
 			);
 		}
 		const phoneNum = "9567484856";
-		const paymentM = "paypal";
+		const paymentM = "PAYPAL";
 
 		return (
 			<div className="padding-fix">
@@ -169,11 +172,12 @@ class ReviewSubmitted extends React.Component {
 				<section className="review-submitted">
 					<div className="container back_top_hover">
 						<Mutation mutation={REWARD_DATA_SUBMISSION}>
-							{(claimWroteAReview, { data }) => (
+							{(claimWroteAReview, data) => (
 								<div>
 									<form
 										onSubmit={e => {
 											e.preventDefault();
+
 											claimWroteAReview({
 												variables: {
 													phoneNumber: phoneNum,
@@ -184,6 +188,7 @@ class ReviewSubmitted extends React.Component {
 									>
 										<button type="submit">Add Todo</button>
 									</form>
+									{JSON.stringify(data)}
 								</div>
 							)}
 						</Mutation>

@@ -5,8 +5,23 @@ import Modal from "react-modal";
 import PhoneInput from "react-phone-number-input";
 import { isValidPhoneNumber } from "react-phone-number-input";
 
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
+
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
+
+const REWARD_DATA_SUBMISSION = gql`
+	mutation RewardDataSubmission(
+		$phoneNumber: String!
+		$paymentMethod: PaymentMethod!
+	) {
+		claimWroteAReview(
+			phoneNumber: $phoneNumber
+			paymentMethod: $paymentMethod
+		)
+	}
+`;
 
 export default class RewardsComponent extends React.Component {
 	constructor() {
@@ -22,6 +37,7 @@ export default class RewardsComponent extends React.Component {
 		this.closeModal = this.closeModal.bind(this);
 		this.handelPhoneSubmitting = this.handelPhoneSubmitting.bind(this);
 		this.handlePhoneChange = this.handlePhoneChange.bind(this);
+		this.setPaymentMethodPaypal = this.setPaymentMethodPaypal.bind(this);
 	}
 
 	openModal() {
@@ -40,12 +56,12 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	setPaymentMethodPaypal() {
-		this.state.paymentMethod = "PAYPAL";
+		this.setState({ paymentMethod: "PAYPAL" });
 		this.openModal();
 	}
 
 	setPaymentMethodXoom() {
-		this.state.paymentMethod = "XOOM";
+		this.setState({ paymentMethod: "XOOM" });
 		this.openModal();
 	}
 
@@ -82,6 +98,8 @@ export default class RewardsComponent extends React.Component {
 			this.state.phoneError = "";
 		}
 
+		const phoneNum = "9567484856";
+		const paymentM = "PAYPAL";
 		return (
 			<div>
 				<div className="congratulations">
@@ -159,13 +177,33 @@ export default class RewardsComponent extends React.Component {
 							/>
 
 							<br />
-							<button
-								className="btn btn-primary"
-								style={{ float: "right" }}
-								onClick={this.closeModal}
-							>
-								<T>submit</T>
-							</button>
+							<Mutation mutation={REWARD_DATA_SUBMISSION}>
+								{(claimWroteAReview, data) => (
+									<div>
+										<form
+											onSubmit={e => {
+												e.preventDefault();
+
+												claimWroteAReview({
+													variables: {
+														phoneNumber: phoneNum,
+														paymentMethod: paymentM,
+													},
+												});
+											}}
+										>
+											<button
+												className="btn btn-primary"
+												style={{ float: "right" }}
+												onClick={this.closeModal}
+											>
+												<T>submit</T>
+											</button>
+										</form>
+										{JSON.stringify(data)}
+									</div>
+								)}
+							</Mutation>
 						</fieldset>
 					</form>
 				</Modal>
