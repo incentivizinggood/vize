@@ -13,9 +13,7 @@ import i18n from "meteor/universe:i18n";
 import { SalarySchema } from "/imports/api/data/salaries.js";
 import "./submit-salary-data.html";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 import "/imports/ui/afInputLocation.html";
 import "/imports/ui/afInputLocation.js";
@@ -218,16 +216,11 @@ export default class SubmitSalaryDataForm extends React.Component {
 		ssd_form_state.set("companyId", this.props.companyId);
 
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="page SubmitSalaryDataForm">
 					<Blaze template="ssd_blaze_form" />
 				</div>
-				<Footer />
-				<Dialog />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

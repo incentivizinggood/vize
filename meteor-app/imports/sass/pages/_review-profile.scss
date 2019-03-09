@@ -14,6 +14,34 @@
 .back_col_logo {
 	background-color: #ffffff;
 }
+.flag-style-btn {
+	border: none;
+	color: grey;
+	padding: 10px 14px;
+	border-style: solid;
+	border-width: thin;
+	border-color: grey;
+	margin-top: 50px;
+	margin-right: 10px;
+	font-size: 16px;
+	cursor: pointer;
+}
+.flag-style-btn:hover {
+	background-color: red;
+	color: white;
+	border-style: none;
+	border-width: none;
+}
+@media (max-width: 768px) {
+	.flag-style-btn {
+		text-align: center;
+		display: inline-block;
+		margin: 0 5px;
+	}
+}
+#emoji {
+	font-size: 30px;
+}
 
 .container-margin {
 	padding-left: 24px;

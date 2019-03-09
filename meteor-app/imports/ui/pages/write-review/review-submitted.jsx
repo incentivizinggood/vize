@@ -13,7 +13,6 @@ import { MDBContainer, MDBAlert } from "mdbreact";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
 import RewardsComponent from "./rewardsComponent.jsx";
 import rewardsEligibility from "./rewards-eligibility.graphql";
 
@@ -195,7 +194,6 @@ class ReviewSubmitted extends React.Component {
 						{content}
 					</div>
 				</section>
-				<Dialog />
 				<Footer />
 			</div>
 		);

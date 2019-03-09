@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();
@@ -13,10 +11,7 @@ const T = i18n.createComponent();
 export default class ForEmployers extends React.Component {
 	render() {
 		return (
-			<div>
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<div className="full-width-container forEmployees-header">
 					<div className="container ">
 						<div className="col-md-12">
@@ -170,10 +165,7 @@ export default class ForEmployers extends React.Component {
 					</div>
 				</div>
 				{/* //section */}
-
-				<Footer />
-				<Dialog />
-			</div>
+			</PageWrapper>
 		);
 	}
 }

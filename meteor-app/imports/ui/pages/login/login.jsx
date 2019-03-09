@@ -2,9 +2,7 @@ import React from "react";
 
 import i18n from "meteor/universe:i18n";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
-import Dialog from "/imports/ui/components/dialog-box";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 import LoginForm from "./login-form.js";
 
@@ -15,10 +13,7 @@ const T = i18n.createComponent(t);
  */
 function LoginPage() {
 	return (
-		<div className="page login">
-			<div className="navbarwhite">
-				<Header />
-			</div>
+		<PageWrapper>
 			<div className="container  login-top-spce">
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">
@@ -48,9 +43,7 @@ function LoginPage() {
 					</div>
 				</div>
 			</div>
-			<Dialog />
-			<Footer />
-		</div>
+		</PageWrapper>
 	);
 }
 

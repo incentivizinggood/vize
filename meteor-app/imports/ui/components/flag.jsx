@@ -6,7 +6,6 @@ import { Email } from "meteor/email";
 import { Accounts } from "meteor/accounts-base";
 
 import "../../api/data/methods.js";
-import Dialog from "./dialog-box.jsx";
 
 /* The page where users write/edit their reviews.
    imports/ui/pages/dialog-box.jsx:22:20: Unexpected token (22:20)
@@ -179,7 +178,6 @@ export default class FlagSystem extends React.Component {
 						</section>
 					</div>
 				</div>
-				// <Dialog />
 			</div>
 		);
 	}
