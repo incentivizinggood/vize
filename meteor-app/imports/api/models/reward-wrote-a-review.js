@@ -11,14 +11,6 @@ import { getReviewsByAuthor, getUserPostgresId } from ".";
 
 export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELEGABLE";
 
-export type ClaimWroteAReviewResult =
-	| "OK"
-	| "NOT_EARNED"
-	| "ALREADY_CLAIMED"
-	| "INELEGABLE"
-	| "PHONENUMBER_INVALID"
-	| "PHONENUMBER_ALREADY_USED";
-
 export type PaymentMethod = "PAYPAL" | "XOOM";
 
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
@@ -46,15 +38,15 @@ export async function claimWroteAReview(
 	user: User,
 	phoneNumber: string,
 	paymentMethod: PaymentMethod
-): Promise<ClaimWroteAReviewResult> {
+): Promise<RewardStatus> {
 	// Check if the user can claim this reward.
 	switch (await wroteAReviewStatus(user)) {
 		case "CAN_EARN":
-			return "NOT_EARNED";
+			throw Error("NOT_EARNED");
 		case "CLAIMED":
-			return "ALREADY_CLAIMED";
+			throw Error("ALREADY_CLAIMED");
 		case "INELEGABLE":
-			return "INELEGABLE";
+			throw Error("INELEGABLE");
 		default:
 	}
 
@@ -72,7 +64,7 @@ export async function claimWroteAReview(
 				[phoneNumber]
 			)).rows.length > 0
 		)
-			return "PHONENUMBER_ALREADY_USED";
+			throw Error("PHONENUMBER_ALREADY_USED");
 
 		// All checks have passed. We now give the user their reward.
 
@@ -83,9 +75,11 @@ export async function claimWroteAReview(
 			"INSERT INTO reward_wrote_a_review (user_id, phone_number, payment_method) VALUES ($1, $2, $3)",
 			[userPId, phoneNumber, paymentMethod]
 		);
-
-		return "OK";
 	};
 
-	return execTransactionRW(transaction);
+	return execTransactionRW(transaction).then(() =>
+		// Send the new status of the reward as the return value.
+		// Should always be "CLAIMED"
+		wroteAReviewStatus(user)
+	);
 }
