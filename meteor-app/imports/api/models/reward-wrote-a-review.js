@@ -1,4 +1,6 @@
 // @flow
+import { parsePhoneNumber } from "libphonenumber-js/max";
+
 import {
 	execTransactionRO,
 	execTransactionRW,
@@ -8,14 +10,6 @@ import type { User } from ".";
 import { getReviewsByAuthor, getUserPostgresId } from ".";
 
 export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELEGABLE";
-
-export type ClaimWroteAReviewResult =
-	| "OK"
-	| "NOT_EARNED"
-	| "ALREADY_CLAIMED"
-	| "INELEGABLE"
-	| "PHONENUMBER_INVALID"
-	| "PHONENUMBER_ALREADY_USED";
 
 export type PaymentMethod = "PAYPAL" | "XOOM";
 
@@ -44,19 +38,23 @@ export async function claimWroteAReview(
 	user: User,
 	phoneNumber: string,
 	paymentMethod: PaymentMethod
-): Promise<ClaimWroteAReviewResult> {
+): Promise<RewardStatus> {
 	// Check if the user can claim this reward.
 	switch (await wroteAReviewStatus(user)) {
 		case "CAN_EARN":
-			return "NOT_EARNED";
+			throw Error("NOT_EARNED");
 		case "CLAIMED":
-			return "ALREADY_CLAIMED";
+			throw Error("ALREADY_CLAIMED");
 		case "INELEGABLE":
-			return "INELEGABLE";
+			throw Error("INELEGABLE");
 		default:
 	}
 
 	// Check if the phone number is valid.
+	const phoneNumberInfo = parsePhoneNumber(phoneNumber);
+	// We only accept mexico phone numbers to prevent fake numbers from services
+	// like Google Voice.
+	if (phoneNumberInfo.country !== "MX") throw Error("NON_MEXICO_NUMBER");
 
 	const transaction = async client => {
 		// Check if the phone number has already been used.
@@ -66,7 +64,7 @@ export async function claimWroteAReview(
 				[phoneNumber]
 			)).rows.length > 0
 		)
-			return "PHONENUMBER_ALREADY_USED";
+			throw Error("PHONENUMBER_ALREADY_USED");
 
 		// All checks have passed. We now give the user their reward.
 
@@ -77,9 +75,11 @@ export async function claimWroteAReview(
 			"INSERT INTO reward_wrote_a_review (user_id, phone_number, payment_method) VALUES ($1, $2, $3)",
 			[userPId, phoneNumber, paymentMethod]
 		);
-
-		return "OK";
 	};
 
-	return execTransactionRW(transaction);
+	return execTransactionRW(transaction).then(() =>
+		// Send the new status of the reward as the return value.
+		// Should always be "CLAIMED"
+		wroteAReviewStatus(user)
+	);
 }

@@ -37,6 +37,7 @@
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^3.1.1",
     "i": "^0.3.6",
+    "libphonenumber-js": "^1.7.10",
     "lint": "^1.1.2",
     "lodash.find": "^4.6.0",
     "message-box": "^0.2.0",
