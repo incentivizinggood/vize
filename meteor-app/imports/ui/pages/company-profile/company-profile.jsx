@@ -24,6 +24,7 @@ class CompanyProfile extends React.Component {
 		// universe:i18n cannot be trusted to do that automaticaly.
 		this.i18nInvalidate = () => this.forceUpdate();
 		i18n.onChangeLocale(this.i18nInvalidate);
+		window.scrollTo(0, 0);
 	}
 
 	componentWillUnmount() {

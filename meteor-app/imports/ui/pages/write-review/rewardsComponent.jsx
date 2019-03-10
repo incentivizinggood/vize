@@ -10,6 +10,7 @@ import { Mutation } from "react-apollo";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
+const enterPhoneText = "enterPhone";
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -155,7 +156,7 @@ export default class RewardsComponent extends React.Component {
 									</legend>
 									<label htmlFor="phone-number" />
 									<PhoneInput
-										placeholder="Enter phone number"
+										placeholder="644 533 9876"
 										countries={["MX"]}
 										error={this.state.phoneError}
 										international={false}

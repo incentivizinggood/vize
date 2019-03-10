@@ -26,6 +26,10 @@ const glyphStyle = {
 // Modal.setAppElement('#yourAppElement')
 
 export default class ResourcesEmployers extends React.Component {
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
 		return (
 			<PageWrapper>

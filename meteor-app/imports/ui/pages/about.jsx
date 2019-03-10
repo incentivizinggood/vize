@@ -11,6 +11,9 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 const T = i18n.createComponent();
 
 export default class AboutPage extends React.Component {
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
 	constructor(props) {
 		super(props);
 		this.state = {
