@@ -26,8 +26,8 @@ export default class FlagSystem extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert(`${"sent1" + ": "}${this.state.value}`);
-		alert(`${"sent2" + ": "}${this.state.name}`);
+		alert(`${"radio buttons:" + ": "}${this.state.value}`);
+		alert(`${"desc:" + ": "}${this.state.name}`);
 
 		Meteor.call(
 			"sendEmail",
@@ -68,45 +68,45 @@ export default class FlagSystem extends React.Component {
 			<div className="system flag">
 				<form onSubmit={this.handleSubmit} id="submitForm">
 					<h2 className={style.flagTitle}> Report review </h2>
+					<hr className={style.linePadding} />
 					<div className={style.reason}>
-						<select id="selectID" onChange={this.handleTextChange}>
+						<select
+							className="form-control"
+							onChange={this.handleTextChange}
+						>
 							<option selected disabled>
 								Choose a Reason
 							</option>
 							<option value="Inappropriate Comment">
 								Inappropriate Comment
 							</option>
-							<option value="False Information">Opel</option>
-							<option value="audi">Audi</option>
-							<option value="audi">Audi</option>
+							<option value="False Information">
+								False Information
+							</option>
+							<option value="audi">Other</option>
 						</select>
-						e
 					</div>
-					<div>
-						<label className={style.descrBox}>
-							{" "}
-							{`${"Please let us know why you picked" + ": "}${
-								this.state.name
-							}`}
-						</label>
+					<div className={style.textArea}>
 						<textarea
-							rows="4"
-							cols="50"
-							placeholder="Input here"
-							className={style.textArea}
+							rows="2"
+							cols="200"
+							placeholder="Please provide a brief explanation"
+							className="form-control shadow-textarea z-depth-1"
 							onChange={this.handleTextChange}
 						/>
 					</div>
 				</form>
-				<button
-					type="submit"
-					className="doneButton"
-					form="submitForm"
-					value="Submit"
-				>
-					{" "}
-					SUBMIT
-				</button>
+				<div className={style.buttonSlide}>
+					<button
+						type="submit"
+						className="btn btn-primary"
+						form="submitForm"
+						value="Submit"
+					>
+						{" "}
+						SUBMIT
+					</button>
+				</div>
 			</div>
 		);
 	}
