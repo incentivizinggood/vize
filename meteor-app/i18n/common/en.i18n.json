@@ -216,6 +216,14 @@
 		"cons": "Cons",
 		"additional_comments": "Additional Comments"
 	},
+	"flags": {
+		"choose_reason": "Choose a Reason",
+		"false": "False Information",
+		"in_comment": "Inappropriate Comment",
+		"other": "Other",
+		"explanation": "Please provide an explanation",
+		"report_review": "Report Review"
+	},
 	"jobpostings": {
 		"apply_now": "Apply Now",
 		"hour": "/Hourly",

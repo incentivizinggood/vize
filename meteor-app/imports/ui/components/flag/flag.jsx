@@ -1,12 +1,13 @@
 import React from "react";
+import i18n from "meteor/universe:i18n";
 import { Link } from "react-router-dom";
-
 import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { Accounts } from "meteor/accounts-base";
 import style from "./flag.scss";
-
 import "../../../api/data/methods.js";
+
+const T = i18n.createComponent();
 
 /* The page where users write/edit their reviews.
    imports/ui/pages/dialog-box.jsx:22:20: Unexpected token (22:20)
@@ -67,7 +68,10 @@ export default class FlagSystem extends React.Component {
 		return (
 			<div className="system flag">
 				<form onSubmit={this.handleSubmit} id="submitForm">
-					<h2 className={style.flagTitle}> Report review </h2>
+					<h2 className={style.flagTitle}>
+						{" "}
+						<T>common.flags.report_review</T>{" "}
+					</h2>
 					<hr className={style.linePadding} />
 					<div className={style.reason}>
 						<select
@@ -75,15 +79,17 @@ export default class FlagSystem extends React.Component {
 							onChange={this.handleTextChange}
 						>
 							<option selected disabled>
-								Choose a Reason
+								<T>common.flags.choose_reason</T>
 							</option>
 							<option value="Inappropriate Comment">
-								Inappropriate Comment
+								<T>common.flags.in_comment</T>
 							</option>
 							<option value="False Information">
-								False Information
+								<T>common.flags.false</T>
 							</option>
-							<option value="audi">Other</option>
+							<option value="audi">
+								<T>common.flags.other</T>
+							</option>
 						</select>
 					</div>
 					<div className={style.textArea}>
