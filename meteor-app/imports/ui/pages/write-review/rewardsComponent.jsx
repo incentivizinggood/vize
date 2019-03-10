@@ -99,7 +99,8 @@ export default class RewardsComponent extends React.Component {
 			this.state.phoneError = "";
 		}
 
-		const phoneNum = "9567484856";
+		// const phoneNum = "9567484856";
+		const phoneNum = "+529767484857";
 		const paymentM = "PAYPAL";
 		return (
 			<div>
@@ -160,34 +161,30 @@ export default class RewardsComponent extends React.Component {
 					ariaHideApp={false}
 					style={customStyles}
 				>
-					<form onSubmit={this.handelPhoneSubmitting} id="rewardForm">
-						<fieldset>
-							<legend>
-								<T>enterPhone</T>
-							</legend>
-							<label htmlFor="phone-number" />
-							<PhoneInput
-								placeholder="Enter phone number"
-								countries={["MX"]}
-								error={this.state.phoneError}
-								international={false}
-								value={this.state.phoneNumber}
-								onChange={phoneNumber =>
-									this.setState({ phoneNumber })
-								}
-							/>
-							<button type="submit" value="asdfasdf">
-								{" "}
-								asdf
-							</button>
+					<Mutation mutation={REWARD_DATA_SUBMISSION}>
+						{(claimWroteAReview, data) => (
+							<form onSubmit={this.handelPhoneSubmitting}>
+								<fieldset>
+									<legend>
+										<T>enterPhone</T>
+									</legend>
+									<label htmlFor="phone-number" />
+									<PhoneInput
+										placeholder="Enter phone number"
+										countries={["MX"]}
+										error={this.state.phoneError}
+										international={false}
+										value={this.state.phoneNumber}
+										onChange={phoneNumber =>
+											this.setState({ phoneNumber })
+										}
+									/>
 
-							<br />
-							<Mutation mutation={REWARD_DATA_SUBMISSION}>
-								{(claimWroteAReview, data) => (
+									<br />
+
 									<button
 										className="btn btn-primary"
 										type="submit"
-										form="rewardForm"
 										style={{ float: "right" }}
 										onClick={e => {
 											e.preventDefault();
@@ -199,15 +196,14 @@ export default class RewardsComponent extends React.Component {
 													paymentMethod: paymentM,
 												},
 											});
-											console.log(data);
 										}}
 									>
 										<T>submit</T>
 									</button>
-								)}
-							</Mutation>
-						</fieldset>
-					</form>
+								</fieldset>
+							</form>
+						)}
+					</Mutation>
 				</Modal>
 			</div>
 		);

@@ -159,8 +159,6 @@ class ReviewSubmitted extends React.Component {
 				</div>
 			);
 		}
-		const phoneNum = "9567484856";
-		const paymentM = "PAYPAL";
 
 		return (
 			<div className="padding-fix">
