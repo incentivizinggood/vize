@@ -135,21 +135,6 @@ export default class RewardsComponent extends React.Component {
 									<T>getReward</T>
 								</a>
 							</div>
-							<div className="reward">
-								<div className="reward-visual">
-									<img
-										src="images/xoom.png"
-										alt="xoom logo"
-									/>
-									<p className="price-tag">$5</p>
-								</div>
-								<p>
-									<T>minutesReward</T>
-								</p>
-								<a onClick={this.setPaymentMethodXoom}>
-									<T>getReward</T>
-								</a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -210,14 +195,19 @@ export default class RewardsComponent extends React.Component {
 	}
 }
 /*
-<input
-	type="tel"
-	id="phone-number"
-	value={phoneNumber}
-	onChange={this.handlePhoneChange}
-	placeholder="(541)754-3010"
-	required
-/>
-
-<input type="submit" value={t("submit")} />
+<div className="reward">
+	<div className="reward-visual">
+		<img
+			src="images/xoom.png"
+			alt="xoom logo"
+		/>
+		<p className="price-tag">$5</p>
+	</div>
+	<p>
+		<T>minutesReward</T>
+	</p>
+	<a onClick={this.setPaymentMethodXoom}>
+		<T>getReward</T>
+	</a>
+</div>
 */
