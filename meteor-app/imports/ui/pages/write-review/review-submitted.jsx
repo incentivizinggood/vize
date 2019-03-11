@@ -33,7 +33,7 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
-const Reward = () => (
+/* const Reward = () => (
 	<Query query={rewardsEligibility}>
 		{({ loading, error, data }) => {
 			if (data) {
@@ -50,7 +50,7 @@ const Reward = () => (
 			return <RewardsComponent action={this.changeReviewStatusState} />;
 		}}
 	</Query>
-);
+); */
 
 class ReviewSubmitted extends React.Component {
 	constructor(props) {
