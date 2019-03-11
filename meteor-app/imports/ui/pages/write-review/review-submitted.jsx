@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Mutation } from "react-apollo";
+import rewardsEligibility from "./rewards-eligibility.graphql";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -14,7 +15,6 @@ import { MDBContainer, MDBAlert } from "mdbreact";
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
 import RewardsComponent from "./rewardsComponent.jsx";
-import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -33,70 +33,36 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
-/*
-mutation {
-	claimWroteAReview(phoneNumber: "+529565960697", paymentMethod: PAYPAL)
-}
-
-
-*/
 const Reward = () => (
 	<Query query={rewardsEligibility}>
 		{({ loading, error, data }) => {
 			if (data) {
 				console.log(data);
+				// this.setState({ rewardStatus: "CLAIM" });
 				if (data.wroteAReview === "CAN_CLAIM") {
-					return <RewardsComponent />;
+					return (
+						<RewardsComponent
+							action={this.changeReviewStatusState}
+						/>
+					);
 				}
 			}
-			return <RewardsComponent />;
+			return <RewardsComponent action={this.changeReviewStatusState} />;
 		}}
 	</Query>
 );
-/*
-const Alert = ( function() {return (
-	<div className="container alert-container">
-		<div className="row">
-			<div className="col-sm" />
-			<div className="col-8">
-				<MDBContainer>
-					<MDBAlert color="success">
-						<h4 className="alert-heading">
-							<T>phoneSuccess</T>
-						</h4>
-						<p>
-							<T>phoneSuccess2</T>
-						</p>
-					</MDBAlert>
-				</MDBContainer>
-			</div>
-			<div className="col-sm" />
-		</div>
-	</div>
-);}) ();
-	return (
-		<div className="container alert-container">
-			<div className="row">
-				<div className="col-sm" />
-				<div className="col-8">
-					<MDBContainer>
-						<MDBAlert color="success">
-							<h4 className="alert-heading">
-								<T>phoneSuccess</T>
-							</h4>
-							<p>
-								<T>phoneSuccess2</T>
-							</p>
-						</MDBAlert>
-					</MDBContainer>
-				</div>
-				<div className="col-sm" />
-			</div>
-		</div>
-	);
-); */
 
 class ReviewSubmitted extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.changeReviewStatusState = this.changeReviewStatusState.bind(this);
+		console.log("mamiii");
+		this.state = {
+			rewardStatus: "",
+		};
+	}
+
 	componentDidMount() {
 		window.scrollTo(0, 0);
 	}
@@ -113,6 +79,11 @@ class ReviewSubmitted extends React.Component {
 		this.setState({ phoneNumber: event.target.value });
 	}
 
+	changeReviewStatusState() {
+		console.log("checkeed");
+		this.setState({ rewardStatus: "test" });
+	}
+
 	renderContent() {
 		return (
 			<div className="col-md-12">
@@ -123,7 +94,22 @@ class ReviewSubmitted extends React.Component {
 					<T>reviewSubmitted</T>
 				</p>
 
-				<Reward />
+				<Query query={rewardsEligibility}>
+					{({ loading, error, data }) => {
+						if (data) {
+							console.log(data);
+							// this.setState({ rewardStatus: data.wroteAReview });
+							if (data.wroteAReview === "CAN_CLAIM") {
+								return (
+									<RewardsComponent
+										action={this.changeReviewStatusState}
+									/>
+								);
+							}
+						}
+						return <p />;
+					}}
+				</Query>
 			</div>
 		);
 	}
@@ -177,3 +163,46 @@ class ReviewSubmitted extends React.Component {
 export default withTracker(() => ({
 	user: Meteor.user(),
 }))(ReviewSubmitted);
+
+/*
+const Alert = ( function() {return (
+	<div className="container alert-container">
+		<div className="row">
+			<div className="col-sm" />
+			<div className="col-8">
+				<MDBContainer>
+					<MDBAlert color="success">
+						<h4 className="alert-heading">
+							<T>phoneSuccess</T>
+						</h4>
+						<p>
+							<T>phoneSuccess2</T>
+						</p>
+					</MDBAlert>
+				</MDBContainer>
+			</div>
+			<div className="col-sm" />
+		</div>
+	</div>
+);}) ();
+	return (
+		<div className="container alert-container">
+			<div className="row">
+				<div className="col-sm" />
+				<div className="col-8">
+					<MDBContainer>
+						<MDBAlert color="success">
+							<h4 className="alert-heading">
+								<T>phoneSuccess</T>
+							</h4>
+							<p>
+								<T>phoneSuccess2</T>
+							</p>
+						</MDBAlert>
+					</MDBContainer>
+				</div>
+				<div className="col-sm" />
+			</div>
+		</div>
+	);
+); */

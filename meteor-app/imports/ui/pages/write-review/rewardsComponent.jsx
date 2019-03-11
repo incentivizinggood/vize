@@ -7,10 +7,11 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { Query } from "react-apollo";
+import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
-const enterPhoneText = "enterPhone";
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -25,8 +26,8 @@ const REWARD_DATA_SUBMISSION = gql`
 `;
 
 export default class RewardsComponent extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			phoneNumber: "",
@@ -39,6 +40,12 @@ export default class RewardsComponent extends React.Component {
 		this.handelPhoneSubmitting = this.handelPhoneSubmitting.bind(this);
 		this.handlePhoneChange = this.handlePhoneChange.bind(this);
 		this.setPaymentMethodPaypal = this.setPaymentMethodPaypal.bind(this);
+		this.mutationError = this.mutationError.bind(this);
+		this.mutationSuccess = this.mutationSuccess.bind(this);
+		this.mutationCompleted = this.mutationCompleted.bind(this);
+	}
+	componentDidMount() {
+		window.scrollTo(0, 0);
 	}
 
 	openModal() {
@@ -46,13 +53,14 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	closeModal() {
+		console.log("closing");
 		if (
 			this.state.phoneNumber &&
 			isValidPhoneNumber(this.state.phoneNumber)
 		) {
 			this.setState({ modalIsOpen: false });
 		} else {
-			this.state.phoneError = "Invalid Phone";
+			this.state.phoneError = t("invalidPhoneNumber");
 		}
 	}
 
@@ -79,6 +87,32 @@ export default class RewardsComponent extends React.Component {
 		this.setState({ phoneNumber: event.target.value });
 	}
 
+	mutationError() {
+		this.props.action();
+		if (
+			this.state.phoneNumber &&
+			isValidPhoneNumber(this.state.phoneNumber)
+		) {
+			this.setState({ phoneError: t("phoneNumberUsed") });
+		} else {
+			this.setState({ phoneError: t("invalidPhoneNumber") });
+		}
+	}
+
+	mutationSuccess() {
+		console.log("success");
+		this.closeModal();
+	}
+
+	mutationCompleted(data) {
+		console.log("completed");
+		console.log(data);
+		if (data.claimWroteAReview === "CLAIMED") {
+			this.closeModal();
+			this.props.action();
+		}
+	}
+
 	render() {
 		const { hasRegisteredPhone, phoneNumber } = this.state;
 		const customStyles = {
@@ -93,15 +127,8 @@ export default class RewardsComponent extends React.Component {
 			},
 		};
 
-		if (
-			this.state.phoneNumber &&
-			isValidPhoneNumber(this.state.phoneNumber)
-		) {
-			this.state.phoneError = "";
-		}
-
 		// const phoneNum = "9567484856";
-		const phoneNum = "+529767484857";
+		const phoneNum = "+529767484852";
 		const paymentM = "PAYPAL";
 		return (
 			<div>
@@ -147,7 +174,12 @@ export default class RewardsComponent extends React.Component {
 					ariaHideApp={false}
 					style={customStyles}
 				>
-					<Mutation mutation={REWARD_DATA_SUBMISSION}>
+					<Mutation
+						onError={this.mutationError}
+						onSuccess={this.mutationSuccess}
+						onCompleted={this.mutationCompleted}
+						mutation={REWARD_DATA_SUBMISSION}
+					>
 						{(claimWroteAReview, data) => (
 							<form onSubmit={this.handelPhoneSubmitting}>
 								<fieldset>
@@ -161,15 +193,32 @@ export default class RewardsComponent extends React.Component {
 										error={this.state.phoneError}
 										international={false}
 										value={this.state.phoneNumber}
-										onChange={phoneNumber =>
-											this.setState({ phoneNumber })
-										}
+										onChange={phoneNumber => {
+											this.setState({ phoneNumber });
+
+											if (
+												this.state.phoneNumber &&
+												isValidPhoneNumber(
+													this.state.phoneNumber
+												)
+											) {
+												this.state.phoneError = "";
+											}
+										}}
 									/>
 
 									<br />
 
 									<button
 										className="btn btn-primary"
+										disabled={
+											!(
+												this.state.phoneNumber &&
+												isValidPhoneNumber(
+													this.state.phoneNumber
+												)
+											)
+										}
 										type="submit"
 										style={{ float: "right" }}
 										onClick={e => {
@@ -178,8 +227,10 @@ export default class RewardsComponent extends React.Component {
 											console.log(data);
 											claimWroteAReview({
 												variables: {
-													phoneNumber: phoneNum,
-													paymentMethod: paymentM,
+													phoneNumber: this.state
+														.phoneNumber,
+													paymentMethod: this.state
+														.paymentMethod,
 												},
 											});
 										}}

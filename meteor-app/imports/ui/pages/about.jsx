@@ -11,9 +11,6 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 const T = i18n.createComponent();
 
 export default class AboutPage extends React.Component {
-	componentDidMount() {
-		window.scrollTo(0, 0);
-	}
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -33,6 +30,7 @@ export default class AboutPage extends React.Component {
 		// universe:i18n cannot be trusted to do that automaticaly.
 		this.i18nInvalidate = () => this.forceUpdate();
 		i18n.onChangeLocale(this.i18nInvalidate);
+		window.scrollTo(0, 0);
 	}
 
 	componentWillUnmount() {

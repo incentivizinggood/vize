@@ -132,6 +132,8 @@
 		"minutesReward": "Recibe $5 en minutos",
 		"getReward": "Recibir Recompensa",
 		"enterPhone": "Por favor, ingrese su número de teléfono",
+		"phoneNumberUsed": "Número de teléfono ya utilizado",
+		"invalidPhoneNumber": "Número de teléfono invalido",
 		"submit": "Enviar"
 	},
 	"jobsearch": {
