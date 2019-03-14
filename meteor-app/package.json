@@ -66,6 +66,10 @@
     "simpl-schema": "1.4.3"
   },
   "devDependencies": {
+    "@types/graphql": "^14.0.7",
+    "@types/graphql-iso-date": "^3.3.1",
+    "@types/pg": "^7.4.13",
+    "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
     "graphqlgen": "^0.5.1",
     "node-sass": "^4.11.0",
