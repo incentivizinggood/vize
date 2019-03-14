@@ -14,7 +14,7 @@
       "scss"
     ],
     "passthroughPaths": [
-      "^imports/sass/.*\\.scss",
+      "^imports/ui/sass/.*\\.scss",
       "^client/main\\.scss"
     ]
   },
