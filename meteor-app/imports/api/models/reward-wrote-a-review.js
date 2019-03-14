@@ -9,12 +9,12 @@ import {
 import type { User } from ".";
 import { getReviewsByAuthor, getUserPostgresId } from ".";
 
-export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELEGABLE";
+export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELIGIBLE";
 
 export type PaymentMethod = "PAYPAL" | "XOOM";
 
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
-	if (user.role !== "worker") return "INELEGABLE";
+	if (user.role !== "worker") return "INELIGIBLE";
 
 	const transaction = async client => {
 		const userPId = await getUserPostgresId(user._id);
@@ -54,6 +54,8 @@ export async function claimWroteAReview(
 	const phoneNumberInfo = parsePhoneNumber(phoneNumber);
 	// We only accept mexico phone numbers to prevent fake numbers from services
 	// like Google Voice.
+	console.log("phoneinfo");
+	console.log(phoneNumberInfo);
 	if (phoneNumberInfo.country !== "MX") throw Error("NON_MEXICO_NUMBER");
 
 	const transaction = async client => {

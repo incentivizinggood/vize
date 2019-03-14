@@ -94,9 +94,9 @@
 			position: relative;
 			border-radius: 2px;
 			margin-bottom: 34px;
+
 			&.rsl {
 				width: calc((100% - 40px) / 2);
-
 				@media (max-width: 576px) {
 					width: 100%;
 				}
@@ -126,6 +126,38 @@
 			padding-top: 19px;
 			padding-bottom: 15px;
 			border: none;
+		}
+	}
+}
+
+.login-fm {
+	.warning-input[type="password"] {
+		border: 1px solid red;
+		color: red;
+	}
+	.warning-input[type="text"] {
+		border: 1px solid red;
+		color: red;
+	}
+	.message {
+		&--alert {
+			color: red;
+			text-align: left;
+			margin-top: 5px;
+			position: relative;
+			span {
+				font-weight: bold;
+				margin-left: 4px;
+			}
+			// &:after{
+			// 	content:"Enter your Password";
+			// 	background-color: white;
+			// 	padding: 0px 5px;
+			// 	color: red;
+			// 	position: absolute;
+			// 	left: 8px;
+			// 	top: -50px;
+			// }
 		}
 	}
 }
