@@ -1,4 +1,4 @@
-import { execTransactionRO } from "/imports/api/connectors/postgresql";
+import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import { JobAdId, Location, Company, JobAd, getCompanyByName } from ".";
 

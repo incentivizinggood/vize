@@ -1,8 +1,8 @@
 // WARNING: Comments have not been fully implemented yet. This code is a half
 // done mess. Keep that in mind when working with it.
-import PostgreSQL from "/imports/api/connectors/postgresql-old";
+import PostgreSQL from "imports/api/connectors/postgresql-old";
 
-import PgCommentFunctions from "/imports/api/models/helpers/postgresql/comments";
+import PgCommentFunctions from "imports/api/models/helpers/postgresql/comments";
 import {
 	CommentId,
 	Comment,
@@ -55,12 +55,14 @@ export async function getCommentsByParent(
 	parent: CommentParent,
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
-): Comment[] {
+): Promise<Comment[]> {
 	throw new Error("Not implemented yet");
 }
 
 // Get the thing that a given comment is about or the comment that a given comment is responding to.
-export async function getParentOfComment(comment: Comment): CommentParent {
+export async function getParentOfComment(
+	comment: Comment
+): Promise<CommentParent> {
 	throw new Error("Not implemented yet");
 }
 

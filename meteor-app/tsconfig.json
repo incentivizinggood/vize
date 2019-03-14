@@ -1,8 +1,10 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		"moduleResolution": "Node",
 		"outDir": "./dist",
 		"allowJs": true,
-		"target": "es5"
+		"target": "es6"
 	},
 	"include": ["./imports/**/*"]
 }

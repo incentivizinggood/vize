@@ -1,18 +1,18 @@
-import { execTransactionRW } from "/imports/api/connectors/postgresql";
+import { execTransactionRW } from "imports/api/connectors/postgresql";
 
 import { CompanyId, Company } from ".";
 
-export async function createCompany(companyParams: unknown): Company {
+export async function createCompany(companyParams: unknown): Promise<Company> {
 	throw new Error("Not implemented yet");
 }
 
 export async function editCompany(
 	id: CompanyId,
 	companyChanges: unknown
-): Company {
+): Promise<Company> {
 	throw new Error("Not implemented yet");
 }
 
-export async function deleteCompany(id: CompanyId): Company {
+export async function deleteCompany(id: CompanyId): Promise<Company> {
 	throw new Error("Not implemented yet");
 }

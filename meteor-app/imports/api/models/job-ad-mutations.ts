@@ -1,15 +1,21 @@
-import { execTransactionRW } from "/imports/api/connectors/postgresql";
+import { execTransactionRW } from "imports/api/connectors/postgresql";
 
 import { JobAdId, Company, JobAd } from ".";
 
-export async function postJobAd(company: Company, jobAdParams: unknown): JobAd {
+export async function postJobAd(
+	company: Company,
+	jobAdParams: unknown
+): Promise<JobAd> {
 	throw new Error("Not implemented yet");
 }
 
-export async function editJobAd(id: JobAdId, jobAdChanges: unknown): JobAd {
+export async function editJobAd(
+	id: JobAdId,
+	jobAdChanges: unknown
+): Promise<JobAd> {
 	throw new Error("Not implemented yet");
 }
 
-export async function deleteJobAd(id: JobAdId): JobAd {
+export async function deleteJobAd(id: JobAdId): Promise<JobAd> {
 	throw new Error("Not implemented yet");
 }

@@ -1,4 +1,4 @@
-import { execTransactionRO } from "/imports/api/connectors/postgresql";
+import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import { MongoId, PgId } from ".";
 
@@ -16,7 +16,7 @@ export function stringToUserId(id: string): UserMId {
 
 // Get the integer ID of a user's PostgreSQL entry
 export async function getUserPostgresId(id: UserId): Promise<UserPId> {
-	if (typeof id === "number" || id instanceof Number) {
+	if (typeof id === "number") {
 		// The given id is a number.
 		// Assume it is already a PostgreSQL id.
 		return id;
@@ -41,7 +41,7 @@ export async function getUserPostgresId(id: UserId): Promise<UserPId> {
 
 // Get the string ID of a user's MongoDB document
 export async function getUserMongoId(id: UserId): Promise<UserMId> {
-	if (typeof id === "string" || id instanceof String) {
+	if (typeof id === "string") {
 		// The given id is a string.
 		// Assume it is already a MongoDB id.
 		return id;

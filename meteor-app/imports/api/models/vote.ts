@@ -1,4 +1,4 @@
-import { CommentId, ReviewId, UserPId, Comment, Review, User } from ".";
+import { CommentId, ReviewId, UserPId, Comment, Review } from ".";
 
 export type CommentVote = {
 	submittedby: UserPId;
@@ -26,10 +26,10 @@ export function getVoteSubjectRef(
 ):
 	| { subjectType: "comment"; refersTo: CommentId }
 	| { subjectType: "review"; refersTo: ReviewId } {
-	if (subject.reviewid) {
-		return { subjectType: "review", refersTo: subject.reviewid };
-	} else if (subject._id) {
-		return { subjectType: "comment", refersTo: subject._id };
+	if ((<Review>subject).reviewid) {
+		return { subjectType: "review", refersTo: (<Review>subject).reviewid };
+	} else if ((<Comment>subject)._id) {
+		return { subjectType: "comment", refersTo: (<Comment>subject)._id };
 	} else {
 		throw new Error("Could not determine the type of this vote subject.");
 	}

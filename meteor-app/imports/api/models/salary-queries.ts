@@ -1,8 +1,7 @@
-import { execTransactionRO } from "/imports/api/connectors/postgresql";
+import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import {
 	SalaryId,
-	Location,
 	Company,
 	Salary,
 	User,

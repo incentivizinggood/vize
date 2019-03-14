@@ -1,9 +1,7 @@
-import { execTransactionRO } from "/imports/api/connectors/postgresql.ts";
+import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import {
 	VoteId,
-	Comment,
-	Review,
 	User,
 	Vote,
 	VoteSubject,
@@ -57,9 +55,7 @@ export async function getVoteByAuthorAndSubject(
 	const submittedBy = await getUserPostgresId(user._id);
 
 	const transaction = async client => {
-		let voteResults = { rows: [] };
-
-		voteResults = await client.query(
+		const voteResults = await client.query(
 			"SELECT * FROM " +
 				subjectType +
 				"_votes WHERE submittedby=$1 AND refersto=$2",

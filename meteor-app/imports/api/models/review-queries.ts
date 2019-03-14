@@ -1,9 +1,7 @@
-import { execTransactionRO } from "/imports/api/connectors/postgresql";
+import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import {
 	ReviewId,
-	Location,
-	StarRatings,
 	Company,
 	Review,
 	User,

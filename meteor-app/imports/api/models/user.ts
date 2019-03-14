@@ -1,4 +1,4 @@
-import { UserMId, CompanyId, Company } from ".";
+import { UserMId, CompanyId } from ".";
 
 export type User = {
 	_id: UserMId;

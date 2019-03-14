@@ -1,7 +1,5 @@
 import { Meteor } from "meteor/meteor";
 
-import { execTransactionRO } from "/imports/api/connectors/postgresql";
-
 import { UserId, Company, User, getCompanyById, getUserMongoId } from ".";
 
 const defaultPageSize = 100;

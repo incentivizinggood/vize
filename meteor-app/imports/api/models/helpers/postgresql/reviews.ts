@@ -1,4 +1,4 @@
-import { postToSlack } from "/imports/api/connectors/slack-webhook";
+import { postToSlack } from "imports/api/connectors/slack-webhook";
 import { castToNumberIfDefined } from "./misc";
 
 export default class PgReviewFunctions {

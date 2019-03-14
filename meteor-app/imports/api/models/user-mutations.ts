@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 
-import { execTransactionRW } from "/imports/api/connectors/postgresql";
+import { execTransactionRW } from "imports/api/connectors/postgresql";
 
 import { UserId, User } from ".";
 

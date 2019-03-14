@@ -1,4 +1,4 @@
-import { JobAdId, CompanyId, Location, Company } from ".";
+import { JobAdId, CompanyId } from ".";
 
 export type JobAd = {
 	jobadid: JobAdId;

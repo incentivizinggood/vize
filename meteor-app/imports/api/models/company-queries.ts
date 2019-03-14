@@ -1,4 +1,4 @@
-import { execTransactionRO } from "/imports/api/connectors/postgresql";
+import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import { CompanyId, Company } from ".";
 
@@ -13,7 +13,6 @@ export async function getCompanyById(id: CompanyId): Promise<Company> {
 
 	const transaction = async client => {
 		let companyResults = { rows: [] };
-		let locationResults = { rows: undefined };
 		let statResults = { rows: [] };
 
 		companyResults = await client.query(
@@ -41,7 +40,6 @@ export async function getCompanyById(id: CompanyId): Promise<Company> {
 export async function getCompanyByName(name: string): Promise<Company> {
 	const transaction = async client => {
 		let companyResults = { rows: [] };
-		let locationResults = { rows: undefined };
 		let statResults = { rows: [] };
 
 		companyResults = await client.query(
@@ -72,8 +70,6 @@ export async function getAllCompanies(
 ): Promise<Company[]> {
 	const transaction = async client => {
 		let companyResults = { rows: [] };
-		let locationResults = {};
-		let statResults = {};
 
 		companyResults = await client.query(
 			"SELECT * FROM companies OFFSET $1 LIMIT $2",
@@ -107,8 +103,6 @@ export async function searchForCompanies(
 ): Promise<Company[]> {
 	const transaction = async client => {
 		let companyResults = { rows: [] };
-		let locationResults = {};
-		let statResults = {};
 
 		companyResults = await client.query(
 			"SELECT * FROM companies WHERE name LIKE $1 OFFSET $2 LIMIT $3",
