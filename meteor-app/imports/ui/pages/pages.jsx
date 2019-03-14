@@ -22,7 +22,7 @@ import ShowJobs from "./show-jobs";
 import SubmitSalaryDataForm from "./submit-salary-data";
 import UserPage from "./user";
 import WriteReviewForm from "./write-review";
-import ReviewSubmitted from "/imports/ui/pages/write-review/review-submitted.jsx";
+import ReviewSubmitted from "./review-submitted";
 
 import { queryRoutes } from "./url-generators.js";
 
