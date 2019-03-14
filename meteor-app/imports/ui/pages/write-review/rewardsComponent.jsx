@@ -41,9 +41,6 @@ export default class RewardsComponent extends React.Component {
 		this.mutationError = this.mutationError.bind(this);
 		this.mutationCompleted = this.mutationCompleted.bind(this);
 	}
-	componentDidMount() {
-		window.scrollTo(0, 0);
-	}
 
 	openModal() {
 		this.setState({ modalIsOpen: true });

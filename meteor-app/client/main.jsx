@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "mdbreact/dist/css/mdb.css";
+
 import { Meteor } from "meteor/meteor";
 
 /* The FlowRouter is automaticaly initialized on Meteor.startup.
  * The routes only need to be imported here. No other code is needed.
  */
-
 import "/imports/startup/client/font-awesome.js";
 import AppRoot from "../imports/ui/app-root.jsx";
 import "../imports/startup/client/i18n.js";

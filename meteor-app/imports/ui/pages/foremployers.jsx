@@ -9,9 +9,6 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 const T = i18n.createComponent();
 
 export default class ForEmployers extends React.Component {
-	componentDidMount() {
-		window.scrollTo(0, 0);
-	}
 	render() {
 		return (
 			<PageWrapper>

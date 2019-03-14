@@ -84,9 +84,6 @@ class CompanySearchTrial extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	componentDidMount() {
-		window.scrollTo(0, 0);
-	}
 	handleInputChange(event) {
 		const { target } = event;
 		const value =

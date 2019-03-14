@@ -86,7 +86,7 @@ export default function Footer() {
 				</div>
 				<div className="footer-copy">
 					<p>
-						Vize © 2019. <T>common.footer.all_rights_reserved</T>
+						Vize © 2018. <T>common.footer.all_rights_reserved</T>
 					</p>
 				</div>
 			</div>

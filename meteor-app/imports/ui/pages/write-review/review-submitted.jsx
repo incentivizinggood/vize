@@ -40,10 +40,6 @@ class ReviewSubmitted extends React.Component {
 		this.changeReviewStatusState = this.changeReviewStatusState.bind(this);
 	}
 
-	componentDidMount() {
-		window.scrollTo(0, 0);
-	}
-
 	changeReviewStatusState() {
 		// reload the page when a phone number is successfully inputed to claim a Reward
 		// this is done because the reward status query does not get update until the
