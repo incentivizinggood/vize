@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { CSSTransitionGroup } from "react-transition-group";
 
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.tsx";
+import Footer from "/imports/ui/components/footer.jsx";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);

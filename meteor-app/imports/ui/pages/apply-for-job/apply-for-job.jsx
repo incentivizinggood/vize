@@ -11,7 +11,7 @@ import { AutoForm } from "meteor/aldeed:autoform";
 import i18n from "meteor/universe:i18n";
 
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.tsx";
+import Footer from "/imports/ui/components/footer.jsx";
 
 // Specific stuff second
 import { JobApplicationSchema } from "/imports/api/data/jobads.js";

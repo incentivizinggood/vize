@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.tsx";
+import Footer from "/imports/ui/components/footer.jsx";
 
 function PageWrapper(props) {
 	return (
