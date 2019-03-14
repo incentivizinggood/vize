@@ -12,8 +12,7 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { MDBContainer, MDBAlert } from "mdbreact";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 import RewardsComponent from "./rewardsComponent.jsx";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
@@ -107,16 +106,11 @@ class ReviewSubmitted extends React.Component {
 		}
 
 		return (
-			<div className="padding-fix">
-				<div className="navbarwhite">
-					<Header />
-				</div>
-
+			<PageWrapper>
 				<section className="review-submitted">
 					<div className="container back_top_hover">{content}</div>
 				</section>
-				<Footer />
-			</div>
+			</PageWrapper>
 		);
 	}
 }
