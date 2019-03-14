@@ -1,4 +1,7 @@
-import { execTransactionRO } from "imports/api/connectors/postgresql";
+import {
+	execTransactionRO,
+	Transaction,
+} from "imports/api/connectors/postgresql";
 
 import {
 	SalaryId,
@@ -16,7 +19,7 @@ const defaultPageSize = 100;
 export async function getSalaryById(id: SalaryId): Promise<Salary> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid salary id");
 
-	const transaction = async client => {
+	const transaction: Transaction<Salary> = async client => {
 		let salaryResults = { rows: [] };
 
 		salaryResults = await client.query(
@@ -38,7 +41,7 @@ export async function getSalariesByAuthor(
 ): Promise<Salary[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	const transaction = async client => {
+	const transaction: Transaction<Salary[]> = async client => {
 		let salaryResults = { rows: [] };
 
 		salaryResults = await client.query(
@@ -62,7 +65,7 @@ export async function getSalariesByCompany(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Salary[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Salary[]> = async client => {
 		let salaryResults = { rows: [] };
 
 		salaryResults = await client.query(
@@ -82,7 +85,7 @@ export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
 
 // Count the number of salaries paid by a given company.
 export function countSalariesByCompany(company: Company): Promise<number> {
-	const transaction = async client => {
+	const transaction: Transaction<number> = async client => {
 		let countResults = { rows: [{ count: undefined }] };
 
 		countResults = await client.query(
@@ -103,7 +106,7 @@ export async function getAllSalaries(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Salary[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Salary[]> = async client => {
 		let salaryResults = { rows: [] };
 
 		salaryResults = await client.query(

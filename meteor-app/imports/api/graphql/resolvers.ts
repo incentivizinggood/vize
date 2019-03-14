@@ -30,89 +30,89 @@ const defaultPageSize = 100;
 
 const resolvers: Resolvers = {
 	Query: {
-		say: (obj, args, context, info) => "Hello world.",
+		say: (_obj, _args, _context, _info) => "Hello world.",
 
-		currentUser: (obj, args, context, info) =>
+		currentUser: (_obj, _args, context, _info) =>
 			// The current user is added to the context
 			// by the `meteor/apollo` package.
 			context.user,
 
-		allComments: (obj, args, context, info) =>
+		allComments: (_obj, args, _context, _info) =>
 			dataModel.getAllComments(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		allCompanies: (obj, args, context, info) =>
+		allCompanies: (_obj, args, _context, _info) =>
 			dataModel.getAllCompanies(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		allJobAds: (obj, args, context, info) =>
+		allJobAds: (_obj, args, _context, _info) =>
 			dataModel.getAllJobAds(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		allReviews: (obj, args, context, info) =>
+		allReviews: (_obj, args, _context, _info) =>
 			dataModel.getAllReviews(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		allSalaries: (obj, args, context, info) =>
+		allSalaries: (_obj, args, _context, _info) =>
 			dataModel.getAllSalaries(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		allUsers: (obj, args, context, info) =>
+		allUsers: (_obj, args, _context, _info) =>
 			dataModel.getAllUsers(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		allVotes: (obj, args, context, info) =>
+		allVotes: (_obj, args, _context, _info) =>
 			dataModel.getAllVotes(
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		comment: (obj, args, context, info) =>
+		comment: (_obj, args, _context, _info) =>
 			dataModel.getCommentById(dataModel.stringToCommentId(args.id)),
 
-		company: (obj, args, context, info) =>
+		company: (_obj, args, _context, _info) =>
 			dataModel.getCompanyById(dataModel.stringToCompanyId(args.id)),
 
-		jobAd: (obj, args, context, info) =>
+		jobAd: (_obj, args, _context, _info) =>
 			dataModel.getJobAdById(dataModel.stringToJobAdId(args.id)),
 
-		review: (obj, args, context, info) =>
+		review: (_obj, args, _context, _info) =>
 			dataModel.getReviewById(dataModel.stringToReviewId(args.id)),
 
-		salary: (obj, args, context, info) =>
+		salary: (_obj, args, _context, _info) =>
 			dataModel.getSalaryById(dataModel.stringToSalaryId(args.id)),
 
-		user: (obj, args, context, info) =>
+		user: (_obj, args, _context, _info) =>
 			dataModel.getUserById(dataModel.stringToUserId(args.id)),
 
-		vote: (obj, args, context, info) =>
+		vote: (_obj, args, _context, _info) =>
 			dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 
-		searchCompanies: (obj, args, context, info) =>
+		searchCompanies: (_obj, args, _context, _info) =>
 			dataModel.searchForCompanies(
 				args.searchText || "",
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		wroteAReview: (obj, args, context, info) =>
+		wroteAReview: (_obj, _args, context, _info) =>
 			dataModel.wroteAReviewStatus(context.user),
 	},
 
 	Mutation: {
-		claimWroteAReview: (obj, args, context, info) =>
+		claimWroteAReview: (_obj, args, context, _info) =>
 			dataModel.claimWroteAReview(
 				context.user,
 				args.phoneNumber,
@@ -125,15 +125,15 @@ const resolvers: Resolvers = {
 		// them is a half done mess. Keep that in mind when working with it.
 		__resolveType(
 			obj: dataModel.CommentParent,
-			context: Context,
-			info: GraphQLResolveInfo
+			_context: Context,
+			_info: GraphQLResolveInfo
 		) {
 			// In order to determine what type obj actualy is, we test for the
 			// existance of fields that are unique to each of the types that obj
 			// could be. Example: If obj has things that only comments have,
 			// then obj is a comment. We also use type assertions to double
 			// check that each of these tests are correct. See Flow's docs on
-			// "type refinement" for more info.
+			// "type refinement" for more _info.
 			if ((<dataModel.Comment>obj)._id) {
 				return "Comment";
 			}
@@ -153,24 +153,27 @@ const resolvers: Resolvers = {
 		// them is a half done mess. Keep that in mind when working with it.
 		...CommentResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) => dataModel.commentIdToString(obj._id),
+		id: (obj, _args, _context, _info) =>
+			dataModel.commentIdToString(obj._id),
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, args, context, info) => obj.datePosted,
+		created: (obj, _args, _context, _info) => obj.datePosted,
 
-		author: (obj, args, context, info) => dataModel.getAuthorOfComment(obj),
+		author: (obj, _args, _context, _info) =>
+			dataModel.getAuthorOfComment(obj),
 
-		parent: (obj, args, context, info) => dataModel.getParentOfComment(obj),
+		parent: (obj, _args, _context, _info) =>
+			dataModel.getParentOfComment(obj),
 
-		children: (obj, args, context, info) =>
+		children: (obj, args, _context, _info) =>
 			dataModel.getCommentsByParent(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		votes: (obj, args, context, info) =>
+		votes: (obj, args, _context, _info) =>
 			dataModel.getVotesBySubject(
 				obj,
 				args.pageNum || 0,
@@ -181,30 +184,30 @@ const resolvers: Resolvers = {
 	Company: {
 		...CompanyResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) =>
+		id: (obj, _args, _context, _info) =>
 			dataModel.companyIdToString(obj.companyid),
-		name: (obj, args, context, info) => obj.name,
+		name: (obj, _args, _context, _info) => obj.name,
 
-		contactEmail: (obj, args, context, info) => obj.contactemail,
-		yearEstablished: (obj, args, context, info) => obj.yearestablished,
-		numEmployees: (obj, args, context, info) => obj.numemployees,
-		industry: (obj, args, context, info) => obj.industry,
+		contactEmail: (obj, _args, _context, _info) => obj.contactemail,
+		yearEstablished: (obj, _args, _context, _info) => obj.yearestablished,
+		numEmployees: (obj, _args, _context, _info) => obj.numemployees,
+		industry: (obj, _args, _context, _info) => obj.industry,
 
-		locations: (obj, args, context, info) =>
+		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByCompany(obj),
 
-		contactPhoneNumber: (obj, args, context, info) =>
+		contactPhoneNumber: (obj, _args, _context, _info) =>
 			obj.contactphonenumber,
-		websiteURL: (obj, args, context, info) => obj.websiteurl,
-		descriptionOfCompany: (obj, args, context, info) =>
+		websiteURL: (obj, _args, _context, _info) => obj.websiteurl,
+		descriptionOfCompany: (obj, _args, _context, _info) =>
 			obj.descriptionofcompany,
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		dateJoined: (obj, args, context, info) => obj.dateadded,
-		numFlags: (obj, args, context, info) => obj.numflags,
+		dateJoined: (obj, _args, _context, _info) => obj.dateadded,
+		numFlags: (obj, _args, _context, _info) => obj.numflags,
 
-		avgStarRatings: (obj, args, context, info) => {
+		avgStarRatings: (obj, _args, _context, _info) => {
 			if (
 				obj.healthandsafety === null ||
 				obj.healthandsafety === undefined ||
@@ -229,75 +232,77 @@ const resolvers: Resolvers = {
 			}
 		},
 
-		percentRecommended: (obj, args, context, info) =>
+		percentRecommended: (obj, _args, _context, _info) =>
 			obj.percentrecommended,
-		avgNumMonthsWorked: (obj, args, context, info) =>
+		avgNumMonthsWorked: (obj, _args, _context, _info) =>
 			obj.avgnummonthsworked,
-		numReviews: (obj, args, context, info) => obj.numreviews,
+		numReviews: (obj, _args, _context, _info) => obj.numreviews,
 
-		reviews: (obj, args, context, info) =>
+		reviews: (obj, args, _context, _info) =>
 			dataModel.getReviewsByCompany(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		jobAds: (obj, args, context, info) =>
+		jobAds: (obj, args, _context, _info) =>
 			dataModel.getJobAdsByCompany(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		numJobAds: (obj, args, context, info) =>
+		numJobAds: (obj, _args, _context, _info) =>
 			dataModel.countJobAdsByCompany(obj),
-		salaries: (obj, args, context, info) =>
+		salaries: (obj, args, _context, _info) =>
 			dataModel.getSalariesByCompany(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		numSalaries: (obj, args, context, info) =>
+		numSalaries: (obj, _args, _context, _info) =>
 			dataModel.countSalariesByCompany(obj),
 	},
 
 	JobAd: {
 		...JobAdResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) =>
+		id: (obj, _args, _context, _info) =>
 			dataModel.jobAdIdToString(obj.jobadid),
 
-		jobTitle: (obj, args, context, info) => obj.jobtitle,
-		locations: (obj, args, context, info) =>
+		jobTitle: (obj, _args, _context, _info) => obj.jobtitle,
+		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByJobAd(obj),
-		pesosPerHour: (obj, args, context, info) => obj.pesosperhour,
-		contractType: (obj, args, context, info) => obj.contracttype,
-		jobDescription: (obj, args, context, info) => obj.jobdescription,
+		pesosPerHour: (obj, _args, _context, _info) => obj.pesosperhour,
+		contractType: (obj, _args, _context, _info) => obj.contracttype,
+		jobDescription: (obj, _args, _context, _info) => obj.jobdescription,
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, args, context, info) => obj.dateadded,
+		created: (obj, _args, _context, _info) => obj.dateadded,
 
-		company: (obj, args, context, info) => dataModel.getCompanyOfJobAd(obj),
+		company: (obj, _args, _context, _info) =>
+			dataModel.getCompanyOfJobAd(obj),
 	},
 
 	Review: {
 		...ReviewResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) =>
+		id: (obj, _args, _context, _info) =>
 			dataModel.reviewIdToString(obj.reviewid),
 
-		title: (obj, args, context, info) => obj.reviewtitle,
+		title: (obj, _args, _context, _info) => obj.reviewtitle,
 
-		jobTitle: (obj, args, context, info) => obj.jobtitle,
-		location: (obj, args, context, info) =>
+		jobTitle: (obj, _args, _context, _info) => obj.jobtitle,
+		location: (obj, _args, _context, _info) =>
 			dataModel.parseLocationString(obj.reviewlocation),
-		numberOfMonthsWorked: (obj, args, context, info) => obj.nummonthsworked,
-		wouldRecommendToOtherJobSeekers: (obj, args, context, info) =>
+		numberOfMonthsWorked: (obj, _args, _context, _info) =>
+			obj.nummonthsworked,
+		wouldRecommendToOtherJobSeekers: (obj, _args, _context, _info) =>
 			obj.wouldrecommend,
 
-		starRatings: (obj, args, context, info) => ({
+		starRatings: (obj, _args, _context, _info) => ({
 			healthAndSafety: obj.healthandsafety,
 			managerRelationship: obj.managerrelationship,
 			workEnvironment: obj.workenvironment,
@@ -305,33 +310,34 @@ const resolvers: Resolvers = {
 			overallSatisfaction: obj.overallsatisfaction,
 		}),
 
-		additionalComments: (obj, args, context, info) =>
+		additionalComments: (obj, _args, _context, _info) =>
 			obj.additionalcomments,
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, args, context, info) => obj.dateadded,
+		created: (obj, _args, _context, _info) => obj.dateadded,
 
-		author: (obj, args, context, info) => dataModel.getAuthorOfReview(obj),
+		author: (obj, _args, _context, _info) =>
+			dataModel.getAuthorOfReview(obj),
 
-		company: (obj, args, context, info) =>
+		company: (obj, _args, _context, _info) =>
 			dataModel.getCompanyOfReview(obj),
 
-		comments: (obj, args, context, info) =>
+		comments: (obj, args, _context, _info) =>
 			dataModel.getCommentsByParent(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		votes: (obj, args, context, info) =>
+		votes: (obj, args, _context, _info) =>
 			dataModel.getVotesBySubject(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		currentUserVote: (obj, args, context, info) =>
+		currentUserVote: (obj, _args, context, _info) =>
 			context.user
 				? dataModel.getVoteByAuthorAndSubject(context.user, obj)
 				: null,
@@ -340,31 +346,32 @@ const resolvers: Resolvers = {
 	Salary: {
 		...SalaryResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) =>
+		id: (obj, _args, _context, _info) =>
 			dataModel.salaryIdToString(obj.salaryid),
 
-		jobTitle: (obj, args, context, info) => obj.jobtitle,
-		location: (obj, args, context, info) =>
+		jobTitle: (obj, _args, _context, _info) => obj.jobtitle,
+		location: (obj, _args, _context, _info) =>
 			dataModel.parseLocationString(obj.salarylocation),
-		incomeType: (obj, args, context, info) => obj.incometype,
-		incomeAmount: (obj, args, context, info) => obj.incomeamount,
+		incomeType: (obj, _args, _context, _info) => obj.incometype,
+		incomeAmount: (obj, _args, _context, _info) => obj.incomeamount,
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, args, context, info) => obj.dateadded,
+		created: (obj, _args, _context, _info) => obj.dateadded,
 
-		author: (obj, args, context, info) => dataModel.getAuthorOfSalary(obj),
+		author: (obj, _args, _context, _info) =>
+			dataModel.getAuthorOfSalary(obj),
 
-		company: (obj, args, context, info) =>
+		company: (obj, _args, _context, _info) =>
 			dataModel.getCompanyOfSalary(obj),
 	},
 
 	User: {
 		...UserResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) => dataModel.userIdToString(obj._id),
+		id: (obj, _args, _context, _info) => dataModel.userIdToString(obj._id),
 
-		role: (obj, args, context, info) => {
+		role: (obj, _args, _context, _info) => {
 			if (obj.role === "worker") return "WORKER";
 			if (obj.role === "company-unverified") return "COMPANY_UNVERIFIED";
 			if (obj.role === "company") return "COMPANY";
@@ -373,25 +380,26 @@ const resolvers: Resolvers = {
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, args, context, info) => obj.createdAt,
+		created: (obj, _args, _context, _info) => obj.createdAt,
 
-		company: (obj, args, context, info) => dataModel.getCompanyOfUser(obj),
+		company: (obj, _args, _context, _info) =>
+			dataModel.getCompanyOfUser(obj),
 
-		reviews: (obj, args, context, info) =>
+		reviews: (obj, args, _context, _info) =>
 			dataModel.getReviewsByAuthor(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		comments: (obj, args, context, info) =>
+		comments: (obj, args, _context, _info) =>
 			dataModel.getCommentsByAuthor(
 				obj,
 				args.pageNum || 0,
 				args.pageSize || defaultPageSize
 			),
 
-		votes: (obj, args, context, info) =>
+		votes: (obj, args, _context, _info) =>
 			dataModel.getVotesByAuthor(
 				obj,
 				args.pageNum || 0,
@@ -402,15 +410,15 @@ const resolvers: Resolvers = {
 	VoteSubject: {
 		__resolveType(
 			obj: dataModel.VoteSubject,
-			context: Context,
-			info: GraphQLResolveInfo
+			_context: Context,
+			_info: GraphQLResolveInfo
 		) {
 			// In order to determine what type obj actualy is, we test for the
 			// existance of fields that are unique to each of the types that obj
 			// could be. Example: If obj has things that only comments have,
 			// then obj is a comment. We also use type assertions to double
 			// check that each of these tests are correct. See Flow's docs on
-			// "type refinement" for more info.
+			// "type refinement" for more _info.
 			if ((<dataModel.Comment>obj)._id) {
 				return "Comment";
 			}
@@ -428,13 +436,14 @@ const resolvers: Resolvers = {
 	Vote: {
 		...VoteResolvers.defaultResolvers,
 
-		id: (obj, args, context, info) =>
+		id: (obj, _args, _context, _info) =>
 			dataModel.voteIdToString(dataModel.getIdOfVote(obj)),
-		isUpvote: (obj, args, context, info) => obj.value,
+		isUpvote: (obj, _args, _context, _info) => obj.value,
 
-		author: (obj, args, context, info) => dataModel.getAuthorOfVote(obj),
+		author: (obj, _args, _context, _info) => dataModel.getAuthorOfVote(obj),
 
-		subject: (obj, args, context, info) => dataModel.getSubjectOfVote(obj),
+		subject: (obj, _args, _context, _info) =>
+			dataModel.getSubjectOfVote(obj),
 	},
 
 	Location: {

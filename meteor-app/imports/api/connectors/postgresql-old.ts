@@ -22,7 +22,7 @@ import { Meteor } from "meteor/meteor";
 	All we have to worry about is making sure that clients acquired
 	from the pool get returned to it, so that we don't leak clients.
 */
-const { Pool } = require("pg");
+import { Pool, PoolClient } from "pg";
 
 /* ----------------------------
 	SETUP
@@ -94,7 +94,11 @@ process.on("SIGINT", closeAndExit);
 
 // assumes that arguments to func are passed as additional
 // arguments after the first two "wrapper args"
-async function withPgClient(func, readOnly, ...args) {
+async function withPgClient<R>(
+	func: (client: PoolClient, ...args: any[]) => Promise<R>,
+	readOnly: boolean,
+	...args: any[]
+): Promise<R> {
 	const client = await pool.connect();
 	let result = {};
 	try {
@@ -135,11 +139,17 @@ async function withPgClient(func, readOnly, ...args) {
 */
 
 export default class PostgreSQL {
-	static async executeQuery(query, ...args) {
+	static async executeQuery<R>(
+		query: (client: PoolClient, ...args: any[]) => Promise<R>,
+		...args: any[]
+	): Promise<R> {
 		return withPgClient(query, true, ...args);
 	}
 
-	static async executeMutation(mutation, ...args) {
+	static async executeMutation<R>(
+		mutation: (client: PoolClient, ...args: any[]) => Promise<R>,
+		...args: any[]
+	): Promise<R> {
 		return withPgClient(mutation, false, ...args);
 	}
 }

@@ -1,4 +1,4 @@
-import request from "request-promise-native";
+import * as request from "request-promise-native";
 
 /**
  * Post a message to the Vize Slack.
@@ -6,7 +6,7 @@ import request from "request-promise-native";
  *                       Supports markdown and Slack's emoji markup.
  * @todo Escape inputs to prevent markdown code injection.
  */
-export function postToSlack(text) {
+export function postToSlack(text: string) {
 	// Make a JSON representation of the message we want to post.
 	// This var is called "body" because it is the body of the HTTP request.
 	const body = {

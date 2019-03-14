@@ -11,7 +11,7 @@ import PostgreSQL from "./postgresql-old";
 // transaction, the transaction code should be curried so that these arguments
 // and the connection can be passed separately. (Curry in the mathematical
 // sence, not the food)
-export type Transaction<R> = (PoolClient) => Promise<R>;
+export type Transaction<R> = (client: PoolClient) => Promise<R>;
 
 // Execute a read-only transaction on the database.
 export function execTransactionRO<R>(transaction: Transaction<R>): Promise<R> {

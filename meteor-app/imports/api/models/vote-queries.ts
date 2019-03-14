@@ -1,4 +1,7 @@
-import { execTransactionRO } from "imports/api/connectors/postgresql";
+import {
+	execTransactionRO,
+	Transaction,
+} from "imports/api/connectors/postgresql";
 
 import {
 	VoteId,
@@ -26,7 +29,7 @@ export async function getVoteById(id: VoteId): Promise<Vote> {
 	// refersTo: integer
 	const { subjectType, submittedBy, refersTo } = unpackVoteId(id);
 
-	const transaction = async client => {
+	const transaction: Transaction<Vote> = async client => {
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(
@@ -54,7 +57,7 @@ export async function getVoteByAuthorAndSubject(
 
 	const submittedBy = await getUserPostgresId(user._id);
 
-	const transaction = async client => {
+	const transaction: Transaction<Vote | null> = async client => {
 		const voteResults = await client.query(
 			"SELECT * FROM " +
 				subjectType +
@@ -81,7 +84,7 @@ export async function getVotesByAuthor(
 ): Promise<Vote[]> {
 	const submittedBy = await getUserPostgresId(user._id);
 
-	const transaction = async client => {
+	const transaction: Transaction<Vote[]> = async client => {
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(
@@ -115,7 +118,7 @@ export async function getVotesBySubject(
 	// in the underlying query, they don't have much meaning
 	// as each such query should yield exactly 1 or 0 results.
 
-	const transaction = async client => {
+	const transaction: Transaction<Vote[]> = async client => {
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(
@@ -149,7 +152,7 @@ export async function getAllVotes(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Vote[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Vote[]> = async client => {
 		let voteResults = { rows: [] };
 
 		voteResults = await client.query(

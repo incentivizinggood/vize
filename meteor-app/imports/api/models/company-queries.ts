@@ -1,4 +1,7 @@
-import { execTransactionRO } from "imports/api/connectors/postgresql";
+import {
+	execTransactionRO,
+	Transaction,
+} from "imports/api/connectors/postgresql";
 
 import { CompanyId, Company } from ".";
 
@@ -11,7 +14,7 @@ export async function getCompanyById(id: CompanyId): Promise<Company> {
 	// for now
 	if (Number.isNaN(Number(id))) throw Error("not a valid company id");
 
-	const transaction = async client => {
+	const transaction: Transaction<Company> = async client => {
 		let companyResults = { rows: [] };
 		let statResults = { rows: [] };
 
@@ -38,7 +41,7 @@ export async function getCompanyById(id: CompanyId): Promise<Company> {
 
 // Get the company with a given name.
 export async function getCompanyByName(name: string): Promise<Company> {
-	const transaction = async client => {
+	const transaction: Transaction<Company> = async client => {
 		let companyResults = { rows: [] };
 		let statResults = { rows: [] };
 
@@ -68,7 +71,7 @@ export async function getAllCompanies(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Company[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Company[]> = async client => {
 		let companyResults = { rows: [] };
 
 		companyResults = await client.query(
@@ -101,7 +104,7 @@ export async function searchForCompanies(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Company[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Company[]> = async client => {
 		let companyResults = { rows: [] };
 
 		companyResults = await client.query(

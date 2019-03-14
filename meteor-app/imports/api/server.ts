@@ -9,7 +9,7 @@ import { testConnection as testPgConnection } from "./connectors/postgresql-old"
 const app = express();
 
 // A hello world for testing the Express server.
-app.get("/express-test", function(req, res) {
+app.get("/express-test", function(_req, res) {
 	res.send(
 		`<!DOCTYPE html>
 <html>

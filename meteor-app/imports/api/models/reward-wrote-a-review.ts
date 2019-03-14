@@ -3,6 +3,7 @@ import { parsePhoneNumber } from "libphonenumber-js/max";
 import {
 	execTransactionRO,
 	execTransactionRW,
+	Transaction,
 } from "imports/api/connectors/postgresql";
 
 import { User, getReviewsByAuthor, getUserPostgresId } from ".";
@@ -14,7 +15,7 @@ export type PaymentMethod = "PAYPAL" | "XOOM";
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 	if (user.role !== "worker") return "INELEGABLE";
 
-	const transaction = async client => {
+	const transaction: Transaction<RewardStatus> = async client => {
 		const userPId = await getUserPostgresId(user._id);
 
 		const results = await client.query(
@@ -54,7 +55,7 @@ export async function claimWroteAReview(
 	// like Google Voice.
 	if (phoneNumberInfo.country !== "MX") throw Error("NON_MEXICO_NUMBER");
 
-	const transaction = async client => {
+	const transaction: Transaction<void> = async client => {
 		// Check if the phone number has already been used.
 		if (
 			(await client.query(

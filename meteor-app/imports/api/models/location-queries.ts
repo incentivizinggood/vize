@@ -1,11 +1,14 @@
-import { execTransactionRO } from "imports/api/connectors/postgresql";
+import {
+	execTransactionRO,
+	Transaction,
+} from "imports/api/connectors/postgresql";
 
 import { Location, Company, JobAd, parseLocationString } from ".";
 
 export async function getLocationsByCompany(
 	company: Company
 ): Promise<Location[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Location[]> = async client => {
 		let locationResults = { rows: [] };
 
 		locationResults = await client.query(
@@ -22,7 +25,7 @@ export async function getLocationsByCompany(
 }
 
 export async function getLocationsByJobAd(jobAd: JobAd): Promise<Location[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Location[]> = async client => {
 		let locationResults = { rows: [] };
 
 		locationResults = await client.query(

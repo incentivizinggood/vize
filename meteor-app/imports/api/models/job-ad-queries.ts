@@ -1,6 +1,9 @@
-import { execTransactionRO } from "imports/api/connectors/postgresql";
+import {
+	execTransactionRO,
+	Transaction,
+} from "imports/api/connectors/postgresql";
 
-import { JobAdId, Location, Company, JobAd, getCompanyByName } from ".";
+import { JobAdId, Company, JobAd, getCompanyByName } from ".";
 
 const defaultPageSize = 100;
 
@@ -8,7 +11,7 @@ const defaultPageSize = 100;
 export async function getJobAdById(id: JobAdId): Promise<JobAd> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid job ad id");
 
-	const transaction = async client => {
+	const transaction: Transaction<JobAd> = async client => {
 		let jobAdResults = { rows: [] };
 
 		jobAdResults = await client.query(
@@ -28,7 +31,7 @@ export async function getJobAdsByCompany(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<JobAd[]> {
-	const transaction = async client => {
+	const transaction: Transaction<JobAd[]> = async client => {
 		let jobAdResults = { rows: [] };
 
 		jobAdResults = await client.query(
@@ -48,7 +51,7 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 
 // Count the number of job ads posted by a given company.
 export function countJobAdsByCompany(company: Company): Promise<number> {
-	const transaction = async client => {
+	const transaction: Transaction<number> = async client => {
 		let countResults = { rows: [{ count: undefined }] };
 
 		countResults = await client.query(
@@ -69,7 +72,7 @@ export async function getAllJobAds(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<JobAd[]> {
-	const transaction = async client => {
+	const transaction: Transaction<JobAd[]> = async client => {
 		let jobAdResults = { rows: [] };
 
 		jobAdResults = await client.query(

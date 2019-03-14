@@ -1,4 +1,7 @@
-import { execTransactionRO } from "imports/api/connectors/postgresql";
+import {
+	execTransactionRO,
+	Transaction,
+} from "imports/api/connectors/postgresql";
 
 import {
 	ReviewId,
@@ -16,7 +19,7 @@ const defaultPageSize = 100;
 export async function getReviewById(id: ReviewId): Promise<Review> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid review id");
 
-	const transaction = async client => {
+	const transaction: Transaction<Review> = async client => {
 		let reviewResults = { rows: [] };
 		let voteResults = { rows: [] };
 
@@ -48,7 +51,7 @@ export async function getReviewsByAuthor(
 ): Promise<Review[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	const transaction = async client => {
+	const transaction: Transaction<Review[]> = async client => {
 		let reviewResults = { rows: [] };
 
 		reviewResults = await client.query(
@@ -91,7 +94,7 @@ export async function getReviewsByCompany(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Review[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Review[]> = async client => {
 		let reviewResults = { rows: [] };
 
 		reviewResults = await client.query(
@@ -129,7 +132,7 @@ export async function getAllReviews(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Review[]> {
-	const transaction = async client => {
+	const transaction: Transaction<Review[]> = async client => {
 		let reviewResults = { rows: [] };
 
 		reviewResults = await client.query(
