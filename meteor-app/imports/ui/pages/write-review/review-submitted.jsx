@@ -3,8 +3,7 @@ import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
 import { CSSTransitionGroup } from "react-transition-group";
 
-import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import PageWrapper from "/imports/ui/components/page-wrapper";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -61,10 +60,7 @@ export default class ReviewSubmitted extends React.Component {
 			},
 		};
 		return (
-			<div className="padding-fix">
-				<div className="navbarwhite">
-					<Header />
-				</div>
+			<PageWrapper>
 				<section className="review-submitted">
 					<div className="container back_top_hover">
 						<div className="col-md-12">
@@ -145,7 +141,6 @@ export default class ReviewSubmitted extends React.Component {
 						)}
 					</div>
 				</section>
-				<Footer />
 				<Modal
 					isOpen={this.state.modalIsOpen}
 					onAfterOpen={this.afterOpenModal}
@@ -172,7 +167,7 @@ export default class ReviewSubmitted extends React.Component {
 						</fieldset>
 					</form>
 				</Modal>
-			</div>
+			</PageWrapper>
 		);
 	}
 }
