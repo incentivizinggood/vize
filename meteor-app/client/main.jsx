@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "mdbreact/dist/css/mdb.css";
+
 import { Meteor } from "meteor/meteor";
 
 /* The FlowRouter is automaticaly initialized on Meteor.startup.

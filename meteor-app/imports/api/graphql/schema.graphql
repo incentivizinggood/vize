@@ -39,7 +39,7 @@ enum RewardStatus {
 	CAN_EARN
 	CAN_CLAIM
 	CLAIMED
-	INELEGABLE
+	INELIGIBLE
 }
 
 enum PaymentMethod {
