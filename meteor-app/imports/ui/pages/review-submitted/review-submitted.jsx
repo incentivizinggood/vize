@@ -1,54 +1,81 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
 import Modal from "react-modal";
-import { CSSTransitionGroup } from "react-transition-group";
+import { Link } from "react-router-dom";
+
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import { Mutation } from "react-apollo";
+import rewardsEligibility from "./rewards-eligibility.graphql";
+
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
+import { MDBContainer, MDBAlert } from "mdbreact";
 
 import Header from "/imports/ui/components/header";
 import Footer from "/imports/ui/components/footer.jsx";
+import RewardsComponent from "./rewardsComponent.jsx";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
 
 Modal.setAppElement("body");
 
-export default class ReviewSubmitted extends React.Component {
-	constructor() {
-		super();
+const REWARD_DATA_SUBMISSION = gql`
+	mutation RewardDataSubmission(
+		$phoneNumber: String!
+		$paymentMethod: PaymentMethod!
+	) {
+		claimWroteAReview(
+			phoneNumber: $phoneNumber
+			paymentMethod: $paymentMethod
+		)
+	}
+`;
 
-		this.state = {
-			modalIsOpen: false,
-			hasRegisteredPhone: false,
-			phoneNumber: "",
-		};
+class ReviewSubmitted extends React.Component {
+	constructor(props) {
+		super(props);
 
-		this.openModal = this.openModal.bind(this);
-		this.closeModal = this.closeModal.bind(this);
-		this.handelPhoneSubmitting = this.handelPhoneSubmitting.bind(this);
-		this.handlePhoneChange = this.handlePhoneChange.bind(this);
+		this.changeReviewStatusState = this.changeReviewStatusState.bind(this);
 	}
 
-	openModal() {
-		this.setState({ modalIsOpen: true });
+	changeReviewStatusState() {
+		// reload the page when a phone number is successfully inputed to claim a Reward
+		// this is done because the reward status query does not get update until the
+		// page is refreshed
+		window.location.reload();
 	}
 
-	closeModal() {
-		this.setState({ modalIsOpen: false });
-	}
+	renderContent() {
+		return (
+			<div className="col-md-12">
+				<h2 className="text-center">
+					<T>contributing</T>
+				</h2>
+				<p>
+					<T>reviewSubmitted</T>
+				</p>
 
-	handelPhoneSubmitting(e) {
-		e.preventDefault();
-		// here you can run validation and prevent submitting
-		// and then save the phone number to the db
-		this.closeModal();
-		this.setState({ hasRegisteredPhone: true });
-	}
-
-	handlePhoneChange(event) {
-		this.setState({ phoneNumber: event.target.value });
+				<Query query={rewardsEligibility}>
+					{({ loading, error, data }) => {
+						if (data) {
+							if (data.wroteAReview === "CAN_CLAIM") {
+								return (
+									<RewardsComponent
+										action={this.changeReviewStatusState}
+									/>
+								);
+							}
+						}
+						return <p />;
+					}}
+				</Query>
+			</div>
+		);
 	}
 
 	render() {
-		const { hasRegisteredPhone, phoneNumber } = this.state;
 		const customStyles = {
 			content: {
 				margin: "auto",
@@ -60,119 +87,82 @@ export default class ReviewSubmitted extends React.Component {
 				borderRadius: "4px",
 			},
 		};
+
+		let content = null;
+
+		if (this.props.user) {
+			content = this.renderContent();
+		} else {
+			content = (
+				<div style={{ width: "80%", margin: "0 auto" }}>
+					<br />
+					<h3>You must be logged in to use this page. </h3>
+					<br />
+					<Link className="btn btn-primary" to="/login">
+						Log In
+					</Link>
+					<br />
+				</div>
+			);
+		}
+
 		return (
 			<div className="padding-fix">
 				<div className="navbarwhite">
 					<Header />
 				</div>
-				<section className="review-submitted">
-					<div className="container back_top_hover">
-						<div className="col-md-12">
-							<h2 className="text-center">
-								<T>contributing</T>
-							</h2>
-							<p>
-								<T>rewardDetails</T>
-							</p>
-						</div>
-						<div className="congratulations">
-							<div className="congratulations-gif" />
-							<p className="rewarded">
-								<T>earnedReward</T>
-							</p>
-						</div>
-						<CSSTransitionGroup
-							transitionName="success"
-							transitionEnterTimeout={1000}
-							transitionLeaveTimeout={1000}
-						>
-							{hasRegisteredPhone && (
-								<div className="success-widget">
-									<h3>
-										<T>phoneSuccess</T>
-									</h3>
-									<h3>
-										<T>phoneSuccess2</T>
-									</h3>
-								</div>
-							)}
-						</CSSTransitionGroup>
 
-						{/* ends here */}
-						{!hasRegisteredPhone && (
-							<div className="col-md-12">
-								<div>
-									<p>
-										<T>rewardYou</T>
-									</p>
-									<p>
-										<T>rewardOptions</T>
-									</p>
-									<div className="rewards">
-										<div className="reward">
-											<div className="reward-visual">
-												<img
-													src="images/payPal.png"
-													alt="payPal logo"
-												/>
-												<p className="price-tag">$5</p>
-											</div>
-											<p>
-												<T>paypalCash</T>
-											</p>
-											<a onClick={this.openModal}>
-												<T>getReward</T>
-											</a>
-										</div>
-										<div className="reward">
-											<div className="reward-visual">
-												<img
-													src="images/xoom.png"
-													alt="xoom logo"
-												/>
-												<p className="price-tag">$5</p>
-											</div>
-											<p>
-												<T>minutesReward</T>
-											</p>
-											<a onClick={this.openModal}>
-												<T>getReward</T>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						)}
-					</div>
+				<section className="review-submitted">
+					<div className="container back_top_hover">{content}</div>
 				</section>
 				<Footer />
-				<Modal
-					isOpen={this.state.modalIsOpen}
-					onAfterOpen={this.afterOpenModal}
-					onRequestClose={this.closeModal}
-					contentLabel="Example Modal"
-					ariaHideApp={false}
-					style={customStyles}
-				>
-					<form onSubmit={this.handelPhoneSubmitting}>
-						<fieldset>
-							<legend>
-								<T>enterPhone</T>
-							</legend>
-							<label htmlFor="phone-number" />
-							<input
-								type="tel"
-								id="phone-number"
-								value={phoneNumber}
-								onChange={this.handlePhoneChange}
-								placeholder="(541)754-3010"
-								required
-							/>
-							<input type="submit" value={t("submit")} />
-						</fieldset>
-					</form>
-				</Modal>
 			</div>
 		);
 	}
 }
+export default withTracker(() => ({
+	user: Meteor.user(),
+}))(ReviewSubmitted);
+
+/*
+const Alert = ( function() {return (
+	<div className="container alert-container">
+		<div className="row">
+			<div className="col-sm" />
+			<div className="col-8">
+				<MDBContainer>
+					<MDBAlert color="success">
+						<h4 className="alert-heading">
+							<T>phoneSuccess</T>
+						</h4>
+						<p>
+							<T>phoneSuccess2</T>
+						</p>
+					</MDBAlert>
+				</MDBContainer>
+			</div>
+			<div className="col-sm" />
+		</div>
+	</div>
+);}) ();
+	return (
+		<div className="container alert-container">
+			<div className="row">
+				<div className="col-sm" />
+				<div className="col-8">
+					<MDBContainer>
+						<MDBAlert color="success">
+							<h4 className="alert-heading">
+								<T>phoneSuccess</T>
+							</h4>
+							<p>
+								<T>phoneSuccess2</T>
+							</p>
+						</MDBAlert>
+					</MDBContainer>
+				</div>
+				<div className="col-sm" />
+			</div>
+		</div>
+	);
+); */
