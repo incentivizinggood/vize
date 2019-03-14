@@ -19,7 +19,7 @@
 	actually being used, so we still don't know what
 	this class is really supposed to look like...
 */
-import castToNumberIfDefined from "./misc.js";
+import { castToNumberIfDefined } from "./misc";
 
 export default class PgCommentFunctions {
 	static async getCommentById(client, id) {

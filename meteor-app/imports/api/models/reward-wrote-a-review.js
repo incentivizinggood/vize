@@ -4,7 +4,7 @@ import { parsePhoneNumber } from "libphonenumber-js/max";
 import {
 	execTransactionRO,
 	execTransactionRW,
-} from "/imports/api/connectors/postgresql.js";
+} from "/imports/api/connectors/postgresql.ts";
 
 import type { User } from ".";
 import { getReviewsByAuthor, getUserPostgresId } from ".";

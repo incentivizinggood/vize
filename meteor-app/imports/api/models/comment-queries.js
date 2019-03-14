@@ -1,9 +1,9 @@
 // @flow
 // WARNING: Comments have not been fully implemented yet. This code is a half
 // done mess. Keep that in mind when working with it.
-import PostgreSQL from "/imports/api/graphql/connectors/postgresql.js";
+import PostgreSQL from "/imports/api/connectors/postgresql-old.ts";
 
-import PgCommentFunctions from "/imports/api/models/helpers/postgresql/comments.js";
+import PgCommentFunctions from "/imports/api/models/helpers/postgresql/comments.ts";
 import type { CommentId, Comment, CommentParent, Review, User } from ".";
 import { getUserPostgresId, getUserById } from ".";
 

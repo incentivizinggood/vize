@@ -1,10 +1,10 @@
-import express from "express";
+import * as express from "express";
 import { ApolloServer } from "apollo-server-express";
 
 import { getUser } from "meteor/apollo";
 
 import { typeDefs, resolvers } from "./graphql";
-import { testConnection as testPgConnection } from "./graphql/connectors/postgresql.js";
+import { testConnection as testPgConnection } from "./connectors/postgresql-old";
 
 const app = express();
 

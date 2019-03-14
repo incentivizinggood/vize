@@ -1,5 +1,5 @@
 // @flow
-import { execTransactionRO } from "/imports/api/connectors/postgresql.js";
+import { execTransactionRO } from "/imports/api/connectors/postgresql.ts";
 
 import type { SalaryId, Location, Company, Salary, User } from ".";
 import { getUserById, getUserPostgresId, getCompanyByName } from ".";

@@ -1,5 +1,5 @@
-import { postToSlack } from "/imports/api/connectors/slack-webhook.js";
-import { castToNumberIfDefined } from "./misc.js";
+import { postToSlack } from "/imports/api/connectors/slack-webhook";
+import { castToNumberIfDefined } from "./misc";
 
 export default class PgReviewFunctions {
 	static async getReviewById(client, id) {

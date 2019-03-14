@@ -1,7 +1,7 @@
 // @flow
 import { Meteor } from "meteor/meteor";
 
-import { execTransactionRW } from "/imports/api/connectors/postgresql.js";
+import { execTransactionRW } from "/imports/api/connectors/postgresql.ts";
 
 import type { UserId, User } from ".";
 

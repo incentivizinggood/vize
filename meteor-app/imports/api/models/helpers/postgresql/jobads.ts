@@ -1,4 +1,4 @@
-import { castToNumberIfDefined } from "./misc.js";
+import { castToNumberIfDefined } from "./misc";
 
 export default class PgJobAdFunctions {
 	static async getJobAdById(client, id) {
