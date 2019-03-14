@@ -56,7 +56,7 @@ paj_form_state.set("contractTypeOptions", [
 ]);
 
 if (Meteor.isClient) {
-	import { reactiveCommonTranslator } from "/imports/startup/client/i18n.js";
+	import { reactiveCommonTranslator } from "/imports/ui/startup/i18n.js";
 
 	Template.paj_blaze_form.bindI18nNamespace("common.forms");
 
