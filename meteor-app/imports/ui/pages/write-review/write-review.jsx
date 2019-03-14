@@ -125,6 +125,11 @@ if (Meteor.isClient) {
 
 			if (historyProps != null) {
 				historyProps.push("/review-submitted");
+
+				// reloading the page after navigation so that rewardstatus is updated
+				// correctly. This is a quick fix and if reward status can be updated
+				// without having to do a page refresh, that would be better.
+				window.location.reload();
 			}
 		},
 		onError(formType, error) {

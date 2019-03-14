@@ -33,55 +33,22 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
-/* const Reward = () => (
-	<Query query={rewardsEligibility}>
-		{({ loading, error, data }) => {
-			if (data) {
-				console.log(data);
-				// this.setState({ rewardStatus: "CLAIM" });
-				if (data.wroteAReview === "CAN_CLAIM") {
-					return (
-						<RewardsComponent
-							action={this.changeReviewStatusState}
-						/>
-					);
-				}
-			}
-			return <RewardsComponent action={this.changeReviewStatusState} />;
-		}}
-	</Query>
-); */
-
 class ReviewSubmitted extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.changeReviewStatusState = this.changeReviewStatusState.bind(this);
-		console.log("mamiii");
-		this.state = {
-			rewardStatus: "",
-		};
 	}
 
 	componentDidMount() {
 		window.scrollTo(0, 0);
 	}
 
-	handelPhoneSubmitting(e) {
-		e.preventDefault();
-		// here you can run validation and prevent submitting
-		// and then save the phone number to the db
-		this.closeModal();
-		this.setState({ hasRegisteredPhone: true });
-	}
-
-	handlePhoneChange(event) {
-		this.setState({ phoneNumber: event.target.value });
-	}
-
 	changeReviewStatusState() {
-		console.log("checkeed");
-		this.setState({ rewardStatus: "test" });
+		// reload the page when a phone number is successfully inputed to claim a Reward
+		// this is done because the reward status query does not get update until the
+		// page is refreshed
+		window.location.reload();
 	}
 
 	renderContent() {
@@ -97,8 +64,6 @@ class ReviewSubmitted extends React.Component {
 				<Query query={rewardsEligibility}>
 					{({ loading, error, data }) => {
 						if (data) {
-							console.log(data);
-							// this.setState({ rewardStatus: data.wroteAReview });
 							if (data.wroteAReview === "CAN_CLAIM") {
 								return (
 									<RewardsComponent
@@ -128,8 +93,7 @@ class ReviewSubmitted extends React.Component {
 		};
 
 		let content = null;
-		console.log("user");
-		console.log(this.props.user);
+
 		if (this.props.user) {
 			content = this.renderContent();
 		} else {

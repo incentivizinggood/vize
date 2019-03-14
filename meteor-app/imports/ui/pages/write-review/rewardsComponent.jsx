@@ -37,11 +37,8 @@ export default class RewardsComponent extends React.Component {
 
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
-		this.handelPhoneSubmitting = this.handelPhoneSubmitting.bind(this);
-		this.handlePhoneChange = this.handlePhoneChange.bind(this);
-		this.setPaymentMethodPaypal = this.setPaymentMethodPaypal.bind(this);
+		this.setPaymentMethod = this.setPaymentMethod.bind(this);
 		this.mutationError = this.mutationError.bind(this);
-		this.mutationSuccess = this.mutationSuccess.bind(this);
 		this.mutationCompleted = this.mutationCompleted.bind(this);
 	}
 	componentDidMount() {
@@ -54,59 +51,25 @@ export default class RewardsComponent extends React.Component {
 
 	closeModal() {
 		console.log("closing");
-		if (
-			this.state.phoneNumber &&
-			isValidPhoneNumber(this.state.phoneNumber)
-		) {
-			this.setState({ modalIsOpen: false });
+		this.setState({ modalIsOpen: false });
+	}
+
+	setPaymentMethod(methodName) {
+		this.setState({ paymentMethod: methodName });
+		this.openModal();
+	}
+
+	mutationError(error, message) {
+		if (error.message == "GraphQL error: ALREADY_CLAIMED") {
+			this.setState({ phoneError: t("rewardAlreadyClaimed") });
 		} else {
-			this.state.phoneError = t("invalidPhoneNumber");
-		}
-	}
-
-	setPaymentMethodPaypal() {
-		this.setState({ paymentMethod: "PAYPAL" });
-		this.openModal();
-	}
-
-	setPaymentMethodXoom() {
-		this.setState({ paymentMethod: "XOOM" });
-		this.openModal();
-	}
-
-	handelPhoneSubmitting(e) {
-		console.log("ssuuubb");
-		e.preventDefault();
-		// here you can run validation and prevent submitting
-		// and then save the phone number to the db
-		this.closeModal();
-		this.setState({ hasRegisteredPhone: true });
-	}
-
-	handlePhoneChange(event) {
-		this.setState({ phoneNumber: event.target.value });
-	}
-
-	mutationError() {
-		this.props.action();
-		if (
-			this.state.phoneNumber &&
-			isValidPhoneNumber(this.state.phoneNumber)
-		) {
+			// using else is a temporary fix because currently graphQL is not returning the
+			// correct error for when a phone number has alrady been used
 			this.setState({ phoneError: t("phoneNumberUsed") });
-		} else {
-			this.setState({ phoneError: t("invalidPhoneNumber") });
 		}
-	}
-
-	mutationSuccess() {
-		console.log("success");
-		this.closeModal();
 	}
 
 	mutationCompleted(data) {
-		console.log("completed");
-		console.log(data);
 		if (data.claimWroteAReview === "CLAIMED") {
 			this.closeModal();
 			this.props.action();
@@ -127,9 +90,6 @@ export default class RewardsComponent extends React.Component {
 			},
 		};
 
-		// const phoneNum = "9567484856";
-		const phoneNum = "+529767484852";
-		const paymentM = "PAYPAL";
 		return (
 			<div>
 				<div className="congratulations">
@@ -159,7 +119,11 @@ export default class RewardsComponent extends React.Component {
 								<p>
 									<T>paypalCash</T>
 								</p>
-								<a onClick={this.setPaymentMethodPaypal}>
+								<a
+									onClick={() => {
+										this.setPaymentMethod("PAYPAL");
+									}}
+								>
 									<T>getReward</T>
 								</a>
 							</div>

@@ -133,6 +133,7 @@
 		"getReward": "Recibir Recompensa",
 		"enterPhone": "Por favor, ingrese su número de teléfono",
 		"phoneNumberUsed": "Número de teléfono ya utilizado",
+		"rewardAlreadyClaimed": "Recompensa ya ha sido reclamada",
 		"invalidPhoneNumber": "Número de teléfono invalido",
 		"submit": "Enviar"
 	},
