@@ -41,6 +41,8 @@ case $1 in
 	;;
 "deploy")
 	SETTINGS_FILE="$(realpath $2)"
+	# Update the version info file.
+	./scripts/get-version-info.sh
 	# Migrate the database with Flyway.
 	sudo docker run \
 		-v "$(pwd)/postgres/migrations:/flyway/sql" \
