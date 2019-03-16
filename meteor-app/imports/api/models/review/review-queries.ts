@@ -1,7 +1,4 @@
-import {
-	execTransactionRO,
-	Transaction,
-} from "imports/api/connectors/postgresql";
+import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
 	ReviewId,
@@ -15,32 +12,37 @@ import {
 
 const defaultPageSize = 100;
 
+const attributes = [
+	"reviewid",
+	"submittedby",
+	"companyname",
+	"companyid",
+	"reviewlocation",
+	"reviewtitle",
+	"jobtitle",
+	"nummonthsworked",
+	"pros",
+	"cons",
+	"wouldrecommend",
+	"healthandsafety",
+	"managerrelationship",
+	"workenvironment",
+	"benefits",
+	"overallsatisfaction",
+	"additionalcomments",
+	"dateadded",
+	"upvotes",
+	"downvotes",
+];
+const baseQuery = `SELECT ${attributes.join(", ")}
+                   FROM reviews JOIN review_vote_counts
+                   ON review_vote_counts.refersto = reviews.reviewid`;
+
 // Get the review with a given id.
-export async function getReviewById(id: ReviewId): Promise<Review> {
-	if (Number.isNaN(Number(id))) throw Error("not a valid review id");
+export async function getReviewById(id: ReviewId): Promise<Review | null> {
+	if (Number.isNaN(Number(id))) return null;
 
-	const transaction: Transaction<Review> = async client => {
-		let reviewResults = { rows: [] };
-		let voteResults = { rows: [] };
-
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE reviewid=$1",
-			[Number(id)]
-		);
-
-		voteResults = await client.query(
-			"SELECT * FROM review_vote_counts WHERE refersto=$1",
-			[Number(id)]
-		);
-
-		return {
-			...reviewResults.rows[0],
-			upvotes: voteResults.rows[0].upvotes,
-			downvotes: voteResults.rows[0].downvotes,
-		};
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery1(`${baseQuery} WHERE reviewid=$1`, Number(id));
 }
 
 // Get all reviews written by a given user.
@@ -51,39 +53,15 @@ export async function getReviewsByAuthor(
 ): Promise<Review[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	const transaction: Transaction<Review[]> = async client => {
-		let reviewResults = { rows: [] };
-
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[authorPostgresId, pageNumber * pageSize, pageSize]
-		);
-
-		let finalResults = [];
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			finalResults.push({
-				...review,
-				upvotes: votes.rows[0].upvotes,
-				downvotes: votes.rows[0].downvotes,
-			});
-		}
-
-		return finalResults;
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery(
+		`${baseQuery} WHERE submittedby=$1 OFFSET $2 LIMIT $3`,
+		authorPostgresId,
+		pageNumber * pageSize,
+		pageSize
+	);
 }
 
 // Get the user who wrote a given review.
-// BUG Not quite sure how to handle this.
-// getUserById expects a string, but review.submittedby
-// is an integer, which introduces a type conflict.
-// May need to ask Shaffer about this.
 export async function getAuthorOfReview(review: Review): Promise<User> {
 	return getUserById(review.submittedby);
 }
@@ -94,32 +72,12 @@ export async function getReviewsByCompany(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Review[]> {
-	const transaction: Transaction<Review[]> = async client => {
-		let reviewResults = { rows: [] };
-
-		reviewResults = await client.query(
-			"SELECT * FROM reviews WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[company.name, pageNumber * pageSize, pageSize]
-		);
-
-		let finalResults = [];
-		for (let review of reviewResults.rows) {
-			let votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			finalResults.push({
-				...review,
-				upvotes: votes.rows[0].upvotes,
-				downvotes: votes.rows[0].downvotes,
-			});
-		}
-
-		return finalResults;
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery(
+		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
+		company.name,
+		pageNumber * pageSize,
+		pageSize
+	);
 }
 
 // Get the company that a given review is about.
@@ -132,30 +90,9 @@ export async function getAllReviews(
 	pageNumber: number = 0,
 	pageSize: number = defaultPageSize
 ): Promise<Review[]> {
-	const transaction: Transaction<Review[]> = async client => {
-		let reviewResults = { rows: [] };
-
-		reviewResults = await client.query(
-			"SELECT * FROM reviews OFFSET $1 LIMIT $2",
-			[pageNumber * pageSize, pageSize]
-		);
-
-		let finalResults = [];
-		for (let review of reviewResults.rows) {
-			const votes = await client.query(
-				"SELECT * FROM review_vote_counts WHERE refersto=$1",
-				[review.reviewid]
-			);
-
-			finalResults.push({
-				...review,
-				upvotes: votes.rows[0].upvotes,
-				downvotes: votes.rows[0].downvotes,
-			});
-		}
-
-		return finalResults;
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery(
+		`${baseQuery} OFFSET $1 LIMIT $2`,
+		pageNumber * pageSize,
+		pageSize
+	);
 }
