@@ -5,7 +5,7 @@ import { JobAdId, Company, JobAd, getCompanyByName } from "imports/api/models";
 const defaultPageSize = 100;
 
 const attributes = [
-	'jobadid AS "jobadId"',
+	'jobadid AS "jobAdId"',
 	'companyname AS "companyName"',
 	'companyid AS "companyId"',
 	'jobtitle AS "jobTitle"',

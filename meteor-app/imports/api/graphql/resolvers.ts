@@ -134,11 +134,11 @@ const resolvers: Resolvers = {
 			// then obj is a comment. We also use type assertions to double
 			// check that each of these tests are correct. See Flow's docs on
 			// "type refinement" for more _info.
-			if ((<dataModel.Comment>obj)._id) {
+			if (dataModel.isComment(obj)) {
 				return "Comment";
 			}
 
-			if ((<dataModel.Review>obj).reviewId) {
+			if (dataModel.isReview(obj)) {
 				return "Review";
 			}
 
@@ -250,7 +250,7 @@ const resolvers: Resolvers = {
 		...JobAdResolvers.defaultResolvers,
 
 		id: (obj, _args, _context, _info) =>
-			dataModel.jobAdIdToString(obj.jobadId),
+			dataModel.jobAdIdToString(obj.jobAdId),
 
 		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByJobAd(obj),
@@ -385,11 +385,11 @@ const resolvers: Resolvers = {
 			// then obj is a comment. We also use type assertions to double
 			// check that each of these tests are correct. See Flow's docs on
 			// "type refinement" for more _info.
-			if ((<dataModel.Comment>obj)._id) {
+			if (dataModel.isComment(obj)) {
 				return "Comment";
 			}
 
-			if ((<dataModel.Review>obj).reviewId) {
+			if (dataModel.isReview(obj)) {
 				return "Review";
 			}
 

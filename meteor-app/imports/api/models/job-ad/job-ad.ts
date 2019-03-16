@@ -1,7 +1,7 @@
 import { JobAdId, CompanyId } from "imports/api/models";
 
 export type JobAd = {
-	jobadId: JobAdId;
+	jobAdId: JobAdId;
 
 	companyName: string | null;
 	companyId: CompanyId;
