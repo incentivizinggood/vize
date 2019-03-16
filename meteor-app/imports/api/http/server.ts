@@ -3,8 +3,8 @@ import { ApolloServer } from "apollo-server-express";
 
 import { getUser } from "meteor/apollo";
 
-import { typeDefs, resolvers } from "./graphql";
-import { testConnection as testPgConnection } from "./connectors/postgresql-old";
+import { typeDefs, resolvers } from "imports/api/graphql";
+import { testConnection as testPgConnection } from "imports/api/connectors/postgresql-old";
 
 const app = express();
 
