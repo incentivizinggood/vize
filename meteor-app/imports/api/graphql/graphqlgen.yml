@@ -4,14 +4,14 @@ schema: ./schema.graphql
 context: ./resolvers.ts:Context
 models:
   files:
-    - ../models/comment.ts
+    - ../models/comment/comment.ts
     - ../models/misc.ts
-    - ../models/company.ts
-    - ../models/job-ad.ts
-    - ../models/location.ts
-    - ../models/review.ts
-    - ../models/salary.ts
-    - ../models/user.ts
-    - ../models/vote.ts
+    - ../models/company/company.ts
+    - ../models/job-ad/job-ad.ts
+    - ../models/location/location.ts
+    - ../models/review/review.ts
+    - ../models/salary/salary.ts
+    - ../models/user/user.ts
+    - ../models/vote/vote.ts
 
 output: ./graphqlgen.ts
