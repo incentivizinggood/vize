@@ -7,19 +7,17 @@ import {
 } from "imports/api/models";
 
 export type CommentVote = {
-	submittedby: UserPId;
-	subjecttype: "comment";
-	refersto: CommentId;
-	value: boolean;
-	dateadded: Date;
+	submittedBy: UserPId;
+	subjectType: "comment";
+	refersTo: CommentId;
+	isUpvote: boolean;
 };
 
 export type ReviewVote = {
-	submittedby: UserPId;
-	subjecttype: "review";
-	refersto: ReviewId;
-	value: boolean;
-	dateadded: Date;
+	submittedBy: UserPId;
+	subjectType: "review";
+	refersTo: ReviewId;
+	isUpvote: boolean;
 };
 
 export type Vote = ReviewVote | CommentVote;
@@ -32,8 +30,8 @@ export function getVoteSubjectRef(
 ):
 	| { subjectType: "comment"; refersTo: CommentId }
 	| { subjectType: "review"; refersTo: ReviewId } {
-	if ((<Review>subject).reviewid) {
-		return { subjectType: "review", refersTo: (<Review>subject).reviewid };
+	if ((<Review>subject).reviewId) {
+		return { subjectType: "review", refersTo: (<Review>subject).reviewId };
 	} else if ((<Comment>subject)._id) {
 		return { subjectType: "comment", refersTo: (<Comment>subject)._id };
 	} else {

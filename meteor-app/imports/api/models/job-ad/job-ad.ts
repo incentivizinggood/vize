@@ -1,16 +1,16 @@
 import { JobAdId, CompanyId } from "imports/api/models";
 
 export type JobAd = {
-	jobadid: JobAdId;
+	jobadId: JobAdId;
 
-	companyname: string | null;
-	companyid: CompanyId;
+	companyName: string | null;
+	companyId: CompanyId;
 
-	jobtitle: string;
-	pesosperhour: string;
-	contracttype: string;
-	jobdescription: string;
+	jobTitle: string;
+	pesosPerHour: string;
+	contractType: string;
+	jobDescription: string;
 	responsibilities: string;
 	qualifications: string;
-	dateadded: Date;
+	dateAdded: Date;
 };

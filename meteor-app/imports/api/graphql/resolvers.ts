@@ -138,7 +138,7 @@ const resolvers: Resolvers = {
 				return "Comment";
 			}
 
-			if ((<dataModel.Review>obj).reviewid) {
+			if ((<dataModel.Review>obj).reviewId) {
 				return "Review";
 			}
 
@@ -185,58 +185,39 @@ const resolvers: Resolvers = {
 		...CompanyResolvers.defaultResolvers,
 
 		id: (obj, _args, _context, _info) =>
-			dataModel.companyIdToString(obj.companyid),
+			dataModel.companyIdToString(obj.companyId),
 		name: (obj, _args, _context, _info) => obj.name,
-
-		contactEmail: (obj, _args, _context, _info) => obj.contactemail,
-		yearEstablished: (obj, _args, _context, _info) => obj.yearestablished,
-		numEmployees: (obj, _args, _context, _info) => obj.numemployees,
-		industry: (obj, _args, _context, _info) => obj.industry,
 
 		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByCompany(obj),
-
-		contactPhoneNumber: (obj, _args, _context, _info) =>
-			obj.contactphonenumber,
-		websiteURL: (obj, _args, _context, _info) => obj.websiteurl,
-		descriptionOfCompany: (obj, _args, _context, _info) =>
-			obj.descriptionofcompany,
-
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		dateJoined: (obj, _args, _context, _info) => obj.dateadded,
-		numFlags: (obj, _args, _context, _info) => obj.numflags,
+		dateJoined: (obj, _args, _context, _info) => obj.dateAdded,
 
 		avgStarRatings: (obj, _args, _context, _info) => {
 			if (
-				obj.healthandsafety === null ||
-				obj.healthandsafety === undefined ||
-				obj.managerrelationship === null ||
-				obj.managerrelationship === undefined ||
-				obj.workenvironment === null ||
-				obj.workenvironment === undefined ||
+				obj.healthAndSafety === null ||
+				obj.healthAndSafety === undefined ||
+				obj.managerRelationship === null ||
+				obj.managerRelationship === undefined ||
+				obj.workEnvironment === null ||
+				obj.workEnvironment === undefined ||
 				obj.benefits === null ||
 				obj.benefits === undefined ||
-				obj.overallsatisfaction === null ||
-				obj.overallsatisfaction === undefined
+				obj.overallSatisfaction === null ||
+				obj.overallSatisfaction === undefined
 			) {
 				return null;
 			} else {
 				return {
-					healthAndSafety: obj.healthandsafety,
-					managerRelationship: obj.managerrelationship,
-					workEnvironment: obj.workenvironment,
+					healthAndSafety: obj.healthAndSafety,
+					managerRelationship: obj.managerRelationship,
+					workEnvironment: obj.workEnvironment,
 					benefits: obj.benefits,
-					overallSatisfaction: obj.overallsatisfaction,
+					overallSatisfaction: obj.overallSatisfaction,
 				};
 			}
 		},
-
-		percentRecommended: (obj, _args, _context, _info) =>
-			obj.percentrecommended,
-		avgNumMonthsWorked: (obj, _args, _context, _info) =>
-			obj.avgnummonthsworked,
-		numReviews: (obj, _args, _context, _info) => obj.numreviews,
 
 		reviews: (obj, args, _context, _info) =>
 			dataModel.getReviewsByCompany(
@@ -269,18 +250,14 @@ const resolvers: Resolvers = {
 		...JobAdResolvers.defaultResolvers,
 
 		id: (obj, _args, _context, _info) =>
-			dataModel.jobAdIdToString(obj.jobadid),
+			dataModel.jobAdIdToString(obj.jobadId),
 
-		jobTitle: (obj, _args, _context, _info) => obj.jobtitle,
 		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByJobAd(obj),
-		pesosPerHour: (obj, _args, _context, _info) => obj.pesosperhour,
-		contractType: (obj, _args, _context, _info) => obj.contracttype,
-		jobDescription: (obj, _args, _context, _info) => obj.jobdescription,
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.dateadded,
+		created: (obj, _args, _context, _info) => obj.dateAdded,
 
 		company: (obj, _args, _context, _info) =>
 			dataModel.getCompanyOfJobAd(obj),
@@ -290,32 +267,24 @@ const resolvers: Resolvers = {
 		...ReviewResolvers.defaultResolvers,
 
 		id: (obj, _args, _context, _info) =>
-			dataModel.reviewIdToString(obj.reviewid),
+			dataModel.reviewIdToString(obj.reviewId),
 
-		title: (obj, _args, _context, _info) => obj.reviewtitle,
-
-		jobTitle: (obj, _args, _context, _info) => obj.jobtitle,
 		location: (obj, _args, _context, _info) =>
-			dataModel.parseLocationString(obj.reviewlocation),
-		numberOfMonthsWorked: (obj, _args, _context, _info) =>
-			obj.nummonthsworked,
+			dataModel.parseLocationString(obj.location),
 		wouldRecommendToOtherJobSeekers: (obj, _args, _context, _info) =>
-			obj.wouldrecommend,
+			obj.wouldRecommend,
 
 		starRatings: (obj, _args, _context, _info) => ({
-			healthAndSafety: obj.healthandsafety,
-			managerRelationship: obj.managerrelationship,
-			workEnvironment: obj.workenvironment,
+			healthAndSafety: obj.healthAndSafety,
+			managerRelationship: obj.managerRelationship,
+			workEnvironment: obj.workEnvironment,
 			benefits: obj.benefits,
-			overallSatisfaction: obj.overallsatisfaction,
+			overallSatisfaction: obj.overallSatisfaction,
 		}),
-
-		additionalComments: (obj, _args, _context, _info) =>
-			obj.additionalcomments,
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.dateadded,
+		created: (obj, _args, _context, _info) => obj.dateAdded,
 
 		author: (obj, _args, _context, _info) =>
 			dataModel.getAuthorOfReview(obj),
@@ -423,7 +392,7 @@ const resolvers: Resolvers = {
 				return "Comment";
 			}
 
-			if ((<dataModel.Review>obj).reviewid) {
+			if ((<dataModel.Review>obj).reviewId) {
 				return "Review";
 			}
 
@@ -438,7 +407,7 @@ const resolvers: Resolvers = {
 
 		id: (obj, _args, _context, _info) =>
 			dataModel.voteIdToString(dataModel.getIdOfVote(obj)),
-		isUpvote: (obj, _args, _context, _info) => obj.value,
+		isUpvote: (obj, _args, _context, _info) => obj.isUpvote,
 
 		author: (obj, _args, _context, _info) => dataModel.getAuthorOfVote(obj),
 

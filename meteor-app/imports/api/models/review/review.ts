@@ -6,27 +6,27 @@ import {
 } from "imports/api/models";
 
 export type Review = {
-	reviewid: ReviewId;
+	reviewId: ReviewId;
 
-	submittedby: UserId;
-	companyname: string;
-	companyid: CompanyId | null;
-	reviewlocation: LocationString;
-	reviewtitle: string;
-	jobtitle: string;
-	nummonthsworked: number;
+	submittedBy: UserId;
+	companyName: string;
+	companyId: CompanyId | null;
+	location: LocationString;
+	title: string;
+	jobTitle: string;
+	numberOfMonthsWorked: number;
 	pros: string;
 	cons: string;
-	wouldrecommend: boolean;
+	wouldRecommend: boolean;
 
-	healthandsafety: number;
-	managerrelationship: number;
-	workenvironment: number;
+	healthAndSafety: number;
+	managerRelationship: number;
+	workEnvironment: number;
 	benefits: number;
-	overallsatisfaction: number;
+	overallSatisfaction: number;
 
-	additionalcomments: string | null;
-	dateadded: Date;
+	additionalComments: string | null;
+	dateAdded: Date;
 	upvotes: number;
 	downvotes: number;
 };

@@ -13,24 +13,24 @@ import {
 const defaultPageSize = 100;
 
 const attributes = [
-	"reviewid",
-	"submittedby",
-	"companyname",
-	"companyid",
-	"reviewlocation",
-	"reviewtitle",
-	"jobtitle",
-	"nummonthsworked",
+	'reviewid AS "reviewId"',
+	'submittedby AS "submittedBy"',
+	'companyname AS "companyName"',
+	'companyid AS "companyId"',
+	'reviewlocation AS "location"',
+	'reviewtitle AS "title"',
+	'jobtitle AS "jobTitle"',
+	'nummonthsworked AS "numberOfMonthsWorked"',
 	"pros",
 	"cons",
-	"wouldrecommend",
-	"healthandsafety",
-	"managerrelationship",
-	"workenvironment",
+	'wouldrecommend AS "wouldRecommend"',
+	'healthandsafety AS "healthAndSafety"',
+	'managerrelationship AS "managerRelationship"',
+	'workenvironment AS "workEnvironment"',
 	"benefits",
-	"overallsatisfaction",
-	"additionalcomments",
-	"dateadded",
+	'overallsatisfaction AS "overallSatisfaction"',
+	'additionalcomments AS "additionalComments"',
+	'dateadded AS "dateAdded"',
 	"upvotes",
 	"downvotes",
 ];
@@ -63,7 +63,7 @@ export async function getReviewsByAuthor(
 
 // Get the user who wrote a given review.
 export async function getAuthorOfReview(review: Review): Promise<User> {
-	return getUserById(review.submittedby);
+	return getUserById(review.submittedBy);
 }
 
 // Get all reviews written about a given company.
@@ -82,7 +82,7 @@ export async function getReviewsByCompany(
 
 // Get the company that a given review is about.
 export async function getCompanyOfReview(review: Review): Promise<Company> {
-	return getCompanyByName(review.companyname);
+	return getCompanyByName(review.companyName);
 }
 
 // Get all of the reviews.

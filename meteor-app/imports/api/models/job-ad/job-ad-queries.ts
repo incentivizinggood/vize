@@ -4,11 +4,25 @@ import { JobAdId, Company, JobAd, getCompanyByName } from "imports/api/models";
 
 const defaultPageSize = 100;
 
+const attributes = [
+	'jobadid AS "jobadId"',
+	'companyname AS "companyName"',
+	'companyid AS "companyId"',
+	'jobtitle AS "jobTitle"',
+	'pesosperhour AS "pesosPerHour"',
+	'contracttype AS "contractType"',
+	'jobdescription AS "jobDescription"',
+	"responsibilities",
+	"qualifications",
+	'dateadded AS "dateAdded"',
+];
+const baseQuery = `SELECT ${attributes.join(", ")} FROM jobads`;
+
 // Get the job ad with a given id.
 export async function getJobAdById(id: JobAdId): Promise<JobAd | null> {
 	if (Number.isNaN(Number(id))) return null;
 
-	return simpleQuery1("SELECT * FROM jobads WHERE jobadid=$1", Number(id));
+	return simpleQuery1(`${baseQuery} WHERE jobadid=$1`, Number(id));
 }
 
 // Get all job ads posted by a given company.
@@ -18,7 +32,7 @@ export async function getJobAdsByCompany(
 	pageSize: number = defaultPageSize
 ): Promise<JobAd[]> {
 	return simpleQuery(
-		"SELECT * FROM jobads WHERE companyname=$1 OFFSET $2 LIMIT $3",
+		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
 		company.name,
 		pageNumber * pageSize,
 		pageSize
@@ -26,13 +40,13 @@ export async function getJobAdsByCompany(
 }
 // Get the company that posted a given review.
 export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
-	return getCompanyByName(jobAd.companyname || "");
+	return getCompanyByName(jobAd.companyName || "");
 }
 
 // Count the number of job ads posted by a given company.
 export async function countJobAdsByCompany(company: Company): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		"SELECT * FROM job_post_counts WHERE companyname=$1",
+		`${baseQuery} WHERE companyname=$1`,
 		company.name
 	);
 	return count ? count.count : 0;
@@ -44,7 +58,7 @@ export async function getAllJobAds(
 	pageSize: number = defaultPageSize
 ): Promise<JobAd[]> {
 	return simpleQuery(
-		"SELECT * FROM jobads OFFSET $1 LIMIT $2",
+		`${baseQuery} OFFSET $1 LIMIT $2`,
 		pageNumber * pageSize,
 		pageSize
 	);
