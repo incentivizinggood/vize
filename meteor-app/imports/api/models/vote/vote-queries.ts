@@ -120,6 +120,7 @@ export async function getAllVotes(
 		`${baseQuery("review")} UNION ALL ${baseQuery(
 			"comment"
 		)} OFFSET $1 LIMIT $2`,
-		[pageNumber * pageSize, pageSize]
+		pageNumber * pageSize,
+		pageSize
 	);
 }

@@ -1,7 +1,4 @@
-import {
-	execTransactionRO,
-	Transaction,
-} from "imports/api/connectors/postgresql";
+import { simpleQuery } from "imports/api/connectors/postgresql";
 
 import {
 	Location,
@@ -13,35 +10,17 @@ import {
 export async function getLocationsByCompany(
 	company: Company
 ): Promise<Location[]> {
-	const transaction: Transaction<Location[]> = async client => {
-		let locationResults = { rows: [] };
-
-		locationResults = await client.query(
-			"SELECT * FROM company_locations WHERE companyid=$1",
-			[company.companyid]
-		);
-
-		return locationResults.rows.map(loc =>
-			parseLocationString(loc.companylocation)
-		);
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery<{ companylocation: string }>(
+		"SELECT companylocation FROM company_locations WHERE companyid=$1",
+		company.companyId
+	).then(results =>
+		results.map(loc => parseLocationString(loc.companylocation))
+	);
 }
 
 export async function getLocationsByJobAd(jobAd: JobAd): Promise<Location[]> {
-	const transaction: Transaction<Location[]> = async client => {
-		let locationResults = { rows: [] };
-
-		locationResults = await client.query(
-			"SELECT * FROM job_locations WHERE jobadid=$1",
-			[jobAd.jobadid]
-		);
-
-		return locationResults.rows.map(loc =>
-			parseLocationString(loc.joblocation)
-		);
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery<{ joblocation: string }>(
+		"SELECT joblocation FROM job_locations WHERE jobadid=$1",
+		jobAd.jobadId
+	).then(results => results.map(loc => parseLocationString(loc.joblocation)));
 }

@@ -316,17 +316,14 @@ const resolvers: Resolvers = {
 		...SalaryResolvers.defaultResolvers,
 
 		id: (obj, _args, _context, _info) =>
-			dataModel.salaryIdToString(obj.salaryid),
+			dataModel.salaryIdToString(obj.salaryId),
 
-		jobTitle: (obj, _args, _context, _info) => obj.jobtitle,
 		location: (obj, _args, _context, _info) =>
-			dataModel.parseLocationString(obj.salarylocation),
-		incomeType: (obj, _args, _context, _info) => obj.incometype,
-		incomeAmount: (obj, _args, _context, _info) => obj.incomeamount,
+			dataModel.parseLocationString(obj.location),
 
 		// Dates do not work with graphqlgen yet. It does not understand custom
 		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.dateadded,
+		created: (obj, _args, _context, _info) => obj.dateAdded,
 
 		author: (obj, _args, _context, _info) =>
 			dataModel.getAuthorOfSalary(obj),
