@@ -2,8 +2,6 @@ import * as dataModel from "imports/api/models";
 
 import { CompanyResolvers } from "./resolvers-types";
 
-const defaultPageSize = 100;
-
 export const Company: CompanyResolvers.Resolvers = {
 	id: (obj, _args, _context, _info) =>
 		dataModel.companyIdToString(obj.companyId),
@@ -41,14 +39,14 @@ export const Company: CompanyResolvers.Resolvers = {
 		dataModel.getReviewsByCompany(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	jobAds: (obj, args, _context, _info) =>
 		dataModel.getJobAdsByCompany(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	numJobAds: (obj, _args, _context, _info) =>
@@ -57,7 +55,7 @@ export const Company: CompanyResolvers.Resolvers = {
 		dataModel.getSalariesByCompany(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	numSalaries: (obj, _args, _context, _info) =>

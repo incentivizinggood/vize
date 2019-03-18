@@ -1,8 +1,6 @@
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { CompanyId, Company } from "imports/api/models";
-
-const defaultPageSize = 100;
+import { CompanyId, Company, defaultPageSize } from "imports/api/models";
 
 const attributes = [
 	'companyid AS "companyId"',

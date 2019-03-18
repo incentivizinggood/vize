@@ -1,8 +1,12 @@
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { JobAdId, Company, JobAd, getCompanyById } from "imports/api/models";
-
-const defaultPageSize = 100;
+import {
+	JobAdId,
+	Company,
+	JobAd,
+	getCompanyById,
+	defaultPageSize,
+} from "imports/api/models";
 
 const attributes = [
 	'jobadid AS "jobAdId"',

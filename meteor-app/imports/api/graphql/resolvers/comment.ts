@@ -2,8 +2,6 @@ import * as dataModel from "imports/api/models";
 
 import { CommentResolvers } from "./resolvers-types";
 
-const defaultPageSize = 100;
-
 export const Comment: CommentResolvers.Resolvers = {
 	// WARNING: Comments have not been fully implemented yet. The code for
 	// them is a half done mess. Keep that in mind when working with it.
@@ -19,13 +17,13 @@ export const Comment: CommentResolvers.Resolvers = {
 		dataModel.getCommentsByParent(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	votes: (obj, args, _context, _info) =>
 		dataModel.getVotesBySubject(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 };

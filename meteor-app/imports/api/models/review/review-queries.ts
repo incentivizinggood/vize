@@ -8,9 +8,8 @@ import {
 	getUserPostgresId,
 	getUserById,
 	getCompanyByName,
+	defaultPageSize,
 } from "imports/api/models";
-
-const defaultPageSize = 100;
 
 const attributes = [
 	'reviewid AS "reviewId"',

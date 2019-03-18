@@ -8,9 +8,8 @@ import {
 	getUserById,
 	getUserPostgresId,
 	getCompanyByName,
+	defaultPageSize,
 } from "imports/api/models";
-
-const defaultPageSize = 100;
 
 const attributes = [
 	'salaryid AS "salaryId"',

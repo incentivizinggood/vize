@@ -11,9 +11,9 @@ import {
 	getCommentById,
 	getVoteSubjectRef,
 	unpackVoteId,
+	defaultPageSize,
 } from "imports/api/models";
 
-const defaultPageSize = 100;
 export const attributes = [
 	'submittedby AS "submittedBy"',
 	'refersto AS "refersTo"',

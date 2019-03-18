@@ -2,8 +2,6 @@ import * as dataModel from "imports/api/models";
 
 import { QueryResolvers } from "./resolvers-types";
 
-const defaultPageSize = 100;
-
 export const Query: QueryResolvers.Resolvers = {
 	say: (_obj, _args, _context, _info) => "Hello world.",
 
@@ -15,43 +13,43 @@ export const Query: QueryResolvers.Resolvers = {
 	allComments: (_obj, args, _context, _info) =>
 		dataModel.getAllComments(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	allCompanies: (_obj, args, _context, _info) =>
 		dataModel.getAllCompanies(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	allJobAds: (_obj, args, _context, _info) =>
 		dataModel.getAllJobAds(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	allReviews: (_obj, args, _context, _info) =>
 		dataModel.getAllReviews(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	allSalaries: (_obj, args, _context, _info) =>
 		dataModel.getAllSalaries(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	allUsers: (_obj, args, _context, _info) =>
 		dataModel.getAllUsers(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	allVotes: (_obj, args, _context, _info) =>
 		dataModel.getAllVotes(
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	comment: (_obj, args, _context, _info) =>
@@ -79,7 +77,7 @@ export const Query: QueryResolvers.Resolvers = {
 		dataModel.searchForCompanies(
 			args.searchText || "",
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	wroteAReview: (_obj, _args, context, _info) =>

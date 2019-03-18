@@ -6,9 +6,8 @@ import {
 	User,
 	getCompanyById,
 	getUserMongoId,
+	defaultPageSize,
 } from "imports/api/models";
-
-const defaultPageSize = 100;
 
 // Get the user with a given id.
 export async function getUserById(id: UserId): Promise<User> {

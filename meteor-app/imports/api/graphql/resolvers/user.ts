@@ -2,8 +2,6 @@ import * as dataModel from "imports/api/models";
 
 import { UserResolvers } from "./resolvers-types";
 
-const defaultPageSize = 100;
-
 export const User: UserResolvers.Resolvers = {
 	id: (obj, _args, _context, _info) => dataModel.userIdToString(obj._id),
 
@@ -27,20 +25,20 @@ export const User: UserResolvers.Resolvers = {
 		dataModel.getReviewsByAuthor(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	comments: (obj, args, _context, _info) =>
 		dataModel.getCommentsByAuthor(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	votes: (obj, args, _context, _info) =>
 		dataModel.getVotesByAuthor(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 };

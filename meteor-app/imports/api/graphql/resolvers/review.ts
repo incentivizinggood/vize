@@ -2,8 +2,6 @@ import * as dataModel from "imports/api/models";
 
 import { ReviewResolvers } from "./resolvers-types";
 
-const defaultPageSize = 100;
-
 export const Review: ReviewResolvers.Resolvers = {
 	id: (obj, _args, _context, _info) =>
 		dataModel.reviewIdToString(obj.reviewId),
@@ -31,14 +29,14 @@ export const Review: ReviewResolvers.Resolvers = {
 		dataModel.getCommentsByParent(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	votes: (obj, args, _context, _info) =>
 		dataModel.getVotesBySubject(
 			obj,
 			args.pageNum || 0,
-			args.pageSize || defaultPageSize
+			args.pageSize || dataModel.defaultPageSize
 		),
 
 	currentUserVote: (obj, _args, context, _info) =>
