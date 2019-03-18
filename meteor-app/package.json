@@ -4,7 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
-    "gen": "cd imports/api/graphql && graphqlgen"
+    "gen": "gql-gen"
   },
   "cssModules": {
     "extensions": [
@@ -71,7 +71,10 @@
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
-    "graphqlgen": "^0.5.1",
+    "graphql-code-generator": "^0.18.0",
+    "graphql-codegen-typescript-common": "^0.18.0",
+    "graphql-codegen-typescript-resolvers": "^0.18.0",
+    "graphql-codegen-typescript-server": "^0.18.0",
     "node-sass": "^4.11.0",
     "react-test-renderer": "^16.8.1"
   }
