@@ -10,7 +10,6 @@ import {
 	getReviewById,
 	getCommentById,
 	getVoteSubjectRef,
-	unpackVoteId,
 	defaultPageSize,
 } from "imports/api/models";
 
@@ -19,6 +18,7 @@ export const attributes = [
 	'refersto AS "refersTo"',
 	'value AS "isUpvote"',
 ];
+
 const baseQuery = (subjectType: "review" | "comment") =>
 	`SELECT ${attributes.join(
 		", "
@@ -26,12 +26,7 @@ const baseQuery = (subjectType: "review" | "comment") =>
 
 // Get the vote with a given id.
 export async function getVoteById(id: VoteId): Promise<Vote | null> {
-	// requires VoteId to be a JSON.parse-able
-	// string with the fields/types:
-	// subjectType: "review" or "comment"
-	// submittedBy: integer
-	// refersTo: integer
-	const { subjectType, submittedBy, refersTo } = unpackVoteId(id);
+	const { subjectType, submittedBy, refersTo } = id;
 
 	return simpleQuery1(
 		`${baseQuery(subjectType)} WHERE submittedby=$1 AND refersto=$2`,

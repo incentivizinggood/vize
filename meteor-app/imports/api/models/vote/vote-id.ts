@@ -1,37 +1,49 @@
-import { CommentId, ReviewId, UserId, Vote, Branded } from "imports/api/models";
+import Hashids from "hashids";
 
-export type VoteId = Branded<string, "VoteId">;
+import {
+	CommentId,
+	ReviewId,
+	UserPId,
+	Vote,
+	Branded,
+} from "imports/api/models";
+
+export type VoteId = Branded<
+	| { subjectType: "comment"; refersTo: CommentId; submittedBy: UserPId }
+	| { subjectType: "review"; refersTo: ReviewId; submittedBy: UserPId },
+	"VoteId"
+>;
+
+/* VoteId's are strings that encode three numbers, [subjectType, submittedBy,
+   refersTo]. This is done because the database uses (submittedby,refersto) as
+   the primary key of votes. Because refersto is a foreign key we need separate
+   tables for votes on comments and votes on reviews. subjectType tells us which
+   table this vote is in; 1 for comment and 2 for review. */
+
+const hashids = new Hashids("Vize (this is salt)", 4);
 
 export function voteIdToString(id: VoteId): string {
-	return id;
+	const { subjectType, submittedBy, refersTo } = id;
+	return hashids.encode([
+		subjectType === "comment" ? 1 : 2,
+		submittedBy,
+		refersTo,
+	]);
 }
 
 export function stringToVoteId(id: string): VoteId {
-	return id as VoteId;
+	const [subjectType, submittedBy, refersTo] = hashids.decode(id);
+	return {
+		subjectType: subjectType === 1 ? "comment" : "review",
+		submittedBy,
+		refersTo,
+	} as VoteId;
 }
 
-/* VoteId's are strings that encode JSON data. This is done because the database
-   uses (submittedby,refersto) as the primary key of votes. Because refersto is
-   a foreign key we need separate tables for votes on comments and votes on
-   reviews. subjectType tells us which table this vote is in. */
-
 export function getIdOfVote(vote: Vote): VoteId {
-	return JSON.stringify({
+	return {
 		submittedBy: vote.submittedBy,
 		subjectType: vote.subjectType,
 		refersTo: vote.refersTo,
-	}) as VoteId;
-}
-
-export function unpackVoteId(
-	id: VoteId
-):
-	| { subjectType: "comment"; refersTo: CommentId; submittedBy: UserId }
-	| { subjectType: "review"; refersTo: ReviewId; submittedBy: UserId } {
-	// We do no validation here, but if all other code treats VoteIds as opaque
-	// strings, then this should be fine.
-	return JSON.parse(id);
-	// If we find it neesisary to double check, we can use this code.
-	// if (subjectType !== "review" && subjectType !== "comment")
-	//	throw new Error("Illegal subject: table does not exist");
+	} as VoteId;
 }

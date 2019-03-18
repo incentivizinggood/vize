@@ -37,6 +37,7 @@
     "graphql-server-express": "^1.4.0",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^3.1.1",
+    "hashids": "^1.2.2",
     "i": "^0.3.6",
     "libphonenumber-js": "^1.7.10",
     "lint": "^1.1.2",
@@ -68,6 +69,7 @@
   "devDependencies": {
     "@types/graphql": "^14.0.7",
     "@types/graphql-iso-date": "^3.3.1",
+    "@types/hashids": "^1.0.30",
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
