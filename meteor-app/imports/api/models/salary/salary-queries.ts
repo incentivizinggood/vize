@@ -69,7 +69,13 @@ export async function getSalariesByCompany(
 
 // Get the company that paid a given salary.
 export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
-	return getCompanyByName(salary.companyName);
+	const company: Company | null = await getCompanyByName(salary.companyName);
+
+	if (company === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return company;
 }
 
 // Count the number of salaries paid by a given company.

@@ -82,7 +82,13 @@ export async function getReviewsByCompany(
 
 // Get the company that a given review is about.
 export async function getCompanyOfReview(review: Review): Promise<Company> {
-	return getCompanyByName(review.companyName);
+	const company: Company | null = await getCompanyByName(review.companyName);
+
+	if (company === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return company;
 }
 
 // Get all of the reviews.

@@ -21,6 +21,6 @@ export async function getLocationsByCompany(
 export async function getLocationsByJobAd(jobAd: JobAd): Promise<Location[]> {
 	return simpleQuery<{ joblocation: string }>(
 		"SELECT joblocation FROM job_locations WHERE jobadid=$1",
-		jobAd.jobadId
+		jobAd.jobAdId
 	).then(results => results.map(loc => parseLocationString(loc.joblocation)));
 }

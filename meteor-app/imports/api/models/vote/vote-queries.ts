@@ -14,7 +14,7 @@ import {
 } from "imports/api/models";
 
 const defaultPageSize = 100;
-const attributes = [
+export const attributes = [
 	'submittedby AS "submittedBy"',
 	'refersto AS "refersTo"',
 	'value AS "isUpvote"',
@@ -22,7 +22,7 @@ const attributes = [
 const baseQuery = (subjectType: "review" | "comment") =>
 	`SELECT ${attributes.join(
 		", "
-	)}, '${subjectType}' AS subjecttype FROM ${subjectType}_votes`;
+	)}, '${subjectType}' AS "subjectType" FROM ${subjectType}_votes`;
 
 // Get the vote with a given id.
 export async function getVoteById(id: VoteId): Promise<Vote | null> {
@@ -104,11 +104,21 @@ export async function getVotesBySubject(
 
 // Get the thing that a given vote was cast on.
 export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
-	if (vote.subjectType === "review") return getReviewById(vote.refersTo);
+	let subject: VoteSubject | null;
 
-	if (vote.subjectType === "comment") return getCommentById(vote.refersTo);
+	if (vote.subjectType === "review") {
+		subject = await getReviewById(vote.refersTo);
+	} else if (vote.subjectType === "comment") {
+		subject = await getCommentById(vote.refersTo);
+	} else {
+		throw new Error("vote.subjectType is not a valid value");
+	}
 
-	throw new Error("vote.subjectType is not a valid value");
+	if (subject === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return subject;
 }
 
 // Get all of the votes.

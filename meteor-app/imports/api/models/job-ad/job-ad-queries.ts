@@ -1,6 +1,6 @@
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { JobAdId, Company, JobAd, getCompanyByName } from "imports/api/models";
+import { JobAdId, Company, JobAd, getCompanyById } from "imports/api/models";
 
 const defaultPageSize = 100;
 
@@ -40,7 +40,13 @@ export async function getJobAdsByCompany(
 }
 // Get the company that posted a given review.
 export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
-	return getCompanyByName(jobAd.companyName || "");
+	const company: Company | null = await getCompanyById(jobAd.companyId);
+
+	if (company === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return company;
 }
 
 // Count the number of job ads posted by a given company.

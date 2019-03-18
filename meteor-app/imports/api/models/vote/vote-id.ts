@@ -17,9 +17,9 @@ export function stringToVoteId(id: string): VoteId {
 
 export function getIdOfVote(vote: Vote): VoteId {
 	return JSON.stringify({
-		submittedBy: vote.submittedby,
-		subjectType: vote.subjecttype,
-		refersTo: vote.refersto,
+		submittedBy: vote.submittedBy,
+		subjectType: vote.subjectType,
+		refersTo: vote.refersTo,
 	});
 }
 

@@ -28,7 +28,24 @@ export type Context = {
 
 const defaultPageSize = 100;
 
-const resolvers: Resolvers = {
+// Dates do not work with graphqlgen yet. It does not understand custom
+// scalers and thus it thinks that dates need to be resolved to strings.
+function fixDateScalarType(
+	date: Date | Promise<Date | null> | null
+): string | Promise<string | null> | null {
+	return (date as unknown) as string;
+}
+function fixDateScalarTypeNN(
+	date: Date | Promise<Date>
+): string | Promise<string> {
+	return (date as unknown) as string;
+}
+
+const resolvers: Resolvers & {
+	CommentParent: any;
+	VoteSubject: any;
+	DateTime: any;
+} = {
 	Query: {
 		say: (_obj, _args, _context, _info) => "Hello world.",
 
@@ -156,9 +173,8 @@ const resolvers: Resolvers = {
 		id: (obj, _args, _context, _info) =>
 			dataModel.commentIdToString(obj._id),
 
-		// Dates do not work with graphqlgen yet. It does not understand custom
-		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.datePosted,
+		created: (obj, _args, _context, _info) =>
+			fixDateScalarType(obj.datePosted),
 
 		author: (obj, _args, _context, _info) =>
 			dataModel.getAuthorOfComment(obj),
@@ -190,9 +206,8 @@ const resolvers: Resolvers = {
 
 		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByCompany(obj),
-		// Dates do not work with graphqlgen yet. It does not understand custom
-		// scalers and thus it thinks that dates need to be resolved to strings.
-		dateJoined: (obj, _args, _context, _info) => obj.dateAdded,
+		dateJoined: (obj, _args, _context, _info) =>
+			fixDateScalarType(obj.dateAdded),
 
 		avgStarRatings: (obj, _args, _context, _info) => {
 			if (
@@ -254,10 +269,8 @@ const resolvers: Resolvers = {
 
 		locations: (obj, _args, _context, _info) =>
 			dataModel.getLocationsByJobAd(obj),
-
-		// Dates do not work with graphqlgen yet. It does not understand custom
-		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.dateAdded,
+		created: (obj, _args, _context, _info) =>
+			fixDateScalarType(obj.dateAdded),
 
 		company: (obj, _args, _context, _info) =>
 			dataModel.getCompanyOfJobAd(obj),
@@ -282,9 +295,8 @@ const resolvers: Resolvers = {
 			overallSatisfaction: obj.overallSatisfaction,
 		}),
 
-		// Dates do not work with graphqlgen yet. It does not understand custom
-		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.dateAdded,
+		created: (obj, _args, _context, _info) =>
+			fixDateScalarType(obj.dateAdded),
 
 		author: (obj, _args, _context, _info) =>
 			dataModel.getAuthorOfReview(obj),
@@ -320,10 +332,8 @@ const resolvers: Resolvers = {
 
 		location: (obj, _args, _context, _info) =>
 			dataModel.parseLocationString(obj.location),
-
-		// Dates do not work with graphqlgen yet. It does not understand custom
-		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.dateAdded,
+		created: (obj, _args, _context, _info) =>
+			fixDateScalarType(obj.dateAdded),
 
 		author: (obj, _args, _context, _info) =>
 			dataModel.getAuthorOfSalary(obj),
@@ -343,10 +353,8 @@ const resolvers: Resolvers = {
 			if (obj.role === "company") return "COMPANY";
 			throw Error("User role is not valid.");
 		},
-
-		// Dates do not work with graphqlgen yet. It does not understand custom
-		// scalers and thus it thinks that dates need to be resolved to strings.
-		created: (obj, _args, _context, _info) => obj.createdAt,
+		created: (obj, _args, _context, _info) =>
+			fixDateScalarTypeNN(obj.createdAt),
 
 		company: (obj, _args, _context, _info) =>
 			dataModel.getCompanyOfUser(obj),
