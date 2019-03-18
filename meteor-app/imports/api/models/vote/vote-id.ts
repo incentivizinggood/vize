@@ -1,13 +1,13 @@
-import { CommentId, ReviewId, UserId, Vote } from "imports/api/models";
+import { CommentId, ReviewId, UserId, Vote, Branded } from "imports/api/models";
 
-export type VoteId = string;
+export type VoteId = Branded<string, "VoteId">;
 
 export function voteIdToString(id: VoteId): string {
 	return id;
 }
 
 export function stringToVoteId(id: string): VoteId {
-	return id;
+	return id as VoteId;
 }
 
 /* VoteId's are strings that encode JSON data. This is done because the database
@@ -20,7 +20,7 @@ export function getIdOfVote(vote: Vote): VoteId {
 		submittedBy: vote.submittedBy,
 		subjectType: vote.subjectType,
 		refersTo: vote.refersTo,
-	});
+	}) as VoteId;
 }
 
 export function unpackVoteId(

@@ -32,7 +32,7 @@ export function getUsersByCompany(
 	pageSize: number = defaultPageSize
 ): User[] {
 	const cursor = Meteor.users.find(
-		{ companyId: company.companyid },
+		{ companyId: company.companyId },
 		{
 			skip: pageNumber * pageSize,
 			limit: pageSize,
@@ -43,7 +43,7 @@ export function getUsersByCompany(
 }
 
 // Get the company administered by a given user.
-export function getCompanyOfUser(user: User): Promise<Company> | null {
+export async function getCompanyOfUser(user: User): Promise<Company | null> {
 	if (user.companyId) {
 		return getCompanyById(user.companyId);
 	}

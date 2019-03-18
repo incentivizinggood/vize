@@ -11,3 +11,6 @@ export type StarRatings = {
 	benefits: number;
 	overallSatisfaction: number;
 };
+
+/** A way of getting nominal type checking in Typescript */
+export type Branded<T, B> = T & { __brand: B };

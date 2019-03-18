@@ -7,7 +7,6 @@ const defaultPageSize = 100;
 export const Company: CompanyResolvers.Resolvers = {
 	id: (obj, _args, _context, _info) =>
 		dataModel.companyIdToString(obj.companyId),
-	name: (obj, _args, _context, _info) => obj.name,
 
 	locations: (obj, _args, _context, _info) =>
 		dataModel.getLocationsByCompany(obj),

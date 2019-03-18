@@ -1,11 +1,11 @@
-import { PgId } from "imports/api/models";
+import { PgId, Branded } from "imports/api/models";
 
-export type SalaryId = PgId;
+export type SalaryId = Branded<PgId, "SalaryId">;
 
 export function salaryIdToString(id: SalaryId): string {
 	return String(id);
 }
 
 export function stringToSalaryId(id: string): SalaryId {
-	return Number(id);
+	return Number(id) as SalaryId;
 }
