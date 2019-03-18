@@ -17,6 +17,7 @@ generates:
         Vote: ../../models/vote/vote#Vote
       scalars:
         DateTime: Date
+      enumsAsTypes: true
     plugins:
       - typescript-common
       - typescript-server

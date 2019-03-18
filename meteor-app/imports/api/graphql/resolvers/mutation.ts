@@ -1,6 +1,6 @@
 import * as dataModel from "imports/api/models";
 
-import { MutationResolvers, RewardStatus } from "./resolvers-types";
+import { MutationResolvers } from "./resolvers-types";
 
 export const Mutation: MutationResolvers.Resolvers = {
 	claimWroteAReview: (_obj, args, context, _info) =>
@@ -8,5 +8,5 @@ export const Mutation: MutationResolvers.Resolvers = {
 			context.user,
 			args.phoneNumber,
 			args.paymentMethod
-		) as Promise<RewardStatus>,
+		),
 };

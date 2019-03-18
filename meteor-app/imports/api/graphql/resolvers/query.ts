@@ -1,6 +1,6 @@
 import * as dataModel from "imports/api/models";
 
-import { QueryResolvers, RewardStatus } from "./resolvers-types";
+import { QueryResolvers } from "./resolvers-types";
 
 const defaultPageSize = 100;
 
@@ -83,5 +83,5 @@ export const Query: QueryResolvers.Resolvers = {
 		),
 
 	wroteAReview: (_obj, _args, context, _info) =>
-		dataModel.wroteAReviewStatus(context.user) as Promise<RewardStatus>,
+		dataModel.wroteAReviewStatus(context.user),
 };
