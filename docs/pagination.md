@@ -39,16 +39,29 @@ beginning of the sequence. If someone is paging through the data, they might see
 some elements repeated on multiple pages or they may completely miss some
 elements.
 
-### Example of offset pagination.
+### Examples of offset pagination.
 
-An example query using offset pagination. Note: The page numbers start from zero
-in this example.
+An example SQL query using offset pagination. Note: The page numbers start from
+zero in this example.
 
 ```SQL
 SELECT ... FROM ...
     ORDER BY ordering_attribute ASC
     OFFSET page_number * size_of_page
     LIMIT size_of_page;
+```
+
+An example GraphQL schema using offset pagination.
+
+```GraphQL
+type Query {
+    getLotsOfThings(pageNum: Int, pageSize: Int): ThingConnection!
+}
+
+type ThingConnection {
+    nodes: [Thing!]!
+    numberOfPages: Int!
+}
 ```
 
 ## Cursor Pagination
@@ -75,8 +88,8 @@ these cases simple offset pagination is probably the better choice.
 
 ### Examples of cursor pagination.
 
-An example query with forward pagination. This is used when going to the next
-page.
+An example SQL query with forward pagination. This is used when going to the
+next page.
 
 ```SQL
 SELECT ... FROM ...
@@ -85,7 +98,7 @@ SELECT ... FROM ...
     LIMIT size_of_page;
 ```
 
-An example query with backward pagination. This is used when going to the
+An example SQL query with backward pagination. This is used when going to the
 previous page.
 
 ```SQL
@@ -100,3 +113,37 @@ from the beginning. We cannot directly get "the last n rows" so instead we get
 "the first n rows in reverse order" which is effectively the same thing. When
 doing this we must remember to correct the order on the application server
 before sending the page to the client.
+
+An example GraphQL schema using Relay-style cursor pagination.
+
+```GraphQL
+type Query {
+    getLotsOfThings(
+        first: Int
+        after: Cursor
+        last: Int
+        before: Cursor
+    ): ThingConnection!
+}
+
+type ThingConnection {
+    edges: [ThingEdge]
+    nodes: [Thing]
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type ThingEdge {
+    node: Thing
+    cursor: Cursor!
+}
+
+type PageInfo {
+    endCursor: Cursor
+    hasNextPage: Boolean!
+    startCursor: Cursor
+    hasPreviousPage: Boolean!
+}
+
+scalar Cursor
+```
