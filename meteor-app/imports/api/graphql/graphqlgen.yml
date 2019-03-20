@@ -1,17 +1,17 @@
-language: flow
+language: typescript
 
 schema: ./schema.graphql
-context: ./resolvers.js:Context
+context: ./resolvers.ts:Context
 models:
   files:
-    - ../models/comment.js
-    - ../models/misc.js
-    - ../models/company.js
-    - ../models/job-ad.js
-    - ../models/location.js
-    - ../models/review.js
-    - ../models/salary.js
-    - ../models/user.js
-    - ../models/vote.js
+    - ../models/comment/comment.ts
+    - ../models/misc.ts
+    - ../models/company/company.ts
+    - ../models/job-ad/job-ad.ts
+    - ../models/location/location.ts
+    - ../models/review/review.ts
+    - ../models/salary/salary.ts
+    - ../models/user/user.ts
+    - ../models/vote/vote.ts
 
-output: ./graphqlgen.js
+output: ./graphqlgen.ts

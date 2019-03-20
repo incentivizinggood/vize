@@ -32,23 +32,14 @@ type Mutation {
 	claimWroteAReview(
 		phoneNumber: String!
 		paymentMethod: PaymentMethod!
-	): ClaimWroteAReviewResult!
+	): RewardStatus!
 }
 
 enum RewardStatus {
 	CAN_EARN
 	CAN_CLAIM
 	CLAIMED
-	INELEGABLE
-}
-
-enum ClaimWroteAReviewResult {
-	OK
-	NOT_EARNED
-	ALREADY_CLAIMED
-	INELEGABLE
-	PHONENUMBER_INVALID
-	PHONENUMBER_ALREADY_USED
+	INELIGIBLE
 }
 
 enum PaymentMethod {

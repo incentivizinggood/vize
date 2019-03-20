@@ -107,7 +107,7 @@ export const SalarySchema = new SimpleSchema(
 		"location.address": {
 			type: String,
 			max: 300,
-			optional: false,
+			optional: true,
 		},
 		"location.industrialHub": {
 			type: String,
