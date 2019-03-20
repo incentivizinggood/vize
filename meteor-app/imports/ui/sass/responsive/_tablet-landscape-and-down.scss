@@ -43,4 +43,16 @@
 	.static-page-banner .banner-info {
 		min-height: 240px;
 	}
+
+	#home.banner {
+		min-height: unset;
+	}
+
+	.container.mobile-view-box {
+		display: block;
+	}
+
+	.blu-mobile-sect {
+		display: block;
+	}
 }

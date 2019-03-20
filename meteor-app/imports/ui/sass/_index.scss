@@ -21,9 +21,8 @@
 	"components/footer";
 
 // Responsive
-@import "responsive/responsive", "responsive/_desktop-and-down",
-	"responsive/tablet-landscape-and-down", "responsive/tablet-and-down",
-	"responsive/phones-only";
+@import "responsive/_desktop-and-down", "responsive/tablet-landscape-and-down",
+	"responsive/tablet-and-down", "responsive/phones-only";
 
 // helpers
 @import "helpers/spacing-helpers", "helpers/display-helpers",

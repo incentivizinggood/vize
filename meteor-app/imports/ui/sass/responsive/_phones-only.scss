@@ -77,4 +77,214 @@
 	.banner-text {
 		padding: 1px;
 	}
+
+	.panel-hm {
+		width: 95%;
+		margin-bottom: 10px !important;
+		margin-left: 0px !important;
+		margin-top: 0px !important;
+		margin-right: 0px !important;
+	}
+
+	.dp-profile {
+		margin: 0 auto !important;
+	}
+
+	.top-nav ul li a {
+		color: $white !important;
+	}
+
+	.great-job-hm {
+		margin-top: 30px !important;
+	}
+
+	.companies-btn {
+		margin-top: 25px !important;
+		margin-bottom: 40px !important;
+	}
+
+	a.button.out-bodr-get {
+		font-size: 15px !important;
+	}
+
+	.navbar-header.logo {
+		margin-top: 0px !important;
+		background-color: #132437 !important;
+	}
+
+	a#navEng,
+	a#navIta {
+		color: $white !important;
+		&:hover {
+			color: $white !important;
+		}
+	}
+
+	nav {
+		padding: 0em 0em !important;
+
+		&.navScroll {
+			background-color: transparent !important;
+			box-shadow: transparent !important;
+		}
+	}
+
+	ul.nav.navbar-right {
+		width: 71%;
+		margin-left: 39px;
+	}
+
+	.btn-green {
+		background-color: #fb406f !important;
+	}
+
+	nav.navScroll ul li a {
+		color: $white !important;
+	}
+
+	ul.dropdown-menu.header_drop_language li:hover {
+		background: #132437;
+	}
+
+	#register-button {
+		width: 100%;
+		display: none;
+	}
+
+	button.navbar-toggle {
+		margin-top: 1.3em;
+	}
+
+	.replus {
+		margin-top: 0px;
+		margin-left: 0px;
+	}
+
+	.select_widthbox li a {
+		color: #000 !important;
+	}
+
+	div#bs-example-navbar-collapse-1 {
+		background: #132437;
+		float: left;
+		width: 77%;
+		padding: 0;
+	}
+
+	a#register-button-menu {
+		display: block !important;
+		height: 55px;
+		padding-top: 17px !important;
+		border-radius: 0px !important;
+		text-align: left;
+		margin-top: -15px;
+	}
+
+	a.navbar-link.margin-right {
+		display: none;
+	}
+
+	ul.nav.navbar-nav.left_nav {
+		margin-left: 0px !important;
+	}
+
+	.top-nav ul li a {
+		letter-spacing: 0;
+		padding: 10px 35px !important;
+	}
+
+	hr.hr_line_width2 {
+		width: 64%;
+		display: block !important;
+		border-top: 0px dotted #132437 !important;
+		margin-top: 1px;
+		margin-bottom: 39px;
+		margin-left: -8px;
+	}
+
+	.btn_follow1 {
+		margin-bottom: 6px;
+		display: none;
+	}
+
+	.btn_add_button {
+		margin-bottom: 9px;
+	}
+
+	.border_btn {
+		border-top-left-radius: 12px;
+		border-bottom-left-radius: 12px;
+		padding: 9px;
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;
+	}
+
+	a.btn.btn-primary.color_btn {
+		background-color: #dadada;
+		color: #337ab7;
+		font-weight: bold;
+		font-size: 15px;
+		box-shadow: 1px 1px 10px 1px;
+	}
+
+	.container.fom-job {
+		padding-left: 3em !important;
+		padding-right: 3em !important;
+	}
+
+	.fom-siz-post {
+		width: 100%;
+	}
+
+	.container.salary_section {
+		padding-left: 3em !important;
+		padding-right: 3em !important;
+	}
+
+	.submit_div {
+		margin-top: 2em !important;
+		float: none !important;
+		margin-bottom: 0em !important;
+	}
+
+	.main_row_width {
+		padding-top: 1px !important;
+		padding-left: 1em !important;
+		padding-right: 1em !important;
+	}
+
+	li.ln {
+		display: none !important;
+	}
+
+	ul.dropdown-menu.pf {
+		margin-left: 38px;
+	}
+
+	.pf.dropdown {
+		margin-left: -35px;
+
+		&-menu {
+			background-color: $white !important;
+			margin-left: -15px;
+
+			&:before,
+			&:after {
+				display: none;
+			}
+
+			& > li > a {
+				margin-left: 0px;
+			}
+		}
+	}
+
+	a.dropdown-toggle.boderbtn {
+		margin-left: -6px;
+	}
+
+	ul.dropdown-menu.header_drop_language {
+		background-color: $white !important;
+		margin-left: -15px;
+	}
 }

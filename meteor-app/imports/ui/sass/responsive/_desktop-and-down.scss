@@ -273,4 +273,285 @@
 	.navbar-right .dropdown-menu {
 		min-width: 50% !important;
 	}
+
+	ul.dropdown-menu {
+		background-color: $white !important;
+		margin-left: -17px;
+
+		&.header_drop_language {
+			background-color: $white !important;
+			margin-left: -17px;
+		}
+	}
+
+	a.dropdown-toggle.boderbtn {
+		margin-left: -18px;
+	}
+
+	a.dropdown-toggle.boderbtn {
+		padding-left: 164px !important;
+		width: 50%;
+	}
+
+	.pf.dropdown {
+		margin-left: -55px;
+		width: 72% !important;
+
+		ul.dropdown-menu {
+			margin-left: 38px;
+			&:before,
+			&:after {
+				display: none;
+			}
+		}
+	}
+
+	.dp-profile {
+		margin: 0 auto !important;
+	}
+
+	li.ln {
+		display: none !important;
+	}
+
+	.col-md-12.main_row_width {
+		padding-top: 1px !important;
+		padding-left: 1em !important;
+		padding-right: 1em !important;
+	}
+
+	.submit_div {
+		margin-top: 2em !important;
+		float: none !important;
+		margin-bottom: 0em !important;
+	}
+
+	.salary_section {
+		padding-left: 3em !important;
+		padding-right: 3em !important;
+	}
+
+	.fom-job {
+		padding-left: 3em !important;
+		padding-right: 3em !important;
+	}
+
+	.fom-siz-post {
+		width: 100%;
+	}
+
+	.navbar-header.logo {
+		margin-top: 0px !important;
+		background-color: #132437 !important;
+	}
+
+	a#navEng,
+	a#navIta {
+		color: $white !important;
+		&:hover {
+			color: $white !important;
+		}
+	}
+
+	nav {
+		padding: 0em 0em !important;
+		&.navScroll {
+			background-color: transparent !important;
+			box-shadow: transparent !important;
+
+			ul li a {
+				color: $white !important;
+			}
+		}
+
+		&.navbar-right {
+			width: 60%;
+			margin-left: 0px;
+		}
+	}
+
+	.btn-green {
+		background-color: #fb406f !important;
+	}
+
+	ul.dropdown-menu.header_drop_language li:hover {
+		background: #132437;
+	}
+
+	#register-button {
+		width: 100%;
+		display: none;
+	}
+
+	button.navbar-toggle {
+		margin-top: 1.3em;
+	}
+
+	.replus {
+		margin-top: 0px;
+		margin-left: 0px;
+	}
+
+	.select_widthbox li a {
+		color: #000 !important;
+	}
+
+	div#bs-example-navbar-collapse-1 {
+		background: #132437;
+		float: left;
+		width: 77%;
+		padding: 0;
+
+		ul.nav.navbar-right {
+			display: block;
+		}
+	}
+
+	a#register-button-menu {
+		display: block !important;
+		height: 55px;
+		padding-top: 17px !important;
+		border-radius: 0px !important;
+		text-align: left;
+		margin-top: -15px;
+	}
+
+	a.navbar-link.margin-right {
+		display: none;
+	}
+
+	ul.nav.navbar-nav.left_nav {
+		margin-left: 0px !important;
+	}
+
+	.top-nav ul li a {
+		letter-spacing: 0;
+		padding: 10px 35px !important;
+	}
+
+	hr.hr_line_width2 {
+		width: 64%;
+		display: block !important;
+		border-top: 2px dotted #132437 !important;
+		margin-top: 1px;
+		margin-bottom: 39px;
+		margin-left: -8px;
+	}
+
+	.btn_follow1 {
+		margin-bottom: 6px;
+		display: none;
+	}
+
+	.btn_add_button {
+		margin-bottom: 9px;
+	}
+
+	.border_btn {
+		border-top-left-radius: 12px;
+		border-bottom-left-radius: 12px;
+		padding: 9px;
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;
+	}
+
+	a.btn.btn-primary.color_btn {
+		background-color: #dadada;
+		color: #337ab7;
+		font-weight: bold;
+
+		box-shadow: 1px 1px 10px 1px;
+	}
+
+	.great-job-hm {
+		margin-top: 50px !important;
+	}
+
+	.companies-btn {
+		margin-top: 35px !important;
+		margin-bottom: 40px !important;
+	}
+
+	a.button.out-bodr-get {
+		font-size: 20px !important;
+	}
+
+	ul.nav.navbar-right {
+		margin-right: -43px;
+	}
+
+	.btn_follow1 {
+		margin-bottom: 6px;
+		display: none;
+	}
+
+	.btn_add_button {
+		margin-bottom: 9px;
+	}
+
+	.border_btn {
+		border-top-left-radius: 12px;
+		border-bottom-left-radius: 12px;
+		padding: 9px;
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;
+	}
+
+	a.btn.btn-primary.color_btn {
+		background-color: #dadada;
+		color: #337ab7;
+		font-weight: bold;
+
+		box-shadow: 1px 1px 10px 1px;
+	}
+
+	.panel-hm {
+		margin-bottom: 10px !important;
+		margin-left: 0px !important;
+		margin-top: 0px !important;
+		margin-right: 0px !important;
+	}
+
+	.great-job-hm {
+		margin-top: 42px !important;
+	}
+
+	.companies-btn {
+		margin-top: 40px !important;
+		margin-bottom: 40px !important;
+	}
+
+	.submit_div {
+		margin-top: 2em !important;
+		float: none !important;
+		margin-bottom: 0em !important;
+	}
+
+	#home.banner {
+		min-height: 50vh;
+		padding-bottom: 20px;
+	}
+
+	.container.desktop-view {
+		display: none !important;
+	}
+
+	.container.blu-section-desc {
+		display: none !important;
+	}
+	.container.mobile-view-box {
+		display: none;
+	}
+
+	.blu-mobile-sect {
+		display: none;
+	}
+
+	.container.salary_section {
+		padding-top: 149px !important;
+	}
+
+	.container.fom-job {
+		padding-top: 149px !important;
+	}
 }
