@@ -7,6 +7,7 @@ import { Accounts } from "meteor/accounts-base";
 import style from "./flag.scss";
 import "../../../api/data/methods.js";
 
+const t = i18n.createTranslator("common.flags");
 const T = i18n.createComponent();
 
 /* The page where users write/edit their reviews.
@@ -27,33 +28,33 @@ export default class FlagSystem extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert(`${"radio buttons:" + ": "}${this.state.value}`);
-		alert(`${"desc:" + ": "}${this.state.name}`);
-
-		Meteor.call(
-			"sendEmail",
-			"urelperfect@gmail.com",
-			"postmaster@incentivizinggood.com",
-			`Reports: ${this.state.value}`,
-			`${"Howdy,\n\n" +
-				"Invalid comment reported details: \n" +
-				"Reason: "}${
-				this.state.value
-			}.\n\nSincerely,\n\n Vize Inc.\n\n`,
-			(err, res) => {
-				if (err) {
-					console.log("--- BEGIN error:");
-					console.log(err);
-					console.log("--- END error");
-				} else {
-					console.log("--- BEGIN success:");
-					console.log(res);
-					console.log("--- END success");
+		if (document.getElementById("textAreaClear").value === "") {
+			alert(t("please_choose_reason"));
+		} else {
+			Meteor.call(
+				"sendEmail",
+				"postmaster@incentivizinggood.com",
+				"incentivizinggood@gmail.com",
+				`Reports: ${this.state.value}`,
+				`${"Howdy,\n\n" + "Details: \n" + "Reason: "}${
+					this.state.name
+				}.\n\nSincerely,\n\n Vize Inc.\n\n`,
+				(err, res) => {
+					if (err) {
+						console.log("--- BEGIN error:");
+						console.log(err);
+						console.log("--- END error");
+					} else {
+						console.log("--- BEGIN success:");
+						console.log(res);
+						console.log("--- END success");
+					}
 				}
-			}
-		);
+			);
 
-		alert("wassup");
+			document.getElementById("textAreaClear").value = "";
+			alert(t("thanks"));
+		}
 		event.preventDefault();
 	}
 
@@ -75,30 +76,30 @@ export default class FlagSystem extends React.Component {
 					<hr className={style.linePadding} />
 					<div className={style.reason}>
 						<select
+							id="selectClear"
 							className="form-control"
 							onChange={this.handleTextChange}
 						>
 							<option selected disabled>
-								<T>common.flags.choose_reason</T>
+								{t("choose_reason")}
 							</option>
 							<option value="Inappropriate Comment">
-								<T>common.flags.in_comment</T>
+								{t("in_comment")}
 							</option>
 							<option value="False Information">
-								<T>common.flags.false</T>
+								{t("false")}
 							</option>
-							<option value="audi">
-								<T>common.flags.other</T>
-							</option>
+							<option value="Other">{t("other")}</option>
 						</select>
 					</div>
 					<div className={style.textArea}>
 						<textarea
+							id="textAreaClear"
 							rows="2"
 							cols="200"
-							placeholder="Please provide a brief explanation"
+							placeholder={t("explanation")}
 							className="form-control shadow-textarea z-depth-1"
-							onChange={this.handleTextChange}
+							onChange={this.handleOptionChange}
 						/>
 					</div>
 				</form>
@@ -110,7 +111,7 @@ export default class FlagSystem extends React.Component {
 						value="Submit"
 					>
 						{" "}
-						SUBMIT
+						{t("submit")}
 					</button>
 				</div>
 			</div>

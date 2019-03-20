@@ -220,8 +220,11 @@
 		"choose_reason": "Choose a Reason",
 		"false": "False Information",
 		"in_comment": "Inappropriate Comment",
+		"please_choose_reason": "Please complete all fields",
 		"other": "Other",
+		"thanks": "Thank you! The message was sent.",
 		"explanation": "Please provide an explanation",
+		"submit": "Submit",
 		"report_review": "Report Review"
 	},
 	"jobpostings": {
