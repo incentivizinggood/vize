@@ -1,14 +1,4 @@
 @media (max-width: 1240px) {
-	.banner-text {
-		h2 {
-			font-size: 1.8em;
-		}
-
-		h3 {
-			font-size: 1em;
-		}
-	}
-
 	.banner {
 		min-height: 75vh;
 
@@ -71,10 +61,6 @@
 	}
 
 	.footer {
-		a.footer-img {
-			width: 14%;
-		}
-
 		&-bottom {
 			a {
 				margin: 0 0.5em;
@@ -97,15 +83,7 @@
 		min-height: 190px;
 	}
 
-	.about h4 {
-		font-size: 1.5em;
-	}
-
 	.team-grids {
 		margin: 1.5em 0 0;
-	}
-
-	.coment-form input[type="text"] {
-		width: 48.3%;
 	}
 }

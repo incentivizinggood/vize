@@ -1,0 +1,94 @@
+@include for-size(tablet-and-down) {
+	h1,
+	.h1,
+	h2,
+	.h2,
+	h3,
+	.h3 {
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	.progress {
+		height: 10px;
+		margin-bottom: 10px;
+	}
+
+	.company-search-container {
+		width: 90%;
+	}
+
+	.reviews1 {
+		display: none;
+	}
+
+	.add-review-btn-mobile {
+		padding: 12px;
+		margin: 0 auto;
+		margin-top: 20px;
+		font-size: calc(85% + 1.2vw);
+		background-color: #337ab7;
+		display: block !important;
+		width: 80%;
+		text-transform: capitalize;
+		font-weight: bold;
+	}
+
+	.company-search-img {
+		height: auto;
+		width: 190px;
+		margin: 0 auto;
+	}
+
+	.company-search-desc p {
+		font-size: 15px;
+	}
+
+	.btn_mob_view_only {
+		display: none;
+	}
+
+	.group_all_btn {
+		width: 100%;
+		margin: 0 auto;
+		display: none;
+		padding-top: 10px;
+	}
+
+	.hide-button-mobile {
+		display: none;
+	}
+
+	.banner-text {
+		h2 {
+			font-size: 2.1em;
+		}
+
+		h3 {
+			font-size: 1.1em;
+		}
+	}
+
+	.banner-text-info {
+		margin: 12em auto 0;
+		width: 90% !important;
+	}
+
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
+		min-height: 210px;
+	}
+
+	.static-page-banner .banner-text {
+		padding-top: 8em;
+	}
+
+	.banner-text {
+		padding: 1px;
+	}
+
+	.banner,
+	.banner-info {
+		min-height: 75vh;
+	}
+}

@@ -75,14 +75,8 @@ ul.dropdown-menu.pf {
 	padding-top: 1px;
 }
 
-@media only screen and (min-width: 370px) and (max-width: 575px) {
+@media only screen and (max-width: 767px) {
 	.banner-text-info {
 		padding-top: 80px;
-	}
-}
-
-@media only screen and (min-width: 575px) and (max-width: 769px) {
-	.banner-text-info {
-		padding-top: 180px;
 	}
 }

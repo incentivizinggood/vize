@@ -62,3 +62,45 @@
 	background-image: -webkit-linear-gradient($args);
 	background-image: linear-gradient($args);
 }
+
+@mixin for-size($range) {
+	// Small devices (landscape phones, 576px and up
+	$phone-upper-boundary: 576px;
+	// Medium devices (tablets, 768px and up)
+	$tablet-portrait-upper-boundary: 768px;
+	// Large devices (tablet landscape, 992px and up)
+	$tablet-landscape-upper-boundary: 992px;
+	// Extra large devices (desktops, 1200px and up)
+	$desktop-upper-boundary: 1200px;
+
+	@if $range == phone-only {
+		@media (max-width: $phone-upper-boundary) {
+			@content;
+		}
+	} @else if $range == tablet-and-down {
+		@media (max-width: $tablet-portrait-upper-boundary) {
+			@content;
+		}
+	} @else if $range == tablet-landscape-and-down {
+		@media (max-width: $tablet-landscape-upper-boundary) {
+			@content;
+		}
+	} @else if $range == big-desktop-up {
+		@media (max-width: $desktop-upper-boundary) {
+			@content;
+		}
+	}
+
+	//uncomment when finishing developing and arranging the _index file imports the right way (small to bigger screens)
+	// @if $range == phone-only {
+	// 	@media (max-width: #{$phone-upper-boundary - 1}) { @content; }
+	//   } @else if $range == tablet-portrait-up {
+	// 	@media (min-width: $phone-upper-boundary) { @content; }
+	//   } @else if $range == tablet-landscape-up {
+	// 	@media (min-width: $tablet-portrait-upper-boundary) { @content; }
+	//   } @else if $range == desktop-up {
+	// 	@media (min-width: $tablet-landscape-upper-boundary) { @content; }
+	//   } @else if $range == big-desktop-up {
+	// 	@media (min-width: $desktop-upper-boundary) { @content; }
+	//   }
+}

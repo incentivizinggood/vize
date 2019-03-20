@@ -1,0 +1,80 @@
+@include for-size(phone-only) {
+	.label {
+		font-size: 53%;
+	}
+
+	.alert {
+		font-size: 14px;
+		padding: 10px;
+		margin-bottom: 10px;
+	}
+
+	.static-page-banner .banner-text {
+		padding-top: 9em;
+	}
+
+	.banner {
+		&-text {
+			h2 {
+				font-size: 1.6em;
+			}
+
+			&-info {
+				width: 81%;
+			}
+		}
+	}
+
+	.banner {
+		&.static-page-banner {
+			min-height: 25vh;
+		}
+	}
+
+	.banner {
+		min-height: 75vh;
+		&-text {
+			h2 {
+				font-size: 1.2em;
+			}
+			&-info {
+				width: 90%;
+				margin: 11em auto 0;
+			}
+		}
+	}
+
+	.banner-text {
+		&-info {
+			width: 89%;
+		}
+	}
+
+	.full-width-container,
+	.services,
+	.footer,
+	.about,
+	.team,
+	.contact,
+	.gallery {
+		padding: 3em 0;
+	}
+
+	p {
+		font-size: 0.9em;
+		line-height: 1.8em;
+	}
+
+	.full-width-container h4 {
+		font-size: 1.1em;
+		margin-top: 0.5em;
+	}
+
+	nav.navScroll ul li a {
+		color: $white !important;
+	}
+
+	.banner-text {
+		padding: 1px;
+	}
+}

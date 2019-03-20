@@ -1,0 +1,46 @@
+@include for-size(tablet-landscape-and-down) {
+	.banner-text {
+		h2 {
+			font-size: 2.4em;
+		}
+
+		h3 {
+			font-size: 1.2em;
+		}
+	}
+
+	.banner-text-info {
+		width: 64%;
+	}
+
+	.banner-text {
+		padding: 9em 0 0;
+	}
+
+	.banner,
+	.banner-info {
+		max-height: 75vh;
+	}
+
+	.banner-text-info {
+		margin: 6em auto 0;
+	}
+
+	.services,
+	.footer,
+	.about,
+	.team,
+	.contact,
+	.gallery {
+		padding: 5em 0;
+	}
+
+	.static-page-banner .banner-text {
+		padding-top: 10em;
+	}
+
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
+		min-height: 240px;
+	}
+}
