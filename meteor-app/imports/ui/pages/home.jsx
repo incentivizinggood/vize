@@ -18,7 +18,7 @@ function HomePage() {
 				<div className="banner-info">
 					<div className="banner-text">
 						<div id="top" className="callbacks_container">
-							<ul className="rslides" id="slider3">
+							<ul id="slider3">
 								<li>
 									<div className="banner-text-info">
 										<h1>
