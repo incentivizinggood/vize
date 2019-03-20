@@ -1,5 +1,8 @@
 import * as dataModel from "imports/api/models";
 
-export type Context = {
-	user: dataModel.User;
+/** Normaly this would just be called Context, but that causes a namespace
+ *  collision with graphql code generator's types.
+ */
+export type MyContext = {
+	user?: dataModel.User;
 };

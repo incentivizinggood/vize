@@ -2,7 +2,7 @@ import * as dataModel from "imports/api/models";
 
 import { SalaryResolvers } from "./resolvers-types";
 
-export const Salary: SalaryResolvers.Resolvers = {
+export const Salary: SalaryResolvers = {
 	id: (obj, _args, _context, _info) =>
 		dataModel.salaryIdToString(obj.salaryId),
 

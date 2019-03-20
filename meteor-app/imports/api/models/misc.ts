@@ -14,5 +14,3 @@ export type StarRatings = {
 
 /** A way of getting nominal type checking in Typescript */
 export type Branded<T, B> = T & { __brand: B };
-
-export const defaultPageSize: number = 100;

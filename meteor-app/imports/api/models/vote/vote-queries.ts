@@ -10,7 +10,6 @@ import {
 	getReviewById,
 	getCommentById,
 	getVoteSubjectRef,
-	defaultPageSize,
 } from "imports/api/models";
 
 export const attributes = [
@@ -54,8 +53,8 @@ export async function getVoteByAuthorAndSubject(
 // Get all votes cast by a given user.
 export async function getVotesByAuthor(
 	user: User,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Vote[]> {
 	const submittedBy = await getUserPostgresId(user._id);
 
@@ -77,8 +76,8 @@ export async function getAuthorOfVote(vote: Vote): Promise<User> {
 // Get all votes that were cast on a given thing.
 export async function getVotesBySubject(
 	subject: VoteSubject,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Vote[]> {
 	let { subjectType, refersTo } = getVoteSubjectRef(subject);
 
@@ -118,8 +117,8 @@ export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
 
 // Get all of the votes.
 export async function getAllVotes(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Vote[]> {
 	return simpleQuery(
 		`${baseQuery("review")} UNION ALL ${baseQuery(

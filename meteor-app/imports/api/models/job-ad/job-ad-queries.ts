@@ -1,12 +1,6 @@
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import {
-	JobAdId,
-	Company,
-	JobAd,
-	getCompanyById,
-	defaultPageSize,
-} from "imports/api/models";
+import { JobAdId, Company, JobAd, getCompanyById } from "imports/api/models";
 
 const attributes = [
 	'jobadid AS "jobAdId"',
@@ -32,8 +26,8 @@ export async function getJobAdById(id: JobAdId): Promise<JobAd | null> {
 // Get all job ads posted by a given company.
 export async function getJobAdsByCompany(
 	company: Company,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<JobAd[]> {
 	return simpleQuery(
 		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
@@ -64,8 +58,8 @@ export async function countJobAdsByCompany(company: Company): Promise<number> {
 
 // Get all of the job ads.
 export async function getAllJobAds(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<JobAd[]> {
 	return simpleQuery(
 		`${baseQuery} OFFSET $1 LIMIT $2`,

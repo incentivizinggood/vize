@@ -3,7 +3,7 @@ overwrite: true
 generates:
   ./imports/api/graphql/resolvers/resolvers-types.ts:
     config:
-      contextType: ./context#Context
+      contextType: ./context#MyContext
       mappers:
         Comment: ../../models/comment/comment#Comment
         CommentParent: ../../models/comment/comment#CommentParent
@@ -19,6 +19,5 @@ generates:
         DateTime: Date
       enumsAsTypes: true
     plugins:
-      - typescript-common
-      - typescript-server
+      - typescript
       - typescript-resolvers

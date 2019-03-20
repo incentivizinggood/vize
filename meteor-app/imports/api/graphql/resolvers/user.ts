@@ -2,7 +2,7 @@ import * as dataModel from "imports/api/models";
 
 import { UserResolvers } from "./resolvers-types";
 
-export const User: UserResolvers.Resolvers = {
+export const User: UserResolvers = {
 	id: (obj, _args, _context, _info) => dataModel.userIdToString(obj._id),
 
 	role: (obj, _args, _context, _info) => {
@@ -22,23 +22,11 @@ export const User: UserResolvers.Resolvers = {
 	company: (obj, _args, _context, _info) => dataModel.getCompanyOfUser(obj),
 
 	reviews: (obj, args, _context, _info) =>
-		dataModel.getReviewsByAuthor(
-			obj,
-			args.pageNum || 0,
-			args.pageSize || dataModel.defaultPageSize
-		),
+		dataModel.getReviewsByAuthor(obj, args.pageNum, args.pageSize),
 
 	comments: (obj, args, _context, _info) =>
-		dataModel.getCommentsByAuthor(
-			obj,
-			args.pageNum || 0,
-			args.pageSize || dataModel.defaultPageSize
-		),
+		dataModel.getCommentsByAuthor(obj, args.pageNum, args.pageSize),
 
 	votes: (obj, args, _context, _info) =>
-		dataModel.getVotesByAuthor(
-			obj,
-			args.pageNum || 0,
-			args.pageSize || dataModel.defaultPageSize
-		),
+		dataModel.getVotesByAuthor(obj, args.pageNum, args.pageSize),
 };

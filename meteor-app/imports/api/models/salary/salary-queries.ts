@@ -8,7 +8,6 @@ import {
 	getUserById,
 	getUserPostgresId,
 	getCompanyByName,
-	defaultPageSize,
 } from "imports/api/models";
 
 const attributes = [
@@ -34,8 +33,8 @@ export async function getSalaryById(id: SalaryId): Promise<Salary | null> {
 // Get all salaries submitted by a given user.
 export async function getSalariesByAuthor(
 	user: User,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Salary[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
@@ -55,8 +54,8 @@ export async function getAuthorOfSalary(salary: Salary): Promise<User> {
 // Get all salaries paid by a given company.
 export async function getSalariesByCompany(
 	company: Company,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Salary[]> {
 	return simpleQuery(
 		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
@@ -90,8 +89,8 @@ export async function countSalariesByCompany(
 
 // Get all of the salaries.
 export async function getAllSalaries(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Salary[]> {
 	return simpleQuery(
 		`${baseQuery} OFFSET $1 LIMIT $2`,

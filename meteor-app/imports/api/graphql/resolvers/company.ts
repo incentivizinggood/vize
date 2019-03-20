@@ -2,7 +2,7 @@ import * as dataModel from "imports/api/models";
 
 import { CompanyResolvers } from "./resolvers-types";
 
-export const Company: CompanyResolvers.Resolvers = {
+export const Company: CompanyResolvers = {
 	id: (obj, _args, _context, _info) =>
 		dataModel.companyIdToString(obj.companyId),
 
@@ -36,27 +36,15 @@ export const Company: CompanyResolvers.Resolvers = {
 	},
 
 	reviews: (obj, args, _context, _info) =>
-		dataModel.getReviewsByCompany(
-			obj,
-			args.pageNum || 0,
-			args.pageSize || dataModel.defaultPageSize
-		),
+		dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
 
 	jobAds: (obj, args, _context, _info) =>
-		dataModel.getJobAdsByCompany(
-			obj,
-			args.pageNum || 0,
-			args.pageSize || dataModel.defaultPageSize
-		),
+		dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
 
 	numJobAds: (obj, _args, _context, _info) =>
 		dataModel.countJobAdsByCompany(obj),
 	salaries: (obj, args, _context, _info) =>
-		dataModel.getSalariesByCompany(
-			obj,
-			args.pageNum || 0,
-			args.pageSize || dataModel.defaultPageSize
-		),
+		dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
 
 	numSalaries: (obj, _args, _context, _info) =>
 		dataModel.countSalariesByCompany(obj),

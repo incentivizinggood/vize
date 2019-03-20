@@ -8,7 +8,6 @@ import {
 	getUserPostgresId,
 	getUserById,
 	getCompanyByName,
-	defaultPageSize,
 } from "imports/api/models";
 
 const attributes = [
@@ -47,8 +46,8 @@ export async function getReviewById(id: ReviewId): Promise<Review | null> {
 // Get all reviews written by a given user.
 export async function getReviewsByAuthor(
 	user: User,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Review[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
@@ -68,8 +67,8 @@ export async function getAuthorOfReview(review: Review): Promise<User> {
 // Get all reviews written about a given company.
 export async function getReviewsByCompany(
 	company: Company,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Review[]> {
 	return simpleQuery(
 		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
@@ -92,8 +91,8 @@ export async function getCompanyOfReview(review: Review): Promise<Company> {
 
 // Get all of the reviews.
 export async function getAllReviews(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Review[]> {
 	return simpleQuery(
 		`${baseQuery} OFFSET $1 LIMIT $2`,

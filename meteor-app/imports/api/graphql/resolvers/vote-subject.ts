@@ -2,7 +2,7 @@ import * as dataModel from "imports/api/models";
 
 import { VoteSubjectResolvers } from "./resolvers-types";
 
-export const VoteSubject: VoteSubjectResolvers.Resolvers = {
+export const VoteSubject: VoteSubjectResolvers = {
 	__resolveType(obj, _context, _info) {
 		// In order to determine what type obj actualy is, we test for the
 		// existance of fields that are unique to each of the types that obj

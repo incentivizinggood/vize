@@ -6,7 +6,6 @@ import {
 	User,
 	getCompanyById,
 	getUserMongoId,
-	defaultPageSize,
 } from "imports/api/models";
 
 // Get the user with a given id.
@@ -27,8 +26,8 @@ export function getUserByUsername(username: string): User {
 // Get all users administering a given company.
 export function getUsersByCompany(
 	company: Company,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): User[] {
 	const cursor = Meteor.users.find(
 		{ companyId: company.companyId },
@@ -50,10 +49,7 @@ export async function getCompanyOfUser(user: User): Promise<Company | null> {
 }
 
 // Get all of the users.
-export function getAllUsers(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
-): User[] {
+export function getAllUsers(pageNumber: number, pageSize: number): User[] {
 	const cursor = Meteor.users.find(
 		{},
 		{

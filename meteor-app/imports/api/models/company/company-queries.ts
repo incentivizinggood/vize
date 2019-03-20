@@ -1,6 +1,6 @@
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { CompanyId, Company, defaultPageSize } from "imports/api/models";
+import { CompanyId, Company } from "imports/api/models";
 
 const attributes = [
 	'companyid AS "companyId"',
@@ -44,8 +44,8 @@ export async function getCompanyByName(name: string): Promise<Company | null> {
 
 // Get all of the companies.
 export async function getAllCompanies(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Company[]> {
 	return simpleQuery(
 		`${baseQuery} OFFSET $1 LIMIT $2`,
@@ -58,8 +58,8 @@ export async function getAllCompanies(
 // contains the given search text
 export async function searchForCompanies(
 	searchText: string,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Company[]> {
 	return simpleQuery(
 		`${baseQuery} WHERE name LIKE $1 OFFSET $2 LIMIT $3`,

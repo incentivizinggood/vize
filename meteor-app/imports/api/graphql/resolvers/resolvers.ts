@@ -34,4 +34,4 @@ export const resolvers: IResolvers = {
 	VoteSubject,
 	Vote,
 	DateTime: GraphQLDateTime,
-} as IResolvers; // TODO: Remove this type cast when graphql-code-gen updates to v1.0
+};

@@ -2,7 +2,7 @@ import * as dataModel from "imports/api/models";
 
 import { CommentParentResolvers } from "./resolvers-types";
 
-export const CommentParent: CommentParentResolvers.Resolvers = {
+export const CommentParent: CommentParentResolvers = {
 	// WARNING: Comments have not been fully implemented yet. The code for
 	// them is a half done mess. Keep that in mind when working with it.
 	__resolveType(obj, _context, _info) {

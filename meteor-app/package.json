@@ -67,16 +67,15 @@
     "simpl-schema": "1.4.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.0.2",
+    "@graphql-codegen/typescript": "^1.0.2",
+    "@graphql-codegen/typescript-resolvers": "^1.0.2",
     "@types/graphql": "^14.0.7",
     "@types/graphql-iso-date": "^3.3.1",
     "@types/hashids": "^1.0.30",
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
-    "graphql-code-generator": "^0.18.0",
-    "graphql-codegen-typescript-common": "^0.18.0",
-    "graphql-codegen-typescript-resolvers": "^0.18.0",
-    "graphql-codegen-typescript-server": "^0.18.0",
     "node-sass": "^4.11.0",
     "react-test-renderer": "^16.8.1"
   }
