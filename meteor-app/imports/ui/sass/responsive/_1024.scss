@@ -21,36 +21,21 @@
 	}
 
 	.full-width-container,
-	.tabs,
 	.services,
-	.slid,
 	.footer,
 	.about,
 	.team,
-	.codes,
 	.contact,
-	.gallery,
-	.blog {
+	.gallery {
 		padding: 6em 0;
 	}
 
 	.full-width-container {
 		&-text {
-			&.wtext-left {
-				padding-left: 0;
-			}
 		}
 
 		&-info {
 			margin-top: 1.2em;
 		}
-	}
-
-	.pince:nth-child(2) {
-		margin: 2.1em 0;
-	}
-
-	.testimonials-grid {
-		margin-top: 2em;
 	}
 }

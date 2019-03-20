@@ -130,17 +130,85 @@
 	}
 }
 
-.login-fm {
-	.warning-input[type="password"] {
-		border: 1px solid red;
-		color: red;
+.login,
+.register {
+	.flex-container {
+		display: flex;
+
+		.vertical-mockup {
+			display: none;
+		}
+
+		@media only screen and (min-width: 767px) {
+			.vertical-mockup {
+				display: block;
+				background-color: $primary-color;
+				width: 40%;
+				height: 80vh;
+				background-image: url("images/factory.jpg");
+				background-position: 85% 70%;
+				background-repeat: no-repeat;
+				background-size: cover;
+				.overlay {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					flex-direction: column;
+					width: 100%;
+					height: 100%;
+					overflow: auto;
+					background: rgba(0, 0, 0, 0.6);
+					img {
+						width: 50%;
+					}
+					p {
+						font-weight: bold;
+						font-size: 1.8em;
+						color: white;
+					}
+				}
+			}
+			.container {
+				width: 60% !important;
+				display: flex;
+				justify-content: center;
+				.panel-login {
+					margin-top: 20%;
+				}
+				& > .row {
+					width: 100%;
+					display: flex;
+					@media only screen and (min-width: 767px) and (max-width: 997px) {
+						justify-content: center;
+					}
+				}
+			}
+		}
 	}
-	.warning-input[type="text"] {
-		border: 1px solid red;
-		color: red;
-	}
-	.message {
-		&--alert {
+
+	.login-fm {
+		.login-label {
+			position: relative;
+			z-index: 20;
+			bottom: -10px;
+			left: 10px;
+			background: white;
+			display: inline;
+			padding: 1px 5px;
+			font-weight: bold;
+			&-warning {
+				color: red;
+			}
+		}
+		.warning-input[type="password"] {
+			border: 2px solid red;
+			color: red;
+		}
+		.warning-input[type="text"] {
+			border: 2px solid red;
+			color: red;
+		}
+		.message {
 			color: red;
 			text-align: left;
 			margin-top: 5px;
@@ -149,15 +217,6 @@
 				font-weight: bold;
 				margin-left: 4px;
 			}
-			// &:after{
-			// 	content:"Enter your Password";
-			// 	background-color: white;
-			// 	padding: 0px 5px;
-			// 	color: red;
-			// 	position: absolute;
-			// 	left: 8px;
-			// 	top: -50px;
-			// }
 		}
 	}
 }

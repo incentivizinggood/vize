@@ -1,8 +1,4 @@
 @media (max-width: 900px) {
-	.address {
-		margin-top: 3em;
-	}
-
 	.banner-text {
 		h2 {
 			font-size: 2.4em;
@@ -17,14 +13,6 @@
 		width: 64%;
 	}
 
-	.more {
-		margin-top: 2em;
-
-		a {
-			padding: 0.7em 2em;
-		}
-	}
-
 	.banner,
 	.banner-info {
 		min-height: 525px;
@@ -35,37 +23,13 @@
 	}
 
 	.welcome,
-	.tabs,
 	.services,
-	.slid,
 	.footer,
 	.about,
 	.team,
-	.codes,
 	.contact,
-	.gallery,
-	.blog {
+	.gallery {
 		padding: 5em 0;
-	}
-
-	.testimonials {
-		padding: 4em 0 8em;
-
-		p {
-			font-size: 1.2em;
-		}
-
-		h5 {
-			font-size: 1.3em;
-		}
-	}
-
-	.flexslider .slides img {
-		width: 6%;
-	}
-
-	.about-info {
-		margin-top: 2em;
 	}
 
 	.static-page-banner .banner-text {
@@ -75,9 +39,5 @@
 	.banner.static-page-banner,
 	.static-page-banner .banner-info {
 		min-height: 240px;
-	}
-
-	.blog h4 {
-		font-size: 1.8em;
 	}
 }

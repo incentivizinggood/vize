@@ -9,60 +9,13 @@
 		}
 	}
 
-	.view {
-		margin: 0.5em 2em;
-	}
-
-	.banner {
-		min-height: 350px;
-
-		&-info {
-			min-height: 350px;
-		}
-
-		&-text-info {
-			margin: 9em auto 0;
-		}
-	}
-
-	.more {
-		margin-top: 0.8em;
-	}
-
-	.full-width-container-text.wtext-right {
-		width: 82%;
-	}
-
-	.tabs-left {
-		margin-bottom: 1.5em;
-	}
-
-	.servc-grid {
-		margin-top: 1.5em;
-
-		&-left {
-			text-align: left;
-		}
-	}
-
-	.slid {
-		padding: 2em 0;
-
-		&-row {
-			margin-top: 1em;
-		}
-	}
-
 	.full-width-container,
-	.tabs,
 	.services,
 	.footer,
 	.about,
 	.team,
-	.codes,
 	.contact,
-	.gallery,
-	.blog {
+	.gallery {
 		padding: 2em 0;
 	}
 
@@ -79,20 +32,6 @@
 		}
 	}
 
-	.pince {
-		&-left {
-			width: 15%;
-		}
-
-		&-right {
-			width: 79%;
-		}
-	}
-
-	.testimonials {
-		padding: 2em 0 5em;
-	}
-
 	.banner {
 		&.static-page-banner {
 			min-height: 151px;
@@ -101,15 +40,5 @@
 				min-height: 151px;
 			}
 		}
-	}
-
-	.blog h4 {
-		font-size: 1.5em;
-	}
-
-	.slid-grids {
-		width: 65%;
-		margin: 1em auto 0;
-		float: none;
 	}
 }

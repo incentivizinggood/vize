@@ -1,13 +1,9 @@
-.tabs,
 .services,
-.slid,
 .footer,
 .about,
 .team,
-.codes,
 .contact,
-.gallery,
-.blog {
+.gallery {
 	padding: 8em 0;
 }
 
@@ -72,37 +68,6 @@
 span.headingoo {
 	font-size: 24px;
 	font-weight: bold;
-}
-
-.tabs {
-	.tab-content {
-		border-radius: 0 2px 2px 2px;
-		border: 1px solid #e0e0e0;
-		padding: 16px;
-		background-color: $white;
-
-		.tab-pane {
-			display: none;
-		}
-
-		.active {
-			display: block;
-
-			&#salaries {
-				.add-buttons {
-					top: 5px;
-					@media (max-width: 544px) {
-						top: auto;
-					}
-				}
-			}
-		}
-
-		& > .active {
-			display: block;
-			visibility: visible;
-		}
-	}
 }
 
 .row.all_boxcolor1.select_box {
@@ -453,6 +418,18 @@ path.CircularProgressbar-trail {
 	}
 }
 
+div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
+	@media (max-width: 768px) {
+		text-align: center;
+
+		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
+		button._imports_ui_components_vote_buttons__vote_buttons__downButton {
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
+}
+
 #reviews {
 	.section_over_revi2 {
 		margin-top: 15px;
@@ -498,16 +475,6 @@ path.CircularProgressbar-trail {
 	}
 }
 
-.tab_str .table td,
-.table > tbody > tr > td,
-.table > tbody > tr > th,
-.table > tfoot > tr > td,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > thead > tr > th {
-	padding: 0px !important;
-}
-
 .thumb_don_bn .fa:focus,
 .fa:active {
 	/*color: #333;*/
@@ -538,10 +505,6 @@ path.CircularProgressbar-trail {
 	padding-top: 10px;
 	font-size: 15px;
 	color: #0e4c75;
-}
-
-.list-group-item {
-	border: 0px solid $white !important;
 }
 
 .shortcontent {

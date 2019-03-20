@@ -1,58 +1,12 @@
 @media (max-width: 320px) {
-	.grid_4 {
-		margin-top: 18px;
-	}
-
 	.alert,
-	p,
-	ol.breadcrumb li,
-	.grid_3 p,
-	.well,
-	ul.list-group li,
-	li.list-group-item1,
-	a.list-group-item {
+	p {
 		font-size: 13px;
 	}
 
 	.alert {
 		padding: 10px;
 		margin-bottom: 10px;
-	}
-
-	ul.pagination li a {
-		font-size: 14px;
-		padding: 5px 11px !important;
-	}
-
-	.list-group {
-		margin-bottom: 10px;
-	}
-
-	.well {
-		padding: 10px;
-	}
-
-	.table > thead > tr > th,
-	.table > tbody > tr > th,
-	.table > tfoot > tr > th,
-	.table > thead > tr > td,
-	.table > tbody > tr > td,
-	.table > tfoot > tr > td {
-		font-size: 0.81em;
-	}
-
-	.table td,
-	.table > tbody > tr > td,
-	.table > tbody > tr > th,
-	.table > tfoot > tr > td,
-	.table > tfoot > tr > th,
-	.table > thead > tr > td,
-	.table > thead > tr > th {
-		padding: 13px !important;
-	}
-
-	.codes .row {
-		margin: 0;
 	}
 
 	.logo h1 {
@@ -77,12 +31,7 @@
 		}
 	}
 
-	.callbacks_tabs {
-		left: 39.5%;
-		bottom: 7%;
-	}
-
-	full-width-container h4 {
+	.full-width-container h4 {
 		font-size: 1.1em;
 		margin-top: 0.5em;
 	}
@@ -91,27 +40,8 @@
 		font-size: 2.2em;
 	}
 
-	.tabs .more {
-		margin-top: 1em;
-	}
-
-	.tab-grid-right {
-		padding: 0;
-	}
-
 	.footer a.footer-img {
 		width: 27%;
-	}
-
-	.about-info {
-		margin-top: 1em;
-	}
-
-	.slid-grids {
-		width: 90%;
-		margin: 1em auto 0;
-		float: none;
-		padding: 2em 0;
 	}
 
 	nav.navScroll ul li a {

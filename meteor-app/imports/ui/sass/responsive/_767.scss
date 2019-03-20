@@ -54,11 +54,6 @@
 		}
 	}
 
-	.callbacks_tabs {
-		left: 43.5%;
-		bottom: 12%;
-	}
-
 	.banner,
 	.banner-info {
 		min-height: 460px;
@@ -69,10 +64,6 @@
 		width: 90% !important;
 	}
 
-	.slid {
-		padding: 3em 0;
-	}
-
 	.banner.static-page-banner,
 	.static-page-banner .banner-info {
 		min-height: 210px;
@@ -80,17 +71,5 @@
 
 	.static-page-banner .banner-text {
 		padding-top: 8em;
-	}
-
-	.testimonials {
-		padding: 3em 0 6em;
-
-		&-grid p {
-			font-size: 1.1em;
-		}
-	}
-
-	.ch-info h3 {
-		padding: 40px 0 0 0;
 	}
 }
