@@ -14,76 +14,6 @@
 		}
 	}
 
-	.lef_label_one {
-		margin-right: 15px;
-		font-size: 15px;
-	}
-	.replus {
-		margin-top: 0px;
-		margin-left: 0px;
-	}
-	.rating-md {
-		font-size: 1.5em !important;
-	}
-
-	.float-right {
-		float: none;
-	}
-	.num_sett h1 {
-		font-size: 70px;
-		float: none;
-		text-align: center;
-	}
-	.num_sett span {
-		font-size: 16px;
-		float: none;
-		text-align: center;
-	}
-	.sect_re1 td {
-		font-size: 15px !important;
-	}
-
-	.nav-tabs {
-		font-size: 13px;
-	}
-	.subr_rev {
-		font-size: 15px;
-		font-weight: 300;
-		color: #656565;
-	}
-
-	.bodr_lft {
-		border-right: none;
-	}
-	.fl-ri {
-		float: none;
-		margin-top: -45px;
-		text-align: center !important;
-	}
-
-	.sect-rev-left {
-		float: left;
-	}
-
-	.star_border {
-		width: 100%;
-	}
-	.tab_str {
-		width: 100%;
-	}
-	.cont {
-		margin-top: 0px;
-	}
-
-	.progress1 {
-		display: none;
-	}
-
-	.tab_str {
-		box-shadow: 0px 0px 0px 0px !important;
-		border: none !important;
-	}
-
 	.article-list-vertical {
 		max-width: 350px;
 		min-height: 450px;
@@ -171,50 +101,18 @@
 		text-align: center !important;
 	}
 
-	.sect-rev-left {
-		float: left;
-	}
-
 	.star_border {
 		width: 100%;
 	}
 
 	.tab_str {
 		width: 100%;
-	}
-
-	.cont {
-		margin-top: 0px;
-	}
-
-	.progress1 {
-		display: none;
-	}
-
-	.tab_str {
 		box-shadow: 0px 0px 0px 0px !important;
 		border: none !important;
 	}
 
-	.border_mob_view {
-		margin-top: 27px;
-		border-top: 1px solid #eee;
-		padding-top: 23px;
-	}
-
-	.see_all_space {
-		margin-top: 37px;
-		margin-bottom: 32px;
-	}
-
-	.posted_space {
-		margin-bottom: 18px;
-		margin-top: -78px;
-	}
-
-	.posted_space1 {
-		margin-bottom: 18px;
-		margin-top: -85px;
+	.cont {
+		margin-top: 0px;
 	}
 
 	.review-submitted {
@@ -262,29 +160,11 @@
 	.top-nav > nav {
 		background-color: #132437;
 	}
-	nav.navScroll {
-		background-color: #132437;
-		box-shadow: transparent;
-	}
 
 	.container-contact {
 		.wrap-contact {
 			padding: 55px 45px 68px 45px;
 		}
-	}
-
-	.banner-text {
-		padding: 1px 0;
-		h1 {
-			font-size: 2.2em;
-		}
-	}
-	.banner-text-info {
-		padding-top: 80px;
-	}
-
-	.companies-search-div {
-		width: 95%;
 	}
 
 	h1,
@@ -322,6 +202,9 @@
 		font-weight: bold;
 	}
 
+	.companies-search-div {
+		width: 95%;
+	}
 	.company-search-img {
 		height: auto;
 		width: 190px;
@@ -347,17 +230,8 @@
 		display: none;
 	}
 
-	.banner-text {
-		h2 {
-			font-size: 2.1em;
-		}
-
-		h3 {
-			font-size: 1.1em;
-		}
-	}
-
 	.banner-text-info {
+		padding-top: 80px;
 		margin: 12em auto 0;
 		width: 90% !important;
 	}
@@ -373,6 +247,18 @@
 
 	.banner-text {
 		padding: 1px;
+
+		h1 {
+			font-size: 2.2em;
+		}
+
+		h2 {
+			font-size: 2.1em;
+		}
+
+		h3 {
+			font-size: 1.1em;
+		}
 	}
 
 	.banner,
@@ -388,9 +274,14 @@
 		padding-top: 3em !important;
 	}
 
-	nav.navScroll ul li a {
-		color: $white !important;
+	nav.navScroll {
+		background-color: #132437;
+		box-shadow: transparent;
+		ul li a {
+			color: $white !important;
+		}
 	}
+
 	.panel-hm {
 		width: 58%;
 		margin-bottom: 10px !important;
