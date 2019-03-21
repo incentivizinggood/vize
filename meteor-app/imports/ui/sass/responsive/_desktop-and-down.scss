@@ -321,7 +321,6 @@
 		font-size: 1em;
 	}
 
-	.full-width-container,
 	.services,
 	.footer,
 	.about,
@@ -329,6 +328,10 @@
 	.contact,
 	.gallery {
 		padding: 4em 0;
+	}
+
+	.full-width-container {
+		padding: 6em 0;
 	}
 
 	.banner-text {
@@ -731,6 +734,7 @@
 	.top-nav ul li a {
 		letter-spacing: 0;
 		padding: 10px 35px !important;
+		text-align: center;
 	}
 
 	hr.hr_line_width2 {

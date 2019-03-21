@@ -110,16 +110,7 @@
 	}
 }
 
-@media screen and (max-width: 991px) and (min-width: 290px) {
-	.container {
-		&.desktop-view,
-		&.blu-section-desc {
-			display: none;
-		}
-	}
-}
-
-@media screen and (max-width: 8000px) and (min-width: 992px) {
+@media screen and (min-width: 992px) {
 	.container.mobile-view-box {
 		display: none;
 	}

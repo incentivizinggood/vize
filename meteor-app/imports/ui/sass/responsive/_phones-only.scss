@@ -1,4 +1,122 @@
 @include for-size(phone-only) {
+	.add-buttons {
+		float: none;
+		position: relative;
+		top: auto;
+		right: auto;
+		margin-top: 10px;
+	}
+
+	.num_sett span {
+		text-align: center;
+	}
+
+	div[class^="sect_re"] {
+		padding: 0;
+	}
+
+	.tab-pane {
+		& > div {
+			padding: 15px;
+		}
+	}
+
+	.navbarwhite.grey {
+		.welpad12.box_shadow {
+			.titlestar {
+				text-align: left;
+			}
+		}
+	}
+
+	.mar_lf_ri .na_tab {
+		.nav-tabs > li {
+			display: block;
+			width: 100% !important;
+			a {
+				margin-right: 0;
+			}
+		}
+	}
+
+	.tab_str + .col-md-6 {
+		> div {
+			width: 60% !important;
+		}
+	}
+
+	.tab_str {
+		table {
+			padding: 10px 0;
+
+			tbody {
+				tr {
+					display: block;
+					border-bottom: 1px solid $picton-blue;
+					padding: 0 20px 10px 20px;
+					text-align: center;
+
+					&:last-child {
+						border: none;
+					}
+
+					td {
+						display: block;
+						width: 100%;
+
+						&:first-child {
+							display: inline-block;
+							label {
+								float: none;
+							}
+						}
+
+						&:last-child {
+							text-align: center;
+							.row {
+								text-align: center;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.section_rview_back_color03,
+	.section_rview_back_color2,
+	.section_rview_back_color_job,
+	.section_rview_back_color08 {
+		.head_section_font,
+		.add-buttons {
+			width: 50%;
+			float: left;
+			font-size: 16px;
+			margin: 15px 0;
+			line-height: 1.2;
+			& > a.btn.btn-primary {
+				float: right;
+			}
+		}
+	}
+
+	.ReactModalPortal {
+		.ReactModal__Content.ReactModal__Content--after-open {
+			height: 250px;
+			form {
+				padding-top: 20px;
+			}
+		}
+	}
+
+	.fom-job {
+		padding-bottom: 9px;
+		margin-top: 0px;
+		margin-bottom: 19px;
+		padding-top: 117px;
+		width: 95%;
+	}
+
 	.forEmployees-header {
 		height: 530px;
 	}
@@ -66,7 +184,6 @@
 		}
 	}
 
-	.full-width-container,
 	.services,
 	.footer,
 	.about,

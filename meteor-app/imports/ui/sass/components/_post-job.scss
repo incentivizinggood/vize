@@ -36,23 +36,3 @@
 		background-color: $white;
 	}
 }
-
-@media (max-width: 768px) {
-	.fom-job {
-		padding-bottom: 9px;
-		margin-top: 0px;
-		margin-bottom: 19px;
-		padding-top: 117px;
-		width: 85%;
-	}
-}
-
-@media (max-width: 428px) {
-	.fom-job {
-		padding-bottom: 9px;
-		margin-top: 0px;
-		margin-bottom: 19px;
-		padding-top: 117px;
-		width: 95%;
-	}
-}
