@@ -1,4 +1,89 @@
 @include for-size(tablet-and-down) {
+	.full-width-container.welpadgo.wel_profile,
+	.mar_lf_ri .na_tab,
+	.tab-content .tab-pane {
+		margin: 0 15px;
+	}
+
+	div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
+		text-align: center;
+		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
+		button._imports_ui_components_vote_buttons__vote_buttons__downButton {
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
+
+	.lef_label_one {
+		margin-right: 15px;
+		font-size: 15px;
+	}
+	.replus {
+		margin-top: 0px;
+		margin-left: 0px;
+	}
+	.rating-md {
+		font-size: 1.5em !important;
+	}
+
+	.float-right {
+		float: none;
+	}
+	.num_sett h1 {
+		font-size: 70px;
+		float: none;
+		text-align: center;
+	}
+	.num_sett span {
+		font-size: 16px;
+		float: none;
+		text-align: center;
+	}
+	.sect_re1 td {
+		font-size: 15px !important;
+	}
+
+	.nav-tabs {
+		font-size: 13px;
+	}
+	.subr_rev {
+		font-size: 15px;
+		font-weight: 300;
+		color: #656565;
+	}
+
+	.bodr_lft {
+		border-right: none;
+	}
+	.fl-ri {
+		float: none;
+		margin-top: -45px;
+		text-align: center !important;
+	}
+
+	.sect-rev-left {
+		float: left;
+	}
+
+	.star_border {
+		width: 100%;
+	}
+	.tab_str {
+		width: 100%;
+	}
+	.cont {
+		margin-top: 0px;
+	}
+
+	.progress1 {
+		display: none;
+	}
+
+	.tab_str {
+		box-shadow: 0px 0px 0px 0px !important;
+		border: none !important;
+	}
+
 	.article-list-vertical {
 		max-width: 350px;
 		min-height: 450px;

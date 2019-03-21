@@ -1,4 +1,13 @@
 @include for-size(tablet-landscape-and-down) {
+	.tab_str {
+		padding-right: 0;
+		margin-bottom: 50px;
+	}
+
+	div.num_sett h1 {
+		float: none;
+	}
+
 	.modal-content {
 		width: 85%;
 	}

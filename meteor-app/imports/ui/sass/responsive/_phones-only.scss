@@ -1,4 +1,13 @@
 @include for-size(phone-only) {
+	.na_tab .nav > li {
+		width: 100%;
+	}
+
+	.lef_label {
+		margin-right: 5px;
+		font-size: 12px;
+	}
+
 	.modal-content {
 		img {
 			max-width: 170px;
@@ -53,6 +62,10 @@
 				margin-right: 0;
 			}
 		}
+	}
+
+	.tab_str td span {
+		font-size: 13px;
 	}
 
 	.tab_str + .col-md-6 {

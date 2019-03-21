@@ -227,14 +227,6 @@ li.te_deco > a {
 	}
 }
 
-.full-width-container.welpadgo.wel_profile,
-.mar_lf_ri .na_tab,
-.tab-content .tab-pane {
-	@media (max-width: 768px) {
-		margin: 0 15px;
-	}
-}
-
 .navbarwhite.grey,
 section.company-profile,
 .mar_lf_ri {
@@ -248,9 +240,6 @@ section.company-profile,
 
 div.num_sett h1 {
 	font-size: 38px;
-	@media (max-width: 991px) {
-		float: none;
-	}
 }
 
 path.CircularProgressbar-trail {
@@ -282,11 +271,6 @@ path.CircularProgressbar-trail {
 	padding-left: 0;
 	padding-right: 100px;
 	border-right: 1px solid #f5f5f5;
-
-	@media (max-width: 991px) {
-		padding-right: 0;
-		margin-bottom: 50px;
-	}
 
 	table {
 		width: 100%;
@@ -338,18 +322,6 @@ path.CircularProgressbar-trail {
 
 	.star-ratings {
 		top: -3px;
-	}
-}
-
-div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
-	@media (max-width: 768px) {
-		text-align: center;
-
-		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
-		button._imports_ui_components_vote_buttons__vote_buttons__downButton {
-			display: inline-block;
-			margin: 0 5px;
-		}
 	}
 }
 
@@ -698,78 +670,6 @@ h3.head_section_font_25 {
 	border-bottom: 1px solid $concrete;
 }
 
-@media screen and (max-width: 767px) and (min-width: 300px) {
-	.lef_label_one {
-		margin-right: 15px;
-		font-size: 15px;
-	}
-	.replus {
-		margin-top: 0px;
-		margin-left: 0px;
-	}
-	.rating-md {
-		font-size: 1.5em !important;
-	}
-
-	.float-right {
-		float: none;
-	}
-	.num_sett h1 {
-		font-size: 70px;
-		float: none;
-		text-align: center;
-	}
-	.num_sett span {
-		font-size: 16px;
-		float: none;
-		text-align: center;
-	}
-	.sect_re1 td {
-		font-size: 15px !important;
-	}
-
-	.nav-tabs {
-		font-size: 13px;
-	}
-	.subr_rev {
-		font-size: 15px;
-		font-weight: 300;
-		color: #656565;
-	}
-
-	.bodr_lft {
-		border-right: none;
-	}
-	.fl-ri {
-		float: none;
-		margin-top: -45px;
-		text-align: center !important;
-	}
-
-	.sect-rev-left {
-		float: left;
-	}
-
-	.star_border {
-		width: 100%;
-	}
-	.tab_str {
-		width: 100%;
-	}
-	.cont {
-		margin-top: 0px;
-	}
-
-	.progress1 {
-		display: none;
-	}
-
-	.tab_str {
-		box-shadow: 0px 0px 0px 0px !important;
-		border: none !important;
-	}
-}
-
 @media screen and (max-width: 991px) and (min-width: 768px) {
 	.num_sett h1 {
 		font-size: 70px;
@@ -798,20 +698,6 @@ h3.head_section_font_25 {
 	}
 }
 
-@media screen and (max-width: 400px) and (min-width: 300px) {
-	.na_tab .nav > li {
-		width: 100%;
-	}
-
-	.tab_str td span {
-		font-size: 13px;
-	}
-	.lef_label {
-		margin-right: 5px;
-		font-size: 12px;
-	}
-}
-
 #overview {
 	.section_overtopsect {
 		margin-top: 15px;
@@ -832,15 +718,6 @@ h3.head_section_font_25 {
 	background-color: $white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	margin-top: 15px;
-}
-
-@media screen and (max-width: 991px) and (min-width: 300px) {
-	.sec_p {
-		padding-bottom: 0px;
-	}
-	.section_rview_back_color03 {
-		padding-bottom: 26px;
-	}
 }
 
 .ava_job {
