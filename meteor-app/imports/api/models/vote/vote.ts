@@ -8,30 +8,20 @@ import {
 	isReview,
 } from "imports/api/models";
 
-export type CommentVote = {
+/** A reference to the subject of a vote. */
+type SubjectRef =
+	| { subjectType: "comment"; refersTo: CommentId }
+	| { subjectType: "review"; refersTo: ReviewId };
+
+export type Vote = SubjectRef & {
 	submittedBy: UserPId;
-	subjectType: "comment";
-	refersTo: CommentId;
 	isUpvote: boolean;
 };
-
-export type ReviewVote = {
-	submittedBy: UserPId;
-	subjectType: "review";
-	refersTo: ReviewId;
-	isUpvote: boolean;
-};
-
-export type Vote = ReviewVote | CommentVote;
 
 export type VoteSubject = Comment | Review;
 
 // Get the foreign key that a vote cast on this subject would have.
-export function getVoteSubjectRef(
-	subject: VoteSubject
-):
-	| { subjectType: "comment"; refersTo: CommentId }
-	| { subjectType: "review"; refersTo: ReviewId } {
+export function getVoteSubjectRef(subject: VoteSubject): SubjectRef {
 	if (isComment(subject)) {
 		return {
 			subjectType: "comment",
