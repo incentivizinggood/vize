@@ -73,6 +73,7 @@
 	}
 
 	.banner-text {
+		padding: 9em 0 0;
 		h2 {
 			font-size: 2.4em;
 		}
@@ -82,20 +83,13 @@
 		}
 	}
 
-	.banner-text-info {
-		width: 64%;
-	}
-
-	.banner-text {
-		padding: 9em 0 0;
-	}
-
 	.banner,
 	.banner-info {
 		max-height: 75vh;
 	}
 
 	.banner-text-info {
+		width: 64%;
 		margin: 6em auto 0;
 	}
 
