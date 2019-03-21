@@ -144,35 +144,9 @@ nav {
 	display: none !important;
 }
 
-//there is too many global classes that are scatered throughout the scss files
-//so I hade made a new class to overwrite them with "--ui-fix"
-//so we could have the code inside them to be added to the wanted classes when finding the corrospinding ones
-//using BEM
-
-.container--ui-fix {
+.navigation-container {
 	width: 100%;
 	padding: 0;
-}
-
-.navbar-collapse--ui-fix {
-	width: 100% !important;
-	margin: 0 !important;
-}
-
-.navbar-header--ui-fix {
-	margin: 0 !important;
-}
-
-.navbar-nav--ui-fix {
-	margin-right: 0;
-	text-align: center;
-	a {
-		text-align: center;
-	}
-}
-
-.navbar-toggle--ui-fix {
-	background-color: #4090d7 !important;
 }
 
 nav ul.nav.navbar-right {
