@@ -160,11 +160,6 @@ nav {
 		span {
 			display: block;
 		}
-
-		@media (max-width: 991px) {
-			padding-left: 0;
-			margin-top: 10px;
-		}
 	}
 
 	&-copy {
@@ -188,15 +183,6 @@ nav {
 
 //--------------------------------------//
 //header dwopdown menu media
-@media (max-width: 768px) {
-	.top-nav > nav {
-		background-color: #132437;
-	}
-	nav.navScroll {
-		background-color: #132437;
-		box-shadow: transparent;
-	}
-}
 
 @media screen and (max-width: 1199px) and (min-width: 360px) {
 	ul.nav.navbar-right {

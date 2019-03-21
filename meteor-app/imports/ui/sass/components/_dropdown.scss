@@ -4,10 +4,6 @@
 	.dropdown {
 		position: relative;
 
-		@media screen and (max-width: 1290px) {
-			border: 1px solid white;
-			border-radius: 4px;
-		}
 		&.dropdown--active {
 			border: none;
 		}
@@ -15,19 +11,6 @@
 			display: block;
 			width: 100%;
 			padding: 10px 40px 10px 10px !important;
-			@media screen and (max-width: 1290px) {
-				&:after {
-					content: "";
-					position: absolute;
-					width: 0;
-					height: 0;
-					border-left: 8px solid transparent;
-					border-right: 8px solid transparent;
-					border-top: 8px solid #fff;
-					right: 10px;
-					top: 28px;
-				}
-			}
 		}
 	}
 	&__content {

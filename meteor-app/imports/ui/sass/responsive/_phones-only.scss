@@ -1,4 +1,20 @@
 @include for-size(phone-only) {
+	.forEmployees-header {
+		height: 530px;
+	}
+
+	.panel {
+		&-hm {
+			width: auto;
+			margin: 0;
+		}
+	}
+	.container-contact {
+		.wrap-contact {
+			padding: 55px 15px 68px 15px;
+		}
+	}
+
 	.label {
 		font-size: 53%;
 	}

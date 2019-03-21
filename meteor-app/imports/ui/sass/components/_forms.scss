@@ -62,16 +62,6 @@
 		background: $concrete;
 		border-radius: 2px;
 		padding: 25px 39px 45px 39px;
-		@media (max-width: 768px) {
-			padding: 55px 45px 68px 45px;
-		}
-		@media (max-width: 768px) {
-			padding: 55px 45px 68px 45px;
-		}
-
-		@media (max-width: 576px) {
-			padding: 55px 15px 68px 15px;
-		}
 	}
 
 	.contact-form {
@@ -94,13 +84,6 @@
 			position: relative;
 			border-radius: 2px;
 			margin-bottom: 34px;
-
-			&.rsl {
-				width: calc((100% - 40px) / 2);
-				@media (max-width: 576px) {
-					width: 100%;
-				}
-			}
 		}
 
 		.input {

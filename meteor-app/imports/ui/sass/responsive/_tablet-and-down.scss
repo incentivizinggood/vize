@@ -1,4 +1,32 @@
 @include for-size(tablet-and-down) {
+	.top-nav > nav {
+		background-color: #132437;
+	}
+	nav.navScroll {
+		background-color: #132437;
+		box-shadow: transparent;
+	}
+
+	.container-contact {
+		.wrap-contact {
+			padding: 55px 45px 68px 45px;
+		}
+	}
+
+	.banner-text {
+		padding: 1px 0;
+		h1 {
+			font-size: 2.2em;
+		}
+	}
+	.banner-text-info {
+		padding-top: 80px;
+	}
+
+	.companies-search-div {
+		width: 95%;
+	}
+
 	h1,
 	.h1,
 	h2,

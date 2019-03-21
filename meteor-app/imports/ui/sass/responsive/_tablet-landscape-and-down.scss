@@ -1,4 +1,9 @@
 @include for-size(tablet-landscape-and-down) {
+	.footer-grids {
+		padding-left: 0;
+		margin-top: 10px;
+	}
+
 	.banner-text {
 		h2 {
 			font-size: 2.4em;
