@@ -137,12 +137,6 @@
 		height: 530px;
 	}
 
-	.panel {
-		&-hm {
-			width: auto;
-			margin: 0;
-		}
-	}
 	.container-contact {
 		.wrap-contact {
 			padding: 55px 15px 68px 15px;
@@ -164,25 +158,12 @@
 	}
 
 	.banner {
-		&-text {
-			h2 {
-				font-size: 1.6em;
-			}
+		min-height: 75vh;
 
-			&-info {
-				width: 81%;
-			}
-		}
-	}
-
-	.banner {
 		&.static-page-banner {
 			min-height: 25vh;
 		}
-	}
 
-	.banner {
-		min-height: 75vh;
 		&-text {
 			h2 {
 				font-size: 1.2em;
@@ -191,12 +172,6 @@
 				width: 90%;
 				margin: 11em auto 0;
 			}
-		}
-	}
-
-	.banner-text {
-		&-info {
-			width: 89%;
 		}
 	}
 
@@ -219,12 +194,11 @@
 		margin-top: 0.5em;
 	}
 
-	nav.navScroll ul li a {
-		color: $white !important;
-	}
-
 	.banner-text {
 		padding: 1px;
+		&-info {
+			width: 89%;
+		}
 	}
 
 	.panel-hm {
@@ -237,10 +211,6 @@
 
 	.dp-profile {
 		margin: 0 auto !important;
-	}
-
-	.top-nav ul li a {
-		color: $white !important;
 	}
 
 	.great-job-hm {
@@ -261,20 +231,15 @@
 		background-color: #132437 !important;
 	}
 
-	a#navEng,
-	a#navIta {
-		color: $white !important;
-		&:hover {
-			color: $white !important;
-		}
-	}
-
 	nav {
 		padding: 0em 0em !important;
 
 		&.navScroll {
 			background-color: transparent !important;
 			box-shadow: transparent !important;
+			ul li a {
+				color: $white !important;
+			}
 		}
 	}
 
@@ -287,14 +252,6 @@
 		background-color: #fb406f !important;
 	}
 
-	nav.navScroll ul li a {
-		color: $white !important;
-	}
-
-	ul.dropdown-menu.header_drop_language li:hover {
-		background: #132437;
-	}
-
 	#register-button {
 		width: 100%;
 		display: none;
@@ -304,29 +261,11 @@
 		margin-top: 1.3em;
 	}
 
-	.replus {
-		margin-top: 0px;
-		margin-left: 0px;
-	}
-
-	.select_widthbox li a {
-		color: #000 !important;
-	}
-
 	div#bs-example-navbar-collapse-1 {
 		background: #132437;
 		float: left;
 		width: 77%;
 		padding: 0;
-	}
-
-	a#register-button-menu {
-		display: block !important;
-		height: 55px;
-		padding-top: 17px !important;
-		border-radius: 0px !important;
-		text-align: left;
-		margin-top: -15px;
 	}
 
 	a.navbar-link.margin-right {
@@ -338,22 +277,9 @@
 	}
 
 	.top-nav ul li a {
+		color: $white !important;
 		letter-spacing: 0;
 		padding: 10px 35px !important;
-	}
-
-	hr.hr_line_width2 {
-		width: 64%;
-		display: block !important;
-		border-top: 0px dotted #132437 !important;
-		margin-top: 1px;
-		margin-bottom: 39px;
-		margin-left: -8px;
-	}
-
-	.btn_follow1 {
-		margin-bottom: 6px;
-		display: none;
 	}
 
 	.btn_add_button {
@@ -381,25 +307,10 @@
 		padding-right: 3em !important;
 	}
 
-	.fom-siz-post {
-		width: 100%;
-	}
-
-	.container.salary_section {
-		padding-left: 3em !important;
-		padding-right: 3em !important;
-	}
-
 	.submit_div {
 		margin-top: 2em !important;
 		float: none !important;
 		margin-bottom: 0em !important;
-	}
-
-	.main_row_width {
-		padding-top: 1px !important;
-		padding-left: 1em !important;
-		padding-right: 1em !important;
 	}
 
 	li.ln {
@@ -435,5 +346,9 @@
 	ul.dropdown-menu.header_drop_language {
 		background-color: $white !important;
 		margin-left: -15px;
+
+		li:hover {
+			background: #132437;
+		}
 	}
 }

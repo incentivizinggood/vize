@@ -501,15 +501,6 @@
 		}
 	}
 
-	a#register-button-menu {
-		display: block !important;
-		height: 55px;
-		padding-top: 17px !important;
-		border-radius: 0px !important;
-		text-align: left;
-		margin-top: -15px;
-	}
-
 	.btn-green {
 		background-color: #fb406f !important;
 	}
@@ -521,11 +512,6 @@
 
 	a.navbar-link.margin-right {
 		display: none;
-	}
-
-	span#lanNavEng,
-	span#lanNavIta {
-		color: #252121 !important;
 	}
 
 	.show-on-hover-pf:hover > ul.dropdown-menu {
@@ -621,21 +607,10 @@
 		display: none !important;
 	}
 
-	.col-md-12.main_row_width {
-		padding-top: 1px !important;
-		padding-left: 1em !important;
-		padding-right: 1em !important;
-	}
-
 	.submit_div {
 		margin-top: 2em !important;
 		float: none !important;
 		margin-bottom: 0em !important;
-	}
-
-	.salary_section {
-		padding-left: 3em !important;
-		padding-right: 3em !important;
 	}
 
 	.fom-job {
@@ -643,21 +618,9 @@
 		padding-right: 3em !important;
 	}
 
-	.fom-siz-post {
-		width: 100%;
-	}
-
 	.navbar-header.logo {
 		margin-top: 0px !important;
 		background-color: #132437 !important;
-	}
-
-	a#navEng,
-	a#navIta {
-		color: $white !important;
-		&:hover {
-			color: $white !important;
-		}
 	}
 
 	nav {
@@ -694,15 +657,6 @@
 		margin-top: 1.3em;
 	}
 
-	.replus {
-		margin-top: 0px;
-		margin-left: 0px;
-	}
-
-	.select_widthbox li a {
-		color: #000 !important;
-	}
-
 	div#bs-example-navbar-collapse-1 {
 		background: #132437;
 		float: left;
@@ -712,15 +666,6 @@
 		ul.nav.navbar-right {
 			display: block;
 		}
-	}
-
-	a#register-button-menu {
-		display: block !important;
-		height: 55px;
-		padding-top: 17px !important;
-		border-radius: 0px !important;
-		text-align: left;
-		margin-top: -15px;
 	}
 
 	a.navbar-link.margin-right {
@@ -735,20 +680,6 @@
 		letter-spacing: 0;
 		padding: 10px 35px !important;
 		text-align: center;
-	}
-
-	hr.hr_line_width2 {
-		width: 64%;
-		display: block !important;
-		border-top: 2px dotted #132437 !important;
-		margin-top: 1px;
-		margin-bottom: 39px;
-		margin-left: -8px;
-	}
-
-	.btn_follow1 {
-		margin-bottom: 6px;
-		display: none;
 	}
 
 	.btn_add_button {
@@ -786,11 +717,6 @@
 
 	ul.nav.navbar-right {
 		margin-right: -43px;
-	}
-
-	.btn_follow1 {
-		margin-bottom: 6px;
-		display: none;
 	}
 
 	.btn_add_button {
@@ -853,10 +779,6 @@
 
 	.blu-mobile-sect {
 		display: none;
-	}
-
-	.container.salary_section {
-		padding-top: 149px !important;
 	}
 
 	.container.fom-job {
