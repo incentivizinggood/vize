@@ -1,4 +1,40 @@
 @include for-size(tablet-and-down) {
+	.article-list-vertical {
+		max-width: 350px;
+		min-height: 450px;
+
+		li {
+			max-width: 350px;
+			min-height: 50px;
+
+			div {
+				float: none;
+				padding: 30px;
+				padding-top: 0;
+				display: block;
+				text-align: center;
+				margin-left: 0px;
+			}
+		}
+
+		& > img {
+			float: none;
+			display: block;
+			text-align: center;
+			max-height: 250px;
+			margin-left: 54px;
+		}
+	}
+
+	.modal-content {
+		width: 95%;
+
+		p {
+			color: black;
+			font-size: 18px;
+		}
+	}
+
 	.lef_label_one {
 		margin-right: 15px;
 		font-size: 15px;
