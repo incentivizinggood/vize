@@ -4,6 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
+    "type": "tsc -p ./tsconfig.json --noEmit",
     "gen": "gql-gen"
   },
   "cssModules": {
@@ -73,10 +74,12 @@
     "@types/graphql": "^14.0.7",
     "@types/graphql-iso-date": "^3.3.1",
     "@types/hashids": "^1.0.30",
+    "@types/meteor": "^1.4.27",
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
     "node-sass": "^4.11.0",
-    "react-test-renderer": "^16.8.1"
+    "react-test-renderer": "^16.8.1",
+    "typescript": "^3.3.4000"
   }
 }

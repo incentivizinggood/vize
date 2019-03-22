@@ -5,9 +5,11 @@
 		"outDir": "./dist",
 		"allowJs": true,
 		"jsx": "react",
-		"target": "es6",
-		"strictNullChecks": true,
-		"noImplicitAny": true
+		"target": "es5",
+		"lib": ["ESNext"],
+		"skipLibCheck": true,
+		"strict": true
 	},
-	"include": ["./imports/**/*"]
+	"include": ["./imports/api/**/*", "./server/**/*"],
+	"exclude": ["./imports/api/models/helpers/**/*"]
 }
