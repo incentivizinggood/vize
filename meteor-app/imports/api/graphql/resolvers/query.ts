@@ -5,7 +5,7 @@ import { QueryResolvers } from "./resolvers-types";
 export const Query: QueryResolvers = {
 	say: (_obj, _args, _context, _info) => "Hello world.",
 
-	currentUser: (_obj, _args, context, _info) => context.user,
+	currentUser: (_obj, _args, context, _info) => context.user || null,
 
 	allComments: (_obj, args, _context, _info) =>
 		dataModel.getAllComments(args.pageNum, args.pageSize),
@@ -56,6 +56,9 @@ export const Query: QueryResolvers = {
 			args.pageSize
 		),
 
-	wroteAReview: (_obj, _args, context, _info) =>
-		dataModel.wroteAReviewStatus(context.user),
+	wroteAReview: (_obj, _args, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		return dataModel.wroteAReviewStatus(context.user);
+	},
 };
