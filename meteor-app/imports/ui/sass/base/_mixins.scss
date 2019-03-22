@@ -91,16 +91,4 @@
 		}
 	}
 
-	//uncomment when finishing developing and arranging the _index file imports the right way (small to bigger screens)
-	// @if $range == phone-only {
-	// 	@media (max-width: #{$phone-upper-boundary - 1}) { @content; }
-	//   } @else if $range == tablet-portrait-up {
-	// 	@media (min-width: $phone-upper-boundary) { @content; }
-	//   } @else if $range == tablet-landscape-up {
-	// 	@media (min-width: $tablet-portrait-upper-boundary) { @content; }
-	//   } @else if $range == desktop-up {
-	// 	@media (min-width: $tablet-landscape-upper-boundary) { @content; }
-	//   } @else if $range == big-desktop-up {
-	// 	@media (min-width: $desktop-upper-boundary) { @content; }
-	//   }
 }
