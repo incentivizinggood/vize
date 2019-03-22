@@ -33,13 +33,6 @@
 			font-weight: bold;
 			margin-bottom: 40px;
 		}
-
-		@media (max-width: 768px) {
-			padding: 1px 0;
-			h1 {
-				font-size: 2.2em;
-			}
-		}
 	}
 }
 
@@ -73,16 +66,4 @@ ul.dropdown-menu.pf {
 
 #app-root > div {
 	padding-top: 1px;
-}
-
-@media only screen and (min-width: 370px) and (max-width: 575px) {
-	.banner-text-info {
-		padding-top: 80px;
-	}
-}
-
-@media only screen and (min-width: 575px) and (max-width: 769px) {
-	.banner-text-info {
-		padding-top: 180px;
-	}
 }

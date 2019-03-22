@@ -1,13 +1,9 @@
-.tabs,
 .services,
-.slid,
 .footer,
 .about,
 .team,
-.codes,
 .contact,
-.gallery,
-.blog {
+.gallery {
 	padding: 8em 0;
 }
 
@@ -72,37 +68,6 @@
 span.headingoo {
 	font-size: 24px;
 	font-weight: bold;
-}
-
-.tabs {
-	.tab-content {
-		border-radius: 0 2px 2px 2px;
-		border: 1px solid #e0e0e0;
-		padding: 16px;
-		background-color: $white;
-
-		.tab-pane {
-			display: none;
-		}
-
-		.active {
-			display: block;
-
-			&#salaries {
-				.add-buttons {
-					top: 5px;
-					@media (max-width: 544px) {
-						top: auto;
-					}
-				}
-			}
-		}
-
-		& > .active {
-			display: block;
-			visibility: visible;
-		}
-	}
 }
 
 .row.all_boxcolor1.select_box {
@@ -206,14 +171,6 @@ span.headingoo {
 	right: 12px;
 	top: 16px;
 
-	@media (max-width: 544px) {
-		float: none;
-		position: relative;
-		top: auto;
-		right: auto;
-		margin-top: 10px;
-	}
-
 	button {
 		padding-left: 19px;
 		padding-right: 19px;
@@ -242,9 +199,6 @@ span.headingoo {
 	text-align: left;
 	display: inline-block;
 	margin-top: 0;
-	@media (max-width: 544px) {
-		text-align: center;
-	}
 }
 
 li.te_deco > a {
@@ -253,20 +207,6 @@ li.te_deco > a {
 
 .mar_lf_ri {
 	padding-bottom: 60px;
-}
-
-div[class^="sect_re"] {
-	@media (max-width: 544px) {
-		padding: 0;
-	}
-}
-
-.tab-pane {
-	@media (max-width: 544px) {
-		> div {
-			padding: 15px;
-		}
-	}
 }
 
 .tab-pane > .section_rview_back_color05 {
@@ -283,30 +223,7 @@ div[class^="sect_re"] {
 
 		.titlestar {
 			text-align: right;
-			@media (max-width: 544px) {
-				text-align: left;
-			}
 		}
-	}
-}
-
-.mar_lf_ri .na_tab {
-	.nav-tabs > li {
-		@media (max-width: 544px) {
-			display: block;
-			width: 100% !important;
-			a {
-				margin-right: 0;
-			}
-		}
-	}
-}
-
-.full-width-container.welpadgo.wel_profile,
-.mar_lf_ri .na_tab,
-.tab-content .tab-pane {
-	@media (max-width: 768px) {
-		margin: 0 15px;
 	}
 }
 
@@ -323,9 +240,6 @@ section.company-profile,
 
 div.num_sett h1 {
 	font-size: 38px;
-	@media (max-width: 991px) {
-		float: none;
-	}
 }
 
 path.CircularProgressbar-trail {
@@ -350,9 +264,6 @@ path.CircularProgressbar-trail {
 .tab_str + .col-md-6 {
 	> div {
 		width: 30% !important;
-		@media (max-width: 544px) {
-			width: 60% !important;
-		}
 	}
 }
 
@@ -361,11 +272,6 @@ path.CircularProgressbar-trail {
 	padding-right: 100px;
 	border-right: 1px solid #f5f5f5;
 
-	@media (max-width: 991px) {
-		padding-right: 0;
-		margin-bottom: 50px;
-	}
-
 	table {
 		width: 100%;
 		border-bottom: 1px solid $picton-blue;
@@ -373,10 +279,6 @@ path.CircularProgressbar-trail {
 		border-right: 1px solid $picton-blue;
 		border-collapse: separate;
 		padding: 10px 15px;
-
-		@media (max-width: 544px) {
-			padding: 10px 0;
-		}
 
 		tbody {
 			tr {
@@ -396,36 +298,6 @@ path.CircularProgressbar-trail {
 					.row {
 						margin-left: 0;
 						margin-right: 0;
-					}
-				}
-
-				@media (max-width: 544px) {
-					display: block;
-					border-bottom: 1px solid $picton-blue;
-					padding: 0 20px 10px 20px;
-					text-align: center;
-
-					&:last-child {
-						border: none;
-					}
-
-					td {
-						display: block;
-						width: 100%;
-
-						&:first-child {
-							display: inline-block;
-							label {
-								float: none;
-							}
-						}
-
-						&:last-child {
-							text-align: center;
-							.row {
-								text-align: center;
-							}
-						}
 					}
 				}
 			}
@@ -485,27 +357,6 @@ path.CircularProgressbar-trail {
 		clear: both;
 		display: table;
 	}
-
-	.head_section_font,
-	.add-buttons {
-		@media (max-width: 544px) {
-			width: 50%;
-			float: left;
-			font-size: 16px;
-			margin: 15px 0;
-			line-height: 1.2;
-		}
-	}
-}
-
-.tab_str .table td,
-.table > tbody > tr > td,
-.table > tbody > tr > th,
-.table > tfoot > tr > td,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > thead > tr > th {
-	padding: 0px !important;
 }
 
 .thumb_don_bn .fa:focus,
@@ -540,19 +391,9 @@ path.CircularProgressbar-trail {
 	color: #0e4c75;
 }
 
-.list-group-item {
-	border: 0px solid $white !important;
-}
-
 .shortcontent {
 	border-bottom: 1px solid #cacaca;
 	padding-bottom: 7px;
-}
-
-a.morelink {
-	font-size: 15px;
-	margin-left: 411px;
-	text-decoration: none !important;
 }
 
 .bodr_lftri {
@@ -829,80 +670,6 @@ h3.head_section_font_25 {
 	border-bottom: 1px solid $concrete;
 }
 
-@media screen and (max-width: 767px) and (min-width: 300px) {
-	.lef_label_one {
-		margin-right: 15px;
-		font-size: 15px;
-	}
-	.replus {
-		margin-top: 0px;
-		margin-left: 0px;
-	}
-	.rating-md {
-		font-size: 1.5em !important;
-	}
-
-	.float-right {
-		float: none;
-	}
-	.num_sett h1 {
-		font-size: 70px;
-		float: none;
-		text-align: center;
-	}
-	.num_sett span {
-		font-size: 16px;
-		float: none;
-		text-align: center;
-	}
-	.sect_re1 td {
-		font-size: 15px !important;
-	}
-
-	.nav-tabs {
-		font-size: 13px;
-	}
-	.subr_rev {
-		font-size: 15px;
-		font-weight: 300;
-		color: #656565;
-	}
-	a.morelink {
-		margin-left: 10px;
-	}
-	.bodr_lft {
-		border-right: none;
-	}
-	.fl-ri {
-		float: none;
-		margin-top: -45px;
-		text-align: center !important;
-	}
-
-	.sect-rev-left {
-		float: left;
-	}
-
-	.star_border {
-		width: 100%;
-	}
-	.tab_str {
-		width: 100%;
-	}
-	.cont {
-		margin-top: 0px;
-	}
-
-	.progress1 {
-		display: none;
-	}
-
-	.tab_str {
-		box-shadow: 0px 0px 0px 0px !important;
-		border: none !important;
-	}
-}
-
 @media screen and (max-width: 991px) and (min-width: 768px) {
 	.num_sett h1 {
 		font-size: 70px;
@@ -914,9 +681,6 @@ h3.head_section_font_25 {
 		float: none;
 		text-align: center;
 	}
-	a.morelink {
-		margin-left: 200px;
-	}
 	.bodr_lft {
 		border-right: none;
 	}
@@ -931,26 +695,6 @@ h3.head_section_font_25 {
 	}
 	.float-right {
 		float: none;
-	}
-}
-
-@media screen and (max-width: 1199px) and (min-width: 1092px) {
-	a.morelink {
-		margin-left: 342px;
-	}
-}
-
-@media screen and (max-width: 400px) and (min-width: 300px) {
-	.na_tab .nav > li {
-		width: 100%;
-	}
-
-	.tab_str td span {
-		font-size: 13px;
-	}
-	.lef_label {
-		margin-right: 5px;
-		font-size: 12px;
 	}
 }
 
@@ -976,56 +720,8 @@ h3.head_section_font_25 {
 	margin-top: 15px;
 }
 
-@media screen and (max-width: 991px) and (min-width: 300px) {
-	.mobil-vi-hid {
-		display: none;
-	}
-	.mobile_view {
-		display: none !important;
-	}
-	.mobile-progress {
-		display: none !important;
-	}
-	.sec_p {
-		padding-bottom: 0px;
-	}
-	.section_rview_back_color03 {
-		padding-bottom: 26px;
-	}
-}
-
-@media screen and (max-width: 8000px) and (min-width: 992px) {
-	.mobile_view {
-		display: none;
-	}
-	.mobil-vi-hid {
-		display: block !important;
-	}
-}
-
 .ava_job {
 	padding-bottom: 12px;
-}
-
-@media screen and (max-width: 400px) and (min-width: 300px) {
-	.na_tab .nav > li {
-		width: 100%;
-	}
-	.star_border label {
-		font-size: 18px;
-	}
-
-	.star_border span {
-		font-size: 18px;
-	}
-
-	.tab_str td span {
-		font-size: 13px;
-	}
-	.lef_label {
-		margin-right: 5px;
-		font-size: 12px;
-	}
 }
 
 /*

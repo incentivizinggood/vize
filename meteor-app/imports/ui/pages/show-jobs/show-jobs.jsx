@@ -48,7 +48,7 @@ const ShowJobs = () => (
 								id="companies_header1"
 								className="callbacks_container"
 							>
-								<ul className="rslides" id="slider3">
+								<ul id="slider3">
 									<li>
 										<h2>
 											{data.jobAds.length}{" "}

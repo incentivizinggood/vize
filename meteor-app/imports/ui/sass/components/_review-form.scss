@@ -71,16 +71,6 @@ body.review_section {
 	padding: 15px 58px 17px;
 }
 
-@media (min-width: 1200px) {
-	.container.review_section {
-		width: 650px;
-	}
-}
-@media (min-width: 992px) {
-	.container.review_section {
-		width: 650px;
-	}
-}
 @media (min-width: 768px) {
 	.container.review_section {
 		width: 650px;
@@ -408,10 +398,6 @@ li.te_deco {
 	font-size: 16px !important;
 }
 
-.tb_data > tbody > tr > td,
-.tb_data > tfoot > tr > td {
-	border-top: 0px solid #ddd !important;
-}
 .over_p {
 	p {
 		font-size: 17px;
@@ -426,19 +412,6 @@ li.te_deco {
 
 .bodr_lft {
 	border-right: 1px solid #cacaca;
-}
-
-.sect_re1 .table > tbody > tr > td,
-.table > tfoot > tr > td {
-	padding: 2px !important;
-	line-height: 1.428571;
-	vertical-align: top;
-	border-top: 1px solid #ddd;
-}
-
-table.table.tb_data {
-	margin-top: 13px;
-	margin-left: -14px;
 }
 
 h4.head_section_font {
@@ -763,11 +736,6 @@ li.te_deco {
 	font-size: 16px !important;
 }
 
-.tb_data > tbody > tr > td,
-.tb_data > tfoot > tr > td {
-	border-top: 0px solid #ddd !important;
-}
-
 .over_p {
 	p {
 		font-size: 17px;
@@ -782,19 +750,6 @@ li.te_deco {
 
 .bodr_lft {
 	border-right: 1px solid #cacaca;
-}
-
-.sect_re1 .table > tbody > tr > td,
-.table > tfoot > tr > td {
-	padding: 2px !important;
-	line-height: 1.428571;
-	vertical-align: top;
-	border-top: 1px solid #ddd;
-}
-
-table.table.tb_data {
-	margin-top: 13px;
-	margin-left: -14px;
 }
 
 h4.head_section_font {
@@ -911,4 +866,10 @@ h4.head_section_font {
 	color: $white;
 	background-color: #30ad23 !important;
 	border-color: #30ad23;
+}
+
+.redirecting-user {
+	margin-top: 140px;
+	line-height: 1.6em;
+	margin-bottom: -80px;
 }
