@@ -10,6 +10,5 @@
 		"skipLibCheck": true,
 		"strict": true
 	},
-	"include": ["./imports/api/**/*", "./server/**/*"],
-	"exclude": ["./imports/api/models/helpers/**/*"]
+	"include": ["./imports/api/**/*", "./server/**/*"]
 }
