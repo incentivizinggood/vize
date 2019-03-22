@@ -1,0 +1,431 @@
+@include for-size(desktop-and-down) {
+	.navbar-header {
+		float: none;
+	}
+
+	.navbarwhite nav {
+		background: #1b253b;
+	}
+
+	#bs-example-navbar-collapse-1 {
+		background: rgba(0, 0, 0, 0.82);
+	}
+
+	.navbar-toggle {
+		display: block;
+		background-color: #439bd5;
+		border: 1px solid $white;
+
+		.icon-bar {
+			background: $white;
+		}
+	}
+
+	button.navbar-toggle {
+		margin-top: 1.3em;
+	}
+
+	.navbar-collapse {
+		border-top: 1px solid transparent;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+		&.collapse {
+			display: none !important;
+		}
+	}
+
+	.navbar-fixed-top {
+		top: 0;
+		border-width: 0 0 1px;
+	}
+
+	.navbar-nav {
+		float: none !important;
+		margin-top: 7.5px;
+
+		& > li {
+			float: none;
+
+			& > a {
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+		}
+	}
+
+	.collapse.in {
+		display: block !important;
+	}
+
+	nav.header_main {
+		background: #132437;
+	}
+
+	.top-nav ul li {
+		display: block;
+		margin: 0.5em 0;
+		a {
+			letter-spacing: 0;
+			padding: 10px 11px;
+			font-size: 1.1em;
+			color: $white !important;
+			&:hover {
+				color: $white !important;
+			}
+		}
+	}
+
+	a.navbar-link.margin-right {
+		display: none;
+	}
+
+	.navbar-right .dropdown-menu {
+		min-width: 50% !important;
+		position: relative;
+		text-align: center;
+	}
+
+	.navbar-left,
+	.navbar-right {
+		float: none !important;
+	}
+
+	ul.nav.navbar-right {
+		margin-right: -43px;
+		margin-bottom: 95px;
+		text-align: center;
+		margin-top: 0;
+	}
+
+	.navbar-header.logo {
+		margin-top: 0px !important;
+		background-color: #132437 !important;
+	}
+
+	nav {
+		padding: 0em 0em !important;
+		&.navScroll {
+			background-color: transparent !important;
+			box-shadow: transparent !important;
+
+			ul li a {
+				color: $white !important;
+			}
+		}
+
+		&.navbar-right {
+			width: 60%;
+			margin-left: 0px;
+		}
+	}
+
+	div#bs-example-navbar-collapse-1 {
+		background: #132437;
+		float: left;
+		width: 100%;
+		padding: 0;
+
+		ul.nav.navbar-right {
+			display: block;
+		}
+	}
+
+	ul.nav.navbar-nav.left_nav {
+		margin-left: 0px !important;
+	}
+
+	.top-nav ul li a {
+		letter-spacing: 0;
+		padding: 10px 35px !important;
+		text-align: center;
+	}
+
+	a.toggle-only-display {
+		display: block !important;
+		height: 55px;
+		padding-top: 17px !important;
+		border-radius: 0px !important;
+		text-align: left;
+		margin-top: -15px;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: $secondary-color;
+		}
+	}
+
+	.navigation-only-display {
+		display: none !important;
+	}
+
+	.navbar-right {
+		margin: 40px 0 !important;
+		width: 100% !important;
+		a {
+			text-align: center;
+		}
+	}
+
+	.dropdown .dropdown {
+		border: 1px solid white;
+		border-radius: 4px;
+		&__trigger {
+			&:after {
+				content: "";
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 8px solid #fff;
+				right: 10px;
+				top: 28px;
+			}
+		}
+	}
+
+	.banner-text {
+		h2 {
+			font-size: 2.3em;
+		}
+
+		h3 {
+			letter-spacing: 1px;
+		}
+		padding: 10em 0 0;
+	}
+
+	.static-page-banner .banner-text {
+		padding-top: 9em;
+	}
+
+	ul.dropdown-menu li a {
+		font-size: 1em;
+	}
+
+	.services,
+	.footer,
+	.about,
+	.team,
+	.contact,
+	.gallery {
+		padding: 4em 0;
+	}
+
+	.team-grids {
+		margin: 1.5em 0 0;
+	}
+
+	.banner-text-info {
+		width: 70%;
+		margin: 11em auto 0;
+	}
+
+	p {
+		font-size: 1em;
+	}
+
+	.full-width-container {
+		padding: 6em 0;
+		&-left {
+			float: left;
+			width: 40%;
+			padding: 0;
+		}
+
+		&-right {
+			float: right;
+			width: 55%;
+		}
+
+		&-text {
+			float: left;
+		}
+
+		span.glyphicon {
+			font-size: 1em;
+			padding: 0.8em;
+		}
+
+		h4 {
+			font-size: 1.3em;
+		}
+	}
+
+	.footer {
+		&-bottom {
+			a {
+				margin: 0 0.5em;
+			}
+
+			span {
+				left: -20px;
+				right: -20px;
+				font-size: 0.9em;
+
+				&:before {
+					left: 33px;
+				}
+			}
+		}
+
+		&-grids {
+			float: left;
+			width: 33.33%;
+			padding: 0 0.5em;
+
+			&:nth-child(1) {
+				padding: 0 1em 0 0;
+			}
+
+			&:nth-child(2) {
+				margin: 1em 0;
+			}
+		}
+
+		img {
+			padding: 0;
+			width: 100%;
+		}
+	}
+
+	.show-on-hover-pf:hover > ul.dropdown-menu {
+		background-color: $white !important;
+		color: #000000;
+	}
+
+	ul.dropdown-menu {
+		background-color: $white !important;
+		margin-left: -17px;
+
+		&.header_drop_language {
+			background-color: $white !important;
+			margin-left: -17px;
+		}
+	}
+
+	a.dropdown-toggle.boderbtn {
+		margin-left: -18px;
+		padding-left: 164px !important;
+		width: 50%;
+	}
+
+	.pf.dropdown {
+		background-color: transparent !important;
+		border-radius: 4px !important;
+		width: 38% !important;
+		margin-bottom: 70px;
+		color: #000000;
+		margin-left: -55px;
+		width: 72% !important;
+
+		ul.dropdown-menu {
+			margin-left: 38px;
+			margin-top: -5px;
+			&:before,
+			&:after {
+				display: none;
+			}
+		}
+		& > li > a {
+			color: #272829 !important;
+		}
+	}
+
+	.dp-profile {
+		margin: 0 auto !important;
+	}
+
+	li.ln {
+		display: none !important;
+	}
+
+	.fom-job {
+		padding-left: 3em !important;
+		padding-right: 3em !important;
+	}
+
+	.btn-green {
+		background-color: #fb406f !important;
+	}
+
+	ul.dropdown-menu.header_drop_language li:hover {
+		background: #132437;
+	}
+
+	#register-button {
+		width: 100%;
+		display: none;
+	}
+
+	a.btn.btn-primary.color_btn {
+		background-color: #dadada;
+		color: #337ab7;
+		font-weight: bold;
+		box-shadow: 1px 1px 10px 1px;
+	}
+
+	a.button.out-bodr-get {
+		font-size: 20px !important;
+	}
+
+	.btn_add_button {
+		margin-bottom: 9px;
+	}
+
+	.border_btn {
+		border-top-left-radius: 12px;
+		border-bottom-left-radius: 12px;
+		padding: 9px;
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;
+	}
+
+	.panel-hm {
+		margin-bottom: 10px !important;
+		margin-left: 0px !important;
+		margin-top: 0px !important;
+		margin-right: 0px !important;
+	}
+
+	.great-job-hm {
+		margin-top: 42px !important;
+	}
+
+	.companies-btn {
+		margin-top: 40px !important;
+		margin-bottom: 40px !important;
+	}
+
+	.submit_div {
+		margin-top: 2em !important;
+		float: none !important;
+		margin-bottom: 0em !important;
+	}
+
+	#home.banner {
+		min-height: 50vh;
+		padding-bottom: 20px;
+	}
+
+	.container {
+		&.desktop-view {
+			display: none !important;
+		}
+
+		&.blu-section-desc {
+			display: none !important;
+		}
+		&.mobile-view-box {
+			display: none;
+		}
+
+		&.fom-job {
+			padding-top: 149px !important;
+		}
+	}
+	.blu-mobile-sect {
+		display: none;
+	}
+}

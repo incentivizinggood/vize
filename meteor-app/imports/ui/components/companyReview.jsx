@@ -1,9 +1,10 @@
+import ModalView from "/imports/ui/components/modals/modal-view.jsx";
+import FlagSystem from "../components/flag/flag.jsx";
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import i18n from "meteor/universe:i18n";
 import VoteButtons from "./vote-buttons";
-import FlagSystem from "./flag";
 
 const T = i18n.createComponent();
 
@@ -192,9 +193,15 @@ function ReviewComponent(props) {
 					</div>
 					<div className="float-right">
 						<div className="flag-style">
-							<button className="flag-style-btn">
+							{/* Use to go back to Js
+								Using props to send information to the modal-view
+								*/}
+							<ModalView
+								className="flag-style-btn"
+								content={FlagSystem}
+							>
 								<T>common.companyreview.report</T>
-							</button>
+							</ModalView>
 						</div>
 					</div>
 				</div>

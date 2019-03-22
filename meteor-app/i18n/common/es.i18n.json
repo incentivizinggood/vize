@@ -214,6 +214,17 @@
 		"cons": "Limitaciones",
 		"additional_comments": "Comentarios Adicionales"
 	},
+	"flags": {
+		"choose_reason": "Elige Una Razón",
+		"in_comment": "Comentario Inapropiado",
+		"please_choose_reason": "Porfavor completar todos los campos",
+		"false": "Información Falsa",
+		"other": "Algo Más",
+		"explanation": "Por favor proporcione una explicación",
+		"submit": "Enviar",
+		"thanks": "Gracias! El mensaje fue enviado.",
+		"report_review": "Reportar Revisión"
+	},
 	"jobpostings": {
 		"apply_now": "Aplica Ahora",
 		"hour": " Por Hora",

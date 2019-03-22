@@ -62,3 +62,33 @@
 	background-image: -webkit-linear-gradient($args);
 	background-image: linear-gradient($args);
 }
+
+@mixin for-size($range) {
+	// Small devices (landscape phones, 576px and down)
+	$phone-upper-boundary: 576px;
+	// Medium devices (tablets, 768px and down)
+	$tablet-portrait-upper-boundary: 768px;
+	// Large devices (tablet landscape, 992px and down)
+	$tablet-landscape-upper-boundary: 992px;
+	// Extra large devices (desktops, 1200px and down)
+	$desktop-upper-boundary: 1291px;
+
+	@if $range == phone-only {
+		@media (max-width: $phone-upper-boundary) {
+			@content;
+		}
+	} @else if $range == tablet-and-down {
+		@media (max-width: $tablet-portrait-upper-boundary) {
+			@content;
+		}
+	} @else if $range == tablet-landscape-and-down {
+		@media (max-width: $tablet-landscape-upper-boundary) {
+			@content;
+		}
+	} @else if $range == desktop-and-down {
+		@media (max-width: $desktop-upper-boundary) {
+			@content;
+		}
+	}
+
+}
