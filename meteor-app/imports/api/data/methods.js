@@ -8,7 +8,7 @@ import { SalarySchema } from "./salaries.js";
 import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
 
 // Testing with PostgreSQL
-import PostgreSQL from "../connectors/postgresql-old.ts";
+import { PostgreSQL } from "../connectors/postgresql.ts";
 import PgCompanyFunctions from "../models/helpers/postgresql/companies.ts";
 import PgReviewFunctions from "../models/helpers/postgresql/reviews.ts";
 import PgJobAdFunctions from "../models/helpers/postgresql/jobads.ts";

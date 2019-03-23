@@ -1,6 +1,6 @@
 // WARNING: Comments have not been fully implemented yet. This code is a half
 // done mess. Keep that in mind when working with it.
-import PostgreSQL from "imports/api/connectors/postgresql-old";
+import { PostgreSQL } from "imports/api/connectors/postgresql";
 
 import PgCommentFunctions from "imports/api/models/helpers/postgresql/comments";
 import {
