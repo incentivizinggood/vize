@@ -3,8 +3,6 @@
 
 import { Pool, PoolClient } from "pg";
 
-import { Meteor } from "meteor/meteor";
-
 const pool = new Pool();
 export { pool };
 
@@ -61,29 +59,6 @@ export const execTransactionRO = execTransaction(true);
 // transaction does not need write permission, use execTransactionRO instead. It
 // has better preformance and is safer than execTransactionRW.
 export const execTransactionRW = execTransaction(false);
-
-/** Legacy API for the postgres connector */
-export class PostgreSQL {
-	private static foo = (readOnly: boolean) => <R, A extends any[]>(
-		transaction: (client: PoolClient, ...args: A) => Promise<R>,
-		...args: A
-	): Promise<R> => {
-		try {
-			return execTransaction(readOnly)(client =>
-				transaction(client, ...args)
-			);
-		} catch (err) {
-			throw new Meteor.Error(
-				`SQLstate ${err.code}`,
-				`${err.constraint}: ${err.detail}`
-			);
-		}
-	};
-
-	static executeQuery = PostgreSQL.foo(true);
-
-	static executeMutation = PostgreSQL.foo(true);
-}
 
 export async function simpleQuery<R>(
 	query: string,
