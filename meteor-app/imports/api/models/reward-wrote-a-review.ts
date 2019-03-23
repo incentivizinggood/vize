@@ -5,6 +5,7 @@ import {
 	execTransactionRW,
 	Transaction,
 } from "imports/api/connectors/postgresql";
+import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import { User, getReviewsByAuthor, getUserPostgresId } from ".";
 
@@ -73,6 +74,10 @@ export async function claimWroteAReview(
 		await client.query(
 			"INSERT INTO reward_wrote_a_review (user_id, phone_number, payment_method) VALUES ($1, $2, $3)",
 			[userPId, phoneNumber, paymentMethod]
+		);
+
+		postToSlack(
+			`The user with id \`${userPId}\` and phone number ${phoneNumberInfo.formatInternational()} has claimed a reward. They asked to be paid via ${paymentMethod}.`
 		);
 	};
 
