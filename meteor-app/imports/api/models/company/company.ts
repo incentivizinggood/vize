@@ -1,37 +1,31 @@
 import { CompanyId } from "imports/api/models";
 
-type CompanyData = {
-	companyid: CompanyId;
+export type Company = {
+	companyId: CompanyId;
 	name: string;
-	dateadded: Date;
-	yearestablished: number;
+	dateAdded: Date;
+	yearEstablished: number;
 	industry: string;
-	descriptionofcompany: string;
-	numemployees:
+	descriptionOfCompany: string;
+	numEmployees:
 		| null
 		| "1 - 50"
 		| "51 - 500"
 		| "501 - 2000"
 		| "2001 - 5000"
 		| "5000+";
-	contactemail: string;
-	websiteurl: string;
-	contactphonenumber: string;
-	numflags: number;
-};
-
-// TODO: separate the review stats into a separate  graphql type so that we do
-// not have to do this weird joining.
-type ReviewStatsData = {
-	name: string;
-	numreviews: number;
-	avgnummonthsworked: number;
-	percentrecommended: number;
-	healthandsafety: number;
-	managerrelationship: number;
-	workenvironment: number;
+	contactEmail: string;
+	websiteURL: string;
+	contactPhoneNumber: string;
+	numFlags: number;
+	// TODO: Separate the review stats into a separate graphql type so that we
+	// do not have to join on every company query.
+	numReviews: number;
+	avgNumMonthsWorked: number;
+	percentRecommended: number;
+	healthAndSafety: number;
+	managerRelationship: number;
+	workEnvironment: number;
 	benefits: number;
-	overallsatisfaction: number;
+	overallSatisfaction: number;
 };
-
-export type Company = CompanyData & ReviewStatsData;

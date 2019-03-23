@@ -1,7 +1,4 @@
-import {
-	execTransactionRO,
-	Transaction,
-} from "imports/api/connectors/postgresql";
+import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
 	SalaryId,
@@ -13,109 +10,91 @@ import {
 	getCompanyByName,
 } from "imports/api/models";
 
-const defaultPageSize = 100;
+const attributes = [
+	'salaryid AS "salaryId"',
+	'submittedby AS "submittedBy"',
+	'companyname AS "companyName"',
+	'companyid AS "companyId"',
+	'salarylocation AS "location"',
+	'jobtitle AS "jobTitle"',
+	'incometype AS "incomeType"',
+	'incomeamount AS "incomeAmount"',
+	'dateadded AS "dateAdded"',
+];
+const baseQuery = `SELECT ${attributes.join(", ")} FROM salaries`;
 
 // Get the salary with a given id.
-export async function getSalaryById(id: SalaryId): Promise<Salary> {
-	if (Number.isNaN(Number(id))) throw Error("not a valid salary id");
+export async function getSalaryById(id: SalaryId): Promise<Salary | null> {
+	if (Number.isNaN(Number(id))) return null;
 
-	const transaction: Transaction<Salary> = async client => {
-		let salaryResults = { rows: [] };
-
-		salaryResults = await client.query(
-			"SELECT * FROM salaries WHERE salaryid=$1",
-			[Number(id)]
-		);
-
-		return salaryResults.rows[0];
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery1("SELECT * FROM salaries WHERE salaryid=$1", Number(id));
 }
 
 // Get all salaries submitted by a given user.
 export async function getSalariesByAuthor(
 	user: User,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Salary[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	const transaction: Transaction<Salary[]> = async client => {
-		let salaryResults = { rows: [] };
-
-		salaryResults = await client.query(
-			"SELECT * FROM salaries WHERE submittedby=$1 OFFSET $2 LIMIT $3",
-			[authorPostgresId, pageNumber * pageSize, pageSize]
-		);
-
-		return salaryResults.rows;
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery(
+		`${baseQuery} WHERE submittedby=$1 OFFSET $2 LIMIT $3`,
+		authorPostgresId,
+		pageNumber * pageSize,
+		pageSize
+	);
 }
+
 // Get the user who submitted a given salary.
 export async function getAuthorOfSalary(salary: Salary): Promise<User> {
-	return getUserById(salary.submittedby);
+	return getUserById(salary.submittedBy);
 }
 
 // Get all salaries paid by a given company.
 export async function getSalariesByCompany(
 	company: Company,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Salary[]> {
-	const transaction: Transaction<Salary[]> = async client => {
-		let salaryResults = { rows: [] };
-
-		salaryResults = await client.query(
-			"SELECT * FROM salaries WHERE companyname=$1 OFFSET $2 LIMIT $3",
-			[company.name, pageNumber * pageSize, pageSize]
-		);
-
-		return salaryResults.rows;
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery(
+		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
+		company.name,
+		pageNumber * pageSize,
+		pageSize
+	);
 }
+
 // Get the company that paid a given salary.
 export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
-	return getCompanyByName(salary.companyname);
+	const company: Company | null = await getCompanyByName(salary.companyName);
+
+	if (company === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return company;
 }
 
 // Count the number of salaries paid by a given company.
-export function countSalariesByCompany(company: Company): Promise<number> {
-	const transaction: Transaction<number> = async client => {
-		let countResults = { rows: [{ count: undefined }] };
-
-		countResults = await client.query(
-			"SELECT * FROM salary_counts WHERE companyname=$1",
-			[company.name]
-		);
-
-		return countResults.rows[0] === undefined
-			? 0
-			: Number(countResults.rows[0].count);
-	};
-
-	return execTransactionRO(transaction);
+export async function countSalariesByCompany(
+	company: Company
+): Promise<number> {
+	const count = await simpleQuery1<{ count: number }>(
+		"SELECT count FROM salary_counts WHERE companyname=$1",
+		company.name
+	);
+	return count ? count.count : 0;
 }
 
 // Get all of the salaries.
 export async function getAllSalaries(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Salary[]> {
-	const transaction: Transaction<Salary[]> = async client => {
-		let salaryResults = { rows: [] };
-
-		salaryResults = await client.query(
-			"SELECT * FROM salaries OFFSET $1 LIMIT $2",
-			[pageNumber * pageSize, pageSize]
-		);
-
-		return salaryResults.rows;
-	};
-
-	return execTransactionRO(transaction);
+	return simpleQuery(
+		`${baseQuery} OFFSET $1 LIMIT $2`,
+		pageNumber * pageSize,
+		pageSize
+	);
 }

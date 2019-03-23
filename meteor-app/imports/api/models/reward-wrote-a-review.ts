@@ -26,7 +26,8 @@ export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 
 		if (results.rows.length > 0) return "CLAIMED";
 
-		if ((await getReviewsByAuthor(user)).length > 0) return "CAN_CLAIM";
+		if ((await getReviewsByAuthor(user, 0, 1)).length > 0)
+			return "CAN_CLAIM";
 
 		return "CAN_EARN";
 	};

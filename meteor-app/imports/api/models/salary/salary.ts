@@ -6,14 +6,13 @@ import {
 } from "imports/api/models";
 
 export type Salary = {
-	salaryid: SalaryId;
-	submittedby: UserId;
-	companyname: string;
-	companyid: CompanyId | null;
-	salarylocation: LocationString;
-	jobtitle: string;
-	incometype: string;
-	incomeamount: number;
-	gender: null | "Male" | "Female";
-	dateadded: Date;
+	salaryId: SalaryId;
+	submittedBy: UserId;
+	companyName: string;
+	companyId: CompanyId | null;
+	location: LocationString;
+	jobTitle: string;
+	incomeType: string;
+	incomeAmount: number;
+	dateAdded: Date;
 };

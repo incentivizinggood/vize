@@ -1,9 +1,9 @@
 import { execTransactionRO } from "imports/api/connectors/postgresql";
 
-import { MongoId, PgId } from "imports/api/models";
+import { MongoId, PgId, Branded } from "imports/api/models";
 
-export type UserMId = MongoId;
-export type UserPId = PgId;
+export type UserMId = Branded<MongoId, "UserMId">;
+export type UserPId = Branded<PgId, "UserPId">;
 export type UserId = UserMId | UserPId;
 
 export function userIdToString(id: UserMId): string {
@@ -11,7 +11,7 @@ export function userIdToString(id: UserMId): string {
 }
 
 export function stringToUserId(id: string): UserMId {
-	return id;
+	return id as UserMId;
 }
 
 // Get the integer ID of a user's PostgreSQL entry
@@ -23,9 +23,7 @@ export async function getUserPostgresId(id: UserId): Promise<UserPId> {
 	}
 
 	const transaction = async client => {
-		let userResult = { rows: [] };
-
-		userResult = await client.query(
+		const userResult = await client.query(
 			"SELECT * FROM users WHERE usermongoid=$1",
 			[id]
 		);
@@ -36,7 +34,7 @@ export async function getUserPostgresId(id: UserId): Promise<UserPId> {
 	};
 
 	const pgUserResults = await execTransactionRO(transaction);
-	return pgUserResults.user.userid;
+	return pgUserResults.user.userid as UserPId;
 }
 
 // Get the string ID of a user's MongoDB document
@@ -48,11 +46,10 @@ export async function getUserMongoId(id: UserId): Promise<UserMId> {
 	}
 
 	const transaction = async client => {
-		let userResult = { rows: [] };
-
-		userResult = await client.query("SELECT * FROM users WHERE userid=$1", [
-			Number(id),
-		]);
+		const userResult = await client.query(
+			"SELECT * FROM users WHERE userid=$1",
+			[Number(id)]
+		);
 
 		return {
 			user: userResult.rows[0],

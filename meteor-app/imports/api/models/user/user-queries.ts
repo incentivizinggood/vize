@@ -8,8 +8,6 @@ import {
 	getUserMongoId,
 } from "imports/api/models";
 
-const defaultPageSize = 100;
-
 // Get the user with a given id.
 export async function getUserById(id: UserId): Promise<User> {
 	return Meteor.users.findOne(getUserMongoId(id), {
@@ -28,11 +26,11 @@ export function getUserByUsername(username: string): User {
 // Get all users administering a given company.
 export function getUsersByCompany(
 	company: Company,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): User[] {
 	const cursor = Meteor.users.find(
-		{ companyId: company.companyid },
+		{ companyId: company.companyId },
 		{
 			skip: pageNumber * pageSize,
 			limit: pageSize,
@@ -43,7 +41,7 @@ export function getUsersByCompany(
 }
 
 // Get the company administered by a given user.
-export function getCompanyOfUser(user: User): Promise<Company> | null {
+export async function getCompanyOfUser(user: User): Promise<Company | null> {
 	if (user.companyId) {
 		return getCompanyById(user.companyId);
 	}
@@ -51,10 +49,7 @@ export function getCompanyOfUser(user: User): Promise<Company> | null {
 }
 
 // Get all of the users.
-export function getAllUsers(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
-): User[] {
+export function getAllUsers(pageNumber: number, pageSize: number): User[] {
 	const cursor = Meteor.users.find(
 		{},
 		{

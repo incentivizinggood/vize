@@ -4,7 +4,8 @@
   "scripts": {
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
-    "gen": "cd imports/api/graphql && graphqlgen"
+    "type": "tsc -p ./tsconfig.json --noEmit",
+    "gen": "gql-gen"
   },
   "cssModules": {
     "extensions": [
@@ -37,6 +38,7 @@
     "graphql-server-express": "^1.4.0",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^3.1.1",
+    "hashids": "^1.2.2",
     "i": "^0.3.6",
     "libphonenumber-js": "^1.7.10",
     "lint": "^1.1.2",
@@ -66,13 +68,18 @@
     "simpl-schema": "1.4.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.0.2",
+    "@graphql-codegen/typescript": "^1.0.2",
+    "@graphql-codegen/typescript-resolvers": "^1.0.2",
     "@types/graphql": "^14.0.7",
     "@types/graphql-iso-date": "^3.3.1",
+    "@types/hashids": "^1.0.30",
+    "@types/meteor": "^1.4.27",
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
-    "graphqlgen": "^0.5.1",
     "node-sass": "^4.11.0",
-    "react-test-renderer": "^16.8.1"
+    "react-test-renderer": "^16.8.1",
+    "typescript": "^3.3.4000"
   }
 }

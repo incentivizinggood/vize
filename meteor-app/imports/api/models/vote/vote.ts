@@ -4,39 +4,35 @@ import {
 	UserPId,
 	Comment,
 	Review,
+	isComment,
+	isReview,
 } from "imports/api/models";
 
-export type CommentVote = {
-	submittedby: UserPId;
-	subjecttype: "comment";
-	refersto: CommentId;
-	value: boolean;
-	dateadded: Date;
-};
+/** A reference to the subject of a vote. */
+type SubjectRef =
+	| { subjectType: "comment"; refersTo: CommentId }
+	| { subjectType: "review"; refersTo: ReviewId };
 
-export type ReviewVote = {
-	submittedby: UserPId;
-	subjecttype: "review";
-	refersto: ReviewId;
-	value: boolean;
-	dateadded: Date;
+export type Vote = SubjectRef & {
+	submittedBy: UserPId;
+	isUpvote: boolean;
 };
-
-export type Vote = ReviewVote | CommentVote;
 
 export type VoteSubject = Comment | Review;
 
 // Get the foreign key that a vote cast on this subject would have.
-export function getVoteSubjectRef(
-	subject: VoteSubject
-):
-	| { subjectType: "comment"; refersTo: CommentId }
-	| { subjectType: "review"; refersTo: ReviewId } {
-	if ((<Review>subject).reviewid) {
-		return { subjectType: "review", refersTo: (<Review>subject).reviewid };
-	} else if ((<Comment>subject)._id) {
-		return { subjectType: "comment", refersTo: (<Comment>subject)._id };
+export function getVoteSubjectRef(subject: VoteSubject): SubjectRef {
+	if (isComment(subject)) {
+		return {
+			subjectType: "comment",
+			refersTo: (subject as Comment)._id,
+		};
+	} else if (isReview(subject)) {
+		return {
+			subjectType: "review",
+			refersTo: (subject as Review).reviewId,
+		};
 	} else {
-		throw new Error("Could not determine the type of this vote subject.");
+		throw new Error("NOT_ANY_TYPE_OF_VOTE_SUBJECT");
 	}
 }

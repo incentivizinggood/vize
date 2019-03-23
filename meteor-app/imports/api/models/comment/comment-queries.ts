@@ -13,8 +13,6 @@ import {
 	getUserById,
 } from "imports/api/models";
 
-const defaultPageSize = 100;
-
 // Get the comment with a given id.
 export async function getCommentById(id: CommentId): Promise<Comment> {
 	if (Number.isNaN(Number(id))) throw Error("not a valid comment id");
@@ -30,8 +28,8 @@ export async function getCommentById(id: CommentId): Promise<Comment> {
 // Get all comments written by a given user.
 export async function getCommentsByAuthor(
 	user: User,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Comment[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
@@ -53,8 +51,8 @@ export async function getAuthorOfComment(comment: Comment): Promise<User> {
 // Get all comments that are about a given thing.
 export async function getCommentsByParent(
 	parent: CommentParent,
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Comment[]> {
 	throw new Error("Not implemented yet");
 }
@@ -68,8 +66,8 @@ export async function getParentOfComment(
 
 // Get all of the comments.
 export async function getAllComments(
-	pageNumber: number = 0,
-	pageSize: number = defaultPageSize
+	pageNumber: number,
+	pageSize: number
 ): Promise<Comment[]> {
 	return PgCommentFunctions.processCommentResults(
 		await PostgreSQL.executeQuery(
