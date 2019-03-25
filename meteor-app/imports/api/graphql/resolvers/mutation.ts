@@ -12,4 +12,14 @@ export const Mutation: MutationResolvers = {
 			args.paymentMethod
 		);
 	},
+
+	castVote: (_obj, args, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		return dataModel.castVote(
+			context.user,
+			dataModel.stringToReviewId(args.input.subjectId),
+			args.input.isUpvote
+		);
+	},
 };

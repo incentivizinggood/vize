@@ -29,6 +29,7 @@ import { Pool, PoolClient } from "pg";
  ------------------------------ */
 
 const pool = new Pool();
+export { pool };
 
 /*
 	NOTE
