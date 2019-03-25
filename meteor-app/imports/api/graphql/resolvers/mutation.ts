@@ -13,13 +13,18 @@ export const Mutation: MutationResolvers = {
 		);
 	},
 
-	castVote: (_obj, args, context, _info) => {
+	castVote: (
+		_obj,
+		{ input: { subjectId, isUpvote = null } },
+		context,
+		_info
+	) => {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
 		return dataModel.castVote(
 			context.user,
-			dataModel.stringToReviewId(args.input.subjectId),
-			args.input.isUpvote
+			dataModel.stringToReviewId(subjectId),
+			isUpvote
 		);
 	},
 };

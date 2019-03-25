@@ -216,7 +216,7 @@ type Vote {
 	id: ID!
 
 	"True if this vote is positive or favorable. False if this vote is negative. Null if this vote is neutral or the author has not voted."
-	isUpvote: Boolean!
+	isUpvote: Boolean
 
 	"The user who cast this vote."
 	author: User!
