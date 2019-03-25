@@ -1,0 +1,8 @@
+mutation voteButtons($input: CastVoteInput!) {
+	castVote(input: $input) {
+		vote {
+			id
+			isUpvote
+		}
+	}
+}
