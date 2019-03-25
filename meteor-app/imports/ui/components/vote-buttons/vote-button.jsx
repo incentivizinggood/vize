@@ -14,14 +14,27 @@ function voteToCast(vote, isUpButton) {
 }
 
 export default function VoteButton({ isUpButton = false, castVote, review }) {
+	const isUpvote = voteToCast(review.currentUserVote, isUpButton);
+
 	const onClick = event => {
 		event.preventDefault();
 
 		castVote({
 			variables: {
 				input: {
-					isUpvote: voteToCast(review.currentUserVote, isUpButton),
+					isUpvote,
 					subjectId: review.id,
+				},
+			},
+			optimisticResponse: {
+				__typename: "Mutation",
+				castVote: {
+					__typename: "CastVotePayload",
+					vote: {
+						__typename: "Vote",
+						id: review.currentUserVote.id,
+						isUpvote,
+					},
 				},
 			},
 		});
