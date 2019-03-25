@@ -717,6 +717,11 @@ td.ali-lef {
 		display: inline-block;
 		margin: 0 5px;
 	}
+	.flag-style {
+		//center the button in the div only for mobile
+		display: flex;
+		justify-content: center;
+	}
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
