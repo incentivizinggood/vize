@@ -191,6 +191,7 @@ function ReviewComponent(props) {
 							/>
 						</div>
 					</div>
+					<br />
 					<div className="float-right">
 						<div className="flag-style">
 							{/* Use to go back to Js
