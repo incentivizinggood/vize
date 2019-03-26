@@ -1,0 +1,23 @@
+schema: ./imports/api/graphql/schema.graphql
+overwrite: true
+generates:
+  ./imports/api/graphql/resolvers/resolvers-types.ts:
+    config:
+      contextType: ./context#MyContext
+      mappers:
+        Comment: ../../models/comment/comment#Comment
+        CommentParent: ../../models/comment/comment#CommentParent
+        StarRatings: ../../models/misc#StarRatings
+        Company: ../../models/company/company#Company
+        JobAd: ../../models/job-ad/job-ad#JobAd
+        Location: ../../models/location/location#Location
+        Review: ../../models/review/review#Review
+        Salary: ../../models/salary/salary#Salary
+        User: ../../models/user/user#User
+        Vote: ../../models/vote/vote#Vote
+      scalars:
+        DateTime: Date
+      enumsAsTypes: true
+    plugins:
+      - typescript
+      - typescript-resolvers

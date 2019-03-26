@@ -19,11 +19,11 @@ function Header(props) {
 	return (
 		<div className="top-nav">
 			<FadableNav animated={props.navIsAnimated}>
-				<div className="container container--ui-fix">
-					<div className="navbar-header logo navbar-header--ui-fix">
+				<div className="naviagtion-container">
+					<div className="navbar-header logo">
 						<button
 							type="button"
-							className="navbar-toggle collapsed slide-toggle navbar-toggle--ui-fix"
+							className="navbar-toggle collapsed slide-toggle"
 							data-toggle="collapse"
 							data-target="#bs-example-navbar-collapse-1"
 						>
@@ -39,17 +39,17 @@ function Header(props) {
 						</h2>
 					</div>
 					<div
-						className="collapse navbar-collapse navbar-collapse--ui-fix"
+						className="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1"
 					>
-						<ul className="nav navbar-nav left_nav navbar-nav--ui-fix">
+						<ul className="nav navbar-nav left_nav">
 							<li>
 								<Case>
 									<When cond={props.user}>
 										<Link
 											to="/my-account"
 											type="button"
-											className="toggle-only-display toggle-only-display--ui-fix btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
+											className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
 										>
 											<T>common.header.myaccount</T>
 										</Link>
@@ -58,7 +58,7 @@ function Header(props) {
 										<Link
 											to="/login"
 											type="button"
-											className="toggle-only-display toggle-only-display--ui-fix btn navbar-btn margin-right btn-green hvr-icon-forward"
+											className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 										>
 											<span>
 												<T>
@@ -84,10 +84,10 @@ function Header(props) {
 								</When>
 							</Case>
 						</ul>
-						<ul className="nav navbar-nav navbar-right navbar-right--ui-fix">
+						<ul className="nav navbar-nav navbar-right">
 							<Case>
 								<When cond={props.user}>
-									<li className="navigation-only-display dropdown pf show-on-hover-pf navigation-only-display--ui-fix">
+									<li className="navigation-only-display dropdown pf show-on-hover-pf">
 										<div
 											className="dropdown-toggle"
 											data-toggle="dropdown"
@@ -152,7 +152,7 @@ function Header(props) {
 							<br />
 							<When cond={props.user}>
 								<li>
-									<LogoutButton className="toggle-only-display toggle-only-display--ui-fix navbar-link margin-right">
+									<LogoutButton className="toggle-only-display navbar-link margin-right">
 										<T>common.header.logout</T>
 									</LogoutButton>
 								</li>

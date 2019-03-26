@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"moduleResolution": "Node",
+		"outDir": "./dist",
+		"allowJs": true,
+		"jsx": "react",
+		"target": "es5",
+		"lib": ["ESNext"],
+		"skipLibCheck": true,
+		"strict": true
+	},
+	"include": ["./imports/api/**/*", "./server/**/*"]
+}

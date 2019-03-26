@@ -8,10 +8,7 @@ import Dropdown, {
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import {
-	localeMetadata,
-	reactiveGetLocale,
-} from "/imports/startup/client/i18n.js";
+import { localeMetadata, reactiveGetLocale } from "/imports/ui/startup/i18n.js";
 
 function CurLang({ code }) {
 	return <img src={localeMetadata[code].icon} alt={`${code} icon.`} />;

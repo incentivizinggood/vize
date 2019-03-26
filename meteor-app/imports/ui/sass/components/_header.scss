@@ -1,0 +1,154 @@
+.search {
+	&-input {
+		width: 85%;
+		float: left;
+		padding-left: 17px;
+		font-size: calc(50% + 1.4vw);
+		color: black;
+	}
+
+	&-icon {
+		background: #439bd5;
+		border: 2px solid #439bd5;
+		width: 15%;
+		color: $white;
+	}
+}
+
+.top-nav {
+	z-index: 999;
+}
+
+nav {
+	position: fixed;
+	background: none;
+	z-index: 10000;
+	width: 100%;
+	padding-bottom: 7px;
+	@include transition(all 0.5s);
+
+	.navbarwhite & {
+		background: $white;
+		box-shadow: 0 0 5px;
+
+		ul li a {
+			color: $black;
+			cursor: pointer;
+
+			&:not(#register-button):hover,
+			&:not(#register-button):focus,
+			&:not(#register-button):active {
+				color: $black;
+			}
+		}
+	}
+
+	ul li {
+		margin: 0 0.5em;
+		a {
+			letter-spacing: 1px;
+			font-size: 1.2em;
+			color: $white;
+			&:not(#register-button):hover,
+			&:not(#register-button):focus,
+			&:not(#register-button):active {
+				background-color: transparent !important;
+				color: $white;
+			}
+		}
+	}
+
+	ul.nav {
+		&.navbar-right {
+			margin-top: 18px;
+			text-transform: uppercase;
+			font-size: 12px;
+			display: flex;
+			align-items: center;
+		}
+
+		&.navbar-nav.left_nav {
+			margin-left: 32px;
+			margin-top: 18px;
+			text-transform: uppercase;
+			font-size: 12px;
+		}
+	}
+
+	&.navScroll {
+		.navbar-header {
+			position: relative;
+			&::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: -10000px;
+				bottom: 0;
+				left: -700px;
+				background: $white;
+				width: 10000px;
+				z-index: -1;
+				height: 74px;
+				box-shadow: 0 2px 5px #b1b1b1;
+			}
+		}
+
+		li a {
+			color: $black;
+
+			&:not(#register-button) {
+				&:hover,
+				&:focus,
+				&:active {
+					color: $black;
+				}
+			}
+		}
+	}
+}
+
+#register-button {
+	color: $white;
+	font-weight: bold;
+	letter-spacing: 0.015em;
+	font-size: 12px;
+	padding-top: 6px;
+	line-height: 13px;
+	padding-bottom: 6px;
+	width: 100px;
+	text-transform: uppercase;
+	margin-top: 9px;
+	border-radius: 3px;
+	background: $secondary-color;
+
+	&:hover,
+	&:active,
+	&:focus {
+		color: $white;
+		background: $secondary-color;
+	}
+}
+
+.btn-green {
+	background-color: $secondary-color;
+	color: $white;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	font-size: 12px;
+	font-weight: bold;
+	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.toggle-only-display,
+.hr_line_width2 {
+	display: none !important;
+}
+
+.navigation-container {
+	width: 100%;
+	padding: 0;
+}
+
+nav ul.nav.navbar-right {
+	justify-content: center !important;
+}

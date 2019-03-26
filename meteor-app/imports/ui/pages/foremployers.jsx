@@ -58,7 +58,7 @@ export default class ForEmployers extends React.Component {
 											<T>common.forEmployers.retention</T>
 										</div>
 										<div className="frontLogo emp-icon2" />
-										<div className="frontLocation plu">
+										<div className="frontLocation">
 											<T>
 												common.forEmployers.increase_workers_text
 											</T>

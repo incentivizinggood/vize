@@ -1,12 +1,15 @@
 // Boilerplate first
 import { Meteor } from "meteor/meteor";
 import React from "react";
+import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "/imports/ui/error-widget.jsx"; // used to display errors thrown by methods
+import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
+import { withRouter } from "react-router-dom";
+
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
@@ -19,10 +22,10 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 // rather than import the .html in the .js and just
 // import the .js here, but Meteor complains if I don't,
 // so whatever...
-import "/imports/ui/afInputStarRating.html";
-import "/imports/ui/afInputStarRating.js";
-import "/imports/ui/afInputLocation.html";
-import "/imports/ui/afInputLocation.js";
+import "/imports/ui/components/afInputStarRating";
+import "/imports/ui/components/afInputLocation";
+
+let historyProps = null;
 
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
@@ -108,6 +111,7 @@ if (Meteor.isClient) {
 	AutoForm.addHooks("wr_blaze_form", {
 		onSuccess(formType, result) {
 			// If your method returns something, it will show up in "result"
+
 			if (Meteor.isDevelopment)
 				console.log(
 					`SUCCESS: We did a thing in a ${formType} form: ${result}`
@@ -116,6 +120,15 @@ if (Meteor.isClient) {
 				hasError: false,
 				isSqlError: false,
 			});
+
+			if (historyProps != null) {
+				historyProps.push("/review-submitted");
+
+				// reloading the page after navigation so that rewardstatus is updated
+				// correctly. This is a quick fix and if reward status can be updated
+				// without having to do a page refresh, that would be better.
+				window.location.reload();
+			}
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -126,6 +139,7 @@ if (Meteor.isClient) {
 				console.log("VALIDATION CONTEXT:");
 				console.log(this.validationContext);
 			}
+
 			if (error instanceof Meteor.Error)
 				wr_form_state.set("formError", {
 					hasError: true,
@@ -146,12 +160,14 @@ if (Meteor.isClient) {
 	});
 }
 
-export default class WriteReviewForm extends React.Component {
+class WriteReviewForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+
 	render() {
 		wr_form_state.set("companyId", this.props.companyId);
+		historyProps = this.props.history;
 
 		return (
 			<PageWrapper>
@@ -166,3 +182,5 @@ export default class WriteReviewForm extends React.Component {
 WriteReviewForm.propTypes = {
 	companyId: PropTypes.string,
 };
+
+export default withRouter(WriteReviewForm);

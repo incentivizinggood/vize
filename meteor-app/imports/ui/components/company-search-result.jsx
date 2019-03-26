@@ -156,14 +156,13 @@ function CompanySearchResult(props) {
 				</div>
 				<div className="clearfix" />
 			</div>
-			<div>
+			<div className="centeredPag">
 				<ReactPaginate
-					size="lg"
 					previousLabel="previous"
 					nextLabel="next"
 					breakLabel="..."
 					breakClassName="break-me"
-					pageCount="20"
+					pageCount="5"
 					marginPagesDisplayed="1"
 					pageRangeDisplayed="2"
 					onPageChange=""

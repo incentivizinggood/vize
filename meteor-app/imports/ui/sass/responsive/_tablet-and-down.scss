@@ -1,0 +1,292 @@
+@include for-size(tablet-and-down) {
+	.full-width-container.welpadgo.wel_profile,
+	.mar_lf_ri .na_tab,
+	.tab-content .tab-pane {
+		margin: 0 15px;
+	}
+
+	div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
+		text-align: center;
+		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
+		button._imports_ui_components_vote_buttons__vote_buttons__downButton {
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
+
+	.article-list-vertical {
+		max-width: 350px;
+		min-height: 450px;
+
+		li {
+			max-width: 350px;
+			min-height: 50px;
+
+			div {
+				float: none;
+				padding: 30px;
+				padding-top: 0;
+				display: block;
+				text-align: center;
+				margin-left: 0px;
+			}
+		}
+
+		& > img {
+			float: none;
+			display: block;
+			text-align: center;
+			max-height: 250px;
+			margin-left: 54px;
+		}
+	}
+
+	.modal-content {
+		width: 95%;
+
+		p {
+			color: black;
+			font-size: 18px;
+		}
+	}
+
+	.lef_label_one {
+		margin-right: 15px;
+		font-size: 15px;
+	}
+
+	.rating-md {
+		font-size: 1.5em !important;
+	}
+
+	.float-right {
+		float: none;
+	}
+
+	.num_sett {
+		h1 {
+			font-size: 70px;
+			float: none;
+			text-align: center;
+		}
+
+		span {
+			font-size: 16px;
+			float: none;
+			text-align: center;
+		}
+	}
+
+	.sect_re1 td {
+		font-size: 15px !important;
+	}
+
+	.nav-tabs {
+		font-size: 13px;
+	}
+
+	.subr_rev {
+		font-size: 15px;
+		font-weight: 300;
+		color: #656565;
+	}
+
+	.bodr_lft {
+		border-right: none;
+	}
+
+	.fl-ri {
+		float: none;
+		margin-top: -45px;
+		text-align: center !important;
+	}
+
+	.star_border {
+		width: 100%;
+	}
+
+	.tab_str {
+		width: 100%;
+		box-shadow: 0px 0px 0px 0px !important;
+		border: none !important;
+	}
+
+	.cont {
+		margin-top: 0px;
+	}
+
+	.review-submitted {
+		margin-top: 170px;
+		margin-bottom: 130px;
+		.container {
+			padding: 20px;
+			width: 95%;
+		}
+		h2 {
+			font-size: 25px;
+			margin-top: 1px;
+		}
+		.rewards {
+			.reward {
+				width: 80%;
+			}
+		}
+	}
+
+	.ReactModalPortal {
+		.ReactModal__Content.ReactModal__Content--after-open {
+			width: 90%;
+			max-width: 500px;
+			height: 200px;
+		}
+	}
+
+	.success-widget {
+		h3 {
+			font-size: 25px;
+			margin-top: 1px;
+			padding: 10px 10px 10px 25px;
+		}
+	}
+
+	.fom-job {
+		padding-bottom: 9px;
+		margin-top: 0px;
+		margin-bottom: 19px;
+		padding-top: 117px;
+		width: 85%;
+	}
+
+	.top-nav > nav {
+		background-color: #132437;
+	}
+
+	.container-contact {
+		.wrap-contact {
+			padding: 55px 45px 68px 45px;
+		}
+	}
+
+	h1,
+	.h1,
+	h2,
+	.h2,
+	h3,
+	.h3 {
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	.progress {
+		height: 10px;
+		margin-bottom: 10px;
+	}
+
+	.company-search-container {
+		width: 90%;
+	}
+
+	.reviews1 {
+		display: none;
+	}
+
+	.add-review-btn-mobile {
+		padding: 12px;
+		margin: 0 auto;
+		margin-top: 20px;
+		font-size: calc(85% + 1.2vw);
+		background-color: #337ab7;
+		display: block !important;
+		width: 80%;
+		text-transform: capitalize;
+		font-weight: bold;
+	}
+
+	.companies-search-div {
+		width: 95%;
+	}
+	.company-search-img {
+		height: auto;
+		width: 190px;
+		margin: 0 auto;
+	}
+
+	.company-search-desc p {
+		font-size: 15px;
+	}
+
+	.btn_mob_view_only {
+		display: none;
+	}
+
+	.group_all_btn {
+		width: 100%;
+		margin: 0 auto;
+		display: none;
+		padding-top: 10px;
+	}
+
+	.hide-button-mobile {
+		display: none;
+	}
+
+	.banner-text-info {
+		padding-top: 80px;
+		margin: 12em auto 0;
+		width: 90% !important;
+	}
+
+	.banner.static-page-banner,
+	.static-page-banner .banner-info {
+		min-height: 210px;
+	}
+
+	.static-page-banner .banner-text {
+		padding-top: 8em;
+	}
+
+	.banner-text {
+		padding: 1px;
+
+		h1 {
+			font-size: 2.2em;
+		}
+
+		h2 {
+			font-size: 2.1em;
+		}
+
+		h3 {
+			font-size: 1.1em;
+		}
+	}
+
+	.banner,
+	.banner-info {
+		min-height: 75vh;
+	}
+
+	.welpadgo {
+		padding-top: 3em !important;
+	}
+
+	.row.all_boxcolor1.select_box {
+		padding-top: 3em !important;
+	}
+
+	nav.navScroll {
+		background-color: #132437;
+		box-shadow: transparent;
+		ul li a {
+			color: $white !important;
+		}
+	}
+
+	.panel-hm {
+		width: 58%;
+		margin-bottom: 10px !important;
+		margin-left: 0px !important;
+		margin-top: 0px !important;
+		margin-right: 0px !important;
+	}
+}
