@@ -1,56 +1,35 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { Meteor } from "meteor/meteor";
+import { Mutation } from "react-apollo";
 
 import style from "./vote-buttons.scss";
+import voteButtonsQuery from "./vote-buttons.graphql";
+import VoteButton from "./vote-button.jsx";
+
+function voteToString(vote) {
+	if (vote === null || vote.isUpvote === null) {
+		return "none";
+	} else if (vote.isUpvote) {
+		return "up";
+	} else {
+		return "down";
+	}
+}
 
 export default function VoteButtons(props) {
-	const { review, refetch, className, ...otherProps } = props;
-	const vote = isUpvote => event => {
-		event.preventDefault();
-		Meteor.call("reviews.changeVote", review.id, isUpvote, error => {
-			refetch();
-			if (error) {
-				console.log(`Messed up ${isUpvote ? "upvote" : "downvote"}`);
-				console.error(error);
-			} else {
-				console.log(
-					`We just ${isUpvote ? "upvoted" : "downvoted"}the review ${
-						review.id
-					}`
-				);
-			}
-		});
-	};
-
-	let curVote;
-	if (review.currentUserVote) {
-		curVote = review.currentUserVote.isUpvote ? "up" : "down";
-	} else {
-		curVote = "none";
-	}
+	const { review, className, ...otherProps } = props;
 
 	return (
-		<div
-			{...otherProps}
-			className={style.voteButtons + (className || "")}
-			data-vote={curVote}
-		>
-			<button
-				type="button"
-				className={style.upButton}
-				onClick={vote(true)}
-			>
-				<FontAwesomeIcon icon="thumbs-up" />
-			</button>
-			<button
-				type="button"
-				className={style.downButton}
-				onClick={vote(false)}
-			>
-				<FontAwesomeIcon icon="thumbs-down" flip="horizontal" />
-			</button>
-		</div>
+		<Mutation mutation={voteButtonsQuery}>
+			{castVote => (
+				<div
+					{...otherProps}
+					className={style.voteButtons + (className || "")}
+					data-vote={voteToString(review.currentUserVote)}
+				>
+					<VoteButton isUpButton {...{ castVote, review }} />
+					<VoteButton {...{ castVote, review }} />
+				</div>
+			)}
+		</Mutation>
 	);
 }

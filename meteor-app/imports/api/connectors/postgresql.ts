@@ -4,7 +4,7 @@
 // and provides some database related utility functions.
 
 import { PoolClient } from "pg";
-import PostgreSQL from "./postgresql-old";
+import PostgreSQL, { pool } from "./postgresql-old";
 
 // Transactions are functions that take a database connection and use it to run
 // queries on the database. If any extra arguments are needed by the
@@ -29,9 +29,7 @@ export async function simpleQuery<R>(
 	query: string,
 	...values: any[]
 ): Promise<R[]> {
-	const { rows } = await execTransactionRO(client =>
-		client.query(query, values)
-	);
+	const { rows } = await pool.query(query, values);
 	return rows;
 }
 
@@ -39,9 +37,7 @@ export async function simpleQuery1<R>(
 	query: string,
 	...values: any[]
 ): Promise<R | null> {
-	const { rows } = await execTransactionRO(client =>
-		client.query(query, values)
-	);
+	const { rows } = await pool.query(query, values);
 	if (rows.length === 0) return null;
 	if (rows.length > 1)
 		console.warn(

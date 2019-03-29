@@ -43,10 +43,19 @@ export async function getVoteByAuthorAndSubject(
 
 	const submittedBy = await getUserPostgresId(user._id);
 
-	return simpleQuery1(
+	return simpleQuery1<Vote>(
 		`${baseQuery(subjectType)} WHERE submittedby=$1 AND refersto=$2`,
 		submittedBy,
 		refersTo
+	).then(vote =>
+		vote !== null
+			? vote
+			: ({
+					subjectType,
+					refersTo,
+					submittedBy,
+					isUpvote: null,
+			  } as Vote)
 	);
 }
 

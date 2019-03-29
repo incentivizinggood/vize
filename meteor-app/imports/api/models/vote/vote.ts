@@ -15,7 +15,7 @@ type SubjectRef =
 
 export type Vote = SubjectRef & {
 	submittedBy: UserPId;
-	isUpvote: boolean;
+	isUpvote: boolean | null;
 };
 
 export type VoteSubject = Comment | Review;
