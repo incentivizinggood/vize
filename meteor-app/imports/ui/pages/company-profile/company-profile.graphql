@@ -50,6 +50,7 @@ query companyProfilePage($companyId: ID!) {
 			additionalComments
 			created
 			currentUserVote {
+				id
 				isUpvote
 			}
 		}

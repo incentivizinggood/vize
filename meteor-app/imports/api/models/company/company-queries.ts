@@ -60,11 +60,21 @@ export async function searchForCompanies(
 	searchText: string,
 	pageNumber: number,
 	pageSize: number
-): Promise<Company[]> {
-	return simpleQuery(
-		`${baseQuery} WHERE name LIKE $1 OFFSET $2 LIMIT $3`,
-		"%" + searchText + "%",
-		pageNumber * pageSize,
-		pageSize
-	);
+): Promise<{ nodes: Company[]; totalCount: number }> {
+	// TODO: Refactor this ugly junk. This is implementing pagination and will
+	// need to be replaced by a reuseable solution.
+	return Promise.all([
+		simpleQuery<Company>(
+			`${baseQuery} WHERE name LIKE $1 OFFSET $2 LIMIT $3`,
+			"%" + searchText + "%",
+			pageNumber * pageSize,
+			pageSize
+		),
+		simpleQuery1<{ totalCount: number }>(
+			`SELECT COUNT(companyid) as "totalCount" FROM companies`
+		).then(c => (c !== null ? c : { totalCount: 0 })),
+	]).then(([nodes, { totalCount }]) => ({
+		nodes,
+		totalCount,
+	}));
 }

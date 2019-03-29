@@ -22,7 +22,7 @@ type Query {
 		searchText: String = ""
 		pageNum: Int = 0
 		pageSize: Int = 24
-	): [Company!]!
+	): CompanyConnection!
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 
 	wroteAReview: RewardStatus!
@@ -33,6 +33,23 @@ type Mutation {
 		phoneNumber: String!
 		paymentMethod: PaymentMethod!
 	): RewardStatus!
+
+	castVote(input: CastVoteInput!): CastVotePayload
+}
+
+input CastVoteInput {
+	"True to vote positively or favorably. False to vote negatively. Null to remove a vote."
+	isUpvote: Boolean
+	subjectId: ID!
+}
+
+type CastVotePayload {
+	vote: Vote
+}
+
+type CompanyConnection {
+	nodes: [Company!]!
+	totalCount: Int!
 }
 
 enum RewardStatus {
@@ -203,8 +220,8 @@ union VoteSubject = Comment | Review
 type Vote {
 	id: ID!
 
-	"True if this vote is positive or favorable."
-	isUpvote: Boolean!
+	"True if this vote is positive or favorable. False if this vote is negative. Null if this vote is neutral or the author has not voted."
+	isUpvote: Boolean
 
 	"The user who cast this vote."
 	author: User!
