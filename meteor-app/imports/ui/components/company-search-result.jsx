@@ -162,7 +162,7 @@ function CompanySearchResult(props) {
 					nextLabel="next"
 					breakLabel="..."
 					breakClassName="break-me"
-					pageCount="5"
+					pageCount="2"
 					marginPagesDisplayed="1"
 					pageRangeDisplayed="2"
 					onPageChange=""
