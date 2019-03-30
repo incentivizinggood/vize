@@ -7,10 +7,10 @@ case $1 in
 "i")
 	# Install/update the project's dependencies.
 	echo "Installing project root npm packages"
-	npm i
+	npm ci
 	cd meteor-app
 	echo "Installing meteor-app npm packages"
-	npm i
+	npm ci
 	echo "Generating code"
 	npm run gen
 	echo "Installing Meteor packages"
