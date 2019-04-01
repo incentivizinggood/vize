@@ -35,6 +35,30 @@ type Mutation {
 	): RewardStatus!
 
 	castVote(input: CastVoteInput!): CastVotePayload
+
+	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
+}
+
+input CreateCompanyInput {
+	name: String!
+	contactEmail: String!
+	yearEstablished: Int
+	numEmployees: String
+	industry: String
+	locations: [LocationInput!]!
+	contactPhoneNumber: String
+	websiteURL: String
+	descriptionOfCompany: String
+}
+
+input LocationInput {
+	city: String!
+	address: String!
+	industrialHub: String
+}
+
+type CreateCompanyPayload {
+	company: Company
 }
 
 input CastVoteInput {

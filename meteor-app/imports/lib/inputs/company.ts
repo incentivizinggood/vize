@@ -2,15 +2,14 @@ import LocationInput from "./location";
 
 type CompanyInput = {
 	name: string;
-	yearEstablished: number;
-	industry: string;
-	descriptionOfCompany: string;
-	numEmployees?: CompanyInput.NumEmployees;
-
 	contactEmail: string;
-	websiteURL: string;
-	contactPhoneNumber: string;
-	locations: LocationInput;
+	yearEstablished?: number;
+	numEmployees?: CompanyInput.NumEmployees;
+	industry?: string;
+	locations: [LocationInput];
+	contactPhoneNumber?: string;
+	websiteURL?: string;
+	descriptionOfCompany?: string;
 };
 
 declare namespace CompanyInput {
