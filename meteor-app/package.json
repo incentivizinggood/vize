@@ -65,7 +65,8 @@
     "react-transition-group": "^2.5.3",
     "reactstrap": "^7.1.0",
     "request-promise-native": "^1.0.7",
-    "simpl-schema": "1.4.3"
+    "simpl-schema": "1.4.3",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.0.2",
@@ -77,6 +78,7 @@
     "@types/meteor": "^1.4.27",
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
+    "@types/yup": "^0.26.12",
     "cheerio": "^1.0.0-rc.2",
     "node-sass": "^4.11.0",
     "react-test-renderer": "^16.8.1",
