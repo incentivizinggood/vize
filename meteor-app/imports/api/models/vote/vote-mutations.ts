@@ -1,3 +1,4 @@
+import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
@@ -22,18 +23,11 @@ export async function castVote(
 
 	if (isUpvote !== null) {
 		return simpleQuery1<Vote>(
-			`INSERT INTO review_votes (refersto,submittedby,value) VALUES ($1,$2,$3) ON CONFLICT (submittedby,refersto) DO UPDATE SET value=$3 RETURNING ${attributes.join(
-				", "
-			)}, 'review' AS "subjectType"`,
-			subjectId,
-			userPId,
-			isUpvote
+			sql`INSERT INTO review_votes (refersto,submittedby,value) VALUES (${subjectId},${userPId},${isUpvote}) ON CONFLICT (submittedby,refersto) DO UPDATE SET value=${isUpvote} RETURNING ${attributes}, 'review' AS "subjectType"`
 		);
 	} else {
 		return simpleQuery1<Vote>(
-			`DELETE FROM review_votes WHERE submittedby=$1 AND refersto=$2`,
-			userPId,
-			subjectId
+			sql`DELETE FROM review_votes WHERE submittedby=${userPId} AND refersto=${subjectId}`
 		).then(
 			(): Vote => ({
 				submittedBy: userPId,
