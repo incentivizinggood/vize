@@ -22,12 +22,18 @@ export async function castVote(
 	const userPId = await getUserPostgresId(user._id);
 
 	if (isUpvote !== null) {
-		return simpleQuery1<Vote>(
-			sql`INSERT INTO review_votes (refersto,submittedby,value) VALUES (${subjectId},${userPId},${isUpvote}) ON CONFLICT (submittedby,refersto) DO UPDATE SET value=${isUpvote} RETURNING ${attributes}, 'review' AS "subjectType"`
-		);
+		return simpleQuery1<Vote>(sql`
+			INSERT INTO review_votes (refersto,submittedby,value)
+			VALUES (${subjectId},${userPId},${isUpvote})
+			ON CONFLICT (submittedby,refersto) DO UPDATE SET value=${isUpvote}
+			RETURNING ${attributes}, 'review' AS "subjectType"
+		`);
 	} else {
 		return simpleQuery1<Vote>(
-			sql`DELETE FROM review_votes WHERE submittedby=${userPId} AND refersto=${subjectId}`
+			sql`
+				DELETE FROM review_votes
+				WHERE submittedby=${userPId} AND refersto=${subjectId}
+			`
 		).then(
 			(): Vote => ({
 				submittedBy: userPId,

@@ -27,7 +27,10 @@ const attributes = sql.raw(
 	].join(", ")
 );
 
-const baseQuery = sql`SELECT ${attributes} FROM companies NATURAL JOIN company_review_statistics`;
+const baseQuery = sql`
+	SELECT ${attributes}
+	FROM companies NATURAL JOIN company_review_statistics
+`;
 
 // Get the company with a given id.
 export async function getCompanyById(id: CompanyId): Promise<Company | null> {
@@ -49,9 +52,11 @@ export async function getAllCompanies(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Company[]> {
-	return simpleQuery(
-		sql`${baseQuery} OFFSET ${pageNumber * pageSize} LIMIT ${pageSize}`
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // return all companies whose name
@@ -61,9 +66,10 @@ export async function searchForCompanies(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Company[]> {
-	return simpleQuery(
-		sql`${baseQuery} WHERE name LIKE ${"%" +
-			searchText +
-			"%"} OFFSET ${pageNumber * pageSize} LIMIT ${pageSize}`
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		WHERE name LIKE ${"%" + searchText + "%"}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
