@@ -3,7 +3,7 @@
 // This file is the PostgreSQL connector. It handles connecting to the database
 // and provides some database related utility functions.
 
-import { PoolClient } from "pg";
+import { PoolClient, QueryConfig } from "pg";
 import { SqlStatement } from "imports/lib/sql-template";
 
 import PostgreSQL, { pool } from "./postgresql-old";
@@ -27,13 +27,13 @@ export function execTransactionRW<R>(transaction: Transaction<R>): Promise<R> {
 	return PostgreSQL.executeMutation(transaction);
 }
 
-export async function simpleQuery<R>(query: SqlStatement): Promise<R[]> {
-	const { rows } = await pool.query(query.toPg());
+export async function simpleQuery<R>(query: QueryConfig): Promise<R[]> {
+	const { rows } = await pool.query(query);
 	return rows;
 }
 
-export async function simpleQuery1<R>(query: SqlStatement): Promise<R | null> {
-	const { rows } = await pool.query(query.toPg());
+export async function simpleQuery1<R>(query: QueryConfig): Promise<R | null> {
+	const { rows } = await pool.query(query);
 	if (rows.length === 0) return null;
 	if (rows.length > 1)
 		console.warn(

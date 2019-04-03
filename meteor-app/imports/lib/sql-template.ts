@@ -1,5 +1,3 @@
-import { QueryConfig } from "pg";
-
 class SqlStatement {
 	private readonly _strings: string[];
 	private readonly _values: any[];
@@ -50,13 +48,12 @@ class SqlStatement {
 		}
 	}
 
-	toPg(): QueryConfig {
-		return {
-			text: this._strings.reduce(
-				(acc, cur, idx) => `${acc}$${idx}${cur}`
-			),
-			values: this._values.slice(),
-		};
+	get text() {
+		return this._strings.reduce((acc, cur, idx) => `${acc}$${idx}${cur}`);
+	}
+
+	get values() {
+		return this._values.slice();
 	}
 }
 

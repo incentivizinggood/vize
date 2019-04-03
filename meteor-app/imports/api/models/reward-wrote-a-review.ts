@@ -24,7 +24,7 @@ export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 			sql`
 				SELECT * FROM reward_wrote_a_review
 				WHERE user_id=${userPId}
-			`.toPg()
+			`
 		);
 
 		if (results.rows.length > 0) return "CLAIMED";
@@ -67,7 +67,7 @@ export async function claimWroteAReview(
 				sql`
 					SELECT * FROM reward_wrote_a_review
 					WHERE phone_number=${phoneNumber}
-				`.toPg()
+				`
 			)).rows.length > 0
 		)
 			throw Error("PHONENUMBER_ALREADY_USED");
@@ -82,7 +82,7 @@ export async function claimWroteAReview(
 				INSERT INTO reward_wrote_a_review
 					(user_id, phone_number, payment_method)
 					VALUES (${userPId}, ${phoneNumber}, ${paymentMethod})
-			`.toPg()
+			`
 		);
 
 		postToSlack(
