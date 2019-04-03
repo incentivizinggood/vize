@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test": "mocha \"./imports/**/*.tests.ts\"",
     "type": "tsc -p ./tsconfig.json --noEmit",
     "gen": "gql-gen"
   },
@@ -75,9 +75,11 @@
     "@types/graphql-iso-date": "^3.3.1",
     "@types/hashids": "^1.0.30",
     "@types/meteor": "^1.4.27",
+    "@types/mocha": "^5.2.6",
     "@types/pg": "^7.4.13",
     "@types/request-promise-native": "^1.0.15",
     "cheerio": "^1.0.0-rc.2",
+    "mocha": "^6.0.2",
     "node-sass": "^4.11.0",
     "react-test-renderer": "^16.8.1",
     "typescript": "^3.3.4000"
