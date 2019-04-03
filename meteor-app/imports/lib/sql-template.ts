@@ -78,13 +78,5 @@ sql.raw = function(string: string) {
 	return new SqlStatement([string]);
 };
 
-/* TODO: Make unit tests.
-const baseQuery = sql`SELECT test FROM stuff`;
-console.log(baseQuery.toPg());
-console.log(sql.raw("SELECT hgf FROM things").toPg());
-console.log(sql`SELECT test FROM stuff WHERE foo=${5}, bar<${"a"}`.toPg());
-console.log(sql`${baseQuery} WHERE foo=${5}, bar<${"a"}`.toPg());
-*/
-
 export default sql;
 export { SqlStatement };
