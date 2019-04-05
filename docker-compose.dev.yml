@@ -19,19 +19,15 @@ services:
         #       this sevice, try creating the directories
         #       `meteor-app/node_modules` and `meteor-app/.meteor/local`.
         #       It does not matter what is inside them, they just need to exist.
-        node-modules:/home/node/meteor/src/node_modules
-      - meteor-local:/home/node/meteor/src/.meteor/local
+        meteor-local:/home/node/meteor/src/.meteor/local
       - meteor-dotfile:/home/node/.meteor
 volumes:
   # Meteor build caches. Meteor and NPM download and create a lot of files.
   # We store this data in volumes so that is does not need to be redownloaded
   # and duplicated any more than nessisary.
 
-  # NPM's cache of dependencies.
-  ? node-modules
-
   # Meteor's cache of build artifacts. Allows for faster rebuilds.
-  ? meteor-local
+  meteor-local:
 
   # Meteor's dotfile where meteor is installed and caches its packages.
-  ? meteor-dotfile
+  meteor-dotfile:

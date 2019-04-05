@@ -1,3 +1,4 @@
+import sql from "imports/lib/sql-template";
 import { parsePhoneNumber } from "libphonenumber-js/max";
 
 import {
@@ -20,8 +21,10 @@ export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 		const userPId = await getUserPostgresId(user._id);
 
 		const results = await client.query(
-			"SELECT * FROM reward_wrote_a_review WHERE user_id=$1",
-			[userPId]
+			sql`
+				SELECT * FROM reward_wrote_a_review
+				WHERE user_id=${userPId}
+			`
 		);
 
 		if (results.rows.length > 0) return "CLAIMED";
@@ -61,8 +64,10 @@ export async function claimWroteAReview(
 		// Check if the phone number has already been used.
 		if (
 			(await client.query(
-				"SELECT * FROM reward_wrote_a_review WHERE phone_number=$1",
-				[phoneNumber]
+				sql`
+					SELECT * FROM reward_wrote_a_review
+					WHERE phone_number=${phoneNumber}
+				`
 			)).rows.length > 0
 		)
 			throw Error("PHONENUMBER_ALREADY_USED");
@@ -73,8 +78,11 @@ export async function claimWroteAReview(
 
 		const userPId = await getUserPostgresId(user._id);
 		await client.query(
-			"INSERT INTO reward_wrote_a_review (user_id, phone_number, payment_method) VALUES ($1, $2, $3)",
-			[userPId, phoneNumber, paymentMethod]
+			sql`
+				INSERT INTO reward_wrote_a_review
+					(user_id, phone_number, payment_method)
+					VALUES (${userPId}, ${phoneNumber}, ${paymentMethod})
+			`
 		);
 
 		postToSlack(

@@ -1,3 +1,4 @@
+import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
@@ -10,24 +11,28 @@ import {
 	getCompanyByName,
 } from "imports/api/models";
 
-const attributes = [
-	'salaryid AS "salaryId"',
-	'submittedby AS "submittedBy"',
-	'companyname AS "companyName"',
-	'companyid AS "companyId"',
-	'salarylocation AS "location"',
-	'jobtitle AS "jobTitle"',
-	'incometype AS "incomeType"',
-	'incomeamount AS "incomeAmount"',
-	'dateadded AS "dateAdded"',
-];
-const baseQuery = `SELECT ${attributes.join(", ")} FROM salaries`;
+const attributes = sql.raw(
+	[
+		'salaryid AS "salaryId"',
+		'submittedby AS "submittedBy"',
+		'companyname AS "companyName"',
+		'companyid AS "companyId"',
+		'salarylocation AS "location"',
+		'jobtitle AS "jobTitle"',
+		'incometype AS "incomeType"',
+		'incomeamount AS "incomeAmount"',
+		'dateadded AS "dateAdded"',
+	].join(", ")
+);
+const baseQuery = sql`SELECT ${attributes} FROM salaries`;
 
 // Get the salary with a given id.
 export async function getSalaryById(id: SalaryId): Promise<Salary | null> {
 	if (Number.isNaN(Number(id))) return null;
 
-	return simpleQuery1("SELECT * FROM salaries WHERE salaryid=$1", Number(id));
+	return simpleQuery1(
+		sql`SELECT * FROM salaries WHERE salaryid=${Number(id)}`
+	);
 }
 
 // Get all salaries submitted by a given user.
@@ -38,12 +43,12 @@ export async function getSalariesByAuthor(
 ): Promise<Salary[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	return simpleQuery(
-		`${baseQuery} WHERE submittedby=$1 OFFSET $2 LIMIT $3`,
-		authorPostgresId,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		WHERE submittedby=${authorPostgresId}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // Get the user who submitted a given salary.
@@ -57,12 +62,12 @@ export async function getSalariesByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Salary[]> {
-	return simpleQuery(
-		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
-		company.name,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		WHERE companyname=${company.name}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // Get the company that paid a given salary.
@@ -81,8 +86,7 @@ export async function countSalariesByCompany(
 	company: Company
 ): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		"SELECT count FROM salary_counts WHERE companyname=$1",
-		company.name
+		sql`SELECT count FROM salary_counts WHERE companyname=${company.name}`
 	);
 	return count ? count.count : 0;
 }
@@ -92,9 +96,9 @@ export async function getAllSalaries(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Salary[]> {
-	return simpleQuery(
-		`${baseQuery} OFFSET $1 LIMIT $2`,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }

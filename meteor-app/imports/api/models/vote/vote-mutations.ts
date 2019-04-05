@@ -1,20 +1,46 @@
-import { execTransactionRW } from "imports/api/connectors/postgresql";
+import sql from "imports/lib/sql-template";
+import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { VoteId, User, Vote, VoteSubject } from "imports/api/models";
+import {
+	VoteSubject,
+	User,
+	Vote,
+	ReviewId,
+	getUserPostgresId,
+} from "imports/api/models";
 
-// Create a new vote or, if the subject was already voted on, change the vote.
+import { attributes } from "./vote-queries";
+
+/** Create a new vote or, if the subject was already voted on, change the vote.
+ * If isUpvote is null then remove the vote.
+ */
 export async function castVote(
 	user: User,
-	subject: VoteSubject,
-	isUpvote: boolean
-): Promise<Vote> {
-	throw new Error("Not implemented yet");
-}
+	subjectId: ReviewId,
+	isUpvote: boolean | null
+): Promise<Vote | null> {
+	const userPId = await getUserPostgresId(user._id);
 
-// Remove a vote. If there is no vote, do nothing.
-export async function removeVote(
-	user: User,
-	subject: VoteSubject
-): Promise<Vote> {
-	throw new Error("Not implemented yet");
+	if (isUpvote !== null) {
+		return simpleQuery1<Vote>(sql`
+			INSERT INTO review_votes (refersto,submittedby,value)
+			VALUES (${subjectId},${userPId},${isUpvote})
+			ON CONFLICT (submittedby,refersto) DO UPDATE SET value=${isUpvote}
+			RETURNING ${attributes}, 'review' AS "subjectType"
+		`);
+	} else {
+		return simpleQuery1<Vote>(
+			sql`
+				DELETE FROM review_votes
+				WHERE submittedby=${userPId} AND refersto=${subjectId}
+			`
+		).then(
+			(): Vote => ({
+				submittedBy: userPId,
+				isUpvote: null,
+				subjectType: "review",
+				refersTo: subjectId,
+			})
+		);
+	}
 }
