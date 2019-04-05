@@ -12,7 +12,6 @@ ENV APP_BUNDLE_DIR $APP_DIR/dist
 RUN mkdir -p \
 	$HOME/.meteor \
 	$APP_SOURCE_DIR \
-	$APP_SOURCE_DIR/node_modules \
 	$APP_SOURCE_DIR/.meteor/local
 
 COPY entrypoint-dev.sh $APP_SCRIPTS_DIR/
