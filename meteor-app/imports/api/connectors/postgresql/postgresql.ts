@@ -2,13 +2,15 @@
 // and provides some database related utility functions.
 
 import { Pool, PoolClient, QueryConfig } from "pg";
-import { SqlStatement } from "imports/lib/sql-template";
 
+/** The connection pool for the PostgreSQL database.
+ * @todo Implement RAII for this connector to handle creating and ending this pool.
+ */
 const pool = new Pool();
 
 /**
  * Preform a graceful shutdown.
- * @todo Move this code to a central location that handles the application lifycycle.
+ * @todo Implement RAII for this connector to handle creating and ending this pool.
  */
 function shutdown() {
 	console.info(
