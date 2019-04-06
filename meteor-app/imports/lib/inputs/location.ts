@@ -7,7 +7,7 @@ type LocationInput = {
 };
 
 namespace LocationInput {
-	export const schema = yup.object().shape({
+	export const schema = yup.object({
 		city: yup.string().required(),
 		address: yup.string().required(),
 		industrialHub: yup.string(),

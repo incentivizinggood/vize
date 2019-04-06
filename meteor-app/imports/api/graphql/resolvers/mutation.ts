@@ -29,4 +29,14 @@ export const Mutation: MutationResolvers = {
 			)
 			.then(vote => (vote ? { vote } : null));
 	},
+
+	createCompany: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		const companyId = await dataModel.createCompany(
+			input,
+			context.user._id
+		);
+		const company = await dataModel.getCompanyById(companyId);
+		return { company };
+	},
 };

@@ -2,20 +2,20 @@ import * as yup from "yup";
 
 import LocationInput from "./location";
 
-type CompanyInput = {
+type CreateCompanyInput = {
 	name: string;
 	contactEmail: string;
-	yearEstablished?: number;
-	numEmployees?: CompanyInput.NumEmployees;
-	industry?: string;
+	yearEstablished?: number | null;
+	numEmployees?: CreateCompanyInput.NumEmployees | null;
+	industry?: string | null;
 	locations: LocationInput[];
-	contactPhoneNumber?: string;
-	websiteURL?: string;
-	descriptionOfCompany?: string;
+	contactPhoneNumber?: string | null;
+	websiteURL?: string | null;
+	descriptionOfCompany?: string | null;
 };
 
-namespace CompanyInput {
-	export const schema = yup.object().shape({
+namespace CreateCompanyInput {
+	export const schema = yup.object({
 		name: yup.string().required(),
 		contactEmail: yup
 			.string()
@@ -58,4 +58,4 @@ namespace CompanyInput {
 	}
 }
 
-export default CompanyInput;
+export default CreateCompanyInput;
