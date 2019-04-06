@@ -10,13 +10,17 @@ import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx"
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import companySearchQuery from "./company-search.graphql";
 import Spinner from "../../components/Spinner";
+import PaginateSystem from "/imports/ui/components/paginate/pagination.jsx";
 
 const t = i18n.createTranslator("common.search");
 const T = i18n.createComponent(t);
 
 // //////////////////CHILD COMPONENT///////////////////
-const SearchResults = ({ searchText }) => (
-	<Query query={companySearchQuery} variables={{ searchText }}>
+const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
+	<Query
+		query={companySearchQuery}
+		variables={{ searchText, currentPageNum }}
+	>
 		{({ loading, error, data }) => {
 			if (loading) {
 				return <Spinner />;
@@ -25,36 +29,25 @@ const SearchResults = ({ searchText }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
+			console.log("companies below", data.searchCompanies.nodes);
+			console.log("Total Count: ", data.searchCompanies.totalCount);
+			console.log("Current Page: ", currentPageNum);
+
+			const totalCompCount = data.searchCompanies.totalCount;
+
 			// searchCompanies is read-only, we do a
 			// deep copy before we mutate it with sort:
 			// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
-			const resultList = data.searchCompanies
-				.map(c => Object.assign({}, c))
-				// Array.prototype.sort is in-place and returns the new array
-				.sort(function(a, b) {
-					// This scoring method was given to me by Krit,
-					// who told me that Julian wanted it this way.
-					const score = company =>
-						company.numJobAds * 2 +
-						company.numReviews * 1.5 +
-						company.numSalaries * 1;
-					const aScore = score(a);
-					const bScore = score(b);
-					if (aScore === bScore) return 0;
-					else if (aScore > bScore) return -1;
-					return 1;
-				})
-				// Finally, do React stuff
-				.map(function(company) {
-					console.log(company);
-					return (
-						<CompanySearchResult
-							key={company.id}
-							company={company}
-						/>
-					);
-				});
+			const resultList = data.searchCompanies.nodes.map(function(
+				company
+			) {
+				console.log(company);
+				return (
+					<CompanySearchResult key={company.id} company={company} />
+				);
+			});
 
+			// Break into chunks
 			if (resultList.length < 1) {
 				return (
 					<h2>
@@ -63,7 +56,16 @@ const SearchResults = ({ searchText }) => (
 				);
 			}
 
-			return <ul>{resultList}</ul>;
+			return (
+				<>
+					<ul>{resultList}</ul>
+					<PaginateSystem
+						// recall query starting at the last company id
+						totalCompanyCount={totalCompCount}
+						currPageNum={currentPageNum}
+					/>
+				</>
+			);
 		}}
 	</Query>
 );
@@ -79,12 +81,25 @@ class CompanySearchTrial extends React.Component {
 		this.state = {
 			searchTextInput: this.props.searchText || "",
 			searchText: this.props.searchText || "",
+			currentPageNum: 0,
 		};
+		this.setCurrentPage = this.setCurrentPage.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	setCurrentPage = newPageNum => {
+		alert("worked");
+		console.log("Reached");
+		this.setState({
+			// was newPageNum
+			currentPageNum: newPageNum,
+		});
+	};
+
 	handleInputChange(event) {
+		alert("worked");
+
 		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;
@@ -120,7 +135,11 @@ class CompanySearchTrial extends React.Component {
 				</div>
 				<div className="clearfix" />
 				<br />
-				<SearchResults searchText={this.state.searchText} />
+				<SearchResults
+					searchText={this.state.searchText}
+					currentPageNum={this.state.currentPageNum}
+					setCurrentPage={this.setCurrentPage}
+				/>
 			</PageWrapper>
 		);
 	}

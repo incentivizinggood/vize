@@ -156,21 +156,6 @@ function CompanySearchResult(props) {
 				</div>
 				<div className="clearfix" />
 			</div>
-			<div className="centeredPag">
-				<ReactPaginate
-					previousLabel="previous"
-					nextLabel="next"
-					breakLabel="..."
-					breakClassName="break-me"
-					pageCount="2"
-					marginPagesDisplayed="1"
-					pageRangeDisplayed="2"
-					onPageChange=""
-					containerClassName="pagination"
-					subContainerClassName="pages pagination"
-					activeClassName="active"
-				/>
-			</div>
 		</div>
 	);
 }

@@ -21,7 +21,7 @@ type Query {
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
-		pageSize: Int = 24
+		pageSize: Int = 2
 	): CompanyConnection!
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 
