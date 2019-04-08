@@ -14,37 +14,23 @@ import "../../../api/data/methods.js";
 Pagination system appears below the block of companies
  */
 
-export default class PaginateSystem extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-		this.changePage = this.changePage.bind(this);
-	}
-
-	changePage = data => {
-		console.log("print", data);
-		// send it call
-		console.log("cpn: ", this.props.currPageNum);
-		// <CompanySearchTrial setCurrentPage={this.props.currPageNum}>
-	};
-
-	render() {
-		return (
-			<div className="centeredPag">
-				<ReactPaginate
-					previousLabel="previous"
-					nextLabel="next"
-					breakLabel="..."
-					breakClassName="break-me"
-					pageCount={Math.ceil(this.props.totalCompanyCount / 2)}
-					marginPagesDisplayed={2}
-					pageRangeDisplayed={1}
-					onPageChange={this.changePage}
-					containerClassName="pagination"
-					subContainerClassName="pages pagination"
-					activeClassName="active"
-				/>
-			</div>
-		);
-	}
+export default function PaginateSystem(props) {
+	return (
+		<div className="centeredPag">
+			<ReactPaginate
+				previousLabel="previous"
+				nextLabel="next"
+				breakLabel="..."
+				breakClassName="break-me"
+				pageCount={Math.ceil(props.totalCompanyCount / 2)}
+				marginPagesDisplayed={2}
+				pageRangeDisplayed={1}
+				onPageChange={({ selected }) => props.setCurrentPage(selected)}
+				forcePage={props.currentPageNum}
+				containerClassName="pagination"
+				subContainerClassName="pages pagination"
+				activeClassName="active"
+			/>
+		</div>
+	);
 }

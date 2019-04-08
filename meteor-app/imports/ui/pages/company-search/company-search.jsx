@@ -62,7 +62,8 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 					<PaginateSystem
 						// recall query starting at the last company id
 						totalCompanyCount={totalCompCount}
-						currPageNum={currentPageNum}
+						currentPageNum={currentPageNum}
+						setCurrentPage={setCurrentPage}
 					/>
 				</>
 			);
@@ -88,14 +89,13 @@ class CompanySearchTrial extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	setCurrentPage = newPageNum => {
-		alert("worked");
-		console.log("Reached");
+	setCurrentPage(newPageNum) {
+		console.log("setCurrentPage", newPageNum);
 		this.setState({
 			// was newPageNum
 			currentPageNum: newPageNum,
 		});
-	};
+	}
 
 	handleInputChange(event) {
 		alert("worked");
