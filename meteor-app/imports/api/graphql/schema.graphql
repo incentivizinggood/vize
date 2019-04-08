@@ -146,14 +146,11 @@ type Review {
 	upvotes: Int
 	downvotes: Int
 
-	"The user who wrote this."
-	author: User!
+	# TODO: Add a field to let a users see if a review belongs to them.
 	"The company being reviewed"
 	company: Company!
 	"Comments about this review."
 	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
-	"The votes cast on this review."
-	votes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
 	"The vote that the currently logged in user cast on this review."
 	currentUserVote: Vote
 }
@@ -168,8 +165,6 @@ type Salary {
 	"The date and time this was created."
 	created: DateTime
 
-	"The user who submitted this."
-	author: User!
 	"The company that paid this salary."
 	company: Company!
 }
@@ -193,12 +188,6 @@ type User {
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
-	"Reviews written by this user. Will be null if this user cannot write reviews."
-	reviews(pageNum: Int = 0, pageSize: Int = 24): [Review!]
-	"Comments written by this user."
-	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
-	"Votes cast by this user."
-	votes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
 }
 
 "The kinds of things that can be voted on."
