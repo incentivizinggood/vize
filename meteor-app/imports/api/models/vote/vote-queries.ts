@@ -126,17 +126,3 @@ export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
 
 	return subject;
 }
-
-// Get all of the votes.
-export async function getAllVotes(
-	pageNumber: number,
-	pageSize: number
-): Promise<Vote[]> {
-	return simpleQuery(sql`
-		${baseQuery("review")}
-		UNION ALL
-		${baseQuery("comment")}
-		OFFSET ${pageNumber * pageSize}
-		LIMIT ${pageSize}
-	`);
-}

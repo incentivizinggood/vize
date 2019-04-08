@@ -47,18 +47,6 @@ export async function getCompanyByName(name: string): Promise<Company | null> {
 	return simpleQuery1(sql`${baseQuery} WHERE name=${name}`);
 }
 
-// Get all of the companies.
-export async function getAllCompanies(
-	pageNumber: number,
-	pageSize: number
-): Promise<Company[]> {
-	return simpleQuery(sql`
-		${baseQuery}
-		OFFSET ${pageNumber * pageSize}
-		LIMIT ${pageSize}
-	`);
-}
-
 // return all companies whose name
 // contains the given search text
 export async function searchForCompanies(
