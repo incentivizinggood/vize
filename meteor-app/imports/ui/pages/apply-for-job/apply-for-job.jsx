@@ -123,6 +123,7 @@ if (Meteor.isClient) {
 export default class ApplyForJobForm extends React.Component {
 	constructor(props) {
 		super(props);
+		document.title = "Apply";
 	}
 	render() {
 		afj_form_state.set("jobId", this.props.jobId);
