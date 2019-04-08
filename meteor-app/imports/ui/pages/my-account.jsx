@@ -11,6 +11,8 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
  */
 class MyAccountPage extends React.Component {
 	renderContent() {
+		document.title = "Account Page";
+
 		return (
 			<div style={{ width: "80%", margin: "0 auto" }}>
 				<br />

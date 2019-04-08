@@ -13,6 +13,8 @@ const T = i18n.createComponent();
 export default class AboutPage extends React.Component {
 	constructor(props) {
 		super(props);
+		document.title = "About";
+
 		this.state = {
 			name: "",
 			value: "",

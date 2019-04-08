@@ -207,6 +207,7 @@ if (Meteor.isClient) {
 export default class SubmitSalaryDataForm extends React.Component {
 	constructor(props) {
 		super(props);
+		document.title = "Salary";
 	}
 	render() {
 		ssd_form_state.set("companyId", this.props.companyId);
