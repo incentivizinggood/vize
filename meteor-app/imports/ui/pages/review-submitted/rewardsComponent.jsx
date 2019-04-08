@@ -28,6 +28,7 @@ const REWARD_DATA_SUBMISSION = gql`
 export default class RewardsComponent extends React.Component {
 	constructor(props) {
 		super(props);
+		document.title = "Rewards";
 
 		this.state = {
 			phoneNumber: "",
