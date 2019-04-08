@@ -2,14 +2,6 @@ type Query {
 	say: String!
 	currentUser: User
 
-	allComments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
-	allCompanies(pageNum: Int = 0, pageSize: Int = 24): [Company!]!
-	allJobAds(pageNum: Int = 0, pageSize: Int = 24): [JobAd!]!
-	allReviews(pageNum: Int = 0, pageSize: Int = 24): [Review!]!
-	allSalaries(pageNum: Int = 0, pageSize: Int = 24): [Salary!]!
-	allUsers(pageNum: Int = 0, pageSize: Int = 24): [User!]!
-	allVotes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
-
 	comment(id: ID!): Comment
 	company(id: ID!): Company
 	jobAd(id: ID!): JobAd

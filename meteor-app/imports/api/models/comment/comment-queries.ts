@@ -63,17 +63,3 @@ export async function getParentOfComment(
 ): Promise<CommentParent> {
 	throw new Error("Not implemented yet");
 }
-
-// Get all of the comments.
-export async function getAllComments(
-	pageNumber: number,
-	pageSize: number
-): Promise<Comment[]> {
-	return PgCommentFunctions.processCommentResults(
-		await PostgreSQL.executeQuery(
-			PgCommentFunctions.getAllComments,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
-}
