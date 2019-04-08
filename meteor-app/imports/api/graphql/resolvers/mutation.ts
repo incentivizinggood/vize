@@ -34,7 +34,7 @@ export const Mutation: MutationResolvers = {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 		const companyId = await dataModel.createCompany(
 			input,
-			context.user._id
+			await dataModel.getUserPostgresId(context.user._id)
 		);
 		const company = await dataModel.getCompanyById(companyId);
 		return { company };
