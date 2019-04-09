@@ -11,10 +11,9 @@ import * as request from "request-promise-native";
 export function sendEmail(text: string) {
 	// Do not actualy make the request if the URL for Slack's WebHook API has not been set.
 	if (process.env.MAIL_API_KEY) {
-		// Make a JSON representation of the message we want to post.
-		// This var is called "body" because it is the body of the HTTP request.
+		// Make a JSON representation of the message we want to post in the email.
+		// the form is the actual body of the request.
 
-		// Post the message to Vize's Slack's WebHook API.
     var options = {
         method: 'POST',
         uri: 'https://api.mailgun.net/v3/mg.incentivizinggood.com/messages',
