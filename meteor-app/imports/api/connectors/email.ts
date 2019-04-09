@@ -9,7 +9,7 @@ import * as request from "request-promise-native";
 
 
 export function sendEmail(text: string) {
-	// Do not actualy make the request if the URL for Slack's WebHook API has not been set.
+	// Do not actualy make the request if the MAIL_API_KEY is not set.
 	if (process.env.MAIL_API_KEY) {
 		// Make a JSON representation of the message we want to post in the email.
 		// the form is the actual body of the request.
