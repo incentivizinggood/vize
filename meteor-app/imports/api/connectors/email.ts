@@ -25,9 +25,9 @@ export function sendEmail(text: string) {
         },
 
         form: {
-            from: "Excited User <mailgun@mg.incentivizinggood.com>",
-            to:"krit.dce@gmail.com",
-            subject:"Hello",
+            from: "Vize Flag <mailgun@mg.incentivizinggood.com>",
+            to:"incentivizinggood@gmail.com",
+            subject:"Someone flagged a review",
             text:"Testing some Mailgun awesomeness!"
         },
 
