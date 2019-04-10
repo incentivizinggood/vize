@@ -12,6 +12,8 @@ const T = i18n.createComponent(t);
 /* The page where users can login to the app.
  */
 function LoginPage() {
+	document.title = "Login | Vize";
+
 	return (
 		<PageWrapper>
 			<div className="container  login-top-spce">

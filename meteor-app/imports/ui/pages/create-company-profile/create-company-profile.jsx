@@ -107,7 +107,7 @@ if (Meteor.isClient) {
 export default class CompanyCreateProfileForm extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Create Company Profile";
+		document.title = "Create Company Profile | Vize";
 	}
 	render() {
 		return (

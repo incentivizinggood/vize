@@ -78,7 +78,7 @@ SearchResults.propTypes = {
 class CompanySearchTrial extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Company Search";
+		document.title = "Company Search | Vize";
 
 		this.state = {
 			searchTextInput: this.props.searchText || "",

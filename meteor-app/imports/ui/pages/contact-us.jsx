@@ -11,7 +11,7 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 export default class ContactUsPage extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Contact Us";
+		document.title = "Contact Us | Vize";
 
 		this.state = {
 			name: "",

@@ -13,7 +13,7 @@ const T = i18n.createComponent();
 export default class AboutPage extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "About";
+		document.title = "About | Vize";
 
 		this.state = {
 			name: "",

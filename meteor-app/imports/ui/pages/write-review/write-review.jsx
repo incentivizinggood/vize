@@ -163,7 +163,7 @@ if (Meteor.isClient) {
 class WriteReviewForm extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Write Review";
+		document.title = "Write Review | Vize";
 	}
 
 	render() {

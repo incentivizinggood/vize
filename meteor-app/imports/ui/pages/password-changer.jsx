@@ -17,7 +17,7 @@ const T = i18n.createComponent(t);
 class PasswordChanger extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Account Recovery";
+		document.title = "Account Recovery | Vize";
 
 		this.state = {
 			error: Meteor.userId() !== null ? null : "Not logged in",

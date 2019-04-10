@@ -22,7 +22,7 @@ class CompanyProfile extends React.Component {
 	componentDidMount() {
 		// Ask to be updated "reactively".
 		// universe:i18n cannot be trusted to do that automaticaly.
-		document.title = "Company Profile";
+		document.title = "Company Profile | Vize";
 		this.i18nInvalidate = () => this.forceUpdate();
 		i18n.onChangeLocale(this.i18nInvalidate);
 	}
