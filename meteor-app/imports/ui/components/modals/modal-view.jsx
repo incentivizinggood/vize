@@ -11,7 +11,8 @@ export default class ModalView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			modalIsOpen: false,
+			// if no button is needed to activate the modal, then the modal should be open by default
+			modalIsOpen: this.props.noButton,
 		};
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
@@ -27,12 +28,18 @@ export default class ModalView extends React.Component {
 	render() {
 		return (
 			<>
-				<button
-					onClick={this.openModal}
-					className={this.props.className}
-				>
-					{this.props.children}
-				</button>
+				{
+					// noButton prop was added in case a modal is needed to be
+					// used without a button to activate it
+				}
+				{!this.props.noButton && (
+					<button
+						onClick={this.openModal}
+						className={this.props.className}
+					>
+						{this.props.children}
+					</button>
+				)}
 				<Modal
 					isOpen={this.state.modalIsOpen}
 					onRequestClose={this.closeModal}

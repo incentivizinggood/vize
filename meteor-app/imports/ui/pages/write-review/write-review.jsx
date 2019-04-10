@@ -9,6 +9,10 @@ import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to di
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import ModalView from "/imports/ui/components/modals/modal-view.jsx";
+import RegisterLoginModal from "../../components/register-login-modal.jsx";
 
 import i18n from "meteor/universe:i18n";
 
@@ -24,6 +28,8 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 // so whatever...
 import "/imports/ui/components/afInputStarRating";
 import "/imports/ui/components/afInputLocation";
+
+const T = i18n.createComponent();
 
 let historyProps = null;
 
@@ -169,10 +175,35 @@ class WriteReviewForm extends React.Component {
 		wr_form_state.set("companyId", this.props.companyId);
 		historyProps = this.props.history;
 
+		let content = null;
+		console.log(Meteor.user());
+		if (Meteor.user()) {
+			content = null;
+		} else {
+			content = (
+				<div style={{ width: "80%", margin: "0 auto" }}>
+					<br />
+					<h3>You must be logged in to use this page. </h3>
+					<br />
+					<Link className="btn btn-primary" to="/login">
+						Log In
+					</Link>
+					<br />
+				</div>
+			);
+		}
+
 		return (
 			<PageWrapper>
 				<div className="page WriteReviewForm">
 					<Blaze template="wr_blaze_form" />
+					<ModalView
+						className="flag-style-btn"
+						noButton
+						content={RegisterLoginModal}
+					>
+						<T>common.companyreview.report</T>
+					</ModalView>
 				</div>
 			</PageWrapper>
 		);
