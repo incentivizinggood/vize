@@ -39,7 +39,7 @@ const ShowJobs = () => (
 			} else {
 				message = "";
 			}
-
+			document.title = "Jobs | Vize";
 			return (
 				<PageWrapper>
 					<div className="container-fluid  search_companies">

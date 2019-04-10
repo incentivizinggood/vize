@@ -3,6 +3,8 @@ import React from "react";
 /* The "404" page.
  */
 export default function NotFoundPage() {
+	document.title = "Not Found | Vize";
+
 	return (
 		<div className="page not-found">
 			<h1>404</h1>

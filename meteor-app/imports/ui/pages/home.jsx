@@ -12,6 +12,8 @@ const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
 
 function HomePage() {
+	document.title = "Vize";
+
 	return (
 		<PageWrapper navIsAnimated>
 			<div className="banner">

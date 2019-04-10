@@ -7,6 +7,7 @@ import userPageQuery from "./user.graphql";
 /* Users can view the public information of other users on this page.
  */
 export default function UserPage(props) {
+	document.title = "User | Vize";
 	return (
 		<div className="page user">
 			<Query query={userPageQuery} variables={{ userId: props.user_id }}>

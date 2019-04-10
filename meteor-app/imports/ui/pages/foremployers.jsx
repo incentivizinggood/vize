@@ -10,6 +10,8 @@ const T = i18n.createComponent();
 
 export default class ForEmployers extends React.Component {
 	render() {
+		document.title = "Employers | Vize";
+
 		return (
 			<PageWrapper>
 				<div className="full-width-container forEmployees-header">

@@ -27,6 +27,8 @@ const glyphStyle = {
 
 export default class ResourcesEmployers extends React.Component {
 	render() {
+		document.title = "Resources | Vize";
+
 		return (
 			<PageWrapper>
 				<br />

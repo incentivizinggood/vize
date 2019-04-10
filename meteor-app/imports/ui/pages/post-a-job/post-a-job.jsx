@@ -168,6 +168,7 @@ if (Meteor.isClient) {
 export default class PostAJobForm extends React.Component {
 	constructor(props) {
 		super(props);
+		document.title = "Post a Job | Vize";
 	}
 	render() {
 		return (
