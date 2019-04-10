@@ -29,10 +29,6 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
-			console.log("companies below", data.searchCompanies.nodes);
-			console.log("Total Count: ", data.searchCompanies.totalCount);
-			console.log("Current Page: ", currentPageNum);
-
 			const totalCompCount = data.searchCompanies.totalCount;
 
 			// searchCompanies is read-only, we do a
@@ -90,7 +86,6 @@ class CompanySearchTrial extends React.Component {
 	}
 
 	setCurrentPage(newPageNum) {
-		console.log("setCurrentPage", newPageNum);
 		this.setState({
 			// was newPageNum
 			currentPageNum: newPageNum,
@@ -98,8 +93,6 @@ class CompanySearchTrial extends React.Component {
 	}
 
 	handleInputChange(event) {
-		alert("worked");
-
 		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;

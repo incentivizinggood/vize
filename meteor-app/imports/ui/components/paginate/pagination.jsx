@@ -22,7 +22,7 @@ export default function PaginateSystem(props) {
 				nextLabel="next"
 				breakLabel="..."
 				breakClassName="break-me"
-				pageCount={Math.ceil(props.totalCompanyCount / 2)}
+				pageCount={Math.ceil(props.totalCompanyCount / 3)}
 				marginPagesDisplayed={2}
 				pageRangeDisplayed={1}
 				onPageChange={({ selected }) => props.setCurrentPage(selected)}
