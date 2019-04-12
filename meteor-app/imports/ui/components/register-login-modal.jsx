@@ -37,7 +37,7 @@ class RegisterLoginModal extends React.Component {
 		if (this.state.registerLogin === "register") {
 			formContent = (
 				<div>
-					<RegisterForm />
+					<RegisterForm showInput={false} />
 
 					<div className="text-center login-link-cs">
 						<T>alreadyAccount</T>
