@@ -32,6 +32,24 @@ class RegisterLoginModal extends React.Component {
 	}
 
 	render() {
+		const styles = {
+			linkButton: {
+				color: "blue",
+				fontSize: 16,
+				fontWeight: 600,
+			},
+		};
+
+		const linkButton = {
+			color: "blue",
+			fontSize: 16,
+			fontWeight: 600,
+		};
+
+		const errorDiv = {
+			backgroundColor: "gainsboro",
+		};
+
 		let formContent = null;
 
 		if (this.state.registerLogin === "register") {
@@ -40,10 +58,13 @@ class RegisterLoginModal extends React.Component {
 					<RegisterForm showInput={false} />
 
 					<div className="text-center login-link-cs">
+						<br />
 						<T>alreadyAccount</T>
-						<button onClick={this.changeRegisterLoginState}>
-							{" "}
-							<T>login</T>{" "}
+						<button
+							style={linkButton}
+							onClick={this.changeRegisterLoginState}
+						>
+							<T>login</T>
 						</button>
 						<div className="clearfix" />
 					</div>
@@ -61,7 +82,14 @@ class RegisterLoginModal extends React.Component {
 			);
 		}
 
-		return <div>{formContent}</div>;
+		return (
+			<div>
+				<div style={errorDiv}>
+					<h5>Register or login to write a review</h5>
+				</div>
+				{formContent}
+			</div>
+		);
 	}
 }
 export default RegisterLoginModal;

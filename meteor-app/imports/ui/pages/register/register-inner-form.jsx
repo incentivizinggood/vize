@@ -47,7 +47,7 @@ function InnerForm(props, { errors, isSubmitting }) {
 							form="register-form"
 							type="submit"
 							disabled={isSubmitting}
-							className="button out-bodr-get1"
+							className="btn-primary button out-bodr-get1"
 						>
 							<T>createAccount</T>
 						</button>

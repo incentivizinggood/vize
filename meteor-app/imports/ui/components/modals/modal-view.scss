@@ -1,6 +1,5 @@
 .modalView {
 	width: 400px;
-	height: 250px;
 	background-color: white;
 	position: absolute;
 	left: 0;
@@ -13,6 +12,7 @@
 	border-style: solid;
 	border-width: thin;
 	padding: 4px;
+	display: table;
 }
 .closeButton {
 	position: absolute;
