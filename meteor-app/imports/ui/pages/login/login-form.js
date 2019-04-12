@@ -45,7 +45,9 @@ const LoginForm = props => (
 					actions.setSubmitting(false);
 				} else {
 					actions.resetForm(this.initialValues);
-					props.history.push("/");
+					if (!window.location.pathname.includes("/write-review")) {
+						props.history.push("/");
+					}
 				}
 			};
 

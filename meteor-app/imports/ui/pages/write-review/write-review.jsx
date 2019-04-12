@@ -9,6 +9,7 @@ import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to di
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
 import { withRouter } from "react-router-dom";
+import { withTracker } from "meteor/react-meteor-data";
 import { Link } from "react-router-dom";
 
 import ModalView from "/imports/ui/components/modals/modal-view.jsx";
@@ -176,20 +177,17 @@ class WriteReviewForm extends React.Component {
 		historyProps = this.props.history;
 
 		let content = null;
-		console.log(Meteor.user());
-		if (Meteor.user()) {
+		if (this.props.user) {
 			content = null;
 		} else {
 			content = (
-				<div style={{ width: "80%", margin: "0 auto" }}>
-					<br />
-					<h3>You must be logged in to use this page. </h3>
-					<br />
-					<Link className="btn btn-primary" to="/login">
-						Log In
-					</Link>
-					<br />
-				</div>
+				<ModalView
+					className="flag-style-btn"
+					noButton
+					content={RegisterLoginModal}
+				>
+					<T>common.companyreview.report</T>
+				</ModalView>
 			);
 		}
 
@@ -197,13 +195,7 @@ class WriteReviewForm extends React.Component {
 			<PageWrapper>
 				<div className="page WriteReviewForm">
 					<Blaze template="wr_blaze_form" />
-					<ModalView
-						className="flag-style-btn"
-						noButton
-						content={RegisterLoginModal}
-					>
-						<T>common.companyreview.report</T>
-					</ModalView>
+					{content}
 				</div>
 			</PageWrapper>
 		);
@@ -214,4 +206,8 @@ WriteReviewForm.propTypes = {
 	companyId: PropTypes.string,
 };
 
-export default withRouter(WriteReviewForm);
+export default withRouter(
+	withTracker(() => ({
+		user: Meteor.user(),
+	}))(WriteReviewForm)
+);
