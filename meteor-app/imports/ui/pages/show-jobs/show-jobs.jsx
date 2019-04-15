@@ -22,8 +22,8 @@ const ShowJobs = () => (
 			}
 
 			if (error) {
-				console.log(error);
-				return <h2>{error}</h2>;
+				console.error(error);
+				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
 			const RenderedItems = data.jobAds.map(function(jobad) {
