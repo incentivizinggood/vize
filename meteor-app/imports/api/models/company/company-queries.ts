@@ -65,8 +65,16 @@ export async function searchForCompanies(
 	// need to be replaced by a reuseable solution.
 	return Promise.all([
 		simpleQuery<Company>(
-			`${baseQuery} WHERE name LIKE $1 OFFSET $2 LIMIT $3`,
-			"%" + searchText + "%",
+			`
+				${baseQuery}
+					JOIN job_post_counts ON companies.name = job_post_counts.companyname
+					JOIN salary_counts ON companies.name = salary_counts.companyname
+				WHERE name LIKE $1
+				ORDER BY job_post_counts.count*2 + numreviews*1.5 + salary_counts.count DESC
+				OFFSET $2
+				LIMIT $3
+			`,
+			`%${searchText}%`,
 			pageNumber * pageSize,
 			pageSize
 		),
