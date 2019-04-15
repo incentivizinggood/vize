@@ -1,20 +1,22 @@
 query {
-	jobAds: allJobAds {
-		id
-		jobTitle
-		locations {
-			city
-			address
-			industrialHub
-		}
-		pesosPerHour
-		contractType
-		jobDescription
-		responsibilities
-		qualifications
-		created
-		company {
-			name
+	searchJobAds {
+		nodes {
+			id
+			jobTitle
+			locations {
+				city
+				address
+				industrialHub
+			}
+			pesosPerHour
+			contractType
+			jobDescription
+			responsibilities
+			qualifications
+			created
+			company {
+				name
+			}
 		}
 	}
 }
