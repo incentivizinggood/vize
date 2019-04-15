@@ -323,7 +323,8 @@
 		"employee": "Trabajador",
 		"employer": "Empleador",
 		"email": "Correo Electrónico",
-		"createAccount": "Crear Cuenta"
+		"createAccount": "Crear Cuenta",
+		"registerOrLogin": "Regístrese o inicie sesión para escribir una revisión"
 	},
 	"methods": {
 		"jobAppEmail": {

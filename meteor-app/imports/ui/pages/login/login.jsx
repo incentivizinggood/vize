@@ -3,6 +3,7 @@ import React from "react";
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import { Link } from "react-router-dom";
 
 import LoginForm from "./login-form.js";
 
@@ -36,6 +37,20 @@ function LoginPage() {
 								<div className="row">
 									<div className="col-lg-12">
 										<LoginForm />
+									</div>
+								</div>
+							</div>
+							<div className="form-group">
+								<div className="row">
+									<div className="col-lg-12">
+										<div className="text-center reg">
+											<T>noAccount</T>
+											<Link to="/register">
+												{" "}
+												<T>register</T>
+											</Link>
+										</div>
+										<br />
 									</div>
 								</div>
 							</div>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "formik";
-import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -28,21 +27,6 @@ function InnerForm({ errors, isSubmitting }) {
 					>
 						<T>login</T>
 					</button>
-				</div>
-
-				<div className="form-group">
-					<div className="row">
-						<div className="col-lg-12">
-							<div className="text-center reg">
-								<T>noAccount</T>
-								<Link to="/register">
-									{" "}
-									<T>register</T>
-								</Link>
-							</div>
-							<br />
-						</div>
-					</div>
 				</div>
 			</div>
 			<div>{JSON.stringify(errors)}</div>

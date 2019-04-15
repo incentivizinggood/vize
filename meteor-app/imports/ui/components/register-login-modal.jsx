@@ -47,7 +47,20 @@ class RegisterLoginModal extends React.Component {
 		};
 
 		const errorDiv = {
-			backgroundColor: "gainsboro",
+			backgroundColor: "crimson",
+			margin: -4,
+			marginBottom: 10,
+			height: 50,
+			textAlign: "center",
+		};
+
+		const errorText = {
+			position: "relative",
+			top: "50%",
+			transform: "translateY(-50%)",
+			color: "white",
+			width: "80%",
+			margin: "0 auto",
 		};
 
 		let formContent = null;
@@ -78,6 +91,23 @@ class RegisterLoginModal extends React.Component {
 					</h3>
 
 					<LoginForm />
+
+					<div className="form-group">
+						<div className="row">
+							<div className="col-lg-12">
+								<div className="text-center reg">
+									<T>noAccount</T>
+									<button
+										style={linkButton}
+										onClick={this.changeRegisterLoginState}
+									>
+										<T>register</T>
+									</button>
+								</div>
+								<br />
+							</div>
+						</div>
+					</div>
 				</div>
 			);
 		}
@@ -85,7 +115,9 @@ class RegisterLoginModal extends React.Component {
 		return (
 			<div>
 				<div style={errorDiv}>
-					<h5>Register or login to write a review</h5>
+					<h4 style={errorText}>
+						<T>registerOrLogin</T>
+					</h4>
 				</div>
 				{formContent}
 			</div>
