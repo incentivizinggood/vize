@@ -13,8 +13,8 @@ type Query {
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
-		pageSize: Int = 24
-	): [Company!]!
+		pageSize: Int = 5
+	): CompanyConnection!
 	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
 
 	wroteAReview: RewardStatus!
@@ -37,6 +37,11 @@ input CastVoteInput {
 
 type CastVotePayload {
 	vote: Vote
+}
+
+type CompanyConnection {
+	nodes: [Company!]!
+	totalCount: Int!
 }
 
 enum RewardStatus {
