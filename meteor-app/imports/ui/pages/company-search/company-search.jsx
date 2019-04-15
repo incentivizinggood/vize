@@ -29,10 +29,6 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
-			console.log("companies below", data.searchCompanies.nodes);
-			console.log("Total Count: ", data.searchCompanies.totalCount);
-			console.log("Current Page: ", currentPageNum);
-
 			const totalCompCount = data.searchCompanies.totalCount;
 
 			// searchCompanies is read-only, we do a
@@ -62,7 +58,8 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 					<PaginateSystem
 						// recall query starting at the last company id
 						totalCompanyCount={totalCompCount}
-						currPageNum={currentPageNum}
+						currentPageNum={currentPageNum}
+						setCurrentPage={setCurrentPage}
 					/>
 				</>
 			);
@@ -88,18 +85,14 @@ class CompanySearchTrial extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	setCurrentPage = newPageNum => {
-		alert("worked");
-		console.log("Reached");
+	setCurrentPage(newPageNum) {
 		this.setState({
 			// was newPageNum
 			currentPageNum: newPageNum,
 		});
-	};
+	}
 
 	handleInputChange(event) {
-		alert("worked");
-
 		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;
