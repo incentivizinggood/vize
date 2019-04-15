@@ -26,8 +26,8 @@ function HomePage() {
 										<h1>
 											<T>mainBanner</T>
 										</h1>
-										<CompaniesSearchBar />
 									</div>
+									<CompaniesSearchBar />
 								</li>
 							</ul>
 						</div>
