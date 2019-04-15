@@ -1,26 +1,29 @@
+import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import { JobAdId, Company, JobAd, getCompanyById } from "imports/api/models";
 
-const attributes = [
-	'jobadid AS "jobAdId"',
-	'companyname AS "companyName"',
-	'companyid AS "companyId"',
-	'jobtitle AS "jobTitle"',
-	'pesosperhour AS "pesosPerHour"',
-	'contracttype AS "contractType"',
-	'jobdescription AS "jobDescription"',
-	"responsibilities",
-	"qualifications",
-	'dateadded AS "dateAdded"',
-];
-const baseQuery = `SELECT ${attributes.join(", ")} FROM jobads`;
+const attributes = sql.raw(
+	[
+		'jobadid AS "jobAdId"',
+		'companyname AS "companyName"',
+		'companyid AS "companyId"',
+		'jobtitle AS "jobTitle"',
+		'pesosperhour AS "pesosPerHour"',
+		'contracttype AS "contractType"',
+		'jobdescription AS "jobDescription"',
+		"responsibilities",
+		"qualifications",
+		'dateadded AS "dateAdded"',
+	].join(", ")
+);
+const baseQuery = sql`SELECT ${attributes} FROM jobads`;
 
 // Get the job ad with a given id.
 export async function getJobAdById(id: JobAdId): Promise<JobAd | null> {
 	if (Number.isNaN(Number(id))) return null;
 
-	return simpleQuery1(`${baseQuery} WHERE jobadid=$1`, Number(id));
+	return simpleQuery1(sql`${baseQuery} WHERE jobadid=${Number(id)}`);
 }
 
 // Get all job ads posted by a given company.
@@ -29,12 +32,12 @@ export async function getJobAdsByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<JobAd[]> {
-	return simpleQuery(
-		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
-		company.name,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		WHERE companyname=${company.name}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 // Get the company that posted a given review.
 export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
@@ -50,20 +53,7 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 // Count the number of job ads posted by a given company.
 export async function countJobAdsByCompany(company: Company): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		`SELECT count FROM job_post_counts WHERE companyname=$1`,
-		company.name
+		sql`SELECT count FROM job_post_counts WHERE companyname=${company.name}`
 	);
 	return count ? count.count : 0;
-}
-
-// Get all of the job ads.
-export async function getAllJobAds(
-	pageNumber: number,
-	pageSize: number
-): Promise<JobAd[]> {
-	return simpleQuery(
-		`${baseQuery} OFFSET $1 LIMIT $2`,
-		pageNumber * pageSize,
-		pageSize
-	);
 }

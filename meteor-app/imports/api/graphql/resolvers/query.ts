@@ -7,27 +7,6 @@ export const Query: QueryResolvers = {
 
 	currentUser: (_obj, _args, context, _info) => context.user || null,
 
-	allComments: (_obj, args, _context, _info) =>
-		dataModel.getAllComments(args.pageNum, args.pageSize),
-
-	allCompanies: (_obj, args, _context, _info) =>
-		dataModel.getAllCompanies(args.pageNum, args.pageSize),
-
-	allJobAds: (_obj, args, _context, _info) =>
-		dataModel.getAllJobAds(args.pageNum, args.pageSize),
-
-	allReviews: (_obj, args, _context, _info) =>
-		dataModel.getAllReviews(args.pageNum, args.pageSize),
-
-	allSalaries: (_obj, args, _context, _info) =>
-		dataModel.getAllSalaries(args.pageNum, args.pageSize),
-
-	allUsers: (_obj, args, _context, _info) =>
-		dataModel.getAllUsers(args.pageNum, args.pageSize),
-
-	allVotes: (_obj, args, _context, _info) =>
-		dataModel.getAllVotes(args.pageNum, args.pageSize),
-
 	comment: (_obj, args, _context, _info) =>
 		dataModel.getCommentById(dataModel.stringToCommentId(args.id)),
 

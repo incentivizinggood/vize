@@ -21,15 +21,10 @@ export const Review: ReviewResolvers = {
 
 	created: (obj, _args, _context, _info) => obj.dateAdded,
 
-	author: (obj, _args, _context, _info) => dataModel.getAuthorOfReview(obj),
-
 	company: (obj, _args, _context, _info) => dataModel.getCompanyOfReview(obj),
 
 	comments: (obj, args, _context, _info) =>
 		dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
-
-	votes: (obj, args, _context, _info) =>
-		dataModel.getVotesBySubject(obj, args.pageNum, args.pageSize),
 
 	currentUserVote: (obj, _args, context, _info) =>
 		context.user

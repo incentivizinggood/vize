@@ -1,3 +1,4 @@
+import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
@@ -10,37 +11,42 @@ import {
 	getCompanyByName,
 } from "imports/api/models";
 
-const attributes = [
-	'reviewid AS "reviewId"',
-	'submittedby AS "submittedBy"',
-	'companyname AS "companyName"',
-	'companyid AS "companyId"',
-	'reviewlocation AS "location"',
-	'reviewtitle AS "title"',
-	'jobtitle AS "jobTitle"',
-	'nummonthsworked AS "numberOfMonthsWorked"',
-	"pros",
-	"cons",
-	'wouldrecommend AS "wouldRecommend"',
-	'healthandsafety AS "healthAndSafety"',
-	'managerrelationship AS "managerRelationship"',
-	'workenvironment AS "workEnvironment"',
-	"benefits",
-	'overallsatisfaction AS "overallSatisfaction"',
-	'additionalcomments AS "additionalComments"',
-	'dateadded AS "dateAdded"',
-	"upvotes",
-	"downvotes",
-];
-const baseQuery = `SELECT ${attributes.join(", ")}
-                   FROM reviews JOIN review_vote_counts
-                   ON review_vote_counts.refersto = reviews.reviewid`;
+const attributes = sql.raw(
+	[
+		'reviewid AS "reviewId"',
+		'submittedby AS "submittedBy"',
+		'companyname AS "companyName"',
+		'companyid AS "companyId"',
+		'reviewlocation AS "location"',
+		'reviewtitle AS "title"',
+		'jobtitle AS "jobTitle"',
+		'nummonthsworked AS "numberOfMonthsWorked"',
+		"pros",
+		"cons",
+		'wouldrecommend AS "wouldRecommend"',
+		'healthandsafety AS "healthAndSafety"',
+		'managerrelationship AS "managerRelationship"',
+		'workenvironment AS "workEnvironment"',
+		"benefits",
+		'overallsatisfaction AS "overallSatisfaction"',
+		'additionalcomments AS "additionalComments"',
+		'dateadded AS "dateAdded"',
+		"upvotes",
+		"downvotes",
+	].join(", ")
+);
+
+const baseQuery = sql`
+	SELECT ${attributes}
+	FROM reviews JOIN review_vote_counts
+	ON review_vote_counts.refersto = reviews.reviewid
+`;
 
 // Get the review with a given id.
 export async function getReviewById(id: ReviewId): Promise<Review | null> {
 	if (Number.isNaN(Number(id))) return null;
 
-	return simpleQuery1(`${baseQuery} WHERE reviewid=$1`, Number(id));
+	return simpleQuery1(sql`${baseQuery} WHERE reviewid=${Number(id)}`);
 }
 
 // Get all reviews written by a given user.
@@ -51,12 +57,12 @@ export async function getReviewsByAuthor(
 ): Promise<Review[]> {
 	const authorPostgresId = await getUserPostgresId(user._id);
 
-	return simpleQuery(
-		`${baseQuery} WHERE submittedby=$1 OFFSET $2 LIMIT $3`,
-		authorPostgresId,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		WHERE submittedby=${authorPostgresId}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // Get the user who wrote a given review.
@@ -70,12 +76,12 @@ export async function getReviewsByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Review[]> {
-	return simpleQuery(
-		`${baseQuery} WHERE companyname=$1 OFFSET $2 LIMIT $3`,
-		company.name,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery}
+		WHERE companyname=${company.name}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // Get the company that a given review is about.
@@ -87,16 +93,4 @@ export async function getCompanyOfReview(review: Review): Promise<Company> {
 	}
 
 	return company;
-}
-
-// Get all of the reviews.
-export async function getAllReviews(
-	pageNumber: number,
-	pageSize: number
-): Promise<Review[]> {
-	return simpleQuery(
-		`${baseQuery} OFFSET $1 LIMIT $2`,
-		pageNumber * pageSize,
-		pageSize
-	);
 }

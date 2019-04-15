@@ -1,6 +1,6 @@
 import * as express from "express";
 
-import { testConnection as testPgConnection } from "imports/api/connectors/postgresql-old";
+import { testConnection as testPgConnection } from "imports/api/connectors/postgresql";
 
 import { applyGraphQLMiddleware } from "./graphql-middleware";
 import { applyHelloWorldMiddleware } from "./hello-world-middleware";

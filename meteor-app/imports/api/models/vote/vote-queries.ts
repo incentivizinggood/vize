@@ -1,3 +1,4 @@
+import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
@@ -12,26 +13,28 @@ import {
 	getVoteSubjectRef,
 } from "imports/api/models";
 
-export const attributes = [
-	'submittedby AS "submittedBy"',
-	'refersto AS "refersTo"',
-	'value AS "isUpvote"',
-];
+export const attributes = sql.raw(
+	[
+		'submittedby AS "submittedBy"',
+		'refersto AS "refersTo"',
+		'value AS "isUpvote"',
+	].join(", ")
+);
 
 const baseQuery = (subjectType: "review" | "comment") =>
-	`SELECT ${attributes.join(
-		", "
-	)}, '${subjectType}' AS "subjectType" FROM ${subjectType}_votes`;
+	sql`
+		SELECT ${attributes}, '${sql.raw(subjectType)}' AS "subjectType"
+		FROM ${sql.raw(subjectType)}_votes
+	`;
 
 // Get the vote with a given id.
 export async function getVoteById(id: VoteId): Promise<Vote | null> {
 	const { subjectType, submittedBy, refersTo } = id;
 
-	return simpleQuery1(
-		`${baseQuery(subjectType)} WHERE submittedby=$1 AND refersto=$2`,
-		submittedBy,
-		refersTo
-	);
+	return simpleQuery1(sql`
+		${baseQuery(subjectType)}
+		WHERE submittedby=${submittedBy} AND refersto=${refersTo}
+	`);
 }
 
 // Get the vote cast by a given user on a given thing.
@@ -44,9 +47,10 @@ export async function getVoteByAuthorAndSubject(
 	const submittedBy = await getUserPostgresId(user._id);
 
 	return simpleQuery1<Vote>(
-		`${baseQuery(subjectType)} WHERE submittedby=$1 AND refersto=$2`,
-		submittedBy,
-		refersTo
+		sql`
+			${baseQuery(subjectType)}
+			WHERE submittedby=${submittedBy} AND refersto=${refersTo}
+		`
 	).then(vote =>
 		vote !== null
 			? vote
@@ -67,14 +71,13 @@ export async function getVotesByAuthor(
 ): Promise<Vote[]> {
 	const submittedBy = await getUserPostgresId(user._id);
 
-	return simpleQuery(
-		`${baseQuery("review")} WHERE submittedby=$1 UNION ALL ${baseQuery(
-			"comment"
-		)} WHERE submittedby=$1 OFFSET $2 LIMIT $3`,
-		submittedBy,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery("review")} WHERE submittedby=${submittedBy}
+		UNION ALL
+		${baseQuery("comment")} WHERE submittedby=${submittedBy}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // Get the user who cast a given vote.
@@ -97,12 +100,12 @@ export async function getVotesBySubject(
 	// in the underlying query, they don't have much meaning
 	// as each such query should yield exactly 1 or 0 results.
 
-	return simpleQuery(
-		`${baseQuery(subjectType)} WHERE refersto=$1 OFFSET $2 LIMIT $3`,
-		refersTo,
-		pageNumber * pageSize,
-		pageSize
-	);
+	return simpleQuery(sql`
+		${baseQuery(subjectType)}
+		WHERE refersto=${refersTo}
+		OFFSET ${pageNumber * pageSize}
+		LIMIT ${pageSize}
+	`);
 }
 
 // Get the thing that a given vote was cast on.
@@ -122,18 +125,4 @@ export async function getSubjectOfVote(vote: Vote): Promise<VoteSubject> {
 	}
 
 	return subject;
-}
-
-// Get all of the votes.
-export async function getAllVotes(
-	pageNumber: number,
-	pageSize: number
-): Promise<Vote[]> {
-	return simpleQuery(
-		`${baseQuery("review")} UNION ALL ${baseQuery(
-			"comment"
-		)} OFFSET $1 LIMIT $2`,
-		pageNumber * pageSize,
-		pageSize
-	);
 }
