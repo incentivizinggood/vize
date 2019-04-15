@@ -8,13 +8,13 @@ import * as request from "request-promise-native";
  */
 
 
-export function sendEmail(text: string) {
+export function sendEmail(explanation: string, reason: string) {
 	// Do not actualy make the request if the MAIL_API_KEY is not set.
 	if (process.env.MAIL_API_KEY) {
 		// Make a JSON representation of the message we want to post in the email.
 		// the form is the actual body of the request.
-
     var options = {
+
         method: 'POST',
         uri: 'https://api.mailgun.net/v3/mg.incentivizinggood.com/messages',
 
@@ -27,7 +27,7 @@ export function sendEmail(text: string) {
             from: "Vize Flag <mailgun@mg.incentivizinggood.com>",
             to:"incentivizinggood@gmail.com",
             subject:"Someone flagged a review",
-            text:"Testing some Mailgun awesomeness!"
+            text:"Reason: " + reason +  "\n" + "Explanation: " + explanation
         },
 
         headers:{
@@ -39,8 +39,7 @@ export function sendEmail(text: string) {
 	} else {
 		console.warn(
 			"Could not send email because MAIL_API_KEY was not set.",
-			"The message you tried to send was",
-			text
+			"The message you tried to send was"
 		);
 	}
 }

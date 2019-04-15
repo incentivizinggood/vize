@@ -5,6 +5,7 @@ import i18n from "meteor/universe:i18n";
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
+import { sendEmail } from "../connectors/email.ts";
 import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
 
 // Testing with PostgreSQL
@@ -23,19 +24,23 @@ Meteor.methods({
 		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
 	},
 
-	sendEmail(to, from, subject, text) {
-		if (Meteor.isDevelopment)
-			console.log("SERVER sendEmail: checking arguments");
-		check([to, from, subject, text], [String]);
-		const realEmail = { to, from, subject, text };
-		if (Meteor.isDevelopment) {
-			console.log("SERVER sendEmail: before send, here is the email:");
-			console.log(realEmail);
-		}
-		this.unblock();
-		Email.send(realEmail);
-		if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
-		return "we made it";
+	sendEmaill(explanation, reason) {
+		// Uptill now, it only sends the email, need to get the parameters from the review.
+
+		sendEmail(explanation, reason);
+
+		// if (Meteor.isDevelopment)
+		// 	console.log("SERVER sendEmail: checking arguments");
+		// check([to, from, subject, text], [String]);
+		// const realEmail = { to, from, subject, text };
+		// if (Meteor.isDevelopment) {
+		// 	console.log("SERVER sendEmail: before send, here is the email:");
+		// 	console.log(realEmail);
+		// }
+		// this.unblock();
+		// Email.send(realEmail);
+		// if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
+		// return "we made it";
 	},
 
 	hasFiveWords(inputString) {
