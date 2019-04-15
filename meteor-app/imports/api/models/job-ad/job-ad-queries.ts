@@ -53,17 +53,7 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 // Count the number of job ads posted by a given company.
 export async function countJobAdsByCompany(company: Company): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		sql`${baseQuery} WHERE companyname=${company.name}`
+		sql`SELECT count FROM job_post_counts WHERE companyname=${company.name}`
 	);
 	return count ? count.count : 0;
-}
-
-// Get all of the job ads.
-export async function getAllJobAds(
-	pageNumber: number,
-	pageSize: number
-): Promise<JobAd[]> {
-	return simpleQuery(
-		sql`${baseQuery} OFFSET ${pageNumber * pageSize} LIMIT ${pageSize}`
-	);
 }

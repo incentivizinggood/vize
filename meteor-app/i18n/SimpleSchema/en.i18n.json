@@ -33,13 +33,11 @@
 				"Phone": "must be a valid phone number"
 			},
 			"keyNotInSchema": "{{name}} is not allowed by the schema",
-			"noCompanyWithThatName":
-				"There is no company with that name in our database",
+			"noCompanyWithThatName": "There is no company with that name in our database",
 			"sessionError": "Please stop messing around"
 		},
 		"JobApplications": {
-			"invalidJobId":
-				"Please provide a valid job id for the job you wish to apply for"
+			"invalidJobId": "Please provide a valid job id for the job you wish to apply for"
 		},
 		"Companies": {
 			"nameTaken": "The name you provided is already taken"
@@ -48,12 +46,10 @@
 			"maxedOutJobPosts": "You may only post up to 5 job ads"
 		},
 		"Salaries": {
-			"secondSalaryByUser":
-				"You may only post salary data once per company"
+			"secondSalaryByUser": "You may only post salary data once per company"
 		},
 		"Reviews": {
-			"secondReviewByUser":
-				"You may only write one review for each company",
+			"secondReviewByUser": "You may only write one review for each company",
 			"needsFiveWords": "You should write at least 5 words in this field"
 		}
 	},
@@ -134,8 +130,7 @@
 			"numberOfMonthsWorked": "Number of Months Worked",
 			"pros": "Pros",
 			"cons": "Cons",
-			"wouldRecommendToOtherJobSeekers":
-				"Would Recommend to Other Job Seekers",
+			"wouldRecommendToOtherJobSeekers": "Would Recommend to Other Job Seekers",
 			"healthAndSafety": "Health and Safety",
 			"managerRelationship": "Manager Relationship",
 			"workEnvironment": "Work Environment",
@@ -145,13 +140,6 @@
 			"datePosted": "Date Posted",
 			"upvotes": "Upvotes",
 			"downvotes": "Downvotes"
-		},
-		"Votes": {
-			"_id": "_id",
-			"submittedBy": "Submitted By",
-			"voteSubject": "Vote Subject",
-			"references": "References",
-			"value": "Value"
 		}
 	}
 }

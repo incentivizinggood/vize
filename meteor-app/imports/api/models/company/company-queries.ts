@@ -47,29 +47,30 @@ export async function getCompanyByName(name: string): Promise<Company | null> {
 	return simpleQuery1(sql`${baseQuery} WHERE name=${name}`);
 }
 
-// Get all of the companies.
-export async function getAllCompanies(
-	pageNumber: number,
-	pageSize: number
-): Promise<Company[]> {
-	return simpleQuery(sql`
-		${baseQuery}
-		OFFSET ${pageNumber * pageSize}
-		LIMIT ${pageSize}
-	`);
-}
-
 // return all companies whose name
 // contains the given search text
 export async function searchForCompanies(
 	searchText: string,
 	pageNumber: number,
 	pageSize: number
-): Promise<Company[]> {
-	return simpleQuery(sql`
-		${baseQuery}
-		WHERE name LIKE ${"%" + searchText + "%"}
-		OFFSET ${pageNumber * pageSize}
-		LIMIT ${pageSize}
-	`);
+): Promise<{ nodes: Company[]; totalCount: number }> {
+	// TODO: Refactor this ugly junk. This is implementing pagination and will
+	// need to be replaced by a reuseable solution.
+	return Promise.all([
+		simpleQuery<Company>(sql`
+				${baseQuery}
+					JOIN job_post_counts ON companies.name = job_post_counts.companyname
+					JOIN salary_counts ON companies.name = salary_counts.companyname
+				WHERE name LIKE ${`%${searchText}%`}
+				ORDER BY job_post_counts.count*2 + numreviews*1.5 + salary_counts.count DESC
+				OFFSET ${pageNumber * pageSize}
+				LIMIT ${pageSize}
+		`),
+		simpleQuery1<{ totalCount: number }>(
+			sql`SELECT COUNT(companyid) as "totalCount" FROM companies`
+		).then(c => (c !== null ? c : { totalCount: 0 })),
+	]).then(([nodes, { totalCount }]) => ({
+		nodes,
+		totalCount,
+	}));
 }

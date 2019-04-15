@@ -90,15 +90,3 @@ export async function countSalariesByCompany(
 	);
 	return count ? count.count : 0;
 }
-
-// Get all of the salaries.
-export async function getAllSalaries(
-	pageNumber: number,
-	pageSize: number
-): Promise<Salary[]> {
-	return simpleQuery(sql`
-		${baseQuery}
-		OFFSET ${pageNumber * pageSize}
-		LIMIT ${pageSize}
-	`);
-}

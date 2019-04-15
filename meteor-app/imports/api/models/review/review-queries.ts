@@ -94,15 +94,3 @@ export async function getCompanyOfReview(review: Review): Promise<Company> {
 
 	return company;
 }
-
-// Get all of the reviews.
-export async function getAllReviews(
-	pageNumber: number,
-	pageSize: number
-): Promise<Review[]> {
-	return simpleQuery(sql`
-		${baseQuery}
-		OFFSET ${pageNumber * pageSize}
-		LIMIT ${pageSize}
-	`);
-}

@@ -20,13 +20,4 @@ export const User: UserResolvers = {
 	created: (obj, _args, _context, _info) => obj.createdAt,
 
 	company: (obj, _args, _context, _info) => dataModel.getCompanyOfUser(obj),
-
-	reviews: (obj, args, _context, _info) =>
-		dataModel.getReviewsByAuthor(obj, args.pageNum, args.pageSize),
-
-	comments: (obj, args, _context, _info) =>
-		dataModel.getCommentsByAuthor(obj, args.pageNum, args.pageSize),
-
-	votes: (obj, args, _context, _info) =>
-		dataModel.getVotesByAuthor(obj, args.pageNum, args.pageSize),
 };

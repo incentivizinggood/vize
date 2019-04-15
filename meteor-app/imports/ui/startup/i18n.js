@@ -8,7 +8,6 @@ import { CompanySchema } from "/imports/api/data/companies.js";
 import { JobAdSchema, JobApplicationSchema } from "/imports/api/data/jobads.js";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
 import { SalarySchema } from "/imports/api/data/salaries.js";
-import { VoteSchema } from "/imports/api/data/votes.js";
 
 i18n.setOptions({
 	defaultLocale: "es",
@@ -186,7 +185,6 @@ setUpI18nOnSchema(JobAdSchema, "JobAds");
 setUpI18nOnSchema(JobApplicationSchema, "JobApplications");
 setUpI18nOnSchema(ReviewSchema, "Reviews");
 setUpI18nOnSchema(SalarySchema, "Salaries");
-setUpI18nOnSchema(VoteSchema, "Votes");
 
 // This is used on input forms whenever I couldn't
 // figure out an easier way to do things. I think it was

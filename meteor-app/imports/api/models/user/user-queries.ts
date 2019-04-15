@@ -47,19 +47,3 @@ export async function getCompanyOfUser(user: User): Promise<Company | null> {
 	}
 	return null;
 }
-
-// Get all of the users.
-export function getAllUsers(pageNumber: number, pageSize: number): User[] {
-	const cursor = Meteor.users.find(
-		{},
-		{
-			fields: Meteor.users.publicFields,
-			skip: pageNumber * pageSize,
-			limit: pageSize,
-		}
-	);
-	// This result is paginated.
-	// You could determine if this is not the last page with:
-	// cursor.count(false) > (pageNumber + 1) * pageSize
-	return cursor.fetch();
-}

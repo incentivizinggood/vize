@@ -34,3 +34,20 @@
 .search-bar-style {
 	height: 100%;
 }
+.centeredPag {
+	margin: auto;
+	width: 50%;
+	border: 30px;
+	border-color: blue;
+	border-width: thick;
+	left: 50%;
+	top: 50%;
+}
+.pagination {
+	margin: auto;
+	width: 100%;
+	border: 30px;
+	padding: 0 30%;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
