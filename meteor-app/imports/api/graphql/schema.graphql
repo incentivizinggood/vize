@@ -15,7 +15,7 @@ type Query {
 		pageNum: Int = 0
 		pageSize: Int = 5
 	): CompanyConnection!
-	# TODO searchJobs(searchTerms: SearchTerms): [JobAd!]!
+	searchJobAds(pageNum: Int = 0, pageSize: Int = 5): JobAdConnection!
 
 	wroteAReview: RewardStatus!
 }
@@ -41,6 +41,11 @@ type CastVotePayload {
 
 type CompanyConnection {
 	nodes: [Company!]!
+	totalCount: Int!
+}
+
+type JobAdConnection {
+	nodes: [JobAd!]!
 	totalCount: Int!
 }
 
