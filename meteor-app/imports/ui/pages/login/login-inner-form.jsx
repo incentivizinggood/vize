@@ -13,7 +13,7 @@ const T = i18n.createComponent(t);
 function InnerForm({ errors, isSubmitting }) {
 	return (
 		<Form>
-			<div className="login-fm">
+			<div className="register-login-form">
 				<FormGroup name="username" type="text" icon="user" />
 				<FormGroup name="password" type="password" icon="lock" />
 
@@ -23,7 +23,7 @@ function InnerForm({ errors, isSubmitting }) {
 					<button
 						type="submit"
 						disabled={isSubmitting}
-						className="enterTriggers"
+						className="btn-primary button"
 					>
 						<T>login</T>
 					</button>

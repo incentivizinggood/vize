@@ -107,7 +107,7 @@ $font-color: #888;
 	color: #2580db;
 }
 
-.employer-fm {
+.register-login-form {
 	.form-control {
 		display: block;
 		width: 100%;
@@ -161,7 +161,7 @@ a.worker-btn {
 	text-decoration: none;
 }
 
-.employer-fm .input-group .form-control {
+.register-login-form .input-group .form-control {
 	position: relative;
 	z-index: 2;
 	float: left;
@@ -174,7 +174,7 @@ a.worker-btn {
 	box-shadow: none;
 }
 
-.employer-fm .input-group-addon:first-child {
+.register-login-form .input-group-addon:first-child {
 	border-right: 0;
 	border: none;
 	border-bottom: 1px solid #bdb9b9;

@@ -27,7 +27,7 @@ function InnerForm(props, { errors, isSubmitting }) {
 					formik.values.role === "company"
 				}
 			>
-				<div className="employer-fm">
+				<div className="register-login-form">
 					<FormGroup name="username" type="text" icon="user" />
 
 					<FormGroup name="email" type="email" icon="envelope" />
@@ -47,7 +47,7 @@ function InnerForm(props, { errors, isSubmitting }) {
 							form="register-form"
 							type="submit"
 							disabled={isSubmitting}
-							className="btn-primary button out-bodr-get1"
+							className="btn-primary button"
 						>
 							<T>createAccount</T>
 						</button>

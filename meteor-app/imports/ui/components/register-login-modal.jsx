@@ -90,22 +90,20 @@ class RegisterLoginModal extends React.Component {
 						<T>login</T>
 					</h3>
 
+					<br />
+
 					<LoginForm />
 
-					<div className="form-group">
-						<div className="row">
-							<div className="col-lg-12">
-								<div className="text-center reg">
-									<T>noAccount</T>
-									<button
-										style={linkButton}
-										onClick={this.changeRegisterLoginState}
-									>
-										<T>register</T>
-									</button>
-								</div>
-								<br />
-							</div>
+					<div className="row">
+						<div className="col-lg-12 text-center">
+							<br />
+							<T>noAccount</T>
+							<button
+								style={linkButton}
+								onClick={this.changeRegisterLoginState}
+							>
+								<T>register</T>
+							</button>
 						</div>
 					</div>
 				</div>
