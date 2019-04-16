@@ -7,15 +7,23 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
+
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { SalarySchema } from "/imports/api/data/salaries.js";
 import "./submit-salary-data.html";
+import { withRouter } from "react-router-dom";
+import { withTracker } from "meteor/react-meteor-data";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 
+import ModalView from "/imports/ui/components/modals/modal-view.jsx";
+import RegisterLoginModal from "../../components/register-login-modal.jsx";
+
 import "/imports/ui/components/afInputLocation";
+
+const T = i18n.createComponent();
 
 const ssd_form_state = new ReactiveDict();
 ssd_form_state.set("formError", {
@@ -204,17 +212,33 @@ if (Meteor.isClient) {
 	});
 }
 
-export default class SubmitSalaryDataForm extends React.Component {
+class SubmitSalaryDataForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 	render() {
 		ssd_form_state.set("companyId", this.props.companyId);
 
+		let content = null;
+		if (this.props.user) {
+			content = null;
+		} else {
+			content = (
+				<ModalView
+					className="flag-style-btn"
+					noButton
+					content={RegisterLoginModal}
+				>
+					<T>common.companyreview.report</T>
+				</ModalView>
+			);
+		}
+
 		return (
 			<PageWrapper>
 				<div className="page SubmitSalaryDataForm">
 					<Blaze template="ssd_blaze_form" />
+					{content}
 				</div>
 			</PageWrapper>
 		);
@@ -224,3 +248,9 @@ export default class SubmitSalaryDataForm extends React.Component {
 SubmitSalaryDataForm.propTypes = {
 	companyId: PropTypes.string,
 };
+
+export default withRouter(
+	withTracker(() => ({
+		user: Meteor.user(),
+	}))(SubmitSalaryDataForm)
+);
