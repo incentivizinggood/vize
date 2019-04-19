@@ -175,7 +175,7 @@ class PasswordChanger extends React.Component {
 
 		return (
 			<PageWrapper>
-				<div className="container fom-job">
+				<div className="container form-page">
 					<div className="row">
 						<div
 							className="back_top_hover"
