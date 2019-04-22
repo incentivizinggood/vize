@@ -45,7 +45,18 @@ const LoginForm = props => (
 					actions.setSubmitting(false);
 				} else {
 					actions.resetForm(this.initialValues);
-					props.history.push("/");
+					if (
+						!(
+							window.location.pathname.includes(
+								"/write-review"
+							) ||
+							window.location.pathname.includes(
+								"/submit-salary-data"
+							)
+						)
+					) {
+						props.history.push("/");
+					}
 				}
 			};
 
