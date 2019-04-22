@@ -36,12 +36,6 @@ export default class FlagSystem extends React.Component {
 				this.props.reviewId,
 				this.state.value,
 				this.state.name,
-				// "postmaster@incentivizinggood.com",
-				// "incentivizinggood@gmail.com",
-				// `Reports: ${this.state.value}`,
-				// `${"Howdy,\n\n" + "Details: \n" + "Reason: "}${
-				// 	this.state.name
-				// }.\n\nSincerely,\n\n Vize Inc.\n\n`,
 				(err, res) => {
 					if (err) {
 						console.log("--- BEGIN error:");

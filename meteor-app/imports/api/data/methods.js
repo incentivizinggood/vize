@@ -27,22 +27,8 @@ Meteor.methods({
 	},
 
 	flagAReview(reviewId, reason, explanation) {
-		// Uptill now, it only sends the email, need to get the parameters from the review.
-
+		// gets the data from the frontend and sends an email.
 		dataModel.flagAReview(reviewId, this.userId, reason, explanation);
-
-		// if (Meteor.isDevelopment)
-		// 	console.log("SERVER sendEmail: checking arguments");
-		// check([to, from, subject, text], [String]);
-		// const realEmail = { to, from, subject, text };
-		// if (Meteor.isDevelopment) {
-		// 	console.log("SERVER sendEmail: before send, here is the email:");
-		// 	console.log(realEmail);
-		// }
-		// this.unblock();
-		// Email.send(realEmail);
-		// if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
-		// return "we made it";
 	},
 
 	hasFiveWords(inputString) {

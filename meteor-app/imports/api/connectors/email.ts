@@ -23,9 +23,6 @@ export function sendEmail({ to, subject, text }) {
 
 			form: {
 				from: "Vize Flag <mailgun@mg.incentivizinggood.com>",
-				//to:"incentivizinggood@gmail.com",
-				//subject:"Someone flagged a review",
-				//text:`Reason: ${reason}\nExplanation: ${explanation}\nReview Id: ${reviewId}`
 				to,
 				subject,
 				text,
