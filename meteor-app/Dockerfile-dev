@@ -26,5 +26,6 @@ USER root
 
 WORKDIR $APP_SOURCE_DIR
 
+COPY entrypoint.sh /
 COPY entrypoint-dev.sh /
-ENTRYPOINT /entrypoint-dev.sh
+ENTRYPOINT /entrypoint.sh

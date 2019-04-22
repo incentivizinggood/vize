@@ -15,7 +15,7 @@ services:
         # This is done as a volume instead of COPY so that
         # Meteor can live reload as you edit the source code.
         # Make this read only because the build should not change the src.
-        "./meteor-app:/home/node/meteor/src:ro"
+        "./meteor-app:/home/node/meteor/src"
       - # Use these volumes to cache builds and dependencies.
         # NOTE: These can not automaticaly make their own mount points because
         #       the parent volume is read-only. If you get errors when starting
