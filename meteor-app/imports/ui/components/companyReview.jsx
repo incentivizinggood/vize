@@ -199,7 +199,12 @@ function ReviewComponent(props) {
 								*/}
 							<ModalView
 								className="flag-style-btn"
-								content={FlagSystem}
+								content={() => (
+									<FlagSystem
+										reviewId={props.review.id}
+										companyName={props.companyName}
+									/>
+								)}
 							>
 								<T>common.companyreview.report</T>
 							</ModalView>

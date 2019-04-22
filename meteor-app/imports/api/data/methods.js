@@ -2,6 +2,9 @@ import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
+
+import * as dataModel from "/imports/api/models";
+
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
@@ -23,19 +26,9 @@ Meteor.methods({
 		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
 	},
 
-	sendEmail(to, from, subject, text) {
-		if (Meteor.isDevelopment)
-			console.log("SERVER sendEmail: checking arguments");
-		check([to, from, subject, text], [String]);
-		const realEmail = { to, from, subject, text };
-		if (Meteor.isDevelopment) {
-			console.log("SERVER sendEmail: before send, here is the email:");
-			console.log(realEmail);
-		}
-		this.unblock();
-		Email.send(realEmail);
-		if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
-		return "we made it";
+	flagAReview(reviewId, reason, explanation) {
+		// gets the data from the frontend and sends an email.
+		dataModel.flagAReview(reviewId, this.userId, reason, explanation);
 	},
 
 	hasFiveWords(inputString) {
