@@ -7,33 +7,32 @@ import * as request from "request-promise-native";
  * @todo Escape inputs to prevent markdown code injection.
  */
 
-
-export function sendEmail(explanation: string, reason: string) {
+export function sendEmail({ to, subject, text }) {
 	// Do not actualy make the request if the MAIL_API_KEY is not set.
 	if (process.env.MAIL_API_KEY) {
 		// Make a JSON representation of the message we want to post in the email.
 		// the form is the actual body of the request.
-    var options = {
+		var options = {
+			method: "POST",
+			uri: "https://api.mailgun.net/v3/mg.incentivizinggood.com/messages",
 
-        method: 'POST',
-        uri: 'https://api.mailgun.net/v3/mg.incentivizinggood.com/messages',
+			auth: {
+				user: "api",
+				pass: process.env.MAIL_API_KEY,
+			},
 
-        auth: {
-          user:"api",
-          pass:process.env.MAIL_API_KEY
-        },
+			form: {
+				from: "Vize Flag <mailgun@mg.incentivizinggood.com>",
+				//to:"incentivizinggood@gmail.com",
+				//subject:"Someone flagged a review",
+				//text:`Reason: ${reason}\nExplanation: ${explanation}\nReview Id: ${reviewId}`
+				to,
+				subject,
+				text,
+			},
 
-        form: {
-            from: "Vize Flag <mailgun@mg.incentivizinggood.com>",
-            to:"incentivizinggood@gmail.com",
-            subject:"Someone flagged a review",
-            text:"Reason: " + reason +  "\n" + "Explanation: " + explanation
-        },
-
-        headers:{
-
-        }
-    };
+			headers: {},
+		};
 
 		request(options);
 	} else {

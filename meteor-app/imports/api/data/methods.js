@@ -2,10 +2,12 @@ import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
+
+import * as dataModel from "/imports/api/models";
+
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
-import { sendEmail } from "../connectors/email.ts";
 import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
 
 // Testing with PostgreSQL
@@ -24,10 +26,10 @@ Meteor.methods({
 		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
 	},
 
-	sendEmaill(explanation, reason) {
+	flagAReview(reviewId, reason, explanation) {
 		// Uptill now, it only sends the email, need to get the parameters from the review.
 
-		sendEmail(explanation, reason);
+		dataModel.flagAReview(reviewId, this.userId, reason, explanation);
 
 		// if (Meteor.isDevelopment)
 		// 	console.log("SERVER sendEmail: checking arguments");

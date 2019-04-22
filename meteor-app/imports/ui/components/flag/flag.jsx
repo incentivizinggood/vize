@@ -32,9 +32,10 @@ export default class FlagSystem extends React.Component {
 			alert(t("please_choose_reason"));
 		} else {
 			Meteor.call(
-				"sendEmaill",
-				this.state.name,
+				"flagAReview",
+				this.props.reviewId,
 				this.state.value,
+				this.state.name,
 				// "postmaster@incentivizinggood.com",
 				// "incentivizinggood@gmail.com",
 				// `Reports: ${this.state.value}`,
