@@ -20,4 +20,5 @@ export PATH="$HOME/.meteor:$PATH"
 
 meteor --version || install-meteor
 
+npm i && \
 meteor --no-lint --no-release-check
