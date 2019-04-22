@@ -1,21 +1,30 @@
 FROM node:8.11.4-jessie
 
-USER node
+# install gosu for a better su+exec command
+ARG GOSU_VERSION=1.10
+RUN dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
+	&& chmod +x /usr/local/bin/gosu \
+	&& gosu nobody true
+
+
+
 ENV HOME /home/node
 
 ENV APP_DIR $HOME/meteor
-ENV APP_SCRIPTS_DIR $APP_DIR/scripts
 ENV APP_SOURCE_DIR $APP_DIR/src
-ENV APP_BUNDLE_DIR $APP_DIR/dist
 
+USER node
 # Pre-create volume mount points so that the "node" user will own them.
 RUN mkdir -p \
 	$HOME/.meteor \
 	$APP_SOURCE_DIR \
 	$APP_SOURCE_DIR/.meteor/local
 
-COPY entrypoint-dev.sh $APP_SCRIPTS_DIR/
+# Stop being node because we will need super user in the entry point script.
+USER root
 
 WORKDIR $APP_SOURCE_DIR
 
-ENTRYPOINT $APP_SCRIPTS_DIR/entrypoint-dev.sh
+COPY entrypoint-dev.sh /
+ENTRYPOINT /entrypoint-dev.sh

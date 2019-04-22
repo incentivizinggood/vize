@@ -34,7 +34,9 @@ case $1 in
 	# cache build artifacts. This makes building and rebuilding much faster
 	# than prod mode, but it is not suitable for use in production deployments.
 	echo 'Running in "dev" mode...'
-	sudo docker-compose \
+	export NODE_UID="$(id -ru)"
+	export NODE_GID="$(id -rg)"
+	sudo -E docker-compose \
 		-f docker-compose.dev.yml \
 		-f docker-compose.yml \
 		up --build

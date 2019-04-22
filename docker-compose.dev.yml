@@ -7,6 +7,9 @@ services:
     image: vize-meteor-dev
     ports:
       - "3000:3000"
+    environment:
+      NODE_UID: "${NODE_UID}"
+      NODE_GID: "${NODE_GID}"
     volumes:
       - # Allow meteor to read the project's source code.
         # This is done as a volume instead of COPY so that
