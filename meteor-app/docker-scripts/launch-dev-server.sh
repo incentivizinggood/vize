@@ -18,7 +18,11 @@ function install-meteor {
 
 export PATH="$HOME/.meteor:$PATH"
 
+# Install Meteor if it is not already installed.
 meteor --version || install-meteor
 
+# Enshure dependencies are installed.
 npm i
+
+# Start the dev server.
 meteor --no-lint --no-release-check

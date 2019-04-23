@@ -1,12 +1,11 @@
 FROM node:8.11.4-jessie
 
-# install gosu for a better su+exec command
+# Install gosu. su does not work inside of the entry point for some reason.
 ARG GOSU_VERSION=1.10
 RUN dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
 	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
-
 
 
 ENV HOME /home/node
@@ -26,6 +25,5 @@ USER root
 
 WORKDIR $APP_SOURCE_DIR
 
-COPY entrypoint.sh /
-COPY entrypoint-dev.sh /
-ENTRYPOINT /entrypoint.sh
+COPY docker-scripts/* /docker-scripts/
+ENTRYPOINT /docker-scripts/entrypoint.sh

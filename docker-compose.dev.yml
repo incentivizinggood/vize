@@ -3,7 +3,7 @@ services:
   web:
     build:
       context: ./meteor-app
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile
     image: vize-meteor-dev
     ports:
       - "3000:3000"
