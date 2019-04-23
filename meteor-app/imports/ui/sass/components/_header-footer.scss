@@ -96,17 +96,17 @@ nav {
 	text-transform: uppercase;
 	margin-top: 9px;
 	border-radius: 3px;
-	background: $secondary-color;
+	background: $secondary-color-red;
 	&:hover,
 	&:active,
 	&:focus {
 		color: $white;
-		background: $secondary-color;
+		background: $secondary-color-red;
 	}
 }
 
 .btn-green {
-	background-color: $secondary-color;
+	background-color: $secondary-color-red;
 	color: $white;
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -190,7 +190,7 @@ nav {
 		margin-left: 0;
 	}
 	.btn-green {
-		background-color: $secondary-color;
+		background-color: $secondary-color-red;
 	}
 	nav.navScroll ul li a {
 		color: $white;
@@ -227,7 +227,7 @@ nav {
 		&:hover,
 		&:focus,
 		&:active {
-			background: $secondary-color;
+			background: $secondary-color-red;
 		}
 	}
 	a.navbar-link.margin-right {
@@ -306,11 +306,11 @@ nav {
 		&:hover,
 		&:focus,
 		&:active {
-			background: $secondary-color;
+			background: $secondary-color-red;
 		}
 	}
 	.btn-green {
-		background-color: $secondary-color !important;
+		background-color: $secondary-color-red !important;
 	}
 	#register-button {
 		width: 100%;

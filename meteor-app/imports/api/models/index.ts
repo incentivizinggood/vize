@@ -13,3 +13,5 @@ export * from "./location";
 export * from "./node";
 
 export * from "./reward-wrote-a-review";
+
+export * from "./flags";

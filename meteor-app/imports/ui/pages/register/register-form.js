@@ -50,7 +50,21 @@ const RegisterForm = props => (
 					actions.setSubmitting(false);
 				} else {
 					actions.resetForm(this.initialValues);
-					props.history.push("/");
+					// checks to see if the current page is the write a reivew page.
+					// if the current page is write a review page and a register is successful
+					// there should be no redirect so that the user can stay on the write a review page
+					if (
+						!(
+							window.location.pathname.includes(
+								"/write-review"
+							) ||
+							window.location.pathname.includes(
+								"/submit-salary-data"
+							)
+						)
+					) {
+						props.history.push("/");
+					}
 				}
 			};
 			const options = {
@@ -61,7 +75,7 @@ const RegisterForm = props => (
 			Accounts.createUser(options, createUserCallback);
 		}}
 	>
-		<InnerForm />
+		<InnerForm showInput={props.showInput} />
 	</Formik>
 );
 

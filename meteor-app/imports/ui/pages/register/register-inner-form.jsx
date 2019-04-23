@@ -12,13 +12,13 @@ import FormGroup from "./form-group.jsx";
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function InnerForm({ errors, isSubmitting }) {
+function InnerForm(props, { errors, isSubmitting }) {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
 			<h3 className="top-head-employer" align="center">
 				<T>register</T>
 			</h3>
-			<RoleInput />
+			<RoleInput showInput={props.showInput} />
 			<br />
 
 			<IfFormik
@@ -27,7 +27,7 @@ function InnerForm({ errors, isSubmitting }) {
 					formik.values.role === "company"
 				}
 			>
-				<div className="employer-fm">
+				<div className="register-login-form">
 					<FormGroup name="username" type="text" icon="user" />
 
 					<FormGroup name="email" type="email" icon="envelope" />
@@ -47,7 +47,7 @@ function InnerForm({ errors, isSubmitting }) {
 							form="register-form"
 							type="submit"
 							disabled={isSubmitting}
-							className="button out-bodr-get1"
+							className="btn-primary button"
 						>
 							<T>createAccount</T>
 						</button>

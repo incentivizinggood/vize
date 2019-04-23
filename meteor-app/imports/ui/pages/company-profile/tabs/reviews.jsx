@@ -28,7 +28,7 @@ export default class ReviewTab extends React.Component {
 			<CompanyReview
 				key={review.id}
 				review={review}
-				refetch={this.props.refetch}
+				companyName={this.props.company.name}
 			/>
 		));
 

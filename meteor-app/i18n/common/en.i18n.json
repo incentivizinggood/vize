@@ -328,7 +328,8 @@
 		"employee": "Employee",
 		"employer": "Employer",
 		"email": "Email",
-		"createAccount": "Create Account"
+		"createAccount": "Create Account",
+		"registerOrLogin": "Register or login to write a review"
 	},
 	"methods": {
 		"jobAppEmail": {
