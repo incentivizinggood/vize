@@ -18,13 +18,26 @@ case $1 in
 	cd ..
 	;;
 "dev" | "")
-	# Don't compile the meteor-app. Just run meteor in a container with volumes.
-	# This is a strange way of using docker. Because the normal way is so slow
-	# with Meteor, this way was made so that we can use Meteor's dev mode and
-	# cache build artifacts. This makes building and rebuilding much faster
-	# than prod mode, but it is not suitable for use in production deployments.
 	echo 'Running in "dev" mode...'
-	./scripts/run-dev-mode.sh
+
+	# Set environment variables for Meteor.
+	export MONGO_URL="mongodb://localhost:27017/meteor"
+	export PGHOST=localhost
+	export PGPORT=5432
+	export PGUSER=meteor
+	export PGPASSWORD="123456789"
+	export PGDATABASE=meteor
+
+	# Start up the Meteor app.
+	cd meteor-app
+	meteor --no-lint --no-release-check
+	cd ..
+	;;
+"db")
+	echo "Running database(s)..."
+	sudo docker-compose \
+		-f docker-compose.yml \
+		up --build
 	;;
 "deploy")
 	SETTINGS_FILE="$(realpath $2)"

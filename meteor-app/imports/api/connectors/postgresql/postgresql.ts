@@ -92,7 +92,12 @@ export function testConnection() {
 			);
 		})
 		.catch(e => {
-			console.error("PostgreSQL connection test failed.");
-			console.error(e.stack);
+			console.error(e);
+			console.error(
+				"We failed to connect to the PostgreSQL database. Did you forget to start it?"
+			);
+			console.error(
+				"Run the command ./run.sh db in another terminal to start the database."
+			);
 		});
 }
