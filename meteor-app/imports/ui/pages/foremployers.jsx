@@ -27,7 +27,7 @@ export default class ForEmployers extends React.Component {
 									<T>common.forEmployers.find_best_part2</T>
 								</h4>
 							</div>
-							<div className="companies-btn">
+							<div className="white-border-btn">
 								<center>
 									<Link
 										to="/register"
