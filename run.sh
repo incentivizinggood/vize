@@ -17,16 +17,6 @@ case $1 in
 	meteor lint
 	cd ..
 	;;
-"prod")
-	# This is the "proper" way to build and run a docker stack. This will
-	# compile the meteor-app without caching between compiles and thus is VERY
-	# slow. Most of the time you will want to use the dev mode instead.
-	echo 'Running in "prod" mode...'
-	sudo docker-compose \
-		-f docker-compose.prod.yml \
-		-f docker-compose.yml \
-		up --build
-	;;
 "dev" | "")
 	# Don't compile the meteor-app. Just run meteor in a container with volumes.
 	# This is a strange way of using docker. Because the normal way is so slow
@@ -36,8 +26,8 @@ case $1 in
 	echo 'Running in "dev" mode...'
 	export NODE_UID="$(id -ru)"
 	export NODE_GID="$(id -rg)"
+
 	sudo -E docker-compose \
-		-f docker-compose.dev.yml \
 		-f docker-compose.yml \
 		up --build
 	;;
