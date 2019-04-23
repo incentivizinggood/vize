@@ -13,14 +13,7 @@ ENV HOME /home/node
 ENV APP_DIR $HOME/meteor
 ENV APP_SOURCE_DIR $APP_DIR/src
 
-USER node
-# Pre-create volume mount points so that the "node" user will own them.
-RUN mkdir -p \
-	$HOME/.meteor \
-	$APP_SOURCE_DIR \
-	$APP_SOURCE_DIR/.meteor/local
-
-# Stop being node because we will need super user in the entry point script.
+# Need super user in the entry point script.
 USER root
 
 WORKDIR $APP_SOURCE_DIR
