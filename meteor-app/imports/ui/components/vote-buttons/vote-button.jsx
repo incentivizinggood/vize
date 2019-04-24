@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 /** The diameter of a vote button in px. */
 const buttonDiameter = 70;
@@ -17,6 +17,9 @@ const attrs = props => {
 		isUpButton,
 		vote,
 
+		// If this button was not given a vote, it is disabled.
+		disabled: vote === null,
+
 		/** The icon to display inside this button. */
 		children: isUpButton ? (
 			<FontAwesomeIcon icon="thumbs-up" />
@@ -27,6 +30,11 @@ const attrs = props => {
 		/** The function that casts a vote when this button is clicked. */
 		onClick: event => {
 			event.preventDefault();
+
+			if (vote === null) {
+				// This button was not given a vote and therefor is disabled.
+				return;
+			}
 
 			let isCastingUpvote;
 			if (vote === null || vote.isUpvote === null) {
@@ -73,18 +81,34 @@ const VoteButton = styled.button.attrs(attrs)`
 	height: ${buttonDiameter}px;
 	width: ${buttonDiameter}px;
 	border-radius: ${buttonDiameter / 2}px;
-	border: 0.833333px solid rgb(204, 204, 204);
+	border: 0.833333px solid grey;
 	display: block;
+	background-color: white;
 
-	background-color: ${props => {
-		if (props.vote === null || props.isUpButton !== props.vote.isUpvote) {
+	${props => {
+		if (props.vote === null) {
+			// This button was not given a vote and therefor is disabled.
+			return css`
+				color: lightgrey;
+				border-color: lightgrey;
+			`;
+		}
+
+		if (props.isUpButton !== props.vote.isUpvote) {
 			// This button does not represent a vote that has already been cast.
-			return "white";
+			return css`
+				color: dimgrey;
+				border-color: dimgrey;
+			`;
 		}
 
 		// The vote that this button represents a has already been cast.
 		// Color the background to show this.
-		return props.isUpButton ? "green" : "red";
+		return css`
+			color: white;
+			background-color: ${props.isUpButton ? "green" : "red"};
+			border: 0;
+		`;
 	}};
 
 	/* Style the emoji thumbs in the buttons. */
@@ -92,8 +116,10 @@ const VoteButton = styled.button.attrs(attrs)`
 	text-align: center;
 	vertical-align: middle;
 
+	/* Make the button's icon larger when it's hovered. */
+	transition: font-size 0.1s;
 	:hover {
-		border-color: ${props => (props.isUpButton ? "green" : "red")};
+		font-size: 35px;
 	}
 
 	@media (max-width: 768px) {
