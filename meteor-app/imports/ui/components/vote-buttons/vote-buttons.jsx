@@ -1,34 +1,37 @@
 import React from "react";
 import { Mutation } from "react-apollo";
+import styled from "styled-components";
 
-import style from "./vote-buttons.scss";
 import voteButtonsQuery from "./vote-buttons.graphql";
 import VoteButton from "./vote-button.jsx";
 
-function voteToString(vote) {
-	if (vote === null || vote.isUpvote === null) {
-		return "none";
-	} else if (vote.isUpvote) {
-		return "up";
-	} else {
-		return "down";
+const VoteDiv = styled.div`
+	> :first-child {
+		/* Have some space between the buttons. */
+		margin-bottom: 20px;
 	}
-}
 
+	@media (max-width: 768px) {
+		text-align: center;
+	}
+`;
+
+/**
+ * The vote buttons component. For casting votes on reviews.
+ * This contains two buttons, the upvote button and the downvote button.
+ */
 export default function VoteButtons(props) {
-	const { review, className, ...otherProps } = props;
-
 	return (
 		<Mutation mutation={voteButtonsQuery}>
 			{castVote => (
-				<div
-					{...otherProps}
-					className={style.voteButtons + (className || "")}
-					data-vote={voteToString(review.currentUserVote)}
-				>
-					<VoteButton isUpButton {...{ castVote, review }} />
-					<VoteButton {...{ castVote, review }} />
-				</div>
+				<VoteDiv>
+					<VoteButton
+						isUpButton
+						castVote={castVote}
+						review={props.review}
+					/>
+					<VoteButton castVote={castVote} review={props.review} />
+				</VoteDiv>
 			)}
 		</Mutation>
 	);
