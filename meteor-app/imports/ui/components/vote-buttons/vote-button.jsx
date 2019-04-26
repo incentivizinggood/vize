@@ -6,18 +6,17 @@ import styled, { css } from "styled-components";
 const buttonDiameter = 70;
 
 const Button = styled.button`
+	/* Make the button a circle. */
 	height: ${buttonDiameter}px;
 	width: ${buttonDiameter}px;
 	border-radius: ${buttonDiameter / 2}px;
-	border: 0.833333px solid grey;
-	display: block;
-	background-color: white;
+	border: 0.833333px solid;
 
+	/* Color the button to show its status. */
 	${props => {
 		if (props.disabled) {
 			return css`
 				color: lightgrey;
-				border-color: lightgrey;
 			`;
 		}
 
@@ -31,11 +30,10 @@ const Button = styled.button`
 
 		return css`
 			color: dimgrey;
-			border-color: dimgrey;
 		`;
 	}};
 
-	/* Style the emoji thumbs in the buttons. */
+	/* Style the icons in the buttons. */
 	font-size: 29px;
 	text-align: center;
 	vertical-align: middle;
@@ -44,11 +42,6 @@ const Button = styled.button`
 	transition: font-size 0.1s;
 	:hover {
 		font-size: 35px;
-	}
-
-	@media (max-width: 768px) {
-		display: inline-block;
-		margin: 0 5px;
 	}
 `;
 
