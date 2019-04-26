@@ -6,27 +6,17 @@ import voteButtonsQuery from "./vote-buttons.graphql";
 import VoteButton from "./vote-button.jsx";
 
 const VoteDiv = styled.div`
+	text-align: center;
+
 	> * {
 		display: block;
-	}
-
-	/* Have some space between the buttons. */
-	> :first-child {
-		margin: 0 0 20px 0;
-	}
-
-	/* Display the buttons in a row if the screen is small. */
-	@media (max-width: 992px) {
-		text-align: center;
-
-		> * {
+		/* Display the buttons in a row if the screen is small. */
+		@media (max-width: 992px) {
 			display: inline-block;
 		}
 
 		/* Have some space between the buttons. */
-		> :first-child {
-			margin: 0 20px 0 0;
-		}
+		margin: 10px 5px;
 	}
 `;
 
