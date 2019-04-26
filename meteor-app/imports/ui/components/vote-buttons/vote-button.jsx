@@ -5,79 +5,7 @@ import styled, { css } from "styled-components";
 /** The diameter of a vote button in px. */
 const buttonDiameter = 70;
 
-/** Compute some additional props for this component. */
-const attrs = props => {
-	// Unpack props for easier access.
-	// Things like props.review.currentUserVote.isUpvote are hard to read.
-	const { isUpButton = false, castVote, review } = props;
-	const { currentUserVote: vote } = review;
-
-	return {
-		type: "button",
-		isUpButton,
-		vote,
-
-		// If this button was not given a vote, it is disabled.
-		disabled: vote === null,
-
-		/** The icon to display inside this button. */
-		children: isUpButton ? (
-			<FontAwesomeIcon icon="thumbs-up" />
-		) : (
-			<FontAwesomeIcon icon="thumbs-down" flip="horizontal" />
-		),
-
-		/** The function that casts a vote when this button is clicked. */
-		onClick: event => {
-			event.preventDefault();
-
-			if (vote === null) {
-				// This button was not given a vote and therefor is disabled.
-				return;
-			}
-
-			let isCastingUpvote;
-			if (vote === null || vote.isUpvote === null) {
-				// The user had not voted yet or removed their vote.
-				// The user is now casting their vote.
-				isCastingUpvote = isUpButton;
-			} else if (vote.isUpvote === isUpButton) {
-				// The user had already voted this way.
-				// The user is now removing their vote.
-				isCastingUpvote = null;
-			} else {
-				// The user had voted the other way.
-				// The user is now changing their vote.
-				isCastingUpvote = isUpButton;
-			}
-
-			castVote({
-				variables: {
-					input: {
-						isUpvote: isCastingUpvote,
-						subjectId: review.id,
-					},
-				},
-				optimisticResponse: {
-					__typename: "Mutation",
-					castVote: {
-						__typename: "CastVotePayload",
-						vote: {
-							__typename: "Vote",
-							id: vote.id,
-							isUpvote: isCastingUpvote,
-						},
-					},
-				},
-			});
-		},
-	};
-};
-
-/**
- * A single vote button. Is either an upvote button or a downvote button.
- */
-const VoteButton = styled.button.attrs(attrs)`
+const Button = styled.button`
 	height: ${buttonDiameter}px;
 	width: ${buttonDiameter}px;
 	border-radius: ${buttonDiameter / 2}px;
@@ -86,28 +14,24 @@ const VoteButton = styled.button.attrs(attrs)`
 	background-color: white;
 
 	${props => {
-		if (props.vote === null) {
-			// This button was not given a vote and therefor is disabled.
+		if (props.disabled) {
 			return css`
 				color: lightgrey;
 				border-color: lightgrey;
 			`;
 		}
 
-		if (props.isUpButton !== props.vote.isUpvote) {
-			// This button does not represent a vote that has already been cast.
+		if (props.isActive) {
 			return css`
-				color: dimgrey;
-				border-color: dimgrey;
+				color: white;
+				background-color: ${props.isUpButton ? "green" : "red"};
+				border: 0;
 			`;
 		}
 
-		// The vote that this button represents a has already been cast.
-		// Color the background to show this.
 		return css`
-			color: white;
-			background-color: ${props.isUpButton ? "green" : "red"};
-			border: 0;
+			color: dimgrey;
+			border-color: dimgrey;
 		`;
 	}};
 
@@ -127,5 +51,75 @@ const VoteButton = styled.button.attrs(attrs)`
 		margin: 0 5px;
 	}
 `;
+
+/**
+ * A single vote button. Is either an upvote button or a downvote button.
+ */
+function VoteButton(props) {
+	// Unpack props for easier access.
+	// Things like props.review.currentUserVote.isUpvote are hard to read.
+	const { isUpButton = false, castVote, review } = props;
+	const { currentUserVote: vote } = review;
+
+	// If this button was not given a vote, it is disabled.
+	const disabled = vote === null;
+
+	// If the user has already voted this way, then the button should show that
+	// and allow them to undo/remove their vote.
+	const isActive = disabled ? false : vote.isUpvote === isUpButton;
+
+	/** The function that casts a vote when this button is clicked. */
+	const onClick = event => {
+		event.preventDefault();
+
+		// A disabled button should not do anything.
+		if (disabled) {
+			return;
+		}
+
+		/** The vote we are casting.
+		 * true: voting up
+		 * false: voting down
+		 * null: remove the vote
+		 */
+		const isCastingUpvote = isActive ? null : isUpButton;
+
+		castVote({
+			variables: {
+				input: {
+					isUpvote: isCastingUpvote,
+					subjectId: review.id,
+				},
+			},
+			optimisticResponse: {
+				__typename: "Mutation",
+				castVote: {
+					__typename: "CastVotePayload",
+					vote: {
+						__typename: "Vote",
+						id: vote.id,
+						isUpvote: isCastingUpvote,
+					},
+				},
+			},
+		});
+	};
+
+	return (
+		<Button
+			type="button"
+			isUpButton={isUpButton}
+			disabled={disabled}
+			isActive={isActive}
+			onClick={onClick}
+		>
+			{isUpButton ? (
+				<FontAwesomeIcon icon="thumbs-up" />
+			) : (
+				<FontAwesomeIcon icon="thumbs-down" flip="horizontal" />
+			)}
+		</Button>
+	);
+}
 
 export default VoteButton;
