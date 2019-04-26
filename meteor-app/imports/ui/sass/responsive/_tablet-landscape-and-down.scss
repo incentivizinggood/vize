@@ -61,8 +61,7 @@
 	}
 
 	.container {
-		&.desktop-view,
-		&.blu-section-desc {
+		&.desktop-view {
 			display: none;
 		}
 	}
@@ -115,7 +114,7 @@
 		min-height: unset;
 	}
 
-	.container.mobile-view-box {
+	.container.mobile-view {
 		display: block;
 	}
 

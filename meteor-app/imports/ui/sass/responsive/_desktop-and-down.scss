@@ -409,22 +409,18 @@
 		padding-bottom: 20px;
 	}
 
-	.container {
-		&.desktop-view {
-			display: none !important;
-		}
-
-		&.blu-section-desc {
-			display: none !important;
-		}
-		&.mobile-view-box {
-			display: none;
-		}
-
-		&.fom-job {
-			padding-top: 149px !important;
-		}
+	.desktop-view {
+		display: none !important;
 	}
+
+	.mobile-view {
+		display: none;
+	}
+
+	.fom-job {
+		padding-top: 149px !important;
+	}
+
 	.blu-mobile-sect {
 		display: none;
 	}

@@ -34,35 +34,40 @@ function HomePage() {
 			</div>
 
 			<div className="full-width-container background-primary">
-				<div className="container blu-section-desc">
-					<div className="col-md-2" />
-					<div className="col-md-2">
-						<img
-							className="img-responsive"
-							src="images/moneyIcon.png"
-							alt="Reward"
-						/>
-					</div>
-					<div className="col-md-6">
-						<div>
-							<div className="great-emp-hm">
-								<h1>Share your work experience and get $5</h1>
-							</div>
-							<div className="white-border-btn">
-								<center>
-									<Link
-										to="/companies"
-										className="button out-bodr"
-									>
-										<FontAwesomeIcon icon="plus" />
-										&nbsp;
-										{t("add_review_button")}
-									</Link>
-								</center>
+				<div className="container">
+					<div className="row">
+						<div className="col-md-2" />
+						<div className="col-md-2">
+							<img
+								className="img-responsive center-element"
+								src="images/moneyIcon.png"
+								alt="Reward"
+							/>
+							<br />
+						</div>
+						<div className="col-md-6">
+							<div>
+								<div className="great-emp-hm">
+									<h1>
+										<T>rewardText</T>
+									</h1>
+								</div>
+								<div className="white-border-btn">
+									<center>
+										<Link
+											to="/write-review"
+											className="button out-bodr"
+										>
+											<FontAwesomeIcon icon="plus" />
+											&nbsp;
+											{t("add_review_button")}
+										</Link>
+									</center>
+								</div>
 							</div>
 						</div>
+						<div className="col-md-2" />
 					</div>
-					<div className="col-md-2" />
 					<div className="clearfix" />
 				</div>
 			</div>
@@ -106,7 +111,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container  mobile-view-box">
+				<div className="container  mobile-view">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -150,7 +155,7 @@ function HomePage() {
 			</div>
 
 			<div className="full-width-container background-primary">
-				<div className="container blu-section-desc">
+				<div className="container desktop-view">
 					<div className="col-md-5">
 						<div className="great-emp-hm">
 							<h1>
