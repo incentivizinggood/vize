@@ -138,14 +138,6 @@
 		}
 	}
 
-	.fom-job {
-		padding-bottom: 9px;
-		margin-top: 0px;
-		margin-bottom: 19px;
-		padding-top: 117px;
-		width: 95%;
-	}
-
 	.forEmployees-header {
 		height: 530px;
 	}
@@ -315,11 +307,6 @@
 		box-shadow: 1px 1px 10px 1px;
 	}
 
-	.container.fom-job {
-		padding-left: 3em !important;
-		padding-right: 3em !important;
-	}
-
 	.submit_div {
 		margin-top: 2em !important;
 		float: none !important;
@@ -362,6 +349,19 @@
 
 		li:hover {
 			background: #132437;
+		}
+	}
+	.container.form-page {
+		padding-bottom: 9px;
+		margin-top: 0px;
+		margin-bottom: 19px;
+		padding-top: 117px;
+		width: 100%;
+		padding-left: 1.2em;
+		padding-right: 1.2em;
+
+		.form-container {
+			width: 100%;
 		}
 	}
 }
