@@ -101,7 +101,7 @@ function HomePage() {
 							<center>
 								<Link
 									to="/jobs"
-									className="button out-butt-dark"
+									className="button black-border-button"
 								>
 									<T>jobsButton</T>
 								</Link>
@@ -130,7 +130,7 @@ function HomePage() {
 							<center>
 								<Link
 									to="/jobs"
-									className="button out-butt-dark"
+									className="button black-border-button"
 								>
 									<T>jobsButton</T>
 								</Link>
@@ -319,7 +319,7 @@ function HomePage() {
 									{" "}
 									<Link
 										to="/register"
-										className="button out-butt-dark"
+										className="button black-border-button"
 									>
 										<T>signup_button</T>
 									</Link>

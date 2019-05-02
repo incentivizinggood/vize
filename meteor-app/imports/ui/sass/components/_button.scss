@@ -25,11 +25,13 @@
 		}
 	}
 
-	&.out-butt-dark {
+	&.black-border-button {
 		color: $outerSpace;
 		background-color: transparent;
 		background-image: none;
 		border-color: $outerSpace;
+		border-width: 4px;
+		font-weight: 700;
 
 		&:hover {
 			color: $white;
@@ -43,6 +45,8 @@
 	background-color: transparent;
 	background-image: none;
 	border-color: $white !important;
+	border-width: 4px;
+	font-weight: 700;
 
 	&:hover {
 		color: $white;

@@ -150,7 +150,7 @@ export default class ForEmployers extends React.Component {
 										{" "}
 										<Link
 											to="/register"
-											className="button out-butt-dark"
+											className="button black-border-button"
 										>
 											<T>
 												common.forEmployers.register_button
