@@ -27,11 +27,11 @@ export default class ForEmployers extends React.Component {
 									<T>common.forEmployers.find_best_part2</T>
 								</h4>
 							</div>
-							<div className="white-border-btn">
+							<div>
 								<center>
 									<Link
 										to="/register"
-										className="button out-bodr-get"
+										className="button vize-blue-button"
 									>
 										<T>
 											common.forEmployers.get_started_button

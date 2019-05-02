@@ -195,6 +195,9 @@ class WriteReviewForm extends React.Component {
 			<PageWrapper>
 				<div className="page WriteReviewForm">
 					<Blaze template="wr_blaze_form" />
+					<div>
+						<br />
+					</div>
 					{content}
 				</div>
 			</PageWrapper>

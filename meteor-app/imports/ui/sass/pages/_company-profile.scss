@@ -177,7 +177,7 @@ span.headingoo {
 		padding-top: 8px;
 		padding-bottom: 8px;
 		font-weight: 800;
-		background-color: $primary-color;
+		background-color: $vize-blue;
 		color: $white;
 		font-family: initial;
 		font-size: 19px;
@@ -453,13 +453,6 @@ path.CircularProgressbar-trail {
 		line-height: 25px;
 	}
 
-	&-emp-hm h1 {
-		text-align: center;
-		font-weight: bold;
-		margin-bottom: 23px;
-		color: $white;
-	}
-
 	&-discover-emp h4 {
 		text-align: center;
 		width: 100%;
@@ -518,7 +511,7 @@ path.CircularProgressbar-trail {
 }
 
 .progress-bar-success {
-	background-color: $primary-color !important;
+	background-color: $vize-blue !important;
 }
 
 .progress1 {

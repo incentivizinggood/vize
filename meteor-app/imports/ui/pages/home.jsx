@@ -35,11 +35,11 @@ function HomePage() {
 
 			<div className="full-width-container background-primary">
 				<div className="container">
-					<div className="row">
+					<div className="row add-flex-row">
 						<div className="col-md-2" />
-						<div className="col-md-2">
+						<div className="col-md-2 add-flex-col center-element">
 							<img
-								className="img-responsive center-element"
+								className="img-responsive vertical-center"
 								src="images/moneyIcon.png"
 								alt="Reward"
 							/>
@@ -47,16 +47,19 @@ function HomePage() {
 						</div>
 						<div className="col-md-6">
 							<div>
-								<div className="great-emp-hm">
-									<h1>
+								<div>
+									<p
+										className="white-text-center"
+										style={{ fontSize: 38 }}
+									>
 										<T>rewardText</T>
-									</h1>
+									</p>
 								</div>
-								<div className="white-border-btn">
+								<div>
 									<center>
 										<Link
 											to="/write-review"
-											className="button out-bodr"
+											className="button white-button"
 										>
 											<FontAwesomeIcon icon="plus" />
 											&nbsp;
@@ -111,7 +114,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container  mobile-view">
+				<div className="container mobile-view">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -157,22 +160,22 @@ function HomePage() {
 			<div className="full-width-container background-primary">
 				<div className="container desktop-view">
 					<div className="col-md-5">
-						<div className="great-emp-hm">
-							<h1>
+						<div>
+							<h1 className="white-text-center">
 								<T>findemp_part1</T> <br />
 								<T>findemp_part2</T>{" "}
 							</h1>
 						</div>
-						<div className="great-discover-emp">
-							<h4>
+						<div>
+							<h4 className="white-text-center">
 								<T>findemp_text</T>
 							</h4>
 						</div>
-						<div className="white-border-btn">
+						<div>
 							<center>
 								<Link
 									to="/companies"
-									className="button out-bodr"
+									className="button white-button"
 								>
 									<T>companiesButton</T>
 								</Link>
@@ -201,16 +204,16 @@ function HomePage() {
 								<T>findemp_part2</T>{" "}
 							</h1>
 						</div>
-						<div className="great-discover-emp">
-							<h4>
+						<div>
+							<h4 className="white-text-center">
 								<T>findemp_text</T>
 							</h4>
 						</div>
-						<div className="white-border-btn">
+						<div>
 							<center>
 								<Link
 									to="/companies"
-									className="button out-bodr"
+									className="button white-button"
 								>
 									<T>companiesButton</T>
 								</Link>
@@ -219,7 +222,7 @@ function HomePage() {
 					</div>
 					<br />
 					<br />
-					<div className="col-md-7 ">
+					<div className="col-md-7">
 						<div>
 							<center>
 								{" "}
