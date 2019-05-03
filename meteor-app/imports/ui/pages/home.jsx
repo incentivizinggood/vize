@@ -82,7 +82,7 @@ function HomePage() {
 						<div>
 							<img
 								className="img-responsive"
-								src="images/job-example-desktop.png"
+								src="images/home-img-2.png"
 								alt="Computer screen with example job ad."
 							/>
 						</div>
@@ -146,7 +146,7 @@ function HomePage() {
 								{" "}
 								<img
 									className="img-responsive"
-									src="images/job-example-mobile.png"
+									src="images/mobile-1.png"
 									alt="Smart phone with example job ad."
 								/>
 							</center>
@@ -187,7 +187,7 @@ function HomePage() {
 						<div>
 							<img
 								className="img-responsive"
-								src="images/ratings-example-desktop.png"
+								src="images/home-img-1.png"
 								alt="Company Ratings"
 							/>
 						</div>
@@ -229,7 +229,7 @@ function HomePage() {
 								{" "}
 								<img
 									className="img-responsive"
-									src="images/ratings-example-mobile.png"
+									src="images/mobile-2.png"
 									alt="Company ratings"
 								/>
 							</center>
@@ -246,15 +246,11 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T>hear_community</T>
+										<T>hear</T>
+										<br />
+										<T>community</T>
 									</div>
-									<br />
-									<div className="frontLogo">
-										<img
-											className="img-responsive"
-											src="images/community-icon.png"
-										/>
-									</div>
+									<div className="frontLogo isas" />
 									<div className="frontLocation">
 										<T>hear_text</T>
 									</div>
@@ -277,15 +273,10 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T>get_fair_salary</T>
+										<T>get_fair_salary</T> <br />
+										<T>your_work</T>
 									</div>
-									<br />
-									<div className="frontLogo">
-										<img
-											className="img-responsive"
-											src="images/salary-icon.png"
-										/>
-									</div>
+									<div className="frontLogo boisedigital" />
 									<div className="frontLocation">
 										<T>fairsalary_text</T>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,5 +1,3 @@
-// For extra large devices (desktops, 1200px and down)
-
 @include for-size(desktop-and-down) {
 	.navbar-header {
 		float: none;
@@ -396,6 +394,10 @@
 	#home.banner {
 		min-height: 50vh;
 		padding-bottom: 20px;
+	}
+
+	.desktop-view {
+		display: none !important;
 	}
 
 	.mobile-view {
