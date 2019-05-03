@@ -82,7 +82,7 @@ function HomePage() {
 						<div>
 							<img
 								className="img-responsive"
-								src="images/home-img-2.png"
+								src="images/job-example-desktop.png"
 								alt="Computer screen with example job ad."
 							/>
 						</div>
@@ -146,7 +146,7 @@ function HomePage() {
 								{" "}
 								<img
 									className="img-responsive"
-									src="images/mobile-1.png"
+									src="images/job-example-mobile.png"
 									alt="Smart phone with example job ad."
 								/>
 							</center>
@@ -187,7 +187,7 @@ function HomePage() {
 						<div>
 							<img
 								className="img-responsive"
-								src="images/home-img-1.png"
+								src="images/ratings-example-desktop.png"
 								alt="Company Ratings"
 							/>
 						</div>
@@ -229,7 +229,7 @@ function HomePage() {
 								{" "}
 								<img
 									className="img-responsive"
-									src="images/mobile-2.png"
+									src="images/ratings-example-mobile.png"
 									alt="Company ratings"
 								/>
 							</center>
@@ -246,11 +246,15 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T>hear</T>
-										<br />
-										<T>community</T>
+										<T>hear_community</T>
 									</div>
-									<div className="frontLogo isas" />
+									<br />
+									<div className="frontLogo">
+										<img
+											className="img-responsive"
+											src="images/community-icon.png"
+										/>
+									</div>
 									<div className="frontLocation">
 										<T>hear_text</T>
 									</div>
@@ -273,10 +277,15 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T>get_fair_salary</T> <br />
-										<T>your_work</T>
+										<T>get_fair_salary</T>
 									</div>
-									<div className="frontLogo boisedigital" />
+									<br />
+									<div className="frontLogo">
+										<img
+											className="img-responsive"
+											src="images/salary-icon.png"
+										/>
+									</div>
 									<div className="frontLocation">
 										<T>fairsalary_text</T>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

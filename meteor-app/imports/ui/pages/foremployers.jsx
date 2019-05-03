@@ -15,13 +15,13 @@ export default class ForEmployers extends React.Component {
 				<div className="full-width-container forEmployees-header">
 					<div className="container ">
 						<div className="col-md-12">
-							<div className="great-emp-hm">
-								<h1>
+							<div>
+								<h1 className="white-text-center">
 									<T>common.forEmployers.find_best</T>
 								</h1>
 							</div>
-							<div className="great-discover-emp">
-								<h4>
+							<div>
+								<h4 className="white-text-center">
 									<T>common.forEmployers.find_best_part1</T>{" "}
 									<br />
 									<T>common.forEmployers.find_best_part2</T>
