@@ -1,3 +1,6 @@
+// This SCSS file contains the code for all the different types of buttons
+// that are used on the site
+
 .button {
 	display: inline-block;
 	font-weight: 400;
@@ -58,7 +61,7 @@
 .vize-blue-button {
 	background-color: $vize-blue;
 	color: $white;
-	font-size: 33px;
+	font-weight: bold;
 	border: 1px solid #87bcdf;
 
 	&:hover {

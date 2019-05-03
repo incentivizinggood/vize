@@ -216,23 +216,6 @@ li.te_deco > a {
 	box-shadow: none;
 }
 
-.navbarwhite.grey {
-	.welpad12.box_shadow {
-		box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08),
-			0 2px 4px 0 rgba(0, 0, 0, 0.12);
-
-		.titlestar {
-			text-align: right;
-		}
-	}
-}
-
-.navbarwhite.grey,
-section.company-profile,
-.mar_lf_ri {
-	background: #e0e0e0;
-}
-
 .na_tab .nav > li span:hover {
 	color: $white;
 	background: transparent;

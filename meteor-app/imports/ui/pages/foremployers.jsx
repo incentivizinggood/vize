@@ -27,11 +27,13 @@ export default class ForEmployers extends React.Component {
 									<T>common.forEmployers.find_best_part2</T>
 								</h4>
 							</div>
+							<br />
 							<div>
 								<center>
 									<Link
 										to="/register"
 										className="button vize-blue-button"
+										style={{ fontSize: 34 }}
 									>
 										<T>
 											common.forEmployers.get_started_button
@@ -48,7 +50,7 @@ export default class ForEmployers extends React.Component {
 					<div className="container">
 						<div className="col-md-12">
 							<center>
-								<div className="hover panel-hm">
+								<div className="panel-card">
 									<div className="front">
 										<div className="frontTitle">
 											<T>
@@ -65,13 +67,11 @@ export default class ForEmployers extends React.Component {
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<br />
-										{/* }  <div  className="fl-ri-re">
-																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
-																								</div> */}
+
 										<br />
 									</div>
 								</div>
-								<div className="hover panel-hm">
+								<div className="panel-card">
 									<div className="front">
 										<div className="frontTitle">
 											<T>
@@ -89,9 +89,7 @@ export default class ForEmployers extends React.Component {
 											</T>
 										</div>
 										<br />
-										{/* <div  className="fl-ri-re">
-																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
-																								</div> */}
+
 										<br />
 									</div>
 								</div>

@@ -60,6 +60,7 @@ function HomePage() {
 										<Link
 											to="/write-review"
 											className="button white-button"
+											style={{ fontSize: 19 }}
 										>
 											<FontAwesomeIcon icon="plus" />
 											&nbsp;
@@ -97,7 +98,7 @@ function HomePage() {
 								<T>findjob_text</T>
 							</h4>
 						</div>
-						<div className="titlestar">
+						<div>
 							<center>
 								<Link
 									to="/jobs"
@@ -126,7 +127,7 @@ function HomePage() {
 								<T>findjob_text</T>
 							</h4>
 						</div>
-						<div className="titlestar">
+						<div>
 							<center>
 								<Link
 									to="/jobs"
@@ -196,10 +197,10 @@ function HomePage() {
 
 				{/* ===mobile view blue section==== */}
 
-				<div className="container blu-mobile-sect">
+				<div className="container mobile-view">
 					<div className="col-md-5">
-						<div className="great-emp-hm">
-							<h1>
+						<div>
+							<h1 className="white-text-center">
 								<T>findemp_part1</T> <br />
 								<T>findemp_part2</T>{" "}
 							</h1>
@@ -239,10 +240,10 @@ function HomePage() {
 			</div>
 
 			<div className="full-width-container background-offwhite">
-				<div className="container">
+				<div className="row">
 					<div className="col-md-12">
 						<center>
-							<div className="hover panel-hm">
+							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
 										<T>hear</T>
@@ -254,10 +255,11 @@ function HomePage() {
 										<T>hear_text</T>
 									</div>
 									<br />
-									<div className="fl-ri-re">
+									<div>
 										<Link
 											to="/write-review"
-											className="btn btn-primary"
+											className="button vize-blue-button"
+											style={{ fontSize: 16.5 }}
 										>
 											<FontAwesomeIcon icon="plus" />
 											&nbsp;
@@ -268,7 +270,7 @@ function HomePage() {
 								</div>
 							</div>
 
-							<div className="hover panel-hm">
+							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
 										<T>get_fair_salary</T> <br />
@@ -280,10 +282,11 @@ function HomePage() {
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
-									<div className="fl-ri-re">
+									<div>
 										<Link
 											to="/submit-salary-data"
-											className="btn btn-primary"
+											className="button vize-blue-button"
+											style={{ fontSize: 16.5 }}
 										>
 											<FontAwesomeIcon icon="plus" />
 											&nbsp;
@@ -308,13 +311,14 @@ function HomePage() {
 						<div className="col-md-8">
 							<center>
 								{" "}
-								<h1 className="titlestar">
+								<h1>
 									<T>discover_employers</T>{" "}
 								</h1>
+								<br />
 							</center>
 						</div>
 						<div className="col-md-2">
-							<div className="titlestar">
+							<div>
 								<center>
 									{" "}
 									<Link
