@@ -59,7 +59,12 @@ export default class ForEmployers extends React.Component {
 											<br />
 											<T>common.forEmployers.retention</T>
 										</div>
-										<div className="frontLogo emp-icon2" />
+										<div className="frontLogo">
+											<img
+												className="img-responsive"
+												src="images/upArrowIcon.png"
+											/>
+										</div>
 										<div className="frontLocation">
 											<T>
 												common.forEmployers.increase_workers_text
@@ -82,7 +87,12 @@ export default class ForEmployers extends React.Component {
 												common.forEmployers.to_worker_feedback
 											</T>
 										</div>
-										<div className="frontLogo   emp-icon1" />
+										<div className="frontLogo">
+											<img
+												className="img-responsive"
+												src="images/feedbackIcon.png"
+											/>
+										</div>
 										<div className="frontLocation">
 											<T>
 												common.forEmployers.grow_response_text
