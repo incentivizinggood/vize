@@ -6,6 +6,7 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import HoverPanel from "/imports/ui/components/hover-panel";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
@@ -159,57 +160,49 @@ function HomePage() {
 				<div className="container">
 					<div className="col-md-12">
 						<center>
-							<div className="hover panel-hm">
-								<div className="front">
-									<div className="frontTitle">
+							<HoverPanel
+								header={
+									<>
 										<T>hear</T>
-										<br />
+										&nbsp;
 										<T>community</T>
-									</div>
-									<div className="frontLogo isas" />
-									<div className="frontLocation">
-										<T>hear_text</T>
-									</div>
-									<br />
-									<div className="fl-ri-re">
-										<Link
-											to="/write-review"
-											className="btn btn-primary"
-										>
+									</>
+								}
+								logo="/images/home-img-3.png"
+								text={<T>hear_text</T>}
+								link={{
+									to: "/write-review",
+									content: (
+										<>
 											<FontAwesomeIcon icon="plus" />
 											&nbsp;
 											{t("add_review_button")}
-										</Link>
-									</div>
-									<br />
-								</div>
-							</div>
+										</>
+									),
+								}}
+							/>
 
-							<div className="hover panel-hm">
-								<div className="front">
-									<div className="frontTitle">
-										<T>get_fair_salary</T> <br />
+							<HoverPanel
+								header={
+									<>
+										<T>get_fair_salary</T>
+										&nbsp;
 										<T>your_work</T>
-									</div>
-									<div className="frontLogo boisedigital" />
-									<div className="frontLocation">
-										<T>fairsalary_text</T>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									</div>
-									<br />
-									<div className="fl-ri-re">
-										<Link
-											to="/submit-salary-data"
-											className="btn btn-primary"
-										>
+									</>
+								}
+								logo="/images/home-img-4.png"
+								text={<T>fairsalary_text</T>}
+								link={{
+									to: "/submit-salary-data",
+									content: (
+										<>
 											<FontAwesomeIcon icon="plus" />
 											&nbsp;
 											{t("salary_button")}
-										</Link>
-									</div>
-									<br />
-								</div>
-							</div>
+										</>
+									),
+								}}
+							/>
 						</center>
 					</div>
 

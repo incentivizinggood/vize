@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import HoverPanel from "/imports/ui/components/hover-panel";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();
@@ -48,53 +49,43 @@ export default class ForEmployers extends React.Component {
 					<div className="container">
 						<div className="col-md-12">
 							<center>
-								<div className="hover panel-hm">
-									<div className="front">
-										<div className="frontTitle">
+								<HoverPanel
+									header={
+										<>
 											<T>
 												common.forEmployers.increase_workers
-											</T>{" "}
-											<br />
-											<T>common.forEmployers.retention</T>
-										</div>
-										<div className="frontLogo emp-icon2" />
-										<div className="frontLocation">
-											<T>
-												common.forEmployers.increase_workers_text
 											</T>
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										</div>
-										<br />
-										{/* }  <div  className="fl-ri-re">
-																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
-																								</div> */}
-										<br />
-									</div>
-								</div>
-								<div className="hover panel-hm">
-									<div className="front">
-										<div className="frontTitle">
+											&nbsp;
+											<T>common.forEmployers.retention</T>
+										</>
+									}
+									logo="/images/upArrowIcon.png"
+									text={
+										<T>
+											common.forEmployers.increase_workers_text
+										</T>
+									}
+								/>
+
+								<HoverPanel
+									header={
+										<>
 											<T>
 												common.forEmployers.grow_in_response
-											</T>{" "}
-											<br />{" "}
+											</T>
+											&nbsp;
 											<T>
 												common.forEmployers.to_worker_feedback
 											</T>
-										</div>
-										<div className="frontLogo   emp-icon1" />
-										<div className="frontLocation">
-											<T>
-												common.forEmployers.grow_response_text
-											</T>
-										</div>
-										<br />
-										{/* <div  className="fl-ri-re">
-																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
-																								</div> */}
-										<br />
-									</div>
-								</div>
+										</>
+									}
+									logo="/images/feedbackIcon2.png"
+									text={
+										<T>
+											common.forEmployers.grow_response_text
+										</T>
+									}
+								/>
 							</center>
 						</div>
 						<div className="clearfix" />
