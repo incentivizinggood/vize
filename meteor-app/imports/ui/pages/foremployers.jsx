@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
-import HoverPanel from "/imports/ui/components/hover-panel";
+import {
+	HoverPanel,
+	HoverPanelContainer,
+} from "/imports/ui/components/hover-panel";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();
@@ -46,50 +49,35 @@ export default class ForEmployers extends React.Component {
 				</div>
 
 				<div className="full-width-container">
-					<div className="container">
-						<div className="col-md-12">
-							<center>
-								<HoverPanel
-									header={
-										<>
-											<T>
-												common.forEmployers.increase_workers
-											</T>
-											&nbsp;
-											<T>common.forEmployers.retention</T>
-										</>
-									}
-									logo="/images/upArrowIcon.png"
-									text={
-										<T>
-											common.forEmployers.increase_workers_text
-										</T>
-									}
-								/>
+					<HoverPanelContainer>
+						<HoverPanel
+							header={
+								<>
+									<T>common.forEmployers.increase_workers</T>
+									&nbsp;
+									<T>common.forEmployers.retention</T>
+								</>
+							}
+							logo="/images/upArrowIcon.png"
+							text={
+								<T>common.forEmployers.increase_workers_text</T>
+							}
+						/>
 
-								<HoverPanel
-									header={
-										<>
-											<T>
-												common.forEmployers.grow_in_response
-											</T>
-											&nbsp;
-											<T>
-												common.forEmployers.to_worker_feedback
-											</T>
-										</>
-									}
-									logo="/images/feedbackIcon2.png"
-									text={
-										<T>
-											common.forEmployers.grow_response_text
-										</T>
-									}
-								/>
-							</center>
-						</div>
-						<div className="clearfix" />
-					</div>
+						<HoverPanel
+							header={
+								<>
+									<T>common.forEmployers.grow_in_response</T>
+									&nbsp;
+									<T>
+										common.forEmployers.to_worker_feedback
+									</T>
+								</>
+							}
+							logo="/images/feedbackIcon2.png"
+							text={<T>common.forEmployers.grow_response_text</T>}
+						/>
+					</HoverPanelContainer>
 				</div>
 				{/* find card sect
 													     find great sect */}

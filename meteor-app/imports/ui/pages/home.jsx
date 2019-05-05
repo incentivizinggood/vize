@@ -6,7 +6,10 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
-import HoverPanel from "/imports/ui/components/hover-panel";
+import {
+	HoverPanel,
+	HoverPanelContainer,
+} from "/imports/ui/components/hover-panel";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
@@ -157,57 +160,51 @@ function HomePage() {
 			</div>
 
 			<div className="full-width-container background-offwhite">
-				<div className="container">
-					<div className="col-md-12">
-						<center>
-							<HoverPanel
-								header={
-									<>
-										<T>hear</T>
-										&nbsp;
-										<T>community</T>
-									</>
-								}
-								logo="/images/home-img-3.png"
-								text={<T>hear_text</T>}
-								link={{
-									to: "/write-review",
-									content: (
-										<>
-											<FontAwesomeIcon icon="plus" />
-											&nbsp;
-											{t("add_review_button")}
-										</>
-									),
-								}}
-							/>
+				<HoverPanelContainer>
+					<HoverPanel
+						header={
+							<>
+								<T>hear</T>
+								&nbsp;
+								<T>community</T>
+							</>
+						}
+						logo="/images/home-img-3.png"
+						text={<T>hear_text</T>}
+						link={{
+							to: "/write-review",
+							content: (
+								<>
+									<FontAwesomeIcon icon="plus" />
+									&nbsp;
+									{t("add_review_button")}
+								</>
+							),
+						}}
+					/>
 
-							<HoverPanel
-								header={
-									<>
-										<T>get_fair_salary</T>
-										&nbsp;
-										<T>your_work</T>
-									</>
-								}
-								logo="/images/home-img-4.png"
-								text={<T>fairsalary_text</T>}
-								link={{
-									to: "/submit-salary-data",
-									content: (
-										<>
-											<FontAwesomeIcon icon="plus" />
-											&nbsp;
-											{t("salary_button")}
-										</>
-									),
-								}}
-							/>
-						</center>
-					</div>
-
-					<div className="clearfix" />
-				</div>
+					<HoverPanel
+						header={
+							<>
+								<T>get_fair_salary</T>
+								&nbsp;
+								<T>your_work</T>
+							</>
+						}
+						logo="/images/home-img-4.png"
+						text={<T>fairsalary_text</T>}
+						link={{
+							to: "/submit-salary-data",
+							content: (
+								<>
+									<FontAwesomeIcon icon="plus" />
+									&nbsp;
+									{t("salary_button")}
+								</>
+							),
+						}}
+					/>
+				</HoverPanelContainer>
 			</div>
 
 			{/* services */}
