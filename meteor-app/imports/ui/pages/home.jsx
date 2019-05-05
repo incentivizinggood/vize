@@ -11,6 +11,51 @@ import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
 
+const FindJob = () => (
+	<div className="col-md-4">
+		<div className="great-job-hm">
+			<h1>
+				<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
+			</h1>
+		</div>
+		<div className="great-comp-hm">
+			<h4>
+				<T>findjob_text</T>
+			</h4>
+		</div>
+		<div className="titlestar">
+			<center>
+				<Link to="/jobs" className="button out-butt-dark">
+					<T>jobsButton</T>
+				</Link>
+			</center>
+		</div>
+	</div>
+);
+
+const FindEmployer = () => (
+	<div className="col-md-5">
+		<div className="great-emp-hm">
+			<h1>
+				<T>findemp_part1</T> <br />
+				<T>findemp_part2</T>{" "}
+			</h1>
+		</div>
+		<div className="great-discover-emp">
+			<h4>
+				<T>findemp_text</T>
+			</h4>
+		</div>
+		<div className="companies-btn">
+			<center>
+				<Link to="/companies" className="button out-bodr">
+					<T>companiesButton</T>
+				</Link>
+			</center>
+		</div>
+	</div>
+);
+
 function HomePage() {
 	return (
 		<PageWrapper navIsAnimated>
@@ -44,28 +89,7 @@ function HomePage() {
 							/>
 						</div>
 					</div>
-					<div className="col-md-4">
-						<div className="great-job-hm">
-							<h1>
-								<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
-							</h1>
-						</div>
-						<div className="great-comp-hm">
-							<h4>
-								<T>findjob_text</T>
-							</h4>
-						</div>
-						<div className="titlestar">
-							<center>
-								<Link
-									to="/jobs"
-									className="button out-butt-dark"
-								>
-									<T>jobsButton</T>
-								</Link>
-							</center>
-						</div>
-					</div>
+					<FindJob />
 
 					<div className="clearfix" />
 				</div>
@@ -73,28 +97,7 @@ function HomePage() {
 				{/* =====mobile view show====  */}
 
 				<div className="container  mobile-view-box">
-					<div className="col-md-4">
-						<div className="great-job-hm">
-							<h1>
-								<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
-							</h1>
-						</div>
-						<div className="great-comp-hm">
-							<h4>
-								<T>findjob_text</T>
-							</h4>
-						</div>
-						<div className="titlestar">
-							<center>
-								<Link
-									to="/jobs"
-									className="button out-butt-dark"
-								>
-									<T>jobsButton</T>
-								</Link>
-							</center>
-						</div>
-					</div>
+					<FindJob />
 					<br />
 					<br />
 					<div className="col-md-8">
@@ -117,29 +120,7 @@ function HomePage() {
 
 			<div className="full-width-container background-primary">
 				<div className="container blu-section-desc">
-					<div className="col-md-5">
-						<div className="great-emp-hm">
-							<h1>
-								<T>findemp_part1</T> <br />
-								<T>findemp_part2</T>{" "}
-							</h1>
-						</div>
-						<div className="great-discover-emp">
-							<h4>
-								<T>findemp_text</T>
-							</h4>
-						</div>
-						<div className="companies-btn">
-							<center>
-								<Link
-									to="/companies"
-									className="button out-bodr"
-								>
-									<T>companiesButton</T>
-								</Link>
-							</center>
-						</div>
-					</div>
+					<FindEmployer />
 					<div className="col-md-7">
 						<div>
 							<img
@@ -155,29 +136,7 @@ function HomePage() {
 				{/* ===mobile view blue section==== */}
 
 				<div className="container blu-mobile-sect">
-					<div className="col-md-5">
-						<div className="great-emp-hm">
-							<h1>
-								<T>findemp_part1</T> <br />
-								<T>findemp_part2</T>{" "}
-							</h1>
-						</div>
-						<div className="great-discover-emp">
-							<h4>
-								<T>findemp_text</T>
-							</h4>
-						</div>
-						<div className="companies-btn">
-							<center>
-								<Link
-									to="/companies"
-									className="button out-bodr"
-								>
-									<T>companiesButton</T>
-								</Link>
-							</center>
-						</div>
-					</div>
+					<FindEmployer />
 					<br />
 					<br />
 					<div className="col-md-7 ">
