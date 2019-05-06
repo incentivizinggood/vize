@@ -10,7 +10,7 @@ import {
 	HoverPanel,
 	HoverPanelContainer,
 } from "/imports/ui/components/hover-panel";
-import CompaniesSearchBar from "../components/companies-search-bar.jsx";
+import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 
 import style from "./home.scss";
 
