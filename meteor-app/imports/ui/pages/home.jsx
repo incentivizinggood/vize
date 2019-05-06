@@ -12,6 +12,8 @@ import {
 } from "/imports/ui/components/hover-panel";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
+import style from "./home.scss";
+
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
 
@@ -63,22 +65,10 @@ const FindEmployer = () => (
 function HomePage() {
 	return (
 		<PageWrapper navIsAnimated>
-			<div className="banner">
-				<div className="banner-info">
-					<div className="banner-text">
-						<div id="top" className="callbacks_container">
-							<ul id="slider3">
-								<li>
-									<div className="banner-text-info">
-										<h1>
-											<T>mainBanner</T>
-										</h1>
-									</div>
-									<CompaniesSearchBar />
-								</li>
-							</ul>
-						</div>
-					</div>
+			<div className={style.banner}>
+				<div>
+					<T _tagType="h1">mainBanner</T>
+					<CompaniesSearchBar />
 				</div>
 			</div>
 
