@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import {
 	HoverPanel,
@@ -167,7 +166,7 @@ function HomePage() {
 								<>
 									<FontAwesomeIcon icon="plus" />
 									&nbsp;
-									{t("add_review_button")}
+									<T>add_review_button</T>
 								</>
 							),
 						}}
@@ -189,7 +188,7 @@ function HomePage() {
 								<>
 									<FontAwesomeIcon icon="plus" />
 									&nbsp;
-									{t("salary_button")}
+									<T>salary_button</T>
 								</>
 							),
 						}}
@@ -232,4 +231,4 @@ function HomePage() {
 	);
 }
 
-export default withUpdateOnChangeLocale(HomePage);
+export default HomePage;
