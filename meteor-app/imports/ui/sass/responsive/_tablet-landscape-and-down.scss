@@ -5,11 +5,20 @@
 
 	.tab_str {
 		padding-right: 0;
-		margin-bottom: 50px;
+		margin-bottom: 0;
 	}
 
-	div.num_sett h1 {
-		float: none;
+	.num_sett {
+		h1 {
+			float: none;
+			text-align: center;
+		}
+
+		span {
+			font-size: 16px;
+			float: none;
+			text-align: center;
+		}
 	}
 
 	.modal-content {
