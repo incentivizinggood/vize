@@ -22,43 +22,37 @@ const CurLangContainer = withTracker(() => ({
 	code: reactiveGetLocale(),
 }))(CurLang);
 
-export default class LangSelector extends React.Component {
-	constructor(props) {
-		super(props);
-		this.dropdown = React.createRef();
-	}
+function LangSelector() {
+	const refDropdown = React.useRef(null);
 
-	render() {
-		const hideDropdown = () => {
-			this.dropdown.current.hide();
-		};
+	const hideDropdown = () => {
+		refDropdown.current.hide();
+	};
 
-		const LangOpt = code => (
-			<li key={code}>
-				<button
-					onClick={() => {
-						i18n.setLocale(code);
-						hideDropdown();
-					}}
-				>
-					<img
-						src={localeMetadata[code].icon}
-						alt={`${code} icon.`}
-					/>
-					<span>{localeMetadata[code].nativeName}</span>
-				</button>
-			</li>
-		);
+	const LangOpt = code => (
+		<li key={code}>
+			<button
+				onClick={() => {
+					i18n.setLocale(code);
+					hideDropdown();
+				}}
+			>
+				<img src={localeMetadata[code].icon} alt={`${code} icon.`} />
+				<span>{localeMetadata[code].nativeName}</span>
+			</button>
+		</li>
+	);
 
-		return (
-			<Dropdown ref={this.dropdown}>
-				<DropdownTrigger>
-					<CurLangContainer />
-				</DropdownTrigger>
-				<DropdownContent>
-					<ul>{Object.keys(localeMetadata).map(LangOpt)}</ul>
-				</DropdownContent>
-			</Dropdown>
-		);
-	}
+	return (
+		<Dropdown ref={refDropdown}>
+			<DropdownTrigger>
+				<CurLangContainer />
+			</DropdownTrigger>
+			<DropdownContent>
+				<ul>{Object.keys(localeMetadata).map(LangOpt)}</ul>
+			</DropdownContent>
+		</Dropdown>
+	);
 }
+
+export default LangSelector;
