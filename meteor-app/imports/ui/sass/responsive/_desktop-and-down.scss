@@ -341,11 +341,6 @@
 		display: none !important;
 	}
 
-	.fom-job {
-		padding-left: 3em !important;
-		padding-right: 3em !important;
-	}
-
 	.btn-green {
 		background-color: #fb406f !important;
 	}
@@ -421,8 +416,12 @@
 			display: none;
 		}
 
-		&.fom-job {
+		&.form-page {
 			padding-top: 149px !important;
+			width: 70%;
+			.form-container {
+				width: 85%;
+			}
 		}
 	}
 	.blu-mobile-sect {
