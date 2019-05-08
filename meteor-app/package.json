@@ -56,8 +56,8 @@
     "react-circular-progressbar": "^0.8.1",
     "react-dom": "^16.8.1",
     "react-modal": "^3.8.1",
-    "react-phone-number-input": "^2.3.7",
     "react-paginate": "^6.3.0",
+    "react-phone-number-input": "^2.3.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-simple-dropdown": "^3.2.3",
@@ -66,7 +66,8 @@
     "react-transition-group": "^2.5.3",
     "reactstrap": "^7.1.0",
     "request-promise-native": "^1.0.7",
-    "simpl-schema": "1.4.3"
+    "simpl-schema": "1.4.3",
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.0.2",
