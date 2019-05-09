@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import i18n from "meteor/universe:i18n";
 
@@ -9,25 +9,76 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 /* A page Foremployers  */
 const T = i18n.createComponent();
 
+const vizeBlue = "#2699FB";
+const vizePaleBlue = "#F1F9FF";
+
+const P = styled.p`
+	color: ${vizeBlue};
+	text-align: center;
+`;
+
 const Bold = styled.span`
 	font-weight: bold;
 `;
 
 const ProblemPoint = styled.p`
 	display: block;
+	color: ${vizeBlue};
+	border: 4px solid ${vizePaleBlue};
+	text-align: center;
+`;
+
+const SectionTitle = styled.h1`
+	color: ${vizeBlue};
+`;
+const SubsectionTitle = styled.h2`
+	color: ${vizeBlue};
+`;
+
+const Button = styled.a`
+	background: ${vizeBlue};
+
+	/* Increase spesificity to override a global style. */
+	&&&&&&&& {
+		color: white;
+	}
+
+	border-radius: 6px;
+	display: inline-block;
+	padding: 5px;
+`;
+
+const GetStarted = () => <Button>Get Started</Button>;
+
+const PlanBox = styled.div`
+	color: ${vizeBlue};
+	border: 1px solid black;
+	margin: 10px;
+	width: 30rem;
+	padding: 5rem;
+	text-align: center;
+`;
+
+const PlanFeatureList = styled.ul`
+	list-style-type: none;
 `;
 
 const PlanOption = ({ name, items }) => (
-	<div>
+	<PlanBox>
 		{name}
-		<ul>
+		<PlanFeatureList>
 			{items.map(item => (
 				<li>{item}</li>
 			))}
-		</ul>
-		<a>Get Started</a>
-	</div>
+		</PlanFeatureList>
+		<GetStarted />
+	</PlanBox>
 );
+
+const PlansContainer = styled.div`
+	display: flex;
+	justify-content: center;
+`;
 
 function ForEmployers() {
 	return (
@@ -36,10 +87,10 @@ function ForEmployers() {
 				<h1>
 					Recruit and retain the best workforce in Tijuna with Vize
 				</h1>
-				<button>Get started</button>
+				<GetStarted />
 			</div>
 			<section>
-				<h1>The Problem</h1>
+				<SectionTitle>The Problem</SectionTitle>
 				<ProblemPoint>
 					Many factories like yours face turnover rates of{" "}
 					<Bold>90% - 120%</Bold> of their workforce{" "}
@@ -55,47 +106,49 @@ function ForEmployers() {
 				</ProblemPoint>
 			</section>
 			<section>
-				<h1>The Solution</h1>
+				<SectionTitle>The Solution</SectionTitle>
 				<section>
-					<h2>Recruiting</h2>
-					<p>
+					<SubsectionTitle>Recruiting</SubsectionTitle>
+					<P>
 						We help you recruit the best employies with affordable
 						and effective job posts.
-					</p>
+					</P>
 				</section>
 				<section>
-					<h2>Retainment</h2>
-					<p>
+					<SubsectionTitle>Retainment</SubsectionTitle>
+					<P>
 						We then give you actionable insites on how to retain
 						these employees using data directly from workers all
 						across Tijuna.
-					</p>
+					</P>
 				</section>
 			</section>
 			<section>
-				<h1>Pricing</h1>
-				<p>
+				<SectionTitle>Pricing</SectionTitle>
+				<P>
 					The first 10 customers get full <Bold>premium access</Bold>{" "}
 					to our services <Bold>95% off</Bold> for{" "}
 					<Bold>$15/month</Bold> for 90 days.
-				</p>
-				<PlanOption
-					name="Buisness"
-					items={[
-						"5 Job Posts",
-						"Data Analitics Dashboard",
-						"Buisiness Resources",
-					]}
-				/>
-				<PlanOption
-					name="Premium"
-					items={[
-						"10 Job Posts",
-						"Data Analitics Dashboard",
-						"Buisiness Resources",
-						"Individualized analysis and consulting",
-					]}
-				/>
+				</P>
+				<PlansContainer>
+					<PlanOption
+						name="Buisness"
+						items={[
+							"5 Job Posts",
+							"Data Analitics Dashboard",
+							"Buisiness Resources",
+						]}
+					/>
+					<PlanOption
+						name="Premium"
+						items={[
+							"10 Job Posts",
+							"Data Analitics Dashboard",
+							"Buisiness Resources",
+							"Individualized analysis and consulting",
+						]}
+					/>
+				</PlansContainer>
 			</section>
 		</PageWrapper>
 	);
