@@ -7,7 +7,7 @@ import CompanyCreateProfileForm from "./create-company-profile";
 import CompanyProfile from "./company-profile";
 import CompanySearchTrial from "./company-search";
 import ContactUsPage from "./contact-us.jsx";
-import ForEmployers from "./foremployers.jsx";
+import ForEmployers from "./for-employers";
 import HelpPage from "./help.jsx";
 import HomePage from "./home.jsx";
 import LoginPage from "./login";
