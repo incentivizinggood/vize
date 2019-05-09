@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 
 import i18n from "meteor/universe:i18n";
 
@@ -8,160 +9,94 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 /* A page Foremployers  */
 const T = i18n.createComponent();
 
+const Bold = styled.span`
+	font-weight: bold;
+`;
+
+const ProblemPoint = styled.p`
+	display: block;
+`;
+
+const PlanOption = ({ name, items }) => (
+	<div>
+		{name}
+		<ul>
+			{items.map(item => (
+				<li>{item}</li>
+			))}
+		</ul>
+		<a>Get Started</a>
+	</div>
+);
+
 function ForEmployers() {
 	return (
 		<PageWrapper>
-			<div className="full-width-container forEmployees-header">
-				<div className="container ">
-					<div className="col-md-12">
-						<div className="great-emp-hm">
-							<h1>
-								<T>common.forEmployers.find_best</T>
-							</h1>
-						</div>
-						<div className="great-discover-emp">
-							<h4>
-								<T>common.forEmployers.find_best_part1</T>{" "}
-								<br />
-								<T>common.forEmployers.find_best_part2</T>
-							</h4>
-						</div>
-						<div className="companies-btn">
-							<center>
-								<Link
-									to="/register"
-									className="button out-bodr-get"
-								>
-									<T>
-										common.forEmployers.get_started_button
-									</T>
-								</Link>
-							</center>
-						</div>
-					</div>
-					<div className="clearfix" />
-				</div>
+			<div>
+				<h1>
+					Recruit and retain the best workforce in Tijuna with Vize
+				</h1>
+				<button>Get started</button>
 			</div>
-
-			<div className="full-width-container">
-				<div className="container">
-					<div className="col-md-12">
-						<center>
-							<div className="hover panel-hm">
-								<div className="front">
-									<div className="frontTitle">
-										<T>
-											common.forEmployers.increase_workers
-										</T>{" "}
-										<br />
-										<T>common.forEmployers.retention</T>
-									</div>
-									<div className="frontLogo emp-icon2" />
-									<div className="frontLocation">
-										<T>
-											common.forEmployers.increase_workers_text
-										</T>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									</div>
-									<br />
-									{/* }  <div  className="fl-ri-re">
-																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Review</button>
-																								</div> */}
-									<br />
-								</div>
-							</div>
-							<div className="hover panel-hm">
-								<div className="front">
-									<div className="frontTitle">
-										<T>
-											common.forEmployers.grow_in_response
-										</T>{" "}
-										<br />{" "}
-										<T>
-											common.forEmployers.to_worker_feedback
-										</T>
-									</div>
-									<div className="frontLogo   emp-icon1" />
-									<div className="frontLocation">
-										<T>
-											common.forEmployers.grow_response_text
-										</T>
-									</div>
-									<br />
-									{/* <div  className="fl-ri-re">
-																								<button><i className="fa fa-plus" ></i>&nbsp; Add a Salary</button>
-																								</div> */}
-									<br />
-								</div>
-							</div>
-						</center>
-					</div>
-					<div className="clearfix" />
-				</div>
-			</div>
-			{/* find card sect
-													     find great sect */}
-			<div className="full-width-container emp-wel">
-				<div className="container">
-					<div className="col-md-6">
-						<div>
-							<center>
-								<img
-									className="img-responsive"
-									src="images/past.png"
-								/>
-							</center>
-						</div>
-					</div>
-					<div className="col-md-6 ">
-						<div className="great-job-hm">
-							<h1>
-								<T>common.forEmployers.reach_thousand</T>{" "}
-							</h1>
-						</div>
-						<div className="great-comp-hm">
-							<h4>
-								<T>common.forEmployers.reach_thousand_text</T>
-							</h4>
-						</div>
-					</div>
-					<div className="clearfix" />
-				</div>
-			</div>
-			{/* find great sect
-													  services */}
-			<div className="star" id="services">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-1" />
-						<div className="col-md-8">
-							<center>
-								<h1 className="titlestar22">
-									<T>common.forEmployers.accelerate</T>{" "}
-								</h1>
-							</center>
-						</div>
-						<div className="col-md-2">
-							<div className="titlestar">
-								<center>
-									{" "}
-									<Link
-										to="/register"
-										className="button out-butt-dark"
-									>
-										<T>
-											common.forEmployers.register_button
-										</T>
-									</Link>
-								</center>
-							</div>
-						</div>
-						<div className="col-md-1" />
-					</div>
-					<div className="clearfix" />
-				</div>
-			</div>
-			{/* //section */}
+			<section>
+				<h1>The Problem</h1>
+				<ProblemPoint>
+					Many factories like yours face turnover rates of{" "}
+					<Bold>90% - 120%</Bold> of their workforce{" "}
+					<Bold>every year</Bold>
+				</ProblemPoint>
+				<ProblemPoint>
+					Forcing you to spend more time and money on{" "}
+					<Bold>recruiting training</Bold>
+				</ProblemPoint>
+				<ProblemPoint>
+					Loseing 1 worker costs you at least{" "}
+					<Bold>$615 every month</Bold>
+				</ProblemPoint>
+			</section>
+			<section>
+				<h1>The Solution</h1>
+				<section>
+					<h2>Recruiting</h2>
+					<p>
+						We help you recruit the best employies with affordable
+						and effective job posts.
+					</p>
+				</section>
+				<section>
+					<h2>Retainment</h2>
+					<p>
+						We then give you actionable insites on how to retain
+						these employees using data directly from workers all
+						across Tijuna.
+					</p>
+				</section>
+			</section>
+			<section>
+				<h1>Pricing</h1>
+				<p>
+					The first 10 customers get full <Bold>premium access</Bold>{" "}
+					to our services <Bold>95% off</Bold> for{" "}
+					<Bold>$15/month</Bold> for 90 days.
+				</p>
+				<PlanOption
+					name="Buisness"
+					items={[
+						"5 Job Posts",
+						"Data Analitics Dashboard",
+						"Buisiness Resources",
+					]}
+				/>
+				<PlanOption
+					name="Premium"
+					items={[
+						"10 Job Posts",
+						"Data Analitics Dashboard",
+						"Buisiness Resources",
+						"Individualized analysis and consulting",
+					]}
+				/>
+			</section>
 		</PageWrapper>
 	);
 }
