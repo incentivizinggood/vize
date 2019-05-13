@@ -27,22 +27,6 @@ nav {
 	padding-bottom: 7px;
 	@include transition(all 0.5s);
 
-	.navbarwhite & {
-		background: $white;
-		box-shadow: 0 0 5px;
-
-		ul li a {
-			color: $black;
-			cursor: pointer;
-
-			&:not(#register-button):hover,
-			&:not(#register-button):focus,
-			&:not(#register-button):active {
-				color: $black;
-			}
-		}
-	}
-
 	ul li {
 		margin: 0 0.5em;
 		a {
