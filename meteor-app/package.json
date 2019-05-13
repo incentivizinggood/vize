@@ -42,7 +42,7 @@
     "i": "^0.3.6",
     "libphonenumber-js": "^1.7.10",
     "lint": "^1.1.2",
-    "lodash.find": "^4.6.0",
+    "lodash": "^4.17.11",
     "mdbreact": "^4.11.0",
     "message-box": "^0.2.0",
     "meteor-node-stubs": "^0.2.11",
