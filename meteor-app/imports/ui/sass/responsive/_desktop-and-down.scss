@@ -3,10 +3,6 @@
 		float: none;
 	}
 
-	.navbarwhite nav {
-		background: #1b253b;
-	}
-
 	#bs-example-navbar-collapse-1 {
 		background: rgba(0, 0, 0, 0.82);
 	}
@@ -361,10 +357,6 @@
 		box-shadow: 1px 1px 10px 1px;
 	}
 
-	a.button.out-bodr-get {
-		font-size: 20px !important;
-	}
-
 	.btn_add_button {
 		margin-bottom: 9px;
 	}
@@ -377,7 +369,7 @@
 		border-bottom-right-radius: 12px;
 	}
 
-	.panel-hm {
+	.panel-card {
 		margin-bottom: 10px !important;
 		margin-left: 0px !important;
 		margin-top: 0px !important;
@@ -386,11 +378,6 @@
 
 	.great-job-hm {
 		margin-top: 42px !important;
-	}
-
-	.companies-btn {
-		margin-top: 40px !important;
-		margin-bottom: 40px !important;
 	}
 
 	.submit_div {
@@ -404,27 +391,19 @@
 		padding-bottom: 20px;
 	}
 
-	.container {
-		&.desktop-view {
-			display: none !important;
-		}
+	.mobile-view {
+		display: none;
+	}
 
-		&.blu-section-desc {
-			display: none !important;
-		}
-		&.mobile-view-box {
-			display: none;
-		}
-
-		&.form-page {
-			padding-top: 149px !important;
-			width: 70%;
-			.form-container {
-				width: 85%;
-			}
+	&.form-page {
+		padding-top: 149px !important;
+		width: 70%;
+		.form-container {
+			width: 85%;
 		}
 	}
-	.blu-mobile-sect {
+
+	.mobile-view {
 		display: none;
 	}
 }

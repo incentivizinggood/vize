@@ -1,24 +1,5 @@
-.companies-btn {
-	margin-top: 50px;
-	color: #222;
-	font-weight: 300;
-}
-
-.out-bodr {
-	color: $white;
-	background-color: transparent;
-	background-image: none;
-	border-color: $white !important;
-
-	&:hover {
-		color: $white;
-		background-color: $outerSpace;
-		border-color: $outerSpace;
-	}
-}
-
 .panel {
-	&-hm {
+	&-card {
 		width: 300px;
 		margin: 20px;
 		position: relative;
@@ -26,14 +7,6 @@
 		-webkit-perspective: 600px;
 		-moz-perspective: 600px;
 		padding: 10px;
-
-		.pad {
-			padding: 0 15px;
-		}
-
-		.action {
-			display: none;
-		}
 
 		.front {
 			z-index: 900;
@@ -45,28 +18,14 @@
 			padding-bottom: 24px;
 			padding-top: 24px;
 		}
-
-		&.flip {
-			z-index: 1000;
-			background: $white;
-			@include rotate(0deg);
-			@include box-shadow(0, 15px, 50px, rgba(0, 0, 0, 0.1));
-			.front {
-				z-index: 900;
-				background: $white;
-				@include rotate(180deg);
-				@include box-shadow(0, 15px, 50px, rgba(0, 0, 0, 0.1));
-			}
-		}
 	}
 }
 
 .frontTitle {
 	text-align: center;
-	font-size: 27px;
+	font-size: 26px;
 	color: $black;
 	height: 79px;
-	line-height: 23px;
 	font-weight: bold;
 	padding: 10px 8px 0 8px;
 }
@@ -102,7 +61,7 @@
 .fl-ri-re button {
 	padding: 8px 19px;
 	font-weight: 800;
-	background-color: $primary-color;
+	background-color: $vize-blue;
 	color: $white;
 	font-size: 19px;
 	&:hover {
@@ -111,11 +70,11 @@
 }
 
 @media screen and (min-width: 992px) {
-	.container.mobile-view-box {
+	.container.mobile-view {
 		display: none;
 	}
 
-	.blu-mobile-sect {
+	.mobile-view {
 		display: none;
 	}
 }

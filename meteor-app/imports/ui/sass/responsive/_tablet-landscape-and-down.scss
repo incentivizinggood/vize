@@ -73,11 +73,8 @@
 		}
 	}
 
-	.container {
-		&.desktop-view,
-		&.blu-section-desc {
-			display: none;
-		}
+	.desktop-view {
+		display: none;
 	}
 
 	.footer-grids {
@@ -128,11 +125,11 @@
 		min-height: unset;
 	}
 
-	.container.mobile-view-box {
+	.container.mobile-view {
 		display: block;
 	}
 
-	.blu-mobile-sect {
+	.mobile-view {
 		display: block;
 	}
 }

@@ -186,7 +186,7 @@ span.headingoo {
 		padding-top: 8px;
 		padding-bottom: 8px;
 		font-weight: 800;
-		background-color: $primary-color;
+		background-color: $vize-blue;
 		color: $white;
 		font-family: initial;
 		font-size: 19px;
@@ -223,23 +223,6 @@ li.te_deco > a {
 	padding-right: 0;
 	background: transparent;
 	box-shadow: none;
-}
-
-.navbarwhite.grey {
-	.welpad12.box_shadow {
-		box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08),
-			0 2px 4px 0 rgba(0, 0, 0, 0.12);
-
-		.titlestar {
-			text-align: right;
-		}
-	}
-}
-
-.navbarwhite.grey,
-section.company-profile,
-.mar_lf_ri {
-	background: #e0e0e0;
 }
 
 .na_tab .nav > li span:hover {
@@ -458,13 +441,6 @@ path.CircularProgressbar-trail {
 		line-height: 25px;
 	}
 
-	&-emp-hm h1 {
-		text-align: center;
-		font-weight: bold;
-		margin-bottom: 23px;
-		color: $white;
-	}
-
 	&-discover-emp h4 {
 		text-align: center;
 		width: 100%;
@@ -523,7 +499,7 @@ path.CircularProgressbar-trail {
 }
 
 .progress-bar-success {
-	background-color: $primary-color !important;
+	background-color: $vize-blue !important;
 }
 
 .progress1 {
