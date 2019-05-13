@@ -80,15 +80,43 @@ const PlansContainer = styled.div`
 	justify-content: center;
 `;
 
+const Banner = styled.div`
+	height: 700px;
+
+	background: url(/images/banner-img.jpg) no-repeat 0 0;
+	background-size: cover;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	> div {
+		width: 100%;
+		text-align: center;
+
+		> h1 {
+			display: block;
+			margin-bottom: 40px;
+
+			font-size: 3em;
+			line-height: 1.2em;
+			font-weight: 700;
+			color: white;
+		}
+	}
+`;
+
 function ForEmployers() {
 	return (
 		<PageWrapper>
-			<div>
-				<h1>
-					Recruit and retain the best workforce in Tijuna with Vize
-				</h1>
-				<GetStarted />
-			</div>
+			<Banner>
+				<div>
+					<h1>
+						Recruit and retain the best workforce in Tijuna with
+						Vize
+					</h1>
+					<GetStarted />
+				</div>
+			</Banner>
 			<section>
 				<SectionTitle>The Problem</SectionTitle>
 				<ProblemPoint>
