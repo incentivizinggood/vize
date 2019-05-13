@@ -7,12 +7,12 @@ case $1 in
 "i")
 	# Install/update the project's dependencies.
 	echo "Installing project root npm packages"
-	npm ci
+	yarn install --frozen-lockfile
 	cd meteor-app
 	echo "Installing meteor-app npm packages"
-	npm ci
+	yarn install --frozen-lockfile
 	echo "Generating code"
-	npm run gen
+	yarn run gen
 	cd ..
 	;;
 "dev" | "")
