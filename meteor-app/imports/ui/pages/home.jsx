@@ -13,7 +13,51 @@ const T = i18n.createComponent(t);
 
 function HomePage() {
 	return (
-		<PageWrapper navIsAnimated>
+		<PageWrapper>
+			<div
+				className="full-width-container background-primary"
+				style={{ paddingBottom: "4em" }}
+			>
+				<div className="container">
+					<div className="row add-flex-row">
+						<div className="col-md-2 add-flex-col center-element">
+							<img
+								className="img-responsive vertical-center"
+								src="images/moneyIcon.png"
+								alt="Reward"
+							/>
+							<br />
+						</div>
+						<div className="col-md-6">
+							<div>
+								<div>
+									<p
+										className="white-text-center"
+										style={{ fontSize: 32 }}
+									>
+										<T>rewardText</T>
+									</p>
+								</div>
+								<div>
+									<center>
+										<Link
+											to="/write-review"
+											className="button white-button"
+											style={{ fontSize: 18 }}
+										>
+											<FontAwesomeIcon icon="plus" />
+											&nbsp;
+											{t("add_review_button")}
+										</Link>
+									</center>
+								</div>
+							</div>
+						</div>
+						<div className="col-md-2" />
+					</div>
+					<div className="clearfix" />
+				</div>
+			</div>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">
@@ -30,49 +74,6 @@ function HomePage() {
 							</ul>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div className="full-width-container background-primary">
-				<div className="container">
-					<div className="row add-flex-row">
-						<div className="col-md-2" />
-						<div className="col-md-2 add-flex-col center-element">
-							<img
-								className="img-responsive vertical-center"
-								src="images/moneyIcon.png"
-								alt="Reward"
-							/>
-							<br />
-						</div>
-						<div className="col-md-6">
-							<div>
-								<div>
-									<p
-										className="white-text-center"
-										style={{ fontSize: 38 }}
-									>
-										<T>rewardText</T>
-									</p>
-								</div>
-								<div>
-									<center>
-										<Link
-											to="/write-review"
-											className="button white-button"
-											style={{ fontSize: 19 }}
-										>
-											<FontAwesomeIcon icon="plus" />
-											&nbsp;
-											{t("add_review_button")}
-										</Link>
-									</center>
-								</div>
-							</div>
-						</div>
-						<div className="col-md-2" />
-					</div>
-					<div className="clearfix" />
 				</div>
 			</div>
 
