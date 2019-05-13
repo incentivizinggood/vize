@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This is a simple helper script to build and run the project
 # without having to remember the long docker commands.
 
@@ -13,29 +13,28 @@ case $1 in
 	npm ci
 	echo "Generating code"
 	npm run gen
-	echo "Installing Meteor packages"
-	meteor lint
 	cd ..
 	;;
-"prod")
-	# This is the "proper" way to build and run a docker stack. This will
-	# compile the meteor-app without caching between compiles and thus is VERY
-	# slow. Most of the time you will want to use the dev mode instead.
-	echo 'Running in "prod" mode...'
-	sudo docker-compose \
-		-f docker-compose.prod.yml \
-		-f docker-compose.yml \
-		up --build
-	;;
 "dev" | "")
-	# Don't compile the meteor-app. Just run meteor in a container with volumes.
-	# This is a strange way of using docker. Because the normal way is so slow
-	# with Meteor, this way was made so that we can use Meteor's dev mode and
-	# cache build artifacts. This makes building and rebuilding much faster
-	# than prod mode, but it is not suitable for use in production deployments.
 	echo 'Running in "dev" mode...'
+	echo 'Make sure to start the databases first.'
+
+	# Set environment variables for Meteor.
+	export MONGO_URL="mongodb://localhost:27017/meteor"
+	export PGHOST=localhost
+	export PGPORT=5432
+	export PGUSER=meteor
+	export PGPASSWORD="123456789"
+	export PGDATABASE=meteor
+
+	# Start up the Meteor app.
+	cd meteor-app
+	meteor --no-lint --no-release-check
+	cd ..
+	;;
+"db")
+	echo "Running database(s)..."
 	sudo docker-compose \
-		-f docker-compose.dev.yml \
 		-f docker-compose.yml \
 		up --build
 	;;
