@@ -26,8 +26,20 @@ export const Review: ReviewResolvers = {
 	comments: (obj, args, _context, _info) =>
 		dataModel.getCommentsByParent(obj, args.pageNum, args.pageSize),
 
-	currentUserVote: (obj, _args, context, _info) =>
-		context.user
-			? dataModel.getVoteByAuthorAndSubject(context.user, obj)
-			: null,
+	currentUserVote: async (obj, _args, context, _info) => {
+		if (!context.user) {
+			return null;
+		}
+
+		// Users cannot vote on their own reviews.
+		// Return null to help signify this.
+		if (
+			(await dataModel.getUserPostgresId(context.user._id)) ===
+			(await dataModel.getUserPostgresId(obj.submittedBy))
+		) {
+			return null;
+		}
+
+		return dataModel.getVoteByAuthorAndSubject(context.user, obj);
+	},
 };
