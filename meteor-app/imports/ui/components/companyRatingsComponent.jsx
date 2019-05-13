@@ -105,13 +105,8 @@ function CompanyRating(props) {
 		<div>
 			<div className="row">
 				<div className="col-md-6  bodr_lft">
-					<Card
-						style={{ backgroundColor: "transparent" }}
-						disableFocusRipple
-						className={classes.card}
-					>
+					<Card disableFocusRipple className={classes.card}>
 						<CardActionArea
-							style={{ backgroundColor: "transparent" }}
 							disableTouchRipple
 							disableFocusRipple="true"
 						>
@@ -121,7 +116,6 @@ function CompanyRating(props) {
 									variant="h5"
 									component="h2"
 									disableFocusRipple
-									style={{ backgroundColor: "transparent" }}
 								>
 									<div className="star_border ">
 										<label>
