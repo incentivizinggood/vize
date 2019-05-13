@@ -15,6 +15,7 @@ const vizePaleBlue = "#F1F9FF";
 const P = styled.p`
 	color: ${vizeBlue};
 	text-align: center;
+	font-size: 18pt;
 `;
 
 const Bold = styled.span`
@@ -26,10 +27,21 @@ const ProblemPoint = styled.p`
 	color: ${vizeBlue};
 	border: 4px solid ${vizePaleBlue};
 	text-align: center;
+	font-size: x-large;
+
+	max-width: 700px;
+	padding: 80px 100px;
+	margin-left: auto;
+	margin-right: auto;
+
+	& + & {
+		margin-top: 100px;
+	}
 `;
 
 const SectionTitle = styled.h1`
 	color: ${vizeBlue};
+	margin-top: 100px;
 `;
 const SubsectionTitle = styled.h2`
 	color: ${vizeBlue};
@@ -43,9 +55,10 @@ const Button = styled.a`
 		color: white;
 	}
 
-	border-radius: 6px;
+	border-radius: 3px;
 	display: inline-block;
-	padding: 5px;
+	padding: 10px 20px;
+	font-weight: bold;
 `;
 
 const GetStarted = () => <Button>Get Started</Button>;
@@ -55,17 +68,27 @@ const PlanBox = styled.div`
 	border: 1px solid black;
 	margin: 10px;
 	width: 30rem;
-	padding: 5rem;
+	padding: calc(5rem - 20px) 5rem;
 	text-align: center;
+
+	display: flex;
+	flex-direction: column;
+	> * {
+		margin: 20px 0;
+	}
 `;
 
 const PlanFeatureList = styled.ul`
 	list-style-type: none;
+	line-height: 1.5;
+
+	/* Push the "Get Started" button to the bottom */
+	flex: 1;
 `;
 
 const PlanOption = ({ name, items }) => (
 	<PlanBox>
-		{name}
+		<h1>{name}</h1>
 		<PlanFeatureList>
 			{items.map(item => (
 				<li>{item}</li>
@@ -92,28 +115,31 @@ const Banner = styled.div`
 	> div {
 		width: 100%;
 		text-align: center;
-
-		> h1 {
-			display: block;
-			margin-bottom: 40px;
-
-			font-size: 3em;
-			line-height: 1.2em;
-			font-weight: 700;
-			color: white;
-		}
 	}
+`;
+
+const PageTitle = styled.h1`
+	display: block;
+	margin-bottom: 40px;
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+
+	font-size: 3em;
+	line-height: 1.2em;
+	font-weight: 700;
+	color: white;
 `;
 
 function ForEmployers() {
 	return (
-		<PageWrapper>
+		<PageWrapper navIsAnimated>
 			<Banner>
 				<div>
-					<h1>
+					<PageTitle>
 						Recruit and retain the best workforce in Tijuna with
 						Vize
-					</h1>
+					</PageTitle>
 					<GetStarted />
 				</div>
 			</Banner>
