@@ -1,19 +1,5 @@
 version: "3"
 services:
-  web:
-    environment:
-      MONGO_URL: mongodb://mongo:27017/meteor
-      PGHOST: postgres
-      PGPORT: 5432
-      PGUSER: meteor
-      PGPASSWORD: "123456789"
-      PGDATABASE: meteor
-    depends_on:
-      - mongo
-      - postgres
-    deploy:
-      restart_policy:
-        condition: on-failure
   flyway:
     image: boxfuse/flyway:5.2.1
     command: -url=jdbc:postgresql://postgres:5432/meteor -user=meteor -password=123456789 -connectRetries=60 migrate
@@ -51,3 +37,7 @@ volumes:
   # delete all data) just delete these "*-data" volumes and rerun this stack.
   mongo-data:
   postgres-data:
+  # Meteor's dotfile where meteor is installed and caches its packages. Meteor
+  # downloads and creates a lot of files. We store this data in a volume so that
+  # is does not need to be redownloaded and duplicated any more than nessisary.
+  meteor-dotfile:
