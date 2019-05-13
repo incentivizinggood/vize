@@ -13,12 +13,11 @@ case $1 in
 	npm ci
 	echo "Generating code"
 	npm run gen
-	echo "Installing Meteor packages"
-	meteor lint
 	cd ..
 	;;
 "dev" | "")
 	echo 'Running in "dev" mode...'
+	echo 'Make sure to start the databases first.'
 
 	# Set environment variables for Meteor.
 	export MONGO_URL="mongodb://localhost:27017/meteor"
