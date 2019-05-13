@@ -5,6 +5,7 @@ import styled from "styled-components";
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import Banner from "/imports/ui/components/banner";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();
@@ -103,21 +104,6 @@ const PlansContainer = styled.div`
 	justify-content: center;
 `;
 
-const Banner = styled.div`
-	height: 700px;
-
-	background: url(/images/banner-img.jpg) no-repeat 0 0;
-	background-size: cover;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	> div {
-		width: 100%;
-		text-align: center;
-	}
-`;
-
 const PageTitle = styled.h1`
 	display: block;
 	margin-bottom: 40px;
@@ -135,13 +121,10 @@ function ForEmployers() {
 	return (
 		<PageWrapper navIsAnimated>
 			<Banner>
-				<div>
-					<PageTitle>
-						Recruit and retain the best workforce in Tijuna with
-						Vize
-					</PageTitle>
-					<GetStarted />
-				</div>
+				<PageTitle>
+					Recruit and retain the best workforce in Tijuna with Vize
+				</PageTitle>
+				<GetStarted />
 			</Banner>
 			<section>
 				<SectionTitle>The Problem</SectionTitle>
