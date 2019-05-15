@@ -198,9 +198,11 @@ span.headingoo {
 }
 
 .tab_str td span {
-	color: $picton-blue;
 	font-size: 16px;
-	margin-top: 12px;
+}
+
+.tab_str td label {
+	font-size: 14px;
 }
 
 .num_sett span {
@@ -253,12 +255,6 @@ path.CircularProgressbar-trail {
 	}
 }
 
-.tab_str + .col-md-6 {
-	> div {
-		width: 30% !important;
-	}
-}
-
 .tab_str {
 	padding-left: 0;
 	padding-right: 0;
@@ -273,10 +269,6 @@ path.CircularProgressbar-trail {
 				td {
 					&:last-child {
 						text-align: right;
-						label {
-							position: relative;
-							top: -3px;
-						}
 					}
 
 					label span {
