@@ -19,3 +19,50 @@ factories. Factory managers are given access premium quality information that
 would normally require expensive surveying and be abridged by fear. Bad
 factories get better and good factories get awesome. By working together and
 having an honest discussion everyone wins.
+
+---
+
+## Getting Started
+
+### Set Up Development Environment
+
+You will need to be running Linux, macOS, or a Linux VM. Do not use Windows.
+Windows requires paying extra for their Pro or Enterprise editions to be able to
+run Docker. Windows also has poor compatibility with many development tools.
+
+-   Yarn
+-   Meteor
+-   Docker (Community Edition)
+-   Docker Compose
+
+Install Yarn and Meteor by following the instructions on their websites.
+
+-   https://yarnpkg.com/en/docs/install
+-   https://www.meteor.com/install
+
+Docker's web site is so full of marketing BS that it is hard to find anything
+useful there. Plus they do stupid things like
+[this](https://github.com/docker/docker.github.io/issues/6910). Don't even
+bother trying to install it from their website.
+
+Docker and Docker Compose for Ubuntu can be installed with the commands:
+
+```bash
+sudo apt update
+sudo apt install docker-ce docker-compose
+```
+
+Docker Desktop for macOS can be downloaded
+[here](https://download.docker.com/mac/stable/Docker.dmg). This should include
+both Docker and Docker Compose.
+
+### Run the App in Development Mode
+
+1. `cd` into the project's root directory (The same directory as this readme
+   file).
+1. Run the command `./run.sh i` to install the projects dependencies and other
+   setup tasks.
+1. Run the command `./run.sh db` to start the database(s). This command should
+   not exit.
+1. In a new terminal, run the command `./run.sh` to start the app. Note: You
+   must have `./run.sh db` running for `./run.sh` to work properly.
