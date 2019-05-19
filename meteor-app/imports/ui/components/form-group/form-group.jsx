@@ -1,5 +1,5 @@
 import React from "react";
-import { Field } from "formik";
+import { Field, ErrorMessage } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import i18n from "meteor/universe:i18n";
@@ -24,6 +24,7 @@ const FormGroup = ({ name, type, icon }) => (
 				required
 			/>
 		</label>
+		<ErrorMessage name={name} />
 	</div>
 );
 
