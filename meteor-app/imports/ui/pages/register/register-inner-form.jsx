@@ -11,9 +11,9 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import IfFormik from "/imports/ui/components/if-formik.jsx";
+import FormGroup from "/imports/ui/components/form-group";
 
 import RoleInput from "./role-input.jsx";
-import FormGroup from "./form-group.jsx";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);

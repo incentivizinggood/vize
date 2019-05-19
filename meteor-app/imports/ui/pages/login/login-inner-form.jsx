@@ -5,8 +5,7 @@ import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-
-import FormGroup from "./form-group.jsx";
+import FormGroup from "/imports/ui/components/form-group";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
