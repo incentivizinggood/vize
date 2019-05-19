@@ -18,7 +18,7 @@ import FormGroup from "./form-group.jsx";
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function InnerForm({ errors, isSubmitting }) {
+function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
 			<h3 className="top-head-employer" align="center">
@@ -52,7 +52,6 @@ function InnerForm({ errors, isSubmitting }) {
 						<button
 							form="register-form"
 							type="submit"
-							disabled={isSubmitting}
 							className="btn-primary button"
 						>
 							<T>createAccount</T>
@@ -60,7 +59,6 @@ function InnerForm({ errors, isSubmitting }) {
 					</div>
 				</div>
 			</IfFormik>
-			<div>{JSON.stringify(errors)}</div>
 		</Form>
 	);
 }
