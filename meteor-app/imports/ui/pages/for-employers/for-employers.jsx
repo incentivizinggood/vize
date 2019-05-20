@@ -150,6 +150,7 @@ function ForEmployers() {
 						We help you recruit the best employies with affordable
 						and effective job posts.
 					</P>
+					<img src="/images/example-job-post-square.png" />
 				</section>
 				<section>
 					<SubsectionTitle>Retainment</SubsectionTitle>
@@ -158,6 +159,7 @@ function ForEmployers() {
 						these employees using data directly from workers all
 						across Tijuna.
 					</P>
+					<img src="/images/analytics-dashboard.png" />
 				</section>
 			</section>
 			<section>
