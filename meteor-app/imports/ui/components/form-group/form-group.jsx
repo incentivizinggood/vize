@@ -8,20 +8,13 @@ const t = i18n.createTranslator("common.loginRegister");
 
 const FormGroup = ({ name, type, icon }) => (
 	<div className="form-group">
-		<label
-			htmlFor={name}
-			className="icon-addon addon-md"
-			rel="tooltip"
-			title={name}
-		>
+		<label className="icon-addon addon-md" title={name}>
 			<FontAwesomeIcon icon={icon} className="fa" />
 			<Field
 				type={type}
 				placeholder={t(name)}
 				className="form-control"
 				name={name}
-				id={name}
-				required
 			/>
 		</label>
 		<ErrorMessage name={name} />
