@@ -46,6 +46,7 @@ const SectionTitle = styled.h1`
 `;
 const SubsectionTitle = styled.h2`
 	color: ${vizeBlue};
+	text-align: center;
 `;
 
 const Button = styled.a`
@@ -87,9 +88,13 @@ const PlanFeatureList = styled.ul`
 	flex: 1;
 `;
 
+const PlanName = styled.h1`
+	font-weight: bold;
+`;
+
 const PlanOption = ({ name, items }) => (
 	<PlanBox>
-		<h1>{name}</h1>
+		<PlanName>{name}</PlanName>
 		<PlanFeatureList>
 			{items.map(item => (
 				<li>{item}</li>
@@ -115,6 +120,23 @@ const PageTitle = styled.h1`
 	line-height: 1.2em;
 	font-weight: 700;
 	color: white;
+`;
+
+const Recruiting = styled.section`
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	justify-content: center;
+	> div {
+		max-width: 40em;
+	}
+`;
+
+const Retainment = styled.section`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `;
 
 function ForEmployers() {
@@ -144,23 +166,27 @@ function ForEmployers() {
 			</section>
 			<section>
 				<SectionTitle>The Solution</SectionTitle>
-				<section>
-					<SubsectionTitle>Recruiting</SubsectionTitle>
-					<P>
-						We help you recruit the best employies with affordable
-						and effective job posts.
-					</P>
+				<Recruiting>
+					<div>
+						<SubsectionTitle>Recruiting</SubsectionTitle>
+						<P>
+							We help you recruit the best employies with
+							affordable and effective job posts.
+						</P>
+					</div>
 					<img src="/images/example-job-post-square.png" />
-				</section>
-				<section>
-					<SubsectionTitle>Retainment</SubsectionTitle>
-					<P>
-						We then give you actionable insites on how to retain
-						these employees using data directly from workers all
-						across Tijuna.
-					</P>
+				</Recruiting>
+				<Retainment>
+					<div>
+						<SubsectionTitle>Retainment</SubsectionTitle>
+						<P>
+							We then give you actionable insites on how to retain
+							these employees using data directly from workers all
+							across Tijuna.
+						</P>
+					</div>
 					<img src="/images/analytics-dashboard.png" />
-				</section>
+				</Retainment>
 			</section>
 			<section>
 				<SectionTitle>Pricing</SectionTitle>
