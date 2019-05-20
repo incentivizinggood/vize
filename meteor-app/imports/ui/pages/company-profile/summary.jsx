@@ -21,7 +21,7 @@ export default class CompanyProfileSummary extends React.Component {
 
 	render() {
 		return (
-			<div className="full-width-container welpadgo wel_profile no-padding--bottom">
+			<div className="full-width-container no-padding--bottom">
 				<div className="container welpad12 box_shadow">
 					<div className="col-md-2 prostar">
 						<img
