@@ -1,5 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faMapMarker,
+	faMoneyBillAlt,
+	faCalendar,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -37,20 +42,20 @@ export default function JobsSection(props) {
 						</Link>
 					</div>
 					<p>
-						<FontAwesomeIcon icon="map-marker" />
+						<FontAwesomeIcon icon={faMapMarker} />
 						&nbsp;&nbsp;&nbsp;
 						{processLocation(
 							JSON.stringify(props.jobAds[0].locations[0])
 						)}
 					</p>
 					<p>
-						<FontAwesomeIcon icon="money-bill-alt" />
+						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
 						{props.jobAds[0].pesosPerHour}
 						<T>common.overview_tab.hour</T>
 					</p>
 					<p>
-						<FontAwesomeIcon icon="calendar" />
+						<FontAwesomeIcon icon={faCalendar} />
 						&nbsp;&nbsp;
 						{props.jobAds[0].contractType}
 					</p>

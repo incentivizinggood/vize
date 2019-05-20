@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -48,7 +49,7 @@ export default class ReviewTab extends React.Component {
 								className="btn btn-primary"
 							>
 								{" "}
-								<FontAwesomeIcon icon="plus" />{" "}
+								<FontAwesomeIcon icon={faPlus} />{" "}
 								{i18n.__("common.overview_tab.add_review")}
 							</Link>
 							{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}

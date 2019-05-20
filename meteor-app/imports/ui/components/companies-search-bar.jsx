@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -57,7 +58,7 @@ class CompaniesSearchBar extends React.Component {
 						onChange={this.handleInputChange}
 					/>
 					<button type="submit" className="search-icon">
-						<FontAwesomeIcon icon="search" />
+						<FontAwesomeIcon icon={faSearch} />
 					</button>
 				</div>
 			</form>
