@@ -24,6 +24,16 @@
 		}
 	}
 
+	.search-bar-style {
+		width: 90% !important;
+	}
+	.companies-search-input {
+		width: 80%;
+	}
+	.search-icon {
+		width: 20%;
+	}
+
 	.add-buttons {
 		float: none;
 		position: relative;
@@ -43,14 +53,6 @@
 	.tab-pane {
 		& > div {
 			padding: 15px;
-		}
-	}
-
-	.navbarwhite.grey {
-		.welpad12.box_shadow {
-			.titlestar {
-				text-align: left;
-			}
 		}
 	}
 
@@ -206,7 +208,7 @@
 		}
 	}
 
-	.panel-hm {
+	.panel-card {
 		width: 95%;
 		margin-bottom: 10px !important;
 		margin-left: 0px !important;
@@ -220,15 +222,6 @@
 
 	.great-job-hm {
 		margin-top: 30px !important;
-	}
-
-	.companies-btn {
-		margin-top: 25px !important;
-		margin-bottom: 40px !important;
-	}
-
-	a.button.out-bodr-get {
-		font-size: 15px !important;
 	}
 
 	.navbar-header.logo {

@@ -1,5 +1,4 @@
-import find from "lodash.find";
-import merge from "lodash.merge";
+import { find, merge } from "lodash";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 import SimpleSchema from "simpl-schema";
