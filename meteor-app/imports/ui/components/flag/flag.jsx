@@ -1,12 +1,41 @@
 import React from "react";
+import styled from "styled-components";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
-import style from "./flag.scss";
-
 const t = i18n.createTranslator("common.flags");
 const T = i18n.createComponent();
+
+const FlagTitle = styled.h2`
+	color: #439bd5;
+	font-weight: 500;
+	margin: 3px;
+`;
+
+const LinePadding = styled.hr`
+	margin-top: 1px;
+	color: blue;
+`;
+
+const Reason = styled.div`
+	margin-top: -10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: red;
+`;
+
+const TextArea = styled.div`
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 8px;
+`;
+
+const ButtonSlide = styled.div`
+	float: right;
+	margin-right: 5px;
+	margin-top: 7px;
+`;
 
 function FlagSystem(props) {
 	const [explanation, setExplanation] = React.useState("");
@@ -48,12 +77,12 @@ function FlagSystem(props) {
 	return (
 		<div className="system flag">
 			<form onSubmit={handleSubmit} id="submitForm">
-				<h2 className={style.flagTitle}>
+				<FlagTitle>
 					{" "}
 					<T>common.flags.report_review</T>{" "}
-				</h2>
-				<hr className={style.linePadding} />
-				<div className={style.reason}>
+				</FlagTitle>
+				<LinePadding />
+				<Reason>
 					<select
 						id="selectClear"
 						className="form-control"
@@ -69,8 +98,8 @@ function FlagSystem(props) {
 						<option value="False Information">{t("false")}</option>
 						<option value="Other">{t("other")}</option>
 					</select>
-				</div>
-				<div className={style.textArea}>
+				</Reason>
+				<TextArea>
 					<textarea
 						id="textAreaClear"
 						rows="2"
@@ -80,9 +109,9 @@ function FlagSystem(props) {
 						value={explanation}
 						onChange={handleExplanationChange}
 					/>
-				</div>
+				</TextArea>
 			</form>
-			<div className={style.buttonSlide}>
+			<ButtonSlide>
 				<button
 					type="submit"
 					className="btn btn-primary"
@@ -92,8 +121,9 @@ function FlagSystem(props) {
 					{" "}
 					{t("submit")}
 				</button>
-			</div>
+			</ButtonSlide>
 		</div>
 	);
 }
+
 export default FlagSystem;
