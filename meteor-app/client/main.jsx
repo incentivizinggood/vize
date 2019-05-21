@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "mdbreact/dist/css/mdb.css";
 
 import { Meteor } from "meteor/meteor";
 
