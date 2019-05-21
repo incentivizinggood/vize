@@ -17,6 +17,7 @@ const P = styled.p`
 	color: ${vizeBlue};
 	text-align: center;
 	font-size: 18pt;
+	font-weight: bolder;
 `;
 
 const Bold = styled.span`
@@ -29,6 +30,7 @@ const ProblemPoint = styled.p`
 	border: 4px solid ${vizePaleBlue};
 	text-align: center;
 	font-size: x-large;
+	font-weight: bolder;
 
 	max-width: 700px;
 	padding: 80px 100px;
@@ -43,10 +45,15 @@ const ProblemPoint = styled.p`
 const SectionTitle = styled.h1`
 	color: ${vizeBlue};
 	margin-top: 100px;
+	margin-bottom: 80px;
+	margin-left: 0.5em;
+	font-weight: bold;
 `;
+
 const SubsectionTitle = styled.h2`
 	color: ${vizeBlue};
 	text-align: center;
+	font-weight: bold;
 `;
 
 const Button = styled.a`
@@ -72,6 +79,7 @@ const PlanBox = styled.div`
 	width: 30rem;
 	padding: calc(5rem - 20px) 5rem;
 	text-align: center;
+	font-weight: bolder;
 
 	display: flex;
 	flex-direction: column;
@@ -107,6 +115,7 @@ const PlanOption = ({ name, items }) => (
 const PlansContainer = styled.div`
 	display: flex;
 	justify-content: center;
+	margin-bottom: 150px;
 `;
 
 const PageTitle = styled.h1`
@@ -137,6 +146,17 @@ const Retainment = styled.section`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-top: 80px;
+	> div {
+		margin-bottom: 24px;
+		max-width: 879px;
+	}
+`;
+
+const Foo = styled(P)`
+	max-width: 620px;
+	margin-left: auto;
+	margin-right: auto;
 `;
 
 function ForEmployers() {
@@ -190,11 +210,11 @@ function ForEmployers() {
 			</section>
 			<section>
 				<SectionTitle>Pricing</SectionTitle>
-				<P>
+				<Foo>
 					The first 10 customers get full <Bold>premium access</Bold>{" "}
 					to our services <Bold>95% off</Bold> for{" "}
 					<Bold>$15/month</Bold> for 90 days.
-				</P>
+				</Foo>
 				<PlansContainer>
 					<PlanOption
 						name="Buisness"
