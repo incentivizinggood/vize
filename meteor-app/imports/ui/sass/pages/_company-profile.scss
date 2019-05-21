@@ -7,6 +7,15 @@
 	padding: 8em 0;
 }
 
+#container {
+	overflow: hidden;
+	text-align: center;
+}
+
+.child {
+	float: left;
+}
+
 .welpad12 {
 	background-color: $white;
 
@@ -21,7 +30,7 @@
 }
 
 .star_border {
-	width: 80%;
+	width: 100%;
 	padding-top: 11px;
 	background-color: $concrete;
 	padding-bottom: 9px;
@@ -189,9 +198,11 @@ span.headingoo {
 }
 
 .tab_str td span {
-	color: $picton-blue;
 	font-size: 16px;
-	margin-top: 12px;
+}
+
+.tab_str td label {
+	font-size: 14px;
 }
 
 .num_sett span {
@@ -244,22 +255,12 @@ path.CircularProgressbar-trail {
 	}
 }
 
-.tab_str + .col-md-6 {
-	> div {
-		width: 30% !important;
-	}
-}
-
 .tab_str {
 	padding-left: 0;
-	padding-right: 100px;
-	border-right: 1px solid #f5f5f5;
+	padding-right: 0;
 
 	table {
 		width: 100%;
-		border-bottom: 1px solid $picton-blue;
-		border-left: 1px solid $picton-blue;
-		border-right: 1px solid $picton-blue;
 		border-collapse: separate;
 		padding: 10px 15px;
 
@@ -268,10 +269,6 @@ path.CircularProgressbar-trail {
 				td {
 					&:last-child {
 						text-align: right;
-						label {
-							position: relative;
-							top: -3px;
-						}
 					}
 
 					label span {
@@ -563,7 +560,7 @@ path.CircularProgressbar-trail {
 }
 
 article p {
-	margin-bottom: 0.5em;
+	margin-bottom: 0;
 }
 
 .h4-font-sz h4 {

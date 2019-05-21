@@ -50,12 +50,6 @@
 		padding: 0;
 	}
 
-	.tab-pane {
-		& > div {
-			padding: 15px;
-		}
-	}
-
 	.mar_lf_ri .na_tab {
 		.nav-tabs > li {
 			display: block;
@@ -63,16 +57,6 @@
 			a {
 				margin-right: 0;
 			}
-		}
-	}
-
-	.tab_str td span {
-		font-size: 13px;
-	}
-
-	.tab_str + .col-md-6 {
-		> div {
-			width: 60% !important;
 		}
 	}
 
