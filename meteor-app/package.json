@@ -7,18 +7,6 @@
     "type": "tsc -p ./tsconfig.json --noEmit",
     "gen": "gql-gen"
   },
-  "cssModules": {
-    "extensions": [
-      "css",
-      "mss",
-      "m.css",
-      "scss"
-    ],
-    "passthroughPaths": [
-      "^imports/ui/sass/.*\\.scss",
-      "^client/main\\.scss"
-    ]
-  },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.47",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
