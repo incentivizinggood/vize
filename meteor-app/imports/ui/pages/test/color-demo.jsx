@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import NoGlobalStyle from "/imports/ui/components/no-global-style";
+
 const Background = styled.div`
 	background-color: ${props => props.theme.background};
 	color: ${props => props.theme.onBackground};
@@ -72,6 +74,7 @@ const MainVariant = styled(Main)`
 export default function ColorDemo() {
 	return (
 		<Background>
+			<NoGlobalStyle />
 			<SwatchContainer>
 				<OnBackground name="background" />
 
