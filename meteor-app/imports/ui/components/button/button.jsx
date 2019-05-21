@@ -5,6 +5,8 @@ const vizeDarkerBlue = "#1d80d6";
 
 const Button = styled.a`
 	&&&&&&&&& {
+
+		/* Color the button to show it's status. */
 		${props => {
 			if (props.disabled) {
 				if (props.primary) {
@@ -41,6 +43,7 @@ const Button = styled.a`
 			`;
 		}}
 
+		/* Disabled buttons cannot be clicked */
 		${props =>
 			props.disabled &&
 			css`

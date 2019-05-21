@@ -5,6 +5,7 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 import Button from "/imports/ui/components/button";
 
 const TestGrid = styled.div`
+	padding-top: 67px;
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-template-rows: 200px 200px;
