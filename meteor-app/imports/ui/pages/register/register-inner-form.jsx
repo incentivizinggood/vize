@@ -18,13 +18,13 @@ import FormGroup from "./form-group.jsx";
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function InnerForm(props, { errors, isSubmitting }) {
+function InnerForm({ errors, isSubmitting }) {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
 			<h3 className="top-head-employer" align="center">
 				<T>register</T>
 			</h3>
-			<RoleInput showInput={props.showInput} />
+			<RoleInput />
 			<br />
 
 			<IfFormik
