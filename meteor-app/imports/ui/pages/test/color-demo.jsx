@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 import NoGlobalStyle from "/imports/ui/components/no-global-style";
 
@@ -9,7 +9,7 @@ const Background = styled.div`
 
 	padding: 80px;
 	padding-top: 10px;
-	min-height: 100vh;
+	min-height: calc(100vh - 90px);
 `;
 
 const SwatchContainer = styled.div`
@@ -71,10 +71,18 @@ const MainVariant = styled(Main)`
 	background-color: ${props => props.theme.mainVariant};
 `;
 
+const GlobalStyle = createGlobalStyle`
+	* {
+		margin: 0;
+		padding: 0;
+	}
+`;
+
 export default function ColorDemo() {
 	return (
 		<Background>
 			<NoGlobalStyle />
+			<GlobalStyle />
 			<SwatchContainer>
 				<OnBackground name="background" />
 
