@@ -23,7 +23,7 @@ function ShowJobComponent(props) {
 
 	return (
 		<div className="col-md-12 section_rview_back_color05 ">
-			<div className="sect_re11 ">
+			<div className="sect-padding ">
 				<div>
 					<h3>
 						<strong>{props.item.company.name}</strong>

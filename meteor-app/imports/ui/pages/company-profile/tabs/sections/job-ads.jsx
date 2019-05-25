@@ -77,7 +77,7 @@ export default function JobsSection(props) {
 		<div className="col-md-12  section_rview_back_color_job">
 			{" "}
 			{/* job link */}
-			<div className="sect_re1 ">
+			<div className="sect-padding ">
 				<h4 className="head_section_font">
 					{props.numJobAds} <T>common.overview_tab.jobs_available</T>
 				</h4>

@@ -33,7 +33,7 @@ export default class JobPosting extends React.Component {
 
 		return (
 			<div className="col-md-12 section_rview_back_color05 ">
-				<div className="sect_re11 ">
+				<div className="sect-padding ">
 					<div>
 						<h4>
 							<strong>{this.props.jobAd.jobTitle}</strong>

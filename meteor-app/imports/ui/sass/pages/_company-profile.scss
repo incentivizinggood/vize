@@ -176,9 +176,7 @@ span.headingoo {
 
 .add-buttons {
 	float: right;
-	position: absolute;
-	right: 12px;
-	top: 16px;
+	display: inline;
 
 	button {
 		padding-left: 19px;
@@ -573,18 +571,18 @@ h4.h4-font-sz-job {
 	color: #312f2f;
 }
 
-.sect_re11 {
-	padding-bottom: 12px;
+.sect-padding {
+	padding-bottom: 25px;
 	padding-top: 25px;
 	padding-left: 15px;
 }
 
-td.ali-lef {
-	text-align: center;
+.sect-padding td {
+	font-size: 16px !important;
 }
 
-.sec_p p {
-	color: $black;
+td.ali-lef {
+	text-align: center;
 }
 
 .p-c-a p {
@@ -636,11 +634,11 @@ p.mal-r {
 	margin-top: 9px;
 }
 
-h3.head_section_font_25 {
-	font-family: initial;
-	font-size: 28px;
-	font-weight: 600;
-	border-bottom: 1px solid $concrete;
+.head_section_font {
+	color: $black;
+	font-size: 21px;
+	font-weight: bold;
+	display: inline;
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
