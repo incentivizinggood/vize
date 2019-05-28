@@ -325,7 +325,7 @@ path.CircularProgressbar-trail {
 }
 
 .section_rview_back_color03,
-.section_rview_back_color2,
+.sect-tab-container,
 .section_rview_back_color_job,
 .section_rview_back_color08 {
 	overflow: auto;
@@ -572,9 +572,7 @@ h4.h4-font-sz-job {
 }
 
 .sect-padding {
-	padding-bottom: 25px;
-	padding-top: 25px;
-	padding-left: 15px;
+	padding: 15px;
 }
 
 .sect-padding td {
