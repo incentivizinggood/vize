@@ -251,7 +251,12 @@ function HomePage() {
 										<br />
 										<T>community</T>
 									</div>
-									<div className="frontLogo isas" />
+									<div className="frontLogo">
+										<img
+											className="img-responsive vertical-center"
+											src="images/community-icon.png"
+										/>
+									</div>
 									<div className="frontLocation">
 										<T>hear_text</T>
 									</div>
@@ -277,7 +282,12 @@ function HomePage() {
 										<T>get_fair_salary</T> <br />
 										<T>your_work</T>
 									</div>
-									<div className="frontLogo boisedigital" />
+									<div className="frontLogo">
+										<img
+											className="img-responsive vertical-center"
+											src="images/salary-icon.png"
+										/>
+									</div>
 									<div className="frontLocation">
 										<T>fairsalary_text</T>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
