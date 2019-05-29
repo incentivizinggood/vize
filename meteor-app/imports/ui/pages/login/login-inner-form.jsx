@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "formik";
-import { Link } from "react-router-dom";
+import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import i18n from "meteor/universe:i18n";
 
@@ -14,9 +14,9 @@ const T = i18n.createComponent(t);
 function InnerForm({ errors, isSubmitting }) {
 	return (
 		<Form>
-			<div className="login-fm">
-				<FormGroup name="username" type="text" icon="user" />
-				<FormGroup name="password" type="password" icon="lock" />
+			<div className="register-login-form">
+				<FormGroup name="username" type="text" icon={faUser} />
+				<FormGroup name="password" type="password" icon={faLock} />
 
 				<div className="form-group text-center" />
 
@@ -24,25 +24,10 @@ function InnerForm({ errors, isSubmitting }) {
 					<button
 						type="submit"
 						disabled={isSubmitting}
-						className="enterTriggers"
+						className="btn-primary button"
 					>
 						<T>login</T>
 					</button>
-				</div>
-
-				<div className="form-group">
-					<div className="row">
-						<div className="col-lg-12">
-							<div className="text-center reg">
-								<T>noAccount</T>
-								<Link to="/register">
-									{" "}
-									<T>register</T>
-								</Link>
-							</div>
-							<br />
-						</div>
-					</div>
 				</div>
 			</div>
 			<div>{JSON.stringify(errors)}</div>

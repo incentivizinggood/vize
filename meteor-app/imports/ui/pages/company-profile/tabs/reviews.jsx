@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -28,35 +29,37 @@ export default class ReviewTab extends React.Component {
 			<CompanyReview
 				key={review.id}
 				review={review}
-				refetch={this.props.refetch}
+				companyName={this.props.company.name}
 			/>
 		));
 
 		return (
 			<div role="tabpanel" className="tab-pane" id="reviews">
-				<div className="row">
-					<div className="col-md-12  section_rview_back_color2  ">
-						<h4 className="head_section_font">
-							{this.props.company.name}{" "}
-							<T>common.review_tab.reviews</T>
-						</h4>
-						<div className="add-buttons">
-							<Link
-								to={urlGenerators.vizeReviewUrl(
-									this.props.company.id
-								)}
-								className="btn btn-primary"
-							>
-								{" "}
-								<FontAwesomeIcon icon="plus" />{" "}
-								{i18n.__("common.overview_tab.add_review")}
-							</Link>
-							{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
+				<div className="sect-tab-container">
+					<div className="container-fluid">
+						<div className="row">
+							<h4 className="head_section_font">
+								{this.props.company.name}{" "}
+								<T>common.review_tab.reviews</T>
+							</h4>
+							<div className="add-buttons">
+								<Link
+									to={urlGenerators.vizeReviewUrl(
+										this.props.company.id
+									)}
+									className="btn btn-primary"
+								>
+									{" "}
+									<FontAwesomeIcon icon={faPlus} />{" "}
+									{i18n.__("common.overview_tab.add_review")}
+								</Link>
+								{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
+							</div>
 						</div>
-						<hr />
-
-						<CompanyRating company={this.props.company} />
 					</div>
+					<hr />
+
+					<CompanyRating company={this.props.company} />
 				</div>
 
 				{renderItems}

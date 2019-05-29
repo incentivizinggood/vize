@@ -2,7 +2,6 @@ $base-height: 377px;
 $base-dimension: 16px;
 $base-border-radius: 12px;
 $base-button-size: 52px;
-$primary-color: #0360a5;
 $accent-color: #f6f7f9;
 $background-color: #fff;
 $font-color: #888;
@@ -20,7 +19,7 @@ $font-color: #888;
 	width: 100%;
 	padding: $base-dimension;
 	color: $background-color;
-	background-color: $primary-color;
+	background-color: $vize-blue;
 	align-items: center;
 	justify-content: space-around;
 }
@@ -51,7 +50,7 @@ $font-color: #888;
 	width: $base-button-size;
 	height: $base-button-size;
 	color: $background-color;
-	background-color: $primary-color;
+	background-color: $vize-blue;
 	background-position: center center;
 	background-repeat: no-repeat;
 	box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
@@ -107,7 +106,7 @@ $font-color: #888;
 	color: #2580db;
 }
 
-.employer-fm {
+.register-login-form {
 	.form-control {
 		display: block;
 		width: 100%;
@@ -134,19 +133,6 @@ $font-color: #888;
 	}
 }
 
-a.button.out-bodr-get1 {
-	background-color: #439bd5;
-	color: $white;
-	font-size: 33px;
-	font-family: initial;
-	border: 1px solid #87bcdf !important;
-	margin-top: 42px;
-
-	&:hover {
-		background-color: #7bb3d6;
-	}
-}
-
 .employer-btn-get {
 	margin-top: 50px;
 	color: #222;
@@ -161,7 +147,7 @@ a.worker-btn {
 	text-decoration: none;
 }
 
-.employer-fm .input-group .form-control {
+.register-login-form .input-group .form-control {
 	position: relative;
 	z-index: 2;
 	float: left;
@@ -174,7 +160,7 @@ a.worker-btn {
 	box-shadow: none;
 }
 
-.employer-fm .input-group-addon:first-child {
+.register-login-form .input-group-addon:first-child {
 	border-right: 0;
 	border: none;
 	border-bottom: 1px solid #bdb9b9;
@@ -194,12 +180,10 @@ a.worker-btn {
 }
 
 .top-head-employer {
-	font-family: initial;
 	font-size: 32px;
 }
 
 .top-head-worker {
-	font-family: initial;
 	font-size: 32px;
 }
 
@@ -268,10 +252,6 @@ a.worker-btn {
 	font-size: 15px;
 }
 
-a.button.out-bodr-login:hover {
-	background-color: #48acef;
-}
-
 .login-fm {
 	.input-group {
 		&-addon:first-child {
@@ -308,18 +288,6 @@ a.button.out-bodr-login:hover {
 			}
 		}
 	}
-}
-
-a.button.out-bodr-login {
-	background-color: #439bd5;
-	color: $white;
-	font-size: 33px;
-	border: 1px solid #87bcdf !important;
-	margin-bottom: 15px;
-	padding-left: 2em;
-	padding-right: 2em;
-	font-family: initial;
-	margin-top: 55px;
 }
 
 button {

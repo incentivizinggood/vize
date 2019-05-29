@@ -4,7 +4,6 @@ import "mdbreact/dist/css/mdb.css";
 
 import { Meteor } from "meteor/meteor";
 
-import "/imports/ui/startup/font-awesome.js";
 import client from "/imports/ui/startup/graphql.js";
 import initHotjar from "/imports/ui/startup/hotjar.js";
 import "/imports/ui/startup/i18n.js";

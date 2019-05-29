@@ -8,7 +8,7 @@ export default function ContactTab() {
 	return (
 		<div role="tabpanel" className="tab-pane" id="contact">
 			<div className="col-md-12  section_rview_back_color ">
-				<div className="sect_re1 ">
+				<div className="sect-padding ">
 					<h4 className="head_section_font">
 						<T>common.companyprofile.contact</T>
 					</h4>

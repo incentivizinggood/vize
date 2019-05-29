@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -13,7 +14,51 @@ const T = i18n.createComponent(t);
 
 function HomePage() {
 	return (
-		<PageWrapper navIsAnimated>
+		<PageWrapper>
+			<div
+				className="full-width-container background-primary"
+				style={{ paddingBottom: "4em" }}
+			>
+				<div className="container">
+					<div className="row add-flex-row">
+						<div className="col-md-2 add-flex-col center-element">
+							<img
+								className="img-responsive vertical-center"
+								src="images/moneyIcon.png"
+								alt="Reward"
+							/>
+							<br />
+						</div>
+						<div className="col-md-6">
+							<div>
+								<div>
+									<p
+										className="white-text-center"
+										style={{ fontSize: 32 }}
+									>
+										<T>rewardText</T>
+									</p>
+								</div>
+								<div>
+									<center>
+										<Link
+											to="/write-review"
+											className="button white-button"
+											style={{ fontSize: 18 }}
+										>
+											<FontAwesomeIcon icon={faPlus} />
+											&nbsp;
+											{t("add_review_button")}
+										</Link>
+									</center>
+								</div>
+							</div>
+						</div>
+						<div className="col-md-2" />
+					</div>
+					<div className="clearfix" />
+				</div>
+			</div>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">
@@ -24,8 +69,8 @@ function HomePage() {
 										<h1>
 											<T>mainBanner</T>
 										</h1>
-										<CompaniesSearchBar />
 									</div>
+									<CompaniesSearchBar />
 								</li>
 							</ul>
 						</div>
@@ -55,11 +100,11 @@ function HomePage() {
 								<T>findjob_text</T>
 							</h4>
 						</div>
-						<div className="titlestar">
+						<div>
 							<center>
 								<Link
 									to="/jobs"
-									className="button out-butt-dark"
+									className="button black-border-button"
 								>
 									<T>jobsButton</T>
 								</Link>
@@ -72,7 +117,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container  mobile-view-box">
+				<div className="container mobile-view">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -84,11 +129,11 @@ function HomePage() {
 								<T>findjob_text</T>
 							</h4>
 						</div>
-						<div className="titlestar">
+						<div>
 							<center>
 								<Link
 									to="/jobs"
-									className="button out-butt-dark"
+									className="button black-border-button"
 								>
 									<T>jobsButton</T>
 								</Link>
@@ -116,24 +161,24 @@ function HomePage() {
 			</div>
 
 			<div className="full-width-container background-primary">
-				<div className="container blu-section-desc">
+				<div className="container desktop-view">
 					<div className="col-md-5">
-						<div className="great-emp-hm">
-							<h1>
+						<div>
+							<h1 className="white-text-center">
 								<T>findemp_part1</T> <br />
 								<T>findemp_part2</T>{" "}
 							</h1>
 						</div>
-						<div className="great-discover-emp">
-							<h4>
+						<div>
+							<h4 className="white-text-center">
 								<T>findemp_text</T>
 							</h4>
 						</div>
-						<div className="companies-btn">
+						<div>
 							<center>
 								<Link
 									to="/companies"
-									className="button out-bodr"
+									className="button white-button"
 								>
 									<T>companiesButton</T>
 								</Link>
@@ -154,24 +199,24 @@ function HomePage() {
 
 				{/* ===mobile view blue section==== */}
 
-				<div className="container blu-mobile-sect">
+				<div className="container mobile-view">
 					<div className="col-md-5">
-						<div className="great-emp-hm">
-							<h1>
+						<div>
+							<h1 className="white-text-center">
 								<T>findemp_part1</T> <br />
 								<T>findemp_part2</T>{" "}
 							</h1>
 						</div>
-						<div className="great-discover-emp">
-							<h4>
+						<div>
+							<h4 className="white-text-center">
 								<T>findemp_text</T>
 							</h4>
 						</div>
-						<div className="companies-btn">
+						<div>
 							<center>
 								<Link
 									to="/companies"
-									className="button out-bodr"
+									className="button white-button"
 								>
 									<T>companiesButton</T>
 								</Link>
@@ -180,7 +225,7 @@ function HomePage() {
 					</div>
 					<br />
 					<br />
-					<div className="col-md-7 ">
+					<div className="col-md-7">
 						<div>
 							<center>
 								{" "}
@@ -197,27 +242,33 @@ function HomePage() {
 			</div>
 
 			<div className="full-width-container background-offwhite">
-				<div className="container">
+				<div className="row">
 					<div className="col-md-12">
 						<center>
-							<div className="hover panel-hm">
+							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
 										<T>hear</T>
 										<br />
 										<T>community</T>
 									</div>
-									<div className="frontLogo isas" />
+									<div className="frontLogo">
+										<img
+											className="img-responsive vertical-center"
+											src="images/community-icon.png"
+										/>
+									</div>
 									<div className="frontLocation">
 										<T>hear_text</T>
 									</div>
 									<br />
-									<div className="fl-ri-re">
+									<div>
 										<Link
 											to="/write-review"
-											className="btn btn-primary"
+											className="button vize-blue-button"
+											style={{ fontSize: 16.5 }}
 										>
-											<FontAwesomeIcon icon="plus" />
+											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("add_review_button")}
 										</Link>
@@ -226,24 +277,30 @@ function HomePage() {
 								</div>
 							</div>
 
-							<div className="hover panel-hm">
+							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
 										<T>get_fair_salary</T> <br />
 										<T>your_work</T>
 									</div>
-									<div className="frontLogo boisedigital" />
+									<div className="frontLogo">
+										<img
+											className="img-responsive vertical-center"
+											src="images/salary-icon.png"
+										/>
+									</div>
 									<div className="frontLocation">
 										<T>fairsalary_text</T>
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
-									<div className="fl-ri-re">
+									<div>
 										<Link
 											to="/submit-salary-data"
-											className="btn btn-primary"
+											className="button vize-blue-button"
+											style={{ fontSize: 16.5 }}
 										>
-											<FontAwesomeIcon icon="plus" />
+											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("salary_button")}
 										</Link>
@@ -266,18 +323,19 @@ function HomePage() {
 						<div className="col-md-8">
 							<center>
 								{" "}
-								<h1 className="titlestar">
+								<h1>
 									<T>discover_employers</T>{" "}
 								</h1>
+								<br />
 							</center>
 						</div>
 						<div className="col-md-2">
-							<div className="titlestar">
+							<div>
 								<center>
 									{" "}
 									<Link
 										to="/register"
-										className="button out-butt-dark"
+										className="button black-border-button"
 									>
 										<T>signup_button</T>
 									</Link>

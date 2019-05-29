@@ -12,19 +12,6 @@ nav {
 	padding-bottom: 7px;
 	@include transition(all 0.5s);
 
-	.navbarwhite & {
-		background: $white;
-		box-shadow: 0 0 5px;
-		ul li a {
-			color: $black;
-			&:not(#register-button):hover,
-			&:not(#register-button):focus,
-			&:not(#register-button):active {
-				color: $black;
-			}
-		}
-	}
-
 	ul li {
 		margin: 0 0.5em;
 		a {
@@ -96,17 +83,17 @@ nav {
 	text-transform: uppercase;
 	margin-top: 9px;
 	border-radius: 3px;
-	background: $secondary-color;
+	background: $secondary-color-red;
 	&:hover,
 	&:active,
 	&:focus {
 		color: $white;
-		background: $secondary-color;
+		background: $secondary-color-red;
 	}
 }
 
 .btn-green {
-	background-color: $secondary-color;
+	background-color: $secondary-color-red;
 	color: $white;
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -143,7 +130,7 @@ nav {
 		color: #cbcbcb;
 		&:hover,
 		&:focus {
-			color: $primary-color;
+			color: $vize-blue;
 		}
 	}
 
@@ -190,7 +177,7 @@ nav {
 		margin-left: 0;
 	}
 	.btn-green {
-		background-color: $secondary-color;
+		background-color: $secondary-color-red;
 	}
 	nav.navScroll ul li a {
 		color: $white;
@@ -227,7 +214,7 @@ nav {
 		&:hover,
 		&:focus,
 		&:active {
-			background: $secondary-color;
+			background: $secondary-color-red;
 		}
 	}
 	a.navbar-link.margin-right {
@@ -256,7 +243,7 @@ nav {
 	}
 	.navbar-toggle {
 		display: block;
-		background-color: $primary-color;
+		background-color: $vize-blue;
 		border: 1px solid $white;
 		margin-top: 15px;
 	}
@@ -306,11 +293,11 @@ nav {
 		&:hover,
 		&:focus,
 		&:active {
-			background: $secondary-color;
+			background: $secondary-color-red;
 		}
 	}
 	.btn-green {
-		background-color: $secondary-color !important;
+		background-color: $secondary-color-red !important;
 	}
 	#register-button {
 		width: 100%;

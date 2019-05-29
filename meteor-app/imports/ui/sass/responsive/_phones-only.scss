@@ -24,34 +24,23 @@
 		}
 	}
 
+	.search-bar-style {
+		width: 90% !important;
+	}
+	.companies-search-input {
+		width: 80%;
+	}
+	.search-icon {
+		width: 20%;
+	}
+
 	.add-buttons {
-		float: none;
-		position: relative;
-		top: auto;
-		right: auto;
-		margin-top: 10px;
+		float: right;
+		display: inline;
 	}
 
 	.num_sett span {
 		text-align: center;
-	}
-
-	div[class^="sect_re"] {
-		padding: 0;
-	}
-
-	.tab-pane {
-		& > div {
-			padding: 15px;
-		}
-	}
-
-	.navbarwhite.grey {
-		.welpad12.box_shadow {
-			.titlestar {
-				text-align: left;
-			}
-		}
 	}
 
 	.mar_lf_ri .na_tab {
@@ -61,16 +50,6 @@
 			a {
 				margin-right: 0;
 			}
-		}
-	}
-
-	.tab_str td span {
-		font-size: 13px;
-	}
-
-	.tab_str + .col-md-6 {
-		> div {
-			width: 60% !important;
 		}
 	}
 
@@ -112,23 +91,6 @@
 		}
 	}
 
-	.section_rview_back_color03,
-	.section_rview_back_color2,
-	.section_rview_back_color_job,
-	.section_rview_back_color08 {
-		.head_section_font,
-		.add-buttons {
-			width: 50%;
-			float: left;
-			font-size: 16px;
-			margin: 15px 0;
-			line-height: 1.2;
-			& > a.btn.btn-primary {
-				float: right;
-			}
-		}
-	}
-
 	.ReactModalPortal {
 		.ReactModal__Content.ReactModal__Content--after-open {
 			height: 250px;
@@ -136,14 +98,6 @@
 				padding-top: 20px;
 			}
 		}
-	}
-
-	.fom-job {
-		padding-bottom: 9px;
-		margin-top: 0px;
-		margin-bottom: 19px;
-		padding-top: 117px;
-		width: 95%;
 	}
 
 	.forEmployees-header {
@@ -214,7 +168,7 @@
 		}
 	}
 
-	.panel-hm {
+	.panel-card {
 		width: 95%;
 		margin-bottom: 10px !important;
 		margin-left: 0px !important;
@@ -228,15 +182,6 @@
 
 	.great-job-hm {
 		margin-top: 30px !important;
-	}
-
-	.companies-btn {
-		margin-top: 25px !important;
-		margin-bottom: 40px !important;
-	}
-
-	a.button.out-bodr-get {
-		font-size: 15px !important;
 	}
 
 	.navbar-header.logo {
@@ -315,11 +260,6 @@
 		box-shadow: 1px 1px 10px 1px;
 	}
 
-	.container.fom-job {
-		padding-left: 3em !important;
-		padding-right: 3em !important;
-	}
-
 	.submit_div {
 		margin-top: 2em !important;
 		float: none !important;
@@ -362,6 +302,19 @@
 
 		li:hover {
 			background: #132437;
+		}
+	}
+	.container.form-page {
+		padding-bottom: 9px;
+		margin-top: 0px;
+		margin-bottom: 19px;
+		padding-top: 117px;
+		width: 100%;
+		padding-left: 1.2em;
+		padding-right: 1.2em;
+
+		.form-container {
+			width: 100%;
 		}
 	}
 }

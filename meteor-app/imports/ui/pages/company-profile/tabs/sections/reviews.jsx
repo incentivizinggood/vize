@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -28,7 +29,7 @@ export default class ReviewsSection extends React.Component {
 			reviewsToDisplay = (
 				<CompanyReview
 					review={this.props.company.reviews[0]}
-					refetch={this.props.refetch}
+					companyName={this.props.company.name}
 				/>
 			);
 		} else {
@@ -52,7 +53,7 @@ export default class ReviewsSection extends React.Component {
 							className="btn btn-primary"
 						>
 							{" "}
-							<FontAwesomeIcon icon="plus" />{" "}
+							<FontAwesomeIcon icon={faPlus} />{" "}
 							{i18n.__("common.overview_tab.add_review")}
 						</Link>
 					</div>

@@ -58,7 +58,8 @@ ul.dropdown-menu.pf {
 		a {
 			&:hover {
 				background-color: #439bd5;
-				color: #ffffff !important;
+				color: #439bd5 !important;
+				font-weight: bold;
 			}
 		}
 	}
@@ -66,4 +67,5 @@ ul.dropdown-menu.pf {
 
 #app-root > div {
 	padding-top: 1px;
+	overflow: hidden;
 }

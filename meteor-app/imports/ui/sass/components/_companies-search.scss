@@ -17,13 +17,14 @@
 	font-weight: 800;
 	font-size: calc(80% + 1.3vw);
 	height: 100%;
+	color: black;
 }
 .search-icon {
 	background: #439bd5;
 	border: 2px solid #439bd5;
 	width: 15%;
 	color: #fff;
-	font-size: calc(70% + 1.5vw);
+	font-size: calc(90% + 1.3vw);
 	height: 100%;
 }
 
@@ -33,4 +34,23 @@
 
 .search-bar-style {
 	height: 100%;
+	margin: 0 auto;
+	width: 70%;
+}
+.centeredPag {
+	margin: auto;
+	width: 50%;
+	border: 30px;
+	border-color: blue;
+	border-width: thick;
+	left: 50%;
+	top: 50%;
+}
+.pagination {
+	margin: auto;
+	width: 100%;
+	border: 30px;
+	padding: 0 30%;
+	margin-bottom: 10px;
+	font-size: 15px;
 }

@@ -2,6 +2,9 @@ import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
 import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
+
+import * as dataModel from "/imports/api/models";
+
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
@@ -13,7 +16,6 @@ import PgCompanyFunctions from "../models/helpers/postgresql/companies.ts";
 import PgReviewFunctions from "../models/helpers/postgresql/reviews.ts";
 import PgJobAdFunctions from "../models/helpers/postgresql/jobads.ts";
 import PgSalaryFunctions from "../models/helpers/postgresql/salaries.ts";
-import PgVoteFunctions from "../models/helpers/postgresql/votes.ts";
 // import PgCommentFunctions from "../models/helpers/postgresql/comments.js"; // we don't have comments yet
 import PgUserFunctions from "../models/helpers/postgresql/users.ts";
 
@@ -24,19 +26,9 @@ Meteor.methods({
 		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
 	},
 
-	sendEmail(to, from, subject, text) {
-		if (Meteor.isDevelopment)
-			console.log("SERVER sendEmail: checking arguments");
-		check([to, from, subject, text], [String]);
-		const realEmail = { to, from, subject, text };
-		if (Meteor.isDevelopment) {
-			console.log("SERVER sendEmail: before send, here is the email:");
-			console.log(realEmail);
-		}
-		this.unblock();
-		Email.send(realEmail);
-		if (Meteor.isDevelopment) console.log("SERVER sendEmail: after send");
-		return "we made it";
+	flagAReview(reviewId, reason, explanation) {
+		// gets the data from the frontend and sends an email.
+		dataModel.flagAReview(reviewId, this.userId, reason, explanation);
 	},
 
 	hasFiveWords(inputString) {
@@ -134,93 +126,6 @@ Meteor.methods({
 				the company is verified or unverified, how do I handle
 				that?
 		*/
-	},
-
-	/*
-		TODO
-		We don't yet have the ability to vote on comments.
-		I guess that's because we don't have the ability to
-		write or view comments yet...oh well...
-	*/
-	async "reviews.changeVote"(reviewId, vote) {
-		console.log(
-			`SERVER: User ${this.userId} voted ${vote} on review ${reviewId}`
-		);
-
-		// validate vote: must be boolean
-		if (typeof vote !== "boolean") {
-			if (Meteor.isDevelopment)
-				console.log("SERVER: vote is not boolean");
-			throw new Meteor.Error("invalidArguments", "vote2ndArg");
-		}
-
-		const review = PgReviewFunctions.processReviewResults(
-			await PostgreSQL.executeQuery(
-				PgReviewFunctions.getReviewById,
-				reviewId
-			)
-		);
-
-		if (review === undefined) {
-			if (Meteor.isDevelopment)
-				console.log("SERVER: review does not exist");
-			throw new Meteor.Error("invalidArguments", "voteOnNullReview");
-		}
-
-		// validate review: must match ReviewSchema
-		const validationResult = ReviewSchema.namedContext().validate(review, {
-			extendedCustomContext: {
-				isNotASubmission: true,
-			},
-		});
-		const errors = ReviewSchema.namedContext().validationErrors();
-
-		if (!validationResult) {
-			if (Meteor.isDevelopment) console.log("SERVER: review is invalid");
-			if (Meteor.isDevelopment) console.log(errors);
-			throw new Meteor.Error("invalidArguments", "vote1stArg", errors);
-		}
-
-		// must be logged in
-		if (!this.userId) {
-			if (Meteor.isDevelopment)
-				console.log("SERVER: user is not logged in");
-			throw new Meteor.Error("loggedOut", "loggedOut");
-		}
-
-		const user = Meteor.users.findOne(this.userId);
-
-		// only workers
-		if (user.role === "company" || user.role === "company-unverified") {
-			if (Meteor.isDevelopment) console.log("SERVER: user is a company");
-			throw new Meteor.Error("rolePermission", "onlyWorkers");
-		}
-
-		const pgUser = await PostgreSQL.executeQuery(
-			PgUserFunctions.getUserById,
-			this.userId
-		);
-
-		// can't vote on own review
-		if (pgUser.user.userid === review.submittedBy) {
-			if (Meteor.isDevelopment)
-				console.log("SERVER: user is voting on own review");
-			throw new Meteor.Error("noCheating", "noCheating");
-		}
-
-		const newVote = {
-			voteSubject: "review",
-			references: review._id,
-			submittedBy: pgUser.user.userid,
-			value: vote,
-		};
-
-		const pgVoteResult = await PostgreSQL.executeMutation(
-			PgVoteFunctions.castVote,
-			newVote
-		);
-
-		return pgVoteResult;
 	},
 
 	async "salaries.checkForSecondSalaryByUser"(companyName) {

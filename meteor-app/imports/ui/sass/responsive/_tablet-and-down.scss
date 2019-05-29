@@ -1,10 +1,4 @@
 @include for-size(tablet-and-down) {
-	.full-width-container.welpadgo.wel_profile,
-	.mar_lf_ri .na_tab,
-	.tab-content .tab-pane {
-		margin: 0 15px;
-	}
-
 	div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
 		text-align: center;
 		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
@@ -77,7 +71,7 @@
 		}
 	}
 
-	.sect_re1 td {
+	.sect-padding td {
 		font-size: 15px !important;
 	}
 
@@ -149,12 +143,16 @@
 		}
 	}
 
-	.fom-job {
-		padding-bottom: 9px;
-		margin-top: 0px;
-		margin-bottom: 19px;
-		padding-top: 117px;
-		width: 85%;
+	.container {
+		.form-page {
+			padding-bottom: 9px;
+			margin-top: 0px;
+			margin-bottom: 19px;
+			padding-top: 117px;
+			width: 85%;
+			padding-left: 2em;
+			padding-right: 2em;
+		}
 	}
 
 	.top-nav > nav {
@@ -282,7 +280,7 @@
 		}
 	}
 
-	.panel-hm {
+	.panel-card {
 		width: 58%;
 		margin-bottom: 10px !important;
 		margin-left: 0px !important;

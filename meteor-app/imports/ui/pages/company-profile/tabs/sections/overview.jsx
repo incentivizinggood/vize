@@ -7,7 +7,7 @@ const T = i18n.createComponent();
 export default function OverviewSection(props) {
 	return (
 		<div className="col-md-12  section_rview_back_color ">
-			<div className="sect_re1 ">
+			<div className="sect-padding ">
 				<h4 className="head_section_font">
 					{props.company.name} <T>common.overview_tab.overview</T>
 				</h4>

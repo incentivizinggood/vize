@@ -35,6 +35,9 @@ export const Query: QueryResolvers = {
 			args.pageSize
 		),
 
+	searchJobAds: (_obj, args, _context, _info) =>
+		dataModel.searchForJobAds(args.pageNum, args.pageSize),
+
 	wroteAReview: (_obj, _args, context, _info) => {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 

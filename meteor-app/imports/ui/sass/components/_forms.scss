@@ -100,7 +100,7 @@
 			height: 55px;
 			border: none;
 			&:hover {
-				border-color: $secondary-color;
+				border-color: $secondary-color-red;
 			}
 		}
 
@@ -125,7 +125,7 @@
 		@media only screen and (min-width: 767px) {
 			.vertical-mockup {
 				display: block;
-				background-color: $primary-color;
+				background-color: $vize-blue;
 				width: 40%;
 				height: 80vh;
 				background-image: url("images/factory.jpg");

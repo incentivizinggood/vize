@@ -1,6 +1,5 @@
 .modalView {
 	width: 400px;
-	height: 250px;
 	background-color: white;
 	position: absolute;
 	left: 0;
@@ -10,9 +9,8 @@
 	margin: auto;
 	max-width: 50%;
 	max-height: 50%;
-	border-style: solid;
-	border-width: thin;
 	padding: 4px;
+	display: table;
 }
 .closeButton {
 	position: absolute;
@@ -20,8 +18,8 @@
 	top: 5px;
 	width: 32px;
 	height: 32px;
-	opacity: 0.3;
 	color: grey;
+	z-index: 1;
 }
 .closeButton:hover {
 	opacity: 10;

@@ -22,11 +22,11 @@ const ShowJobs = () => (
 			}
 
 			if (error) {
-				console.log(error);
-				return <h2>{error}</h2>;
+				console.error(error);
+				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
-			const RenderedItems = data.jobAds.map(function(jobad) {
+			const RenderedItems = data.searchJobAds.nodes.map(function(jobad) {
 				return <ShowJobComponent key={jobad.id} item={jobad} />;
 			});
 			let message;
@@ -51,7 +51,7 @@ const ShowJobs = () => (
 								<ul id="slider3">
 									<li>
 										<h2>
-											{data.jobAds.length}{" "}
+											{data.searchJobAds.nodes.length}{" "}
 											<T>
 												common.jobsearch.jobsAvailable
 											</T>

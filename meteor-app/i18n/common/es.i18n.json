@@ -145,28 +145,30 @@
 	"homePage": {
 		"mainBanner": "Encuentre un Buen Trabajo Cerca de Usted",
 		"searchButton": "Buscar",
-		"placeholder": "Buscar una empresa",
+		"placeholder": "Buscar una empresa...",
 		"findjob_part1": "Encuentre un trabajo bueno",
 		"commonLine": "cerca de usted",
+		"rewardText": "Gana $100 pesos por compartir tu experiencia laboral",
 		"findjob_text": "Con miles de empresas en México en nuestro sitio y cientos de puestos de trabajo, podrá encontrar una gran fábrica o empresa para trabajar",
 		"jobsButton": "Trabajos",
 		"findemp_part1": "Encuentre un empleador",
 		"findemp_part2": "que lo trate bien",
-		"findemp_text": "Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. El sistema de evaluación y calificación responsabiliza a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
+		"findemp_text": "Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. El sistema de revisión y calificación responsabiliza a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
 		"companiesButton": "Empresas",
 		"hear": "Escuche de su ",
 		"community": "comunidad",
 		"hear_text": "Consulte opiniones y valoraciones anónimas de compañías expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
-		"add_review_button": "Agregar una Evaluación",
+		"add_review_button": "Agregar una Revisión",
 		"get_fair_salary": "Obtenga un salario",
 		"your_work": "justo por su trabajo",
 		"fairsalary_text": "Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
-		"salary_button": "Agregar una Revisión",
+		"salary_button": "Agregar un Salario",
 		"discover_employers": "Comience a descubrir nuevos empleadores ahora",
 		"signup_button": "Registrar"
 	},
 	"footer": {
 		"about_us": "Acerca de nosotros",
+		"social": "Nuestras Redes Sociales",
 		"employers": "Empleadores",
 		"create_free_account": "Crear una cuenta de empleador gratuita",
 		"all_rights_reserved": "Todos los derechos reservados"
@@ -323,7 +325,8 @@
 		"employee": "Trabajador",
 		"employer": "Empleador",
 		"email": "Correo Electrónico",
-		"createAccount": "Crear Cuenta"
+		"createAccount": "Crear Cuenta",
+		"registerOrLogin": "Regístrese o inicie sesión para escribir una revisión"
 	},
 	"methods": {
 		"jobAppEmail": {

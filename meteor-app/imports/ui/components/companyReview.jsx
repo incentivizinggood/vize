@@ -1,9 +1,19 @@
-import ModalView from "/imports/ui/components/modals/modal-view.jsx";
-import FlagSystem from "../components/flag/flag.jsx";
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faCheckSquare,
+	faTimesCircle,
+	faCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
+
+import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
+import { withTracker } from "meteor/react-meteor-data";
+
+import ModalView from "/imports/ui/components/modals/modal-view.jsx";
+import FlagSystem from "/imports/ui/components/flag/flag.jsx";
+
 import VoteButtons from "./vote-buttons";
 
 const T = i18n.createComponent();
@@ -15,7 +25,7 @@ function ReviewComponent(props) {
 		className = (
 			<p style={{ color: "#2E8B57" }}>
 				<FontAwesomeIcon
-					icon="check-square"
+					icon={faCheckSquare}
 					style={{ color: "#2E8B57" }}
 				/>
 				&nbsp;&nbsp;
@@ -26,7 +36,7 @@ function ReviewComponent(props) {
 		className = (
 			<p style={{ color: "#FF4545" }}>
 				<FontAwesomeIcon
-					icon="times-circle"
+					icon={faTimesCircle}
 					style={{ color: "#FF4545" }}
 				/>
 				&nbsp;&nbsp;
@@ -78,7 +88,7 @@ function ReviewComponent(props) {
 								starSpacing="1.5px"
 							/>
 							&nbsp;
-							<FontAwesomeIcon icon="caret-down" />
+							<FontAwesomeIcon icon={faCaretDown} />
 						</a>
 						<ul className="dropdown-menu" role="menu">
 							<li>
@@ -194,15 +204,27 @@ function ReviewComponent(props) {
 					<br />
 					<div className="float-right">
 						<div className="flag-style">
-							{/* Use to go back to Js
-								Using props to send information to the modal-view
-								*/}
-							<ModalView
-								className="flag-style-btn"
-								content={FlagSystem}
-							>
-								<T>common.companyreview.report</T>
-							</ModalView>
+							{/*
+								Disable reporting when the user is not logged in.
+								TODO: This should be refactored.
+							*/}
+							{props.user ? (
+								<ModalView
+									className="flag-style-btn"
+									content={() => (
+										<FlagSystem
+											reviewId={props.review.id}
+											companyName={props.companyName}
+										/>
+									)}
+								>
+									<T>common.companyreview.report</T>
+								</ModalView>
+							) : (
+								<button className="flag-style-btn" disabled>
+									<T>common.companyreview.report</T>
+								</button>
+							)}
 						</div>
 					</div>
 				</div>
@@ -212,4 +234,7 @@ function ReviewComponent(props) {
 	);
 }
 
-export default ReviewComponent;
+export default withTracker(props => ({
+	...props,
+	user: Meteor.user(),
+}))(ReviewComponent);

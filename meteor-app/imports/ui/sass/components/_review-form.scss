@@ -236,7 +236,7 @@ span.color_red {
 }
 
 .na_tab .nav > li :hover {
-	background-color: $primary-color;
+	background-color: $vize-blue;
 	color: $white;
 }
 
@@ -355,12 +355,6 @@ li.te_deco {
 	background-color: $white;
 }
 
-.sect_re1 {
-	padding-bottom: 24px;
-	padding-top: 25px;
-	padding-left: 15px;
-}
-
 .num_sett span {
 	font-size: 16px;
 	float: left;
@@ -394,10 +388,6 @@ li.te_deco {
 	color: $black !important;
 }
 
-.sect_re1 td {
-	font-size: 16px !important;
-}
-
 .over_p {
 	p {
 		font-size: 17px;
@@ -412,12 +402,6 @@ li.te_deco {
 
 .bodr_lft {
 	border-right: 1px solid #cacaca;
-}
-
-h4.head_section_font {
-	color: $black;
-	font-size: 21px;
-	font-weight: bold;
 }
 
 .hed-soft {
@@ -575,7 +559,7 @@ h4.head_section_font {
 	width: 20%;
 
 	&:hover {
-		background-color: $primary-color;
+		background-color: $vize-blue;
 		color: $white;
 	}
 }
@@ -596,7 +580,7 @@ h4.head_section_font {
 .nav-tabs > li.active > a:focus {
 	color: $white !important;
 	cursor: default !important;
-	background-color: $primary-color !important;
+	background-color: $vize-blue !important;
 	border: 0px solid #ddd !important;
 	border-bottom: 1px solid #4395cc !important;
 }
@@ -689,12 +673,6 @@ li.te_deco {
 	background-color: $white;
 }
 
-.sect_re1 {
-	padding-bottom: 24px;
-	padding-top: 25px;
-	padding-left: 15px;
-}
-
 .num_sett {
 	span {
 		font-size: 16px;
@@ -732,10 +710,6 @@ li.te_deco {
 	color: $black !important;
 }
 
-.sect_re1 td {
-	font-size: 16px !important;
-}
-
 .over_p {
 	p {
 		font-size: 17px;
@@ -750,12 +724,6 @@ li.te_deco {
 
 .bodr_lft {
 	border-right: 1px solid #cacaca;
-}
-
-h4.head_section_font {
-	font-size: 21px;
-	color: $black;
-	font-weight: bold;
 }
 
 .hed-soft {

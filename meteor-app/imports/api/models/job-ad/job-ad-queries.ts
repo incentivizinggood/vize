@@ -53,7 +53,31 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 // Count the number of job ads posted by a given company.
 export async function countJobAdsByCompany(company: Company): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		sql`${baseQuery} WHERE companyname=${company.name}`
+		sql`SELECT count FROM job_post_counts WHERE companyname=${company.name}`
 	);
 	return count ? count.count : 0;
+}
+
+// return all job ads
+// TODO: add search paramaters
+export async function searchForJobAds(
+	pageNumber: number,
+	pageSize: number
+): Promise<{ nodes: JobAd[]; totalCount: number }> {
+	// TODO: Refactor this ugly junk. This is implementing pagination and will
+	// need to be replaced by a reuseable solution.
+	return Promise.all([
+		simpleQuery<JobAd>(sql`
+				${baseQuery}
+				ORDER BY jobadid DESC
+				OFFSET ${pageNumber * pageSize}
+				LIMIT ${pageSize}
+		`),
+		simpleQuery1<{ totalCount: number }>(
+			sql`SELECT COUNT(jobadid) as "totalCount" FROM jobads`
+		).then(c => (c !== null ? c : { totalCount: 0 })),
+	]).then(([nodes, { totalCount }]) => ({
+		nodes,
+		totalCount,
+	}));
 }
