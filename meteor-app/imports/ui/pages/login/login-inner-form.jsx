@@ -1,5 +1,6 @@
 import React from "react";
 import { Form } from "formik";
+import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import i18n from "meteor/universe:i18n";
 
@@ -14,8 +15,8 @@ function InnerForm({ errors, isSubmitting }) {
 	return (
 		<Form>
 			<div className="register-login-form">
-				<FormGroup name="username" type="text" icon="user" />
-				<FormGroup name="password" type="password" icon="lock" />
+				<FormGroup name="username" type="text" icon={faUser} />
+				<FormGroup name="password" type="password" icon={faLock} />
 
 				<div className="form-group text-center" />
 

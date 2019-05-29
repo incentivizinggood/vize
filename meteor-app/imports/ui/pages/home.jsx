@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -45,7 +46,7 @@ function HomePage() {
 											className="button white-button"
 											style={{ fontSize: 18 }}
 										>
-											<FontAwesomeIcon icon="plus" />
+											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("add_review_button")}
 										</Link>
@@ -267,7 +268,7 @@ function HomePage() {
 											className="button vize-blue-button"
 											style={{ fontSize: 16.5 }}
 										>
-											<FontAwesomeIcon icon="plus" />
+											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("add_review_button")}
 										</Link>
@@ -299,7 +300,7 @@ function HomePage() {
 											className="button vize-blue-button"
 											style={{ fontSize: 16.5 }}
 										>
-											<FontAwesomeIcon icon="plus" />
+											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("salary_button")}
 										</Link>

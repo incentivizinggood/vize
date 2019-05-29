@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 
 /** The diameter of a vote button in px. */
@@ -107,9 +108,9 @@ function VoteButton(props) {
 			onClick={onClick}
 		>
 			{isUpButton ? (
-				<FontAwesomeIcon icon="thumbs-up" />
+				<FontAwesomeIcon icon={faThumbsUp} />
 			) : (
-				<FontAwesomeIcon icon="thumbs-down" flip="horizontal" />
+				<FontAwesomeIcon icon={faThumbsDown} flip="horizontal" />
 			)}
 		</Button>
 	);

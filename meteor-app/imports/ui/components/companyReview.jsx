@@ -1,6 +1,11 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faCheckSquare,
+	faTimesCircle,
+	faCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
@@ -20,7 +25,7 @@ function ReviewComponent(props) {
 		className = (
 			<p style={{ color: "#2E8B57" }}>
 				<FontAwesomeIcon
-					icon="check-square"
+					icon={faCheckSquare}
 					style={{ color: "#2E8B57" }}
 				/>
 				&nbsp;&nbsp;
@@ -31,7 +36,7 @@ function ReviewComponent(props) {
 		className = (
 			<p style={{ color: "#FF4545" }}>
 				<FontAwesomeIcon
-					icon="times-circle"
+					icon={faTimesCircle}
 					style={{ color: "#FF4545" }}
 				/>
 				&nbsp;&nbsp;
@@ -83,7 +88,7 @@ function ReviewComponent(props) {
 								starSpacing="1.5px"
 							/>
 							&nbsp;
-							<FontAwesomeIcon icon="caret-down" />
+							<FontAwesomeIcon icon={faCaretDown} />
 						</a>
 						<ul className="dropdown-menu" role="menu">
 							<li>
