@@ -6,12 +6,12 @@ import { ThemeProvider } from "styled-components";
 
 import ScrollRestoration from "./components/scroll-restoration";
 import Pages from "./pages";
-import { vize } from "./colors.js";
+import theme from "./theme.js";
 
 function AppRoot(props) {
 	return (
 		<ApolloProvider client={props.apolloClient}>
-			<ThemeProvider theme={vize}>
+			<ThemeProvider theme={theme}>
 				<BrowserRouter>
 					<ScrollRestoration>
 						<Pages />

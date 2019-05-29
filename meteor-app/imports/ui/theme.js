@@ -6,7 +6,7 @@ accent - A color that is distinctive and rarly used. Use to draw attention to a 
 
  */
 
-export const vize = {
+const theme = {
 	main: "hsl(204, 63%, 55%)",
 	mainVariant: "hsl(204, 63%, 35%)",
 	accent: "hsl(48, 99%, 50%)",
@@ -31,3 +31,5 @@ export const vize = {
 	onSurfaceWeak: "#333",
 	onSurfaceAccentWeak: "#cbcbcb",
 };
+
+export default theme;
