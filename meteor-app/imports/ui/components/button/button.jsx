@@ -1,43 +1,40 @@
 import styled, { css } from "styled-components";
 
-const vizeBlue = "#2699FB";
-const vizeDarkerBlue = "#1d80d6";
-
 const Button = styled.a`
-	&&&&&&&&& {
+	&&&&&&&&& { /* Increase specificity to override global styles. */
 
 		/* Color the button to show it's status. */
 		${props => {
 			if (props.disabled) {
 				if (props.primary) {
 					return css`
-						background-color: lightgrey;
-						color: white;
+						background-color: ${props.theme.onSurfaceWeak};
+						color: ${props.theme.surface};
 					`;
 				}
 
 				return css`
-					background-color: white;
-					color: lightgrey;
+					background-color: ${props.theme.surface};
+					color: ${props.theme.onSurfaceWeak};
 					border: 1px solid;
 				`;
 			}
 
 			if (props.primary) {
 				return css`
-					background-color: ${vizeBlue};
-					color: white;
+					background-color: ${props.theme.main};
+					color: ${props.theme.onMain};
 					:hover {
-						background-color: ${vizeDarkerBlue};
+						background-color: ${props.theme.mainVariant};
 					}
 				`;
 			}
 
 			return css`
-				background-color: white;
-				color: ${vizeBlue};
+				background-color: ${props.theme.surface};
+				color: ${props.theme.main};
 				:hover {
-					color: ${vizeDarkerBlue};
+					color: ${props.theme.mainVariant};
 				}
 				border: 1px solid;
 			`;

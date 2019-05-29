@@ -27,8 +27,8 @@ const theme = {
 	// The "weak" colors.
 	// Used for things that are subtle, disabled, or placeholders.
 	onMainWeak: "white",
-	onBackgroundWeak: "#333",
-	onSurfaceWeak: "#333",
+	onBackgroundWeak: "lightgrey",
+	onSurfaceWeak: "lightgrey",
 	onSurfaceAccentWeak: "#cbcbcb",
 };
 
