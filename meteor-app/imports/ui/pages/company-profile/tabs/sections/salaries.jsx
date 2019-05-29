@@ -52,7 +52,7 @@ export default class SalariesSection extends React.Component {
 			<div className="col-md-12  section_rview_back_color_job">
 				{" "}
 				{/* salaries  */}
-				<div className="sect_re1  sec_p">
+				<div className="sect-padding">
 					<h4 className="head_section_font">
 						{this.props.company.numSalaries}{" "}
 						<T>common.overview_tab.job_salaries</T>

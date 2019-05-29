@@ -176,9 +176,7 @@ span.headingoo {
 
 .add-buttons {
 	float: right;
-	position: absolute;
-	right: 12px;
-	top: 16px;
+	display: inline;
 
 	button {
 		padding-left: 19px;
@@ -327,7 +325,7 @@ path.CircularProgressbar-trail {
 }
 
 .section_rview_back_color03,
-.section_rview_back_color2,
+.sect-tab-container,
 .section_rview_back_color_job,
 .section_rview_back_color08 {
 	overflow: auto;
@@ -573,18 +571,16 @@ h4.h4-font-sz-job {
 	color: #312f2f;
 }
 
-.sect_re11 {
-	padding-bottom: 12px;
-	padding-top: 25px;
-	padding-left: 15px;
+.sect-padding {
+	padding: 15px;
+}
+
+.sect-padding td {
+	font-size: 16px !important;
 }
 
 td.ali-lef {
 	text-align: center;
-}
-
-.sec_p p {
-	color: $black;
 }
 
 .p-c-a p {
@@ -636,11 +632,11 @@ p.mal-r {
 	margin-top: 9px;
 }
 
-h3.head_section_font_25 {
-	font-family: initial;
-	font-size: 28px;
-	font-weight: 600;
-	border-bottom: 1px solid $concrete;
+.head_section_font {
+	color: $black;
+	font-size: 21px;
+	font-weight: bold;
+	display: inline;
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
