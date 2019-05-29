@@ -1,25 +1,35 @@
-import React from "react";
+import styled, { css } from "styled-components";
 
 import withScroll from "/imports/ui/hoc/scroll.jsx";
-import style from "./style.scss";
 
-function FadableNav(props) {
-	// How far down that the user can scroll before the navbar goes opaque.
-	const threshold = 100;
+// How far down that the user can scroll before the navbar goes opaque.
+const threshold = 100;
 
-	const X = ({ opaque }) => (
-		<nav className={opaque ? style.navbarOpaque : null}>
-			{props.children}
-		</nav>
-	);
+const FadableNav = styled.nav`
+	${props => {
+		if (props.animated && props.scroll < threshold) {
+			// If we are using the animation, the navbar is transparent when
+			// we are scrolled close to the top of the page.
+			return null;
+		}
 
-	if (props.animated) {
-		// Animated; The navbar fades to opaque after the page is scrolled down.
-		const Y = withScroll(({ scroll }) => <X opaque={scroll > threshold} />);
-		return <Y />;
-	}
-	// No animation; The navbar is always opaque.
-	return <X opaque />;
-}
+		// These styles make the nav opaque.
+		return css`
+			background: white;
+			box-shadow: 0 0 5px;
 
-export default FadableNav;
+			ul li a {
+				color: black;
+				cursor: pointer;
+
+				&:not(#register-button):hover,
+				&:not(#register-button):focus,
+				&:not(#register-button):active {
+					color: black;
+				}
+			}
+		`;
+	}}
+`;
+
+export default withScroll(FadableNav);
