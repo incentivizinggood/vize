@@ -75,7 +75,7 @@ const RegisterForm = props => (
 			Accounts.createUser(options, createUserCallback);
 		}}
 	>
-		<InnerForm showInput={props.showInput} />
+		<InnerForm />
 	</Formik>
 );
 

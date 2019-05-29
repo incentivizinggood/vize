@@ -1,6 +1,13 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faPlus,
+	faUsers,
+	faFlask,
+	faMapMarker,
+	faGlobe,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -21,7 +28,7 @@ export default class CompanyProfileSummary extends React.Component {
 
 	render() {
 		return (
-			<div className="full-width-container welpadgo wel_profile no-padding--bottom">
+			<div className="full-width-container no-padding--bottom">
 				<div className="container welpad12 box_shadow">
 					<div className="col-md-2 prostar">
 						<img
@@ -52,7 +59,7 @@ export default class CompanyProfileSummary extends React.Component {
 						<div className="row">
 							<div className="col-md-12">
 								<p>
-									<FontAwesomeIcon icon="map-marker" />{" "}
+									<FontAwesomeIcon icon={faMapMarker} />{" "}
 									{processLocation(
 										JSON.stringify(
 											this.props.company.locations[0]
@@ -61,11 +68,11 @@ export default class CompanyProfileSummary extends React.Component {
 								</p>
 								{/* displaying just the first company location for now, from the list */}
 								<p>
-									<FontAwesomeIcon icon="flask" />{" "}
+									<FontAwesomeIcon icon={faFlask} />{" "}
 									{this.props.company.industry}
 								</p>
 								<p>
-									<FontAwesomeIcon icon="globe" />{" "}
+									<FontAwesomeIcon icon={faGlobe} />{" "}
 									<Link
 										to={this.props.company.websiteURL || ""}
 										target="_blank"
@@ -74,7 +81,7 @@ export default class CompanyProfileSummary extends React.Component {
 									</Link>
 								</p>
 								<p>
-									<FontAwesomeIcon icon="users" />{" "}
+									<FontAwesomeIcon icon={faUsers} />{" "}
 									{this.props.company.numEmployees}
 								</p>
 							</div>
@@ -90,7 +97,7 @@ export default class CompanyProfileSummary extends React.Component {
 								className="btn btn-primary btn-lg"
 							>
 								{" "}
-								<FontAwesomeIcon icon="plus" />{" "}
+								<FontAwesomeIcon icon={faPlus} />{" "}
 								{i18n.__("common.companyprofile.add_review")}
 							</Link>
 						</div>

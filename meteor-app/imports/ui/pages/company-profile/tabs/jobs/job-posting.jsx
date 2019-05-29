@@ -1,5 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faMapMarker,
+	faMoneyBillAlt,
+	faCalendar,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -33,7 +38,7 @@ export default class JobPosting extends React.Component {
 
 		return (
 			<div className="col-md-12 section_rview_back_color05 ">
-				<div className="sect_re11 ">
+				<div className="sect-padding ">
 					<div>
 						<h4>
 							<strong>{this.props.jobAd.jobTitle}</strong>
@@ -53,20 +58,20 @@ export default class JobPosting extends React.Component {
 							</Link>
 						</div>
 						<p>
-							<FontAwesomeIcon icon="map-marker" />
+							<FontAwesomeIcon icon={faMapMarker} />
 							&nbsp;&nbsp;&nbsp;
 							{processLocation(
 								JSON.stringify(this.props.jobAd.locations[0])
 							)}
 						</p>
 						<p>
-							<FontAwesomeIcon icon="money-bill-alt" />
+							<FontAwesomeIcon icon={faMoneyBillAlt} />
 							&nbsp;&nbsp;
 							{this.props.jobAd.pesosPerHour}
 							{i18n.__("common.jobpostings.week")}
 						</p>
 						<p>
-							<FontAwesomeIcon icon="calendar" />
+							<FontAwesomeIcon icon={faCalendar} />
 							&nbsp;&nbsp;
 							{this.props.jobAd.contractType}
 						</p>

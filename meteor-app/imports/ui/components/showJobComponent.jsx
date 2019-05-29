@@ -1,5 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faMapMarker,
+	faMoneyBillAlt,
+	faCalendar,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -23,7 +28,7 @@ function ShowJobComponent(props) {
 
 	return (
 		<div className="col-md-12 section_rview_back_color05 ">
-			<div className="sect_re11 ">
+			<div className="sect-padding ">
 				<div>
 					<h3>
 						<strong>{props.item.company.name}</strong>
@@ -49,7 +54,7 @@ function ShowJobComponent(props) {
 					</div>
 					<p>
 						{" "}
-						<FontAwesomeIcon icon="map-marker" />
+						<FontAwesomeIcon icon={faMapMarker} />
 						&nbsp;&nbsp;&nbsp;
 						{processLocation(
 							JSON.stringify(props.item.locations[0])
@@ -57,14 +62,14 @@ function ShowJobComponent(props) {
 					</p>
 					<p>
 						{" "}
-						<FontAwesomeIcon icon="money-bill-alt" />
+						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
 						{props.item.pesosPerHour}
 						<T>common.showjob.hour</T>
 					</p>
 					<p>
 						{" "}
-						<FontAwesomeIcon icon="calendar" />
+						<FontAwesomeIcon icon={faCalendar} />
 						&nbsp;&nbsp;
 						{props.item.contractType}
 					</p>
