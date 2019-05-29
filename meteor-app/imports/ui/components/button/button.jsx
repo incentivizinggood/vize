@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Button = styled.a`
+const Button = styled.button`
 	&&&&&&&&& { /* Increase specificity to override global styles. */
 
 		/* Color the button to show it's status. */

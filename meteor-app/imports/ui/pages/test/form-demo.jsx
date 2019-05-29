@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
-import Button from "/imports/ui/components/button";
+import { Button, LinkButton } from "/imports/ui/components/button";
 
 const TestGrid = styled.div`
 	padding-top: 67px;
@@ -23,6 +23,18 @@ function FormDemo() {
 				<Button disabled primary>
 					Disabled Primary
 				</Button>
+			</TestGrid>
+			<TestGrid>
+				<LinkButton to="#">Default</LinkButton>
+				<LinkButton to="#" primary>
+					Primary
+				</LinkButton>
+				<LinkButton to="#" disabled>
+					Disabled
+				</LinkButton>
+				<LinkButton to="#" disabled primary>
+					Disabled Primary
+				</LinkButton>
 			</TestGrid>
 		</PageWrapper>
 	);
