@@ -6,23 +6,13 @@ import { Link } from "react-router-dom";
 import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/ui/pages";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 import SalaryPosting from "./salary-posting.jsx";
 
 const T = i18n.createComponent();
 
-export default class SalaryTab extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class SalaryTab extends React.Component {
 	render() {
 		const renderedSalaries = this.props.company.salaries.map(salary => (
 			<SalaryPosting key={salary.id} salary={salary} />
@@ -68,3 +58,5 @@ export default class SalaryTab extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(SalaryTab);

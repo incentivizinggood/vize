@@ -8,6 +8,7 @@ import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js"
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
@@ -18,18 +19,7 @@ const T = i18n.createComponent();
 
 /* The Company Profile  page of the site. */
 
-class CompanyProfile extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class CompanyProfile_ extends React.Component {
 	render() {
 		if (this.props.company === undefined) {
 			return (
@@ -152,6 +142,9 @@ class CompanyProfile extends React.Component {
 		);
 	}
 }
+
+// TODO: Split this file into view and container components.
+const CompanyProfile = withUpdateOnChangeLocale(CompanyProfile_);
 
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>

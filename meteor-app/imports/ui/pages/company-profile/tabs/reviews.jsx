@@ -9,21 +9,11 @@ import { urlGenerators } from "/imports/ui/pages";
 
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const T = i18n.createComponent();
 
-export default class ReviewTab extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class ReviewTab extends React.Component {
 	render() {
 		const renderItems = this.props.company.reviews.map(review => (
 			<CompanyReview
@@ -67,3 +57,5 @@ export default class ReviewTab extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(ReviewTab);

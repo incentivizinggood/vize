@@ -4,24 +4,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
+
 import { urlGenerators } from "/imports/ui/pages";
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const T = i18n.createComponent();
 
-export default class ReviewsSection extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class ReviewsSection extends React.Component {
 	render() {
 		// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
 		let reviewsToDisplay;
@@ -88,3 +79,5 @@ export default class ReviewsSection extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(ReviewsSection);

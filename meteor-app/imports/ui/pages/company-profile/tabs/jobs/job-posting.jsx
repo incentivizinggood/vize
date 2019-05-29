@@ -11,21 +11,11 @@ import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/ui/pages";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const T = i18n.createComponent();
 
-export default class JobPosting extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
+class JobPosting extends React.Component {
 	render() {
 		const datePosted = new Date(
 			this.props.jobAd.created
@@ -125,3 +115,5 @@ export default class JobPosting extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(JobPosting);
