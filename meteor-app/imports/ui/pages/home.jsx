@@ -7,6 +7,8 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
+import { LinkButton } from "/imports/ui/components/button";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
@@ -263,15 +265,7 @@ function HomePage() {
 									</div>
 									<br />
 									<div>
-										<Link
-											to="/write-review"
-											className="button vize-blue-button"
-											style={{ fontSize: 16.5 }}
-										>
-											<FontAwesomeIcon icon={faPlus} />
-											&nbsp;
-											{t("add_review_button")}
-										</Link>
+										<WriteReviewButton />
 									</div>
 									<br />
 								</div>
@@ -295,15 +289,14 @@ function HomePage() {
 									</div>
 									<br />
 									<div>
-										<Link
+										<LinkButton
+											primary
 											to="/submit-salary-data"
-											className="button vize-blue-button"
-											style={{ fontSize: 16.5 }}
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("salary_button")}
-										</Link>
+										</LinkButton>
 									</div>
 									<br />
 								</div>

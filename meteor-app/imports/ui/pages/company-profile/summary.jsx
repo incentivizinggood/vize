@@ -2,7 +2,6 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faPlus,
 	faUsers,
 	faFlask,
 	faMapMarker,
@@ -12,7 +11,7 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/ui/pages";
+import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
 
 export default class CompanyProfileSummary extends React.Component {
 	componentDidMount() {
@@ -90,16 +89,9 @@ export default class CompanyProfileSummary extends React.Component {
 
 					<div className="col-md-4 prostar">
 						<div className="col-md-12">
-							<Link
-								to={urlGenerators.vizeReviewUrl(
-									this.props.company.id
-								)}
-								className="btn btn-primary btn-lg"
-							>
-								{" "}
-								<FontAwesomeIcon icon={faPlus} />{" "}
-								{i18n.__("common.companyprofile.add_review")}
-							</Link>
+							<WriteReviewButton
+								companyId={this.props.company.id}
+							/>
 						</div>
 					</div>
 				</div>
