@@ -1,7 +1,35 @@
 import React from "react";
 import Modal from "react-modal";
+import styled from "styled-components";
 
-import style from "./modal-view.scss";
+const StyledModal = styled(Modal)`
+	width: 400px;
+	background-color: white;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	max-width: 50%;
+	max-height: 50%;
+	padding: 4px;
+	display: table;
+`;
+
+const CloseButton = styled.button`
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 32px;
+	height: 32px;
+	color: grey;
+	z-index: 1;
+
+	:hover {
+		opacity: 10;
+	}
+`;
 
 // This page acts as a modular component that can be reused
 function ModalView(props) {
@@ -21,10 +49,9 @@ function ModalView(props) {
 					{props.children}
 				</button>
 			)}
-			<Modal
+			<StyledModal
 				isOpen={modalIsOpen}
 				onRequestClose={closeModal}
-				className={style.modalView}
 				contentLabel="Modular review"
 				style={{
 					overlay: {
@@ -37,11 +64,9 @@ function ModalView(props) {
 					},
 				}}
 			>
-				<button onClick={closeModal} className={style.closeButton}>
-					X
-				</button>
+				<CloseButton onClick={closeModal}>X</CloseButton>
 				<props.content />
-			</Modal>
+			</StyledModal>
 		</>
 	);
 }
