@@ -20,10 +20,6 @@ const T = i18n.createComponent();
 /* The Company Profile  page of the site. */
 
 function CompanyProfile_(props) {
-	React.useEffect(() => {
-		document.title = "Company Profile";
-	});
-
 	if (props.company === undefined) {
 		return (
 			<h2>
@@ -33,7 +29,7 @@ function CompanyProfile_(props) {
 	}
 
 	return (
-		<PageWrapper>
+		<PageWrapper title="Company Profile">
 			<CompanyProfileSummary company={props.company} />
 
 			<br />

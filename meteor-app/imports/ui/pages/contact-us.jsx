@@ -11,8 +11,6 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 export default class ContactUsPage extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Contact Us";
-
 		this.state = {
 			name: "",
 			value: "",
@@ -74,7 +72,7 @@ export default class ContactUsPage extends React.Component {
 
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Contact Us">
 				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">

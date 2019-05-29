@@ -17,8 +17,6 @@ const T = i18n.createComponent(t);
 class PasswordChanger extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Account Recovery";
-
 		this.state = {
 			error: Meteor.userId() !== null ? null : "Not logged in",
 			success: false,
@@ -176,7 +174,7 @@ class PasswordChanger extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Account Recovery">
 				<div className="container form-page">
 					<div className="row">
 						<div

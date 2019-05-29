@@ -215,7 +215,6 @@ if (Meteor.isClient) {
 class SubmitSalaryDataForm extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Salary";
 	}
 	render() {
 		ssd_form_state.set("companyId", this.props.companyId);
@@ -236,7 +235,7 @@ class SubmitSalaryDataForm extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Salary">
 				<div className="page SubmitSalaryDataForm">
 					<Blaze template="ssd_blaze_form" />
 					{content}

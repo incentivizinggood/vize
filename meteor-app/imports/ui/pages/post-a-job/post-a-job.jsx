@@ -168,11 +168,10 @@ if (Meteor.isClient) {
 export default class PostAJobForm extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Post a Job";
 	}
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Post a Job">
 				<div className="page PostAJobForm">
 					<Blaze template="paj_blaze_form" />
 				</div>

@@ -12,9 +12,8 @@ const T = i18n.createComponent(t);
 /* The page where users can create an account.
  */
 function RegisterPage() {
-	document.title = "Register";
 	return (
-		<PageWrapper>
+		<PageWrapper title="Register">
 			<div className="container login-top-spce">
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">

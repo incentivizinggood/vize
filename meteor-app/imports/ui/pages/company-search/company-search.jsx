@@ -75,8 +75,6 @@ SearchResults.propTypes = {
 class CompanySearchTrial extends React.Component {
 	constructor(props) {
 		super(props);
-		document.title = "Company Search";
-
 		this.state = {
 			searchTextInput: this.props.searchText || "",
 			searchText: this.props.searchText || "",
@@ -114,7 +112,7 @@ class CompanySearchTrial extends React.Component {
 
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Company Search">
 				<div className="container-fluid  search_companies">
 					<div className="row all_boxcolor1 select_box1">
 						<div>
