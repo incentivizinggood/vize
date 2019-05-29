@@ -35,19 +35,12 @@
 	}
 
 	.add-buttons {
-		float: none;
-		position: relative;
-		top: auto;
-		right: auto;
-		margin-top: 10px;
+		float: right;
+		display: inline;
 	}
 
 	.num_sett span {
 		text-align: center;
-	}
-
-	div[class^="sect_re"] {
-		padding: 0;
 	}
 
 	.mar_lf_ri .na_tab {
@@ -94,23 +87,6 @@
 						}
 					}
 				}
-			}
-		}
-	}
-
-	.section_rview_back_color03,
-	.section_rview_back_color2,
-	.section_rview_back_color_job,
-	.section_rview_back_color08 {
-		.head_section_font,
-		.add-buttons {
-			width: 50%;
-			float: left;
-			font-size: 16px;
-			margin: 15px 0;
-			line-height: 1.2;
-			& > a.btn.btn-primary {
-				float: right;
 			}
 		}
 	}

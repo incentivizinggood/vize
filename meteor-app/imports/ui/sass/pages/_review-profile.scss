@@ -193,12 +193,6 @@ li.te_deco {
 	background-color: #ffffff;
 }
 
-.sect_re1 {
-	padding-bottom: 24px;
-	padding-top: 25px;
-	padding-left: 15px;
-}
-
 .num_sett {
 	span {
 		font-size: 16px;
@@ -242,10 +236,6 @@ li.te_deco {
 .tabl_content {
 	font-weight: bold !important;
 	color: #000 !important;
-}
-
-.sect_re1 td {
-	font-size: 16px !important;
 }
 
 .over_p {
@@ -439,7 +429,7 @@ li.te_deco {
 	border-right: 1px solid #cacaca;
 }
 
-.section_rview_back_color2,
+.sect-tab-container,
 .section_rview_back_color08,
 .section_rview_back_color05,
 .section_rview_back_color03,
@@ -448,7 +438,7 @@ li.te_deco {
 	background-color: $white;
 }
 
-.section_rview_back_color2 {
+.sect-tab-container {
 	padding: 25px;
 }
 
@@ -630,18 +620,8 @@ article p {
 	}
 }
 
-.sect_re11 {
-	padding-bottom: 12px;
-	padding-top: 25px;
-	padding-left: 15px;
-}
-
 td.ali-lef {
 	text-align: center;
-}
-
-.sec_p p {
-	color: #000;
 }
 
 .p-c-a p {
@@ -690,13 +670,6 @@ td.ali-lef {
 		font-weight: 600;
 		color: #312f2f;
 	}
-}
-
-.head_section_font_25 {
-	font-family: initial;
-	font-size: 28px;
-	font-weight: 600;
-	border-bottom: 1px solid $concrete;
 }
 
 .ava_job {

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
@@ -15,7 +16,7 @@ function WriteReviewButton(props) {
 			to={`/write-review/?id=${props.companyId}`}
 			className={props.classField}
 		>
-			<FontAwesomeIcon icon="plus" />
+			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;
 			{t("common.overview_tab.add_review")}
 		</Link>
