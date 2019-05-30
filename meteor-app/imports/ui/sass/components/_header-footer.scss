@@ -41,34 +41,6 @@ nav {
 			font-size: 12px;
 		}
 	}
-
-	//navScroll
-	&.navScroll {
-		.navbar-header {
-			position: relative;
-			&::before {
-				content: "";
-				position: absolute;
-				top: 0;
-				right: -10000px;
-				bottom: 0;
-				left: -700px;
-				background: $white;
-				width: 10000px;
-				z-index: -1;
-				height: 74px;
-				box-shadow: 0 2px 5px #b1b1b1;
-			}
-		}
-		li a {
-			color: $black;
-			&:not(#register-button):hover,
-			&:not(#register-button):focus,
-			&:not(#register-button):active {
-				color: $black;
-			}
-		}
-	}
 }
 
 #register-button {
@@ -179,12 +151,6 @@ nav {
 	.btn-green {
 		background-color: $secondary-color-red;
 	}
-	nav.navScroll ul li a {
-		color: $white;
-	}
-	ul.dropdown-menu.header_drop_language li:hover {
-		background: #132437;
-	}
 	#register-button {
 		width: 100%;
 		display: none;
@@ -234,7 +200,6 @@ nav {
 	.navbar-header {
 		float: none;
 	}
-	.navbar-left,
 	.navbar-right {
 		float: none !important;
 	}
@@ -252,10 +217,7 @@ nav {
 		border-top: 1px solid transparent;
 		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 	}
-	.navbar-fixed-top {
-		top: 0;
-		border-width: 0 0 1px;
-	}
+
 	.navbar-collapse.collapse {
 		display: none !important;
 	}
@@ -274,9 +236,6 @@ nav {
 		display: block !important;
 	}
 
-	nav.header_main {
-		background: #132437;
-	}
 	.top-nav ul li a {
 		color: $white !important;
 	}

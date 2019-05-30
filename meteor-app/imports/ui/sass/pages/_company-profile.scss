@@ -2,8 +2,7 @@
 .footer,
 .about,
 .team,
-.contact,
-.gallery {
+.contact {
 	padding: 8em 0;
 }
 
@@ -56,11 +55,6 @@
 			display: inline-block;
 			content: "\f005";
 		}
-	}
-
-	& > .half:before {
-		content: "\f089";
-		position: absolute;
 	}
 
 	& > input:checked ~ label,
@@ -214,10 +208,6 @@ li.te_deco > a {
 	display: inline-block;
 }
 
-.mar_lf_ri {
-	padding-bottom: 60px;
-}
-
 .tab-pane > .section_rview_back_color05 {
 	padding-left: 0;
 	padding-right: 0;
@@ -282,22 +272,6 @@ path.CircularProgressbar-trail {
 		}
 	}
 
-	.star_boder {
-		background: #f5f5f5;
-		padding: 10px;
-		display: flex;
-		justify-content: space-between;
-		flex-wrap: wrap;
-		width: 100%;
-
-		label {
-			font-size: 24px;
-			line-height: 1;
-			margin-top: 6px;
-			font-weight: 700;
-		}
-	}
-
 	.star-ratings {
 		top: -3px;
 	}
@@ -337,45 +311,9 @@ path.CircularProgressbar-trail {
 	}
 }
 
-.thumb_don_bn .fa:focus,
 .fa:active {
 	/*color: #333;*/
 	border-color: red;
-}
-
-.accordion-toggle:after {
-	font-family: "FontAwesome";
-	content: "\f101";
-	align-items: center;
-}
-
-.accordion-opened .accordion-toggle:after {
-	content: "\f054";
-}
-
-.accordion-heading.desi_accordo {
-	text-align: center;
-	font-size: 18px;
-}
-
-.accordion-heading.desi_accordo a {
-	text-decoration: none;
-}
-
-.accor_top {
-	border-top: 1px solid #cacaca;
-	padding-top: 10px;
-	font-size: 15px;
-	color: #0e4c75;
-}
-
-.shortcontent {
-	border-bottom: 1px solid #cacaca;
-	padding-bottom: 7px;
-}
-
-.bodr_lftri {
-	border-right: 1px solid #cacaca;
 }
 
 .section_rview_back {
@@ -488,10 +426,6 @@ path.CircularProgressbar-trail {
 	color: #312f2f;
 }
 
-.progress-bar-success {
-	background-color: $vize-blue !important;
-}
-
 .progress1 {
 	height: 12px;
 	margin-bottom: 2px;
@@ -590,19 +524,6 @@ td.ali-lef {
 .show-on-hover.btn-group.open .dropdown-toggle {
 	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
 	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0) !important;
-}
-
-.mre {
-	margin-top: 13px !important;
-}
-
-.c-next-re button {
-	background-color: transparent;
-	border: none;
-}
-
-.c-next-re {
-	margin-bottom: 4px;
 }
 
 .cont {

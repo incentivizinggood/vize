@@ -43,16 +43,6 @@
 		text-align: center;
 	}
 
-	.mar_lf_ri .na_tab {
-		.nav-tabs > li {
-			display: block;
-			width: 100% !important;
-			a {
-				margin-right: 0;
-			}
-		}
-	}
-
 	.tab_str {
 		table {
 			padding: 10px 0;
@@ -146,8 +136,7 @@
 	.footer,
 	.about,
 	.team,
-	.contact,
-	.gallery {
+	.contact {
 		padding: 3em 0;
 	}
 
@@ -191,14 +180,6 @@
 
 	nav {
 		padding: 0em 0em !important;
-
-		&.navScroll {
-			background-color: transparent !important;
-			box-shadow: transparent !important;
-			ul li a {
-				color: $white !important;
-			}
-		}
 	}
 
 	ul.nav.navbar-right {
@@ -241,10 +222,6 @@
 		padding: 10px 35px !important;
 	}
 
-	.btn_add_button {
-		margin-bottom: 9px;
-	}
-
 	.border_btn {
 		border-top-left-radius: 12px;
 		border-bottom-left-radius: 12px;
@@ -265,10 +242,6 @@
 		margin-top: 2em !important;
 		float: none !important;
 		margin-bottom: 0em !important;
-	}
-
-	li.ln {
-		display: none !important;
 	}
 
 	ul.dropdown-menu.pf {
@@ -293,18 +266,6 @@
 		}
 	}
 
-	a.dropdown-toggle.boderbtn {
-		margin-left: -6px;
-	}
-
-	ul.dropdown-menu.header_drop_language {
-		background-color: $white !important;
-		margin-left: -15px;
-
-		li:hover {
-			background: #132437;
-		}
-	}
 	.container.form-page {
 		padding-bottom: 9px;
 		margin-top: 0px;

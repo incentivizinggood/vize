@@ -30,11 +30,6 @@
 		}
 	}
 
-	.navbar-fixed-top {
-		top: 0;
-		border-width: 0 0 1px;
-	}
-
 	.navbar-nav {
 		float: none !important;
 		margin-top: 7.5px;
@@ -51,10 +46,6 @@
 
 	.collapse.in {
 		display: block !important;
-	}
-
-	nav.header_main {
-		background: #132437;
 	}
 
 	.top-nav ul li {
@@ -81,7 +72,6 @@
 		text-align: center;
 	}
 
-	.navbar-left,
 	.navbar-right {
 		float: none !important;
 	}
@@ -100,14 +90,6 @@
 
 	nav {
 		padding: 0em 0em !important;
-		&.navScroll {
-			background-color: transparent !important;
-			box-shadow: transparent !important;
-
-			ul li a {
-				color: $white !important;
-			}
-		}
 
 		&.navbar-right {
 			width: 60%;
@@ -204,13 +186,8 @@
 	.footer,
 	.about,
 	.team,
-	.contact,
-	.gallery {
+	.contact {
 		padding: 4em 0;
-	}
-
-	.team-grids {
-		margin: 1.5em 0 0;
 	}
 
 	.banner-text-info {
@@ -294,17 +271,6 @@
 	ul.dropdown-menu {
 		background-color: $white !important;
 		margin-left: -17px;
-
-		&.header_drop_language {
-			background-color: $white !important;
-			margin-left: -17px;
-		}
-	}
-
-	a.dropdown-toggle.boderbtn {
-		margin-left: -18px;
-		padding-left: 164px !important;
-		width: 50%;
 	}
 
 	.pf.dropdown {
@@ -333,16 +299,8 @@
 		margin: 0 auto !important;
 	}
 
-	li.ln {
-		display: none !important;
-	}
-
 	.btn-green {
 		background-color: #fb406f !important;
-	}
-
-	ul.dropdown-menu.header_drop_language li:hover {
-		background: #132437;
 	}
 
 	#register-button {
@@ -355,10 +313,6 @@
 		color: #337ab7;
 		font-weight: bold;
 		box-shadow: 1px 1px 10px 1px;
-	}
-
-	.btn_add_button {
-		margin-bottom: 9px;
 	}
 
 	.border_btn {

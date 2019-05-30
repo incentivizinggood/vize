@@ -46,17 +46,6 @@
 	padding-right: 8px;
 }
 
-.fl-ri-re button {
-	padding: 8px 19px;
-	font-weight: 800;
-	background-color: $vize-blue;
-	color: $white;
-	font-size: 19px;
-	&:hover {
-		background-color: #3d7ba5;
-	}
-}
-
 @media screen and (min-width: 992px) {
 	.container.mobile-view {
 		display: none;
