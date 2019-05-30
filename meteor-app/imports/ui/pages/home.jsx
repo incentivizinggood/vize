@@ -1,14 +1,17 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
-import { LinkButton } from "/imports/ui/components/button";
+import {
+	LinkButton,
+	WhiteButton,
+	BlackBorderButton,
+} from "/imports/ui/components/button";
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
@@ -43,15 +46,14 @@ function HomePage() {
 								</div>
 								<div>
 									<center>
-										<Link
+										<WhiteButton
 											to="/write-review"
-											className="button white-button"
 											style={{ fontSize: 18 }}
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
 											{t("add_review_button")}
-										</Link>
+										</WhiteButton>
 									</center>
 								</div>
 							</div>
@@ -104,12 +106,9 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<Link
-									to="/jobs"
-									className="button black-border-button"
-								>
+								<BlackBorderButton to="/jobs">
 									<T>jobsButton</T>
-								</Link>
+								</BlackBorderButton>
 							</center>
 						</div>
 					</div>
@@ -133,12 +132,9 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<Link
-									to="/jobs"
-									className="button black-border-button"
-								>
+								<BlackBorderButton to="/jobs">
 									<T>jobsButton</T>
-								</Link>
+								</BlackBorderButton>
 							</center>
 						</div>
 					</div>
@@ -178,12 +174,9 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<Link
-									to="/companies"
-									className="button white-button"
-								>
+								<WhiteButton to="/companies">
 									<T>companiesButton</T>
-								</Link>
+								</WhiteButton>
 							</center>
 						</div>
 					</div>
@@ -216,12 +209,9 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<Link
-									to="/companies"
-									className="button white-button"
-								>
+								<WhiteButton to="/companies">
 									<T>companiesButton</T>
-								</Link>
+								</WhiteButton>
 							</center>
 						</div>
 					</div>
@@ -326,12 +316,9 @@ function HomePage() {
 							<div>
 								<center>
 									{" "}
-									<Link
-										to="/register"
-										className="button black-border-button"
-									>
+									<BlackBorderButton to="/register">
 										<T>signup_button</T>
-									</Link>
+									</BlackBorderButton>
 								</center>
 							</div>
 						</div>
