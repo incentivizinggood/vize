@@ -92,7 +92,7 @@ function HomePage() {
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
-								<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
+								<T>findjob_part1</T> <br />{" "}
 							</h1>
 						</div>
 						<div className="great-comp-hm">
@@ -121,7 +121,7 @@ function HomePage() {
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
-								<T>findjob_part1</T> <br /> <T>commonLine</T>{" "}
+								<T>findjob_part1</T> <br />{" "}
 							</h1>
 						</div>
 						<div className="great-comp-hm">
