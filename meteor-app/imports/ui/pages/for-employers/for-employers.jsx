@@ -27,27 +27,37 @@ const Bold = styled.span`
 const ProblemPoint = styled.p`
 	display: block;
 	color: ${vizeBlue};
-	border: 4px solid ${vizePaleBlue};
 	text-align: center;
 	font-size: x-large;
 	font-weight: bolder;
 
 	max-width: 700px;
-	padding: 80px 100px;
+	padding: 50px;
 	margin-left: auto;
 	margin-right: auto;
 
 	& + & {
 		margin-top: 100px;
 	}
+
+	@media (max-width: 576px) {
+		padding: 30px;
+	}
 `;
 
 const SectionTitle = styled.h1`
 	color: ${vizeBlue};
-	margin-top: 100px;
-	margin-bottom: 80px;
-	margin-left: 0.5em;
+	padding-top: 100px;
+	margin-bottom: 50px;
+	margin-left: 2.5em;
 	font-weight: bold;
+	font-size: 55px;
+
+	@media (max-width: 992px) {
+		text-align: center;
+		margin-left: 0em;
+		font-size: 40px;
+	}
 `;
 
 const SubsectionTitle = styled.h2`
@@ -85,6 +95,16 @@ const PlanBox = styled.div`
 	flex-direction: column;
 	> * {
 		margin: 20px 0;
+	}
+`;
+
+const ShadowBox = styled.div`
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	background-color: white;
+	padding: 70px;
+
+	@media (max-width: 576px) {
+		padding: 30px;
 	}
 `;
 
@@ -168,20 +188,28 @@ function ForEmployers() {
 				</PageTitle>
 				<GetStarted />
 			</Banner>
-			<section>
+			<section style={{ backgroundColor: "#fafbfc" }}>
 				<SectionTitle>The Problem</SectionTitle>
+
 				<ProblemPoint>
-					Many factories like yours face turnover rates of{" "}
-					<Bold>90% - 120%</Bold> of their workforce{" "}
-					<Bold>every year</Bold>
+					<ShadowBox>
+						Many factories like yours face turnover rates of{" "}
+						<Bold>90% - 120%</Bold> of their workforce{" "}
+						<Bold>every year</Bold>
+					</ShadowBox>
+				</ProblemPoint>
+
+				<ProblemPoint>
+					<ShadowBox>
+						Forcing you to spend more time and money on{" "}
+						<Bold>recruiting training</Bold>
+					</ShadowBox>
 				</ProblemPoint>
 				<ProblemPoint>
-					Forcing you to spend more time and money on{" "}
-					<Bold>recruiting training</Bold>
-				</ProblemPoint>
-				<ProblemPoint>
-					Loseing 1 worker costs you at least{" "}
-					<Bold>$615 every month</Bold>
+					<ShadowBox>
+						Losing 1 worker costs you at least{" "}
+						<Bold>$615 every month</Bold>
+					</ShadowBox>
 				</ProblemPoint>
 			</section>
 			<section>
