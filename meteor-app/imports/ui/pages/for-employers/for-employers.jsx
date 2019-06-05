@@ -8,7 +8,8 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 import Banner from "/imports/ui/components/banner";
 
 /* A page Foremployers  */
-const T = i18n.createComponent();
+const t = i18n.createTranslator("common.forEmployers");
+const T = i18n.createComponent(t);
 
 const vizeBlue = "#2699FB";
 const vizePaleBlue = "#F1F9FF";
@@ -76,11 +77,21 @@ const Button = styled.a`
 
 	border-radius: 3px;
 	display: inline-block;
-	padding: 10px 20px;
+	padding: 20px 40px;
 	font-weight: bold;
+	font-size: 21px;
 `;
 
-const GetStarted = () => <Button>Get Started</Button>;
+const GetStartedBig = () => (
+	<Button style={{ fontSize: 30 }} href="/register">
+		Get Started
+	</Button>
+);
+const GetStarted = () => (
+	<Button href="/register">
+		<T>getStarted</T>
+	</Button>
+);
 
 const PlanBox = styled.div`
 	color: ${vizeBlue};
@@ -180,85 +191,109 @@ const Foo = styled(P)`
 `;
 
 function ForEmployers() {
+	const analyticsImg = `/images/${t("analyticsDashboard")}`;
+	console.log(analyticsImg);
 	return (
 		<PageWrapper navIsAnimated>
 			<Banner>
 				<PageTitle>
-					Recruit and retain the best workforce in Tijuna with Vize
+					<T>headerText</T>
 				</PageTitle>
-				<GetStarted />
+				<GetStartedBig />
 			</Banner>
 			<section style={{ backgroundColor: "#fafbfc" }}>
-				<SectionTitle>The Problem</SectionTitle>
+				<SectionTitle>
+					<T>heading1</T>
+				</SectionTitle>
 
 				<ProblemPoint>
 					<ShadowBox>
-						Many factories like yours face turnover rates of{" "}
-						<Bold>90% - 120%</Bold> of their workforce{" "}
-						<Bold>every year</Bold>
+						<T>card1part1</T> <Bold>90% - 120%</Bold>
+						<T>card1part2</T>{" "}
+						<Bold>
+							<T>card1part3</T>
+						</Bold>
 					</ShadowBox>
 				</ProblemPoint>
 
 				<ProblemPoint>
 					<ShadowBox>
-						Forcing you to spend more time and money on{" "}
-						<Bold>recruiting training</Bold>
+						<T>card2part1</T>{" "}
+						<Bold>
+							<T>card2part2</T>
+						</Bold>
 					</ShadowBox>
 				</ProblemPoint>
 				<ProblemPoint>
 					<ShadowBox>
-						Losing 1 worker costs you at least{" "}
-						<Bold>$615 every month</Bold>
+						<T>card3part1</T>{" "}
+						<Bold>
+							<T>card3part2</T>
+						</Bold>
 					</ShadowBox>
 				</ProblemPoint>
 			</section>
 			<section>
-				<SectionTitle>The Solution</SectionTitle>
+				<SectionTitle>
+					<T>heading2</T>
+				</SectionTitle>
 				<Recruiting>
 					<div>
-						<SubsectionTitle>Recruiting</SubsectionTitle>
+						<SubsectionTitle>
+							<T>recruitingHeading</T>
+						</SubsectionTitle>
 						<P>
-							We help you recruit the best employies with
-							affordable and effective job posts.
+							<T>recruitingText</T>
 						</P>
 					</div>
 					<img src="/images/example-job-post-square.png" />
 				</Recruiting>
 				<Retainment>
 					<div>
-						<SubsectionTitle>Retainment</SubsectionTitle>
+						<SubsectionTitle>
+							<T>retainmentHeading</T>
+						</SubsectionTitle>
 						<P>
-							We then give you actionable insites on how to retain
-							these employees using data directly from workers all
-							across Tijuna.
+							<T>retainmentText</T>
 						</P>
 					</div>
-					<img src="/images/analytics-dashboard.png" />
+					<img
+						className="img-responsive"
+						src={`/images/${t("analyticsDashboard")}`}
+					/>
 				</Retainment>
 			</section>
 			<section>
-				<SectionTitle>Pricing</SectionTitle>
+				<SectionTitle>
+					<T>heading3</T>
+				</SectionTitle>
 				<Foo>
-					The first 10 customers get full <Bold>premium access</Bold>{" "}
-					to our services <Bold>95% off</Bold> for{" "}
-					<Bold>$15/month</Bold> for 90 days.
+					<T>pricingText1</T>{" "}
+					<Bold>
+						<T>pricingText2</T>
+					</Bold>{" "}
+					<T>pricingText3</T>{" "}
+					<Bold>
+						<T>pricingText4</T>
+					</Bold>{" "}
+					<T>pricingText5</T>
 				</Foo>
 				<PlansContainer>
 					<PlanOption
-						name="Buisness"
+						name={<T>businessHeading</T>}
 						items={[
-							"5 Job Posts",
-							"Data Analitics Dashboard",
-							"Buisiness Resources",
+							<T>businessText1</T>,
+							<T>businessText2</T>,
+							<T>businessText3</T>,
 						]}
 					/>
 					<PlanOption
-						name="Premium"
+						name={<T>premiumHeading</T>}
 						items={[
-							"10 Job Posts",
-							"Data Analitics Dashboard",
-							"Buisiness Resources",
-							"Individualized analysis and consulting",
+							<T>premiumText1</T>,
+							<T>premiumText2</T>,
+							<T>premiumText3</T>,
+							<T>premiumText4</T>,
 						]}
 					/>
 				</PlansContainer>
