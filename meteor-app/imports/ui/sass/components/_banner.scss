@@ -3,7 +3,7 @@
 	min-height: 700px;
 	position: relative;
 	z-index: 1;
-	@include background-size(cover);
+	background-size: cover;
 
 	&::before {
 		@include overlay();

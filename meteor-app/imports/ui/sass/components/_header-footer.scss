@@ -10,7 +10,7 @@ nav {
 	z-index: 10000;
 	width: 100%;
 	padding-bottom: 7px;
-	@include transition(all 0.5s);
+	transition: all 0.5s;
 
 	ul li {
 		margin: 0 0.5em;
