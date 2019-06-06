@@ -10,10 +10,10 @@
 	.navbar-toggle {
 		display: block;
 		background-color: #439bd5;
-		border: 1px solid $white;
+		border: 1px solid white;
 
 		.icon-bar {
-			background: $white;
+			background: white;
 		}
 	}
 
@@ -55,9 +55,9 @@
 			letter-spacing: 0;
 			padding: 10px 11px;
 			font-size: 1.1em;
-			color: $white !important;
+			color: white !important;
 			&:hover {
-				color: $white !important;
+				color: white !important;
 			}
 		}
 	}
@@ -264,12 +264,12 @@
 	}
 
 	.show-on-hover-pf:hover > ul.dropdown-menu {
-		background-color: $white !important;
+		background-color: white !important;
 		color: #000000;
 	}
 
 	ul.dropdown-menu {
-		background-color: $white !important;
+		background-color: white !important;
 		margin-left: -17px;
 	}
 

@@ -34,7 +34,7 @@
 		font-size: 14px;
 		line-height: 1.42857143;
 		color: #555;
-		background-color: $white;
+		background-color: white;
 		background-image: none;
 		border: 1px solid #ccc;
 		border-radius: 4px;
@@ -72,18 +72,18 @@
 }
 
 .na_tab ul {
-	background-color: $black;
+	background-color: black;
 }
 
 .nav-tabs {
-	border-bottom: 0px solid $black !important;
+	border-bottom: 0px solid black !important;
 	font-family: sans-serif;
 	font-size: 17px;
 }
 
 .na_tab .nav > li :hover {
 	background-color: $vize-blue;
-	color: $white;
+	color: white;
 }
 
 .na_tab {
@@ -100,14 +100,14 @@
 		& > a:focus {
 			border-radius: 0px 0px 0 0 !important;
 			text-align: center;
-			color: $white !important;
+			color: white !important;
 			border: 0px solid #ddd !important;
 			border-bottom: 1px solid #4395cc !important;
 		}
 	}
 
 	ul li a {
-		color: $white !important;
+		color: white !important;
 	}
 }
 
@@ -123,7 +123,7 @@ li.te_deco {
 }
 
 .back_colo {
-	background-color: $white;
+	background-color: white;
 }
 
 .back_top_hover {
@@ -140,24 +140,24 @@ li.te_deco {
 }
 
 .section_rview_back_color_job {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	margin-top: 15px;
 }
 
 .section_rview_back_color {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 }
 
 .section_rview_back_color3 {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	margin-top: 15px;
 }
 
 .section_over2 {
-	background-color: $white;
+	background-color: white;
 	margin-top: 16px;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
@@ -165,7 +165,7 @@ li.te_deco {
 }
 
 .section_over3 {
-	background-color: $white;
+	background-color: white;
 	margin-top: 15px;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
@@ -173,14 +173,14 @@ li.te_deco {
 }
 
 .section_overtopsect {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
 	padding-top: 16px;
 }
 
 .section_over_revi2 {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
 	padding-top: 16px;
@@ -188,7 +188,7 @@ li.te_deco {
 
 .col-md-12.back_colo1 {
 	margin-bottom: 15px;
-	background-color: $white;
+	background-color: white;
 }
 
 .num_sett span {
@@ -220,7 +220,7 @@ li.te_deco {
 
 	span {
 		font-weight: bold;
-		color: $black;
+		color: black;
 	}
 }
 
@@ -254,7 +254,7 @@ li.te_deco {
 
 .btn-default:focus,
 .btn-default:active {
-	color: $white;
+	color: white;
 	background-color: red;
 	border-color: red;
 }
@@ -262,19 +262,19 @@ li.te_deco {
 .btn-default:active {
 	background-color: red !important;
 	border-color: red;
-	color: $white;
+	color: white;
 }
 
 .btn-default:focus,
 .btn-default.focus,
 .btn-default:active {
-	color: $white;
+	color: white;
 	background-color: #30ad23;
 	border-color: #30ad23;
 }
 
 .btn-default:active {
-	color: $white;
+	color: white;
 	background-color: #30ad23 !important;
 	border-color: #30ad23;
 }
@@ -284,11 +284,11 @@ li.te_deco {
 }
 
 .na_tab ul {
-	background-color: $black;
+	background-color: black;
 }
 
 .nav-tabs {
-	border-bottom: 0px solid $black !important;
+	border-bottom: 0px solid black !important;
 	font-family: sans-serif;
 	font-size: 17px;
 }
@@ -299,7 +299,7 @@ li.te_deco {
 
 	&:hover {
 		background-color: $vize-blue;
-		color: $white;
+		color: white;
 	}
 }
 
@@ -310,14 +310,14 @@ li.te_deco {
 .na_tab .nav-tabs > li > a {
 	border: none !important;
 	border-radius: 0px 0px 0 0 !important;
-	color: $white !important;
+	color: white !important;
 	text-align: center;
 }
 
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-	color: $white !important;
+	color: white !important;
 	cursor: default !important;
 	background-color: $vize-blue !important;
 	border: 0px solid #ddd !important;
@@ -336,7 +336,7 @@ li.te_deco {
 }
 
 .back_colo {
-	background-color: $white;
+	background-color: white;
 }
 .back_top_hover {
 	box-shadow: 0px 1px 3px 0px;
@@ -352,24 +352,24 @@ li.te_deco {
 }
 
 .section_rview_back_color_job {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	margin-top: 15px;
 }
 
 .section_rview_back_color {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 }
 
 .section_rview_back_color3 {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	margin-top: 15px;
 }
 
 .section_over2 {
-	background-color: $white;
+	background-color: white;
 	margin-top: 16px;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
@@ -377,7 +377,7 @@ li.te_deco {
 }
 
 .section_over3 {
-	background-color: $white;
+	background-color: white;
 	margin-top: 15px;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
@@ -385,13 +385,13 @@ li.te_deco {
 }
 
 .section_overtopsect {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
 	padding-top: 16px;
 }
 .section_over_revi2 {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding-bottom: 16px;
 	padding-top: 16px;
@@ -399,7 +399,7 @@ li.te_deco {
 
 .col-md-12.back_colo1 {
 	margin-bottom: 15px;
-	background-color: $white;
+	background-color: white;
 }
 
 .num_sett {
@@ -434,7 +434,7 @@ li.te_deco {
 
 	span {
 		font-weight: bold;
-		color: $black;
+		color: black;
 	}
 }
 
@@ -469,7 +469,7 @@ li.te_deco {
 
 .btn-default:focus,
 .btn-default:active {
-	color: $white;
+	color: white;
 	background-color: red;
 	border-color: red;
 }
@@ -477,19 +477,19 @@ li.te_deco {
 .btn-default:active {
 	background-color: red !important;
 	border-color: red;
-	color: $white;
+	color: white;
 }
 
 .btn-default:focus,
 .btn-default.focus,
 .btn-default:active {
-	color: $white;
+	color: white;
 	background-color: #30ad23;
 	border-color: #30ad23;
 }
 
 .btn-default:active {
-	color: $white;
+	color: white;
 	background-color: #30ad23 !important;
 	border-color: #30ad23;
 }

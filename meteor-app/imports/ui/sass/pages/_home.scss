@@ -11,7 +11,7 @@
 		.front {
 			z-index: 900;
 			height: inherit;
-			background: $white;
+			background: white;
 			box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
 			transform: rotate(0deg);
 			transition: all 0.4s ease-in-out;
@@ -24,7 +24,7 @@
 .frontTitle {
 	text-align: center;
 	font-size: 26px;
-	color: $black;
+	color: black;
 	height: 79px;
 	font-weight: bold;
 	padding: 10px 8px 0 8px;

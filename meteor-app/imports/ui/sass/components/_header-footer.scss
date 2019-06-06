@@ -17,12 +17,12 @@ nav {
 		a {
 			letter-spacing: 1px;
 			font-size: 1.2em;
-			color: $white;
+			color: white;
 			&:not(#register-button):hover,
 			&:not(#register-button):focus,
 			&:not(#register-button):active {
 				background-color: transparent !important;
-				color: $white;
+				color: white;
 			}
 		}
 	}
@@ -44,7 +44,7 @@ nav {
 }
 
 #register-button {
-	color: $white;
+	color: white;
 	font-weight: bold;
 	letter-spacing: 0.015em;
 	font-size: 12px;
@@ -59,14 +59,14 @@ nav {
 	&:hover,
 	&:active,
 	&:focus {
-		color: $white;
+		color: white;
 		background: $secondary-color-red;
 	}
 }
 
 .btn-green {
 	background-color: $secondary-color-red;
-	color: $white;
+	color: white;
 	padding-top: 6px;
 	padding-bottom: 6px;
 	font-size: 12px;
@@ -205,12 +205,12 @@ nav {
 	}
 
 	.navbar-toggle .icon-bar {
-		background: $white;
+		background: white;
 	}
 	.navbar-toggle {
 		display: block;
 		background-color: $vize-blue;
-		border: 1px solid $white;
+		border: 1px solid white;
 		margin-top: 15px;
 	}
 	.navbar-collapse {
@@ -237,11 +237,11 @@ nav {
 	}
 
 	.top-nav ul li a {
-		color: $white !important;
+		color: white !important;
 	}
 
 	.top-nav ul li a:hover {
-		color: $white !important;
+		color: white !important;
 	}
 	a.toggle-only-display {
 		display: block !important;
