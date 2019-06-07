@@ -1,43 +1,44 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
+import styled from "styled-components";
 
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import { localeMetadata, reactiveGetLocale } from "/imports/ui/startup/i18n.js";
 
-function CurLang({ code }) {
-	return <img src={localeMetadata[code].icon} alt={`${code} icon.`} />;
-}
+const LocaleIcon = ({ code }) => (
+	<img
+		src={localeMetadata[code].icon}
+		alt={localeMetadata[code].nativeName}
+	/>
+);
 
-CurLang.propTypes = {
-	code: PropTypes.string.isRequired,
-};
-
-const CurLangContainer = withTracker(() => ({
+const CurrentLocaleIcon = withTracker(() => ({
 	code: reactiveGetLocale(),
-}))(CurLang);
+}))(LocaleIcon);
+
+const LocaleButton = styled.button`
+	padding: 0;
+	& + & {
+		margin-left: 5px;
+	}
+`;
 
 const langOptions = close => (
-	<ul>
+	<>
 		{Object.keys(localeMetadata).map(code => (
-			<li key={code}>
-				<button
-					onClick={() => {
-						i18n.setLocale(code);
-						close();
-					}}
-				>
-					<img
-						src={localeMetadata[code].icon}
-						alt={`${code} icon.`}
-					/>
-					<span>{localeMetadata[code].nativeName}</span>
-				</button>
-			</li>
+			<LocaleButton
+				key={code}
+				onClick={() => {
+					i18n.setLocale(code);
+					close();
+				}}
+			>
+				<LocaleIcon code={code} />
+			</LocaleButton>
 		))}
-	</ul>
+	</>
 );
 
 function LangSelector() {
@@ -45,10 +46,11 @@ function LangSelector() {
 		<Popup
 			trigger={
 				<button className="button">
-					<CurLangContainer />
+					<CurrentLocaleIcon />
 				</button>
 			}
 			closeOnDocumentClick
+			contentStyle={{ width: `${(58 + 6) * 2 + 5}px` }}
 		>
 			{langOptions}
 		</Popup>
