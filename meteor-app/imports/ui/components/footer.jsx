@@ -15,8 +15,6 @@ const FooterContainer = styled.div`
 
 	/* From sass/components/_footer.scss */
 	background: #232326;
-	padding-top: 5%;
-	padding-bottom: 0;
 	text-align: left;
 	color: #cbcbcb;
 
@@ -36,55 +34,9 @@ const FooterContainer = styled.div`
 		}
 	}
 
-	.footer-grids {
-		h4 {
-			color: #767676;
-			text-transform: uppercase;
-			margin-bottom: 19px;
-			font-size: 23px;
-		}
-
-		&:nth-child(1) {
-			padding: 0 5em 0 0;
-		}
-
-		span {
-			display: block;
-		}
-	}
-
-	ul.footer_nav {
-		list-style-type: none;
-	}
-
-	ul.footer_nav {
-		.navigation4,
-		.navigation3,
-		.navigation2,
-		.navigation1 {
-			font-size: 17px;
-			list-style: none;
-			line-height: 31px;
-		}
-	}
-
 	/* From sass/responsive/_desktop-and-down.scss */
 	${forSize.desktopAndDown} {
 		padding: 4em 0;
-
-		.footer-grids {
-			float: left;
-			width: 33.33%;
-			padding: 0 0.5em;
-
-			&:nth-child(1) {
-				padding: 0 1em 0 0;
-			}
-
-			&:nth-child(2) {
-				margin: 1em 0;
-			}
-		}
 
 		img {
 			padding: 0;
@@ -95,17 +47,40 @@ const FooterContainer = styled.div`
 	/* From sass/responsive/_tablet-landscape-and-down.scss */
 	${forSize.tabletLandscapeAndDown} {
 		padding: 5em 0;
-
-		.footer-grids {
-			padding-left: 0;
-			margin-top: 10px;
-		}
 	}
 
 	/* From sass/responsive/_phones-only.scss */
 	${forSize.phoneOnly} {
 		padding: 3em 0;
 	}
+`;
+
+const FooterGrids = styled.div`
+	float: left;
+	width: 33.33%;
+	padding: 0 0.5em;
+
+	h4 {
+		color: #767676;
+		text-transform: uppercase;
+		margin-bottom: 19px;
+		font-size: 23px;
+	}
+
+	span {
+		display: block;
+	}
+
+	${forSize.tabletLandscapeAndDown} {
+		padding-left: 0;
+		margin-top: 10px;
+	}
+`;
+
+const FooterNav = styled.ul`
+	list-style: none;
+	font-size: 17px;
+	line-height: 31px;
 `;
 
 const CopyRight = styled.p`
@@ -121,33 +96,33 @@ export default function Footer() {
 	return (
 		<FooterContainer>
 			<div className="container">
-				<div className="col-md-3 footer-grids">
+				<FooterGrids>
 					<h4>Vize</h4>
-					<ul className=" footer_nav navigation1 ">
+					<FooterNav>
 						<li>
 							<Link to="/about">
 								<T>common.footer.about_us</T>
 							</Link>
 						</li>
-					</ul>
-				</div>
-				<div className="col-md-3 footer-grids">
+					</FooterNav>
+				</FooterGrids>
+				<FooterGrids>
 					<h4>
 						<T>common.footer.employers</T>
 					</h4>
-					<ul className=" footer_nav navigation2">
+					<FooterNav>
 						<li>
 							<Link to="/register">
 								<T>common.footer.create_free_account</T>
 							</Link>
 						</li>
-					</ul>
-				</div>
-				<div className="col-md-3 footer-grids">
+					</FooterNav>
+				</FooterGrids>
+				<FooterGrids>
 					<h4>
 						<T>common.footer.social</T>
 					</h4>
-					<ul className=" footer_nav navigation3">
+					<FooterNav>
 						<li>
 							<a href="https://www.linkedin.com/company/incentivizinggood">
 								<img
@@ -186,8 +161,8 @@ export default function Footer() {
 								/>
 							</a>
 						</li>
-					</ul>
-				</div>
+					</FooterNav>
+				</FooterGrids>
 				<div className="clearfix" />
 				<CopyRight>
 					Vize © 2019. <T>common.footer.all_rights_reserved</T>
