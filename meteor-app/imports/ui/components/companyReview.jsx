@@ -6,12 +6,12 @@ import {
 	faTimesCircle,
 	faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
+import Popup from "reactjs-popup";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import ModalView from "/imports/ui/components/modals/modal-view.jsx";
 import FlagSystem from "/imports/ui/components/flag/flag.jsx";
 
 import VoteButtons from "./vote-buttons";
@@ -209,17 +209,20 @@ function ReviewComponent(props) {
 								TODO: This should be refactored.
 							*/}
 							{props.user ? (
-								<ModalView
-									className="flag-style-btn"
-									content={() => (
-										<FlagSystem
-											reviewId={props.review.id}
-											companyName={props.companyName}
-										/>
-									)}
+								<Popup
+									trigger={
+										<button className="flag-style-btn">
+											<T>common.companyreview.report</T>
+										</button>
+									}
+									modal
+									closeOnDocumentClick
 								>
-									<T>common.companyreview.report</T>
-								</ModalView>
+									<FlagSystem
+										reviewId={props.review.id}
+										companyName={props.companyName}
+									/>
+								</Popup>
 							) : (
 								<button className="flag-style-btn" disabled>
 									<T>common.companyreview.report</T>
