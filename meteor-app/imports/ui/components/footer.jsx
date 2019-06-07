@@ -53,16 +53,6 @@ const FooterContainer = styled.div`
 		}
 	}
 
-	.footer-copy {
-		margin: 3em 0 0;
-		padding: 2em 0;
-		border-top: 1px solid #aaa;
-
-		p {
-			text-align: center;
-		}
-	}
-
 	ul.footer_nav {
 		list-style-type: none;
 	}
@@ -81,22 +71,6 @@ const FooterContainer = styled.div`
 	/* From sass/responsive/_desktop-and-down.scss */
 	${forSize.desktopAndDown} {
 		padding: 4em 0;
-
-		.footer-bottom {
-			a {
-				margin: 0 0.5em;
-			}
-
-			span {
-				left: -20px;
-				right: -20px;
-				font-size: 0.9em;
-
-				&:before {
-					left: 33px;
-				}
-			}
-		}
 
 		.footer-grids {
 			float: left;
@@ -132,6 +106,15 @@ const FooterContainer = styled.div`
 	${forSize.phoneOnly} {
 		padding: 3em 0;
 	}
+`;
+
+const CopyRight = styled.p`
+	display: block;
+	margin: 3em 0 0;
+	padding: 2.5em 0 2em 0;
+	border-top: 1px solid #aaa;
+
+	text-align: center;
 `;
 
 export default function Footer() {
@@ -206,18 +189,9 @@ export default function Footer() {
 					</ul>
 				</div>
 				<div className="clearfix" />
-				<div>
-					<div className="container">
-						<div className="col-md-12">
-							<div className="footer-bottom" />
-						</div>
-					</div>
-				</div>
-				<div className="footer-copy">
-					<p>
-						Vize © 2019. <T>common.footer.all_rights_reserved</T>
-					</p>
-				</div>
+				<CopyRight>
+					Vize © 2019. <T>common.footer.all_rights_reserved</T>
+				</CopyRight>
 			</div>
 		</FooterContainer>
 	);
