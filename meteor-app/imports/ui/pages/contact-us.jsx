@@ -72,7 +72,7 @@ export default class ContactUsPage extends React.Component {
 
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Contact Us">
 				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">

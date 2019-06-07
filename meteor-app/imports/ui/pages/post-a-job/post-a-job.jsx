@@ -171,7 +171,7 @@ export default class PostAJobForm extends React.Component {
 	}
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Post a Job">
 				<div className="page PostAJobForm">
 					<Blaze template="paj_blaze_form" />
 				</div>

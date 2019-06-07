@@ -106,7 +106,7 @@ class ReviewSubmitted extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Rewards">
 				<section className="review-submitted">
 					<div className="container back_top_hover">{content}</div>
 				</section>

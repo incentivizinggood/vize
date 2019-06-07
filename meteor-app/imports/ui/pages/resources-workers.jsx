@@ -28,7 +28,7 @@ const glyphStyle = {
 export default class ResourcesWorkers extends React.Component {
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Resources">
 				<br />
 				<br />
 				<br />
