@@ -29,7 +29,7 @@ function CompanyProfile_(props) {
 	}
 
 	return (
-		<PageWrapper>
+		<PageWrapper title="Company Profile">
 			<CompanyProfileSummary company={props.company} />
 
 			<br />

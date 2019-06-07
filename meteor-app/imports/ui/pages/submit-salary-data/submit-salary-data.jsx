@@ -235,7 +235,7 @@ class SubmitSalaryDataForm extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Salary">
 				<div className="page SubmitSalaryDataForm">
 					<Blaze template="ssd_blaze_form" />
 					{content}

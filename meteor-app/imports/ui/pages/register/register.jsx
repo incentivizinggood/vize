@@ -13,7 +13,7 @@ const T = i18n.createComponent(t);
  */
 function RegisterPage() {
 	return (
-		<PageWrapper>
+		<PageWrapper title="Register">
 			<div className="container login-top-spce">
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">

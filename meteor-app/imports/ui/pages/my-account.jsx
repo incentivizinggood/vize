@@ -51,7 +51,7 @@ class MyAccountPage extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Account Page">
 				<div className="container form-page">
 					<div className="row">
 						<div
