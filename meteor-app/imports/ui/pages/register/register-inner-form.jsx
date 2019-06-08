@@ -12,6 +12,7 @@ import i18n from "meteor/universe:i18n";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import IfFormik from "/imports/ui/components/if-formik.jsx";
 import FormGroup from "/imports/ui/components/form-group";
+import { Button } from "/imports/ui/components/button";
 
 import RoleInput from "./role-input.jsx";
 
@@ -49,13 +50,9 @@ function InnerForm() {
 					<FormGroup name="password" type="password" icon={faLock} />
 
 					<div className="button-center">
-						<button
-							form="register-form"
-							type="submit"
-							className="btn-primary button"
-						>
+						<Button primary type="submit">
 							<T>createAccount</T>
-						</button>
+						</Button>
 					</div>
 				</div>
 			</IfFormik>
