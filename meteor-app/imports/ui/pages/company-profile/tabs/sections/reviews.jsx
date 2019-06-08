@@ -1,13 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
-
-import { urlGenerators } from "/imports/ui/pages";
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
+import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 const T = i18n.createComponent();
@@ -35,14 +32,7 @@ function ReviewsSection(props) {
 					{props.company.name} <T>common.overview_tab.reviews</T>
 				</h4>
 				<div className="add-buttons">
-					<Link
-						to={urlGenerators.vizeReviewUrl(props.company.id)}
-						className="btn btn-primary"
-					>
-						{" "}
-						<FontAwesomeIcon icon={faPlus} />{" "}
-						{i18n.__("common.overview_tab.add_review")}
-					</Link>
+					<WriteReviewButton companyId={props.company.id} />
 				</div>
 				<hr />
 				<CompanyRating company={props.company} />

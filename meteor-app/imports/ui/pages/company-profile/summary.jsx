@@ -2,7 +2,6 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faPlus,
 	faUsers,
 	faFlask,
 	faMapMarker,
@@ -10,10 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
-
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/ui/pages";
+import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 function CompanyProfileSummary(props) {
@@ -78,14 +75,7 @@ function CompanyProfileSummary(props) {
 
 				<div className="col-md-4 prostar">
 					<div className="col-md-12">
-						<Link
-							to={urlGenerators.vizeReviewUrl(props.company.id)}
-							className="btn btn-primary btn-lg"
-						>
-							{" "}
-							<FontAwesomeIcon icon={faPlus} />{" "}
-							{i18n.__("common.companyprofile.add_review")}
-						</Link>
+						<WriteReviewButton companyId={props.company.id} />
 					</div>
 				</div>
 			</div>
