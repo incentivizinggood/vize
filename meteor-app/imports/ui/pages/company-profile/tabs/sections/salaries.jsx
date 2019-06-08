@@ -7,6 +7,7 @@ import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/ui/pages";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import { LinkButton } from "/imports/ui/components/button";
 
 const T = i18n.createComponent();
 
@@ -44,13 +45,14 @@ function SalariesSection(props) {
 				</h4>
 
 				<div className="add-buttons">
-					<Link
+					<LinkButton
 						to={urlGenerators.vizeSalaryUrl(props.company.id)}
-						className="btn btn-primary"
+						primary
 					>
-						<FontAwesomeIcon icon={faPlus} />{" "}
-						{i18n.__("common.overview_tab.add_salary")}
-					</Link>
+						<FontAwesomeIcon icon={faPlus} />
+						&nbsp;
+						<T>common.salary_tab.add_salary</T>
+					</LinkButton>
 				</div>
 				<hr />
 
