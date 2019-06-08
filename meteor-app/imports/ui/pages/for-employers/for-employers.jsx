@@ -104,7 +104,7 @@ const Button = styled.a`
 
 const GetStartedBig = () => (
 	<Button style={{ fontSize: 30 }} href="/register">
-		Get Started
+		<T>getStarted</T>
 	</Button>
 );
 const GetStarted = () => (
