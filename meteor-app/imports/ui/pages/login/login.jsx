@@ -1,9 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
-import { Link } from "react-router-dom";
 
 import LoginForm from "./login-form.js";
 
@@ -46,7 +46,6 @@ function LoginPage() {
 										<div className="text-center reg">
 											<T>noAccount</T>
 											<Link to="/register">
-												{" "}
 												<T>register</T>
 											</Link>
 										</div>
