@@ -177,22 +177,6 @@ span.headingoo {
 .add-buttons {
 	float: right;
 	display: inline;
-
-	button {
-		padding-left: 19px;
-		padding-right: 19px;
-		padding-top: 8px;
-		padding-bottom: 8px;
-		font-weight: 800;
-		background-color: $vize-blue;
-		color: $white;
-		font-family: initial;
-		font-size: 19px;
-
-		&:hover {
-			background-color: #3d7ba5;
-		}
-	}
 }
 
 .tab_str td span {
