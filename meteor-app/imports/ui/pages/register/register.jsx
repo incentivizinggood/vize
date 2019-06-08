@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
@@ -30,10 +31,9 @@ function RegisterPage() {
 									<div className="col-lg-12">
 										<div className="text-center login-link-cs">
 											<T>alreadyAccount</T>
-											<a href="/login">
-												{" "}
-												<T>login</T>{" "}
-											</a>
+											<Link to="/login">
+												<T>login</T>
+											</Link>
 										</div>
 										<div className="clearfix" />
 									</div>
