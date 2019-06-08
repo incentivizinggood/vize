@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import i18n from "meteor/universe:i18n";
 
@@ -13,12 +13,32 @@ const T = i18n.createComponent(t);
 
 const vizeBlue = "#2699FB";
 const vizePaleBlue = "#F1F9FF";
+const horizontalPaddingVal = "15px";
+
+const sizes = {
+	desktop: 992,
+	tablet: 768,
+	phone: 576,
+};
+
+const media = Object.keys(sizes).reduce((acc, label) => {
+	acc[label] = (...args) => css`
+		@media (max-width: ${sizes[label] / 16}em) {
+			${css(...args)}
+		}
+	`;
+
+	return acc;
+}, {});
 
 const P = styled.p`
 	color: ${vizeBlue};
 	text-align: center;
 	font-size: 18pt;
 	font-weight: bolder;
+
+	${media.tablet`padding-left: ${horizontalPaddingVal};
+	padding-right: ${horizontalPaddingVal};`}
 `;
 
 const Bold = styled.span`
@@ -107,6 +127,8 @@ const PlanBox = styled.div`
 	> * {
 		margin: 20px 0;
 	}
+
+	${media.phone`width: 85%;`}
 `;
 
 const ShadowBox = styled.div`
@@ -147,6 +169,9 @@ const PlansContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-bottom: 150px;
+
+	${media.tablet`flex-direction: column;
+	align-items: center;`}
 `;
 
 const PageTitle = styled.h1`
@@ -160,6 +185,10 @@ const PageTitle = styled.h1`
 	line-height: 1.2em;
 	font-weight: 700;
 	color: white;
+
+	${media.tablet`padding-left:${horizontalPaddingVal};
+	padding-right:${horizontalPaddingVal};
+	`}
 `;
 
 const Recruiting = styled.section`
@@ -170,6 +199,8 @@ const Recruiting = styled.section`
 	> div {
 		max-width: 40em;
 	}
+
+	${media.tablet`flex-direction: column-reverse;`}
 `;
 
 const Retainment = styled.section`
@@ -246,7 +277,10 @@ function ForEmployers() {
 							<T>recruitingText</T>
 						</P>
 					</div>
-					<img src="/images/example-job-post-square.png" />
+					<img
+						src="/images/example-job-post-square.png"
+						className="img-responsive"
+					/>
 				</Recruiting>
 				<Retainment>
 					<div>
