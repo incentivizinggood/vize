@@ -1,12 +1,13 @@
 import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
+import yup from "yup";
 
 import { Accounts } from "meteor/accounts-base";
 
-import InnerForm from "./register-inner-form.jsx";
+import * as schemas from "/imports/ui/form-schemas.js";
 
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+import InnerForm from "./register-inner-form.jsx";
 
 const initialValues = {
 	username: "",
@@ -16,23 +17,19 @@ const initialValues = {
 	role: "",
 };
 
-const validate = values => {
-	const errors = {};
-
-	if (!values.username) {
-		errors.username = "Required";
-	}
-
-	if (!values.password) {
-		errors.password = "Required";
-	}
-
-	if (values.email && !emailRegex.test(values.email)) {
-		errors.email = "Not a valid email";
-	}
-
-	return errors;
-};
+const schema = yup.object().shape({
+	username: schemas.username.required(),
+	email: yup
+		.string()
+		.email()
+		.required(),
+	companyName: schemas.companyName,
+	password: schemas.password.required(),
+	role: yup
+		.mixed()
+		.oneOf(["worker", "company"])
+		.required(),
+});
 
 const onSubmit = history => (values, actions) => {
 	const createUserCallback = error => {
@@ -74,7 +71,7 @@ const onSubmit = history => (values, actions) => {
 const RegisterForm = props => (
 	<Formik
 		initialValues={initialValues}
-		validate={validate}
+		validationSchema={schema}
 		onSubmit={onSubmit(props.history)}
 	>
 		<InnerForm />

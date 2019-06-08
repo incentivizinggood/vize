@@ -1,8 +1,11 @@
 import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
+import yup from "yup";
 
 import { Meteor } from "meteor/meteor";
+
+import * as schemas from "/imports/ui/form-schemas.js";
 
 import InnerForm from "./login-inner-form.jsx";
 
@@ -11,19 +14,10 @@ const initialValues = {
 	password: "",
 };
 
-const validate = values => {
-	const errors = {};
-
-	if (!values.username) {
-		errors.username = "Required";
-	}
-
-	if (!values.password) {
-		errors.password = "Required";
-	}
-
-	return errors;
-};
+const schema = yup.object().shape({
+	username: schemas.username.required(),
+	password: schemas.password.required(),
+});
 
 const onSubmit = history => (values, actions) => {
 	const loginCallback = error => {
@@ -62,7 +56,7 @@ const onSubmit = history => (values, actions) => {
 const LoginForm = props => (
 	<Formik
 		initialValues={initialValues}
-		validate={validate}
+		validationSchema={schema}
 		onSubmit={onSubmit(props.history)}
 	>
 		<InnerForm />
