@@ -90,8 +90,6 @@ function CompanySearchResult(props) {
 							<div className="titlestar">
 								<WriteReviewButton
 									companyId={props.company.id}
-									styleField="float: 'right'"
-									classField="btn btn-primary btn-lg hide-button-mobile float-right"
 								/>
 							</div>
 						</div>
@@ -129,10 +127,6 @@ function CompanySearchResult(props) {
 						<div className="company-search-desc">
 							<p>{props.company.descriptionOfCompany}</p>
 						</div>
-						<WriteReviewButton
-							companyId={props.company.id}
-							classField="btn btn-primary btn-lg add-review-btn-mobile"
-						/>
 						<div className="btn_mob_view_only">
 							<div className="group_all_btn">
 								<div className="btn-group btn-group-justified ">

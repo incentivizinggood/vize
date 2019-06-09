@@ -6,12 +6,12 @@ import i18n from "meteor/universe:i18n";
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function RoleInput(props) {
+function RoleInput({ formik }) {
 	return (
 		<>
 			<label
 				className={
-					props.formik.values.role === "worker"
+					formik.values.role === "worker"
 						? "role selected-role"
 						: "role"
 				}
@@ -23,15 +23,15 @@ function RoleInput(props) {
 					type="radio"
 					required
 					value="worker"
-					checked={props.formik.values.role === "worker"}
-					onChange={props.formik.handleChange}
-					onBlur={props.formik.handleBlur}
+					checked={formik.values.role === "worker"}
+					onChange={formik.handleChange}
+					onBlur={formik.handleBlur}
 				/>
 				<T>employee</T>
 			</label>
 			<label
 				className={
-					props.formik.values.role === "company"
+					formik.values.role === "company"
 						? "role selected-role"
 						: "role"
 				}
@@ -43,9 +43,9 @@ function RoleInput(props) {
 					type="radio"
 					required
 					value="company"
-					checked={props.formik.values.role === "company"}
-					onChange={props.formik.handleChange}
-					onBlur={props.formik.handleBlur}
+					checked={formik.values.role === "company"}
+					onChange={formik.handleChange}
+					onBlur={formik.handleBlur}
 				/>
 				<T>employer</T>
 			</label>

@@ -46,7 +46,8 @@
     "react-star-ratings": "^2.3.0",
     "request-promise-native": "^1.0.7",
     "simpl-schema": "1.4.3",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.0.2",

@@ -7,6 +7,7 @@ import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/ui/pages";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import { LinkButton } from "/imports/ui/components/button";
 
 import SalaryPosting from "./salary-posting.jsx";
 
@@ -25,14 +26,14 @@ function SalaryTab(props) {
 					<T>common.salary_tab.job_salaries</T>
 				</h4>
 				<div className="add-buttons">
-					<Link
+					<LinkButton
 						to={urlGenerators.vizeSalaryUrl(props.company.id)}
-						className="btn btn-primary"
+						primary
 					>
-						{" "}
 						<FontAwesomeIcon icon={faPlus} />
-						{i18n.__("common.salary_tab.add_salary")}
-					</Link>
+						&nbsp;
+						<T>common.salary_tab.add_salary</T>
+					</LinkButton>
 					{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 				</div>
 
