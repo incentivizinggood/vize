@@ -10,6 +10,7 @@ const theme = {
 	main: "hsl(204, 63%, 55%)",
 	mainVariant: "hsl(204, 63%, 35%)",
 	accent: "hsl(48, 99%, 50%)",
+	error: "red",
 
 	background: "hsl(0, 0%, 95%)",
 	// The background color of most things that have things in them.
