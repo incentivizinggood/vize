@@ -3,7 +3,7 @@
 	min-height: 700px;
 	position: relative;
 	z-index: 1;
-	@include background-size(cover);
+	background-size: cover;
 
 	&::before {
 		@include overlay();
@@ -11,7 +11,7 @@
 
 	&-text {
 		padding: 19em 0 0;
-		color: $white;
+		color: white;
 
 		&-info {
 			width: 70%;
@@ -38,7 +38,7 @@
 
 .open > a,
 .nav .open {
-	border: 0px solid $white !important;
+	border: 0px solid white !important;
 }
 
 .show-on-hover-pf:hover > ul.dropdown-menu {
