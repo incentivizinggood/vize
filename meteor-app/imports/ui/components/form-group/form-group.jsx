@@ -1,24 +1,42 @@
 import React from "react";
-import { Field, ErrorMessage } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Field, ErrorMessage, connect, getIn } from "formik";
+import styled from "styled-components";
 
-import i18n from "meteor/universe:i18n";
+const FormGroupContainer = connect(({ name, formik, children }) => {
+	const touch = getIn(formik.touched, name);
+	const error = getIn(formik.errors, name);
+	return (
+		<div
+			className={
+				!!touch && !!error ? "form-group has-error" : "form-group"
+			}
+		>
+			{children}
+		</div>
+	);
+});
 
-const t = i18n.createTranslator("common.loginRegister");
+const HelpBlock = ({ children }) => (
+	<span className="help-block">{children}</span>
+);
 
-const FormGroup = ({ name, type, icon }) => (
-	<div className="form-group">
-		<label className="icon-addon addon-md" title={name}>
-			<FontAwesomeIcon icon={icon} className="fa" />
+const Label = styled.label`
+	width: 100%;
+`;
+
+const FormGroup = ({ fieldName, type, placeholder, label }) => (
+	<FormGroupContainer name={fieldName}>
+		<Label>
+			<span className="control-label">{label}</span>
 			<Field
 				type={type}
-				placeholder={t(name)}
+				placeholder={placeholder}
 				className="form-control"
-				name={name}
+				name={fieldName}
 			/>
-		</label>
-		<ErrorMessage name={name} />
-	</div>
+		</Label>
+		<ErrorMessage name={fieldName} component={HelpBlock} />
+	</FormGroupContainer>
 );
 
 export default FormGroup;

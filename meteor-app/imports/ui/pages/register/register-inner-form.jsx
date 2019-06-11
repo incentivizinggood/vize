@@ -1,11 +1,5 @@
 import React from "react";
 import { Form } from "formik";
-import {
-	faLock,
-	faUser,
-	faEnvelope,
-	faBuilding,
-} from "@fortawesome/free-solid-svg-icons";
 
 import i18n from "meteor/universe:i18n";
 
@@ -31,19 +25,35 @@ function InnerForm() {
 					formik.values.role === "company"
 				}
 			>
-				<FormGroup name="username" type="text" icon={faUser} />
+				<FormGroup
+					fieldName="username"
+					type="text"
+					label={t("username")}
+					placeholder={t("username")}
+				/>
 
-				<FormGroup name="email" type="email" icon={faEnvelope} />
+				<FormGroup
+					fieldName="email"
+					type="email"
+					label={t("email")}
+					placeholder={t("email")}
+				/>
 
 				<IfFormik cond={formik => formik.values.role === "company"}>
 					<FormGroup
-						name="companyName"
+						fieldName="companyName"
 						type="text"
-						icon={faBuilding}
+						label={t("companyName")}
+						placeholder={t("companyName")}
 					/>
 				</IfFormik>
 
-				<FormGroup name="password" type="password" icon={faLock} />
+				<FormGroup
+					fieldName="password"
+					type="password"
+					label={t("password")}
+					placeholder={t("password")}
+				/>
 
 				<div className="button-center">
 					<Button primary type="submit">

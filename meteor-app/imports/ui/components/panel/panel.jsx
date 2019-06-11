@@ -7,8 +7,7 @@ const Panel = styled.div`
 
 	background-color: ${props => props.theme.surface};
 	border: 1px solid transparent;
-	border-radius: 4px;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding: 30px;
 `;
 

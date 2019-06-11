@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "formik";
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import i18n from "meteor/universe:i18n";
 
@@ -14,8 +13,18 @@ const T = i18n.createComponent(t);
 function InnerForm() {
 	return (
 		<Form>
-			<FormGroup name="username" type="text" icon={faUser} />
-			<FormGroup name="password" type="password" icon={faLock} />
+			<FormGroup
+				fieldName="username"
+				type="text"
+				label={t("username")}
+				placeholder={t("username")}
+			/>
+			<FormGroup
+				fieldName="password"
+				type="password"
+				label={t("password")}
+				placeholder={t("password")}
+			/>
 
 			<div className="button-center">
 				<Button primary type="submit">
