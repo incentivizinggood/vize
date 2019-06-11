@@ -22,9 +22,6 @@ const T = i18n.createComponent(t);
 function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
-			<h3 className="top-head-employer" align="center">
-				<T>register</T>
-			</h3>
 			<RoleInput />
 			<br />
 
@@ -34,26 +31,24 @@ function InnerForm() {
 					formik.values.role === "company"
 				}
 			>
-				<div className="register-login-form">
-					<FormGroup name="username" type="text" icon={faUser} />
+				<FormGroup name="username" type="text" icon={faUser} />
 
-					<FormGroup name="email" type="email" icon={faEnvelope} />
+				<FormGroup name="email" type="email" icon={faEnvelope} />
 
-					<IfFormik cond={formik => formik.values.role === "company"}>
-						<FormGroup
-							name="companyName"
-							type="text"
-							icon={faBuilding}
-						/>
-					</IfFormik>
+				<IfFormik cond={formik => formik.values.role === "company"}>
+					<FormGroup
+						name="companyName"
+						type="text"
+						icon={faBuilding}
+					/>
+				</IfFormik>
 
-					<FormGroup name="password" type="password" icon={faLock} />
+				<FormGroup name="password" type="password" icon={faLock} />
 
-					<div className="button-center">
-						<Button primary type="submit">
-							<T>createAccount</T>
-						</Button>
-					</div>
+				<div className="button-center">
+					<Button primary type="submit">
+						<T>createAccount</T>
+					</Button>
 				</div>
 			</IfFormik>
 		</Form>

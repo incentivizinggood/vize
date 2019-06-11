@@ -14,17 +14,13 @@ const T = i18n.createComponent(t);
 function InnerForm() {
 	return (
 		<Form>
-			<div className="register-login-form">
-				<FormGroup name="username" type="text" icon={faUser} />
-				<FormGroup name="password" type="password" icon={faLock} />
+			<FormGroup name="username" type="text" icon={faUser} />
+			<FormGroup name="password" type="password" icon={faLock} />
 
-				<div className="form-group text-center" />
-
-				<div className="button-center">
-					<Button primary type="submit">
-						<T>login</T>
-					</Button>
-				</div>
+			<div className="button-center">
+				<Button primary type="submit">
+					<T>login</T>
+				</Button>
 			</div>
 		</Form>
 	);
