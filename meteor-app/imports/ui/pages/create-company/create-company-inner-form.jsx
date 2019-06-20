@@ -5,15 +5,7 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
 import FormGroup from "/imports/ui/components/form-group";
 import { Button } from "/imports/ui/components/button";
 import { FormToolbar } from "/imports/ui/components/form-layout.jsx";
-
-/*
-Locations
-
-    Location 1
-    City
-    Address
-    Industrial Park
-*/
+import FormArray from "/imports/ui/components/form-array.jsx";
 
 function InnerForm() {
 	return (
@@ -65,14 +57,31 @@ function InnerForm() {
 				placeholder=""
 			/>
 
-			{/*
-				<FormGroup
-					fieldName="locations"
-					type="???"
-					label="Locations"
-					placeholder=""
-				/>
-			*/}
+			<FormArray
+				name="locations"
+				ElementRender={({ name }) => (
+					<>
+						<FormGroup
+							fieldName={`${name}.city`}
+							type="text"
+							label="City"
+							placeholder=""
+						/>
+						<FormGroup
+							fieldName={`${name}.address`}
+							type="text"
+							label="Address"
+							placeholder=""
+						/>
+						<FormGroup
+							fieldName={`${name}.industrialHub`}
+							type="text"
+							label="Industrial Park"
+							placeholder=""
+						/>
+					</>
+				)}
+			/>
 
 			<FormGroup
 				fieldName="contactPhoneNumber"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Field } from "formik";
+import { Field, getIn } from "formik";
 import styled from "styled-components";
 
 const HelpBlock = styled.span`
@@ -46,7 +46,8 @@ function FormGroupRenderer({
 	label,
 	...restProps
 }) {
-	const hasError = touched[field.name] && errors[field.name];
+	const error = getIn(errors, field.name);
+	const hasError = getIn(touched, field.name) && error;
 
 	// TODO: Refactor
 	const foo =
@@ -67,7 +68,7 @@ function FormGroupRenderer({
 					hasError={hasError}
 				/>
 			</Label>
-			{hasError ? <HelpBlock>{errors[field.name]}</HelpBlock> : null}
+			{hasError ? <HelpBlock>{error}</HelpBlock> : null}
 		</FormGroupContainer>
 	);
 }
