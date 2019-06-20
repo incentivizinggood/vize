@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import { Panel, PanelContainer } from "/imports/ui/components/panel";
+import {
+	FormHeader,
+	FormFooter,
+	FormPageWrapper,
+} from "/imports/ui/components/form-layout.jsx";
 
 import RegisterForm from "./register-form.js";
 
@@ -15,23 +18,18 @@ const T = i18n.createComponent(t);
  */
 function RegisterPage() {
 	return (
-		<PageWrapper title="Register">
-			<PanelContainer>
-				<Panel>
-					<h3 className="top-head-employer" align="center">
-						<T>register</T>
-					</h3>
-					<hr />
-					<RegisterForm />
-					<div className="text-center reg">
-						<T>alreadyAccount</T>
-						<Link to="/login">
-							<T>login</T>
-						</Link>
-					</div>
-				</Panel>
-			</PanelContainer>
-		</PageWrapper>
+		<FormPageWrapper title="Register">
+			<FormHeader>
+				<T>register</T>
+			</FormHeader>
+			<RegisterForm />
+			<FormFooter>
+				<T>alreadyAccount</T>
+				<Link to="/login">
+					<T>login</T>
+				</Link>
+			</FormFooter>
+		</FormPageWrapper>
 	);
 }
 export default RegisterPage;

@@ -1,4 +1,4 @@
 import PanelContainer from "./panel-container.jsx";
-import Panel from "./panel.jsx";
+import Panel, { PannelPadding } from "./panel.jsx";
 
-export { Panel, PanelContainer };
+export { Panel, PanelContainer, PannelPadding };

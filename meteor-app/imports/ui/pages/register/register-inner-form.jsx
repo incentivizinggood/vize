@@ -7,6 +7,7 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
 import IfFormik from "/imports/ui/components/if-formik.jsx";
 import FormGroup from "/imports/ui/components/form-group";
 import { Button } from "/imports/ui/components/button";
+import { FormToolbar } from "/imports/ui/components/form-layout.jsx";
 
 import RoleInput from "./role-input.jsx";
 
@@ -17,7 +18,6 @@ function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
 			<RoleInput />
-			<br />
 
 			<IfFormik
 				cond={formik =>
@@ -55,11 +55,11 @@ function InnerForm() {
 					placeholder={t("password")}
 				/>
 
-				<div className="button-center">
+				<FormToolbar>
 					<Button primary type="submit">
 						<T>createAccount</T>
 					</Button>
-				</div>
+				</FormToolbar>
 			</IfFormik>
 		</Form>
 	);

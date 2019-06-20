@@ -6,6 +6,7 @@ import i18n from "meteor/universe:i18n";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import FormGroup from "/imports/ui/components/form-group";
 import { Button } from "/imports/ui/components/button";
+import { FormToolbar } from "/imports/ui/components/form-layout.jsx";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
@@ -26,11 +27,11 @@ function InnerForm() {
 				placeholder={t("password")}
 			/>
 
-			<div className="button-center">
+			<FormToolbar>
 				<Button primary type="submit">
 					<T>login</T>
 				</Button>
-			</div>
+			</FormToolbar>
 		</Form>
 	);
 }

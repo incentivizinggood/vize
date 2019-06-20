@@ -19,10 +19,14 @@ function RadioItem({ fieldName, value, label }) {
 	);
 }
 
-// This should be a <legend> instead of a <div>,
-// but Bootstrap interfears with the style of legends.
-const Legend = styled.div`
+const Legend = styled.legend`
 	font-weight: bold;
+
+	/* Override the bootstrap styles. */
+	font-size: inherit;
+	margin: 0;
+	padding: 0;
+	border: none;
 `;
 
 function RadioGroup({ legend, children }) {
