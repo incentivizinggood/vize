@@ -1,12 +1,10 @@
 import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
-import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
 
 import * as dataModel from "/imports/api/models";
 
 import { ReviewSchema } from "./reviews.js";
-import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
 import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
 
@@ -464,68 +462,5 @@ Meteor.methods({
 			return true;
 		}
 		return false;
-	},
-
-	// Add method for creating a new CompanyProfile
-	//	--> The full solution will require cross-validation
-	//	--> with the collection of companies that have not
-	//	--> yet set up accounts. We're not ready for that quite yet.
-	async "companies.createProfile"(companyProfile) {
-		const newCompanyProfile = CompanySchema.clean(companyProfile);
-		const validationResult = CompanySchema.namedContext().validate(
-			newCompanyProfile
-		);
-		const errors = CompanySchema.namedContext().validationErrors();
-
-		if (Meteor.isDevelopment) {
-			console.log("SERVER: Here is the validation result: ");
-			console.log(validationResult);
-			console.log(errors);
-		}
-
-		if (!validationResult) {
-			throw new Meteor.Error(
-				"invalidArguments",
-				"invalidFormInputs",
-				errors
-			);
-		}
-
-		// Make sure the user is logged in before inserting a task
-		if (!this.userId) {
-			throw new Meteor.Error("loggedOut", "loggedOut");
-		}
-
-		const user = Meteor.users.findOne(this.userId);
-		if (user.role !== "company") {
-			throw new Meteor.Error("rolePermission", "onlyCompanies");
-		}
-
-		if (user.companyId !== undefined) {
-			throw new Meteor.Error("duplicateEntry", "onlyOnce");
-		}
-
-		// insert company to PostgreSQL
-		// update user info in PostgreSQL
-		const newPgCompany = await PostgreSQL.executeMutation(
-			PgCompanyFunctions.createCompany,
-			newCompanyProfile
-		);
-		if (Meteor.isDevelopment) {
-			console.log("NEW PG COMPANY");
-			console.log(newPgCompany);
-		}
-		if (newPgCompany.company !== undefined) {
-			await PostgreSQL.executeMutation(
-				PgUserFunctions.setUserCompanyInfo,
-				this.userId,
-				newPgCompany.company.companyid
-			);
-
-			// If insertion successful, then add companyId field to user account
-			Meteor.users.update(this.userId, {
-				$set: { companyId: newPgCompany.company.companyid },
-			});
-		}
 	},
 });

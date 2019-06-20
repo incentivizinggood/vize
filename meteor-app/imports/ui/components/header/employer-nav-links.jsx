@@ -13,7 +13,7 @@ function EmployerNavLinks(props) {
 		if (Meteor.isDevelopment) console.log(props.user.companyId);
 		companyURL = urlGenerators.vizeProfileUrl(props.user.companyId);
 	} else {
-		companyURL = "/create-company-profile";
+		companyURL = "/company/create";
 	}
 
 	return (
