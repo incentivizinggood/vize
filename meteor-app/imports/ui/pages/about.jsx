@@ -3,6 +3,7 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* A page where visitors can get information about Vize and this app.
@@ -10,7 +11,7 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 
 const T = i18n.createComponent();
 
-export default class AboutPage extends React.Component {
+class AboutPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,17 +24,6 @@ export default class AboutPage extends React.Component {
 		this.handleEmailChange = this.handleEmailChange.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleTextBoxChanging = this.handleTextBoxChanging.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleSubmit(event) {
@@ -85,7 +75,7 @@ export default class AboutPage extends React.Component {
 
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="About">
 				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">
@@ -215,3 +205,5 @@ export default class AboutPage extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(AboutPage);

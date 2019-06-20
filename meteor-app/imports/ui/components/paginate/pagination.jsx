@@ -1,19 +1,9 @@
 import React from "react";
-import CompanySearchTrial from "/imports/ui/pages/company-search/company-search.jsx";
-import i18n from "meteor/universe:i18n";
-import { Link } from "react-router-dom";
-import { Meteor } from "meteor/meteor";
-import { Email } from "meteor/email";
-import { Accounts } from "meteor/accounts-base";
 import ReactPaginate from "react-paginate";
-import style from "./pagination.scss";
 
-import "../../../api/data/methods.js";
-
-/*
-Pagination system appears below the block of companies
+/**
+ * Pagination system appears below the block of companies
  */
-
 export default function PaginateSystem(props) {
 	return (
 		<div className="centeredPag">

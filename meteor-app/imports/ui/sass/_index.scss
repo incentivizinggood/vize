@@ -1,7 +1,5 @@
 // VENDORS
-@import url("https://fonts.googleapis.com/css?family=Lato"),
-	url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"),
-	url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
 
 // BASE
 @import "base/variables", "base/mixins", "base/fonts", "base/reset";
@@ -15,10 +13,10 @@
 	"pages/search-companies", "pages/login-register", "pages/review-submitted";
 
 // Components
-@import "components/banner", "components/buttons", "components/dropdown",
-	"components/forms", "components/post-job", "components/profile",
-	"components/companies-search", "components/review-form", "components/header",
-	"components/footer", "components/react-phone-number-input";
+@import "components/banner", "components/dropdown", "components/forms",
+	"components/post-job", "components/profile", "components/companies-search",
+	"components/review-form", "components/header",
+	"components/react-phone-number-input";
 
 // Responsive
 @import "responsive/_desktop-and-down", "responsive/tablet-landscape-and-down",

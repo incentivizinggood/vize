@@ -128,7 +128,7 @@ export default class ApplyForJobForm extends React.Component {
 		afj_form_state.set("jobId", this.props.jobId);
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Apply">
 				<div className="page ApplyForJobForm">
 					<Blaze template="afj_blaze_form" />
 				</div>

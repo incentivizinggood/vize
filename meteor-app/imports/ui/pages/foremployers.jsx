@@ -11,7 +11,7 @@ const T = i18n.createComponent();
 export default class ForEmployers extends React.Component {
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Employers">
 				<div className="full-width-container forEmployees-header">
 					<div className="container ">
 						<div className="col-md-12">

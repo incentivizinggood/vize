@@ -130,36 +130,3 @@
 		}
 	}
 }
-// widget styling
-// can be refactored if we needed to refactor success widget to a component
-.success-widget {
-	width: 100%;
-	text-align: center;
-	h3 {
-		color: $vize-blue;
-		font-weight: bold;
-		padding: 25px;
-		font-size: 40px;
-	}
-}
-
-//widget animation
-.success-enter {
-	opacity: 0.01;
-}
-
-.success-enter.success-enter-active {
-	opacity: 1;
-	transition: opacity 700ms ease-in;
-}
-
-// can be used if we wanted to make the success widget vanish after a while
-
-//   .example-leave {
-//     opacity: 1;
-//   }
-
-//   .example-leave.example-leave-active {
-//     opacity: 0.01;
-//     transition: opacity 2000ms ease-in;
-//   }

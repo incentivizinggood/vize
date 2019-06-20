@@ -1,12 +1,12 @@
 body {
 	margin: 0;
-	font-family: $lato-light, sans-serifs;
-	background: $white;
+	font-family: "Lato-Light", sans-serifs;
+	background: white;
 	font-weight: normal;
 }
 
 a {
-	@include transition(0.5s all ease);
+	transition: 0.5s all ease;
 	text-decoration: none;
 
 	&:hover {
@@ -31,11 +31,9 @@ label {
 }
 
 .services,
-.footer,
 .about,
 .team,
-.contact,
-.gallery {
+.contact {
 	padding: 8em 0;
 }
 
@@ -59,7 +57,7 @@ p {
 	text-align: center;
 	font-weight: bold;
 	margin-bottom: 23px;
-	color: $white;
+	color: white;
 }
 
 .add-flex-row {
@@ -83,12 +81,6 @@ p {
 
 .center-element {
 	margin: 0 auto;
-}
-
-.center-block {
-	display: block;
-	margin-right: auto;
-	margin-left: auto;
 }
 
 .float-right {

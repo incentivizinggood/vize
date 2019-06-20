@@ -1,31 +1,23 @@
 import React from "react";
 import { Form } from "formik";
-import {
-	faLock,
-	faUser,
-	faEnvelope,
-	faBuilding,
-} from "@fortawesome/free-solid-svg-icons";
 
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import IfFormik from "/imports/ui/components/if-formik.jsx";
+import FormGroup from "/imports/ui/components/form-group";
+import { Button } from "/imports/ui/components/button";
+import { FormToolbar } from "/imports/ui/components/form-layout.jsx";
 
 import RoleInput from "./role-input.jsx";
-import FormGroup from "./form-group.jsx";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function InnerForm({ errors, isSubmitting }) {
+function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
-			<h3 className="top-head-employer" align="center">
-				<T>register</T>
-			</h3>
 			<RoleInput />
-			<br />
 
 			<IfFormik
 				cond={formik =>
@@ -33,34 +25,42 @@ function InnerForm({ errors, isSubmitting }) {
 					formik.values.role === "company"
 				}
 			>
-				<div className="register-login-form">
-					<FormGroup name="username" type="text" icon={faUser} />
+				<FormGroup
+					fieldName="username"
+					type="text"
+					label={t("username")}
+					placeholder={t("username")}
+				/>
 
-					<FormGroup name="email" type="email" icon={faEnvelope} />
+				<FormGroup
+					fieldName="email"
+					type="email"
+					label={t("email")}
+					placeholder={t("email")}
+				/>
 
-					<IfFormik cond={formik => formik.values.role === "company"}>
-						<FormGroup
-							name="companyName"
-							type="text"
-							icon={faBuilding}
-						/>
-					</IfFormik>
+				<IfFormik cond={formik => formik.values.role === "company"}>
+					<FormGroup
+						fieldName="companyName"
+						type="text"
+						label={t("companyName")}
+						placeholder={t("companyName")}
+					/>
+				</IfFormik>
 
-					<FormGroup name="password" type="password" icon={faLock} />
+				<FormGroup
+					fieldName="password"
+					type="password"
+					label={t("password")}
+					placeholder={t("password")}
+				/>
 
-					<div className="button-center">
-						<button
-							form="register-form"
-							type="submit"
-							disabled={isSubmitting}
-							className="btn-primary button"
-						>
-							<T>createAccount</T>
-						</button>
-					</div>
-				</div>
+				<FormToolbar>
+					<Button primary type="submit">
+						<T>createAccount</T>
+					</Button>
+				</FormToolbar>
 			</IfFormik>
-			<div>{JSON.stringify(errors)}</div>
 		</Form>
 	);
 }

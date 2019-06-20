@@ -10,7 +10,6 @@ import rewardsEligibility from "./rewards-eligibility.graphql";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-import { MDBContainer, MDBAlert } from "mdbreact";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import RewardsComponent from "./rewardsComponent.jsx";
@@ -106,7 +105,7 @@ class ReviewSubmitted extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Rewards">
 				<section className="review-submitted">
 					<div className="container back_top_hover">{content}</div>
 				</section>
