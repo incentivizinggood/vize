@@ -3,12 +3,22 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import yup from "yup";
 import { Mutation } from "react-apollo";
+import { mapValues, map, omitBy, filter } from "lodash";
 
 import * as schemas from "/imports/ui/form-schemas.js";
 import { urlGenerators } from "/imports/ui/pages/url-generators.js";
 
 import InnerForm from "./create-company-inner-form.jsx";
 import createCompanyQuery from "./create-company.graphql";
+
+function omitEmptyStrings(x) {
+	if (x === "") return undefined;
+	if (x instanceof Array)
+		return filter(map(x, omitEmptyStrings), y => y !== undefined);
+	if (x instanceof Object)
+		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
+	return x;
+}
 
 const initialValues = {
 	name: "",
@@ -63,10 +73,25 @@ const schema = yup.object().shape({
 	descriptionOfCompany: yup.string().max(6000),
 });
 
-const onSubmit = (createCompany, history) => (values, actions) => {
-	createCompany({ variables: { input: values } }).then(({ data, errors }) => {
-		if (errors) {
+const onSubmit = (createCompany, history) => (values, actions) =>
+	createCompany({
+		variables: {
+			input: omitEmptyStrings(values),
+		},
+	})
+		.then(({ data }) => {
+			console.log("data", data);
+
+			actions.resetForm(initialValues);
+
+			// Go to the newly created company's page.
+			history.push(
+				urlGenerators.vizeProfileUrl(data.createCompany.company.id)
+			);
+		})
+		.catch(errors => {
 			console.error(errors);
+			console.log(mapValues(errors, x => x));
 
 			// Errors to display on form fields
 			const formErrors = {};
@@ -83,14 +108,7 @@ const onSubmit = (createCompany, history) => (values, actions) => {
 
 			actions.setErrors(formErrors);
 			actions.setSubmitting(false);
-		} else {
-			actions.resetForm(initialValues);
-			history.push(
-				urlGenerators.vizeProfileUrl(data.createCompany.company.id)
-			);
-		}
-	});
-};
+		});
 
 const CreateCompanyForm = props => (
 	<Mutation mutation={createCompanyQuery}>
