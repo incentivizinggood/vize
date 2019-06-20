@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, ErrorMessage, connect, getIn } from "formik";
+import { Field } from "formik";
 import styled from "styled-components";
 
 const HelpBlock = styled.span`
@@ -16,7 +16,7 @@ const ControlLabel = styled.span`
 	color: ${props => (props.hasError ? props.theme.error : "inherit")};
 `;
 
-const FormControl = styled(Field)`
+const FormControl = styled.input`
 	display: block;
 	width: 100%;
 	height: 34px;
@@ -34,24 +34,33 @@ const FormGroupContainer = styled.div`
 	margin-top: 5px;
 `;
 
-function FormGroup({ fieldName, type, placeholder, label, formik }) {
-	const hasError =
-		getIn(formik.touched, fieldName) && getIn(formik.errors, fieldName);
+function FormGroupRenderer({
+	field,
+	form: { touched, errors },
+	type,
+	placeholder,
+	label,
+}) {
+	const hasError = touched[field.name] && errors[field.name];
 
 	return (
 		<FormGroupContainer>
 			<Label>
 				<ControlLabel hasError={hasError}>{label}</ControlLabel>
 				<FormControl
+					{...field}
 					type={type}
 					placeholder={placeholder}
-					name={fieldName}
 					hasError={hasError}
 				/>
 			</Label>
-			<ErrorMessage name={fieldName} component={HelpBlock} />
+			{hasError ? <HelpBlock>{errors[field.name]}</HelpBlock> : null}
 		</FormGroupContainer>
 	);
 }
 
-export default connect(FormGroup);
+function FormGroup({ fieldName, ...props }) {
+	return <Field name={fieldName} {...props} component={FormGroupRenderer} />;
+}
+
+export default FormGroup;
