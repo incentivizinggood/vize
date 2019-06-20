@@ -19,7 +19,7 @@ const ControlLabel = styled.span`
 const FormControl = styled.input`
 	display: block;
 	width: 100%;
-	height: 34px;
+	height: auto;
 	padding: 6px 12px;
 
 	border: 1px solid
@@ -28,6 +28,9 @@ const FormControl = styled.input`
 	border-radius: 4px;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 	transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+
+	resize: none;
+	overflow-y: scroll;
 `;
 
 const FormGroupContainer = styled.div`
@@ -38,19 +41,21 @@ function FormGroupRenderer({
 	field,
 	form: { touched, errors },
 	type,
-	placeholder,
 	label,
+	...restProps
 }) {
 	const hasError = touched[field.name] && errors[field.name];
+
+	const foo = type === "textarea" ? { as: "textarea" } : { type };
 
 	return (
 		<FormGroupContainer>
 			<Label>
 				<ControlLabel hasError={hasError}>{label}</ControlLabel>
 				<FormControl
+					{...restProps}
 					{...field}
-					type={type}
-					placeholder={placeholder}
+					{...foo}
 					hasError={hasError}
 				/>
 			</Label>

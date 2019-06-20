@@ -79,7 +79,8 @@ function InnerForm() {
 
 			<FormGroup
 				fieldName="descriptionOfCompany"
-				type="text"
+				type="textarea"
+				rows={6}
 				label="Description of Company"
 				placeholder=""
 			/>
