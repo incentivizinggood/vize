@@ -1,11 +1,16 @@
 import React from "react";
 import { Form } from "formik";
 
+import i18n from "meteor/universe:i18n";
+
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import FormGroup from "/imports/ui/components/form-group";
 import { Button } from "/imports/ui/components/button";
 import { FormToolbar } from "/imports/ui/components/form-layout.jsx";
 import FormArray from "/imports/ui/components/form-array.jsx";
+
+const t = i18n.createTranslator("common.forms.createCompany");
+const T = i18n.createComponent(t);
 
 function InnerForm() {
 	return (
@@ -13,29 +18,27 @@ function InnerForm() {
 			<FormGroup
 				fieldName="name"
 				type="text"
-				label="Company Name"
-				placeholder=""
+				label={t("fields.name.label")}
+				placeholder={t("fields.name.placeholder")}
 			/>
 
 			<FormGroup
 				fieldName="contactEmail"
 				type="email"
-				label="Contact Email"
-				placeholder=""
+				label={t("fields.contactEmail.label")}
+				placeholder={t("fields.contactEmail.placeholder")}
 			/>
 
 			<FormGroup
 				fieldName="yearEstablished"
 				type="number"
-				label="Year Established"
-				placeholder=""
+				label={t("fields.yearEstablished.label")}
 			/>
 
 			<FormGroup
 				fieldName="numEmployees"
 				type="select"
-				label="Number of Employees"
-				placeholder=""
+				label={t("fields.numEmployees.label")}
 			>
 				{// TODO: Refactor
 				[
@@ -53,8 +56,8 @@ function InnerForm() {
 			<FormGroup
 				fieldName="industry"
 				type="text"
-				label="Industry"
-				placeholder=""
+				label={t("fields.industry.label")}
+				placeholder={t("fields.industry.placeholder")}
 			/>
 
 			<FormArray
@@ -64,20 +67,24 @@ function InnerForm() {
 						<FormGroup
 							fieldName={`${name}.city`}
 							type="text"
-							label="City"
-							placeholder=""
+							label={t("fields.locations.city.label")}
+							placeholder={t("fields.locations.city.placeholder")}
 						/>
 						<FormGroup
 							fieldName={`${name}.address`}
 							type="text"
-							label="Address"
-							placeholder=""
+							label={t("fields.locations.address.label")}
+							placeholder={t(
+								"fields.locations.address.placeholder"
+							)}
 						/>
 						<FormGroup
 							fieldName={`${name}.industrialHub`}
 							type="text"
-							label="Industrial Park"
-							placeholder=""
+							label={t("fields.locations.industrialHub.label")}
+							placeholder={t(
+								"fields.locations.industrialHub.placeholder"
+							)}
 						/>
 					</>
 				)}
@@ -86,28 +93,28 @@ function InnerForm() {
 			<FormGroup
 				fieldName="contactPhoneNumber"
 				type="text"
-				label="Contact Phone Number"
-				placeholder=""
+				label={t("fields.contactPhoneNumber.label")}
+				placeholder={t("fields.contactPhoneNumber.placeholder")}
 			/>
 
 			<FormGroup
 				fieldName="websiteURL"
 				type="text"
-				label="Website URL"
-				placeholder=""
+				label={t("fields.websiteURL.label")}
+				placeholder={t("fields.websiteURL.placeholder")}
 			/>
 
 			<FormGroup
 				fieldName="descriptionOfCompany"
 				type="textarea"
 				rows={6}
-				label="Description of Company"
-				placeholder=""
+				label={t("fields.descriptionOfCompany.label")}
+				placeholder={t("fields.descriptionOfCompany.placeholder")}
 			/>
 
 			<FormToolbar>
 				<Button primary type="submit">
-					Submit
+					<T>submit</T>
 				</Button>
 			</FormToolbar>
 		</Form>

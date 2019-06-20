@@ -1,5 +1,7 @@
 import React from "react";
 
+import i18n from "meteor/universe:i18n";
+
 import {
 	FormHeader,
 	FormPageWrapper,
@@ -7,10 +9,15 @@ import {
 
 import CreateCompanyForm from "./create-company-form.js";
 
+const t = i18n.createTranslator("common.forms.createCompany");
+const T = i18n.createComponent(t);
+
 function CreateCompanyPage() {
 	return (
 		<FormPageWrapper title="Create Company">
-			<FormHeader>Create Company</FormHeader>
+			<FormHeader>
+				<T>formTitle</T>
+			</FormHeader>
 			<CreateCompanyForm />
 		</FormPageWrapper>
 	);

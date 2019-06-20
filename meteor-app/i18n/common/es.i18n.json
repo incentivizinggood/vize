@@ -63,14 +63,55 @@
 			"clacPlaceholder": "Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
 			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
 		},
-		"ccp": {
+		"createCompany": {
 			"formTitle": "Crear un nuevo perfil",
-			"namePlaceholder": "Por favor ingrese el nombre de su empresa",
-			"emailPlaceholder": "Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
-			"industryPlaceholder": "Por favor díganos la industria principal de su empresa",
-			"contactPhoneNumberPlaceholder": "###-###-####",
-			"websiteUrlPlaceholder": "Ingrese la URL del sitio web de su empresa, si tiene una",
-			"descriptionPlaceholder": "Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea"
+			"fields": {
+				"name": {
+					"label": "Nombre de la empresa",
+					"placeholder": "Por favor ingrese el nombre de su empresa"
+				},
+				"contactEmail": {
+					"label": "Email de contacto",
+					"placeholder": "Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)"
+				},
+				"yearEstablished": { "label": "Año Establecido" },
+				"numEmployees": { "label": "Numero de empleados" },
+				"industry": {
+					"label": "Industria",
+					"placeholder": "Por favor díganos la industria principal de su empresa"
+				},
+				"locations": {
+					"label": "Ubicaciones",
+					"city": {
+						"label": "Ciudad",
+						"placeholder": "Ingrese la ciudad para su ubicación"
+					},
+					"address": {
+						"label": "Dirección",
+						"placeholder": "Ingresa la dirección de tu ubicación"
+					},
+					"industrialHub": {
+						"label": "Parque Industrial",
+						"placeholder": "Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)"
+					}
+				},
+				"contactPhoneNumber": {
+					"label": "Numbero de Contacto",
+					"placeholder": "###-###-####"
+				},
+				"websiteURL": {
+					"label": "Url pagina de internet",
+					"placeholder": "Ingrese la URL del sitio web de su empresa, si tiene una"
+				},
+				"descriptionOfCompany": {
+					"label": "Descripcion de la compañia",
+					"placeholder": "Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea"
+				}
+			},
+			"messages": {
+				"nameTaken": "El nombre proporcionado ya esta en uso"
+			},
+			"submit": "Enviar"
 		},
 		"paj": {
 			"contractTypes": {

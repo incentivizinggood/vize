@@ -39,9 +39,6 @@
 		"JobApplications": {
 			"invalidJobId": "Please provide a valid job id for the job you wish to apply for"
 		},
-		"Companies": {
-			"nameTaken": "The name you provided is already taken"
-		},
 		"JobAds": {
 			"maxedOutJobPosts": "You may only post up to 5 job ads"
 		},
@@ -71,28 +68,6 @@
 			"phoneNumber": "Phone Number",
 			"coverLetterAndComments": "Cover Letter/Additional Comments",
 			"dateSent": "Date Sent"
-		},
-		"Companies": {
-			"_id": "_id",
-			"name": "Company Name",
-			"contactEmail": "Contact Email",
-			"yearEstablished": "Year Established",
-			"numEmployees": "Number of Employees",
-			"industry": "Industry",
-			"locations": "Locations",
-			"contactPhoneNumber": "Contact Phone Number",
-			"websiteURL": "Website URL",
-			"descriptionOfCompany": "Description of Company",
-			"dateJoined": "Date Joined Vize",
-			"numFlags": "Number of Flags",
-			"healthAndSafety": "Health and Safety",
-			"managerRelationship": "Manager Relationship",
-			"workEnvironment": "Work Environment",
-			"benefits": "Benefits",
-			"overallSatisfaction": "Overall Satisfaction",
-			"numReviews": "Number of Reviews",
-			"percentRecommended": "Percent Recommended",
-			"avgNumMonthsWorked": "Average Number of Months Worked"
 		},
 		"JobAds": {
 			"_id": "_id",
