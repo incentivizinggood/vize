@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import AboutPage from "./about.jsx";
 import ApplyForJobForm from "./apply-for-job";
 import CompanyCreateProfileForm from "./create-company-profile";
+import CreateCompany from "./create-company";
 import CompanyProfile from "./company-profile";
 import CompanySearchTrial from "./company-search";
 import ContactUsPage from "./contact-us.jsx";
@@ -46,6 +47,7 @@ function Pages(props) {
 				path="/create-company-profile"
 				component={CompanyCreateProfileForm}
 			/>
+			<Route path="/create-company" component={CreateCompany} />
 			<Route path="/contact-us" component={ContactUsPage} />
 			<Route path="/review-submitted" component={ReviewSubmitted} />
 			<Route path="/employer-resources" component={ResourcesEmployers} />
