@@ -27,6 +27,8 @@ const FormControl = styled.input`
 			props.hasError ? props.theme.error : props.theme.onSurfaceWeak};
 	border-radius: 4px;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	background: transparent;
+
 	transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 
 	resize: none;
@@ -46,7 +48,13 @@ function FormGroupRenderer({
 }) {
 	const hasError = touched[field.name] && errors[field.name];
 
-	const foo = type === "textarea" ? { as: "textarea" } : { type };
+	// TODO: Refactor
+	const foo =
+		type === "textarea"
+			? { as: "textarea" }
+			: type === "select"
+			? { as: "select" }
+			: { type };
 
 	return (
 		<FormGroupContainer>

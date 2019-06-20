@@ -14,6 +14,7 @@ Locations
     Address
     Industrial Park
 */
+
 function InnerForm() {
 	return (
 		<Form>
@@ -38,14 +39,24 @@ function InnerForm() {
 				placeholder=""
 			/>
 
-			{/*
-				<FormGroup
-					fieldName="numEmployees"
-					type="???"
-					label="Number of Employees"
-					placeholder=""
-				/>
-			*/}
+			<FormGroup
+				fieldName="numEmployees"
+				type="select"
+				label="Number of Employees"
+				placeholder=""
+			>
+				{// TODO: Refactor
+				[
+					<option value="">(Select One)</option>,
+					...[
+						"1 - 50",
+						"51 - 500",
+						"501 - 2000",
+						"2001 - 5000",
+						"5000+",
+					].map(x => <option value={x}>{x}</option>),
+				]}
+			</FormGroup>
 
 			<FormGroup
 				fieldName="industry"
