@@ -73,7 +73,10 @@ const schema = yup.object().shape({
 	descriptionOfCompany: yup.string().max(6000),
 });
 
-const onSubmit = (createCompany, history) => (values, actions) =>
+const onSubmit = (createCompany, history, setSubmissionError) => (
+	values,
+	actions
+) =>
 	createCompany({
 		variables: {
 			input: omitEmptyStrings(values),
@@ -93,6 +96,8 @@ const onSubmit = (createCompany, history) => (values, actions) =>
 			console.error(errors);
 			console.log(mapValues(errors, x => x));
 
+			setSubmissionError(errors);
+
 			// Errors to display on form fields
 			const formErrors = {};
 
@@ -110,18 +115,25 @@ const onSubmit = (createCompany, history) => (values, actions) =>
 			actions.setSubmitting(false);
 		});
 
-const CreateCompanyForm = props => (
-	<Mutation mutation={createCompanyQuery}>
-		{createCompany => (
-			<Formik
-				initialValues={initialValues}
-				validationSchema={schema}
-				onSubmit={onSubmit(createCompany, props.history)}
-			>
-				<InnerForm />
-			</Formik>
-		)}
-	</Mutation>
-);
+const CreateCompanyForm = props => {
+	const [submissionError, setSubmissionError] = React.useState(null);
+	return (
+		<Mutation mutation={createCompanyQuery}>
+			{createCompany => (
+				<Formik
+					initialValues={initialValues}
+					validationSchema={schema}
+					onSubmit={onSubmit(
+						createCompany,
+						props.history,
+						setSubmissionError
+					)}
+				>
+					<InnerForm submissionError={submissionError} />
+				</Formik>
+			)}
+		</Mutation>
+	);
+};
 
 export default withRouter(CreateCompanyForm);

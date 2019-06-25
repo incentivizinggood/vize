@@ -24,6 +24,7 @@ const theme = {
 	onBackground: "#333",
 	onSurface: "#333",
 	onSurfaceAccent: "#cbcbcb",
+	onError: "white",
 
 	// The "weak" colors.
 	// Used for things that are subtle, disabled, or placeholders.

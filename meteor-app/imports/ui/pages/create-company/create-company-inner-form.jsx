@@ -8,11 +8,12 @@ import FormGroup from "/imports/ui/components/form-group";
 import { Button } from "/imports/ui/components/button";
 import { FormToolbar } from "/imports/ui/components/form-layout.jsx";
 import FormArray from "/imports/ui/components/form-array.jsx";
+import SubmissionError from "/imports/ui/components/submission-error.jsx";
 
 const t = i18n.createTranslator("common.forms.createCompany");
 const T = i18n.createComponent(t);
 
-function InnerForm() {
+function InnerForm({ submissionError }) {
 	return (
 		<Form>
 			<FormGroup
@@ -111,6 +112,8 @@ function InnerForm() {
 				label={t("fields.descriptionOfCompany.label")}
 				placeholder={t("fields.descriptionOfCompany.placeholder")}
 			/>
+
+			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
 				<Button primary type="submit">
