@@ -5,8 +5,8 @@ config
 # NPM stuff
 node_modules
 
-# Meteor stuff
-meteor-app/.meteor/local
+# Meteor stuff - Meteor automatically generates its own gitignore.
+meteor-app/.meteor/.gitignore
 
 # Mac stuff
 ._*
