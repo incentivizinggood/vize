@@ -89,7 +89,7 @@ class AboutPage extends React.Component {
 				<div className="about">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="text-center">
+							<h1 className="text-center about-header">
 								<T>common.aboutUs.the_problem</T>
 							</h1>
 							<h3 className="about-subheader">
@@ -98,7 +98,7 @@ class AboutPage extends React.Component {
 						</div>
 						<div className="col-md-12 ">
 							<div className="about-row">
-								<p>
+								<p className="about-paragraph">
 									<T>common.aboutUs.problem_text</T>
 								</p>
 							</div>
@@ -110,7 +110,7 @@ class AboutPage extends React.Component {
 				<div className="about contrast">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="text-center">
+							<h1 className="text-center about-header">
 								<T>common.aboutUs.our_solution</T>
 							</h1>
 
