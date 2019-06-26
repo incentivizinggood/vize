@@ -84,6 +84,7 @@ export default class RewardsComponent extends React.Component {
 				bottom: 0,
 				right: 0,
 				borderRadius: "4px",
+				height: "300px",
 			},
 		};
 
