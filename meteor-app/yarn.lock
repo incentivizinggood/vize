@@ -1577,7 +1577,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.1.2, classnames@^2.2.1, classnames@^2.2.5:
+classnames@^2.2.1, classnames@^2.2.5:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -4967,7 +4967,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -5231,14 +5231,6 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-simple-dropdown@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/react-simple-dropdown/-/react-simple-dropdown-3.2.3.tgz#c9737bcb7a54c7de267a1afeeec04de588a3fa7b"
-  integrity sha512-NmyyvA0D4wph5ctzkn8U4wmblOacavJMl9gTOhQR3v8I997mc1FL1NFKkj3Mx+HNysBKRD/HI+kpxXCAgXumPw==
-  dependencies:
-    classnames "^2.1.2"
-    prop-types "^15.5.8"
-
 react-star-ratings@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-star-ratings/-/react-star-ratings-2.3.0.tgz#311a68f8f44492439a5b306ed743e63a63fe0fa7"
@@ -5267,6 +5259,11 @@ react@^16.1.0, react@^16.8.4:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.4"
+
+reactjs-popup@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/reactjs-popup/-/reactjs-popup-1.4.1.tgz#d5ec829a0f94d4480144f8c52f71cc73b7941083"
+  integrity sha512-Q1yLwo4X+on6k/45usKuOdmIkJr5TnL+8LUNtFvNLNmGLEdOnZn1uR57iq36E8RrMJc+d+tSGdgo8uaJKkxNNA==
 
 read-pkg-up@^1.0.1:
   version "1.0.1"

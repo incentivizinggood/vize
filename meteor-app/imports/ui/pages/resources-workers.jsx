@@ -1,29 +1,12 @@
 import React from "react";
-import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
-import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import ModalText from "/imports/ui/components/modal-text.jsx";
 
 const T = i18n.createComponent();
-
-const customStyles = {
-	content: {
-		position: "relative",
-		marginTop: "110px",
-		maxHeight: "80%",
-	},
-};
-
-const glyphStyle = {
-	fontSize: "15px",
-	textAlign: "center",
-};
-
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-// Modal.setAppElement('#yourAppElement')
 
 export default class ResourcesWorkers extends React.Component {
 	render() {
@@ -58,7 +41,7 @@ export default class ResourcesWorkers extends React.Component {
 								</p>
 
 								<p>
-									<ModalToggle
+									<ModalText
 										title={
 											<T>
 												common.resourcesWorkers.trainingProgramsTitle
@@ -102,7 +85,7 @@ export default class ResourcesWorkers extends React.Component {
 								<p>
 									<T>common.resourcesWorkers.laborLawsDesc</T>
 								</p>
-								<ModalToggle
+								<ModalText
 									title={
 										<T>
 											common.resourcesWorkers.laborLawsTitle
@@ -146,7 +129,7 @@ export default class ResourcesWorkers extends React.Component {
 									</T>
 								</p>
 
-								<ModalToggle
+								<ModalText
 									title={
 										<T>
 											common.resourcesWorkers.educationDistanceTitle
@@ -193,7 +176,7 @@ export default class ResourcesWorkers extends React.Component {
 								</T>
 							</p>
 
-							<ModalToggle
+							<ModalText
 								title={
 									<T>
 										common.resourcesWorkers.becomeBilingualTitle
@@ -308,79 +291,6 @@ export default class ResourcesWorkers extends React.Component {
 					</div>
 				</div>
 			</PageWrapper>
-		);
-	}
-}
-
-class ModalToggle extends React.Component {
-	constructor() {
-		super();
-
-		this.state = {
-			modalIsOpen: false,
-		};
-
-		this.openModal = this.openModal.bind(this);
-		this.afterOpenModal = this.afterOpenModal.bind(this);
-		this.closeModal = this.closeModal.bind(this);
-	}
-
-	openModal() {
-		this.setState({ modalIsOpen: true });
-	}
-
-	afterOpenModal() {
-		// references are now sync'd and can be accessed.
-		this.subtitle.style.color = "#f00";
-	}
-
-	closeModal() {
-		this.setState({ modalIsOpen: false });
-	}
-	render() {
-		return (
-			<div>
-				<p>
-					<button
-						className="btn btn-success button"
-						onClick={this.openModal}
-					>
-						<T>common.resourcesWorkers.readMore</T>
-					</button>
-				</p>
-				<Modal
-					isOpen={this.state.modalIsOpen}
-					onAfterOpen={this.afterOpenModal}
-					onRequestClose={this.closeModal}
-					style={customStyles}
-					contentLabel="Example Modal"
-					className="modal-content"
-				>
-					<div className="scroll">
-						{" "}
-						<span>
-							{" "}
-							<a onClick={this.closeModal}>
-								<i
-									style={{
-										fontSize: "25px",
-										float: "right",
-									}}
-									className="remove glyphicon glyphicon-remove"
-								/>
-							</a>
-							<h2
-								className="text-center"
-								ref={subtitle => (this.subtitle = subtitle)}
-							>
-								{this.props.title}
-							</h2>
-						</span>
-						<br />
-						<p>{this.props.content} </p>
-					</div>
-				</Modal>
-			</div>
 		);
 	}
 }

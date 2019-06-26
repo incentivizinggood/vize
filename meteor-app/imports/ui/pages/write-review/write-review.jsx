@@ -3,6 +3,7 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import Popup from "reactjs-popup";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
@@ -12,7 +13,6 @@ import { withRouter } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import { Link } from "react-router-dom";
 
-import ModalView from "/imports/ui/components/modals/modal-view.jsx";
 import RegisterLoginModal from "../../components/register-login-modal.jsx";
 
 import i18n from "meteor/universe:i18n";
@@ -181,13 +181,9 @@ class WriteReviewForm extends React.Component {
 			content = null;
 		} else {
 			content = (
-				<ModalView
-					className="flag-style-btn"
-					noButton
-					content={RegisterLoginModal}
-				>
-					<T>common.companyreview.report</T>
-				</ModalView>
+				<Popup defaultOpen modal closeOnDocumentClick>
+					<RegisterLoginModal />
+				</Popup>
 			);
 		}
 
