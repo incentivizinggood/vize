@@ -167,7 +167,29 @@ export default class RewardsComponent extends React.Component {
 											}
 										}}
 									/>
-
+									<label
+										className="heard-about-us-label"
+										htmlFor="how-did-you-hear-about-us-select"
+									>
+										How did you hear about us?
+									</label>
+									<select
+										id="how-did-you-hear-about-us-select"
+										name="how-did-you-hear-about-us-select"
+									>
+										<option value="">
+											--Please choose an option--
+										</option>
+										<option value="Radio">Radio</option>
+										<option value="facebook">
+											facebook
+										</option>
+										<option value="Google">Google</option>
+										<option value="Referral">
+											Referral
+										</option>
+										<option value="other">other</option>
+									</select>
 									<br />
 
 									<button

@@ -128,5 +128,15 @@
 			color: white;
 			font-weight: bolder;
 		}
+		.heard-about-us-label {
+			margin-top: 35px;
+			margin-bottom: 5px;
+			color: dimgray;
+			& + select {
+				margin-bottom: 20px;
+				display: block;
+				width: 100%;
+			}
+		}
 	}
 }
