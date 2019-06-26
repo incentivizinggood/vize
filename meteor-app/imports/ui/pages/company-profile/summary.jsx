@@ -58,12 +58,13 @@ function CompanyProfileSummary(props) {
 							</p>
 							<p>
 								<FontAwesomeIcon icon={faGlobe} />{" "}
-								<Link
-									to={props.company.websiteURL || ""}
+								<a
+									href={props.company.websiteURL}
 									target="_blank"
+									rel="noopener noreferrer"
 								>
 									{props.company.websiteURL}
-								</Link>
+								</a>
 							</p>
 							<p>
 								<FontAwesomeIcon icon={faUsers} />{" "}
