@@ -8,9 +8,6 @@ import ModalText from "/imports/ui/components/modal-text.jsx";
 
 const T = i18n.createComponent();
 
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-// Modal.setAppElement('#yourAppElement')
-
 export default class ResourcesEmployers extends React.Component {
 	render() {
 		return (
