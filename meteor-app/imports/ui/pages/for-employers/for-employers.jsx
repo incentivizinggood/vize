@@ -68,8 +68,8 @@ const ProblemPoint = styled.p`
 
 const SectionTitle = styled.h1`
 	color: ${vizeBlue};
-	padding-top: 100px;
-	margin-bottom: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	margin-left: 2.5em;
 	font-weight: bold;
 	font-size: 55px;
@@ -85,6 +85,11 @@ const SubsectionTitle = styled.h2`
 	color: ${vizeBlue};
 	text-align: center;
 	font-weight: bold;
+`;
+
+const SectionContainer = styled.section`
+	padding-top: 60px;
+	padding-bottom: 60px;
 `;
 
 const Button = styled.a`
@@ -113,12 +118,23 @@ const GetStarted = () => (
 	</Button>
 );
 
+const ShadowBox = styled.div`
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	background-color: white;
+	padding: 70px;
+
+	@media (max-width: 576px) {
+		padding: 30px;
+	}
+`;
+
 const PlanBox = styled.div`
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	background-color: white;
 	color: ${vizeBlue};
-	border: 1px solid black;
 	margin: 10px;
 	width: 30rem;
-	padding: calc(5rem - 20px) 5rem;
+	padding: calc(3rem - 20px) 2rem;
 	text-align: center;
 	font-weight: bolder;
 
@@ -131,19 +147,20 @@ const PlanBox = styled.div`
 	${media.phone`width: 85%;`}
 `;
 
-const ShadowBox = styled.div`
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	background-color: white;
-	padding: 70px;
-
-	@media (max-width: 576px) {
-		padding: 30px;
-	}
-`;
-
 const PlanFeatureList = styled.ul`
 	list-style-type: none;
 	line-height: 1.5;
+	font-size: 18px;
+	text-align: left;
+	padding-left: 8px;
+
+	li:before {
+		content: "✓  ";
+	}
+
+	li {
+		margin-bottom: 15px;
+	}
 
 	/* Push the "Get Started" button to the bottom */
 	flex: 1;
@@ -169,6 +186,11 @@ const PlansContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-bottom: 150px;
+
+	> * {
+		margin: 30px;
+		min-height: 450px; // so that boxes are the same height for mobile screen size
+	}
 
 	${media.tablet`flex-direction: column;
 	align-items: center;`}
@@ -196,6 +218,7 @@ const Recruiting = styled.section`
 	flex-direction: row-reverse;
 	align-items: center;
 	justify-content: center;
+	padding-top: 40px;
 	> div {
 		max-width: 40em;
 	}
@@ -215,7 +238,7 @@ const Retainment = styled.section`
 	}
 `;
 
-const Foo = styled(P)`
+const PricingTextContainer = styled(P)`
 	max-width: 620px;
 	margin-left: auto;
 	margin-right: auto;
@@ -224,6 +247,7 @@ const Foo = styled(P)`
 function ForEmployers() {
 	const analyticsImg = `/images/${t("analyticsDashboard")}`;
 	console.log(analyticsImg);
+	$("#columnTwo").height($("#columnOne").height());
 	return (
 		<PageWrapper navIsAnimated>
 			<Banner>
@@ -232,7 +256,7 @@ function ForEmployers() {
 				</PageTitle>
 				<GetStartedBig />
 			</Banner>
-			<section style={{ backgroundColor: "#fafbfc" }}>
+			<SectionContainer style={{ backgroundColor: "#fafbfc" }}>
 				<SectionTitle>
 					<T>heading1</T>
 				</SectionTitle>
@@ -263,8 +287,9 @@ function ForEmployers() {
 						</Bold>
 					</ShadowBox>
 				</ProblemPoint>
-			</section>
-			<section>
+			</SectionContainer>
+
+			<SectionContainer>
 				<SectionTitle>
 					<T>heading2</T>
 				</SectionTitle>
@@ -296,12 +321,13 @@ function ForEmployers() {
 						src={`/images/${t("analyticsDashboard")}`}
 					/>
 				</Retainment>
-			</section>
-			<section>
+			</SectionContainer>
+
+			<SectionContainer style={{ backgroundColor: "#fafbfc" }}>
 				<SectionTitle>
 					<T>heading3</T>
 				</SectionTitle>
-				<Foo>
+				<PricingTextContainer>
 					<T>pricingText1</T>{" "}
 					<Bold>
 						<T>pricingText2</T>
@@ -311,7 +337,8 @@ function ForEmployers() {
 						<T>pricingText4</T>
 					</Bold>{" "}
 					<T>pricingText5</T>
-				</Foo>
+				</PricingTextContainer>
+				<br />
 				<PlansContainer>
 					<PlanOption
 						name={<T>businessHeading</T>}
@@ -331,7 +358,7 @@ function ForEmployers() {
 						]}
 					/>
 				</PlansContainer>
-			</section>
+			</SectionContainer>
 		</PageWrapper>
 	);
 }
