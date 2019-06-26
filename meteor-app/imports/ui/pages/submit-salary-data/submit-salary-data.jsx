@@ -7,6 +7,7 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
+import { Redirect } from "react-router";
 
 import i18n from "meteor/universe:i18n";
 
@@ -184,6 +185,11 @@ if (Meteor.isClient) {
 				hasError: false,
 				isSqlError: false,
 			});
+
+			const baseUrl = window.location.origin;
+			window.location.replace(`${baseUrl}/review-submitted`);
+
+			// return <Redirect to="review-submitted" />;
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
