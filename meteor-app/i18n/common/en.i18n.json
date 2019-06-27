@@ -145,17 +145,6 @@
 	"companiesSearchBar": {
 		"placeholder": "Search for a Company..."
 	},
-	"footer": {
-		"about_us": "About Us",
-		"social": "Our Social Media",
-		"linkedin": "Linkedin",
-		"instagram": "Instagram",
-		"facebook": "Facebook",
-		"twitter": "Twitter",
-		"employers": "Employers",
-		"create_free_account": "Create a Free Employer Account",
-		"all_rights_reserved": "All rights reserved"
-	},
 	"aboutUs": {
 		"about": "About",
 		"the_problem": "The Problem",

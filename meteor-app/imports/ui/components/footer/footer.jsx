@@ -2,12 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import i18n from "meteor/universe:i18n";
-
 import { forSize } from "/imports/ui/responsive.js";
 import styleVariables from "/imports/ui/style-variables.js";
 
-const T = i18n.createComponent();
+import T from "./translations";
 
 const FooterContainer = styled.footer`
 	padding: 1.5em;
@@ -78,7 +76,7 @@ export default function Footer() {
 			<LinksContainer>
 				<Links>
 					<Link to="/about">
-						<T>common.footer.about_us</T>
+						<T.about_us />
 					</Link>
 					<Link to="/contact-us">Contact Us</Link>
 					<Link to="/help">Help</Link>
@@ -103,7 +101,7 @@ export default function Footer() {
 				</Links>
 			</LinksContainer>
 			<CopyRight>
-				Vize © 2019. <T>common.footer.all_rights_reserved</T>
+				Vize © 2019. <T.all_rights_reserved />
 			</CopyRight>
 		</FooterContainer>
 	);

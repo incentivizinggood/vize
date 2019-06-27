@@ -145,13 +145,6 @@
 	"companiesSearchBar": {
 		"placeholder": "Buscar una empresa..."
 	},
-	"footer": {
-		"about_us": "Acerca de nosotros",
-		"social": "Nuestras Redes Sociales",
-		"employers": "Empleadores",
-		"create_free_account": "Crear una cuenta de empleador gratuita",
-		"all_rights_reserved": "Todos los derechos reservados"
-	},
 	"aboutUs": {
 		"about": "Acerca de Nosotros",
 		"the_problem": "El Problema",
