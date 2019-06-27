@@ -30,18 +30,21 @@ const Bold = styled.span`
 
 const ProblemPoint = styled.p`
 	display: block;
+
+	max-width: 600px;
+	padding: 70px;
+	margin-left: auto;
+	margin-right: auto;
+
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	background-color: white;
 	color: ${props => props.theme.main};
 	text-align: center;
 	font-size: x-large;
 	font-weight: bolder;
 
-	max-width: 700px;
-	padding: 50px;
-	margin-left: auto;
-	margin-right: auto;
-
 	& + & {
-		margin-top: 100px;
+		margin-top: 150px;
 	}
 
 	${forSize.phoneOnly} {
@@ -113,16 +116,6 @@ const PlanBox = styled.div`
 
 	${forSize.phoneOnly} {
 		width: 85%;
-	}
-`;
-
-const ShadowBox = styled.div`
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	background-color: white;
-	padding: 70px;
-
-	${forSize.phoneOnly} {
-		padding: 30px;
 	}
 `;
 
@@ -228,30 +221,24 @@ function ForEmployers() {
 				</SectionTitle>
 
 				<ProblemPoint>
-					<ShadowBox>
-						<T>card1part1</T> <Bold>90% - 120%</Bold>
-						<T>card1part2</T>{" "}
-						<Bold>
-							<T>card1part3</T>
-						</Bold>
-					</ShadowBox>
+					<T>card1part1</T> <Bold>90% - 120%</Bold>
+					<T>card1part2</T>{" "}
+					<Bold>
+						<T>card1part3</T>
+					</Bold>
 				</ProblemPoint>
 
 				<ProblemPoint>
-					<ShadowBox>
-						<T>card2part1</T>{" "}
-						<Bold>
-							<T>card2part2</T>
-						</Bold>
-					</ShadowBox>
+					<T>card2part1</T>{" "}
+					<Bold>
+						<T>card2part2</T>
+					</Bold>
 				</ProblemPoint>
 				<ProblemPoint>
-					<ShadowBox>
-						<T>card3part1</T>{" "}
-						<Bold>
-							<T>card3part2</T>
-						</Bold>
-					</ShadowBox>
+					<T>card3part1</T>{" "}
+					<Bold>
+						<T>card3part2</T>
+					</Bold>
 				</ProblemPoint>
 			</section>
 			<section>
