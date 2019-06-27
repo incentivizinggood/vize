@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
 
-import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.ts";
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import Spinner from "/imports/ui/components/Spinner";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 import companyProfileQuery from "./company-profile.graphql";
-import Spinner from "../../components/Spinner";
 
 const T = i18n.createComponent();
 

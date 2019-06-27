@@ -7,9 +7,8 @@ import {
 	faMapMarker,
 	faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
-import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.ts";
 import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 

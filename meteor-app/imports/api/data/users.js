@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 import SimpleSchema from "simpl-schema";
 
-import { postToSlack } from "/imports/api/connectors/slack-webhook.js";
+import { postToSlack } from "/imports/api/connectors/slack-webhook.ts";
 
 // The users collection is handled differently than the other collections.
 // It exists by default and has some built-in fields. As such it is not created

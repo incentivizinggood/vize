@@ -1,23 +1,20 @@
 import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
-import { check } from "meteor/check";
 import i18n from "meteor/universe:i18n";
 
-import * as dataModel from "/imports/api/models";
+import * as dataModel from "/imports/api/models/index.ts";
+
+import { PostgreSQL } from "/imports/api/connectors/postgresql/index.ts";
+import PgCompanyFunctions from "/imports/api/models/helpers/postgresql/companies.ts";
+import PgReviewFunctions from "/imports/api/models/helpers/postgresql/reviews.ts";
+import PgJobAdFunctions from "/imports/api/models/helpers/postgresql/jobads.ts";
+import PgSalaryFunctions from "/imports/api/models/helpers/postgresql/salaries.ts";
+import PgUserFunctions from "/imports/api/models/helpers/postgresql/users.ts";
 
 import { ReviewSchema } from "./reviews.js";
 import { CompanySchema } from "./companies.js";
 import { SalarySchema } from "./salaries.js";
 import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
-
-// Testing with PostgreSQL
-import { PostgreSQL } from "../connectors/postgresql/index.ts";
-import PgCompanyFunctions from "../models/helpers/postgresql/companies.ts";
-import PgReviewFunctions from "../models/helpers/postgresql/reviews.ts";
-import PgJobAdFunctions from "../models/helpers/postgresql/jobads.ts";
-import PgSalaryFunctions from "../models/helpers/postgresql/salaries.ts";
-// import PgCommentFunctions from "../models/helpers/postgresql/comments.js"; // we don't have comments yet
-import PgUserFunctions from "../models/helpers/postgresql/users.ts";
 
 Meteor.methods({
 	async "postgres.users.createUser"(user, companyPostgresId) {

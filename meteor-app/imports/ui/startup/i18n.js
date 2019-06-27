@@ -1,7 +1,8 @@
 import { find, merge } from "lodash";
+import SimpleSchema from "simpl-schema";
+
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
-import SimpleSchema from "simpl-schema";
 
 import { CompanySchema } from "/imports/api/data/companies.js";
 import { JobAdSchema, JobApplicationSchema } from "/imports/api/data/jobads.js";

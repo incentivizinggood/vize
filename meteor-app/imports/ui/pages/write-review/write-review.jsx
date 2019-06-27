@@ -1,34 +1,24 @@
-// Boilerplate first
-import { Meteor } from "meteor/meteor";
 import React from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
-import { Template } from "meteor/templating"; // Used to set up the autoform
-import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
-import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
-import { AutoForm } from "meteor/aldeed:autoform";
 import { withRouter } from "react-router-dom";
+
+import { Meteor } from "meteor/meteor";
+import { Template } from "meteor/templating";
+import Blaze from "meteor/gadicc:blaze-react-component";
+import { ReactiveDict } from "meteor/reactive-dict";
+import { AutoForm } from "meteor/aldeed:autoform";
 import { withTracker } from "meteor/react-meteor-data";
-import { Link } from "react-router-dom";
-
-import RegisterLoginModal from "../../components/register-login-modal.jsx";
-
 import i18n from "meteor/universe:i18n";
 
-// Specific stuff second
+import ErrorWidget from "/imports/ui/components/error-widget.jsx";
+import RegisterLoginModal from "/imports/ui/components/register-login-modal.jsx";
 import { ReviewSchema } from "/imports/api/data/reviews.js";
-import "./write-review.html";
-
 import PageWrapper from "/imports/ui/components/page-wrapper";
-
-// Weird that I have to import all of these here,
-// rather than import the .html in the .js and just
-// import the .js here, but Meteor complains if I don't,
-// so whatever...
 import "/imports/ui/components/afInputStarRating";
 import "/imports/ui/components/afInputLocation";
+
+import "./write-review.html";
 
 const T = i18n.createComponent();
 

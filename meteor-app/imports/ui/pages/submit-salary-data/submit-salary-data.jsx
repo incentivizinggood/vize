@@ -1,27 +1,24 @@
-// Boilerplate first
-import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
-import { Template } from "meteor/templating"; // Used to set up the autoform
-import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
-import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
-import { AutoForm } from "meteor/aldeed:autoform";
-
-import i18n from "meteor/universe:i18n";
-
-// Specific stuff second
-import { SalarySchema } from "/imports/api/data/salaries.js";
-import "./submit-salary-data.html";
 import { withRouter } from "react-router-dom";
+
+import { Meteor } from "meteor/meteor";
+import { Template } from "meteor/templating";
+import Blaze from "meteor/gadicc:blaze-react-component";
+import { ReactiveDict } from "meteor/reactive-dict";
+import { AutoForm } from "meteor/aldeed:autoform";
+import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
+import { reactiveCommonTranslator } from "/imports/ui/startup/i18n.js";
+import ErrorWidget from "/imports/ui/components/error-widget.jsx";
+import { SalarySchema } from "/imports/api/data/salaries.js";
 import PageWrapper from "/imports/ui/components/page-wrapper";
-
-import RegisterLoginModal from "../../components/register-login-modal.jsx";
-
+import RegisterLoginModal from "/imports/ui/components/register-login-modal.jsx";
 import "/imports/ui/components/afInputLocation";
+
+import "./submit-salary-data.html";
 
 const T = i18n.createComponent();
 
@@ -68,8 +65,6 @@ ssd_form_state.set("genderOptions", [
 ]);
 
 if (Meteor.isClient) {
-	import { reactiveCommonTranslator } from "/imports/ui/startup/i18n.js";
-
 	Template.ssd_blaze_form.bindI18nNamespace("common.forms");
 
 	Template.ssd_blaze_form.onCreated(function() {

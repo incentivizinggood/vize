@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import i18n from "meteor/universe:i18n";
+
 import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
 import CompanyReview from "/imports/ui/components/companyReview.jsx";
 import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";

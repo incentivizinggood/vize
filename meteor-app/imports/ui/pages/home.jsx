@@ -12,7 +12,7 @@ import {
 	WhiteButton,
 	BlackBorderButton,
 } from "/imports/ui/components/button";
-import CompaniesSearchBar from "../components/companies-search-bar.jsx";
+import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
