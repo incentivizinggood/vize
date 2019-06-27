@@ -10,21 +10,35 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
  * @param restProps    If the translations are functions, they will be called with the other props.
  */
 const I18nSwitch = withUpdateOnChangeLocale(
-	({ translations, ...restProps }) => {
+	({ translations, messageKey, args }) => {
 		const locale = i18n.getLocale();
 
-		const translation = translations[locale];
+		const translation = translations[locale][messageKey];
 
 		if (typeof translation === "function") {
-			return translation(restProps);
+			return translation(args);
 		}
 
 		return translation;
 	}
 );
 
-function i18nSwitch(translations) {
-	return props => <I18nSwitch translations={translations} {...props} />;
+function makeTranslaties(translations) {
+	const keys = Object.keys(Object.values(translations)[0]);
+
+	return keys.reduce(
+		(acc, messageKey) => ({
+			...acc,
+			[messageKey]: props => (
+				<I18nSwitch
+					args={props}
+					translations={translations}
+					messageKey={messageKey}
+				/>
+			),
+		}),
+		{}
+	);
 }
 
-export { I18nSwitch, i18nSwitch };
+export default makeTranslaties;
