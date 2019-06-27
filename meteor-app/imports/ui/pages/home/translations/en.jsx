@@ -1,15 +1,22 @@
+import React from "react";
+
 export default {
 	mainBanner: "Find a Great Job Near You",
 	searchButton: "SEARCH",
 	placeholder: "Search for a Company...",
-	findjob_part1: "Know The Job Before You Get It",
+	findjob_title: "Know The Job Before You Get It",
 	commonLine: "",
 	rewardText: "Earn $100 pesos by sharing your work experience",
 	findjob_text:
 		"Don't waste your time going from factory to factory, search job posts and read reviews from other employees to find the best job for you",
 	jobsButton: "Jobs",
-	findemp_part1: "Find an Employer",
-	findemp_part2: "That Treats You Right",
+	findemp_title: (
+		<>
+			Find an Employer
+			<br />
+			That Treats You Right
+		</>
+	),
 	findemp_text:
 		"Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
 	companiesButton: "Companies",

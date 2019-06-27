@@ -93,7 +93,7 @@ function HomePage() {
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
-								<T.findjob_part1 /> <br />{" "}
+								<T.findjob_title />
 							</h1>
 						</div>
 						<div className="great-comp-hm">
@@ -119,7 +119,7 @@ function HomePage() {
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
-								<T.findjob_part1 /> <br />{" "}
+								<T.findjob_title />
 							</h1>
 						</div>
 						<div className="great-comp-hm">
@@ -160,8 +160,7 @@ function HomePage() {
 					<div className="col-md-5">
 						<div>
 							<h1 className="white-text-center">
-								<T.findemp_part1 /> <br />
-								<T.findemp_part2 />{" "}
+								<T.findemp_title />
 							</h1>
 						</div>
 						<div>
@@ -195,8 +194,7 @@ function HomePage() {
 					<div className="col-md-5">
 						<div>
 							<h1 className="white-text-center">
-								<T.findemp_part1 /> <br />
-								<T.findemp_part2 />{" "}
+								<T.findemp_title />
 							</h1>
 						</div>
 						<div>

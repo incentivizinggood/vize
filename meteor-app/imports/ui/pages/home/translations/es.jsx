@@ -1,14 +1,21 @@
+import React from "react";
+
 export default {
 	mainBanner: "Encuentre un Buen Trabajo Cerca de Usted",
 	searchButton: "Buscar",
 	placeholder: "Buscar una empresa...",
-	findjob_part1: "Conoce El Trabajo Antes De Que Lo Consigas",
+	findjob_title: "Conoce El Trabajo Antes De Que Lo Consigas",
 	rewardText: "Gana $100 pesos por compartir tu experiencia laboral",
 	findjob_text:
 		"No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea opiniones de otros empleados para encontrar el mejor trabajo para usted",
 	jobsButton: "Trabajos",
-	findemp_part1: "Encuentre un empleador",
-	findemp_part2: "que lo trate bien",
+	findemp_title: (
+		<>
+			Encuentre un empleador
+			<br />
+			que lo trate bien
+		</>
+	),
 	findemp_text:
 		"Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. Las opiniones y calificaciones incentivan a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
 	companiesButton: "Empresas",
