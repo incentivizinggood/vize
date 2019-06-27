@@ -53,7 +53,7 @@ const ProblemPoint = styled.p`
 	font-weight: bolder;
 
 	max-width: 700px;
-	padding: 50px;
+	padding: 25px 50px;
 	margin-left: auto;
 	margin-right: auto;
 
@@ -70,13 +70,11 @@ const SectionTitle = styled.h1`
 	color: ${vizeBlue};
 	padding-top: 20px;
 	padding-bottom: 20px;
-	margin-left: 2.5em;
+	text-align: center;
 	font-weight: bold;
 	font-size: 55px;
 
 	@media (max-width: 992px) {
-		text-align: center;
-		margin-left: 0em;
 		font-size: 40px;
 	}
 `;
@@ -245,9 +243,6 @@ const PricingTextContainer = styled(P)`
 `;
 
 function ForEmployers() {
-	const analyticsImg = `/images/${t("analyticsDashboard")}`;
-	console.log(analyticsImg);
-	$("#columnTwo").height($("#columnOne").height());
 	return (
 		<PageWrapper navIsAnimated>
 			<Banner>
