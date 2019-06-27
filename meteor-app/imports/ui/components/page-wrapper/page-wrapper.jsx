@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "/imports/ui/components/header";
-import Footer from "/imports/ui/components/footer.jsx";
+import Footer from "/imports/ui/components/footer";
 
 const PageContainer = styled.div`
 	overflow: hidden;
