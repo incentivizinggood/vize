@@ -10,70 +10,11 @@ import {
 	WhiteButton,
 	BlackBorderButton,
 } from "/imports/ui/components/button";
-import makeTranslaties from "/imports/ui/components/i18n-switch.jsx";
+import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
 
-import CompaniesSearchBar from "../components/companies-search-bar.jsx";
-
-const T = makeTranslaties({
-	en: {
-		mainBanner: "Find a Great Job Near You",
-		searchButton: "SEARCH",
-		placeholder: "Search for a Company...",
-		findjob_part1: "Know The Job Before You Get It",
-		commonLine: "",
-		rewardText: "Earn $100 pesos by sharing your work experience",
-		findjob_text:
-			"Don't waste your time going from factory to factory, search job posts and read reviews from other employees to find the best job for you",
-		jobsButton: "Jobs",
-		findemp_part1: "Find an Employer",
-		findemp_part2: "That Treats You Right",
-		findemp_text:
-			"Vize helps you discover employers based on different industries, job types, and company sizes. The feedback and rating system holds companies accountable for creating rich work environments and safe working conditions",
-		companiesButton: "Companies",
-		hear: "Hear From Your",
-		community: "Community",
-		hear_text:
-			"See anonymous reviews and ratings of companies from people in your Community. Add value to the community by sharing your work experience.",
-		add_review_button: "Add a Review",
-		get_fair_salary: "Get a Fair Salary For",
-		your_work: "Your Work",
-		fairsalary_text:
-			"Find hundreds of salaries for different job positions by gender. Share your salary anonymously to make sure others are getting fairly compensated.",
-		salary_button: "Add a Salary",
-		discover_employers: "Start discovering new employers now",
-		signup_button: "SIGN UP",
-	},
-	es: {
-		mainBanner: "Encuentre un Buen Trabajo Cerca de Usted",
-		searchButton: "Buscar",
-		placeholder: "Buscar una empresa...",
-		findjob_part1: "Conoce El Trabajo Antes De Que Lo Consigas",
-		rewardText: "Gana $100 pesos por compartir tu experiencia laboral",
-		findjob_text:
-			"No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea opiniones de otros empleados para encontrar el mejor trabajo para usted",
-		jobsButton: "Trabajos",
-		findemp_part1: "Encuentre un empleador",
-		findemp_part2: "que lo trate bien",
-		findemp_text:
-			"Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. Las opiniones y calificaciones incentivan a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
-		companiesButton: "Empresas",
-		hear: "Escuche de su ",
-		community: "comunidad",
-		hear_text:
-			"Consulte opiniones y valoraciones anónimas de compañías expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
-		add_review_button: "Agregar una Opinión",
-		get_fair_salary: "Obtenga un salario",
-		your_work: "justo por su trabajo",
-		fairsalary_text:
-			"Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
-		salary_button: "Agregar un Salario",
-		discover_employers: "Comience a descubrir nuevos empleadores ahora",
-		signup_button: "Registrar",
-	},
-});
+import T from "./translations";
 
 function HomePage() {
-	console.log(T);
 	return (
 		<PageWrapper>
 			<div
