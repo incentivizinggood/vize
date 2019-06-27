@@ -5,6 +5,7 @@ import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import Banner from "/imports/ui/components/banner";
+import { LinkButton } from "/imports/ui/components/button";
 import { forSize } from "/imports/ui/responsive.js";
 
 const t = i18n.createTranslator("common.forEmployers");
@@ -73,31 +74,15 @@ const SubsectionTitle = styled.h2`
 	font-weight: bold;
 `;
 
-const Button = styled.a`
-	background: ${props => props.theme.main};
-
-	/* Increase spesificity to override a global style. */
-	&&&&&&&& {
-		color: white;
-	}
-
-	border-radius: 3px;
-	display: inline-block;
-	padding: 20px 40px;
-	font-weight: bold;
-	font-size: 21px;
-`;
-
-const GetStartedBig = () => (
-	<Button style={{ fontSize: 30 }} href="/register">
-		Get Started
-	</Button>
-);
-const GetStarted = () => (
-	<Button href="/register">
+const GetStarted = props => (
+	<LinkButton primary to="/register" {...props}>
 		<T>getStarted</T>
-	</Button>
+	</LinkButton>
 );
+
+const GetStartedBig = styled(GetStarted)`
+	font-size: 30pt;
+`;
 
 const PlanBox = styled.div`
 	color: ${props => props.theme.main};
