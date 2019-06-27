@@ -12,10 +12,17 @@ import {
 	WhiteButton,
 	BlackBorderButton,
 } from "/imports/ui/components/button";
+import { i18nSwitch } from "/imports/ui/components/i18n-switch.jsx";
+
 import CompaniesSearchBar from "../components/companies-search-bar.jsx";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);
+
+const MainBanner = i18nSwitch({
+	en: "Find a Great Job Near You",
+	es: "Encuentre un Buen Trabajo Cerca de Usted",
+});
 
 function HomePage() {
 	return (
@@ -71,7 +78,7 @@ function HomePage() {
 								<li>
 									<div className="banner-text-info">
 										<h1>
-											<T>mainBanner</T>
+											<MainBanner />
 										</h1>
 									</div>
 									<CompaniesSearchBar />
