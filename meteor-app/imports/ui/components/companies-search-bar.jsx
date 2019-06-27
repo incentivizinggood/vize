@@ -7,7 +7,7 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
-const t = i18n.createTranslator("common.homePage");
+const t = i18n.createTranslator("common.companiesSearchBar");
 
 class CompaniesSearchBar extends React.Component {
 	constructor(props) {
