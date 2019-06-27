@@ -5,6 +5,7 @@ import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import Banner from "/imports/ui/components/banner";
+import I18nImg from "/imports/ui/components/i18n-img.jsx";
 import { LinkButton } from "/imports/ui/components/button";
 import { forSize } from "/imports/ui/responsive.js";
 
@@ -190,8 +191,6 @@ const Foo = styled(P)`
 `;
 
 function ForEmployers() {
-	const analyticsImg = `/images/${t("analyticsDashboard")}`;
-	console.log(analyticsImg);
 	return (
 		<PageWrapper title="Employers" navIsAnimated>
 			<Banner>
@@ -253,9 +252,17 @@ function ForEmployers() {
 							<T>retainmentText</T>
 						</P>
 					</div>
-					<img
+					<I18nImg
 						className="img-responsive"
-						src={`/images/${t("analyticsDashboard")}`}
+						src={l =>
+							// In the future we should make all translations of
+							// an img the same file type. That way we can just
+							// have l => `/images/analytics-dashboard-${l}.png`
+							// instead of this if/else thing.
+							l === "es"
+								? `/images/analytics-dashboard-spanish.jpg`
+								: `/images/analytics-dashboard.png`
+						}
 					/>
 				</Retainment>
 			</section>
