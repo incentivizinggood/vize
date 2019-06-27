@@ -34,23 +34,8 @@
 		width: 20%;
 	}
 
-	.add-buttons {
-		float: right;
-		display: inline;
-	}
-
 	.num_sett span {
 		text-align: center;
-	}
-
-	.mar_lf_ri .na_tab {
-		.nav-tabs > li {
-			display: block;
-			width: 100% !important;
-			a {
-				margin-right: 0;
-			}
-		}
 	}
 
 	.tab_str {
@@ -143,11 +128,9 @@
 	}
 
 	.services,
-	.footer,
 	.about,
 	.team,
-	.contact,
-	.gallery {
+	.contact {
 		padding: 3em 0;
 	}
 
@@ -191,14 +174,6 @@
 
 	nav {
 		padding: 0em 0em !important;
-
-		&.navScroll {
-			background-color: transparent !important;
-			box-shadow: transparent !important;
-			ul li a {
-				color: $white !important;
-			}
-		}
 	}
 
 	ul.nav.navbar-right {
@@ -224,6 +199,7 @@
 		float: left;
 		width: 100%;
 		padding: 0;
+		overflow: hidden;
 	}
 
 	a.navbar-link.margin-right {
@@ -235,13 +211,9 @@
 	}
 
 	.top-nav ul li a {
-		color: $white !important;
+		color: white !important;
 		letter-spacing: 0;
 		padding: 10px 35px !important;
-	}
-
-	.btn_add_button {
-		margin-bottom: 9px;
 	}
 
 	.border_btn {
@@ -266,10 +238,6 @@
 		margin-bottom: 0em !important;
 	}
 
-	li.ln {
-		display: none !important;
-	}
-
 	ul.dropdown-menu.pf {
 		margin-left: 38px;
 	}
@@ -278,7 +246,7 @@
 		margin-left: -35px;
 
 		&-menu {
-			background-color: $white !important;
+			background-color: white !important;
 			margin-left: -15px;
 
 			&:before,
@@ -292,18 +260,6 @@
 		}
 	}
 
-	a.dropdown-toggle.boderbtn {
-		margin-left: -6px;
-	}
-
-	ul.dropdown-menu.header_drop_language {
-		background-color: $white !important;
-		margin-left: -15px;
-
-		li:hover {
-			background: #132437;
-		}
-	}
 	.container.form-page {
 		padding-bottom: 9px;
 		margin-top: 0px;

@@ -1,6 +1,5 @@
 import React from "react";
 import i18n from "meteor/universe:i18n";
-import Modal from "react-modal";
 import { Link } from "react-router-dom";
 
 import gql from "graphql-tag";
@@ -10,15 +9,12 @@ import rewardsEligibility from "./rewards-eligibility.graphql";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-import { MDBContainer, MDBAlert } from "mdbreact";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import RewardsComponent from "./rewardsComponent.jsx";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
-
-Modal.setAppElement("body");
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -106,7 +102,7 @@ class ReviewSubmitted extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Rewards">
 				<section className="review-submitted">
 					<div className="container back_top_hover">{content}</div>
 				</section>

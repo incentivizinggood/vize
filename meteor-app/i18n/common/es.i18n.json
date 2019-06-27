@@ -104,9 +104,9 @@
 		},
 		"wr": {
 			"formTitle": "Escribe una Reseña",
-			"header1": "Contribuya sus revisiones anónimas a la comunidad",
+			"header1": "Contribuya sus opiniones anónimas a la comunidad",
 			"companyNamePlaceholder": "Ingrese el nombre de la compañía que está revisando",
-			"reviewTitlePlaceholder": "Por favor, elija un título para su revisión",
+			"reviewTitlePlaceholder": "Por favor, elija un título para su opinión",
 			"jobTitlePlaceholder": "Ingrese el nombre del puesto que ocupó en esta empresa",
 			"prosPlaceholder": "¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona?",
 			"consPlaceholder": "¿Qué fue lo que no te gustó de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
@@ -121,7 +121,7 @@
 	},
 	"reviewSubmitted": {
 		"contributing": "¡Gracias por contribuir a su comunidad!",
-		"reviewSubmitted": "Su revisión se envió con éxito y ha sido agregada al perfil de la empresa.",
+		"reviewSubmitted": "Su opinión se envió con éxito y ha sido agregada al perfil de la empresa.",
 		"earnedReward": "¡Has ganado una recompensa!",
 		"phoneFaiure": "Error: su número de teléfono ya ha sido registrado",
 		"phoneSuccess": "Su número de teléfono ha sido registrado exitosamente",
@@ -146,19 +146,18 @@
 		"mainBanner": "Encuentre un Buen Trabajo Cerca de Usted",
 		"searchButton": "Buscar",
 		"placeholder": "Buscar una empresa...",
-		"findjob_part1": "Encuentre un trabajo bueno",
-		"commonLine": "cerca de usted",
+		"findjob_part1": "Conoce El Trabajo Antes De Que Lo Consigas",
 		"rewardText": "Gana $100 pesos por compartir tu experiencia laboral",
-		"findjob_text": "Con miles de empresas en México en nuestro sitio y cientos de puestos de trabajo, podrá encontrar una gran fábrica o empresa para trabajar",
+		"findjob_text": "No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea opiniones de otros empleados para encontrar el mejor trabajo para usted",
 		"jobsButton": "Trabajos",
 		"findemp_part1": "Encuentre un empleador",
 		"findemp_part2": "que lo trate bien",
-		"findemp_text": "Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. El sistema de revisión y calificación responsabiliza a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
+		"findemp_text": "Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. Las opiniones y calificaciones incentivan a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
 		"companiesButton": "Empresas",
 		"hear": "Escuche de su ",
 		"community": "comunidad",
 		"hear_text": "Consulte opiniones y valoraciones anónimas de compañías expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
-		"add_review_button": "Agregar una Revisión",
+		"add_review_button": "Agregar una Opinión",
 		"get_fair_salary": "Obtenga un salario",
 		"your_work": "justo por su trabajo",
 		"fairsalary_text": "Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
@@ -242,7 +241,7 @@
 		"explanation": "Por favor proporcione una explicación",
 		"submit": "Enviar",
 		"thanks": "Gracias! El mensaje fue enviado.",
-		"report_review": "Reportar Revisión"
+		"report_review": "Reportar Opinión"
 	},
 	"jobpostings": {
 		"apply_now": "Aplica Ahora",
@@ -275,7 +274,7 @@
 		"salaries_text": "No hay salarios para mostrar en este momento",
 		"overview": "Resumen",
 		"reviews": "Revisiones",
-		"add_review": "Agregar una Revisión",
+		"add_review": "Agregar una Opinión",
 		"see_all_reviews": "Ver todas las revisiones",
 		"job_salaries": "Salario(s) de Trabajo(s)",
 		"add_salary": "Agregar un Salario",
@@ -285,7 +284,7 @@
 	},
 	"review_tab": {
 		"reviews": "Revisiones",
-		"add_review": "Agregar una revisión"
+		"add_review": "Agregar una Opinión"
 	},
 	"salary_tab": {
 		"job_salaries": "Salario(s) de Trabajo(s)",
@@ -315,7 +314,7 @@
 		"contact": "Contacto",
 		"feel_free": "No dude en",
 		"reach_us": "Comunícate con nosotros",
-		"add_review": "Agregar una Revisión"
+		"add_review": "Agregar una Opinión"
 	},
 	"header": {
 		"companies": "Compañias",
@@ -343,7 +342,7 @@
 		"employer": "Empleador",
 		"email": "Correo Electrónico",
 		"createAccount": "Crear Cuenta",
-		"registerOrLogin": "Regístrese o inicie sesión para escribir una revisión"
+		"registerOrLogin": "Regístrese o inicie sesión para escribir una opinión"
 	},
 	"methods": {
 		"jobAppEmail": {
@@ -369,7 +368,7 @@
 			"onlyOnce": "Solo se te permite hacer esto una vez",
 			"permissionDenied": "No estás autorizado a realizar esta acción",
 			"noCheating": "No puedes votar en tus propias revisiones",
-			"vote1stArg": "El primer argumento [revisión] debe ser una revisión válida",
+			"vote1stArg": "El primer argumento [opinión] debe ser una opinión válida",
 			"vote2ndArg": "Segundo argumento [votar] debe ser un valor lógico",
 			"voteOnNullReview": "No puedes votar en revisiones que aún no existen",
 			"notFound": "Tu busqueda no arrojo ningun resultado",

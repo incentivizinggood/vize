@@ -11,10 +11,10 @@
 		.front {
 			z-index: 900;
 			height: inherit;
-			background: $white;
-			@include box-shadow(0, 1px, 15px, rgba(0, 0, 0, 0.1));
-			@include rotate(0deg);
-			@include transition(all 0.4s ease-in-out);
+			background: white;
+			box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+			transform: rotate(0deg);
+			transition: all 0.4s ease-in-out;
 			padding-bottom: 24px;
 			padding-top: 24px;
 		}
@@ -24,7 +24,7 @@
 .frontTitle {
 	text-align: center;
 	font-size: 26px;
-	color: $black;
+	color: black;
 	height: 79px;
 	font-weight: bold;
 	padding: 10px 8px 0 8px;
@@ -44,17 +44,6 @@
 	font-size: 18px;
 	padding-left: 8px;
 	padding-right: 8px;
-}
-
-.fl-ri-re button {
-	padding: 8px 19px;
-	font-weight: 800;
-	background-color: $vize-blue;
-	color: $white;
-	font-size: 19px;
-	&:hover {
-		background-color: #3d7ba5;
-	}
 }
 
 @media screen and (min-width: 992px) {

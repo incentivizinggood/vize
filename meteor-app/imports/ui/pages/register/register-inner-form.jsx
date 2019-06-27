@@ -11,14 +11,15 @@ import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import IfFormik from "/imports/ui/components/if-formik.jsx";
+import FormGroup from "/imports/ui/components/form-group";
+import { Button } from "/imports/ui/components/button";
 
 import RoleInput from "./role-input.jsx";
-import FormGroup from "./form-group.jsx";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function InnerForm({ errors, isSubmitting }) {
+function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
 			<h3 className="top-head-employer" align="center">
@@ -49,18 +50,12 @@ function InnerForm({ errors, isSubmitting }) {
 					<FormGroup name="password" type="password" icon={faLock} />
 
 					<div className="button-center">
-						<button
-							form="register-form"
-							type="submit"
-							disabled={isSubmitting}
-							className="btn-primary button"
-						>
+						<Button primary type="submit">
 							<T>createAccount</T>
-						</button>
+						</Button>
 					</div>
 				</div>
 			</IfFormik>
-			<div>{JSON.stringify(errors)}</div>
 		</Form>
 	);
 }

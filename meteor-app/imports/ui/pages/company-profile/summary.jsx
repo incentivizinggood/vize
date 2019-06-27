@@ -2,7 +2,6 @@ import React from "react";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faPlus,
 	faUsers,
 	faFlask,
 	faMapMarker,
@@ -10,101 +9,80 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
 import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import { urlGenerators } from "/imports/ui/pages";
+import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
-export default class CompanyProfileSummary extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
+function CompanyProfileSummary(props) {
+	return (
+		<div className="full-width-container no-padding--bottom">
+			<div className="container welpad12 box_shadow">
+				<div className="col-md-2 prostar">
+					<img
+						src="/images/default-company.png"
+						className="img-responsive"
+					/>
+				</div>
 
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
-	render() {
-		return (
-			<div className="full-width-container no-padding--bottom">
-				<div className="container welpad12 box_shadow">
-					<div className="col-md-2 prostar">
-						<img
-							src="/images/default-company.png"
-							className="img-responsive"
-						/>
-					</div>
-
-					<div className="col-md-6">
-						<div className="row">
-							<div className="col-md-12">
-								<fieldset className="rating">
-									<span className="headingoo">
-										{this.props.company.name}
-									</span>
-									&nbsp;&nbsp;
-									<StarRatings
-										rating={
-											this.props.company.avgStarRatings
-												.overallSatisfaction
-										}
-										starDimension="25px"
-										starSpacing="2px"
-									/>
-								</fieldset>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-md-12">
-								<p>
-									<FontAwesomeIcon icon={faMapMarker} />{" "}
-									{processLocation(
-										JSON.stringify(
-											this.props.company.locations[0]
-										)
-									)}
-								</p>
-								{/* displaying just the first company location for now, from the list */}
-								<p>
-									<FontAwesomeIcon icon={faFlask} />{" "}
-									{this.props.company.industry}
-								</p>
-								<p>
-									<FontAwesomeIcon icon={faGlobe} />{" "}
-									<Link
-										to={this.props.company.websiteURL || ""}
-										target="_blank"
-									>
-										{this.props.company.websiteURL}
-									</Link>
-								</p>
-								<p>
-									<FontAwesomeIcon icon={faUsers} />{" "}
-									{this.props.company.numEmployees}
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div className="col-md-4 prostar">
+				<div className="col-md-6">
+					<div className="row">
 						<div className="col-md-12">
-							<Link
-								to={urlGenerators.vizeReviewUrl(
-									this.props.company.id
+							<fieldset className="rating">
+								<span className="headingoo">
+									{props.company.name}
+								</span>
+								&nbsp;&nbsp;
+								<StarRatings
+									rating={
+										props.company.avgStarRatings
+											.overallSatisfaction
+									}
+									starDimension="25px"
+									starSpacing="2px"
+								/>
+							</fieldset>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-md-12">
+							<p>
+								<FontAwesomeIcon icon={faMapMarker} />{" "}
+								{processLocation(
+									JSON.stringify(props.company.locations[0])
 								)}
-								className="btn btn-primary btn-lg"
-							>
-								{" "}
-								<FontAwesomeIcon icon={faPlus} />{" "}
-								{i18n.__("common.companyprofile.add_review")}
-							</Link>
+							</p>
+							{/* displaying just the first company location for now, from the list */}
+							<p>
+								<FontAwesomeIcon icon={faFlask} />{" "}
+								{props.company.industry}
+							</p>
+							<p>
+								<FontAwesomeIcon icon={faGlobe} />{" "}
+								<a
+									href={props.company.websiteURL}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{props.company.websiteURL}
+								</a>
+							</p>
+							<p>
+								<FontAwesomeIcon icon={faUsers} />{" "}
+								{props.company.numEmployees}
+							</p>
 						</div>
 					</div>
 				</div>
-				<div className="clearfix" />
+
+				<div className="col-md-4 prostar">
+					<div className="col-md-12">
+						<WriteReviewButton companyId={props.company.id} />
+					</div>
+				</div>
 			</div>
-		);
-	}
+			<div className="clearfix" />
+		</div>
+	);
 }
+
+export default withUpdateOnChangeLocale(CompanyProfileSummary);

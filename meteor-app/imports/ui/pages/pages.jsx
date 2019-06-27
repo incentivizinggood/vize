@@ -23,6 +23,7 @@ import SubmitSalaryDataForm from "./submit-salary-data";
 import UserPage from "./user";
 import WriteReviewForm from "./write-review";
 import ReviewSubmitted from "./review-submitted";
+import TestPage from "./test";
 
 import { queryRoutes } from "./url-generators.js";
 
@@ -56,6 +57,7 @@ function Pages(props) {
 			<Route path="/post-a-job" component={PostAJobForm} />
 			<Route path="/register" component={RegisterPage} />
 			<Route path="/worker-resources" component={ResourcesWorkers} />
+			<Route path="/test" component={TestPage} />
 
 			<Route
 				path={`/${queryRoutes.companies}`}

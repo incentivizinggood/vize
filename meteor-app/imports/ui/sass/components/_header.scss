@@ -11,7 +11,7 @@
 		background: #439bd5;
 		border: 2px solid #439bd5;
 		width: 15%;
-		color: $white;
+		color: white;
 	}
 }
 
@@ -25,19 +25,19 @@ nav {
 	z-index: 10000;
 	width: 100%;
 	padding-bottom: 7px;
-	@include transition(all 0.5s);
+	transition: all 0.5s;
 
 	ul li {
 		margin: 0 0.5em;
 		a {
 			letter-spacing: 1px;
 			font-size: 1.2em;
-			color: $white;
+			color: white;
 			&:not(#register-button):hover,
 			&:not(#register-button):focus,
 			&:not(#register-button):active {
 				background-color: transparent !important;
-				color: $white;
+				color: white;
 			}
 		}
 	}
@@ -58,41 +58,10 @@ nav {
 			font-size: 12px;
 		}
 	}
-
-	&.navScroll {
-		.navbar-header {
-			position: relative;
-			&::before {
-				content: "";
-				position: absolute;
-				top: 0;
-				right: -10000px;
-				bottom: 0;
-				left: -700px;
-				background: $white;
-				width: 10000px;
-				z-index: -1;
-				height: 74px;
-				box-shadow: 0 2px 5px #b1b1b1;
-			}
-		}
-
-		li a {
-			color: $black;
-
-			&:not(#register-button) {
-				&:hover,
-				&:focus,
-				&:active {
-					color: $black;
-				}
-			}
-		}
-	}
 }
 
 #register-button {
-	color: $white;
+	color: white;
 	font-weight: bold;
 	letter-spacing: 0.015em;
 	font-size: 12px;
@@ -108,14 +77,14 @@ nav {
 	&:hover,
 	&:active,
 	&:focus {
-		color: $white;
+		color: white;
 		background: $secondary-color-red;
 	}
 }
 
 .btn-green {
 	background-color: $secondary-color-red;
-	color: $white;
+	color: white;
 	padding-top: 6px;
 	padding-bottom: 6px;
 	font-size: 12px;
@@ -126,11 +95,6 @@ nav {
 .toggle-only-display,
 .hr_line_width2 {
 	display: none !important;
-}
-
-.navigation-container {
-	width: 100%;
-	padding: 0;
 }
 
 nav ul.nav.navbar-right {

@@ -1,14 +1,10 @@
 import React from "react";
-import i18n from "meteor/universe:i18n";
-import Modal from "react-modal";
-// import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import { isValidPhoneNumber } from "react-phone-number-input";
-
+import Popup from "reactjs-popup";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-import { Query } from "react-apollo";
-import rewardsEligibility from "./rewards-eligibility.graphql";
+
+import i18n from "meteor/universe:i18n";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -74,19 +70,6 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	render() {
-		const { hasRegisteredPhone, phoneNumber } = this.state;
-		const customStyles = {
-			content: {
-				margin: "auto",
-				position: "absolute",
-				top: 0,
-				left: 0,
-				bottom: 0,
-				right: 0,
-				borderRadius: "4px",
-			},
-		};
-
 		return (
 			<div>
 				<div className="congratulations">
@@ -127,13 +110,10 @@ export default class RewardsComponent extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Modal
-					isOpen={this.state.modalIsOpen}
-					onAfterOpen={this.afterOpenModal}
-					onRequestClose={this.closeModal}
-					contentLabel="Example Modal"
-					ariaHideApp={false}
-					style={customStyles}
+				<Popup
+					modal
+					open={this.state.modalIsOpen}
+					onClose={this.closeModal}
 				>
 					<Mutation
 						onError={this.mutationError}
@@ -202,25 +182,8 @@ export default class RewardsComponent extends React.Component {
 							</form>
 						)}
 					</Mutation>
-				</Modal>
+				</Popup>
 			</div>
 		);
 	}
 }
-/*
-<div className="reward">
-	<div className="reward-visual">
-		<img
-			src="images/xoom.png"
-			alt="xoom logo"
-		/>
-		<p className="price-tag">$5</p>
-	</div>
-	<p>
-		<T>minutesReward</T>
-	</p>
-	<a onClick={this.setPaymentMethodXoom}>
-		<T>getReward</T>
-	</a>
-</div>
-*/

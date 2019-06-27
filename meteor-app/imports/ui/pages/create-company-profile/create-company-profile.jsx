@@ -110,7 +110,7 @@ export default class CompanyCreateProfileForm extends React.Component {
 	}
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="Create Company Profile">
 				<div className="page CompanyCreateProfileForm">
 					<Blaze template="ccp_blaze_form" />
 				</div>

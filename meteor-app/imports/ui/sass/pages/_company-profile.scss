@@ -1,12 +1,3 @@
-.services,
-.footer,
-.about,
-.team,
-.contact,
-.gallery {
-	padding: 8em 0;
-}
-
 #container {
 	overflow: hidden;
 	text-align: center;
@@ -17,7 +8,7 @@
 }
 
 .welpad12 {
-	background-color: $white;
+	background-color: white;
 
 	&.box_shadow {
 		box-shadow: 1px 1px 5px 1px #dac1c1;
@@ -58,11 +49,6 @@
 		}
 	}
 
-	& > .half:before {
-		content: "\f089";
-		position: absolute;
-	}
-
 	& > input:checked ~ label,
 	&:not(:checked) > label:hover,
 	& > input:checked + label:hover,
@@ -82,7 +68,7 @@ span.headingoo {
 .row.all_boxcolor1.select_box {
 	padding-top: 2em;
 	padding-bottom: 2em;
-	background: $white;
+	background: white;
 	box-shadow: 0px 1px 3px 0px;
 	margin-bottom: 28px;
 }
@@ -90,10 +76,10 @@ span.headingoo {
 .company-search-container {
 	padding-top: 2em;
 	padding-bottom: 2em;
-	background: $white;
+	background: white;
 	box-shadow: 0px 0px 3px 0px;
 	margin-bottom: 34px;
-	background-color: $white;
+	background-color: white;
 	height: auto;
 }
 
@@ -177,22 +163,6 @@ span.headingoo {
 .add-buttons {
 	float: right;
 	display: inline;
-
-	button {
-		padding-left: 19px;
-		padding-right: 19px;
-		padding-top: 8px;
-		padding-bottom: 8px;
-		font-weight: 800;
-		background-color: $vize-blue;
-		color: $white;
-		font-family: initial;
-		font-size: 19px;
-
-		&:hover {
-			background-color: #3d7ba5;
-		}
-	}
 }
 
 .tab_str td span {
@@ -214,10 +184,6 @@ li.te_deco > a {
 	display: inline-block;
 }
 
-.mar_lf_ri {
-	padding-bottom: 60px;
-}
-
 .tab-pane > .section_rview_back_color05 {
 	padding-left: 0;
 	padding-right: 0;
@@ -226,7 +192,7 @@ li.te_deco > a {
 }
 
 .na_tab .nav > li span:hover {
-	color: $white;
+	color: white;
 	background: transparent;
 }
 
@@ -241,7 +207,7 @@ path.CircularProgressbar-trail {
 
 .CircularProgressbar {
 	text.CircularProgressbar-text {
-		fill: $white;
+		fill: white;
 	}
 
 	path.CircularProgressbar-trail {
@@ -279,22 +245,6 @@ path.CircularProgressbar-trail {
 					}
 				}
 			}
-		}
-	}
-
-	.star_boder {
-		background: #f5f5f5;
-		padding: 10px;
-		display: flex;
-		justify-content: space-between;
-		flex-wrap: wrap;
-		width: 100%;
-
-		label {
-			font-size: 24px;
-			line-height: 1;
-			margin-top: 6px;
-			font-weight: 700;
 		}
 	}
 
@@ -337,45 +287,9 @@ path.CircularProgressbar-trail {
 	}
 }
 
-.thumb_don_bn .fa:focus,
 .fa:active {
 	/*color: #333;*/
 	border-color: red;
-}
-
-.accordion-toggle:after {
-	font-family: "FontAwesome";
-	content: "\f101";
-	align-items: center;
-}
-
-.accordion-opened .accordion-toggle:after {
-	content: "\f054";
-}
-
-.accordion-heading.desi_accordo {
-	text-align: center;
-	font-size: 18px;
-}
-
-.accordion-heading.desi_accordo a {
-	text-decoration: none;
-}
-
-.accor_top {
-	border-top: 1px solid #cacaca;
-	padding-top: 10px;
-	font-size: 15px;
-	color: #0e4c75;
-}
-
-.shortcontent {
-	border-bottom: 1px solid #cacaca;
-	padding-bottom: 7px;
-}
-
-.bodr_lftri {
-	border-right: 1px solid #cacaca;
 }
 
 .section_rview_back {
@@ -384,7 +298,7 @@ path.CircularProgressbar-trail {
 	&_color05,
 	&_color03,
 	&_color02 {
-		background-color: $white;
+		background-color: white;
 		box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08),
 			0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	}
@@ -436,7 +350,7 @@ path.CircularProgressbar-trail {
 		width: 100%;
 		margin: 0 auto;
 		line-height: 27px;
-		color: $white;
+		color: white;
 	}
 }
 
@@ -469,7 +383,7 @@ path.CircularProgressbar-trail {
 }
 
 .btn-default.btbn {
-	border-color: $white;
+	border-color: white;
 }
 
 .btbn.btn-default:hover,
@@ -478,18 +392,14 @@ path.CircularProgressbar-trail {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-	background-color: $white !important;
-	border-color: $white !important;
+	background-color: white !important;
+	border-color: white !important;
 }
 
 .hed-soft p {
 	font-size: 19px;
 	font-weight: 600;
 	color: #312f2f;
-}
-
-.progress-bar-success {
-	background-color: $vize-blue !important;
 }
 
 .progress1 {
@@ -509,7 +419,7 @@ path.CircularProgressbar-trail {
 	height: 100%;
 	font-size: 12px;
 	line-height: 12px;
-	color: $white;
+	color: white;
 	text-align: center;
 	background-color: #428bca;
 	-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
@@ -584,25 +494,12 @@ td.ali-lef {
 }
 
 .p-c-a p {
-	color: $black;
+	color: black;
 }
 
 .show-on-hover.btn-group.open .dropdown-toggle {
 	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
 	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0) !important;
-}
-
-.mre {
-	margin-top: 13px !important;
-}
-
-.c-next-re button {
-	background-color: transparent;
-	border: none;
-}
-
-.c-next-re {
-	margin-bottom: 4px;
 }
 
 .cont {
@@ -617,7 +514,7 @@ td.ali-lef {
 p.mal-r {
 	font-size: 17px;
 	font-weight: 800;
-	color: $black;
+	color: black;
 	/* border-bottom: 1px solid; */
 }
 
@@ -633,7 +530,7 @@ p.mal-r {
 }
 
 .head_section_font {
-	color: $black;
+	color: black;
 	font-size: 21px;
 	font-weight: bold;
 	display: inline;
@@ -684,7 +581,7 @@ p.mal-r {
 }
 
 #jobs.tab-pane > .section_rview_back_color05 {
-	background-color: $white;
+	background-color: white;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	margin-top: 15px;
 }
@@ -726,11 +623,11 @@ p.mal-r {
 
 	&.CircularProgressbar-inverted {
 		.CircularProgressbar-text {
-			fill: $white;
+			fill: white;
 		}
 
 		.CircularProgressbar-path {
-			stroke: $white;
+			stroke: white;
 		}
 
 		.CircularProgressbar-trail {

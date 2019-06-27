@@ -225,7 +225,7 @@ function ForEmployers() {
 	const analyticsImg = `/images/${t("analyticsDashboard")}`;
 	console.log(analyticsImg);
 	return (
-		<PageWrapper navIsAnimated>
+		<PageWrapper title="Employers" navIsAnimated>
 			<Banner>
 				<PageTitle>
 					<T>headerText</T>

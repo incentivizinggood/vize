@@ -1,13 +1,4 @@
 @include for-size(tablet-and-down) {
-	div._imports_ui_components_vote_buttons__vote_buttons__voteButtons {
-		text-align: center;
-		button._imports_ui_components_vote_buttons__vote_buttons__upButton,
-		button._imports_ui_components_vote_buttons__vote_buttons__downButton {
-			display: inline-block;
-			margin: 0 5px;
-		}
-	}
-
 	.article-list-vertical {
 		max-width: 350px;
 		min-height: 450px;
@@ -44,15 +35,6 @@
 		}
 	}
 
-	.lef_label_one {
-		margin-right: 15px;
-		font-size: 15px;
-	}
-
-	.rating-md {
-		font-size: 1.5em !important;
-	}
-
 	.float-right {
 		float: none;
 	}
@@ -77,12 +59,6 @@
 
 	.nav-tabs {
 		font-size: 13px;
-	}
-
-	.subr_rev {
-		font-size: 15px;
-		font-weight: 300;
-		color: #656565;
 	}
 
 	.bodr_lft {
@@ -132,14 +108,6 @@
 			width: 90%;
 			max-width: 500px;
 			height: 200px;
-		}
-	}
-
-	.success-widget {
-		h3 {
-			font-size: 25px;
-			margin-top: 1px;
-			padding: 10px 10px 10px 25px;
 		}
 	}
 
@@ -200,9 +168,6 @@
 		font-weight: bold;
 	}
 
-	.companies-search-div {
-		width: 95%;
-	}
 	.company-search-img {
 		height: auto;
 		width: 190px;
@@ -264,20 +229,8 @@
 		min-height: 75vh;
 	}
 
-	.welpadgo {
-		padding-top: 3em !important;
-	}
-
 	.row.all_boxcolor1.select_box {
 		padding-top: 3em !important;
-	}
-
-	nav.navScroll {
-		background-color: #132437;
-		box-shadow: transparent;
-		ul li a {
-			color: $white !important;
-		}
 	}
 
 	.panel-card {
