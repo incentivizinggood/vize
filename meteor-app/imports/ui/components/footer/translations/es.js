@@ -1,4 +1,6 @@
 export default {
-	about_us: "Acerca de nosotros",
-	all_rights_reserved: "Todos los derechos reservados",
+	aboutUs: "Acerca de nosotros",
+	contactUs: "Contáctenos",
+	help: "Ayuda",
+	allRightsReserved: "Todos los derechos reservados",
 };

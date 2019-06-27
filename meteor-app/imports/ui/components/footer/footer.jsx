@@ -76,10 +76,14 @@ export default function Footer() {
 			<LinksContainer>
 				<Links>
 					<Link to="/about">
-						<T.about_us />
+						<T.aboutUs />
 					</Link>
-					<Link to="/contact-us">Contact Us</Link>
-					<Link to="/help">Help</Link>
+					<Link to="/contact-us">
+						<T.contactUs />
+					</Link>
+					<Link to="/help">
+						<T.help />
+					</Link>
 				</Links>
 
 				<Links>
@@ -101,7 +105,7 @@ export default function Footer() {
 				</Links>
 			</LinksContainer>
 			<CopyRight>
-				Vize © 2019. <T.all_rights_reserved />
+				Vize © 2019. <T.allRightsReserved />
 			</CopyRight>
 		</FooterContainer>
 	);
