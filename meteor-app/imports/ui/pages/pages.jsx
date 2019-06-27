@@ -49,7 +49,7 @@ function Pages(props) {
 			<Route path="/contact-us" component={ContactUsPage} />
 			<Route path="/review-submitted" component={ReviewSubmitted} />
 			<Route path="/employer-resources" component={ResourcesEmployers} />
-			<Route path="/foremployers" component={ForEmployers} />
+			<Route path="/for-employers" component={ForEmployers} />
 			<Route path="/help" component={HelpPage} />
 			<Route path="/jobs" component={ShowJobs} />
 			<Route path="/login" component={LoginPage} />
