@@ -10,18 +10,22 @@ import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.js
  * @param restProps    If the translations are functions, they will be called with the other props.
  */
 const I18nSwitch = withUpdateOnChangeLocale(
-	({ translations, messageKey, args }) => {
+	({ translations, messageKey, renderer, args }) => {
 		const locale = i18n.getLocale();
 
 		const translation = translations[locale][messageKey];
 
-		if (typeof translation === "function") {
-			return translation(args);
-		}
+		const message =
+			typeof translation === "function" ? translation(args) : translation;
 
-		return translation;
+		return renderer !== undefined ? renderer(message) : message;
 	}
 );
+
+/*
+Make recursive / Support nesting of messages.
+Add renderer prop to I18nSwitch.
+ */
 
 function makeTranslaties(translations) {
 	const keys = Object.keys(Object.values(translations)[0]);
@@ -29,9 +33,10 @@ function makeTranslaties(translations) {
 	return keys.reduce(
 		(acc, messageKey) => ({
 			...acc,
-			[messageKey]: props => (
+			[messageKey]: ({ renderer, ...args }) => (
 				<I18nSwitch
-					args={props}
+					renderer={renderer}
+					args={args}
 					translations={translations}
 					messageKey={messageKey}
 				/>
