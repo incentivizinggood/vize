@@ -9,7 +9,7 @@ import CompanySearchTrial from "./company-search";
 import ContactUsPage from "./contact-us.jsx";
 import ForEmployers from "./foremployers.jsx";
 import HelpPage from "./help.jsx";
-import HomePage from "./home.jsx";
+import HomePage from "./home";
 import LoginPage from "./login";
 import MyAccountPage from "./my-account.jsx";
 import NotFoundPage from "./not-found.jsx";
