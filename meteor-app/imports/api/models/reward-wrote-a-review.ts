@@ -41,7 +41,8 @@ export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 export async function claimWroteAReview(
 	user: User,
 	phoneNumber: string,
-	paymentMethod: PaymentMethod
+	paymentMethod: PaymentMethod,
+	howYouHeardAboutUs?: string | null | undefined
 ): Promise<RewardStatus> {
 	// Check if the user can claim this reward.
 	switch (await wroteAReviewStatus(user)) {
@@ -85,8 +86,36 @@ export async function claimWroteAReview(
 			`
 		);
 
+		// An optional message to post on slack about how the user heard about us.
+		let heardAboutUsMessage = null;
+		if (
+			howYouHeardAboutUs &&
+			/^radio|facebook|google|referral|other$/.test(howYouHeardAboutUs)
+		) {
+			await client.query(
+				sql`
+					INSERT INTO how_you_heard_about_us
+						(user_id, how)
+						VALUES (${userPId}, ${howYouHeardAboutUs})
+				`
+			);
+			heardAboutUsMessage = ` How they heard about us was ${howYouHeardAboutUs}.`;
+		} else if (
+			howYouHeardAboutUs !== null &&
+			howYouHeardAboutUs !== undefined
+		) {
+			// Silently ignore this error for a better UX.
+			// Report it to the server's log only.
+			console.warn(
+				"The value for howYouHeardAboutUs (",
+				howYouHeardAboutUs,
+				") is not valid. Silently ignoring this error."
+			);
+		}
+
 		postToSlack(
-			`The user with id \`${userPId}\` and phone number ${phoneNumberInfo.formatInternational()} has claimed a reward. They asked to be paid via ${paymentMethod}.`
+			`The user with id \`${userPId}\` and phone number ${phoneNumberInfo.formatInternational()} has claimed a reward. They asked to be paid via ${paymentMethod}.${heardAboutUsMessage ||
+				""}`
 		);
 	};
 

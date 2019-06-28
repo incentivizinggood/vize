@@ -24,6 +24,7 @@ type Mutation {
 	claimWroteAReview(
 		phoneNumber: String!
 		paymentMethod: PaymentMethod!
+		howYouHeardAboutUs: String
 	): RewardStatus!
 
 	castVote(input: CastVoteInput!): CastVotePayload
