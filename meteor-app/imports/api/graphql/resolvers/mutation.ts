@@ -9,7 +9,8 @@ export const Mutation: MutationResolvers = {
 		return dataModel.claimWroteAReview(
 			context.user,
 			args.phoneNumber,
-			args.paymentMethod
+			args.paymentMethod,
+			args.howYouHeardAboutUs
 		);
 	},
 
