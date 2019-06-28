@@ -5,8 +5,7 @@ CREATE TABLE how_you_heard_about_us (
 			ON UPDATE CASCADE
 			ON DELETE SET NULL,
 	how TEXT
-		NOT NULL
-		CHECK (how IN ('radio', 'facebook', 'google', 'referral', 'other')),
+		NOT NULL,
 	reported_on TIMESTAMP
 		NOT NULL
 		DEFAULT now()

@@ -86,31 +86,28 @@ export async function claimWroteAReview(
 			`
 		);
 
+		// Sanitize the user input.
+		const howYouHeardAboutUsSan = howYouHeardAboutUs
+			? howYouHeardAboutUs
+					.trim()
+					.slice(0, 20)
+					.replace(/[^\w _-]/g, "")
+			: null;
+
 		// An optional message to post on slack about how the user heard about us.
 		let heardAboutUsMessage = null;
-		if (
-			howYouHeardAboutUs &&
-			/^radio|facebook|google|referral|other$/.test(howYouHeardAboutUs)
-		) {
+
+		// If the user reported how they heard about us, save that to the
+		// database and add that to the Slack message.
+		if (howYouHeardAboutUsSan) {
 			await client.query(
 				sql`
 					INSERT INTO how_you_heard_about_us
 						(user_id, how)
-						VALUES (${userPId}, ${howYouHeardAboutUs})
+						VALUES (${userPId}, ${howYouHeardAboutUsSan})
 				`
 			);
-			heardAboutUsMessage = ` How they heard about us was ${howYouHeardAboutUs}.`;
-		} else if (
-			howYouHeardAboutUs !== null &&
-			howYouHeardAboutUs !== undefined
-		) {
-			// Silently ignore this error for a better UX.
-			// Report it to the server's log only.
-			console.warn(
-				"The value for howYouHeardAboutUs (",
-				howYouHeardAboutUs,
-				") is not valid. Silently ignoring this error."
-			);
+			heardAboutUsMessage = ` How they heard about us was ${howYouHeardAboutUsSan}.`;
 		}
 
 		postToSlack(
