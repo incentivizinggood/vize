@@ -1,5 +1,4 @@
 import React from "react";
-import * as lodash from "lodash";
 
 import i18n from "meteor/universe:i18n";
 
@@ -48,9 +47,16 @@ function minka(translations, defaultTranslation, messageKey) {
 		);
 	}
 
-	if (lodash.isObjectLike(getPath(defaultTranslation, messageKey))) {
-		const keys = Object.keys(getPath(defaultTranslation, messageKey));
-		keys.forEach(k => {
+	// If the message is an object but not a React element (i.e. a group of
+	// other messages), we recursivly make translation compoents for all of its
+	// enteries.
+	const message = getPath(defaultTranslation, messageKey);
+	if (
+		message != null &&
+		typeof message === "object" &&
+		!React.isValidElement(message)
+	) {
+		Object.keys(message).forEach(k => {
 			kalbo[k] = minka(
 				translations,
 				defaultTranslation,
