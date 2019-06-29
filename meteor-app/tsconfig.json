@@ -11,5 +11,5 @@
 		"strict": true,
 		"types": ["mocha"]
 	},
-	"include": ["./imports/api/**/*", "./server/**/*"]
+	"include": ["./imports/**/*", "./client/**/*", "./server/**/*"]
 }

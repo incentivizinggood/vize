@@ -1,20 +1,40 @@
-import React from "react";
+import * as React from "react";
 
 import i18n from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import { getAtPath, joinPaths } from "/imports/lib/property-path.ts";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale.jsx";
+import { getAtPath, joinPaths } from "imports/lib/property-path";
+
+type Renderer<Msg> = ((message: Msg) => JSX.Element) | React.Component<Msg>;
+
+type TranslationComponentProps<Msg> = Msg extends (args: infer A) => infer R
+	? { renderer?: Renderer<R> } & A
+	: { renderer?: Renderer<Msg> };
+
+type TranslationComponent<Msg> = React.Component<
+	TranslationComponentProps<Msg>
+>;
+
+type TranslationComponents<Msgs> = {
+	[P in keyof Msgs]: Msgs[P] extends ((a: any) => any) | JSX.Element
+		? TranslationComponent<Msgs[P]>
+		: Msgs[P] extends Record<string, any>
+		? TranslationComponent<Msgs[P]> & TranslationComponents<Msgs[P]>
+		: TranslationComponent<Msgs[P]>
+};
 
 /**
  * Made translation components for each message in a collection of translations.
  */
-function makeTranslationComponents(translations) {
+function makeTranslationComponents<Msgs>(
+	translations: Record<string, Msgs>
+): TranslationComponents<Msgs> {
 	// Pick a locale to use as the "default translations". This is only used for
 	// computing the message paths and has no effect on how what is used as a
 	// default locale in other places.
 	const defaultTranslation = Object.values(translations)[0];
 
-	function makeTranslationComponent(messagePath) {
+	function makeTranslationComponent(messagePath: string) {
 		// A component that renders a different thing for each locale.
 		const TranslationComponent = withUpdateOnChangeLocale(
 			({ renderer, ...args }) => {

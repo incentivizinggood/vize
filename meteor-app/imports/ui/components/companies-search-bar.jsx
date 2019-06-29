@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "react-router-dom";
 
-import T from "/imports/ui/translations";
+import { translations as T } from "/imports/ui/translations/index.ts";
 
 class CompaniesSearchBar extends React.Component {
 	constructor(props) {

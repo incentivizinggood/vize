@@ -10,7 +10,7 @@ import {
 	BlackBorderButton,
 } from "/imports/ui/components/button";
 import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
-import translations from "/imports/ui/translations";
+import { translations } from "/imports/ui/translations/index.ts";
 
 const T = translations.homePage;
 

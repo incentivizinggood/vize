@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { forSize } from "/imports/ui/responsive.js";
 import styleVariables from "/imports/ui/style-variables.js";
-import translations from "/imports/ui/translations";
+import { translations } from "/imports/ui/translations/index.ts";
 
 const T = translations.footer;
 
