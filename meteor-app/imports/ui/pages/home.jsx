@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
 import {
@@ -327,4 +326,4 @@ function HomePage() {
 	);
 }
 
-export default withUpdateOnChangeLocale(HomePage);
+export default HomePage;

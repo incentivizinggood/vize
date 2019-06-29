@@ -5,8 +5,6 @@ import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { When, Case } from "/imports/ui/components/when";
-
 import WorkerNavLinks from "./worker-nav-links.jsx";
 import EmployerNavLinks from "./employer-nav-links.jsx";
 import FadableNav from "./fadable-nav.jsx";
@@ -14,6 +12,93 @@ import LangSelector from "./lang-selector.jsx";
 import LogoutButton from "./logout-button.jsx";
 
 const T = i18n.createComponent();
+
+function NavLinks({ user }) {
+	// The user is an employer.
+	if (user && user.role === "company") {
+		return <EmployerNavLinks user={user} />;
+	}
+
+	// The user is a worker or is not logged in.
+	return <WorkerNavLinks />;
+}
+
+function AccountLink({ user }) {
+	if (user) {
+		return (
+			<Link
+				to="/my-account"
+				type="button"
+				className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
+			>
+				<T>common.header.myaccount</T>
+			</Link>
+		);
+	}
+
+	return (
+		<Link
+			to="/login"
+			type="button"
+			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+		>
+			<span>
+				<T>common.header.signup_or_login</T>
+			</span>
+		</Link>
+	);
+}
+
+function AccountSection({ user }) {
+	if (user) {
+		return (
+			<li className="navigation-only-display dropdown pf show-on-hover-pf">
+				<div className="dropdown-toggle" data-toggle="dropdown">
+					<img
+						src="/images/profileIcon.png"
+						className="img-responsive dp-profile"
+						alt="Profile Icon"
+					/>{" "}
+				</div>
+				<ul className="dropdown-menu pf">
+					<li className="tr">
+						<Link
+							to="/my-account"
+							className="navbar-link margin-right"
+						>
+							<T>common.header.myaccount</T>
+						</Link>
+					</li>
+					<li className="tr">
+						<LogoutButton className="navbar-link margin-right">
+							<T>common.header.logout</T>
+						</LogoutButton>
+					</li>
+				</ul>
+			</li>
+		);
+	}
+
+	return (
+		<>
+			<li>
+				<Link
+					to="/register"
+					type="button"
+					id="register-button"
+					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
+				>
+					<T>common.header.signup</T>
+				</Link>
+			</li>
+			<li>
+				<Link to="/login" className="navbar-link margin-right">
+					<T>common.header.login</T>
+				</Link>
+			</li>
+		</>
+	);
+}
 
 function Header(props) {
 	return (
@@ -44,100 +129,12 @@ function Header(props) {
 					>
 						<ul className="nav navbar-nav left_nav">
 							<li>
-								<Case>
-									<When cond={props.user}>
-										<Link
-											to="/my-account"
-											type="button"
-											className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
-										>
-											<T>common.header.myaccount</T>
-										</Link>
-									</When>
-									<When default>
-										<Link
-											to="/login"
-											type="button"
-											className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
-										>
-											<span>
-												<T>
-													common.header.signup_or_login
-												</T>
-											</span>
-										</Link>
-									</When>
-								</Case>
+								<AccountLink user={props.user} />
 							</li>
-							<Case>
-								<When
-									cond={
-										props.user &&
-										props.user.role === "company"
-									}
-								>
-									<EmployerNavLinks user={props.user} />
-								</When>
-								<When default>
-									{" "}
-									<WorkerNavLinks />
-								</When>
-							</Case>
+							<NavLinks user={props.user} />
 						</ul>
 						<ul className="nav navbar-nav navbar-right">
-							<Case>
-								<When cond={props.user}>
-									<li className="navigation-only-display dropdown pf show-on-hover-pf">
-										<div
-											className="dropdown-toggle"
-											data-toggle="dropdown"
-										>
-											<img
-												src="/images/profileIcon.png"
-												className="img-responsive dp-profile"
-												alt="Profile Icon"
-											/>{" "}
-										</div>
-										<ul className="dropdown-menu pf">
-											<li className="tr">
-												<Link
-													to="/my-account"
-													className="navbar-link margin-right"
-												>
-													<T>
-														common.header.myaccount
-													</T>
-												</Link>
-											</li>
-											<li className="tr">
-												<LogoutButton className="navbar-link margin-right">
-													<T>common.header.logout</T>
-												</LogoutButton>
-											</li>
-										</ul>
-									</li>
-								</When>
-								<When default>
-									<li>
-										<Link
-											to="/register"
-											type="button"
-											id="register-button"
-											className="btn navbar-btn margin-right btn-green hvr-icon-forward"
-										>
-											<T>common.header.signup</T>
-										</Link>
-									</li>
-									<li>
-										<Link
-											to="/login"
-											className="navbar-link margin-right"
-										>
-											<T>common.header.login</T>
-										</Link>
-									</li>
-								</When>
-							</Case>
+							<AccountSection user={props.user} />
 
 							<li className="dropdown">
 								<LangSelector />
@@ -150,13 +147,13 @@ function Header(props) {
 								</Link>
 							</li>
 							<br />
-							<When cond={props.user}>
+							{props.user ? (
 								<li>
 									<LogoutButton className="toggle-only-display navbar-link margin-right">
 										<T>common.header.logout</T>
 									</LogoutButton>
 								</li>
-							</When>
+							) : null}
 						</ul>
 						<div className="clearfix" />
 					</div>

@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import i18n from "meteor/universe:i18n";
 
 const T = i18n.createComponent();
+
 const ErrorMessageComponent = i18n.createComponent(
 	i18n.createTranslator("common.methods.errorMessages")
 );

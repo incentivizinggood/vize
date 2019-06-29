@@ -8,11 +8,11 @@ import {
 	faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import ReactPaginate from "react-paginate";
 
 import i18n from "meteor/universe:i18n";
-import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js";
-import WriteReviewButton from "./write-review-button.jsx";
+
+import { processLocation } from "/imports/api/models/helpers/postgresql/misc.ts";
+import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
 
 const t = i18n.createTranslator("common.CompanySearchResult");
 const T = i18n.createComponent(t);

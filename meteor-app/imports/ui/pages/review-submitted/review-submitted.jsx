@@ -1,17 +1,16 @@
 import React from "react";
-import i18n from "meteor/universe:i18n";
 import { Link } from "react-router-dom";
-
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { Mutation } from "react-apollo";
-import rewardsEligibility from "./rewards-eligibility.graphql";
 
 import { Meteor } from "meteor/meteor";
+import i18n from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
+
 import RewardsComponent from "./rewardsComponent.jsx";
+import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);

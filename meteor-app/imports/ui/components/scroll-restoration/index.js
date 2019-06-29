@@ -1,1 +1,1 @@
-export default from "./scroll-restoration.jsx";
+export { default } from "./scroll-restoration.jsx";

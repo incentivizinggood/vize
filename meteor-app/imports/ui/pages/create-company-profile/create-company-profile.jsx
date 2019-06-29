@@ -1,20 +1,17 @@
-// Boilerplate first
-import { Meteor } from "meteor/meteor";
 import React from "react";
-import { Template } from "meteor/templating"; // Used to set up the autoform
-import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
-import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
-import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
+
+import { Meteor } from "meteor/meteor";
+import { Template } from "meteor/templating";
+import Blaze from "meteor/gadicc:blaze-react-component";
+import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
-import i18n from "meteor/universe:i18n";
 
+import { CompanySchema } from "/imports/api/data/companies.js";
+import ErrorWidget from "/imports/ui/components/error-widget.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
-
-// Specific stuff second
-import { CompanySchema } from "/imports//api/data/companies.js";
-import "./create-company-profile.html";
-
 import "/imports/ui/components/afInputLocation";
+
+import "./create-company-profile.html";
 
 const ccp_form_state = new ReactiveDict();
 ccp_form_state.set("formError", {
