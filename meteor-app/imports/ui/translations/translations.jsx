@@ -3,17 +3,7 @@ import React from "react";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-
-function getPath(object, path) {
-	if (path === "") return object;
-	return path.split(".").reduce((a, c) => a[c], object);
-}
-
-function joinPaths(a, b) {
-	if (a === "") return b;
-	if (b === "") return a;
-	return `${a}.${b}`;
-}
+import { getAtPath, joinPaths } from "/imports/lib/property-path.ts";
 
 /**
  * A component that renders different thing for each locale.
@@ -24,7 +14,7 @@ const I18nSwitch = withUpdateOnChangeLocale(
 	({ translations, messageKey, renderer, args }) => {
 		const locale = i18n.getLocale();
 
-		const translation = getPath(translations[locale], messageKey);
+		const translation = getAtPath(translations[locale], messageKey);
 
 		const message =
 			typeof translation === "function" ? translation(args) : translation;
@@ -50,7 +40,7 @@ function minka(translations, defaultTranslation, messageKey) {
 	// If the message is an object but not a React element (i.e. a group of
 	// other messages), we recursivly make translation compoents for all of its
 	// enteries.
-	const message = getPath(defaultTranslation, messageKey);
+	const message = getAtPath(defaultTranslation, messageKey);
 	if (
 		message != null &&
 		typeof message === "object" &&
