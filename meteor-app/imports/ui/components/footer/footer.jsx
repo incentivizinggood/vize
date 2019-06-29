@@ -4,8 +4,9 @@ import styled from "styled-components";
 
 import { forSize } from "/imports/ui/responsive.js";
 import styleVariables from "/imports/ui/style-variables.js";
+import translations from "/imports/ui/translations";
 
-import T from "./translations";
+const T = translations.footer;
 
 const FooterContainer = styled.footer`
 	padding: 1.5em;

@@ -1,8 +1,20 @@
 import React from "react";
+import * as lodash from "lodash";
 
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+
+function getPath(object, path) {
+	if (path === "") return object;
+	return path.split(".").reduce((a, c) => a[c], object);
+}
+
+function joinPaths(a, b) {
+	if (a === "") return b;
+	if (b === "") return a;
+	return `${a}.${b}`;
+}
 
 /**
  * A component that renders different thing for each locale.
@@ -13,7 +25,7 @@ const I18nSwitch = withUpdateOnChangeLocale(
 	({ translations, messageKey, renderer, args }) => {
 		const locale = i18n.getLocale();
 
-		const translation = translations[locale][messageKey];
+		const translation = getPath(translations[locale], messageKey);
 
 		const message =
 			typeof translation === "function" ? translation(args) : translation;
@@ -22,28 +34,38 @@ const I18nSwitch = withUpdateOnChangeLocale(
 	}
 );
 
-/*
-Make recursive / Support nesting of messages.
-Add renderer prop to I18nSwitch.
- */
+function minka(translations, defaultTranslation, messageKey) {
+	console.log("minka", translations, defaultTranslation, messageKey);
+
+	function kalbo({ renderer, ...args }) {
+		return (
+			<I18nSwitch
+				renderer={renderer}
+				args={args}
+				translations={translations}
+				messageKey={messageKey}
+			/>
+		);
+	}
+
+	if (lodash.isObjectLike(getPath(defaultTranslation, messageKey))) {
+		const keys = Object.keys(getPath(defaultTranslation, messageKey));
+		keys.forEach(k => {
+			kalbo[k] = minka(
+				translations,
+				defaultTranslation,
+				joinPaths(messageKey, k)
+			);
+		});
+	}
+
+	return kalbo;
+}
 
 function makeTranslaties(translations) {
-	const keys = Object.keys(Object.values(translations)[0]);
+	const defaultTranslation = Object.values(translations)[0];
 
-	return keys.reduce(
-		(acc, messageKey) => ({
-			...acc,
-			[messageKey]: ({ renderer, ...args }) => (
-				<I18nSwitch
-					renderer={renderer}
-					args={args}
-					translations={translations}
-					messageKey={messageKey}
-				/>
-			),
-		}),
-		{}
-	);
+	return minka(translations, defaultTranslation, "");
 }
 
 export default makeTranslaties;

@@ -11,8 +11,9 @@ import {
 	BlackBorderButton,
 } from "/imports/ui/components/button";
 import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
+import translations from "/imports/ui/translations";
 
-import T from "./translations";
+const T = translations.homePage;
 
 function HomePage() {
 	return (
