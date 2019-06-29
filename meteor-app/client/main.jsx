@@ -6,7 +6,6 @@ import { Meteor } from "meteor/meteor";
 import client from "/imports/ui/startup/graphql.js";
 import initHotjar from "/imports/ui/startup/hotjar.js";
 import "/imports/ui/startup/i18n.js";
-
 import AppRoot from "/imports/ui/app-root.jsx";
 
 Meteor.startup(() => {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
+
 import { urlGenerators } from "/imports/ui/pages";
 
 const T = i18n.createComponent();

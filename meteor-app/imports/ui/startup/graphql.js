@@ -1,5 +1,6 @@
-import { Accounts } from "meteor/accounts-base";
 import ApolloClient from "apollo-boost";
+
+import { Accounts } from "meteor/accounts-base";
 
 const client = new ApolloClient({
 	uri: "/graphql",

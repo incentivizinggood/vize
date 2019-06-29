@@ -1,11 +1,8 @@
 import React from "react";
-import { Meteor } from "meteor/meteor";
-import "/imports/api/data/methods.js";
-import { Email } from "meteor/email";
-import { Accounts } from "meteor/accounts-base";
 
-/* The page where users write/edit their reviews.
- */
+import { Meteor } from "meteor/meteor";
+
+import "/imports/api/data/methods.js";
 
 export default class FlagSystem extends React.Component {
 	constructor(props) {
