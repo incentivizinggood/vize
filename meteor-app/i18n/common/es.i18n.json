@@ -142,9 +142,6 @@
 		"nojobs": "No hay anuncios de trabajo disponibles en este momento.",
 		"jobsAvailable": "Oferta(s) de empleo disponible(s)"
 	},
-	"companiesSearchBar": {
-		"placeholder": "Buscar una empresa..."
-	},
 	"aboutUs": {
 		"about": "Acerca de Nosotros",
 		"the_problem": "El Problema",

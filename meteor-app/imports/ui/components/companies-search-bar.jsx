@@ -3,11 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-
-const t = i18n.createTranslator("common.companiesSearchBar");
+import T from "/imports/ui/translations";
 
 class CompaniesSearchBar extends React.Component {
 	constructor(props) {
@@ -39,13 +35,17 @@ class CompaniesSearchBar extends React.Component {
 		return (
 			<form className="form-search_header" onSubmit={this.handleSubmit}>
 				<div className="search-bar-style">
-					<input
-						type="text"
-						className="companies-search-input"
-						name="search"
-						placeholder={t("placeholder")}
-						value={this.state.search}
-						onChange={this.handleInputChange}
+					<T.companiesSearchBar
+						renderer={({ placeholder }) => (
+							<input
+								type="text"
+								className="companies-search-input"
+								name="search"
+								placeholder={placeholder}
+								value={this.state.search}
+								onChange={this.handleInputChange}
+							/>
+						)}
 					/>
 					<button type="submit" className="search-icon">
 						<FontAwesomeIcon icon={faSearch} />
@@ -56,4 +56,4 @@ class CompaniesSearchBar extends React.Component {
 	}
 }
 
-export default withUpdateOnChangeLocale(withRouter(CompaniesSearchBar));
+export default withRouter(CompaniesSearchBar);

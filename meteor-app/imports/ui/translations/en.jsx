@@ -34,6 +34,9 @@ export default {
 		discover_employers: "Start discovering new employers now",
 		signup_button: "SIGN UP",
 	},
+	companiesSearchBar: {
+		placeholder: "Search for a Company...",
+	},
 	footer: {
 		aboutUs: "About Us",
 		contactUs: "Contact Us",
