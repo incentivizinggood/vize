@@ -5,7 +5,7 @@ import i18n from "meteor/universe:i18n";
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale.jsx";
 import { getAtPath, joinPaths } from "imports/lib/property-path";
 
-type Renderer<Msg> = ((message: Msg) => JSX.Element) | React.Component<Msg>;
+type Renderer<Msg> = (message: Msg) => JSX.Element;
 
 type TranslationComponentProps<Msg> = Msg extends (args: infer A) => infer R
 	? { renderer?: Renderer<R> } & A
@@ -36,8 +36,8 @@ function makeTranslationComponents<Msgs>(
 
 	function makeTranslationComponent(messagePath: string) {
 		// A component that renders a different thing for each locale.
-		const TranslationComponent = withUpdateOnChangeLocale(
-			({ renderer, ...args }) => {
+		const TranslationComponent: any = withUpdateOnChangeLocale(
+			({ renderer, ...args }: any) => {
 				// Get the version of the message that is for the current locale.
 				const locale = i18n.getLocale();
 				let message = getAtPath(translations[locale], messagePath);
@@ -52,11 +52,9 @@ function makeTranslationComponents<Msgs>(
 				// to be translated but not the whole component.
 				if (typeof renderer === "function") {
 					return renderer(message);
-				} else if (renderer instanceof React.Component) {
-					return React.createElement(renderer, message);
 				} else if (renderer !== undefined) {
 					console.error(
-						"The renderer prop of a translation component must be a function or a React.Component."
+						"The renderer prop of a translation component must be a function."
 					);
 				}
 
