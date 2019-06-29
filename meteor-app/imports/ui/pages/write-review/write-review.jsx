@@ -8,9 +8,7 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
-import { withRouter } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
-import { Link } from "react-router-dom";
 
 import ModalView from "/imports/ui/components/modals/modal-view.jsx";
 import RegisterLoginModal from "../../components/register-login-modal.jsx";
@@ -31,8 +29,6 @@ import "/imports/ui/components/afInputStarRating";
 import "/imports/ui/components/afInputLocation";
 
 const T = i18n.createComponent();
-
-let historyProps = null;
 
 const wr_form_state = new ReactiveDict();
 wr_form_state.set("formError", {
@@ -128,14 +124,10 @@ if (Meteor.isClient) {
 				isSqlError: false,
 			});
 
-			if (historyProps != null) {
-				historyProps.push("/review-submitted");
-
-				// reloading the page after navigation so that rewardstatus is updated
-				// correctly. This is a quick fix and if reward status can be updated
-				// without having to do a page refresh, that would be better.
-				window.location.reload();
-			}
+			// reloading the page after navigation so that rewardstatus is updated
+			// correctly. This is a quick fix and if reward status can be updated
+			// without having to do a page refresh, that would be better.
+			window.location.href = `/review-submitted`;
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -174,7 +166,6 @@ class WriteReviewForm extends React.Component {
 
 	render() {
 		wr_form_state.set("companyId", this.props.companyId);
-		historyProps = this.props.history;
 
 		let content = null;
 		if (this.props.user) {
@@ -209,8 +200,6 @@ WriteReviewForm.propTypes = {
 	companyId: PropTypes.string,
 };
 
-export default withRouter(
-	withTracker(() => ({
-		user: Meteor.user(),
-	}))(WriteReviewForm)
-);
+export default withTracker(() => ({
+	user: Meteor.user(),
+}))(WriteReviewForm);

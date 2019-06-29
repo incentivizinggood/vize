@@ -7,14 +7,12 @@ import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze
 import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
 import { ReactiveDict } from "meteor/reactive-dict"; // used to hold global state because...you can't "pass props" to Blaze templates
 import { AutoForm } from "meteor/aldeed:autoform";
-import { Redirect } from "react-router";
 
 import i18n from "meteor/universe:i18n";
 
 // Specific stuff second
 import { SalarySchema } from "/imports/api/data/salaries.js";
 import "./submit-salary-data.html";
-import { withRouter } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
@@ -186,10 +184,7 @@ if (Meteor.isClient) {
 				isSqlError: false,
 			});
 
-			const baseUrl = window.location.origin;
-			window.location.replace(`${baseUrl}/review-submitted`);
-
-			// return <Redirect to="review-submitted" />;
+			window.location.href = `/review-submitted`;
 		},
 		onError(formType, error) {
 			// "error" contains whatever error object was thrown
@@ -255,8 +250,6 @@ SubmitSalaryDataForm.propTypes = {
 	companyId: PropTypes.string,
 };
 
-export default withRouter(
-	withTracker(() => ({
-		user: Meteor.user(),
-	}))(SubmitSalaryDataForm)
-);
+export default withTracker(() => ({
+	user: Meteor.user(),
+}))(SubmitSalaryDataForm);
