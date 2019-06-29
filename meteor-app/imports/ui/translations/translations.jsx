@@ -68,10 +68,10 @@ function minka(translations, defaultTranslation, messageKey) {
 	return kalbo;
 }
 
-function makeTranslaties(translations) {
+function makeTranslationComponents(translations) {
 	const defaultTranslation = Object.values(translations)[0];
 
 	return minka(translations, defaultTranslation, "");
 }
 
-export default makeTranslaties;
+export default makeTranslationComponents;
