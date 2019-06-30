@@ -329,24 +329,6 @@
 			"sessionError": "Por favor no juegues"
 		}
 	},
-	"resourcesWorkers": {
-		"readMore": "Leer Más →",
-		"here": "aquí",
-		"publishArticleMessage": "¿Le gustaría publicar un artículo en nuestro sitio? Envíenos un correo electrónico con su artículo a ",
-		"trainingProgramsTitle": "Programas de entrenamiento en la UABC ",
-		"trainingProgramsDesc": "Volver a la escuela y obtener un título puede ser una gran oportunidad para aumentar tu conjunto de habilidades y tu salario, pero muchas personas no tienen el tiempo ni el dinero para terminar un programa completo.",
-		"trainingProgramsArticle": "Volver a la escuela y obtener un título puede ser una gran oportunidad para aumentar tu conjunto de habilidades y tu salario, pero muchas personas no tienen el tiempo ni el dinero para terminar un programa completo. Un título puede tardar años en completarse y costar miles de dólares. Si trabajas a tiempo completo, esto puede parecer casi imposible. Hay otra opción, programas de entrenamiento a corto plazo. Estos cursos pueden brindarle una experiencia en contabilidad, administración, redacción o mucho más. En general, solo duran alrededor de 1 mes y son una fracción del costo de un título completo. Si está interesado en encontrar un curso que se adapte a su trabajo y le da la oportunidad de aumentar sus salarios, puede encontrar los programas de UABC",
-		"laborLawsTitle": "Aprendiendo sobre las Leyes Laborales",
-		"laborLawsDesc": "Puede ser muy difícil saber si su empleador ha violado las leyes laborales en México. Si ha estado teniendo problemas con su empleador, una organización en el centro de Tijuana, Ollin Calli podría ayudarlo.",
-		"laborLawsArticle": "Puede ser muy difícil saber si su empleador ha violado las leyes laborales en México. El sistema legal es muy complicado, especialmente si nunca ha sido entrenado, pero las leyes laborales de México cubren muchos más abusos de lo que cabría esperar. Si ha estado teniendo problemas con su empleador, una organización en el centro de Tijuana, Ollin Calli podría ayudarlo. Son una organización sin fines de lucro que ayuda a los empleados que han sido aprovechados por su empleador. Pueden ayudarlo con ciertos asuntos legales, brindarle más información sobre sus derechos o darle una variedad de opciones. Si desea contactarlos, puede encontrar su sitio web ",
-		"educationDistanceTitle": "Educación a Distancia",
-		"educationDistanceDesc": "Aumente su nivel de educación con 'Educación a Distancia', un curso diseñado por el Tecnológico Nacional de México para las personas que trabajan a tiempo completo pero que desean aumentar sus habilidades para encontrar un trabajo mejor.",
-		"educationDistanceArticlePt1": "Tomarse el tiempo para aumentar su educación mientras trabaja en un trabajo de tiempo completo puede ser muy difícil. Es posible que tenga que trabajar de 5 a 6 días a la semana con largas horas, por lo que ir a una clase normal durante la semana es imposible. La clave es encontrar una educación que le permita ser flexible con su horario, y no requiere ir a clase todos los días. Es por esto que el Tecnológico Nacional de México creó Educacion a Distancia, un curso diseñado para personas que trabajan a tiempo completo pero que desean aumentar sus habilidades para encontrar un trabajo nuevo y mejor remunerado. Los cursos se imparten solo los sábados de 4 a 6 horas y el resto de la clase se puede hacer completamente en línea con su teléfono o una computadora. En este momento se ofrecen dos especializaciones, ingeniería industrial e ingeniería logística. Si le interesa, puede visitar su sitio web ",
-		"educationDistanceArticlePt2": ", o comunicarse con el Departamento de Desarrollo Académico al (664) 607-8410 ext 127 o enviar un correo electrónico a ",
-		"becomeBilingualTitle": "Aprenda a ser Bilingüe!",
-		"becomeBilingualDesc": "Si puede hablar inglés, a menudo puede negociar un salario mucho más alto con su empleador o encontrar un trabajo mejor remunerado. Hemos enumerado las cinco mejores clases bilingües en Tijuana a continuación con información de contacto, ¡siéntase libre de revisarlas!",
-		"becomeBilingualArticle": "Tijuana es la ciudad de las maquiladoras. Empresas de todo el mundo vienen aquí para fabricar sus productos, incluidos Japón, Corea y, por supuesto, los Estados Unidos. Lo único que todas estas empresas tienen en común es que su personal a menudo habla inglés. Si puede hablar inglés, a menudo puede negociar un salario mucho más alto con su empleador o encontrar un trabajo mejor remunerado. Hemos enumerado las cinco mejores clases bilingües en Tijuana a continuación con información de contacto, ¡siéntase libre de revisarlas!"
-	},
 	"resourcesEmployers": {
 		"here": "aquí",
 		"workerEngagementTitle": "Compromiso de los Trabajadores",
