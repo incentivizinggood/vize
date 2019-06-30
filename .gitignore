@@ -5,6 +5,9 @@ config
 # NPM stuff
 node_modules
 
+# Webpack stuff
+dist
+
 # Meteor stuff - Meteor automatically generates its own gitignore.
 meteor-app/.meteor/.gitignore
 
