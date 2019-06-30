@@ -330,19 +330,5 @@
 			"nameTaken": "The name you provided is already taken",
 			"sessionError": "Please stop messing around"
 		}
-	},
-	"resourcesEmployers": {
-		"here": "here",
-		"workerEngagementTitle": "Worker Engagement",
-		"workerEngagementDesc": "Figuring out what your employees actually think and want from your company can be very difficult. How do you learn what your employees really want to ensure they stay and don’t become another turnover statistic?",
-		"workerEngagementArticle": "Figuring out what your employees actually think and want from your company can be very difficult. Often times they are afraid of upsetting their managers because they don’t want to lose their jobs or be punished.  Instead many employees would rather just leave for a different company. So how do you learn what your employees really want to ensure they stay and don’t become another turnover statistic? We at Vize want to help. We’ve created a platform for employees to tell you what is great and what could be improved in your factory. You can read their ratings on various aspects of your company like wages, benefits, manager relationship, and health and safety. With this general knowledge you can then read their reviews to get a more in-depth understanding of your employees. If you contact the Vize team we can also help analyze those reviews and give you direct feedback on your employees deepest concerns and how to use these insights to lower the turnover rate. If you’d be interested in contacting the Vize team please email us at ",
-		"AllianceTitle": "Responsible Business Alliance",
-		"AllianceDesc": "The Responsible Business Alliance (RBA) is an association of companies in the electronics, retail, auto, and toy industry that have come together to improve conditions for their employees.",
-		"AllianceArticlePt1": "The Responsible Business Alliance (RBA) is an association of companies in the electronics, retail, auto, and toy industry that have come together to improve conditions for their employees. As a result, the retainment in the companies they assist has increased. These improvements is believed to lead to greater productivity and profitability as employees are better trained and more highly motivated. RBA’s staff helps these companies perform assessments of their workforce and train the management on how best to tackle the challenges they find. A full list of their services can be found ",
-		"AllianceArticlePt2": ". They also have an online academy to provide a more affordable option to consulting. ",
-		"learnEmployeesTitle": "Learn from your Employees",
-		"learnEmployeesDesc": "The competition for labor right now is as high as it has ever been. Employees will often leave a position if another job pays just an extra few pesos.  To keep great  employees, your company must differentiate itself.",
-		"learnEmployeesArticlePt1": "The competition for labor right now is as high as it has ever been. Employees will often leave a position if another job pays just an extra few pesos. Turnover rates in many factories are 8% of their entire workforce every month. This increases the cost of retraining and recruiting new employees. To keep great  employees, your company must differentiate itself. Elevate Limited can help you do just that by learning what your employees really want, and how to act on that information. They use a program called ",
-		"learnEmployeesArticlePt2": " to get direct and honest feedback from your employees through a phone survey. Consultants can then help you formulate a plan for how to meet those employees’ needs. If you are interested in learning more about their services, you can find their website "
 	}
 }
