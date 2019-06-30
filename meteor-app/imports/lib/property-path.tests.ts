@@ -3,7 +3,7 @@ import { assert } from "chai";
 import { getAtPath, joinPaths } from "./property-path";
 
 describe("getAtPath", function() {
-	const foo = { a: { x: "test", y: 42 }, b: 72.2 };
+	const foo = { a: { x: "test", y: 42 }, b: 72.2, g: null };
 
 	it("gets the root object when the path is empty", function() {
 		assert.strictEqual(getAtPath(foo, ""), foo);
@@ -15,6 +15,18 @@ describe("getAtPath", function() {
 
 	it("can get a property that is nested inside another", function() {
 		assert.strictEqual(getAtPath(foo, "a.x"), "test");
+	});
+
+	it("returns undefined for a path to nonexistent properties", function() {
+		assert.strictEqual(getAtPath(foo, "c"), undefined);
+	});
+
+	it("returns undefined for a path into nonexistent properties", function() {
+		assert.strictEqual(getAtPath(foo, "c.x"), undefined);
+	});
+
+	it("returns undefined for a path into null properties", function() {
+		assert.strictEqual(getAtPath(foo, "g.x"), undefined);
 	});
 });
 

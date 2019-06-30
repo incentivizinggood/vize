@@ -3,7 +3,12 @@
  */
 export function getAtPath(object: any, path: string): any {
 	if (path === "") return object;
-	return path.split(".").reduce((a, c) => a[c], object);
+	return path
+		.split(".")
+		.reduce(
+			(a, c) => (a === undefined || a === null ? undefined : a[c]),
+			object
+		);
 }
 
 /**
