@@ -1,3 +1,5 @@
+const NodemonPlugin = require("nodemon-webpack-plugin");
+
 module.exports = {
 	entry: "./src/index.ts",
 	mode: "production",
@@ -13,4 +15,5 @@ module.exports = {
 			},
 		],
 	},
+	plugins: [new NodemonPlugin()],
 };
