@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
+import { translations } from "/imports/ui/translations/index.ts";
 
-const T = i18n.createComponent();
+const T = translations.header;
 
 function WorkerNavLinks() {
 	return (
@@ -11,21 +11,21 @@ function WorkerNavLinks() {
 			<li>
 				<Link to="/companies" className="link-kumya ">
 					<span>
-						<T>common.header.companies</T>
+						<T.companies />
 					</span>
 				</Link>
 			</li>
 			<li>
 				<Link to="/jobs" className="link-kumya">
 					<span>
-						<T>common.header.jobs</T>
+						<T.jobs />
 					</span>
 				</Link>
 			</li>
 			<li>
 				<Link to="/worker-resources" className="link-kumya">
 					<span>
-						<T>common.header.resources</T>
+						<T.resources />
 					</span>
 				</Link>
 			</li>

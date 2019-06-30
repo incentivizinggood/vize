@@ -36,6 +36,19 @@ export default {
 	companiesSearchBar: {
 		placeholder: "Buscar una empresa...",
 	},
+	header: {
+		companies: "Compañias",
+		jobs: "Trabajos",
+		resources: "Recursos",
+		my_company: "Mi Compañía",
+		post_a_job: "Publicar un Trabajo",
+		for_employers: "Para Empleadores",
+		login: "Iniciar Sesión",
+		signup: "Registrar",
+		signup_or_login: "Registrar O Iniciar Sesion",
+		logout: "Cerrar Seccion",
+		myaccount: "Mi Cuenta",
+	},
 	footer: {
 		aboutUs: "Acerca de nosotros",
 		contactUs: "Contáctenos",

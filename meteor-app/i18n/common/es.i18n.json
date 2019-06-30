@@ -269,19 +269,6 @@
 		"reach_us": "Comunícate con nosotros",
 		"add_review": "Agregar una Opinión"
 	},
-	"header": {
-		"companies": "Compañias",
-		"jobs": "Trabajos",
-		"resources": "Recursos",
-		"my_company": "Mi Compañía",
-		"post_a_job": "Publicar un Trabajo",
-		"for_employers": "Para Empleadores",
-		"login": "Iniciar Sesión",
-		"signup": "Registrar",
-		"signup_or_login": "Registrar O Iniciar Sesion",
-		"logout": "Cerrar Seccion",
-		"myaccount": "Mi Cuenta"
-	},
 	"loginRegister": {
 		"login": "Iniciar Sesión",
 		"noAccount": "¿No tienes una cuenta? ",

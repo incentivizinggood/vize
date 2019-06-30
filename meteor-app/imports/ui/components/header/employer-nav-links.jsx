@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
-import i18n from "meteor/universe:i18n";
 
 import { urlGenerators } from "/imports/ui/pages";
+import { translations } from "/imports/ui/translations/index.ts";
 
-const T = i18n.createComponent();
+const T = translations.header;
 
 function EmployerNavLinks(props) {
 	let companyURL;
@@ -22,21 +22,21 @@ function EmployerNavLinks(props) {
 			<li>
 				<Link to={companyURL} className="link-kumya ">
 					<span>
-						<T>common.header.my_company</T>
+						<T.my_company />
 					</span>
 				</Link>
 			</li>
 			<li>
 				<Link to="/post-a-job" className="link-kumya">
 					<span>
-						<T>common.header.post_a_job</T>
+						<T.post_a_job />
 					</span>
 				</Link>
 			</li>
 			<li>
 				<Link to="/employer-resources" className="link-kumya">
 					<span>
-						<T>common.header.resources</T>
+						<T.resources />
 					</span>
 				</Link>
 			</li>

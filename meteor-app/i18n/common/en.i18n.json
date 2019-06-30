@@ -269,19 +269,6 @@
 		"reach_us": "reach out to us",
 		"add_review": "Add a Review"
 	},
-	"header": {
-		"companies": "Companies",
-		"jobs": "Jobs",
-		"resources": "Resources",
-		"my_company": "My Company",
-		"post_a_job": "Post a Job",
-		"for_employers": "For Employers",
-		"login": "LOG IN",
-		"signup": "SIGN UP",
-		"signup_or_login": "SIGN UP OR LOGIN",
-		"logout": "LOG OUT",
-		"myaccount": "MY ACCOUNT"
-	},
 	"loginRegister": {
 		"login": "Login",
 		"noAccount": "Don't have an account? ",
