@@ -13,6 +13,11 @@ module.exports = {
 				test: /\.ts$/,
 				loader: "awesome-typescript-loader",
 			},
+			{
+				test: /\.mjs$/,
+				include: /node_modules/,
+				type: "javascript/auto",
+			},
 		],
 	},
 	plugins: [new NodemonPlugin()],

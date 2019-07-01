@@ -1,4 +1,24 @@
 import * as express from "express";
+import { ApolloServer, gql } from "apollo-server-express";
+
+const typeDefs = gql`
+	type Query {
+		hello: String
+	}
+`;
+
+const resolvers = {
+	Query: {
+		hello: () => "Hello world!",
+	},
+};
+
+const server = new ApolloServer({
+	typeDefs,
+	resolvers,
+	introspection: true,
+	playground: true,
+});
 
 const app = express();
 
@@ -9,6 +29,8 @@ app.get("/", (req, res) => {
 		message: "hello world",
 	});
 });
+
+server.applyMiddleware({ app });
 
 app.listen(PORT, () => {
 	console.log("server started at http://localhost:" + PORT);
