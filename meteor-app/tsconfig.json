@@ -8,7 +8,7 @@
 		"allowJs": true,
 		"jsx": "react",
 		"target": "es5",
-		"lib": ["ESNext"],
+		"lib": ["dom", "esnext"],
 		"downlevelIteration": true,
 		"skipLibCheck": true,
 		"strict": true,
