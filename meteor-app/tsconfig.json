@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"moduleResolution": "Node",
+		"esModuleInterop": true,
 		"outDir": "./dist",
 		"allowJs": true,
 		"jsx": "react",

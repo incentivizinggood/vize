@@ -1,4 +1,4 @@
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer, IResolvers } from "apollo-server-express";
 import { Express } from "express";
 
 import { getUser } from "meteor/apollo";
@@ -9,7 +9,7 @@ export function applyGraphQLMiddleware(app: Express) {
 	// Setup the GraphQL API endpoint.
 	const apolloServer = new ApolloServer({
 		typeDefs,
-		resolvers,
+		resolvers: resolvers as IResolvers,
 		context: async ({ req }) => ({
 			// Get the user using a token in the headers. Will be changed when
 			// switching away from Meteor's authorization framework.
