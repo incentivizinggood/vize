@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
-import Blaze from "meteor/gadicc:blaze-react-component";
+import * as Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { i18n } from "meteor/universe:i18n";
@@ -228,7 +228,7 @@ class SubmitSalaryDataForm extends React.Component {
 		return (
 			<PageWrapper title="Salary">
 				<div className="page SubmitSalaryDataForm">
-					<Blaze template="ssd_blaze_form" />
+					<Blaze.default.default template="ssd_blaze_form" />
 					{content}
 				</div>
 			</PageWrapper>

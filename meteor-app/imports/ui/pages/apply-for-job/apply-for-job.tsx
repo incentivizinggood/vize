@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
-import Blaze from "meteor/gadicc:blaze-react-component";
+import * as Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { i18n } from "meteor/universe:i18n";
@@ -128,7 +128,7 @@ export default class ApplyForJobForm extends React.Component {
 		return (
 			<PageWrapper title="Apply">
 				<div className="page ApplyForJobForm">
-					<Blaze template="afj_blaze_form" />
+					<Blaze.default.default template="afj_blaze_form" />
 				</div>
 			</PageWrapper>
 		);

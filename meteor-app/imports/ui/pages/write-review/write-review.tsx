@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
-import Blaze from "meteor/gadicc:blaze-react-component";
+import * as Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { withTracker } from "meteor/react-meteor-data";
@@ -180,7 +180,7 @@ class WriteReviewForm extends React.Component {
 		return (
 			<PageWrapper title="Write Review">
 				<div className="page WriteReviewForm">
-					<Blaze template="wr_blaze_form" />
+					<Blaze.default.default template="wr_blaze_form" />
 					<div>
 						<br />
 					</div>

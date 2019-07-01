@@ -2,7 +2,7 @@ import React from "react";
 
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
-import Blaze from "meteor/gadicc:blaze-react-component";
+import * as Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
 
@@ -109,7 +109,7 @@ export default class CompanyCreateProfileForm extends React.Component {
 		return (
 			<PageWrapper title="Create Company Profile">
 				<div className="page CompanyCreateProfileForm">
-					<Blaze template="ccp_blaze_form" />
+					<Blaze.default.default template="ccp_blaze_form" />
 				</div>
 			</PageWrapper>
 		);
