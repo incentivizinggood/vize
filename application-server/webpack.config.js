@@ -1,5 +1,6 @@
 const NodemonPlugin = require("nodemon-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
 	entry: "./src/index.ts",
@@ -8,6 +9,7 @@ module.exports = {
 	resolve: {
 		extensions: [".ts", ".js"],
 	},
+	externals: [nodeExternals()],
 	module: {
 		rules: [
 			{
