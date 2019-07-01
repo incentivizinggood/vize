@@ -6,6 +6,8 @@ module.exports = {
 	entry: "./src/index.ts",
 	mode: "production",
 	target: "node",
+	// Enable sourcemaps for debugging Webpack's output
+	devtool: "source-map",
 	resolve: {
 		extensions: [".ts", ".js"],
 	},
