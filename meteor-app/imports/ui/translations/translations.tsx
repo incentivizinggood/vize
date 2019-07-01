@@ -3,7 +3,6 @@ import * as React from "react";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale.jsx";
-import { getAtPath, joinPaths } from "imports/lib/property-path";
 
 type Renderer<Msg> = (message: Msg) => JSX.Element;
 
@@ -34,13 +33,13 @@ function makeTranslationComponents<Msgs>(
 	// default locale in other places.
 	const defaultTranslation = Object.values(translations)[0];
 
-	function makeTranslationComponent(messagePath: string) {
+	function makeTranslationComponent(getMessage: (msgs: Msgs) => any) {
 		// A component that renders a different thing for each locale.
 		const TranslationComponent: any = withUpdateOnChangeLocale(
 			({ renderer, ...args }: any) => {
 				// Get the version of the message that is for the current locale.
 				const locale = i18n.getLocale();
-				let message = getAtPath(translations[locale], messagePath);
+				let message = getMessage(translations[locale]);
 
 				// Messages can be functions of the translation component's props.
 				if (typeof message === "function") {
@@ -63,25 +62,25 @@ function makeTranslationComponents<Msgs>(
 		);
 
 		// If the message is an object but not a React element (i.e. a group of
-		// other messages), we recursivly make translation components for all of
-		// its properties.
-		const message = getAtPath(defaultTranslation, messagePath);
+		// other messages), we recursively make translation components for all
+		// of its properties.
+		const message = getMessage(defaultTranslation);
 		if (
 			message != null &&
 			typeof message === "object" &&
 			!React.isValidElement(message)
 		) {
-			Object.keys(message).forEach(k => {
+			for (const k of Object.keys(message)) {
 				TranslationComponent[k] = makeTranslationComponent(
-					joinPaths(messagePath, k)
+					msgs => getMessage(msgs)[k]
 				);
-			});
+			}
 		}
 
 		return TranslationComponent;
 	}
 
-	return makeTranslationComponent("");
+	return makeTranslationComponent(x => x);
 }
 
 export default makeTranslationComponents;
