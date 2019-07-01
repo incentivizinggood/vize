@@ -1,5 +1,10 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"src/*": ["src/*"],
+			"generated/*": ["generated/*"]
+		},
 		"strict": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,

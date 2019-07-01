@@ -1,7 +1,7 @@
 schema: ./src/schema.graphql
 overwrite: true
 generates:
-  ./src/resolvers-types.ts:
+  ./generated/resolvers-types.ts:
     config:
       enumsAsTypes: true
     plugins:

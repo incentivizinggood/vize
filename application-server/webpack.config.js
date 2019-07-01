@@ -1,3 +1,4 @@
+const path = require("path");
 const NodemonPlugin = require("nodemon-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
@@ -9,6 +10,10 @@ module.exports = {
 	// Enable sourcemaps for debugging Webpack's output
 	devtool: "source-map",
 	resolve: {
+		alias: {
+			src: path.resolve(__dirname, "src/"),
+			generated: path.resolve(__dirname, "generated/"),
+		},
 		extensions: [".ts", ".js"],
 	},
 	externals: [nodeExternals()],

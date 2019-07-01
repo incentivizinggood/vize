@@ -2,8 +2,8 @@ import express from "express";
 import { ApolloServer, IResolvers } from "apollo-server-express";
 import { Pool } from "pg";
 
-import typeDefs from "./schema.graphql";
-import { Resolvers } from "./resolvers-types";
+import typeDefs from "src/schema.graphql";
+import { Resolvers } from "generated/resolvers-types";
 
 const pool = new Pool();
 
