@@ -1,12 +1,13 @@
-import * as express from "express";
-import { ApolloServer } from "apollo-server-express";
+import express from "express";
+import { ApolloServer, IResolvers } from "apollo-server-express";
 import { Pool } from "pg";
 
-import * as typeDefs from "./schema.graphql";
+import typeDefs from "./schema.graphql";
+import { Resolvers } from "./resolvers-types";
 
 const pool = new Pool();
 
-const resolvers = {
+const resolvers: Resolvers = {
 	Query: {
 		hello: () => "Hello world!",
 		now: () =>
@@ -18,7 +19,7 @@ const resolvers = {
 
 const server = new ApolloServer({
 	typeDefs,
-	resolvers,
+	resolvers: resolvers as IResolvers,
 	introspection: true,
 	playground: true,
 });
