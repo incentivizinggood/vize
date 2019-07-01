@@ -12,7 +12,7 @@ blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
 standard-minifier-js@2.3.1    # JS minifier run for production mode
 es5-shim@4.7.0                # ECMAScript 5 compatibility for older browsers
 ecmascript@0.10.6             # Enable ECMAScript2015+ syntax in app code
-barbatus:typescript           # Compile TypeScript
+adornis:typescript            # Compile TypeScript
 swydo:graphql                 # Compile .graphql files
 fourseven:scss                # Compile .scss files
 seba:minifiers-autoprefixer   # Minifies and autoprefixes CSS
