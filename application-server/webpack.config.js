@@ -1,4 +1,5 @@
 const NodemonPlugin = require("nodemon-webpack-plugin");
+const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
 module.exports = {
 	entry: "./src/index.ts",
@@ -20,5 +21,5 @@ module.exports = {
 			},
 		],
 	},
-	plugins: [new NodemonPlugin()],
+	plugins: [new NodemonPlugin(), new ProgressBarPlugin()],
 };
