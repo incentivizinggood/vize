@@ -1,4 +1,4 @@
-import yup from "yup";
+import * as yup from "yup";
 
 /*
  * These are schemas for validating user input on the client side.

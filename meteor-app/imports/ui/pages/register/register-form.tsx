@@ -1,13 +1,13 @@
 import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
-import yup from "yup";
+import * as yup from "yup";
 
 import { Accounts } from "meteor/accounts-base";
 
-import * as schemas from "/imports/ui/form-schemas.js";
+import * as schemas from "imports/ui/form-schemas";
 
-import InnerForm from "./register-inner-form.jsx";
+import InnerForm from "./register-inner-form";
 
 const initialValues = {
 	username: "",

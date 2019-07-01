@@ -1,23 +1,23 @@
 import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
-import AboutPage from "./about.jsx";
+import AboutPage from "./about";
 import ApplyForJobForm from "./apply-for-job";
 import CompanyCreateProfileForm from "./create-company-profile";
 import CompanyProfile from "./company-profile";
 import CompanySearchTrial from "./company-search";
-import ContactUsPage from "./contact-us.jsx";
-import ForEmployers from "./foremployers.jsx";
-import HelpPage from "./help.jsx";
-import HomePage from "./home.jsx";
+import ContactUsPage from "./contact-us";
+import ForEmployers from "./foremployers";
+import HelpPage from "./help";
+import HomePage from "./home";
 import LoginPage from "./login";
-import MyAccountPage from "./my-account.jsx";
-import NotFoundPage from "./not-found.jsx";
-import PasswordChanger from "./password-changer.jsx";
+import MyAccountPage from "./my-account";
+import NotFoundPage from "./not-found";
+import PasswordChanger from "./password-changer";
 import PostAJobForm from "./post-a-job";
 import RegisterPage from "./register";
-import ResourcesEmployers from "./resources-employers.jsx";
-import ResourcesWorkers from "./resources-workers.jsx";
+import ResourcesEmployers from "./resources-employers";
+import ResourcesWorkers from "./resources-workers";
 import ShowJobs from "./show-jobs";
 import SubmitSalaryDataForm from "./submit-salary-data";
 import UserPage from "./user";
@@ -25,7 +25,7 @@ import WriteReviewForm from "./write-review";
 import ReviewSubmitted from "./review-submitted";
 import TestPage from "./test";
 
-import { queryRoutes } from "./url-generators.js";
+import { queryRoutes } from "./url-generators";
 
 // Replace null with undefined.
 // TODO: Make pages handel nulls properly on their own.

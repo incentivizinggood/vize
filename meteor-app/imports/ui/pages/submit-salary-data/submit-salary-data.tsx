@@ -8,15 +8,15 @@ import { Template } from "meteor/templating";
 import Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { reactiveCommonTranslator } from "/imports/ui/startup/i18n.js";
-import ErrorWidget from "/imports/ui/components/error-widget.jsx";
-import { SalarySchema } from "/imports/api/data/salaries.js";
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import RegisterLoginModal from "/imports/ui/components/register-login-modal.jsx";
-import "/imports/ui/components/afInputLocation";
+import { reactiveCommonTranslator } from "imports/ui/startup/i18n";
+import ErrorWidget from "imports/ui/components/error-widget";
+import { SalarySchema } from "imports/api/data/salaries";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import RegisterLoginModal from "imports/ui/components/register-login-modal";
+import "imports/ui/components/afInputLocation";
 
 import "./submit-salary-data.html";
 

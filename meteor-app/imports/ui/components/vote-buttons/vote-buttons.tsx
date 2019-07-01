@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import styled from "styled-components";
 
 import voteButtonsQuery from "./vote-buttons.graphql";
-import VoteButton from "./vote-button.jsx";
+import VoteButton from "./vote-button";
 
 const VoteDiv = styled.div`
 	text-align: center;

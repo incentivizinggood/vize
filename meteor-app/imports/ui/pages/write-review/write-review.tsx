@@ -9,14 +9,14 @@ import Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
 import { withTracker } from "meteor/react-meteor-data";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import ErrorWidget from "/imports/ui/components/error-widget.jsx";
-import RegisterLoginModal from "/imports/ui/components/register-login-modal.jsx";
-import { ReviewSchema } from "/imports/api/data/reviews.js";
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import "/imports/ui/components/afInputStarRating";
-import "/imports/ui/components/afInputLocation";
+import ErrorWidget from "imports/ui/components/error-widget";
+import RegisterLoginModal from "imports/ui/components/register-login-modal";
+import { ReviewSchema } from "imports/api/data/reviews";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import "imports/ui/components/afInputStarRating";
+import "imports/ui/components/afInputLocation";
 
 import "./write-review.html";
 

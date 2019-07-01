@@ -8,9 +8,9 @@ import {
 	faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { processLocation } from "/imports/api/models/helpers/postgresql/misc.ts";
-import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import WriteReviewButton from "imports/ui/components/write-review-button";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
 function CompanyProfileSummary(props) {
 	return (

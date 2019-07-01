@@ -2,7 +2,7 @@ import React from "react";
 
 import { Meteor } from "meteor/meteor";
 
-import "/imports/api/data/methods.js";
+import "imports/api/data/methods";
 
 export default class FlagSystem extends React.Component {
 	constructor(props) {

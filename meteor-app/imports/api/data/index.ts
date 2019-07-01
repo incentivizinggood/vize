@@ -1,8 +1,8 @@
-import "./comments.js";
-import "./methods.js";
-import "./users.js";
+import "./comments";
+import "./methods";
+import "./users";
 
-export * from "./companies.js";
-export * from "./jobads.js";
-export * from "./reviews.js";
-export * from "./salaries.js";
+export * from "./companies";
+export * from "./jobads";
+export * from "./reviews";
+export * from "./salaries";

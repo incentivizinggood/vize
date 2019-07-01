@@ -4,10 +4,10 @@ import SimpleSchema from "simpl-schema";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
-import { CompanySchema } from "/imports/api/data/companies.js";
-import { JobAdSchema, JobApplicationSchema } from "/imports/api/data/jobads.js";
-import { ReviewSchema } from "/imports/api/data/reviews.js";
-import { SalarySchema } from "/imports/api/data/salaries.js";
+import { CompanySchema } from "imports/api/data/companies";
+import { JobAdSchema, JobApplicationSchema } from "imports/api/data/jobads";
+import { ReviewSchema } from "imports/api/data/reviews";
+import { SalarySchema } from "imports/api/data/salaries";
 
 i18n.setOptions({
 	defaultLocale: "es",

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import withScroll from "/imports/ui/hoc/scroll.jsx";
+import withScroll from "imports/ui/hoc/scroll";
 
 // How far down that the user can scroll before the navbar goes opaque.
 const threshold = 100;

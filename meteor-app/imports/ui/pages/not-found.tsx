@@ -1,6 +1,6 @@
 import React from "react";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 /* The "404" page.
  */

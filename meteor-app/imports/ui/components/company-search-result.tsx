@@ -9,10 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import { processLocation } from "/imports/api/models/helpers/postgresql/misc.ts";
-import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
+import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import WriteReviewButton from "imports/ui/components/write-review-button";
 
 const t = i18n.createTranslator("common.CompanySearchResult");
 const T = i18n.createComponent(t);

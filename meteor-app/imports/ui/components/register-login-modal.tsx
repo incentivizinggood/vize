@@ -1,9 +1,9 @@
 import React from "react";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import RegisterForm from "/imports/ui/pages/register/register-form.jsx";
-import LoginForm from "/imports/ui/pages/login/login-form.jsx";
+import RegisterForm from "imports/ui/pages/register/register-form";
+import LoginForm from "imports/ui/pages/login/login-form";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);

@@ -1,7 +1,7 @@
-import OverviewTab from "./overview.jsx";
-import ReviewTab from "./reviews.jsx";
+import OverviewTab from "./overview";
+import ReviewTab from "./reviews";
 import JobTab from "./jobs";
 import SalaryTab from "./salaries";
-import ContactTab from "./contact.jsx";
+import ContactTab from "./contact";
 
 export { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab };

@@ -1,11 +1,11 @@
 import React from "react";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import CompanyReview from "/imports/ui/components/companyReview.jsx";
-import CompanyRating from "/imports/ui/components/companyRatingsComponent.jsx";
-import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import CompanyReview from "imports/ui/components/companyReview";
+import CompanyRating from "imports/ui/components/companyRatingsComponent";
+import WriteReviewButton from "imports/ui/components/write-review-button";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
 const T = i18n.createComponent();
 

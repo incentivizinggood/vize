@@ -1,20 +1,20 @@
 import { Meteor } from "meteor/meteor";
 import { Email } from "meteor/email";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import * as dataModel from "/imports/api/models/index.ts";
+import * as dataModel from "imports/api/models/index";
 
-import { PostgreSQL } from "/imports/api/connectors/postgresql/index.ts";
-import PgCompanyFunctions from "/imports/api/models/helpers/postgresql/companies.ts";
-import PgReviewFunctions from "/imports/api/models/helpers/postgresql/reviews.ts";
-import PgJobAdFunctions from "/imports/api/models/helpers/postgresql/jobads.ts";
-import PgSalaryFunctions from "/imports/api/models/helpers/postgresql/salaries.ts";
-import PgUserFunctions from "/imports/api/models/helpers/postgresql/users.ts";
+import { PostgreSQL } from "imports/api/connectors/postgresql/index";
+import PgCompanyFunctions from "imports/api/models/helpers/postgresql/companies";
+import PgReviewFunctions from "imports/api/models/helpers/postgresql/reviews";
+import PgJobAdFunctions from "imports/api/models/helpers/postgresql/jobads";
+import PgSalaryFunctions from "imports/api/models/helpers/postgresql/salaries";
+import PgUserFunctions from "imports/api/models/helpers/postgresql/users";
 
-import { ReviewSchema } from "./reviews.js";
-import { CompanySchema } from "./companies.js";
-import { SalarySchema } from "./salaries.js";
-import { JobAdSchema, JobApplicationSchema } from "./jobads.js";
+import { ReviewSchema } from "./reviews";
+import { CompanySchema } from "./companies";
+import { SalarySchema } from "./salaries";
+import { JobAdSchema, JobApplicationSchema } from "./jobads";
 
 Meteor.methods({
 	async "postgres.users.createUser"(user, companyPostgresId) {

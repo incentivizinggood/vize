@@ -2,7 +2,7 @@ import React from "react";
 
 import { Meteor } from "meteor/meteor";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 /* A page where visitors can contact Vize for buisness inqueries.
  * Help and support contact may be handled here as well,

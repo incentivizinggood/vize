@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
 const T = i18n.createComponent();
 

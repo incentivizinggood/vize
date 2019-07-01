@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Meteor } from "meteor/meteor";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
 const t = i18n.createTranslator("common.flags");
 const T = i18n.createComponent();

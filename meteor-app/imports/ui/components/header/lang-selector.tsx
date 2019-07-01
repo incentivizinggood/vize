@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import { localeMetadata, reactiveGetLocale } from "/imports/ui/startup/i18n.js";
+import { localeMetadata, reactiveGetLocale } from "imports/ui/startup/i18n";
 
 const LocaleIcon = ({ code }) => (
 	<img

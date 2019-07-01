@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import CircularProgressbar from "react-circular-progressbar";
 import { createMuiTheme } from "@material-ui/core";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
 const T = i18n.createComponent();
 

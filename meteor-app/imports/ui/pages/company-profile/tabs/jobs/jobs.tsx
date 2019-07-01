@@ -1,8 +1,8 @@
 import React from "react";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import JobPosting from "./job-posting.jsx";
+import JobPosting from "./job-posting";
 
 const T = i18n.createComponent();
 

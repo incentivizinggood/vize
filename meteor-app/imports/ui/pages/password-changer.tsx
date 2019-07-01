@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 const t = i18n.createTranslator("common.passwordChanger");
 const T = i18n.createComponent(t);

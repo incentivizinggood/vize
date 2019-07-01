@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
-import Spinner from "/imports/ui/components/Spinner";
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import Spinner from "imports/ui/components/Spinner";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 import userPageQuery from "./user.graphql";
 

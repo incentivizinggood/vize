@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import CompanySearchResult from "/imports/ui/components/company-search-result.jsx";
-import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
-import Spinner from "/imports/ui/components/Spinner";
-import PaginateSystem from "/imports/ui/components/paginate/pagination.jsx";
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import CompanySearchResult from "imports/ui/components/company-search-result";
+import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
+import Spinner from "imports/ui/components/Spinner";
+import PaginateSystem from "imports/ui/components/paginate/pagination";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
 import companySearchQuery from "./company-search.graphql";
 

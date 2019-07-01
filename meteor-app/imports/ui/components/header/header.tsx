@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import WorkerNavLinks from "./worker-nav-links.jsx";
-import EmployerNavLinks from "./employer-nav-links.jsx";
-import FadableNav from "./fadable-nav.jsx";
-import LangSelector from "./lang-selector.jsx";
-import LogoutButton from "./logout-button.jsx";
+import WorkerNavLinks from "./worker-nav-links";
+import EmployerNavLinks from "./employer-nav-links";
+import FadableNav from "./fadable-nav";
+import LangSelector from "./lang-selector";
+import LogoutButton from "./logout-button";
 
 const T = i18n.createComponent();
 

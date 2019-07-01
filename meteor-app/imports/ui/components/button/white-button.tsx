@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import LinkButton from "./link-button.jsx";
+import LinkButton from "./link-button";
 
 /**
  * A legacy button component. Do not use in new code.

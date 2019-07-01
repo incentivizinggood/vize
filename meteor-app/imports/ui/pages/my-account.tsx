@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 /* The page where users can view their account details,
  * update their profiles, and change settings.

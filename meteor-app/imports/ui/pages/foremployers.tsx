@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();

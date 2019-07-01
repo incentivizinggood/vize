@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
 const t = i18n.createTranslator("common.homePage");
 

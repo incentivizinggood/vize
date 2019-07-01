@@ -6,11 +6,11 @@ import { Template } from "meteor/templating";
 import Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import ErrorWidget from "/imports/ui/components/error-widget.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import { JobApplicationSchema } from "/imports/api/data/jobads.js";
+import ErrorWidget from "imports/ui/components/error-widget";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import { JobApplicationSchema } from "imports/api/data/jobads";
 
 import "./apply-for-job.html";
 

@@ -2,11 +2,11 @@ import React from "react";
 import { Form } from "formik";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import FormGroup from "/imports/ui/components/form-group";
-import { Button } from "/imports/ui/components/button";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import FormGroup from "imports/ui/components/form-group";
+import { Button } from "imports/ui/components/button";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);

@@ -1,1 +1,1 @@
-export { default } from "./flag.jsx";
+export { default } from "./flag";

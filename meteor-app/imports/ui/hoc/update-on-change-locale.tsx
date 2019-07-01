@@ -1,6 +1,6 @@
 import React from "react";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
 // Ask to be updated "reactively" when the locale changed.
 // universe:i18n cannot be trusted to do that automaticaly.

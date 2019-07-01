@@ -1,2 +1,2 @@
 import "./afInputLocation.html";
-import "./afInputLocation.js";
+import "./afInputLocation";

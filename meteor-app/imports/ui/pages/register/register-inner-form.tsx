@@ -7,14 +7,14 @@ import {
 	faBuilding,
 } from "@fortawesome/free-solid-svg-icons";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import IfFormik from "/imports/ui/components/if-formik.jsx";
-import FormGroup from "/imports/ui/components/form-group";
-import { Button } from "/imports/ui/components/button";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import IfFormik from "imports/ui/components/if-formik";
+import FormGroup from "imports/ui/components/form-group";
+import { Button } from "imports/ui/components/button";
 
-import RoleInput from "./role-input.jsx";
+import RoleInput from "./role-input";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);

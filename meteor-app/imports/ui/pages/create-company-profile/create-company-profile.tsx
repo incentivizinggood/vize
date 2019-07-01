@@ -6,10 +6,10 @@ import Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
 
-import { CompanySchema } from "/imports/api/data/companies.js";
-import ErrorWidget from "/imports/ui/components/error-widget.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import "/imports/ui/components/afInputLocation";
+import { CompanySchema } from "imports/api/data/companies";
+import ErrorWidget from "imports/ui/components/error-widget";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import "imports/ui/components/afInputLocation";
 
 import "./create-company-profile.html";
 

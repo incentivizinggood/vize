@@ -4,7 +4,7 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);

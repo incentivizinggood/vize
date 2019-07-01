@@ -1,1 +1,1 @@
-export { default } from "./post-a-job.jsx";
+export { default } from "./post-a-job";

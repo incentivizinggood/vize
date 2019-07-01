@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { CommentSchema } from "./comments.js";
+import { CommentSchema } from "./comments";
 import SimpleSchema from "simpl-schema";
 import { Tracker } from "meteor/tracker";
 import { AutoForm } from "meteor/aldeed:autoform";

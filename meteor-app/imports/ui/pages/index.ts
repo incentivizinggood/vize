@@ -1,2 +1,2 @@
-export { default } from "./pages.jsx";
-export { urlGenerators } from "./url-generators.js";
+export { default } from "./pages";
+export { urlGenerators } from "./url-generators";

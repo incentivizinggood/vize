@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import ColorDemo from "./color-demo.jsx";
-import FormDemo from "./form-demo.jsx";
+import ColorDemo from "./color-demo";
+import FormDemo from "./form-demo";
 
 function TestPage() {
 	return (

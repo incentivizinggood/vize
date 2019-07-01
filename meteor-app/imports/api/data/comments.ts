@@ -3,7 +3,7 @@ import { AutoForm } from "meteor/aldeed:autoform";
 
 SimpleSchema.extendOptions(["autoform"]); // allows us to do a ton of cool stuff with forms
 
-CommentSchema = new SimpleSchema({
+const CommentSchema = new SimpleSchema({
 	_id: {
 		type: SimpleSchema.Integer,
 		optional: false,

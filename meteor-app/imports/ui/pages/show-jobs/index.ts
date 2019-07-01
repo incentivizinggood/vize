@@ -1,1 +1,1 @@
-export { default } from "./show-jobs.jsx";
+export { default } from "./show-jobs";

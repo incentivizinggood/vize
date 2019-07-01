@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import NoGlobalStyle from "/imports/ui/components/no-global-style";
+import NoGlobalStyle from "imports/ui/components/no-global-style";
 
 const Background = styled.div`
 	background-color: ${props => props.theme.background};

@@ -1,10 +1,10 @@
 import React from "react";
 import { Query } from "react-apollo";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import ShowJobComponent from "/imports/ui/components/showJobComponent.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import ShowJobComponent from "imports/ui/components/showJobComponent";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 import ShowJobsQuery from "./show-jobs.graphql";
 

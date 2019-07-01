@@ -4,12 +4,12 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import { Meteor } from "meteor/meteor";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
-import RewardsComponent from "./rewardsComponent.jsx";
+import RewardsComponent from "./rewardsComponent";
 import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");

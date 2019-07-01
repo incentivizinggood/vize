@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import { Button, LinkButton } from "/imports/ui/components/button";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import { Button, LinkButton } from "imports/ui/components/button";
 
 const TestGrid = styled.div`
 	padding-top: 67px;

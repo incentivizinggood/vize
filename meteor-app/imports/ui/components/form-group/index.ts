@@ -1,1 +1,1 @@
-export { default } from "./form-group.jsx";
+export { default } from "./form-group";

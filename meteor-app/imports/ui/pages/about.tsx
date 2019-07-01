@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Meteor } from "meteor/meteor";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import PageWrapper from "imports/ui/components/page-wrapper";
 
 /* A page where visitors can get information about Vize and this app.
  */

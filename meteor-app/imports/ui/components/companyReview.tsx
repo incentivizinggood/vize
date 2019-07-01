@@ -9,10 +9,10 @@ import {
 import Popup from "reactjs-popup";
 
 import { Meteor } from "meteor/meteor";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
-import FlagSystem from "/imports/ui/components/flag/flag.jsx";
+import FlagSystem from "imports/ui/components/flag/flag";
 
 import VoteButtons from "./vote-buttons";
 

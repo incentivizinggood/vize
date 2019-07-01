@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import { forSize } from "/imports/ui/responsive.js";
-import styleVariables from "/imports/ui/style-variables.js";
+import { forSize } from "imports/ui/responsive";
+import styleVariables from "imports/ui/style-variables";
 
 const T = i18n.createComponent();
 

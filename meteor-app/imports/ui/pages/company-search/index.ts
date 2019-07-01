@@ -1,1 +1,1 @@
-export { default } from "./company-search.jsx";
+export { default } from "./company-search";

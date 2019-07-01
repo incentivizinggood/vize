@@ -1,1 +1,1 @@
-export { default } from "./vote-buttons.jsx";
+export { default } from "./vote-buttons";

@@ -6,7 +6,7 @@ import { ThemeProvider } from "styled-components";
 
 import ScrollRestoration from "./components/scroll-restoration";
 import Pages from "./pages";
-import theme from "./theme.js";
+import theme from "./theme";
 
 function AppRoot(props) {
 	return (

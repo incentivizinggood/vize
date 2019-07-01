@@ -5,13 +5,13 @@ import { Template } from "meteor/templating";
 import Blaze from "meteor/gadicc:blaze-react-component";
 import { ReactiveDict } from "meteor/reactive-dict";
 import { AutoForm } from "meteor/aldeed:autoform";
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import { reactiveCommonTranslator } from "/imports/ui/startup/i18n.js";
-import { JobAdSchema } from "/imports/api/data/jobads.js";
-import ErrorWidget from "/imports/ui/components/error-widget.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import "/imports/ui/components/afInputLocation";
+import { reactiveCommonTranslator } from "imports/ui/startup/i18n";
+import { JobAdSchema } from "imports/api/data/jobads";
+import ErrorWidget from "imports/ui/components/error-widget";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import "imports/ui/components/afInputLocation";
 
 import "./post-a-job.html";
 

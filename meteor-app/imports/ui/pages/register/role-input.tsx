@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "formik";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);

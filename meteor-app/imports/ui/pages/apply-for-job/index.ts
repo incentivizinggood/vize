@@ -1,1 +1,1 @@
-export { default } from "./apply-for-job.jsx";
+export { default } from "./apply-for-job";

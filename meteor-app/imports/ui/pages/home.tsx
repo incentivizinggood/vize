@@ -2,17 +2,17 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import PageWrapper from "/imports/ui/components/page-wrapper";
-import WriteReviewButton from "/imports/ui/components/write-review-button.jsx";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import PageWrapper from "imports/ui/components/page-wrapper";
+import WriteReviewButton from "imports/ui/components/write-review-button";
 import {
 	LinkButton,
 	WhiteButton,
 	BlackBorderButton,
-} from "/imports/ui/components/button";
-import CompaniesSearchBar from "/imports/ui/components/companies-search-bar.jsx";
+} from "imports/ui/components/button";
+import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
 
 const t = i18n.createTranslator("common.homePage");
 const T = i18n.createComponent(t);

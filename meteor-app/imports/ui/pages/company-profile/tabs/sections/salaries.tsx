@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import { urlGenerators } from "/imports/ui/pages";
-import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-import { LinkButton } from "/imports/ui/components/button";
+import { urlGenerators } from "imports/ui/pages";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { LinkButton } from "imports/ui/components/button";
 
 const T = i18n.createComponent();
 
