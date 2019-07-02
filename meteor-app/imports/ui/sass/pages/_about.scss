@@ -28,7 +28,13 @@
 		font-size: 19px;
 		text-align: center;
 		padding-top: 22px;
-		color: #585858;
+		color: black;
+	}
+
+	.about-header {
+		font-weight: 800;
+		font-size: 4em;
+		font-variant-caps: all-petite-caps;
 	}
 
 	.about-subheader {
@@ -38,9 +44,9 @@
 		line-height: 1.2em;
 		text-transform: uppercase;
 		letter-spacing: 2px;
-		font-weight: 600;
 		font-style: normal;
 		text-align: center;
 		margin-top: 20px;
+		color: #7d7d7d;
 	}
 }
