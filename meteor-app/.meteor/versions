@@ -1,5 +1,7 @@
 accounts-base@1.4.2
 accounts-password@1.5.1
+adornis:typescript@0.9.13
+adornis:typescript-compiler@0.12.13
 aldeed:autoform@6.3.0
 aldeed:collection2@3.0.2
 aldeed:schema-index@3.0.0
@@ -8,8 +10,6 @@ apollo@3.0.1
 autoupdate@1.4.0
 babel-compiler@7.0.8
 babel-runtime@1.2.4_1
-barbatus:typescript@0.7.0
-barbatus:typescript-compiler@0.10.0
 barbatus:typescript-runtime@1.1.0
 base64@1.0.11
 binary-heap@1.0.10
