@@ -6,35 +6,6 @@
 		"male": "Hombre",
 		"female": "Mujer"
 	},
-	"login": {
-		"username": "Nombre de usuario",
-		"password": "Contraseña",
-		"submit": "Usuario",
-		"error": {
-			"loggedIn": "Ya estas conectado.",
-			"Unrecognized options for login request": "No se reconoces las opciones para la solitud de inicio.",
-			"Match failed": "Combinación incorrecta de nombre de usuario o contraseña.",
-			"User not found": "No se encuentra el usuario.",
-			"Incorrect password": "Contraseña incorrecta",
-			"User has no password set": "Esta cuenta de usuario no tiene contraseña establecida. Tendrá que iniciar sesión por otros medios."
-		},
-		"success": "Inicio de sesión correcto!"
-	},
-	"register": {
-		"username": "Nomber de usuario",
-		"password": "Contraseña",
-		"role": {
-			"worker": "Soy un trabajador",
-			"company": "Soy una empresa"
-		},
-		"submit": "Regístrar",
-		"error": {
-			"loggedIn": "Ya estas conectado.",
-			"Username already exists": "Ese nombre de usuario ya existe.",
-			"Email already exists": "Ese correo electrónico ya está siendo utilizado por otra cuenta."
-		},
-		"success": "Registracion exitosa!"
-	},
 	"passwordChanger": {
 		"oldPassword": "Contraseña actual",
 		"newPassword": "Nueva contraseña",
