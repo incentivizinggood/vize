@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
 import PageWrapper from "imports/ui/components/page-wrapper";
 import ModalText from "imports/ui/components/modal-text";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.resourcesEmployers;
 
 export default class ResourcesEmployers extends React.Component {
 	render() {
@@ -29,28 +28,18 @@ export default class ResourcesEmployers extends React.Component {
 							/>
 							<div>
 								<h2>
-									<T>
-										common.resourcesEmployers.workerEngagementTitle
-									</T>
+									<T.workerEngagementTitle />
 								</h2>
 
 								<p>
-									<T>
-										common.resourcesEmployers.workerEngagementDesc
-									</T>
+									<T.workerEngagementDesc />
 								</p>
 
 								<p>
 									<ModalText
-										title={
-											<T>
-												common.resourcesEmployers.workerEngagementTitle
-											</T>
-										}
+										title={<T.workerEngagementTitle />}
 										content={[
-											<T>
-												common.resourcesEmployers.workerEngagementArticle
-											</T>,
+											<T.workerEngagementArticle />,
 											<Link to="mailto:incentiviizinggood@gmail.com">
 												incentiviizinggood@gmail.com
 											</Link>,
@@ -75,34 +64,20 @@ export default class ResourcesEmployers extends React.Component {
 							/>
 							<div>
 								<h2>
-									<T>
-										common.resourcesEmployers.AllianceTitle
-									</T>
+									<T.AllianceTitle />
 								</h2>
 
 								<p>
-									<T>
-										common.resourcesEmployers.AllianceDesc
-									</T>
+									<T.AllianceDesc />
 								</p>
 								<ModalText
-									title={
-										<T>
-											common.resourcesEmployers.AllianceTitle
-										</T>
-									}
+									title={<T.AllianceTitle />}
 									content={[
-										<T>
-											common.resourcesEmployers.AllianceArticlePt1
-										</T>,
+										<T.AllianceArticlePt1 />,
 										<Link to="http://www.responsiblebusiness.org/">
-											<T>
-												common.resourcesEmployers.here
-											</T>
+											<T.here />
 										</Link>,
-										<T>
-											common.resourcesEmployers.AllianceArticlePt2
-										</T>,
+										<T.AllianceArticlePt2 />,
 									]}
 								/>
 							</div>
@@ -122,37 +97,23 @@ export default class ResourcesEmployers extends React.Component {
 							/>
 							<div>
 								<h2>
-									<T>
-										common.resourcesEmployers.learnEmployeesTitle
-									</T>
+									<T.learnEmployeesTitle />
 								</h2>
 
 								<p>
-									<T>
-										common.resourcesEmployers.learnEmployeesDesc
-									</T>
+									<T.learnEmployeesDesc />
 								</p>
 
 								<ModalText
-									title={
-										<T>
-											common.resourcesEmployers.learnEmployeesTitle
-										</T>
-									}
+									title={<T.learnEmployeesTitle />}
 									content={[
-										<T>
-											common.resourcesEmployers.learnEmployeesArticlePt1
-										</T>,
+										<T.learnEmployeesArticlePt1 />,
 										<Link to="https://www.mylaborlink.org/">
 											LaborLink
 										</Link>,
-										<T>
-											common.resourcesEmployers.learnEmployeesArticlePt2
-										</T>,
+										<T.learnEmployeesArticlePt2 />,
 										<Link to="https://www.mylaborlink.org/">
-											<T>
-												common.resourcesEmployers.here
-											</T>
+											<T.here />
 										</Link>,
 										<br />,
 
@@ -181,9 +142,7 @@ export default class ResourcesEmployers extends React.Component {
 							<div className="col-md-8">
 								<center>
 									<h1 className="titlestar22">
-										<T>
-											common.resourcesWorkers.publishArticleMessage
-										</T>
+										<translations.resourcesWorkers.publishArticleMessage />
 										<Link to="mailto:incentivizinggood@gmail.com">
 											incentivizinggood@gmail.com
 										</Link>

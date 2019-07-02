@@ -1,9 +1,7 @@
 import React from "react";
 import Popup from "reactjs-popup";
 
-import { i18n } from "meteor/universe:i18n";
-
-const T = i18n.createComponent();
+import { translations as T } from "imports/ui/translations";
 
 /**
  * This commponent was made to help convert the resources-workers and
@@ -15,7 +13,7 @@ function ModalText({ title, content }) {
 		<Popup
 			trigger={
 				<button className="btn btn-success button">
-					<T>common.resourcesWorkers.readMore</T>
+					<T.resourcesWorkers.readMore />
 				</button>
 			}
 			modal

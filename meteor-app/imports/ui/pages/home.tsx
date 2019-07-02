@@ -2,8 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { i18n } from "meteor/universe:i18n";
-
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import WriteReviewButton from "imports/ui/components/write-review-button";
@@ -13,9 +11,9 @@ import {
 	BlackBorderButton,
 } from "imports/ui/components/button";
 import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.homePage");
-const T = i18n.createComponent(t);
+const T = translations.homePage;
 
 function HomePage() {
 	return (
@@ -41,7 +39,7 @@ function HomePage() {
 										className="white-text-center"
 										style={{ fontSize: 32 }}
 									>
-										<T>rewardText</T>
+										<T.rewardText />
 									</p>
 								</div>
 								<div>
@@ -52,7 +50,7 @@ function HomePage() {
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
-											{t("add_review_button")}
+											<T.add_review_button />
 										</WhiteButton>
 									</center>
 								</div>
@@ -71,7 +69,7 @@ function HomePage() {
 								<li>
 									<div className="banner-text-info">
 										<h1>
-											<T>mainBanner</T>
+											<T.mainBanner />
 										</h1>
 									</div>
 									<CompaniesSearchBar />
@@ -96,18 +94,18 @@ function HomePage() {
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
-								<T>findjob_part1</T> <br />{" "}
+								<T.findjob_title />
 							</h1>
 						</div>
 						<div className="great-comp-hm">
 							<h4>
-								<T>findjob_text</T>
+								<T.findjob_text />
 							</h4>
 						</div>
 						<div>
 							<center>
 								<BlackBorderButton to="/jobs">
-									<T>jobsButton</T>
+									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
 						</div>
@@ -122,18 +120,18 @@ function HomePage() {
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
-								<T>findjob_part1</T> <br />{" "}
+								<T.findjob_title />
 							</h1>
 						</div>
 						<div className="great-comp-hm">
 							<h4>
-								<T>findjob_text</T>
+								<T.findjob_text />
 							</h4>
 						</div>
 						<div>
 							<center>
 								<BlackBorderButton to="/jobs">
-									<T>jobsButton</T>
+									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
 						</div>
@@ -163,19 +161,18 @@ function HomePage() {
 					<div className="col-md-5">
 						<div>
 							<h1 className="white-text-center">
-								<T>findemp_part1</T> <br />
-								<T>findemp_part2</T>{" "}
+								<T.findemp_title />
 							</h1>
 						</div>
 						<div>
 							<h4 className="white-text-center">
-								<T>findemp_text</T>
+								<T.findemp_text />
 							</h4>
 						</div>
 						<div>
 							<center>
 								<WhiteButton to="/companies">
-									<T>companiesButton</T>
+									<T.companiesButton />
 								</WhiteButton>
 							</center>
 						</div>
@@ -198,19 +195,18 @@ function HomePage() {
 					<div className="col-md-5">
 						<div>
 							<h1 className="white-text-center">
-								<T>findemp_part1</T> <br />
-								<T>findemp_part2</T>{" "}
+								<T.findemp_title />
 							</h1>
 						</div>
 						<div>
 							<h4 className="white-text-center">
-								<T>findemp_text</T>
+								<T.findemp_text />
 							</h4>
 						</div>
 						<div>
 							<center>
 								<WhiteButton to="/companies">
-									<T>companiesButton</T>
+									<T.companiesButton />
 								</WhiteButton>
 							</center>
 						</div>
@@ -240,9 +236,9 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T>hear</T>
+										<T.hear />
 										<br />
-										<T>community</T>
+										<T.community />
 									</div>
 									<div className="frontLogo">
 										<img
@@ -251,7 +247,7 @@ function HomePage() {
 										/>
 									</div>
 									<div className="frontLocation">
-										<T>hear_text</T>
+										<T.hear_text />
 									</div>
 									<br />
 									<div>
@@ -264,8 +260,8 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T>get_fair_salary</T> <br />
-										<T>your_work</T>
+										<T.get_fair_salary /> <br />
+										<T.your_work />
 									</div>
 									<div className="frontLogo">
 										<img
@@ -274,7 +270,7 @@ function HomePage() {
 										/>
 									</div>
 									<div className="frontLocation">
-										<T>fairsalary_text</T>
+										<T.fairsalary_text />
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
@@ -285,7 +281,7 @@ function HomePage() {
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
-											{t("salary_button")}
+											<T.salary_button />
 										</LinkButton>
 									</div>
 									<br />
@@ -307,7 +303,7 @@ function HomePage() {
 							<center>
 								{" "}
 								<h1>
-									<T>discover_employers</T>{" "}
+									<T.discover_employers />{" "}
 								</h1>
 								<br />
 							</center>
@@ -317,7 +313,7 @@ function HomePage() {
 								<center>
 									{" "}
 									<BlackBorderButton to="/register">
-										<T>signup_button</T>
+										<T.signup_button />
 									</BlackBorderButton>
 								</center>
 							</div>
@@ -331,4 +327,4 @@ function HomePage() {
 	);
 }
 
-export default withUpdateOnChangeLocale(HomePage);
+export default HomePage;

@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
-import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
+
+import { translations } from "imports/ui/translations";
 
 import WorkerNavLinks from "./worker-nav-links";
 import EmployerNavLinks from "./employer-nav-links";
@@ -11,7 +12,7 @@ import FadableNav from "./fadable-nav";
 import LangSelector from "./lang-selector";
 import LogoutButton from "./logout-button";
 
-const T = i18n.createComponent();
+const T = translations.header;
 
 function NavLinks({ user }) {
 	// The user is an employer.
@@ -31,7 +32,7 @@ function AccountLink({ user }) {
 				type="button"
 				className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
 			>
-				<T>common.header.myaccount</T>
+				<T.myaccount />
 			</Link>
 		);
 	}
@@ -43,7 +44,7 @@ function AccountLink({ user }) {
 			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 		>
 			<span>
-				<T>common.header.signup_or_login</T>
+				<T.signup_or_login />
 			</span>
 		</Link>
 	);
@@ -66,12 +67,12 @@ function AccountSection({ user }) {
 							to="/my-account"
 							className="navbar-link margin-right"
 						>
-							<T>common.header.myaccount</T>
+							<T.myaccount />
 						</Link>
 					</li>
 					<li className="tr">
 						<LogoutButton className="navbar-link margin-right">
-							<T>common.header.logout</T>
+							<T.logout />
 						</LogoutButton>
 					</li>
 				</ul>
@@ -88,12 +89,12 @@ function AccountSection({ user }) {
 					id="register-button"
 					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
 				>
-					<T>common.header.signup</T>
+					<T.signup />
 				</Link>
 			</li>
 			<li>
 				<Link to="/login" className="navbar-link margin-right">
-					<T>common.header.login</T>
+					<T.login />
 				</Link>
 			</li>
 		</>
@@ -142,7 +143,7 @@ function Header(props) {
 							<li>
 								<Link to="/foremployers" className="link-kumya">
 									<span>
-										<T>common.header.for_employers</T>
+										<T.for_employers />
 									</span>
 								</Link>
 							</li>
@@ -150,7 +151,7 @@ function Header(props) {
 							{props.user ? (
 								<li>
 									<LogoutButton className="toggle-only-display navbar-link margin-right">
-										<T>common.header.logout</T>
+										<T.logout />
 									</LogoutButton>
 								</li>
 							) : null}

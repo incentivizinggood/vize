@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
 import PageWrapper from "imports/ui/components/page-wrapper";
 import ModalText from "imports/ui/components/modal-text";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.resourcesWorkers;
 
 export default class ResourcesWorkers extends React.Component {
 	render() {
@@ -29,32 +28,20 @@ export default class ResourcesWorkers extends React.Component {
 							/>
 							<div>
 								<h2>
-									<T>
-										common.resourcesWorkers.trainingProgramsTitle
-									</T>
+									<T.trainingProgramsTitle />
 								</h2>
 
 								<p>
-									<T>
-										common.resourcesWorkers.trainingProgramsDesc
-									</T>
+									<T.trainingProgramsDesc />
 								</p>
 
 								<p>
 									<ModalText
-										title={
-											<T>
-												common.resourcesWorkers.trainingProgramsTitle
-											</T>
-										}
+										title={<T.trainingProgramsTitle />}
 										content={[
-											<T>
-												common.resourcesWorkers.trainingProgramsArticle
-											</T>,
+											<T.trainingProgramsArticle />,
 											<Link to="http://www.uabc.mx/institucion/catalogo/spanish.html">
-												<T>
-													common.resourcesWorkers.here
-												</T>
+												<T.here />
 											</Link>,
 											".",
 										]}
@@ -77,26 +64,18 @@ export default class ResourcesWorkers extends React.Component {
 							/>
 							<div>
 								<h2>
-									<T>
-										common.resourcesWorkers.laborLawsTitle
-									</T>
+									<T.laborLawsTitle />
 								</h2>
 
 								<p>
-									<T>common.resourcesWorkers.laborLawsDesc</T>
+									<T.laborLawsDesc />
 								</p>
 								<ModalText
-									title={
-										<T>
-											common.resourcesWorkers.laborLawsTitle
-										</T>
-									}
+									title={<T.laborLawsTitle />}
 									content={[
-										<T>
-											common.resourcesWorkers.laborLawsArticle
-										</T>,
+										<T.laborLawsArticle />,
 										<Link to="https://www.facebook.com/Ollin-Calli-450536781717887/">
-											<T>common.resourcesWorkers.here</T>
+											<T.here />
 										</Link>,
 										".",
 									]}
@@ -118,33 +97,21 @@ export default class ResourcesWorkers extends React.Component {
 							/>
 							<div>
 								<h2>
-									<T>
-										common.resourcesWorkers.educationDistanceTitle
-									</T>
+									<T.educationDistanceTitle />
 								</h2>
 
 								<p>
-									<T>
-										common.resourcesWorkers.educationDistanceDesc
-									</T>
+									<T.educationDistanceDesc />
 								</p>
 
 								<ModalText
-									title={
-										<T>
-											common.resourcesWorkers.educationDistanceTitle
-										</T>
-									}
+									title={<T.educationDistanceTitle />}
 									content={[
-										<T>
-											common.resourcesWorkers.educationDistanceArticlePt1
-										</T>,
+										<T.educationDistanceArticlePt1 />,
 										<Link to="http://tectijuana.edu.mx/educacion-a-distancia/">
-											<T>common.resourcesWorkers.here</T>
+											<T.here />
 										</Link>,
-										<T>
-											common.resourcesWorkers.educationDistanceArticlePt2
-										</T>,
+										<T.educationDistanceArticlePt2 />,
 									]}
 								/>
 							</div>
@@ -165,27 +132,17 @@ export default class ResourcesWorkers extends React.Component {
 						/>
 						<div>
 							<h2>
-								<T>
-									common.resourcesWorkers.becomeBilingualTitle
-								</T>
+								<T.becomeBilingualTitle />
 							</h2>
 
 							<p>
-								<T>
-									common.resourcesWorkers.becomeBilingualDesc
-								</T>
+								<T.becomeBilingualDesc />
 							</p>
 
 							<ModalText
-								title={
-									<T>
-										common.resourcesWorkers.becomeBilingualTitle
-									</T>
-								}
+								title={<T.becomeBilingualTitle />}
 								content={[
-									<T>
-										common.resourcesWorkers.becomeBilingualArticle
-									</T>,
+									<T.becomeBilingualArticle />,
 									<br />,
 
 									<p>
@@ -274,9 +231,7 @@ export default class ResourcesWorkers extends React.Component {
 							<div className="col-md-8">
 								<center>
 									<h1 className="titlestar22">
-										<T>
-											common.resourcesWorkers.publishArticleMessage
-										</T>
+										<T.publishArticleMessage />
 										<Link to="mailto:incentivizinggood@gmail.com">
 											incentivizinggood@gmail.com
 										</Link>
