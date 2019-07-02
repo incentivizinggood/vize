@@ -17,8 +17,7 @@ const horizontalPaddingVal = "15px";
 const P = styled.p`
 	color: ${props => props.theme.main};
 	text-align: center;
-	font-size: 18pt;
-	font-weight: bolder;
+	font-size: 30px;
 
 	${forSize.tabletAndDown} {
 		padding-left: ${horizontalPaddingVal};
@@ -50,7 +49,7 @@ const ProblemPoint = styled.p`
 
 	${forSize.phoneOnly} {
 		padding: 30px;
-		width: 95%;
+		width: 90%;
 	}
 `;
 
@@ -70,6 +69,7 @@ const SubsectionTitle = styled.h2`
 	color: ${props => props.theme.main};
 	text-align: center;
 	font-weight: bold;
+	font-size: 36px;
 `;
 
 const SectionContainer = styled.section`
@@ -169,7 +169,7 @@ const PlanOption = ({ name, items }) => (
 				<li>{item}</li>
 			))}
 		</PlanFeatureList>
-		<GetStarted />
+		<GetStartedBig />
 	</PlanBox>
 );
 
@@ -207,22 +207,7 @@ const PageTitle = styled.h1`
 	}
 `;
 
-const Recruiting = styled.section`
-	display: flex;
-	flex-direction: row-reverse;
-	align-items: center;
-	justify-content: center;
-	padding-top: 40px;
-	> div {
-		max-width: 40em;
-	}
-
-	${forSize.tabletAndDown} {
-		flex-direction: column-reverse;
-	}
-`;
-
-const Retainment = styled.section`
+const SolutionContainer = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -280,7 +265,7 @@ function ForEmployers() {
 				<SectionTitle>
 					<T>heading2</T>
 				</SectionTitle>
-				<Recruiting>
+				<SolutionContainer>
 					<div>
 						<SubsectionTitle>
 							<T>recruitingHeading</T>
@@ -293,8 +278,8 @@ function ForEmployers() {
 						src="/images/example-job-post-square.png"
 						className="img-responsive"
 					/>
-				</Recruiting>
-				<Retainment>
+				</SolutionContainer>
+				<SolutionContainer>
 					<div>
 						<SubsectionTitle>
 							<T>retainmentHeading</T>
@@ -315,7 +300,7 @@ function ForEmployers() {
 								: `/images/analytics-dashboard.png`
 						}
 					/>
-				</Retainment>
+				</SolutionContainer>
 			</SectionContainer>
 
 			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
