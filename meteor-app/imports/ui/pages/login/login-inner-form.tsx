@@ -1,39 +1,45 @@
 import React from "react";
 import { Form } from "formik";
 
-import { i18n } from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import FormGroup from "imports/ui/components/form-group";
 import { Button } from "imports/ui/components/button";
 import { FormToolbar } from "imports/ui/components/form-layout";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
 		<Form>
-			<FormGroup
-				fieldName="username"
-				type="text"
-				label={t("username")}
-				placeholder={t("username")}
+			<T.username
+				renderer={t => (
+					<FormGroup
+						fieldName="username"
+						type="text"
+						label={t.label}
+						placeholder={t.placeholder}
+					/>
+				)}
 			/>
-			<FormGroup
-				fieldName="password"
-				type="password"
-				label={t("password")}
-				placeholder={t("password")}
+
+			<T.password
+				renderer={t => (
+					<FormGroup
+						fieldName="password"
+						type="password"
+						label={t.label}
+						placeholder={t.placeholder}
+					/>
+				)}
 			/>
 
 			<FormToolbar>
 				<Button primary type="submit">
-					<T>login</T>
+					<T.login />
 				</Button>
 			</FormToolbar>
 		</Form>
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;

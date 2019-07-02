@@ -269,21 +269,6 @@
 		"reach_us": "Comunícate con nosotros",
 		"add_review": "Agregar una Opinión"
 	},
-	"loginRegister": {
-		"login": "Iniciar Sesión",
-		"noAccount": "¿No tienes una cuenta? ",
-		"register": "Registrar",
-		"username": "Usuario",
-		"password": "Contraseña",
-		"registrationSuccess": "¡Registracion exitosa!",
-		"companyName": "Nombre de Compañía",
-		"alreadyAccount": "¿Ya tienes una cuenta? ",
-		"employee": "Trabajador",
-		"employer": "Empleador",
-		"email": "Correo Electrónico",
-		"createAccount": "Crear Cuenta",
-		"registerOrLogin": "Regístrese o inicie sesión para escribir una opinión"
-	},
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[El solicitante no completó este campo]",

@@ -269,21 +269,6 @@
 		"reach_us": "reach out to us",
 		"add_review": "Add a Review"
 	},
-	"loginRegister": {
-		"login": "Login",
-		"noAccount": "Don't have an account? ",
-		"register": "Register",
-		"username": "Username",
-		"password": "Password",
-		"registrationSuccess": "Registration successful!",
-		"companyName": "Company Name",
-		"alreadyAccount": "Already have an account? ",
-		"employee": "Employee",
-		"employer": "Employer",
-		"email": "Email",
-		"createAccount": "Create Account",
-		"registerOrLogin": "Register or login to write a review"
-	},
 	"methods": {
 		"jobAppEmail": {
 			"fieldLeftEmpty": "[the applicant did not fill in this field]",

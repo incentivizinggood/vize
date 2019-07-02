@@ -1,12 +1,10 @@
 import React from "react";
 
-import { i18n } from "meteor/universe:i18n";
-
 import RegisterForm from "imports/ui/pages/register/register-form";
 import LoginForm from "imports/ui/pages/login/login-form";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
 /* The page where users can create an account.
  */
@@ -70,12 +68,12 @@ class RegisterLoginModal extends React.Component {
 
 					<div className="text-center login-link-cs">
 						<br />
-						<T>alreadyAccount</T>
+						<T.alreadyAccount />
 						<button
 							style={linkButton}
 							onClick={this.changeRegisterLoginState}
 						>
-							<T>login</T>
+							<T.login />
 						</button>
 						<div className="clearfix" />
 					</div>
@@ -85,7 +83,7 @@ class RegisterLoginModal extends React.Component {
 			formContent = (
 				<div>
 					<h3 className="top-head-employer" align="center">
-						<T>login</T>
+						<T.login />
 					</h3>
 
 					<br />
@@ -95,12 +93,12 @@ class RegisterLoginModal extends React.Component {
 					<div className="row">
 						<div className="col-lg-12 text-center">
 							<br />
-							<T>noAccount</T>
+							<T.noAccount />
 							<button
 								style={linkButton}
 								onClick={this.changeRegisterLoginState}
 							>
-								<T>register</T>
+								<T.register />
 							</button>
 						</div>
 					</div>
@@ -112,7 +110,7 @@ class RegisterLoginModal extends React.Component {
 			<div>
 				<div style={errorDiv}>
 					<h4 style={errorText}>
-						<T>registerOrLogin</T>
+						<T.registerOrLogin />
 					</h4>
 				</div>
 				{formContent}
