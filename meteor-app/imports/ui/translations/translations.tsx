@@ -1,8 +1,8 @@
-import * as React from "react";
+import React from "react";
 
-import i18n from "meteor/universe:i18n";
+import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale.jsx";
+import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
 type Renderer<Msg> = (message: Msg) => JSX.Element;
 
@@ -10,7 +10,7 @@ type TranslationComponentProps<Msg> = Msg extends (args: infer A) => infer R
 	? { renderer?: Renderer<R> } & A
 	: { renderer?: Renderer<Msg> };
 
-type TranslationComponent<Msg> = React.Component<
+type TranslationComponent<Msg> = React.ComponentType<
 	TranslationComponentProps<Msg>
 >;
 
