@@ -3,6 +3,7 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import i18n from "meteor/universe:i18n";
 
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
 
 /* A page where visitors can get information about Vize and this app.
@@ -10,7 +11,7 @@ import PageWrapper from "/imports/ui/components/page-wrapper";
 
 const T = i18n.createComponent();
 
-export default class AboutPage extends React.Component {
+class AboutPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,17 +24,6 @@ export default class AboutPage extends React.Component {
 		this.handleEmailChange = this.handleEmailChange.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleTextBoxChanging = this.handleTextBoxChanging.bind(this);
-	}
-
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
 	}
 
 	handleSubmit(event) {
@@ -85,7 +75,7 @@ export default class AboutPage extends React.Component {
 
 	render() {
 		return (
-			<PageWrapper>
+			<PageWrapper title="About">
 				<div id="home" className="banner static-page-banner">
 					<div className="banner-info">
 						<div className="banner-text">
@@ -99,7 +89,7 @@ export default class AboutPage extends React.Component {
 				<div className="about">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="text-center">
+							<h1 className="text-center about-header">
 								<T>common.aboutUs.the_problem</T>
 							</h1>
 							<h3 className="about-subheader">
@@ -108,7 +98,7 @@ export default class AboutPage extends React.Component {
 						</div>
 						<div className="col-md-12 ">
 							<div className="about-row">
-								<p>
+								<p className="about-paragraph">
 									<T>common.aboutUs.problem_text</T>
 								</p>
 							</div>
@@ -120,7 +110,7 @@ export default class AboutPage extends React.Component {
 				<div className="about contrast">
 					<div className="container">
 						<div className="col-md-12">
-							<h1 className="text-center">
+							<h1 className="text-center about-header">
 								<T>common.aboutUs.our_solution</T>
 							</h1>
 
@@ -215,3 +205,5 @@ export default class AboutPage extends React.Component {
 		);
 	}
 }
+
+export default withUpdateOnChangeLocale(AboutPage);

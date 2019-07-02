@@ -15,6 +15,7 @@ export function applyGraphQLMiddleware(app: Express) {
 			// switching away from Meteor's authorization framework.
 			user: await getUser(req.headers.authorization),
 		}),
+		introspection: true,
 	});
 
 	apolloServer.applyMiddleware({

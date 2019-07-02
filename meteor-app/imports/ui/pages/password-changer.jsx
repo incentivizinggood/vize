@@ -174,7 +174,7 @@ class PasswordChanger extends React.Component {
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Account Recovery">
 				<div className="container form-page">
 					<div className="row">
 						<div

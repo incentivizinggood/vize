@@ -5,13 +5,13 @@ import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import i18n from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
-
-import FormGroup from "./form-group.jsx";
+import FormGroup from "/imports/ui/components/form-group";
+import { Button } from "/imports/ui/components/button";
 
 const t = i18n.createTranslator("common.loginRegister");
 const T = i18n.createComponent(t);
 
-function InnerForm({ errors, isSubmitting }) {
+function InnerForm() {
 	return (
 		<Form>
 			<div className="register-login-form">
@@ -21,16 +21,11 @@ function InnerForm({ errors, isSubmitting }) {
 				<div className="form-group text-center" />
 
 				<div className="button-center">
-					<button
-						type="submit"
-						disabled={isSubmitting}
-						className="btn-primary button"
-					>
+					<Button primary type="submit">
 						<T>login</T>
-					</button>
+					</Button>
 				</div>
 			</div>
-			<div>{JSON.stringify(errors)}</div>
 		</Form>
 	);
 }

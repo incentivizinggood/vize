@@ -1,57 +1,59 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Dropdown, {
-	DropdownTrigger,
-	DropdownContent,
-} from "react-simple-dropdown";
+import Popup from "reactjs-popup";
+import styled from "styled-components";
 
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import { localeMetadata, reactiveGetLocale } from "/imports/ui/startup/i18n.js";
 
-function CurLang({ code }) {
-	return <img src={localeMetadata[code].icon} alt={`${code} icon.`} />;
-}
+const LocaleIcon = ({ code }) => (
+	<img
+		src={localeMetadata[code].icon}
+		alt={localeMetadata[code].nativeName}
+	/>
+);
 
-CurLang.propTypes = {
-	code: PropTypes.string.isRequired,
-};
-
-const CurLangContainer = withTracker(() => ({
+const CurrentLocaleIcon = withTracker(() => ({
 	code: reactiveGetLocale(),
-}))(CurLang);
+}))(LocaleIcon);
 
-function LangSelector() {
-	const refDropdown = React.useRef(null);
+const LocaleButton = styled.button`
+	padding: 0;
+	& + & {
+		margin-left: 5px;
+	}
+`;
 
-	const hideDropdown = () => {
-		refDropdown.current.hide();
-	};
-
-	const LangOpt = code => (
-		<li key={code}>
-			<button
+const langOptions = close => (
+	<>
+		{Object.keys(localeMetadata).map(code => (
+			<LocaleButton
+				key={code}
 				onClick={() => {
 					i18n.setLocale(code);
-					hideDropdown();
+					close();
 				}}
 			>
-				<img src={localeMetadata[code].icon} alt={`${code} icon.`} />
-				<span>{localeMetadata[code].nativeName}</span>
-			</button>
-		</li>
-	);
+				<LocaleIcon code={code} />
+			</LocaleButton>
+		))}
+	</>
+);
 
+function LangSelector() {
 	return (
-		<Dropdown ref={refDropdown}>
-			<DropdownTrigger>
-				<CurLangContainer />
-			</DropdownTrigger>
-			<DropdownContent>
-				<ul>{Object.keys(localeMetadata).map(LangOpt)}</ul>
-			</DropdownContent>
-		</Dropdown>
+		<Popup
+			trigger={
+				<button className="button">
+					<CurrentLocaleIcon />
+				</button>
+			}
+			closeOnDocumentClick
+			contentStyle={{ width: `${(58 + 6) * 2 + 5}px` }}
+		>
+			{langOptions}
+		</Popup>
 	);
 }
 

@@ -10,10 +10,10 @@
 	.navbar-toggle {
 		display: block;
 		background-color: #439bd5;
-		border: 1px solid $white;
+		border: 1px solid white;
 
 		.icon-bar {
-			background: $white;
+			background: white;
 		}
 	}
 
@@ -28,11 +28,6 @@
 		&.collapse {
 			display: none !important;
 		}
-	}
-
-	.navbar-fixed-top {
-		top: 0;
-		border-width: 0 0 1px;
 	}
 
 	.navbar-nav {
@@ -53,10 +48,6 @@
 		display: block !important;
 	}
 
-	nav.header_main {
-		background: #132437;
-	}
-
 	.top-nav ul li {
 		display: block;
 		margin: 0.5em 0;
@@ -64,9 +55,9 @@
 			letter-spacing: 0;
 			padding: 10px 11px;
 			font-size: 1.1em;
-			color: $white !important;
+			color: white !important;
 			&:hover {
-				color: $white !important;
+				color: white !important;
 			}
 		}
 	}
@@ -81,7 +72,6 @@
 		text-align: center;
 	}
 
-	.navbar-left,
 	.navbar-right {
 		float: none !important;
 	}
@@ -100,14 +90,6 @@
 
 	nav {
 		padding: 0em 0em !important;
-		&.navScroll {
-			background-color: transparent !important;
-			box-shadow: transparent !important;
-
-			ul li a {
-				color: $white !important;
-			}
-		}
 
 		&.navbar-right {
 			width: 60%;
@@ -201,16 +183,10 @@
 	}
 
 	.services,
-	.footer,
 	.about,
 	.team,
-	.contact,
-	.gallery {
+	.contact {
 		padding: 4em 0;
-	}
-
-	.team-grids {
-		margin: 1.5em 0 0;
 	}
 
 	.banner-text-info {
@@ -249,62 +225,14 @@
 		}
 	}
 
-	.footer {
-		&-bottom {
-			a {
-				margin: 0 0.5em;
-			}
-
-			span {
-				left: -20px;
-				right: -20px;
-				font-size: 0.9em;
-
-				&:before {
-					left: 33px;
-				}
-			}
-		}
-
-		&-grids {
-			float: left;
-			width: 33.33%;
-			padding: 0 0.5em;
-
-			&:nth-child(1) {
-				padding: 0 1em 0 0;
-			}
-
-			&:nth-child(2) {
-				margin: 1em 0;
-			}
-		}
-
-		img {
-			padding: 0;
-			width: 100%;
-		}
-	}
-
 	.show-on-hover-pf:hover > ul.dropdown-menu {
-		background-color: $white !important;
+		background-color: white !important;
 		color: #000000;
 	}
 
 	ul.dropdown-menu {
-		background-color: $white !important;
+		background-color: white !important;
 		margin-left: -17px;
-
-		&.header_drop_language {
-			background-color: $white !important;
-			margin-left: -17px;
-		}
-	}
-
-	a.dropdown-toggle.boderbtn {
-		margin-left: -18px;
-		padding-left: 164px !important;
-		width: 50%;
 	}
 
 	.pf.dropdown {
@@ -333,16 +261,8 @@
 		margin: 0 auto !important;
 	}
 
-	li.ln {
-		display: none !important;
-	}
-
 	.btn-green {
 		background-color: #fb406f !important;
-	}
-
-	ul.dropdown-menu.header_drop_language li:hover {
-		background: #132437;
 	}
 
 	#register-button {
@@ -355,10 +275,6 @@
 		color: #337ab7;
 		font-weight: bold;
 		box-shadow: 1px 1px 10px 1px;
-	}
-
-	.btn_add_button {
-		margin-bottom: 9px;
 	}
 
 	.border_btn {

@@ -7,23 +7,12 @@
     "type": "tsc -p ./tsconfig.json --noEmit",
     "gen": "gql-gen"
   },
-  "cssModules": {
-    "extensions": [
-      "css",
-      "mss",
-      "m.css",
-      "scss"
-    ],
-    "passthroughPaths": [
-      "^imports/ui/sass/.*\\.scss",
-      "^client/main\\.scss"
-    ]
-  },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.47",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@material-ui/core": "^3.9.3",
     "apollo-boost": "^0.1.28",
     "apollo-server-express": "^2.4.0",
     "babel-polyfill": "^6.26.0",
@@ -40,7 +29,6 @@
     "hashids": "^1.2.2",
     "libphonenumber-js": "^1.7.10",
     "lodash": "^4.17.11",
-    "mdbreact": "^4.11.0",
     "message-box": "^0.2.0",
     "meteor-node-stubs": "^0.2.11",
     "pg": "^7.8.0",
@@ -49,16 +37,16 @@
     "react-apollo": "^2.4.1",
     "react-circular-progressbar": "^0.8.1",
     "react-dom": "^16.8.1",
-    "react-modal": "^3.8.1",
     "react-paginate": "^6.3.0",
     "react-phone-number-input": "^2.3.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-simple-dropdown": "^3.2.3",
     "react-star-ratings": "^2.3.0",
+    "reactjs-popup": "^1.4.1",
     "request-promise-native": "^1.0.7",
     "simpl-schema": "1.4.3",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.0.2",

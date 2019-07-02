@@ -2,6 +2,7 @@ import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import { JobAdId, Company, JobAd, getCompanyById } from "imports/api/models";
+import { paginate } from "imports/api/models/misc";
 
 const attributes = sql.raw(
 	[
@@ -64,20 +65,12 @@ export async function searchForJobAds(
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: JobAd[]; totalCount: number }> {
-	// TODO: Refactor this ugly junk. This is implementing pagination and will
-	// need to be replaced by a reuseable solution.
-	return Promise.all([
-		simpleQuery<JobAd>(sql`
-				${baseQuery}
-				ORDER BY jobadid DESC
-				OFFSET ${pageNumber * pageSize}
-				LIMIT ${pageSize}
-		`),
-		simpleQuery1<{ totalCount: number }>(
-			sql`SELECT COUNT(jobadid) as "totalCount" FROM jobads`
-		).then(c => (c !== null ? c : { totalCount: 0 })),
-	]).then(([nodes, { totalCount }]) => ({
-		nodes,
-		totalCount,
-	}));
+	return paginate<JobAd>(
+		sql`
+			${baseQuery}
+			ORDER BY jobadid DESC
+		`,
+		pageNumber,
+		pageSize
+	);
 }

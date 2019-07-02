@@ -2,6 +2,7 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
 import PropTypes from "prop-types";
+import Popup from "reactjs-popup";
 import { Template } from "meteor/templating"; // Used to set up the autoform
 import Blaze from "meteor/gadicc:blaze-react-component"; // used to insert Blaze templates into React components
 import ErrorWidget from "/imports/ui/components/error-widget.jsx"; // used to display errors thrown by methods
@@ -18,7 +19,6 @@ import { withTracker } from "meteor/react-meteor-data";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 
-import ModalView from "/imports/ui/components/modals/modal-view.jsx";
 import RegisterLoginModal from "../../components/register-login-modal.jsx";
 
 import "/imports/ui/components/afInputLocation";
@@ -224,18 +224,14 @@ class SubmitSalaryDataForm extends React.Component {
 			content = null;
 		} else {
 			content = (
-				<ModalView
-					className="flag-style-btn"
-					noButton
-					content={RegisterLoginModal}
-				>
-					<T>common.companyreview.report</T>
-				</ModalView>
+				<Popup defaultOpen modal closeOnDocumentClick>
+					<RegisterLoginModal />
+				</Popup>
 			);
 		}
 
 		return (
-			<PageWrapper>
+			<PageWrapper title="Salary">
 				<div className="page SubmitSalaryDataForm">
 					<Blaze template="ssd_blaze_form" />
 					{content}

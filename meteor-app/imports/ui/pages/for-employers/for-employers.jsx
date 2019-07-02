@@ -1,44 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import i18n from "meteor/universe:i18n";
 
 import PageWrapper from "/imports/ui/components/page-wrapper";
 import Banner from "/imports/ui/components/banner";
+import I18nImg from "/imports/ui/components/i18n-img.jsx";
+import { LinkButton } from "/imports/ui/components/button";
+import { forSize } from "/imports/ui/responsive.js";
 
-/* A page Foremployers  */
 const t = i18n.createTranslator("common.forEmployers");
 const T = i18n.createComponent(t);
 
-const vizeBlue = "#2699FB";
-const vizePaleBlue = "#F1F9FF";
 const horizontalPaddingVal = "15px";
 
-const sizes = {
-	desktop: 992,
-	tablet: 768,
-	phone: 576,
-};
-
-const media = Object.keys(sizes).reduce((acc, label) => {
-	acc[label] = (...args) => css`
-		@media (max-width: ${sizes[label] / 16}em) {
-			${css(...args)}
-		}
-	`;
-
-	return acc;
-}, {});
-
 const P = styled.p`
-	color: ${vizeBlue};
+	color: ${props => props.theme.main};
 	text-align: center;
 	font-size: 18pt;
 	font-weight: bolder;
 
-	${media.tablet`padding-left: ${horizontalPaddingVal};
-	padding-right: ${horizontalPaddingVal};`}
+	${forSize.tabletAndDown} {
+		padding-left: ${horizontalPaddingVal};
+		padding-right: ${horizontalPaddingVal};
+	}
 `;
 
 const Bold = styled.span`
@@ -47,40 +32,42 @@ const Bold = styled.span`
 
 const ProblemPoint = styled.p`
 	display: block;
-	color: ${vizeBlue};
-	text-align: center;
-	font-size: x-large;
-	font-weight: bolder;
 
-	max-width: 700px;
-	padding: 25px 50px;
+	max-width: 600px;
+	padding: 70px;
 	margin-left: auto;
 	margin-right: auto;
 
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	background-color: white;
+	color: ${props => props.theme.main};
+	text-align: center;
+	font-size: 30px;
+
 	& + & {
-		margin-top: 100px;
+		margin-top: 150px;
 	}
 
-	@media (max-width: 576px) {
+	${forSize.phoneOnly} {
 		padding: 30px;
+		width: 95%;
 	}
 `;
 
 const SectionTitle = styled.h1`
-	color: ${vizeBlue};
-	padding-top: 20px;
-	padding-bottom: 20px;
+	color: ${props => props.theme.main};
+	padding: 30px 0;
 	text-align: center;
 	font-weight: bold;
-	font-size: 55px;
+	font-size: 65px;
 
-	@media (max-width: 992px) {
-		font-size: 40px;
+	${forSize.tabletLandscapeAndDown} {
+		font-size: 50px;
 	}
 `;
 
 const SubsectionTitle = styled.h2`
-	color: ${vizeBlue};
+	color: ${props => props.theme.main};
 	text-align: center;
 	font-weight: bold;
 `;
@@ -91,7 +78,7 @@ const SectionContainer = styled.section`
 `;
 
 const Button = styled.a`
-	background: ${vizeBlue};
+	background: ${props => props.theme.main};
 
 	/* Increase spesificity to override a global style. */
 	&&&&&&&& {
@@ -105,17 +92,20 @@ const Button = styled.a`
 	font-size: 21px;
 `;
 
-const GetStartedBig = () => (
-	<Button style={{ fontSize: 30 }} href="/register">
-		<T>getStarted</T>
-	</Button>
-);
-const GetStarted = () => (
-	<Button href="/register">
-		<T>getStarted</T>
-	</Button>
-);
+// const GetStartedBig = () => (
+// 	<Button style={{ fontSize: 30 }} href="/register">
+// 		<T>getStarted</T>
+// 	</Button>
+// );
 
+const GetStarted = props => (
+	<LinkButton primary to="/register" {...props}>
+		<T>getStarted</T>
+	</LinkButton>
+);
+const GetStartedBig = styled(GetStarted)`
+	font-size: 30px;
+`;
 const ShadowBox = styled.div`
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	background-color: white;
@@ -123,13 +113,14 @@ const ShadowBox = styled.div`
 
 	@media (max-width: 576px) {
 		padding: 30px;
+		width: 95%;
 	}
 `;
 
 const PlanBox = styled.div`
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	background-color: white;
-	color: ${vizeBlue};
+	color: ${props => props.theme.main};
 	margin: 10px;
 	width: 30rem;
 	padding: calc(3rem - 20px) 2rem;
@@ -142,7 +133,9 @@ const PlanBox = styled.div`
 		margin: 20px 0;
 	}
 
-	${media.phone`width: 85%;`}
+	${forSize.phoneOnly} {
+		width: 85%;
+	}
 `;
 
 const PlanFeatureList = styled.ul`
@@ -190,8 +183,10 @@ const PlansContainer = styled.div`
 		min-height: 450px; // so that boxes are the same height for mobile screen size
 	}
 
-	${media.tablet`flex-direction: column;
-	align-items: center;`}
+	${forSize.tabletAndDown} {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 const PageTitle = styled.h1`
@@ -206,9 +201,10 @@ const PageTitle = styled.h1`
 	font-weight: 700;
 	color: white;
 
-	${media.tablet`padding-left:${horizontalPaddingVal};
-	padding-right:${horizontalPaddingVal};
-	`}
+	${forSize.tabletAndDown} {
+		padding-left: ${horizontalPaddingVal};
+		padding-right: ${horizontalPaddingVal};
+	}
 `;
 
 const Recruiting = styled.section`
@@ -221,7 +217,9 @@ const Recruiting = styled.section`
 		max-width: 40em;
 	}
 
-	${media.tablet`flex-direction: column-reverse;`}
+	${forSize.tabletAndDown} {
+		flex-direction: column-reverse;
+	}
 `;
 
 const Retainment = styled.section`
@@ -244,43 +242,37 @@ const PricingTextContainer = styled(P)`
 
 function ForEmployers() {
 	return (
-		<PageWrapper navIsAnimated>
+		<PageWrapper title="Employers" navIsAnimated>
 			<Banner>
 				<PageTitle>
 					<T>headerText</T>
 				</PageTitle>
 				<GetStartedBig />
 			</Banner>
-			<SectionContainer style={{ backgroundColor: "#fafbfc" }}>
+			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
 				<SectionTitle>
 					<T>heading1</T>
 				</SectionTitle>
 
 				<ProblemPoint>
-					<ShadowBox>
-						<T>card1part1</T> <Bold>90% - 120%</Bold>
-						<T>card1part2</T>{" "}
-						<Bold>
-							<T>card1part3</T>
-						</Bold>
-					</ShadowBox>
+					<T>card1part1</T> <Bold>90% - 120%</Bold>
+					<T>card1part2</T>{" "}
+					<Bold>
+						<T>card1part3</T>
+					</Bold>
 				</ProblemPoint>
 
 				<ProblemPoint>
-					<ShadowBox>
-						<T>card2part1</T>{" "}
-						<Bold>
-							<T>card2part2</T>
-						</Bold>
-					</ShadowBox>
+					<T>card2part1</T>{" "}
+					<Bold>
+						<T>card2part2</T>
+					</Bold>
 				</ProblemPoint>
 				<ProblemPoint>
-					<ShadowBox>
-						<T>card3part1</T>{" "}
-						<Bold>
-							<T>card3part2</T>
-						</Bold>
-					</ShadowBox>
+					<T>card3part1</T>{" "}
+					<Bold>
+						<T>card3part2</T>
+					</Bold>
 				</ProblemPoint>
 			</SectionContainer>
 
@@ -311,14 +303,22 @@ function ForEmployers() {
 							<T>retainmentText</T>
 						</P>
 					</div>
-					<img
+					<I18nImg
 						className="img-responsive"
-						src={`/images/${t("analyticsDashboard")}`}
+						src={l =>
+							// In the future we should make all translations of
+							// an img the same file type. That way we can just
+							// have l => `/images/analytics-dashboard-${l}.png`
+							// instead of this if/else thing.
+							l === "es"
+								? `/images/analytics-dashboard-spanish.jpg`
+								: `/images/analytics-dashboard.png`
+						}
 					/>
 				</Retainment>
 			</SectionContainer>
 
-			<SectionContainer style={{ backgroundColor: "#fafbfc" }}>
+			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
 				<SectionTitle>
 					<T>heading3</T>
 				</SectionTitle>

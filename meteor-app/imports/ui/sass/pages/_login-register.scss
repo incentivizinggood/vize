@@ -2,7 +2,6 @@ $base-height: 377px;
 $base-dimension: 16px;
 $base-border-radius: 12px;
 $base-button-size: 52px;
-$accent-color: #f6f7f9;
 $background-color: #fff;
 $font-color: #888;
 
@@ -115,7 +114,7 @@ $font-color: #888;
 		font-size: 14px;
 		line-height: 1.428571429;
 		color: #555;
-		background-color: $white;
+		background-color: white;
 		background-image: none;
 		border: 0px solid #ccc;
 		border-radius: 0px;
@@ -131,20 +130,6 @@ $font-color: #888;
 			border-bottom: 1px solid #439bd5 !important;
 		}
 	}
-}
-
-.employer-btn-get {
-	margin-top: 50px;
-	color: #222;
-	font-weight: 300;
-}
-
-a.employer-btn {
-	text-decoration: none;
-}
-
-a.worker-btn {
-	text-decoration: none;
 }
 
 .register-login-form .input-group .form-control {
@@ -164,7 +149,7 @@ a.worker-btn {
 	border-right: 0;
 	border: none;
 	border-bottom: 1px solid #bdb9b9;
-	background-color: $white;
+	background-color: white;
 }
 
 .login-link-cs {
@@ -181,14 +166,6 @@ a.worker-btn {
 
 .top-head-employer {
 	font-size: 32px;
-}
-
-.top-head-worker {
-	font-size: 32px;
-}
-
-.form-control.pwd-line {
-	width: 66% !important;
 }
 
 .reg {
@@ -244,71 +221,12 @@ a.worker-btn {
 	}
 }
 
-.enterTriggers {
-	background-color: #2079b5;
-	color: white;
-	padding: 10px 27px;
-	text-align: center;
-	font-size: 15px;
-}
-
-.login-fm {
-	.input-group {
-		&-addon:first-child {
-			border-right: 0;
-			border: none;
-			border-bottom: 1px solid #bdb9b9;
-			background-color: $white;
-		}
-
-		.form-control {
-			position: relative;
-			z-index: 2;
-			float: left;
-			margin-bottom: 0;
-			border-bottom: 1px solid #bdb9b9;
-			outline: none;
-			display: block;
-			width: 100%;
-			height: 34px;
-			padding: 6px 12px;
-			font-size: 14px;
-			line-height: 1.428571429;
-			color: #555;
-			background-color: $white;
-			background-image: none;
-			border: 0px solid #ccc;
-			border-radius: 0px;
-			-webkit-box-shadow: inset 0 0px 1px rgba(0, 0, 0, 0.075);
-			box-shadow: inset 0 -1px 0px rgba(0, 0, 0, 0.075);
-
-			&:focus,
-			&:hover {
-				border-bottom: 1px solid #439bd5 !important;
-			}
-		}
-	}
-}
-
 button {
 	color: inherit;
 	background-color: transparent;
 	border: 0;
 	outline: 0 !important;
 	cursor: pointer;
-
-	&.chatbox-open {
-		@include chatbox-floating-button;
-		margin: $base-dimension;
-	}
-
-	&.chatbox-close {
-		@include chatbox-floating-button;
-		display: none;
-		margin: $base-dimension
-			calc(2 * #{$base-dimension} + #{$base-button-size}) $base-dimension
-			$base-dimension;
-	}
 }
 
 textarea {
@@ -329,27 +247,5 @@ textarea {
 
 	&::placeholder {
 		color: $font-color;
-	}
-}
-
-.chatbox-popup {
-	@include chabox-container;
-	display: none;
-	bottom: calc(2 * #{$base-dimension} + #{$base-button-size});
-	right: $base-dimension;
-	width: $base-height;
-	height: auto;
-	background-color: $white;
-	border-radius: $base-dimension;
-	position: fixed;
-
-	.chatbox-popup__main {
-		@include chatbox-main;
-	}
-
-	.chatbox-popup__footer {
-		@include chatbox-footer;
-		border-bottom-right-radius: $base-border-radius;
-		border-bottom-left-radius: $base-border-radius;
 	}
 }

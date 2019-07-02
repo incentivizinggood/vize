@@ -8,6 +8,7 @@ import { processLocation } from "/imports/api/models/helpers/postgresql/misc.js"
 
 import ErrorBoundary from "/imports/ui/components/error-boundary.jsx";
 import PageWrapper from "/imports/ui/components/page-wrapper";
+import withUpdateOnChangeLocale from "/imports/ui/hoc/update-on-change-locale.jsx";
 
 import CompanyProfileSummary from "./summary.jsx";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
@@ -18,140 +19,124 @@ const T = i18n.createComponent();
 
 /* The Company Profile  page of the site. */
 
-class CompanyProfile extends React.Component {
-	componentDidMount() {
-		// Ask to be updated "reactively".
-		// universe:i18n cannot be trusted to do that automaticaly.
-		this.i18nInvalidate = () => this.forceUpdate();
-		i18n.onChangeLocale(this.i18nInvalidate);
-	}
-
-	componentWillUnmount() {
-		i18n.offChangeLocale(this.i18nInvalidate);
-	}
-
-	render() {
-		if (this.props.company === undefined) {
-			return (
-				<h2>
-					<T>common.companyprofile.notfound</T>
-				</h2>
-			);
-		}
-
+function CompanyProfile_(props) {
+	if (props.company === undefined) {
 		return (
-			<PageWrapper>
-				<CompanyProfileSummary company={this.props.company} />
+			<h2>
+				<T>common.companyprofile.notfound</T>
+			</h2>
+		);
+	}
 
-				<br />
-				{/* navigation */}
-				<section id="back_col" className="company-profile">
-					<div className="container container-margin">
-						<div className="row">
-							<div className="na_tab">
-								<ul className=" nav nav-tabs">
-									{/* Setting the width of each tab to 25% for each tab since we deleted the 5th one */}
-									<li
-										className="active"
-										role="presentation"
-										style={{ width: "25%" }}
+	return (
+		<PageWrapper title="Company Profile">
+			<CompanyProfileSummary company={props.company} />
+
+			<br />
+			{/* navigation */}
+			<section id="back_col" className="company-profile">
+				<div className="container container-margin">
+					<div className="row">
+						<div className="na_tab">
+							<ul className=" nav nav-tabs">
+								{/* Setting the width of each tab to 25% for each tab since we deleted the 5th one */}
+								<li
+									className="active"
+									role="presentation"
+									style={{ width: "25%" }}
+								>
+									<Link
+										to="#overview"
+										aria-controls="overview"
+										role="tab"
+										data-toggle="tab"
 									>
-										<Link
-											to="#overview"
-											aria-controls="overview"
-											role="tab"
-											data-toggle="tab"
-										>
-											<T>
-												common.companyprofile.overview
-											</T>
-										</Link>
-									</li>
-									<li
-										role="presentation"
-										style={{ width: "25%" }}
+										<T>common.companyprofile.overview</T>
+									</Link>
+								</li>
+								<li
+									role="presentation"
+									style={{ width: "25%" }}
+								>
+									<Link
+										to="#reviews"
+										aria-controls="reviews"
+										role="tab"
+										data-toggle="tab"
 									>
-										<Link
-											to="#reviews"
-											aria-controls="reviews"
-											role="tab"
-											data-toggle="tab"
-										>
-											<T>common.companyprofile.reviews</T>
-										</Link>
-									</li>
-									<li
-										role="presentation"
-										style={{ width: "25%" }}
+										<T>common.companyprofile.reviews</T>
+									</Link>
+								</li>
+								<li
+									role="presentation"
+									style={{ width: "25%" }}
+								>
+									<Link
+										to="#jobs"
+										aria-controls="jobs"
+										role="tab"
+										data-toggle="tab"
 									>
-										<Link
-											to="#jobs"
-											aria-controls="jobs"
-											role="tab"
-											data-toggle="tab"
-										>
-											<T>common.companyprofile.jobs</T>
-										</Link>
-									</li>
-									<li
-										role="presentation"
-										style={{ width: "25%" }}
+										<T>common.companyprofile.jobs</T>
+									</Link>
+								</li>
+								<li
+									role="presentation"
+									style={{ width: "25%" }}
+								>
+									<Link
+										to="#salaries"
+										aria-controls="salaries"
+										role="tab"
+										data-toggle="tab"
 									>
-										<Link
-											to="#salaries"
-											aria-controls="salaries"
-											role="tab"
-											data-toggle="tab"
-										>
-											<T>
-												common.companyprofile.salaries
-											</T>
-										</Link>
-									</li>
-									{/* Commenting out the Contact Us form for now */}
-									{/* <li role="presentation"><Link to="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</Link></li> */}
-								</ul>
-							</div>
+										<T>common.companyprofile.salaries</T>
+									</Link>
+								</li>
+								{/* Commenting out the Contact Us form for now */}
+								{/* <li role="presentation"><Link to="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</Link></li> */}
+							</ul>
+						</div>
 
-							<div>
-								<div className="tab-content">
-									<ErrorBoundary>
-										<OverviewTab
-											company={this.props.company}
-											refetch={this.props.refetch}
-										/>
-									</ErrorBoundary>
+						<div>
+							<div className="tab-content">
+								<ErrorBoundary>
+									<OverviewTab
+										company={props.company}
+										refetch={props.refetch}
+									/>
+								</ErrorBoundary>
 
-									<ErrorBoundary>
-										<ReviewTab
-											company={this.props.company}
-											refetch={this.props.refetch}
-										/>
-									</ErrorBoundary>
+								<ErrorBoundary>
+									<ReviewTab
+										company={props.company}
+										refetch={props.refetch}
+									/>
+								</ErrorBoundary>
 
-									<ErrorBoundary>
-										<JobTab
-											jobAds={this.props.jobAds}
-											jobsCount={this.props.jobsCount}
-										/>
-									</ErrorBoundary>
+								<ErrorBoundary>
+									<JobTab
+										jobAds={props.jobAds}
+										jobsCount={props.jobsCount}
+									/>
+								</ErrorBoundary>
 
-									<ErrorBoundary>
-										<SalaryTab
-											company={this.props.company}
-										/>
-									</ErrorBoundary>
+								<ErrorBoundary>
+									<SalaryTab company={props.company} />
+								</ErrorBoundary>
 
-									<ContactTab />
-								</div>
+								<ContactTab />
 							</div>
 						</div>
 					</div>
-				</section>
-			</PageWrapper>
-		);
-	}
+				</div>
+			</section>
+		</PageWrapper>
+	);
 }
+
+// TODO: Split this file into view and container components.
+const CompanyProfile = withUpdateOnChangeLocale(CompanyProfile_);
 
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>
