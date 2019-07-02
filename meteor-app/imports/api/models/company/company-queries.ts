@@ -1,7 +1,8 @@
 import sql from "imports/lib/sql-template";
-import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
+import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import { CompanyId, Company } from "imports/api/models";
+import { paginate } from "imports/api/models/misc";
 
 const attributes = sql.raw(
 	[
@@ -54,23 +55,15 @@ export async function searchForCompanies(
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: Company[]; totalCount: number }> {
-	// TODO: Refactor this ugly junk. This is implementing pagination and will
-	// need to be replaced by a reuseable solution.
-	return Promise.all([
-		simpleQuery<Company>(sql`
-				${baseQuery}
-					JOIN job_post_counts ON companies.name = job_post_counts.companyname
-					JOIN salary_counts ON companies.name = salary_counts.companyname
-				WHERE name LIKE ${`%${searchText}%`}
-				ORDER BY job_post_counts.count*2 + numreviews*1.5 + salary_counts.count DESC
-				OFFSET ${pageNumber * pageSize}
-				LIMIT ${pageSize}
-		`),
-		simpleQuery1<{ totalCount: number }>(
-			sql`SELECT COUNT(companyid) as "totalCount" FROM companies`
-		).then(c => (c !== null ? c : { totalCount: 0 })),
-	]).then(([nodes, { totalCount }]) => ({
-		nodes,
-		totalCount,
-	}));
+	return paginate<Company>(
+		sql`
+			${baseQuery}
+				JOIN job_post_counts ON companies.name = job_post_counts.companyname
+				JOIN salary_counts ON companies.name = salary_counts.companyname
+			WHERE name LIKE ${`%${searchText}%`}
+			ORDER BY job_post_counts.count*2 + numreviews*1.5 + salary_counts.count DESC
+		`,
+		pageNumber,
+		pageSize
+	);
 }
