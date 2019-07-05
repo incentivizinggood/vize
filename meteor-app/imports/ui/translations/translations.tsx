@@ -4,38 +4,58 @@ import { i18n } from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
-type Renderer<Msg> = (message: Msg) => JSX.Element;
+export type Renderer<Message> = (message: Message) => JSX.Element;
 
-type TranslationComponentProps<Msg> = Msg extends (args: infer A) => infer R
-	? { renderer?: Renderer<R> } & A
-	: { renderer?: Renderer<Msg> };
+export type TranslationComponentProps<Message> = Message extends (
+	args: infer Args
+) => infer Result
+	? { renderer?: Renderer<Result> } & Args
+	: { renderer?: Renderer<Message> };
 
-type TranslationComponent<Msg> = React.ComponentType<
-	TranslationComponentProps<Msg>
+/** A component that renders a different thing for each locale. */
+export type TranslationComponent<Message> = React.ComponentType<
+	TranslationComponentProps<Message>
 >;
 
-type TranslationComponents<Msgs> = {
-	[P in keyof Msgs]: Msgs[P] extends ((a: any) => any) | JSX.Element
-		? TranslationComponent<Msgs[P]>
-		: Msgs[P] extends Record<string, any>
-		? TranslationComponent<Msgs[P]> & TranslationComponents<Msgs[P]>
-		: TranslationComponent<Msgs[P]>
-};
+/** TranslationNodes may have children nodes. This occures when the node's
+ * message is an Record, but not a function or a JSX.Element.
+ */
+export type TranslationChildren<Message> = Message extends
+	| ((args: any) => any)
+	| JSX.Element
+	? void
+	: Message extends Record<any, any>
+	? {
+			[P in keyof Message]: TranslationNode<Message[P]>;
+	  }
+	: void;
+
+/**
+ * Part of a tree of translations. Is a translation component and may have children.
+ */
+export type TranslationNode<Message> = TranslationComponent<Message> &
+	TranslationChildren<Message>;
 
 /**
  * Made translation components for each message in a collection of translations.
  */
-function makeTranslationComponents<Msgs>(
-	translations: Record<string, Msgs>
-): TranslationComponents<Msgs> {
+function makeTranslationComponents<RootMessage>(
+	translations: Record<string, RootMessage>
+): TranslationNode<RootMessage> {
+	// Note: The implimentation of this function requiers more complex typing
+	// than TypeScript supports. Therefore, we must use the "any" type in some
+	// places.
+
 	// Pick a locale to use as the "default translations". This is only used for
-	// computing the message paths and has no effect on how what is used as a
+	// computing the message paths and has no effect on what is used as a
 	// default locale in other places.
 	const defaultTranslation = Object.values(translations)[0];
 
-	function makeTranslationComponent(getMessage: (msgs: Msgs) => any) {
+	function makeTranslationComponent(
+		getMessage: (rootMessage: RootMessage) => any
+	) {
 		// A component that renders a different thing for each locale.
-		const TranslationComponent: any = withUpdateOnChangeLocale(
+		const translationComponent: any = withUpdateOnChangeLocale(
 			({ renderer, ...args }: any) => {
 				// Get the version of the message that is for the current locale.
 				const locale = i18n.getLocale();
@@ -71,13 +91,13 @@ function makeTranslationComponents<Msgs>(
 			!React.isValidElement(message)
 		) {
 			for (const k of Object.keys(message)) {
-				TranslationComponent[k] = makeTranslationComponent(
-					msgs => getMessage(msgs)[k]
+				translationComponent[k] = makeTranslationComponent(
+					rootMessage => getMessage(rootMessage)[k]
 				);
 			}
 		}
 
-		return TranslationComponent;
+		return translationComponent;
 	}
 
 	return makeTranslationComponent(x => x);
