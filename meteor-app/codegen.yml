@@ -1,28 +1,28 @@
-schema: ./imports/api/graphql/schema.graphql
-documents: ./imports/ui/**/*.graphql
+schema: imports/api/graphql/schema.graphql
+documents: imports/ui/**/*.graphql
 overwrite: true
 generates:
-  ./imports/api/graphql/resolvers/resolvers-types.ts:
+  imports/gen/graphql-resolvers.ts:
     config:
-      contextType: ./context#MyContext
+      contextType: imports/api/graphql/resolvers/context#MyContext
       mappers:
-        Comment: ../../models/comment/comment#Comment
-        CommentParent: ../../models/comment/comment#CommentParent
-        StarRatings: ../../models/misc#StarRatings
-        Company: ../../models/company/company#Company
-        JobAd: ../../models/job-ad/job-ad#JobAd
-        Location: ../../models/location/location#Location
-        Review: ../../models/review/review#Review
-        Salary: ../../models/salary/salary#Salary
-        User: ../../models/user/user#User
-        Vote: ../../models/vote/vote#Vote
+        Comment: imports/api/models/comment/comment#Comment
+        CommentParent: imports/api/models/comment/comment#CommentParent
+        StarRatings: imports/api/models/misc#StarRatings
+        Company: imports/api/models/company/company#Company
+        JobAd: imports/api/models/job-ad/job-ad#JobAd
+        Location: imports/api/models/location/location#Location
+        Review: imports/api/models/review/review#Review
+        Salary: imports/api/models/salary/salary#Salary
+        User: imports/api/models/user/user#User
+        Vote: imports/api/models/vote/vote#Vote
       scalars:
         DateTime: Date
       enumsAsTypes: true
     plugins:
       - typescript
       - typescript-resolvers
-  ./imports/gen/file.tsx:
+  imports/gen/graphql-operations.tsx:
     plugins:
       - typescript
       - typescript-operations
