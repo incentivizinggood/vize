@@ -23,6 +23,8 @@ generates:
       - typescript
       - typescript-resolvers
   imports/gen/graphql-operations.tsx:
+    config:
+      withHOC: false # We are not using HOCs for queries or mutations yet.
     plugins:
       - typescript
       - typescript-operations
