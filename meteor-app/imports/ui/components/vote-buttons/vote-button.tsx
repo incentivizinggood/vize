@@ -3,10 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 
+import { VoteButtonsMutationFn } from "imports/gen/graphql-operations";
+
 /** The diameter of a vote button in px. */
 const buttonDiameter = 70;
 
-const Button = styled.button`
+type ButtonProps = {
+	isUpButton?: boolean;
+	isActive: boolean;
+};
+
+const Button = styled.button<ButtonProps>`
 	/* Make the button a circle. */
 	height: ${buttonDiameter}px;
 	width: ${buttonDiameter}px;
@@ -46,10 +53,18 @@ const Button = styled.button`
 	}
 `;
 
+export type VoteButtonProps = {
+	isUpButton?: boolean;
+	castVote: VoteButtonsMutationFn;
+	review: {
+		id: string;
+		currentUserVote: { id: string; isUpvote: boolean | null };
+	};
+};
 /**
  * A single vote button. Is either an upvote button or a downvote button.
  */
-function VoteButton(props) {
+function VoteButton(props: VoteButtonProps) {
 	// Unpack props for easier access.
 	// Things like props.review.currentUserVote.isUpvote are hard to read.
 	const { isUpButton = false, castVote, review } = props;
@@ -63,7 +78,7 @@ function VoteButton(props) {
 	const isActive = disabled ? false : vote.isUpvote === isUpButton;
 
 	/** The function that casts a vote when this button is clicked. */
-	const onClick = event => {
+	const onClick = (event: React.MouseEvent) => {
 		event.preventDefault();
 
 		// A disabled button should not do anything.
