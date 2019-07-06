@@ -1,7 +1,14 @@
 module.exports = {
-	extends: ["@meteorjs/eslint-config-meteor", "prettier", "prettier/react"],
+	parser: "@typescript-eslint/parser",
+	plugins: ["@typescript-eslint"],
+	extends: [
+		"@meteorjs/eslint-config-meteor",
+		"prettier",
+		"prettier/react",
+		"plugin:@typescript-eslint/recommended",
+	],
 	rules: {
-		"react/prop-types": false,
+		"react/prop-types": 0,
 		"jsx-a11y/anchor-is-valid": [
 			"error",
 			{
@@ -9,7 +16,7 @@ module.exports = {
 				specialLink: ["to"],
 			},
 		],
-		"jsx-a11y/label-has-for": false,
+		"jsx-a11y/label-has-for": 0,
 		"jsx-a11y/label-has-associated-control": [
 			"error",
 			{
