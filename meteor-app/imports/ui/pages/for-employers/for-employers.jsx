@@ -103,9 +103,16 @@ const GetStarted = props => (
 		<T>getStarted</T>
 	</LinkButton>
 );
-const GetStartedBig = styled(GetStarted)`
+
+const GetStartedMedium = styled(GetStarted)`
 	font-size: 30px;
 `;
+
+const GetStartedLarge = styled(GetStarted)`
+	font-size: 35px;
+	padding: 1.3rem 4rem !important;
+`;
+
 const ShadowBox = styled.div`
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	background-color: white;
@@ -169,7 +176,7 @@ const PlanOption = ({ name, items }) => (
 				<li>{item}</li>
 			))}
 		</PlanFeatureList>
-		<GetStartedBig />
+		<GetStartedMedium />
 	</PlanBox>
 );
 
@@ -232,7 +239,7 @@ function ForEmployers() {
 				<PageTitle>
 					<T>headerText</T>
 				</PageTitle>
-				<GetStartedBig />
+				<GetStartedLarge />
 			</Banner>
 			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
 				<SectionTitle>

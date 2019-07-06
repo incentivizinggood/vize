@@ -29,7 +29,7 @@ case $1 in
 
 	# Start up the Meteor app.
 	cd meteor-app
-	meteor --no-lint --no-release-check --port 3001
+	meteor --no-lint --no-release-check
 	cd ..
 	;;
 "db")
