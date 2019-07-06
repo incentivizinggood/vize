@@ -135,6 +135,11 @@
 		"phoneNumberUsed": "Phone number already used",
 		"rewardAlreadyClaimed": "Reward has already been claimed",
 		"invalidPhoneNumber": "Invalid phone number",
+		"howDidYouHear": "How did you hear about us?",
+		"selectOption": "--Please select an option--",
+		"Referral": "Referral",
+		"inPerson": "In Person",
+		"Other": "Other",
 		"submit": "Submit"
 	},
 	"jobsearch": {

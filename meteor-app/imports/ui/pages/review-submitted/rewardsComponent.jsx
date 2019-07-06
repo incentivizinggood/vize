@@ -172,24 +172,29 @@ export default class RewardsComponent extends React.Component {
 										className="heard-about-us-label"
 										htmlFor="how-did-you-hear-about-us-select"
 									>
-										How did you hear about us?
+										{t("howDidYouHear")}
 									</label>
 									<select
 										id="how-did-you-hear-about-us-select"
 										name="how-did-you-hear-about-us-select"
 									>
 										<option value="">
-											--Please choose an option--
+											{t("selectOption")}
 										</option>
 										<option value="Radio">Radio</option>
-										<option value="facebook">
-											facebook
+										<option value="Facebook">
+											Facebook
 										</option>
 										<option value="Google">Google</option>
 										<option value="Referral">
-											Referral
+											{t("Referral")}
 										</option>
-										<option value="other">other</option>
+										<option value="InPerson">
+											{t("inPerson")}
+										</option>
+										<option value="Other">
+											{t("Other")}
+										</option>
 									</select>
 									<br />
 
