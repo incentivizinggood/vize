@@ -1,5 +1,9 @@
 module.exports = {
 	parser: "@typescript-eslint/parser",
+	env: {
+		node: true,
+		browser: true,
+	},
 	plugins: ["react", "jsx-a11y", "@typescript-eslint", "prettier"],
 	extends: [
 		"eslint:recommended",
@@ -21,6 +25,20 @@ module.exports = {
 				controlComponents: ["Field"],
 				assert: "nesting",
 				depth: 3,
+			},
+		],
+		// Although it should be avoided, There are some places where we need
+		// to use the any type to silence type checking.
+		"@typescript-eslint/no-explicit-any": 0,
+		// It is good to have explicit return types on declarations, but in a
+		// lot of cases the type of the function is already well constrained.
+		// We do not want extra typing noise in those cases.
+		"@typescript-eslint/explicit-function-return-type": [
+			"warn",
+			{
+				allowExpressions: true,
+				allowTypedFunctionExpressions: true,
+				allowHigherOrderFunctions: true,
 			},
 		],
 	},
