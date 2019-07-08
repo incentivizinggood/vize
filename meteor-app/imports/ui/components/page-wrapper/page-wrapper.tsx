@@ -20,7 +20,13 @@ const PageContainer = styled.div`
 	}
 `;
 
-function PageWrapper(props) {
+export interface PageWrapperProps {
+	title?: string;
+	navIsAnimated?: boolean;
+	children: React.ReactNode;
+}
+
+function PageWrapper(props: PageWrapperProps) {
 	// Set the page's title.
 	React.useEffect(() => {
 		document.title = props.title || "Vize";
