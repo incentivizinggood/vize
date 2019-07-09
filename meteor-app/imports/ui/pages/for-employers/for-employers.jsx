@@ -281,9 +281,9 @@ function ForEmployers() {
 							<T>recruitingText</T>
 						</P>
 					</div>
-					<img
-						src="/images/example-job-post-square.png"
+					<I18nImg
 						className="img-responsive"
+						src={l => `/images/example-job-post-square-${l}.png`}
 					/>
 				</SolutionContainer>
 				<SolutionContainer>
@@ -297,15 +297,7 @@ function ForEmployers() {
 					</div>
 					<I18nImg
 						className="img-responsive"
-						src={l =>
-							// In the future we should make all translations of
-							// an img the same file type. That way we can just
-							// have l => `/images/analytics-dashboard-${l}.png`
-							// instead of this if/else thing.
-							l === "es"
-								? `/images/analytics-dashboard-spanish.jpg`
-								: `/images/analytics-dashboard.png`
-						}
+						src={l => `/images/analytics-dashboard-${l}.png`}
 					/>
 				</SolutionContainer>
 			</SectionContainer>
