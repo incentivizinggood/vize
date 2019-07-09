@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const BannerDiv = styled.div`
+interface BannerDivExtraProps {
+	backgroundImage?: string;
+}
+
+const BannerDiv = styled.div<BannerDivExtraProps>`
 	height: 700px;
 
 	background: url(${({ backgroundImage }) =>
@@ -18,7 +22,12 @@ const BannerDiv = styled.div`
 	}
 `;
 
-function Banner({ children, backgroundImage }) {
+interface BannerProps {
+	backgroundImage?: string;
+	children: React.ReactNode;
+}
+
+function Banner({ children, backgroundImage }: BannerProps) {
 	return (
 		<BannerDiv backgroundImage={backgroundImage}>
 			<div>{children}</div>

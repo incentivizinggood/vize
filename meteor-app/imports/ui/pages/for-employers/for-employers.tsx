@@ -168,7 +168,12 @@ const PlanName = styled.h1`
 	font-weight: bold;
 `;
 
-const PlanOption = ({ name, items }) => (
+interface PlanOptionProps {
+	name: React.ReactNode;
+	items: React.ReactNode[];
+}
+
+const PlanOption = ({ name, items }: PlanOptionProps) => (
 	<PlanBox>
 		<PlanName>{name}</PlanName>
 		<PlanFeatureList>
