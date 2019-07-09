@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import { Meteor } from "meteor/meteor";
@@ -14,18 +13,6 @@ import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
-
-const REWARD_DATA_SUBMISSION = gql`
-	mutation RewardDataSubmission(
-		$phoneNumber: String!
-		$paymentMethod: PaymentMethod!
-	) {
-		claimWroteAReview(
-			phoneNumber: $phoneNumber
-			paymentMethod: $paymentMethod
-		)
-	}
-`;
 
 class ReviewSubmitted extends React.Component {
 	constructor(props) {
@@ -70,18 +57,6 @@ class ReviewSubmitted extends React.Component {
 	}
 
 	render() {
-		const customStyles = {
-			content: {
-				margin: "auto",
-				position: "absolute",
-				top: 0,
-				left: 0,
-				bottom: 0,
-				right: 0,
-				borderRadius: "4px",
-			},
-		};
-
 		let content = null;
 
 		if (this.props.user) {
@@ -112,46 +87,3 @@ class ReviewSubmitted extends React.Component {
 export default withTracker(() => ({
 	user: Meteor.user(),
 }))(ReviewSubmitted);
-
-/*
-const Alert = ( function() {return (
-	<div className="container alert-container">
-		<div className="row">
-			<div className="col-sm" />
-			<div className="col-8">
-				<MDBContainer>
-					<MDBAlert color="success">
-						<h4 className="alert-heading">
-							<T>phoneSuccess</T>
-						</h4>
-						<p>
-							<T>phoneSuccess2</T>
-						</p>
-					</MDBAlert>
-				</MDBContainer>
-			</div>
-			<div className="col-sm" />
-		</div>
-	</div>
-);}) ();
-	return (
-		<div className="container alert-container">
-			<div className="row">
-				<div className="col-sm" />
-				<div className="col-8">
-					<MDBContainer>
-						<MDBAlert color="success">
-							<h4 className="alert-heading">
-								<T>phoneSuccess</T>
-							</h4>
-							<p>
-								<T>phoneSuccess2</T>
-							</p>
-						</MDBAlert>
-					</MDBContainer>
-				</div>
-				<div className="col-sm" />
-			</div>
-		</div>
-	);
-); */
