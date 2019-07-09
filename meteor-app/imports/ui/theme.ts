@@ -8,7 +8,7 @@ accent - A color that is distinctive and rarly used. Use to draw attention to a 
 
 const theme = {
 	main: "hsl(204, 63%, 55%)",
-	mainVariant: "hsl(204, 63%, 35%)",
+	mainVariant: "#0480EA",
 	accent: "hsl(48, 99%, 50%)",
 	error: "red",
 

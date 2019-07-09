@@ -141,7 +141,10 @@ function Header(props) {
 								<LangSelector />
 							</li>
 							<li>
-								<Link to="/foremployers" className="link-kumya">
+								<Link
+									to="/for-employers"
+									className="link-kumya"
+								>
 									<span>
 										<T.for_employers />
 									</span>
