@@ -1,6 +1,6 @@
 import * as dataModel from "imports/api/models";
 
-import { SalaryResolvers } from "./resolvers-types";
+import { SalaryResolvers } from "imports/gen/graphql-resolvers";
 
 export const Salary: SalaryResolvers = {
 	id: (obj, _args, _context, _info) =>

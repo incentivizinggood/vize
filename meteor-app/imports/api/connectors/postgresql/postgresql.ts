@@ -3,27 +3,8 @@
 
 import { Pool, PoolClient, QueryConfig } from "pg";
 
-/** The connection pool for the PostgreSQL database.
- * @todo Implement RAII for this connector to handle creating and ending this pool.
- */
+/** The connection pool for the PostgreSQL database. */
 const pool = new Pool();
-
-/**
- * Preform a graceful shutdown.
- * @todo Implement RAII for this connector to handle creating and ending this pool.
- */
-function shutdown() {
-	console.info(
-		"Gracefuly shuting down connection pool.",
-		new Date().toISOString()
-	);
-	pool.end(() => {
-		console.log("Connection pool has ended.");
-	});
-}
-
-process.on("SIGTERM", shutdown);
-process.on("SIGINT", shutdown);
 
 // Transactions are functions that take a database connection and use it to run
 // queries on the database. If any extra arguments are needed by the

@@ -1,6 +1,6 @@
 import * as dataModel from "imports/api/models";
 
-import { CommentParentResolvers } from "./resolvers-types";
+import { CommentParentResolvers } from "imports/gen/graphql-resolvers";
 
 export const CommentParent: CommentParentResolvers = {
 	// WARNING: Comments have not been fully implemented yet. The code for
