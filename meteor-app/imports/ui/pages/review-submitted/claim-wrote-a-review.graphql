@@ -1,0 +1,6 @@
+mutation rewardDataSubmission(
+	$phoneNumber: String!
+	$paymentMethod: PaymentMethod!
+) {
+	claimWroteAReview(phoneNumber: $phoneNumber, paymentMethod: $paymentMethod)
+}

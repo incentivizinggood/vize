@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Query } from "react-apollo";
 
 import { Meteor } from "meteor/meteor";
 import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { RewardsEligibilityComponent } from "imports/gen/graphql-operations";
 
 import RewardsComponent from "./rewardsComponent";
-import rewardsEligibility from "./rewards-eligibility.graphql";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
@@ -38,7 +37,7 @@ function ReviewSubmitted(props: ReviewSubmittedProps): JSX.Element {
 					<T>reviewSubmitted</T>
 				</p>
 
-				<Query query={rewardsEligibility}>
+				<RewardsEligibilityComponent>
 					{({ loading, error, data }) => {
 						if (data) {
 							if (data.wroteAReview === "CAN_CLAIM") {
@@ -51,7 +50,7 @@ function ReviewSubmitted(props: ReviewSubmittedProps): JSX.Element {
 						}
 						return <p />;
 					}}
-				</Query>
+				</RewardsEligibilityComponent>
 			</div>
 		);
 	} else {

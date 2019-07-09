@@ -1,28 +1,16 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
 
 import { i18n } from "meteor/universe:i18n";
+
+import { RewardDataSubmissionComponent } from "imports/gen/graphql-operations";
 
 const t = i18n.createTranslator("common.reviewSubmitted");
 const T = i18n.createComponent(t);
 
-const REWARD_DATA_SUBMISSION = gql`
-	mutation RewardDataSubmission(
-		$phoneNumber: String!
-		$paymentMethod: PaymentMethod!
-	) {
-		claimWroteAReview(
-			phoneNumber: $phoneNumber
-			paymentMethod: $paymentMethod
-		)
-	}
-`;
-
 export default class RewardsComponent extends React.Component {
-	constructor(props) {
+	public constructor(props) {
 		super(props);
 
 		this.state = {
@@ -38,21 +26,21 @@ export default class RewardsComponent extends React.Component {
 		this.mutationCompleted = this.mutationCompleted.bind(this);
 	}
 
-	openModal() {
+	public openModal(): void {
 		this.setState({ modalIsOpen: true });
 	}
 
-	closeModal() {
+	public closeModal(): void {
 		console.log("closing");
 		this.setState({ modalIsOpen: false });
 	}
 
-	setPaymentMethod(methodName) {
+	public setPaymentMethod(methodName): void {
 		this.setState({ paymentMethod: methodName });
 		this.openModal();
 	}
 
-	mutationError(error, message) {
+	public mutationError(error, message): void {
 		if (error.message == "GraphQL error: ALREADY_CLAIMED") {
 			this.setState({ phoneError: t("rewardAlreadyClaimed") });
 		} else {
@@ -62,14 +50,14 @@ export default class RewardsComponent extends React.Component {
 		}
 	}
 
-	mutationCompleted(data) {
+	public mutationCompleted(data): void {
 		if (data.claimWroteAReview === "CLAIMED") {
 			this.closeModal();
 			this.props.action();
 		}
 	}
 
-	render() {
+	public render(): JSX.Element {
 		return (
 			<div>
 				<div className="congratulations">
@@ -115,11 +103,10 @@ export default class RewardsComponent extends React.Component {
 					open={this.state.modalIsOpen}
 					onClose={this.closeModal}
 				>
-					<Mutation
+					<RewardDataSubmissionComponent
 						onError={this.mutationError}
 						onSuccess={this.mutationSuccess}
 						onCompleted={this.mutationCompleted}
-						mutation={REWARD_DATA_SUBMISSION}
 					>
 						{(claimWroteAReview, data) => (
 							<form onSubmit={this.handelPhoneSubmitting}>
@@ -208,7 +195,7 @@ export default class RewardsComponent extends React.Component {
 								</fieldset>
 							</form>
 						)}
-					</Mutation>
+					</RewardDataSubmissionComponent>
 				</Popup>
 			</div>
 		);
