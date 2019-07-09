@@ -1,15 +1,18 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
+		"paths": { "imports/*": ["imports/*"] },
 		"moduleResolution": "Node",
+		"esModuleInterop": true,
 		"outDir": "./dist",
 		"allowJs": true,
 		"jsx": "react",
 		"target": "es5",
-		"lib": ["ESNext"],
+		"lib": ["dom", "esnext"],
+		"downlevelIteration": true,
 		"skipLibCheck": true,
 		"strict": true,
 		"types": ["mocha"]
 	},
-	"include": ["./imports/api/**/*", "./server/**/*"]
+	"include": ["./imports/**/*", "./client/**/*", "./server/**/*"]
 }

@@ -1,6 +1,6 @@
 import * as dataModel from "imports/api/models";
 
-import { MutationResolvers } from "./resolvers-types";
+import { MutationResolvers } from "imports/gen/graphql-resolvers";
 
 export const Mutation: MutationResolvers = {
 	claimWroteAReview: (_obj, args, context, _info) => {
