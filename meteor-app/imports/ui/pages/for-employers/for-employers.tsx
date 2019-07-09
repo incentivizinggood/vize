@@ -77,27 +77,6 @@ const SectionContainer = styled.section`
 	padding-bottom: 60px;
 `;
 
-const Button = styled.a`
-	background: ${props => props.theme.main};
-
-	/* Increase spesificity to override a global style. */
-	&&&&&&&& {
-		color: white;
-	}
-
-	border-radius: 3px;
-	display: inline-block;
-	padding: 20px 40px;
-	font-weight: bold;
-	font-size: 21px;
-`;
-
-// const GetStartedBig = () => (
-// 	<Button style={{ fontSize: 30 }} href="/register">
-// 		<T>getStarted</T>
-// 	</Button>
-// );
-
 const GetStarted = props => (
 	<LinkButton primary to="/register" {...props}>
 		<T>getStarted</T>
@@ -111,17 +90,6 @@ const GetStartedMedium = styled(GetStarted)`
 const GetStartedLarge = styled(GetStarted)`
 	font-size: 35px;
 	padding: 1.3rem 4rem !important;
-`;
-
-const ShadowBox = styled.div`
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	background-color: white;
-	padding: 70px;
-
-	@media (max-width: 576px) {
-		padding: 30px;
-		width: 95%;
-	}
 `;
 
 const PlanBox = styled.div`
