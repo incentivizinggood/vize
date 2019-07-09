@@ -7,7 +7,7 @@ import CompanyCreateProfileForm from "./create-company-profile";
 import CompanyProfile from "./company-profile";
 import CompanySearchTrial from "./company-search";
 import ContactUsPage from "./contact-us";
-import ForEmployers from "./foremployers";
+import ForEmployers from "./for-employers";
 import HelpPage from "./help";
 import HomePage from "./home";
 import LoginPage from "./login";
@@ -49,7 +49,7 @@ function Pages(props) {
 			<Route path="/contact-us" component={ContactUsPage} />
 			<Route path="/review-submitted" component={ReviewSubmitted} />
 			<Route path="/employer-resources" component={ResourcesEmployers} />
-			<Route path="/foremployers" component={ForEmployers} />
+			<Route path="/for-employers" component={ForEmployers} />
 			<Route path="/help" component={HelpPage} />
 			<Route path="/jobs" component={ShowJobs} />
 			<Route path="/login" component={LoginPage} />
