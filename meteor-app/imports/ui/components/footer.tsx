@@ -23,7 +23,6 @@ const FooterContainer = styled.footer`
 	a {
 		font-size: 17px;
 		color: #cbcbcb;
-		text-decoration: underline;
 
 		&:hover,
 		&:focus {
@@ -46,12 +45,20 @@ const LinksContainer = styled.div`
 	}
 `;
 
-const Links = styled.div`
+const InternalLinks = styled.div`
 	> * {
 		display: inline-block;
-		margin: 0;
+		margin-left: 0;
 	}
+
 	> * + * {
+		margin-left: 30px;
+	}
+`;
+
+const SocialLinks = styled.div`
+	> * {
+		display: inline-block;
 		margin-left: 10px;
 	}
 `;
@@ -59,6 +66,7 @@ const Links = styled.div`
 const SocialIcon = styled.img`
 	width: 50px;
 	height: 50px;
+	border-radius: 8px;
 `;
 
 const CopyRight = styled.p`
@@ -75,35 +83,49 @@ export default function Footer() {
 	return (
 		<FooterContainer>
 			<LinksContainer>
-				<Links>
+				<InternalLinks>
 					<Link to="/about">
 						<T.aboutUs />
 					</Link>
 					<Link to="/contact-us">
 						<T.contactUs />
 					</Link>
+					{/* commenting out until we have a help page
 					<Link to="/help">
 						<T.help />
 					</Link>
-				</Links>
+					-->*/}
+				</InternalLinks>
 
-				<Links>
-					<a href="https://www.linkedin.com/company/incentivizinggood">
-						<SocialIcon src="/images/linkedin.png" alt="LinkedIn" />
-					</a>
-					<a href="https://www.facebook.com/incentivizinggood">
+				<SocialLinks>
+					<a
+						href="https://www.facebook.com/Vize-Incentivando-El-Bien-468437690335687/"
+						target="_blank"
+					>
 						<SocialIcon src="/images/facebook.png" alt="Facebook" />
 					</a>
-					<a href="https://www.twitter.com/vizeglobal">
+					<a
+						href="https://www.twitter.com/vizeglobal"
+						target="_blank"
+					>
 						<SocialIcon src="/images/twitter.png" alt="Twitter" />
 					</a>
-					<a href="https://www.instagram.com/incentivandoelbien/">
+					<a
+						href="https://www.instagram.com/incentivandoelbien/"
+						target="_blank"
+					>
 						<SocialIcon
 							src="/images/instagram.png"
 							alt="Instagram"
 						/>
 					</a>
-				</Links>
+					<a
+						href="https://www.linkedin.com/company/incentivizinggood"
+						target="_blank"
+					>
+						<SocialIcon src="/images/linkedin.png" alt="LinkedIn" />
+					</a>
+				</SocialLinks>
 			</LinksContainer>
 			<CopyRight>
 				Vize © 2019. <T.allRightsReserved />
