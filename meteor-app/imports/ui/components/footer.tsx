@@ -52,7 +52,7 @@ const InternalLinks = styled.div`
 	}
 
 	> * + * {
-		margin-left: 30px;
+		margin-left: 60px;
 	}
 `;
 
