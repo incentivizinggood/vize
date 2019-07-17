@@ -14,7 +14,7 @@ const T = i18n.createComponent(t);
  */
 function LoginPage() {
 	return (
-		<PageWrapper>
+		<PageWrapper title="Login" grayBackground>
 			<div className="container  login-top-spce">
 				<div className="row">
 					<div className="col-md-6 col-md-offset-3">
