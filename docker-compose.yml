@@ -37,7 +37,3 @@ volumes:
   # delete all data) just delete these "*-data" volumes and rerun this stack.
   mongo-data:
   postgres-data:
-  # Meteor's dotfile where meteor is installed and caches its packages. Meteor
-  # downloads and creates a lot of files. We store this data in a volume so that
-  # is does not need to be redownloaded and duplicated any more than nessisary.
-  meteor-dotfile:
