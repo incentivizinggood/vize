@@ -26,8 +26,13 @@ function PageWrapper(props) {
 		document.title = props.title || "Vize";
 	});
 
+	let colorBackground = "white";
+	if (props.grayBackground) {
+		colorBackground = "whitesmoke";
+	}
+
 	return (
-		<PageContainer>
+		<PageContainer style={{ backgroundColor: colorBackground }}>
 			<Header navIsAnimated={props.navIsAnimated} />
 			<div>{props.children}</div>
 			<Footer />
