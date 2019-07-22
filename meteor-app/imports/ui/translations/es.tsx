@@ -55,6 +55,27 @@ export default {
 		help: "Ayuda",
 		allRightsReserved: "Todos los derechos reservados",
 	},
+	loginRegister: {
+		login: "Iniciar Sesión",
+		noAccount: "¿No tienes una cuenta? ",
+		register: "Registrar",
+		username: { label: "Usuario", placeholder: "Usuario" },
+		password: { label: "Contraseña", placeholder: "Contraseña" },
+		registrationSuccess: "¡Registracion exitosa!",
+		companyName: {
+			label: "Nombre de Compañía",
+			placeholder: "Nombre de Compañía",
+		},
+		alreadyAccount: "¿Ya tienes una cuenta? ",
+		employee: "Trabajador",
+		employer: "Empleador",
+		email: {
+			label: "Correo Electrónico",
+			placeholder: "Correo Electrónico",
+		},
+		createAccount: "Crear Cuenta",
+		registerOrLogin: "Regístrese o inicie sesión para escribir una opinión",
+	},
 	resourcesWorkers: {
 		readMore: "Leer Más →",
 		here: "aquí",

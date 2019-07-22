@@ -6,35 +6,6 @@
 		"male": "Male",
 		"female": "Female"
 	},
-	"login": {
-		"username": "Username",
-		"password": "Password",
-		"submit": "Login",
-		"error": {
-			"loggedIn": "Already logged in.",
-			"Unrecognized options for login request": "Unrecognized options for login request.",
-			"Match failed": "Match failed.",
-			"User not found": "There is no user with that name.",
-			"Incorrect password": "The password you gave is incorrect.",
-			"User has no password set": "This user account has no password set. You will need to login by some other means."
-		},
-		"success": "Login successful!"
-	},
-	"register": {
-		"username": "Username",
-		"password": "Password",
-		"role": {
-			"worker": "I am a worker",
-			"company": "I am a company"
-		},
-		"submit": "Sign Up",
-		"error": {
-			"loggedIn": "Already logged in",
-			"Username already exists": "That username is already taken.",
-			"Email already exists": "That email is already used by annother account."
-		},
-		"success": "Sign up successful!"
-	},
 	"passwordChanger": {
 		"oldPassword": "Current password",
 		"newPassword": "New password",
@@ -198,20 +169,36 @@
 		"placeholder_comments": "Please enter your comments..."
 	},
 	"forEmployers": {
-		"find_best": "Find the Best Employees in Tijuana",
-		"find_best_part1": "We provide affordable and effective recruiting by helping ",
-		"find_best_part2": "you find more employees and reducing turnover rates.",
-		"get_started_button": "Get Started",
-		"increase_workers": "Increase Worker",
-		"retention": "Retention",
-		"increase_workers_text": "With more potential employees on our site, you can find the perfect match for the position you’re hiring for.",
-		"grow_in_response": "Grow In Response",
-		"to_worker_feedback": "To Worker Feedback",
-		"grow_response_text": "We provide data directly from your workforce, so you know exactly what to do to increase retention and productivity",
-		"reach_thousand": "Reach Thousands of Workers",
-		"reach_thousand_text": "Register your company today to get instant and free access to thousands of potential employees near you.",
-		"accelerate": "Accelerate your growth and discover thousands of potential employees",
-		"register_button": "Register"
+		"headerText": "Recruit and retain the best workforce in Tijuna with Vize",
+		"getStarted": "Get Started",
+		"heading1": "The Problem",
+		"card1part1": "Many factories like yours face turnover rates of",
+		"card1part2": " of their workforce",
+		"card1part3": " every year",
+		"card2part1": "High turnover rates force you to spend more time and money on",
+		"card2part2": " recruiting and training",
+		"card3part1": "Losing 1 worker can cost you at least",
+		"card3part2": " $615 every month",
+		"heading2": "The Solution",
+		"recruitingHeading": "Recruiting",
+		"recruitingText": "We help you recruit the best employees with affordable and effective job posts.",
+		"retainmentHeading": "Retainment",
+		"retainmentText": "We then give you actionable insights on how to retain these employees using data directly from workers all across Tijuna.",
+		"heading3": "Pricing",
+		"pricingText1": "The first 10 customers get full",
+		"pricingText2": "premium access",
+		"pricingText3": " to our services",
+		"pricingText4": "FOR FREE",
+		"pricingText5": "for the first 90 days.",
+		"businessHeading": "Buisness",
+		"businessText1": "5 Job Posts",
+		"businessText2": "Data Analitics Dashboard",
+		"businessText3": "Buisiness Resources",
+		"premiumHeading": "Premium",
+		"premiumText1": "10 Job Posts",
+		"premiumText2": "Data Analitics Dashboard",
+		"premiumText3": "Buisiness Resources",
+		"premiumText4": "Individualized Analysis and Consulting"
 	},
 	"companyreview": {
 		"recommend": "Recommended",
@@ -309,21 +296,6 @@
 		"feel_free": "Feel free to",
 		"reach_us": "reach out to us",
 		"add_review": "Add a Review"
-	},
-	"loginRegister": {
-		"login": "Login",
-		"noAccount": "Don't have an account? ",
-		"register": "Register",
-		"username": "Username",
-		"password": "Password",
-		"registrationSuccess": "Registration successful!",
-		"companyName": "Company Name",
-		"alreadyAccount": "Already have an account? ",
-		"employee": "Employee",
-		"employer": "Employer",
-		"email": "Email",
-		"createAccount": "Create Account",
-		"registerOrLogin": "Register or login to write a review"
 	},
 	"methods": {
 		"jobAppEmail": {

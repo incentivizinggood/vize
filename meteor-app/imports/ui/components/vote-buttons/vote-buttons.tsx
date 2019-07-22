@@ -1,9 +1,9 @@
 import React from "react";
-import { Mutation } from "react-apollo";
 import styled from "styled-components";
 
-import voteButtonsQuery from "./vote-buttons.graphql";
-import VoteButton from "./vote-button";
+import { VoteButtonsComponent as MutationVoteButtons } from "imports/gen/graphql-operations";
+
+import VoteButton, { VoteButtonProps } from "./vote-button";
 
 const VoteDiv = styled.div`
 	text-align: center;
@@ -20,13 +20,17 @@ const VoteDiv = styled.div`
 	}
 `;
 
+type VoteButtonsProps = {
+	review: VoteButtonProps["review"];
+};
+
 /**
  * The vote buttons component. For casting votes on reviews.
  * This contains two buttons, the upvote button and the downvote button.
  */
-export default function VoteButtons(props) {
+export default function VoteButtons(props: VoteButtonsProps) {
 	return (
-		<Mutation mutation={voteButtonsQuery}>
+		<MutationVoteButtons>
 			{castVote => (
 				<VoteDiv>
 					<VoteButton
@@ -37,6 +41,6 @@ export default function VoteButtons(props) {
 					<VoteButton castVote={castVote} review={props.review} />
 				</VoteDiv>
 			)}
-		</Mutation>
+		</MutationVoteButtons>
 	);
 }

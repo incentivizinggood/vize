@@ -1,18 +1,15 @@
 import React from "react";
 import { Form } from "formik";
 
-import { i18n } from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import IfFormik from "imports/ui/components/if-formik";
 import FormGroup from "imports/ui/components/form-group";
 import { Button } from "imports/ui/components/button";
 import { FormToolbar } from "imports/ui/components/form-layout";
+import { translations } from "imports/ui/translations";
 
 import RoleInput from "./role-input";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
@@ -25,39 +22,55 @@ function InnerForm() {
 					formik.values.role === "company"
 				}
 			>
-				<FormGroup
-					fieldName="username"
-					type="text"
-					label={t("username")}
-					placeholder={t("username")}
+				<T.username
+					renderer={t => (
+						<FormGroup
+							fieldName="username"
+							type="text"
+							label={t.label}
+							placeholder={t.placeholder}
+						/>
+					)}
 				/>
 
-				<FormGroup
-					fieldName="email"
-					type="email"
-					label={t("email")}
-					placeholder={t("email")}
+				<T.email
+					renderer={t => (
+						<FormGroup
+							fieldName="email"
+							type="email"
+							label={t.label}
+							placeholder={t.placeholder}
+						/>
+					)}
 				/>
 
 				<IfFormik cond={formik => formik.values.role === "company"}>
-					<FormGroup
-						fieldName="companyName"
-						type="text"
-						label={t("companyName")}
-						placeholder={t("companyName")}
+					<T.companyName
+						renderer={t => (
+							<FormGroup
+								fieldName="companyName"
+								type="text"
+								label={t.label}
+								placeholder={t.placeholder}
+							/>
+						)}
 					/>
 				</IfFormik>
 
-				<FormGroup
-					fieldName="password"
-					type="password"
-					label={t("password")}
-					placeholder={t("password")}
+				<T.password
+					renderer={t => (
+						<FormGroup
+							fieldName="password"
+							type="password"
+							label={t.label}
+							placeholder={t.placeholder}
+						/>
+					)}
 				/>
 
 				<FormToolbar>
 					<Button primary type="submit">
-						<T>createAccount</T>
+						<T.createAccount />
 					</Button>
 				</FormToolbar>
 			</IfFormik>
@@ -65,4 +78,4 @@ function InnerForm() {
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;
