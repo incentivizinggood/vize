@@ -1,32 +1,20 @@
 import React from "react";
 import { Form } from "formik";
-import {
-	faLock,
-	faUser,
-	faEnvelope,
-	faBuilding,
-} from "@fortawesome/free-solid-svg-icons";
 
-import { i18n } from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import IfFormik from "imports/ui/components/if-formik";
 import FormGroup from "imports/ui/components/form-group";
 import { Button } from "imports/ui/components/button";
+import { FormToolbar } from "imports/ui/components/form-layout";
+import { translations } from "imports/ui/translations";
 
 import RoleInput from "./role-input";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
-			<h3 className="top-head-employer" align="center">
-				<T>register</T>
-			</h3>
 			<RoleInput />
-			<br />
 
 			<IfFormik
 				cond={formik =>
@@ -34,30 +22,60 @@ function InnerForm() {
 					formik.values.role === "company"
 				}
 			>
-				<div className="register-login-form">
-					<FormGroup name="username" type="text" icon={faUser} />
-
-					<FormGroup name="email" type="email" icon={faEnvelope} />
-
-					<IfFormik cond={formik => formik.values.role === "company"}>
+				<T.username
+					renderer={t => (
 						<FormGroup
-							name="companyName"
+							fieldName="username"
 							type="text"
-							icon={faBuilding}
+							label={t.label}
+							placeholder={t.placeholder}
 						/>
-					</IfFormik>
+					)}
+				/>
 
-					<FormGroup name="password" type="password" icon={faLock} />
+				<T.email
+					renderer={t => (
+						<FormGroup
+							fieldName="email"
+							type="email"
+							label={t.label}
+							placeholder={t.placeholder}
+						/>
+					)}
+				/>
 
-					<div className="button-center">
-						<Button primary type="submit">
-							<T>createAccount</T>
-						</Button>
-					</div>
-				</div>
+				<IfFormik cond={formik => formik.values.role === "company"}>
+					<T.companyName
+						renderer={t => (
+							<FormGroup
+								fieldName="companyName"
+								type="text"
+								label={t.label}
+								placeholder={t.placeholder}
+							/>
+						)}
+					/>
+				</IfFormik>
+
+				<T.password
+					renderer={t => (
+						<FormGroup
+							fieldName="password"
+							type="password"
+							label={t.label}
+							placeholder={t.placeholder}
+						/>
+					)}
+				/>
+
+				<FormToolbar>
+					<Button primary type="submit">
+						<T.createAccount />
+					</Button>
+				</FormToolbar>
 			</IfFormik>
 		</Form>
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;

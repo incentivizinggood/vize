@@ -1,33 +1,45 @@
 import React from "react";
 import { Form } from "formik";
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { i18n } from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import FormGroup from "imports/ui/components/form-group";
 import { Button } from "imports/ui/components/button";
+import { FormToolbar } from "imports/ui/components/form-layout";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
 		<Form>
-			<div className="register-login-form">
-				<FormGroup name="username" type="text" icon={faUser} />
-				<FormGroup name="password" type="password" icon={faLock} />
+			<T.username
+				renderer={t => (
+					<FormGroup
+						fieldName="username"
+						type="text"
+						label={t.label}
+						placeholder={t.placeholder}
+					/>
+				)}
+			/>
 
-				<div className="form-group text-center" />
+			<T.password
+				renderer={t => (
+					<FormGroup
+						fieldName="password"
+						type="password"
+						label={t.label}
+						placeholder={t.placeholder}
+					/>
+				)}
+			/>
 
-				<div className="button-center">
-					<Button primary type="submit">
-						<T>login</T>
-					</Button>
-				</div>
-			</div>
+			<FormToolbar>
+				<Button primary type="submit">
+					<T.login />
+				</Button>
+			</FormToolbar>
 		</Form>
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;
