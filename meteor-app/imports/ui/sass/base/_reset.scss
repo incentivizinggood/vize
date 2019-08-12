@@ -1,3 +1,8 @@
+html {
+	// Override the fontsize because Bootstrap interfears with Matirial-UI.
+	font-size: 14px;
+}
+
 body {
 	margin: 0;
 	font-family: "Lato-Light", sans-serifs;

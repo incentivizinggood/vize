@@ -1,10 +1,10 @@
 import React from "react";
-import { Form } from "formik";
+import { Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
 
 import { i18n } from "meteor/universe:i18n";
 
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
-import FormGroup from "imports/ui/components/form-group";
 import { Button } from "imports/ui/components/button";
 import { FormToolbar } from "imports/ui/components/form-layout";
 import FormArray from "imports/ui/components/form-array";
@@ -16,30 +16,38 @@ const T = i18n.createComponent(t);
 function InnerForm({ submissionError }) {
 	return (
 		<Form>
-			<FormGroup
-				fieldName="name"
+			<Field
+				name="name"
 				type="text"
 				label={t("fields.name.label")}
 				placeholder={t("fields.name.placeholder")}
+				component={TextField}
+				fullWidth
 			/>
 
-			<FormGroup
-				fieldName="contactEmail"
+			<Field
+				name="contactEmail"
 				type="email"
 				label={t("fields.contactEmail.label")}
 				placeholder={t("fields.contactEmail.placeholder")}
+				component={TextField}
+				fullWidth
 			/>
 
-			<FormGroup
-				fieldName="yearEstablished"
+			<Field
+				name="yearEstablished"
 				type="number"
 				label={t("fields.yearEstablished.label")}
+				component={TextField}
+				fullWidth
 			/>
 
-			<FormGroup
-				fieldName="numEmployees"
-				type="select"
+			<Field
+				name="numEmployees"
+				select
 				label={t("fields.numEmployees.label")}
+				component={TextField}
+				fullWidth
 			>
 				{// TODO: Refactor
 				[
@@ -52,65 +60,79 @@ function InnerForm({ submissionError }) {
 						"5000+",
 					].map(x => <option value={x}>{x}</option>),
 				]}
-			</FormGroup>
+			</Field>
 
-			<FormGroup
-				fieldName="industry"
+			<Field
+				name="industry"
 				type="text"
 				label={t("fields.industry.label")}
 				placeholder={t("fields.industry.placeholder")}
+				component={TextField}
+				fullWidth
 			/>
 
 			<FormArray
 				name="locations"
 				ElementRender={({ name }) => (
 					<>
-						<FormGroup
-							fieldName={`${name}.city`}
+						<Field
+							name={`${name}.city`}
 							type="text"
 							label={t("fields.locations.city.label")}
 							placeholder={t("fields.locations.city.placeholder")}
+							component={TextField}
+							fullWidth
 						/>
-						<FormGroup
-							fieldName={`${name}.address`}
+						<Field
+							name={`${name}.address`}
 							type="text"
 							label={t("fields.locations.address.label")}
 							placeholder={t(
 								"fields.locations.address.placeholder"
 							)}
+							component={TextField}
+							fullWidth
 						/>
-						<FormGroup
-							fieldName={`${name}.industrialHub`}
+						<Field
+							name={`${name}.industrialHub`}
 							type="text"
 							label={t("fields.locations.industrialHub.label")}
 							placeholder={t(
 								"fields.locations.industrialHub.placeholder"
 							)}
+							component={TextField}
+							fullWidth
 						/>
 					</>
 				)}
 			/>
 
-			<FormGroup
-				fieldName="contactPhoneNumber"
+			<Field
+				name="contactPhoneNumber"
 				type="text"
 				label={t("fields.contactPhoneNumber.label")}
 				placeholder={t("fields.contactPhoneNumber.placeholder")}
+				component={TextField}
+				fullWidth
 			/>
 
-			<FormGroup
-				fieldName="websiteURL"
+			<Field
+				name="websiteURL"
 				type="text"
 				label={t("fields.websiteURL.label")}
 				placeholder={t("fields.websiteURL.placeholder")}
+				component={TextField}
+				fullWidth
 			/>
 
-			<FormGroup
-				fieldName="descriptionOfCompany"
-				type="textarea"
+			<Field
+				name="descriptionOfCompany"
+				multiline
 				rows={6}
 				label={t("fields.descriptionOfCompany.label")}
 				placeholder={t("fields.descriptionOfCompany.placeholder")}
+				component={TextField}
+				fullWidth
 			/>
 
 			<SubmissionError error={submissionError} />
