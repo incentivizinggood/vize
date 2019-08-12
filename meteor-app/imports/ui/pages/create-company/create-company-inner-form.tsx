@@ -1,54 +1,30 @@
 import React from "react";
-import { Form, Field } from "formik";
-import { TextField } from "formik-material-ui";
-
-import { i18n } from "meteor/universe:i18n";
+import { Form } from "formik";
 
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import { Button } from "imports/ui/components/button";
 import { FormToolbar } from "imports/ui/components/form-layout";
 import FormArray from "imports/ui/components/form-array";
 import SubmissionError from "imports/ui/components/submission-error";
+import { Field } from "imports/ui/components/form-stuff";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.forms.createCompany");
-const T = i18n.createComponent(t);
+const T = translations.createCompany;
 
 function InnerForm({ submissionError }) {
 	return (
 		<Form>
-			<Field
-				name="name"
-				type="text"
-				label={t("fields.name.label")}
-				placeholder={t("fields.name.placeholder")}
-				component={TextField}
-				fullWidth
-			/>
+			<Field name="name" type="text" t={T.fields.companyName} />
 
-			<Field
-				name="contactEmail"
-				type="email"
-				label={t("fields.contactEmail.label")}
-				placeholder={t("fields.contactEmail.placeholder")}
-				component={TextField}
-				fullWidth
-			/>
+			<Field name="contactEmail" type="email" t={T.fields.contactEmail} />
 
 			<Field
 				name="yearEstablished"
 				type="number"
-				label={t("fields.yearEstablished.label")}
-				component={TextField}
-				fullWidth
+				t={T.fields.yearEstablished}
 			/>
 
-			<Field
-				name="numEmployees"
-				select
-				label={t("fields.numEmployees.label")}
-				component={TextField}
-				fullWidth
-			>
+			<Field name="numEmployees" select t={T.fields.numEmployees}>
 				{// TODO: Refactor
 				[
 					<option value="">(Select One)</option>,
@@ -62,14 +38,7 @@ function InnerForm({ submissionError }) {
 				]}
 			</Field>
 
-			<Field
-				name="industry"
-				type="text"
-				label={t("fields.industry.label")}
-				placeholder={t("fields.industry.placeholder")}
-				component={TextField}
-				fullWidth
-			/>
+			<Field name="industry" type="text" t={T.fields.industry} />
 
 			<FormArray
 				name="locations"
@@ -78,30 +47,17 @@ function InnerForm({ submissionError }) {
 						<Field
 							name={`${name}.city`}
 							type="text"
-							label={t("fields.locations.city.label")}
-							placeholder={t("fields.locations.city.placeholder")}
-							component={TextField}
-							fullWidth
+							t={T.fields.locations.city}
 						/>
 						<Field
 							name={`${name}.address`}
 							type="text"
-							label={t("fields.locations.address.label")}
-							placeholder={t(
-								"fields.locations.address.placeholder"
-							)}
-							component={TextField}
-							fullWidth
+							t={T.fields.locations.address}
 						/>
 						<Field
 							name={`${name}.industrialHub`}
 							type="text"
-							label={t("fields.locations.industrialHub.label")}
-							placeholder={t(
-								"fields.locations.industrialHub.placeholder"
-							)}
-							component={TextField}
-							fullWidth
+							t={T.fields.locations.industrialHub}
 						/>
 					</>
 				)}
@@ -110,36 +66,23 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="contactPhoneNumber"
 				type="text"
-				label={t("fields.contactPhoneNumber.label")}
-				placeholder={t("fields.contactPhoneNumber.placeholder")}
-				component={TextField}
-				fullWidth
+				t={T.fields.contactPhoneNumber}
 			/>
 
-			<Field
-				name="websiteURL"
-				type="text"
-				label={t("fields.websiteURL.label")}
-				placeholder={t("fields.websiteURL.placeholder")}
-				component={TextField}
-				fullWidth
-			/>
+			<Field name="websiteURL" type="text" t={T.fields.websiteURL} />
 
 			<Field
 				name="descriptionOfCompany"
 				multiline
 				rows={6}
-				label={t("fields.descriptionOfCompany.label")}
-				placeholder={t("fields.descriptionOfCompany.placeholder")}
-				component={TextField}
-				fullWidth
+				t={T.fields.descriptionOfCompany}
 			/>
 
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
 				<Button primary type="submit">
-					<T>submit</T>
+					<T.submit />
 				</Button>
 			</FormToolbar>
 		</Form>

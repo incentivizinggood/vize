@@ -71,6 +71,60 @@ export default {
 		createAccount: "Create Account",
 		registerOrLogin: "Register or login to write a review",
 	},
+	createCompany: {
+		formTitle: "Create a New Profile",
+		fields: {
+			companyName: {
+				label: "Company Name",
+				placeholder: "Enter the name of your company",
+			},
+			contactEmail: {
+				label: "Contact Email",
+				placeholder:
+					"Provide an email we can reach your company at (example@email.com)",
+			},
+			yearEstablished: { label: "Year Established" },
+			numEmployees: { label: "Number of Employees" },
+			industry: {
+				label: "Industry",
+				placeholder: "Tell us your company's primary industry",
+			},
+			locations: {
+				label: "Locations",
+				city: {
+					label: "City",
+					placeholder: "Enter the city for your location",
+				},
+				address: {
+					label: "Address",
+					placeholder: "Enter the street address for your location",
+				},
+				industrialHub: {
+					label: "Industrial Park",
+					placeholder:
+						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+				},
+			},
+			contactPhoneNumber: {
+				label: "Contact Phone Number",
+				placeholder: "###-###-####",
+			},
+			websiteURL: {
+				label: "Website URL",
+				placeholder:
+					"Please enter the URL of your company's website, if it has one",
+			},
+			descriptionOfCompany: {
+				label: "Description of Company",
+				placeholder:
+					"Enter a brief description of your company for others to see on its profile page, if you'd like",
+			},
+		},
+		messages: {
+			nameTaken: "The name you provided is already taken",
+		},
+		submit: "Submit",
+	},
 	resourcesWorkers: {
 		readMore: "Read More →",
 		here: "here",

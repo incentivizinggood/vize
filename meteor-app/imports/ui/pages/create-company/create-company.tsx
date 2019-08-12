@@ -1,19 +1,17 @@
 import React from "react";
 
-import { i18n } from "meteor/universe:i18n";
-
 import { FormHeader, FormPageWrapper } from "imports/ui/components/form-layout";
+import { translations } from "imports/ui/translations";
 
 import CreateCompanyForm from "./create-company-form";
 
-const t = i18n.createTranslator("common.forms.createCompany");
-const T = i18n.createComponent(t);
+const T = translations.createCompany;
 
 function CreateCompanyPage() {
 	return (
 		<FormPageWrapper title="Create Company">
 			<FormHeader>
-				<T>formTitle</T>
+				<T.formTitle />
 			</FormHeader>
 			<CreateCompanyForm />
 		</FormPageWrapper>
