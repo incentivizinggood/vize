@@ -91,6 +91,8 @@ export default {
 			},
 			locations: {
 				label: "Locations",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "another" : "a"} location`,
 				city: {
 					label: "City",
 					placeholder: "Enter the city for your location",

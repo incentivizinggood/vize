@@ -2,73 +2,82 @@ import React from "react";
 import { FieldArray, connect } from "formik";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "imports/ui/components/button";
 
 const ArrayContainer = styled.div`
-	margin-top: 10px;
+	margin-top: 20px;
 `;
+
 const ElementContainer = styled.div`
-	> * {
-		display: inline-block;
-		vertical-align: middle;
-	}
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	width: 100%;
+	max-width: 500px;
+
+	background-color: ${props => props.theme.surface};
+	color: ${props => props.theme.onSurface};
+	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
+	padding: 30px;
+	position: relative;
+	padding-top: 20px;
 `;
 
-const Foo = styled.div`
-	margin-left: 10px;
-`;
-
-const B = styled(Button)`
+const ElementDeleteButton = styled(Button)`
 	&&&&&&&&& {
 		padding: 0;
 		width: 1.5em;
 		height: 1.5em;
+
+		position: absolute;
+		right: 10px;
+		top: 10px;
 	}
 `;
 
-function FormArray({ name, formik: { values }, ElementRender }) {
+function FormArray({ name, T, formik: { values }, ElementRender }) {
 	return (
-		<FieldArray
-			name={name}
-			render={arrayHelpers => (
-				<ArrayContainer>
-					{values[name] && values[name].length > 0
-						? values[name].map((friend, index) => (
-								<>
-									<B
-										type="button"
-										onClick={() =>
-											arrayHelpers.insert(index, "")
-										} // insert an empty string at a position
-									>
-										<FontAwesomeIcon icon={faPlus} />
-									</B>
+		<>
+			<FieldArray
+				name={name}
+				render={arrayHelpers => (
+					<ArrayContainer>
+						{values[name] && values[name].length > 0
+							? values[name].map((x, index) => (
 									<ElementContainer>
-										<B
+										<ElementDeleteButton
 											type="button"
 											onClick={() =>
 												arrayHelpers.remove(index)
 											} // remove a friend from the list
 										>
-											<FontAwesomeIcon icon={faMinus} />
-										</B>
-										<Foo>
-											<ElementRender
-												name={`${name}[${index}]`}
-											/>
-										</Foo>
+											<FontAwesomeIcon icon={faTimes} />
+										</ElementDeleteButton>
+										<ElementRender
+											name={`${name}[${index}]`}
+										/>
 									</ElementContainer>
+							  ))
+							: null}
+						<Button
+							type="button"
+							onClick={() => arrayHelpers.push("")}
+						>
+							<FontAwesomeIcon icon={faPlus} />
+							{T ? (
+								<>
+									{" "}
+									<T.addElement array={values[name]} />
 								</>
-						  ))
-						: null}
-					<B type="button" onClick={() => arrayHelpers.push("")}>
-						<FontAwesomeIcon icon={faPlus} />
-					</B>
-				</ArrayContainer>
-			)}
-		/>
+							) : null}
+						</Button>
+					</ArrayContainer>
+				)}
+			/>
+		</>
 	);
 }
 

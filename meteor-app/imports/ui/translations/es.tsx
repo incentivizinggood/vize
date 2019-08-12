@@ -97,6 +97,8 @@ export default {
 			},
 			locations: {
 				label: "Ubicaciones",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "otra" : "una"} ubicación`,
 				city: {
 					label: "Ciudad",
 					placeholder: "Ingrese la ciudad para su ubicación",

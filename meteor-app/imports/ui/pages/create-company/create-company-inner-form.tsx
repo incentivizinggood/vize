@@ -63,6 +63,7 @@ function InnerForm({ submissionError }) {
 						/>
 					</>
 				)}
+				T={T.fields.locations}
 			/>
 
 			<Field
