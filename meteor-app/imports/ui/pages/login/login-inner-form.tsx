@@ -1,9 +1,8 @@
 import React from "react";
 import { Form } from "formik";
 
-import { Field } from "imports/ui/components/form-stuff";
+import { Field, FormToolbar } from "imports/ui/components/form-stuff";
 import { Button } from "imports/ui/components/button";
-import { FormToolbar } from "imports/ui/components/form-layout";
 import { translations } from "imports/ui/translations";
 
 const T = translations.loginRegister;

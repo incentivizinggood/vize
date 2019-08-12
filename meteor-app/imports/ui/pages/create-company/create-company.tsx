@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FormHeader, FormPageWrapper } from "imports/ui/components/form-layout";
+import { FormHeader, FormPageWrapper } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
 import CreateCompanyForm from "./create-company-form";

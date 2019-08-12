@@ -3,10 +3,12 @@ import { Form } from "formik";
 
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import { Button } from "imports/ui/components/button";
-import { FormToolbar } from "imports/ui/components/form-layout";
-import FormArray from "imports/ui/components/form-array";
-import SubmissionError from "imports/ui/components/submission-error";
-import { Field } from "imports/ui/components/form-stuff";
+import {
+	FormArray,
+	Field,
+	FormToolbar,
+	SubmissionError,
+} from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
 const T = translations.createCompany;
