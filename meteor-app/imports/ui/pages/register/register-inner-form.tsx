@@ -7,14 +7,20 @@ import { Button } from "imports/ui/components/button";
 import { FormToolbar } from "imports/ui/components/form-layout";
 import { translations } from "imports/ui/translations";
 
-import RoleInput from "./role-input";
-
 const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
 		<Form id="register-form" style={{ display: "block" }}>
-			<RoleInput />
+			<T
+				renderer={t => (
+					<Field name="role" select label="I am a...">
+						<option value="">(Select One)</option>
+						<option value="worker">{t.employee}</option>
+						<option value="company">{t.employer}</option>
+					</Field>
+				)}
+			/>
 
 			<IfFormik
 				cond={formik =>
