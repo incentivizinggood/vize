@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, getIn } from "formik";
+import { Field, getIn, FieldProps } from "formik";
 import styled from "styled-components";
 
 const HelpBlock = styled.span`
@@ -12,11 +12,11 @@ const Label = styled.label`
 	width: 100%;
 `;
 
-const ControlLabel = styled.span`
+const ControlLabel = styled.span<{ hasError: boolean }>`
 	color: ${props => (props.hasError ? props.theme.error : "inherit")};
 `;
 
-const FormControl = styled.input`
+const FormControl = styled.input<{ hasError: boolean }>`
 	display: block;
 	width: 100%;
 	height: auto;
@@ -39,18 +39,27 @@ const FormGroupContainer = styled.div`
 	margin-top: 5px;
 `;
 
+type Foo = {
+	type: string;
+	label: React.ReactNode;
+	placeholder?: string;
+	children?: React.ReactNode;
+};
+
+type FormGroupRendererProps = FieldProps<any> & Foo;
+
 function FormGroupRenderer({
 	field,
 	form: { touched, errors },
 	type,
 	label,
 	...restProps
-}) {
+}: FormGroupRendererProps) {
 	const error = getIn(errors, field.name);
 	const hasError = getIn(touched, field.name) && error;
 
 	// TODO: Refactor
-	const foo =
+	const foo: { as: "select" | "textarea" } | { type: typeof type } =
 		type === "textarea"
 			? { as: "textarea" }
 			: type === "select"
@@ -73,7 +82,9 @@ function FormGroupRenderer({
 	);
 }
 
-function FormGroup({ fieldName, ...props }) {
+type FormGroupProps = Foo & { fieldName: string };
+
+function FormGroup({ fieldName, ...props }: FormGroupProps) {
 	return <Field name={fieldName} {...props} component={FormGroupRenderer} />;
 }
 
