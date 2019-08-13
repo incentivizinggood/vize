@@ -65,27 +65,27 @@ function InnerForm({ submissionError }) {
 
 			<Field
 				name="healthAndSafety"
-				type="number"
+				type="rating"
 				t={T.fields.healthAndSafety}
 			/>
 
 			<Field
 				name="managerRelationship"
-				type="number"
+				type="rating"
 				t={T.fields.managerRelationship}
 			/>
 
 			<Field
 				name="workEnvironment"
-				type="number"
+				type="rating"
 				t={T.fields.workEnvironment}
 			/>
 
-			<Field name="benefits" type="number" t={T.fields.benefits} />
+			<Field name="benefits" type="rating" t={T.fields.benefits} />
 
 			<Field
 				name="overallSatisfaction"
-				type="number"
+				type="rating"
 				t={T.fields.overallSatisfaction}
 			/>
 
