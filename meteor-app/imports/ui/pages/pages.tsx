@@ -22,6 +22,7 @@ import ShowJobs from "./show-jobs";
 import SubmitSalaryDataForm from "./submit-salary-data";
 import UserPage from "./user";
 import WriteReviewForm from "./write-review";
+import CreateReview from "./create-review";
 import ReviewSubmitted from "./review-submitted";
 import TestPage from "./test";
 
@@ -72,6 +73,7 @@ function Pages(props) {
 					/>
 				)}
 			/>
+
 			<Route
 				path={`/${queryRoutes.writeReview}`}
 				component={() => (
@@ -80,6 +82,8 @@ function Pages(props) {
 					/>
 				)}
 			/>
+			<Route path="/review/create" component={CreateReview} />
+
 			<Route
 				path={`/${queryRoutes.submitSalaryData}`}
 				component={() => (
