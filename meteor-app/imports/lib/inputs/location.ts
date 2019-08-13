@@ -3,7 +3,7 @@ import * as yup from "yup";
 type LocationInput = {
 	city: string;
 	address: string;
-	industrialHub?: string;
+	industrialHub?: string | null;
 };
 
 namespace LocationInput {
