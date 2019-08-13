@@ -14,20 +14,32 @@ const T = translations.createReview;
 
 function InnerForm({ submissionError }) {
 	return (
-		<Form>
-			<Field name="companyName" type="text" t={T.fields.companyName} />
+		<Form noValidate>
+			<Field
+				name="companyName"
+				type="text"
+				required
+				t={T.fields.companyName}
+			/>
 
-			<Field name="reviewTitle" type="text" t={T.fields.reviewTitle} />
+			<Field
+				name="reviewTitle"
+				type="text"
+				required
+				t={T.fields.reviewTitle}
+			/>
 
 			<Field
 				name="location.city"
 				type="text"
+				required
 				t={T.fields.location.city}
 			/>
 
 			<Field
 				name="location.address"
 				type="text"
+				required
 				t={T.fields.location.address}
 			/>
 
@@ -37,23 +49,25 @@ function InnerForm({ submissionError }) {
 				t={T.fields.location.industrialHub}
 			/>
 
-			<Field name="jobTitle" type="text" t={T.fields.jobTitle} />
+			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
 
 			<Field
 				name="numberOfMonthsWorked"
 				type="number"
+				required
 				t={T.fields.numberOfMonthsWorked}
 			/>
 
-			<Field name="pros" multiline rows={6} t={T.fields.pros} />
+			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
-			<Field name="cons" multiline rows={6} t={T.fields.cons} />
+			<Field name="cons" required multiline rows={6} t={T.fields.cons} />
 
 			<T.fields.wouldRecommendToOtherJobSeekers
 				renderer={t => (
 					<Field
 						name="wouldRecommendToOtherJobSeekers"
 						select
+						required
 						label={t.label}
 					>
 						<option value="">(Select One)</option>
@@ -66,26 +80,35 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="healthAndSafety"
 				type="rating"
+				required
 				t={T.fields.healthAndSafety}
 			/>
 
 			<Field
 				name="managerRelationship"
 				type="rating"
+				required
 				t={T.fields.managerRelationship}
 			/>
 
 			<Field
 				name="workEnvironment"
 				type="rating"
+				required
 				t={T.fields.workEnvironment}
 			/>
 
-			<Field name="benefits" type="rating" t={T.fields.benefits} />
+			<Field
+				name="benefits"
+				type="rating"
+				required
+				t={T.fields.benefits}
+			/>
 
 			<Field
 				name="overallSatisfaction"
 				type="rating"
+				required
 				t={T.fields.overallSatisfaction}
 			/>
 

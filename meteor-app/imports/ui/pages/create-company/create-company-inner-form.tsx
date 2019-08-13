@@ -15,10 +15,15 @@ const T = translations.createCompany;
 
 function InnerForm({ submissionError }) {
 	return (
-		<Form>
-			<Field name="name" type="text" t={T.fields.companyName} />
+		<Form noValidate>
+			<Field name="name" type="text" required t={T.fields.companyName} />
 
-			<Field name="contactEmail" type="email" t={T.fields.contactEmail} />
+			<Field
+				name="contactEmail"
+				type="email"
+				required
+				t={T.fields.contactEmail}
+			/>
 
 			<Field
 				name="yearEstablished"
@@ -49,11 +54,13 @@ function InnerForm({ submissionError }) {
 						<Field
 							name={`${name}.city`}
 							type="text"
+							required
 							t={T.fields.locations.city}
 						/>
 						<Field
 							name={`${name}.address`}
 							type="text"
+							required
 							t={T.fields.locations.address}
 						/>
 						<Field

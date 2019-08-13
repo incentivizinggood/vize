@@ -22,10 +22,12 @@ const Legend = styled.div`
 
 type RatingFieldProps = Formik.FieldProps<any> & {
 	label: string;
+	required?: boolean;
 };
 
 const RatingField = ({
 	label,
+	required,
 	field: { name, value, onChange },
 	form: { touched, errors },
 }: RatingFieldProps) => {
@@ -35,7 +37,10 @@ const RatingField = ({
 	return (
 		<RatingContainer hasError={hasError}>
 			<RatingLayout>
-				<Legend>{label}</Legend>
+				<Legend>
+					{label}
+					{required ? " *" : null}
+				</Legend>
 				<Rating name={name} value={value} onChange={onChange} />
 			</RatingLayout>
 			{hasError ? <FormHelperText error>{error}</FormHelperText> : null}
