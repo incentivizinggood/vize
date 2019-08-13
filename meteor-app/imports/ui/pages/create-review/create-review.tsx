@@ -7,13 +7,17 @@ import CreateReviewForm from "./create-review-form";
 
 const T = translations.createReview;
 
-function CreateReviewPage() {
+interface CreateReviewPageProps {
+	companyName?: string;
+}
+
+function CreateReviewPage({ companyName }: CreateReviewPageProps) {
 	return (
 		<FormPageWrapper title="Create Review">
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>
-			<CreateReviewForm />
+			<CreateReviewForm companyName={companyName} />
 		</FormPageWrapper>
 	);
 }

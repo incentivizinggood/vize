@@ -13,8 +13,10 @@ const queryRoutes = {
 const vizeProfileUrl = function(companyId) {
 	return `/${queryRoutes.companyProfile}/?id=${companyId}`;
 };
-const vizeReviewUrl = function(companyId) {
-	return `/${queryRoutes.writeReview}/?id=${companyId}`;
+const vizeReviewUrl = function(companyName?: string) {
+	return `/write-review/${
+		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
+	}`;
 };
 const vizeSalaryUrl = function(companyId) {
 	return `/${queryRoutes.submitSalaryData}/?id=${companyId}`;

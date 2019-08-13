@@ -77,12 +77,11 @@ function Pages(props) {
 			<Route
 				path={`/${queryRoutes.writeReview}`}
 				component={() => (
-					<WriteReviewForm
-						companyId={fixNullParams(params.get("id"))}
+					<CreateReview
+						companyName={fixNullParams(params.get("companyname"))}
 					/>
 				)}
 			/>
-			<Route path="/review/create" component={CreateReview} />
 
 			<Route
 				path={`/${queryRoutes.submitSalaryData}`}

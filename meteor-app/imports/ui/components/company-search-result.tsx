@@ -29,9 +29,7 @@ function CompanySearchResult(props) {
 								<img
 									src="/images/default-company.png"
 									className="img-responsive"
-									alt={`The company logo of ${
-										props.company.name
-									}`}
+									alt={`The company logo of ${props.company.name}`}
 								/>
 							</div>
 						</Link>
@@ -89,7 +87,7 @@ function CompanySearchResult(props) {
 						<div className="col-md-12">
 							<div className="titlestar">
 								<WriteReviewButton
-									companyId={props.company.id}
+									companyName={props.company.name}
 								/>
 							</div>
 						</div>

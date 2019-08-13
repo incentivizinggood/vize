@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import { Mutation } from "react-apollo";
-import { mapValues, map, omitBy, filter } from "lodash";
+import { mapValues, map, omitBy, filter, merge } from "lodash";
 
 import * as schemas from "imports/ui/form-schemas";
 
@@ -112,17 +112,19 @@ const onSubmit = (createReview, history, setSubmissionError) => (
 			actions.setSubmitting(false);
 		});
 
-const CreateReviewForm = props => {
+const CreateReviewForm = ({ history, companyName }) => {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	return (
 		<Mutation mutation={createReviewQuery}>
 			{createReview => (
 				<Formik
-					initialValues={initialValues}
+					initialValues={merge(initialValues, {
+						companyName,
+					})}
 					validationSchema={schema}
 					onSubmit={onSubmit(
 						createReview,
-						props.history,
+						history,
 						setSubmissionError
 					)}
 				>
