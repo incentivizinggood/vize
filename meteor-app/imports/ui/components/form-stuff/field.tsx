@@ -1,19 +1,42 @@
 import React from "react";
-import { Field as FormikField } from "formik";
+import * as Formik from "formik";
 import { TextField } from "formik-material-ui";
 import { Rating } from "@material-ui/lab";
+import styled from "styled-components";
 
-const RatingField = ({ field: { name, value, onChange, onBlur } }) => (
-	<Rating name={name} value={value} onChange={onChange} />
+const RatingLayout = styled.div`
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: left;
+
+	margin-top: 16px;
+`;
+
+const Legend = styled.div`
+	margin-left: 10px;
+`;
+
+type RatingFieldProps = Formik.FieldProps<any> & {
+	label: string;
+};
+
+const RatingField = ({
+	label,
+	field: { name, value, onChange },
+}: RatingFieldProps) => (
+	<RatingLayout>
+		<Legend>{label}</Legend>
+		<Rating name={name} value={value} onChange={onChange} />
+	</RatingLayout>
 );
 
 const FieldInner: React.ComponentType<any> = ({ type, ...restProps }) => {
 	if (type === "rating") {
-		return <FormikField {...restProps} component={RatingField} />;
+		return <Formik.Field {...restProps} component={RatingField} />;
 	}
 
 	return (
-		<FormikField
+		<Formik.Field
 			{...restProps}
 			type={type}
 			component={TextField}
