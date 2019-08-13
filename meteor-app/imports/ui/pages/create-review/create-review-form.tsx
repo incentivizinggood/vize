@@ -2,13 +2,12 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
-import { Mutation } from "react-apollo";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 
+import { CreateReviewComponent as MutationCreateReview } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
 
 import InnerForm from "./create-review-inner-form";
-import createReviewQuery from "./create-review.graphql";
 
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
@@ -115,7 +114,7 @@ const onSubmit = (createReview, history, setSubmissionError) => (
 const CreateReviewForm = ({ history, companyName }) => {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	return (
-		<Mutation mutation={createReviewQuery}>
+		<MutationCreateReview>
 			{createReview => (
 				<Formik
 					initialValues={merge(initialValues, {
@@ -131,7 +130,7 @@ const CreateReviewForm = ({ history, companyName }) => {
 					<InnerForm submissionError={submissionError} />
 				</Formik>
 			)}
-		</Mutation>
+		</MutationCreateReview>
 	);
 };
 

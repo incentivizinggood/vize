@@ -2,14 +2,13 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
-import { Mutation } from "react-apollo";
 import { mapValues, map, omitBy, filter } from "lodash";
 
+import { CreateCompanyComponent as MutationCreateCompany } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import InnerForm from "./create-company-inner-form";
-import createCompanyQuery from "./create-company.graphql";
 
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
@@ -118,7 +117,7 @@ const onSubmit = (createCompany, history, setSubmissionError) => (
 const CreateCompanyForm = props => {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	return (
-		<Mutation mutation={createCompanyQuery}>
+		<MutationCreateCompany>
 			{createCompany => (
 				<Formik
 					initialValues={initialValues}
@@ -132,7 +131,7 @@ const CreateCompanyForm = props => {
 					<InnerForm submissionError={submissionError} />
 				</Formik>
 			)}
-		</Mutation>
+		</MutationCreateCompany>
 	);
 };
 
