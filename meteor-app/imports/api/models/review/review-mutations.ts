@@ -3,6 +3,7 @@ import {
 	execTransactionRW,
 	Transaction,
 } from "imports/api/connectors/postgresql";
+import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import CreateReviewInput from "imports/lib/inputs/review";
 
@@ -96,6 +97,8 @@ export async function createReview(
 				)
 			RETURNING reviewid
 		`);
+
+		postToSlack(`The user with ID \`${userId}\` reviewed ${companyName}`);
 
 		return reviewid;
 	};
