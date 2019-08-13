@@ -39,6 +39,16 @@ const initialValues = {
 	additionalComments: "",
 };
 
+const proConSchema = yup
+	.string()
+	.test("five-word-min", "${path} requires at least 5 words", value => {
+		const isString =
+			value && (typeof value === "string" || value instanceof String);
+		const wordCount = isString ? value.split(/\s+\b/).length : 0;
+		return wordCount >= 5;
+	})
+	.required();
+
 const starRatingSchema = yup
 	.number()
 	.integer()
@@ -68,8 +78,8 @@ const schema = yup.object().shape({
 		.number()
 		.min(0)
 		.required(),
-	pros: yup.string().required(),
-	cons: yup.string().required(),
+	pros: proConSchema,
+	cons: proConSchema,
 	wouldRecommendToOtherJobSeekers: yup.boolean().required(),
 	healthAndSafety: starRatingSchema,
 	managerRelationship: starRatingSchema,
