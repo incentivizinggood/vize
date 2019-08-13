@@ -55,36 +55,6 @@ export default class PgCompanyFunctions {
 		};
 	}
 
-	static async companyNameRegexSearch(client, name, skip, limit) {
-		let companyResults = { rows: [] };
-		let locationResults = {};
-		let statResults = {};
-
-		companyResults = await client.query(
-			"SELECT * FROM companies WHERE name LIKE $1 OFFSET $2 LIMIT $3",
-			["%" + name + "%", skip, limit]
-		);
-
-		for (let company of companyResults.rows) {
-			let locations = await client.query(
-				"SELECT * FROM company_locations WHERE companyid=$1",
-				[company.companyid]
-			);
-			let stats = await client.query(
-				"SELECT * FROM company_review_statistics WHERE name=$1",
-				[company.name]
-			);
-			locationResults[company.name] = locations.rows;
-			statResults[company.name] = stats.rows[0];
-		}
-
-		return {
-			companies: companyResults.rows,
-			locations: locationResults,
-			reviewStats: statResults,
-		};
-	}
-
 	static async getAllCompanies(client, skip, limit) {
 		let companyResults = { rows: [] };
 		let locationResults = {};
@@ -112,84 +82,6 @@ export default class PgCompanyFunctions {
 			companies: companyResults.rows,
 			locations: locationResults,
 			reviewStats: statResults,
-		};
-	}
-
-	static async createCompany(client, company) {
-		let newCompany = { rows: [] };
-		let newLocations = { rows: [] };
-		let newStats = { rows: [] };
-
-		// assumes that company has the well-known format
-		// from the schema in imports/api/data/companies.js
-		newCompany = await client.query(
-			"INSERT INTO companies (name,yearEstablished,industry,contactPhoneNumber,descriptionOfCompany,numEmployees,contactEmail,websiteURL) " +
-				"VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *", // I love PostgreSQL
-			[
-				company.name,
-				company.yearEstablished,
-				company.industry,
-				company.contactPhoneNumber,
-				company.descriptionOfCompany,
-				company.numEmployees,
-				company.contactEmail,
-				company.websiteURL,
-			]
-		);
-
-		if (newCompany.rows.length > 0) {
-			// screw functional programming
-			const id = newCompany.rows[0].companyid;
-			let insertValues = [];
-			let insertValueString = "";
-			let index = 0;
-			for (let location of company.locations) {
-				insertValues.push(id, location);
-				insertValueString =
-					insertValueString +
-					"($" +
-					(index + 1) +
-					",$" +
-					(index + 2) +
-					"),";
-				index += 2;
-			}
-			insertValueString = insertValueString.slice(0, -1);
-
-			newLocations = await client.query(
-				"INSERT INTO company_locations (companyid,companylocation) " +
-					"VALUES " +
-					insertValueString +
-					" RETURNING *",
-				insertValues
-			);
-		}
-
-		return {
-			company: newCompany.rows[0],
-			locations: newLocations.rows,
-			/*
-					Alas, PostgreSQL does not truly support
-					"READ UNCOMMITTED" transactions, which
-					prevents one from getting the review stats
-					as well if there were already reviews for
-					a company with the name of the new company,
-					but I still want to prevent this function
-					being yet another exception case for the
-					purposes of results-processing, so we give
-					back dummy, default values
-				*/
-			reviewStats: {
-				name: newCompany.rows.length > 0 ? newCompany.rows[0].name : "",
-				numreviews: 0,
-				avgnummonthsworked: 0,
-				percentrecommended: 0,
-				healthandsafety: 0,
-				managerrelationship: 0,
-				workenvironment: 0,
-				benefits: 0,
-				overallsatisfaction: 0,
-			},
 		};
 	}
 
@@ -305,7 +197,4 @@ export default class PgCompanyFunctions {
 		}
 		return undefined;
 	}
-
-	// static async editCompany(company) {}
-	// static async deleteCompany(name) {}
 }

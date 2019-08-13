@@ -34,15 +34,6 @@
 			"clacPlaceholder": "Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			"invalidJobId": "ERROR: INVALID JOB ID"
 		},
-		"ccp": {
-			"formTitle": "Create a New Profile",
-			"namePlaceholder": "Enter the name of your company",
-			"emailPlaceholder": "Provide an email we can reach your company at (example@email.com)",
-			"industryPlaceholder": "Tell us your company's primary industry",
-			"contactPhoneNumberPlaceholder": "###-###-####",
-			"websiteUrlPlaceholder": "Please enter the URL of your company's website, if it has one",
-			"descriptionPlaceholder": "Enter a brief description of your company for others to see on its profile page, if you'd like"
-		},
 		"paj": {
 			"contractTypes": {
 				"default": "(Select one)",

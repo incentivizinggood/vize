@@ -5,7 +5,8 @@ const PannelPadding = "30px";
 const Panel = styled.div`
 	margin-left: auto;
 	margin-right: auto;
-	width: max-content;
+	width: 100%;
+	max-width: 500px;
 
 	background-color: ${props => props.theme.surface};
 	color: ${props => props.theme.onSurface};

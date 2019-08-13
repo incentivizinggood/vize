@@ -39,9 +39,6 @@
 		"JobApplications": {
 			"invalidJobId": "Proporcione una identificación de trabajo válida para el trabajo al que desea postularse"
 		},
-		"Companies": {
-			"nameTaken": "El nombre proporcionado ya esta en uso"
-		},
 		"JobAds": {
 			"maxedOutJobPosts": "Solo puede publicar hasta 5 anuncios de trabajo"
 		},
@@ -71,28 +68,6 @@
 			"phoneNumber": "Numero telefonico",
 			"coverLetterAndComments": "Carta de presentación / Comentarios adicionales",
 			"dateSent": "Feha de envio"
-		},
-		"Companies": {
-			"_id": "_id",
-			"name": "Nombre de la empresa",
-			"contactEmail": "Email de contacto",
-			"yearEstablished": "Año Establecido",
-			"numEmployees": "Numero de empleados",
-			"industry": "Industria",
-			"locations": "Ubicaciones",
-			"contactPhoneNumber": "Numbero de Contacto",
-			"websiteURL": "Url pagina de internet",
-			"descriptionOfCompany": "Descripcion de la compañia",
-			"dateJoined": "Fecha en que se unió Vize",
-			"numFlags": "Numero de banderas",
-			"healthAndSafety": "Salud y Bienestar",
-			"managerRelationship": "Relacion del Gerente",
-			"workEnvironment": "Ambiente Laboral",
-			"benefits": "Beneficios",
-			"overallSatisfaction": "Satisfacción General",
-			"numReviews": "Numero de comentarios",
-			"percentRecommended": "Porcentaje Recomendado",
-			"avgNumMonthsWorked": "Numero de meses trabajados"
 		},
 		"JobAds": {
 			"_id": "_id",

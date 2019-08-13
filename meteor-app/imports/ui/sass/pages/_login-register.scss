@@ -8,24 +8,3 @@ button {
 	outline: 0 !important;
 	cursor: pointer;
 }
-
-textarea {
-	box-sizing: border-box;
-	width: 100%;
-	margin: 0;
-	height: calc(#{$base-dimension} + #{$base-dimension} / 2);
-	padding: 0 calc(#{$base-dimension} / 2);
-	font-family: inherit;
-	font-size: $base-dimension;
-	line-height: calc(#{$base-dimension} + #{$base-dimension} / 2);
-	color: $font-color;
-	background-color: white;
-	border: 0;
-	outline: 0 !important;
-	resize: none;
-	overflow: hidden;
-
-	&::placeholder {
-		color: $font-color;
-	}
-}

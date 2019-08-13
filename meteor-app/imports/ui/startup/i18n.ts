@@ -4,7 +4,6 @@ import SimpleSchema from "simpl-schema";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
-import { CompanySchema } from "imports/api/data/companies";
 import { JobAdSchema, JobApplicationSchema } from "imports/api/data/jobads";
 import { ReviewSchema } from "imports/api/data/reviews";
 import { SalarySchema } from "imports/api/data/salaries";
@@ -180,7 +179,6 @@ function setUpI18nOnSchema(schema, schemaName) {
 	i18n.onChangeLocale(thisSchemaSetLocale);
 }
 
-setUpI18nOnSchema(CompanySchema, "Companies");
 setUpI18nOnSchema(JobAdSchema, "JobAds");
 setUpI18nOnSchema(JobApplicationSchema, "JobApplications");
 setUpI18nOnSchema(ReviewSchema, "Reviews");

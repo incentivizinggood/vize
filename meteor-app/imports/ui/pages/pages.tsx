@@ -3,7 +3,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
 import ApplyForJobForm from "./apply-for-job";
-import CompanyCreateProfileForm from "./create-company-profile";
+import CreateCompany from "./create-company";
 import CompanyProfile from "./company-profile";
 import CompanySearchTrial from "./company-search";
 import ContactUsPage from "./contact-us";
@@ -42,10 +42,7 @@ function Pages(props) {
 			<Route path="/" exact component={HomePage} />
 			<Route path="/about" component={AboutPage} />
 			<Route path="/change-password" component={PasswordChanger} />
-			<Route
-				path="/create-company-profile"
-				component={CompanyCreateProfileForm}
-			/>
+			<Route path="/company/create" component={CreateCompany} />
 			<Route path="/contact-us" component={ContactUsPage} />
 			<Route path="/review-submitted" component={ReviewSubmitted} />
 			<Route path="/employer-resources" component={ResourcesEmployers} />

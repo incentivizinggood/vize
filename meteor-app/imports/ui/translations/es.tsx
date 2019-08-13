@@ -76,6 +76,63 @@ export default {
 		createAccount: "Crear Cuenta",
 		registerOrLogin: "Regístrese o inicie sesión para escribir una opinión",
 	},
+	createCompany: {
+		formTitle: "Crear un nuevo perfil",
+		fields: {
+			companyName: {
+				label: "Nombre de la empresa",
+				placeholder: "Por favor ingrese el nombre de su empresa",
+			},
+			contactEmail: {
+				label: "Email de contacto",
+				placeholder:
+					"Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
+			},
+			yearEstablished: { label: "Año Establecido" },
+			numEmployees: { label: "Numero de empleados" },
+			industry: {
+				label: "Industria",
+				placeholder:
+					"Por favor díganos la industria principal de su empresa",
+			},
+			locations: {
+				label: "Ubicaciones",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "otra" : "una"} ubicación`,
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingrese la ciudad para su ubicación",
+				},
+				address: {
+					label: "Dirección",
+					placeholder: "Ingresa la dirección de tu ubicación",
+				},
+				industrialHub: {
+					label: "Parque Industrial",
+					placeholder:
+						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+				},
+			},
+			contactPhoneNumber: {
+				label: "Numbero de Contacto",
+				placeholder: "###-###-####",
+			},
+			websiteURL: {
+				label: "Url pagina de internet",
+				placeholder:
+					"Ingrese la URL del sitio web de su empresa, si tiene una",
+			},
+			descriptionOfCompany: {
+				label: "Descripcion de la compañia",
+				placeholder:
+					"Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea",
+			},
+		},
+		messages: {
+			nameTaken: "El nombre proporcionado ya esta en uso",
+		},
+		submit: "Enviar",
+	},
 	resourcesWorkers: {
 		readMore: "Leer Más →",
 		here: "aquí",

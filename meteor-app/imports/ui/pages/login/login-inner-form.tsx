@@ -1,9 +1,8 @@
 import React from "react";
 import { Form } from "formik";
 
-import FormGroup from "imports/ui/components/form-group";
+import { Field, FormToolbar } from "imports/ui/components/form-stuff";
 import { Button } from "imports/ui/components/button";
-import { FormToolbar } from "imports/ui/components/form-layout";
 import { translations } from "imports/ui/translations";
 
 const T = translations.loginRegister;
@@ -11,27 +10,9 @@ const T = translations.loginRegister;
 function InnerForm() {
 	return (
 		<Form>
-			<T.username
-				renderer={t => (
-					<FormGroup
-						fieldName="username"
-						type="text"
-						label={t.label}
-						placeholder={t.placeholder}
-					/>
-				)}
-			/>
+			<Field name="username" type="text" t={T.username} />
 
-			<T.password
-				renderer={t => (
-					<FormGroup
-						fieldName="password"
-						type="password"
-						label={t.label}
-						placeholder={t.placeholder}
-					/>
-				)}
-			/>
+			<Field name="password" type="password" t={T.password} />
 
 			<FormToolbar>
 				<Button primary type="submit">

@@ -21,6 +21,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "formik": "^1.5.0",
+    "formik-material-ui": "^0.0.20",
     "graphql": "^0.13.2",
     "graphql-iso-date": "^3.6.1",
     "graphql-server-express": "^1.4.0",

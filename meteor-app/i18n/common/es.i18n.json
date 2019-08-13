@@ -34,15 +34,6 @@
 			"clacPlaceholder": "Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
 			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
 		},
-		"ccp": {
-			"formTitle": "Crear un nuevo perfil",
-			"namePlaceholder": "Por favor ingrese el nombre de su empresa",
-			"emailPlaceholder": "Proporcione un correo electrónico para comunicarnos con su empresa (ejemplo@email.com)",
-			"industryPlaceholder": "Por favor díganos la industria principal de su empresa",
-			"contactPhoneNumberPlaceholder": "###-###-####",
-			"websiteUrlPlaceholder": "Ingrese la URL del sitio web de su empresa, si tiene una",
-			"descriptionPlaceholder": "Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea"
-		},
 		"paj": {
 			"contractTypes": {
 				"default": "(Seleccione uno)",

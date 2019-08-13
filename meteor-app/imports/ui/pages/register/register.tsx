@@ -5,7 +5,7 @@ import {
 	FormHeader,
 	FormFooter,
 	FormPageWrapper,
-} from "imports/ui/components/form-layout";
+} from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
 import RegisterForm from "./register-form";
