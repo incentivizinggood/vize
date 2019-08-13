@@ -44,10 +44,6 @@
 		},
 		"Salaries": {
 			"secondSalaryByUser": "Solo puede publicar datos de salario una vez por compañía"
-		},
-		"Reviews": {
-			"secondReviewByUser": "Solo puede escribir una revisión para cada compañía",
-			"needsFiveWords": "Debes colocar por lo menos 5 palabras en este campo"
 		}
 	},
 	"labels": {
@@ -93,28 +89,6 @@
 			"incomeAmount": "Cantidad de Ingresos",
 			"gender": "Genero",
 			"datePosted": "Fecha de publicacion"
-		},
-		"Reviews": {
-			"_id": "_id",
-			"submittedBy": "Presentado por",
-			"companyName": "Nombre de la empresa",
-			"companyId": "companyId",
-			"reviewTitle": "Titulo de la revisión",
-			"location": "Localización",
-			"jobTitle": "Titulo del Trabajo",
-			"numberOfMonthsWorked": "Numero de meses trabajados",
-			"pros": "Ventajas",
-			"cons": "Limitaciones",
-			"wouldRecommendToOtherJobSeekers": "Recomendaría a otros solicitantes de empleo",
-			"healthAndSafety": "Salud y Beneficios",
-			"managerRelationship": "Relaciones del Gerente",
-			"workEnvironment": "Ambiente Laboral",
-			"benefits": "Beneficios",
-			"overallSatisfaction": "Satisfacción General",
-			"additionalComments": "Comentarios Adicionales",
-			"datePosted": "Fecha de Publicacion",
-			"upvotes": "Votos a favor",
-			"downvotes": "Votos en contra"
 		}
 	}
 }

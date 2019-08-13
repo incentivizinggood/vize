@@ -5,7 +5,6 @@ import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
 import { JobAdSchema, JobApplicationSchema } from "imports/api/data/jobads";
-import { ReviewSchema } from "imports/api/data/reviews";
 import { SalarySchema } from "imports/api/data/salaries";
 
 i18n.setOptions({
@@ -181,7 +180,6 @@ function setUpI18nOnSchema(schema, schemaName) {
 
 setUpI18nOnSchema(JobAdSchema, "JobAds");
 setUpI18nOnSchema(JobApplicationSchema, "JobApplications");
-setUpI18nOnSchema(ReviewSchema, "Reviews");
 setUpI18nOnSchema(SalarySchema, "Salaries");
 
 // This is used on input forms whenever I couldn't

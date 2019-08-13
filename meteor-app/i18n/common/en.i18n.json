@@ -63,16 +63,6 @@
 			"header2": "sure others are getting compensated fairly.",
 			"companyNamePlaceholder": "Tell us the name of the company you worked for",
 			"jobTitlePlaceholder": "Tell us your job title there"
-		},
-		"wr": {
-			"formTitle": "Write a Review",
-			"header1": "Contribute your anonymous feedback to the community",
-			"companyNamePlaceholder": "Enter the name of the company you're reviewing",
-			"reviewTitlePlaceholder": "Please choose a title for your review",
-			"jobTitlePlaceholder": "Enter the name of the position you held at this company",
-			"prosPlaceholder": "What did you love about this company and why would you recommend it to someone else?",
-			"consPlaceholder": "What did you not like about this company? What do you think they could do to be better?",
-			"additionalCommentsPlaceholder": "Enter any additional thoughts or comments you may have on your experience working for this company."
 		}
 	},
 	"search": {

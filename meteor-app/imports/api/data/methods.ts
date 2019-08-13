@@ -6,12 +6,10 @@ import * as dataModel from "imports/api/models/index";
 
 import { PostgreSQL } from "imports/api/connectors/postgresql/index";
 import PgCompanyFunctions from "imports/api/models/helpers/postgresql/companies";
-import PgReviewFunctions from "imports/api/models/helpers/postgresql/reviews";
 import PgJobAdFunctions from "imports/api/models/helpers/postgresql/jobads";
 import PgSalaryFunctions from "imports/api/models/helpers/postgresql/salaries";
 import PgUserFunctions from "imports/api/models/helpers/postgresql/users";
 
-import { ReviewSchema } from "./reviews";
 import { SalarySchema } from "./salaries";
 import { JobAdSchema, JobApplicationSchema } from "./jobads";
 
@@ -25,103 +23,6 @@ Meteor.methods({
 	flagAReview(reviewId, reason, explanation) {
 		// gets the data from the frontend and sends an email.
 		dataModel.flagAReview(reviewId, this.userId, reason, explanation);
-	},
-
-	hasFiveWords(inputString) {
-		// Funny story, String.prototype.wordCount is actually
-		// defined in reviews.js because I couldn't find a
-		// better place for it. Just in case you're wondering.
-		if (
-			inputString === undefined ||
-			typeof inputString !== "string" ||
-			inputString.wordCount() < 5
-		) {
-			return false;
-		}
-		return true;
-	},
-
-	async "reviews.checkForSecondReviewByUser"(companyName) {
-		if (this.userId) {
-			const pgUser = await PostgreSQL.executeQuery(
-				PgUserFunctions.getUserById,
-				this.userId
-			);
-			const reviewsByPgUser = PgReviewFunctions.processReviewResults(
-				await PostgreSQL.executeQuery(
-					PgReviewFunctions.getReviewsByAuthor,
-					pgUser.user.userid
-				)
-			);
-			if (
-				reviewsByPgUser.filter(
-					review => review.companyName === companyName
-				).length > 0
-			)
-				return false;
-		}
-
-		return true;
-	},
-
-	async "reviews.submitReview"(newReview) {
-		// This avoids a lot of problems
-		const cleanReview = ReviewSchema.clean(newReview);
-
-		// Make sure the user is logged and is permitted to write a review.
-		if (!this.userId) {
-			throw new Meteor.Error("loggedOut", "loggedOut");
-		}
-
-		const user = Meteor.users.findOne(this.userId);
-
-		if (user.role !== "worker") {
-			throw new Meteor.Error("rolePermission", "onlyWorkers");
-		}
-
-		const pgUser = await PostgreSQL.executeQuery(
-			PgUserFunctions.getUserById,
-			this.userId
-		);
-
-		cleanReview.submittedBy = pgUser.user.userid;
-
-		const validationResult = ReviewSchema.namedContext().validate(
-			cleanReview
-		);
-		const errors = ReviewSchema.namedContext().validationErrors();
-
-		if (Meteor.isDevelopment) {
-			console.log("SERVER: Here is the validation result: ");
-			console.log(validationResult);
-			console.log(errors);
-		}
-
-		if (!validationResult) {
-			throw new Meteor.Error(
-				"invalidArguments",
-				"invalidFormInputs",
-				errors
-			);
-		}
-
-		const newPgReview = PgReviewFunctions.processReviewResults(
-			await PostgreSQL.executeMutation(
-				PgReviewFunctions.submitReview,
-				cleanReview
-			)
-		);
-
-		if (Meteor.isDevelopment) console.log(newPgReview);
-
-		return newPgReview;
-
-		/*
-			QUESTION:
-				If the actions taken are different depending on whether
-				the company is verified or unverified, how do I handle
-				that?
-		*/
 	},
 
 	async "salaries.checkForSecondSalaryByUser"(companyName) {
