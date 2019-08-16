@@ -127,6 +127,80 @@ export default {
 		},
 		submit: "Submit",
 	},
+	createReview: {
+		formTitle: "Write a Review",
+		formSubTitle: "Contribute your anonymous feedback to the community",
+		fields: {
+			companyName: {
+				label: "Company Name",
+				placeholder: "Enter the name of the company you're reviewing",
+			},
+			reviewTitle: {
+				label: "Review Title",
+				placeholder: "Please choose a title for your review",
+			},
+			location: {
+				label: "Location",
+				city: {
+					label: "City",
+					placeholder: "Enter the city for your location",
+				},
+				address: {
+					label: "Address",
+					placeholder: "Enter the street address for your location",
+				},
+				industrialHub: {
+					label: "Industrial Park",
+					placeholder:
+						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+				},
+			},
+			jobTitle: {
+				label: "Job Title",
+				placeholder:
+					"Enter the name of the position you held at this company",
+			},
+			numberOfMonthsWorked: {
+				label: "Number of Months Worked",
+			},
+			pros: {
+				label: "Pros",
+				placeholder:
+					"What did you love about this company and why would you recommend it to someone else?",
+			},
+			cons: {
+				label: "Cons",
+				placeholder:
+					"What did you not like about this company? What do you think they could do to be better?",
+			},
+			wouldRecommendToOtherJobSeekers: {
+				label: "Would Recommend to Other Job Seekers",
+				yes: "Yes",
+				no: "No",
+			},
+			healthAndSafety: {
+				label: "Health and Safety",
+			},
+			managerRelationship: {
+				label: "Manager Relationship",
+			},
+			workEnvironment: {
+				label: "Work Environment",
+			},
+			benefits: {
+				label: "Benefits",
+			},
+			overallSatisfaction: {
+				label: "Overall Satisfaction",
+			},
+			additionalComments: {
+				label: "Additional Comments",
+				placeholder:
+					"Enter any additional thoughts or comments you may have on your experience working for this company.",
+			},
+		},
+		submit: "Submit",
+	},
 	resourcesWorkers: {
 		readMore: "Read More →",
 		here: "here",

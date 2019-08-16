@@ -10,10 +10,10 @@ const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
-		<Form id="register-form" style={{ display: "block" }}>
+		<Form noValidate>
 			<T
 				renderer={t => (
-					<Field name="role" select label="I am a...">
+					<Field name="role" select required label="I am a...">
 						<option value="">(Select One)</option>
 						<option value="worker">{t.employee}</option>
 						<option value="company">{t.employer}</option>
@@ -27,15 +27,20 @@ function InnerForm() {
 					formik.values.role === "company"
 				}
 			>
-				<Field name="username" type="text" t={T.username} />
+				<Field name="username" type="text" required t={T.username} />
 
-				<Field name="email" type="email" t={T.email} />
+				<Field name="email" type="email" required t={T.email} />
 
 				<IfFormik cond={formik => formik.values.role === "company"}>
 					<Field name="companyName" type="text" t={T.companyName} />
 				</IfFormik>
 
-				<Field name="password" type="password" t={T.password} />
+				<Field
+					name="password"
+					type="password"
+					required
+					t={T.password}
+				/>
 
 				<FormToolbar>
 					<Button primary type="submit">

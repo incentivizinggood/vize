@@ -75,7 +75,7 @@ function CompanyProfileSummary(props) {
 
 				<div className="col-md-4 prostar">
 					<div className="col-md-12">
-						<WriteReviewButton companyId={props.company.id} />
+						<WriteReviewButton companyName={props.company.name} />
 					</div>
 				</div>
 			</div>

@@ -133,6 +133,81 @@ export default {
 		},
 		submit: "Enviar",
 	},
+	createReview: {
+		formTitle: "Escribe una Reseña",
+		formSubTitle: "Contribuya sus opiniones anónimas a la comunidad",
+		fields: {
+			companyName: {
+				label: "Nombre de la empresa",
+				placeholder:
+					"Ingrese el nombre de la compañía que está revisando",
+			},
+			reviewTitle: {
+				label: "Titulo de la revisión",
+				placeholder: "Por favor, elija un título para su opinión",
+			},
+			location: {
+				label: "Localización",
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingrese la ciudad para su ubicación",
+				},
+				address: {
+					label: "Dirección",
+					placeholder: "Ingresa la dirección de tu ubicación",
+				},
+				industrialHub: {
+					label: "Parque Industrial",
+					placeholder:
+						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+				},
+			},
+			jobTitle: {
+				label: "Titulo del Trabajo",
+				placeholder:
+					"Ingrese el nombre del puesto que ocupó en esta empresa",
+			},
+			numberOfMonthsWorked: {
+				label: "Numero de meses trabajados",
+			},
+			pros: {
+				label: "Ventajas",
+				placeholder:
+					"¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona?",
+			},
+			cons: {
+				label: "Limitaciones",
+				placeholder:
+					"¿Qué fue lo que no te gustó de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
+			},
+			wouldRecommendToOtherJobSeekers: {
+				label: "Recomendaría a otros solicitantes de empleo",
+				yes: "Yes",
+				no: "No",
+			},
+			healthAndSafety: {
+				label: "Salud y Beneficios",
+			},
+			managerRelationship: {
+				label: "Relaciones del Gerente",
+			},
+			workEnvironment: {
+				label: "Ambiente Laboral",
+			},
+			benefits: {
+				label: "Beneficios",
+			},
+			overallSatisfaction: {
+				label: "Satisfacción General",
+			},
+			additionalComments: {
+				label: "Comentarios Adicionales",
+				placeholder:
+					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa.",
+			},
+		},
+		submit: "Enviar",
+	},
 	resourcesWorkers: {
 		readMore: "Leer Más →",
 		here: "aquí",

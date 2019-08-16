@@ -9,10 +9,10 @@ const T = translations.loginRegister;
 
 function InnerForm() {
 	return (
-		<Form>
-			<Field name="username" type="text" t={T.username} />
+		<Form noValidate>
+			<Field name="username" type="text" required t={T.username} />
 
-			<Field name="password" type="password" t={T.password} />
+			<Field name="password" type="password" required t={T.password} />
 
 			<FormToolbar>
 				<Button primary type="submit">

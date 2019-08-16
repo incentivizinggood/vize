@@ -44,10 +44,6 @@
 		},
 		"Salaries": {
 			"secondSalaryByUser": "You may only post salary data once per company"
-		},
-		"Reviews": {
-			"secondReviewByUser": "You may only write one review for each company",
-			"needsFiveWords": "You should write at least 5 words in this field"
 		}
 	},
 	"labels": {
@@ -93,28 +89,6 @@
 			"incomeAmount": "Income Amount",
 			"gender": "Gender",
 			"datePosted": "Date Posted"
-		},
-		"Reviews": {
-			"_id": "_id",
-			"submittedBy": "Submitted By",
-			"companyName": "Company Name",
-			"companyId": "Company ID",
-			"reviewTitle": "Review Title",
-			"location": "Location",
-			"jobTitle": "Job Title",
-			"numberOfMonthsWorked": "Number of Months Worked",
-			"pros": "Pros",
-			"cons": "Cons",
-			"wouldRecommendToOtherJobSeekers": "Would Recommend to Other Job Seekers",
-			"healthAndSafety": "Health and Safety",
-			"managerRelationship": "Manager Relationship",
-			"workEnvironment": "Work Environment",
-			"benefits": "Benefits",
-			"overallSatisfaction": "Overall Satisfaction",
-			"additionalComments": "Additional Comments",
-			"datePosted": "Date Posted",
-			"upvotes": "Upvotes",
-			"downvotes": "Downvotes"
 		}
 	}
 }

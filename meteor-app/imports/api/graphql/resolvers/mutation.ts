@@ -39,4 +39,14 @@ export const Mutation: MutationResolvers = {
 		const company = await dataModel.getCompanyById(companyId);
 		return { company };
 	},
+
+	createReview: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		const reviewId = await dataModel.createReview(
+			input,
+			await dataModel.getUserPostgresId(context.user._id)
+		);
+		const review = await dataModel.getReviewById(reviewId);
+		return { review };
+	},
 };

@@ -33,7 +33,7 @@ function ReviewsSection(props) {
 					{props.company.name} <T>common.overview_tab.reviews</T>
 				</h4>
 				<div className="add-buttons">
-					<WriteReviewButton companyId={props.company.id} />
+					<WriteReviewButton companyName={props.company.name} />
 				</div>
 				<hr />
 				<CompanyRating company={props.company} />

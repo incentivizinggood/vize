@@ -1,0 +1,28 @@
+mutation createReview($input: CreateReviewInput!) {
+	createReview(input: $input) {
+		review {
+			id
+			company {
+				name
+			}
+			title
+			jobTitle
+			location {
+				address
+				city
+				industrialHub
+			}
+			numberOfMonthsWorked
+			pros
+			cons
+			wouldRecommendToOtherJobSeekers
+			additionalComments
+			created
+			upvotes
+			downvotes
+			currentUserVote {
+				isUpvote
+			}
+		}
+	}
+}

@@ -29,6 +29,7 @@ type Mutation {
 	castVote(input: CastVoteInput!): CastVotePayload
 
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
+	createReview(input: CreateReviewInput!): CreateReviewPayload
 }
 
 input CreateCompanyInput {
@@ -51,6 +52,27 @@ input LocationInput {
 
 type CreateCompanyPayload {
 	company: Company
+}
+
+input CreateReviewInput {
+	companyName: String!
+	reviewTitle: String!
+	location: LocationInput!
+	jobTitle: String!
+	numberOfMonthsWorked: Float!
+	pros: String!
+	cons: String!
+	wouldRecommendToOtherJobSeekers: Boolean!
+	healthAndSafety: Int!
+	managerRelationship: Int!
+	workEnvironment: Int!
+	benefits: Int!
+	overallSatisfaction: Int!
+	additionalComments: String
+}
+
+type CreateReviewPayload {
+	review: Review
 }
 
 input CastVoteInput {

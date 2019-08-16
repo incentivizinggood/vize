@@ -28,7 +28,9 @@ function ReviewTab(props) {
 							<T>common.review_tab.reviews</T>
 						</h4>
 						<div className="add-buttons">
-							<WriteReviewButton companyId={props.company.id} />
+							<WriteReviewButton
+								companyName={props.company.name}
+							/>
 						</div>
 					</div>
 				</div>
