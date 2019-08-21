@@ -50,7 +50,7 @@ export async function createSalary(
 		const {
 			rows: [{ salaryid }],
 		} = await client.query(sql`
-			INSERT INTO salarys
+			INSERT INTO salaries
 				(
 					submittedby,
 					companyname,
@@ -58,7 +58,7 @@ export async function createSalary(
 					jobtitle,
 					incometype,
 					incomeamount,
-					gender,
+					gender
 				)
 			VALUES
 				(

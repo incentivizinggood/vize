@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import AboutPage from "./about";
 import ApplyForJobForm from "./apply-for-job";
 import CreateCompany from "./create-company";
+import CreateSalary from "./create-salary";
 import CompanyProfile from "./company-profile";
 import CompanySearchTrial from "./company-search";
 import ContactUsPage from "./contact-us";
@@ -83,13 +84,23 @@ function Pages(props) {
 			/>
 
 			<Route
-				path={`/${queryRoutes.submitSalaryData}`}
+				path={`/${queryRoutes.submitSalaryData}-old`}
 				component={() => (
 					<SubmitSalaryDataForm
 						companyId={fixNullParams(params.get("id"))}
 					/>
 				)}
 			/>
+
+			<Route
+				path={`/${queryRoutes.submitSalaryData}`}
+				component={() => (
+					<CreateSalary
+						companyName={fixNullParams(params.get("companyname"))}
+					/>
+				)}
+			/>
+
 			<Route
 				path={`/${queryRoutes.applyForJob}`}
 				component={() => (
