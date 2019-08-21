@@ -7,10 +7,8 @@ import * as dataModel from "imports/api/models/index";
 import { PostgreSQL } from "imports/api/connectors/postgresql/index";
 import PgCompanyFunctions from "imports/api/models/helpers/postgresql/companies";
 import PgJobAdFunctions from "imports/api/models/helpers/postgresql/jobads";
-import PgSalaryFunctions from "imports/api/models/helpers/postgresql/salaries";
 import PgUserFunctions from "imports/api/models/helpers/postgresql/users";
 
-import { SalarySchema } from "./salaries";
 import { JobAdSchema, JobApplicationSchema } from "./jobads";
 
 Meteor.methods({
@@ -23,84 +21,6 @@ Meteor.methods({
 	flagAReview(reviewId, reason, explanation) {
 		// gets the data from the frontend and sends an email.
 		dataModel.flagAReview(reviewId, this.userId, reason, explanation);
-	},
-
-	async "salaries.checkForSecondSalaryByUser"(companyName) {
-		if (this.userId) {
-			const pgUser = await PostgreSQL.executeQuery(
-				PgUserFunctions.getUserById,
-				this.userId
-			);
-			const salariesByPgUser = PgSalaryFunctions.processSalaryResults(
-				await PostgreSQL.executeQuery(
-					PgSalaryFunctions.getSalariesByAuthor,
-					pgUser.user.userid
-				)
-			);
-			if (
-				salariesByPgUser.filter(
-					salary => salary.companyName === companyName
-				).length > 0
-			)
-				return false;
-		}
-
-		return true;
-	},
-
-	async "salaries.submitSalaryData"(salary) {
-		// This avoids a lot of problems
-		const newSalary = SalarySchema.clean(salary);
-
-		const validationResult = SalarySchema.namedContext().validate(
-			newSalary
-		);
-		const errors = SalarySchema.namedContext().validationErrors();
-
-		if (Meteor.isDevelopment) {
-			console.log("SERVER: Here is the validation result: ");
-			console.log(validationResult);
-			console.log(errors);
-		}
-
-		if (!validationResult) {
-			throw new Meteor.Error(
-				"invalidArguments",
-				"invalidFormInputs",
-				errors
-			);
-		}
-
-		// Make sure the user is logged and is permitted to submit their salary.
-		if (!this.userId) {
-			throw new Meteor.Error("loggedOut", "loggedOut");
-		}
-
-		const user = Meteor.users.findOne(this.userId);
-
-		if (user.role !== "worker") {
-			throw new Meteor.Error("rolePermission", "onlyWorkers");
-		}
-
-		// TODO: filter by location as well
-
-		if (Meteor.isDevelopment) console.log("SERVER: inserting");
-
-		const pgUser = await PostgreSQL.executeQuery(
-			PgUserFunctions.getUserById,
-			this.userId
-		);
-
-		newSalary.submittedBy = pgUser.user.userid;
-		if (typeof newSalary.companyId === "string")
-			newSalary.companyId = undefined;
-
-		const newPgSalary = await PostgreSQL.executeMutation(
-			PgSalaryFunctions.submitSalary,
-			newSalary
-		);
-
-		return newPgSalary;
 	},
 
 	async "jobads.findOne"(jobIdentifier) {

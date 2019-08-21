@@ -30,9 +30,7 @@ const baseQuery = sql`SELECT ${attributes} FROM salaries`;
 export async function getSalaryById(id: SalaryId): Promise<Salary | null> {
 	if (Number.isNaN(Number(id))) return null;
 
-	return simpleQuery1(
-		sql`SELECT * FROM salaries WHERE salaryid=${Number(id)}`
-	);
+	return simpleQuery1(sql`${baseQuery} WHERE salaryid=${Number(id)}`);
 }
 
 // Get all salaries submitted by a given user.

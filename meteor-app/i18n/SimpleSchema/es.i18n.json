@@ -41,9 +41,6 @@
 		},
 		"JobAds": {
 			"maxedOutJobPosts": "Solo puede publicar hasta 5 anuncios de trabajo"
-		},
-		"Salaries": {
-			"secondSalaryByUser": "Solo puede publicar datos de salario una vez por compañía"
 		}
 	},
 	"labels": {
@@ -77,18 +74,6 @@
 			"responsibilities": "Resposabilidades",
 			"qualifications": "Calificaciones",
 			"datePosted": "fecha de publicacion"
-		},
-		"Salaries": {
-			"_id": "_id",
-			"submittedBy": "Presentado por",
-			"companyName": "Nombre de la empresa",
-			"companyId": "companyId",
-			"jobTitle": "Titulo del Trabajo",
-			"location": "Localización",
-			"incomeType": "Tipo de Ingreso (en Pesos)",
-			"incomeAmount": "Cantidad de Ingresos",
-			"gender": "Genero",
-			"datePosted": "Fecha de publicacion"
 		}
 	}
 }

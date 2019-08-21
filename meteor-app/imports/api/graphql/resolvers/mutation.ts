@@ -49,4 +49,35 @@ export const Mutation: MutationResolvers = {
 		const review = await dataModel.getReviewById(reviewId);
 		return { review };
 	},
+
+	createSalary: async (
+		_obj,
+		{ input: { incomeType, gender, ...input } },
+		context,
+		_info
+	) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const salaryId = await dataModel.createSalary(
+			{
+				// TODO: change the database so that we do not need to convert these.
+				incomeType:
+					incomeType === "YEARLY_SALARY"
+						? "Yearly Salary"
+						: incomeType === "MONTHLY_SALARY"
+						? "Monthly Salary"
+						: "Hourly Wage",
+				gender:
+					gender === "MALE"
+						? "Male"
+						: gender === "FEMALE"
+						? "Female"
+						: undefined,
+				...input,
+			},
+			await dataModel.getUserPostgresId(context.user._id)
+		);
+		const salary = await dataModel.getSalaryById(salaryId);
+		return { salary };
+	},
 };

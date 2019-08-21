@@ -1,11 +1,6 @@
 {
 	"_locale": "en",
 	"_namespace": "common",
-	"gender": {
-		"default": "(Select one)",
-		"male": "Male",
-		"female": "Female"
-	},
 	"passwordChanger": {
 		"oldPassword": "Current password",
 		"newPassword": "New password",
@@ -49,20 +44,6 @@
 			"jobResponsibilitiesPlaceholder": "Summarize the responsibilities of this position",
 			"jobQualificationsPlaceholder": "Summarize the qualifications needed for this position",
 			"profileNotFoundError": "ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
-		},
-		"ssd": {
-			"payTypes": {
-				"default": "(Select one)",
-				"yearlySalary": "Yearly Salary",
-				"monthlySalary": "Monthly Salary",
-				"weeklySalary": "Weekly Salary",
-				"hourlyWage": "Hourly Wage"
-			},
-			"formTitle": "Submit Salary Data",
-			"header1": "Share your salary anonymously to make ",
-			"header2": "sure others are getting compensated fairly.",
-			"companyNamePlaceholder": "Tell us the name of the company you worked for",
-			"jobTitlePlaceholder": "Tell us your job title there"
 		}
 	},
 	"search": {

@@ -1,11 +1,6 @@
 {
 	"_locale": "es",
 	"_namespace": "common",
-	"gender": {
-		"default": "(Seleccione uno)",
-		"male": "Hombre",
-		"female": "Mujer"
-	},
 	"passwordChanger": {
 		"oldPassword": "Contraseña actual",
 		"newPassword": "Nueva contraseña",
@@ -49,20 +44,6 @@
 			"jobResponsibilitiesPlaceholder": "Por favor resuma las responsabilidades de este puesto",
 			"jobQualificationsPlaceholder": "Por favor resuma las calificaciones necesarias para este puesto",
 			"profileNotFoundError": "ERROR: PERFIL DE LA EMPRESA NO SE ENCUENTRA (INICIAR SESIÓN Y / O CREAR UN PERFIL PARA PUBLICAR UN TRABAJO)"
-		},
-		"ssd": {
-			"payTypes": {
-				"default": "(Seleccione uno)",
-				"yearlySalary": "Salario anual",
-				"monthlySalary": "Salario mensual",
-				"weeklySalary": "Salario semanal",
-				"hourlyWage": "Salario por hora"
-			},
-			"formTitle": "Forma Salarial",
-			"header1": "Comparta su salario de forma anónima para asegurarse ",
-			"header2": "de que otros reciban una compensación justa",
-			"companyNamePlaceholder": "Díganos el nombre de la empresa en que trabajó",
-			"jobTitlePlaceholder": "Díganos su título de trabajo en la empresa"
 		}
 	},
 	"search": {

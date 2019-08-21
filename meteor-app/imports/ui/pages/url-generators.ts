@@ -14,12 +14,14 @@ const vizeProfileUrl = function(companyId) {
 	return `/${queryRoutes.companyProfile}/?id=${companyId}`;
 };
 const vizeReviewUrl = function(companyName?: string) {
-	return `/write-review/${
+	return `/${queryRoutes.writeReview}/${
 		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
 	}`;
 };
-const vizeSalaryUrl = function(companyId) {
-	return `/${queryRoutes.submitSalaryData}/?id=${companyId}`;
+const vizeSalaryUrl = function(companyName?: string) {
+	return `/${queryRoutes.submitSalaryData}/${
+		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
+	}`;
 };
 const vizeApplyForJobUrl = function(jobId) {
 	return `/${queryRoutes.applyForJob}/?id=${jobId}`;

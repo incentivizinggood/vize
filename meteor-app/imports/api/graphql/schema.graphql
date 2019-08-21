@@ -30,6 +30,7 @@ type Mutation {
 
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
 	createReview(input: CreateReviewInput!): CreateReviewPayload
+	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
 }
 
 input CreateCompanyInput {
@@ -73,6 +74,19 @@ input CreateReviewInput {
 
 type CreateReviewPayload {
 	review: Review
+}
+
+input CreateSalaryInput {
+	companyName: String!
+	location: LocationInput!
+	jobTitle: String!
+	incomeType: IncomeType!
+	incomeAmount: Float!
+	gender: Gender
+}
+
+type CreateSalaryPayload {
+	salary: Salary
 }
 
 input CastVoteInput {
@@ -211,12 +225,23 @@ type Review {
 	currentUserVote: Vote
 }
 
+enum IncomeType {
+	YEARLY_SALARY
+	MONTHLY_SALARY
+	HOURLY_WAGE
+}
+
+enum Gender {
+	MALE
+	FEMALE
+}
+
 type Salary {
 	id: ID!
 
 	jobTitle: String!
 	location: Location!
-	incomeType: String! # TODO change to enum
+	incomeType: IncomeType!
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
 	created: DateTime
