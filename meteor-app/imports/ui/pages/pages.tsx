@@ -20,7 +20,6 @@ import RegisterPage from "./register";
 import ResourcesEmployers from "./resources-employers";
 import ResourcesWorkers from "./resources-workers";
 import ShowJobs from "./show-jobs";
-import SubmitSalaryDataForm from "./submit-salary-data";
 import UserPage from "./user";
 import CreateReview from "./create-review";
 import ReviewSubmitted from "./review-submitted";
@@ -79,15 +78,6 @@ function Pages(props) {
 				component={() => (
 					<CreateReview
 						companyName={fixNullParams(params.get("companyname"))}
-					/>
-				)}
-			/>
-
-			<Route
-				path={`/${queryRoutes.submitSalaryData}-old`}
-				component={() => (
-					<SubmitSalaryDataForm
-						companyId={fixNullParams(params.get("id"))}
 					/>
 				)}
 			/>
