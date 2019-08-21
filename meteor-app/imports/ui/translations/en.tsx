@@ -201,6 +201,57 @@ export default {
 		},
 		submit: "Submit",
 	},
+	createSalary: {
+		formTitle: "Submit Salary Data",
+		header1: "Share your salary anonymously to make ",
+		header2: "sure others are getting compensated fairly.",
+		fields: {
+			companyName: {
+				label: "Company Name",
+				placeholder: "Tell us the name of the company you worked for",
+			},
+			reviewTitle: {
+				label: "Review Title",
+				placeholder: "Please choose a title for your review",
+			},
+			location: {
+				label: "Location",
+				city: {
+					label: "City",
+					placeholder: "Enter the city for your location",
+				},
+				address: {
+					label: "Address",
+					placeholder: "Enter the street address for your location",
+				},
+				industrialHub: {
+					label: "Industrial Park",
+					placeholder:
+						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+				},
+			},
+			jobTitle: {
+				label: "Job Title",
+				placeholder: "Tell us your job title there",
+			},
+			incomeType: {
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				hourlyWage: "Hourly Wage",
+			},
+			incomeAmount: {
+				label: "Income Amount",
+			},
+			gender: {
+				label: "Gender",
+				male: "Male",
+				female: "Female",
+			},
+		},
+		submit: "Submit",
+	},
 	resourcesWorkers: {
 		readMore: "Read More →",
 		here: "here",

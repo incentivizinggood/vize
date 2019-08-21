@@ -208,6 +208,57 @@ export default {
 		},
 		submit: "Enviar",
 	},
+	createSalary: {
+		formTitle: "Forma Salarial",
+		header1: "Comparta su salario de forma anónima para asegurarse ",
+		header2: "de que otros reciban una compensación justa",
+		fields: {
+			companyName: {
+				label: "Nombre de la empresa",
+				placeholder: "Díganos el nombre de la empresa en que trabajó",
+			},
+			reviewTitle: {
+				label: "Titulo de la revisión",
+				placeholder: "Por favor, elija un título para su opinión",
+			},
+			location: {
+				label: "Localización",
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingrese la ciudad para su ubicación",
+				},
+				address: {
+					label: "Dirección",
+					placeholder: "Ingresa la dirección de tu ubicación",
+				},
+				industrialHub: {
+					label: "Parque Industrial",
+					placeholder:
+						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+				},
+			},
+			jobTitle: {
+				label: "Titulo del Trabajo",
+				placeholder: "Díganos su título de trabajo en la empresa",
+			},
+			incomeType: {
+				label: "Tipo de Ingreso (en Pesos)",
+				yearlySalary: "Salario anual",
+				monthlySalary: "Salario mensual",
+				weeklySalary: "Salario semanal",
+				hourlyWage: "Salario por hora",
+			},
+			incomeAmount: {
+				label: "Cantidad de Ingresos",
+			},
+			gender: {
+				label: "Genero",
+				male: "Hombre",
+				female: "Mujer",
+			},
+		},
+		submit: "Enviar",
+	},
 	resourcesWorkers: {
 		readMore: "Leer Más →",
 		here: "aquí",

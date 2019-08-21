@@ -41,9 +41,6 @@
 		},
 		"JobAds": {
 			"maxedOutJobPosts": "You may only post up to 5 job ads"
-		},
-		"Salaries": {
-			"secondSalaryByUser": "You may only post salary data once per company"
 		}
 	},
 	"labels": {
@@ -76,18 +73,6 @@
 			"jobDescription": "Job Description",
 			"responsibilities": "Responsibilities",
 			"qualifications": "Qualifications",
-			"datePosted": "Date Posted"
-		},
-		"Salaries": {
-			"_id": "_id",
-			"submittedBy": "Submitted By",
-			"companyName": "Company Name",
-			"companyId": "Company ID",
-			"jobTitle": "Job Title",
-			"location": "Location",
-			"incomeType": "Income Type (in Pesos)",
-			"incomeAmount": "Income Amount",
-			"gender": "Gender",
 			"datePosted": "Date Posted"
 		}
 	}
