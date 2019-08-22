@@ -12,6 +12,7 @@ const T = translations.loginRegister;
 const RegisterButton = styled(Button)`
 	font-size: 22px;
 	width: 100%;
+	margin-top: 20px;
 `;
 
 function InnerForm() {
