@@ -23,7 +23,14 @@ function RegisterPage() {
 			<RegisterForm />
 			<FormFooter>
 				<T.alreadyAccount />
-				<Link to="/login">
+				<Link
+					to={{
+						pathname: "/login",
+						state: {
+							prevPath: location.pathname,
+						},
+					}}
+				>
 					<T.login />
 				</Link>
 			</FormFooter>

@@ -38,9 +38,14 @@ function JobPosting(props) {
 				<div>
 					<div className="add-buttons">
 						<Link
-							to={urlGenerators.vizeApplyForJobUrl(
-								props.jobAd.id
-							)}
+							to={{
+								pathname: urlGenerators.vizeApplyForJobUrl(
+									props.jobAd.id
+								),
+								state: {
+									prevPath: location.pathname,
+								},
+							}}
 							className="btn btn-primary"
 						>
 							{" "}

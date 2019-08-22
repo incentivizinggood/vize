@@ -26,7 +26,14 @@ function SalaryTab(props) {
 				</h4>
 				<div className="add-buttons">
 					<LinkButton
-						to={urlGenerators.vizeSalaryUrl(props.company.name)}
+						to={{
+							pathname: urlGenerators.vizeSalaryUrl(
+								props.company.name
+							),
+							state: {
+								prevPath: location.pathname,
+							},
+						}}
 						primary
 					>
 						<FontAwesomeIcon icon={faPlus} />

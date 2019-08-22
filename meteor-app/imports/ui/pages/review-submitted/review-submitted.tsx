@@ -92,7 +92,15 @@ class ReviewSubmitted extends React.Component {
 					<br />
 					<h3>You must be logged in to use this page. </h3>
 					<br />
-					<Link className="btn btn-primary" to="/login">
+					<Link
+						className="btn btn-primary"
+						to={{
+							pathname: "/login",
+							state: {
+								prevPath: location.pathname,
+							},
+						}}
+					>
 						Log In
 					</Link>
 					<br />

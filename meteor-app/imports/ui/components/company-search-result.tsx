@@ -7,7 +7,7 @@ import {
 	faFlask,
 	faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import Link from "imports/ui/components/link";
 
 import { i18n } from "meteor/universe:i18n";
 
@@ -24,7 +24,15 @@ function CompanySearchResult(props) {
 			<div className="container company-search-container">
 				<div className="container">
 					<div className="col-md-3  prostar">
-						<Link to={companyProfileUrl} target="_blank">
+						<Link
+							to={{
+								pathname: companyProfileUrl,
+								state: {
+									prevPath: location.pathname,
+								},
+							}}
+							target="_blank"
+						>
 							<div className="company-search-img">
 								<img
 									src="/images/default-company.png"
@@ -37,7 +45,14 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
-							<Link to={companyProfileUrl}>
+							<Link
+								to={{
+									pathname: companyProfileUrl,
+									state: {
+										prevPath: location.pathname,
+									},
+								}}
+							>
 								{props.company.name}
 							</Link>
 						</span>

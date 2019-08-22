@@ -31,9 +31,14 @@ export default function JobsSection(props) {
 						style={{ float: "right", marginTop: "0px" }}
 					>
 						<Link
-							to={urlGenerators.vizeApplyForJobUrl(
-								props.jobAds[0].id
-							)}
+							to={{
+								pathname: urlGenerators.vizeApplyForJobUrl(
+									props.jobAds[0].id
+								),
+								state: {
+									prevPath: location.pathname,
+								},
+							}}
 							style={{ float: "right" }}
 							className="btn btn-primary"
 						>

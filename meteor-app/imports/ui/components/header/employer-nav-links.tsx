@@ -20,21 +20,45 @@ function EmployerNavLinks(props) {
 	return (
 		<>
 			<li>
-				<Link to={companyURL} className="link-kumya ">
+				<Link
+					to={{
+						pathname: companyURL,
+						state: {
+							prevPath: location.pathname,
+						},
+					}}
+					className="link-kumya "
+				>
 					<span>
 						<T.my_company />
 					</span>
 				</Link>
 			</li>
 			<li>
-				<Link to="/post-a-job" className="link-kumya">
+				<Link
+					to={{
+						pathname: "/post-a-job",
+						state: {
+							prevPath: location.pathname,
+						},
+					}}
+					className="link-kumya"
+				>
 					<span>
 						<T.post_a_job />
 					</span>
 				</Link>
 			</li>
 			<li>
-				<Link to="/employer-resources" className="link-kumya">
+				<Link
+					to={{
+						pathname: "/employer-resources",
+						state: {
+							prevPath: location.pathname,
+						},
+					}}
+					className="link-kumya"
+				>
 					<span>
 						<T.resources />
 					</span>

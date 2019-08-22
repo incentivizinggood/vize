@@ -45,7 +45,12 @@ function HomePage() {
 								<div>
 									<center>
 										<WhiteButton
-											to="/write-review"
+											to={{
+												pathname: "/write-review",
+												state: {
+													prevPath: location.pathname,
+												},
+											}}
 											style={{ fontSize: 18 }}
 										>
 											<FontAwesomeIcon icon={faPlus} />
@@ -104,7 +109,14 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton to="/jobs">
+								<BlackBorderButton
+									to={{
+										pathname: "/jobs",
+										state: {
+											prevPath: location.pathname,
+										},
+									}}
+								>
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -130,7 +142,14 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton to="/jobs">
+								<BlackBorderButton
+									to={{
+										pathname: "/jobs",
+										state: {
+											prevPath: location.pathname,
+										},
+									}}
+								>
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -171,7 +190,14 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<WhiteButton to="/companies">
+								<WhiteButton
+									to={{
+										pathname: "/companies",
+										state: {
+											prevPath: location.pathname,
+										},
+									}}
+								>
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -205,7 +231,14 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<WhiteButton to="/companies">
+								<WhiteButton
+									to={{
+										pathname: "/companies",
+										state: {
+											prevPath: location.pathname,
+										},
+									}}
+								>
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -277,7 +310,12 @@ function HomePage() {
 									<div>
 										<LinkButton
 											primary
-											to="/submit-salary-data"
+											to={{
+												pathname: "/submit-salary-data",
+												state: {
+													prevPath: location.pathname,
+												},
+											}}
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
@@ -312,7 +350,14 @@ function HomePage() {
 							<div>
 								<center>
 									{" "}
-									<BlackBorderButton to="/register">
+									<BlackBorderButton
+										to={{
+											pathname: "/register",
+											state: {
+												prevPath: location.pathname,
+											},
+										}}
+									>
 										<T.signup_button />
 									</BlackBorderButton>
 								</center>

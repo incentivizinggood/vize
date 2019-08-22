@@ -23,7 +23,15 @@ class MyAccountPage extends React.Component {
 					{this.props.user.username}
 					<br />
 					<br />
-					<Link className="btn btn-info" to="/change-password">
+					<Link
+						className="btn btn-info"
+						to={{
+							pathname: "/change-password",
+							state: {
+								prevPath: location.pathname,
+							},
+						}}
+					>
 						Change Password
 					</Link>
 					<br />
@@ -42,7 +50,15 @@ class MyAccountPage extends React.Component {
 				<div style={{ width: "80%", margin: "0 auto" }}>
 					<br />
 					You must be logged in to use this page. <br /> <br />
-					<Link className="btn btn-primary" to="/login">
+					<Link
+						className="btn btn-primary"
+						to={{
+							pathname: "/login",
+							state: {
+								prevPath: location.pathname,
+							},
+						}}
+					>
 						Log In
 					</Link>
 					<br />

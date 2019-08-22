@@ -45,7 +45,14 @@ function ShowJobComponent(props) {
 						style={{ float: "right", marginTop: "0px" }}
 					>
 						<Link
-							to={urlGenerators.vizeApplyForJobUrl(props.item.id)}
+							to={{
+								pathname: urlGenerators.vizeApplyForJobUrl(
+									props.item.id
+								),
+								state: {
+									prevPath: location.pathname,
+								},
+							}}
 							className="btn btn-primary"
 						>
 							{" "}

@@ -46,7 +46,14 @@ function SalariesSection(props) {
 
 				<div className="add-buttons">
 					<LinkButton
-						to={urlGenerators.vizeSalaryUrl(props.company.name)}
+						to={{
+							pathname: urlGenerators.vizeSalaryUrl(
+								props.company.name
+							),
+							state: {
+								prevPath: location.pathname,
+							},
+						}}
 						primary
 					>
 						<FontAwesomeIcon icon={faPlus} />

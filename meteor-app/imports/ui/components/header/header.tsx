@@ -28,7 +28,12 @@ function AccountLink({ user }) {
 	if (user) {
 		return (
 			<Link
-				to="/my-account"
+				to={{
+					pathname: "/my-account",
+					state: {
+						prevPath: location.pathname,
+					},
+				}}
 				type="button"
 				className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
 			>
@@ -39,7 +44,12 @@ function AccountLink({ user }) {
 
 	return (
 		<Link
-			to="/login"
+			to={{
+				pathname: "/login",
+				state: {
+					prevPath: location.pathname,
+				},
+			}}
 			type="button"
 			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 		>
@@ -64,7 +74,12 @@ function AccountSection({ user }) {
 				<ul className="dropdown-menu pf">
 					<li className="tr">
 						<Link
-							to="/my-account"
+							to={{
+								pathname: "/my-account",
+								state: {
+									prevPath: location.pathname,
+								},
+							}}
 							className="navbar-link margin-right"
 						>
 							<T.myaccount />
@@ -84,7 +99,12 @@ function AccountSection({ user }) {
 		<>
 			<li>
 				<Link
-					to="/register"
+					to={{
+						pathname: "/register",
+						state: {
+							prevPath: location.pathname,
+						},
+					}}
 					type="button"
 					id="register-button"
 					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
@@ -93,7 +113,15 @@ function AccountSection({ user }) {
 				</Link>
 			</li>
 			<li>
-				<Link to="/login" className="navbar-link margin-right">
+				<Link
+					to={{
+						pathname: "/login",
+						state: {
+							prevPath: location.pathname,
+						},
+					}}
+					className="navbar-link margin-right"
+				>
 					<T.login />
 				</Link>
 			</li>
@@ -119,7 +147,14 @@ function Header(props) {
 							<span className="icon-bar" />
 						</button>
 						<h2 className="site-logo">
-							<Link to="/">
+							<Link
+								to={{
+									pathname: "/",
+									state: {
+										prevPath: location.pathname,
+									},
+								}}
+							>
 								<img src="/images/logo.png" alt="Vize Logo" />
 							</Link>
 						</h2>
@@ -142,7 +177,12 @@ function Header(props) {
 							</li>
 							<li>
 								<Link
-									to="/for-employers"
+									to={{
+										pathname: "/for-employers",
+										state: {
+											prevPath: location.pathname,
+										},
+									}}
 									className="link-kumya"
 								>
 									<span>

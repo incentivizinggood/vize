@@ -31,7 +31,12 @@ export default class ForEmployers extends React.Component {
 							<div>
 								<center>
 									<Link
-										to="/register"
+										to={{
+											pathname: "/register",
+											state: {
+												prevPath: location.pathname,
+											},
+										}}
 										className="button vize-blue-button"
 										style={{ fontSize: 34 }}
 									>
@@ -157,7 +162,12 @@ export default class ForEmployers extends React.Component {
 									<center>
 										{" "}
 										<Link
-											to="/register"
+											to={{
+												pathname: "/register",
+												state: {
+													prevPath: location.pathname,
+												},
+											}}
 											className="button black-border-button"
 										>
 											<T>
