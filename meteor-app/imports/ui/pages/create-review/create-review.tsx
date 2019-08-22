@@ -1,7 +1,12 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { Meteor } from "meteor/meteor";
+import Popup from "reactjs-popup";
 
 import { FormHeader, FormPageWrapper } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
+import { withTracker } from "meteor/react-meteor-data";
+import RegisterLoginModal from "imports/ui/components/register-login-modal";
 
 import CreateReviewForm from "./create-review-form";
 
@@ -11,15 +16,30 @@ interface CreateReviewPageProps {
 	companyName?: string;
 }
 
-function CreateReviewPage({ companyName }: CreateReviewPageProps) {
+function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
+	let content = null;
+	console.log(user);
+	if (user) {
+		content = null;
+	} else {
+		content = (
+			<Popup defaultOpen modal closeOnDocumentClick>
+				<RegisterLoginModal />
+			</Popup>
+		);
+	}
 	return (
 		<FormPageWrapper title="Create Review">
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>
 			<CreateReviewForm companyName={companyName} />
+			{content}
 		</FormPageWrapper>
 	);
 }
-
-export default CreateReviewPage;
+export default withRouter(
+	withTracker(() => ({
+		user: Meteor.user(),
+	}))(CreateReviewPage)
+);
