@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { forSize } from "imports/ui/responsive.js";
 
 const PannelPadding = "30px";
 
@@ -12,6 +13,11 @@ const Panel = styled.div`
 	color: ${props => props.theme.onSurface};
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding: ${PannelPadding};
+
+	${forSize.phoneOnly} {
+		width: auto;
+		padding: 30px 15px;
+	}
 `;
 
 export default Panel;

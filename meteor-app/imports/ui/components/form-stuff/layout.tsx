@@ -10,7 +10,7 @@ import {
 
 const FormHeader = styled.h1`
 	margin-bottom: 10px;
-
+	font-weight: bold;
 	font-size: 32px;
 	text-align: center;
 `;
@@ -30,7 +30,7 @@ const FormFooter = styled.div`
 `;
 
 const FormToolbar = styled.div`
-	text-align: right;
+	text-align: center;
 	margin-top: 20px;
 `;
 

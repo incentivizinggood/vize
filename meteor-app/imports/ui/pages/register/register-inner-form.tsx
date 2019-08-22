@@ -1,5 +1,6 @@
 import React from "react";
 import { Form } from "formik";
+import styled from "styled-components";
 
 import IfFormik from "imports/ui/components/if-formik";
 import { Field, FormToolbar } from "imports/ui/components/form-stuff";
@@ -7,6 +8,11 @@ import { Button } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
 
 const T = translations.loginRegister;
+
+const RegisterButton = styled(Button)`
+	font-size: 22px;
+	width: 100%;
+`;
 
 function InnerForm() {
 	return (
@@ -43,9 +49,9 @@ function InnerForm() {
 				/>
 
 				<FormToolbar>
-					<Button primary type="submit">
+					<RegisterButton primary type="submit">
 						<T.createAccount />
-					</Button>
+					</RegisterButton>
 				</FormToolbar>
 			</IfFormik>
 		</Form>
