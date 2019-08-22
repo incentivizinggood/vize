@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
-import Popup from "reactjs-popup";
+import PopupModal from "imports/ui/components/popup-modal";
 
 import { FormHeader, FormPageWrapper } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
@@ -18,14 +18,13 @@ interface CreateSalaryPageProps {
 
 function CreateSalaryPage({ companyName, user }: CreateSalaryPageProps) {
 	let content = null;
-	console.log(user);
 	if (user) {
 		content = null;
 	} else {
 		content = (
-			<Popup defaultOpen modal closeOnDocumentClick>
+			<PopupModal isOpen={true} canCloseModal={false}>
 				<RegisterLoginModal />
-			</Popup>
+			</PopupModal>
 		);
 	}
 	return (

@@ -6,7 +6,7 @@ import {
 	faTimesCircle,
 	faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import Popup from "reactjs-popup";
+import PopupModal from "imports/ui/components/popup-modal";
 
 import { Meteor } from "meteor/meteor";
 import { i18n } from "meteor/universe:i18n";
@@ -16,6 +16,7 @@ import FlagSystem from "imports/ui/components/flag/flag";
 
 import VoteButtons from "./vote-buttons";
 
+const t = i18n.createTranslator("common.companyreview");
 const T = i18n.createComponent();
 
 function ReviewComponent(props) {
@@ -209,20 +210,16 @@ function ReviewComponent(props) {
 								TODO: This should be refactored.
 							*/}
 							{props.user ? (
-								<Popup
-									trigger={
-										<button className="flag-style-btn">
-											<T>common.companyreview.report</T>
-										</button>
-									}
-									modal
-									closeOnDocumentClick
+								<PopupModal
+									buttonClass="flag-style-btn"
+									buttonText={t("report")}
+									isOpen={false}
 								>
 									<FlagSystem
 										reviewId={props.review.id}
 										companyName={props.companyName}
 									/>
-								</Popup>
+								</PopupModal>
 							) : (
 								<button className="flag-style-btn" disabled>
 									<T>common.companyreview.report</T>
