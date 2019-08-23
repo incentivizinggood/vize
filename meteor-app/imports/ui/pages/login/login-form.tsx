@@ -59,7 +59,7 @@ const LoginForm = props => (
 		validationSchema={schema}
 		onSubmit={onSubmit(props.history)}
 	>
-		<InnerForm />
+		<InnerForm {...props} />
 	</Formik>
 );
 

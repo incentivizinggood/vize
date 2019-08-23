@@ -2,7 +2,6 @@ import React from "react";
 import { Form } from "formik";
 import styled from "styled-components";
 
-import IfFormik from "imports/ui/components/if-formik";
 import { Field, FormToolbar } from "imports/ui/components/form-stuff";
 import { Button } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
@@ -15,46 +14,47 @@ const RegisterButton = styled(Button)`
 	margin-top: 20px;
 `;
 
-function InnerForm() {
+// defining global variable because I do not want the value to change when user
+// navigates from the register or login page. Esentially making it static
+let userRole = localStorage.getItem("userRole");
+
+function InnerForm(props) {
+	if (props.location.state) {
+		if (
+			props.location.state.prevPath !== "/register" &&
+			props.location.state.prevPath !== "/login"
+		) {
+			userRole = "worker";
+
+			if (props.location.state.prevPath === "/for-employers") {
+				userRole = "company";
+			}
+			// save the role to local storage so that the variable is not reset when page is refreshed
+			localStorage.setItem("userRole", userRole);
+		}
+		if (userRole === "company") {
+			let companyNameField = (
+				<Field name="companyName" type="text" t={T.companyName} />
+			);
+		} else {
+			let companyNameField = null;
+		}
+	}
 	return (
 		<Form noValidate>
-			<T
-				renderer={t => (
-					<Field name="role" select required label="I am a...">
-						<option value="">(Select One)</option>
-						<option value="worker">{t.employee}</option>
-						<option value="company">{t.employer}</option>
-					</Field>
-				)}
-			/>
+			<Field name="username" type="text" required t={T.username} />
 
-			<IfFormik
-				cond={formik =>
-					formik.values.role === "worker" ||
-					formik.values.role === "company"
-				}
-			>
-				<Field name="username" type="text" required t={T.username} />
+			<Field name="email" type="email" required t={T.email} />
 
-				<Field name="email" type="email" required t={T.email} />
+			{companyNameField}
 
-				<IfFormik cond={formik => formik.values.role === "company"}>
-					<Field name="companyName" type="text" t={T.companyName} />
-				</IfFormik>
+			<Field name="password" type="password" required t={T.password} />
 
-				<Field
-					name="password"
-					type="password"
-					required
-					t={T.password}
-				/>
-
-				<FormToolbar>
-					<RegisterButton primary type="submit">
-						<T.createAccount />
-					</RegisterButton>
-				</FormToolbar>
-			</IfFormik>
+			<FormToolbar>
+				<RegisterButton primary type="submit">
+					<T.createAccount />
+				</RegisterButton>
+			</FormToolbar>
 		</Form>
 	);
 }

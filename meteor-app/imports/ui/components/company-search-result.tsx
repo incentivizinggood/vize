@@ -7,7 +7,7 @@ import {
 	faFlask,
 	faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
-import Link from "imports/ui/components/link";
+import { Link } from "react-router-dom";
 
 import { i18n } from "meteor/universe:i18n";
 
@@ -24,6 +24,9 @@ function CompanySearchResult(props) {
 			<div className="container company-search-container">
 				<div className="container">
 					<div className="col-md-3  prostar">
+						{
+							//TODO: remove taget=blank without breaking the navigation
+						}
 						<Link
 							to={{
 								pathname: companyProfileUrl,
@@ -52,6 +55,7 @@ function CompanySearchResult(props) {
 										prevPath: location.pathname,
 									},
 								}}
+								target="_blank"
 							>
 								{props.company.name}
 							</Link>
