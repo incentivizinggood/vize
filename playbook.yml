@@ -1,0 +1,8 @@
+---
+- hosts: all
+  remote_user: joshua
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install PostgreSQL
+      apt: pkg=postgresql-10 state=present
