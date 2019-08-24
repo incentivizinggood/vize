@@ -7,12 +7,12 @@ Environment=MONGO_URL='mongodb://localhost/vize'
 Environment=ROOT_URL='http://localhost'
 Environment=PGHOST=localhost
 Environment=PGPORT=5432
-Environment=PGUSER=joshua
+Environment=PGUSER=meteor
 Environment=PGPASSWORD=test123
 Environment=PGDATABASE=vize
 Environment=PORT=3000
 Type=simple
-User=root
+User=meteor
 ExecStart=/usr/bin/node /opt/meteor-app/bundle/main.js
 Restart=always
 

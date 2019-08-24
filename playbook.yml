@@ -4,6 +4,11 @@
   become: yes
   become_method: sudo
   tasks:
+    - name: Add unprivileged user for the Meteor app
+      user:
+        name: meteor
+        comment: The Meteor app
+
     - name: Install PostgreSQL
       apt: pkg={{ item }} state=present
       with_items:
@@ -19,7 +24,7 @@
       become_user: postgres
       postgresql_user:
         db: vize
-        name: joshua
+        name: meteor
         password: test123
         encrypted: yes
         priv: "ALL"
@@ -44,11 +49,12 @@
       unarchive:
         src: ./dist/meteor-app.tar.gz
         dest: /opt/meteor-app
-        owner: root
-        group: root
+        owner: meteor
+        group: meteor
       notify: restart Meteor app
 
     - name: Install the Meteor app's dependencies
+      become_user: meteor
       npm:
         path: /opt/meteor-app/bundle/programs/server
       notify: restart Meteor app
