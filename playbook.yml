@@ -46,8 +46,19 @@
         dest: /opt/meteor-app
         owner: root
         group: root
+      notify: restart Meteor app
 
     - name: Install the Meteor app's dependencies
-      command: npm install
-      args:
-        chdir: /opt/meteor-app/bundle/programs/server
+      npm:
+        path: /opt/meteor-app/bundle/programs/server
+      notify: restart Meteor app
+
+    - name: Create systemd service for the Meteor app
+      copy:
+        src: ./meteor-app.service
+        dest: /lib/systemd/system/meteor-app.service
+      notify: restart Meteor app
+
+  handlers:
+    - name: restart Meteor app
+      systemd: state=restarted name=meteor-app daemon_reload=yes
