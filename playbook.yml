@@ -75,10 +75,7 @@
         dest: /home/flyway/postgres
         owner: flyway
         group: flyway
-
-    - name: Migrate database
-      become_user: flyway
-      command: /home/flyway/flyway-6.0.0/flyway -url=jdbc:postgresql://localhost/vize -locations=filesystem:/home/flyway/postgres/migrations -user=flyway -password=test123 migrate
+      notify: migrate database
 
     - name: Install MongoDB
       apt: pkg=mongodb-server state=present
@@ -116,5 +113,14 @@
       notify: restart Meteor app
 
   handlers:
+    - name: migrate database
+      become_user: flyway
+      command: >-
+        /home/flyway/flyway-6.0.0/flyway 
+        -url=jdbc:postgresql://localhost/vize 
+        -locations=filesystem:/home/flyway/postgres/migrations 
+        -user=flyway -password=test123 
+        migrate
+
     - name: restart Meteor app
       systemd: state=restarted name=meteor-app daemon_reload=yes
