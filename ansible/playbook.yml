@@ -71,7 +71,7 @@
 
     - name: Upload database migrations
       copy:
-        src: ./postgres/migrations
+        src: ../postgres/migrations
         dest: /home/flyway/postgres
         owner: flyway
         group: flyway
@@ -94,7 +94,7 @@
 
     - name: Install the Meteor app
       unarchive:
-        src: ./dist/meteor-app.tar.gz
+        src: ../dist/meteor-app.tar.gz
         dest: /opt/meteor-app
         owner: meteor
         group: meteor

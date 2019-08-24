@@ -20,3 +20,6 @@ meteor-app/imports/gen/
 # Old generated files. People keep adding these if they are not ignored.
 meteor-app/imports/api/graphql/graphqlgen.js
 meteor-app/imports/api/graphql/resolvers/resolvers-types.ts
+
+# Ansible stuff
+*.retry
