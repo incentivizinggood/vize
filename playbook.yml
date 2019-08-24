@@ -9,10 +9,16 @@
         name: meteor
         comment: The Meteor app
 
+    - name: Add unprivileged user for Flyway
+      user:
+        name: flyway
+        comment: The Flyway database migration tool
+
     - name: Install PostgreSQL
       apt: pkg={{ item }} state=present
       with_items:
         - postgresql-10
+        - postgresql-10-plv8
         - python-psycopg2
 
     - name: Create the vize database
@@ -20,15 +26,59 @@
       postgresql_db:
         name: vize
 
-    - name: Add me as a DB user
+    - name: Add a DB user for the Meteor app
       become_user: postgres
       postgresql_user:
         db: vize
         name: meteor
         password: test123
         encrypted: yes
-        priv: "ALL"
+        priv: "CONNECT"
         expires: infinity
+
+    - name: Grant the Meteor app access to all database tables
+      become_user: postgres
+      postgresql_privs:
+        db: vize
+        role: meteor
+        objs: ALL_IN_SCHEMA
+        privs: SELECT,INSERT,UPDATE,DELETE
+
+    - name: Add a DB user for Flyway
+      become_user: postgres
+      postgresql_user:
+        db: vize
+        name: flyway
+        password: test123
+        encrypted: yes
+        priv: "ALL"
+        role_attr_flags: SUPERUSER
+        expires: infinity
+
+    - name: Install Flyway
+      become_user: flyway
+      script: ./install-flyway.sh
+      args:
+        creates: /home/flyway/flyway-6.0.0
+
+    - name: Create the database migrations directory
+      file:
+        path: /home/flyway/postgres/migrations
+        state: directory
+        owner: flyway
+        group: flyway
+        mode: u+rwx,g+rx,o+rx
+
+    - name: Upload database migrations
+      copy:
+        src: ./postgres/migrations
+        dest: /home/flyway/postgres
+        owner: flyway
+        group: flyway
+
+    - name: Migrate database
+      become_user: flyway
+      command: /home/flyway/flyway-6.0.0/flyway -url=jdbc:postgresql://localhost/vize -locations=filesystem:/home/flyway/postgres/migrations -user=flyway -password=test123 migrate
 
     - name: Install MongoDB
       apt: pkg=mongodb-server state=present
