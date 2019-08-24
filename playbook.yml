@@ -27,3 +27,27 @@
 
     - name: Install MongoDB
       apt: pkg=mongodb-server state=present
+
+    - name: Install NPM and Node.JS
+      apt: pkg={{ item }} state=present
+      with_items:
+        - npm
+        - nodejs
+
+    - name: Create the Meteor app directory
+      file:
+        path: /opt/meteor-app
+        state: directory
+        mode: u+rwx,g+rx,o+rx
+
+    - name: Install the Meteor app
+      unarchive:
+        src: ./dist/meteor-app.tar.gz
+        dest: /opt/meteor-app
+        owner: root
+        group: root
+
+    - name: Install the Meteor app's dependencies
+      command: npm install
+      args:
+        chdir: /opt/meteor-app/bundle/programs/server
