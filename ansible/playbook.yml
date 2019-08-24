@@ -57,13 +57,16 @@
 
     - name: Install Flyway
       become_user: flyway
-      script: ./install-flyway.sh
+      shell: |
+        FLYWAY_URL='https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/6.0.0/flyway-commandline-6.0.0-linux-x64.tar.gz'
+        wget -qO- $FLYWAY_URL | tar xvz
       args:
+        chdir: /home/flyway/
         creates: /home/flyway/flyway-6.0.0
 
     - name: Create the database migrations directory
       file:
-        path: /home/flyway/postgres/migrations
+        path: /home/flyway/migrations
         state: directory
         owner: flyway
         group: flyway
@@ -72,7 +75,7 @@
     - name: Upload database migrations
       copy:
         src: ../postgres/migrations
-        dest: /home/flyway/postgres
+        dest: /home/flyway
         owner: flyway
         group: flyway
       notify: migrate database
@@ -118,7 +121,7 @@
       command: >-
         /home/flyway/flyway-6.0.0/flyway 
         -url=jdbc:postgresql://localhost/vize 
-        -locations=filesystem:/home/flyway/postgres/migrations 
+        -locations=filesystem:/home/flyway/migrations 
         -user=flyway -password=test123 
         migrate
 
