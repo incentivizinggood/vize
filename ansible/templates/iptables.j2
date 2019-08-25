@@ -1,0 +1,11 @@
+*filter
+:INPUT DROP [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT -m comment --comment "Allow continuing connections."
+-A INPUT -i lo -j ACCEPT -m comment --comment "Allow all loopback trafic."
+-A INPUT -p icmp -j ACCEPT -m comment --comment "Allow all ICMP."
+-A INPUT -p tcp --dport 22 -j ACCEPT -m comment --comment "Allow SSH."
+-A INPUT -p tcp --dport 80 -j ACCEPT -m comment --comment "Allow HTTP."
+-A INPUT -p tcp --dport 443 -j ACCEPT -m comment --comment "Allow HTTPS."
+COMMIT

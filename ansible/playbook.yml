@@ -4,6 +4,20 @@
   become: yes
   become_method: sudo
   tasks:
+    - name: Remove UFW
+      apt: pkg=ufw state=absent purge=yes autoremove=yes
+
+    - name: Install iptables-persistent
+      apt: pkg=iptables-persistent state=present
+
+    - name: Set up iptables rules for IPv4
+      template: src=./templates/iptables.j2 dest=/etc/iptables/rules.v4
+      notify: restart iptables
+
+    - name: Set up iptables rules for IPv6
+      template: src=./templates/iptables.j2 dest=/etc/iptables/rules.v6
+      notify: restart iptables
+
     - name: Add unprivileged user for the Meteor app
       user:
         name: meteor
@@ -116,6 +130,9 @@
       notify: restart Meteor app
 
   handlers:
+    - name: restart iptables
+      service: name=netfilter-persistent state=restarted
+
     - name: migrate database
       become_user: flyway
       command: >-
