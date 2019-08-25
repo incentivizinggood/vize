@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  gather_facts: no
   remote_user: joshua
   become: yes
   become_method: sudo
@@ -97,23 +98,7 @@
         encrypted: yes
         priv: "CONNECT"
         expires: infinity
-
-    - name: Grant the Meteor app access to all database tables
-      become_user: postgres
-      postgresql_privs:
-        db: vize
-        role: meteor
-        objs: ALL_IN_SCHEMA
-        privs: SELECT,INSERT,UPDATE,DELETE
-
-    - name: Grant the Meteor app access to all database sequences
-      become_user: postgres
-      postgresql_privs:
-        db: vize
-        role: meteor
-        objs: ALL_IN_SCHEMA
-        type: sequence
-        privs: SELECT,UPDATE
+      notify: migrate database
 
     - name: Install NPM and Node.JS
       apt: pkg={{ item }} state=present
@@ -154,7 +139,7 @@
     - name: restart nginx
       service: name=nginx state=restarted enabled=yes
 
-    - name: migrate database
+    - name: Run Flyway Migration
       become_user: flyway
       command: >-
         /home/flyway/flyway-6.0.0/flyway 
@@ -162,6 +147,26 @@
         -locations=filesystem:/home/flyway/migrations 
         -user=flyway -password={{ flyway_postgres_password }} 
         migrate
+      listen: "migrate database"
+
+    - name: Grant the Meteor app access to all database tables
+      become_user: postgres
+      postgresql_privs:
+        db: vize
+        role: meteor
+        objs: ALL_IN_SCHEMA
+        privs: SELECT,INSERT,UPDATE,DELETE
+      listen: "migrate database"
+
+    - name: Grant the Meteor app access to all database sequences
+      become_user: postgres
+      postgresql_privs:
+        db: vize
+        role: meteor
+        objs: ALL_IN_SCHEMA
+        type: sequence
+        privs: SELECT,UPDATE
+      listen: "migrate database"
 
     - name: restart Meteor app
       systemd: state=restarted name=meteor-app daemon_reload=yes
