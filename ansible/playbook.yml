@@ -110,8 +110,8 @@
       notify: restart Meteor app
 
     - name: Create systemd service for the Meteor app
-      copy:
-        src: ./meteor-app.service
+      template:
+        src: ./templates/meteor-app.service.j2
         dest: /lib/systemd/system/meteor-app.service
       notify: restart Meteor app
 

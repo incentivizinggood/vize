@@ -38,24 +38,16 @@ case $1 in
 		-f docker-compose.yml \
 		up --build
 	;;
-"deploy")
-	SETTINGS_FILE="$(realpath $2)"
-	# Update the version info file.
-	./scripts/get-version-info.sh
-	# Migrate the database with Flyway.
-	sudo docker run \
-		-v "$(pwd)/postgres/migrations:/flyway/sql" \
-		--rm boxfuse/flyway:5.2.1 \
-		-url=jdbc:postgresql://$(jq --raw-output '."galaxy.meteor.com".env.PGHOST' $SETTINGS_FILE ):5432/vizedb \
-		-user=vize \
-		-password="$(jq --raw-output '."galaxy.meteor.com".env.PGPASSWORD' $SETTINGS_FILE )" \
-		migrate
-	# Deploy the Meteor app to Galaxy.
+"build")
+	echo "Building the Meteor app..."
+
 	cd meteor-app
-	DEPLOY_HOSTNAME=galaxy.meteor.com \
-		meteor deploy \
-		vize-staging-0.meteorapp.com \
-		--settings $SETTINGS_FILE
+	meteor build --server-only ../dist
+	cd ..
+
+	;;
+"deploy")
+	ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
 	;;
 *)
 	echo '"'$1'" is not a mode in which this project can be run.'
