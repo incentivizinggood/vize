@@ -18,6 +18,13 @@
       template: src=./templates/iptables.j2 dest=/etc/iptables/rules.v6
       notify: restart iptables
 
+    - name: Install NGINX
+      apt: pkg=nginx state=present
+
+    - name: Upload NGINX configuration
+      template: src=./templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+      notify: restart nginx
+
     - name: Install PostgreSQL
       apt: pkg={{ item }} state=present
       with_items:
@@ -109,7 +116,7 @@
         state: directory
         mode: u+rwx,g+rx,o+rx
 
-    - name: Install the Meteor app
+    - name: Upload the Meteor app
       unarchive:
         src: ../dist/meteor-app.tar.gz
         dest: /opt/meteor-app
@@ -132,6 +139,9 @@
   handlers:
     - name: restart iptables
       service: name=netfilter-persistent state=restarted
+
+    - name: restart nginx
+      service: name=nginx state=restarted enabled=yes
 
     - name: migrate database
       become_user: flyway
