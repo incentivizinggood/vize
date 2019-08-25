@@ -3,6 +3,8 @@
   remote_user: joshua
   become: yes
   become_method: sudo
+  vars_files:
+    - ./vars/passwords.yml
   tasks:
     - name: Remove UFW
       apt: pkg=ufw state=absent purge=yes autoremove=yes
@@ -47,7 +49,7 @@
       postgresql_user:
         db: vize
         name: flyway
-        password: test123
+        password: "{{ flyway_postgres_password }}"
         encrypted: yes
         priv: "ALL"
         role_attr_flags: SUPERUSER
@@ -91,7 +93,7 @@
       postgresql_user:
         db: vize
         name: meteor
-        password: test123
+        password: "{{ meteor_postgres_password }}"
         encrypted: yes
         priv: "CONNECT"
         expires: infinity
@@ -158,7 +160,7 @@
         /home/flyway/flyway-6.0.0/flyway 
         -url=jdbc:postgresql://localhost/vize 
         -locations=filesystem:/home/flyway/migrations 
-        -user=flyway -password=test123 
+        -user=flyway -password={{ flyway_postgres_password }} 
         migrate
 
     - name: restart Meteor app
