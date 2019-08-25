@@ -104,6 +104,15 @@
         objs: ALL_IN_SCHEMA
         privs: SELECT,INSERT,UPDATE,DELETE
 
+    - name: Grant the Meteor app access to all database sequences
+      become_user: postgres
+      postgresql_privs:
+        db: vize
+        role: meteor
+        objs: ALL_IN_SCHEMA
+        type: sequence
+        privs: SELECT,UPDATE
+
     - name: Install NPM and Node.JS
       apt: pkg={{ item }} state=present
       with_items:
