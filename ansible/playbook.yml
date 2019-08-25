@@ -18,16 +18,6 @@
       template: src=./templates/iptables.j2 dest=/etc/iptables/rules.v6
       notify: restart iptables
 
-    - name: Add unprivileged user for the Meteor app
-      user:
-        name: meteor
-        comment: The Meteor app
-
-    - name: Add unprivileged user for Flyway
-      user:
-        name: flyway
-        comment: The Flyway database migration tool
-
     - name: Install PostgreSQL
       apt: pkg={{ item }} state=present
       with_items:
@@ -40,23 +30,10 @@
       postgresql_db:
         name: vize
 
-    - name: Add a DB user for the Meteor app
-      become_user: postgres
-      postgresql_user:
-        db: vize
-        name: meteor
-        password: test123
-        encrypted: yes
-        priv: "CONNECT"
-        expires: infinity
-
-    - name: Grant the Meteor app access to all database tables
-      become_user: postgres
-      postgresql_privs:
-        db: vize
-        role: meteor
-        objs: ALL_IN_SCHEMA
-        privs: SELECT,INSERT,UPDATE,DELETE
+    - name: Add unprivileged user for Flyway
+      user:
+        name: flyway
+        comment: The Flyway database migration tool
 
     - name: Add a DB user for Flyway
       become_user: postgres
@@ -96,6 +73,29 @@
 
     - name: Install MongoDB
       apt: pkg=mongodb-server state=present
+
+    - name: Add unprivileged user for the Meteor app
+      user:
+        name: meteor
+        comment: The Meteor app
+
+    - name: Add a DB user for the Meteor app
+      become_user: postgres
+      postgresql_user:
+        db: vize
+        name: meteor
+        password: test123
+        encrypted: yes
+        priv: "CONNECT"
+        expires: infinity
+
+    - name: Grant the Meteor app access to all database tables
+      become_user: postgres
+      postgresql_privs:
+        db: vize
+        role: meteor
+        objs: ALL_IN_SCHEMA
+        privs: SELECT,INSERT,UPDATE,DELETE
 
     - name: Install NPM and Node.JS
       apt: pkg={{ item }} state=present
