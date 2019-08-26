@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { i18n } from "meteor/universe:i18n";
 
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import { processLocation } from "imports/ui/misc";
 import ErrorBoundary from "imports/ui/components/error-boundary";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import Spinner from "imports/ui/components/Spinner";

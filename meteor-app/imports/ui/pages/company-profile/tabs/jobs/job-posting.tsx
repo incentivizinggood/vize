@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { i18n } from "meteor/universe:i18n";
 
 import { urlGenerators } from "imports/ui/pages";
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import { processLocation } from "imports/ui/misc";
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
 const T = i18n.createComponent();

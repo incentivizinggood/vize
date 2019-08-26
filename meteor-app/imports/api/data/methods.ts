@@ -2,14 +2,16 @@ import { Meteor } from "meteor/meteor";
 
 import * as dataModel from "imports/api/models/index";
 
-import { PostgreSQL } from "imports/api/connectors/postgresql/index";
-import PgUserFunctions from "imports/api/models/helpers/postgresql/users";
+import sql from "imports/lib/sql-template";
+import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
 Meteor.methods({
-	async "postgres.users.createUser"(user, companyPostgresId) {
-		// just trying to get this to work, will
-		// add security and validation later
-		return PostgreSQL.executeMutation(PgUserFunctions.createUser, user);
+	async "postgres.users.createUser"(user) {
+		return {
+			user: await simpleQuery1<unknown>(
+				sql`INSERT INTO users (userMongoId,role) VALUES (${user._id}, ${user.role}) RETURNING *`
+			),
+		};
 	},
 
 	flagAReview(reviewId, reason, explanation) {

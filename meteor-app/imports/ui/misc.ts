@@ -1,17 +1,4 @@
 /*
-	A lot of times we need to convert a String to a Number,
-	and some of those times the field we need to convert is
-	not guaranteed to be defined, which causes the Number
-	cast to throw an exception. castToNumberIfDefined is used to
-	avoid that scenario, particularly in the process[Type]Results
-	functions found in the other classes defined in the other
-	files found in this directory.
-*/
-export const castToNumberIfDefined = function(number) {
-	return number === undefined || number === null ? number : Number(number);
-};
-
-/*
 	The purpose of processLocation is to parse
 	Locations as they are stored in PostgreSQL
 	into a format that is palatable to the frontend
@@ -60,10 +47,14 @@ export const processLocation = function(location) {
 			locationObj.industrialHub !== null &&
 			locationObj.industrialHub !== "-" &&
 			locationObj.industrialHub !== "(unknown or not provided by user)"
-
 		)
 			returnVal = locationObj.industrialHub;
-		else if (locationObj.city !== undefined && locationObj.city !== null && locationObj.city !== "-" && locationObj.city !== "(unknown or not provided by user)")
+		else if (
+			locationObj.city !== undefined &&
+			locationObj.city !== null &&
+			locationObj.city !== "-" &&
+			locationObj.city !== "(unknown or not provided by user)"
+		)
 			returnVal = locationObj.city;
 		else if (
 			locationObj.address !== undefined &&

@@ -1,28 +1,16 @@
 // WARNING: Comments have not been fully implemented yet. This code is a half
 // done mess. Keep that in mind when working with it.
-import { PostgreSQL } from "imports/api/connectors/postgresql";
-
-import PgCommentFunctions from "imports/api/models/helpers/postgresql/comments";
 import {
 	CommentId,
 	Comment,
 	CommentParent,
-	Review,
 	User,
-	getUserPostgresId,
 	getUserById,
 } from "imports/api/models";
 
 // Get the comment with a given id.
 export async function getCommentById(id: CommentId): Promise<Comment> {
-	if (Number.isNaN(Number(id))) throw Error("not a valid comment id");
-
-	return PgCommentFunctions.processCommentResults(
-		await PostgreSQL.executeQuery(
-			PgCommentFunctions.getCommentById,
-			Number(id)
-		)
-	);
+	throw new Error("Not implemented yet");
 }
 
 // Get all comments written by a given user.
@@ -31,16 +19,7 @@ export async function getCommentsByAuthor(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Comment[]> {
-	const authorPostgresId = await getUserPostgresId(user._id);
-
-	return PgCommentFunctions.processCommentResults(
-		await PostgreSQL.executeQuery(
-			PgCommentFunctions.getCommentsByAuthor,
-			authorPostgresId,
-			pageNumber * pageSize,
-			pageSize
-		)
-	);
+	throw new Error("Not implemented yet");
 }
 
 // Get the user who wrote a given comment.

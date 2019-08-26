@@ -8,7 +8,7 @@ import {
 	faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import { processLocation } from "imports/ui/misc";
 import WriteReviewButton from "imports/ui/components/write-review-button";
 import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 
