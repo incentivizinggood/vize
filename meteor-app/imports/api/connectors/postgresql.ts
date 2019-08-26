@@ -10,7 +10,7 @@ const pool = new Pool();
 // queries on the database. If any extra arguments are needed by the
 // transaction, the transaction code should be curried so that these arguments
 // and the connection can be passed separately. (Curry in the mathematical
-// sence, not the food)
+// sense, not the food)
 export type Transaction<R> = (query: PoolClient) => Promise<R>;
 
 const execTransaction = (readOnly: boolean) => async <R>(
@@ -40,7 +40,7 @@ export const execTransactionRO = execTransaction(true);
 
 // Execute a transaction on the database with write permission. If the
 // transaction does not need write permission, use execTransactionRO instead. It
-// has better preformance and is safer than execTransactionRW.
+// has better performance and is safer than execTransactionRW.
 export const execTransactionRW = execTransaction(false);
 
 export async function simpleQuery<R>(query: QueryConfig): Promise<R[]> {
@@ -67,7 +67,7 @@ export async function simpleQuery1<R>(query: QueryConfig): Promise<R | null> {
 export function testConnection() {
 	pool.query("SELECT NOW() as now")
 		.then(res => {
-			console.log("PostgreSQL connection test succeded.");
+			console.log("PostgreSQL connection test succeeded.");
 			console.log(
 				`"SELECT NOW() as now" -> ${JSON.stringify(res.rows[0])}`
 			);
