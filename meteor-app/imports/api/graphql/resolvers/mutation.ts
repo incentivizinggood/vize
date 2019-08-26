@@ -80,4 +80,15 @@ export const Mutation: MutationResolvers = {
 		const salary = await dataModel.getSalaryById(salaryId);
 		return { salary };
 	},
+
+	createJobAd: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const jobAdId = await dataModel.createJobAd(
+			input,
+			await dataModel.getUserPostgresId(context.user._id)
+		);
+		const jobAd = await dataModel.getJobAdById(jobAdId);
+		return { jobAd };
+	},
 };

@@ -5,7 +5,7 @@ import LocationInput from "./location";
 type CreateJobAdInput = {
 	jobTitle: string;
 	locations: LocationInput[];
-	pesosPerWeek: number;
+	pesosPerHour: number;
 	contractType: CreateJobAdInput.ContractType;
 	jobDescription: string;
 	responsibilities: string;
@@ -20,12 +20,12 @@ namespace CreateJobAdInput {
 			.required()
 			.min(1)
 			.of(LocationInput.schema),
-		pesosPerWeek: yup
+		pesosPerHour: yup
 			.number()
 			.min(0)
 			.required(),
 		contractType: yup
-			.string()
+			.mixed()
 			.oneOf(["FULL_TIME", "PART_TIME", "CONTRACTOR"])
 			.required(),
 		jobDescription: yup.string().required(),

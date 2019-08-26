@@ -100,7 +100,7 @@ enum ContractType {
 input CreateJobAdInput {
 	jobTitle: String!
 	locations: [LocationInput!]!
-	pesosPerWeek: Float!
+	pesosPerHour: Float!
 	contractType: ContractType!
 	jobDescription: String!
 	responsibilities: String!
@@ -113,10 +113,10 @@ type CreateJobAdPayload {
 
 input ApplyToJobInput {
 	jobAdId: ID!
-	fullName: string!
-	email: string!
-	phoneNumber: string!
-	coverLetter: string
+	fullName: String!
+	email: String!
+	phoneNumber: String!
+	coverLetter: String
 }
 
 type ApplyToJobPayload {
@@ -334,6 +334,6 @@ type StarRatings {
 	overallSatisfaction: Float!
 }
 
-# Date and time serialized as a string in the ISO 8601 format.
+# Date and time serialized as a String in the ISO 8601 format.
 # Provided by graphql-iso-date on npm.
 scalar DateTime
