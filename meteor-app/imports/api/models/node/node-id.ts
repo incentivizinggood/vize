@@ -92,7 +92,7 @@ export function getIdOfNode(node: Node): string {
 		id = [NodeType.SALARY, node.salaryId];
 	} else if (isUser(node)) {
 		// Until users are migrated to PostgreSQL, just use their MongoDB ids.
-		return (node._id as unknown) as string;
+		return node._id;
 	} else if (isVote(node)) {
 		const { subjectType, submittedBy, refersTo } = getIdOfVote(node);
 		id = [
