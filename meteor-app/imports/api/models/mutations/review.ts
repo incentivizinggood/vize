@@ -7,7 +7,7 @@ import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import CreateReviewInput from "imports/lib/inputs/review";
 
-import { ReviewId, Review, UserPId } from "imports/api/models";
+import { ReviewId, UserPId } from "imports/api/models";
 
 export async function createReview(
 	input: CreateReviewInput,
@@ -104,15 +104,4 @@ export async function createReview(
 	};
 
 	return execTransactionRW(transaction);
-}
-
-export async function editReview(
-	id: ReviewId,
-	reviewChanges: unknown
-): Promise<Review> {
-	throw new Error("Not implemented yet");
-}
-
-export async function deleteReview(id: ReviewId): Promise<Review> {
-	throw new Error("Not implemented yet");
 }

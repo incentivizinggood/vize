@@ -1,14 +1,10 @@
 // misc needs to be first because of some wierd bug.
 export * from "./misc";
+export * from "./types";
+export * from "./utils";
 
-export * from "./comment";
-export * from "./company";
-export * from "./job-ad";
-export * from "./review";
-export * from "./salary";
-export * from "./user";
-export * from "./vote";
-export * from "./location";
+export * from "./queries";
+export * from "./mutations";
 
 export * from "./node";
 

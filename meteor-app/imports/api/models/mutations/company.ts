@@ -6,7 +6,7 @@ import {
 
 import CreateCompanyInput from "imports/lib/inputs/company";
 
-import { CompanyId, Company, UserPId } from "imports/api/models";
+import { CompanyId, UserPId } from "imports/api/models";
 
 export async function createCompany(
 	input: CreateCompanyInput,
@@ -79,15 +79,4 @@ export async function createCompany(
 	};
 
 	return execTransactionRW(transaction);
-}
-
-export async function editCompany(
-	id: CompanyId,
-	companyChanges: unknown
-): Promise<Company> {
-	throw new Error("Not implemented yet");
-}
-
-export async function deleteCompany(id: CompanyId): Promise<Company> {
-	throw new Error("Not implemented yet");
 }

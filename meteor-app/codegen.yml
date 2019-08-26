@@ -6,16 +6,16 @@ generates:
     config:
       contextType: imports/api/graphql/resolvers/context#MyContext
       mappers:
-        Comment: imports/api/models/comment/comment#Comment
-        CommentParent: imports/api/models/comment/comment#CommentParent
-        StarRatings: imports/api/models/misc#StarRatings
-        Company: imports/api/models/company/company#Company
-        JobAd: imports/api/models/job-ad/job-ad#JobAd
-        Location: imports/api/models/location/location#Location
-        Review: imports/api/models/review/review#Review
-        Salary: imports/api/models/salary/salary#Salary
-        User: imports/api/models/user/user#User
-        Vote: imports/api/models/vote/vote#Vote
+        Comment: imports/api/models/types#Comment
+        CommentParent: imports/api/models/types#CommentParent
+        StarRatings: imports/api/models/types#StarRatings
+        Company: imports/api/models/types#Company
+        JobAd: imports/api/models/types#JobAd
+        Location: imports/api/models/types#Location
+        Review: imports/api/models/types#Review
+        Salary: imports/api/models/types#Salary
+        User: imports/api/models/types#User
+        Vote: imports/api/models/types#Vote
       scalars:
         DateTime: Date
       enumsAsTypes: true
