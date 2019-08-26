@@ -315,7 +315,29 @@ export default {
 					"Por favor resuma las calificaciones necesarias para este puesto",
 			},
 		},
-
+		submit: "Enviar",
+	},
+	applyToJobAd: {
+		formTitle: "Solicitar un trabajo",
+		fields: {
+			fullName: {
+				label: "Nombre completo",
+				placeholder: "Por favor ingrese su nombre completo aquí",
+			},
+			email: {
+				label: "Direccion de correo electronico",
+				placeholder: "ejemplo@gmail.com",
+			},
+			phoneNumber: {
+				label: "Numero telefonico",
+				placeholder: "###-###-####",
+			},
+			coverLetter: {
+				label: "Carta de presentación / Comentarios adicionales",
+				placeholder:
+					"Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
+			},
+		},
 		submit: "Enviar",
 	},
 	resourcesWorkers: {

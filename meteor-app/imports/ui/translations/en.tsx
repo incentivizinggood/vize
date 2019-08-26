@@ -305,6 +305,29 @@ export default {
 		},
 		submit: "Submit",
 	},
+	applyToJobAd: {
+		formTitle: "Apply for a Job",
+		fields: {
+			fullName: {
+				label: "Full Name",
+				placeholder: "Please enter your full name here",
+			},
+			email: {
+				label: "Email",
+				placeholder: "example@email.com",
+			},
+			phoneNumber: {
+				label: "Phone Number",
+				placeholder: "###-###-####",
+			},
+			coverLetter: {
+				label: "Cover Letter/Additional Comments",
+				placeholder:
+					"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
+			},
+		},
+		submit: "Submit",
+	},
 	resourcesWorkers: {
 		readMore: "Read More →",
 		here: "here",

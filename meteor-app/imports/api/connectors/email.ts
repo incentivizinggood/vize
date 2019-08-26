@@ -35,7 +35,8 @@ export function sendEmail({ to, subject, text }) {
 	} else {
 		console.warn(
 			"Could not send email because MAIL_API_KEY was not set.",
-			"The message you tried to send was"
+			"The message you tried to send was",
+			{ to, subject, text }
 		);
 	}
 }
