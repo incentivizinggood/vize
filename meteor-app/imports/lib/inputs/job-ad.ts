@@ -33,4 +33,25 @@ namespace CreateJobAdInput {
 	export type ContractType = "FULL_TIME" | "PART_TIME" | "CONTRACTOR";
 }
 
-export default CreateJobAdInput;
+type CreateApplyToJobAdInput = {
+	jobAdId: string;
+	fullName: string;
+	email: string;
+	phoneNumber: string;
+	coverLetter?: string | null;
+};
+
+namespace CreateApplyToJobAdInput {
+	export const schema = yup.object({
+		jobAdId: yup.string().required(),
+		fullName: yup.string().required(),
+		email: yup
+			.string()
+			.email()
+			.required(),
+		phoneNumber: yup.string().required(),
+		coverLetter: yup.string(),
+	});
+}
+
+export { CreateJobAdInput, CreateApplyToJobAdInput };

@@ -32,7 +32,7 @@ type Mutation {
 	createReview(input: CreateReviewInput!): CreateReviewPayload
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
 	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
-	applyToJob(input: ApplyToJobInput!): ApplyToJobPayload
+	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
 }
 
 input CreateCompanyInput {
@@ -111,7 +111,7 @@ type CreateJobAdPayload {
 	jobAd: JobAd
 }
 
-input ApplyToJobInput {
+input ApplyToJobAdInput {
 	jobAdId: ID!
 	fullName: String!
 	email: String!
@@ -119,7 +119,7 @@ input ApplyToJobInput {
 	coverLetter: String
 }
 
-type ApplyToJobPayload {
+type ApplyToJobAdPayload {
 	success: Boolean
 }
 

@@ -91,4 +91,11 @@ export const Mutation: MutationResolvers = {
 		const jobAd = await dataModel.getJobAdById(jobAdId);
 		return { jobAd };
 	},
+
+	applyToJobAd: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const success = await dataModel.applyToJobAd(input);
+		return { success };
+	},
 };
