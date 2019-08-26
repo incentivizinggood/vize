@@ -7,12 +7,10 @@ import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import CreateReviewInput from "imports/lib/inputs/review";
 
-import { ReviewId, UserPId } from "imports/api/models";
-
 export async function createReview(
 	input: CreateReviewInput,
-	userId: UserPId
-): Promise<ReviewId> {
+	userId: number
+): Promise<number> {
 	const {
 		companyName,
 		reviewTitle,
@@ -30,7 +28,7 @@ export async function createReview(
 		additionalComments,
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
-	const transaction: Transaction<ReviewId> = async client => {
+	const transaction: Transaction<number> = async client => {
 		{
 			const {
 				rows: [{ role }],

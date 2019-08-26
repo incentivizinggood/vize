@@ -2,7 +2,6 @@ import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
-	ReviewId,
 	Company,
 	Review,
 	User,
@@ -43,10 +42,8 @@ const baseQuery = sql`
 `;
 
 // Get the review with a given id.
-export async function getReviewById(id: ReviewId): Promise<Review | null> {
-	if (Number.isNaN(Number(id))) return null;
-
-	return simpleQuery1(sql`${baseQuery} WHERE reviewid=${Number(id)}`);
+export async function getReviewById(id: number): Promise<Review | null> {
+	return simpleQuery1(sql`${baseQuery} WHERE reviewid=${id}`);
 }
 
 // Get all reviews written by a given user.

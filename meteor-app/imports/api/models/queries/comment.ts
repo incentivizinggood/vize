@@ -4,24 +4,17 @@ import { PostgreSQL } from "imports/api/connectors/postgresql";
 
 import PgCommentFunctions from "imports/api/models/helpers/postgresql/comments";
 import {
-	CommentId,
 	Comment,
 	CommentParent,
-	Review,
 	User,
 	getUserPostgresId,
 	getUserById,
 } from "imports/api/models";
 
 // Get the comment with a given id.
-export async function getCommentById(id: CommentId): Promise<Comment> {
-	if (Number.isNaN(Number(id))) throw Error("not a valid comment id");
-
+export async function getCommentById(id: number): Promise<Comment> {
 	return PgCommentFunctions.processCommentResults(
-		await PostgreSQL.executeQuery(
-			PgCommentFunctions.getCommentById,
-			Number(id)
-		)
+		await PostgreSQL.executeQuery(PgCommentFunctions.getCommentById, id)
 	);
 }
 

@@ -6,13 +6,11 @@ import {
 
 import CreateCompanyInput from "imports/lib/inputs/company";
 
-import { CompanyId, UserPId } from "imports/api/models";
-
 export async function createCompany(
 	input: CreateCompanyInput,
-	userId: UserPId
-): Promise<CompanyId> {
-	const transaction: Transaction<CompanyId> = async client => {
+	userId: number
+): Promise<number> {
+	const transaction: Transaction<number> = async client => {
 		{
 			const {
 				rows: [{ role, companyid }],

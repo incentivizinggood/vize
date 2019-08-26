@@ -1,27 +1,11 @@
-export type MongoId = string;
-export type PgId = number;
+export type UserId = string | number;
 
-/** A way of getting nominal type checking in Typescript */
-export type Branded<T, B> = T & { __brand: B };
-
-export type CommentId = Branded<PgId, "CommentId">;
-export type CompanyId = Branded<PgId, "CompanyId">;
-export type JobAdId = Branded<PgId, "JobAdId">;
-export type ReviewId = Branded<PgId, "ReviewId">;
-export type SalaryId = Branded<PgId, "SalaryId">;
-
-export type UserMId = Branded<MongoId, "UserMId">;
-export type UserPId = Branded<PgId, "UserPId">;
-export type UserId = UserMId | UserPId;
-
-export type VoteId = Branded<
-	| { subjectType: "comment"; refersTo: CommentId; submittedBy: UserPId }
-	| { subjectType: "review"; refersTo: ReviewId; submittedBy: UserPId },
-	"VoteId"
->;
+export type VoteId =
+	| { subjectType: "comment"; refersTo: number; submittedBy: number }
+	| { subjectType: "review"; refersTo: number; submittedBy: number };
 
 export type Comment = {
-	_id: CommentId;
+	_id: number;
 	submittedBy: UserId;
 	datePosted: Date | null;
 	content: string;
@@ -30,7 +14,7 @@ export type Comment = {
 export type CommentParent = Comment | Review;
 
 export type Company = {
-	companyId: CompanyId;
+	companyId: number;
 	name: string;
 	dateAdded: Date;
 	yearEstablished: number;
@@ -60,10 +44,10 @@ export type Company = {
 };
 
 export type JobAd = {
-	jobAdId: JobAdId;
+	jobAdId: number;
 
 	companyName: string | null;
-	companyId: CompanyId;
+	companyId: number;
 
 	jobTitle: string;
 	pesosPerHour: string;
@@ -75,11 +59,11 @@ export type JobAd = {
 };
 
 export type Review = {
-	reviewId: ReviewId;
+	reviewId: number;
 
 	submittedBy: UserId;
 	companyName: string;
-	companyId: CompanyId | null;
+	companyId: number | null;
 	location: string;
 	title: string;
 	jobTitle: string;
@@ -101,10 +85,10 @@ export type Review = {
 };
 
 export type Salary = {
-	salaryId: SalaryId;
+	salaryId: number;
 	submittedBy: UserId;
 	companyName: string;
-	companyId: CompanyId | null;
+	companyId: number | null;
 	location: string;
 	jobTitle: string;
 	incomeType: string;
@@ -113,20 +97,20 @@ export type Salary = {
 };
 
 export type User = {
-	_id: UserMId;
+	_id: string;
 	username: string;
 	createdAt: Date;
 	role: "worker" | "company-unverified" | "company";
-	companyId: CompanyId | null;
+	companyId: number | null;
 };
 
 /** A reference to the subject of a vote. */
 export type SubjectRef =
-	| { subjectType: "comment"; refersTo: CommentId }
-	| { subjectType: "review"; refersTo: ReviewId };
+	| { subjectType: "comment"; refersTo: number }
+	| { subjectType: "review"; refersTo: number };
 
 export type Vote = SubjectRef & {
-	submittedBy: UserPId;
+	submittedBy: number;
 	isUpvote: boolean | null;
 };
 

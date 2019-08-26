@@ -1,7 +1,7 @@
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { User, Vote, ReviewId, getUserPostgresId } from "imports/api/models";
+import { User, Vote, getUserPostgresId } from "imports/api/models";
 
 import { attributes } from "../queries/vote";
 
@@ -10,7 +10,7 @@ import { attributes } from "../queries/vote";
  */
 export async function castVote(
 	user: User,
-	subjectId: ReviewId,
+	subjectId: number,
 	isUpvote: boolean | null
 ): Promise<Vote | null> {
 	const userPId = await getUserPostgresId(user._id);

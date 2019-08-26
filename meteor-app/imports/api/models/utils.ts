@@ -3,14 +3,7 @@ import Hashids from "hashids";
 import { execTransactionRO } from "imports/api/connectors/postgresql";
 
 import {
-	CommentId,
-	CompanyId,
-	ReviewId,
-	JobAdId,
-	SalaryId,
 	UserId,
-	UserPId,
-	UserMId,
 	VoteId,
 	Vote,
 	VoteSubject,
@@ -22,56 +15,8 @@ import {
 	Location,
 } from "imports/api/models";
 
-export function commentIdToString(id: CommentId): string {
-	return String(id);
-}
-
-export function stringToCommentId(id: string): CommentId {
-	return Number(id) as CommentId;
-}
-
-export function companyIdToString(id: CompanyId): string {
-	return String(id);
-}
-
-export function stringToCompanyId(id: string): CompanyId {
-	return Number(id) as CompanyId;
-}
-
-export function jobAdIdToString(id: JobAdId): string {
-	return String(id);
-}
-
-export function stringToJobAdId(id: string): JobAdId {
-	return Number(id) as JobAdId;
-}
-
-export function reviewIdToString(id: ReviewId): string {
-	return String(id);
-}
-
-export function stringToReviewId(id: string): ReviewId {
-	return Number(id) as ReviewId;
-}
-
-export function salaryIdToString(id: SalaryId): string {
-	return String(id);
-}
-
-export function stringToSalaryId(id: string): SalaryId {
-	return Number(id) as SalaryId;
-}
-
-export function userIdToString(id: UserMId): string {
-	return id;
-}
-
-export function stringToUserId(id: string): UserMId {
-	return id as UserMId;
-}
-
 // Get the integer ID of a user's PostgreSQL entry
-export async function getUserPostgresId(id: UserId): Promise<UserPId> {
+export async function getUserPostgresId(id: UserId): Promise<number> {
 	if (typeof id === "number") {
 		// The given id is a number.
 		// Assume it is already a PostgreSQL id.
@@ -90,11 +35,11 @@ export async function getUserPostgresId(id: UserId): Promise<UserPId> {
 	};
 
 	const pgUserResults = await execTransactionRO(transaction);
-	return pgUserResults.user.userid as UserPId;
+	return pgUserResults.user.userid;
 }
 
 // Get the string ID of a user's MongoDB document
-export async function getUserMongoId(id: UserId): Promise<UserMId> {
+export async function getUserMongoId(id: UserId): Promise<string> {
 	if (typeof id === "string") {
 		// The given id is a string.
 		// Assume it is already a MongoDB id.

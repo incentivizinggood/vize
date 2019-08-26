@@ -22,11 +22,7 @@ export const Mutation: MutationResolvers = {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
 		return dataModel
-			.castVote(
-				context.user,
-				dataModel.stringToReviewId(subjectId),
-				isUpvote
-			)
+			.castVote(context.user, Number(subjectId), isUpvote)
 			.then(vote => (vote ? { vote } : null));
 	},
 
