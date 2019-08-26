@@ -259,6 +259,65 @@ export default {
 		},
 		submit: "Enviar",
 	},
+	createJobAd: {
+		formTitle: "Publicar un Trabajo",
+		header1:
+			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
+		fields: {
+			jobTitle: {
+				label: "Titulo del Trabajo",
+				placeholder:
+					"Por favor díganos el título del puesto que está anunciando",
+			},
+			locations: {
+				label: "Ubicaciones",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "otra" : "una"} ubicación`,
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingrese la ciudad para su ubicación",
+				},
+				address: {
+					label: "Dirección",
+					placeholder: "Ingresa la dirección de tu ubicación",
+				},
+				industrialHub: {
+					label: "Parque Industrial",
+					placeholder:
+						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+				},
+			},
+
+			pesosPerHour: {
+				label: "Pesos por Semana",
+				placeholder:
+					"Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
+			},
+			contractType: {
+				label: "Tipo de Contrato",
+				fullTime: "Tiempo completo",
+				partTime: "Medio tiempo",
+				contractor: "Contratista",
+			},
+			jobDescription: {
+				label: "Descripcion del Trabajo",
+				placeholder:
+					"Por favor ingrese una descripción formal de este trabajo",
+			},
+			responsibilities: {
+				label: "Resposabilidades",
+				placeholder:
+					"Por favor resuma las responsabilidades de este puesto",
+			},
+			qualifications: {
+				label: "Calificaciones",
+				placeholder:
+					"Por favor resuma las calificaciones necesarias para este puesto",
+			},
+		},
+
+		submit: "Enviar",
+	},
 	resourcesWorkers: {
 		readMore: "Leer Más →",
 		here: "aquí",

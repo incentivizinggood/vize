@@ -100,7 +100,7 @@ enum ContractType {
 input CreateJobAdInput {
 	jobTitle: String!
 	locations: [LocationInput!]!
-	pesosPerHour: Float!
+	pesosPerHour: String!
 	contractType: ContractType!
 	jobDescription: String!
 	responsibilities: String!
