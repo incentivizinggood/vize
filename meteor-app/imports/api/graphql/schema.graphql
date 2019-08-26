@@ -31,6 +31,7 @@ type Mutation {
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
 	createReview(input: CreateReviewInput!): CreateReviewPayload
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
+	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
 }
 
 input CreateCompanyInput {
@@ -87,6 +88,26 @@ input CreateSalaryInput {
 
 type CreateSalaryPayload {
 	salary: Salary
+}
+
+enum ContractType {
+	FULL_TIME
+	PART_TIME
+	CONTRACTOR
+}
+
+input CreateJobAdInput {
+	jobTitle: String!
+	locations: [LocationInput!]!
+	pesosPerWeek: Float!
+	contractType: ContractType!
+	jobDescription: String!
+	responsibilities: String!
+	qualifications: String!
+}
+
+type CreateJobAdPayload {
+	jobAd: JobAd
 }
 
 input CastVoteInput {
