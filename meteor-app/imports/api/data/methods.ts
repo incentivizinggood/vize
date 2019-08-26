@@ -9,7 +9,7 @@ import PgCompanyFunctions from "imports/api/models/helpers/postgresql/companies"
 import PgJobAdFunctions from "imports/api/models/helpers/postgresql/jobads";
 import PgUserFunctions from "imports/api/models/helpers/postgresql/users";
 
-import { JobAdSchema, JobApplicationSchema } from "./jobads";
+import { JobApplicationSchema } from "./jobads";
 
 Meteor.methods({
 	async "postgres.users.createUser"(user, companyPostgresId) {
@@ -136,137 +136,6 @@ Meteor.methods({
 
 		this.unblock();
 		Email.send(applicationEmail);
-	},
-
-	async "jobads.checkIfCompanyBelowJobPostLimit"(companyName) {
-		const count = await PostgreSQL.executeQuery(
-			PgJobAdFunctions.getJobAdCountForCompany,
-			companyName
-		);
-		if (count === undefined || count === null) {
-			// non-existent companies have not met their limit
-			return true;
-		}
-		return !(count >= 5);
-	},
-
-	async "jobads.postJobAd"(jobAd) {
-		const newJobAd = JobAdSchema.clean(jobAd);
-		const validationResult = JobAdSchema.namedContext().validate(newJobAd);
-		const errors = JobAdSchema.namedContext().validationErrors();
-
-		if (Meteor.isDevelopment) {
-			console.log("SERVER: Here is the validation result: ");
-			console.log(validationResult);
-			console.log(errors);
-		}
-
-		if (!validationResult) {
-			throw new Meteor.Error(
-				"invalidArguments",
-				"invalidFormInputs",
-				errors
-			);
-		}
-
-		// Make sure the user is logged in before inserting a task
-		if (!this.userId) {
-			throw new Meteor.Error("loggedOut", "loggedOut");
-		}
-
-		const user = Meteor.users.findOne(this.userId);
-
-		if (user.role !== "company") {
-			throw new Meteor.Error("rolePermission", "onlyCompanies");
-		}
-
-		/*
-			TODO
-			This check will have to be properly re-implemented
-			once you've fixed the other methods, and perhaps the
-			form and schema as well.
-			-> required the job ad company id to have the same type
-				as the user's company id, SimplSchema.integer,
-				which affects the way this form is initially populated,
-				so the changes are going to be mostly in the schema
-			-> also requires that certain company-related methods
-				have been fixed as well
-		*/
-		if (!(user.companyId && user.companyId === newJobAd.companyId)) {
-			throw new Meteor.Error("rolePermission", "permissionDenied");
-		}
-
-		if (typeof newJobAd.companyId === "string")
-			newJobAd.companyId = undefined;
-		await PostgreSQL.executeMutation(PgJobAdFunctions.postJobAd, newJobAd);
-	},
-
-	async "companies.getAllCompanyNames"() {
-		const allCompanies = PgCompanyFunctions.processCompanyResults(
-			await PostgreSQL.executeQuery(
-				PgCompanyFunctions.getAllCompanies,
-				// we'll need to make this more nuanced at some point
-				0,
-				3000
-			)
-		);
-
-		return allCompanies.map(company => company.name);
-	},
-
-	async "companies.findOne"(companyIdentifier) {
-		let company = {};
-		if (Number.isNaN(Number(companyIdentifier)))
-			company = await PostgreSQL.executeQuery(
-				PgCompanyFunctions.getCompanyByName,
-				companyIdentifier
-			);
-		else
-			company = await PostgreSQL.executeQuery(
-				PgCompanyFunctions.getCompanyById,
-				Number(companyIdentifier)
-			);
-
-		if (company.company === undefined) {
-			throw new Meteor.Error("notFound", "notFound");
-		}
-
-		return PgCompanyFunctions.processCompanyResults(company);
-	},
-
-	async "companies.companyForCurrentUser"() {
-		if (!this.userId) {
-			throw new Meteor.Error("loggedOut", "loggedOut");
-		}
-
-		const user = Meteor.users.findOne(this.userId); // assume user is defined because this.userId is defined
-
-		if (user.role !== "company" || user.companyId === undefined) {
-			throw new Meteor.Error("notFound", "notFound");
-		}
-
-		const company = PgCompanyFunctions.processCompanyResults(
-			await PostgreSQL.executeQuery(
-				PgCompanyFunctions.getCompanyById,
-				user.companyId
-			)
-		);
-
-		if (company === undefined) {
-			throw new Meteor.Error("notFound", "notFound");
-		}
-
-		return company;
-	},
-
-	"companies.isNotSessionError"(companyNameString) {
-		if (
-			companyNameString === i18n.__("common.forms.companyNotFound") ||
-			companyNameString === i18n.__("common.forms.pleaseWait")
-		) {
-			return false;
-		}
-		return true;
 	},
 
 	async "companies.doesCompanyWithNameNotExist"(companyName) {

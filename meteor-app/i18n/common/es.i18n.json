@@ -28,22 +28,6 @@
 			"phoneNumberPlaceholder": "###-###-####",
 			"clacPlaceholder": "Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
 			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
-		},
-		"paj": {
-			"contractTypes": {
-				"default": "(Seleccione uno)",
-				"fullTime": "Tiempo completo",
-				"partTime": "Medio tiempo",
-				"contractor": "Contratista"
-			},
-			"formTitle": "Publicar un Trabajo",
-			"header1": "Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
-			"jobTitlePlaceholder": "Por favor díganos el título del puesto que está anunciando",
-			"payRangePlaceholder": "Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
-			"jobDescriptionPlaceholder": "Por favor ingrese una descripción formal de este trabajo",
-			"jobResponsibilitiesPlaceholder": "Por favor resuma las responsabilidades de este puesto",
-			"jobQualificationsPlaceholder": "Por favor resuma las calificaciones necesarias para este puesto",
-			"profileNotFoundError": "ERROR: PERFIL DE LA EMPRESA NO SE ENCUENTRA (INICIAR SESIÓN Y / O CREAR UN PERFIL PARA PUBLICAR UN TRABAJO)"
 		}
 	},
 	"search": {

@@ -4,7 +4,7 @@ import SimpleSchema from "simpl-schema";
 import { i18n } from "meteor/universe:i18n";
 import { ReactiveVar } from "meteor/reactive-var";
 
-import { JobAdSchema, JobApplicationSchema } from "imports/api/data/jobads";
+import { JobApplicationSchema } from "imports/api/data/jobads";
 
 i18n.setOptions({
 	defaultLocale: "es",
@@ -177,7 +177,6 @@ function setUpI18nOnSchema(schema, schemaName) {
 	i18n.onChangeLocale(thisSchemaSetLocale);
 }
 
-setUpI18nOnSchema(JobAdSchema, "JobAds");
 setUpI18nOnSchema(JobApplicationSchema, "JobApplications");
 
 // This is used on input forms whenever I couldn't

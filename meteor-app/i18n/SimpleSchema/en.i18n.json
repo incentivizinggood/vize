@@ -38,9 +38,6 @@
 		},
 		"JobApplications": {
 			"invalidJobId": "Please provide a valid job id for the job you wish to apply for"
-		},
-		"JobAds": {
-			"maxedOutJobPosts": "You may only post up to 5 job ads"
 		}
 	},
 	"labels": {
@@ -61,19 +58,6 @@
 			"phoneNumber": "Phone Number",
 			"coverLetterAndComments": "Cover Letter/Additional Comments",
 			"dateSent": "Date Sent"
-		},
-		"JobAds": {
-			"_id": "_id",
-			"companyName": "Company Name",
-			"companyId": "Company ID",
-			"jobTitle": "Job Title",
-			"locations": "Locations",
-			"pesosPerHour": "Pesos per Week",
-			"contractType": "Contract Type",
-			"jobDescription": "Job Description",
-			"responsibilities": "Responsibilities",
-			"qualifications": "Qualifications",
-			"datePosted": "Date Posted"
 		}
 	}
 }

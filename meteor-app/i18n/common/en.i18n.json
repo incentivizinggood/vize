@@ -28,22 +28,6 @@
 			"phoneNumberPlaceholder": "###-###-####",
 			"clacPlaceholder": "Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			"invalidJobId": "ERROR: INVALID JOB ID"
-		},
-		"paj": {
-			"contractTypes": {
-				"default": "(Select one)",
-				"fullTime": "Full time",
-				"partTime": "Part time",
-				"contractor": "Contractor"
-			},
-			"formTitle": "Post a Job",
-			"header1": "Reach hundreds of workers instantly with our job posts",
-			"jobTitlePlaceholder": "Tell us the title of the position you are advertising",
-			"payRangePlaceholder": "Enter a value, $x, or a range of values, $x - $y",
-			"jobDescriptionPlaceholder": "Enter a formal description of this job",
-			"jobResponsibilitiesPlaceholder": "Summarize the responsibilities of this position",
-			"jobQualificationsPlaceholder": "Summarize the qualifications needed for this position",
-			"profileNotFoundError": "ERROR: COMPANY PROFILE NOT FOUND (LOG IN AND/OR CREATE A PROFILE TO POST A JOB)"
 		}
 	},
 	"search": {
