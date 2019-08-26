@@ -12,24 +12,6 @@
 		},
 		"success": "Password reset successful!"
 	},
-	"forms": {
-		"submitForm": "Submit",
-		"resetForm": "Reset Form",
-		"pleaseWait": "Please wait while we finish loading the form...",
-		"error": "Error",
-		"companyNotFound": "ERROR: COMPANY NOT FOUND",
-		"locationCityPlaceholder": "Enter the city for your location",
-		"locationAddressPlaceholder": "Enter the street address for your location",
-		"locationIndustrialHubPlaceholder": "Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
-		"afj": {
-			"formTitle": "Apply for a Job",
-			"fullNamePlaceholder": "Please enter your full name here",
-			"emailPlaceholder": "example@email.com",
-			"phoneNumberPlaceholder": "###-###-####",
-			"clacPlaceholder": "Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
-			"invalidJobId": "ERROR: INVALID JOB ID"
-		}
-	},
 	"search": {
 		"loading": "Loading...",
 		"noCompaniesMatch": "No Companies match",
@@ -201,39 +183,5 @@
 		"feel_free": "Feel free to",
 		"reach_us": "reach out to us",
 		"add_review": "Add a Review"
-	},
-	"methods": {
-		"jobAppEmail": {
-			"fieldLeftEmpty": "[the applicant did not fill in this field]",
-			"subjectLine": "VIZE {$wName} has responded to your job advertisement",
-			"emailText": "To those at {$cName},\n\n\tCongratulations, you just received a new job application! A Vize user, {$wName}, has responded to your job post (which was given id={$jId}). They provided the contact information below, feel free to contact them directly.\n\n\tIf you have any issues with this process, please let us know. If you hire this employee, please send us a message letting us know what you think of our service. We hope you've found the perfect employee for your company and the position!\n\nAll the best,\n\n\tThe Vize Team\n\nAPPLICANT INFORMATION\nFull name: {$wName}\nEmail: {$wEmail}\nPhone number:  {$wPhone}\nCover letter/Additional comments:\n{$wComments}"
-		},
-		"meteorErrors": {
-			"needsFiveWords": "needsFiveWords",
-			"rolePermission": "rolePermission",
-			"invalidArguments": "invalidInputs",
-			"loggedOut": "loggedOut",
-			"noCheating": "noCheating",
-			"duplicateEntry": "duplicateEntry",
-			"notFound": "notFound",
-			"sessionError": "sessionError",
-			"nameTaken": "nameTaken"
-		},
-		"errorMessages": {
-			"needsFiveWords": "You should write at least 5 words in this field",
-			"invalidFormInputs": "Invalid form inputs",
-			"loggedOut": "You must be logged in to perform this action",
-			"onlyWorkers": "Only workers may perform this action",
-			"onlyCompanies": "Only companies may perform this action",
-			"onlyOnce": "You are only allowed to do this once",
-			"permissionDenied": "You are not authorized to perform this action",
-			"noCheating": "You may not vote on your own reviews",
-			"vote1stArg": "First argument [review] must be a valid review",
-			"vote2ndArg": "Second argument [vote] must be a boolean",
-			"voteOnNullReview": "You may not vote on reviews that do not exist yet",
-			"notFound": "Your search did not return any results",
-			"nameTaken": "The name you provided is already taken",
-			"sessionError": "Please stop messing around"
-		}
 	}
 }
