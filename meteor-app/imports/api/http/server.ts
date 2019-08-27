@@ -6,14 +6,18 @@ import { testConnection as testMongoConnection } from "imports/api/connectors/mo
 import { applyGraphQLMiddleware } from "./graphql-middleware";
 import { applyHelloWorldMiddleware } from "./hello-world-middleware";
 import { applyPassportMiddleware } from "./passport-middleware";
-import morgan from "morgan";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
 
 const app = express();
 
-app.use(morgan("combined"));
-app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+// I don't know what this does, but I think it's needed for passport.js to work.
 app.use(
 	expressSession({
 		secret: "keyboard cat",

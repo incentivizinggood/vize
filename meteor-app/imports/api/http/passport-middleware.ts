@@ -2,24 +2,21 @@ import passport from "passport";
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import bcrypt from "bcrypt";
 import { Express } from "express";
-import { MongoClient } from "mongodb";
+import { withMongoDB } from "imports/api/connectors/mongodb";
 
 interface User {
 	username: string;
 	services: { password: { bcrypt: string } };
 }
 
+async function getUser(filter) {
+	return withMongoDB(db => db.collection<User>("users").findOne(filter));
+}
+
 const verify: VerifyFunction = async (username, password, done) => {
 	console.warn(`Attempting login with ${username} and ${password}.`);
 
-	const client = await MongoClient.connect("mongodb://localhost:27017", {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	});
-
-	const db = client.db("meteor");
-	const collection = db.collection<User>("users");
-	const user = await collection.findOne({ username });
+	const user = await getUser({ username });
 
 	if (!user) {
 		console.warn(`User not found.`);
@@ -52,15 +49,7 @@ export function applyPassportMiddleware(app: Express) {
 	});
 
 	passport.deserializeUser(async function(id, done) {
-		const client = await MongoClient.connect("mongodb://localhost:27017", {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		});
-
-		const db = client.db("meteor");
-		const collection = db.collection<User>("users");
-		const user = await collection.findOne({ _id: id });
-
+		const user = await getUser({ _id: id });
 		done(null, user);
 	});
 
