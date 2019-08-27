@@ -20,9 +20,6 @@ seba:minifiers-autoprefixer   # Minifies and autoprefixes CSS
 shell-server@0.3.1            # Server-side component of the `meteor shell` command
 
 # UI
-gadicc:blaze-react-component  # Render Blaze templates in React components. Used for the Autoform forms.
-react-template-helper         # Render React components in Blaze templates. Used for the Autoform forms.
-aldeed:autoform               # A framework for making forms from SimpleSchema.
 twbs:bootstrap                # Needed for the navbar dropdown to work.
 dandv:jquery-rateit           # Makes the star rating inputs on the review form.
 
@@ -34,16 +31,12 @@ accounts-password@1.5.0
 # Data and API - These integrate with Meteor and its data layer.
 mongo@1.4.2                   # The database Meteor supports right now
 apollo@3.0.1                  # GraphQL integration with Meteor. Needed for server to know what user made a query.
-reactive-var@1.0.11           # Reactive data-type for tracker. Only used in Autoform forms. Everywhere else, use stateful React components.
-reactive-dict                 # Same as reactive-var, but can hold several variables instead of just one.
 tracker@1.1.3                 # Meteor's client-side reactive programming library
 react-meteor-data             # Enables React components to work with Meteor's reactive data system. Will be removed when we migrate fully to GraphQL.
 aldeed:schema-index           # Needed for the unique constraints in SimpleSchema.
 
 # Simple helpers - Libraries that are not strongly coupled to anything. Should be easy to replace.
-check                         # An assertion util for blocking method inputs with the wrong type.
 okgrow:analytics              # Enables Google Analytics for the app.
-email                         # Allows us to send emails with Mailgun.
 
 # Unknown - These packages have not yet been accounted for.
 mobile-experience@1.0.5       # Packages for a great mobile UX
