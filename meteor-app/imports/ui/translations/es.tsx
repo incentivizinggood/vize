@@ -489,6 +489,16 @@ export default {
 			premiumText2: "Panel de Análisis de Datos",
 			premiumText3: "Recursos de Negocio",
 			premiumText4: "Análisis y Consultoría Individualizados",
+			img: {
+				exampleJobPost: {
+					src: "/images/example-job-post-square-es.png",
+					alt: "",
+				},
+				analyticsDashboard: {
+					src: "/images/analytics-dashboard-es.png",
+					alt: "",
+				},
+			},
 		},
 		companyreview: {
 			recommend: "Recomendado",

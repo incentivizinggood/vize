@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
 import Banner from "imports/ui/components/banner";
-import I18nImg from "imports/ui/components/i18n-img";
 import { LinkButton } from "imports/ui/components/button";
 import { forSize } from "imports/ui/responsive.js";
 
@@ -253,9 +252,14 @@ function ForEmployers() {
 							<T.recruitingText />
 						</P>
 					</div>
-					<I18nImg
-						className="img-responsive"
-						src={l => `/images/example-job-post-square-${l}.png`}
+					<T.img.exampleJobPost
+						renderer={t => (
+							<img
+								className="img-responsive"
+								src={t.src}
+								alt={t.alt}
+							/>
+						)}
 					/>
 				</SolutionContainer>
 				<SolutionContainer>
@@ -267,9 +271,14 @@ function ForEmployers() {
 							<T.retainmentText />
 						</P>
 					</div>
-					<I18nImg
-						className="img-responsive"
-						src={l => `/images/analytics-dashboard-${l}.png`}
+					<T.img.analyticsDashboard
+						renderer={t => (
+							<img
+								className="img-responsive"
+								src={t.src}
+								alt={t.alt}
+							/>
+						)}
 					/>
 				</SolutionContainer>
 			</SectionContainer>

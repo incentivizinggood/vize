@@ -7,18 +7,21 @@ import { ThemeProvider } from "styled-components";
 import ScrollRestoration from "./components/scroll-restoration";
 import Pages from "./pages";
 import theme from "./theme";
+import { LocaleProvider } from "./startup/i18n";
 
 function AppRoot(props) {
 	return (
-		<ApolloProvider client={props.apolloClient}>
-			<ThemeProvider theme={theme}>
-				<BrowserRouter>
-					<ScrollRestoration>
-						<Pages />
-					</ScrollRestoration>
-				</BrowserRouter>
-			</ThemeProvider>
-		</ApolloProvider>
+		<LocaleProvider>
+			<ApolloProvider client={props.apolloClient}>
+				<ThemeProvider theme={theme}>
+					<BrowserRouter>
+						<ScrollRestoration>
+							<Pages />
+						</ScrollRestoration>
+					</BrowserRouter>
+				</ThemeProvider>
+			</ApolloProvider>
+		</LocaleProvider>
 	);
 }
 

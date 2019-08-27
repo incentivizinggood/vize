@@ -26,10 +26,6 @@ aldeed:autoform               # A framework for making forms from SimpleSchema.
 twbs:bootstrap                # Needed for the navbar dropdown to work.
 dandv:jquery-rateit           # Makes the star rating inputs on the review form.
 
-# I18n
-universe:i18n                 # Internationalization framework. We use this to translate the UI in English and Spanish.
-universe:i18n-blaze
-
 # Users and Accounts - These handle authentication.
 #                      These are the last things that depend on MongoDB.
 #                      To be replaced by Passport.js after the Meteor methods are migrated to GraphQL mutations.

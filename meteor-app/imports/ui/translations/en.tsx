@@ -472,6 +472,16 @@ export default {
 			premiumText2: "Data Analitics Dashboard",
 			premiumText3: "Buisiness Resources",
 			premiumText4: "Individualized Analysis and Consulting",
+			img: {
+				exampleJobPost: {
+					src: "/images/example-job-post-square-en.png",
+					alt: "",
+				},
+				analyticsDashboard: {
+					src: "/images/analytics-dashboard-en.png",
+					alt: "",
+				},
+			},
 		},
 		companyreview: {
 			recommend: "Recommended",
