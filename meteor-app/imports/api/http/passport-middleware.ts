@@ -2,50 +2,46 @@ import passport from "passport";
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import bcrypt from "bcrypt";
 import { Express } from "express";
+import { MongoClient } from "mongodb";
 
-import { withDb } from "imports/api/connectors/mongodb";
-
-const slakdjf: VerifyFunction = (username, password, done) => {
+const verify: VerifyFunction = async (username, password, done) => {
 	console.warn(`Attempting login with ${username} and ${password}.`);
 
-	withDb(db => {
-		const collection = db.collection("users");
-		collection.findOne({ username }).then(function(user) {
-			if (!user) {
-				console.warn(`User not found.`);
-				return done(null, false, { message: `User not found.` });
-			}
-
-			console.log("Found a user.");
-			console.log(user);
-			console.log(password, user.services.password.bcrypt);
-
-			bcrypt.compare(password, user.services.password.bcrypt, function(
-				err,
-				res
-			) {
-				if (err) {
-					console.warn(`There was a compare error.`, err);
-					return done(err, { message: `There was a compare error.` });
-				}
-
-				if (!res) {
-					console.warn(`The password did not match.`);
-					return done(null, false, {
-						message: `The password did not match.`,
-					});
-				}
-
-				console.warn(`Successful login.`);
-				return done(null, user, { message: `Successful login.` });
-			});
-		});
+	const client = await MongoClient.connect("mongodb://localhost:27017", {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
 	});
+
+	const db = client.db("meteor");
+
+	const collection = db.collection("users");
+	const user = await collection.findOne({ username });
+
+	if (!user) {
+		console.warn(`User not found.`);
+		return done(null, false, { message: `User not found.` });
+	}
+
+	console.log("Found a user.");
+	console.log(user);
+	console.log(password, user.services.password.bcrypt);
+
+	const didMatch = bcrypt.compare(password, user.services.password.bcrypt);
+
+	if (!didMatch) {
+		console.warn(`The password did not match.`);
+		return done(null, false, {
+			message: `The password did not match.`,
+		});
+	}
+
+	console.warn(`Successful login.`);
+	return done(null, user, { message: `Successful login.` });
 };
 
 export function applyPassportMiddleware(app: Express) {
 	console.warn(`applyPassportMiddleware`);
-	passport.use(new LocalStrategy(slakdjf));
+	passport.use(new LocalStrategy(verify));
 
 	/*	passport.serializeUser(function(user, done) {
 		done(null, user._id);
