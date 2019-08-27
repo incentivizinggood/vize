@@ -1,0 +1,5 @@
+mutation applyToJobAd($input: ApplyToJobAdInput!) {
+	applyToJobAd(input: $input) {
+		success
+	}
+}

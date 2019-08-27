@@ -12,40 +12,6 @@
 		},
 		"success": "Restablecimiento de contraseña exitoso!"
 	},
-	"forms": {
-		"submitForm": "Enviar",
-		"resetForm": "Restablecer formulario",
-		"pleaseWait": "Espere mientras terminamos de cargar el formulario...",
-		"error": "Error",
-		"companyNotFound": "ESTA EMPRESA NO SE ENCUENTRA",
-		"locationCityPlaceholder": "Ingrese la ciudad para su ubicación",
-		"locationAddressPlaceholder": "Ingresa la dirección de tu ubicación",
-		"locationIndustrialHubPlaceholder": "Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
-		"afj": {
-			"formTitle": "Solicitar un trabajo",
-			"fullNamePlaceholder": "Por favor ingrese su nombre completo aquí",
-			"emailPlaceholder": "ejemplo@gmail.com",
-			"phoneNumberPlaceholder": "###-###-####",
-			"clacPlaceholder": "Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
-			"invalidJobId": "ERROR: ID DE TRABAJO INVÁLIDO"
-		},
-		"paj": {
-			"contractTypes": {
-				"default": "(Seleccione uno)",
-				"fullTime": "Tiempo completo",
-				"partTime": "Medio tiempo",
-				"contractor": "Contratista"
-			},
-			"formTitle": "Publicar un Trabajo",
-			"header1": "Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
-			"jobTitlePlaceholder": "Por favor díganos el título del puesto que está anunciando",
-			"payRangePlaceholder": "Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
-			"jobDescriptionPlaceholder": "Por favor ingrese una descripción formal de este trabajo",
-			"jobResponsibilitiesPlaceholder": "Por favor resuma las responsabilidades de este puesto",
-			"jobQualificationsPlaceholder": "Por favor resuma las calificaciones necesarias para este puesto",
-			"profileNotFoundError": "ERROR: PERFIL DE LA EMPRESA NO SE ENCUENTRA (INICIAR SESIÓN Y / O CREAR UN PERFIL PARA PUBLICAR UN TRABAJO)"
-		}
-	},
 	"search": {
 		"loading": "Cargando...",
 		"noCompaniesMatch": "No hay empresas que coincidan",
@@ -217,37 +183,5 @@
 		"feel_free": "No dude en",
 		"reach_us": "Comunícate con nosotros",
 		"add_review": "Agregar una Opinión"
-	},
-	"methods": {
-		"jobAppEmail": {
-			"fieldLeftEmpty": "[El solicitante no completó este campo]",
-			"subjectLine": "VIZE {$wName} ha respondido a su anuncio de trabajo",
-			"emailText": "Para los que están en {$cName}, \n\n\tFelicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, {$wName}, ha respondido a su puesto de trabajo (que recibió el id = {$jId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente. \n\n\t Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!\n\nLe deseamos lo mejor, \n\n\tEl equipo de VIZE\n\nINFORMACIÓN DEL SOLICITANTE \nNombre completo: {$wName} \nEmail: {$wEmail} \nNúmero de teléfono: {$wPhone} \ncarta de presentacion/Comentarios adicionales: \n{$wComments} ",
-			"needsFiveWords": "Necesita cinco palabras",
-			"rolePermission": "Permisos con su rol",
-			"invalidArguments": "Argumentos inválidos",
-			"loggedOut": "Desconectado",
-			"noCheating": "No hay engaño",
-			"duplicateEntry": "Entrada duplicada",
-			"notFound": "No se encuentra",
-			"sessionError": "Error de sesión",
-			"nameTaken": "Nombre en uso"
-		},
-		"errorMessages": {
-			"needsFiveWords": "Debes escribir al menos 5 palabras en este campo",
-			"invalidFormInputs": "Entradas no validas",
-			"loggedOut": "Debes ingresar para realizar esta acción",
-			"onlyWorkers": "Solo los trabajadores pueden realizar esta acción",
-			"onlyCompanies": "Solo las compañías pueden realizar esta acción",
-			"onlyOnce": "Solo se te permite hacer esto una vez",
-			"permissionDenied": "No estás autorizado a realizar esta acción",
-			"noCheating": "No puedes votar en tus propias revisiones",
-			"vote1stArg": "El primer argumento [opinión] debe ser una opinión válida",
-			"vote2ndArg": "Segundo argumento [votar] debe ser un valor lógico",
-			"voteOnNullReview": "No puedes votar en revisiones que aún no existen",
-			"notFound": "Tu busqueda no arrojo ningun resultado",
-			"nameTaken": "La informacion proporcionada ya esta en uso",
-			"sessionError": "Por favor no juegues"
-		}
 	}
 }

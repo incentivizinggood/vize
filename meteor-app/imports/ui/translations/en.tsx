@@ -252,6 +252,82 @@ export default {
 		},
 		submit: "Submit",
 	},
+	createJobAd: {
+		formTitle: "Post a Job",
+		header1: "Reach hundreds of workers instantly with our job posts",
+		fields: {
+			jobTitle: {
+				label: "Job Title",
+				placeholder:
+					"Tell us the title of the position you are advertising",
+			},
+			locations: {
+				label: "Locations",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "another" : "a"} location`,
+				city: {
+					label: "City",
+					placeholder: "Enter the city for your location",
+				},
+				address: {
+					label: "Address",
+					placeholder: "Enter the street address for your location",
+				},
+				industrialHub: {
+					label: "Industrial Park",
+					placeholder:
+						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+				},
+			},
+			pesosPerHour: {
+				label: "Pesos per Week",
+				placeholder: "Enter a value, $x, or a range of values, $x - $y",
+			},
+			contractType: {
+				label: "Contract Type",
+				fullTime: "Full time",
+				partTime: "Part time",
+				contractor: "Contractor",
+			},
+			jobDescription: {
+				label: "Job Description",
+				placeholder: "Enter a formal description of this job",
+			},
+			responsibilities: {
+				label: "Responsibilities",
+				placeholder: "Summarize the responsibilities of this position",
+			},
+			qualifications: {
+				label: "Qualifications",
+				placeholder:
+					"Summarize the qualifications needed for this position",
+			},
+		},
+		submit: "Submit",
+	},
+	applyToJobAd: {
+		formTitle: "Apply for a Job",
+		fields: {
+			fullName: {
+				label: "Full Name",
+				placeholder: "Please enter your full name here",
+			},
+			email: {
+				label: "Email",
+				placeholder: "example@email.com",
+			},
+			phoneNumber: {
+				label: "Phone Number",
+				placeholder: "###-###-####",
+			},
+			coverLetter: {
+				label: "Cover Letter/Additional Comments",
+				placeholder:
+					"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
+			},
+		},
+		submit: "Submit",
+	},
 	resourcesWorkers: {
 		readMore: "Read More →",
 		here: "here",

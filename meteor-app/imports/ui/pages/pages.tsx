@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
-import ApplyForJobForm from "./apply-for-job";
+import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
 import CreateSalary from "./create-salary";
 import CompanyProfile from "./company-profile";
@@ -15,7 +15,7 @@ import LoginPage from "./login";
 import MyAccountPage from "./my-account";
 import NotFoundPage from "./not-found";
 import PasswordChanger from "./password-changer";
-import PostAJobForm from "./post-a-job";
+import CreateJobAd from "./create-job-ad";
 import RegisterPage from "./register";
 import ResourcesEmployers from "./resources-employers";
 import ResourcesWorkers from "./resources-workers";
@@ -51,7 +51,7 @@ function Pages(props) {
 			<Route path="/jobs" component={ShowJobs} />
 			<Route path="/login" component={LoginPage} />
 			<Route path="/my-account" component={MyAccountPage} />
-			<Route path="/post-a-job" component={PostAJobForm} />
+			<Route path="/post-a-job" component={CreateJobAd} />
 			<Route path="/register" component={RegisterPage} />
 			<Route path="/worker-resources" component={ResourcesWorkers} />
 			<Route path="/test" component={TestPage} />
@@ -94,9 +94,10 @@ function Pages(props) {
 			<Route
 				path={`/${queryRoutes.applyForJob}`}
 				component={() => (
-					<ApplyForJobForm jobId={fixNullParams(params.get("id"))} />
+					<ApplyToJobAd jobAdId={fixNullParams(params.get("id"))} />
 				)}
 			/>
+
 			<Route
 				path={`/${queryRoutes.user}`}
 				component={() => (
