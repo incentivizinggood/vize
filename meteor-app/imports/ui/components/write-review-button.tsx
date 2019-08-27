@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { urlGenerators } from "imports/ui/pages/url-generators";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import { LinkButton } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
 
@@ -24,8 +23,6 @@ function WriteReviewButton(props: WriteReviewButtonProps) {
 }
 
 // Work around until we get types on withUpdateOnChangeLocale.
-const foo: React.ComponentType<
-	WriteReviewButtonProps
-> = withUpdateOnChangeLocale(WriteReviewButton);
+const foo: React.ComponentType<WriteReviewButtonProps> = WriteReviewButton;
 
 export default foo;
