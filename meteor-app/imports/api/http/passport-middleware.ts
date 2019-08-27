@@ -47,11 +47,5 @@ export function applyPassportMiddleware(app: Express) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.post(
-		"/login",
-		passport.authenticate("local", { failureRedirect: "/express-test" }),
-		function(req, res) {
-			res.redirect("/");
-		}
-	);
+	app.post("/login", passport.authenticate("local"));
 }

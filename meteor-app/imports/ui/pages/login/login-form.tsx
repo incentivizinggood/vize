@@ -2,8 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
-
-import { Meteor } from "meteor/meteor";
+import request from "request-promise-native";
 
 import * as schemas from "imports/ui/form-schemas";
 
@@ -20,8 +19,30 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = history => (values, actions) => {
-	const loginCallback = error => {
-		if (error) {
+	const options = {
+		method: "POST",
+		uri: `http://localhost:3000/login`,
+		body: {
+			username: values.username,
+			password: values.password,
+		},
+		json: true,
+	};
+
+	request(options)
+		.then(x => {
+			console.log("then = ", x);
+			actions.resetForm(initialValues);
+			if (
+				!(
+					window.location.pathname.includes("/write-review") ||
+					window.location.pathname.includes("/submit-salary-data")
+				)
+			) {
+				history.push("/");
+			}
+		})
+		.catch(error => {
 			console.error(error);
 
 			// Errors to display on form fields
@@ -37,20 +58,7 @@ const onSubmit = history => (values, actions) => {
 
 			actions.setErrors(formErrors);
 			actions.setSubmitting(false);
-		} else {
-			actions.resetForm(initialValues);
-			if (
-				!(
-					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data")
-				)
-			) {
-				history.push("/");
-			}
-		}
-	};
-
-	Meteor.loginWithPassword(values.username, values.password, loginCallback);
+		});
 };
 
 const LoginForm = props => (
