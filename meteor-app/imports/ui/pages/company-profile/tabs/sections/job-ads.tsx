@@ -7,12 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
 import { processLocation } from "imports/ui/misc";
 import { urlGenerators } from "imports/ui/pages";
 
-const T = i18n.createComponent();
+import { translations } from "imports/ui/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor;
 
 export default function JobsSection(props) {
 	// FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
@@ -38,7 +38,7 @@ export default function JobsSection(props) {
 							className="btn btn-primary"
 						>
 							{" "}
-							{i18n.__("common.overview_tab.apply_now")}
+							<T.overview_tab.apply_now />
 						</Link>
 					</div>
 					<p>
@@ -52,7 +52,7 @@ export default function JobsSection(props) {
 						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
 						{props.jobAds[0].pesosPerHour}
-						<T>common.overview_tab.hour</T>
+						<T.overview_tab.hour />
 					</p>
 					<p>
 						<FontAwesomeIcon icon={faCalendar} />
@@ -63,7 +63,7 @@ export default function JobsSection(props) {
 
 				<hr />
 				<h4 className="h4-font-sz-job">
-					<T>common.overview_tab.job_description</T>
+					<T.overview_tab.job_description />
 				</h4>
 				<div className="h4-font-sz">
 					<p>{props.jobAds[0].jobDescription}</p>
@@ -71,12 +71,7 @@ export default function JobsSection(props) {
 			</div>
 		);
 	} else {
-		// the length == 0
-		jobAdsToDisplay = <T>common.overview_tab.display_jobs</T>;
-
-		// {i18n.__(
-		// 	"common.overview_tab.display_jobs"
-		// )};
+		jobAdsToDisplay = <T.overview_tab.display_jobs />;
 	}
 	return (
 		<div className="col-md-12  section_rview_back_color_job">
@@ -84,7 +79,7 @@ export default function JobsSection(props) {
 			{/* job link */}
 			<div className="sect-padding ">
 				<h4 className="head_section_font">
-					{props.numJobAds} <T>common.overview_tab.jobs_available</T>
+					{props.numJobAds} <T.overview_tab.jobs_available />
 				</h4>
 				<br />
 				<br />
@@ -105,7 +100,7 @@ export default function JobsSection(props) {
 								>
 									{" "}
 									<strong>
-										<T>common.overview_tab.see_all_jobs</T>
+										<T.overview_tab.see_all_jobs />
 									</strong>
 								</Link>
 							</li>

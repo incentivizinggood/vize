@@ -8,9 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import CircularProgressbar from "react-circular-progressbar";
 import { createMuiTheme } from "@material-ui/core";
 
-import { i18n } from "meteor/universe:i18n";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 const theme = createMuiTheme({
 	transitions: {
@@ -112,7 +112,7 @@ function CompanyRating(props) {
 							>
 								<div className="star_border ">
 									<label>
-										<T>common.company_ratings.overall</T>
+										<T.company_ratings.overall />
 									</label>
 									&nbsp;&nbsp;&nbsp;&nbsp;
 									<StarRatings
@@ -139,9 +139,7 @@ function CompanyRating(props) {
 														htmlFor="input-2"
 														className="control-label  lef_label"
 													>
-														<T>
-															common.company_ratings.health_safety
-														</T>
+														<T.company_ratings.health_safety />
 													</label>
 												</td>
 												<td>
@@ -171,9 +169,7 @@ function CompanyRating(props) {
 														htmlFor="input-3"
 														className="control-label lef_label"
 													>
-														<T>
-															common.company_ratings.work_env
-														</T>
+														<T.company_ratings.work_env />
 													</label>
 												</td>
 												<td>
@@ -202,9 +198,7 @@ function CompanyRating(props) {
 														htmlFor="input-4"
 														className="control-label   lef_label"
 													>
-														<T>
-															common.company_ratings.benefits
-														</T>
+														<T.company_ratings.benefits />
 													</label>
 												</td>
 												<td>
@@ -234,9 +228,7 @@ function CompanyRating(props) {
 														htmlFor="input-5"
 														className="control-label  lef_label"
 													>
-														<T>
-															common.company_ratings.manager_relation
-														</T>
+														<T.company_ratings.manager_relation />
 													</label>
 												</td>
 												<td>
@@ -274,7 +266,7 @@ function CompanyRating(props) {
 						<h3>
 							<b>
 								{" "}
-								<T>common.company_ratings.recommend</T>{" "}
+								<T.company_ratings.recommend />{" "}
 							</b>
 						</h3>
 					</center>
@@ -313,8 +305,8 @@ function CompanyRating(props) {
 							<div className="num_sett">
 								{" "}
 								<span>
-									<T>common.company_ratings.average_num</T>{" "}
-									<T>common.company_ratings.months_worked</T>
+									<T.company_ratings.average_num />{" "}
+									<T.company_ratings.months_worked />
 								</span>
 							</div>
 						</div>

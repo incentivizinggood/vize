@@ -1,15 +1,15 @@
 import React from "react";
 
-import { i18n } from "meteor/universe:i18n";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 export default function OverviewSection(props) {
 	return (
 		<div className="col-md-12  section_rview_back_color ">
 			<div className="sect-padding ">
 				<h4 className="head_section_font">
-					{props.company.name} <T>common.overview_tab.overview</T>
+					{props.company.name} <T.overview_tab.overview />
 				</h4>
 
 				<hr />
