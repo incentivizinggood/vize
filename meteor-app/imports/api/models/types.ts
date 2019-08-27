@@ -102,6 +102,7 @@ export type User = {
 	createdAt: Date;
 	role: "worker" | "company-unverified" | "company";
 	companyId: number | null;
+	services: { password: { bcrypt: string } };
 };
 
 /** A reference to the subject of a vote. */

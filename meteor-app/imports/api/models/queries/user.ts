@@ -1,40 +1,39 @@
-import { Meteor } from "meteor/meteor";
-
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
+import { withMongoDB } from "imports/api/connectors/mongodb";
 
 import { UserId, Company, User, getCompanyById } from "imports/api/models";
 
 // Get the user with a given id.
-export async function getUserById(id: UserId): Promise<User> {
-	return Meteor.users.findOne(getUserMongoId(id), {
-		fields: Meteor.users.publicFields,
-	});
+export async function getUserById(id: UserId): Promise<User | null> {
+	const userMongoId = await getUserMongoId(id);
+	return withMongoDB(db =>
+		db.collection<User>("users").findOne({ _id: userMongoId })
+	);
 }
 
 // Get the user with a given username.
-export function getUserByUsername(username: string): User {
-	return Meteor.users.findOne(
-		{ username },
-		{ fields: Meteor.users.publicFields }
+export async function getUserByUsername(
+	username: string
+): Promise<User | null> {
+	return withMongoDB(db =>
+		db.collection<User>("users").findOne({ username })
 	);
 }
 
 // Get all users administering a given company.
-export function getUsersByCompany(
+export async function getUsersByCompany(
 	company: Company,
 	pageNumber: number,
 	pageSize: number
-): User[] {
-	const cursor = Meteor.users.find(
-		{ companyId: company.companyId },
-		{
-			skip: pageNumber * pageSize,
-			limit: pageSize,
-		}
-	);
+): Promise<User[]> {
+	return withMongoDB(db => {
+		const cursor = db
+			.collection<User>("users")
+			.find({ companyId: company.companyId });
 
-	return cursor.fetch();
+		return cursor.toArray();
+	});
 }
 
 // Get the company administered by a given user.

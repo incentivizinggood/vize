@@ -2,21 +2,12 @@ import passport from "passport";
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import bcrypt from "bcrypt";
 import { Express } from "express";
-import { withMongoDB } from "imports/api/connectors/mongodb";
-
-interface User {
-	username: string;
-	services: { password: { bcrypt: string } };
-}
-
-async function getUser(filter) {
-	return withMongoDB(db => db.collection<User>("users").findOne(filter));
-}
+import { getUserByUsername, getUserById } from "../models";
 
 const verify: VerifyFunction = async (username, password, done) => {
 	console.warn(`Attempting login with ${username} and ${password}.`);
 
-	const user = await getUser({ username });
+	const user = await getUserByUsername(username);
 
 	if (!user) {
 		console.warn(`User not found.`);
@@ -49,7 +40,7 @@ export function applyPassportMiddleware(app: Express) {
 	});
 
 	passport.deserializeUser(async function(id, done) {
-		const user = await getUser({ _id: id });
+		const user = await getUserById(id);
 		done(null, user);
 	});
 
