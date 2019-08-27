@@ -32,7 +32,7 @@ Meteor.users.schema = new SimpleSchema({
 	"emails.$.verified": { type: Boolean },
 	createdAt: { type: Date },
 	services: { type: Object, blackbox: true },
-	// There would normaly be a profile field, but
+	// There would normally be a profile field, but
 	// this is not used in this app so it is disabled.
 
 	// These fields are unique to this app.
@@ -84,9 +84,7 @@ Accounts.onCreateUser(function(options, user) {
 	}
 
 	postToSlack(
-		`:tada: A new user has joined Vize. Please welcome \`${
-			user.username
-		}\`.`
+		`:tada: A new user has joined Vize. Please welcome \`${user.username}\`.`
 	);
 
 	return { ...user, role: options.role };
@@ -118,8 +116,8 @@ Meteor.users.deny({
 	},
 });
 
-// Since the users collection contians a lot of very sensitive data,
-// we must be extra carefull with what is published.
+// Since the users collection contains a lot of very sensitive data,
+// we must be extra careful with what is published.
 
 // This is a Mongo field specifier that can act as a
 // filter which only allows only public fields through.
@@ -136,7 +134,7 @@ if (Meteor.isServer) {
 	});
 
 	// Publish the data for the currently logged in user.
-	// This is nessisary for Meteor.user() to return extra fields such as role.
+	// This is necessary for Meteor.user() to return extra fields such as role.
 	// See also /client/main.jsx for the subscription.
 	Meteor.publish("userData", function() {
 		if (this.userId) {
