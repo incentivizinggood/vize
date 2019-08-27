@@ -10,41 +10,12 @@ import {
 } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
-const T = translations.createCompany;
+const T = translations.createJobAd;
 
 function InnerForm({ submissionError }) {
 	return (
 		<Form noValidate>
-			<Field name="name" type="text" required t={T.fields.companyName} />
-
-			<Field
-				name="contactEmail"
-				type="email"
-				required
-				t={T.fields.contactEmail}
-			/>
-
-			<Field
-				name="yearEstablished"
-				type="number"
-				t={T.fields.yearEstablished}
-			/>
-
-			<Field name="numEmployees" select t={T.fields.numEmployees}>
-				{// TODO: Refactor
-				[
-					<option value="">(Select One)</option>,
-					...[
-						"1 - 50",
-						"51 - 500",
-						"501 - 2000",
-						"2001 - 5000",
-						"5000+",
-					].map(x => <option value={x}>{x}</option>),
-				]}
-			</Field>
-
-			<Field name="industry" type="text" t={T.fields.industry} />
+			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
 
 			<FormArray
 				name="locations"
@@ -73,18 +44,44 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<Field
-				name="contactPhoneNumber"
+				name="pesosPerHour"
 				type="text"
-				t={T.fields.contactPhoneNumber}
+				required
+				t={T.fields.pesosPerHour}
 			/>
 
-			<Field name="websiteURL" type="text" t={T.fields.websiteURL} />
+			<T.fields.contractType
+				renderer={t => (
+					<Field name="contractType" select required label={t.label}>
+						<option value="FULL_TIME">{t.fullTime}</option>
+						<option value="PART_TIME">{t.partTime}</option>
+						<option value="CONTRACTOR">{t.contractor}</option>
+					</Field>
+				)}
+			/>
 
 			<Field
-				name="descriptionOfCompany"
+				name="jobDescription"
 				multiline
 				rows={6}
-				t={T.fields.descriptionOfCompany}
+				required
+				t={T.fields.jobDescription}
+			/>
+
+			<Field
+				name="responsibilities"
+				multiline
+				rows={6}
+				required
+				t={T.fields.responsibilities}
+			/>
+
+			<Field
+				name="qualifications"
+				multiline
+				rows={6}
+				required
+				t={T.fields.qualifications}
 			/>
 
 			<SubmissionError error={submissionError} />

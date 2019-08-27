@@ -1,7 +1,6 @@
 import React from "react";
 import { Form } from "formik";
 
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import { Button } from "imports/ui/components/button";
 import {
 	Field,
@@ -130,4 +129,4 @@ function InnerForm({ submissionError }) {
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;
