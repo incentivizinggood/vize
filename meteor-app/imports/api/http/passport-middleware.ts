@@ -4,6 +4,11 @@ import bcrypt from "bcrypt";
 import { Express } from "express";
 import { MongoClient } from "mongodb";
 
+interface User {
+	username: string;
+	services: { password: { bcrypt: string } };
+}
+
 const verify: VerifyFunction = async (username, password, done) => {
 	console.warn(`Attempting login with ${username} and ${password}.`);
 
@@ -13,8 +18,7 @@ const verify: VerifyFunction = async (username, password, done) => {
 	});
 
 	const db = client.db("meteor");
-
-	const collection = db.collection("users");
+	const collection = db.collection<User>("users");
 	const user = await collection.findOne({ username });
 
 	if (!user) {
@@ -43,22 +47,31 @@ export function applyPassportMiddleware(app: Express) {
 	console.warn(`applyPassportMiddleware`);
 	passport.use(new LocalStrategy(verify));
 
-	/*	passport.serializeUser(function(user, done) {
+	passport.serializeUser(function(user, done) {
 		done(null, user._id);
 	});
 
-	passport.deserializeUser(function(id, done) {
-		const user = Meteor.users.findOne({ _id: id });
+	passport.deserializeUser(async function(id, done) {
+		const client = await MongoClient.connect("mongodb://localhost:27017", {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+
+		const db = client.db("meteor");
+		const collection = db.collection<User>("users");
+		const user = await collection.findOne({ _id: id });
 
 		done(null, user);
-    });
-    */
+	});
 
 	app.use(passport.initialize());
-	//app.use(passport.session());
+	app.use(passport.session());
 
-	app.post("/login", passport.authenticate("local", {}), function(req, res) {
-		console.warn(`DSFHSFGHJSD`);
-		res.redirect("/");
-	});
+	app.post(
+		"/login",
+		passport.authenticate("local", { failureRedirect: "/express-test" }),
+		function(req, res) {
+			res.redirect("/");
+		}
+	);
 }
