@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-
+import { withUser } from "imports/ui/hoc/user";
 import { translations } from "imports/ui/translations";
 
 import WorkerNavLinks from "./worker-nav-links";
@@ -167,6 +165,4 @@ function Header(props) {
 	);
 }
 
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(Header);
+export default withUser(Header);
