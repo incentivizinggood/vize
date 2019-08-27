@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-import { i18n } from "meteor/universe:i18n";
-
 import PageWrapper from "imports/ui/components/page-wrapper";
 import Banner from "imports/ui/components/banner";
 import I18nImg from "imports/ui/components/i18n-img";
 import { LinkButton } from "imports/ui/components/button";
 import { forSize } from "imports/ui/responsive.js";
 
-const t = i18n.createTranslator("common.forEmployers");
-const T = i18n.createComponent(t);
+import { translations } from "imports/ui/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
 const horizontalPaddingVal = "15px";
 
@@ -79,7 +78,7 @@ const SectionContainer = styled.section`
 
 const GetStarted = props => (
 	<LinkButton primary to="/register" {...props}>
-		<T>getStarted</T>
+		<T.getStarted />
 	</LinkButton>
 );
 
@@ -210,48 +209,48 @@ function ForEmployers() {
 		<PageWrapper title="Employers" navIsAnimated>
 			<Banner>
 				<PageTitle>
-					<T>headerText</T>
+					<T.headerText />
 				</PageTitle>
 				<GetStartedLarge />
 			</Banner>
 			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
 				<SectionTitle>
-					<T>heading1</T>
+					<T.heading1 />
 				</SectionTitle>
 
 				<ProblemPoint>
-					<T>card1part1</T> <Bold>90% - 120%</Bold>
-					<T>card1part2</T>{" "}
+					<T.card1part1 /> <Bold>90% - 120%</Bold>
+					<T.card1part2 />{" "}
 					<Bold>
-						<T>card1part3</T>
+						<T.card1part3 />
 					</Bold>
 				</ProblemPoint>
 
 				<ProblemPoint>
-					<T>card2part1</T>{" "}
+					<T.card2part1 />{" "}
 					<Bold>
-						<T>card2part2</T>
+						<T.card2part2 />
 					</Bold>
 				</ProblemPoint>
 				<ProblemPoint>
-					<T>card3part1</T>{" "}
+					<T.card3part1 />{" "}
 					<Bold>
-						<T>card3part2</T>
+						<T.card3part2 />
 					</Bold>
 				</ProblemPoint>
 			</SectionContainer>
 
 			<SectionContainer>
 				<SectionTitle>
-					<T>heading2</T>
+					<T.heading2 />
 				</SectionTitle>
 				<SolutionContainer>
 					<div>
 						<SubsectionTitle>
-							<T>recruitingHeading</T>
+							<T.recruitingHeading />
 						</SubsectionTitle>
 						<P>
-							<T>recruitingText</T>
+							<T.recruitingText />
 						</P>
 					</div>
 					<I18nImg
@@ -262,10 +261,10 @@ function ForEmployers() {
 				<SolutionContainer>
 					<div>
 						<SubsectionTitle>
-							<T>retainmentHeading</T>
+							<T.retainmentHeading />
 						</SubsectionTitle>
 						<P>
-							<T>retainmentText</T>
+							<T.retainmentText />
 						</P>
 					</div>
 					<I18nImg
@@ -277,36 +276,36 @@ function ForEmployers() {
 
 			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
 				<SectionTitle>
-					<T>heading3</T>
+					<T.heading3 />
 				</SectionTitle>
 				<PricingTextContainer>
-					<T>pricingText1</T>{" "}
+					<T.pricingText1 />{" "}
 					<Bold>
-						<T>pricingText2</T>
+						<T.pricingText2 />
 					</Bold>{" "}
-					<T>pricingText3</T>{" "}
+					<T.pricingText3 />{" "}
 					<Bold>
-						<T>pricingText4</T>
+						<T.pricingText4 />
 					</Bold>{" "}
-					<T>pricingText5</T>
+					<T.pricingText5 />
 				</PricingTextContainer>
 				<br />
 				<PlansContainer>
 					<PlanOption
-						name={<T>businessHeading</T>}
+						name={<T.businessHeading />}
 						items={[
-							<T>businessText1</T>,
-							<T>businessText2</T>,
-							<T>businessText3</T>,
+							<T.businessText1 />,
+							<T.businessText2 />,
+							<T.businessText3 />,
 						]}
 					/>
 					<PlanOption
-						name={<T>premiumHeading</T>}
+						name={<T.premiumHeading />}
 						items={[
-							<T>premiumText1</T>,
-							<T>premiumText2</T>,
-							<T>premiumText3</T>,
-							<T>premiumText4</T>,
+							<T.premiumText1 />,
+							<T.premiumText2 />,
+							<T.premiumText3 />,
+							<T.premiumText4 />,
 						]}
 					/>
 				</PlansContainer>
