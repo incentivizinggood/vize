@@ -4,16 +4,15 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import { Meteor } from "meteor/meteor";
-import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { translations } from "imports/ui/translations";
 
 import RewardsComponent from "./rewardsComponent";
 import rewardsEligibility from "./rewards-eligibility.graphql";
 
-const t = i18n.createTranslator("common.reviewSubmitted");
-const T = i18n.createComponent(t);
+const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -45,10 +44,10 @@ class ReviewSubmitted extends React.Component {
 		return (
 			<div className="col-md-12">
 				<h2 className="text-center">
-					<T>contributing</T>
+					<T.contributing />
 				</h2>
 				<p>
-					<T>reviewSubmitted</T>
+					<T.reviewSubmitted />
 				</p>
 
 				<Query query={rewardsEligibility}>
@@ -122,10 +121,10 @@ const Alert = ( function() {return (
 				<MDBContainer>
 					<MDBAlert color="success">
 						<h4 className="alert-heading">
-							<T>phoneSuccess</T>
+							<T.phoneSuccess/>
 						</h4>
 						<p>
-							<T>phoneSuccess2</T>
+							<T.phoneSuccess2/>
 						</p>
 					</MDBAlert>
 				</MDBContainer>
@@ -142,10 +141,10 @@ const Alert = ( function() {return (
 					<MDBContainer>
 						<MDBAlert color="success">
 							<h4 className="alert-heading">
-								<T>phoneSuccess</T>
+								<T.phoneSuccess/>
 							</h4>
 							<p>
-								<T>phoneSuccess2</T>
+								<T.phoneSuccess2/>
 							</p>
 						</MDBAlert>
 					</MDBContainer>

@@ -7,13 +7,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import { processLocation } from "imports/ui/misc";
 import { urlGenerators } from "imports/ui/pages";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function ShowJobComponent(props) {
 	// @options -  For the date formatting
@@ -49,7 +47,7 @@ function ShowJobComponent(props) {
 							className="btn btn-primary"
 						>
 							{" "}
-							{i18n.__("common.showjob.apply_now")}
+							<T.showjob.apply_now />
 						</Link>
 					</div>
 					<p>
@@ -65,7 +63,7 @@ function ShowJobComponent(props) {
 						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
 						{props.item.pesosPerHour}
-						<T>common.showjob.hour</T>
+						<T.showjob.hour />
 					</p>
 					<p>
 						{" "}
@@ -77,7 +75,7 @@ function ShowJobComponent(props) {
 
 				<hr />
 				<h4 className="h4-font-sz-job">
-					<T>common.showjob.job_description</T>
+					<T.showjob.job_description />
 				</h4>
 				<div className="h4-font-sz">
 					<article>
@@ -90,13 +88,13 @@ function ShowJobComponent(props) {
 						<div className="read-more-content">
 							<br />
 							<h4>
-								<T>common.showjob.qualifications</T>
+								<T.showjob.qualifications />
 							</h4>
 							<p>{props.item.qualifications} </p>
 							<br />
 							<div>
 								<h4>
-									<T>common.showjob.responsibilities</T>
+									<T.showjob.responsibilities />
 								</h4>
 								<p>{props.item.responsibilities}</p>
 							</div>
@@ -110,7 +108,7 @@ function ShowJobComponent(props) {
 						</label>
 						<div className="fl-ri">
 							<p>
-								<T>common.showjob.posted_on</T>{" "}
+								<T.showjob.posted_on />{" "}
 								{datePosted.toLocaleDateString(
 									"en-US",
 									options
@@ -124,4 +122,4 @@ function ShowJobComponent(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(ShowJobComponent);
+export default ShowJobComponent;
