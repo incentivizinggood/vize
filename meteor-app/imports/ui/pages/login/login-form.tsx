@@ -2,9 +2,9 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
-import request from "request-promise-native";
 
 import * as schemas from "imports/ui/form-schemas";
+import { login } from "imports/ui/auth";
 
 import InnerForm from "./login-inner-form";
 
@@ -19,17 +19,7 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = history => (values, actions) => {
-	const options = {
-		method: "POST",
-		uri: `http://localhost:3000/login`,
-		body: {
-			username: values.username,
-			password: values.password,
-		},
-		json: true,
-	};
-
-	request(options)
+	login(values.username, values.password)
 		.then(x => {
 			console.log("then = ", x);
 			actions.resetForm(initialValues);
