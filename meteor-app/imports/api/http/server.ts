@@ -1,4 +1,5 @@
 import express from "express";
+import connectPgSimple from "connect-pg-simple";
 
 import { testConnection as testPgConnection } from "imports/api/connectors/postgresql";
 import { testConnection as testMongoConnection } from "imports/api/connectors/mongodb";
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 // I don't know what this does, but I think it's needed for passport.js to work.
 app.use(
 	expressSession({
+		store: new (connectPgSimple(expressSession))(),
 		secret: "keyboard cat",
 		resave: false,
 		saveUninitialized: false,
