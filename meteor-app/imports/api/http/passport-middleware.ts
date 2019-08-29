@@ -1,8 +1,26 @@
 import passport from "passport";
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import { Express } from "express";
 import { getUserByUsername, getUserById } from "../models";
+
+async function comparePassword(
+	password: string,
+	bcryptHash: string
+): Promise<boolean> {
+	// For some reason Meteor's account system hashed passwords before
+	// passing them to bcrypt. We must replicate that behavior here so that
+	// password hashes from the old database will still work.
+	const passwordPreHashed = crypto
+		.createHash("sha256")
+		.update(password)
+		.digest("hex");
+
+	const didMatch = await bcrypt.compare(passwordPreHashed, bcryptHash);
+
+	return didMatch;
+}
 
 const verify: VerifyFunction = async (username, password, done) => {
 	console.warn(`Attempting login with ${username} and ${password}.`);
@@ -18,7 +36,10 @@ const verify: VerifyFunction = async (username, password, done) => {
 	console.log(user);
 	console.log(password, user.services.password.bcrypt);
 
-	const didMatch = bcrypt.compare(password, user.services.password.bcrypt);
+	const didMatch = await comparePassword(
+		password,
+		user.services.password.bcrypt
+	);
 
 	if (!didMatch) {
 		console.warn(`The password did not match.`);
@@ -47,9 +68,12 @@ export function applyPassportMiddleware(app: Express) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.post("/login", passport.authenticate("local"));
-	app.get("/logout", function(req, res) {
+	app.post("/login", passport.authenticate("local"), function(req, res) {
+		res.json({ user: { id: req.user._id } });
+	});
+
+	app.post("/logout", function(req, res) {
 		req.logout();
-		res.redirect("/");
+		res.json({});
 	});
 }
