@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
 
+import { withUser } from "imports/ui/hoc/user";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import { translations } from "imports/ui/translations";
 
@@ -16,7 +15,7 @@ class PasswordChanger extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			error: Meteor.userId() !== null ? null : "Not logged in",
+			error: this.props.user !== null ? null : "Not logged in",
 			success: false,
 			oldPassword: "",
 			newPassword: "",
@@ -205,6 +204,4 @@ class PasswordChanger extends React.Component {
 	}
 }
 
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(PasswordChanger);
+export default withUser(PasswordChanger);

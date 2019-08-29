@@ -1,11 +1,16 @@
 import React from "react";
 
-import { CurrentUserComponent as QueryCurrentUser } from "imports/gen/graphql-operations";
+import {
+	CurrentUserComponent as QueryCurrentUser,
+	CurrentUserQuery,
+} from "imports/gen/graphql-operations";
 
-export function withUser(WrappedComponent) {
-	// TODO: Fix caching on login and logout so
-	// that we do not need fetchPolicy="network-only"
-	return props => (
+export function withUser<T>(
+	WrappedComponent: React.ComponentType<
+		T & { user: CurrentUserQuery["currentUser"] }
+	>
+) {
+	return (props: T) => (
 		<QueryCurrentUser>
 			{({ error, loading, data }) => (
 				<WrappedComponent

@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-
+import { withUser } from "imports/ui/hoc/user";
 import PageWrapper from "imports/ui/components/page-wrapper";
 
 /* The page where users can view their account details,
@@ -67,6 +65,5 @@ class MyAccountPage extends React.Component {
 		);
 	}
 }
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(MyAccountPage);
+
+export default withUser(MyAccountPage);
