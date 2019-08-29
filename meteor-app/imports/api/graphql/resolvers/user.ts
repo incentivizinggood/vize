@@ -3,7 +3,7 @@ import * as dataModel from "imports/api/models";
 import { UserResolvers } from "imports/gen/graphql-resolvers";
 
 export const User: UserResolvers = {
-	id: (obj, _args, _context, _info) => dataModel.userIdToString(obj._id),
+	id: (obj, _args, _context, _info) => obj._id,
 
 	role: (obj, _args, _context, _info) => {
 		if (obj.role === "worker") {

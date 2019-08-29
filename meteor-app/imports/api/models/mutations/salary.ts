@@ -6,12 +6,10 @@ import {
 
 import CreateSalaryInput from "imports/lib/inputs/salary";
 
-import { SalaryId, Salary, UserPId } from "imports/api/models";
-
 export async function createSalary(
 	input: CreateSalaryInput,
-	userId: UserPId
-): Promise<SalaryId> {
+	userId: number
+): Promise<number> {
 	const {
 		companyName,
 		location,
@@ -21,7 +19,7 @@ export async function createSalary(
 		gender,
 	}: CreateSalaryInput = await CreateSalaryInput.schema.validate(input);
 
-	const transaction: Transaction<SalaryId> = async client => {
+	const transaction: Transaction<number> = async client => {
 		{
 			const {
 				rows: [{ role }],
@@ -77,15 +75,4 @@ export async function createSalary(
 	};
 
 	return execTransactionRW(transaction);
-}
-
-export async function editSalary(
-	id: SalaryId,
-	salaryChanges: unknown
-): Promise<Salary> {
-	throw new Error("Not implemented yet");
-}
-
-export async function deleteSalary(id: SalaryId): Promise<Salary> {
-	throw new Error("Not implemented yet");
 }

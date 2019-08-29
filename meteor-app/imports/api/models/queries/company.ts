@@ -1,7 +1,7 @@
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { CompanyId, Company } from "imports/api/models";
+import { Company } from "imports/api/models";
 import { paginate } from "imports/api/models/misc";
 
 const attributes = sql.raw(
@@ -34,13 +34,8 @@ const baseQuery = sql`
 `;
 
 // Get the company with a given id.
-export async function getCompanyById(id: CompanyId): Promise<Company | null> {
-	// id is a string for now, and company id's
-	// are integers, so I think this should be fine
-	// for now
-	if (Number.isNaN(Number(id))) throw Error("not a valid company id");
-
-	return simpleQuery1(sql`${baseQuery} WHERE companyid=${Number(id)}`);
+export async function getCompanyById(id: number): Promise<Company | null> {
+	return simpleQuery1(sql`${baseQuery} WHERE companyid=${id}`);
 }
 
 // Get the company with a given name.

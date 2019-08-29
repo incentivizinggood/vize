@@ -1,18 +1,16 @@
 import Hashids from "hashids";
 
 import {
-	CommentId,
-	ReviewId,
-	UserPId,
+	VoteId,
 	Vote,
-	Branded,
+	VoteSubject,
+	SubjectRef,
+	Comment,
+	Review,
+	isComment,
+	isReview,
+	Location,
 } from "imports/api/models";
-
-export type VoteId = Branded<
-	| { subjectType: "comment"; refersTo: CommentId; submittedBy: UserPId }
-	| { subjectType: "review"; refersTo: ReviewId; submittedBy: UserPId },
-	"VoteId"
->;
 
 /* VoteId's are strings that encode three numbers, [subjectType, submittedBy,
    refersTo]. This is done because the database uses (submittedby,refersto) as
@@ -46,4 +44,25 @@ export function getIdOfVote(vote: Vote): VoteId {
 		subjectType: vote.subjectType,
 		refersTo: vote.refersTo,
 	} as VoteId;
+}
+
+// Get the foreign key that a vote cast on this subject would have.
+export function getVoteSubjectRef(subject: VoteSubject): SubjectRef {
+	if (isComment(subject)) {
+		return {
+			subjectType: "comment",
+			refersTo: (subject as Comment)._id,
+		};
+	} else if (isReview(subject)) {
+		return {
+			subjectType: "review",
+			refersTo: (subject as Review).reviewId,
+		};
+	} else {
+		throw new Error("NOT_ANY_TYPE_OF_VOTE_SUBJECT");
+	}
+}
+
+export function parseLocationString(str: string): Location {
+	return JSON.parse(str);
 }

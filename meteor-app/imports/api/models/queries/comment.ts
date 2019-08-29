@@ -1,15 +1,9 @@
 // WARNING: Comments have not been fully implemented yet. This code is a half
 // done mess. Keep that in mind when working with it.
-import {
-	CommentId,
-	Comment,
-	CommentParent,
-	User,
-	getUserById,
-} from "imports/api/models";
+import { Comment, CommentParent, User, getUserById } from "imports/api/models";
 
 // Get the comment with a given id.
-export async function getCommentById(id: CommentId): Promise<Comment> {
+export async function getCommentById(id: number): Promise<Comment> {
 	throw new Error("Not implemented yet");
 }
 

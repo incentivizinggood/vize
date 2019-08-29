@@ -1,7 +1,7 @@
 import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { JobAdId, Company, JobAd, getCompanyById } from "imports/api/models";
+import { Company, JobAd, getCompanyById } from "imports/api/models";
 import { paginate } from "imports/api/models/misc";
 
 const attributes = sql.raw(
@@ -21,10 +21,8 @@ const attributes = sql.raw(
 const baseQuery = sql`SELECT ${attributes} FROM jobads`;
 
 // Get the job ad with a given id.
-export async function getJobAdById(id: JobAdId): Promise<JobAd | null> {
-	if (Number.isNaN(Number(id))) return null;
-
-	return simpleQuery1(sql`${baseQuery} WHERE jobadid=${Number(id)}`);
+export async function getJobAdById(id: number): Promise<JobAd | null> {
+	return simpleQuery1(sql`${baseQuery} WHERE jobadid=${id}`);
 }
 
 // Get all job ads posted by a given company.

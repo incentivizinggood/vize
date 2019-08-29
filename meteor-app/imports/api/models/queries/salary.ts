@@ -2,7 +2,6 @@ import sql from "imports/lib/sql-template";
 import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
 
 import {
-	SalaryId,
 	Company,
 	Salary,
 	User,
@@ -27,10 +26,8 @@ const attributes = sql.raw(
 const baseQuery = sql`SELECT ${attributes} FROM salaries`;
 
 // Get the salary with a given id.
-export async function getSalaryById(id: SalaryId): Promise<Salary | null> {
-	if (Number.isNaN(Number(id))) return null;
-
-	return simpleQuery1(sql`${baseQuery} WHERE salaryid=${Number(id)}`);
+export async function getSalaryById(id: number): Promise<Salary | null> {
+	return simpleQuery1(sql`${baseQuery} WHERE salaryid=${id}`);
 }
 
 // Get all salaries submitted by a given user.

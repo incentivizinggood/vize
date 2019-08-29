@@ -3,8 +3,7 @@ import * as dataModel from "imports/api/models";
 import { ReviewResolvers } from "imports/gen/graphql-resolvers";
 
 export const Review: ReviewResolvers = {
-	id: (obj, _args, _context, _info) =>
-		dataModel.reviewIdToString(obj.reviewId),
+	id: (obj, _args, _context, _info) => String(obj.reviewId),
 
 	location: (obj, _args, _context, _info) =>
 		dataModel.parseLocationString(obj.location),

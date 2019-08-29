@@ -1,12 +1,9 @@
 import sql from "imports/lib/sql-template";
 import { simpleQuery } from "imports/api/connectors/postgresql";
 
-import {
-	Location,
-	Company,
-	JobAd,
-	parseLocationString,
-} from "imports/api/models";
+import { Location, Company, JobAd } from "imports/api/models/types";
+
+import { parseLocationString } from "imports/api/models/utils";
 
 export async function getLocationsByCompany(
 	company: Company

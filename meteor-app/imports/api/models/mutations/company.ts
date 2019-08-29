@@ -6,13 +6,11 @@ import {
 
 import CreateCompanyInput from "imports/lib/inputs/company";
 
-import { CompanyId, Company, UserPId } from "imports/api/models";
-
 export async function createCompany(
 	input: CreateCompanyInput,
-	userId: UserPId
-): Promise<CompanyId> {
-	const transaction: Transaction<CompanyId> = async client => {
+	userId: number
+): Promise<number> {
+	const transaction: Transaction<number> = async client => {
 		{
 			const {
 				rows: [{ role, companyid }],
@@ -79,15 +77,4 @@ export async function createCompany(
 	};
 
 	return execTransactionRW(transaction);
-}
-
-export async function editCompany(
-	id: CompanyId,
-	companyChanges: unknown
-): Promise<Company> {
-	throw new Error("Not implemented yet");
-}
-
-export async function deleteCompany(id: CompanyId): Promise<Company> {
-	throw new Error("Not implemented yet");
 }

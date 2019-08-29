@@ -1,22 +1,16 @@
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import {
-	VoteSubject,
-	User,
-	Vote,
-	ReviewId,
-	getUserPostgresId,
-} from "imports/api/models";
+import { User, Vote, getUserPostgresId } from "imports/api/models";
 
-import { attributes } from "./vote-queries";
+import { attributes } from "../queries/vote";
 
 /** Create a new vote or, if the subject was already voted on, change the vote.
  * If isUpvote is null then remove the vote.
  */
 export async function castVote(
 	user: User,
-	subjectId: ReviewId,
+	subjectId: number,
 	isUpvote: boolean | null
 ): Promise<Vote | null> {
 	const userPId = await getUserPostgresId(user._id);

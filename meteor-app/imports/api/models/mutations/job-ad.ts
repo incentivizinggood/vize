@@ -10,12 +10,10 @@ import {
 	CreateApplyToJobAdInput,
 } from "imports/lib/inputs/job-ad";
 
-import { JobAdId, UserPId } from "imports/api/models";
-
 export async function createJobAd(
 	input: CreateJobAdInput,
-	userId: UserPId
-): Promise<JobAdId> {
+	userId: number
+): Promise<number> {
 	const {
 		jobTitle,
 		locations,
@@ -26,7 +24,7 @@ export async function createJobAd(
 		qualifications,
 	}: CreateJobAdInput = await CreateJobAdInput.schema.validate(input);
 
-	const transaction: Transaction<JobAdId> = async client => {
+	const transaction: Transaction<number> = async client => {
 		const {
 			rows: [{ role, companyid }],
 		} = await client.query(
