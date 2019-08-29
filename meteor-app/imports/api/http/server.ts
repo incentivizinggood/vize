@@ -12,13 +12,9 @@ import expressSession from "express-session";
 
 const app = express();
 
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
 app.use(bodyParser.json());
 
-// I don't know what this does, but I think it's needed for passport.js to work.
 app.use(
 	expressSession({
 		store: new (connectPgSimple(expressSession))(),
@@ -29,7 +25,9 @@ app.use(
 );
 
 applyPassportMiddleware(app);
+
 applyHelloWorldMiddleware(app);
+
 applyGraphQLMiddleware(app);
 
 // TODO: When we stop using Meteor, `app` will be the main server.

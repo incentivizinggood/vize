@@ -3,7 +3,7 @@ import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { Express } from "express";
-import { getUserByUsername, getUserById } from "../models";
+import { User, getUserByUsername, getUserById } from "../models";
 
 async function comparePassword(
 	password: string,
@@ -23,18 +23,11 @@ async function comparePassword(
 }
 
 const verify: VerifyFunction = async (username, password, done) => {
-	console.warn(`Attempting login with ${username} and ${password}.`);
-
 	const user = await getUserByUsername(username);
 
 	if (!user) {
-		console.warn(`User not found.`);
 		return done(null, false, { message: `User not found.` });
 	}
-
-	console.log("Found a user.");
-	console.log(user);
-	console.log(password, user.services.password.bcrypt);
 
 	const didMatch = await comparePassword(
 		password,
@@ -42,38 +35,45 @@ const verify: VerifyFunction = async (username, password, done) => {
 	);
 
 	if (!didMatch) {
-		console.warn(`The password did not match.`);
-		return done(null, false, {
-			message: `The password did not match.`,
-		});
+		return done(null, false, { message: `Incorrect password.` });
 	}
 
-	console.warn(`Successful login.`);
 	return done(null, user, { message: `Successful login.` });
 };
 
 export function applyPassportMiddleware(app: Express) {
-	console.warn(`applyPassportMiddleware`);
 	passport.use(new LocalStrategy(verify));
 
-	passport.serializeUser(function(user, done) {
+	passport.serializeUser<User, string>(function(user, done) {
 		done(null, user._id);
 	});
 
-	passport.deserializeUser(async function(id, done) {
+	passport.deserializeUser<User, string>(async function(id, done) {
 		const user = await getUserById(id);
-		done(null, user);
+		// I'm not sure if this is correct.
+		// We may need to return an error if the user is not found.
+		done(null, user === null ? undefined : user);
 	});
 
 	app.use(passport.initialize());
 	app.use(passport.session());
 
 	app.post("/login", passport.authenticate("local"), function(req, res) {
-		res.json({ user: { id: req.user._id } });
+		// We assume the login was made by an API call.
+		// Return username and id in case the client wants to redirect.
+		res.json({
+			user: {
+				id: req.user._id,
+				username: req.user.username,
+			},
+		});
 	});
 
 	app.post("/logout", function(req, res) {
 		req.logout();
-		res.json({});
+
+		// We assume the logout was made by an API call.
+		// We do not have any data to return.
+		res.end();
 	});
 }
