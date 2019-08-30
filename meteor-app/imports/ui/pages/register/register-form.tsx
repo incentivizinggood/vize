@@ -18,13 +18,15 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(),
+	username: schemas.username.required(
+		"Nombre de Usuario es un campo requerido"
+	),
 	email: yup
 		.string()
-		.email()
-		.required(),
+		.email("Correo Electrónico debe ser válido")
+		.required("Correo Electrónico es un campo requerido"),
 	companyName: schemas.companyName,
-	password: schemas.password.required(),
+	password: schemas.password.required("Contraseña es un campo requerido"),
 	role: yup
 		.mixed()
 		.oneOf(["worker", "company"])
@@ -40,7 +42,7 @@ const onSubmit = history => (values, actions) => {
 			const formErrors = {};
 
 			if (error.reason === "Username already exists.") {
-				formErrors.username = "Username already exists";
+				formErrors.username = "Nombre de usuario ya existe";
 			}
 
 			actions.setErrors(formErrors);
