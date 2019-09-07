@@ -22,7 +22,7 @@ function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
 		content = null;
 	} else {
 		content = (
-			<PopupModal isOpen={true}>
+			<PopupModal isOpen={true} showCloseButton={false}>
 				<RegisterLoginModal />
 			</PopupModal>
 		);

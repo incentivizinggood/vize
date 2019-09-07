@@ -22,7 +22,7 @@ function CreateSalaryPage({ companyName, user }: CreateSalaryPageProps) {
 		content = null;
 	} else {
 		content = (
-			<PopupModal isOpen={true} canCloseModal={false}>
+			<PopupModal isOpen={true} showCloseButton={false}>
 				<RegisterLoginModal />
 			</PopupModal>
 		);

@@ -1,6 +1,11 @@
 import React from "react";
 import Modal from "react-modal";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+
 const customStyles = {
 	content: {
 		top: "50%",
@@ -68,9 +73,16 @@ export default class PopupModal extends React.Component {
 					style={customStyles}
 					contentLabel="Modal"
 				>
+					{ this.props.showCloseButton && <button style={{ float: "right" }} onClick={this.closeModal}><FontAwesomeIcon icon={faTimes} /></button> }
 					{this.props.children}
 				</Modal>
 			</div>
 		);
 	}
 }
+
+PopupModal.defaultProps = {
+  showCloseButton: true,
+  canCloseModal: true,
+  isOpen: false,
+};

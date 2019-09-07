@@ -213,7 +213,6 @@ function ReviewComponent(props) {
 								<PopupModal
 									buttonClass="flag-style-btn"
 									buttonText={t("report")}
-									isOpen={false}
 								>
 									<FlagSystem
 										reviewId={props.review.id}
