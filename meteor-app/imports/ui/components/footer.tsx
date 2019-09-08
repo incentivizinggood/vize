@@ -63,12 +63,6 @@ const SocialLinks = styled.div`
 	}
 `;
 
-const WhatsApp = styled.img`
-	width: 30px;
-	height: 30px;
-	border-radius: 8px;
-`;
-
 const SocialIcon = styled.img`
 	width: 50px;
 	height: 50px;
