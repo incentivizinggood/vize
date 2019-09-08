@@ -9,15 +9,14 @@ import {
 import PopupModal from "imports/ui/components/popup-modal";
 
 import { Meteor } from "meteor/meteor";
-import { i18n } from "meteor/universe:i18n";
 import { withTracker } from "meteor/react-meteor-data";
 
 import FlagSystem from "imports/ui/components/flag/flag";
+import { translations } from "imports/ui/translations";
 
 import VoteButtons from "./vote-buttons";
 
-const t = i18n.createTranslator("common.companyreview");
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function ReviewComponent(props) {
 	// IF-ELSE for the Recommended option, green tick v/s red cross
@@ -30,7 +29,7 @@ function ReviewComponent(props) {
 					style={{ color: "#2E8B57" }}
 				/>
 				&nbsp;&nbsp;
-				<T>common.companyreview.recommend</T>
+				<T.companyreview.recommend />
 			</p>
 		);
 	} else {
@@ -41,7 +40,7 @@ function ReviewComponent(props) {
 					style={{ color: "#FF4545" }}
 				/>
 				&nbsp;&nbsp;
-				<T>common.companyreview.not_recommend</T>
+				<T.companyreview.not_recommend />
 			</p>
 		);
 	}
@@ -94,7 +93,7 @@ function ReviewComponent(props) {
 						<ul className="dropdown-menu" role="menu">
 							<li>
 								<label>
-									<T>common.companyreview.overall</T>
+									<T.companyreview.overall />
 								</label>
 								<br />
 								<StarRatings
@@ -108,7 +107,7 @@ function ReviewComponent(props) {
 							</li>
 							<li>
 								<label>
-									<T>common.companyreview.health_safety</T>
+									<T.companyreview.health_safety />
 								</label>
 								<br />
 								<StarRatings
@@ -122,7 +121,7 @@ function ReviewComponent(props) {
 							<li>
 								{" "}
 								<label>
-									<T>common.companyreview.work_env</T>
+									<T.companyreview.work_env />
 								</label>
 								<br />
 								<StarRatings
@@ -135,7 +134,7 @@ function ReviewComponent(props) {
 							</li>
 							<li>
 								<label>
-									<T>common.companyreview.benefits</T>
+									<T.companyreview.benefits />
 								</label>
 								<br />
 								<StarRatings
@@ -147,7 +146,7 @@ function ReviewComponent(props) {
 							<li>
 								{" "}
 								<label>
-									<T>common.companyreview.manager_relation</T>
+									<T.companyreview.manager_relation />
 								</label>
 								<br />
 								<StarRatings
@@ -172,7 +171,7 @@ function ReviewComponent(props) {
 						<div className="form-group  p-c-a">
 							<br />
 							<label>
-								<T>common.companyreview.pros</T>
+								<T.companyreview.pros />
 							</label>
 							<br />
 							<p>{props.review.pros}</p>
@@ -180,7 +179,7 @@ function ReviewComponent(props) {
 						<br />
 						<div className="form-group  p-c-a">
 							<label>
-								<T>common.companyreview.cons</T>
+								<T.companyreview.cons />
 							</label>
 							<br />
 							<p>{props.review.cons}</p>
@@ -188,7 +187,7 @@ function ReviewComponent(props) {
 						<br />
 						<div className="form-group  p-c-a">
 							<label>
-								<T>common.companyreview.additional_comments</T>
+								<T.companyreview.additional_comments />
 							</label>
 							<br />
 							<p>{props.review.additionalComments}</p>
@@ -221,7 +220,7 @@ function ReviewComponent(props) {
 								</PopupModal>
 							) : (
 								<button className="flag-style-btn" disabled>
-									<T>common.companyreview.report</T>
+									<T.companyreview.report />
 								</button>
 							)}
 						</div>

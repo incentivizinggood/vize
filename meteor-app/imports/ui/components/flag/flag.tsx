@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import { Meteor } from "meteor/meteor";
-import { i18n } from "meteor/universe:i18n";
 
-const t = i18n.createTranslator("common.flags");
-const T = i18n.createComponent();
+import { translations } from "imports/ui/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor.flags;
 
 const FlagTitle = styled.h2`
 	color: #439bd5;
@@ -48,7 +48,7 @@ function FlagSystem(props) {
 
 	const handleSubmit = event => {
 		if (document.getElementById("textAreaClear").value === "") {
-			alert(t("please_choose_reason"));
+			alert("please_choose_reason");
 		} else {
 			Meteor.call(
 				"flagAReview",
@@ -69,7 +69,7 @@ function FlagSystem(props) {
 			);
 
 			document.getElementById("textAreaClear").value = "";
-			alert(t("thanks"));
+			alert("thanks");
 		}
 		event.preventDefault();
 	};
@@ -79,7 +79,7 @@ function FlagSystem(props) {
 			<form onSubmit={handleSubmit} id="submitForm">
 				<FlagTitle>
 					{" "}
-					<T>common.flags.report_review</T>{" "}
+					<T.report_review />{" "}
 				</FlagTitle>
 				<LinePadding />
 				<Reason>
@@ -90,24 +90,32 @@ function FlagSystem(props) {
 						onChange={handleReasonChange}
 					>
 						<option selected disabled>
-							{t("choose_reason")}
+							<T.choose_reason />
 						</option>
 						<option value="Inappropriate Comment">
-							{t("in_comment")}
+							<T.in_comment />
 						</option>
-						<option value="False Information">{t("false")}</option>
-						<option value="Other">{t("other")}</option>
+						<option value="False Information">
+							<T.false />
+						</option>
+						<option value="Other">
+							<T.other />
+						</option>
 					</select>
 				</Reason>
 				<TextArea>
-					<textarea
-						id="textAreaClear"
-						rows="2"
-						cols="200"
-						placeholder={t("explanation")}
-						className="form-control shadow-textarea z-depth-1"
-						value={explanation}
-						onChange={handleExplanationChange}
+					<T.explanation
+						renderer={t => (
+							<textarea
+								id="textAreaClear"
+								rows="2"
+								cols="200"
+								placeholder={t}
+								className="form-control shadow-textarea z-depth-1"
+								value={explanation}
+								onChange={handleExplanationChange}
+							/>
+						)}
 					/>
 				</TextArea>
 			</form>
@@ -119,7 +127,7 @@ function FlagSystem(props) {
 					value="Submit"
 				>
 					{" "}
-					{t("submit")}
+					<T.submit />
 				</button>
 			</ButtonSlide>
 		</div>

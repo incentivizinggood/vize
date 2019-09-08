@@ -2,15 +2,13 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { i18n } from "meteor/universe:i18n";
-
 import { urlGenerators } from "imports/ui/pages";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import { LinkButton } from "imports/ui/components/button";
+import { translations } from "imports/ui/translations";
 
 import SalaryPosting from "./salary-posting";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function SalaryTab(props) {
 	const renderedSalaries = props.company.salaries.map(salary => (
@@ -21,8 +19,7 @@ function SalaryTab(props) {
 		<div role="tabpanel" className="tab-pane" id="salaries">
 			<div className="col-md-12  section_rview_back_color03 ">
 				<h4 className="head_section_font">
-					{props.company.numSalaries}{" "}
-					<T>common.salary_tab.job_salaries</T>
+					{props.company.numSalaries} <T.salary_tab.job_salaries />
 				</h4>
 				<div className="add-buttons">
 					<LinkButton
@@ -38,7 +35,7 @@ function SalaryTab(props) {
 					>
 						<FontAwesomeIcon icon={faPlus} />
 						&nbsp;
-						<T>common.salary_tab.add_salary</T>
+						<T.salary_tab.add_salary />
 					</LinkButton>
 					{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 				</div>
@@ -62,4 +59,4 @@ function SalaryTab(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(SalaryTab);
+export default SalaryTab;

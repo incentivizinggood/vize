@@ -1,0 +1,23 @@
+mutation createJobAd($input: CreateJobAdInput!) {
+	createJobAd(input: $input) {
+		jobAd {
+			id
+			jobTitle
+			locations {
+				city
+				address
+				industrialHub
+			}
+			pesosPerHour
+			contractType
+			jobDescription
+			responsibilities
+			qualifications
+			created
+			company {
+				id
+				name
+			}
+		}
+	}
+}

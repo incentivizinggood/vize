@@ -1,11 +1,10 @@
 import React from "react";
 
 import { Meteor } from "meteor/meteor";
-import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 class ContactForm extends React.Component {
 	constructor(props) {
@@ -79,43 +78,49 @@ class ContactForm extends React.Component {
 					id="submitForm"
 				>
 					<span className="contact-form-title">
-						<T>common.aboutUs.reach_us</T>
+						<T.aboutUs.reach_us />
 					</span>
 					<div className="wrap-input rs1 validate-input">
-						<input
-							id="first-name"
-							className="input"
-							type="text"
-							name="first-name"
-							placeholder={i18n.__(
-								"common.aboutUs.placeholder_name"
+						<T.aboutUs.placeholder_name
+							renderer={t => (
+								<input
+									id="first-name"
+									className="input"
+									type="text"
+									name="first-name"
+									placeholder={t}
+									onChange={this.handleNameChange}
+								/>
 							)}
-							onChange={this.handleNameChange}
 						/>
 						<span className="focus-input" />
 					</div>
 					<div className="wrap-input rs1 validate-input">
-						<input
-							id="email"
-							className="input"
-							type="text"
-							name="email"
-							placeholder={i18n.__(
-								"common.aboutUs.placeholder_email"
+						<T.aboutUs.placeholder_email
+							renderer={t => (
+								<input
+									id="email"
+									className="input"
+									type="text"
+									name="email"
+									placeholder={t}
+									onChange={this.handleEmailChange}
+								/>
 							)}
-							onChange={this.handleEmailChange}
 						/>
 						<span className="focus-input" />
 					</div>
 					<div className="wrap-input validate-input">
-						<textarea
-							id="message"
-							className="input"
-							name="message"
-							placeholder={i18n.__(
-								"common.aboutUs.placeholder_comments"
+						<T.aboutUs.placeholder_comments
+							renderer={t => (
+								<textarea
+									id="message"
+									className="input"
+									name="message"
+									placeholder={t}
+									onChange={this.handleTextBoxChanging}
+								/>
 							)}
-							onChange={this.handleTextBoxChanging}
 						/>
 						<span className="focus-input" />
 					</div>
@@ -126,7 +131,7 @@ class ContactForm extends React.Component {
 							value="Submit"
 						>
 							<span>
-								<T>common.aboutUs.submit_button</T>
+								<T.aboutUs.submit_button />
 								<i className="zmdi zmdi-arrow-right m-l-8" />
 							</span>
 						</button>
@@ -136,4 +141,4 @@ class ContactForm extends React.Component {
 		);
 	}
 }
-export default withUpdateOnChangeLocale(ContactForm);
+export default ContactForm;

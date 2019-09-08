@@ -13,7 +13,8 @@ const theme = {
 	error: "red",
 
 	background: "hsl(0, 0%, 95%)",
-	// The background color of most things that have things in them.
+	background: "hsl(0, 0%, 95%)",
+	// The background color of most things that have things in them. It is a light gray color
 	surface: "white",
 	surfaceAccent: "hsl(240, 4%, 14%)",
 

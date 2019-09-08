@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Accounts } from "meteor/accounts-base";
-import { i18n } from "meteor/universe:i18n";
 
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.passwordChanger");
-const T = i18n.createComponent(t);
+const T = translations.legacyTranslationsNeedsRefactor.passwordChanger;
 
 /* A form where users can change their passwords.
  */
@@ -72,7 +70,7 @@ class PasswordChanger extends React.Component {
 			>
 				{this.state.error ? (
 					<div>
-						<T>{`error.${this.state.error}`}</T>
+						<T.error renderer={t => t[this.state.error]} />
 					</div>
 				) : null}
 				<br />
@@ -85,15 +83,19 @@ class PasswordChanger extends React.Component {
 						htmlFor="passwordChangeForm-oldPassword"
 						style={{ width: "100%" }}
 					>
-						<input
-							id="passwordChangeForm-oldPassword"
-							name="oldPassword"
-							type="password"
-							placeholder={t("oldPassword")}
-							required
-							value={this.state.oldPassword}
-							onChange={this.handleInputChange}
-							style={{ width: "100%" }}
+						<T.oldPassword
+							renderer={t => (
+								<input
+									id="passwordChangeForm-oldPassword"
+									name="oldPassword"
+									type="password"
+									placeholder={t}
+									required
+									value={this.state.oldPassword}
+									onChange={this.handleInputChange}
+									style={{ width: "100%" }}
+								/>
+							)}
 						/>
 					</label>
 					<br />
@@ -102,15 +104,19 @@ class PasswordChanger extends React.Component {
 						htmlFor="passwordChangeForm-newPassword"
 						style={{ width: "100%" }}
 					>
-						<input
-							id="passwordChangeForm-newPassword"
-							name="newPassword"
-							type="password"
-							placeholder={t("newPassword")}
-							required
-							value={this.state.newPassword}
-							onChange={this.handleInputChange}
-							style={{ width: "100%" }}
+						<T.newPassword
+							renderer={t => (
+								<input
+									id="passwordChangeForm-newPassword"
+									name="newPassword"
+									type="password"
+									placeholder={t}
+									required
+									value={this.state.newPassword}
+									onChange={this.handleInputChange}
+									style={{ width: "100%" }}
+								/>
+							)}
 						/>
 					</label>
 					<br />
@@ -119,23 +125,31 @@ class PasswordChanger extends React.Component {
 						htmlFor="passwordChangeForm-repeatNewPassword"
 						style={{ width: "100%" }}
 					>
-						<input
-							id="passwordChangeForm-repeatNewPassword"
-							name="repeatNewPassword"
-							type="password"
-							placeholder={t("newPassword")}
-							required
-							value={this.state.repeatNewPassword}
-							onChange={this.handleInputChange}
-							style={{ width: "100%" }}
+						<T.newPassword
+							renderer={t => (
+								<input
+									id="passwordChangeForm-repeatNewPassword"
+									name="repeatNewPassword"
+									type="password"
+									placeholder={t}
+									required
+									value={this.state.repeatNewPassword}
+									onChange={this.handleInputChange}
+									style={{ width: "100%" }}
+								/>
+							)}
 						/>
 					</label>
 					<br />
 					<br />
-					<input
-						type="submit"
-						className="btn btn-primary"
-						value={t("submit")}
+					<T.submit
+						renderer={t => (
+							<input
+								type="submit"
+								className="btn btn-primary"
+								value={t}
+							/>
+						)}
 					/>
 					<br />
 					<br />
@@ -153,7 +167,7 @@ class PasswordChanger extends React.Component {
 					style={{ width: "80%", margin: "0 auto" }}
 					className="password-reset"
 				>
-					<T>success</T>
+					<T.success />
 					<br />
 					<br />
 				</div>
@@ -199,8 +213,6 @@ class PasswordChanger extends React.Component {
 	}
 }
 
-export default withUpdateOnChangeLocale(
-	withTracker(() => ({
-		user: Meteor.user(),
-	}))(PasswordChanger)
-);
+export default withTracker(() => ({
+	user: Meteor.user(),
+}))(PasswordChanger);

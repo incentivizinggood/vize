@@ -1,14 +1,13 @@
 import React from "react";
 import { Query } from "react-apollo";
 
-import { i18n } from "meteor/universe:i18n";
-
 import ShowJobComponent from "imports/ui/components/showJobComponent";
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { translations } from "imports/ui/translations";
 
 import ShowJobsQuery from "./show-jobs.graphql";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 const ShowJobs = () => (
 	<Query query={ShowJobsQuery}>
@@ -16,7 +15,7 @@ const ShowJobs = () => (
 			if (loading) {
 				return (
 					<h2>
-						<T>common.jobsearch.loading</T>
+						<T.jobsearch.loading />
 					</h2>
 				);
 			}
@@ -33,7 +32,7 @@ const ShowJobs = () => (
 			if (RenderedItems.length < 1) {
 				message = (
 					<h2>
-						<T>common.jobsearch.nojobs</T>
+						<T.jobsearch.nojobs />
 					</h2>
 				);
 			} else {
@@ -52,9 +51,7 @@ const ShowJobs = () => (
 									<li>
 										<h2>
 											{data.searchJobAds.nodes.length}{" "}
-											<T>
-												common.jobsearch.jobsAvailable
-											</T>
+											<T.jobsearch.jobsAvailable />
 										</h2>
 										{message}
 										{RenderedItems}
