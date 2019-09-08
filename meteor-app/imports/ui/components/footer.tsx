@@ -63,6 +63,12 @@ const SocialLinks = styled.div`
 	}
 `;
 
+const WhatsApp = styled.img`
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+`;
+
 const SocialIcon = styled.img`
 	width: 50px;
 	height: 50px;
@@ -128,7 +134,20 @@ export default function Footer() {
 				</SocialLinks>
 			</LinksContainer>
 			<CopyRight>
-				Vize © 2019. <T.allRightsReserved />
+				<LinksContainer>
+					<InternalLinks>
+						<a
+							href="https://www.whatsapp.com"
+							target="_blank"
+						>
+							<WhatsApp src="/images/whatsapp.png" alt="WhatsApp" />
+						</a>
+						+52 (664) 748-0001
+					</InternalLinks>
+					<SocialLinks>
+						Vize © 2019. <T.allRightsReserved />
+					</SocialLinks>
+				</LinksContainer>
 			</CopyRight>
 		</FooterContainer>
 	);
