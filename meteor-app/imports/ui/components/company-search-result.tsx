@@ -23,17 +23,9 @@ function CompanySearchResult(props) {
 				<div className="container">
 					<div className="col-md-3  prostar">
 						{
-							//TODO: remove taget=blank without breaking the navigation
+							//TODO: removing prevState because it for some reason returns error 400 when Used
 						}
-						<Link
-							to={{
-								pathname: companyProfileUrl,
-								state: {
-									prevPath: location.pathname,
-								},
-							}}
-							target="_blank"
-						>
+						<Link to={companyProfileUrl}>
 							<div className="company-search-img">
 								<img
 									src="/images/default-company.png"
@@ -46,15 +38,10 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
-							<Link
-								to={{
-									pathname: companyProfileUrl,
-									state: {
-										prevPath: location.pathname,
-									},
-								}}
-								target="_blank"
-							>
+							{
+								//TODO: removing prevState because it for some reason returns error 400 when Used
+							}
+							<Link to={companyProfileUrl}>
 								{props.company.name}
 							</Link>
 						</span>

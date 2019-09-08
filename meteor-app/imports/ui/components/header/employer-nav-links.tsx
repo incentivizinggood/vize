@@ -20,15 +20,10 @@ function EmployerNavLinks(props) {
 	return (
 		<>
 			<li>
-				<Link
-					to={{
-						pathname: companyURL,
-						state: {
-							prevPath: location.pathname,
-						},
-					}}
-					className="link-kumya "
-				>
+				{
+					//TODO: removing prevState because it for some reason returns error 400 when Used
+				}
+				<Link to={companyURL} className="link-kumya ">
 					<span>
 						<T.my_company />
 					</span>
