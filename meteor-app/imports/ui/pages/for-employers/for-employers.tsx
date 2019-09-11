@@ -212,7 +212,8 @@ function ForEmployers() {
 				</PageTitle>
 				<GetStartedLarge />
 			</Banner>
-			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
+
+			<SectionContainer>
 				<SectionTitle>
 					<T.heading1 />
 				</SectionTitle>
@@ -239,7 +240,7 @@ function ForEmployers() {
 				</ProblemPoint>
 			</SectionContainer>
 
-			<SectionContainer>
+			<SectionContainer style={{ backgroundColor: "white" }}>
 				<SectionTitle>
 					<T.heading2 />
 				</SectionTitle>
@@ -283,7 +284,7 @@ function ForEmployers() {
 				</SolutionContainer>
 			</SectionContainer>
 
-			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
+			<SectionContainer>
 				<SectionTitle>
 					<T.heading3 />
 				</SectionTitle>

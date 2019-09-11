@@ -20,7 +20,7 @@ class AboutPage extends React.Component {
 					</div>
 				</div>
 
-				<div className="about">
+				<div className="about background-white">
 					<div className="container">
 						<div className="col-md-12">
 							<h1 className="text-center about-header">
@@ -41,7 +41,7 @@ class AboutPage extends React.Component {
 					</div>
 				</div>
 
-				<div className="about contrast">
+				<div className="about">
 					<div className="container">
 						<div className="col-md-12">
 							<h1 className="text-center about-header">
@@ -63,7 +63,7 @@ class AboutPage extends React.Component {
 					</div>
 				</div>
 
-				<div className="cont">
+				<div className="background-white">
 					<div className="container">
 						<div className="container-contact">
 							<ContactForm />

@@ -79,7 +79,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container">
+			<div className="full-width-container background-white">
 				<div className="container desktop-view">
 					<div className="col-md-8">
 						<div>
@@ -115,7 +115,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container mobile-view">
+				<div className="container mobile-view background-white">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -228,7 +228,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container background-offwhite">
+			<div className="full-width-container">
 				<div className="row">
 					<div className="col-md-12">
 						<center>
