@@ -70,14 +70,35 @@ const onSubmit = history => (values, actions) => {
 	Accounts.createUser(options, createUserCallback);
 };
 
-const RegisterForm = props => (
-	<Formik
-		initialValues={initialValues}
-		validationSchema={schema}
-		onSubmit={onSubmit(props.history)}
-	>
-		<InnerForm {...props} />
-	</Formik>
-);
+// defining global variable because I do not want the value to change when user
+// navigates from the register or login page. Esentially making it static
+let userRole = localStorage.getItem("userRole");
+
+function RegisterForm(props) {
+	if (props.location.state) {
+		if (
+			props.location.state.prevPath !== "/register" &&
+			props.location.state.prevPath !== "/login"
+		) {
+			userRole = "worker";
+
+			if (props.location.state.prevPath === "/for-employers") {
+				userRole = "company";
+			}
+			// save the role to local storage so that the variable is not reset when page is refreshed
+			localStorage.setItem("userRole", userRole);
+		}
+	}
+	initialValues["role"] = userRole;
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={schema}
+			onSubmit={onSubmit(props.history)}
+		>
+			<InnerForm {...props} userRole={userRole} />
+		</Formik>
+	);
+}
 
 export default withRouter(RegisterForm);
