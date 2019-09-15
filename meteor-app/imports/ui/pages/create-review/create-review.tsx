@@ -1,6 +1,10 @@
 import React from "react";
 
-import { FormHeader, FormPageWrapper } from "imports/ui/components/form-stuff";
+import {
+	FormText,
+	FormHeader,
+	FormPageWrapper,
+} from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
 import CreateReviewForm from "./create-review-form";
@@ -17,6 +21,12 @@ function CreateReviewPage({ companyName }: CreateReviewPageProps) {
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>
+			<FormText>
+				<T.formSubTitle1 />
+			</FormText>
+			<FormText>
+				<T.formSubTitle2 />
+			</FormText>
 			<CreateReviewForm companyName={companyName} />
 		</FormPageWrapper>
 	);

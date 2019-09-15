@@ -6,7 +6,10 @@ export default {
 		searchButton: "Buscar",
 		placeholder: "Buscar una empresa...",
 		findjob_title: "Conoce El Trabajo Antes De Que Lo Consigas",
-		rewardText: "Gana $100 pesos por compartir tu experiencia laboral",
+		rewardText:
+			"Gana $100 pesos por compartir tu experiencia laboral de forma anónima",
+		rewardText2:
+			"Tu voz le ayudará a otros colaboradores encontrar un trabajo bueno con una fábrica que los respete",
 		findjob_text:
 			"No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea opiniones de otros empleados para encontrar el mejor trabajo para usted",
 		jobsButton: "Trabajos",
@@ -135,7 +138,9 @@ export default {
 	},
 	createReview: {
 		formTitle: "Escribe una Reseña",
-		formSubTitle: "Contribuya sus opiniones anónimas a la comunidad",
+		formSubTitle1:
+			"Tu evaluación anónima le ayudará a otros colaboradores encontrar un trabajo bueno con una fábrica que los respete.",
+		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",
