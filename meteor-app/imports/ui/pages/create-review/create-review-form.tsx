@@ -47,7 +47,7 @@ const proConSchema = yup
 		const wordCount = isString ? value.split(/\s+\b/).length : 0;
 		return wordCount >= 5;
 	})
-	.required();
+	.required("Se requieren las ventajas/limitaciones");
 
 const starRatingSchema = yup
 	.number()
