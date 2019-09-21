@@ -10,13 +10,15 @@ import {
 
 const FormHeader = styled.h1`
 	margin-bottom: 10px;
-
+	font-weight: bold;
 	font-size: 32px;
 	text-align: center;
 `;
 
 const FormText = styled.p`
 	margin-bottom: 5px;
+	color: black;
+	font-size: 15px
 
 	text-align: left;
 `;
