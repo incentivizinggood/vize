@@ -23,7 +23,7 @@ const initialValues = {
 	reviewTitle: "",
 	location: {
 		city: "",
-		address: "",
+		address: " ",
 		industrialHub: "",
 	},
 	jobTitle: "",

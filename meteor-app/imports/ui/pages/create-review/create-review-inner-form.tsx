@@ -36,13 +36,6 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<Field
-				name="location.address"
-				type="text"
-				required
-				t={T.fields.location.address}
-			/>
-
-			<Field
 				name="location.industrialHub"
 				type="text"
 				t={T.fields.location.industrialHub}

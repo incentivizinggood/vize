@@ -22,7 +22,7 @@ const initialValues = {
 	companyName: "",
 	location: {
 		city: "",
-		address: "",
+		address: " ",
 		industrialHub: "",
 	},
 	jobTitle: "",
