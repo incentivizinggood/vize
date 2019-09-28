@@ -75,6 +75,8 @@ function InnerForm({ submissionError }) {
 					</Field>
 				)}
 			/>
+			<br />
+			<br />
 
 			<Field
 				name="healthAndSafety"
@@ -110,6 +112,8 @@ function InnerForm({ submissionError }) {
 				required
 				t={T.fields.overallSatisfaction}
 			/>
+
+			<br />
 
 			<Field
 				name="additionalComments"
