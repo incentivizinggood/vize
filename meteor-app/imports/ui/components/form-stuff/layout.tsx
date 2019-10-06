@@ -38,7 +38,7 @@ const FormFooter = styled.div`
 `;
 
 const FormToolbar = styled.div`
-	text-align: right;
+	text-align: left;
 	margin-top: 20px;
 `;
 
