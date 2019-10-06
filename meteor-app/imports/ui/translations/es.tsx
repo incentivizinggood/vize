@@ -187,7 +187,7 @@ export default {
 			},
 			wouldRecommendToOtherJobSeekers: {
 				label: "Recomendaría a otros solicitantes de empleo",
-				yes: "Yes",
+				yes: "Si",
 				no: "No",
 			},
 			healthAndSafety: {

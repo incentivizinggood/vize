@@ -62,7 +62,7 @@ function InnerForm({ submissionError }) {
 						required
 						label={t.label}
 					>
-						<option value="">(Select One)</option>
+						<option value="">(Seleccione una Opción)</option>
 						<option value="true">{t.yes}</option>
 						<option value="false">{t.no}</option>
 					</Field>
