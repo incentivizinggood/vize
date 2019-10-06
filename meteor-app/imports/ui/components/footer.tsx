@@ -84,33 +84,14 @@ export default function Footer() {
 		<FooterContainer>
 			<LinksContainer>
 				<InternalLinks>
-					<Link
-						to={{
-							pathname: "/about",
-							state: {
-								prevPath: location.pathname,
-							},
-						}}
-					>
+					<Link to="/about">
 						<T.aboutUs />
 					</Link>
-					<Link
-						to={{
-							pathname: "/contact-us",
-							state: {
-								prevPath: location.pathname,
-							},
-						}}
-					>
+					<Link to="/contact-us">
 						<T.contactUs />
 					</Link>
 					{/* commenting out until we have a help page
-					<Link to={{
-						pathname: "/help",
-						state: {
-							prevPath: location.pathname,
-						},
-					}}>
+					<Link to="/help">
 						<T.help />
 					</Link>
 					-->*/}

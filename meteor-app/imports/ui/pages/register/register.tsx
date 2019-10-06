@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import {
 	FormHeader,
@@ -15,6 +16,13 @@ const T = translations.loginRegister;
 /* The page where users can create an account.
  */
 function RegisterPage() {
+	let userRole = "worker";
+	const params = new URLSearchParams(location.search);
+
+	if (params != null) {
+		userRole = params.get("user");
+	}
+
 	return (
 		<FormPageWrapper title="Register">
 			<FormHeader>
@@ -23,14 +31,7 @@ function RegisterPage() {
 			<RegisterForm />
 			<FormFooter>
 				<T.alreadyAccount />
-				<Link
-					to={{
-						pathname: "/login",
-						state: {
-							prevPath: location.pathname,
-						},
-					}}
-				>
+				<Link to={urlGenerators.vizeLogin(userRole)}>
 					<T.login />
 				</Link>
 			</FormFooter>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -181,12 +182,7 @@ class PasswordChanger extends React.Component {
 					You must be logged in to use this page. <br /> <br />
 					<Link
 						className="btn btn-primary"
-						to={{
-							pathname: "/login",
-							state: {
-								prevPath: location.pathname,
-							},
-						}}
+						to={urlGenerators.vizeLogin("worker")}
 					>
 						Log In
 					</Link>

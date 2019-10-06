@@ -14,15 +14,7 @@ interface WriteReviewButtonProps {
 
 function WriteReviewButton(props: WriteReviewButtonProps) {
 	return (
-		<LinkButton
-			to={{
-				pathname: urlGenerators.vizeReviewUrl(props.companyName),
-				state: {
-					prevPath: location.pathname,
-				},
-			}}
-			primary
-		>
+		<LinkButton to={urlGenerators.vizeReviewUrl(props.companyName)} primary>
 			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;
 			<T.add_review />

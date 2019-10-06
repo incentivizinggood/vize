@@ -23,15 +23,7 @@ class MyAccountPage extends React.Component {
 					{this.props.user.username}
 					<br />
 					<br />
-					<Link
-						className="btn btn-info"
-						to={{
-							pathname: "/change-password",
-							state: {
-								prevPath: location.pathname,
-							},
-						}}
-					>
+					<Link className="btn btn-info" to="/change-password">
 						Change Password
 					</Link>
 					<br />
@@ -52,12 +44,7 @@ class MyAccountPage extends React.Component {
 					You must be logged in to use this page. <br /> <br />
 					<Link
 						className="btn btn-primary"
-						to={{
-							pathname: "/login",
-							state: {
-								prevPath: location.pathname,
-							},
-						}}
+						to={urlGenerators.vizeLogin("worker")}
 					>
 						Log In
 					</Link>

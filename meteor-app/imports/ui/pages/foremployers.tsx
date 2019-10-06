@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { i18n } from "meteor/universe:i18n";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 /* A page Foremployers  */
 const T = i18n.createComponent();
@@ -31,12 +32,9 @@ export default class ForEmployers extends React.Component {
 							<div>
 								<center>
 									<Link
-										to={{
-											pathname: "/register",
-											state: {
-												prevPath: location.pathname,
-											},
-										}}
+										to={urlGenerators.vizeRegister(
+											"company"
+										)}
 										className="button vize-blue-button"
 										style={{ fontSize: 34 }}
 									>
@@ -162,12 +160,9 @@ export default class ForEmployers extends React.Component {
 									<center>
 										{" "}
 										<Link
-											to={{
-												pathname: "/register",
-												state: {
-													prevPath: location.pathname,
-												},
-											}}
+											to={urlGenerators.vizeRegister(
+												"company"
+											)}
 											className="button black-border-button"
 										>
 											<T>

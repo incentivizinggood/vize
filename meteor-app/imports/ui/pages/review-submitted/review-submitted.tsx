@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -93,12 +94,7 @@ class ReviewSubmitted extends React.Component {
 					<br />
 					<Link
 						className="btn btn-primary"
-						to={{
-							pathname: "/login",
-							state: {
-								prevPath: location.pathname,
-							},
-						}}
+						to={urlGenerators.vizeLogin("worker")}
 					>
 						Log In
 					</Link>

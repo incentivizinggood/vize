@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { urlGenerators } from "imports/ui/pages/url-generators";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 
@@ -11,8 +11,16 @@ import EmployerNavLinks from "./employer-nav-links";
 import FadableNav from "./fadable-nav";
 import LangSelector from "./lang-selector";
 import LogoutButton from "./logout-button";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 const T = translations.header;
+
+let userRole = "worker";
+
+function fixNullParams(param) {
+	if (param === null) return undefined;
+	return param;
+}
 
 function NavLinks({ user }) {
 	// The user is an employer.
@@ -28,12 +36,7 @@ function AccountLink({ user }) {
 	if (user) {
 		return (
 			<Link
-				to={{
-					pathname: "/my-account",
-					state: {
-						prevPath: location.pathname,
-					},
-				}}
+				to="/my-account"
 				type="button"
 				className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
 			>
@@ -42,14 +45,21 @@ function AccountLink({ user }) {
 		);
 	}
 
+	const params = new URLSearchParams(location.search);
+	if (location.pathname === "/for-employers") {
+		userRole = "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		userRole = fixNullParams(params.get("user"));
+	} else {
+		userRole = "worker";
+	}
+
 	return (
 		<Link
-			to={{
-				pathname: "/login",
-				state: {
-					prevPath: location.pathname,
-				},
-			}}
+			to={urlGenerators.vizeLogin(userRole)}
 			type="button"
 			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 		>
@@ -74,12 +84,7 @@ function AccountSection({ user }) {
 				<ul className="dropdown-menu pf">
 					<li className="tr">
 						<Link
-							to={{
-								pathname: "/my-account",
-								state: {
-									prevPath: location.pathname,
-								},
-							}}
+							to="/my-account"
 							className="navbar-link margin-right"
 						>
 							<T.myaccount />
@@ -95,16 +100,24 @@ function AccountSection({ user }) {
 		);
 	}
 
+	const params = new URLSearchParams(location.search);
+
+	if (location.pathname === "/for-employers") {
+		userRole = "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		userRole = fixNullParams(params.get("user"));
+	} else {
+		userRole = "worker";
+	}
+
 	return (
 		<>
 			<li>
 				<Link
-					to={{
-						pathname: "/register",
-						state: {
-							prevPath: location.pathname,
-						},
-					}}
+					to={urlGenerators.vizeRegister(userRole)}
 					type="button"
 					id="register-button"
 					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
@@ -114,12 +127,7 @@ function AccountSection({ user }) {
 			</li>
 			<li>
 				<Link
-					to={{
-						pathname: "/login",
-						state: {
-							prevPath: location.pathname,
-						},
-					}}
+					to={urlGenerators.vizeLogin(userRole)}
 					className="navbar-link margin-right"
 				>
 					<T.login />
@@ -147,14 +155,7 @@ function Header(props) {
 							<span className="icon-bar" />
 						</button>
 						<h2 className="site-logo">
-							<Link
-								to={{
-									pathname: "/",
-									state: {
-										prevPath: location.pathname,
-									},
-								}}
-							>
+							<Link to="/">
 								<img src="/images/logo.png" alt="Vize Logo" />
 							</Link>
 						</h2>
@@ -177,12 +178,7 @@ function Header(props) {
 							</li>
 							<li>
 								<Link
-									to={{
-										pathname: "/for-employers",
-										state: {
-											prevPath: location.pathname,
-										},
-									}}
+									to="/for-employers"
 									className="link-kumya"
 								>
 									<span>

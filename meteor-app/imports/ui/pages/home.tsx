@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
 import WriteReviewButton from "imports/ui/components/write-review-button";
@@ -44,12 +45,7 @@ function HomePage() {
 								<div>
 									<center>
 										<WhiteButton
-											to={{
-												pathname: "/write-review",
-												state: {
-													prevPath: location.pathname,
-												},
-											}}
+											to="/write-review"
 											style={{ fontSize: 18 }}
 										>
 											<FontAwesomeIcon icon={faPlus} />
@@ -108,14 +104,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton
-									to={{
-										pathname: "/jobs",
-										state: {
-											prevPath: location.pathname,
-										},
-									}}
-								>
+								<BlackBorderButton to="/jobs">
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -141,14 +130,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton
-									to={{
-										pathname: "/jobs",
-										state: {
-											prevPath: location.pathname,
-										},
-									}}
-								>
+								<BlackBorderButton to="/jobs">
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -189,14 +171,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<WhiteButton
-									to={{
-										pathname: "/companies",
-										state: {
-											prevPath: location.pathname,
-										},
-									}}
-								>
+								<WhiteButton to="/companies">
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -230,14 +205,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<WhiteButton
-									to={{
-										pathname: "/companies",
-										state: {
-											prevPath: location.pathname,
-										},
-									}}
-								>
+								<WhiteButton to="/companies">
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -309,12 +277,7 @@ function HomePage() {
 									<div>
 										<LinkButton
 											primary
-											to={{
-												pathname: "/submit-salary-data",
-												state: {
-													prevPath: location.pathname,
-												},
-											}}
+											to="/submit-salary-data"
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
@@ -350,12 +313,9 @@ function HomePage() {
 								<center>
 									{" "}
 									<BlackBorderButton
-										to={{
-											pathname: "/register",
-											state: {
-												prevPath: location.pathname,
-											},
-										}}
+										to={urlGenerators.vizeRegister(
+											"worker"
+										)}
 									>
 										<T.signup_button />
 									</BlackBorderButton>
