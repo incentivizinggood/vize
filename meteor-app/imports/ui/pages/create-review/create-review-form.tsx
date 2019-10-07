@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
@@ -60,8 +60,6 @@ const starRatingSchema = yup
 	.max(5)
 	.required();
 
-// let content = null;
-
 const schema = yup.object().shape({
 	companyName: schemas.companyName.required(),
 	reviewTitle: yup.string().required(),
@@ -97,7 +95,7 @@ const schema = yup.object().shape({
 
 function CreateReviewForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
-	const [content, setContent] = React.useState(null);
+	let [content, setContent] = React.useState(null);
 
 	const onSubmit = (createReview, history, setSubmissionError) => (
 		values,
