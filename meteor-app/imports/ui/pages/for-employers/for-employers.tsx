@@ -6,7 +6,6 @@ import Banner from "imports/ui/components/banner";
 import { LinkButton } from "imports/ui/components/button";
 import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
-{urlGenerators.vizeRegister("company")}
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
