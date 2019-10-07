@@ -132,7 +132,10 @@ function CreateReviewForm({ history, companyName, user }) {
 					//if (errors.nessage);
 					console.log(mapValues(errors, x => x));
 
-					setSubmissionError(errors);
+					// cut out the "GraphQL error: " from error message
+					const errorMessage = errors.message.substring(14);
+
+					setSubmissionError(errorMessage);
 
 					// Errors to display on form fields
 					const formErrors = {};
