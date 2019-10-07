@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
+import PopupModal from "imports/ui/components/popup-modal";
+import RegisterLoginModal from "imports/ui/components/register-login-modal";
+import { withTracker } from "meteor/react-meteor-data";
+import { Meteor } from "meteor/meteor";
 
 import { CreateReviewComponent as MutationCreateReview } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
@@ -56,6 +60,8 @@ const starRatingSchema = yup
 	.max(5)
 	.required();
 
+// let content = null;
+
 const schema = yup.object().shape({
 	companyName: schemas.companyName.required(),
 	reviewTitle: yup.string().required(),
@@ -89,59 +95,86 @@ const schema = yup.object().shape({
 	additionalComments: yup.string(),
 });
 
-const onSubmit = (createReview, history, setSubmissionError) => (
-	values,
-	actions
-) =>
-	createReview({
-		variables: {
-			input: omitEmptyStrings(values),
-		},
-	})
-		.then(({ data }) => {
-			console.log("data", data);
-
-			actions.resetForm(initialValues);
-
-			// Go to the review submitted page so that the user can claim their reward.
-			history.push("/review-submitted");
-		})
-		.catch(errors => {
-			console.error(errors);
-			console.log(mapValues(errors, x => x));
-
-			setSubmissionError(errors);
-
-			// Errors to display on form fields
-			const formErrors = {};
-
-			// TODO: better error displaying.
-
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
-		});
-
-const CreateReviewForm = ({ history, companyName }) => {
+function CreateReviewForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
-	return (
-		<MutationCreateReview>
-			{createReview => (
-				<Formik
-					initialValues={merge(initialValues, {
-						companyName,
-					})}
-					validationSchema={schema}
-					onSubmit={onSubmit(
-						createReview,
-						history,
-						setSubmissionError
-					)}
-				>
-					<InnerForm submissionError={submissionError} />
-				</Formik>
-			)}
-		</MutationCreateReview>
-	);
-};
+	const [content, setContent] = React.useState(null);
 
-export default withRouter(CreateReviewForm);
+	const onSubmit = (createReview, history, setSubmissionError) => (
+		values,
+		actions
+	) => {
+		createReview({
+			variables: {
+				input: omitEmptyStrings(values),
+			},
+		})
+			.then(({ data }) => {
+				console.log("data", data);
+
+				actions.resetForm(initialValues);
+
+				// Go to the review submitted page so that the user can claim their reward.
+				history.push("/review-submitted");
+			})
+			.catch(errors => {
+				console.error(errors.message);
+				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
+					setContent(
+						<PopupModal
+							isOpen={true}
+							showCloseButton={false}
+							canCloseModal={false}
+						>
+							<RegisterLoginModal />
+						</PopupModal>
+					);
+				} else {
+					//if (errors.nessage);
+					console.log(mapValues(errors, x => x));
+
+					setSubmissionError(errors);
+
+					// Errors to display on form fields
+					const formErrors = {};
+
+					// TODO: better error displaying.
+
+					actions.setErrors(formErrors);
+				}
+				actions.setSubmitting(false);
+			});
+	};
+
+	if (user) {
+		content = null;
+	}
+
+	return (
+		<div>
+			<MutationCreateReview>
+				{createReview => (
+					<Formik
+						initialValues={merge(initialValues, {
+							companyName,
+						})}
+						validationSchema={schema}
+						onSubmit={onSubmit(
+							createReview,
+							history,
+							setSubmissionError
+						)}
+					>
+						<InnerForm submissionError={submissionError} />
+					</Formik>
+				)}
+			</MutationCreateReview>
+			{content}
+		</div>
+	);
+}
+
+export default withRouter(
+	withTracker(() => ({
+		user: Meteor.user(),
+	}))(CreateReviewForm)
+);
