@@ -153,6 +153,7 @@ enum RewardStatus {
 enum PaymentMethod {
 	PAYPAL
 	XOOM
+	SWAP
 }
 
 "The kinds of things that can be commented on."

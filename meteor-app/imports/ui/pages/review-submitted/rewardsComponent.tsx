@@ -3,10 +3,34 @@ import Popup from "reactjs-popup";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+
+const GetRewardButton = styled(Button)`
+	font-weight: bold !important;
+	font-size: 1.2rem !important;
+	width: 100%;
+	padding: 12px 36px !important;
+`;
 
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
+/*
+.reward-button {
+	font-weight: bold;
+	padding: 15px;
+	margin: 10px;
+	border: 1px solid #d4d1d1;
+	border-radius: 4px;
+	display: block;
+	&:hover {
+		border: 1px solid rgba(0, 0, 0, 0.8);
+		cursor: pointer;
+	}
+}
+
+*/
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -89,21 +113,26 @@ export default class RewardsComponent extends React.Component {
 						<div className="rewards">
 							<div className="reward">
 								<div className="reward-visual">
-									<img
-										src="images/swap-icon.png"
-										alt="Swap Logo"
-									/>
+									<a href="https://swap.mx/" target="_blank">
+										<img
+											src="images/swap-icon.png"
+											alt="Swap Logo"
+										/>
+									</a>
 								</div>
 								<p>
 									<T.swapCash />
 								</p>
-								<a
+								<br />
+								<GetRewardButton
+									variant="contained"
+									color="primary"
 									onClick={() => {
-										this.setPaymentMethod("PAYPAL");
+										this.setPaymentMethod("SWAP");
 									}}
 								>
 									<T.getReward />
-								</a>
+								</GetRewardButton>
 							</div>
 
 							<div className="reward">
@@ -116,13 +145,16 @@ export default class RewardsComponent extends React.Component {
 								<p>
 									<T.paypalCash />
 								</p>
-								<a
+								<br />
+								<GetRewardButton
+									variant="contained"
+									color="primary"
 									onClick={() => {
 										this.setPaymentMethod("PAYPAL");
 									}}
 								>
 									<T.getReward />
-								</a>
+								</GetRewardButton>
 							</div>
 						</div>
 					</div>
@@ -146,7 +178,7 @@ export default class RewardsComponent extends React.Component {
 									</legend>
 									<label htmlFor="phone-number" />
 									<PhoneInput
-										placeholder="644 533 9876"
+										placeholder="(664)___-____"
 										countries={["MX"]}
 										error={this.state.phoneError}
 										international={false}

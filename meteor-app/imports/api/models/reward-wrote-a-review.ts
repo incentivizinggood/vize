@@ -12,7 +12,7 @@ import { User, getReviewsByAuthor, getUserPostgresId } from ".";
 
 export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELIGIBLE";
 
-export type PaymentMethod = "PAYPAL" | "XOOM";
+export type PaymentMethod = "PAYPAL" | "XOOM" | "SWAP";
 
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 	if (user.role !== "worker") return "INELIGIBLE";
