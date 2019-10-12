@@ -90,13 +90,12 @@ export default class RewardsComponent extends React.Component {
 							<div className="reward">
 								<div className="reward-visual">
 									<img
-										src="images/payPal.png"
-										alt="payPal logo"
+										src="images/swap-icon.png"
+										alt="Swap Logo"
 									/>
-									<p className="price-tag">$5</p>
 								</div>
 								<p>
-									<T.paypalCash />
+									<T.swapCash />
 								</p>
 								<a
 									onClick={() => {
@@ -113,7 +112,6 @@ export default class RewardsComponent extends React.Component {
 										src="images/payPal.png"
 										alt="payPal logo"
 									/>
-									<p className="price-tag">$5</p>
 								</div>
 								<p>
 									<T.paypalCash />
