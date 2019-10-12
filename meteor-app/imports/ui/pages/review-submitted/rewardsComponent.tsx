@@ -106,6 +106,26 @@ export default class RewardsComponent extends React.Component {
 									<T.getReward />
 								</a>
 							</div>
+
+							<div className="reward">
+								<div className="reward-visual">
+									<img
+										src="images/payPal.png"
+										alt="payPal logo"
+									/>
+									<p className="price-tag">$5</p>
+								</div>
+								<p>
+									<T.paypalCash />
+								</p>
+								<a
+									onClick={() => {
+										this.setPaymentMethod("PAYPAL");
+									}}
+								>
+									<T.getReward />
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

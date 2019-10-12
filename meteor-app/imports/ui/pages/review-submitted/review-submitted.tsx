@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import styled from "styled-components";
+import { forSize } from "imports/ui/responsive.js";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -23,6 +25,40 @@ const REWARD_DATA_SUBMISSION = gql`
 			phoneNumber: $phoneNumber
 			paymentMethod: $paymentMethod
 		)
+	}
+`;
+
+/* display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap; */
+
+const RewardSection = styled.div`
+	margin-top: 250px;
+	margin-bottom: 250px;
+	padding: 50px;
+	background-color: #fefdfe;
+	box-shadow: 0px 1px 3px 0px;
+	width: 80%;
+	display: flex;
+
+	margin-right: auto;
+	margin-left: auto;
+
+	p {
+		color: black;
+		text-align: center;
+	}
+
+	h2 {
+		font-weight: bold;
+	}
+
+	${forSize.phoneOnly} {
+		width: 100%;
+		margin-top: 70px;
+		margin-bottom: 0px;
+		padding: 30px 0px;
 	}
 `;
 
@@ -69,25 +105,19 @@ class ReviewSubmitted extends React.Component {
 	}
 
 	render() {
-		const customStyles = {
-			content: {
-				margin: "auto",
-				position: "absolute",
-				top: 0,
-				left: 0,
-				bottom: 0,
-				right: 0,
-				borderRadius: "4px",
-			},
-		};
-
-		let content = null;
+		let content = null; // 				<RewardSection>{content}</RewardSection>
 
 		if (this.props.user) {
 			content = this.renderContent();
 		} else {
 			content = (
-				<div style={{ width: "80%", margin: "0 auto" }}>
+				<div
+					style={{
+						width: "80%",
+						margin: "0 auto",
+						backgroundColor: "white",
+					}}
+				>
 					<br />
 					<h3>You must be logged in to use this page. </h3>
 					<br />
@@ -101,9 +131,7 @@ class ReviewSubmitted extends React.Component {
 
 		return (
 			<PageWrapper title="Rewards">
-				<section className="review-submitted">
-					<div className="container back_top_hover">{content}</div>
-				</section>
+				<RewardSection>{content}</RewardSection>
 			</PageWrapper>
 		);
 	}
