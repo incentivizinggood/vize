@@ -5,32 +5,17 @@ import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
+import { SubmitButton } from "imports/ui/components/button";
 
 const GetRewardButton = styled(Button)`
 	font-weight: bold !important;
 	font-size: 1.2rem !important;
 	width: 100%;
-	padding: 12px 36px !important;
 `;
 
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
-/*
-.reward-button {
-	font-weight: bold;
-	padding: 15px;
-	margin: 10px;
-	border: 1px solid #d4d1d1;
-	border-radius: 4px;
-	display: block;
-	&:hover {
-		border: 1px solid rgba(0, 0, 0, 0.8);
-		cursor: pointer;
-	}
-}
-
-*/
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -44,7 +29,7 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
-export default class RewardsComponent extends React.Component {
+class RewardsComponent extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -77,11 +62,11 @@ export default class RewardsComponent extends React.Component {
 
 	mutationError(error, message) {
 		if (error.message == "GraphQL error: ALREADY_CLAIMED") {
-			this.setState({ phoneError: t("rewardAlreadyClaimed") });
+			this.setState({ phoneError: this.props.t.rewardAlreadyClaimed });
 		} else {
 			// using else is a temporary fix because currently graphQL is not returning the
 			// correct error for when a phone number has alrady been used
-			this.setState({ phoneError: t("phoneNumberUsed") });
+			this.setState({ phoneError: this.props.t.phoneNumberUsed });
 		}
 	}
 
@@ -199,8 +184,10 @@ export default class RewardsComponent extends React.Component {
 
 									<br />
 
-									<button
+									<SubmitButton
 										className="btn btn-primary"
+										color="primary"
+										variant="contained"
 										disabled={
 											!(
 												this.state.phoneNumber &&
@@ -226,7 +213,7 @@ export default class RewardsComponent extends React.Component {
 										}}
 									>
 										<T.submit />
-									</button>
+									</SubmitButton>
 								</fieldset>
 							</form>
 						)}
@@ -236,3 +223,7 @@ export default class RewardsComponent extends React.Component {
 		);
 	}
 }
+
+export default props => (
+	<T renderer={t => <RewardsComponent t={t} {...props} />} />
+);

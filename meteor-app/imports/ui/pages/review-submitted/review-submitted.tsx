@@ -28,11 +28,6 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
-/* display: flex;
-    justify-content: center;
-    text-align: center;
-    flex-wrap: wrap; */
-
 const RewardSection = styled.div`
 	margin-top: 250px;
 	margin-bottom: 250px;
