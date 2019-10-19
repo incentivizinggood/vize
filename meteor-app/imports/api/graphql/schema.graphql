@@ -252,7 +252,7 @@ type Review {
 
 	# TODO: Add a field to let a users see if a review belongs to them.
 	"The company being reviewed"
-	company: Company!
+	company: Company
 	"Comments about this review."
 	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The vote that the currently logged in user cast on this review."

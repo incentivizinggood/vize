@@ -81,13 +81,10 @@ export async function getReviewsByCompany(
 	`);
 }
 
-// Get the company that a given review is about.
-export async function getCompanyOfReview(review: Review): Promise<Company> {
-	const company: Company | null = await getCompanyByName(review.companyName);
 
-	if (company === null) {
-		throw new Error("REFERENCE_ANOMALY");
-	}
+// Get the company that a given review is about.
+export async function getCompanyOfReview(review: Review): Promise<Company | null> {
+	const company: Company | null = await getCompanyByName(review.companyName);
 
 	return company;
 }
