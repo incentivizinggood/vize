@@ -209,15 +209,19 @@ function ReviewComponent(props) {
 								TODO: This should be refactored.
 							*/}
 							{props.user ? (
-								<PopupModal
-									buttonClass="flag-style-btn"
-									buttonText={t("report")}
-								>
-									<FlagSystem
-										reviewId={props.review.id}
-										companyName={props.companyName}
-									/>
-								</PopupModal>
+								<T.companyreview.report
+									renderer={t => (
+										<PopupModal
+											buttonClass="flag-style-btn"
+											buttonText={t}
+										>
+											<FlagSystem
+												reviewId={props.review.id}
+												companyName={props.companyName}
+											/>
+										</PopupModal>
+									)}
+								/>
 							) : (
 								<button className="flag-style-btn" disabled>
 									<T.companyreview.report />
