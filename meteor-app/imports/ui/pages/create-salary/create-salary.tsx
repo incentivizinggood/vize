@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 import { FormHeader, FormPageWrapper } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
@@ -11,7 +12,7 @@ interface CreateSalaryPageProps {
 	companyName?: string;
 }
 
-function CreateSalaryPage({ companyName }: CreateSalaryPageProps) {
+function CreateSalaryPage({ companyName, user }: CreateSalaryPageProps) {
 	return (
 		<FormPageWrapper title="Create Salary">
 			<FormHeader>
@@ -22,4 +23,4 @@ function CreateSalaryPage({ companyName }: CreateSalaryPageProps) {
 	);
 }
 
-export default CreateSalaryPage;
+export default withRouter(CreateSalaryPage);

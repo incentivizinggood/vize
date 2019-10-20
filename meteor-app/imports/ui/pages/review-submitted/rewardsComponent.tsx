@@ -4,6 +4,7 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
+import Modal from "react-modal";
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
@@ -20,6 +21,21 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
+const customStyles = {
+	content: {
+		top: "50%",
+		left: "50%",
+		right: "auto",
+		bottom: "auto",
+		padding: "10px",
+		marginRight: "-50%",
+		marginTop: "30px",
+		height: "auto",
+		maxHeight: "80%",
+		transform: "translate(-50%, -50%)",
+	},
+};
+
 export default class RewardsComponent extends React.Component {
 	constructor(props) {
 		super(props);
@@ -28,6 +44,7 @@ export default class RewardsComponent extends React.Component {
 			phoneNumber: "",
 			phoneError: "",
 			paymentMethod: "",
+			modalIsOpen: false,
 		};
 
 		this.openModal = this.openModal.bind(this);
@@ -42,7 +59,6 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	closeModal() {
-		console.log("closing");
 		this.setState({ modalIsOpen: false });
 	}
 
@@ -109,10 +125,12 @@ export default class RewardsComponent extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Popup
-					modal
-					open={this.state.modalIsOpen}
-					onClose={this.closeModal}
+				<Modal
+					isOpen={this.state.modalIsOpen}
+					ariaHideApp={false}
+					style={customStyles}
+					onRequestClose={this.closeModal}
+					contentLabel="Modal"
 				>
 					<Mutation
 						onError={this.mutationError}
@@ -181,7 +199,7 @@ export default class RewardsComponent extends React.Component {
 							</form>
 						)}
 					</Mutation>
-				</Popup>
+				</Modal>
 			</div>
 		);
 	}

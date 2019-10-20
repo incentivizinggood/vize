@@ -18,13 +18,15 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(),
+	username: schemas.username.required(
+		"Nombre de Usuario es un campo requerido"
+	),
 	email: yup
 		.string()
-		.email()
-		.required(),
+		.email("Correo Electrónico debe ser válido")
+		.required("Correo Electrónico es un campo requerido"),
 	companyName: schemas.companyName,
-	password: schemas.password.required(),
+	password: schemas.password.required("Contraseña es un campo requerido"),
 	role: yup
 		.mixed()
 		.oneOf(["worker", "company"])
@@ -40,7 +42,7 @@ const onSubmit = history => (values, actions) => {
 			const formErrors = {};
 
 			if (error.reason === "Username already exists.") {
-				formErrors.username = "Username already exists";
+				formErrors.username = "Nombre de usuario ya existe";
 			}
 
 			actions.setErrors(formErrors);
@@ -68,14 +70,29 @@ const onSubmit = history => (values, actions) => {
 	Accounts.createUser(options, createUserCallback);
 };
 
-const RegisterForm = props => (
-	<Formik
-		initialValues={initialValues}
-		validationSchema={schema}
-		onSubmit={onSubmit(props.history)}
-	>
-		<InnerForm />
-	</Formik>
-);
+function RegisterForm(props) {
+	const params = new URLSearchParams(location.search);
+	let userRole = "worker";
+
+	if (params != null) {
+		userRole = params.get("user");
+
+		// userRole will be null if the register-login modal is being used
+		if (userRole === null) {
+			userRole = "worker";
+		}
+	}
+
+	initialValues["role"] = userRole;
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={schema}
+			onSubmit={onSubmit(props.history)}
+		>
+			<InnerForm {...props} userRole={userRole} />
+		</Formik>
+	);
+}
 
 export default withRouter(RegisterForm);

@@ -4,6 +4,8 @@ const queryRoutes = {
 	writeReview: "write-review",
 	submitSalaryData: "submit-salary-data",
 	applyForJob: "apply-for-job",
+	register: "register",
+	login: "login",
 	user: "user",
 };
 
@@ -26,12 +28,34 @@ const vizeSalaryUrl = function(companyName?: string) {
 const vizeApplyForJobUrl = function(jobId) {
 	return `/${queryRoutes.applyForJob}/?id=${jobId}`;
 };
+const vizeRegister = function(userRole?: string) {
+	return `/${queryRoutes.register}/${
+		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+	}`;
+};
+const vizeLogin = function(userRole?: string) {
+	return `/${queryRoutes.login}/${
+		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+	}`;
+};
+/*const vizeLoginToRegister = function(userRole?: string) {
+	return `/${queryRoutes.login}/${
+		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+	}`;
+};
+const vizeRegisterToLogin = function(userRole?: string) {
+	return `/${queryRoutes.login}/${
+		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+	}`;
+};*/
 
 const urlGenerators = {
 	vizeProfileUrl,
 	vizeReviewUrl,
 	vizeSalaryUrl,
 	vizeApplyForJobUrl,
+	vizeRegister,
+	vizeLogin,
 };
 
 export { queryRoutes, urlGenerators };

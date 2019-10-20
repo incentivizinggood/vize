@@ -3,6 +3,10 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
+import PopupModal from "imports/ui/components/popup-modal";
+import RegisterLoginModal from "imports/ui/components/register-login-modal";
+import { withTracker } from "meteor/react-meteor-data";
+import { Meteor } from "meteor/meteor";
 
 import { CreateSalaryComponent as MutationCreateSalary } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
@@ -59,58 +63,88 @@ const schema = yup.object().shape({
 	gender: yup.string().oneOf(["MALE", "FEMALE"]),
 });
 
-const onSubmit = (createSalary, history, setSubmissionError) => (
-	values,
-	actions
-) =>
-	createSalary({
-		variables: {
-			input: omitEmptyStrings(values),
-		},
-	})
-		.then(({ data }) => {
-			console.log("data", data);
-
-			actions.resetForm(initialValues);
-
-			history.push("/");
-		})
-		.catch(errors => {
-			console.error(errors);
-			console.log(mapValues(errors, x => x));
-
-			setSubmissionError(errors);
-
-			// Errors to display on form fields
-			const formErrors = {};
-
-			// TODO: better error displaying.
-
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
-		});
-
-const CreateSalaryForm = ({ history, companyName }) => {
+function CreateSalaryForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
-	return (
-		<MutationCreateSalary>
-			{createSalary => (
-				<Formik
-					initialValues={merge(initialValues, {
-						companyName,
-					})}
-					validationSchema={schema}
-					onSubmit={onSubmit(
-						createSalary,
-						history,
-						setSubmissionError
-					)}
-				>
-					<InnerForm submissionError={submissionError} />
-				</Formik>
-			)}
-		</MutationCreateSalary>
-	);
-};
+	let [content, setContent] = React.useState(null);
 
-export default withRouter(CreateSalaryForm);
+	const onSubmit = (createSalary, history, setSubmissionError) => (
+		values,
+		actions
+	) => {
+		createSalary({
+			variables: {
+				input: omitEmptyStrings(values),
+			},
+		})
+			.then(({ data }) => {
+				console.log("data", data);
+
+				actions.resetForm(initialValues);
+
+				// Go to the review submitted page so that the user can claim their reward.
+				history.push("/");
+			})
+			.catch(errors => {
+				console.error(errors.message);
+				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
+					setContent(
+						<PopupModal
+							isOpen={true}
+							showCloseButton={false}
+							canCloseModal={false}
+						>
+							<RegisterLoginModal />
+						</PopupModal>
+					);
+				} else {
+					//if (errors.nessage);
+					console.log(mapValues(errors, x => x));
+
+					// cut out the "GraphQL error: " from error message
+					const errorMessage = errors.message.substring(14);
+
+					setSubmissionError(errorMessage);
+
+					// Errors to display on form fields
+					const formErrors = {};
+
+					// TODO: better error displaying.
+
+					actions.setErrors(formErrors);
+				}
+				actions.setSubmitting(false);
+			});
+	};
+
+	if (user) {
+		content = null;
+	}
+	return (
+		<div>
+			<MutationCreateSalary>
+				{createSalary => (
+					<Formik
+						initialValues={merge(initialValues, {
+							companyName,
+						})}
+						validationSchema={schema}
+						onSubmit={onSubmit(
+							createSalary,
+							history,
+							setSubmissionError
+						)}
+					>
+						<InnerForm submissionError={submissionError} />
+					</Formik>
+				)}
+			</MutationCreateSalary>
+			{content}
+		</div>
+	);
+}
+
+export default withRouter(
+	withTracker(() => ({
+		user: Meteor.user(),
+	}))(CreateSalaryForm)
+);

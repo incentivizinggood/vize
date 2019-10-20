@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -179,7 +180,10 @@ class PasswordChanger extends React.Component {
 				<div style={{ width: "80%", margin: "0 auto" }}>
 					<br />
 					You must be logged in to use this page. <br /> <br />
-					<Link className="btn btn-primary" to="/login">
+					<Link
+						className="btn btn-primary"
+						to={urlGenerators.vizeLogin("worker")}
+					>
 						Log In
 					</Link>
 					<br />

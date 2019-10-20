@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
 import WriteReviewButton from "imports/ui/components/write-review-button";
@@ -311,7 +312,11 @@ function HomePage() {
 							<div>
 								<center>
 									{" "}
-									<BlackBorderButton to="/register">
+									<BlackBorderButton
+										to={urlGenerators.vizeRegister(
+											"worker"
+										)}
+									>
 										<T.signup_button />
 									</BlackBorderButton>
 								</center>
