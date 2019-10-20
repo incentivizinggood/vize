@@ -3,8 +3,14 @@ import React from "react";
 import RegisterForm from "imports/ui/pages/register/register-form";
 import LoginForm from "imports/ui/pages/login/login-form";
 import { translations } from "imports/ui/translations";
+import styled from "styled-components";
 
 const T = translations.loginRegister;
+
+const TitleText = styled.h2`
+	text-align: center;
+	font-weight: bold;
+`;
 
 /* The page where users can create an account.
  */
@@ -57,6 +63,7 @@ class RegisterLoginModal extends React.Component {
 			color: "white",
 			width: "80%",
 			margin: "0 auto",
+			fontWeight: "bold",
 		};
 
 		let formContent = null;
@@ -64,6 +71,10 @@ class RegisterLoginModal extends React.Component {
 		if (this.state.registerLogin === "register") {
 			formContent = (
 				<div>
+					<TitleText>
+						<T.register />
+					</TitleText>
+
 					<RegisterForm showInput={false} />
 
 					<div className="text-center login-link-cs">
@@ -82,11 +93,9 @@ class RegisterLoginModal extends React.Component {
 		} else {
 			formContent = (
 				<div>
-					<h3 className="top-head-employer" align="center">
+					<TitleText>
 						<T.login />
-					</h3>
-
-					<br />
+					</TitleText>
 
 					<LoginForm />
 

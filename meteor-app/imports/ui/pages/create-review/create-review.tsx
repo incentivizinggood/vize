@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 import { FormHeader, FormPageWrapper } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
@@ -11,7 +12,7 @@ interface CreateReviewPageProps {
 	companyName?: string;
 }
 
-function CreateReviewPage({ companyName }: CreateReviewPageProps) {
+function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
 	return (
 		<FormPageWrapper title="Create Review">
 			<FormHeader>
@@ -21,5 +22,4 @@ function CreateReviewPage({ companyName }: CreateReviewPageProps) {
 		</FormPageWrapper>
 	);
 }
-
-export default CreateReviewPage;
+export default withRouter(CreateReviewPage);

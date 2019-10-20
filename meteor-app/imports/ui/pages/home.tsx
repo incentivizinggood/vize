@@ -1,8 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import WriteReviewButton from "imports/ui/components/write-review-button";
 import {
@@ -80,7 +80,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container">
+			<div className="full-width-container background-white">
 				<div className="container desktop-view">
 					<div className="col-md-8">
 						<div>
@@ -116,7 +116,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container mobile-view">
+				<div className="container mobile-view background-white">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -229,7 +229,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container background-offwhite">
+			<div className="full-width-container">
 				<div className="row">
 					<div className="col-md-12">
 						<center>
@@ -312,7 +312,11 @@ function HomePage() {
 							<div>
 								<center>
 									{" "}
-									<BlackBorderButton to="/register">
+									<BlackBorderButton
+										to={urlGenerators.vizeRegister(
+											"worker"
+										)}
+									>
 										<T.signup_button />
 									</BlackBorderButton>
 								</center>

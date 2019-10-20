@@ -8,22 +8,22 @@ export const Query: QueryResolvers = {
 	currentUser: (_obj, _args, context, _info) => context.user || null,
 
 	comment: (_obj, args, _context, _info) =>
-		dataModel.getCommentById(dataModel.stringToCommentId(args.id)),
+		dataModel.getCommentById(Number(args.id)),
 
 	company: (_obj, args, _context, _info) =>
-		dataModel.getCompanyById(dataModel.stringToCompanyId(args.id)),
+		dataModel.getCompanyById(Number(args.id)),
 
 	jobAd: (_obj, args, _context, _info) =>
-		dataModel.getJobAdById(dataModel.stringToJobAdId(args.id)),
+		dataModel.getJobAdById(Number(args.id)),
 
 	review: (_obj, args, _context, _info) =>
-		dataModel.getReviewById(dataModel.stringToReviewId(args.id)),
+		dataModel.getReviewById(Number(args.id)),
 
 	salary: (_obj, args, _context, _info) =>
-		dataModel.getSalaryById(dataModel.stringToSalaryId(args.id)),
+		dataModel.getSalaryById(Number(args.id)),
 
 	user: (_obj, args, _context, _info) =>
-		dataModel.getUserById(dataModel.stringToUserId(args.id)),
+		dataModel.getUserById(Number(args.id)),
 
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),

@@ -8,11 +8,11 @@ import {
 	Vote,
 } from "imports/api/models";
 
-/** Some kind of domain object that has a globaly unique id. */
+/** Some kind of domain object that has a globally unique id. */
 export type Node = Comment | Company | JobAd | Review | Salary | User | Vote;
 
-// In order to determine what spesific type a Node actualy is, we test for the
-// existance of fields that are unique to each of the types that a Node could
+// In order to determine what specific type a Node actually is, we test for the
+// existence of fields that are unique to each of the types that a Node could
 // be. Example: If a node has things that only comments have, then that node is
 // a Comment. To make this process easier, use the following type guards.
 

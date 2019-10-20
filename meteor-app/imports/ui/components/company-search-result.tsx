@@ -9,13 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import { processLocation } from "imports/ui/misc";
 import WriteReviewButton from "imports/ui/components/write-review-button";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.CompanySearchResult");
-const T = i18n.createComponent(t);
+const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
 
 function CompanySearchResult(props) {
 	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
@@ -24,7 +22,10 @@ function CompanySearchResult(props) {
 			<div className="container company-search-container">
 				<div className="container">
 					<div className="col-md-3  prostar">
-						<Link to={companyProfileUrl} target="_blank">
+						{
+							//TODO: removing prevState because it for some reason returns error 400 when Used
+						}
+						<Link to={companyProfileUrl}>
 							<div className="company-search-img">
 								<img
 									src="/images/default-company.png"
@@ -37,6 +38,9 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
+							{
+								//TODO: removing prevState because it for some reason returns error 400 when Used
+							}
 							<Link to={companyProfileUrl}>
 								{props.company.name}
 							</Link>
@@ -101,21 +105,21 @@ function CompanySearchResult(props) {
 								<li className="active">
 									{props.company.numReviews} <br />
 									<span className="review_text">
-										<T>reviews</T>
+										<T.reviews />
 									</span>
 								</li>
 								<li>
 									{props.company.numSalaries}
 									<br />
 									<span className="review_text">
-										<T>salaries</T>
+										<T.salaries />
 									</span>
 								</li>
 								<li>
 									{props.company.numJobAds}
 									<br />
 									<span className="review_text">
-										<T>jobs</T>
+										<T.jobs />
 									</span>
 								</li>
 							</ul>

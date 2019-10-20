@@ -10,6 +10,7 @@ const PageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	background-color: ${props => props.theme.background};
 
 	> *:nth-last-child(2) {
 		flex: 1 0 auto;
@@ -32,13 +33,8 @@ function PageWrapper(props: PageWrapperProps) {
 		document.title = props.title || "Vize";
 	});
 
-	let colorBackground = "white";
-	if (props.grayBackground) {
-		colorBackground = "whitesmoke";
-	}
-
 	return (
-		<PageContainer style={{ backgroundColor: colorBackground }}>
+		<PageContainer>
 			<Header navIsAnimated={props.navIsAnimated} />
 			<div>{props.children}</div>
 			<Footer />

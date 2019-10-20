@@ -1,15 +1,10 @@
 import React from "react";
 
-import { Meteor } from "meteor/meteor";
-import { i18n } from "meteor/universe:i18n";
-
 import PageWrapper from "imports/ui/components/page-wrapper";
 import ContactForm from "imports/ui/components/contact-form";
+import { translations } from "imports/ui/translations";
 
-/* A page where visitors can get information about Vize and this app.
- */
-
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 class AboutPage extends React.Component {
 	render() {
@@ -19,8 +14,29 @@ class AboutPage extends React.Component {
 					<div className="banner-info">
 						<div className="banner-text">
 							<h1 className="text-center">
-								<T>common.aboutUs.about</T>
+								<T.aboutUs.about />
 							</h1>
+						</div>
+					</div>
+				</div>
+
+				<div className="about background-white">
+					<div className="container">
+						<div className="col-md-12">
+							<h1 className="text-center about-header">
+								<T.aboutUs.the_problem />
+							</h1>
+							<h3 className="about-subheader">
+								<T.aboutUs.noLeverage />
+							</h3>
+						</div>
+						<div className="col-md-12 ">
+							<div className="about-row">
+								<p className="about-paragraph">
+									<T.aboutUs.problem_text />
+								</p>
+							</div>
+							<div className="clearfix" />
 						</div>
 					</div>
 				</div>
@@ -29,38 +45,17 @@ class AboutPage extends React.Component {
 					<div className="container">
 						<div className="col-md-12">
 							<h1 className="text-center about-header">
-								<T>common.aboutUs.the_problem</T>
-							</h1>
-							<h3 className="about-subheader">
-								<T>common.aboutUs.noLeverage</T>
-							</h3>
-						</div>
-						<div className="col-md-12 ">
-							<div className="about-row">
-								<p className="about-paragraph">
-									<T>common.aboutUs.problem_text</T>
-								</p>
-							</div>
-							<div className="clearfix" />
-						</div>
-					</div>
-				</div>
-
-				<div className="about contrast">
-					<div className="container">
-						<div className="col-md-12">
-							<h1 className="text-center about-header">
-								<T>common.aboutUs.our_solution</T>
+								<T.aboutUs.our_solution />
 							</h1>
 
 							<h3 className="about-subheader">
-								<T>common.aboutUs.reviews_accountability</T>
+								<T.aboutUs.reviews_accountability />
 							</h3>
 						</div>
 						<div className="col-md-12">
 							<div>
 								<p className="about-paragraph">
-									<T>common.aboutUs.solution_text</T>{" "}
+									<T.aboutUs.solution_text />{" "}
 								</p>
 							</div>
 							<div className="clearfix" />
@@ -68,7 +63,7 @@ class AboutPage extends React.Component {
 					</div>
 				</div>
 
-				<div className="cont">
+				<div className="background-white">
 					<div className="container">
 						<div className="container-contact">
 							<ContactForm />

@@ -4,10 +4,10 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
-import { i18n } from "meteor/universe:i18n";
+import Modal from "react-modal";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.reviewSubmitted");
-const T = i18n.createComponent(t);
+const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -21,6 +21,21 @@ const REWARD_DATA_SUBMISSION = gql`
 	}
 `;
 
+const customStyles = {
+	content: {
+		top: "50%",
+		left: "50%",
+		right: "auto",
+		bottom: "auto",
+		padding: "10px",
+		marginRight: "-50%",
+		marginTop: "30px",
+		height: "auto",
+		maxHeight: "80%",
+		transform: "translate(-50%, -50%)",
+	},
+};
+
 export default class RewardsComponent extends React.Component {
 	constructor(props) {
 		super(props);
@@ -29,6 +44,7 @@ export default class RewardsComponent extends React.Component {
 			phoneNumber: "",
 			phoneError: "",
 			paymentMethod: "",
+			modalIsOpen: false,
 		};
 
 		this.openModal = this.openModal.bind(this);
@@ -43,7 +59,6 @@ export default class RewardsComponent extends React.Component {
 	}
 
 	closeModal() {
-		console.log("closing");
 		this.setState({ modalIsOpen: false });
 	}
 
@@ -75,17 +90,17 @@ export default class RewardsComponent extends React.Component {
 				<div className="congratulations">
 					<div className="congratulations-gif" />
 					<p className="rewarded">
-						<T>earnedReward</T>
+						<T.earnedReward />
 					</p>
 				</div>
 
 				<div className="col-md-12">
 					<div>
 						<p>
-							<T>rewardYou</T>
+							<T.rewardYou />
 						</p>
 						<p>
-							<T>rewardOptions</T>
+							<T.rewardOptions />
 						</p>
 						<div className="rewards">
 							<div className="reward">
@@ -97,23 +112,25 @@ export default class RewardsComponent extends React.Component {
 									<p className="price-tag">$5</p>
 								</div>
 								<p>
-									<T>paypalCash</T>
+									<T.paypalCash />
 								</p>
 								<a
 									onClick={() => {
 										this.setPaymentMethod("PAYPAL");
 									}}
 								>
-									<T>getReward</T>
+									<T.getReward />
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<Popup
-					modal
-					open={this.state.modalIsOpen}
-					onClose={this.closeModal}
+				<Modal
+					isOpen={this.state.modalIsOpen}
+					ariaHideApp={false}
+					style={customStyles}
+					onRequestClose={this.closeModal}
+					contentLabel="Modal"
 				>
 					<Mutation
 						onError={this.mutationError}
@@ -125,7 +142,7 @@ export default class RewardsComponent extends React.Component {
 							<form onSubmit={this.handelPhoneSubmitting}>
 								<fieldset>
 									<legend>
-										<T>enterPhone</T>
+										<T.enterPhone />
 									</legend>
 									<label htmlFor="phone-number" />
 									<PhoneInput
@@ -176,13 +193,13 @@ export default class RewardsComponent extends React.Component {
 											});
 										}}
 									>
-										<T>submit</T>
+										<T.submit />
 									</button>
 								</fieldset>
 							</form>
 						)}
 					</Mutation>
-				</Popup>
+				</Modal>
 			</div>
 		);
 	}

@@ -15,8 +15,10 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(),
-	password: schemas.password.required(),
+	username: schemas.username.required(
+		"Nombre de Usuario es un campo requerido"
+	),
+	password: schemas.password.required("Contraseña es un campo requerido"),
 });
 
 const onSubmit = history => (values, actions) => {
@@ -28,11 +30,12 @@ const onSubmit = history => (values, actions) => {
 			const formErrors = {};
 
 			if (error.reason === "User not found") {
-				formErrors.username = "User not found";
+				formErrors.username =
+					"El nombre de usuario no se ha encontrado";
 			}
 			if (error.reason === "Incorrect password") {
 				// TODO: clear the password input on this error
-				formErrors.password = "Incorrect password";
+				formErrors.password = "Contraseña incorrecta";
 			}
 
 			actions.setErrors(formErrors);
@@ -59,7 +62,7 @@ const LoginForm = props => (
 		validationSchema={schema}
 		onSubmit={onSubmit(props.history)}
 	>
-		<InnerForm />
+		<InnerForm {...props} />
 	</Formik>
 );
 

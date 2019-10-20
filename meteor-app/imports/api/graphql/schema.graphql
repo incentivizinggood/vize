@@ -30,6 +30,9 @@ type Mutation {
 
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
 	createReview(input: CreateReviewInput!): CreateReviewPayload
+	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
+	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
+	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
 }
 
 input CreateCompanyInput {
@@ -73,6 +76,51 @@ input CreateReviewInput {
 
 type CreateReviewPayload {
 	review: Review
+}
+
+input CreateSalaryInput {
+	companyName: String!
+	location: LocationInput!
+	jobTitle: String!
+	incomeType: IncomeType!
+	incomeAmount: Float!
+	gender: Gender
+}
+
+type CreateSalaryPayload {
+	salary: Salary
+}
+
+enum ContractType {
+	FULL_TIME
+	PART_TIME
+	CONTRACTOR
+}
+
+input CreateJobAdInput {
+	jobTitle: String!
+	locations: [LocationInput!]!
+	pesosPerHour: String!
+	contractType: ContractType!
+	jobDescription: String!
+	responsibilities: String!
+	qualifications: String!
+}
+
+type CreateJobAdPayload {
+	jobAd: JobAd
+}
+
+input ApplyToJobAdInput {
+	jobAdId: ID!
+	fullName: String!
+	email: String!
+	phoneNumber: String!
+	coverLetter: String
+}
+
+type ApplyToJobAdPayload {
+	success: Boolean
 }
 
 input CastVoteInput {
@@ -204,11 +252,22 @@ type Review {
 
 	# TODO: Add a field to let a users see if a review belongs to them.
 	"The company being reviewed"
-	company: Company!
+	company: Company
 	"Comments about this review."
 	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The vote that the currently logged in user cast on this review."
 	currentUserVote: Vote
+}
+
+enum IncomeType {
+	YEARLY_SALARY
+	MONTHLY_SALARY
+	HOURLY_WAGE
+}
+
+enum Gender {
+	MALE
+	FEMALE
 }
 
 type Salary {
@@ -216,7 +275,7 @@ type Salary {
 
 	jobTitle: String!
 	location: Location!
-	incomeType: String! # TODO change to enum
+	incomeType: IncomeType!
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
 	created: DateTime
@@ -275,6 +334,6 @@ type StarRatings {
 	overallSatisfaction: Float!
 }
 
-# Date and time serialized as a string in the ISO 8601 format.
+# Date and time serialized as a String in the ISO 8601 format.
 # Provided by graphql-iso-date on npm.
 scalar DateTime

@@ -22,11 +22,7 @@ export const Mutation: MutationResolvers = {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
 		return dataModel
-			.castVote(
-				context.user,
-				dataModel.stringToReviewId(subjectId),
-				isUpvote
-			)
+			.castVote(context.user, Number(subjectId), isUpvote)
 			.then(vote => (vote ? { vote } : null));
 	},
 
@@ -48,5 +44,54 @@ export const Mutation: MutationResolvers = {
 		);
 		const review = await dataModel.getReviewById(reviewId);
 		return { review };
+	},
+
+	createSalary: async (
+		_obj,
+		{ input: { incomeType, gender, ...input } },
+		context,
+		_info
+	) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const salaryId = await dataModel.createSalary(
+			{
+				// TODO: change the database so that we do not need to convert these.
+				incomeType:
+					incomeType === "YEARLY_SALARY"
+						? "Yearly Salary"
+						: incomeType === "MONTHLY_SALARY"
+						? "Monthly Salary"
+						: "Hourly Wage",
+				gender:
+					gender === "MALE"
+						? "Male"
+						: gender === "FEMALE"
+						? "Female"
+						: undefined,
+				...input,
+			},
+			await dataModel.getUserPostgresId(context.user._id)
+		);
+		const salary = await dataModel.getSalaryById(salaryId);
+		return { salary };
+	},
+
+	createJobAd: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const jobAdId = await dataModel.createJobAd(
+			input,
+			await dataModel.getUserPostgresId(context.user._id)
+		);
+		const jobAd = await dataModel.getJobAdById(jobAdId);
+		return { jobAd };
+	},
+
+	applyToJobAd: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const success = await dataModel.applyToJobAd(input);
+		return { success };
 	},
 };
