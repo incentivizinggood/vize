@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import {
 	FormHeader,
@@ -14,7 +15,15 @@ const T = translations.loginRegister;
 
 /* The page where users can login to the app.
  */
+
 function LoginPage() {
+	let userRole = "worker";
+	const params = new URLSearchParams(location.search);
+
+	if (params != null) {
+		userRole = params.get("user");
+	}
+
 	return (
 		<FormPageWrapper title="Login">
 			<FormHeader>
@@ -23,7 +32,7 @@ function LoginPage() {
 			<LoginForm />
 			<FormFooter>
 				<T.noAccount />
-				<Link to="/register">
+				<Link to={urlGenerators.vizeRegister(userRole)}>
 					<T.register />
 				</Link>
 			</FormFooter>

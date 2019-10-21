@@ -73,6 +73,15 @@ export default {
 		email: { label: "Email", placeholder: "Email" },
 		createAccount: "Create Account",
 		registerOrLogin: "Register or login to write a review",
+		errors: {
+			usernameRequired: "Username is a required field",
+			usernameNotFound: "User not found",
+			emailRequired: "Email is a required field",
+			emailValid: "Email must be a valid email",
+			passwordRequired: "Password is a required field",
+			passwordIncorrect: "Incorrect password",
+			companyNameRequired: "Company Name is a required field",
+		},
 	},
 	createCompany: {
 		formTitle: "Create a New Profile",

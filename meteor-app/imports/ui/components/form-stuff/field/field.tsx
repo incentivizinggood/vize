@@ -6,13 +6,17 @@ import styled from "styled-components";
 
 import RatingField from "./rating-field";
 
+const FormikField = styled(Formik.Field)`
+	margin-top: 10px !important;
+`;
+
 const FieldInner: React.ComponentType<any> = ({ type, ...restProps }) => {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
 	}
 
 	return (
-		<Formik.Field
+		<FormikField
 			{...restProps}
 			type={type}
 			component={TextField}

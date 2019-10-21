@@ -62,7 +62,10 @@ export default {
 		login: "Iniciar Sesión",
 		noAccount: "¿No tienes una cuenta? ",
 		register: "Registrar",
-		username: { label: "Usuario", placeholder: "Usuario" },
+		username: {
+			label: "Nombre de Usuario",
+			placeholder: "Nombre de Usuario",
+		},
 		password: { label: "Contraseña", placeholder: "Contraseña" },
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
@@ -78,6 +81,15 @@ export default {
 		},
 		createAccount: "Crear Cuenta",
 		registerOrLogin: "Regístrese o inicie sesión para escribir una opinión",
+		errors: {
+			usernameRequired: "Nombre de Usuario es un campo requerido",
+			usernameNotFound: "El nombre de usuario no se ha encontrado",
+			emailRequired: "Correo Electrónico es un campo requerido",
+			emailValid: "Correo Electrónico debe ser válido",
+			passwordRequired: "Contraseña es un campo requerido",
+			passwordIncorrect: "Contraseña incorrecta",
+			companyNameRequired: "Nombre de Compañía es un campo requerido",
+		},
 	},
 	createCompany: {
 		formTitle: "Crear un nuevo perfil",

@@ -6,7 +6,7 @@ import {
 	faTimesCircle,
 	faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import Popup from "reactjs-popup";
+import PopupModal from "imports/ui/components/popup-modal";
 
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
@@ -209,20 +209,19 @@ function ReviewComponent(props) {
 								TODO: This should be refactored.
 							*/}
 							{props.user ? (
-								<Popup
-									trigger={
-										<button className="flag-style-btn">
-											<T.companyreview.report />
-										</button>
-									}
-									modal
-									closeOnDocumentClick
-								>
-									<FlagSystem
-										reviewId={props.review.id}
-										companyName={props.companyName}
-									/>
-								</Popup>
+								<T.companyreview.report
+									renderer={t => (
+										<PopupModal
+											buttonClass="flag-style-btn"
+											buttonText={t}
+										>
+											<FlagSystem
+												reviewId={props.review.id}
+												companyName={props.companyName}
+											/>
+										</PopupModal>
+									)}
+								/>
 							) : (
 								<button className="flag-style-btn" disabled>
 									<T.companyreview.report />
