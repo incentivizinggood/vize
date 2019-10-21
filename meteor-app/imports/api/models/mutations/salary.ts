@@ -28,7 +28,8 @@ export async function createSalary(
 			);
 
 			if (role !== "worker") {
-				throw new Error("Only employees may submit salaries.");
+				// Error: Only employees may submit salaries.
+				throw new Error("Solo los empleados pueden agregar salarios");
 			}
 		}
 
@@ -39,8 +40,9 @@ export async function createSalary(
 			);
 
 			if (rows.length > 0) {
+				// Error: "You may not submit more than one salary for a company."
 				throw new Error(
-					"You may not submit more than one salary for a company."
+					"No puedes agregar más de un salario para una empresa"
 				);
 			}
 		}

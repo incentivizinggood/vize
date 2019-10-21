@@ -22,7 +22,10 @@ function CompanySearchResult(props) {
 			<div className="container company-search-container">
 				<div className="container">
 					<div className="col-md-3  prostar">
-						<Link to={companyProfileUrl} target="_blank">
+						{
+							//TODO: removing prevState because it for some reason returns error 400 when Used
+						}
+						<Link to={companyProfileUrl}>
 							<div className="company-search-img">
 								<img
 									src="/images/default-company.png"
@@ -35,6 +38,9 @@ function CompanySearchResult(props) {
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
+							{
+								//TODO: removing prevState because it for some reason returns error 400 when Used
+							}
 							<Link to={companyProfileUrl}>
 								{props.company.name}
 							</Link>

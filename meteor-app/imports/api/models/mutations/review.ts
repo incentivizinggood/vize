@@ -37,7 +37,8 @@ export async function createReview(
 			);
 
 			if (role !== "worker") {
-				throw new Error("Only employees may review companies.");
+				// Enlish Error: Only employees may review companies.
+				throw new Error("Solo los empleados pueden evaluar empresas.");
 			}
 		}
 
@@ -48,8 +49,9 @@ export async function createReview(
 			);
 
 			if (rows.length > 0) {
+				// Error in English: "You may not write more than one review for a company."
 				throw new Error(
-					"You may not write more than one review for a company."
+					"No puedes escribir más de una evaluación para una empresa."
 				);
 			}
 		}
