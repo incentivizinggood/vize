@@ -12,7 +12,8 @@
 		"downlevelIteration": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"types": ["mocha"]
+		"types": ["mocha", "node"],
+		"noErrorTruncation": true
 	},
 	"include": ["./imports/**/*", "./client/**/*", "./server/**/*"]
 }

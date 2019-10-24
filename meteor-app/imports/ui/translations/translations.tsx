@@ -2,36 +2,26 @@ import React from "react";
 
 import { LocaleContext } from "imports/ui/startup/i18n";
 
-type Renderer<Msg> = (message: Msg) => JSX.Element;
-
-type TranslationComponentProps<Msg> = Msg extends (args: infer A) => infer R
-	? { renderer?: Renderer<R> } & A
-	: { renderer?: Renderer<Msg> };
-
-type TranslationComponent<Msg> = React.ComponentType<
-	TranslationComponentProps<Msg>
->;
-
-type TranslationComponents<Msgs> = {
-	[P in keyof Msgs]: Msgs[P] extends ((a: any) => any) | JSX.Element
-		? TranslationComponent<Msgs[P]>
-		: Msgs[P] extends Record<string, any>
-		? TranslationComponent<Msgs[P]> & TranslationComponents<Msgs[P]>
-		: TranslationComponent<Msgs[P]>;
-};
+import { TranslationNode } from "./types";
 
 /**
  * Made translation components for each message in a collection of translations.
  */
-function makeTranslationComponents<Msgs>(
-	translations: Record<string, Msgs>
-): TranslationComponents<Msgs> {
+function makeTranslationComponents<RootMessage>(
+	translations: Record<string, RootMessage>
+): TranslationNode<RootMessage> {
+	// Note: The implimentation of this function requiers more complex typing
+	// than TypeScript supports. Therefore, we must use the "any" type in some
+	// places.
+
 	// Pick a locale to use as the "default translations". This is only used for
-	// computing the message paths and has no effect on how what is used as a
+	// computing the message paths and has no effect on what is used as a
 	// default locale in other places.
 	const defaultTranslation = Object.values(translations)[0];
 
-	function makeTranslationComponent(getMessage: (msgs: Msgs) => any) {
+	function makeTranslationComponent(
+		getMessage: (rootMessage: RootMessage) => any
+	) {
 		// A component that renders a different thing for each locale.
 		const TranslationComponent: any = ({ renderer, ...args }: any) => {
 			// Get the version of the message that is for the current locale.
@@ -68,7 +58,7 @@ function makeTranslationComponents<Msgs>(
 		) {
 			for (const k of Object.keys(message)) {
 				TranslationComponent[k] = makeTranslationComponent(
-					msgs => getMessage(msgs)[k]
+					rootMessage => getMessage(rootMessage)[k]
 				);
 			}
 		}
