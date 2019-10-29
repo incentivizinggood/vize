@@ -439,8 +439,9 @@ export default {
 				"Nos gustaría recompensarlo por tomar el tiempo para escribir una revision.",
 			rewardOptions:
 				"Por favor seleccione de las siguientes opciones de recompensa:",
-			paypalCash: "Recibe $5 a través de PayPal",
-			minutesReward: "Recibe $5 en minutos",
+			paypalCash: "Recibe $100 pesos a través de PayPal",
+			swapCash: "Recibe $100 pesos a través de Swap en menos de 24 horas",
+			minutesReward: "Recibe $100 en minutos",
 			getReward: "Recibir Recompensa",
 			enterPhone: "Por favor, ingrese su número de teléfono",
 			phoneNumberUsed: "Número de teléfono ya utilizado",

@@ -421,8 +421,9 @@ export default {
 			rewardYou:
 				"We would like to reward you for taking the time to write a review.",
 			rewardOptions: "Please select from the following reward options:",
-			paypalCash: "Receive $5 through PayPal",
-			minutesReward: "Receive $5 worth of minutes",
+			paypalCash: "Receive $100 pesos through PayPal",
+			swapCash: "Receive $100 pesos through Swap in less than 24 hours",
+			minutesReward: "Receive $100 pesos worth of minutes",
 			getReward: "Get Reward",
 			enterPhone: "Please enter your phone number",
 			phoneNumberUsed: "Phone number already used",

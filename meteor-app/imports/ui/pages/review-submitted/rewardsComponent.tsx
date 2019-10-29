@@ -3,6 +3,15 @@ import Popup from "reactjs-popup";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import { SubmitButton } from "imports/ui/components/button";
+
+const GetRewardButton = styled(Button)`
+	font-weight: bold !important;
+	font-size: 1.2rem !important;
+	width: 100%;
+`;
 
 import Modal from "react-modal";
 import { translations } from "imports/ui/translations";
@@ -69,11 +78,11 @@ export default class RewardsComponent extends React.Component {
 
 	mutationError(error, message) {
 		if (error.message == "GraphQL error: ALREADY_CLAIMED") {
-			this.setState({ phoneError: t("rewardAlreadyClaimed") });
+			this.setState({ phoneError: this.props.t.rewardAlreadyClaimed });
 		} else {
 			// using else is a temporary fix because currently graphQL is not returning the
 			// correct error for when a phone number has alrady been used
-			this.setState({ phoneError: t("phoneNumberUsed") });
+			this.setState({ phoneError: this.props.t.phoneNumberUsed });
 		}
 	}
 
@@ -105,22 +114,48 @@ export default class RewardsComponent extends React.Component {
 						<div className="rewards">
 							<div className="reward">
 								<div className="reward-visual">
+									<a href="https://swap.mx/" target="_blank">
+										<img
+											src="images/swap-icon.png"
+											alt="Swap Logo"
+										/>
+									</a>
+								</div>
+								<p>
+									<T.swapCash />
+								</p>
+								<br />
+								<GetRewardButton
+									variant="contained"
+									color="primary"
+									onClick={() => {
+										this.setPaymentMethod("SWAP");
+									}}
+								>
+									<T.getReward />
+								</GetRewardButton>
+							</div>
+
+							<div className="reward">
+								<div className="reward-visual">
 									<img
 										src="images/payPal.png"
 										alt="payPal logo"
 									/>
-									<p className="price-tag">$5</p>
 								</div>
 								<p>
 									<T.paypalCash />
 								</p>
-								<a
+								<br />
+								<GetRewardButton
+									variant="contained"
+									color="primary"
 									onClick={() => {
 										this.setPaymentMethod("PAYPAL");
 									}}
 								>
 									<T.getReward />
-								</a>
+								</GetRewardButton>
 							</div>
 						</div>
 					</div>
@@ -146,7 +181,7 @@ export default class RewardsComponent extends React.Component {
 									</legend>
 									<label htmlFor="phone-number" />
 									<PhoneInput
-										placeholder="644 533 9876"
+										placeholder="(664)___-____"
 										countries={["MX"]}
 										error={this.state.phoneError}
 										international={false}
@@ -167,8 +202,10 @@ export default class RewardsComponent extends React.Component {
 
 									<br />
 
-									<button
+									<SubmitButton
 										className="btn btn-primary"
+										color="primary"
+										variant="contained"
 										disabled={
 											!(
 												this.state.phoneNumber &&
@@ -194,7 +231,7 @@ export default class RewardsComponent extends React.Component {
 										}}
 									>
 										<T.submit />
-									</button>
+									</SubmitButton>
 								</fieldset>
 							</form>
 						)}
@@ -204,3 +241,7 @@ export default class RewardsComponent extends React.Component {
 		);
 	}
 }
+
+export default props => (
+	<T renderer={t => <RewardsComponent t={t} {...props} />} />
+);
