@@ -10,9 +10,17 @@ import {
 
 const FormHeader = styled.h1`
 	margin-bottom: 10px;
-
+	font-weight: bold;
 	font-size: 32px;
 	text-align: center;
+`;
+
+const FormText = styled.p`
+	margin-bottom: 5px;
+	color: black;
+	font-size: 15px
+
+	text-align: left;
 `;
 
 const FormFooter = styled.div`
@@ -30,7 +38,7 @@ const FormFooter = styled.div`
 `;
 
 const FormToolbar = styled.div`
-	text-align: right;
+	text-align: left;
 	margin-top: 20px;
 `;
 
@@ -44,4 +52,4 @@ function FormPageWrapper({ children, ...restProps }) {
 	);
 }
 
-export { FormHeader, FormFooter, FormToolbar, FormPageWrapper };
+export { FormHeader, FormText, FormFooter, FormToolbar, FormPageWrapper };

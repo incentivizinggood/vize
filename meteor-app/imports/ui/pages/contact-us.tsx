@@ -25,7 +25,7 @@ export default class ContactUsPage extends React.Component {
 						</div>
 					</div>
 				</div>
-				<div className="cont about-cont">
+				<div className="background-white">
 					<div className="container">
 						<div className="container-contact">
 							<ContactForm />

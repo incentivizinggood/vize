@@ -2,12 +2,15 @@ import React from "react";
 
 export default {
 	homePage: {
-		mainBanner: "Find a Great Job Near You",
+		mainBanner: "Find a Great Job Near You in Tijuana",
 		searchButton: "SEARCH",
 		placeholder: "Search for a Company...",
 		findjob_title: "Know The Job Before You Get It",
 		commonLine: "",
-		rewardText: "Earn $100 pesos by sharing your work experience",
+		rewardText:
+			"Earn $100 pesos by sharing your work experience anonymously",
+		rewardText2:
+			"Your voice will help other workers find a great job, in Tijuana, at a factory that respects them",
 		findjob_text:
 			"Don't waste your time going from factory to factory, search job posts and read reviews from other employees to find the best job for you",
 		jobsButton: "Jobs",
@@ -70,6 +73,15 @@ export default {
 		email: { label: "Email", placeholder: "Email" },
 		createAccount: "Create Account",
 		registerOrLogin: "Register or login to write a review",
+		errors: {
+			usernameRequired: "Username is a required field",
+			usernameNotFound: "User not found",
+			emailRequired: "Email is a required field",
+			emailValid: "Email must be a valid email",
+			passwordRequired: "Password is a required field",
+			passwordIncorrect: "Incorrect password",
+			companyNameRequired: "Company Name is a required field",
+		},
 	},
 	createCompany: {
 		formTitle: "Create a New Profile",
@@ -129,7 +141,9 @@ export default {
 	},
 	createReview: {
 		formTitle: "Write a Review",
-		formSubTitle: "Contribute your anonymous feedback to the community",
+		formSubTitle1:
+			"Your anonymous review will help other workers find a great job, in Tijuana, at a factory that respects them.",
+		formSubTitle2: "Claim your $100 pesos with Swap or Paypal.",
 		fields: {
 			companyName: {
 				label: "Company Name",
@@ -407,8 +421,9 @@ export default {
 			rewardYou:
 				"We would like to reward you for taking the time to write a review.",
 			rewardOptions: "Please select from the following reward options:",
-			paypalCash: "Receive $5 through PayPal",
-			minutesReward: "Receive $5 worth of minutes",
+			paypalCash: "Receive $100 pesos through PayPal",
+			swapCash: "Receive $100 pesos through Swap in less than 24 hours",
+			minutesReward: "Receive $100 pesos worth of minutes",
 			getReward: "Get Reward",
 			enterPhone: "Please enter your phone number",
 			phoneNumberUsed: "Phone number already used",

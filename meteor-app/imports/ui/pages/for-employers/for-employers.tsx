@@ -5,7 +5,7 @@ import PageWrapper from "imports/ui/components/page-wrapper";
 import Banner from "imports/ui/components/banner";
 import { LinkButton } from "imports/ui/components/button";
 import { forSize } from "imports/ui/responsive.js";
-
+import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
@@ -76,7 +76,7 @@ const SectionContainer = styled.section`
 `;
 
 const GetStarted = props => (
-	<LinkButton primary to="/register" {...props}>
+	<LinkButton primary to={urlGenerators.vizeRegister("company")} {...props}>
 		<T.getStarted />
 	</LinkButton>
 );
@@ -212,7 +212,8 @@ function ForEmployers() {
 				</PageTitle>
 				<GetStartedLarge />
 			</Banner>
-			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
+
+			<SectionContainer>
 				<SectionTitle>
 					<T.heading1 />
 				</SectionTitle>
@@ -239,7 +240,7 @@ function ForEmployers() {
 				</ProblemPoint>
 			</SectionContainer>
 
-			<SectionContainer>
+			<SectionContainer style={{ backgroundColor: "white" }}>
 				<SectionTitle>
 					<T.heading2 />
 				</SectionTitle>
@@ -283,7 +284,7 @@ function ForEmployers() {
 				</SolutionContainer>
 			</SectionContainer>
 
-			<SectionContainer style={{ backgroundColor: "whitesmoke" }}>
+			<SectionContainer>
 				<SectionTitle>
 					<T.heading3 />
 				</SectionTitle>

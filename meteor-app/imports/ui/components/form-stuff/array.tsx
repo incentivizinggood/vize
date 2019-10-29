@@ -1,10 +1,11 @@
 import React from "react";
-import { FieldArray, connect } from "formik";
+import { FieldArray, connect, FormikContext } from "formik";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "imports/ui/components/button";
+import { TranslationComponent } from "imports/ui/translations";
 
 const ArrayContainer = styled.div`
 	margin-top: 20px;
@@ -38,7 +39,22 @@ const ElementDeleteButton = styled(Button)`
 	}
 `;
 
-function FormArray({ name, T, formik: { values }, ElementRender }) {
+interface FormArrayProps {
+	name: string;
+	T?: {
+		addElement: TranslationComponent<
+			({ array }: { array: unknown[] }) => string
+		>;
+	};
+	ElementRender: React.ComponentType<{ name: string }>;
+}
+
+function FormArray({
+	name,
+	T,
+	ElementRender,
+	formik: { values },
+}: FormArrayProps & { formik: FormikContext<any> }) {
 	return (
 		<>
 			<FieldArray
@@ -46,7 +62,7 @@ function FormArray({ name, T, formik: { values }, ElementRender }) {
 				render={arrayHelpers => (
 					<ArrayContainer>
 						{values[name] && values[name].length > 0
-							? values[name].map((x, index) => (
+							? values[name].map((x, index: number) => (
 									<ElementContainer>
 										<ElementDeleteButton
 											type="button"
@@ -81,4 +97,4 @@ function FormArray({ name, T, formik: { values }, ElementRender }) {
 	);
 }
 
-export default connect(FormArray);
+export default connect<FormArrayProps, any>(FormArray);

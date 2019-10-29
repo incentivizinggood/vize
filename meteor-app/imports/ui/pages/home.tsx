@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
 import WriteReviewButton from "imports/ui/components/write-review-button";
@@ -26,19 +27,25 @@ function HomePage() {
 						<div className="col-md-2 add-flex-col center-element">
 							<img
 								className="img-responsive vertical-center"
-								src="images/moneyIcon.png"
+								src="images/swap-icon.png"
 								alt="Reward"
 							/>
 							<br />
 						</div>
-						<div className="col-md-6">
+						<div className="col-md-8">
 							<div>
 								<div>
 									<p
 										className="white-text-center"
-										style={{ fontSize: 32 }}
+										style={{ fontSize: 23 }}
 									>
 										<T.rewardText />
+									</p>
+									<p
+										className="white-text-center"
+										style={{ fontSize: 23 }}
+									>
+										<T.rewardText2 />
 									</p>
 								</div>
 								<div>
@@ -79,7 +86,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container">
+			<div className="full-width-container background-white">
 				<div className="container desktop-view">
 					<div className="col-md-8">
 						<div>
@@ -115,7 +122,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container mobile-view">
+				<div className="container mobile-view background-white">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -228,7 +235,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container background-offwhite">
+			<div className="full-width-container">
 				<div className="row">
 					<div className="col-md-12">
 						<center>
@@ -311,7 +318,11 @@ function HomePage() {
 							<div>
 								<center>
 									{" "}
-									<BlackBorderButton to="/register">
+									<BlackBorderButton
+										to={urlGenerators.vizeRegister(
+											"worker"
+										)}
+									>
 										<T.signup_button />
 									</BlackBorderButton>
 								</center>

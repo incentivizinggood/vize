@@ -21,7 +21,11 @@ function SubmissionError({ error }) {
 	}
 
 	if (typeof error === "string" || error instanceof String) {
-		return <ErrorBox>{error}</ErrorBox>;
+		return (
+			<ErrorBox>
+				<span style={{ fontWeight: "bold" }}>{error}</span>
+			</ErrorBox>
+		);
 	}
 
 	return (

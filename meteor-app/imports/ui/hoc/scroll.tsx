@@ -1,10 +1,13 @@
 import React from "react";
 
 // Get the window's scroll position as a prop.
-export default function withScroll(WrappedComponent) {
-	return class extends React.Component {
-		constructor(props) {
+export default function withScroll<OuterProps>(
+	WrappedComponent: React.ComponentType<OuterProps & { scroll: number }>
+) {
+	return class extends React.Component<OuterProps, { scroll: number }> {
+		constructor(props: OuterProps) {
 			super(props);
+
 			this.state = {
 				scroll: window.pageYOffset,
 			};

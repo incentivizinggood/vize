@@ -1,104 +1,48 @@
-.review-submitted {
-	margin-top: 250px;
-	margin-bottom: 250px;
+.congratulations {
+	text-align: center;
+	margin-bottom: 30px;
 
-	.container {
-		padding: 50px;
+	&-gif {
+		background-image: url(images/rewarding.gif);
+		height: 300px;
+		clear: left;
+		background-size: 420px 320px;
+		background-repeat: no-repeat;
+		background-position: 50%;
 	}
-
-	h2 {
-		font-weight: bold;
-	}
-
 	p {
-		color: black;
-		text-align: center;
-		& + p {
-			margin-bottom: 10px;
-		}
-		&:first-child {
-			margin-top: 10px;
-		}
+		font-size: 1.3em;
 	}
-	.congratulations {
-		text-align: center;
-		margin-bottom: 30px;
+}
 
-		&-gif {
-			background-image: url(images/rewarding.gif);
-			height: 300px;
-			clear: left;
-			background-size: 420px 320px;
-			background-repeat: no-repeat;
-			background-position: 50%;
-		}
-		p {
-			font-size: 1.3em;
-		}
-	}
+.rewards {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	flex-wrap: wrap;
+	.reward {
+		border-radius: 6px;
+		padding: 15px;
+		margin: 15px;
+		margin-top: 15px;
+		max-width: 250px;
+		flex-direction: column;
+		justify-content: space-between;
+		box-shadow: 0px 1px 3px 0px;
 
-	.rewards {
-		display: flex;
-		justify-content: center;
-		text-align: center;
-		flex-wrap: wrap;
-		.reward {
-			width: 22%;
-			border: 1px solid #d4d1d1;
-			border-radius: 4px;
-			padding: 5px;
-			margin: 5px;
-			margin-top: 15px;
+		.reward-visual {
 			position: relative;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
 
-			.reward-visual {
-				position: relative;
-
-				img {
-					text-align: center;
-					display: block;
-					border-radius: 50%;
-					border: 1px solid #d4d1d1;
-					padding: 5px;
-					margin: auto;
-					margin-top: 5px;
-					margin-bottom: 15px;
-				}
-
-				p {
-					position: absolute;
-					color: white;
-					background: $vize-blue;
-					border-radius: 100%;
-					padding: 5px;
-					font-weight: bold;
-					top: 1px;
-					right: 55px;
-					display: block;
-					width: 35px;
-					border: 1px solid #d4d1d1;
-				}
-			}
-
-			p {
-				padding: 2px;
-				margin-bottom: 20px;
-			}
-
-			a {
-				font-weight: bold;
-				padding: 15px;
-				margin: 10px;
-				border: 1px solid #d4d1d1;
-				border-radius: 4px;
+			img {
+				text-align: center;
 				display: block;
-				&:hover {
-					border: 1px solid rgba(0, 0, 0, 0.8);
-					cursor: pointer;
-				}
+				border-radius: 50%;
+				border: 1px solid #d4d1d1;
+				padding: 5px;
+				width: 140px;
+				margin: auto;
+				margin-top: 5px;
+				margin-bottom: 15px;
 			}
 		}
 	}

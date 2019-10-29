@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { withUser } from "imports/ui/hoc/user";
 import { translations } from "imports/ui/translations";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import WorkerNavLinks from "./worker-nav-links";
 import EmployerNavLinks from "./employer-nav-links";
@@ -11,6 +12,13 @@ import LangSelector from "./lang-selector";
 import LogoutButton from "./logout-button";
 
 const T = translations.header;
+
+let userRole = "worker";
+
+function fixNullParams(param) {
+	if (param === null) return undefined;
+	return param;
+}
 
 function NavLinks({ user }) {
 	// The user is an employer.
@@ -35,9 +43,21 @@ function AccountLink({ user }) {
 		);
 	}
 
+	const params = new URLSearchParams(location.search);
+	if (location.pathname === "/for-employers") {
+		userRole = "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		userRole = fixNullParams(params.get("user"));
+	} else {
+		userRole = "worker";
+	}
+
 	return (
 		<Link
-			to="/login"
+			to={urlGenerators.vizeLogin(userRole)}
 			type="button"
 			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
 		>
@@ -78,11 +98,24 @@ function AccountSection({ user }) {
 		);
 	}
 
+	const params = new URLSearchParams(location.search);
+
+	if (location.pathname === "/for-employers") {
+		userRole = "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		userRole = fixNullParams(params.get("user"));
+	} else {
+		userRole = "worker";
+	}
+
 	return (
 		<>
 			<li>
 				<Link
-					to="/register"
+					to={urlGenerators.vizeRegister(userRole)}
 					type="button"
 					id="register-button"
 					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
@@ -91,7 +124,10 @@ function AccountSection({ user }) {
 				</Link>
 			</li>
 			<li>
-				<Link to="/login" className="navbar-link margin-right">
+				<Link
+					to={urlGenerators.vizeLogin(userRole)}
+					className="navbar-link margin-right"
+				>
 					<T.login />
 				</Link>
 			</li>

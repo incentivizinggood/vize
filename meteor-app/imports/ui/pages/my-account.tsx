@@ -40,7 +40,10 @@ class MyAccountPage extends React.Component {
 				<div style={{ width: "80%", margin: "0 auto" }}>
 					<br />
 					You must be logged in to use this page. <br /> <br />
-					<Link className="btn btn-primary" to="/login">
+					<Link
+						className="btn btn-primary"
+						to={urlGenerators.vizeLogin("worker")}
+					>
 						Log In
 					</Link>
 					<br />
