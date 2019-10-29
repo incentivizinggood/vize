@@ -27,19 +27,25 @@ function HomePage() {
 						<div className="col-md-2 add-flex-col center-element">
 							<img
 								className="img-responsive vertical-center"
-								src="images/moneyIcon.png"
+								src="images/swap-icon.png"
 								alt="Reward"
 							/>
 							<br />
 						</div>
-						<div className="col-md-6">
+						<div className="col-md-8">
 							<div>
 								<div>
 									<p
 										className="white-text-center"
-										style={{ fontSize: 32 }}
+										style={{ fontSize: 23 }}
 									>
 										<T.rewardText />
+									</p>
+									<p
+										className="white-text-center"
+										style={{ fontSize: 23 }}
+									>
+										<T.rewardText2 />
 									</p>
 								</div>
 								<div>

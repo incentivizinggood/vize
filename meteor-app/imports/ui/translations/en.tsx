@@ -2,12 +2,15 @@ import React from "react";
 
 export default {
 	homePage: {
-		mainBanner: "Find a Great Job Near You",
+		mainBanner: "Find a Great Job Near You in Tijuana",
 		searchButton: "SEARCH",
 		placeholder: "Search for a Company...",
 		findjob_title: "Know The Job Before You Get It",
 		commonLine: "",
-		rewardText: "Earn $100 pesos by sharing your work experience",
+		rewardText:
+			"Earn $100 pesos by sharing your work experience anonymously",
+		rewardText2:
+			"Your voice will help other workers find a great job, in Tijuana, at a factory that respects them",
 		findjob_text:
 			"Don't waste your time going from factory to factory, search job posts and read reviews from other employees to find the best job for you",
 		jobsButton: "Jobs",
@@ -138,7 +141,9 @@ export default {
 	},
 	createReview: {
 		formTitle: "Write a Review",
-		formSubTitle: "Contribute your anonymous feedback to the community",
+		formSubTitle1:
+			"Your anonymous review will help other workers find a great job, in Tijuana, at a factory that respects them.",
+		formSubTitle2: "Claim your $100 pesos with Swap or Paypal.",
 		fields: {
 			companyName: {
 				label: "Company Name",

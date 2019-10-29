@@ -15,6 +15,14 @@ const FormHeader = styled.h1`
 	text-align: center;
 `;
 
+const FormText = styled.p`
+	margin-bottom: 5px;
+	color: black;
+	font-size: 15px
+
+	text-align: left;
+`;
+
 const FormFooter = styled.div`
 	width: calc(100% + ${PannelPadding} * 2);
 	position: relative;
@@ -30,7 +38,7 @@ const FormFooter = styled.div`
 `;
 
 const FormToolbar = styled.div`
-	text-align: center;
+	text-align: left;
 	margin-top: 20px;
 `;
 
@@ -44,4 +52,4 @@ function FormPageWrapper({ children, ...restProps }) {
 	);
 }
 
-export { FormHeader, FormFooter, FormToolbar, FormPageWrapper };
+export { FormHeader, FormText, FormFooter, FormToolbar, FormPageWrapper };

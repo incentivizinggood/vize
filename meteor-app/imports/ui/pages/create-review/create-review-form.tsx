@@ -27,7 +27,7 @@ const initialValues = {
 	reviewTitle: "",
 	location: {
 		city: "",
-		address: "",
+		address: " ",
 		industrialHub: "",
 	},
 	jobTitle: "",
@@ -45,46 +45,52 @@ const initialValues = {
 
 const proConSchema = yup
 	.string()
-	.test("five-word-min", "${path} requires at least 5 words", value => {
+	.test("five-word-min", "Se requiere al menos cinco palabras", value => {
 		const isString =
 			value && (typeof value === "string" || value instanceof String);
 		const wordCount = isString ? value.split(/\s+\b/).length : 0;
 		return wordCount >= 5;
 	})
-	.required();
+	.required("Se requieren las ventajas/limitaciones");
 
 const starRatingSchema = yup
 	.number()
 	.integer()
 	.min(0)
 	.max(5)
-	.required();
+	.required("Se requiere esta calificación");
 
 const schema = yup.object().shape({
-	companyName: schemas.companyName.required(),
-	reviewTitle: yup.string().required(),
+	companyName: schemas.companyName.required(
+		"Se requiere el nombre de la empresa"
+	),
+	reviewTitle: yup
+		.string()
+		.required("Se requiere el titulo de la evaluación"),
 	location: yup
 		.object()
 		.shape({
 			city: yup
 				.string()
 				.max(300)
-				.required(),
+				.required("Se requiere el nombre de la ciudad"),
 			address: yup
 				.string()
 				.max(300)
-				.required(),
+				.required("Se requiere la dirección"),
 			industrialHub: yup.string().max(300),
 		})
 		.required(),
-	jobTitle: yup.string().required(),
+	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
 	numberOfMonthsWorked: yup
 		.number()
 		.min(0)
-		.required(),
+		.required("Se requiere el numero de meses trabajados"),
 	pros: proConSchema,
 	cons: proConSchema,
-	wouldRecommendToOtherJobSeekers: yup.boolean().required(),
+	wouldRecommendToOtherJobSeekers: yup
+		.boolean()
+		.required("Se requiere la recomendación"),
 	healthAndSafety: starRatingSchema,
 	managerRelationship: starRatingSchema,
 	workEnvironment: starRatingSchema,

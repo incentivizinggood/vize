@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "formik";
+import { SubmitButton } from "imports/ui/components/button";
 
-import { Button } from "imports/ui/components/button";
 import {
 	Field,
 	FormToolbar,
@@ -36,13 +36,6 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<Field
-				name="location.address"
-				type="text"
-				required
-				t={T.fields.location.address}
-			/>
-
-			<Field
 				name="location.industrialHub"
 				type="text"
 				t={T.fields.location.industrialHub}
@@ -69,12 +62,14 @@ function InnerForm({ submissionError }) {
 						required
 						label={t.label}
 					>
-						<option value="">(Select One)</option>
+						<option value="">(Seleccione una Opción)</option>
 						<option value="true">{t.yes}</option>
 						<option value="false">{t.no}</option>
 					</Field>
 				)}
 			/>
+			<br />
+			<br />
 
 			<Field
 				name="healthAndSafety"
@@ -111,6 +106,8 @@ function InnerForm({ submissionError }) {
 				t={T.fields.overallSatisfaction}
 			/>
 
+			<br />
+
 			<Field
 				name="additionalComments"
 				multiline
@@ -121,9 +118,9 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button primary type="submit">
+				<SubmitButton variant="contained" size="large" type="submit" color="primary">
 					<T.submit />
-				</Button>
+				</SubmitButton>
 			</FormToolbar>
 		</Form>
 	);

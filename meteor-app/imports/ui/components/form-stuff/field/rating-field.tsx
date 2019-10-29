@@ -12,7 +12,6 @@ const RatingContainer = styled.div<{ hasError: boolean }>`
 
 const RatingLayout = styled.div`
 	display: flex;
-	flex-direction: row-reverse;
 	justify-content: left;
 `;
 
@@ -37,11 +36,11 @@ const RatingField = ({
 	return (
 		<RatingContainer hasError={hasError}>
 			<RatingLayout>
+				<Rating name={name} value={value} onChange={onChange} />
 				<Legend>
 					{label}
 					{required ? " *" : null}
 				</Legend>
-				<Rating name={name} value={value} onChange={onChange} />
 			</RatingLayout>
 			{hasError ? <FormHelperText error>{error}</FormHelperText> : null}
 		</RatingContainer>

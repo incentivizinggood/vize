@@ -26,7 +26,7 @@ const initialValues = {
 	companyName: "",
 	location: {
 		city: "",
-		address: "",
+		address: " ",
 		industrialHub: "",
 	},
 	jobTitle: "",
@@ -36,30 +36,30 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	companyName: schemas.companyName.required(),
+	companyName: schemas.companyName.required("Se requiere el nombre de la empresa"),
 	location: yup
 		.object()
 		.shape({
 			city: yup
 				.string()
 				.max(300)
-				.required(),
+				.required("Se requiere el nombre de la ciudad"),
 			address: yup
 				.string()
 				.max(300)
-				.required(),
+				.required("Se requiere la dirección"),
 			industrialHub: yup.string().max(300),
 		})
 		.required(),
-	jobTitle: yup.string().required(),
+	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
 	incomeType: yup
 		.string()
 		.oneOf(["YEARLY_SALARY", "MONTHLY_SALARY", "HOURLY_WAGE"])
-		.required(),
+		.required("Se requiere el tipo de ingreso"),
 	incomeAmount: yup
 		.number()
 		.min(0)
-		.required(),
+		.required("Se requiere la cantidad de ingresos"),
 	gender: yup.string().oneOf(["MALE", "FEMALE"]),
 });
 

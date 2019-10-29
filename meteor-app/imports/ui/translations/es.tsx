@@ -2,11 +2,14 @@ import React from "react";
 
 export default {
 	homePage: {
-		mainBanner: "Encuentre un Buen Trabajo Cerca de Usted",
+		mainBanner: "Encuentra un Buen Trabajo Cerca de Ti en Tijuana",
 		searchButton: "Buscar",
 		placeholder: "Buscar una empresa...",
 		findjob_title: "Conoce El Trabajo Antes De Que Lo Consigas",
-		rewardText: "Gana $100 pesos por compartir tu experiencia laboral",
+		rewardText:
+			"Gana $100 pesos por compartir tu experiencia laboral de forma anónima",
+		rewardText2:
+			"Tu voz le ayudará a otros colaboradores encontrar un trabajo bueno, en Tijuana, con una fábrica que los respete",
 		findjob_text:
 			"No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea opiniones de otros empleados para encontrar el mejor trabajo para usted",
 		jobsButton: "Trabajos",
@@ -23,7 +26,7 @@ export default {
 		hear: "Escuche de su ",
 		community: "comunidad",
 		hear_text:
-			"Consulte opiniones y valoraciones anónimas de compañías expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
+			"Consulte opiniones y valoraciones anónimas de empresas expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
 		add_review_button: "Agregar una Opinión",
 		get_fair_salary: "Obtenga un salario",
 		your_work: "justo por su trabajo",
@@ -37,10 +40,10 @@ export default {
 		placeholder: "Buscar una empresa...",
 	},
 	header: {
-		companies: "Compañias",
+		companies: "Empresas",
 		jobs: "Trabajos",
 		resources: "Recursos",
-		my_company: "Mi Compañía",
+		my_company: "Mi Empresa",
 		post_a_job: "Publicar un Trabajo",
 		for_employers: "Para Empleadores",
 		login: "Iniciar Sesión",
@@ -66,8 +69,8 @@ export default {
 		password: { label: "Contraseña", placeholder: "Contraseña" },
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
-			label: "Nombre de Compañía",
-			placeholder: "Nombre de Compañía",
+			label: "Nombre de Empresa",
+			placeholder: "Nombre de Empresa",
 		},
 		alreadyAccount: "¿Ya tienes una cuenta? ",
 		employee: "Trabajador",
@@ -135,7 +138,7 @@ export default {
 					"Ingrese la URL del sitio web de su empresa, si tiene una",
 			},
 			descriptionOfCompany: {
-				label: "Descripcion de la compañia",
+				label: "Descripcion de la Empresa",
 				placeholder:
 					"Ingrese una breve descripción de su empresa para que otros la vean en su página de perfil, si lo desea",
 			},
@@ -146,13 +149,15 @@ export default {
 		submit: "Enviar",
 	},
 	createReview: {
-		formTitle: "Escribe una Reseña",
-		formSubTitle: "Contribuya sus opiniones anónimas a la comunidad",
+		formTitle: "Escribe una Evaluación",
+		formSubTitle1:
+			"Tu evaluación anónima le ayudará a otros trabajadores encontrar un trabajo bueno, en Tijuana, con una fábrica que los respete.",
+		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",
 				placeholder:
-					"Ingrese el nombre de la compañía que está revisando",
+					"Ingrese el nombre de la empresa que está revisando",
 			},
 			reviewTitle: {
 				label: "Titulo de la revisión",
@@ -194,7 +199,7 @@ export default {
 			},
 			wouldRecommendToOtherJobSeekers: {
 				label: "Recomendaría a otros solicitantes de empleo",
-				yes: "Yes",
+				yes: "Si",
 				no: "No",
 			},
 			healthAndSafety: {
@@ -386,12 +391,12 @@ export default {
 		workerEngagementDesc:
 			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. ¿Cómo se entera de lo que realmente quieren sus empleados para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación?",
 		workerEngagementArticle:
-			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una compañía diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus reseñas para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas revisiones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
+			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas revisiones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
 		AllianceTitle: "La Alianza Empresarial Responsable",
 		AllianceDesc:
 			"La Alianza Empresarial Responsable (RBA) es una asociación de empresas de la industria electrónica, minorista, automotriz y de juguetes que se han unido para mejorar las condiciones de sus empleados.",
 		AllianceArticlePt1:
-			"La Alianza Empresarial Responsable (RBA) es una asociación de empresas de la industria electrónica, minorista, automotriz y de juguetes que se han unido para mejorar las condiciones de sus empleados. Como resultado, ha aumentado la retención en las empresas a las que asisten. Se cree que estas mejoras conducen a una mayor productividad y rentabilidad, ya que los empleados están mejor capacitados y más motivados. El personal de RBA ayuda a estas compañías a realizar evaluaciones de su fuerza laboral y a capacitar a la administración sobre la mejor manera de abordar los desafíos que encuentran. Una lista completa de sus servicios se puede encontrar ",
+			"La Alianza Empresarial Responsable (RBA) es una asociación de empresas de la industria electrónica, minorista, automotriz y de juguetes que se han unido para mejorar las condiciones de sus empleados. Como resultado, ha aumentado la retención en las empresas a las que asisten. Se cree que estas mejoras conducen a una mayor productividad y rentabilidad, ya que los empleados están mejor capacitados y más motivados. El personal de RBA ayuda a estas empresas a realizar evaluaciones de su fuerza laboral y a capacitar a la administración sobre la mejor manera de abordar los desafíos que encuentran. Una lista completa de sus servicios se puede encontrar ",
 		AllianceArticlePt2:
 			". También tienen una academia en línea para proporcionar una opción más accesible para la consulta.",
 		learnEmployeesTitle: "Aprende de tus Empleados",
@@ -599,7 +604,7 @@ export default {
 		},
 		companyprofile: {
 			loading: "Cargando...",
-			notfound: "La compañia no fue encontrada",
+			notfound: "La empresa no fue encontrada",
 			overview: "Resumen",
 			reviews: "Revisiones",
 			jobs: "Trabajos",
