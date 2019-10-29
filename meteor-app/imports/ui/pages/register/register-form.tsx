@@ -3,9 +3,8 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 
-import { Accounts } from "meteor/accounts-base";
-
 import * as schemas from "imports/ui/form-schemas";
+import { register } from "imports/ui/auth";
 
 import InnerForm from "./register-inner-form";
 
@@ -34,8 +33,28 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = history => (values, actions) => {
-	const createUserCallback = error => {
-		if (error) {
+	const options = {
+		username: values.username,
+		password: values.password,
+		role: values.role,
+	};
+
+	register(options)
+		.then(x => {
+			actions.resetForm(initialValues);
+			// checks to see if the current page is the write a review page.
+			// if the current page is write a review page and a register is successful
+			// there should be no redirect so that the user can stay on the write a review page
+			if (
+				!(
+					window.location.pathname.includes("/write-review") ||
+					window.location.pathname.includes("/submit-salary-data")
+				)
+			) {
+				history.push("/");
+			}
+		})
+		.catch(error => {
 			console.error(error);
 
 			// Errors to display on form fields
@@ -47,27 +66,7 @@ const onSubmit = history => (values, actions) => {
 
 			actions.setErrors(formErrors);
 			actions.setSubmitting(false);
-		} else {
-			actions.resetForm(initialValues);
-			// checks to see if the current page is the write a reivew page.
-			// if the current page is write a review page and a register is successful
-			// there should be no redirect so that the user can stay on the write a review page
-			if (
-				!(
-					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data")
-				)
-			) {
-				history.push("/");
-			}
-		}
-	};
-	const options = {
-		username: values.username,
-		password: values.password,
-		role: values.role,
-	};
-	Accounts.createUser(options, createUserCallback);
+		});
 };
 
 function RegisterForm(props) {
@@ -95,4 +94,5 @@ function RegisterForm(props) {
 	);
 }
 
+// TODO: Switch to useHistory hook.
 export default withRouter(RegisterForm);

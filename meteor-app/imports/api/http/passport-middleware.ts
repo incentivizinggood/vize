@@ -1,27 +1,16 @@
 import passport from "passport";
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
-import bcrypt from "bcrypt";
-import crypto from "crypto";
 import { Express } from "express";
-import { User, getUserByUsername, getUserById } from "../models";
 
-async function comparePassword(
-	password: string,
-	bcryptHash: string
-): Promise<boolean> {
-	// For some reason Meteor's account system hashed passwords before
-	// passing them to bcrypt. We must replicate that behavior here so that
-	// password hashes from the old database will still work.
-	const passwordPreHashed = crypto
-		.createHash("sha256")
-		.update(password)
-		.digest("hex");
+import {
+	User,
+	getUserByUsername,
+	getUserById,
+	createUser,
+	comparePassword,
+} from "imports/api/models";
 
-	const didMatch = await bcrypt.compare(passwordPreHashed, bcryptHash);
-
-	return didMatch;
-}
-
+/** Check that the username and password match an account in the database. */
 const verify: VerifyFunction = async (username, password, done) => {
 	const user = await getUserByUsername(username);
 
@@ -41,6 +30,7 @@ const verify: VerifyFunction = async (username, password, done) => {
 	return done(null, user, { message: `Successful login.` });
 };
 
+/** Set up the users and authentication middleware. */
 export function applyPassportMiddleware(app: Express) {
 	passport.use(new LocalStrategy(verify));
 
@@ -75,5 +65,29 @@ export function applyPassportMiddleware(app: Express) {
 		// We assume the logout was made by an API call.
 		// We do not have any data to return.
 		res.end();
+	});
+
+	app.post("/register", async function(req, res) {
+		// TODO: Add checking and handling of errors and bad input.
+		const user = await createUser(
+			req.body.username,
+			req.body.password,
+			req.body.role
+		);
+
+		// Automatically log the new user in.
+		req.login(user, function(err) {
+			if (err) {
+				console.log(err);
+			}
+		});
+
+		// Return username and id in case the client wants to redirect.
+		res.json({
+			user: {
+				id: user._id,
+				username: user.username,
+			},
+		});
 	});
 }

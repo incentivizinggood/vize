@@ -64,4 +64,5 @@ const LoginForm = props => (
 	</Formik>
 );
 
+// TODO: Switch to useHistory hook.
 export default withRouter(LoginForm);

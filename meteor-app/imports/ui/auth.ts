@@ -35,3 +35,15 @@ export const logout = async () =>
 		method: "POST",
 		url: `${location.origin}/logout`,
 	}).then(afterLoginOrLogout);
+
+export const register = async (options: {
+	username: string;
+	password: string;
+	role: "worker" | "company";
+}) =>
+	request({
+		method: "POST",
+		uri: `${location.origin}/register`,
+		body: options,
+		json: true,
+	}).then(afterLoginOrLogout);
