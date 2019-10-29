@@ -8,7 +8,7 @@ CREATE TABLE reward_wrote_a_review (
 			ON DELETE SET NULL,
 	payment_method VARCHAR(12)
 		NOT NULL
-		CHECK (payment_method IN ('PAYPAL', 'XOOM', 'SWAP')),
+		CHECK (payment_method IN ('PAYPAL', 'XOOM')),
 	claimed_on TIMESTAMP
 		NOT NULL
 		DEFAULT now()
