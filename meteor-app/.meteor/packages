@@ -22,17 +22,13 @@ shell-server@0.3.1            # Server-side component of the `meteor shell` comm
 # UI
 twbs:bootstrap                # Needed for the navbar dropdown to work.
 
-# Users and Accounts - These handle authentication.
-#                      These are the last things that depend on MongoDB.
-#                      To be replaced by Passport.js after the Meteor methods are migrated to GraphQL mutations.
-accounts-password@1.5.0
-
 # Data and API - These integrate with Meteor and its data layer.
 mongo@1.4.2                   # The database Meteor supports right now
 apollo@3.0.1                  # GraphQL integration with Meteor. Needed for server to know what user made a query.
 tracker@1.1.3                 # Meteor's client-side reactive programming library
 react-meteor-data             # Enables React components to work with Meteor's reactive data system. Will be removed when we migrate fully to GraphQL.
 aldeed:schema-index           # Needed for the unique constraints in SimpleSchema.
+random                        # Used to generate random user ids. Will be replaced when the users are migrated from MongoDB to PostgreSQL.
 
 # Simple helpers - Libraries that are not strongly coupled to anything. Should be easy to replace.
 okgrow:analytics              # Enables Google Analytics for the app.
