@@ -5,7 +5,6 @@ import {
 	Company,
 	Review,
 	User,
-	getUserPostgresId,
 	getUserById,
 	getCompanyByName,
 } from "imports/api/models";
@@ -52,11 +51,9 @@ export async function getReviewsByAuthor(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Review[]> {
-	const authorPostgresId = await getUserPostgresId(user._id);
-
 	return simpleQuery(sql`
 		${baseQuery}
-		WHERE submittedby=${authorPostgresId}
+		WHERE submittedby=${user.userId}
 		OFFSET ${pageNumber * pageSize}
 		LIMIT ${pageSize}
 	`);
@@ -64,7 +61,13 @@ export async function getReviewsByAuthor(
 
 // Get the user who wrote a given review.
 export async function getAuthorOfReview(review: Review): Promise<User> {
-	return getUserById(review.submittedBy);
+	const user = await getUserById(review.submittedBy);
+
+	if (user === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return user;
 }
 
 // Get all reviews written about a given company.
@@ -81,9 +84,10 @@ export async function getReviewsByCompany(
 	`);
 }
 
-
 // Get the company that a given review is about.
-export async function getCompanyOfReview(review: Review): Promise<Company | null> {
+export async function getCompanyOfReview(
+	review: Review
+): Promise<Company | null> {
 	const company: Company | null = await getCompanyByName(review.companyName);
 
 	return company;

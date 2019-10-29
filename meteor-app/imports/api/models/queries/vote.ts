@@ -6,7 +6,6 @@ import {
 	User,
 	Vote,
 	VoteSubject,
-	getUserPostgresId,
 	getUserById,
 	getReviewById,
 	getCommentById,
@@ -44,7 +43,7 @@ export async function getVoteByAuthorAndSubject(
 ): Promise<Vote | null> {
 	let { subjectType, refersTo } = getVoteSubjectRef(subject);
 
-	const submittedBy = await getUserPostgresId(user._id);
+	const submittedBy = user.userId;
 
 	return simpleQuery1<Vote>(
 		sql`
@@ -69,7 +68,7 @@ export async function getVotesByAuthor(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Vote[]> {
-	const submittedBy = await getUserPostgresId(user._id);
+	const submittedBy = user.userId;
 
 	return simpleQuery(sql`
 		${baseQuery("review")} WHERE submittedby=${submittedBy}

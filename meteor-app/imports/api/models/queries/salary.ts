@@ -6,7 +6,6 @@ import {
 	Salary,
 	User,
 	getUserById,
-	getUserPostgresId,
 	getCompanyByName,
 } from "imports/api/models";
 
@@ -36,11 +35,9 @@ export async function getSalariesByAuthor(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Salary[]> {
-	const authorPostgresId = await getUserPostgresId(user._id);
-
 	return simpleQuery(sql`
 		${baseQuery}
-		WHERE submittedby=${authorPostgresId}
+		WHERE submittedby=${user.userId}
 		OFFSET ${pageNumber * pageSize}
 		LIMIT ${pageSize}
 	`);
@@ -48,7 +45,13 @@ export async function getSalariesByAuthor(
 
 // Get the user who submitted a given salary.
 export async function getAuthorOfSalary(salary: Salary): Promise<User> {
-	return getUserById(salary.submittedBy);
+	const user = await getUserById(salary.submittedBy);
+
+	if (user === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return user;
 }
 
 // Get all salaries paid by a given company.
@@ -67,7 +70,7 @@ export async function getSalariesByCompany(
 
 // Get the company that paid a given salary.
 export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
-	const company: Company | null = await getCompanyByName(salary.companyName);
+	const company = await getCompanyByName(salary.companyName);
 
 	if (company === null) {
 		throw new Error("REFERENCE_ANOMALY");

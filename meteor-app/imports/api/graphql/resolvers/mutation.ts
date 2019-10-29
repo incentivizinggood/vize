@@ -30,7 +30,7 @@ export const Mutation: MutationResolvers = {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 		const companyId = await dataModel.createCompany(
 			input,
-			await dataModel.getUserPostgresId(context.user._id)
+			context.user.userId
 		);
 		const company = await dataModel.getCompanyById(companyId);
 		return { company };
@@ -40,7 +40,7 @@ export const Mutation: MutationResolvers = {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 		const reviewId = await dataModel.createReview(
 			input,
-			await dataModel.getUserPostgresId(context.user._id)
+			context.user.userId
 		);
 		const review = await dataModel.getReviewById(reviewId);
 		return { review };
@@ -71,7 +71,7 @@ export const Mutation: MutationResolvers = {
 						: undefined,
 				...input,
 			},
-			await dataModel.getUserPostgresId(context.user._id)
+			context.user.userId
 		);
 		const salary = await dataModel.getSalaryById(salaryId);
 		return { salary };
@@ -80,10 +80,7 @@ export const Mutation: MutationResolvers = {
 	createJobAd: async (_obj, { input }, context, _info) => {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
-		const jobAdId = await dataModel.createJobAd(
-			input,
-			await dataModel.getUserPostgresId(context.user._id)
-		);
+		const jobAdId = await dataModel.createJobAd(input, context.user.userId);
 		const jobAd = await dataModel.getJobAdById(jobAdId);
 		return { jobAd };
 	},

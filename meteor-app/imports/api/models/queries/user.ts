@@ -2,14 +2,42 @@ import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 import { withMongoDB } from "imports/api/connectors/mongodb";
 
-import { UserId, Company, User, getCompanyById } from "imports/api/models";
+import { Company, User, getCompanyById } from "imports/api/models";
+
+export type RawUser = {
+	_id: string;
+	username: string;
+	createdAt: Date;
+	role: "worker" | "company-unverified" | "company";
+	companyId: number | null;
+	services: { password: { bcrypt: string } };
+};
+
+export async function processUser(rawUser: RawUser): Promise<User> {
+	const { _id, ...restUser } = rawUser;
+	const userId = await getUserPostgresId(_id);
+	return {
+		userId,
+		...restUser,
+	};
+}
+
+async function processUserN(rawUser: RawUser | null): Promise<User | null> {
+	if (rawUser === null) return null;
+
+	return processUser(rawUser);
+}
+
+function mapM<A, B>(f: (x: A) => Promise<B>): (xs: A[]) => Promise<B[]> {
+	return xs => Promise.all(xs.map(f));
+}
 
 // Get the user with a given id.
-export async function getUserById(id: UserId): Promise<User | null> {
+export async function getUserById(id: number): Promise<User | null> {
 	const userMongoId = await getUserMongoId(id);
 	return withMongoDB(db =>
-		db.collection<User>("users").findOne({ _id: userMongoId })
-	);
+		db.collection<RawUser>("users").findOne({ _id: userMongoId })
+	).then(processUserN);
 }
 
 // Get the user with a given username.
@@ -17,8 +45,8 @@ export async function getUserByUsername(
 	username: string
 ): Promise<User | null> {
 	return withMongoDB(db =>
-		db.collection<User>("users").findOne({ username })
-	);
+		db.collection<RawUser>("users").findOne({ username })
+	).then(processUserN);
 }
 
 // Get all users administering a given company.
@@ -27,13 +55,12 @@ export async function getUsersByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<User[]> {
-	return withMongoDB(db => {
-		const cursor = db
-			.collection<User>("users")
-			.find({ companyId: company.companyId });
-
-		return cursor.toArray();
-	});
+	return withMongoDB(db =>
+		db
+			.collection<RawUser>("users")
+			.find({ companyId: company.companyId })
+			.toArray()
+	).then(mapM(processUser));
 }
 
 // Get the company administered by a given user.
@@ -45,13 +72,7 @@ export async function getCompanyOfUser(user: User): Promise<Company | null> {
 }
 
 // Get the integer ID of a user's PostgreSQL entry
-export async function getUserPostgresId(id: UserId): Promise<number> {
-	if (typeof id === "number") {
-		// The given id is a number.
-		// Assume it is already a PostgreSQL id.
-		return id;
-	}
-
+async function getUserPostgresId(id: string): Promise<number> {
 	return simpleQuery1<{ userid: number }>(
 		sql`SELECT userid FROM users WHERE usermongoid=${id}`
 	).then(x => {
@@ -61,13 +82,7 @@ export async function getUserPostgresId(id: UserId): Promise<number> {
 }
 
 // Get the string ID of a user's MongoDB document
-export async function getUserMongoId(id: UserId): Promise<string> {
-	if (typeof id === "string") {
-		// The given id is a string.
-		// Assume it is already a MongoDB id.
-		return id;
-	}
-
+async function getUserMongoId(id: number): Promise<string> {
 	return simpleQuery1<{ usermongoid: string }>(
 		sql`SELECT usermongoid FROM users WHERE userid=${id}`
 	).then(x => {

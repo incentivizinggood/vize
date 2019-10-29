@@ -1,12 +1,10 @@
-export type UserId = string | number;
-
 export type VoteId =
 	| { subjectType: "comment"; refersTo: number; submittedBy: number }
 	| { subjectType: "review"; refersTo: number; submittedBy: number };
 
 export type Comment = {
 	_id: number;
-	submittedBy: UserId;
+	submittedBy: number;
 	datePosted: Date | null;
 	content: string;
 };
@@ -61,7 +59,7 @@ export type JobAd = {
 export type Review = {
 	reviewId: number;
 
-	submittedBy: UserId;
+	submittedBy: number;
 	companyName: string;
 	companyId: number | null;
 	location: string;
@@ -86,7 +84,7 @@ export type Review = {
 
 export type Salary = {
 	salaryId: number;
-	submittedBy: UserId;
+	submittedBy: number;
 	companyName: string;
 	companyId: number | null;
 	location: string;
@@ -97,7 +95,7 @@ export type Salary = {
 };
 
 export type User = {
-	_id: string;
+	userId: number;
 	username: string;
 	createdAt: Date;
 	role: "worker" | "company-unverified" | "company";

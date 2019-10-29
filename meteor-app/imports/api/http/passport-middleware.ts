@@ -35,11 +35,11 @@ export function applyPassportMiddleware(app: Express) {
 	passport.use(new LocalStrategy(verify));
 
 	passport.serializeUser<User, string>(function(user, done) {
-		done(null, user._id);
+		done(null, user ? user.userId.toString() : undefined);
 	});
 
 	passport.deserializeUser<User, string>(async function(id, done) {
-		const user = await getUserById(id);
+		const user = await getUserById(parseInt(id));
 		// I'm not sure if this is correct.
 		// We may need to return an error if the user is not found.
 		done(null, user === null ? undefined : user);
@@ -53,7 +53,7 @@ export function applyPassportMiddleware(app: Express) {
 		// Return username and id in case the client wants to redirect.
 		res.json({
 			user: {
-				id: req.user._id,
+				id: req.user.userId,
 				username: req.user.username,
 			},
 		});
@@ -85,7 +85,7 @@ export function applyPassportMiddleware(app: Express) {
 			// Return username and id in case the client wants to redirect.
 			res.json({
 				user: {
-					id: user._id,
+					id: user.userId,
 					username: user.username,
 				},
 			});

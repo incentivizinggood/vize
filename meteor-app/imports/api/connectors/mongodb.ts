@@ -6,7 +6,9 @@ const url = process.env.MONGO_URL;
 // Database Name
 const dbName = "meteor";
 
-export async function withMongoDB<T>(f: (db: Db) => T): Promise<T> {
+export async function withMongoDB<T>(
+	f: (db: Db) => Promise<T> | T
+): Promise<T> {
 	const client = await MongoClient.connect(url as string, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
@@ -15,9 +17,10 @@ export async function withMongoDB<T>(f: (db: Db) => T): Promise<T> {
 	const db = client.db(dbName);
 
 	const r = f(db);
+	const r1 = r instanceof Promise ? await r : r;
 
 	client.close();
-	return r;
+	return r1;
 }
 
 export function testConnection() {

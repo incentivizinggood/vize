@@ -8,6 +8,8 @@ import { withMongoDB } from "imports/api/connectors/mongodb";
 import { User, hashPassword } from "imports/api/models";
 import { postToSlack } from "imports/api/connectors/slack-webhook";
 
+import { RawUser, processUser } from "../queries/user";
+
 type CreateUserInput = {
 	username: string;
 	password: string;
@@ -35,7 +37,7 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 	);
 
 	return withMongoDB(async db => {
-		const users = db.collection<User>("users");
+		const users = db.collection<RawUser>("users");
 
 		if ((await users.findOne({ username })) !== null) {
 			throw new Error("That username is taken.");
@@ -73,6 +75,6 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 			`:tada: A new user has joined Vize. Please welcome \`${newUser.username}\`.`
 		);
 
-		return newUser;
+		return processUser(newUser);
 	});
 }
