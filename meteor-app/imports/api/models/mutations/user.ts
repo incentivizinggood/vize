@@ -1,15 +1,39 @@
+import * as yup from "yup";
+
+import { Random } from "meteor/random";
+
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 import { withMongoDB } from "imports/api/connectors/mongodb";
 import { User, hashPassword } from "imports/api/models";
-import { Random } from "meteor/random";
+import { postToSlack } from "imports/api/connectors/slack-webhook";
 
-// TODO: Validate and sanitize inputs.
-export async function createUser(
-	username: string,
-	password: string,
-	role: "worker" | "company"
-): Promise<User> {
+type CreateUserInput = {
+	username: string;
+	password: string;
+	role: "worker" | "company";
+};
+
+namespace CreateUserInput {
+	export const schema = yup.object({
+		username: yup
+			.string()
+			.trim()
+			.min(1)
+			.max(32),
+		password: yup
+			.string()
+			.min(1)
+			.max(256),
+		role: yup.mixed<"worker" | "company">().oneOf(["worker", "company"]),
+	});
+}
+
+export async function createUser(input: CreateUserInput): Promise<User> {
+	const { username, password, role } = await CreateUserInput.schema.validate(
+		input
+	);
+
 	return withMongoDB(async db => {
 		const users = db.collection<User>("users");
 
@@ -43,6 +67,10 @@ export async function createUser(
 
 		await simpleQuery1<unknown>(
 			sql`INSERT INTO users (userMongoId, role) VALUES (${newUser._id}, ${newUser.role}) RETURNING *`
+		);
+
+		postToSlack(
+			`:tada: A new user has joined Vize. Please welcome \`${newUser.username}\`.`
 		);
 
 		return newUser;

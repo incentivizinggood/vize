@@ -68,26 +68,29 @@ export function applyPassportMiddleware(app: Express) {
 	});
 
 	app.post("/register", async function(req, res) {
-		// TODO: Add checking and handling of errors and bad input.
-		const user = await createUser(
-			req.body.username,
-			req.body.password,
-			req.body.role
-		);
+		try {
+			const user = await createUser({
+				username: req.body.username,
+				password: req.body.password,
+				role: req.body.role,
+			});
 
-		// Automatically log the new user in.
-		req.login(user, function(err) {
-			if (err) {
-				console.log(err);
-			}
-		});
+			// Automatically log the new user in.
+			req.login(user, function(err) {
+				if (err) {
+					console.log(err);
+				}
+			});
 
-		// Return username and id in case the client wants to redirect.
-		res.json({
-			user: {
-				id: user._id,
-				username: user.username,
-			},
-		});
+			// Return username and id in case the client wants to redirect.
+			res.json({
+				user: {
+					id: user._id,
+					username: user.username,
+				},
+			});
+		} catch (error) {
+			res.status(500).json(error);
+		}
 	});
 }
