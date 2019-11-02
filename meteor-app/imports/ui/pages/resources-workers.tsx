@@ -142,6 +142,9 @@ export default class ResourcesWorkers extends React.Component {
 														<T.here />
 													</Link>
 													<T.educationDistanceArticlePt2 />
+													<a href="mailto:desarrollo@tectijuana.mx">
+														desarrollo@tectijuana.mx
+													</a>
 												</div>
 											</PopupModal>
 										)}

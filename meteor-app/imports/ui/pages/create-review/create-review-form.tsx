@@ -124,11 +124,7 @@ function CreateReviewForm({ history, companyName, user }) {
 				console.error(errors.message);
 				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
 					setContent(
-						<PopupModal
-							isOpen={true}
-							showCloseButton={false}
-							canCloseModal={false}
-						>
+						<PopupModal isOpen={true}>
 							<RegisterLoginModal />
 						</PopupModal>
 					);
