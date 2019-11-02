@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import ModalText from "imports/ui/components/modal-text";
 import { translations } from "imports/ui/translations";
+import PopupModal from "imports/ui/components/popup-modal";
 
 const T = translations.resourcesWorkers;
 
@@ -36,15 +37,24 @@ export default class ResourcesWorkers extends React.Component {
 								</p>
 
 								<p>
-									<ModalText
-										title={<T.trainingProgramsTitle />}
-										content={[
-											<T.trainingProgramsArticle />,
-											<Link to="http://www.uabc.mx/institucion/catalogo/spanish.html">
-												<T.here />
-											</Link>,
-											".",
-										]}
+									<T.readMore
+										renderer={t => (
+											<PopupModal
+												buttonClass="btn btn-success button"
+												buttonText={t}
+											>
+												<div>
+													<h1>
+														<T.trainingProgramsTitle />
+													</h1>
+													<br />
+													<T.trainingProgramsArticle />
+													<Link to="http://www.uabc.mx/institucion/catalogo/spanish.html">
+														<T.here />
+													</Link>
+												</div>
+											</PopupModal>
+										)}
 									/>
 								</p>
 							</div>
@@ -70,16 +80,27 @@ export default class ResourcesWorkers extends React.Component {
 								<p>
 									<T.laborLawsDesc />
 								</p>
-								<ModalText
-									title={<T.laborLawsTitle />}
-									content={[
-										<T.laborLawsArticle />,
-										<Link to="https://www.facebook.com/Ollin-Calli-450536781717887/">
-											<T.here />
-										</Link>,
-										".",
-									]}
-								/>
+								<p>
+									<T.readMore
+										renderer={t => (
+											<PopupModal
+												buttonClass="btn btn-success button"
+												buttonText={t}
+											>
+												<div>
+													<h1>
+														<T.laborLawsTitle />
+													</h1>
+													<br />
+													<T.laborLawsArticle />
+													<Link to="https://www.facebook.com/Ollin-Calli-450536781717887/">
+														<T.here />
+													</Link>
+												</div>
+											</PopupModal>
+										)}
+									/>
+								</p>
 							</div>
 						</li>
 					</ul>
@@ -104,16 +125,28 @@ export default class ResourcesWorkers extends React.Component {
 									<T.educationDistanceDesc />
 								</p>
 
-								<ModalText
-									title={<T.educationDistanceTitle />}
-									content={[
-										<T.educationDistanceArticlePt1 />,
-										<Link to="http://tectijuana.edu.mx/educacion-a-distancia/">
-											<T.here />
-										</Link>,
-										<T.educationDistanceArticlePt2 />,
-									]}
-								/>
+								<p>
+									<T.readMore
+										renderer={t => (
+											<PopupModal
+												buttonClass="btn btn-success button"
+												buttonText={t}
+											>
+												<div>
+													<h1>
+														<T.educationDistanceTitle />
+													</h1>
+													<br />
+													<T.educationDistanceArticlePt1 />
+													<Link to="http://tectijuana.edu.mx/educacion-a-distancia/">
+														<T.here />
+													</Link>
+													<T.educationDistanceArticlePt2 />
+												</div>
+											</PopupModal>
+										)}
+									/>
+								</p>
 							</div>
 						</li>
 					</ul>
@@ -139,87 +172,110 @@ export default class ResourcesWorkers extends React.Component {
 								<T.becomeBilingualDesc />
 							</p>
 
-							<ModalText
-								title={<T.becomeBilingualTitle />}
-								content={[
-									<T.becomeBilingualArticle />,
-									<br />,
-
-									<p>
-										<Link to="http://www.berlitz.com.mx/">
-											<u>
-												<strong>Berlitz</strong>
-											</u>
-										</Link>
-										<br />
-										Boulevard Sánchez Taboada #10488 Local 9
-										(Torre Platino), Zona Urbana, Río
-										Tijuana, B.C., C.P. 22010
-										<br />
-										Tel: (664) 634-3812 / (664) 634-3813 /
-										(664) 634-3814
-									</p>,
-									<p>
-										<Link to="https://alianzafrancesa.org.mx/tijuana/">
-											<u>
-												<strong>
-													Alianza Francesa Tijuana
-												</strong>
-											</u>
-										</Link>
-										<br />
-										Azucena 3934-C, El Prado, 22105 Tijuana,
-										B.C.
-										<br />
-										Tel: (664) 622-1522
-									</p>,
-									<p>
-										<Link to="https://www.facebook.com/Centro-de-Idiomas-Le-Monde-119981528034199/">
-											<u>
-												<strong>
-													Centro de Idiomas Le Monde
-												</strong>
-											</u>
-										</Link>
-										<br />
-										Misión de Loreto #2936-A, Tijuana, Baja
-										California Tijuana, B.C.
-										<br />
-										Tel: (664) 622-1522
-									</p>,
-									<p>
-										<Link to="http://admisiones.celexbc.com.mx:81/html/jpa/">
-											<u>
-												<strong>
-													UABC - Centro Universitario
-													de Lenguas Extranjeras
-													(CELEX)
-												</strong>
-											</u>
-										</Link>
-										<br />
-										Calzada Universidad #14418, Parque
-										Industrial Internacional, C.P. 22427
-										<br />
-										Tel: (664) 979-7568 Ext. 54920
-									</p>,
-									<p>
-										<Link to="https://langlab.com/index.php">
-											<u>
-												<strong>
-													Academia de Inglés Lang-Lab
-												</strong>
-											</u>
-										</Link>
-										<br />
-										Fresnillo #2500, Col. Cacho, Tijuana
-										Baja California, México C.P. 22150
-										<br />
-										Tel: (664) 634-1709
-										<br />
-									</p>,
-								]}
-							/>
+							<p>
+								<T.readMore
+									renderer={t => (
+										<PopupModal
+											buttonClass="btn btn-success button"
+											buttonText={t}
+										>
+											<div>
+												<h1>
+													<T.becomeBilingualTitle />
+												</h1>
+												<br />
+												<T.becomeBilingualArticle />
+												<br />
+												<p>
+													<Link to="http://www.berlitz.com.mx/">
+														<u>
+															<strong>
+																Berlitz
+															</strong>
+														</u>
+													</Link>
+													<br />
+													Boulevard Sánchez Taboada
+													#10488 Local 9 (Torre
+													Platino), Zona Urbana, Río
+													Tijuana, B.C., C.P. 22010
+													<br />
+													Tel: (664) 634-3812 / (664)
+													634-3813 / (664) 634-3814
+												</p>
+												<p>
+													<Link to="https://alianzafrancesa.org.mx/tijuana/">
+														<u>
+															<strong>
+																Alianza Francesa
+																Tijuana
+															</strong>
+														</u>
+													</Link>
+													<br />
+													Azucena 3934-C, El Prado,
+													22105 Tijuana, B.C.
+													<br />
+													Tel: (664) 622-1522
+												</p>
+												<p>
+													<Link to="https://www.facebook.com/Centro-de-Idiomas-Le-Monde-119981528034199/">
+														<u>
+															<strong>
+																Centro de
+																Idiomas Le Monde
+															</strong>
+														</u>
+													</Link>
+													<br />
+													Misión de Loreto #2936-A,
+													Tijuana, Baja California
+													Tijuana, B.C.
+													<br />
+													Tel: (664) 622-1522
+												</p>
+												<p>
+													<Link to="http://admisiones.celexbc.com.mx:81/html/jpa/">
+														<u>
+															<strong>
+																UABC - Centro
+																Universitario de
+																Lenguas
+																Extranjeras
+																(CELEX)
+															</strong>
+														</u>
+													</Link>
+													<br />
+													Calzada Universidad #14418,
+													Parque Industrial
+													Internacional, C.P. 22427
+													<br />
+													Tel: (664) 979-7568 Ext.
+													54920
+												</p>
+												<p>
+													<Link to="https://langlab.com/index.php">
+														<u>
+															<strong>
+																Academia de
+																Inglés Lang-Lab
+															</strong>
+														</u>
+													</Link>
+													<br />
+													Fresnillo #2500, Col. Cacho,
+													Tijuana Baja California,
+													México C.P. 22150
+													<br />
+													Tel: (664) 634-1709
+													<br />
+												</p>
+											</div>
+										</PopupModal>
+									)}
+								/>
+							</p>
 						</div>
 					</li>
 				</ul>
