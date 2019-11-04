@@ -98,7 +98,38 @@ export async function createReview(
 			RETURNING reviewid
 		`);
 
-		postToSlack(`The user with ID \`${userId}\` reviewed ${companyName}`);
+		postToSlack(`The user with ID \`${userId}\` posted a review.
+
+*Review ID:* ${reviewid}
+
+*Review title:* ${reviewTitle}
+
+*Company name:* ${companyName}
+
+*Job title:* ${jobTitle}
+
+*Location:* ${location}
+
+*Number of months worked:* ${numberOfMonthsWorked}
+
+*Pros:* ${pros}
+
+*Cons:* ${cons}
+
+*Would recommend to other job seekers:* ${wouldRecommendToOtherJobSeekers}
+
+*Health and safety:* ${healthAndSafety}
+
+*Manager relationship:* ${managerRelationship}
+
+*Work environment:* ${workEnvironment}
+
+*Benefits*: ${benefits}
+
+*Overall satisfaction:* ${overallSatisfaction}
+
+*Additional comments:* ${additionalComments}
+		`);
 
 		return reviewid;
 	};
