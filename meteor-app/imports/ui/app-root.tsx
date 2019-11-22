@@ -8,8 +8,15 @@ import ScrollRestoration from "./components/scroll-restoration";
 import Pages from "./pages";
 import theme from "./theme";
 import { LocaleProvider } from "./startup/i18n";
+import ReactPixel from 'react-facebook-pixel';
 
 function AppRoot(props) {
+	const options = {
+	    autoConfig: true, 	// set pixel's autoConfig
+	    debug: false, 		// enable logs
+	};
+	ReactPixel.init(process.env.FBPIXEL, options);
+	ReactPixel.pageView();
 	return (
 		<LocaleProvider>
 			<ApolloProvider client={props.apolloClient}>
