@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import ReactGA from 'react-ga';
+import ReactPixel from 'react-facebook-pixel';
 
 import { Accounts } from "meteor/accounts-base";
 
@@ -57,6 +58,7 @@ const onSubmit = history => (values, actions) => {
 			  category: 'User',
 			  action: 'Created an Account'
 			});
+			ReactPixel.track('Created Account', { category: "User" });
 			if (
 				!(
 					window.location.pathname.includes("/write-review") ||
