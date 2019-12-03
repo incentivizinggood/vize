@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
+import ReactGA from 'react-ga';
 
 import { Accounts } from "meteor/accounts-base";
 
@@ -52,6 +53,10 @@ const onSubmit = history => (values, actions) => {
 			// checks to see if the current page is the write a reivew page.
 			// if the current page is write a review page and a register is successful
 			// there should be no redirect so that the user can stay on the write a review page
+			ReactGA.event({
+			  category: 'User',
+			  action: 'Created an Account'
+			});
 			if (
 				!(
 					window.location.pathname.includes("/write-review") ||
