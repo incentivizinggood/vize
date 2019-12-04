@@ -136,13 +136,13 @@ export default function Footer() {
 			<CopyRight>
 				<LinksContainer>
 					<InternalLinks>
-						<a
-							href="https://wa.me/5216647480001"
-							target="_blank"
-						>
-							<WhatsApp src="/images/whatsapp.png" alt="WhatsApp" />
+						<a href="https://wa.me/5216647480001" target="_blank">
+							<WhatsApp
+								src="/images/whatsapp.png"
+								alt="WhatsApp"
+							/>{" "}
+							+52 (664) 748-0001
 						</a>
-						  {" "}+52 (664) 748-0001
 					</InternalLinks>
 					<SocialLinks>
 						Vize © 2019. <T.allRightsReserved />
