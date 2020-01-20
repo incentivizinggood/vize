@@ -2,6 +2,8 @@ import React from "react";
 import * as Formik from "formik";
 import { TextField } from "formik-material-ui";
 import styled from "styled-components";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
 
@@ -9,9 +11,30 @@ const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
 `;
 
-const FieldInner: React.ComponentType<any> = ({ type, ...restProps }) => {
+const FieldInner: React.ComponentType<any> = ({
+	type,
+	variant,
+	...restProps
+}) => {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
+	}
+	if (variant === "privacyTextField") {
+		return (
+			<FormikField
+				{...restProps}
+				type={type}
+				component={TextField}
+				fullWidth
+				InputProps={{
+					startAdornment: (
+						<InputAdornment position="start">
+							<PrivacyIcon />
+						</InputAdornment>
+					),
+				}}
+			/>
+		);
 	}
 
 	return (
