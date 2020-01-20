@@ -153,6 +153,8 @@ export default {
 		formSubTitle1:
 			"Tu evaluación anónima le ayudará a otros trabajadores encontrar un trabajo bueno, en Tijuana, con una fábrica que los respete.",
 		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
+		formSubTitle3:
+			" Aviso de Privacidad: Su identidad se ocultará para que esta evaluación sea anónima. Su nombre de usuario y los campos que tengan un icono de escudo no se mostrarán en su evaluación.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",
