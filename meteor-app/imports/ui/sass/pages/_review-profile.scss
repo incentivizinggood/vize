@@ -417,7 +417,7 @@ li.te_deco {
 		margin-top: 21px;
 
 		&:after {
-			content: "See All Reviews >";
+			content: "Leer Más >";
 			display: inline-block;
 		}
 	}
@@ -429,7 +429,7 @@ li.te_deco {
 }
 
 .read-more-toggle:checked + .read-more-content + .read-more-toggle-label:after {
-	content: "Less >";
+	content: "Minimizar ^";
 }
 
 article p {

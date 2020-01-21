@@ -317,7 +317,7 @@ export default {
 				contractor: "Contratista",
 			},
 			jobDescription: {
-				label: "Descripcion del Trabajo",
+				label: "Descripción del Trabajo",
 				placeholder:
 					"Por favor ingrese una descripción formal de este trabajo",
 			},
@@ -391,7 +391,7 @@ export default {
 		workerEngagementDesc:
 			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. ¿Cómo se entera de lo que realmente quieren sus empleados para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación?",
 		workerEngagementArticle:
-			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas revisiones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
+			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas evaluaciones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
 		AllianceTitle: "La Alianza Empresarial Responsable",
 		AllianceDesc:
 			"La Alianza Empresarial Responsable (RBA) es una asociación de empresas de la industria electrónica, minorista, automotriz y de juguetes que se han unido para mejorar las condiciones de sus empleados.",
@@ -436,7 +436,7 @@ export default {
 				"Su número de teléfono ha sido registrado exitosamente",
 			phoneSuccess2: "Le enviaremos su recompensa dentro de 24 horas",
 			rewardYou:
-				"Nos gustaría recompensarlo por tomar el tiempo para escribir una revision.",
+				"Nos gustaría recompensarlo por tomar el tiempo para escribir una evaluación.",
 			rewardOptions:
 				"Por favor seleccione de las siguientes opciones de recompensa:",
 			paypalCash: "Recibe $100 pesos a través de PayPal",
@@ -462,9 +462,9 @@ export default {
 				"Para llenar grandes pedidos de manera oportuna y obtener suficientes negocios para sobrevivir como empresa, las fábricas recortan esquinas, trabajan a sus empleados más allá de sus límites y no se toman el tiempo para asegurarse de que el trabajo sea seguro. En sistemas jurídicos altamente desarrollados, la policía detendría esta medida y la aplicaría con una legislación que proteja los derechos laborales de los trabajadores. En la mayoría de los países en desarrollo, dicha legislación o no existe o no tienen la capacidad para hacerla cumplir. En resumen, las fábricas tienen todos los incentivos para tomar un atajo, y no hay incentivos para rendir cuentas a sus empleados. Entonces, ¿cómo aumentamos el apalancamiento que los trabajadores tienen en esta circunstancia?",
 			our_solution: "Nuestra Solucion",
 			reviews_accountability:
-				"LAS REVISIONES SON UNA FORMA DE RESPONSABILIDAD",
+				"LAS EVALUACIONES SON UNA FORMA DE RESPONSABILIDAD",
 			solution_text:
-				"Para proporcionar más apalancamiento a los empleados de los países en desarrollo, estamos creando una plataforma para que los trabajadores compartan las revisiones de sus condiciones de trabajo con todos los demás trabajadores de su región. Esto dará a los trabajadores la información que necesitan para evitar fábricas con condiciones de trabajo terribles. Las fábricas con malas críticas obtendrán menos trabajadores, por lo tanto no podrán cumplir pedidos grandes de compradores y perderán ganancias. Esto creará un incentivo directo para que las fábricas mejoren las condiciones basadas en las revisiones que provienen directamente de los propios trabajadores.",
+				"Para proporcionar más apalancamiento a los empleados de los países en desarrollo, estamos creando una plataforma para que los trabajadores compartan las evaluaciones de sus condiciones de trabajo con todos los demás trabajadores de su región. Esto dará a los trabajadores la información que necesitan para evitar fábricas con condiciones de trabajo terribles. Las fábricas con malas críticas obtendrán menos trabajadores, por lo tanto no podrán cumplir pedidos grandes de compradores y perderán ganancias. Esto creará un incentivo directo para que las fábricas mejoren las condiciones basadas en las evaluaciones que provienen directamente de los propios trabajadores.",
 			reach_us: "No dude en contactarnos",
 			submit_button: "Enviar",
 			placeholder_name: "Su Nombre",
@@ -544,9 +544,11 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Aplica Ahora",
-			hour: " Por Hora",
-			week: " Por Semana",
-			job_description: "Descripcion del trabajo",
+			hour: " Pesos Por Hora",
+			week: " Pesos Por Semana",
+			month: " Pesos Por Mes",
+			year: " Pesos Por Año",
+			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Responsabilidades",
 			posted_on: "Publicado en",
@@ -562,27 +564,27 @@ export default {
 			months_worked: "meses trabajados",
 		},
 		jobscomponent: {
-			jobs_available: "Trabajo(s) disponible(s)",
+			jobs_available: "Trabajo(s) Disponible(s)",
 		},
 		overview_tab: {
-			display_text: "No hay revisiones para mostrar en este momento",
+			display_text: "No hay evaluaciones para mostrar en este momento",
 			apply_now: "Aplica Ahora",
 			hour: " Por Hora",
-			job_description: "Descripcion del Trabajo",
+			job_description: "Descripción del Trabajo",
 			display_jobs: "No hay trabajos para mostrar en este momento",
 			salaries_text: "No hay salarios para mostrar en este momento",
 			overview: "Resumen",
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			add_review: "Agregar una Opinión",
-			see_all_reviews: "Ver todas las revisiones",
+			see_all_reviews: "Ver Todas las Evaluaciones",
 			job_salaries: "Salario(s) de Trabajo(s)",
 			add_salary: "Agregar un Salario",
-			see_all_salaries: "Ver todos los salarios",
-			see_all_jobs: "Ver todos los trabajos",
-			jobs_available: "Trabajos Disponibles",
+			see_all_salaries: "Ver todos los Salarios",
+			see_all_jobs: "Ver Todos los Trabajos",
+			jobs_available: "Trabajo(s) Disponibles",
 		},
 		review_tab: {
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			add_review: "Agregar una Opinión",
 		},
 		salary_tab: {
@@ -593,13 +595,13 @@ export default {
 			apply_now: "Aplica Ahora",
 			hour: " Por Hora",
 			week: " Por Semana",
-			job_description: "Descripcion del Trabajo",
+			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
 			posted_on: "Publicado en",
 		},
 		CompanySearchResult: {
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			salaries: "Salarios",
 			jobs: "Trabajos",
 		},
@@ -607,7 +609,7 @@ export default {
 			loading: "Cargando...",
 			notfound: "La empresa no fue encontrada",
 			overview: "Resumen",
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			jobs: "Trabajos",
 			salaries: "Salarios",
 			contact: "Contacto",

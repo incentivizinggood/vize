@@ -524,12 +524,14 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Apply Now",
-			hour: "/Hourly",
-			week: "/Week",
+			hour: "Pesos Per Hour",
+			week: "Pesos Per Week",
+			month: "Pesos Per Month",
+			year: "Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
-			posted_on: "posted on",
+			posted_on: "Posted on",
 		},
 		company_ratings: {
 			overall: "Overall",
@@ -575,7 +577,7 @@ export default {
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
-			posted_on: "posted on",
+			posted_on: "Posted on",
 		},
 		CompanySearchResult: {
 			reviews: "Reviews",
