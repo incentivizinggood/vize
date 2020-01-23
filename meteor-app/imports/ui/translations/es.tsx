@@ -551,7 +551,7 @@ export default {
 			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Responsabilidades",
-			posted_on: "Publicado en",
+			posted_on: "Publicado",
 		},
 		company_ratings: {
 			overall: "General",
@@ -598,7 +598,7 @@ export default {
 			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
-			posted_on: "Publicado en",
+			posted_on: "Publicado",
 		},
 		CompanySearchResult: {
 			reviews: "Evaluaciones",

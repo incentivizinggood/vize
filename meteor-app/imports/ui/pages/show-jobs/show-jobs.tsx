@@ -22,7 +22,7 @@ const PageStyling = styled.div`
 		padding-left: 10px;
 	}
 `;
-//background: #d8d8d8;
+
 const ShowJobs = () => (
 	<Query query={ShowJobsQuery}>
 		{({ loading, error, data }) => {

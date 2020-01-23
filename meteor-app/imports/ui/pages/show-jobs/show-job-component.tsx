@@ -113,7 +113,7 @@ function ShowJobComponent(props) {
 					<div className="fl-ri">
 						<p>
 							<T.showjob.posted_on />{" "}
-							{datePosted.toLocaleDateString("en-US", options)}
+							{datePosted.toLocaleDateString("es-MX", options)}
 						</p>
 					</div>
 				</article>
