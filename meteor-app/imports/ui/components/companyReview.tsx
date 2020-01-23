@@ -46,7 +46,7 @@ function ReviewComponent(props) {
 	}
 
 	const datePosted = new Date(props.review.created).toLocaleDateString(
-		"en-US",
+		"es-MX",
 		{
 			weekday: "long",
 			year: "numeric",

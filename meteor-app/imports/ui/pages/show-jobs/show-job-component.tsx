@@ -33,6 +33,17 @@ function ShowJobComponent(props) {
 			0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	`;
 
+	const DatePostedDiv = styled.div`
+		float: right;
+		margin-top: -32px;
+
+		${forSize.tabletAndDown} {
+			float: none;
+			margin-top: 0px;
+			text-align: center !important;
+		}
+	`;
+
 	const datePosted = new Date(props.item.created);
 
 	return (
@@ -110,12 +121,12 @@ function ShowJobComponent(props) {
 					>
 						{" "}
 					</label>
-					<div className="fl-ri">
+					<DatePostedDiv>
 						<p>
 							<T.showjob.posted_on />{" "}
 							{datePosted.toLocaleDateString("es-MX", options)}
 						</p>
-					</div>
+					</DatePostedDiv>
 				</article>
 			</div>
 		</JobContainer>
