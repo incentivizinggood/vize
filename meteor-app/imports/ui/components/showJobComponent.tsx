@@ -23,7 +23,7 @@ function ShowJobComponent(props) {
 		month: "long",
 		day: "numeric",
 	};
-	//	<div className="col-md-12 section_rview_back_color05 ">
+
 	const JobContainer = styled.div`
 		margin-top: 15px;
 		padding: 15px 30px;
