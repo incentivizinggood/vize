@@ -1,7 +1,7 @@
 import React from "react";
 import { Query } from "react-apollo";
 
-import ShowJobComponent from "imports/ui/components/showJobComponent";
+import ShowJobComponent from "imports/ui/pages/show-jobs/show-job-component";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import { translations } from "imports/ui/translations";
 
