@@ -452,7 +452,7 @@ export default {
 		jobsearch: {
 			loading: "Cargando...",
 			nojobs: "No hay anuncios de trabajo disponibles en este momento.",
-			jobsAvailable: "Oferta(s) de empleo disponible(s)",
+			jobsAvailable: "Oferta(s) de Empleo Disponible(s)",
 		},
 		aboutUs: {
 			about: "Acerca de Nosotros",
