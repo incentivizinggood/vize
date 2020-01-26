@@ -18,7 +18,12 @@ namespace CreateSalaryInput {
 		jobTitle: yup.string().required(),
 		incomeType: yup
 			.string()
-			.oneOf(["Yearly Salary", "Monthly Salary", "Hourly Wage"])
+			.oneOf([
+				"Yearly Salary",
+				"Monthly Salary",
+				"Weekly Salary",
+				"Hourly Wage",
+			])
 			.required(),
 		incomeAmount: yup
 			.number()

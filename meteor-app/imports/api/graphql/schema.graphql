@@ -263,6 +263,7 @@ type Review {
 enum IncomeType {
 	YEARLY_SALARY
 	MONTHLY_SALARY
+	WEEKLY_SALARY
 	HOURLY_WAGE
 }
 

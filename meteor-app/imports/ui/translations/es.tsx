@@ -260,10 +260,10 @@ export default {
 			},
 			incomeType: {
 				label: "Tipo de Ingreso (en Pesos)",
-				yearlySalary: "Salario anual",
-				monthlySalary: "Salario mensual",
-				weeklySalary: "Salario semanal",
-				hourlyWage: "Salario por hora",
+				yearlySalary: "Salario Anual",
+				monthlySalary: "Salario Mensual",
+				weeklySalary: "Salario Semanal",
+				hourlyWage: "Salario por Hora",
 			},
 			incomeAmount: {
 				label: "Cantidad de Ingresos",

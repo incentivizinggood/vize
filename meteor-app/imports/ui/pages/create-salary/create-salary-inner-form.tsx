@@ -12,7 +12,6 @@ import { translations } from "imports/ui/translations";
 
 const T = translations.createSalary;
 
-
 function InnerForm({ submissionError }) {
 	return (
 		<Form noValidate>
@@ -45,6 +44,7 @@ function InnerForm({ submissionError }) {
 						<option value="MONTHLY_SALARY">
 							{t.monthlySalary}
 						</option>
+						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
 						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
 					</Field>
 				)}
@@ -69,7 +69,12 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton variant="contained" size="large" type="submit" color="primary">
+				<SubmitButton
+					variant="contained"
+					size="large"
+					type="submit"
+					color="primary"
+				>
 					<T.submit />
 				</SubmitButton>
 			</FormToolbar>
