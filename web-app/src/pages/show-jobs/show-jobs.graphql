@@ -15,6 +15,7 @@ query showJobs {
 			qualifications
 			created
 			company {
+				id
 				name
 			}
 		}
