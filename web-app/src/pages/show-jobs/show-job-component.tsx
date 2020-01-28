@@ -26,7 +26,7 @@ function ShowJobComponent(props) {
 
 	const JobContainer = styled.div`
 		margin-top: 15px;
-		padding: 15px 30px;
+		padding: 20px 30px;
 
 		background-color: white;
 		box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08),
@@ -64,11 +64,11 @@ function ShowJobComponent(props) {
 				<strong>{props.item.jobTitle}</strong>
 			</h3>
 			<br />
-			<h4>
+			<h3 style={{ fontSize: "20px" }}>
 				<Link to={companyProfileUrl}>
 					<strong>{props.item.company.name}</strong>
 				</Link>
-			</h4>
+			</h3>
 
 			<div
 				className="add-buttons"
