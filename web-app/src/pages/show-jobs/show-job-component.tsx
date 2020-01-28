@@ -45,7 +45,6 @@ function ShowJobComponent(props) {
 	`;
 
 	const datePosted = new Date(props.item.created);
-
 	let contractType =
 		props.item.contractType === "FULL_TIME"
 			? "Tiempo completo"
@@ -57,6 +56,8 @@ function ShowJobComponent(props) {
 			? "Proyecto (Temporal)"
 			: "Contratista";
 
+	const companyProfileUrl = `/companyprofile/?id=${props.item.company.id}`;
+
 	return (
 		<JobContainer>
 			<h3>
@@ -64,7 +65,9 @@ function ShowJobComponent(props) {
 			</h3>
 			<br />
 			<h4>
-				<strong>{props.item.company.name}</strong>
+				<Link to={companyProfileUrl}>
+					<strong>{props.item.company.name}</strong>
+				</Link>
 			</h4>
 
 			<div
