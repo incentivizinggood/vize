@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import PrivacyIcon from "@material-ui/icons/Security";
 
 import {
 	FormText,
@@ -27,6 +28,10 @@ function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
 			</FormText>
 			<FormText>
 				<T.formSubTitle2 />
+			</FormText>
+			<FormText>
+				<PrivacyIcon />
+				<T.formSubTitle3 />
 			</FormText>
 			<CreateReviewForm companyName={companyName} />
 		</FormPageWrapper>

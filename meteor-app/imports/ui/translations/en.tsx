@@ -144,6 +144,8 @@ export default {
 		formSubTitle1:
 			"Your anonymous review will help other workers find a great job, in Tijuana, at a factory that respects them.",
 		formSubTitle2: "Claim your $100 pesos with Swap or Paypal.",
+		formSubTitle3:
+			" Privacy Notice: Your identity will be hidden to make this review anonymous. Your username and any fields that have a shield icon will not be displayed in your review.",
 		fields: {
 			companyName: {
 				label: "Company Name",

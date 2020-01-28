@@ -46,6 +46,7 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="numberOfMonthsWorked"
 				type="number"
+				variant="privacyTextField"
 				required
 				t={T.fields.numberOfMonthsWorked}
 			/>
@@ -118,7 +119,12 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton variant="contained" size="large" type="submit" color="primary">
+				<SubmitButton
+					variant="contained"
+					size="large"
+					type="submit"
+					color="primary"
+				>
 					<T.submit />
 				</SubmitButton>
 			</FormToolbar>

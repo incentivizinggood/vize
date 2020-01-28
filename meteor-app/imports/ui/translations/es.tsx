@@ -153,15 +153,17 @@ export default {
 		formSubTitle1:
 			"Tu evaluación anónima le ayudará a otros trabajadores encontrar un trabajo bueno, en Tijuana, con una fábrica que los respete.",
 		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
+		formSubTitle3:
+			" Aviso de Privacidad: Su identidad se ocultará para que esta evaluación sea anónima. Su nombre de usuario y los campos que tengan un icono de escudo no se mostrarán en su evaluación.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",
 				placeholder:
-					"Ingrese el nombre de la empresa que está revisando",
+					"Ingrese el nombre de la empresa que está evaluando",
 			},
 			reviewTitle: {
-				label: "Titulo de la revisión",
-				placeholder: "Por favor, elija un título para su opinión",
+				label: "Titulo de la evaluación",
+				placeholder: "Ingrese un título que describa su evaluación",
 			},
 			location: {
 				label: "Localización",
@@ -176,7 +178,7 @@ export default {
 				industrialHub: {
 					label: "Parque Industrial",
 					placeholder:
-						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+						"Ingrese al parque industrial donde se ubica la empresa",
 				},
 			},
 			jobTitle: {
@@ -195,7 +197,7 @@ export default {
 			cons: {
 				label: "Limitaciones",
 				placeholder:
-					"¿Qué fue lo que no te gustó de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
+					"¿Qué es lo que no te gusta de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
 			},
 			wouldRecommendToOtherJobSeekers: {
 				label: "Recomendaría a otros solicitantes de empleo",
