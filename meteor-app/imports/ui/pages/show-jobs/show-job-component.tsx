@@ -7,7 +7,6 @@ import {
 	faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { getCompanyByName } from "imports/api/models";
 
 import { forSize } from "imports/ui/responsive.js";
 import { processLocation } from "imports/ui/misc";
@@ -15,12 +14,6 @@ import { urlGenerators } from "imports/ui/pages";
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
-
-async function getCompanyIdFromName(name): Promise<Company | null> {
-	const company: Company | null = await getCompanyByName(name);
-
-	return company;
-}
 
 function ShowJobComponent(props) {
 	// @options -  For the date formatting
@@ -52,12 +45,7 @@ function ShowJobComponent(props) {
 	`;
 
 	const datePosted = new Date(props.item.created);
-	const company = getCompanyIdFromName(props.item.company.name);
-	console.log("Asdfasdf");
-	console.log(props);
-	console.log(company);
-
-	//const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
+	const companyProfileUrl = `/companyprofile/?id=${props.item.company.id}`;
 
 	return (
 		<JobContainer>
@@ -66,7 +54,9 @@ function ShowJobComponent(props) {
 			</h3>
 			<br />
 			<h4>
-				<strong>{props.item.company.name}</strong>
+				<Link to={companyProfileUrl}>
+					<strong>{props.item.company.name}</strong>
+				</Link>
 			</h4>
 
 			<div
