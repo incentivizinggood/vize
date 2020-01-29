@@ -599,6 +599,9 @@ export default {
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
 			posted_on: "Publicado",
+			fullTime: "Tiempo completo",
+			partTime: "Medio tiempo",
+			contractor: "Contratista",
 		},
 		CompanySearchResult: {
 			reviews: "Evaluaciones",

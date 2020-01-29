@@ -46,6 +46,14 @@ function ShowJobComponent(props) {
 
 	const datePosted = new Date(props.item.created);
 	const companyProfileUrl = `/companyprofile/?id=${props.item.company.id}`;
+	let contractType;
+	if (props.item.contractType === "Full time") {
+		contractType = <T.showjob.fullTime />;
+	} else if (props.item.contractType === "Part time") {
+		contractType = <T.showjob.partTime />;
+	} else {
+		contractType = <T.showjob.contractor />;
+	}
 
 	return (
 		<JobContainer>
@@ -88,7 +96,7 @@ function ShowJobComponent(props) {
 				{" "}
 				<FontAwesomeIcon icon={faCalendar} />
 				&nbsp;&nbsp;
-				{props.item.contractType}
+				{contractType}
 			</p>
 
 			<hr />

@@ -578,6 +578,9 @@ export default {
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
 			posted_on: "Posted on",
+			fullTime: "Full time",
+			partTime: "Part time",
+			contractor: "Contractor",
 		},
 		CompanySearchResult: {
 			reviews: "Reviews",
