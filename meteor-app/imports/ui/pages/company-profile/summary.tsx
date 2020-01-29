@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { processLocation } from "imports/ui/misc";
-import WriteReviewButton from "imports/ui/components/write-review-button";
+import { WriteReviewButton } from "imports/ui/components/button";
 
 function CompanyProfileSummary(props) {
 	return (
@@ -74,7 +74,7 @@ function CompanyProfileSummary(props) {
 
 				<div className="col-md-4 prostar">
 					<div className="col-md-12">
-						<WriteReviewButton companyName={props.company.name} />
+						<WriteReviewButton companyName={props.company.name} buttonLocation='Company Profile | Top' />
 					</div>
 				</div>
 			</div>

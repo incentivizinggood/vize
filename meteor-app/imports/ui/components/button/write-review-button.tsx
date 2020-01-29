@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import ReactGA from 'react-ga';
 
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { LinkButton } from "imports/ui/components/button";
@@ -12,9 +13,18 @@ interface WriteReviewButtonProps {
 	companyName?: string;
 }
 
+function buttonTracking(buttonLocation) {
+	console.log("triggered")
+	ReactGA.event({
+	  category: 'Button',
+	  action: 'Add Review Pressed',
+	  label: buttonLocation
+	});
+}
+
 function WriteReviewButton(props: WriteReviewButtonProps) {
 	return (
-		<LinkButton to={urlGenerators.vizeReviewUrl(props.companyName)} primary>
+		<LinkButton to={urlGenerators.vizeReviewUrl(props.companyName)} onClick={ () => buttonTracking(props.buttonLocation) } primary>
 			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;
 			<T.add_review />

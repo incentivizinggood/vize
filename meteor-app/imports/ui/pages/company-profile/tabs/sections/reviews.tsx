@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import CompanyRating from "imports/ui/components/companyRatingsComponent";
 import CompanyReview from "imports/ui/components/companyReview";
-import WriteReviewButton from "imports/ui/components/write-review-button";
+import { WriteReviewButton } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -31,7 +31,7 @@ function ReviewsSection(props) {
 					{props.company.name} <T.overview_tab.reviews />
 				</h4>
 				<div className="add-buttons">
-					<WriteReviewButton companyName={props.company.name} />
+					<WriteReviewButton companyName={props.company.name} buttonLocation='Company Profile | Overview' />
 				</div>
 				<hr />
 				<CompanyRating company={props.company} />
