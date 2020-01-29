@@ -294,7 +294,7 @@ export default {
 				},
 			},
 			pesosPerHour: {
-				label: "Pesos per Week",
+				label: " Pesos per Week",
 				placeholder: "Enter a value, $x, or a range of values, $x - $y",
 			},
 			contractType: {
@@ -524,10 +524,10 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Apply Now",
-			hour: "Pesos Per Hour",
-			week: "Pesos Per Week",
-			month: "Pesos Per Month",
-			year: "Pesos Per Year",
+			hour: " Pesos Per Hour",
+			week: " Pesos Per Week",
+			month: " Pesos Per Month",
+			year: " Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
@@ -549,7 +549,7 @@ export default {
 		overview_tab: {
 			display_text: "No reviews to show right now",
 			apply_now: "Apply Now",
-			hour: "/Hour",
+			hour: " Pesos Per Hour",
 			job_description: "Job Description",
 			display_jobs: "No Jobs to show right now",
 			salaries_text: "No Salaries to display right now",
@@ -573,7 +573,7 @@ export default {
 		},
 		showjob: {
 			apply_now: "Apply Now",
-			hour: "/Hour",
+			hour: " Pesos Per Hour",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
