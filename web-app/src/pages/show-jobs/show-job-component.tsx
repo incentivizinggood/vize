@@ -58,6 +58,14 @@ function ShowJobComponent(props) {
 			: "Contratista";
 
 	const companyProfileUrl = `/companyprofile/?id=${props.item.company.id}`;
+	let contractType;
+	if (props.item.contractType === "Full time") {
+		contractType = <T.showjob.fullTime />;
+	} else if (props.item.contractType === "Part time") {
+		contractType = <T.showjob.partTime />;
+	} else {
+		contractType = <T.showjob.contractor />;
+	}
 
 	return (
 		<JobContainer>
