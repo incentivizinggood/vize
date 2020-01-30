@@ -253,6 +253,7 @@ export default {
 				yearlySalary: "Yearly Salary",
 				monthlySalary: "Monthly Salary",
 				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
 				hourlyWage: "Hourly Wage",
 			},
 			incomeAmount: {
