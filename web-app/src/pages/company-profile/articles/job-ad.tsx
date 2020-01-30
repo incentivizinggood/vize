@@ -30,7 +30,7 @@ function JobPosting(props: JobPostingProps): JSX.Element {
 	);
 
 	return (
-		<div className="col-md-12 section_rview_back_color05 ">
+		<div className="col-md-12 section_rview_back_color05">
 			<div className="sect-padding ">
 				<div>
 					<h4>
