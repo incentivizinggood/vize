@@ -58,13 +58,13 @@ export const Mutation: MutationResolvers = {
 			{
 				// TODO: change the database so that we do not need to convert these.
 				incomeType:
-					incomeType === "Yearly Salary"
-						? "YEARLY_SALARY"
-						: incomeType === "Monthly Salary"
-						? "MONTHLY_SALARY"
-						: incomeType === "Weekly Salary"
-						? "WEEKLY_SALARY"
-						: "HOURLY_WAGE",
+					incomeType === "YEARLY_SALARY"
+						? "Yearly Salary"
+						: incomeType === "MONTHLY_SALARY"
+						? "Monthly Salary"
+						: incomeType === "WEEKLY_SALARY"
+						? "Weekly Salary"
+						: "Hourly Wage",
 				gender:
 					gender === "MALE"
 						? "Male"
