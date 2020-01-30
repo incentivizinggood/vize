@@ -45,6 +45,7 @@ function InnerForm({ submissionError }) {
 							{t.monthlySalary}
 						</option>
 						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
+						<option value="DAILY_SALARY">{t.dailySalary}</option>
 						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
 					</Field>
 				)}

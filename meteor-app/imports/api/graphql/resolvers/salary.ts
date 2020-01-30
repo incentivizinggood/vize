@@ -15,6 +15,8 @@ export const Salary: SalaryResolvers = {
 			? "MONTHLY_SALARY"
 			: incomeType === "Weekly Salary"
 			? "WEEKLY_SALARY"
+			: incomeType === "Daily Salary"
+			? "DAILY_SALARY"
 			: "HOURLY_WAGE",
 
 	created: (obj, _args, _context, _info) => obj.dateAdded,

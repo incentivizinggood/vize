@@ -22,6 +22,7 @@ namespace CreateSalaryInput {
 				"Yearly Salary",
 				"Monthly Salary",
 				"Weekly Salary",
+				"Daily Salary",
 				"Hourly Wage",
 			])
 			.required(),

@@ -60,6 +60,7 @@ const schema = yup.object().shape({
 			"YEARLY_SALARY",
 			"MONTHLY_SALARY",
 			"WEEKLY_SALARY",
+			"DAILY_SALARY",
 			"HOURLY_WAGE",
 		])
 		.required("Se requiere el tipo de ingreso"),
