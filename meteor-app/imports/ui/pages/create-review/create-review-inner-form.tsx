@@ -116,6 +116,23 @@ function InnerForm({ submissionError }) {
 				t={T.fields.additionalComments}
 			/>
 
+			<T.fields.incomeType
+				renderer={t => (
+					<Field name="incomeType" select required label="lbl">
+						<option value="YEARLY_SALARY">yearly</option>
+						<option value="MONTHLY_SALARY">monthly</option>
+						<option value="HOURLY_WAGE">hourly</option>
+					</Field>
+				)}
+			/>
+
+			<Field
+				name="incomeAmount"
+				type="number"
+				required
+				t={T.fields.incomeAmount}
+			/>
+
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>

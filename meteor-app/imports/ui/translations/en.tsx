@@ -214,6 +214,16 @@ export default {
 				placeholder:
 					"Enter any additional thoughts or comments you may have on your experience working for this company.",
 			},
+			incomeType: {
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				hourlyWage: "Hourly Wage",
+			},
+			incomeAmount: {
+				label: "Income Amount",
+			},
 		},
 		submit: "Submit",
 	},

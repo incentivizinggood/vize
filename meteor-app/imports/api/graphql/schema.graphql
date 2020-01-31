@@ -72,6 +72,8 @@ input CreateReviewInput {
 	benefits: Int!
 	overallSatisfaction: Int!
 	additionalComments: String
+	incomeType: String!
+	incomeAmount: String!
 }
 
 type CreateReviewPayload {

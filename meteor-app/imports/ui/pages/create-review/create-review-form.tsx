@@ -41,6 +41,8 @@ const initialValues = {
 	benefits: "",
 	overallSatisfaction: "",
 	additionalComments: "",
+	incomeType: "",
+	incomeAmount: "",
 };
 
 const proConSchema = yup
@@ -97,16 +99,33 @@ const schema = yup.object().shape({
 	benefits: starRatingSchema,
 	overallSatisfaction: starRatingSchema,
 	additionalComments: yup.string(),
+	incomeType: yup
+		.string()
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		])
+		.required("Se requiere el tipo de ingreso"),
+	incomeAmount: yup
+		.number()
+		.min(0)
+		.required("Se requiere la cantidad de ingresos"),
 });
 
 function CreateReviewForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);
 
-	const onSubmit = (createReview, history, setSubmissionError) => (
-		values,
-		actions
-	) => {
+	const onSubmit = (
+		createReview,
+		createSalary,
+		history,
+		setSubmissionError
+	) => (values, actions) => {
+		console.log(values);
 		createReview({
 			variables: {
 				input: omitEmptyStrings(values),
@@ -114,6 +133,46 @@ function CreateReviewForm({ history, companyName, user }) {
 		})
 			.then(({ data }) => {
 				console.log("data", data);
+
+				createSalary({
+					variables: {
+						input: omitEmptyStrings(values),
+					},
+				})
+					.then(({ data }) => {
+						console.log("data", data);
+
+						actions.resetForm(initialValues);
+
+						// Go to the review submitted page so that the user can claim their reward.
+						history.push("/review-submitted");
+					})
+					.catch(errors => {
+						console.error(errors.message);
+						if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
+							setContent(
+								<PopupModal isOpen={true}>
+									<RegisterLoginModal />
+								</PopupModal>
+							);
+						} else {
+							//if (errors.nessage);
+							console.log(mapValues(errors, x => x));
+
+							// cut out the "GraphQL error: " from error message
+							const errorMessage = errors.message.substring(14);
+
+							setSubmissionError(errorMessage);
+
+							// Errors to display on form fields
+							const formErrors = {};
+
+							// TODO: better error displaying.
+
+							actions.setErrors(formErrors);
+						}
+						actions.setSubmitting(false);
+					});
 
 				actions.resetForm(initialValues);
 
@@ -155,7 +214,7 @@ function CreateReviewForm({ history, companyName, user }) {
 	return (
 		<div>
 			<MutationCreateReview>
-				{createReview => (
+				{(createReview, createSalary) => (
 					<Formik
 						initialValues={merge(initialValues, {
 							companyName,
@@ -163,6 +222,7 @@ function CreateReviewForm({ history, companyName, user }) {
 						validationSchema={schema}
 						onSubmit={onSubmit(
 							createReview,
+							createSalary,
 							history,
 							setSubmissionError
 						)}
