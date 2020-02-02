@@ -1,5 +1,8 @@
-mutation createReview($input: CreateReviewInput!) {
-	createReview(input: $input) {
+mutation createReview(
+	$reviewInput: CreateReviewInput!
+	$salaryInput: CreateSalaryInput!
+) {
+	createReview(input: $reviewInput) {
 		review {
 			id
 			company {
@@ -25,7 +28,7 @@ mutation createReview($input: CreateReviewInput!) {
 			}
 		}
 	}
-	createSalary(input: $input) {
+	createSalary(input: $salaryInput) {
 		salary {
 			id
 			company {
