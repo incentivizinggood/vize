@@ -76,7 +76,6 @@ input CreateReviewInput {
 
 type CreateReviewPayload {
 	review: Review
-	salary: Salary
 }
 
 input CreateSalaryInput {
