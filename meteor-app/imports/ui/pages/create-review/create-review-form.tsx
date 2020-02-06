@@ -166,6 +166,7 @@ function CreateReviewForm({ history, companyName, user }) {
 		createReview({
 			variables: {
 				reviewInput: omitEmptyStrings(reviewValues),
+				salaryInput: omitEmptyStrings(salaryValues),
 			},
 		})
 			.then(({ data }) => {

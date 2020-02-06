@@ -224,6 +224,17 @@ export default {
 				placeholder:
 					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa.",
 			},
+			incomeType: {
+				label: "Tipo de Ingreso (en Pesos)",
+				yearlySalary: "Anual",
+				monthlySalary: "Mensual",
+				weeklySalary: "Sueldo por Semana",
+				dailySalary: "Sueldo por Día",
+				hourlyWage: "Sueldo por Hora",
+			},
+			incomeAmount: {
+				label: "Cantidad de Ingresos",
+			},
 		},
 		submit: "Enviar",
 	},

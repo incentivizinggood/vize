@@ -36,12 +36,7 @@ export const Mutation: MutationResolvers = {
 		return { company };
 	},
 
-	createReview: async (
-		_obj,
-		{ input: { incomeType, gender, incomeAmount, ...input } },
-		context,
-		_info
-	) => {
+	createReview: async (_obj, { input }, context, _info) => {
 		console.log("whatinput", input);
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
@@ -50,31 +45,9 @@ export const Mutation: MutationResolvers = {
 			await dataModel.getUserPostgresId(context.user._id)
 		);
 
-		const salaryId = await dataModel.createSalary(
-			{
-				// TODO: change the database so that we do not need to convert these.
-				incomeAmount: incomeAmount,
-				incomeType:
-					incomeType === "YEARLY_SALARY"
-						? "Yearly Salary"
-						: incomeType === "MONTHLY_SALARY"
-						? "Monthly Salary"
-						: "Hourly Wage",
-				gender:
-					gender === "MALE"
-						? "Male"
-						: gender === "FEMALE"
-						? "Female"
-						: undefined,
-				...input,
-			},
-			await dataModel.getUserPostgresId(context.user._id)
-		);
-
 		const review = await dataModel.getReviewById(reviewId);
-		const salary = await dataModel.getSalaryById(salaryId);
 
-		return { review, salary };
+		return { review };
 	},
 
 	createSalary: async (

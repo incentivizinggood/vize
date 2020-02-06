@@ -118,10 +118,14 @@ function InnerForm({ submissionError }) {
 
 			<T.fields.incomeType
 				renderer={t => (
-					<Field name="incomeType" select required label="lbl">
-						<option value="YEARLY_SALARY">yearly</option>
-						<option value="MONTHLY_SALARY">monthly</option>
-						<option value="HOURLY_WAGE">hourly</option>
+					<Field name="incomeType" select required label={t.label}>
+						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
+						<option value="MONTHLY_SALARY">
+							{t.monthlySalary}
+						</option>
+						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
+						<option value="DAILY_SALARY">{t.dailySalary}</option>
+						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
 					</Field>
 				)}
 			/>
