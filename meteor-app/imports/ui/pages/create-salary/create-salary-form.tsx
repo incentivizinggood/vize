@@ -56,7 +56,13 @@ const schema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
 	incomeType: yup
 		.string()
-		.oneOf(["YEARLY_SALARY", "MONTHLY_SALARY", "HOURLY_WAGE"])
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		])
 		.required("Se requiere el tipo de ingreso"),
 	incomeAmount: yup
 		.number()

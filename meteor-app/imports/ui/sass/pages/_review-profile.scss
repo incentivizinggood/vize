@@ -410,15 +410,14 @@ li.te_deco {
 		cursor: pointer;
 		border: none;
 		text-align: center;
-		font-size: 14px;
+		font-size: 18px;
 		margin: 0 auto;
 		width: 100%;
 		color: #337ab7;
 		margin-top: 21px;
 
 		&:after {
-			content: "See All Reviews >";
-			display: inline-block;
+			content: "Leer Más →";
 		}
 	}
 }
@@ -429,7 +428,7 @@ li.te_deco {
 }
 
 .read-more-toggle:checked + .read-more-content + .read-more-toggle-label:after {
-	content: "Less >";
+	content: "Minimizar ^";
 }
 
 article p {

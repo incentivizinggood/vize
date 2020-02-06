@@ -56,9 +56,9 @@ export async function createJobAd(
 				)
 			VALUES
 				(
-					${companyid}, 
-					${jobTitle}, 
-					${pesosPerHour}, 
+					${companyid},
+					${jobTitle},
+					${pesosPerHour},
 					${
 						// TODO: change the database so that we do not need to convert these.
 						contractType === "FULL_TIME"
@@ -66,9 +66,9 @@ export async function createJobAd(
 							: contractType === "PART_TIME"
 							? "Part time"
 							: "Contractor"
-					}, 
-					${jobDescription}, 
-					${responsibilities}, 
+					},
+					${jobDescription},
+					${responsibilities},
 					${qualifications}
 				)
 			RETURNING jobadid
@@ -116,12 +116,12 @@ export async function applyToJobAd(
 			cc: applicantEmail,
 			subject: `VIZE ${fullName} ha respondido a su anuncio de trabajo`,
 			text: `
-Para los que están en ${companyName}, 
+Para los que están en ${companyName},
 
 	Felicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, ${fullName}, ha respondido a su puesto de trabajo (que recibió el id = ${jobAdId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente.
 
 	Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!
-	
+
 Le deseamos lo mejor,
 
 	El equipo de VIZE
