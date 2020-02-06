@@ -71,6 +71,7 @@ const onSubmit = history => (values, actions) => {
 	};
 	const options = {
 		username: values.username,
+		email: values.email,
 		password: values.password,
 		role: values.role,
 	};
