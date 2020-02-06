@@ -116,6 +116,7 @@ const schema = yup.object().shape({
 		.required("Se requiere la cantidad de ingresos"),
 });
 
+// TODO: Check if user has already added a salary so that there is no error in submitting a review
 function CreateReviewForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);
@@ -124,8 +125,6 @@ function CreateReviewForm({ history, companyName, user }) {
 		values,
 		actions
 	) => {
-		console.log(values);
-
 		const reviewValues = {
 			companyName: values.companyName,
 			reviewTitle: values.reviewTitle,
@@ -160,8 +159,6 @@ function CreateReviewForm({ history, companyName, user }) {
 			},
 			gender: values.location.gender,
 		};
-		console.log("salaryValues", salaryValues);
-		console.log("reviewValues", reviewValues);
 
 		createReview({
 			variables: {
@@ -170,8 +167,6 @@ function CreateReviewForm({ history, companyName, user }) {
 			},
 		})
 			.then(({ data }) => {
-				console.log("data", data);
-
 				actions.resetForm(initialValues);
 
 				// Go to the review submitted page so that the user can claim their reward.
