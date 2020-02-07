@@ -117,6 +117,7 @@ const schema = yup.object().shape({
 });
 
 // TODO: Check if user has already added a salary so that there is no error in submitting a review
+// You would just need to write a query to see if the user has written a salary already and if so only call the createReview mutation
 function CreateReviewForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);

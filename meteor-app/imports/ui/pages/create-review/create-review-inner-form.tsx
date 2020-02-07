@@ -31,6 +31,7 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="location.city"
 				type="text"
+				variant="privacyTextField"
 				required
 				t={T.fields.location.city}
 			/>
@@ -118,7 +119,13 @@ function InnerForm({ submissionError }) {
 
 			<T.fields.incomeType
 				renderer={t => (
-					<Field name="incomeType" select required label={t.label}>
+					<Field
+						name="incomeType"
+						select
+						variant="privacyTextField"
+						required
+						label={t.label}
+					>
 						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
 						<option value="MONTHLY_SALARY">
 							{t.monthlySalary}
@@ -133,6 +140,7 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="incomeAmount"
 				type="number"
+				variant="privacyTextField"
 				required
 				t={T.fields.incomeAmount}
 			/>
