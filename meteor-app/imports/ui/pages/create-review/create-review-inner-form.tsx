@@ -1,6 +1,7 @@
 import React from "react";
 import { Form } from "formik";
 import { SubmitButton } from "imports/ui/components/button";
+import styled from "styled-components";
 
 import {
 	Field,
@@ -10,6 +11,12 @@ import {
 import { translations } from "imports/ui/translations";
 
 const T = translations.createReview;
+
+const FormDividerLine = styled.hr`
+	border: 1px solid black;
+	margin-left: -30px;
+	margin-right: -30px;
+`;
 
 function InnerForm({ submissionError }) {
 	return (
@@ -116,6 +123,8 @@ function InnerForm({ submissionError }) {
 				rows={6}
 				t={T.fields.additionalComments}
 			/>
+
+			<FormDividerLine />
 
 			<T.fields.incomeType
 				renderer={t => (
