@@ -62,6 +62,10 @@ export const Mutation: MutationResolvers = {
 						? "Yearly Salary"
 						: incomeType === "MONTHLY_SALARY"
 						? "Monthly Salary"
+						: incomeType === "WEEKLY_SALARY"
+						? "Weekly Salary"
+						: incomeType === "DAILY_SALARY"
+						? "Daily Salary"
 						: "Hourly Wage",
 				gender:
 					gender === "MALE"

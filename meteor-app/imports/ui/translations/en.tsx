@@ -144,6 +144,8 @@ export default {
 		formSubTitle1:
 			"Your anonymous review will help other workers find a great job, in Tijuana, at a factory that respects them.",
 		formSubTitle2: "Claim your $100 pesos with Swap or Paypal.",
+		formSubTitle3:
+			" Privacy Notice: Your identity will be hidden to make this review anonymous. Your username and any fields that have a shield icon will not be displayed in your review.",
 		fields: {
 			companyName: {
 				label: "Company Name",
@@ -253,6 +255,7 @@ export default {
 				yearlySalary: "Yearly Salary",
 				monthlySalary: "Monthly Salary",
 				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
 				hourlyWage: "Hourly Wage",
 			},
 			incomeAmount: {
@@ -524,12 +527,14 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Apply Now",
-			hour: "/Hourly",
-			week: "/Week",
+			hour: "Pesos Per Hour",
+			week: "Pesos Per Week",
+			month: "Pesos Per Month",
+			year: "Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
-			posted_on: "posted on",
+			posted_on: "Posted on",
 		},
 		company_ratings: {
 			overall: "Overall",
@@ -575,7 +580,7 @@ export default {
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
-			posted_on: "posted on",
+			posted_on: "Posted on",
 		},
 		CompanySearchResult: {
 			reviews: "Reviews",

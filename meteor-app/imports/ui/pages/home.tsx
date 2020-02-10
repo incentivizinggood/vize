@@ -4,7 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
-import WriteReviewButton from "imports/ui/components/write-review-button";
+import { WriteReviewButton } from "imports/ui/components/button";
 import {
 	LinkButton,
 	WhiteButton,
@@ -12,8 +12,24 @@ import {
 } from "imports/ui/components/button";
 import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
 import { translations } from "imports/ui/translations";
+import ReactGA from 'react-ga';
 
 const T = translations.homePage;
+
+function addReviewHomeTop() {
+	ReactGA.event({
+	  category: 'Button',
+	  action: 'Add Review Pressed',
+	  label: 'Home | Top'
+	});
+}
+function addSalaryHomeBottom() {
+	ReactGA.event({
+	  category: 'Button',
+	  action: 'Add Salary Pressed',
+	  label: 'Home | Bottom'
+	});
+}
 
 function HomePage() {
 	return (
@@ -53,6 +69,7 @@ function HomePage() {
 										<WhiteButton
 											to="/write-review"
 											style={{ fontSize: 18 }}
+											onClick={addReviewHomeTop}
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
@@ -257,7 +274,7 @@ function HomePage() {
 									</div>
 									<br />
 									<div>
-										<WriteReviewButton />
+										<WriteReviewButton buttonLocation='Home | Bottom' />
 									</div>
 									<br />
 								</div>
@@ -284,6 +301,7 @@ function HomePage() {
 										<LinkButton
 											primary
 											to="/submit-salary-data"
+											onClick={addSalaryHomeBottom}
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;

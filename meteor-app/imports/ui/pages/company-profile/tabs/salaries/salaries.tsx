@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { urlGenerators } from "imports/ui/pages";
-import { LinkButton } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
 
 import SalaryPosting from "./salary-posting";
+import { AddSalaryButton } from "imports/ui/components/button";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -22,14 +22,10 @@ function SalaryTab(props) {
 					{props.company.numSalaries} <T.salary_tab.job_salaries />
 				</h4>
 				<div className="add-buttons">
-					<LinkButton
-						to={urlGenerators.vizeSalaryUrl(props.company.name)}
-						primary
-					>
-						<FontAwesomeIcon icon={faPlus} />
-						&nbsp;
-						<T.salary_tab.add_salary />
-					</LinkButton>
+					<AddSalaryButton
+						companyName={props.company.name}
+						buttonLocation='Company Profile | Salaries'
+					/>
 					{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 				</div>
 

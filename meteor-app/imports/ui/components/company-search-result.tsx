@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { processLocation } from "imports/ui/misc";
-import WriteReviewButton from "imports/ui/components/write-review-button";
+import { WriteReviewButton } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
@@ -92,6 +92,7 @@ function CompanySearchResult(props) {
 							<div className="titlestar">
 								<WriteReviewButton
 									companyName={props.company.name}
+									buttonLocation='Search'
 								/>
 							</div>
 						</div>

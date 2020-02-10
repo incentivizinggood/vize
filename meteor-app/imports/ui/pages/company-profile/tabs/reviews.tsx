@@ -2,7 +2,7 @@ import React from "react";
 
 import CompanyReview from "imports/ui/components/companyReview";
 import CompanyRating from "imports/ui/components/companyRatingsComponent";
-import WriteReviewButton from "imports/ui/components/write-review-button";
+import { WriteReviewButton } from "imports/ui/components/button";
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -27,6 +27,7 @@ function ReviewTab(props) {
 						<div className="add-buttons">
 							<WriteReviewButton
 								companyName={props.company.name}
+								buttonLocation='Company Profile | Reviews'
 							/>
 						</div>
 					</div>

@@ -36,7 +36,9 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	companyName: schemas.companyName.required("Se requiere el nombre de la empresa"),
+	companyName: schemas.companyName.required(
+		"Se requiere el nombre de la empresa"
+	),
 	location: yup
 		.object()
 		.shape({
@@ -54,7 +56,13 @@ const schema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
 	incomeType: yup
 		.string()
-		.oneOf(["YEARLY_SALARY", "MONTHLY_SALARY", "HOURLY_WAGE"])
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		])
 		.required("Se requiere el tipo de ingreso"),
 	incomeAmount: yup
 		.number()
@@ -88,11 +96,7 @@ function CreateSalaryForm({ history, companyName, user }) {
 				console.error(errors.message);
 				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
 					setContent(
-						<PopupModal
-							isOpen={true}
-							showCloseButton={false}
-							canCloseModal={false}
-						>
+						<PopupModal isOpen={true}>
 							<RegisterLoginModal />
 						</PopupModal>
 					);

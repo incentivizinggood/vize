@@ -4,7 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import { urlGenerators } from "imports/ui/pages";
-import { LinkButton } from "imports/ui/components/button";
+import { AddSalaryButton } from "imports/ui/components/button";
 
 import { translations } from "imports/ui/translations";
 
@@ -43,14 +43,10 @@ function SalariesSection(props) {
 				</h4>
 
 				<div className="add-buttons">
-					<LinkButton
-						to={urlGenerators.vizeSalaryUrl(props.company.name)}
-						primary
-					>
-						<FontAwesomeIcon icon={faPlus} />
-						&nbsp;
-						<T.salary_tab.add_salary />
-					</LinkButton>
+					<AddSalaryButton
+						companyName={props.company.name}
+						buttonLocation='Company Profile | Overview'
+					/>
 				</div>
 				<hr />
 

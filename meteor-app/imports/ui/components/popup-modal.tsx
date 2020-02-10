@@ -2,9 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const customStyles = {
 	content: {
@@ -56,7 +54,10 @@ export default class PopupModal extends React.Component {
 		let buttonContent = null;
 		if (this.props.buttonClass) {
 			buttonContent = (
-				<button className="flag-style-btn" onClick={this.openModal}>
+				<button
+					className={this.props.buttonClass}
+					onClick={this.openModal}
+				>
 					{this.props.buttonText}
 				</button>
 			);
@@ -64,7 +65,7 @@ export default class PopupModal extends React.Component {
 
 		return (
 			<div>
-				<div>{buttonContent}</div>
+				{buttonContent}
 				<Modal
 					isOpen={this.state.modalIsOpen}
 					onAfterOpen={this.afterOpenModal}
@@ -73,7 +74,14 @@ export default class PopupModal extends React.Component {
 					style={customStyles}
 					contentLabel="Modal"
 				>
-					{ this.props.showCloseButton && <button style={{ float: "right" }} onClick={this.closeModal}><FontAwesomeIcon icon={faTimes} /></button> }
+					{this.props.showCloseButton && (
+						<button
+							style={{ float: "right" }}
+							onClick={this.closeModal}
+						>
+							<FontAwesomeIcon icon={faTimes} />
+						</button>
+					)}
 					{this.props.children}
 				</Modal>
 			</div>
@@ -82,7 +90,7 @@ export default class PopupModal extends React.Component {
 }
 
 PopupModal.defaultProps = {
-  showCloseButton: true,
-  canCloseModal: true,
-  isOpen: false,
+	showCloseButton: true,
+	canCloseModal: true,
+	isOpen: false,
 };

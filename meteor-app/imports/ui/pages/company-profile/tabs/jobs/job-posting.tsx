@@ -15,7 +15,7 @@ const T = translations.legacyTranslationsNeedsRefactor;
 
 function JobPosting(props) {
 	const datePosted = new Date(props.jobAd.created).toLocaleDateString(
-		"en-US",
+		"es-MX",
 		{
 			weekday: "long",
 			year: "numeric",

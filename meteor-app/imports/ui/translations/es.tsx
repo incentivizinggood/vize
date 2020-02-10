@@ -153,15 +153,17 @@ export default {
 		formSubTitle1:
 			"Tu evaluación anónima le ayudará a otros trabajadores encontrar un trabajo bueno, en Tijuana, con una fábrica que los respete.",
 		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
+		formSubTitle3:
+			" Aviso de Privacidad: Su identidad se ocultará para que esta evaluación sea anónima. Su nombre de usuario y los campos que tengan un icono de escudo no se mostrarán en su evaluación.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",
 				placeholder:
-					"Ingrese el nombre de la empresa que está revisando",
+					"Ingrese el nombre de la empresa que está evaluando",
 			},
 			reviewTitle: {
-				label: "Titulo de la revisión",
-				placeholder: "Por favor, elija un título para su opinión",
+				label: "Titulo de la evaluación",
+				placeholder: "Ingrese un título que describa su evaluación",
 			},
 			location: {
 				label: "Localización",
@@ -176,7 +178,7 @@ export default {
 				industrialHub: {
 					label: "Parque Industrial",
 					placeholder:
-						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+						"Ingrese al parque industrial donde se ubica la empresa",
 				},
 			},
 			jobTitle: {
@@ -195,7 +197,7 @@ export default {
 			cons: {
 				label: "Limitaciones",
 				placeholder:
-					"¿Qué fue lo que no te gustó de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
+					"¿Qué es lo que no te gusta de esta empresa? ¿Qué crees que podrían hacer para ser mejores?",
 			},
 			wouldRecommendToOtherJobSeekers: {
 				label: "Recomendaría a otros solicitantes de empleo",
@@ -260,10 +262,11 @@ export default {
 			},
 			incomeType: {
 				label: "Tipo de Ingreso (en Pesos)",
-				yearlySalary: "Salario anual",
-				monthlySalary: "Salario mensual",
-				weeklySalary: "Salario semanal",
-				hourlyWage: "Salario por hora",
+				yearlySalary: "Anual",
+				monthlySalary: "Mensual",
+				weeklySalary: "Sueldo por Semana",
+				dailySalary: "Sueldo por Día",
+				hourlyWage: "Sueldo por Hora",
 			},
 			incomeAmount: {
 				label: "Cantidad de Ingresos",
@@ -317,7 +320,7 @@ export default {
 				contractor: "Contratista",
 			},
 			jobDescription: {
-				label: "Descripcion del Trabajo",
+				label: "Descripción del Trabajo",
 				placeholder:
 					"Por favor ingrese una descripción formal de este trabajo",
 			},
@@ -366,7 +369,7 @@ export default {
 		trainingProgramsDesc:
 			"Volver a la escuela y obtener un título puede ser una gran oportunidad para aumentar tu conjunto de habilidades y tu salario, pero muchas personas no tienen el tiempo ni el dinero para terminar un programa completo.",
 		trainingProgramsArticle:
-			"Volver a la escuela y obtener un título puede ser una gran oportunidad para aumentar tu conjunto de habilidades y tu salario, pero muchas personas no tienen el tiempo ni el dinero para terminar un programa completo. Un título puede tardar años en completarse y costar miles de dólares. Si trabajas a tiempo completo, esto puede parecer casi imposible. Hay otra opción, programas de entrenamiento a corto plazo. Estos cursos pueden brindarle una experiencia en contabilidad, administración, redacción o mucho más. En general, solo duran alrededor de 1 mes y son una fracción del costo de un título completo. Si está interesado en encontrar un curso que se adapte a su trabajo y le da la oportunidad de aumentar sus salarios, puede encontrar los programas de UABC",
+			"Volver a la escuela y obtener un título puede ser una gran oportunidad para aumentar tu conjunto de habilidades y tu salario, pero muchas personas no tienen el tiempo ni el dinero para terminar un programa completo. Un título puede tardar años en completarse y costar miles de dólares. Si trabajas a tiempo completo, esto puede parecer casi imposible. Hay otra opción, programas de entrenamiento a corto plazo. Estos cursos pueden brindarle una experiencia en contabilidad, administración, redacción o mucho más. En general, solo duran alrededor de 1 mes y son una fracción del costo de un título completo. Si está interesado en encontrar un curso que se adapte a su trabajo y le da la oportunidad de aumentar sus salarios, puede encontrar los programas de UABC ",
 		laborLawsTitle: "Aprendiendo sobre las Leyes Laborales",
 		laborLawsDesc:
 			"Puede ser muy difícil saber si su empleador ha violado las leyes laborales en México. Si ha estado teniendo problemas con su empleador, una organización en el centro de Tijuana, Ollin Calli podría ayudarlo.",
@@ -391,7 +394,7 @@ export default {
 		workerEngagementDesc:
 			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. ¿Cómo se entera de lo que realmente quieren sus empleados para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación?",
 		workerEngagementArticle:
-			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas revisiones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
+			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas evaluaciones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
 		AllianceTitle: "La Alianza Empresarial Responsable",
 		AllianceDesc:
 			"La Alianza Empresarial Responsable (RBA) es una asociación de empresas de la industria electrónica, minorista, automotriz y de juguetes que se han unido para mejorar las condiciones de sus empleados.",
@@ -436,7 +439,7 @@ export default {
 				"Su número de teléfono ha sido registrado exitosamente",
 			phoneSuccess2: "Le enviaremos su recompensa dentro de 24 horas",
 			rewardYou:
-				"Nos gustaría recompensarlo por tomar el tiempo para escribir una revision.",
+				"Nos gustaría recompensarlo por tomar el tiempo para escribir una evaluación.",
 			rewardOptions:
 				"Por favor seleccione de las siguientes opciones de recompensa:",
 			paypalCash: "Recibe $100 pesos a través de PayPal",
@@ -452,7 +455,7 @@ export default {
 		jobsearch: {
 			loading: "Cargando...",
 			nojobs: "No hay anuncios de trabajo disponibles en este momento.",
-			jobsAvailable: "Oferta(s) de empleo disponible(s)",
+			jobsAvailable: "Oferta(s) de Empleo Disponible(s)",
 		},
 		aboutUs: {
 			about: "Acerca de Nosotros",
@@ -462,9 +465,9 @@ export default {
 				"Para llenar grandes pedidos de manera oportuna y obtener suficientes negocios para sobrevivir como empresa, las fábricas recortan esquinas, trabajan a sus empleados más allá de sus límites y no se toman el tiempo para asegurarse de que el trabajo sea seguro. En sistemas jurídicos altamente desarrollados, la policía detendría esta medida y la aplicaría con una legislación que proteja los derechos laborales de los trabajadores. En la mayoría de los países en desarrollo, dicha legislación o no existe o no tienen la capacidad para hacerla cumplir. En resumen, las fábricas tienen todos los incentivos para tomar un atajo, y no hay incentivos para rendir cuentas a sus empleados. Entonces, ¿cómo aumentamos el apalancamiento que los trabajadores tienen en esta circunstancia?",
 			our_solution: "Nuestra Solucion",
 			reviews_accountability:
-				"LAS REVISIONES SON UNA FORMA DE RESPONSABILIDAD",
+				"LAS EVALUACIONES SON UNA FORMA DE RESPONSABILIDAD",
 			solution_text:
-				"Para proporcionar más apalancamiento a los empleados de los países en desarrollo, estamos creando una plataforma para que los trabajadores compartan las revisiones de sus condiciones de trabajo con todos los demás trabajadores de su región. Esto dará a los trabajadores la información que necesitan para evitar fábricas con condiciones de trabajo terribles. Las fábricas con malas críticas obtendrán menos trabajadores, por lo tanto no podrán cumplir pedidos grandes de compradores y perderán ganancias. Esto creará un incentivo directo para que las fábricas mejoren las condiciones basadas en las revisiones que provienen directamente de los propios trabajadores.",
+				"Para proporcionar más apalancamiento a los empleados de los países en desarrollo, estamos creando una plataforma para que los trabajadores compartan las evaluaciones de sus condiciones de trabajo con todos los demás trabajadores de su región. Esto dará a los trabajadores la información que necesitan para evitar fábricas con condiciones de trabajo terribles. Las fábricas con malas críticas obtendrán menos trabajadores, por lo tanto no podrán cumplir pedidos grandes de compradores y perderán ganancias. Esto creará un incentivo directo para que las fábricas mejoren las condiciones basadas en las evaluaciones que provienen directamente de los propios trabajadores.",
 			reach_us: "No dude en contactarnos",
 			submit_button: "Enviar",
 			placeholder_name: "Su Nombre",
@@ -544,12 +547,14 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Aplica Ahora",
-			hour: " Por Hora",
-			week: " Por Semana",
-			job_description: "Descripcion del trabajo",
+			hour: " Pesos Por Hora",
+			week: " Pesos Por Semana",
+			month: " Pesos Por Mes",
+			year: " Pesos Por Año",
+			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Responsabilidades",
-			posted_on: "Publicado en",
+			posted_on: "Publicado",
 		},
 		company_ratings: {
 			overall: "General",
@@ -562,27 +567,27 @@ export default {
 			months_worked: "meses trabajados",
 		},
 		jobscomponent: {
-			jobs_available: "Trabajo(s) disponible(s)",
+			jobs_available: "Trabajo(s) Disponible(s)",
 		},
 		overview_tab: {
-			display_text: "No hay revisiones para mostrar en este momento",
+			display_text: "No hay evaluaciones para mostrar en este momento",
 			apply_now: "Aplica Ahora",
 			hour: " Por Hora",
-			job_description: "Descripcion del Trabajo",
+			job_description: "Descripción del Trabajo",
 			display_jobs: "No hay trabajos para mostrar en este momento",
 			salaries_text: "No hay salarios para mostrar en este momento",
 			overview: "Resumen",
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			add_review: "Agregar una Opinión",
-			see_all_reviews: "Ver todas las revisiones",
+			see_all_reviews: "Ver Todas las Evaluaciones",
 			job_salaries: "Salario(s) de Trabajo(s)",
 			add_salary: "Agregar un Salario",
-			see_all_salaries: "Ver todos los salarios",
-			see_all_jobs: "Ver todos los trabajos",
-			jobs_available: "Trabajos Disponibles",
+			see_all_salaries: "Ver todos los Salarios",
+			see_all_jobs: "Ver Todos los Trabajos",
+			jobs_available: "Trabajo(s) Disponibles",
 		},
 		review_tab: {
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			add_review: "Agregar una Opinión",
 		},
 		salary_tab: {
@@ -593,13 +598,13 @@ export default {
 			apply_now: "Aplica Ahora",
 			hour: " Por Hora",
 			week: " Por Semana",
-			job_description: "Descripcion del Trabajo",
+			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
-			posted_on: "Publicado en",
+			posted_on: "Publicado",
 		},
 		CompanySearchResult: {
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			salaries: "Salarios",
 			jobs: "Trabajos",
 		},
@@ -607,7 +612,7 @@ export default {
 			loading: "Cargando...",
 			notfound: "La empresa no fue encontrada",
 			overview: "Resumen",
-			reviews: "Revisiones",
+			reviews: "Evaluaciones",
 			jobs: "Trabajos",
 			salaries: "Salarios",
 			contact: "Contacto",
