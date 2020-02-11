@@ -71,6 +71,7 @@ export function applyPassportMiddleware(app: Express) {
 		try {
 			const user = await createUser({
 				username: req.body.username,
+				email: req.body.email,
 				password: req.body.password,
 				role: req.body.role,
 			});

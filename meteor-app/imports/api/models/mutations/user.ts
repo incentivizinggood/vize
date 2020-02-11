@@ -12,6 +12,7 @@ import { RawUser, processUser } from "../queries/user";
 
 type CreateUserInput = {
 	username: string;
+	email: string;
 	password: string;
 	role: "worker" | "company";
 };
@@ -23,6 +24,7 @@ namespace CreateUserInput {
 			.trim()
 			.min(1)
 			.max(32),
+		email: yup.string().email(),
 		password: yup
 			.string()
 			.min(1)
@@ -32,9 +34,12 @@ namespace CreateUserInput {
 }
 
 export async function createUser(input: CreateUserInput): Promise<User> {
-	const { username, password, role } = await CreateUserInput.schema.validate(
-		input
-	);
+	const {
+		username,
+		email,
+		password,
+		role,
+	} = await CreateUserInput.schema.validate(input);
 
 	return withMongoDB(async db => {
 		const users = db.collection<RawUser>("users");
@@ -54,6 +59,12 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 			services: {
 				password: { bcrypt: await hashPassword(password) },
 			},
+			emails: [
+				{
+					address: email,
+					verified: false,
+				},
+			],
 			role,
 			createdAt: new Date(),
 			companyId: null,

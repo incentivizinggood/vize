@@ -38,6 +38,7 @@ export const logout = async () =>
 
 export const register = async (options: {
 	username: string;
+	email: string;
 	password: string;
 	role: "worker" | "company";
 }) =>

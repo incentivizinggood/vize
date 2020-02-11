@@ -11,6 +11,10 @@ export type RawUser = {
 	role: "worker" | "company-unverified" | "company";
 	companyId: number | null;
 	services: { password: { bcrypt: string } };
+	emails: {
+		address: string;
+		verified: boolean;
+	}[];
 };
 
 export async function processUser(rawUser: RawUser): Promise<User> {
