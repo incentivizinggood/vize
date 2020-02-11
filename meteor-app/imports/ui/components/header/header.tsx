@@ -22,7 +22,7 @@ function fixNullParams(param) {
 
 function NavLinks({ user }) {
 	// The user is an employer.
-	if (user && user.role === "company") {
+	if (user && user.role === "COMPANY") {
 		return <EmployerNavLinks user={user} />;
 	}
 
