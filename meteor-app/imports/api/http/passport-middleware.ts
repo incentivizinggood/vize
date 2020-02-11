@@ -15,7 +15,7 @@ const verify: VerifyFunction = async (username, password, done) => {
 	const user = await getUserByUsername(username);
 
 	if (!user) {
-		return done(null, false, { message: `User not found.` });
+		return done(null, false, { message: `User not found` });
 	}
 
 	const didMatch = await comparePassword(
@@ -24,10 +24,10 @@ const verify: VerifyFunction = async (username, password, done) => {
 	);
 
 	if (!didMatch) {
-		return done(null, false, { message: `Incorrect password.` });
+		return done(null, false, { message: `Incorrect password` });
 	}
 
-	return done(null, user, { message: `Successful login.` });
+	return done(null, user, { message: `Successful login` });
 };
 
 /** Set up the users and authentication middleware. */
@@ -48,15 +48,32 @@ export function applyPassportMiddleware(app: Express) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.post("/login", passport.authenticate("local"), function(req, res) {
-		// We assume the login was made by an API call.
-		// Return username and id in case the client wants to redirect.
-		res.json({
-			user: {
-				id: req.user.userId,
-				username: req.user.username,
-			},
-		});
+	app.post("/login", function(req, res, next) {
+		passport.authenticate("local", function(err, user, info) {
+			if (err) {
+				return next(err);
+			}
+
+			if (!user) {
+				return res.json(401, {
+					reason: info.message,
+				});
+			}
+
+			req.logIn(user, function(err) {
+				if (err) {
+					return next(err);
+				}
+				// We assume the login was made by an API call.
+				// Return username and id in case the client wants to redirect.
+				res.json({
+					user: {
+						id: user.userId,
+						username: user.username,
+					},
+				});
+			});
+		})(req, res, next);
 	});
 
 	app.post("/logout", function(req, res) {
