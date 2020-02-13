@@ -155,6 +155,8 @@ export default {
 		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
 		formSubTitle3:
 			" Aviso de Privacidad: Su identidad se ocultará para que esta evaluación sea anónima. Su nombre de usuario y los campos que tengan un icono de escudo no se mostrarán en su evaluación.",
+		formSalaryNotice:
+			"Los datos salariales no se mostrarán en esta evaluación. Para proteger su identidad, estos datos se van a agregar con otros salarios para crear un resumen.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",

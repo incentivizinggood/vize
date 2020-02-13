@@ -7,6 +7,7 @@ import {
 	Field,
 	FormToolbar,
 	SubmissionError,
+	FormText,
 } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
@@ -125,6 +126,9 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<FormDividerLine />
+			<FormText>
+				<T.formSalaryNotice />
+			</FormText>
 
 			<T.fields.incomeType
 				renderer={t => (
