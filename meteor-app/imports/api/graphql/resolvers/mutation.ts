@@ -37,7 +37,6 @@ export const Mutation: MutationResolvers = {
 	},
 
 	createReview: async (_obj, { input }, context, _info) => {
-		console.log("whatinput", input);
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
 		const reviewId = await dataModel.createReview(
@@ -46,7 +45,6 @@ export const Mutation: MutationResolvers = {
 		);
 
 		const review = await dataModel.getReviewById(reviewId);
-
 		return { review };
 	},
 
