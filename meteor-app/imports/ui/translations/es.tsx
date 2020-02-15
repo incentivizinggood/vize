@@ -155,6 +155,8 @@ export default {
 		formSubTitle2: "Reclama tus $100 pesos con Swap o Paypal.",
 		formSubTitle3:
 			" Aviso de Privacidad: Su identidad se ocultará para que esta evaluación sea anónima. Su nombre de usuario y los campos que tengan un icono de escudo no se mostrarán en su evaluación.",
+		formSalaryNotice:
+			"Los datos salariales no se mostrarán en esta evaluación. Para proteger su identidad, estos datos se van a agregar con otros salarios para crear un resumen.",
 		fields: {
 			companyName: {
 				label: "Nombre de la empresa",
@@ -223,6 +225,17 @@ export default {
 				label: "Comentarios Adicionales",
 				placeholder:
 					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa.",
+			},
+			incomeType: {
+				label: "Tipo de Ingreso (en Pesos)",
+				yearlySalary: "Anual",
+				monthlySalary: "Mensual",
+				weeklySalary: "Sueldo por Semana",
+				dailySalary: "Sueldo por Día",
+				hourlyWage: "Sueldo por Hora",
+			},
+			incomeAmount: {
+				label: "Cantidad de Ingresos",
 			},
 		},
 		submit: "Enviar",

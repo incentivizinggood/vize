@@ -146,6 +146,8 @@ export default {
 		formSubTitle2: "Claim your $100 pesos with Swap or Paypal.",
 		formSubTitle3:
 			" Privacy Notice: Your identity will be hidden to make this review anonymous. Your username and any fields that have a shield icon will not be displayed in your review.",
+		formSalaryNotice:
+			"Salary data will not be displayed in this review. To protect your identity, this data will be aggregated with other salaries to create a summary.",
 		fields: {
 			companyName: {
 				label: "Company Name",
@@ -213,6 +215,17 @@ export default {
 				label: "Additional Comments",
 				placeholder:
 					"Enter any additional thoughts or comments you may have on your experience working for this company.",
+			},
+			incomeType: {
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
+				hourlyWage: "Hourly Wage",
+			},
+			incomeAmount: {
+				label: "Income Amount",
 			},
 		},
 		submit: "Submit",

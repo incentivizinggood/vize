@@ -41,6 +41,9 @@ const initialValues = {
 	benefits: "",
 	overallSatisfaction: "",
 	additionalComments: "",
+	incomeType: "",
+	incomeAmount: "",
+	gender: "",
 };
 
 const proConSchema = yup
@@ -97,8 +100,24 @@ const schema = yup.object().shape({
 	benefits: starRatingSchema,
 	overallSatisfaction: starRatingSchema,
 	additionalComments: yup.string(),
+	incomeType: yup
+		.string()
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		])
+		.required("Se requiere el tipo de ingreso"),
+	incomeAmount: yup
+		.number()
+		.min(0)
+		.required("Se requiere la cantidad de ingresos"),
 });
 
+// TODO: Check if user has already added a salary so that there is no error in submitting a review
+// You would just need to write a query to see if the user has written a salary already and if so only call the createReview mutation
 function CreateReviewForm({ history, companyName, user }) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);
@@ -107,14 +126,48 @@ function CreateReviewForm({ history, companyName, user }) {
 		values,
 		actions
 	) => {
+		const reviewValues = {
+			companyName: values.companyName,
+			reviewTitle: values.reviewTitle,
+			location: {
+				city: values.location.city,
+				address: values.location.address,
+				industrialHub: values.location.industrialHub,
+			},
+			jobTitle: values.jobTitle,
+			numberOfMonthsWorked: values.numberOfMonthsWorked,
+			pros: values.pros,
+			cons: values.cons,
+			wouldRecommendToOtherJobSeekers:
+				values.wouldRecommendToOtherJobSeekers,
+			healthAndSafety: values.healthAndSafety,
+			managerRelationship: values.managerRelationship,
+			workEnvironment: values.workEnvironment,
+			benefits: values.benefits,
+			overallSatisfaction: values.overallSatisfaction,
+			additionalComments: values.additionalComments,
+		};
+
+		const salaryValues = {
+			companyName: values.companyName,
+			jobTitle: values.jobTitle,
+			incomeAmount: values.incomeAmount,
+			incomeType: values.incomeType,
+			location: {
+				city: values.location.city,
+				address: values.location.address,
+				industrialHub: values.location.industrialHub,
+			},
+			gender: values.location.gender,
+		};
+
 		createReview({
 			variables: {
-				input: omitEmptyStrings(values),
+				reviewInput: omitEmptyStrings(reviewValues),
+				salaryInput: omitEmptyStrings(salaryValues),
 			},
 		})
 			.then(({ data }) => {
-				console.log("data", data);
-
 				actions.resetForm(initialValues);
 
 				// Go to the review submitted page so that the user can claim their reward.
