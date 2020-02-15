@@ -1,5 +1,8 @@
-mutation createReview($input: CreateReviewInput!) {
-	createReview(input: $input) {
+mutation createReview(
+	$reviewInput: CreateReviewInput!
+	$salaryInput: CreateSalaryInput!
+) {
+	createReview(input: $reviewInput) {
 		review {
 			id
 			company {
@@ -23,6 +26,23 @@ mutation createReview($input: CreateReviewInput!) {
 			currentUserVote {
 				isUpvote
 			}
+		}
+	}
+	createSalary(input: $salaryInput) {
+		salary {
+			id
+			company {
+				name
+			}
+			jobTitle
+			location {
+				address
+				city
+				industrialHub
+			}
+			incomeType
+			incomeAmount
+			created
 		}
 	}
 }

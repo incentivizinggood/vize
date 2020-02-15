@@ -1,15 +1,23 @@
 import React from "react";
 import { Form } from "formik";
 import { SubmitButton } from "imports/ui/components/button";
+import styled from "styled-components";
 
 import {
 	Field,
 	FormToolbar,
 	SubmissionError,
+	FormText,
 } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
 
 const T = translations.createReview;
+
+const FormDividerLine = styled.hr`
+	border: 1px solid black;
+	margin-left: -30px;
+	margin-right: -30px;
+`;
 
 function InnerForm({ submissionError }) {
 	return (
@@ -31,6 +39,7 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="location.city"
 				type="text"
+				variant="privacyTextField"
 				required
 				t={T.fields.location.city}
 			/>
@@ -114,6 +123,39 @@ function InnerForm({ submissionError }) {
 				multiline
 				rows={6}
 				t={T.fields.additionalComments}
+			/>
+
+			<FormDividerLine />
+			<FormText>
+				<T.formSalaryNotice />
+			</FormText>
+
+			<T.fields.incomeType
+				renderer={t => (
+					<Field
+						name="incomeType"
+						select
+						variant="privacyTextField"
+						required
+						label={t.label}
+					>
+						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
+						<option value="MONTHLY_SALARY">
+							{t.monthlySalary}
+						</option>
+						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
+						<option value="DAILY_SALARY">{t.dailySalary}</option>
+						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
+					</Field>
+				)}
+			/>
+
+			<Field
+				name="incomeAmount"
+				type="number"
+				variant="privacyTextField"
+				required
+				t={T.fields.incomeAmount}
 			/>
 
 			<SubmissionError error={submissionError} />

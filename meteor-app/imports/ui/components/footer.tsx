@@ -84,6 +84,12 @@ const CopyRight = styled.p`
 	text-align: center;
 `;
 
+const ContactNumberLink = styled.a`
+	font-weight: bold;
+	color: #337ab7 !important;
+	text-decoration: underline;
+`;
+
 // About Contact Help | social media
 export default function Footer() {
 	return (
@@ -136,13 +142,16 @@ export default function Footer() {
 			<CopyRight>
 				<LinksContainer>
 					<InternalLinks>
-						<a href="https://wa.me/5216647480001" target="_blank">
+						<ContactNumberLink
+							href="https://wa.me/5216647480001"
+							target="_blank"
+						>
 							<WhatsApp
 								src="/images/whatsapp.png"
 								alt="WhatsApp"
 							/>{" "}
 							+52 (664) 748-0001
-						</a>
+						</ContactNumberLink>
 					</InternalLinks>
 					<SocialLinks>
 						Vize © 2019. <T.allRightsReserved />
