@@ -26,51 +26,56 @@ export function applyPassportMiddleware(app: Express) {
 	app.use(passport.session());
 
 	app.post("/login", async function(req, res, next) {
-		if (req.body.username) {
-			if (typeof req.body.username === "string") {
-				if (req.body.password) {
-					if (typeof req.body.password === "string") {
-						const user = await getUserByUsername(req.body.username);
-						if (user) {
-							const didMatch = await comparePassword(
-								req.body.password,
-								user.services.password.bcrypt
-							);
-							if (didMatch) {
-								req.logIn(user, function(err) {
-									if (err) {
-										return next(err);
-									}
-									// We assume the login was made by an API call.
-									// Return username and id in case the client wants to redirect.
-									res.json({
-										user: {
-											id: user.userId,
-											username: user.username,
-										},
-									});
-								});
-							} else {
-								res.send(401, "Password is incorrect.");
-							}
-						} else {
-							res.send(
-								401,
-								"Username does not match any account."
-							);
-						}
-					} else {
-						res.send(401, "Password must be a string.");
-					}
-				} else {
-					res.send(401, "Password is required.");
-				}
-			} else {
-				res.send(401, "Username must be a string.");
-			}
-		} else {
-			res.send(401, "Username is required.");
+		if (!req.body.username) {
+			res.status(401).send("Username is required.");
+			return;
 		}
+
+		if (typeof req.body.username !== "string") {
+			res.status(401).send("Username must be a string.");
+			return;
+		}
+
+		if (!req.body.password) {
+			res.status(401).send("Password is required.");
+			return;
+		}
+
+		if (typeof req.body.password !== "string") {
+			res.status(401).send("Password must be a string.");
+			return;
+		}
+
+		const user = await getUserByUsername(req.body.username);
+
+		if (!user) {
+			res.status(401).send("Username does not match any account.");
+			return;
+		}
+
+		const didMatch = await comparePassword(
+			req.body.password,
+			user.services.password.bcrypt
+		);
+
+		if (!didMatch) {
+			res.status(401).send("Password is incorrect.");
+			return;
+		}
+
+		req.logIn(user, function(err) {
+			if (err) {
+				return next(err);
+			}
+			// We assume the login was made by an API call.
+			// Return username and id in case the client wants to redirect.
+			res.json({
+				user: {
+					id: user.userId,
+					username: user.username,
+				},
+			});
+		});
 	});
 
 	app.post("/logout", function(req, res) {
