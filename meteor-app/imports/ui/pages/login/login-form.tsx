@@ -40,11 +40,16 @@ const onSubmit = history => (values, actions) => {
 			// Errors to display on form fields
 			const formErrors = {};
 
-			if (error.error.reason === "User not found") {
+			if (
+				error.error.errors.includes(
+					"username does not match any account"
+				)
+			) {
 				formErrors.username =
 					"El nombre de usuario no se ha encontrado";
 			}
-			if (error.error.reason === "Incorrect password") {
+
+			if (error.error.errors.includes("password is incorrect")) {
 				// TODO: clear the password input on this error
 				formErrors.password = "Contraseña incorrecta";
 			}

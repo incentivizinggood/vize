@@ -68,8 +68,12 @@ const onSubmit = history => (values, actions) => {
 			// Errors to display on form fields
 			const formErrors = {};
 
-			if (error.reason === "Username already exists.") {
+			if (error.error.errors.includes("username is taken")) {
 				formErrors.username = "Nombre de usuario ya existe";
+			}
+
+			if (error.error.errors.includes("email is taken")) {
+				formErrors.email = "La dirección de correo ya existe";
 			}
 
 			actions.setErrors(formErrors);
