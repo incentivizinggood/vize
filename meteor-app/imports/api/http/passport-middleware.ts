@@ -1,5 +1,4 @@
 import passport from "passport";
-import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import { Express } from "express";
 
 import {
@@ -10,30 +9,8 @@ import {
 	comparePassword,
 } from "imports/api/models";
 
-/** Check that the username and password match an account in the database. */
-const verify: VerifyFunction = async (username, password, done) => {
-	const user = await getUserByUsername(username);
-
-	if (!user) {
-		return done(null, false, { message: `User not found` });
-	}
-
-	const didMatch = await comparePassword(
-		password,
-		user.services.password.bcrypt
-	);
-
-	if (!didMatch) {
-		return done(null, false, { message: `Incorrect password` });
-	}
-
-	return done(null, user, { message: `Successful login` });
-};
-
 /** Set up the users and authentication middleware. */
 export function applyPassportMiddleware(app: Express) {
-	passport.use(new LocalStrategy(verify));
-
 	passport.serializeUser<User, string>(function(user, done) {
 		done(null, user ? user.userId.toString() : undefined);
 	});
@@ -48,32 +25,52 @@ export function applyPassportMiddleware(app: Express) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.post("/login", function(req, res, next) {
-		passport.authenticate("local", function(err, user, info) {
-			if (err) {
-				return next(err);
-			}
-
-			if (!user) {
-				return res.json(401, {
-					reason: info.message,
-				});
-			}
-
-			req.logIn(user, function(err) {
-				if (err) {
-					return next(err);
+	app.post("/login", async function(req, res, next) {
+		if (req.body.username) {
+			if (typeof req.body.username === "string") {
+				if (req.body.password) {
+					if (typeof req.body.password === "string") {
+						const user = await getUserByUsername(req.body.username);
+						if (user) {
+							const didMatch = await comparePassword(
+								req.body.password,
+								user.services.password.bcrypt
+							);
+							if (didMatch) {
+								req.logIn(user, function(err) {
+									if (err) {
+										return next(err);
+									}
+									// We assume the login was made by an API call.
+									// Return username and id in case the client wants to redirect.
+									res.json({
+										user: {
+											id: user.userId,
+											username: user.username,
+										},
+									});
+								});
+							} else {
+								res.send(401, "Password is incorrect.");
+							}
+						} else {
+							res.send(
+								401,
+								"Username does not match any account."
+							);
+						}
+					} else {
+						res.send(401, "Password must be a string.");
+					}
+				} else {
+					res.send(401, "Password is required.");
 				}
-				// We assume the login was made by an API call.
-				// Return username and id in case the client wants to redirect.
-				res.json({
-					user: {
-						id: user.userId,
-						username: user.username,
-					},
-				});
-			});
-		})(req, res, next);
+			} else {
+				res.send(401, "Username must be a string.");
+			}
+		} else {
+			res.send(401, "Username is required.");
+		}
 	});
 
 	app.post("/logout", function(req, res) {
