@@ -1,13 +1,8 @@
 import passport from "passport";
 import { Express } from "express";
+import * as yup from "yup";
 
-import {
-	User,
-	getUserByUsername,
-	getUserById,
-	createUser,
-	comparePassword,
-} from "imports/api/models";
+import { User, getUserById, createUser, verifyUser } from "imports/api/models";
 
 /** Set up the users and authentication middleware. */
 export function applyPassportMiddleware(app: Express) {
@@ -26,56 +21,34 @@ export function applyPassportMiddleware(app: Express) {
 	app.use(passport.session());
 
 	app.post("/login", async function(req, res, next) {
-		if (!req.body.username) {
-			res.status(401).send("Username is required.");
-			return;
-		}
-
-		if (typeof req.body.username !== "string") {
-			res.status(401).send("Username must be a string.");
-			return;
-		}
-
-		if (!req.body.password) {
-			res.status(401).send("Password is required.");
-			return;
-		}
-
-		if (typeof req.body.password !== "string") {
-			res.status(401).send("Password must be a string.");
-			return;
-		}
-
-		const user = await getUserByUsername(req.body.username);
-
-		if (!user) {
-			res.status(401).send("Username does not match any account.");
-			return;
-		}
-
-		const didMatch = await comparePassword(
-			req.body.password,
-			user.services.password.bcrypt
-		);
-
-		if (!didMatch) {
-			res.status(401).send("Password is incorrect.");
-			return;
-		}
-
-		req.logIn(user, function(err) {
-			if (err) {
-				return next(err);
-			}
-			// We assume the login was made by an API call.
-			// Return username and id in case the client wants to redirect.
-			res.json({
-				user: {
-					id: user.userId,
-					username: user.username,
-				},
+		try {
+			const user = await verifyUser({
+				username: req.body.username,
+				password: req.body.password,
 			});
-		});
+
+			req.logIn(user, function(err) {
+				if (err) {
+					throw err;
+				}
+				// We assume the login was made by an API call.
+				// Return username and id in case the client wants to redirect.
+				res.json({
+					user: {
+						id: user.userId,
+						username: user.username,
+					},
+				});
+			});
+		} catch (e) {
+			if (e instanceof yup.ValidationError) {
+				res.status(401).json({ errors: e.errors });
+			} else if (typeof e === "string") {
+				res.status(401).json({ errors: [e] });
+			} else {
+				next(e);
+			}
+		}
 	});
 
 	app.post("/logout", function(req, res) {
@@ -86,7 +59,7 @@ export function applyPassportMiddleware(app: Express) {
 		res.end();
 	});
 
-	app.post("/register", async function(req, res) {
+	app.post("/register", async function(req, res, next) {
 		try {
 			const user = await createUser({
 				username: req.body.username,
@@ -96,21 +69,26 @@ export function applyPassportMiddleware(app: Express) {
 			});
 
 			// Automatically log the new user in.
-			req.login(user, function(err) {
+			req.logIn(user, function(err) {
 				if (err) {
-					console.log(err);
+					throw err;
 				}
+				// Return username and id in case the client wants to redirect.
+				res.json({
+					user: {
+						id: user.userId,
+						username: user.username,
+					},
+				});
 			});
-
-			// Return username and id in case the client wants to redirect.
-			res.json({
-				user: {
-					id: user.userId,
-					username: user.username,
-				},
-			});
-		} catch (error) {
-			res.status(500).json(error);
+		} catch (e) {
+			if (e instanceof yup.ValidationError) {
+				res.status(401).json({ errors: e.errors });
+			} else if (typeof e === "string") {
+				res.status(401).json({ errors: [e] });
+			} else {
+				next(e);
+			}
 		}
 	});
 }

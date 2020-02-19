@@ -5,7 +5,12 @@ import { Random } from "meteor/random";
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 import { withMongoDB } from "imports/api/connectors/mongodb";
-import { User, hashPassword } from "imports/api/models";
+import {
+	User,
+	getUserByUsername,
+	hashPassword,
+	comparePassword,
+} from "imports/api/models";
 import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import { RawUser, processUser } from "../queries/user";
@@ -23,13 +28,21 @@ namespace CreateUserInput {
 			.string()
 			.trim()
 			.min(1)
-			.max(32),
-		email: yup.string().email(),
+			.max(32)
+			.required(),
+		email: yup
+			.string()
+			.email()
+			.required(),
 		password: yup
 			.string()
 			.min(1)
-			.max(256),
-		role: yup.mixed<"worker" | "company">().oneOf(["worker", "company"]),
+			.max(256)
+			.required(),
+		role: yup
+			.mixed<"worker" | "company">()
+			.oneOf(["worker", "company"])
+			.required(),
 	});
 }
 
@@ -39,13 +52,19 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 		email,
 		password,
 		role,
-	} = await CreateUserInput.schema.validate(input);
+	} = await CreateUserInput.schema.validate(input, {
+		abortEarly: false,
+	});
 
 	return withMongoDB(async db => {
 		const users = db.collection<RawUser>("users");
 
 		if ((await users.findOne({ username })) !== null) {
-			throw new Error("That username is taken.");
+			throw "username is taken";
+		}
+
+		if ((await users.findOne({ "emails.address": email })) !== null) {
+			throw "email is taken";
 		}
 
 		// Meteor generates a random string instead of using MongoDB's ObjectId.
@@ -88,4 +107,45 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 
 		return processUser(newUser);
 	});
+}
+
+type VerifyUserInput = {
+	username: string;
+	password: string;
+};
+
+namespace VerifyUserInput {
+	export const schema = yup.object({
+		username: yup
+			.string()
+			.trim()
+			.required(),
+		password: yup.string().required(),
+	});
+}
+
+export async function verifyUser(input: VerifyUserInput): Promise<User> {
+	const { username, password } = await VerifyUserInput.schema.validate(
+		input,
+		{
+			abortEarly: false,
+		}
+	);
+
+	const user = await getUserByUsername(username);
+
+	if (!user) {
+		throw "username does not match any account";
+	}
+
+	const didMatch = await comparePassword(
+		password,
+		user.services.password.bcrypt
+	);
+
+	if (!didMatch) {
+		throw "password is incorrect";
+	}
+
+	return user;
 }
