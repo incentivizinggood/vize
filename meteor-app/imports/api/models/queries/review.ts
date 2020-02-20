@@ -81,9 +81,10 @@ export async function getReviewsByCompany(
 	`);
 }
 
-
 // Get the company that a given review is about.
-export async function getCompanyOfReview(review: Review): Promise<Company | null> {
+export async function getCompanyOfReview(
+	review: Review
+): Promise<Company | null> {
 	const company: Company | null = await getCompanyByName(review.companyName);
 
 	return company;

@@ -66,7 +66,9 @@ export async function getSalariesByCompany(
 }
 
 // Get the company that paid a given salary.
-export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
+export async function getCompanyOfSalary(
+	salary: Salary
+): Promise<Company | null> {
 	const company: Company | null = await getCompanyByName(salary.companyName);
 
 	return company;
