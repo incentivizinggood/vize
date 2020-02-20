@@ -194,7 +194,7 @@ export default {
 			pros: {
 				label: "Ventajas",
 				placeholder:
-					"¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona?",
+					"¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona? ¿Cuáles son algunas de las prestaciones que ofrece esta empresa?",
 			},
 			cons: {
 				label: "Limitaciones",
@@ -224,7 +224,7 @@ export default {
 			additionalComments: {
 				label: "Comentarios Adicionales",
 				placeholder:
-					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa.",
+					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa. ¿Tienes algún consejo para la gestión de la empresa?",
 			},
 			incomeType: {
 				label: "Tipo de Ingreso (en Pesos)",
