@@ -47,6 +47,7 @@ function InnerForm({ submissionError }) {
 			<Field
 				name="location.industrialHub"
 				type="text"
+				variant="privacyTextField"
 				t={T.fields.location.industrialHub}
 			/>
 
