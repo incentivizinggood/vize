@@ -1,9 +1,11 @@
 import * as yup from "yup";
 
-import { Random } from "meteor/random";
-
 import sql from "imports/lib/sql-template";
-import { simpleQuery1 } from "imports/api/connectors/postgresql";
+import {
+	Transaction,
+	execTransactionRW,
+	simpleQuery,
+} from "imports/api/connectors/postgresql";
 import { withMongoDB } from "imports/api/connectors/mongodb";
 import {
 	User,
@@ -13,7 +15,48 @@ import {
 } from "imports/api/models";
 import { postToSlack } from "imports/api/connectors/slack-webhook";
 
-import { RawUser, processUser } from "../queries/user";
+import { attributes } from "../queries/user";
+
+// This was for the MongoDB users.
+export type RawUser = {
+	_id: string;
+	username: string;
+	createdAt: Date;
+	role: "worker" | "company-unverified" | "company";
+	companyId: number | null;
+	services: { password: { bcrypt: string } };
+	emails: {
+		address: string;
+		verified: boolean;
+	}[];
+};
+
+// Migrate user data from MongoDB to PostgreSQL.
+export async function migrateUsers() {
+	const transaction: Transaction<unknown> = async client => {
+		const users = await withMongoDB(async db =>
+			db
+				.collection<RawUser>("users")
+				.find({})
+				.toArray()
+		);
+
+		for (const user of users) {
+			await client.query(sql`
+				UPDATE users
+				SET
+					username = ${user.username},
+					email_address = ${user.emails.length > 0 ? user.emails[0].address : null},
+					password_hash = ${user.services.password.bcrypt}
+				WHERE usermongoid = ${user._id}
+			`);
+		}
+	};
+
+	console.log("Starting user migration.");
+	await execTransactionRW(transaction);
+	console.log("Finished user migration.");
+}
 
 type CreateUserInput = {
 	username: string;
@@ -56,57 +99,43 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 		abortEarly: false,
 	});
 
-	return withMongoDB(async db => {
-		const users = db.collection<RawUser>("users");
-
-		if ((await users.findOne({ username })) !== null) {
+	const transaction: Transaction<User> = async client => {
+		if (
+			(await client.query(
+				sql`SELECT userid FROM users WHERE username=${username}`
+			)).rows.length > 0
+		) {
 			throw "username is taken";
 		}
 
-		if ((await users.findOne({ "emails.address": email })) !== null) {
+		if (
+			(await client.query(
+				sql`SELECT userid FROM users WHERE email_address=${email}`
+			)).rows.length > 0
+		) {
 			throw "email is taken";
 		}
 
-		// Meteor generates a random string instead of using MongoDB's ObjectId.
-		// We replicate this behavior here for compatibility with old code.
-		// When the users are migrated to PostgreSQL this will be changed.
-		const newUserId = Random.id();
+		const passwordHash = await hashPassword(password);
 
-		await users.insertOne({
-			_id: newUserId,
-			username,
-			services: {
-				password: { bcrypt: await hashPassword(password) },
-			},
-			emails: [
-				{
-					address: email,
-					verified: false,
-				},
-			],
-			role,
-			createdAt: new Date(),
-			companyId: null,
-		});
-
-		const newUser = await users.findOne({ _id: newUserId });
-
-		if (newUser === null) {
-			throw new Error(
-				"We just created a user but did not find it. This should be impossible."
-			);
-		}
-
-		await simpleQuery1<unknown>(
-			sql`INSERT INTO users (userMongoId, role) VALUES (${newUser._id}, ${newUser.role}) RETURNING *`
-		);
+		const {
+			rows: [user],
+		} = await client.query(sql`
+			INSERT INTO users 
+				(username, email_address, password_hash, role) 
+			VALUES 
+				(${username}, ${email}, ${passwordHash}, ${role}) 
+			RETURNING ${attributes}
+		`);
 
 		postToSlack(
-			`:tada: A new user has joined Vize. Please welcome \`${newUser.username}\`.`
+			`:tada: A new user has joined Vize. Please welcome \`${username}\`.`
 		);
 
-		return processUser(newUser);
-	});
+		return user;
+	};
+
+	return execTransactionRW(transaction);
 }
 
 type VerifyUserInput = {
@@ -138,10 +167,7 @@ export async function verifyUser(input: VerifyUserInput): Promise<User> {
 		throw "username does not match any account";
 	}
 
-	const didMatch = await comparePassword(
-		password,
-		user.services.password.bcrypt
-	);
+	const didMatch = await comparePassword(password, user.passwordHash);
 
 	if (!didMatch) {
 		throw "password is incorrect";
@@ -159,26 +185,17 @@ export async function changePassword(
 		throw "You must be logged in to change your password.";
 	}
 
-	const didMatch = await comparePassword(
-		oldPassword,
-		user.services.password.bcrypt
-	);
+	const didMatch = await comparePassword(oldPassword, user.passwordHash);
 
 	if (!didMatch) {
 		throw "The old password is you gave is incorrect.";
 	}
 
-	return withMongoDB(async db => {
-		const users = db.collection<RawUser>("users");
-		users.updateOne(
-			{ username: user.username },
-			{
-				$set: {
-					services: {
-						password: { bcrypt: await hashPassword(newPassword) },
-					},
-				},
-			}
-		);
-	});
+	const newPasswordHash = await hashPassword(newPassword);
+
+	await simpleQuery(sql`
+		UPDATE users
+		SET password_hash = ${newPasswordHash}
+		WHERE username = ${user.username}
+	`);
 }
