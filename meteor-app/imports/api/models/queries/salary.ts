@@ -69,10 +69,6 @@ export async function getSalariesByCompany(
 export async function getCompanyOfSalary(salary: Salary): Promise<Company> {
 	const company: Company | null = await getCompanyByName(salary.companyName);
 
-	if (company === null) {
-		throw new Error("REFERENCE_ANOMALY");
-	}
-
 	return company;
 }
 
