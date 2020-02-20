@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 
-import { Accounts } from "meteor/accounts-base";
-
 import { withUser } from "imports/ui/hoc/user";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import { translations } from "imports/ui/translations";
@@ -54,12 +52,13 @@ class PasswordChanger extends React.Component {
 			callback({ reason: "New passwords do not match" });
 			return;
 		}
-
+		/* TODO: The new account system does not support changing passwords yet. 
 		Accounts.changePassword(
 			this.state.oldPassword,
 			this.state.newPassword,
 			callback
 		);
+		*/
 	}
 
 	renderContent() {
