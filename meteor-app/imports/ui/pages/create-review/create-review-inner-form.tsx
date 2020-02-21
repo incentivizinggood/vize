@@ -14,7 +14,7 @@ import { translations } from "imports/ui/translations";
 const T = translations.createReview;
 
 const FormDividerLine = styled.hr`
-	border: 1px solid black;
+	border-top: 1px solid black;
 	margin-left: -30px;
 	margin-right: -30px;
 `;
