@@ -8,6 +8,7 @@ type CreateReviewInput = {
 	location: LocationInput;
 	jobTitle: string;
 	numberOfMonthsWorked: number;
+	contractType: CreateReviewInput.ContractType;
 	pros: string;
 	cons: string;
 	wouldRecommendToOtherJobSeekers: boolean;
@@ -36,6 +37,16 @@ namespace CreateReviewInput {
 			.number()
 			.min(0)
 			.required(),
+		contractType: yup
+			.mixed()
+			.oneOf([
+				"FULL_TIME",
+				"PART_TIME",
+				"INTERNSHIP",
+				"TEMPORARY",
+				"CONTRACTOR",
+			])
+			.required(),
 		pros: yup.string().required(),
 		cons: yup.string().required(),
 		wouldRecommendToOtherJobSeekers: yup.boolean().required(),
@@ -46,6 +57,13 @@ namespace CreateReviewInput {
 		overallSatisfaction: starRatingSchema,
 		additionalComments: yup.string(),
 	});
+
+	export type ContractType =
+		| "FULL_TIME"
+		| "PART_TIME"
+		| "INTERNSHIP"
+		| "TEMPORARY"
+		| "CONTRACTOR";
 }
 
 export default CreateReviewInput;
