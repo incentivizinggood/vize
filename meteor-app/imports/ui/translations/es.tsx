@@ -338,6 +338,8 @@ export default {
 				label: "Tipo de Contrato",
 				fullTime: "Tiempo completo",
 				partTime: "Medio tiempo",
+				internship: "Prácticas (Pasantía)",
+				temporary: "Proyecto (Temporal)",
 				contractor: "Contratista",
 			},
 			jobDescription: {

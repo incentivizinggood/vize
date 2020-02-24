@@ -325,6 +325,8 @@ export default {
 				label: "Contract Type",
 				fullTime: "Full time",
 				partTime: "Part time",
+				internship: "Internship",
+				temporary: "Temporary",
 				contractor: "Contractor",
 			},
 			jobDescription: {

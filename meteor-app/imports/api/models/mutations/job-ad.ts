@@ -59,14 +59,7 @@ export async function createJobAd(
 					${companyid},
 					${jobTitle},
 					${pesosPerHour},
-					${
-						// TODO: change the database so that we do not need to convert these.
-						contractType === "FULL_TIME"
-							? "Full time"
-							: contractType === "PART_TIME"
-							? "Part time"
-							: "Contractor"
-					},
+					${contractType},
 					${jobDescription},
 					${responsibilities},
 					${qualifications}

@@ -55,7 +55,13 @@ const schema = yup.object().shape({
 	pesosPerHour: yup.string().required(),
 	contractType: yup
 		.mixed()
-		.oneOf(["FULL_TIME", "PART_TIME", "CONTRACTOR"])
+		.oneOf([
+			"FULL_TIME",
+			"PART_TIME",
+			"INTERNSHIP",
+			"TEMPORARY",
+			"CONTRACTOR",
+		])
 		.required(),
 	jobDescription: yup.string().required(),
 	responsibilities: yup.string().required(),
