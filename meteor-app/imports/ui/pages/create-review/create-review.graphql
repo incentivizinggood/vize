@@ -16,6 +16,7 @@ mutation createReview(
 				industrialHub
 			}
 			numberOfMonthsWorked
+			contractType
 			pros
 			cons
 			wouldRecommendToOtherJobSeekers

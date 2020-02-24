@@ -147,6 +147,7 @@ function CreateReviewForm({ history, companyName, user }) {
 			},
 			jobTitle: values.jobTitle,
 			numberOfMonthsWorked: values.numberOfMonthsWorked,
+			contractType: values.contractType,
 			pros: values.pros,
 			cons: values.cons,
 			wouldRecommendToOtherJobSeekers:
