@@ -181,6 +181,14 @@ export default {
 			numberOfMonthsWorked: {
 				label: "Number of Months Worked",
 			},
+			contractType: {
+				label: "Contract Type",
+				fullTime: "Full time",
+				partTime: "Part time",
+				internship: "Internship",
+				temporary: "Temporary",
+				contractor: "Contractor",
+			},
 			pros: {
 				label: "Pros",
 				placeholder:

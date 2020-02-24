@@ -32,6 +32,7 @@ const initialValues = {
 	},
 	jobTitle: "",
 	numberOfMonthsWorked: "",
+	contractType: "",
 	pros: "",
 	cons: "",
 	wouldRecommendToOtherJobSeekers: "",
@@ -89,6 +90,16 @@ const schema = yup.object().shape({
 		.number()
 		.min(0)
 		.required("Se requiere el numero de meses trabajados"),
+	contractType: yup
+		.mixed()
+		.oneOf([
+			"FULL_TIME",
+			"PART_TIME",
+			"INTERNSHIP",
+			"TEMPORARY",
+			"CONTRACTOR",
+		])
+		.required("Se requiere el tipo de contrato"),
 	pros: proConSchema,
 	cons: proConSchema,
 	wouldRecommendToOtherJobSeekers: yup

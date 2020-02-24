@@ -206,6 +206,14 @@ export default {
 				yes: "Si",
 				no: "No",
 			},
+			contractType: {
+				label: "Tipo de Contrato",
+				fullTime: "Tiempo completo",
+				partTime: "Medio tiempo",
+				internship: "Prácticas (Pasantía)",
+				temporary: "Proyecto (Temporal)",
+				contractor: "Contratista",
+			},
 			healthAndSafety: {
 				label: "Salud y Beneficios",
 			},

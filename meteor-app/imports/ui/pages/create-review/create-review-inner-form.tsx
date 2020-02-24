@@ -60,6 +60,25 @@ function InnerForm({ submissionError }) {
 				t={T.fields.numberOfMonthsWorked}
 			/>
 
+			<T.fields.contractType
+				renderer={t => (
+					<Field
+						name="contractType"
+						select
+						variant="privacyTextField"
+						required
+						label={t.label}
+					>
+						<option value="">(Seleccione una Opción)</option>
+						<option value="FULL_TIME">{t.fullTime}</option>
+						<option value="PART_TIME">{t.partTime}</option>
+						<option value="INTERNSHIP">{t.internship}</option>
+						<option value="TEMPORARY">{t.temporary}</option>
+						<option value="CONTRACTOR">{t.contractor}</option>
+					</Field>
+				)}
+			/>
+
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
 			<Field name="cons" required multiline rows={6} t={T.fields.cons} />
