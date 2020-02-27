@@ -2,7 +2,13 @@ import passport from "passport";
 import { Express } from "express";
 import * as yup from "yup";
 
-import { User, getUserById, createUser, verifyUser } from "imports/api/models";
+import {
+	User,
+	getUserById,
+	createUser,
+	verifyUser,
+	changePassword,
+} from "imports/api/models";
 
 /** Set up the users and authentication middleware. */
 export function applyPassportMiddleware(app: Express) {
@@ -19,6 +25,9 @@ export function applyPassportMiddleware(app: Express) {
 
 	app.use(passport.initialize());
 	app.use(passport.session());
+
+	// TODO: HTTP 401 Not Authorized errors may not be the right code for
+	// these errors. Perhaps 409 Conflict would be better?
 
 	app.post("/login", async function(req, res, next) {
 		try {
@@ -81,6 +90,24 @@ export function applyPassportMiddleware(app: Express) {
 					},
 				});
 			});
+		} catch (e) {
+			if (e instanceof yup.ValidationError) {
+				res.status(401).json({ errors: e.errors });
+			} else if (typeof e === "string") {
+				res.status(401).json({ errors: [e] });
+			} else {
+				next(e);
+			}
+		}
+	});
+
+	app.post("/change-password", async function(req, res, next) {
+		try {
+			await changePassword(
+				req.user,
+				req.body.oldPassword,
+				req.body.newPassword
+			);
 		} catch (e) {
 			if (e instanceof yup.ValidationError) {
 				res.status(401).json({ errors: e.errors });

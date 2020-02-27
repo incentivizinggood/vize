@@ -48,3 +48,14 @@ export const register = async (options: {
 		body: options,
 		json: true,
 	}).then(afterLoginOrLogout);
+
+export const changePassword = async (options: {
+	oldPassword: string;
+	newPassword: string;
+}) =>
+	request({
+		method: "POST",
+		uri: `${location.origin}/change-password`,
+		body: options,
+		json: true,
+	});

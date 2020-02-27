@@ -149,3 +149,36 @@ export async function verifyUser(input: VerifyUserInput): Promise<User> {
 
 	return user;
 }
+
+export async function changePassword(
+	user: User | undefined | null,
+	oldPassword: string,
+	newPassword: string
+) {
+	if (!user) {
+		throw "You must be logged in to change your password.";
+	}
+
+	const didMatch = await comparePassword(
+		oldPassword,
+		user.services.password.bcrypt
+	);
+
+	if (!didMatch) {
+		throw "The old password is you gave is incorrect.";
+	}
+
+	return withMongoDB(async db => {
+		const users = db.collection<RawUser>("users");
+		users.updateOne(
+			{ username: user.username },
+			{
+				$set: {
+					services: {
+						password: { bcrypt: await hashPassword(newPassword) },
+					},
+				},
+			}
+		);
+	});
+}
