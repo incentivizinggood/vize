@@ -32,10 +32,7 @@ export const Review: ReviewResolvers = {
 
 		// Users cannot vote on their own reviews.
 		// Return null to help signify this.
-		if (
-			(await dataModel.getUserPostgresId(context.user._id)) ===
-			(await dataModel.getUserPostgresId(obj.submittedBy))
-		) {
+		if (context.user.userId === obj.submittedBy) {
 			return null;
 		}
 

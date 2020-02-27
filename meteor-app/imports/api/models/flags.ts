@@ -1,11 +1,11 @@
 import { sendEmail } from "imports/api/connectors/email";
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
-import { getUserById, UserId } from ".";
+import { getUserById } from ".";
 
 export async function flagAReview(
 	reviewId: string,
-	userId: UserId,
+	userId: number,
 	reason: string,
 	explanation: string
 ) {
@@ -29,10 +29,6 @@ export async function flagAReview(
 	sendEmail({
 		to: "incentivizinggood@gmail.com",
 		subject: "Someone flagged a review",
-		text: `UserName: ${
-			user.username
-		}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${
-			reviewInfo.reviewTitle
-		}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
+		text: `UserName: ${user.username}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${reviewInfo.reviewTitle}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
 	});
 }

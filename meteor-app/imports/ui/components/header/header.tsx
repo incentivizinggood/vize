@@ -1,17 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { urlGenerators } from "imports/ui/pages/url-generators";
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
 
+import { withUser } from "imports/ui/hoc/user";
 import { translations } from "imports/ui/translations";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import WorkerNavLinks from "./worker-nav-links";
 import EmployerNavLinks from "./employer-nav-links";
 import FadableNav from "./fadable-nav";
 import LangSelector from "./lang-selector";
 import LogoutButton from "./logout-button";
-import { urlGenerators } from "imports/ui/pages/url-generators";
 
 const T = translations.header;
 
@@ -24,7 +22,7 @@ function fixNullParams(param) {
 
 function NavLinks({ user }) {
 	// The user is an employer.
-	if (user && user.role === "company") {
+	if (user && user.role === "COMPANY") {
 		return <EmployerNavLinks user={user} />;
 	}
 
@@ -203,6 +201,4 @@ function Header(props) {
 	);
 }
 
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(Header);
+export default withUser(Header);

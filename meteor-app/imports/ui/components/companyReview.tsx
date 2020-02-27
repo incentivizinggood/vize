@@ -8,9 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import PopupModal from "imports/ui/components/popup-modal";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-
+import { withUser } from "imports/ui/hoc/user";
 import FlagSystem from "imports/ui/components/flag/flag";
 import { translations } from "imports/ui/translations";
 
@@ -236,7 +234,4 @@ function ReviewComponent(props) {
 	);
 }
 
-export default withTracker(props => ({
-	...props,
-	user: Meteor.user(),
-}))(ReviewComponent);
+export default withUser(ReviewComponent);
