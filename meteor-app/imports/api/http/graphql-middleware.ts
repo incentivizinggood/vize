@@ -9,7 +9,6 @@ export function applyGraphQLMiddleware(app: Express) {
 		typeDefs,
 		resolvers: resolvers as IResolvers,
 		context: async ({ req }) => {
-			console.log("user = ", req.user);
 			return {
 				// The user is provided by the PassportJS middleware.
 				user: req.user,
