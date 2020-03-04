@@ -154,7 +154,7 @@ export default function Footer() {
 						</ContactNumberLink>
 					</InternalLinks>
 					<SocialLinks>
-						Vize © 2019. <T.allRightsReserved />
+						Vize © 2020. <T.allRightsReserved />
 					</SocialLinks>
 				</LinksContainer>
 			</CopyRight>

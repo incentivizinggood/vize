@@ -184,7 +184,7 @@ export default {
 			pros: {
 				label: "Pros",
 				placeholder:
-					"What did you love about this company and why would you recommend it to someone else?",
+					"What did you love about this company and why would you recommend it to someone else? What are some of the benefits that this company offers?",
 			},
 			cons: {
 				label: "Cons",
@@ -214,7 +214,7 @@ export default {
 			additionalComments: {
 				label: "Additional Comments",
 				placeholder:
-					"Enter any additional thoughts or comments you may have on your experience working for this company.",
+					"Enter any additional thoughts or comments you may have on your experience working for this company. Do you have any advice for the management of the company?",
 			},
 			incomeType: {
 				label: "Income Type (in Pesos)",
