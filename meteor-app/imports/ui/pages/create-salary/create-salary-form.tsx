@@ -3,11 +3,10 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
+
 import PopupModal from "imports/ui/components/popup-modal";
 import RegisterLoginModal from "imports/ui/components/register-login-modal";
-import { withTracker } from "meteor/react-meteor-data";
-import { Meteor } from "meteor/meteor";
-
+import { withUser } from "imports/ui/hoc/user";
 import { CreateSalaryComponent as MutationCreateSalary } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
 
@@ -147,8 +146,4 @@ function CreateSalaryForm({ history, companyName, user }) {
 	);
 }
 
-export default withRouter(
-	withTracker(() => ({
-		user: Meteor.user(),
-	}))(CreateSalaryForm)
-);
+export default withRouter(withUser(CreateSalaryForm));
