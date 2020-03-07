@@ -2,12 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-import { Accounts } from "meteor/accounts-base";
-
+import { withUser } from "imports/ui/hoc/user";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import { translations } from "imports/ui/translations";
+import { changePassword } from "imports/ui/auth";
 
 const T = translations.legacyTranslationsNeedsRefactor.passwordChanger;
 
@@ -17,7 +15,7 @@ class PasswordChanger extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			error: Meteor.userId() !== null ? null : "Not logged in",
+			error: this.props.user !== null ? null : "Not logged in",
 			success: false,
 			oldPassword: "",
 			newPassword: "",
@@ -42,25 +40,32 @@ class PasswordChanger extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault(); // Prevent the default behavior for this event.
-		const callback = error => {
-			if (error) console.error(error);
-			this.setState({
-				error: error ? error.reason : null,
-				success: !error,
-			});
-		};
 
 		// Double check to avoid typos.
 		if (this.state.newPassword !== this.state.repeatNewPassword) {
-			callback({ reason: "New passwords do not match" });
+			this.setState({
+				error: "New passwords do not match",
+				success: false,
+			});
 			return;
 		}
 
-		Accounts.changePassword(
-			this.state.oldPassword,
-			this.state.newPassword,
-			callback
-		);
+		changePassword({
+			oldPassword: this.state.oldPassword,
+			newPassword: this.state.newPassword,
+		})
+			.then(() =>
+				this.setState({
+					error: null,
+					success: true,
+				})
+			)
+			.catch(error =>
+				this.setState({
+					error: error.error.errors,
+					success: false,
+				})
+			);
 	}
 
 	renderContent() {
@@ -71,7 +76,14 @@ class PasswordChanger extends React.Component {
 			>
 				{this.state.error ? (
 					<div>
-						<T.error renderer={t => t[this.state.error]} />
+						<T.error
+							renderer={t =>
+								// TODO: Some of the error messages,
+								// particularly ones from the server,
+								// will not be translated at the moment.
+								t[this.state.error] || this.state.error
+							}
+						/>
 					</div>
 				) : null}
 				<br />
@@ -209,6 +221,4 @@ class PasswordChanger extends React.Component {
 	}
 }
 
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(PasswordChanger);
+export default withUser(PasswordChanger);

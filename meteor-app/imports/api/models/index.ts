@@ -10,3 +10,4 @@ export * from "./mutations";
 
 export * from "./reward-wrote-a-review";
 export * from "./flags";
+export * from "./password";

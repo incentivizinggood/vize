@@ -11,7 +11,7 @@ export default {
 		rewardText2:
 			"Tu voz le ayudará a otros colaboradores encontrar un trabajo bueno, en Tijuana, con una fábrica que los respete",
 		findjob_text:
-			"No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea opiniones de otros empleados para encontrar el mejor trabajo para usted",
+			"No pierda el tiempo yendo de fábrica a fábrica, busque puestos de trabajo y lea evaluaciones de otros empleados para encontrar el mejor trabajo para usted",
 		jobsButton: "Trabajos",
 		findemp_title: (
 			<>
@@ -21,13 +21,13 @@ export default {
 			</>
 		),
 		findemp_text:
-			"Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. Las opiniones y calificaciones incentivan a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
+			"Vize te ayuda a identificar empleadores basados en diferentes industrias, tipos de trabajo y tamaños de empresas. Las evaluaciones y calificaciones incentivan a las empresas a crear ambientes de trabajo enriquecedores y condiciones de trabajo seguras.",
 		companiesButton: "Empresas",
 		hear: "Escuche de su ",
 		community: "comunidad",
 		hear_text:
-			"Consulte opiniones y valoraciones anónimas de empresas expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
-		add_review_button: "Agregar una Opinión",
+			"Consulte evaluaciones y valoraciones anónimas de empresas expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
+		add_review_button: "Agregar una Evaluación",
 		get_fair_salary: "Obtenga un salario",
 		your_work: "justo por su trabajo",
 		fairsalary_text:
@@ -80,7 +80,8 @@ export default {
 			placeholder: "Correo Electrónico",
 		},
 		createAccount: "Crear Cuenta",
-		registerOrLogin: "Regístrese o inicie sesión para escribir una opinión",
+		registerOrLogin:
+			"Regístrese o inicie una sesión para escribir una evaluación",
 		errors: {
 			usernameRequired: "Nombre de Usuario es un campo requerido",
 			usernameNotFound: "El nombre de usuario no se ha encontrado",
@@ -194,7 +195,7 @@ export default {
 			pros: {
 				label: "Ventajas",
 				placeholder:
-					"¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona?",
+					"¿Qué te gusta de esta empresa y por qué la recomendarías a otra persona? ¿Cuáles son algunas de las prestaciones que ofrece esta empresa?",
 			},
 			cons: {
 				label: "Limitaciones",
@@ -232,7 +233,7 @@ export default {
 			additionalComments: {
 				label: "Comentarios Adicionales",
 				placeholder:
-					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa.",
+					"Ingrese cualquier pensamiento o comentario adicional que pueda tener sobre su experiencia trabajando para esta empresa. ¿Tienes algún consejo para la gestión de la empresa?",
 			},
 			incomeType: {
 				label: "Tipo de Ingreso (en Pesos)",
@@ -259,7 +260,7 @@ export default {
 			},
 			reviewTitle: {
 				label: "Titulo de la revisión",
-				placeholder: "Por favor, elija un título para su opinión",
+				placeholder: "Por favor, elija un título para su evaluación",
 			},
 			location: {
 				label: "Localización",
@@ -417,7 +418,7 @@ export default {
 		workerEngagementDesc:
 			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. ¿Cómo se entera de lo que realmente quieren sus empleados para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación?",
 		workerEngagementArticle:
-			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas evaluaciones y darle una opinión directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
+			"Averiguar qué piensan y quieren sus empleados de su empresa puede ser muy difícil. Muchas veces tienen miedo de molestar a sus gerentes porque no quieren perder sus trabajos o ser castigados. En cambio, muchos empleados preferirían irse por una empresa diferente. Entonces, ¿cómo se entera de lo que sus empleados quieren para asegurarse de que permanezcan y no se conviertan en otra estadística de facturación? Nosotros en Vize queremos ayudar. Creamos una plataforma para que los empleados le digan qué es bueno y qué podría mejorarse en su fábrica. Puede leer sus calificaciones sobre diversos aspectos de su empresa, como salarios, beneficios, relación con el gerente y salud y seguridad. Con este conocimiento general, puede leer sus evaluaciones para obtener una comprensión más profunda de sus empleados. Si se contacta con el equipo de Vize, también podemos ayudarlo a analizar esas evaluaciones y darle una evaluación directa sobre las preocupaciones más profundas de sus empleados y cómo utilizar estas ideas para reducir la tasa de rotación. Si desea ponerse en contacto con el equipo de Vize, envíenos un correo electrónico a ",
 		AllianceTitle: "La Alianza Empresarial Responsable",
 		AllianceDesc:
 			"La Alianza Empresarial Responsable (RBA) es una asociación de empresas de la industria electrónica, minorista, automotriz y de juguetes que se han unido para mejorar las condiciones de sus empleados.",
@@ -455,7 +456,7 @@ export default {
 		reviewSubmitted: {
 			contributing: "¡Gracias por contribuir a su comunidad!",
 			reviewSubmitted:
-				"Su opinión se envió con éxito y ha sido agregada al perfil de la empresa.",
+				"Su evaluación se envió con éxito y ha sido agregada al perfil de la empresa.",
 			earnedReward: "¡Has ganado una recompensa!",
 			phoneFaiure: "Error: su número de teléfono ya ha sido registrado",
 			phoneSuccess:
@@ -566,7 +567,7 @@ export default {
 			explanation: "Por favor proporcione una explicación",
 			submit: "Enviar",
 			thanks: "Gracias! El mensaje fue enviado.",
-			report_review: "Reportar Opinión",
+			report_review: "Reportar Evaluación",
 		},
 		jobpostings: {
 			apply_now: "Aplica Ahora",
@@ -601,7 +602,7 @@ export default {
 			salaries_text: "No hay salarios para mostrar en este momento",
 			overview: "Resumen",
 			reviews: "Evaluaciones",
-			add_review: "Agregar una Opinión",
+			add_review: "Agregar una Evaluación",
 			see_all_reviews: "Ver Todas las Evaluaciones",
 			job_salaries: "Salario(s) de Trabajo(s)",
 			add_salary: "Agregar un Salario",
@@ -611,7 +612,7 @@ export default {
 		},
 		review_tab: {
 			reviews: "Evaluaciones",
-			add_review: "Agregar una Opinión",
+			add_review: "Agregar una Evaluación",
 		},
 		salary_tab: {
 			job_salaries: "Salario(s) de Trabajo(s)",
@@ -641,7 +642,7 @@ export default {
 			contact: "Contacto",
 			feel_free: "No dude en",
 			reach_us: "Comunícate con nosotros",
-			add_review: "Agregar una Opinión",
+			add_review: "Agregar una Evaluación",
 		},
 	},
 };

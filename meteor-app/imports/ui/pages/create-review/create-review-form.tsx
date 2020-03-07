@@ -3,11 +3,10 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
+
 import PopupModal from "imports/ui/components/popup-modal";
 import RegisterLoginModal from "imports/ui/components/register-login-modal";
-import { withTracker } from "meteor/react-meteor-data";
-import { Meteor } from "meteor/meteor";
-
+import { withUser } from "imports/ui/hoc/user";
 import { CreateReviewComponent as MutationCreateReview } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
 
@@ -186,8 +185,8 @@ function CreateReviewForm({ history, companyName, user }) {
 				history.push("/review-submitted");
 			})
 			.catch(errors => {
-				console.error(errors.message);
-				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
+				console.error("err: ", errors.message);
+				if (errors.message.includes("NOT_LOGGED_IN")) {
 					setContent(
 						<PopupModal isOpen={true}>
 							<RegisterLoginModal />
@@ -241,8 +240,4 @@ function CreateReviewForm({ history, companyName, user }) {
 	);
 }
 
-export default withRouter(
-	withTracker(() => ({
-		user: Meteor.user(),
-	}))(CreateReviewForm)
-);
+export default withRouter(withUser(CreateReviewForm));

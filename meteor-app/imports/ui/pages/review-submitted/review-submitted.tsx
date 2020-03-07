@@ -6,9 +6,7 @@ import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-
+import { withUser } from "imports/ui/hoc/user";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import { translations } from "imports/ui/translations";
 
@@ -135,9 +133,7 @@ class ReviewSubmitted extends React.Component {
 		);
 	}
 }
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(ReviewSubmitted);
+export default withUser(ReviewSubmitted);
 
 /*
 const Alert = ( function() {return (
