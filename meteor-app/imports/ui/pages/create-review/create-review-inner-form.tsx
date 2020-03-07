@@ -73,8 +73,8 @@ function InnerForm({ submissionError }) {
 						<option value="">(Seleccione una Opción)</option>
 						<option value="FULL_TIME">{t.fullTime}</option>
 						<option value="TEMPORARY">{t.temporary}</option>
-						<option value="INTERNSHIP">{t.internship}</option>
 						<option value="PART_TIME">{t.partTime}</option>
+						<option value="INTERNSHIP">{t.internship}</option>
 						<option value="CONTRACTOR">{t.contractor}</option>
 					</Field>
 				)}
