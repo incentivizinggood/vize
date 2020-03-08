@@ -2,12 +2,10 @@ import React from "react";
 import { Form } from "formik";
 import { SubmitButton } from "imports/ui/components/button";
 import styled from "styled-components";
+
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import FormGroup from "@material-ui/core/FormGroup";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
