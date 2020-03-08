@@ -11,6 +11,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import PrivacyIcon from "@material-ui/icons/Security";
 
 import {
 	Field,
@@ -126,7 +127,10 @@ function InnerForm({ submissionError }) {
 			<br />
 
 			<FormControl component="fieldset">
-				<FormLabel component="label">Estado de Empleo</FormLabel>
+				<span>
+					<PrivacyIcon />{" "}
+					<FormLabel component="label">Estado de Empleo</FormLabel>
+				</span>
 
 				<FormControlLabel
 					className={classes.formLabel}
@@ -134,7 +138,6 @@ function InnerForm({ submissionError }) {
 						<ToggleButtonGroup
 							value={currentFormer}
 							exclusive
-							aria-label="text alignment"
 							onChange={handleCurrentFormer}
 							classes={{
 								root: classes.toggleButtonGroup,
@@ -143,7 +146,7 @@ function InnerForm({ submissionError }) {
 						>
 							<ToggleButton
 								value="former"
-								aria-label="left aligned"
+								aria-label="ex"
 								classes={{
 									root: classes.toggleButton,
 									label: classes.toggleButtonLabel,
@@ -154,12 +157,12 @@ function InnerForm({ submissionError }) {
 							</ToggleButton>
 							<ToggleButton
 								value="current"
+								aria-label="actual"
 								classes={{
 									root: classes.toggleButton,
 									label: classes.toggleButtonLabel,
 									selected: classes.toggleButtonSelected,
 								}}
-								aria-label="actual"
 							>
 								Actual
 							</ToggleButton>
