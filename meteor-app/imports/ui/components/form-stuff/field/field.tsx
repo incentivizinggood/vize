@@ -6,6 +6,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
+import CurrentFormerToggle from "./toggle-button-field";
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
@@ -18,6 +19,9 @@ const FieldInner: React.ComponentType<any> = ({
 }) => {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
+	}
+	if (type === "currentFormerToggle") {
+		return <Formik.Field {...restProps} component={CurrentFormerToggle} />;
 	}
 	if (variant === "privacyTextField") {
 		return (

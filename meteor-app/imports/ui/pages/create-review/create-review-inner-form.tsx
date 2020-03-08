@@ -124,53 +124,12 @@ function InnerForm({ submissionError }) {
 			<br />
 			<br />
 
-			<FormControl component="fieldset">
-				<span>
-					<PrivacyIcon />{" "}
-					<FormLabel required component="label">
-						<T.fields.employmentStatus.label />
-					</FormLabel>
-				</span>
-
-				<FormControlLabel
-					className={classes.formLabel}
-					control={
-						<ToggleButtonGroup
-							value={currentFormer}
-							exclusive
-							onChange={handleCurrentFormer}
-							classes={{
-								root: classes.toggleButtonGroup,
-								label: classes.toggleButtonLabel,
-							}}
-						>
-							<ToggleButton
-								value="former"
-								aria-label="ex"
-								classes={{
-									root: classes.toggleButton,
-									label: classes.toggleButtonLabel,
-									selected: classes.toggleButtonSelected,
-								}}
-							>
-								<T.fields.employmentStatus.former />
-							</ToggleButton>
-							<ToggleButton
-								value="current"
-								aria-label="actual"
-								classes={{
-									root: classes.toggleButton,
-									label: classes.toggleButtonLabel,
-									selected: classes.toggleButtonSelected,
-								}}
-							>
-								<T.fields.employmentStatus.current />
-							</ToggleButton>
-						</ToggleButtonGroup>
-					}
-					label="Eres un empleado actual o un ex empleado?"
-				/>
-			</FormControl>
+			<Field
+				name="currentFormerEmployee"
+				type="currentFormerToggle"
+				variant="privacyTextField"
+				required
+			/>
 
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
