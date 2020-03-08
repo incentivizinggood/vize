@@ -2,6 +2,15 @@ import React from "react";
 import { Form } from "formik";
 import { SubmitButton } from "imports/ui/components/button";
 import styled from "styled-components";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import {
 	Field,
@@ -19,7 +28,40 @@ const FormDividerLine = styled.hr`
 	margin-right: -30px;
 `;
 
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		toggleButtonGroup: {
+			marginRight: "5px",
+		},
+		formLabel: {
+			marginLeft: "0px",
+			marginRight: "0px",
+			marginTop: "5px",
+		},
+		toggleButton: {
+			width: "80px",
+		},
+		toggleButtonLabel: {
+			fontWeight: "bold",
+			fontSize: "14px",
+		},
+		toggleButtonSelected: {
+			color: "white !important",
+			backgroundColor: "rgb(0,122,255) !important",
+		},
+	})
+);
+
 function InnerForm({ submissionError }) {
+	const [currentFormer, setCurrentFormer] = React.useState("former");
+	const classes = useStyles();
+
+	const handleCurrentFormer = (event, newStatus) => {
+		if (newStatus !== null) {
+			setCurrentFormer(newStatus);
+		}
+	};
+
 	return (
 		<Form noValidate>
 			<Field
@@ -79,6 +121,53 @@ function InnerForm({ submissionError }) {
 					</Field>
 				)}
 			/>
+
+			<br />
+			<br />
+
+			<FormControl component="fieldset">
+				<FormLabel component="label">Estado de Empleo</FormLabel>
+
+				<FormControlLabel
+					className={classes.formLabel}
+					control={
+						<ToggleButtonGroup
+							value={currentFormer}
+							exclusive
+							aria-label="text alignment"
+							onChange={handleCurrentFormer}
+							classes={{
+								root: classes.toggleButtonGroup,
+								label: classes.toggleButtonLabel,
+							}}
+						>
+							<ToggleButton
+								value="former"
+								aria-label="left aligned"
+								classes={{
+									root: classes.toggleButton,
+									label: classes.toggleButtonLabel,
+									selected: classes.toggleButtonSelected,
+								}}
+							>
+								Ex
+							</ToggleButton>
+							<ToggleButton
+								value="current"
+								classes={{
+									root: classes.toggleButton,
+									label: classes.toggleButtonLabel,
+									selected: classes.toggleButtonSelected,
+								}}
+								aria-label="actual"
+							>
+								Actual
+							</ToggleButton>
+						</ToggleButtonGroup>
+					}
+					label="Eres un empleado actual o un ex empleado?"
+				/>
+			</FormControl>
 
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
