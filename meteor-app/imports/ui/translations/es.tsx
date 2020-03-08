@@ -192,6 +192,11 @@ export default {
 			numberOfMonthsWorked: {
 				label: "Numero de meses trabajados",
 			},
+			employmentStatus: {
+				label: "Estado de Empleo",
+				former: "Ex",
+				current: "Actual",
+			},
 			pros: {
 				label: "Ventajas",
 				placeholder:

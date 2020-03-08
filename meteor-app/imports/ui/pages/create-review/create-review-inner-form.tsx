@@ -127,7 +127,9 @@ function InnerForm({ submissionError }) {
 			<FormControl component="fieldset">
 				<span>
 					<PrivacyIcon />{" "}
-					<FormLabel component="label">Estado de Empleo</FormLabel>
+					<FormLabel required component="label">
+						<T.fields.employmentStatus.label />
+					</FormLabel>
 				</span>
 
 				<FormControlLabel
@@ -151,7 +153,7 @@ function InnerForm({ submissionError }) {
 									selected: classes.toggleButtonSelected,
 								}}
 							>
-								Ex
+								<T.fields.employmentStatus.former />
 							</ToggleButton>
 							<ToggleButton
 								value="current"
@@ -162,7 +164,7 @@ function InnerForm({ submissionError }) {
 									selected: classes.toggleButtonSelected,
 								}}
 							>
-								Actual
+								<T.fields.employmentStatus.current />
 							</ToggleButton>
 						</ToggleButtonGroup>
 					}

@@ -189,6 +189,11 @@ export default {
 				temporary: "Temporary",
 				contractor: "Contractor",
 			},
+			employmentStatus: {
+				label: "Employment Status",
+				former: "Former",
+				current: "Current",
+			},
 			pros: {
 				label: "Pros",
 				placeholder:
