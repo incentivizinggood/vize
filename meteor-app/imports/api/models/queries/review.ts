@@ -20,6 +20,7 @@ const attributes = sql.raw(
 		'jobtitle AS "jobTitle"',
 		'nummonthsworked AS "numberOfMonthsWorked"',
 		'contracttype AS "contractType"',
+		'employmentstatus AS "employmentStatus"',
 		"pros",
 		"cons",
 		'wouldrecommend AS "wouldRecommend"',
@@ -65,7 +66,7 @@ export async function getAuthorOfReview(review: Review): Promise<User> {
 	const user = await getUserById(review.submittedBy);
 
 	if (user === null) {
-		throw new Error("REFERENCE_ANOMALY");
+		throw new Error("User not found");
 	}
 
 	return user;

@@ -64,6 +64,7 @@ input CreateReviewInput {
 	jobTitle: String!
 	numberOfMonthsWorked: Float!
 	contractType: ContractType!
+	employmentStatus: EmploymentStatus!
 	pros: String!
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!
@@ -98,6 +99,11 @@ enum ContractType {
 	INTERNSHIP
 	TEMPORARY
 	CONTRACTOR
+}
+
+enum EmploymentStatus {
+	FORMER
+	CURRENT
 }
 
 input CreateJobAdInput {

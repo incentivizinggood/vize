@@ -9,6 +9,7 @@ type CreateReviewInput = {
 	jobTitle: string;
 	numberOfMonthsWorked: number;
 	contractType: CreateReviewInput.ContractType;
+	employmentStatus: CreateReviewInput.EmploymentStatus;
 	pros: string;
 	cons: string;
 	wouldRecommendToOtherJobSeekers: boolean;
@@ -47,6 +48,10 @@ namespace CreateReviewInput {
 				"CONTRACTOR",
 			])
 			.required(),
+		employmentStatus: yup
+			.mixed()
+			.oneOf(["FORMER", "CURRENT"])
+			.required(),
 		pros: yup.string().required(),
 		cons: yup.string().required(),
 		wouldRecommendToOtherJobSeekers: yup.boolean().required(),
@@ -64,6 +69,8 @@ namespace CreateReviewInput {
 		| "INTERNSHIP"
 		| "TEMPORARY"
 		| "CONTRACTOR";
+
+	export type EmploymentStatus = "FORMER" | "CURRENT";
 }
 
 export default CreateReviewInput;

@@ -6,7 +6,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
-import CurrentFormerToggle from "./toggle-button-field";
+import ToggleButtonField from "./toggle-button-field";
+import ToggleButton from "./toggle-button";
+import RadioButtonsField from "./radio-buttons";
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
@@ -17,11 +19,20 @@ const FieldInner: React.ComponentType<any> = ({
 	variant,
 	...restProps
 }) => {
+	console.log("type", type);
+	console.log("props", restProps);
+
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
 	}
-	if (type === "currentFormerToggle") {
-		return <Formik.Field {...restProps} component={CurrentFormerToggle} />;
+	if (type === "employmentStatusToggle") {
+		return <Formik.Field {...restProps} component={ToggleButtonField} />;
+	}
+	if (type === "toggleButton") {
+		return <Formik.Field {...restProps} component={ToggleButton} />;
+	}
+	if (type === "radioButtonGroup") {
+		return <Formik.Field {...restProps} component={RadioButtonsField} />;
 	}
 	if (variant === "privacyTextField") {
 		return (

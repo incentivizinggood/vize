@@ -33,6 +33,8 @@ const RatingField = ({
 	const error = Formik.getIn(errors, name);
 	const hasError = Formik.getIn(touched, name) && error;
 
+	console.log("checking val", value);
+	console.log("checking name", name);
 	return (
 		<RatingContainer hasError={hasError}>
 			<RatingLayout>

@@ -17,6 +17,7 @@ mutation createReview(
 			}
 			numberOfMonthsWorked
 			contractType
+			employmentStatus
 			pros
 			cons
 			wouldRecommendToOtherJobSeekers

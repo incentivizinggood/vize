@@ -11,6 +11,11 @@ import FormLabel from "@material-ui/core/FormLabel";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import PrivacyIcon from "@material-ui/icons/Security";
 
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+
 import {
 	Field,
 	FormToolbar,
@@ -52,12 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function InnerForm({ submissionError }) {
-	const [currentFormer, setCurrentFormer] = React.useState("former");
+	const [employmentStatusState, setEmploymentStatus] = React.useState(
+		"FORMER"
+	);
 	const classes = useStyles();
 
-	const handleCurrentFormer = (event, newStatus) => {
+	const handleEmploymentStatus = (event, newStatus) => {
 		if (newStatus !== null) {
-			setCurrentFormer(newStatus);
+			setEmploymentStatus(newStatus);
 		}
 	};
 
@@ -123,13 +130,62 @@ function InnerForm({ submissionError }) {
 
 			<br />
 			<br />
-
+			{/*
 			<Field
-				name="currentFormerEmployee"
-				type="currentFormerToggle"
+				name="employmentStatus"
+				value="CURRENT"
+				type="employmentStatusToggle"
 				variant="privacyTextField"
 				required
 			/>
+			*/}
+
+			<Field
+				name="employmentStatus"
+				type="radioButtonGroup"
+				options={[
+					<FormControlLabel
+						value="FORMER"
+						control={<Radio />}
+						label="Former"
+					/>,
+					<FormControlLabel
+						value="CURRENT"
+						control={<Radio />}
+						label="Current"
+					/>,
+				]}
+			/>
+
+			{/*
+
+					<Field name="employmentStatus" type="radioButtonGroup" required />
+
+
+			<ToggleButtonGroup
+				value={employmentStatusState}
+				exclusive
+				onChange={handleEmploymentStatus}
+				classes={{
+					root: classes.toggleButtonGroup,
+				}}
+			>
+				<Field
+					type="toggleButton"
+					name="employmentStatus"
+					id="toggleEx"
+					label="Ex"
+					required
+				/>
+				<Field
+					type="toggleButton"
+					name="employmentStatus"
+					id="toggleActual"
+					label="Actual"
+					required
+				/>
+			</ToggleButtonGroup>
+*/}
 
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
