@@ -3,18 +3,8 @@ import { Form } from "formik";
 import { SubmitButton } from "imports/ui/components/button";
 import styled from "styled-components";
 
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import PrivacyIcon from "@material-ui/icons/Security";
-
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import {
 	Field,
@@ -32,42 +22,7 @@ const FormDividerLine = styled.hr`
 	margin-right: -30px;
 `;
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		toggleButtonGroup: {
-			marginRight: "5px",
-		},
-		formLabel: {
-			marginLeft: "0px",
-			marginRight: "0px",
-			marginTop: "5px",
-		},
-		toggleButton: {
-			width: "80px",
-		},
-		toggleButtonLabel: {
-			fontWeight: "bold",
-			fontSize: "14px",
-		},
-		toggleButtonSelected: {
-			color: "white !important",
-			backgroundColor: "rgb(0,122,255) !important",
-		},
-	})
-);
-
 function InnerForm({ submissionError }) {
-	const [employmentStatusState, setEmploymentStatus] = React.useState(
-		"FORMER"
-	);
-	const classes = useStyles();
-
-	const handleEmploymentStatus = (event, newStatus) => {
-		if (newStatus !== null) {
-			setEmploymentStatus(newStatus);
-		}
-	};
-
 	return (
 		<Form noValidate>
 			<Field
@@ -130,62 +85,28 @@ function InnerForm({ submissionError }) {
 
 			<br />
 			<br />
-			{/*
-			<Field
-				name="employmentStatus"
-				value="CURRENT"
-				type="employmentStatusToggle"
-				variant="privacyTextField"
-				required
+
+			<T.fields.employmentStatus
+				renderer={t => (
+					<Field
+						name="employmentStatus"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="FORMER"
+								control={<Radio />}
+								label={t.former}
+							/>,
+							<FormControlLabel
+								value="CURRENT"
+								control={<Radio />}
+								label={t.current}
+							/>,
+						]}
+					/>
+				)}
 			/>
-			*/}
-
-			<Field
-				name="employmentStatus"
-				type="radioButtonGroup"
-				options={[
-					<FormControlLabel
-						value="FORMER"
-						control={<Radio />}
-						label="Former"
-					/>,
-					<FormControlLabel
-						value="CURRENT"
-						control={<Radio />}
-						label="Current"
-					/>,
-				]}
-			/>
-
-			{/*
-
-					<Field name="employmentStatus" type="radioButtonGroup" required />
-
-
-			<ToggleButtonGroup
-				value={employmentStatusState}
-				exclusive
-				onChange={handleEmploymentStatus}
-				classes={{
-					root: classes.toggleButtonGroup,
-				}}
-			>
-				<Field
-					type="toggleButton"
-					name="employmentStatus"
-					id="toggleEx"
-					label="Ex"
-					required
-				/>
-				<Field
-					type="toggleButton"
-					name="employmentStatus"
-					id="toggleActual"
-					label="Actual"
-					required
-				/>
-			</ToggleButtonGroup>
-*/}
 
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
