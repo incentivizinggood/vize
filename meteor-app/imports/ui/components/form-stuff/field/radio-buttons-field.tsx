@@ -25,7 +25,9 @@ const RadioButtonsField = ({
 		<FormControl component="fieldset">
 			<span>
 				<PrivacyIcon /> {"  "}
-				<FormLabel component="label">{label}</FormLabel>
+				<FormLabel required component="label">
+					{label}
+				</FormLabel>
 			</span>
 			<RadioGroup {...props} {...field} name={field.name}>
 				{options.map(option => (
