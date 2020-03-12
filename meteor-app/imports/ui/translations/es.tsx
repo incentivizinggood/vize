@@ -194,7 +194,7 @@ export default {
 			},
 			employmentStatus: {
 				label: "Estado de Empleo",
-				former: "Ex",
+				former: "Ex empleado",
 				current: "Actual",
 			},
 			pros: {
