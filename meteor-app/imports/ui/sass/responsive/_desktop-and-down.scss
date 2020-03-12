@@ -120,17 +120,6 @@
 
 	a.toggle-only-display {
 		display: block !important;
-		height: 55px;
-		padding-top: 17px !important;
-		border-radius: 0px !important;
-		text-align: left;
-		margin-top: -15px;
-
-		&:hover,
-		&:focus,
-		&:active {
-			background: $secondary-color-red;
-		}
 	}
 
 	.navigation-only-display {

@@ -27,12 +27,12 @@ export default {
 		community: "comunidad",
 		hear_text:
 			"Consulte evaluaciones y valoraciones anónimas de empresas expedidas por personas en su Comunidad. Agregue valor a la comunidad al compartir su experiencia laboral.",
-		add_review_button: "Agregar una Evaluación",
+		add_review_button: "Agregar Evaluación",
 		get_fair_salary: "Obtenga un salario",
 		your_work: "justo por su trabajo",
 		fairsalary_text:
 			"Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
-		salary_button: "Agregar un Salario",
+		salary_button: "Agregar Salario",
 		discover_employers: "Comience a descubrir nuevos empleadores ahora",
 		signup_button: "Registrar",
 	},
@@ -41,6 +41,7 @@ export default {
 	},
 	header: {
 		companies: "Empresas",
+		write_review: "Agregar Evaluación",
 		jobs: "Trabajos",
 		resources: "Recursos",
 		my_company: "Mi Empresa",
@@ -592,21 +593,21 @@ export default {
 			salaries_text: "No hay salarios para mostrar en este momento",
 			overview: "Resumen",
 			reviews: "Evaluaciones",
-			add_review: "Agregar una Evaluación",
+			add_review: "Agregar Evaluación",
 			see_all_reviews: "Ver Todas las Evaluaciones",
 			job_salaries: "Salario(s) de Trabajo(s)",
-			add_salary: "Agregar un Salario",
+			add_salary: "Agregar Salario",
 			see_all_salaries: "Ver todos los Salarios",
 			see_all_jobs: "Ver Todos los Trabajos",
 			jobs_available: "Trabajo(s) Disponibles",
 		},
 		review_tab: {
 			reviews: "Evaluaciones",
-			add_review: "Agregar una Evaluación",
+			add_review: "Agregar Evaluación",
 		},
 		salary_tab: {
 			job_salaries: "Salario(s) de Trabajo(s)",
-			add_salary: "Agregar un Salario",
+			add_salary: "Agregar Salario",
 		},
 		showjob: {
 			apply_now: "Aplica Ahora",
@@ -632,7 +633,7 @@ export default {
 			contact: "Contacto",
 			feel_free: "No dude en",
 			reach_us: "Comunícate con nosotros",
-			add_review: "Agregar una Evaluación",
+			add_review: "Agregar Evaluación",
 		},
 	},
 };
