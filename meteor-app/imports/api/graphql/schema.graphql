@@ -247,6 +247,8 @@ type Review {
 	jobTitle: String!
 	location: Location!
 	numberOfMonthsWorked: Int!
+	contractType: String!
+	employmentStatus: String!
 	pros: String!
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!
