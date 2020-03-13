@@ -1,9 +1,14 @@
 #!/bin/bash
 
 
+# Stop this script if any command fails.
+set -e
+
 SETTINGS_FILE="$(realpath $1)"
+
 # Update the version info file.
 ./scripts/get-version-info.sh
+
 # Migrate the database with Flyway.
 sudo docker run \
     -v "$(pwd)/postgres/migrations:/flyway/sql" \
@@ -12,6 +17,7 @@ sudo docker run \
     -user=vize \
     -password="$(jq --raw-output '."galaxy.meteor.com".env.PGPASSWORD' $SETTINGS_FILE )" \
     migrate
+
 # Deploy the Meteor app to Galaxy.
 cd meteor-app
 DEPLOY_HOSTNAME=galaxy.meteor.com \
