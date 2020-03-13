@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+# Stop this script if any command fails.
+set -e
+
 # Install/update the project's dependencies.
 echo "Installing project root npm packages"
 yarn install --frozen-lockfile --ignore-engines
