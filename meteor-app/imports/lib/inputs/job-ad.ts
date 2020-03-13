@@ -23,14 +23,25 @@ namespace CreateJobAdInput {
 		pesosPerHour: yup.string().required(),
 		contractType: yup
 			.mixed()
-			.oneOf(["FULL_TIME", "PART_TIME", "CONTRACTOR"])
+			.oneOf([
+				"FULL_TIME",
+				"PART_TIME",
+				"INTERNSHIP",
+				"TEMPORARY",
+				"CONTRACTOR",
+			])
 			.required(),
 		jobDescription: yup.string().required(),
 		responsibilities: yup.string().required(),
 		qualifications: yup.string().required(),
 	});
 
-	export type ContractType = "FULL_TIME" | "PART_TIME" | "CONTRACTOR";
+	export type ContractType =
+		| "FULL_TIME"
+		| "PART_TIME"
+		| "INTERNSHIP"
+		| "TEMPORARY"
+		| "CONTRACTOR";
 }
 
 type CreateApplyToJobAdInput = {

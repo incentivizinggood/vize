@@ -192,6 +192,11 @@ export default {
 			numberOfMonthsWorked: {
 				label: "Numero de meses trabajados",
 			},
+			employmentStatus: {
+				label: "Estado de Empleo",
+				former: "Ex empleado",
+				current: "Actual",
+			},
 			pros: {
 				label: "Ventajas",
 				placeholder:
@@ -206,6 +211,14 @@ export default {
 				label: "Recomendaría a otros solicitantes de empleo",
 				yes: "Si",
 				no: "No",
+			},
+			contractType: {
+				label: "Tipo de Contrato",
+				fullTime: "Tiempo completo",
+				partTime: "Medio tiempo",
+				internship: "Prácticas (Pasantía)",
+				temporary: "Proyecto (Temporal)",
+				contractor: "Contratista",
 			},
 			healthAndSafety: {
 				label: "Salud y Beneficios",
@@ -331,6 +344,8 @@ export default {
 				label: "Tipo de Contrato",
 				fullTime: "Tiempo completo",
 				partTime: "Medio tiempo",
+				internship: "Prácticas (Pasantía)",
+				temporary: "Proyecto (Temporal)",
 				contractor: "Contratista",
 			},
 			jobDescription: {

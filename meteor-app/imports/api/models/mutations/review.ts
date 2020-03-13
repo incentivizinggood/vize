@@ -17,6 +17,8 @@ export async function createReview(
 		location,
 		jobTitle,
 		numberOfMonthsWorked,
+		contractType,
+		employmentStatus,
 		pros,
 		cons,
 		wouldRecommendToOtherJobSeekers,
@@ -67,6 +69,8 @@ export async function createReview(
 					reviewlocation,
 					jobtitle,
 					nummonthsworked,
+					contracttype,
+					employmentstatus,
 					pros,
 					cons,
 					wouldrecommend,
@@ -85,6 +89,8 @@ export async function createReview(
 					${location},
 					${jobTitle},
 					${numberOfMonthsWorked},
+					${contractType},
+					${employmentStatus},
 					${pros},
 					${cons},
 					${wouldRecommendToOtherJobSeekers},
@@ -111,6 +117,10 @@ export async function createReview(
 *Location:* ${location}
 
 *Number of months worked:* ${numberOfMonthsWorked}
+
+*Contract type:* ${contractType}
+
+*Employment Status:* ${employmentStatus}
 
 *Pros:* ${pros}
 

@@ -54,7 +54,9 @@ function InnerForm({ submissionError }) {
 				renderer={t => (
 					<Field name="contractType" select required label={t.label}>
 						<option value="FULL_TIME">{t.fullTime}</option>
+						<option value="TEMPORARY">{t.temporary}</option>
 						<option value="PART_TIME">{t.partTime}</option>
+						<option value="INTERNSHIP">{t.internship}</option>
 						<option value="CONTRACTOR">{t.contractor}</option>
 					</Field>
 				)}

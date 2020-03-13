@@ -31,6 +31,8 @@ const initialValues = {
 	},
 	jobTitle: "",
 	numberOfMonthsWorked: "",
+	contractType: "",
+	employmentStatus: "FORMER",
 	pros: "",
 	cons: "",
 	wouldRecommendToOtherJobSeekers: "",
@@ -88,6 +90,20 @@ const schema = yup.object().shape({
 		.number()
 		.min(0)
 		.required("Se requiere el numero de meses trabajados"),
+	contractType: yup
+		.mixed()
+		.oneOf([
+			"FULL_TIME",
+			"PART_TIME",
+			"INTERNSHIP",
+			"TEMPORARY",
+			"CONTRACTOR",
+		])
+		.required("Se requiere el tipo de contrato"),
+	employmentStatus: yup
+		.mixed()
+		.oneOf(["FORMER", "CURRENT"])
+		.required("Se requiere el estado de empleo"),
 	pros: proConSchema,
 	cons: proConSchema,
 	wouldRecommendToOtherJobSeekers: yup
@@ -125,6 +141,7 @@ function CreateReviewForm({ history, companyName, user }) {
 		values,
 		actions
 	) => {
+		console.log(values);
 		const reviewValues = {
 			companyName: values.companyName,
 			reviewTitle: values.reviewTitle,
@@ -135,6 +152,8 @@ function CreateReviewForm({ history, companyName, user }) {
 			},
 			jobTitle: values.jobTitle,
 			numberOfMonthsWorked: values.numberOfMonthsWorked,
+			contractType: values.contractType,
+			employmentStatus: values.employmentStatus,
 			pros: values.pros,
 			cons: values.cons,
 			wouldRecommendToOtherJobSeekers:

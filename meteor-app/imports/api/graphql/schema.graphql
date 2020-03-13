@@ -63,6 +63,8 @@ input CreateReviewInput {
 	location: LocationInput!
 	jobTitle: String!
 	numberOfMonthsWorked: Float!
+	contractType: ContractType!
+	employmentStatus: EmploymentStatus!
 	pros: String!
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!
@@ -94,7 +96,14 @@ type CreateSalaryPayload {
 enum ContractType {
 	FULL_TIME
 	PART_TIME
+	INTERNSHIP
+	TEMPORARY
 	CONTRACTOR
+}
+
+enum EmploymentStatus {
+	FORMER
+	CURRENT
 }
 
 input CreateJobAdInput {
@@ -238,6 +247,8 @@ type Review {
 	jobTitle: String!
 	location: Location!
 	numberOfMonthsWorked: Int!
+	contractType: String!
+	employmentStatus: String!
 	pros: String!
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!

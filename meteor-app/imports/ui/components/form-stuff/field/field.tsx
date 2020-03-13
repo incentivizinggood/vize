@@ -6,6 +6,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
+import RadioButtonsField from "./radio-buttons-field";
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
@@ -18,6 +19,9 @@ const FieldInner: React.ComponentType<any> = ({
 }) => {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
+	}
+	if (type === "radioButtons") {
+		return <Formik.Field {...restProps} component={RadioButtonsField} />;
 	}
 	if (variant === "privacyTextField") {
 		return (

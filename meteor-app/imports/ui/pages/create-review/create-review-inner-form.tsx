@@ -3,6 +3,9 @@ import { Form } from "formik";
 import { SubmitButton } from "imports/ui/components/button";
 import styled from "styled-components";
 
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+
 import {
 	Field,
 	FormToolbar,
@@ -59,6 +62,50 @@ function InnerForm({ submissionError }) {
 				variant="privacyTextField"
 				required
 				t={T.fields.numberOfMonthsWorked}
+			/>
+
+			<T.fields.contractType
+				renderer={t => (
+					<Field
+						name="contractType"
+						select
+						variant="privacyTextField"
+						required
+						label={t.label}
+					>
+						<option value="">(Seleccione una Opción)</option>
+						<option value="FULL_TIME">{t.fullTime}</option>
+						<option value="TEMPORARY">{t.temporary}</option>
+						<option value="PART_TIME">{t.partTime}</option>
+						<option value="INTERNSHIP">{t.internship}</option>
+						<option value="CONTRACTOR">{t.contractor}</option>
+					</Field>
+				)}
+			/>
+
+			<br />
+			<br />
+
+			<T.fields.employmentStatus
+				renderer={t => (
+					<Field
+						name="employmentStatus"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="FORMER"
+								control={<Radio />}
+								label={t.former}
+							/>,
+							<FormControlLabel
+								value="CURRENT"
+								control={<Radio />}
+								label={t.current}
+							/>,
+						]}
+					/>
+				)}
 			/>
 
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
