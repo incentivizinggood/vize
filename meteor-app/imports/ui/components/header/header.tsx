@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { forSize } from "imports/ui/responsive.js";
 
 import { withUser } from "imports/ui/hoc/user";
 import { translations } from "imports/ui/translations";
@@ -36,7 +38,7 @@ function AccountLink({ user }) {
 			<Link
 				to="/my-account"
 				type="button"
-				className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
+				className="toggle-only-display"
 			>
 				<T.myaccount />
 			</Link>
@@ -59,7 +61,7 @@ function AccountLink({ user }) {
 		<Link
 			to={urlGenerators.vizeLogin(userRole)}
 			type="button"
-			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+			className="toggle-only-display"
 		>
 			<span>
 				<T.signup_or_login />
@@ -163,10 +165,10 @@ function Header(props) {
 						id="bs-example-navbar-collapse-1"
 					>
 						<ul className="nav navbar-nav left_nav">
+							<NavLinks user={props.user} />
 							<li>
 								<AccountLink user={props.user} />
 							</li>
-							<NavLinks user={props.user} />
 						</ul>
 						<ul className="nav navbar-nav navbar-right">
 							<AccountSection user={props.user} />

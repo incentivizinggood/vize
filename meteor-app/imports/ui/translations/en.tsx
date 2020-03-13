@@ -42,6 +42,7 @@ export default {
 	},
 	header: {
 		companies: "Companies",
+		write_review: "Write Review",
 		jobs: "Jobs",
 		resources: "Resources",
 		my_company: "My Company",
