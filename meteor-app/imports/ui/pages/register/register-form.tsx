@@ -50,7 +50,7 @@ const onSubmit = history => (values, actions) => {
 			// there should be no redirect so that the user can stay on the write a review page
 			ReactGA.event({
 				category: "User",
-				action: "Created an Account",
+				action: "Created Account",
 			});
 			ReactPixel.track("Created Account", { category: "User" });
 			if (

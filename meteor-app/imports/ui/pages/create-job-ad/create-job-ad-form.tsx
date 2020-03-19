@@ -6,6 +6,8 @@ import { mapValues, map, omitBy, filter } from "lodash";
 
 import { CreateJobAdComponent as MutationCreateJobAd } from "imports/gen/graphql-operations";
 import { urlGenerators } from "imports/ui/pages/url-generators";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
 import InnerForm from "./create-job-ad-inner-form";
 
@@ -81,6 +83,13 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 			console.log("data", data);
 
 			actions.resetForm(initialValues);
+
+			// Track successful job posted event
+			ReactGA.event({
+				category: "Company",
+				action: "Job Posted",
+			});
+			ReactPixel.track("Job Posted", { category: "Company" });
 
 			// Go to the newly created jobAd's page.
 			history.push(

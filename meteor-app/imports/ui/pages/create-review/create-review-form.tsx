@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
 import PopupModal from "imports/ui/components/popup-modal";
 import RegisterLoginModal from "imports/ui/components/register-login-modal";
@@ -187,6 +189,13 @@ function CreateReviewForm({ history, companyName, user }) {
 		})
 			.then(({ data }) => {
 				actions.resetForm(initialValues);
+
+				// Track successful review written event
+				ReactGA.event({
+					category: "User",
+					action: "Review Submitted",
+				});
+				ReactPixel.track("Review Submitted", { category: "User" });
 
 				// Go to the review submitted page so that the user can claim their reward.
 				history.push("/review-submitted");

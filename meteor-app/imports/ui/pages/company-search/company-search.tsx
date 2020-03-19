@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
 import CompanySearchResult from "imports/ui/components/company-search-result";
@@ -27,6 +29,19 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
+			// Track successful search event
+			if (searchText !== "") {
+				ReactGA.event({
+					category: "User",
+					action: "Search",
+					label: searchText,
+				});
+				ReactPixel.track("Search", {
+					category: "User",
+					label: searchText,
+				});
+			}
+
 			const totalCompCount = data.searchCompanies.totalCount;
 
 			// searchCompanies is read-only, we do a
@@ -35,7 +50,6 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 			const resultList = data.searchCompanies.nodes.map(function(
 				company
 			) {
-				console.log(company);
 				return (
 					<CompanySearchResult key={company.id} company={company} />
 				);
