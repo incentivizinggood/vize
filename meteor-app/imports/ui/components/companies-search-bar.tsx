@@ -8,7 +8,15 @@ import { translations as T } from "imports/ui/translations";
 class CompaniesSearchBar extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { search: "" };
+
+		// Purpose of getting params is so that the search text field doesn't reset to being empty after a search
+		const params = new URLSearchParams(location.search);
+		let searchParams = params.get("search");
+		if (searchParams === null) {
+			searchParams = "";
+		}
+
+		this.state = { search: searchParams };
 
 		// These bindings are necessary to make `this` work in callbacks.
 		this.handleInputChange = this.handleInputChange.bind(this);
