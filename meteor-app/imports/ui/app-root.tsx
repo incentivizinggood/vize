@@ -16,9 +16,10 @@ const options = {
 	debug: true, // enable logs
 };
 
+// Don't run analytics if testing. If testing analytics, comment this out on local
 if (
-	document.location.hostname === "localhost" ||
-	document.location.hostname === "vize-staging-0.meteorapp.com"
+	document.location.hostname !== "localhost" &&
+	document.location.hostname !== "vize-staging-0.meteorapp.com"
 ) {
 	ReactGA.initialize("UA-119033355-1");
 	ReactPixel.init("812485162458693");
