@@ -225,7 +225,7 @@ export default {
 				label: "Salud y Beneficios",
 			},
 			managerRelationship: {
-				label: "Relaciones del Gerente",
+				label: "Relaciones con Supervisores",
 			},
 			workEnvironment: {
 				label: "Ambiente Laboral",
@@ -559,7 +559,7 @@ export default {
 			work_env: "Ambiente de Trabajo",
 			report: "Reportar",
 			benefits: "Beneficios",
-			manager_relation: "Relaciones del Gerente",
+			manager_relation: "Relaciones con Supervisores",
 			pros: "Ventajas",
 			cons: "Limitaciones",
 			additional_comments: "Comentarios Adicionales",
@@ -591,7 +591,7 @@ export default {
 			health_safety: "Salud y Seguiridad",
 			work_env: "Ambiente de Trabajo",
 			benefits: "Beneficios",
-			manager_relation: "Relaciones del Gerente",
+			manager_relation: "Relaciones con Supervisores",
 			recommend: "Recomendado",
 			average_num: "Numero promedio de",
 			months_worked: "meses trabajados",
