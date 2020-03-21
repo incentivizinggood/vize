@@ -116,12 +116,14 @@ export default function Footer() {
 					>
 						<SocialIcon src="/images/facebook.png" alt="Facebook" />
 					</a>
+					{/* Commenting until our twitter account is active
 					<a
 						href="https://www.twitter.com/vizeglobal"
 						target="_blank"
 					>
 						<SocialIcon src="/images/twitter.png" alt="Twitter" />
 					</a>
+					*/}
 					<a
 						href="https://www.instagram.com/incentivandoelbien/"
 						target="_blank"
