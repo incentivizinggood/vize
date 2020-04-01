@@ -28,6 +28,9 @@ export const Query: QueryResolvers = {
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 
+	article: (_obj, args, _context, _info) =>
+		dataModel.getArticleBySlug(args.id),
+
 	searchCompanies: (_obj, args, _context, _info) =>
 		dataModel.searchForCompanies(
 			args.searchText,

@@ -10,6 +10,8 @@ type Query {
 	user(id: ID!): User
 	vote(id: ID!): Vote
 
+	article(id: ID!): Article
+
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
@@ -187,6 +189,15 @@ type Comment {
 	children(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The votes cast on this comment."
 	votes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
+}
+
+type Article {
+	id: ID!
+
+	slug: String!
+	title: String!
+	body: String!
+	publishDate: DateTime!
 }
 
 type Company {

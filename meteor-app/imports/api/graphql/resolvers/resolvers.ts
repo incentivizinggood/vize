@@ -11,6 +11,7 @@ import { IResolvers } from "imports/gen/graphql-resolvers";
 
 import { Query } from "./query";
 import { Mutation } from "./mutation";
+import { Article } from "./article";
 import { CommentParent } from "./comment-parent";
 import { Comment } from "./comment";
 import { Company } from "./company";
@@ -24,6 +25,7 @@ import { Vote } from "./vote";
 export const resolvers: IResolvers = {
 	Query,
 	Mutation,
+	Article,
 	CommentParent,
 	Comment,
 	Company,

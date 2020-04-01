@@ -1,0 +1,10 @@
+query articlePage($id: ID!) {
+	article(id: $id) {
+		id
+
+		slug
+		title
+		body
+		publishDate
+	}
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
+import Article from "./article";
 import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
 import CreateSalary from "./create-salary";
@@ -57,6 +58,13 @@ function Pages(props) {
 			<Route path="/test" component={TestPage} />
 
 			<Route
+				path={`/${queryRoutes.article}`}
+				component={() => (
+					<Article slug={fixNullParams(params.get("slug"))} />
+				)}
+			/>
+
+			<Route
 				path={`/${queryRoutes.companies}`}
 				component={() => (
 					<CompanySearchTrial
@@ -64,6 +72,7 @@ function Pages(props) {
 					/>
 				)}
 			/>
+
 			<Route
 				path={`/${queryRoutes.companyProfile}`}
 				component={() => (

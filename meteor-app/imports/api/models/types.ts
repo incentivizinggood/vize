@@ -1,3 +1,10 @@
+export type Article = {
+	slug: string;
+	title: string;
+	body: string;
+	publishDate: Date;
+};
+
 export type VoteId =
 	| { subjectType: "comment"; refersTo: number; submittedBy: number }
 	| { subjectType: "review"; refersTo: number; submittedBy: number };

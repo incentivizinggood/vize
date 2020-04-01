@@ -1,3 +1,4 @@
+export * from "./article";
 export * from "./comment";
 export * from "./company";
 export * from "./job-ad";
