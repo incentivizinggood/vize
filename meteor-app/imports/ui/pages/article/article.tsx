@@ -1,5 +1,5 @@
 import React from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Query } from "react-apollo";
 
@@ -24,12 +24,8 @@ function Article({ title, body }: ArticleProps) {
 	);
 }
 
-type ArticleContainerProps = { slug: string };
-
-function ArticleContainer({ slug }: ArticleContainerProps) {
-	// We should use this instead of url query params,
-	// but we need to update react-router first.
-	// let { slug } = useParams();
+function ArticleContainer() {
+	let { slug } = useParams();
 
 	return (
 		<Query query={articlePageQuery} variables={{ id: slug }}>

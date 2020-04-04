@@ -57,12 +57,7 @@ function Pages(props) {
 			<Route path="/worker-resources" component={ResourcesWorkers} />
 			<Route path="/test" component={TestPage} />
 
-			<Route
-				path={`/${queryRoutes.article}`}
-				component={() => (
-					<Article slug={fixNullParams(params.get("slug"))} />
-				)}
-			/>
+			<Route path={`/article/:slug`} component={() => <Article />} />
 
 			<Route
 				path={`/${queryRoutes.companies}`}
