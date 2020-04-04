@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { Query } from "react-apollo";
+import { useQuery } from "react-apollo";
 
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
@@ -25,24 +25,24 @@ function Article({ title, body }: ArticleProps) {
 }
 
 function ArticleContainer() {
-	let { slug } = useParams();
+	const { slug } = useParams();
 
-	return (
-		<Query query={articlePageQuery} variables={{ id: slug }}>
-			{({ loading, error, data }) => {
-				console.log({ loading, error, data });
+	const { loading, error, data } = useQuery(articlePageQuery, {
+		variables: { id: slug },
+	});
 
-				if (loading) {
-					return <Spinner />;
-				}
-				if (error) {
-					return <>{JSON.stringify(error)}</>;
-				}
+	console.log({ loading, error, data });
 
-				return <Article {...data.article} />;
-			}}
-		</Query>
-	);
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		// TODO: Display errors in better way
+		return <>{JSON.stringify(error)}</>;
+	}
+
+	return <Article {...data.article} />;
 }
 
 export default ArticleContainer;
