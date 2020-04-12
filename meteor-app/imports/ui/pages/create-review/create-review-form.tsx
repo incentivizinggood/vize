@@ -45,7 +45,6 @@ const initialValues = {
 	incomeType: "",
 	incomeAmount: "",
 	gender: "",
-	referredBy: "",
 };
 
 const proConSchema = yup
@@ -130,7 +129,6 @@ const schema = yup.object().shape({
 		.number()
 		.min(0)
 		.required("Se requiere la cantidad de ingresos"),
-	referredBy: yup.string(),
 });
 
 interface CreateReviewFormProps extends RouteComponentProps<any> {
@@ -149,7 +147,6 @@ function CreateReviewForm({ history, companyName, user, referredBy }: CreateRevi
 		values,
 		actions
 	) => {
-		console.log(values);
 		const reviewValues = {
 			companyName: values.companyName,
 			reviewTitle: values.reviewTitle,

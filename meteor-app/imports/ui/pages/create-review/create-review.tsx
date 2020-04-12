@@ -18,6 +18,8 @@ interface CreateReviewPageProps {
 	referredBy?: string;
 }
 
+// companyName and referredBy are props that are passed down from pages.tsx.
+// Both of these props are optional url parameters
 function CreateReviewPage({ companyName, referredBy }: CreateReviewPageProps) {
 	return (
 		<FormPageWrapper title="Create Review">
