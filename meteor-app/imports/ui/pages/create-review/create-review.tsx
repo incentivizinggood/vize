@@ -15,9 +15,10 @@ const T = translations.createReview;
 
 interface CreateReviewPageProps {
 	companyName?: string;
+	referredBy?: string;
 }
 
-function CreateReviewPage({ companyName, referrer }: CreateReviewPageProps) {
+function CreateReviewPage({ companyName, referredBy }: CreateReviewPageProps) {
 	return (
 		<FormPageWrapper title="Create Review">
 			<FormHeader>
@@ -33,7 +34,7 @@ function CreateReviewPage({ companyName, referrer }: CreateReviewPageProps) {
 				<PrivacyIcon />
 				<T.formSubTitle3 />
 			</FormText>
-			<CreateReviewForm companyName={companyName} referrer={referrer} />
+			<CreateReviewForm companyName={companyName} referredBy={referredBy} />
 		</FormPageWrapper>
 	);
 }

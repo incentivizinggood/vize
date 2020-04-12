@@ -28,6 +28,7 @@ export async function createReview(
 		benefits,
 		overallSatisfaction,
 		additionalComments,
+		referredBy,
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
@@ -79,7 +80,8 @@ export async function createReview(
 					workenvironment,
 					benefits,
 					overallsatisfaction,
-					additionalcomments
+					additionalcomments,
+					referredby
 				)
 			VALUES
 				(
@@ -99,7 +101,8 @@ export async function createReview(
 					${workEnvironment},
 					${benefits},
 					${overallSatisfaction},
-					${additionalComments}
+					${additionalComments},
+					${referredBy}
 				)
 			RETURNING reviewid
 		`);
@@ -114,7 +117,7 @@ export async function createReview(
 
 *Job title:* ${jobTitle}
 
-*Location:* ${location}
+*City:* ${location.city}
 
 *Number of months worked:* ${numberOfMonthsWorked}
 
@@ -139,6 +142,8 @@ export async function createReview(
 *Overall satisfaction:* ${overallSatisfaction}
 
 *Additional comments:* ${additionalComments}
+
+*referredBy:* ${referredBy}
 		`);
 
 		return reviewid;
