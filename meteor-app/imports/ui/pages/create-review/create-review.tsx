@@ -17,7 +17,7 @@ interface CreateReviewPageProps {
 	companyName?: string;
 }
 
-function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
+function CreateReviewPage({ companyName, referrer }: CreateReviewPageProps) {
 	return (
 		<FormPageWrapper title="Create Review">
 			<FormHeader>
@@ -33,7 +33,7 @@ function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
 				<PrivacyIcon />
 				<T.formSubTitle3 />
 			</FormText>
-			<CreateReviewForm companyName={companyName} />
+			<CreateReviewForm companyName={companyName} referrer={referrer} />
 		</FormPageWrapper>
 	);
 }
