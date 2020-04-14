@@ -7,6 +7,8 @@ import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import CreateReviewInput from "imports/lib/inputs/review";
 
+type PhoneNumber = undefined | string;
+
 export async function createReview(
 	input: CreateReviewInput,
 	userId: number
@@ -32,6 +34,7 @@ export async function createReview(
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
+		var phoneNumber: PhoneNumber = undefined;
 		{
 			const {
 				rows: [{ role }],
@@ -56,6 +59,22 @@ export async function createReview(
 				throw new Error(
 					"No puedes escribir más de una evaluación para una empresa."
 				);
+			}
+		}
+		{
+			// check if phone number for user exists and if it does, use it for the slack hook
+			const {
+				rows: [{ count }],
+			} = await client.query(
+				sql`SELECT COUNT(user_id) FROM reward_wrote_a_review WHERE user_id=${userId}`
+			);
+			if (count == 1) {
+				const {
+					rows: [{ phone_number }],
+				} = await client.query(
+					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${userId}`
+				);
+				phoneNumber = phone_number;
 			}
 		}
 
@@ -144,6 +163,8 @@ export async function createReview(
 *Additional comments:* ${additionalComments}
 
 *referredBy:* ${referredBy}
+
+*phoneNumber:* ${phoneNumber}
 		`);
 
 		return reviewid;

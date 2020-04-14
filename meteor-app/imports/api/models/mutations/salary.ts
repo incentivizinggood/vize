@@ -74,19 +74,6 @@ export async function createSalary(
 			RETURNING salaryid
 		`);
 
-		// Since salary can only be created from review form,
-		// only post income type and income amount since other info is redundant
-		// TODO: add other fields to be posted on slack
-
-		postToSlack(`The user with ID \`${userId}\` posted a salary.
-
-*Salary ID:* ${salaryid}
-
-*Income Type:* ${incomeType}
-
-*Income Amount:* ${incomeAmount}
-		`);
-
 		return salaryid;
 	};
 
