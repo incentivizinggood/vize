@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
 import Article from "./article";
+import ArticleIndex from "./article-index";
 import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
 import CreateSalary from "./create-salary";
@@ -58,6 +59,7 @@ function Pages(props) {
 			<Route path="/test" component={TestPage} />
 
 			<Route path={`/article/:slug`} component={() => <Article />} />
+			<Route path={`/article/`} component={() => <ArticleIndex />} />
 
 			<Route
 				path={`/${queryRoutes.companies}`}

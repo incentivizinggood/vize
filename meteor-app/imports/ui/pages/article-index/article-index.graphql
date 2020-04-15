@@ -1,0 +1,11 @@
+query articleIndexPage($currentPageNum: Int!) {
+	searchArticles(pageNum: $currentPageNum) {
+		totalCount
+		nodes {
+			id
+			slug
+			title
+			publishDate
+		}
+	}
+}

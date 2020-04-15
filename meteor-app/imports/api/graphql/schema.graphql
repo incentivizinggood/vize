@@ -12,6 +12,12 @@ type Query {
 
 	article(id: ID!): Article
 
+	searchArticles(
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 5
+	): ArticleConnection!
+
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
@@ -143,6 +149,11 @@ input CastVoteInput {
 
 type CastVotePayload {
 	vote: Vote
+}
+
+type ArticleConnection {
+	nodes: [Article!]!
+	totalCount: Int!
 }
 
 type CompanyConnection {
