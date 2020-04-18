@@ -28,6 +28,7 @@ import {
 } from "react-share";
 
 const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
+const TLogin = translations.loginRegister;
 
 const REWARD_DATA_SUBMISSION = gql`
 	mutation RewardDataSubmission(
@@ -181,13 +182,15 @@ function ReviewSubmitted({ user }) {
 				}}
 			>
 				<br />
-				<h3>You must be logged in to use this page. </h3>
+				<h3>
+					<TLogin.mustBeLoggedIn />
+				</h3>
 				<br />
 				<Link
 					className="btn btn-primary"
 					to={urlGenerators.vizeLogin("worker")}
 				>
-					Log In
+					Iniciar Sesión
 				</Link>
 				<br />
 			</div>
@@ -195,7 +198,7 @@ function ReviewSubmitted({ user }) {
 	}
 
 	return (
-		<PageWrapper title="Rewards">
+		<PageWrapper title="Recompensa">
 			<RewardSection>{content}</RewardSection>
 		</PageWrapper>
 	);

@@ -83,6 +83,7 @@ export default {
 		createAccount: "Crear Cuenta",
 		registerOrLogin:
 			"Regístrese o inicie una sesión para escribir una evaluación",
+		mustBeLoggedIn: "Debes de iniciar una sesión para ver esta página.",
 		errors: {
 			usernameRequired: "Nombre de Usuario es un campo requerido",
 			usernameNotFound: "El nombre de usuario no se ha encontrado",
@@ -464,8 +465,10 @@ export default {
 			reviewSubmitted:
 				"Tu evaluación se envió con éxito y ha sido agregada al perfil de la empresa.",
 			earnedReward: "¡Has ganado una recompensa!",
-			reachingOutSoon: "Nos comunicaremos contigo dentro de las próximas 24 horas",
-			referralOffer: "Por un tiempo limitado, también estamos ofreciendo $50 pesos por cada persona que refieras. Comparte este enlace con tus conocidos y por cada persona que escriba una evaluación usando este enlace, te enviaremos $50 pesos",
+			reachingOutSoon:
+				"Nos comunicaremos contigo dentro de las próximas 24 horas",
+			referralOffer:
+				"Por un tiempo limitado, también estamos ofreciendo $50 pesos por cada persona que refieras. Comparte este enlace con tus conocidos y por cada persona que escriba una evaluación usando este enlace, te enviaremos $50 pesos",
 			phoneFaiure: "Error: tu número de teléfono ya ha sido registrado",
 			phoneSuccess:
 				"Tu número de teléfono ha sido registrado exitosamente",
