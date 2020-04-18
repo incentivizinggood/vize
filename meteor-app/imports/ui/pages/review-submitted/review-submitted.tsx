@@ -14,6 +14,18 @@ import { translations } from "imports/ui/translations";
 
 import RewardsComponent from "./rewardsComponent";
 import rewardsEligibility from "./rewards-eligibility.graphql";
+import { WriteReviewButton } from "imports/ui/components/button";
+
+import {
+	EmailShareButton,
+	FacebookShareButton,
+	TwitterShareButton,
+	WhatsappShareButton,
+	EmailIcon,
+	FacebookIcon,
+	TwitterIcon,
+	WhatsappIcon,
+} from "react-share";
 
 const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
 
@@ -58,15 +70,20 @@ const RewardSection = styled.div`
 	}
 `;
 
-function ReviewSubmitted({ user }){
+const personalReferralMessage =
+	"Hola que tal! Te quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. \n\nEn este momento, están ofreciendo $100 pesos por escribir una evaluación y $60 por cada evaluación adicional. Si puede ser útil el dinero para ti y te interesa ayudarle a otros trabajadores encontrar un empleo mejor, te invito a participar. \r\n\r\nEl dinero se te deposita en una cuenta de PayPal o con tu número celular por Swap. \nPuedes llenar la encuesta aquí:";
 
-	const [copySuccess, setCopySuccess] = React.useState('');
-  	const textAreaRef = React.useRef(null);
+const publicReferralMessage =
+	"Hola, les quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. \n\nEn este momento, están ofreciendo $100 pesos por escribir una evaluación y $60 por cada evaluación adicional. Si puede ser útil el dinero para ti y te interesa ayudarle a otros trabajadores encontrar un empleo mejor, te invito a participar. \r\n\r\nEl dinero se te deposita en una cuenta de PayPal o con tu número celular por Swap. \nPuedes llenar la encuesta aquí:";
+
+function ReviewSubmitted({ user }) {
+	const [copySuccess, setCopySuccess] = React.useState("");
+	const textAreaRef = React.useRef(null);
 
 	function copyToClipboard(text: string) {
-	    navigator.clipboard.writeText(text)
-	    setCopySuccess('Copiado!');
-	  };
+		navigator.clipboard.writeText(text);
+		setCopySuccess("Copiado!");
+	}
 
 	function changeReviewStatusState() {
 		// reload the page when a phone number is successfully inputed to claim a Reward
@@ -96,14 +113,41 @@ function ReviewSubmitted({ user }){
 					<T.referralOffer />
 				</p>
 				<p>
-					<button onClick={() => copyToClipboard(referralLink)}>{ClipboardStatusIcon}</button>
+					<button onClick={() => copyToClipboard(referralLink)}>
+						{ClipboardStatusIcon}
+					</button>
 					<button onClick={() => copyToClipboard(referralLink)}>
 						<a ref={textAreaRef} value={referralLink}>
 							<strong>{referralLink}</strong>
 						</a>
 					</button>
-          			{copySuccess}
+					{copySuccess}
 				</p>
+
+				<br />
+
+				<div className="div-centered-elements">
+					<WhatsappShareButton
+						url={referralLink}
+						title={personalReferralMessage}
+					>
+						<WhatsappIcon size={48} round={true} />
+					</WhatsappShareButton>
+					{"    "}
+					<FacebookShareButton
+						url={referralLink}
+						quote={publicReferralMessage}
+						hashtag="#incentivandoelbien"
+					>
+						<FacebookIcon size={48} round={true} />
+					</FacebookShareButton>
+				</div>
+
+				<br />
+
+				<div className="div-centered-elements">
+					<WriteReviewButton />
+				</div>
 
 				<Query query={rewardsEligibility}>
 					{({ loading, error, data }) => {
@@ -155,6 +199,5 @@ function ReviewSubmitted({ user }){
 			<RewardSection>{content}</RewardSection>
 		</PageWrapper>
 	);
-
 }
 export default withUser(ReviewSubmitted);

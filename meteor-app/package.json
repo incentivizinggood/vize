@@ -51,6 +51,7 @@
     "react-phone-number-input": "^2.3.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-share": "^4.1.0",
     "react-star-ratings": "^2.3.0",
     "reactjs-popup": "^1.4.1",
     "request-promise-native": "^1.0.7",
