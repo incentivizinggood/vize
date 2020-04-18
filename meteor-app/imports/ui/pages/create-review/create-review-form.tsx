@@ -9,7 +9,7 @@ import RegisterLoginModal from "imports/ui/components/register-login-modal";
 import { withUser } from "imports/ui/hoc/user";
 import { CreateReviewComponent as MutationCreateReview } from "imports/gen/graphql-operations";
 import * as schemas from "imports/ui/form-schemas";
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from "react-router-dom";
 import InnerForm from "./create-review-inner-form";
 
 function omitEmptyStrings(x) {
@@ -49,11 +49,11 @@ const initialValues = {
 
 const proConSchema = yup
 	.string()
-	.test("five-word-min", "Se requiere al menos cinco palabras", value => {
+	.test("eight-word-min", "Se requiere al menos ocho palabras", value => {
 		const isString =
 			value && (typeof value === "string" || value instanceof String);
 		const wordCount = isString ? value.split(/\s+\b/).length : 0;
-		return wordCount >= 5;
+		return wordCount >= 8;
 	})
 	.required("Se requieren las ventajas/limitaciones");
 
@@ -139,7 +139,12 @@ interface CreateReviewFormProps extends RouteComponentProps<any> {
 
 // TODO: Check if user has already added a salary so that there is no error in submitting a review
 // You would just need to write a query to see if the user has written a salary already and if so only call the createReview mutation
-function CreateReviewForm({ history, companyName, user, referredBy }: CreateReviewFormProps) {
+function CreateReviewForm({
+	history,
+	companyName,
+	user,
+	referredBy,
+}: CreateReviewFormProps) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);
 
