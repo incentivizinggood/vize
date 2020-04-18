@@ -5,6 +5,8 @@ import { Query } from "react-apollo";
 import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
+import ClipboardIcon from "@material-ui/icons/Assignment";
+import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
 
 import { withUser } from "imports/ui/hoc/user";
 import PageWrapper from "imports/ui/components/page-wrapper";
@@ -56,21 +58,29 @@ const RewardSection = styled.div`
 	}
 `;
 
-class ReviewSubmitted extends React.Component {
-	constructor(props) {
-		super(props);
+function ReviewSubmitted({ user }){
 
-		this.changeReviewStatusState = this.changeReviewStatusState.bind(this);
-	}
+	const [copySuccess, setCopySuccess] = React.useState('');
+  	const textAreaRef = React.useRef(null);
 
-	changeReviewStatusState() {
+	function copyToClipboard(text: string) {
+	    navigator.clipboard.writeText(text)
+	    setCopySuccess('Copiado!');
+	  };
+
+	function changeReviewStatusState() {
 		// reload the page when a phone number is successfully inputed to claim a Reward
 		// this is done because the reward status query does not get update until the
 		// page is refreshed
 		window.location.reload();
 	}
 
-	renderContent() {
+	function renderContent() {
+		const referralLink: string = "https://www.vize.mx/?ref=" + user.id;
+		let ClipboardStatusIcon = <ClipboardIcon />;
+		if (copySuccess === "Copiado!") {
+			ClipboardStatusIcon = <ClipboardCopiedIcon />;
+		}
 		return (
 			<div className="col-md-12">
 				<h2 className="text-center">
@@ -79,6 +89,21 @@ class ReviewSubmitted extends React.Component {
 				<p>
 					<T.reviewSubmitted />
 				</p>
+				<p>
+					<T.reachingOutSoon />
+				</p>
+				<p>
+					<T.referralOffer />
+				</p>
+				<p>
+					<button onClick={() => copyToClipboard(referralLink)}>{ClipboardStatusIcon}</button>
+					<button onClick={() => copyToClipboard(referralLink)}>
+						<a ref={textAreaRef} value={referralLink}>
+							<strong>{referralLink}</strong>
+						</a>
+					</button>
+          			{copySuccess}
+				</p>
 
 				<Query query={rewardsEligibility}>
 					{({ loading, error, data }) => {
@@ -86,7 +111,7 @@ class ReviewSubmitted extends React.Component {
 							if (data.wroteAReview === "CAN_CLAIM") {
 								return (
 									<RewardsComponent
-										action={this.changeReviewStatusState}
+										action={changeReviewStatusState}
 									/>
 								);
 							}
@@ -98,82 +123,38 @@ class ReviewSubmitted extends React.Component {
 		);
 	}
 
-	render() {
-		let content = null; // 				<RewardSection>{content}</RewardSection>
-
-		if (this.props.user) {
-			content = this.renderContent();
-		} else {
-			content = (
-				<div
-					style={{
-						width: "80%",
-						margin: "0 auto",
-						backgroundColor: "white",
-					}}
+	let content = null; // 				<RewardSection>{content}</RewardSection>
+	console.log("user", user);
+	if (user) {
+		content = renderContent();
+	} else {
+		content = (
+			<div
+				style={{
+					width: "80%",
+					margin: "0 auto",
+					backgroundColor: "white",
+				}}
+			>
+				<br />
+				<h3>You must be logged in to use this page. </h3>
+				<br />
+				<Link
+					className="btn btn-primary"
+					to={urlGenerators.vizeLogin("worker")}
 				>
-					<br />
-					<h3>You must be logged in to use this page. </h3>
-					<br />
-					<Link
-						className="btn btn-primary"
-						to={urlGenerators.vizeLogin("worker")}
-					>
-						Log In
-					</Link>
-					<br />
-				</div>
-			);
-		}
-
-		return (
-			<PageWrapper title="Rewards">
-				<RewardSection>{content}</RewardSection>
-			</PageWrapper>
+					Log In
+				</Link>
+				<br />
+			</div>
 		);
 	}
+
+	return (
+		<PageWrapper title="Rewards">
+			<RewardSection>{content}</RewardSection>
+		</PageWrapper>
+	);
+
 }
 export default withUser(ReviewSubmitted);
-
-/*
-const Alert = ( function() {return (
-	<div className="container alert-container">
-		<div className="row">
-			<div className="col-sm" />
-			<div className="col-8">
-				<MDBContainer>
-					<MDBAlert color="success">
-						<h4 className="alert-heading">
-							<T.phoneSuccess/>
-						</h4>
-						<p>
-							<T.phoneSuccess2/>
-						</p>
-					</MDBAlert>
-				</MDBContainer>
-			</div>
-			<div className="col-sm" />
-		</div>
-	</div>
-);}) ();
-	return (
-		<div className="container alert-container">
-			<div className="row">
-				<div className="col-sm" />
-				<div className="col-8">
-					<MDBContainer>
-						<MDBAlert color="success">
-							<h4 className="alert-heading">
-								<T.phoneSuccess/>
-							</h4>
-							<p>
-								<T.phoneSuccess2/>
-							</p>
-						</MDBAlert>
-					</MDBContainer>
-				</div>
-				<div className="col-sm" />
-			</div>
-		</div>
-	);
-); */
