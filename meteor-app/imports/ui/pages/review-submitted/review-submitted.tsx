@@ -107,52 +107,83 @@ function ReviewSubmitted({ user }) {
 				<p>
 					<T.reviewSubmitted />
 				</p>
-				<p>
-					<T.reachingOutSoon />
-				</p>
-				<p>
-					<T.referralOffer />
-				</p>
-				<p>
-					<button onClick={() => copyToClipboard(referralLink)}>
-						{ClipboardStatusIcon}
-					</button>
-					<button onClick={() => copyToClipboard(referralLink)}>
-						<a ref={textAreaRef} value={referralLink}>
-							<strong>{referralLink}</strong>
-						</a>
-					</button>
-					{copySuccess}
-				</p>
-
-				<br />
-
-				<div className="div-centered-elements">
-					<WhatsappShareButton
-						url={referralLink}
-						title={personalReferralMessage}
-					>
-						<WhatsappIcon size={48} round={true} />
-					</WhatsappShareButton>
-					{"    "}
-					<FacebookShareButton
-						url={referralLink}
-						quote={publicReferralMessage}
-						hashtag="#incentivandoelbien"
-					>
-						<FacebookIcon size={48} round={true} />
-					</FacebookShareButton>
-				</div>
-
-				<br />
-
-				<div className="div-centered-elements">
-					<WriteReviewButton />
-				</div>
 
 				<Query query={rewardsEligibility}>
 					{({ loading, error, data }) => {
 						if (data) {
+							if (data.wroteAReview === "CLAIMED") {
+								// I should turn this into a component but it will be deleted soon after we no longer give rewards so I am being lazy
+								return (
+									<React.Fragment>
+										<p>
+											<T.reachingOutSoon />
+										</p>
+										<p>
+											<T.referralOffer />
+										</p>
+										<p>
+											<button
+												onClick={() =>
+													copyToClipboard(
+														referralLink
+													)
+												}
+											>
+												{ClipboardStatusIcon}
+											</button>
+											<button
+												onClick={() =>
+													copyToClipboard(
+														referralLink
+													)
+												}
+											>
+												<a
+													ref={textAreaRef}
+													value={referralLink}
+												>
+													<strong>
+														{referralLink}
+													</strong>
+												</a>
+											</button>
+											{copySuccess}
+										</p>
+
+										<br />
+
+										<div className="div-centered-elements">
+											<WhatsappShareButton
+												url={referralLink}
+												title={personalReferralMessage}
+											>
+												<WhatsappIcon
+													size={48}
+													round={true}
+												/>
+											</WhatsappShareButton>
+											{"    "}
+											<FacebookShareButton
+												url={referralLink}
+												quote={publicReferralMessage}
+												hashtag="#incentivandoelbien"
+											>
+												<FacebookIcon
+													size={48}
+													round={true}
+												/>
+											</FacebookShareButton>
+										</div>
+
+										<br />
+
+										<div className="div-centered-elements">
+											<WriteReviewButton />
+										</div>
+									</React.Fragment>
+								);
+							}
+
 							if (data.wroteAReview === "CAN_CLAIM") {
 								return (
 									<RewardsComponent
