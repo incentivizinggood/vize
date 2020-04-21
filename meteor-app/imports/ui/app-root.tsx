@@ -8,18 +8,27 @@ import ScrollRestoration from "./components/scroll-restoration";
 import Pages from "./pages";
 import theme from "./theme";
 import { LocaleProvider } from "./startup/i18n";
-import ReactPixel from 'react-facebook-pixel';
-import ReactGA from 'react-ga';
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
-ReactGA.initialize(process.env.GA);
+const options = {
+	autoConfig: true, // set pixel's autoConfig
+	debug: true, // enable logs
+};
+
+// Don't run analytics if testing. If testing analytics, comment this out on local
+if (
+	document.location.hostname !== "localhost" &&
+	document.location.hostname !== "vize-staging-0.meteorapp.com"
+) {
+	ReactGA.initialize("UA-119033355-1");
+	ReactPixel.init("812485162458693");
+}
 
 function AppRoot(props) {
-	const options = {
-	    autoConfig: true, 	// set pixel's autoConfig
-	    debug: false, 		// enable logs
-	};
-	ReactPixel.init(process.env.FBPIXEL, options);
 	ReactPixel.pageView();
+	ReactGA.pageview(window.location.pathname + window.location.search);
+
 	return (
 		<LocaleProvider>
 			<ApolloProvider client={props.apolloClient}>
