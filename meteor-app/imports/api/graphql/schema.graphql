@@ -270,8 +270,6 @@ type Review {
 	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The vote that the currently logged in user cast on this review."
 	currentUserVote: Vote
-	"The id of the user that referred the user that wrote this review."
-	referredBy: String
 }
 
 enum IncomeType {
