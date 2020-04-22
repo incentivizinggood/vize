@@ -22,6 +22,7 @@ mutation createReview(
 			cons
 			wouldRecommendToOtherJobSeekers
 			additionalComments
+			referredBy
 			created
 			upvotes
 			downvotes

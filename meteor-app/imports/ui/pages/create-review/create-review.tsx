@@ -15,9 +15,12 @@ const T = translations.createReview;
 
 interface CreateReviewPageProps {
 	companyName?: string;
+	referredBy?: string;
 }
 
-function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
+// companyName and referredBy are props that are passed down from pages.tsx.
+// Both of these props are optional url parameters
+function CreateReviewPage({ companyName, referredBy }: CreateReviewPageProps) {
 	return (
 		<FormPageWrapper title="Create Review">
 			<FormHeader>
@@ -33,7 +36,7 @@ function CreateReviewPage({ companyName, user }: CreateReviewPageProps) {
 				<PrivacyIcon />
 				<T.formSubTitle3 />
 			</FormText>
-			<CreateReviewForm companyName={companyName} />
+			<CreateReviewForm companyName={companyName} referredBy={referredBy} />
 		</FormPageWrapper>
 	);
 }

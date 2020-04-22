@@ -78,6 +78,7 @@ function Pages(props) {
 				component={() => (
 					<CreateReview
 						companyName={fixNullParams(params.get("companyname"))}
+						referredBy={fixNullParams(params.get("ref"))}
 					/>
 				)}
 			/>

@@ -7,6 +7,8 @@ import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import CreateReviewInput from "imports/lib/inputs/review";
 
+type PhoneNumber = undefined | string;
+
 export async function createReview(
 	input: CreateReviewInput,
 	userId: number
@@ -28,9 +30,11 @@ export async function createReview(
 		benefits,
 		overallSatisfaction,
 		additionalComments,
+		referredBy,
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
+		var phoneNumber: PhoneNumber = undefined;
 		{
 			const {
 				rows: [{ role }],
@@ -57,6 +61,22 @@ export async function createReview(
 				);
 			}
 		}
+		{
+			// check if phone number for user exists and if it does, use it for the slack hook
+			const {
+				rows: [{ count }],
+			} = await client.query(
+				sql`SELECT COUNT(user_id) FROM reward_wrote_a_review WHERE user_id=${userId}`
+			);
+			if (count == 1) {
+				const {
+					rows: [{ phone_number }],
+				} = await client.query(
+					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${userId}`
+				);
+				phoneNumber = phone_number;
+			}
+		}
 
 		const {
 			rows: [{ reviewid }],
@@ -79,7 +99,8 @@ export async function createReview(
 					workenvironment,
 					benefits,
 					overallsatisfaction,
-					additionalcomments
+					additionalcomments,
+					referredby
 				)
 			VALUES
 				(
@@ -99,7 +120,8 @@ export async function createReview(
 					${workEnvironment},
 					${benefits},
 					${overallSatisfaction},
-					${additionalComments}
+					${additionalComments},
+					${referredBy}
 				)
 			RETURNING reviewid
 		`);
@@ -114,7 +136,7 @@ export async function createReview(
 
 *Job title:* ${jobTitle}
 
-*Location:* ${location}
+*City:* ${location.city}
 
 *Number of months worked:* ${numberOfMonthsWorked}
 
@@ -139,6 +161,10 @@ export async function createReview(
 *Overall satisfaction:* ${overallSatisfaction}
 
 *Additional comments:* ${additionalComments}
+
+*referredBy:* ${referredBy}
+
+*phoneNumber:* ${phoneNumber}
 		`);
 
 		return reviewid;

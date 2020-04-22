@@ -33,6 +33,7 @@ const attributes = sql.raw(
 		'dateadded AS "dateAdded"',
 		"upvotes",
 		"downvotes",
+		'referredby AS "referredBy"',
 	].join(", ")
 );
 

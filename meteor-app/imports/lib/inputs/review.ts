@@ -19,6 +19,7 @@ type CreateReviewInput = {
 	benefits: number;
 	overallSatisfaction: number;
 	additionalComments?: string | null;
+	referredBy?: string | null;
 };
 
 namespace CreateReviewInput {
@@ -61,6 +62,7 @@ namespace CreateReviewInput {
 		benefits: starRatingSchema,
 		overallSatisfaction: starRatingSchema,
 		additionalComments: yup.string(),
+		referredBy: yup.string(),
 	});
 
 	export type ContractType =
