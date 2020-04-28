@@ -447,10 +447,11 @@ export default {
 			contributing: "Thank you for contributing to your community!",
 			reviewSubmitted:
 				"Your review was successfully submitted and has been added to the company's profile",
-			reachingOutSoon:
-				"We will be reaching out to you within the next 24 hours",
+			reachingOutSoon: "We will be reaching out to you soon",
 			referralOffer:
-				"For a limited time, we are also offering $50 pesos for each person you refer. Share this link and for each person that writes a review using this link, we will send you $50 pesos",
+				"For a limited time, we are also offering $40 pesos for each person you refer. Share this link and for each person that writes a review using this link, we will send you $40 pesos",
+			inviteFriends:
+				"Invite your friends to write a review about their experience working at a factory so that their contriubtion can help improve the working conditions in Tijuana.",
 			phoneFaiure: "Error: Your phone number has already been registered",
 			phoneSuccess: "Your phone number was registered successfully",
 			phoneSuccess2: "We will be sending you your reward within 24 hours",

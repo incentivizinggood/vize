@@ -57,6 +57,12 @@ const proConSchema = yup
 		const wordCount = isString ? value.split(/\s+\b/).length : 0;
 		return wordCount >= 8;
 	})
+	.test("610-char-max", "El limite de caracteres es 610", value => {
+		const isString =
+			value && (typeof value === "string" || value instanceof String);
+		const wordCount = isString ? value.length : 0;
+		return wordCount <= 610;
+	})
 	.required("Se requieren las ventajas/limitaciones");
 
 const starRatingSchema = yup
@@ -87,7 +93,9 @@ const schema = yup.object().shape({
 			industrialHub: yup.string().max(300),
 		})
 		.required(),
-	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
+	jobTitle: yup
+		.string()
+		.required("Se requiere el nombre de el puesto desempeñado"),
 	numberOfMonthsWorked: yup
 		.number()
 		.min(0)

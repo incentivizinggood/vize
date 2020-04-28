@@ -31,6 +31,7 @@ mutation createReview(
 			}
 		}
 	}
+
 	createSalary(input: $salaryInput) {
 		salary {
 			id

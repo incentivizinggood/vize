@@ -94,7 +94,8 @@ function ReviewSubmitted({ user }) {
 	}
 
 	function renderContent() {
-		const referralLink: string = "https://www.vize.mx/?ref=" + user.id;
+		const referralLink: string =
+			"https://www.vize.mx/write-review?ref=" + user.id;
 		let ClipboardStatusIcon = <ClipboardIcon />;
 		if (copySuccess === "Copiado!") {
 			ClipboardStatusIcon = <ClipboardCopiedIcon />;
