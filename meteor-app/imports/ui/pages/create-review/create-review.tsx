@@ -30,13 +30,13 @@ function CreateReviewPage({ companyName, referredBy }: CreateReviewPageProps) {
 				<T.formSubTitle1 />
 			</FormText>
 			<FormText>
-				<T.formSubTitle2 />
-			</FormText>
-			<FormText>
 				<PrivacyIcon />
 				<T.formSubTitle3 />
 			</FormText>
-			<CreateReviewForm companyName={companyName} referredBy={referredBy} />
+			<CreateReviewForm
+				companyName={companyName}
+				referredBy={referredBy}
+			/>
 		</FormPageWrapper>
 	);
 }

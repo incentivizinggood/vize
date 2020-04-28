@@ -12,78 +12,84 @@ import {
 } from "imports/ui/components/button";
 import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
 import { translations } from "imports/ui/translations";
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 
 const T = translations.homePage;
 
 function addReviewHomeTop() {
 	ReactGA.event({
-	  category: 'Button',
-	  action: 'Add Review Pressed',
-	  label: 'Home | Top'
+		category: "Button",
+		action: "Add Review Pressed",
+		label: "Home | Top",
 	});
 }
 function addSalaryHomeBottom() {
 	ReactGA.event({
-	  category: 'Button',
-	  action: 'Add Salary Pressed',
-	  label: 'Home | Bottom'
+		category: "Button",
+		action: "Add Salary Pressed",
+		label: "Home | Bottom",
 	});
+}
+
+// no longer using the reward component but keeping it in case we use it in the future again
+function RewardComponent() {
+	return (
+		<div
+			className="full-width-container background-primary"
+			style={{ paddingBottom: "4em" }}
+		>
+			<div className="container">
+				<div className="row add-flex-row">
+					<div className="col-md-2 add-flex-col center-element">
+						<img
+							className="img-responsive vertical-center"
+							src="images/swap-icon.png"
+							alt="Reward"
+						/>
+						<br />
+					</div>
+					<div className="col-md-8">
+						<div>
+							<div>
+								<p
+									className="white-text-center"
+									style={{ fontSize: 23 }}
+								>
+									<T.rewardText />
+								</p>
+								<p
+									className="white-text-center"
+									style={{ fontSize: 23 }}
+								>
+									<T.rewardText2 />
+								</p>
+							</div>
+							<div>
+								<center>
+									<WhiteButton
+										to="/write-review"
+										style={{ fontSize: 18 }}
+										onClick={addReviewHomeTop}
+									>
+										<FontAwesomeIcon icon={faPlus} />
+										&nbsp;
+										<T.add_review_button />
+									</WhiteButton>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div className="col-md-2" />
+				</div>
+				<div className="clearfix" />
+			</div>
+		</div>
+	);
 }
 
 function HomePage() {
 	return (
 		<PageWrapper>
-			<div
-				className="full-width-container background-primary"
-				style={{ paddingBottom: "4em" }}
-			>
-				<div className="container">
-					<div className="row add-flex-row">
-						<div className="col-md-2 add-flex-col center-element">
-							<img
-								className="img-responsive vertical-center"
-								src="images/swap-icon.png"
-								alt="Reward"
-							/>
-							<br />
-						</div>
-						<div className="col-md-8">
-							<div>
-								<div>
-									<p
-										className="white-text-center"
-										style={{ fontSize: 23 }}
-									>
-										<T.rewardText />
-									</p>
-									<p
-										className="white-text-center"
-										style={{ fontSize: 23 }}
-									>
-										<T.rewardText2 />
-									</p>
-								</div>
-								<div>
-									<center>
-										<WhiteButton
-											to="/write-review"
-											style={{ fontSize: 18 }}
-											onClick={addReviewHomeTop}
-										>
-											<FontAwesomeIcon icon={faPlus} />
-											&nbsp;
-											<T.add_review_button />
-										</WhiteButton>
-									</center>
-								</div>
-							</div>
-						</div>
-						<div className="col-md-2" />
-					</div>
-					<div className="clearfix" />
-				</div>
-			</div>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">
@@ -274,7 +280,7 @@ function HomePage() {
 									</div>
 									<br />
 									<div>
-										<WriteReviewButton buttonLocation='Home | Bottom' />
+										<WriteReviewButton buttonLocation="Home | Bottom" />
 									</div>
 									<br />
 								</div>
