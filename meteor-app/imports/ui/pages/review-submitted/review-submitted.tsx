@@ -148,21 +148,6 @@ function ReviewSubmitted({ user }) {
 				<div className="div-centered-elements">
 					<WriteReviewButton />
 				</div>
-
-				<Query query={rewardsEligibility}>
-					{({ loading, error, data }) => {
-						if (data) {
-							if (data.wroteAReview === "CAN_CLAIM") {
-								return (
-									<RewardsComponent
-										action={changeReviewStatusState}
-									/>
-								);
-							}
-						}
-						return <p />;
-					}}
-				</Query>
 			</div>
 		);
 	}
