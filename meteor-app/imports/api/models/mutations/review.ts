@@ -32,12 +32,15 @@ export async function createReview(
 		additionalComments,
 		referredBy,
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
+	console.log("inside Mutation");
 
 	const transaction: Transaction<number> = async client => {
 		var phoneNumberReviewer: PhoneNumber = undefined;
 		var phoneNumberReferredBy: PhoneNumber = undefined;
 		var totalReviewsCount: number = 0;
+		var isValidReferredByUser: boolean = false; // does the referredBy user exist?
 
+		// Check if user is worker
 		{
 			const {
 				rows: [{ role }],
@@ -51,6 +54,7 @@ export async function createReview(
 			}
 		}
 
+		// Check if user has already written review for the company name input
 		{
 			const { rows } = await client.query(
 				sql`SELECT reviewid FROM reviews WHERE submittedby=${userId} AND companyname=${companyName}
@@ -64,8 +68,9 @@ export async function createReview(
 				);
 			}
 		}
+
+		// check if phone number for user exists and if it does, use it for the slack hook
 		{
-			// check if phone number for user exists and if it does, use it for the slack hook
 			const {
 				rows: [{ count }],
 			} = await client.query(
@@ -77,29 +82,39 @@ export async function createReview(
 				} = await client.query(
 					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${userId}`
 				);
+
 				phoneNumberReviewer = phone_number;
 			}
 		}
 
+		// check if referredBy user is a valid user
 		{
-			// check if phone number for user exists and if it does, use it for the slack hook
-			const {
-				rows: [{ count }],
-			} = await client.query(
-				sql`SELECT COUNT(user_id) FROM reward_wrote_a_review WHERE user_id=${userId}`
-			);
 			if (referredBy != null) {
+				const { rows } = await client.query(
+					sql`SELECT 1 FROM users WHERE userid=${referredBy}`
+				);
+
+				rows.length > 0
+					? (isValidReferredByUser = true)
+					: (isValidReferredByUser = false);
+			}
+		}
+
+		// check if phone number for referredBy user exists and if it does, use it for the slack hook
+		{
+			if (isValidReferredByUser) {
 				const {
 					rows: [{ phone_number }],
 				} = await client.query(
 					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${referredBy}`
 				);
+
 				phoneNumberReferredBy = phone_number;
 			}
 		}
 
+		// count the number of reviews a user has written
 		{
-			// check if phone number for user exists and if it does, use it for the slack hook
 			const {
 				rows: [{ count }],
 			} = await client.query(

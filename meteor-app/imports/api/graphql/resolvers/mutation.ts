@@ -38,6 +38,7 @@ export const Mutation: MutationResolvers = {
 
 	createReview: async (_obj, { input }, context, _info) => {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		console.log("innp", input);
 
 		const reviewId = await dataModel.createReview(
 			input,
