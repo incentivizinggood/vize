@@ -6,7 +6,114 @@ import ModalText from "imports/ui/components/modal-text";
 import { translations } from "imports/ui/translations";
 import PopupModal from "imports/ui/components/popup-modal";
 
+import {
+	Theme,
+	createStyles,
+	makeStyles,
+	useTheme,
+} from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import styled from "styled-components";
+
 const T = translations.resourcesWorkers;
+
+const ArticleCard = styled.div`
+	display: flex;
+	background-color: white;
+	border-radius: 4px;
+
+	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+`;
+
+const ArticleTitle = styled.h3`
+	margin-bottom: 5px;
+	font-weight: bold;
+`;
+
+const ArticleDetails = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding: 12px;
+`;
+
+const ArticleImage = styled.img`
+	width: 150px;
+	height: 150px;
+`;
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			display: "flex",
+		},
+		details: {
+			display: "flex",
+			flexDirection: "column",
+		},
+		content: {
+			flex: "1 0 auto",
+		},
+		cover: {
+			width: 151,
+			height: 151,
+		},
+		controls: {
+			display: "flex",
+			alignItems: "center",
+			paddingLeft: theme.spacing(1),
+			paddingBottom: theme.spacing(1),
+		},
+		playIcon: {
+			height: 38,
+			width: 38,
+		},
+	})
+);
+
+function ArticleComponent() {
+	const classes = useStyles();
+	const theme = useTheme();
+
+	return (
+		<Card className={classes.root}>
+			<CardMedia
+				className={classes.cover}
+				image="images/Berlitz.png"
+				title="Article cover image"
+			/>
+			<div className={classes.details}>
+				<CardContent className={classes.content}>
+					<Typography component="h5" variant="h5">
+						Live From Space
+					</Typography>
+					<Typography variant="subtitle1" color="textSecondary">
+						Mac Miller
+					</Typography>
+				</CardContent>
+			</div>
+		</Card>
+	);
+}
+
+function ArticleComponent2() {
+	const classes = useStyles();
+	const theme = useTheme();
+
+	return (
+		<ArticleCard>
+			<ArticleImage src="images/escudo-uabc.png" />
+			<ArticleDetails>
+				<ArticleTitle>Training Programs at UABC</ArticleTitle>
+			</ArticleDetails>
+		</ArticleCard>
+	);
+}
 
 export default class ResourcesWorkers extends React.Component {
 	render() {
@@ -17,6 +124,12 @@ export default class ResourcesWorkers extends React.Component {
 				<br />
 				<br />
 				<br />
+
+				<div>
+					<ArticleComponent />
+				</div>
+				<br />
+				<ArticleComponent2 />
 
 				<div className="container-fluid">
 					<ul className="article-list-vertical">
