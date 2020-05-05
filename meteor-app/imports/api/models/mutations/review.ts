@@ -34,7 +34,10 @@ export async function createReview(
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
-		var phoneNumber: PhoneNumber = undefined;
+		var phoneNumberReviewer: PhoneNumber = undefined;
+		var phoneNumberReferredBy: PhoneNumber = undefined;
+		var totalReviewsCount: number = 0;
+
 		{
 			const {
 				rows: [{ role }],
@@ -74,8 +77,36 @@ export async function createReview(
 				} = await client.query(
 					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${userId}`
 				);
-				phoneNumber = phone_number;
+				phoneNumberReviewer = phone_number;
 			}
+		}
+
+		{
+			// check if phone number for user exists and if it does, use it for the slack hook
+			const {
+				rows: [{ count }],
+			} = await client.query(
+				sql`SELECT COUNT(user_id) FROM reward_wrote_a_review WHERE user_id=${userId}`
+			);
+			if (referredBy != null) {
+				const {
+					rows: [{ phone_number }],
+				} = await client.query(
+					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${referredBy}`
+				);
+				phoneNumberReferredBy = phone_number;
+			}
+		}
+
+		{
+			// check if phone number for user exists and if it does, use it for the slack hook
+			const {
+				rows: [{ count }],
+			} = await client.query(
+				sql`SELECT COUNT(submittedby) FROM reviews WHERE submittedby=${userId}`
+			);
+
+			totalReviewsCount = count;
 		}
 
 		const {
@@ -162,9 +193,11 @@ export async function createReview(
 
 *Additional comments:* ${additionalComments}
 
-*referredBy:* ${referredBy}
+*referredBy:* ${referredBy} - ${phoneNumberReferredBy}
 
-*phoneNumber:* ${phoneNumber}
+*phoneNumber:* ${phoneNumberReviewer}
+
+*reviewsCount:* ${totalReviewsCount}
 		`);
 
 		return reviewid;

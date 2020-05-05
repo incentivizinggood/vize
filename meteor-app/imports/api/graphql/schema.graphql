@@ -13,9 +13,9 @@ type Query {
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
-		pageSize: Int = 5
+		pageSize: Int = 20
 	): CompanyConnection!
-	searchJobAds(pageNum: Int = 0, pageSize: Int = 5): JobAdConnection!
+	searchJobAds(pageNum: Int = 0, pageSize: Int = 20): JobAdConnection!
 
 	wroteAReview: RewardStatus!
 }
@@ -270,6 +270,7 @@ type Review {
 	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The vote that the currently logged in user cast on this review."
 	currentUserVote: Vote
+	referredBy: String
 }
 
 enum IncomeType {
