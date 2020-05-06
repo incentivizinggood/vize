@@ -10,7 +10,7 @@ const pool = new Pool();
 // queries on the database. If any extra arguments are needed by the
 // transaction, the transaction code should be curried so that these arguments
 // and the connection can be passed separately. (Curry in the mathematical
-// sense, not the food)6
+// sense, not the food)
 export type Transaction<R> = (query: PoolClient) => Promise<R>;
 
 const execTransaction = (readOnly: boolean) => async <R>(

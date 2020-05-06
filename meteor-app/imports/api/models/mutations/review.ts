@@ -32,7 +32,6 @@ export async function createReview(
 		additionalComments,
 		referredBy,
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
-	console.log("inside Mutation");
 
 	const transaction: Transaction<number> = async client => {
 		var phoneNumberReviewer: PhoneNumber = undefined;
