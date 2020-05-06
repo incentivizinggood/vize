@@ -46,7 +46,11 @@ export async function migrateUsers() {
 				UPDATE users
 				SET
 					username = ${user.username},
-					email_address = ${user.emails.length > 0 ? user.emails[0].address : null},
+					email_address = ${
+						user.emails && user.emails.length > 0
+							? user.emails[0].address
+							: null
+					},
 					password_hash = ${user.services.password.bcrypt}
 				WHERE usermongoid = ${user._id}
 			`);
