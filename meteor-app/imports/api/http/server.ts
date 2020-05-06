@@ -9,6 +9,7 @@ import { applyHelloWorldMiddleware } from "./hello-world-middleware";
 import { applyPassportMiddleware } from "./passport-middleware";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
+import { migrateUsers } from "../models";
 
 const app = express();
 
@@ -37,6 +38,7 @@ function onServerReady() {
 	console.log("Server ready.");
 	testMongoConnection();
 	testPgConnection();
+	migrateUsers();
 }
 
 export { app, onServerReady };

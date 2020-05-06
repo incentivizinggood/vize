@@ -97,10 +97,10 @@ export type Salary = {
 export type User = {
 	userId: number;
 	username: string;
-	createdAt: Date;
+	emailAddress: string;
+	passwordHash: string;
 	role: "worker" | "company-unverified" | "company";
 	companyId: number | null;
-	services: { password: { bcrypt: string } };
 };
 
 /** A reference to the subject of a vote. */
