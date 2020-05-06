@@ -38,7 +38,6 @@ export async function createReview(
 		var phoneNumberReviewer: PhoneNumber = undefined;
 		var phoneNumberReferredBy: PhoneNumber = undefined;
 		var totalReviewsCount: number = 0;
-		var isValidReferredByUser: boolean = false; // does the referredBy user exist?
 
 		// Check if user is worker
 		{
@@ -87,29 +86,13 @@ export async function createReview(
 			}
 		}
 
-		// check if referredBy user is a valid user
-		{
-			if (referredBy != null) {
-				const { rows } = await client.query(
-					sql`SELECT 1 FROM users WHERE userid=${referredBy}`
-				);
-
-				rows.length > 0
-					? (isValidReferredByUser = true)
-					: (isValidReferredByUser = false);
-			}
-		}
-
 		// check if phone number for referredBy user exists and if it does, use it for the slack hook
 		{
-			if (isValidReferredByUser) {
-				const {
-					rows: [{ phone_number }],
-				} = await client.query(
-					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${referredBy}`
-				);
-
-				phoneNumberReferredBy = phone_number;
+			const { rows } = await client.query(
+				sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${referredBy}`
+			);
+			if (rows.length > 0) {
+				phoneNumberReferredBy = rows[0].phone_number;
 			}
 		}
 
