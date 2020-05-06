@@ -17,7 +17,10 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+
 import styled from "styled-components";
+import { LinkButton } from "imports/ui/components/button";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 const T = translations.resourcesWorkers;
 
@@ -31,11 +34,6 @@ const ArticleCard = styled.div`
 		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 `;
 
-const ArticleTitle = styled.h3`
-	margin-bottom: 5px;
-	font-weight: bold;
-`;
-
 const ArticleDetails = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -46,6 +44,34 @@ const ArticleImage = styled.img`
 	width: 150px;
 	height: 150px;
 `;
+
+const ArticleTitle = styled.h4`
+	margin-bottom: 5px;
+	font-weight: bold;
+`;
+
+const ArticleDescription = styled.h5`
+	margin-top: 5px;
+	margin-bottom: 10px;
+	color: black;
+`;
+
+const ReadMore = styled.button`
+	margin-left: auto;
+	background-color: #0d8dfb;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	height: 35px;
+	width: 90px;
+	border-radius: 0.4rem;
+`;
+
+const ReadMoreButton = props => (
+	<ReadMore primary to={urlGenerators.vizeRegister("company")} {...props}>
+		Read More
+	</ReadMore>
+);
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -110,6 +136,15 @@ function ArticleComponent2() {
 			<ArticleImage src="images/escudo-uabc.png" />
 			<ArticleDetails>
 				<ArticleTitle>Training Programs at UABC</ArticleTitle>
+
+				<ArticleDescription>
+					Going back to school and getting a degree can be an enormous
+					opportunity to increase your skill set as well as your
+					wages, but many people don’t have the time or the money to
+					finish an entire program.
+				</ArticleDescription>
+
+				<ReadMoreButton />
 			</ArticleDetails>
 		</ArticleCard>
 	);
