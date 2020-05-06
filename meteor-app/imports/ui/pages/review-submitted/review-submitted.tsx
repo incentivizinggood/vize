@@ -72,10 +72,10 @@ const RewardSection = styled.div`
 `;
 
 const personalReferralMessage =
-	"Hola que tal! Te quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. \n\nEn este momento, están ofreciendo $100 pesos por escribir una evaluación y $60 por cada evaluación adicional. Si puede ser útil el dinero para ti y te interesa ayudarle a otros trabajadores encontrar un empleo mejor, te invito a participar. \r\n\r\nEl dinero se te deposita en una cuenta de PayPal o con tu número celular por Swap. \nPuedes llenar la encuesta aquí:";
+	"Hola que tal! Te quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Te invito a participar. \r\n\r\nPuedes llenar la encuesta aquí:";
 
 const publicReferralMessage =
-	"Hola, les quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. \n\nEn este momento, están ofreciendo $100 pesos por escribir una evaluación y $60 por cada evaluación adicional. Si puede ser útil el dinero para ti y te interesa ayudarle a otros trabajadores encontrar un empleo mejor, te invito a participar. \r\n\r\nEl dinero se te deposita en una cuenta de PayPal o con tu número celular por Swap. \nPuedes llenar la encuesta aquí:";
+	"Hola, les quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Los invito a participar. \r\n\r\nnPueden llenar la encuesta aquí:";
 
 function ReviewSubmitted({ user }) {
 	const [copySuccess, setCopySuccess] = React.useState("");
@@ -94,7 +94,8 @@ function ReviewSubmitted({ user }) {
 	}
 
 	function renderContent() {
-		const referralLink: string = "https://www.vize.mx/?ref=" + user.id;
+		const referralLink: string =
+			"https://www.vize.mx/write-review?ref=" + user.id;
 		let ClipboardStatusIcon = <ClipboardIcon />;
 		if (copySuccess === "Copiado!") {
 			ClipboardStatusIcon = <ClipboardCopiedIcon />;
@@ -107,94 +108,46 @@ function ReviewSubmitted({ user }) {
 				<p>
 					<T.reviewSubmitted />
 				</p>
+				<p>
+					<T.inviteFriends />
+				</p>
 
-				<Query query={rewardsEligibility}>
-					{({ loading, error, data }) => {
-						if (data) {
-							if (data.wroteAReview === "CLAIMED") {
-								// I should turn this into a component but it will be deleted soon after we no longer give rewards so I am being lazy
-								return (
-									<React.Fragment>
-										<p>
-											<T.reachingOutSoon />
-										</p>
-										<p>
-											<T.referralOffer />
-										</p>
-										<p>
-											<button
-												onClick={() =>
-													copyToClipboard(
-														referralLink
-													)
-												}
-											>
-												{ClipboardStatusIcon}
-											</button>
-											<button
-												onClick={() =>
-													copyToClipboard(
-														referralLink
-													)
-												}
-											>
-												<a
-													ref={textAreaRef}
-													value={referralLink}
-												>
-													<strong>
-														{referralLink}
-													</strong>
-												</a>
-											</button>
-											{copySuccess}
-										</p>
+				<p>
+					<button onClick={() => copyToClipboard(referralLink)}>
+						{ClipboardStatusIcon}
+					</button>
+					<button onClick={() => copyToClipboard(referralLink)}>
+						<a ref={textAreaRef} value={referralLink}>
+							<strong>{referralLink}</strong>
+						</a>
+					</button>
+					{copySuccess}
+				</p>
 
-										<br />
+				<br />
 
-										<div className="div-centered-elements">
-											<WhatsappShareButton
-												url={referralLink}
-												title={personalReferralMessage}
-											>
-												<WhatsappIcon
-													size={48}
-													round={true}
-												/>
-											</WhatsappShareButton>
-											{"    "}
-											<FacebookShareButton
-												url={referralLink}
-												quote={publicReferralMessage}
-												hashtag="#incentivandoelbien"
-											>
-												<FacebookIcon
-													size={48}
-													round={true}
-												/>
-											</FacebookShareButton>
-										</div>
+				<div className="div-centered-elements">
+					<WhatsappShareButton
+						url={referralLink}
+						title={personalReferralMessage}
+					>
+						<WhatsappIcon size={48} round={true} />
+					</WhatsappShareButton>
+					{"    "}
+					<FacebookShareButton
+						url={referralLink}
+						quote={publicReferralMessage}
+						hashtag="#incentivandoelbien"
+					>
+						<FacebookIcon size={48} round={true} />
+					</FacebookShareButton>
+				</div>
 
-										<br />
+				<br />
 
-										<div className="div-centered-elements">
-											<WriteReviewButton />
-										</div>
-									</React.Fragment>
-								);
-							}
-
-							if (data.wroteAReview === "CAN_CLAIM") {
-								return (
-									<RewardsComponent
-										action={changeReviewStatusState}
-									/>
-								);
-							}
-						}
-						return <p />;
-					}}
-				</Query>
+				<div className="div-centered-elements">
+					<WriteReviewButton />
+				</div>
 			</div>
 		);
 	}

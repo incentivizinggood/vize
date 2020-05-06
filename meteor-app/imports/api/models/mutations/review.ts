@@ -34,7 +34,11 @@ export async function createReview(
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
-		var phoneNumber: PhoneNumber = undefined;
+		var phoneNumberReviewer: PhoneNumber = undefined;
+		var phoneNumberReferredBy: PhoneNumber = undefined;
+		var totalReviewsCount: number = 0;
+
+		// Check if user is worker
 		{
 			const {
 				rows: [{ role }],
@@ -48,6 +52,7 @@ export async function createReview(
 			}
 		}
 
+		// Check if user has already written review for the company name input
 		{
 			const { rows } = await client.query(
 				sql`SELECT reviewid FROM reviews WHERE submittedby=${userId} AND companyname=${companyName}
@@ -61,8 +66,9 @@ export async function createReview(
 				);
 			}
 		}
+
+		// check if phone number for user exists and if it does, use it for the slack hook
 		{
-			// check if phone number for user exists and if it does, use it for the slack hook
 			const {
 				rows: [{ count }],
 			} = await client.query(
@@ -74,8 +80,30 @@ export async function createReview(
 				} = await client.query(
 					sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${userId}`
 				);
-				phoneNumber = phone_number;
+
+				phoneNumberReviewer = phone_number;
 			}
+		}
+
+		// check if phone number for referredBy user exists and if it does, use it for the slack hook
+		{
+			const { rows } = await client.query(
+				sql`SELECT phone_number FROM reward_wrote_a_review WHERE user_id=${referredBy}`
+			);
+			if (rows.length > 0) {
+				phoneNumberReferredBy = rows[0].phone_number;
+			}
+		}
+
+		// count the number of reviews a user has written
+		{
+			const {
+				rows: [{ count }],
+			} = await client.query(
+				sql`SELECT COUNT(submittedby) FROM reviews WHERE submittedby=${userId}`
+			);
+
+			totalReviewsCount = count;
 		}
 
 		const {
@@ -162,9 +190,11 @@ export async function createReview(
 
 *Additional comments:* ${additionalComments}
 
-*referredBy:* ${referredBy}
+*referredBy:* ${referredBy} - ${phoneNumberReferredBy}
 
-*phoneNumber:* ${phoneNumber}
+*phoneNumber:* ${phoneNumberReviewer}
+
+*reviewsCount:* ${totalReviewsCount}
 		`);
 
 		return reviewid;

@@ -56,7 +56,7 @@ export async function searchForCompanies(
 				JOIN job_post_counts ON companies.name = job_post_counts.companyname
 				JOIN salary_counts ON companies.name = salary_counts.companyname
 			WHERE name LIKE ${`%${searchText}%`}
-			ORDER BY job_post_counts.count*2 + numreviews*1.5 + salary_counts.count DESC
+			ORDER BY job_post_counts.count*10 + numreviews*1.5 + salary_counts.count DESC
 		`,
 		pageNumber,
 		pageSize

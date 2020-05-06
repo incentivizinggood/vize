@@ -22,5 +22,5 @@ sudo docker run \
 cd meteor-app
 DEPLOY_HOSTNAME=galaxy.meteor.com \
     meteor deploy \
-    vize-staging-0.meteorapp.com \
+    www.vize.mx \
     --settings $SETTINGS_FILE

@@ -187,9 +187,9 @@ export default {
 				},
 			},
 			jobTitle: {
-				label: "Titulo del Trabajo",
+				label: "Puesto Desempeñado",
 				placeholder:
-					"Ingrese el nombre del puesto que ocupó en esta empresa",
+					"Por ejemplo: Operador, Jefe de Linea, Supervisor, etc.",
 			},
 			numberOfMonthsWorked: {
 				label: "Numero de meses trabajados",
@@ -286,8 +286,9 @@ export default {
 				},
 			},
 			jobTitle: {
-				label: "Titulo del Trabajo",
-				placeholder: "Díganos su título de trabajo en la empresa",
+				label: "Puesto Desempeñado",
+				placeholder:
+					"Por ejemplo: Operador, Jefe de Linea, Supervisor, etc.",
 			},
 			incomeType: {
 				label: "Tipo de Ingreso (en Pesos)",
@@ -314,9 +315,8 @@ export default {
 			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
 		fields: {
 			jobTitle: {
-				label: "Titulo del Trabajo",
-				placeholder:
-					"Por favor díganos el título del puesto que está anunciando",
+				label: "Titulo de Empleo",
+				placeholder: "Ingrese el título del empleo que está anunciando",
 			},
 			locations: {
 				label: "Ubicaciones",
@@ -466,9 +466,11 @@ export default {
 				"Tu evaluación se envió con éxito y ha sido agregada al perfil de la empresa.",
 			earnedReward: "¡Has ganado una recompensa!",
 			reachingOutSoon:
-				"Nos comunicaremos contigo dentro de las próximas 24 horas",
+				"Nos comunicaremos contigo lo mas pronto que podamos. Estamos recibiendo muchas evaluaciones entonces por favor ten paciencia.",
 			referralOffer:
-				"Por un tiempo limitado, también estamos ofreciendo $50 pesos por cada persona que refieras. Comparte este enlace con tus conocidos y por cada persona que escriba una evaluación usando este enlace, te enviaremos $50 pesos",
+				"Por un tiempo limitado, también estamos ofreciendo $40 pesos por cada persona que refieras. Comparte este enlace con tus conocidos y por cada persona que escriba una evaluación para una fabrica en Tijuana usando este enlace, te enviaremos $40 pesos",
+			inviteFriends:
+				"Invita tus conocidos a llenar una encuesta laborando en una fábrica para que puedan contribuir a la mejoría de las condiciones de trabajo.",
 			phoneFaiure: "Error: tu número de teléfono ya ha sido registrado",
 			phoneSuccess:
 				"Tu número de teléfono ha sido registrado exitosamente",
