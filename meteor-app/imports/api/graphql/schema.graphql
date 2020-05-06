@@ -313,8 +313,6 @@ type User {
 
 	"The user's role."
 	role: UserRole!
-	"The date and time this was created."
-	created: DateTime!
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company

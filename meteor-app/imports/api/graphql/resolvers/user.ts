@@ -17,7 +17,5 @@ export const User: UserResolvers = {
 		}
 	},
 
-	created: (obj, _args, _context, _info) => obj.createdAt,
-
 	company: (obj, _args, _context, _info) => dataModel.getCompanyOfUser(obj),
 };
