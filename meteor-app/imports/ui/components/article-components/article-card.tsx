@@ -11,6 +11,7 @@ const ArticleCard = styled.div`
 	display: flex;
 	background-color: white;
 	border-radius: 4px;
+	margin: 10px;
 
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
 		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -24,8 +25,8 @@ const ArticleDetails = styled.div`
 `;
 
 const ArticleImage = styled.img`
-	width: 150px;
-	height: 150px;
+	width: 130px;
+	height: 130px;
 `;
 
 const ArticleTitle = styled.h4`
