@@ -4,14 +4,24 @@ import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
+import {
+	FacebookShareButton,
+	WhatsappShareButton,
+	FacebookIcon,
+	WhatsappIcon,
+} from "react-share";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
+
+const articleDetailsPadding = "8px";
+const footerHeight = "27px";
 
 const ArticleCard = styled.div`
 	display: flex;
 	background-color: white;
 	border-radius: 4px;
 	margin: 10px;
+	height: 125px;
 
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
 		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -19,14 +29,20 @@ const ArticleCard = styled.div`
 `;
 
 const ArticleDetails = styled.div`
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	padding: 12px;
+
+	width: 100%;
+	padding: ${articleDetailsPadding};
 `;
 
 const ArticleImage = styled.img`
-	width: 130px;
-	height: 130px;
+	width: 110px;
+	height: 110px;
+	margin: auto;
+	margin-left: 5px;
+	border-radius: 4px;
 `;
 
 const ArticleTitle = styled.h4`
@@ -34,20 +50,44 @@ const ArticleTitle = styled.h4`
 	font-weight: bold;
 `;
 
+const ArticleCategory = styled.h5`
+	color: rgba(0, 0, 0, 0.54);
+	line-height: 1.25;
+	font-size: 1rem;
+`;
+
+/*
 const ArticleDescription = styled.h5`
 	margin-top: 5px;
 	margin-bottom: 10px;
 	color: black;
 `;
+*/
+
+// Contains Read More button and Whatsapp + Facebook share buttons
+const ArticleFooter = styled.div`
+	display: flex;
+	position: absolute
+	bottom: 0px;
+	right: 0px;
+	flex-direction: row-reverse;
+
+	width: 100%;
+	padding: ${articleDetailsPadding};
+
+	> * {
+		margin-right: 6px;
+	}
+`;
 
 const ReadMore = styled.button`
-	margin-left: auto;
-	background-color: #0d8dfb;
-	color: white;
+	background-color: #e4e6eb;
+	color: black;
 	font-weight: bold;
 	text-align: center;
-	height: 35px;
-	width: 90px;
+
+	height: ${footerHeight};
+	width: 85px;
 	border-radius: 0.4rem;
 `;
 
@@ -60,18 +100,36 @@ const ReadMoreButton = props => (
 function ArticleCardComponent() {
 	return (
 		<ArticleCard>
-			<ArticleImage src="images/escudo-uabc.png" />
+			<ArticleImage src="images/employerPostVize.jpg" />
 			<ArticleDetails>
 				<ArticleTitle>Training Programs at UABC</ArticleTitle>
+				<ArticleCategory> Education </ArticleCategory>
 
-				<ArticleDescription>
+				{/*<ArticleDescription>
 					Going back to school and getting a degree can be an enormous
 					opportunity to increase your skill set as well as your
 					wages, but many people don’t have the time or the money to
 					finish an entire program.
 				</ArticleDescription>
+				*/}
+				<ArticleFooter>
+					<ReadMoreButton />
 
-				<ReadMoreButton />
+					<WhatsappShareButton
+						url="http://localhost:3000/article"
+						title="Hello"
+					>
+						<WhatsappIcon size={footerHeight} round={true} />
+					</WhatsappShareButton>
+
+					<FacebookShareButton
+						url="http://localhost:3000/article"
+						quote="Hello"
+						hashtag="#incentivandoelbien"
+					>
+						<FacebookIcon size={footerHeight} round={true} />
+					</FacebookShareButton>
+				</ArticleFooter>
 			</ArticleDetails>
 		</ArticleCard>
 	);

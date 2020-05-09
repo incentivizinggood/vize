@@ -66,7 +66,7 @@ const SectionTitle = styled.div`
 	padding: 30px;
 
 	${forSize.phoneOnly} {
-		padding: 20px;
+		padding: 15px;
 	}
 `;
 
