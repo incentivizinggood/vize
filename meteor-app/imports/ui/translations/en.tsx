@@ -518,11 +518,11 @@ export default {
 			pricingText5: "for the first 90 days.",
 			businessHeading: "Buisness",
 			businessText1: "5 Job Posts",
-			businessText2: "Data Analitics Dashboard",
+			businessText2: "Data Analytics Dashboard",
 			businessText3: "Buisiness Resources",
 			premiumHeading: "Premium",
 			premiumText1: "10 Job Posts",
-			premiumText2: "Data Analitics Dashboard",
+			premiumText2: "Data Analytics Dashboard",
 			premiumText3: "Buisiness Resources",
 			premiumText4: "Individualized Analysis and Consulting",
 			img: {

@@ -10,6 +10,7 @@ import { forSize } from "imports/ui/responsive.js";
 
 import articleIndexPageQuery from "./article-index.graphql";
 import ArticleCardComponent from "imports/ui/components/article-components/article-card";
+import TopicCardComponent from "imports/ui/components/article-components/topic-card";
 
 const NavbarMobileHeight = "65px";
 
@@ -25,11 +26,6 @@ type ArticleIndexProps = {
 	setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const SectionTitle = styled.h2`
-	text-align: center;
-	font-weight: bold;
-`;
-
 const IndexPageContainer = styled.div`
 	width: 100%;
 	height: 100%;
@@ -43,6 +39,11 @@ const IndexPageContainer = styled.div`
 	${forSize.phoneOnly} {
 		padding: ${NavbarMobileHeight} 0px 50px 0px;
 	}
+`;
+
+const SectionTitle = styled.h2`
+	text-align: center;
+	font-weight: bold;
 `;
 
 const SectionContainer = styled.div`
@@ -86,6 +87,12 @@ const ArticlesContainer = styled.div`
 	}
 `;
 
+const TopicsContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+`;
+
 /*
 
 <ul>
@@ -105,7 +112,7 @@ const ArticlesContainer = styled.div`
 */
 function ArticleIndex(props: ArticleIndexProps) {
 	return (
-		<PageWrapper title="Articles">
+		<PageWrapper title="Recursos">
 			<IndexPageContainer>
 				<SectionTitle>
 					<h2>
@@ -122,9 +129,13 @@ function ArticleIndex(props: ArticleIndexProps) {
 						<strong> Topics </strong>
 					</h2>
 				</SectionTitle>
-				<Panel>
-					<ArticleCardComponent />
-				</Panel>
+				<TopicsContainer>
+					<TopicCardComponent />
+					<TopicCardComponent />
+					<TopicCardComponent />
+					<TopicCardComponent />
+					<TopicCardComponent />
+				</TopicsContainer>
 			</IndexPageContainer>
 		</PageWrapper>
 	);
