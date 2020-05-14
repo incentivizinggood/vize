@@ -6,7 +6,6 @@ import {
 	execTransactionRW,
 	simpleQuery,
 } from "imports/api/connectors/postgresql";
-import { withMongoDB } from "imports/api/connectors/mongodb";
 import {
 	User,
 	getUserByUsername,
@@ -16,51 +15,6 @@ import {
 import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import { attributes } from "../queries/user";
-
-// This was for the MongoDB users.
-export type RawUser = {
-	_id: string;
-	username: string;
-	createdAt: Date;
-	role: "worker" | "company-unverified" | "company";
-	companyId: number | null;
-	services: { password: { bcrypt: string } };
-	emails: {
-		address: string;
-		verified: boolean;
-	}[];
-};
-
-// Migrate user data from MongoDB to PostgreSQL.
-export async function migrateUsers() {
-	const transaction: Transaction<unknown> = async client => {
-		const users = await withMongoDB(async db =>
-			db
-				.collection<RawUser>("users")
-				.find({})
-				.toArray()
-		);
-
-		for (const user of users) {
-			await client.query(sql`
-				UPDATE users
-				SET
-					username = ${user.username},
-					email_address = ${
-						user.emails && user.emails.length > 0
-							? user.emails[0].address
-							: null
-					},
-					password_hash = ${user.services.password.bcrypt}
-				WHERE usermongoid = ${user._id}
-			`);
-		}
-	};
-
-	console.log("Starting user migration.");
-	await execTransactionRW(transaction);
-	console.log("Finished user migration.");
-}
 
 type CreateUserInput = {
 	username: string;

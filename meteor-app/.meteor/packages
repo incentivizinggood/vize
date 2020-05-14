@@ -22,11 +22,6 @@ shell-server@0.3.1            # Server-side component of the `meteor shell` comm
 # UI
 twbs:bootstrap                # Needed for the navbar dropdown to work.
 
-# Data and API - These integrate with Meteor and its data layer.
-random                        # Used to generate random user ids. Will be replaced when the users are migrated from MongoDB to PostgreSQL.
-
-# Simple helpers - Libraries that are not strongly coupled to anything. Should be easy to replace.
-
 # Unknown - These packages have not yet been accounted for.
 mobile-experience@1.0.5       # Packages for a great mobile UX
 mrgalaxy:stripe
