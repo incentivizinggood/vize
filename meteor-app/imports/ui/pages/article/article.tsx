@@ -1,31 +1,165 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useQuery } from "react-apollo";
+import { withRouter } from "react-router-dom";
+import styled from "styled-components";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Link } from "react-router-dom";
 
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
 
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
+import {
+	FacebookShareButton,
+	WhatsappShareButton,
+	FacebookIcon,
+	WhatsappIcon,
+} from "react-share";
+
 import articlePageQuery from "./article.graphql";
 import { PanelContainer, Panel } from "imports/ui/components/panel";
 
-type ArticleProps = { title: string; body: string };
+const ArticleSubtitle = styled.h4`
+	color: rgba(0, 0, 0, 0.54);
+	margin: 5px auto;
+`;
 
-function Article({ title, body }: ArticleProps) {
+const AuthorName = styled.h5`
+	color: black;
+	margin: 5px auto;
+	margin-top: 20px;
+`;
+const ArticlePublishedDate = styled.h6`
+	color: rgba(0, 0, 0, 0.54);
+	margin: 5px auto;
+`;
+
+const BackToResourcesHeader = styled.div`
+	display: flex;
+	flex-direction: row;
+
+	height: 40px;
+	max-width: 500px;
+	padding-left: 20px;
+	margin: 1px auto;
+
+	background-color: white;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+
+	> * {
+		margin: auto 0;
+		> * {
+			margin: auto 0;
+		}
+	}
+`;
+
+const ArrowBackIconStyled = styled(ArrowBackIcon)`
+	font-size: 25px !important;
+	vertical-align: middle;
+`;
+
+const ArticleFooter = styled.div`
+	display: flex;
+	flex-direction: row;
+
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 1;
+
+	height: 45px;
+	max-width: 500px;
+	padding-left: 15px;
+	margin: 0 auto;
+
+	background-color: white;
+	box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.12);
+
+	> * {
+		margin: auto 0;
+		margin-left: 5px;
+	}
+`;
+
+const NumLikes = styled.p`
+	margin-left: 0;
+	margin-right: 7px;
+`;
+
+/* Styling for image (part of markdown)
+width: 100vw;
+margin: 0 -20px;
+margin-bottom: 30px;
+*/
+
+type ArticleProps = { title: string; publishDate: string; body: string };
+
+function Article({ title, publishDate, body }: ArticleProps) {
+	const options = {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+	};
+
+	let articlePublishedDate = new Date(publishDate).toLocaleDateString(
+		"es-MX",
+		options
+	);
+
 	return (
 		<PageWrapper title={title}>
 			<PanelContainer>
+				<BackToResourcesHeader>
+					<Link to="/article">
+						<ArrowBackIconStyled />
+					</Link>
+				</BackToResourcesHeader>
 				<Panel>
-					<h1>{title}</h1>
+					<h2>{title}</h2>
+					<ArticleSubtitle>
+						Receive free food with this benefit
+					</ArticleSubtitle>
+					<AuthorName>Por: Incentivando El Bien</AuthorName>
+					<ArticlePublishedDate>
+						{articlePublishedDate}
+					</ArticlePublishedDate>
+					<img src="images/employerPostVize.jpg" />
+
 					<ReactMarkdown source={body} />
 				</Panel>
+				<ArticleFooter>
+					<button>
+						<FavoriteBorderIcon />
+					</button>
+					<NumLikes>0</NumLikes>
+
+					<WhatsappShareButton
+						url="http://localhost:3000/article"
+						title="Hello"
+					>
+						<WhatsappIcon size="24" round={true} />
+					</WhatsappShareButton>
+
+					<FacebookShareButton
+						url="http://localhost:3000/article"
+						quote="Hello"
+						hashtag="#incentivandoelbien"
+					>
+						<FacebookIcon size="24" round={true} />
+					</FacebookShareButton>
+				</ArticleFooter>
 			</PanelContainer>
 		</PageWrapper>
 	);
 }
 
-function ArticleContainer() {
-	const { slug } = useParams();
+function ArticleContainer(props) {
+	const slug = props.match.params.slug;
 
 	const { loading, error, data } = useQuery(articlePageQuery, {
 		variables: { id: slug },
@@ -45,4 +179,4 @@ function ArticleContainer() {
 	return <Article {...data.article} />;
 }
 
-export default ArticleContainer;
+export default withRouter(ArticleContainer);

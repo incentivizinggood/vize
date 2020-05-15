@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 
-const NavbarHeigh = "65px";
+const NavbarHeigh = "67px";
 
 const PanelContainer = styled.div`
 	width: 100%;

@@ -11,6 +11,7 @@ import {
 	WhatsappIcon,
 } from "react-share";
 import ArrowRightIcon from "@material-ui/icons/ArrowRightAlt";
+import styleVariables from "imports/ui/style-variables";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
@@ -65,6 +66,7 @@ const TopicName = styled.h3`
 	margin-bottom: 5px;
 	font-weight: bold;
 	text-align: center;
+	//color: ${styleVariables.vizeBlue};
 `;
 
 const ArticleCategory = styled.h5`
@@ -102,7 +104,7 @@ function ArticleCardComponent() {
 	return (
 		<TopicCard>
 			<TopicCardContent>
-				<TopicImage src="images/training-icon.png" />
+				<TopicImage src="images/icons/training-icon-blue.png" />
 				<br />
 				<TopicName>Training</TopicName>
 
