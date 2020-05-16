@@ -1,16 +1,8 @@
 {
 	"compilerOptions": {
-		"baseUrl": ".",
-		"moduleResolution": "Node",
 		"esModuleInterop": true,
-		"allowJs": true,
-		"jsx": "react",
-		"target": "es5",
-		"lib": ["dom", "esnext"],
-		"downlevelIteration": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"types": ["mocha", "node"],
-		"noErrorTruncation": true
+		"declaration": true,
+		"sourceMap": true,
+		"outDir": "./dist"
 	}
 }

@@ -1,9 +1,29 @@
 import faker from "faker";
 import fetch from "node-fetch";
+import { execute, makePromise } from "apollo-link";
+import { HttpLink } from "apollo-link-http";
+import gql from "graphql-tag";
 
-const createdData = {
+const baseUrl = "http://localhost:3000";
+
+const link = new HttpLink({ uri: `${baseUrl}/graphql`, fetch: fetch as any });
+
+const createdData: any = {
 	users: [],
 };
+
+const operation = {
+	query: gql`
+		query {
+			say
+		}
+	`,
+};
+
+// For single execution operations, a Promise can be used
+makePromise(execute(link, operation))
+	.then(data => console.log(`received data ${JSON.stringify(data, null, 2)}`))
+	.catch(error => console.log(`received error ${error}`));
 
 async function registerUser() {
 	const body = {
@@ -13,7 +33,7 @@ async function registerUser() {
 		role: faker.random.arrayElement(["worker", "company"]),
 	};
 
-	const j = await fetch("http://localhost:3000/register", {
+	const j = await fetch(`${baseUrl}/register`, {
 		method: "POST",
 		body: JSON.stringify(body),
 		headers: { "Content-Type": "application/json" },
@@ -34,4 +54,4 @@ async function main() {
 	console.log(createdData);
 }
 
-main();
+//main();
