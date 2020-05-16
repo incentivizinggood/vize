@@ -1,0 +1,17 @@
+{
+  "name": "api-test",
+  "private": true,
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "ts-node -T index.ts"
+  },
+  "dependencies": {
+    "@types/faker": "^4.1.12",
+    "@types/node-fetch": "^2.5.7",
+    "faker": "^4.1.0",
+    "node-fetch": "^2.6.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
+  }
+}
