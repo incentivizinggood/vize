@@ -5,10 +5,8 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
-import {
-	SectionTitle,
-	ArticleContactSection,
-} from "imports/ui/components/article-components";
+import { SectionTitle } from "../components";
+import ArticleContactSection from "./article-contact";
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
 

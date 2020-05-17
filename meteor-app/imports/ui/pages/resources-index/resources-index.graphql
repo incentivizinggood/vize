@@ -1,4 +1,4 @@
-query articleIndexPage($currentPageNum: Int!) {
+query resourcesIndexPage($currentPageNum: Int!) {
 	searchArticles(pageNum: $currentPageNum) {
 		totalCount
 		nodes {

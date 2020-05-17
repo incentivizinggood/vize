@@ -8,12 +8,8 @@ import PageWrapper from "imports/ui/components/page-wrapper";
 import { PanelContainer, Panel } from "imports/ui/components/panel";
 import { forSize } from "imports/ui/responsive.js";
 
-import articleIndexPageQuery from "./article-index.graphql";
-import {
-	SectionTitle,
-	ArticleCard,
-	TopicCard,
-} from "imports/ui/components/article-components";
+import resourcesIndexPageQuery from "./resources-index.graphql";
+import { SectionTitle, ArticleCard, TopicCard } from "./components";
 
 const NavbarMobileHeight = "65px";
 
@@ -66,7 +62,7 @@ const TopicsContainer = styled.div`
 <ul>
 	{props.nodes.map(a => (
 		<li>
-			<Link to={`/article/${a.slug}`}>{a.title}</Link>
+			<Link to={`/recursos/${a.slug}`}>{a.title}</Link>
 		</li>
 	))}
 </ul>
@@ -79,7 +75,7 @@ const TopicsContainer = styled.div`
 </button>
 */
 
-type ArticleIndexProps = {
+type ResourcesIndexProps = {
 	totalCount: number;
 	nodes: {
 		title: string;
@@ -91,7 +87,7 @@ type ArticleIndexProps = {
 	setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function ArticleIndex(props: ArticleIndexProps) {
+function ResourcesIndex(props: ResourcesIndexProps) {
 	return (
 		<PageWrapper title="Recursos">
 			<PanelContainer>
@@ -114,10 +110,10 @@ function ArticleIndex(props: ArticleIndexProps) {
 	);
 }
 
-function ArticleIndexContainer() {
+function ResourcesIndexContainer() {
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 
-	const { loading, error, data } = useQuery(articleIndexPageQuery, {
+	const { loading, error, data } = useQuery(resourcesIndexPageQuery, {
 		variables: { currentPageNum },
 	});
 
@@ -133,7 +129,7 @@ function ArticleIndexContainer() {
 	}
 
 	return (
-		<ArticleIndex
+		<ResourcesIndex
 			{...data.searchArticles}
 			currentPageNum={currentPageNum}
 			setCurrentPageNum={setCurrentPageNum}
@@ -141,4 +137,4 @@ function ArticleIndexContainer() {
 	);
 }
 
-export default ArticleIndexContainer;
+export default ResourcesIndexContainer;

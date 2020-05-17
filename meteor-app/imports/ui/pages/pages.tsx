@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
-import Article from "./article";
-import ArticleIndex from "./article-index";
+import Article from "imports/ui/pages/resources-index/article";
+import ResourcesIndex from "./resources-index";
 import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
 import CreateSalary from "./create-salary";
@@ -57,10 +57,9 @@ function Pages(props) {
 			<Route path="/register" component={RegisterPage} />
 			<Route path="/worker-resources" component={ResourcesWorkers} />
 			<Route path="/test" component={TestPage} />
-
-			<Route path={`/article/:slug`} component={() => <Article />} />
-			<Route path={`/article/`} component={() => <ArticleIndex />} />
-
+			// recursos = resources
+			<Route path={`/recursos/:slug`} component={() => <Article />} />
+			<Route path={`/recursos/`} component={() => <ResourcesIndex />} />
 			<Route
 				path={`/${queryRoutes.companies}`}
 				component={() => (
@@ -69,7 +68,6 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.companyProfile}`}
 				component={() => (
@@ -78,7 +76,6 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.writeReview}`}
 				component={() => (
@@ -88,7 +85,6 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.submitSalaryData}`}
 				component={() => (
@@ -97,21 +93,18 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.applyForJob}`}
 				component={() => (
 					<ApplyToJobAd jobAdId={fixNullParams(params.get("id"))} />
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.user}`}
 				component={() => (
 					<UserPage user_id={fixNullParams(params.get("id"))} />
 				)}
 			/>
-
 			<Route component={NotFoundPage} />
 		</Switch>
 	);

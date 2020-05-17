@@ -1,5 +1,5 @@
 const queryRoutes = {
-	article: "article",
+	resources: "recursos",
 	companies: "companies",
 	companyProfile: "companyprofile",
 	writeReview: "write-review",
@@ -14,7 +14,7 @@ const queryRoutes = {
 // in order to reduce the risk of typos
 // and reduce the use of magic strings
 const vizeArticleUrl = function(slug: string) {
-	return `/${queryRoutes.article}/?slug=${slug}`;
+	return `/${queryRoutes.resources}/?slug=${slug}`;
 };
 const vizeProfileUrl = function(companyId) {
 	return `/${queryRoutes.companyProfile}/?id=${companyId}`;
