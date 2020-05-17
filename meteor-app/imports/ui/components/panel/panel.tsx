@@ -7,7 +7,7 @@ const Panel = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
-	max-width: 500px;
+	margin-bottom: 10px;
 
 	background-color: ${props => props.theme.surface};
 	color: ${props => props.theme.onSurface};

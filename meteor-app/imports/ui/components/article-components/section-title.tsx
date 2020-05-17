@@ -9,6 +9,9 @@ const SectionTitle = styled.div`
 	width: 100%;
 	text-align: center;
 
+	font-size: 27px;
+	font-weight: bold;
+
 	background-color: ${props => props.theme.surface};
 	color: ${props => props.theme.onSurface};
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);

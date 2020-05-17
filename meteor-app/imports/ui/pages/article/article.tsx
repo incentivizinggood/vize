@@ -5,7 +5,10 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
-
+import {
+	SectionTitle,
+	ArticleContactSection,
+} from "imports/ui/components/article-components";
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
 
@@ -74,7 +77,7 @@ const ArticleFooter = styled.div`
 
 	height: 45px;
 	max-width: 500px;
-	padding-left: 15px;
+	padding: 0 15px;
 	margin: 0 auto;
 
 	background-color: white;
@@ -89,6 +92,22 @@ const ArticleFooter = styled.div`
 const NumLikes = styled.p`
 	margin-left: 0;
 	margin-right: 7px;
+`;
+
+const SectionLineSeparateor = styled.hr`
+	width: 100vw;
+	margin: 20px -20px;
+`;
+
+const SocialShareButtons = styled.div`
+	display: flex;
+	flex-direction: row-reverse;
+	width: 100%;
+
+	> * {
+		margin: auto 0;
+		margin-right: 5px;
+	}
 `;
 
 /* Styling for image (part of markdown)
@@ -131,27 +150,34 @@ function Article({ title, publishDate, body }: ArticleProps) {
 					<img src="images/employerPostVize.jpg" />
 
 					<ReactMarkdown source={body} />
+
+					<SectionLineSeparateor />
+
+					<ArticleContactSection />
 				</Panel>
+
 				<ArticleFooter>
 					<button>
 						<FavoriteBorderIcon />
 					</button>
 					<NumLikes>0</NumLikes>
 
-					<WhatsappShareButton
-						url="http://localhost:3000/article"
-						title="Hello"
-					>
-						<WhatsappIcon size="24" round={true} />
-					</WhatsappShareButton>
+					<SocialShareButtons>
+						<WhatsappShareButton
+							url="http://localhost:3000/article"
+							title="Hello"
+						>
+							<WhatsappIcon size="24" round={true} />
+						</WhatsappShareButton>
 
-					<FacebookShareButton
-						url="http://localhost:3000/article"
-						quote="Hello"
-						hashtag="#incentivandoelbien"
-					>
-						<FacebookIcon size="24" round={true} />
-					</FacebookShareButton>
+						<FacebookShareButton
+							url="http://localhost:3000/article"
+							quote="Hello"
+							hashtag="#incentivandoelbien"
+						>
+							<FacebookIcon size="24" round={true} />
+						</FacebookShareButton>
+					</SocialShareButtons>
 				</ArticleFooter>
 			</PanelContainer>
 		</PageWrapper>

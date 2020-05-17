@@ -17,18 +17,6 @@ import {
 
 const NavbarMobileHeight = "65px";
 
-type ArticleIndexProps = {
-	totalCount: number;
-	nodes: {
-		title: string;
-		slug: string;
-		publishDate: string;
-	}[];
-
-	currentPageNum: number;
-	setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>;
-};
-
 const IndexPageContainer = styled.div`
 	width: 100%;
 	height: 100%;
@@ -90,25 +78,30 @@ const TopicsContainer = styled.div`
 	Next
 </button>
 */
+
+type ArticleIndexProps = {
+	totalCount: number;
+	nodes: {
+		title: string;
+		slug: string;
+		publishDate: string;
+	}[];
+
+	currentPageNum: number;
+	setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>;
+};
+
 function ArticleIndex(props: ArticleIndexProps) {
 	return (
 		<PageWrapper title="Recursos">
-			<IndexPageContainer>
-				<SectionTitle>
-					<h2>
-						<strong> Highlighted </strong>
-					</h2>
-				</SectionTitle>
+			<PanelContainer>
+				<SectionTitle>Highlighted</SectionTitle>
 
 				<ArticleCard />
 
 				<ArticleCard />
 
-				<SectionTitle>
-					<h2>
-						<strong> Topics </strong>
-					</h2>
-				</SectionTitle>
+				<SectionTitle>Topics</SectionTitle>
 				<TopicsContainer>
 					<TopicCard />
 					<TopicCard />
@@ -116,7 +109,7 @@ function ArticleIndex(props: ArticleIndexProps) {
 					<TopicCard />
 					<TopicCard />
 				</TopicsContainer>
-			</IndexPageContainer>
+			</PanelContainer>
 		</PageWrapper>
 	);
 }
