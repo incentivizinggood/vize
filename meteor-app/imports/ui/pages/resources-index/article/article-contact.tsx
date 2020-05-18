@@ -20,27 +20,36 @@ const ContactTitle = styled.h3`
 `;
 
 // Contact Author Container Start
-const ContactAuthorContainter = styled.div`
+const AuthorContainter = styled.div`
 	display: flex;
 	margin: 0 auto;
 	width: fit-content;
 `;
 
-const ContactAuthorImage = styled.img`
+const AuthorImage = styled.img`
 	margin-right: 10px;
 	width: 50px;
 	height: 50px;
 `;
 
-const ContactAuthorTitleContainer = styled.div`
+const AuthorTitleContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
 
-const ContactAuthorCompany = styled.h5`
+// Primary Title = author name if it exists. Otherwise, it will be company name
+const AuthorPrimaryTitle = styled.h4`
+	font-weight: bold;
+`;
+
+const AuthorSecondaryTitle = styled.h5`
 	color: rgba(0, 0, 0, 0.54);
 	line-height: 1.25;
 	font-size: 1rem;
+`;
+
+const AuthorBio = styled.p`
+	text-align: center;
 `;
 
 const ContactDetails = styled.div`
@@ -76,17 +85,22 @@ function ArticleContactSection() {
 		<ContactSectionContainter>
 			<ContactTitle> Contacto </ContactTitle>
 			<ContactDetails>
-				<ContactAuthorContainter>
-					<ContactAuthorImage src="/images/icons/profile-icon.png" />
-					<ContactAuthorTitleContainer>
-						<h4>
-							<strong>Ivan Garcia</strong>
-						</h4>
-						<ContactAuthorCompany>
+				<AuthorContainter>
+					<AuthorImage src="/images/icons/profile-icon.png" />
+					<AuthorTitleContainer>
+						<AuthorPrimaryTitle>Ivan Garcia</AuthorPrimaryTitle>
+						<AuthorSecondaryTitle>
 							Incentivando El Bien
-						</ContactAuthorCompany>
-					</ContactAuthorTitleContainer>
-				</ContactAuthorContainter>
+						</AuthorSecondaryTitle>
+					</AuthorTitleContainer>
+				</AuthorContainter>
+				<AuthorBio>
+					Ivan es un cofundador y director de tecnologia de Vize. El
+					actualmente estudia derecho en la UABC. Ivan es un
+					cofundador y director de tecnologia de Vize. El actualmente
+					estudia derecho en la UABC.
+				</AuthorBio>
+
 				<br />
 				<ContactItem>
 					<PhoneIcon />
@@ -106,7 +120,9 @@ function ArticleContactSection() {
 				<ContactItem>
 					<LocationOnIcon />
 					<h6> Tijuana, BC </h6>
-					<ContactItemDescription>Dirrecion</ContactItemDescription>
+					<ContactItemDescription>
+						Localización
+					</ContactItemDescription>
 				</ContactItem>
 			</ContactDetails>
 		</ContactSectionContainter>

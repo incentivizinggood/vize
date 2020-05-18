@@ -33,9 +33,16 @@ const AuthorName = styled.h5`
 	margin: 5px auto;
 	margin-top: 20px;
 `;
+
 const ArticlePublishedDate = styled.h6`
 	color: rgba(0, 0, 0, 0.54);
 	margin: 5px auto;
+`;
+
+const ArticleImage = styled.img`
+	width: 100vw;
+	margin: 0 -20px;
+	margin-bottom: 30px;
 `;
 
 const BackToResourcesHeader = styled.div`
@@ -108,12 +115,6 @@ const SocialShareButtons = styled.div`
 	}
 `;
 
-/* Styling for image (part of markdown)
-width: 100vw;
-margin: 0 -20px;
-margin-bottom: 30px;
-*/
-
 type ArticleProps = { title: string; publishDate: string; body: string };
 
 function Article({ title, publishDate, body }: ArticleProps) {
@@ -132,7 +133,7 @@ function Article({ title, publishDate, body }: ArticleProps) {
 		<PageWrapper title={title}>
 			<PanelContainer>
 				<BackToResourcesHeader>
-					<Link to="/article">
+					<Link to="/recursos">
 						<ArrowBackIconStyled />
 					</Link>
 				</BackToResourcesHeader>
@@ -145,7 +146,7 @@ function Article({ title, publishDate, body }: ArticleProps) {
 					<ArticlePublishedDate>
 						{articlePublishedDate}
 					</ArticlePublishedDate>
-					<img src="images/employerPostVize.jpg" />
+					<ArticleImage src="https://unsplash.com/photos/JpgcXXhpel0/download" />
 
 					<ReactMarkdown source={body} />
 
