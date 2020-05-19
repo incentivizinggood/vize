@@ -9,12 +9,29 @@ import * as randomInputs from "./random-inputs";
 
 const baseUrl = "http://localhost:3000";
 
-const fetch = fetchCookie(nodeFetch, new toughCookie.CookieJar());
+function newSession() {
+	const fetch: typeof nodeFetch = fetchCookie(
+		nodeFetch,
+		new toughCookie.CookieJar()
+	);
 
-const link = new HttpLink({ uri: `${baseUrl}/graphql`, fetch: fetch as any });
+	const link = new HttpLink({
+		uri: `${baseUrl}/graphql`,
+		fetch: fetch as any,
+	});
+
+	const graphql = (operation: GraphQLRequest) =>
+		makePromise(execute(link, operation));
+
+	return {
+		fetch,
+		graphql,
+	};
+}
 
 const createdData: any = {
 	users: [],
+	reviews: [],
 };
 
 const CREATE_REVIEW = gql`
@@ -50,7 +67,7 @@ const CREATE_REVIEW = gql`
 	}
 `;
 
-async function writeReview(specifiedInput = {}) {
+async function writeReview(session, specifiedInput = {}) {
 	const operation: GraphQLRequest = {
 		query: CREATE_REVIEW,
 		variables: {
@@ -61,39 +78,36 @@ async function writeReview(specifiedInput = {}) {
 		},
 	};
 
-	makePromise(execute(link, operation))
-		.then(data =>
-			console.log(`received data ${JSON.stringify(data, null, 2)}`)
-		)
-		.catch(error => console.log(`received error ${error}`));
+	const res = await session.graphql(operation);
+
+	createdData.reviews.push(res.data.createReview.review);
 }
 
-async function registerUser(specifiedInput = {}) {
+async function registerUser(session, specifiedInput = {}) {
 	const body = {
 		...randomInputs.registerUser(),
 		...specifiedInput,
 	};
 
-	const j = await fetch(`${baseUrl}/register`, {
-		method: "POST",
-		body: JSON.stringify(body),
-		headers: { "Content-Type": "application/json" },
-	}).then(res => res.json());
+	const j = await session
+		.fetch(`${baseUrl}/register`, {
+			method: "POST",
+			body: JSON.stringify(body),
+			headers: { "Content-Type": "application/json" },
+		})
+		.then(res => res.json());
 
 	createdData.users.push({ ...body, id: j.user.id });
 }
 
 async function main() {
-	/*const waitingon = [];
-
-	for (let i = 0; i < 20; ++i) {
-		waitingon.push(registerUser());
-	}
-
-	await Promise.all(waitingon);*/
-	await registerUser({ role: "worker" });
-	await writeReview();
-	console.log(createdData);
+	const companySession = newSession();
+	await registerUser(companySession, { role: "company" });
+	//await createCompany();
+	const workerSession = newSession();
+	await registerUser(workerSession, { role: "worker" });
+	await writeReview(workerSession);
+	console.log(JSON.stringify(createdData, null, 2));
 }
 
 main();
