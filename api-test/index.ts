@@ -1,10 +1,14 @@
 import faker from "faker";
-import fetch from "node-fetch";
+import nodeFetch from "node-fetch";
+import fetchCookie from "fetch-cookie/node-fetch";
+import toughCookie from "tough-cookie";
 import { execute, makePromise, GraphQLRequest } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
 
 const baseUrl = "http://localhost:3000";
+
+const fetch = fetchCookie(nodeFetch, new toughCookie.CookieJar());
 
 const link = new HttpLink({ uri: `${baseUrl}/graphql`, fetch: fetch as any });
 
@@ -111,7 +115,7 @@ async function registerUser() {
 		username: faker.internet.userName(),
 		email: faker.internet.email(),
 		password: faker.internet.password(),
-		role: faker.random.arrayElement(["worker", "company"]),
+		role: "worker", //faker.random.arrayElement(["worker", "company"]),
 	};
 
 	const j = await fetch(`${baseUrl}/register`, {
