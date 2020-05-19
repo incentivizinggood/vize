@@ -31,6 +31,9 @@ export const Query: QueryResolvers = {
 	article: (_obj, args, _context, _info) =>
 		dataModel.getArticleBySlug(args.id),
 
+	articleTopics: (_obj, args, _context, _info) =>
+		dataModel.getArticleTopics(),
+
 	searchArticles: (_obj, args, _context, _info) =>
 		dataModel.searchForArticles(
 			args.searchText,

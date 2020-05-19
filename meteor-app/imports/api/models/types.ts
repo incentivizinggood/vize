@@ -5,6 +5,11 @@ export type Article = {
 	publishDate: Date;
 };
 
+export type ArticleTopic = {
+	topicName: string;
+	iconImageURL: string;
+};
+
 export type VoteId =
 	| { subjectType: "comment"; refersTo: number; submittedBy: number }
 	| { subjectType: "review"; refersTo: number; submittedBy: number };

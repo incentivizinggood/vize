@@ -11,6 +11,8 @@ type Query {
 	vote(id: ID!): Vote
 
 	article(id: ID!): Article
+	articleTopic(id: ID!): ArticleTopic
+	articleTopics: [ArticleTopic!]!
 
 	searchArticles(
 		searchText: String = ""
@@ -209,6 +211,13 @@ type Article {
 	title: String!
 	body: String!
 	publishDate: DateTime!
+}
+
+type ArticleTopic {
+	id: ID!
+
+	topicName: String!
+	iconImageURL: String!
 }
 
 type Company {

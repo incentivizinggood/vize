@@ -77,7 +77,11 @@ const TopicsContainer = styled.div`
 
 type ResourcesIndexProps = {
 	totalCount: number;
-	nodes: {
+	topics: {
+		topicName: string;
+		iconImageURL: string;
+	}[];
+	articles: {
 		title: string;
 		slug: string;
 		publishDate: string;
@@ -99,11 +103,12 @@ function ResourcesIndex(props: ResourcesIndexProps) {
 
 				<SectionTitle>Topics</SectionTitle>
 				<TopicsContainer>
-					<TopicCard />
-					<TopicCard />
-					<TopicCard />
-					<TopicCard />
-					<TopicCard />
+					{props.topics.map(topic => (
+						<TopicCard
+							topicName={topic.topicName}
+							topicIcon={topic.iconImageURL}
+						/>
+					))}
 				</TopicsContainer>
 			</PanelContainer>
 		</PageWrapper>
@@ -130,7 +135,8 @@ function ResourcesIndexContainer() {
 
 	return (
 		<ResourcesIndex
-			{...data.searchArticles}
+			articles={data.searchArticles}
+			topics={data.articleTopics}
 			currentPageNum={currentPageNum}
 			setCurrentPageNum={setCurrentPageNum}
 		/>

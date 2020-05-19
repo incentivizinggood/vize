@@ -8,4 +8,9 @@ query resourcesIndexPage($currentPageNum: Int!) {
 			publishDate
 		}
 	}
+
+	articleTopics {
+		topicName
+		iconImageURL
+	}
 }

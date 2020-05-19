@@ -1,4 +1,5 @@
 export * from "./article";
+export * from "./article-topics";
 export * from "./comment";
 export * from "./company";
 export * from "./job-ad";
