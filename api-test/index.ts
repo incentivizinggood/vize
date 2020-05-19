@@ -1,3 +1,4 @@
+import faker from "faker";
 import nodeFetch from "node-fetch";
 import fetchCookie from "fetch-cookie/node-fetch";
 import toughCookie from "tough-cookie";
@@ -6,6 +7,7 @@ import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
 
 import * as randomInputs from "./random-inputs";
+import { repeatInParallel } from "./util";
 
 const baseUrl = "http://localhost:3000";
 
@@ -137,13 +139,29 @@ async function registerUser(session, specifiedInput = {}) {
 }
 
 async function main() {
-	const companySession = newSession();
-	await registerUser(companySession, { role: "company" });
-	await createCompany(companySession);
+	// Write reviews for companies that may not exist yet.
+	await repeatInParallel(10, async () => {
+		const s = newSession();
+		await registerUser(s, { role: "worker" });
+		await writeReview(s);
+	});
 
-	const workerSession = newSession();
-	await registerUser(workerSession, { role: "worker" });
-	await writeReview(workerSession);
+	// Create companies.
+	await repeatInParallel(10, async () => {
+		const s = newSession();
+		await registerUser(s, { role: "company" });
+		await createCompany(s);
+	});
+
+	// Write reviews for companies that definitely do exist.
+	await repeatInParallel(10, async () => {
+		const s = newSession();
+		await registerUser(s, { role: "worker" });
+		await writeReview(s, {
+			companyName: faker.random.arrayElement<any>(createdData.companies)
+				.name,
+		});
+	});
 
 	console.log(JSON.stringify(createdData, null, 2));
 }

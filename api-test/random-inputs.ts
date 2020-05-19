@@ -1,4 +1,5 @@
 import faker from "faker";
+import { repeat } from "./util";
 
 export const registerUser = () => ({
 	username: faker.internet.userName(),
@@ -51,14 +52,6 @@ export const reviewInput = () => ({
 	additionalComments: faker.lorem.paragraph(),
 });
 
-function foomak<T>(n: number, f: () => T): T[] {
-	const x = [];
-	for (let i = 0; i < n; ++i) {
-		x.push(f());
-	}
-	return x;
-}
-
 export const companyInput = () => ({
 	name: faker.company.companyName(),
 	contactEmail: faker.internet.email(),
@@ -76,7 +69,7 @@ export const companyInput = () => ({
 		"5000+",
 	]),
 	industry: faker.commerce.department(),
-	locations: foomak(
+	locations: repeat(
 		faker.random.number({
 			min: 1,
 			max: 5,
