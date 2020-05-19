@@ -11,6 +11,8 @@ import { repeatInParallel, ignoreExceptions } from "./util";
 
 const baseUrl = "http://localhost:3000";
 
+faker.locale = "es_MX";
+
 function newSession() {
 	const fetch: typeof nodeFetch = fetchCookie(
 		nodeFetch,
