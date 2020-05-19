@@ -1,10 +1,11 @@
-import faker from "faker";
 import nodeFetch from "node-fetch";
 import fetchCookie from "fetch-cookie/node-fetch";
 import toughCookie from "tough-cookie";
 import { execute, makePromise, GraphQLRequest } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
+
+import * as randomInputs from "./random-inputs";
 
 const baseUrl = "http://localhost:3000";
 
@@ -49,60 +50,17 @@ const CREATE_REVIEW = gql`
 	}
 `;
 
-async function writeReview() {
+async function writeReview(specifiedInput = {}) {
 	const operation: GraphQLRequest = {
 		query: CREATE_REVIEW,
 		variables: {
 			reviewInput: {
-				companyName: faker.company.companyName(),
-				reviewTitle: faker.lorem.words(3),
-				location: {
-					city: faker.address.city(),
-					address: faker.address.streetAddress(),
-				},
-				jobTitle: faker.name.jobTitle(),
-				numberOfMonthsWorked: faker.random.number({ min: 1, max: 24 }),
-				contractType: faker.random.arrayElement([
-					"FULL_TIME",
-					"PART_TIME",
-					"INTERNSHIP",
-					"TEMPORARY",
-					"CONTRACTOR",
-				]),
-				employmentStatus: faker.random.arrayElement([
-					"FORMER",
-					"CURRENT",
-				]),
-				pros: faker.lorem.words(5),
-				cons: faker.lorem.words(5),
-				wouldRecommendToOtherJobSeekers: faker.random.boolean(),
-				healthAndSafety: faker.random.number({
-					min: 0,
-					max: 5,
-					precision: 1,
-				}),
-				managerRelationship: faker.random.number({
-					min: 0,
-					max: 5,
-					precision: 1,
-				}),
-				workEnvironment: faker.random.number({
-					min: 0,
-					max: 5,
-					precision: 1,
-				}),
-				benefits: faker.random.number({ min: 0, max: 5, precision: 1 }),
-				overallSatisfaction: faker.random.number({
-					min: 0,
-					max: 5,
-					precision: 1,
-				}),
-				additionalComments: faker.lorem.paragraph(),
+				...randomInputs.reviewInput(),
+				...specifiedInput,
 			},
 		},
 	};
 
-	// For single execution operations, a Promise can be used
 	makePromise(execute(link, operation))
 		.then(data =>
 			console.log(`received data ${JSON.stringify(data, null, 2)}`)
@@ -110,12 +68,10 @@ async function writeReview() {
 		.catch(error => console.log(`received error ${error}`));
 }
 
-async function registerUser() {
+async function registerUser(specifiedInput = {}) {
 	const body = {
-		username: faker.internet.userName(),
-		email: faker.internet.email(),
-		password: faker.internet.password(),
-		role: "worker", //faker.random.arrayElement(["worker", "company"]),
+		...randomInputs.registerUser(),
+		...specifiedInput,
 	};
 
 	const j = await fetch(`${baseUrl}/register`, {
@@ -135,7 +91,7 @@ async function main() {
 	}
 
 	await Promise.all(waitingon);*/
-	await registerUser();
+	await registerUser({ role: "worker" });
 	await writeReview();
 	console.log(createdData);
 }
