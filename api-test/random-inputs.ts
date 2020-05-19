@@ -50,3 +50,43 @@ export const reviewInput = () => ({
 	}),
 	additionalComments: faker.lorem.paragraph(),
 });
+
+function foomak<T>(n: number, f: () => T): T[] {
+	const x = [];
+	for (let i = 0; i < n; ++i) {
+		x.push(f());
+	}
+	return x;
+}
+
+export const companyInput = () => ({
+	name: faker.company.companyName(),
+	contactEmail: faker.internet.email(),
+	contactPhoneNumber: faker.phone.phoneNumber(),
+	yearEstablished: faker.random.number({
+		min: 1,
+		max: new Date().getUTCFullYear(),
+		precision: 1,
+	}),
+	numEmployees: faker.random.arrayElement([
+		"1 - 50",
+		"51 - 500",
+		"501 - 2000",
+		"2001 - 5000",
+		"5000+",
+	]),
+	industry: faker.commerce.department(),
+	locations: foomak(
+		faker.random.number({
+			min: 1,
+			max: 5,
+			precision: 1,
+		}),
+		() => ({
+			city: faker.address.city(),
+			address: faker.address.streetAddress(),
+		})
+	),
+	websiteURL: faker.internet.url(),
+	descriptionOfCompany: faker.lorem.paragraph(),
+});

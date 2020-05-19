@@ -32,6 +32,7 @@ function newSession() {
 const createdData: any = {
 	users: [],
 	reviews: [],
+	companies: [],
 };
 
 const CREATE_REVIEW = gql`
@@ -83,6 +84,41 @@ async function writeReview(session, specifiedInput = {}) {
 	createdData.reviews.push(res.data.createReview.review);
 }
 
+const CREATE_COMPANY = gql`
+	mutation createCompany($input: CreateCompanyInput!) {
+		createCompany(input: $input) {
+			company {
+				id
+				name
+				contactEmail
+				yearEstablished
+				numEmployees
+				industry
+				contactPhoneNumber
+				websiteURL
+				descriptionOfCompany
+				dateJoined
+			}
+		}
+	}
+`;
+
+async function createCompany(session, specifiedInput = {}) {
+	const operation: GraphQLRequest = {
+		query: CREATE_COMPANY,
+		variables: {
+			input: {
+				...randomInputs.companyInput(),
+				...specifiedInput,
+			},
+		},
+	};
+
+	const res = await session.graphql(operation);
+
+	createdData.companies.push(res.data.createCompany.company);
+}
+
 async function registerUser(session, specifiedInput = {}) {
 	const body = {
 		...randomInputs.registerUser(),
@@ -103,10 +139,12 @@ async function registerUser(session, specifiedInput = {}) {
 async function main() {
 	const companySession = newSession();
 	await registerUser(companySession, { role: "company" });
-	//await createCompany();
+	await createCompany(companySession);
+
 	const workerSession = newSession();
 	await registerUser(workerSession, { role: "worker" });
 	await writeReview(workerSession);
+
 	console.log(JSON.stringify(createdData, null, 2));
 }
 
