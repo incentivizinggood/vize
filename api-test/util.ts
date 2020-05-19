@@ -16,3 +16,14 @@ export async function repeatInParallel<T>(
 	}
 	return Promise.all(x);
 }
+
+export function ignoreExceptions(f) {
+	return async function(...args) {
+		try {
+			return await f(...args);
+		} catch (e) {
+			console.error(e);
+			return undefined;
+		}
+	};
+}

@@ -7,7 +7,7 @@ import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
 
 import * as randomInputs from "./random-inputs";
-import { repeatInParallel } from "./util";
+import { repeatInParallel, ignoreExceptions } from "./util";
 
 const baseUrl = "http://localhost:3000";
 
@@ -140,28 +140,38 @@ async function registerUser(session, specifiedInput = {}) {
 
 async function main() {
 	// Write reviews for companies that may not exist yet.
-	await repeatInParallel(10, async () => {
-		const s = newSession();
-		await registerUser(s, { role: "worker" });
-		await writeReview(s);
-	});
+	await repeatInParallel(
+		1000,
+		ignoreExceptions(async () => {
+			const s = newSession();
+			await registerUser(s, { role: "worker" });
+			await writeReview(s);
+		})
+	);
 
 	// Create companies.
-	await repeatInParallel(10, async () => {
-		const s = newSession();
-		await registerUser(s, { role: "company" });
-		await createCompany(s);
-	});
+	await repeatInParallel(
+		100,
+		ignoreExceptions(async () => {
+			const s = newSession();
+			await registerUser(s, { role: "company" });
+			await createCompany(s);
+		})
+	);
 
 	// Write reviews for companies that definitely do exist.
-	await repeatInParallel(10, async () => {
-		const s = newSession();
-		await registerUser(s, { role: "worker" });
-		await writeReview(s, {
-			companyName: faker.random.arrayElement<any>(createdData.companies)
-				.name,
-		});
-	});
+	await repeatInParallel(
+		1000,
+		ignoreExceptions(async () => {
+			const s = newSession();
+			await registerUser(s, { role: "worker" });
+			await writeReview(s, {
+				companyName: faker.random.arrayElement<any>(
+					createdData.companies
+				).name,
+			});
+		})
+	);
 
 	console.log(JSON.stringify(createdData, null, 2));
 }
