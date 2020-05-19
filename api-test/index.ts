@@ -141,7 +141,7 @@ async function registerUser(session, specifiedInput = {}) {
 async function main() {
 	// Write reviews for companies that may not exist yet.
 	await repeatInParallel(
-		1000,
+		10,
 		ignoreExceptions(async () => {
 			const s = newSession();
 			await registerUser(s, { role: "worker" });
@@ -151,7 +151,7 @@ async function main() {
 
 	// Create companies.
 	await repeatInParallel(
-		100,
+		10,
 		ignoreExceptions(async () => {
 			const s = newSession();
 			await registerUser(s, { role: "company" });
@@ -161,7 +161,7 @@ async function main() {
 
 	// Write reviews for companies that definitely do exist.
 	await repeatInParallel(
-		1000,
+		10,
 		ignoreExceptions(async () => {
 			const s = newSession();
 			await registerUser(s, { role: "worker" });

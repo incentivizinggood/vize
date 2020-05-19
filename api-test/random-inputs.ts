@@ -1,6 +1,8 @@
 import faker from "faker";
 import { repeat } from "./util";
 
+const nullable = x => (faker.random.boolean() ? x : undefined);
+
 export const registerUser = () => ({
 	username: faker.internet.userName(),
 	email: faker.internet.email(),
@@ -8,13 +10,22 @@ export const registerUser = () => ({
 	role: faker.random.arrayElement(["worker", "company"]),
 });
 
+export const locationInput = () => ({
+	city: faker.address.city(),
+	address: faker.address.streetAddress(),
+	industrialHub: nullable(faker.address.state()),
+});
+
+export const starRating = () =>
+	faker.random.number({
+		min: 0,
+		max: 5,
+	});
+
 export const reviewInput = () => ({
 	companyName: faker.company.companyName(),
 	reviewTitle: faker.lorem.words(3),
-	location: {
-		city: faker.address.city(),
-		address: faker.address.streetAddress(),
-	},
+	location: locationInput(),
 	jobTitle: faker.name.jobTitle(),
 	numberOfMonthsWorked: faker.random.number({ min: 1, max: 24 }),
 	contractType: faker.random.arrayElement([
@@ -28,58 +39,48 @@ export const reviewInput = () => ({
 	pros: faker.lorem.words(5),
 	cons: faker.lorem.words(5),
 	wouldRecommendToOtherJobSeekers: faker.random.boolean(),
-	healthAndSafety: faker.random.number({
-		min: 0,
-		max: 5,
-		precision: 1,
-	}),
-	managerRelationship: faker.random.number({
-		min: 0,
-		max: 5,
-		precision: 1,
-	}),
-	workEnvironment: faker.random.number({
-		min: 0,
-		max: 5,
-		precision: 1,
-	}),
-	benefits: faker.random.number({ min: 0, max: 5, precision: 1 }),
-	overallSatisfaction: faker.random.number({
-		min: 0,
-		max: 5,
-		precision: 1,
-	}),
-	additionalComments: faker.lorem.paragraph(),
+	healthAndSafety: starRating(),
+	managerRelationship: starRating(),
+	workEnvironment: starRating(),
+	benefits: starRating(),
+	overallSatisfaction: starRating(),
+	additionalComments: nullable(faker.lorem.paragraph()),
 });
 
 export const companyInput = () => ({
 	name: faker.company.companyName(),
 	contactEmail: faker.internet.email(),
-	contactPhoneNumber: faker.phone.phoneNumber(),
-	yearEstablished: faker.random.number({
-		min: 1,
-		max: new Date().getUTCFullYear(),
-		precision: 1,
-	}),
-	numEmployees: faker.random.arrayElement([
-		"1 - 50",
-		"51 - 500",
-		"501 - 2000",
-		"2001 - 5000",
-		"5000+",
-	]),
-	industry: faker.commerce.department(),
+	contactPhoneNumber: nullable(faker.phone.phoneNumber()),
+	yearEstablished: nullable(
+		faker.random.number({
+			min: 1,
+			max: new Date().getUTCFullYear(),
+		})
+	),
+	numEmployees: nullable(
+		faker.random.arrayElement([
+			"1 - 50",
+			"51 - 500",
+			"501 - 2000",
+			"2001 - 5000",
+			"5000+",
+		])
+	),
+	industry: nullable(faker.commerce.department()),
 	locations: repeat(
 		faker.random.number({
 			min: 1,
 			max: 5,
-			precision: 1,
 		}),
-		() => ({
-			city: faker.address.city(),
-			address: faker.address.streetAddress(),
-		})
+		locationInput
 	),
-	websiteURL: faker.internet.url(),
-	descriptionOfCompany: faker.lorem.paragraph(),
+	websiteURL: nullable(faker.internet.url()),
+	descriptionOfCompany: nullable(
+		faker.lorem.paragraph(
+			faker.random.number({
+				min: 1,
+				max: 12,
+			})
+		)
+	),
 });
