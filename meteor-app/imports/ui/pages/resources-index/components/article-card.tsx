@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
-import { LinkButton } from "imports/ui/components/button";
+import { Link } from "react-router-dom";
 
 import {
 	FacebookShareButton,
@@ -82,7 +82,11 @@ const ArticleFooter = styled.div`
 	}
 `;
 
-const ReadMore = styled(LinkButton)`
+let ReadMore = styled.button`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	background-color: #e4e6eb;
 	color: black;
 	font-weight: bold;
@@ -93,6 +97,12 @@ const ReadMore = styled(LinkButton)`
 	border-radius: 0.4rem;
 `;
 
+ReadMore = ReadMore.withComponent(Link);
+const ReadMoreButton = props => (
+	<ReadMore primary to={urlGenerators.vizeArticleUrl(props.slug)} {...props}>
+		<T.getStarted />
+	</ReadMore>
+);
 type ArticleCardProps = {
 	slug: string;
 	title: string;
@@ -108,9 +118,7 @@ function ArticleCardComponent(props: ArticleCardProps) {
 				<ArticleTitle>{props.title}</ArticleTitle>
 				<ArticleCategory>{props.topicName}</ArticleCategory>
 				<ArticleFooter>
-					<ReadMore primary to={urlGenerators.vizeArticleUrl("test")}>
-						Read More
-					</ReadMore>
+					<ReadMoreButton slug={props.slug} />
 
 					<WhatsappShareButton
 						url="http://localhost:3000/article"

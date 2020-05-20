@@ -4,7 +4,11 @@ query articlePage($id: ID!) {
 
 		slug
 		title
+		subtitle
 		body
+		articleImageURL
+		topicName
+		authorId
 		publishDate
 	}
 }

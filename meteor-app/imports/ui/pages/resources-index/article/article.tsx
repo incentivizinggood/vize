@@ -21,6 +21,7 @@ import {
 } from "react-share";
 
 import articlePageQuery from "./article.graphql";
+import articleAuthorQuery from "./article-author.graphql";
 import { PanelContainer, Panel } from "imports/ui/components/panel";
 
 const ArticleSubtitle = styled.h4`
@@ -115,22 +116,62 @@ const SocialShareButtons = styled.div`
 	}
 `;
 
-type ArticleProps = { title: string; publishDate: string; body: string };
+type ArticleProps = {
+	article: {
+		slug: string;
+		title: string;
+		subtitle: string;
+		body: string;
+		articleImageURL: string;
+		topicName: string;
+		authorId: string;
+		publishDate: string;
+	};
+};
 
-function Article({ title, publishDate, body }: ArticleProps) {
-	const options = {
+function Article(props: ArticleProps) {
+	const dateOptions = {
 		day: "numeric",
 		month: "long",
 		year: "numeric",
 	};
 
-	let articlePublishedDate = new Date(publishDate).toLocaleDateString(
-		"es-MX",
-		options
-	);
+	let articlePublishedDate = new Date(
+		props.article.publishDate
+	).toLocaleDateString("es-MX", dateOptions);
+
+	const { loading, error, data: authorData } = useQuery(articleAuthorQuery, {
+		variables: { id: props.article.authorId },
+	});
+
+	console.log({ loading, error, authorData });
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		// TODO: Display errors in better way
+		return <>{JSON.stringify(error)}</>;
+	}
+
+	// Display either the author name or the company name of the author
+	const AuthorTitleName = () => {
+		if (authorData.articleAuthor.authorName) {
+			return (
+				<AuthorName>{authorData.articleAuthor.authorName}</AuthorName>
+			);
+		} else {
+			return (
+				<AuthorName>
+					{authorData.articleAuthor.authorCompanyName}
+				</AuthorName>
+			);
+		}
+	};
 
 	return (
-		<PageWrapper title={title}>
+		<PageWrapper title={props.article.title}>
 			<PanelContainer>
 				<BackToResourcesHeader>
 					<Link to="/recursos">
@@ -138,21 +179,23 @@ function Article({ title, publishDate, body }: ArticleProps) {
 					</Link>
 				</BackToResourcesHeader>
 				<Panel>
-					<h2>{title}</h2>
-					<ArticleSubtitle>
-						Receive free food with this benefit
-					</ArticleSubtitle>
-					<AuthorName>Por: Incentivando El Bien</AuthorName>
+					<h2>{props.article.title}</h2>
+
+					<ArticleSubtitle>{props.article.subtitle}</ArticleSubtitle>
+
+					<AuthorTitleName />
+
 					<ArticlePublishedDate>
 						{articlePublishedDate}
 					</ArticlePublishedDate>
-					<ArticleImage src="https://unsplash.com/photos/JpgcXXhpel0/download" />
 
-					<ReactMarkdown source={body} />
+					<ArticleImage src={props.article.articleImageURL} />
+
+					<ReactMarkdown source={props.article.body} />
 
 					<SectionLineSeparateor />
 
-					<ArticleContactSection />
+					<ArticleContactSection author={authorData.articleAuthor} />
 				</Panel>
 
 				<ArticleFooter>
@@ -201,7 +244,7 @@ function ArticleContainer(props) {
 		return <>{JSON.stringify(error)}</>;
 	}
 
-	return <Article {...data.article} />;
+	return <Article article={data.article} />;
 }
 
 export default withRouter(ArticleContainer);

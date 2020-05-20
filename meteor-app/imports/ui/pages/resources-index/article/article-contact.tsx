@@ -58,7 +58,7 @@ const ContactDetails = styled.div`
 	padding-right: 5%;
 `;
 
-const ContactItem = styled.div`
+const ContactItemContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	position: relative;
@@ -80,49 +80,103 @@ const ContactItemDescription = styled.p`
 	margin-top: 2px;
 `;
 
-function ArticleContactSection() {
+type ArticleAuthorProps = {
+	author: {
+		authorName: string;
+		authorCompanyName: string;
+		authorImageURL: string;
+		authorBio: string;
+		contactPhoneNumber: string;
+		contactEmail: string;
+		websiteURL: string;
+		location: string;
+	};
+};
+
+function ArticleContactSection(props: ArticleAuthorProps) {
+	// If there is no author image, use the default image
+	const AuthorImg = () => {
+		if (props.author.authorImageURL) {
+			return <AuthorImage src={props.author.authorImageURL} />;
+		} else {
+			return <AuthorImage src="/images/icons/profile-icon.png" />;
+		}
+	};
+
+	const AuthorTitles = () => {
+		if (props.author.authorName) {
+			return (
+				<>
+					<AuthorPrimaryTitle>
+						{props.author.authorName}
+					</AuthorPrimaryTitle>
+					<AuthorSecondaryTitle>
+						{props.author.authorCompanyName}
+					</AuthorSecondaryTitle>
+				</>
+			);
+		} else {
+			return (
+				<AuthorPrimaryTitle>
+					{props.author.authorCompanyName}
+				</AuthorPrimaryTitle>
+			);
+		}
+	};
+
+	// display a contact item only if it has text
+	const ContactItem = ({ itemData, itemDescription, children }) => {
+		if (itemData) {
+			return (
+				<ContactItemContainer>
+					{children}
+					<h6> {itemData} </h6>
+					<ContactItemDescription>
+						{itemDescription}
+					</ContactItemDescription>
+				</ContactItemContainer>
+			);
+		} else {
+			return <></>;
+		}
+	};
+
 	return (
 		<ContactSectionContainter>
 			<ContactTitle> Contacto </ContactTitle>
 			<ContactDetails>
 				<AuthorContainter>
-					<AuthorImage src="/images/icons/profile-icon.png" />
+					<AuthorImg />
 					<AuthorTitleContainer>
-						<AuthorPrimaryTitle>Ivan Garcia</AuthorPrimaryTitle>
-						<AuthorSecondaryTitle>
-							Incentivando El Bien
-						</AuthorSecondaryTitle>
+						<AuthorTitles />
 					</AuthorTitleContainer>
 				</AuthorContainter>
-				<AuthorBio>
-					Ivan es un cofundador y director de tecnologia de Vize. El
-					actualmente estudia derecho en la UABC. Ivan es un
-					cofundador y director de tecnologia de Vize. El actualmente
-					estudia derecho en la UABC.
-				</AuthorBio>
+				<AuthorBio>{props.author.authorBio}</AuthorBio>
 
 				<br />
-				<ContactItem>
+				<ContactItem
+					itemData={props.author.contactPhoneNumber}
+					itemDescription="Telefono"
+				>
 					<PhoneIcon />
-					<h6> 956 279 2407 </h6>
-					<ContactItemDescription>Telefono</ContactItemDescription>
 				</ContactItem>
-				<ContactItem>
+				<ContactItem
+					itemData={props.author.contactEmail}
+					itemDescription="Email"
+				>
 					<EmailIcon />
-					<h6> jalvarez@vize.mx </h6>
-					<ContactItemDescription>Email</ContactItemDescription>
 				</ContactItem>
-				<ContactItem>
+				<ContactItem
+					itemData={props.author.websiteURL}
+					itemDescription="Sitio Web"
+				>
 					<PublicIcon />
-					<h6> www.vize.mx </h6>
-					<ContactItemDescription>Sitio Web</ContactItemDescription>
 				</ContactItem>
-				<ContactItem>
+				<ContactItem
+					itemData={props.author.location}
+					itemDescription="Localización"
+				>
 					<LocationOnIcon />
-					<h6> Tijuana, BC </h6>
-					<ContactItemDescription>
-						Localización
-					</ContactItemDescription>
 				</ContactItem>
 			</ContactDetails>
 		</ContactSectionContainter>
