@@ -31,10 +31,7 @@ export function applyPassportMiddleware(app: Express) {
 
 	app.post("/login", async function(req, res, next) {
 		try {
-			const user = await verifyUser({
-				username: req.body.username,
-				password: req.body.password,
-			});
+			const user = await verifyUser(req.body);
 
 			req.logIn(user, function(err) {
 				if (err) {
@@ -70,12 +67,7 @@ export function applyPassportMiddleware(app: Express) {
 
 	app.post("/register", async function(req, res, next) {
 		try {
-			const user = await createUser({
-				username: req.body.username,
-				email: req.body.email,
-				password: req.body.password,
-				role: req.body.role,
-			});
+			const user = await createUser(req.body);
 
 			// Automatically log the new user in.
 			req.logIn(user, function(err) {
@@ -103,11 +95,7 @@ export function applyPassportMiddleware(app: Express) {
 
 	app.post("/change-password", async function(req, res, next) {
 		try {
-			await changePassword(
-				req.user,
-				req.body.oldPassword,
-				req.body.newPassword
-			);
+			await changePassword(req.user, req.body);
 		} catch (e) {
 			if (e instanceof yup.ValidationError) {
 				res.status(401).json({ errors: e.errors });
