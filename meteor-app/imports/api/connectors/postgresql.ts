@@ -4,7 +4,7 @@
 import { Pool, PoolClient, QueryConfig } from "pg";
 
 /** The connection pool for the PostgreSQL database. */
-const pool = new Pool();
+export const pool = new Pool();
 
 // Transactions are functions that take a database connection and use it to run
 // queries on the database. If any extra arguments are needed by the
@@ -19,7 +19,9 @@ const execTransaction = (readOnly: boolean) => async <R>(
 	const client = await pool.connect();
 	try {
 		await client.query(
-			readOnly ? "START TRANSACTION READ ONLY" : "START TRANSACTION"
+			readOnly
+				? "START TRANSACTION ISOLATION LEVEL SERIALIZABLE, READ ONLY"
+				: "START TRANSACTION ISOLATION LEVEL SERIALIZABLE"
 		);
 
 		const result = await transaction(client);
@@ -28,6 +30,7 @@ const execTransaction = (readOnly: boolean) => async <R>(
 
 		return result;
 	} catch (err) {
+		console.error(err);
 		await client.query("ROLLBACK");
 		throw err;
 	} finally {

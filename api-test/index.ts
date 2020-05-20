@@ -2,7 +2,7 @@ import faker from "faker";
 import nodeFetch from "node-fetch";
 import fetchCookie from "fetch-cookie/node-fetch";
 import toughCookie from "tough-cookie";
-import { execute, makePromise, GraphQLRequest } from "apollo-link";
+import { execute, makePromise, GraphQLRequest, FetchResult } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import gql from "graphql-tag";
 
@@ -13,7 +13,12 @@ const baseUrl = "http://localhost:3000";
 
 faker.locale = "es_MX";
 
-function newSession() {
+type Session = {
+	fetch: typeof nodeFetch;
+	graphql: (operation: GraphQLRequest) => Promise<FetchResult>;
+};
+
+function newSession(): Session {
 	const fetch: typeof nodeFetch = fetchCookie(
 		nodeFetch,
 		new toughCookie.CookieJar()
@@ -72,7 +77,7 @@ const CREATE_REVIEW = gql`
 	}
 `;
 
-async function writeReview(session, specifiedInput = {}) {
+async function writeReview(session: Session, specifiedInput = {}) {
 	const operation: GraphQLRequest = {
 		query: CREATE_REVIEW,
 		variables: {
@@ -107,7 +112,7 @@ const CREATE_COMPANY = gql`
 	}
 `;
 
-async function createCompany(session, specifiedInput = {}) {
+async function createCompany(session: Session, specifiedInput = {}) {
 	const operation: GraphQLRequest = {
 		query: CREATE_COMPANY,
 		variables: {
@@ -119,28 +124,38 @@ async function createCompany(session, specifiedInput = {}) {
 	};
 
 	const res = await session.graphql(operation);
+	console.log(res);
 
 	createdData.companies.push(res.data.createCompany.company);
 }
 
-async function registerUser(session, specifiedInput = {}) {
+async function registerUser(session: Session, specifiedInput = {}) {
 	const body = {
 		...randomInputs.registerUser(),
 		...specifiedInput,
 	};
 
-	const j = await session
-		.fetch(`${baseUrl}/register`, {
-			method: "POST",
-			body: JSON.stringify(body),
-			headers: { "Content-Type": "application/json" },
-		})
-		.then(res => res.json());
+	const res = await session.fetch(`${baseUrl}/register`, {
+		method: "POST",
+		body: JSON.stringify(body),
+		headers: { "Content-Type": "application/json" },
+	});
+	console.log(res);
 
-	createdData.users.push({ ...body, id: j.user.id });
+	if (res.ok) {
+		const j = await res.json();
+
+		createdData.users.push({ ...body, id: j.user.id });
+	} else {
+		console.error(await res.text());
+	}
 }
 
-async function main() {
+/**
+ * Simulate usage of the api to generate data for manual testing and demonstrations.
+ * This follows happy path; It does not attempt to detect bugs or regressions.
+ */
+async function generateData() {
 	// Write reviews for companies that may not exist yet.
 	await repeatInParallel(
 		10,
@@ -172,6 +187,42 @@ async function main() {
 					createdData.companies
 				).name,
 			});
+		})
+	);
+
+	console.log(JSON.stringify(createdData, null, 2));
+}
+
+async function usernameIsRequired() {
+	const session = newSession();
+
+	const body = {
+		...randomInputs.registerUser(),
+		username: "",
+	};
+
+	const res = await session.fetch(`${baseUrl}/register`, {
+		method: "POST",
+		body: JSON.stringify(body),
+		headers: { "Content-Type": "application/json" },
+	});
+
+	res.status === 401;
+}
+
+async function main() {
+	const username = faker.internet.userName();
+	const email = faker.internet.email();
+	await repeatInParallel(
+		2,
+		ignoreExceptions(async () => {
+			const s = newSession();
+			await registerUser(s, {
+				//username,
+				email,
+				//role: "worker",
+			});
+			//await writeReview(s);
 		})
 	);
 

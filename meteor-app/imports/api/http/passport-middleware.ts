@@ -103,11 +103,10 @@ export function applyPassportMiddleware(app: Express) {
 
 	app.post("/change-password", async function(req, res, next) {
 		try {
-			await changePassword(
-				req.user,
-				req.body.oldPassword,
-				req.body.newPassword
-			);
+			await changePassword(req.user, {
+				oldPassword: req.body.oldPassword,
+				newPassword: req.body.newPassword,
+			});
 		} catch (e) {
 			if (e instanceof yup.ValidationError) {
 				res.status(401).json({ errors: e.errors });
