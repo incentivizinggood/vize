@@ -84,6 +84,8 @@ type ResourcesIndexProps = {
 	articles: {
 		title: string;
 		slug: string;
+		topicName: string;
+		articleImageURL: string;
 		publishDate: string;
 	}[];
 
@@ -91,25 +93,44 @@ type ResourcesIndexProps = {
 	setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>;
 };
 
+const Articles = ({ articles }) => (
+	<>
+		{articles.map((article, i) => (
+			<ArticleCard
+				key={i}
+				slug={article.slug}
+				title={article.title}
+				topicName={article.topicName}
+				articleImageURL={article.articleImageURL}
+			/>
+		))}
+	</>
+);
+
+const Topics = ({ topics }) => (
+	<TopicsContainer>
+		{topics.map((topic, i) => (
+			<TopicCard
+				key={i}
+				topicName={topic.topicName}
+				iconImageURL={topic.iconImageURL}
+			/>
+		))}
+	</TopicsContainer>
+);
+
 function ResourcesIndex(props: ResourcesIndexProps) {
+	const articles = Array.from(props.articles.nodes);
+	const topics = Array.from(props.topics);
+
 	return (
 		<PageWrapper title="Recursos">
 			<PanelContainer>
 				<SectionTitle>Highlighted</SectionTitle>
-
-				<ArticleCard />
-
-				<ArticleCard />
+				<Articles articles={articles} />
 
 				<SectionTitle>Topics</SectionTitle>
-				<TopicsContainer>
-					{props.topics.map(topic => (
-						<TopicCard
-							topicName={topic.topicName}
-							topicIcon={topic.iconImageURL}
-						/>
-					))}
-				</TopicsContainer>
+				<Topics topics={topics} />
 			</PanelContainer>
 		</PageWrapper>
 	);

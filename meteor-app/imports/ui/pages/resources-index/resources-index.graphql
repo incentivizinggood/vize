@@ -2,9 +2,10 @@ query resourcesIndexPage($currentPageNum: Int!) {
 	searchArticles(pageNum: $currentPageNum) {
 		totalCount
 		nodes {
-			id
 			slug
 			title
+			articleImageURL
+			topicName
 			publishDate
 		}
 	}

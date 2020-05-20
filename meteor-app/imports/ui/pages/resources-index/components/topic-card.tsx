@@ -52,7 +52,7 @@ const TopicName = styled.h3`
 `;
 
 type TopicCardProps = {
-	topicIcon: string;
+	iconImageURL: string;
 	topicName: string;
 };
 
@@ -60,7 +60,7 @@ function TopicCardComponent(props: TopicCardProps) {
 	return (
 		<TopicCard>
 			<TopicCardContent>
-				<TopicImage src={props.topicIcon} />
+				<TopicImage src={props.iconImageURL} />
 				<br />
 				<TopicName>{props.topicName}</TopicName>
 

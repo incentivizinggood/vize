@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
+import { LinkButton } from "imports/ui/components/button";
+
 import {
 	FacebookShareButton,
 	WhatsappShareButton,
@@ -80,7 +82,7 @@ const ArticleFooter = styled.div`
 	}
 `;
 
-const ReadMore = styled.button`
+const ReadMore = styled(LinkButton)`
 	background-color: #e4e6eb;
 	color: black;
 	font-weight: bold;
@@ -91,29 +93,24 @@ const ReadMore = styled.button`
 	border-radius: 0.4rem;
 `;
 
-const ReadMoreButton = props => (
-	<ReadMore primary to={urlGenerators.vizeRegister("company")} {...props}>
-		Read More
-	</ReadMore>
-);
+type ArticleCardProps = {
+	slug: string;
+	title: string;
+	topicName: string;
+	articleImageURL: string;
+};
 
-function ArticleCardComponent() {
+function ArticleCardComponent(props: ArticleCardProps) {
 	return (
 		<ArticleCard>
-			<ArticleImage src="images/employerPostVize.jpg" />
+			<ArticleImage src={props.articleImageURL} />
 			<ArticleDetails>
-				<ArticleTitle>Training Programs at UABC</ArticleTitle>
-				<ArticleCategory> Education </ArticleCategory>
-
-				{/*<ArticleDescription>
-					Going back to school and getting a degree can be an enormous
-					opportunity to increase your skill set as well as your
-					wages, but many people don’t have the time or the money to
-					finish an entire program.
-				</ArticleDescription>
-				*/}
+				<ArticleTitle>{props.title}</ArticleTitle>
+				<ArticleCategory>{props.topicName}</ArticleCategory>
 				<ArticleFooter>
-					<ReadMoreButton />
+					<ReadMore primary to={urlGenerators.vizeArticleUrl("test")}>
+						Read More
+					</ReadMore>
 
 					<WhatsappShareButton
 						url="http://localhost:3000/article"

@@ -4,7 +4,16 @@ import { simpleQuery1 } from "imports/api/connectors/postgresql";
 import { Article, paginate } from "imports/api/models";
 
 const attributes = sql.raw(
-	["slug", "title", "body", 'publish_date AS "publishDate"'].join(", ")
+	[
+		"slug",
+		"title",
+		"subtitle",
+		"body",
+		'article_image_url AS "articleImageURL"',
+		'topic_name AS "topicName"',
+		'author_id AS "authorId"',
+		'publish_date AS "publishDate"',
+	].join(", ")
 );
 
 const baseQuery = sql`

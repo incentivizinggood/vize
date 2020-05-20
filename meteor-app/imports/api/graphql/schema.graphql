@@ -13,6 +13,7 @@ type Query {
 	article(id: ID!): Article
 	articleTopic(id: ID!): ArticleTopic
 	articleTopics: [ArticleTopic!]!
+	articleAuthor(id: ID!): ArticleAuthor
 
 	searchArticles(
 		searchText: String = ""
@@ -209,8 +210,28 @@ type Article {
 
 	slug: String!
 	title: String!
+	subtitle: String
 	body: String!
+	articleImageURL: String!
+	topicName: String
+	authorId: Int!
+	isHighlighted: Boolean!
 	publishDate: DateTime!
+}
+
+type ArticleAuthor {
+	id: ID!
+
+	authorName: String
+	authorCompanyName: String
+	authorImageURL: String
+	"A short biography on the author"
+	authorBio: String
+	contactPhoneNumber: String
+	contactEmail: String
+	websiteURL: String
+	"Location can either be an address or the city"
+	location: String
 }
 
 type ArticleTopic {
