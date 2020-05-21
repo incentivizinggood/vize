@@ -136,8 +136,6 @@ function Article(props: ArticleProps) {
 		variables: { id: props.article.authorId },
 	});
 
-	console.log({ loading, error, authorData });
-
 	if (loading) {
 		return <Spinner />;
 	}
@@ -231,8 +229,6 @@ function ArticlePage(props) {
 	const { loading, error, data } = useQuery(articlePageQuery, {
 		variables: { id: slug, currentPageNum },
 	});
-
-	console.log({ loading, error, data });
 
 	if (loading) {
 		return <Spinner />;

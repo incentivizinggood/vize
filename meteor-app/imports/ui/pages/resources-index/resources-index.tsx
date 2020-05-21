@@ -14,46 +14,6 @@ import { translations } from "imports/ui/translations";
 
 const T = translations.resources;
 
-const NavbarMobileHeight = "65px";
-
-const IndexPageContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	max-width: 800px;
-	margin-right: auto;
-	margin-left: auto;
-
-	background-color: ${props => props.theme.background};
-	padding: 112px 20px 20px 20px;
-
-	${forSize.phoneOnly} {
-		padding: ${NavbarMobileHeight} 0px 50px 0px;
-	}
-`;
-
-const SectionContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	background-color: ${props => props.theme.background};
-	margin-bottom: 20px;
-`;
-
-const ArticlesContainer = styled.div`
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-	max-width: 500px;
-
-	background-color: ${props => props.theme.surface};
-	color: ${props => props.theme.onSurface};
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	padding: 30px;
-
-	${forSize.phoneOnly} {
-		padding: 20px;
-	}
-`;
-
 type ResourcesIndexProps = {
 	totalCount: number;
 	topics: {
@@ -108,8 +68,6 @@ function ResourcesIndexContainer() {
 	const { loading, error, data } = useQuery(resourcesIndexPageQuery, {
 		variables: { currentPageNum },
 	});
-
-	console.log({ loading, error, data });
 
 	if (loading) {
 		return <Spinner />;

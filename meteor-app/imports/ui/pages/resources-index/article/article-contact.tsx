@@ -97,6 +97,12 @@ type ArticleAuthorProps = {
 	};
 };
 
+type ContactItemProps = {
+	itemData: string;
+	itemDescription: string;
+	children: NodeListOf<Element>;
+};
+
 function ArticleContactSection(props: ArticleAuthorProps) {
 	// If there is no author image, use the default image
 	const AuthorImg = () => {
@@ -107,6 +113,7 @@ function ArticleContactSection(props: ArticleAuthorProps) {
 		}
 	};
 
+	// If author name exists, display it first. Otherwise, just display the company name
 	const AuthorTitles = () => {
 		if (props.author.authorName) {
 			return (
@@ -129,7 +136,11 @@ function ArticleContactSection(props: ArticleAuthorProps) {
 	};
 
 	// display a contact item only if it has text
-	const ContactItem = ({ itemData, itemDescription, children }) => {
+	const ContactItem = ({
+		itemData,
+		itemDescription,
+		children,
+	}: ContactItemProps) => {
 		if (itemData) {
 			return (
 				<ContactItemContainer>

@@ -20,7 +20,6 @@ type ArticlesByTopicProps = {
 };
 
 function ArticlesByTopic(props: ArticlesByTopicProps) {
-	console.log("prrrp", props);
 	const pageTitle = "Recursos de " + props.topicName + " - Vize";
 	return (
 		<PageWrapper title={pageTitle}>
@@ -33,15 +32,12 @@ function ArticlesByTopic(props: ArticlesByTopicProps) {
 }
 
 function ArticlesByTopicPage(props) {
-	console.log("in", props);
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 	const topicName = props.match.params.topicName;
 
 	const { loading, error, data } = useQuery(articleByTopicPageQuery, {
 		variables: { id: topicName, currentPageNum },
 	});
-
-	console.log({ loading, error, data });
 
 	if (loading) {
 		return <Spinner />;

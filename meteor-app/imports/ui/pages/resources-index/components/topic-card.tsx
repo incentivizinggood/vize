@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { urlGenerators } from "imports/ui/pages/url-generators";
-import { translations } from "imports/ui/translations";
 import { Link } from "react-router-dom";
 
 import ArrowRightIcon from "@material-ui/icons/ArrowRightAlt";
