@@ -1,4 +1,4 @@
-query articlePage($id: ID!) {
+query articlePage($id: ID!, $currentPageNum: Int!) {
 	article(id: $id) {
 		id
 
@@ -10,5 +10,21 @@ query articlePage($id: ID!) {
 		topicName
 		authorId
 		publishDate
+	}
+
+	searchRecentArticles(pageNum: $currentPageNum) {
+		totalCount
+		nodes {
+			slug
+			title
+			articleImageURL
+			topicName
+			publishDate
+		}
+	}
+
+	articleTopics {
+		topicName
+		iconImageURL
 	}
 }

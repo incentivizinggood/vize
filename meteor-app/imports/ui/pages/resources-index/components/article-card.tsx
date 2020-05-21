@@ -103,6 +103,7 @@ const ReadMoreButton = props => (
 		Read More
 	</ReadMore>
 );
+
 type ArticleCardProps = {
 	slug: string;
 	title: string;

@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
-import { SectionTitle } from "../components";
+import { SectionTitle, Articles, Topics } from "../components";
 import ArticleContactSection from "./article-contact";
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
@@ -171,66 +171,67 @@ function Article(props: ArticleProps) {
 	};
 
 	return (
-		<PageWrapper title={props.article.title}>
-			<PanelContainer>
-				<BackToResourcesHeader>
-					<Link to="/recursos">
-						<ArrowBackIconStyled />
-					</Link>
-				</BackToResourcesHeader>
-				<Panel>
-					<h2>{props.article.title}</h2>
+		<>
+			<BackToResourcesHeader>
+				<Link to="/recursos">
+					<ArrowBackIconStyled />
+				</Link>
+			</BackToResourcesHeader>
+			<Panel>
+				<h2>{props.article.title}</h2>
 
-					<ArticleSubtitle>{props.article.subtitle}</ArticleSubtitle>
+				<ArticleSubtitle>{props.article.subtitle}</ArticleSubtitle>
 
-					<AuthorTitleName />
+				<AuthorTitleName />
 
-					<ArticlePublishedDate>
-						{articlePublishedDate}
-					</ArticlePublishedDate>
+				<ArticlePublishedDate>
+					{articlePublishedDate}
+				</ArticlePublishedDate>
 
-					<ArticleImage src={props.article.articleImageURL} />
+				<ArticleImage src={props.article.articleImageURL} />
 
-					<ReactMarkdown source={props.article.body} />
+				<ReactMarkdown source={props.article.body} />
 
-					<SectionLineSeparateor />
+				<SectionLineSeparateor />
 
-					<ArticleContactSection author={authorData.articleAuthor} />
-				</Panel>
+				<ArticleContactSection author={authorData.articleAuthor} />
+			</Panel>
 
-				<ArticleFooter>
-					<button>
-						<FavoriteBorderIcon />
-					</button>
-					<NumLikes>0</NumLikes>
+			<ArticleFooter>
+				<button>
+					<FavoriteBorderIcon />
+				</button>
+				<NumLikes>0</NumLikes>
 
-					<SocialShareButtons>
-						<WhatsappShareButton
-							url="http://localhost:3000/article"
-							title="Hello"
-						>
-							<WhatsappIcon size="24" round={true} />
-						</WhatsappShareButton>
+				<SocialShareButtons>
+					<WhatsappShareButton
+						url="http://localhost:3000/article"
+						title="Hello"
+					>
+						<WhatsappIcon size="24" round={true} />
+					</WhatsappShareButton>
 
-						<FacebookShareButton
-							url="http://localhost:3000/article"
-							quote="Hello"
-							hashtag="#incentivandoelbien"
-						>
-							<FacebookIcon size="24" round={true} />
-						</FacebookShareButton>
-					</SocialShareButtons>
-				</ArticleFooter>
-			</PanelContainer>
-		</PageWrapper>
+					<FacebookShareButton
+						url="http://localhost:3000/article"
+						quote="Hello"
+						hashtag="#incentivandoelbien"
+					>
+						<FacebookIcon size="24" round={true} />
+					</FacebookShareButton>
+				</SocialShareButtons>
+			</ArticleFooter>
+		</>
 	);
 }
 
-function ArticleContainer(props) {
+function ArticlePage(props) {
+	const [currentPageNum, setCurrentPageNum] = React.useState(0);
+
 	const slug = props.match.params.slug;
 
+	// Gets data for the article, topics, and recent articles
 	const { loading, error, data } = useQuery(articlePageQuery, {
-		variables: { id: slug },
+		variables: { id: slug, currentPageNum },
 	});
 
 	console.log({ loading, error, data });
@@ -244,7 +245,21 @@ function ArticleContainer(props) {
 		return <>{JSON.stringify(error)}</>;
 	}
 
-	return <Article article={data.article} />;
+	return (
+		<>
+			<PageWrapper title={data.article.title}>
+				<PanelContainer>
+					<Article article={data.article} />
+
+					<SectionTitle>Topics</SectionTitle>
+					<Topics topics={data.articleTopics} />
+
+					<SectionTitle>Recent</SectionTitle>
+					<Articles articles={data.searchRecentArticles.nodes} />
+				</PanelContainer>
+			</PageWrapper>
+		</>
+	);
 }
 
-export default withRouter(ArticleContainer);
+export default withRouter(ArticlePage);

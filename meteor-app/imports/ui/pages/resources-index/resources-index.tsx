@@ -1,15 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useQuery } from "react-apollo";
 import styled from "styled-components";
 
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
-import { PanelContainer, Panel } from "imports/ui/components/panel";
+import { PanelContainer } from "imports/ui/components/panel";
 import { forSize } from "imports/ui/responsive.js";
 
 import resourcesIndexPageQuery from "./resources-index.graphql";
-import { SectionTitle, ArticleCard, TopicCard } from "./components";
+import { SectionTitle, Articles, Topics } from "./components";
 
 const NavbarMobileHeight = "65px";
 
@@ -51,30 +50,6 @@ const ArticlesContainer = styled.div`
 	}
 `;
 
-const TopicsContainer = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-`;
-
-/*
-
-<ul>
-	{props.nodes.map(a => (
-		<li>
-			<Link to={`/recursos/${a.slug}`}>{a.title}</Link>
-		</li>
-	))}
-</ul>
-<button onClick={() => props.setCurrentPageNum(n => n - 1)}>
-	Prev
-</button>
-{props.currentPageNum}
-<button onClick={() => props.setCurrentPageNum(n => n + 1)}>
-	Next
-</button>
-*/
-
 type ResourcesIndexProps = {
 	totalCount: number;
 	topics: {
@@ -100,49 +75,18 @@ type ResourcesIndexProps = {
 	setCurrentPageNum: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Articles = ({ articles }) => (
-	<>
-		{articles.map((article, i) => (
-			<ArticleCard
-				key={i}
-				slug={article.slug}
-				title={article.title}
-				topicName={article.topicName}
-				articleImageURL={article.articleImageURL}
-			/>
-		))}
-	</>
-);
-
-const Topics = ({ topics }) => (
-	<TopicsContainer>
-		{topics.map((topic, i) => (
-			<TopicCard
-				key={i}
-				topicName={topic.topicName}
-				iconImageURL={topic.iconImageURL}
-			/>
-		))}
-	</TopicsContainer>
-);
-
 function ResourcesIndex(props: ResourcesIndexProps) {
-	console.log(props);
-	const highlightedArticles = Array.from(props.highlightedArticles);
-	const topics = Array.from(props.topics);
-	const recentArticles = Array.from(props.recentArticles.nodes);
-
 	return (
 		<PageWrapper title="Recursos">
 			<PanelContainer>
 				<SectionTitle>Highlighted</SectionTitle>
-				<Articles articles={highlightedArticles} />
+				<Articles articles={props.highlightedArticles} />
 
 				<SectionTitle>Topics</SectionTitle>
-				<Topics topics={topics} />
+				<Topics topics={props.topics} />
 
 				<SectionTitle>Recent</SectionTitle>
-				<Articles articles={recentArticles} />
+				<Articles articles={props.recentArticles.nodes} />
 			</PanelContainer>
 		</PageWrapper>
 	);
