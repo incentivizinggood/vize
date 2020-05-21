@@ -12,13 +12,15 @@ type Query {
 
 	article(id: ID!): Article
 	articleTopic(id: ID!): ArticleTopic
-	articleTopics: [ArticleTopic!]!
 	articleAuthor(id: ID!): ArticleAuthor
 
-	searchArticles(
+	highlightedArticles: [Article!]!
+	articleTopics: [ArticleTopic!]!
+
+	searchRecentArticles(
 		searchText: String = ""
 		pageNum: Int = 0
-		pageSize: Int = 5
+		pageSize: Int = 10
 	): ArticleConnection!
 
 	searchCompanies(
@@ -215,6 +217,7 @@ type Article {
 	articleImageURL: String!
 	topicName: String
 	authorId: Int!
+	"If an Article is highlighted show it in the highlighted articles section"
 	isHighlighted: Boolean!
 	publishDate: DateTime!
 }

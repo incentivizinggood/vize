@@ -81,7 +81,14 @@ type ResourcesIndexProps = {
 		topicName: string;
 		iconImageURL: string;
 	}[];
-	articles: {
+	recentArticles: {
+		title: string;
+		slug: string;
+		topicName: string;
+		articleImageURL: string;
+		publishDate: string;
+	}[];
+	highlightedArticles: {
 		title: string;
 		slug: string;
 		topicName: string;
@@ -120,17 +127,22 @@ const Topics = ({ topics }) => (
 );
 
 function ResourcesIndex(props: ResourcesIndexProps) {
-	const articles = Array.from(props.articles.nodes);
+	console.log(props);
+	const highlightedArticles = Array.from(props.highlightedArticles);
 	const topics = Array.from(props.topics);
+	const recentArticles = Array.from(props.recentArticles.nodes);
 
 	return (
 		<PageWrapper title="Recursos">
 			<PanelContainer>
 				<SectionTitle>Highlighted</SectionTitle>
-				<Articles articles={articles} />
+				<Articles articles={highlightedArticles} />
 
 				<SectionTitle>Topics</SectionTitle>
 				<Topics topics={topics} />
+
+				<SectionTitle>Recent</SectionTitle>
+				<Articles articles={recentArticles} />
 			</PanelContainer>
 		</PageWrapper>
 	);
@@ -156,7 +168,8 @@ function ResourcesIndexContainer() {
 
 	return (
 		<ResourcesIndex
-			articles={data.searchArticles}
+			recentArticles={data.searchRecentArticles}
+			highlightedArticles={data.highlightedArticles}
 			topics={data.articleTopics}
 			currentPageNum={currentPageNum}
 			setCurrentPageNum={setCurrentPageNum}

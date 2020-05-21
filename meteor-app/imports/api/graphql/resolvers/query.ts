@@ -34,11 +34,14 @@ export const Query: QueryResolvers = {
 	articleAuthor: (_obj, args, _context, _info) =>
 		dataModel.getArticleAuthorById(Number(args.id)),
 
-	articleTopics: (_obj, args, _context, _info) =>
+	articleTopics: (_obj, _args, _context, _info) =>
 		dataModel.getArticleTopics(),
 
-	searchArticles: (_obj, args, _context, _info) =>
-		dataModel.searchForArticles(
+	highlightedArticles: (_obj, _args, _context, _info) =>
+		dataModel.getHighlightedArticles(),
+
+	searchRecentArticles: (_obj, args, _context, _info) =>
+		dataModel.searchForRecentArticles(
 			args.searchText,
 			args.pageNum,
 			args.pageSize

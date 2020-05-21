@@ -100,7 +100,7 @@ let ReadMore = styled.button`
 ReadMore = ReadMore.withComponent(Link);
 const ReadMoreButton = props => (
 	<ReadMore primary to={urlGenerators.vizeArticleUrl(props.slug)} {...props}>
-		<T.getStarted />
+		Read More
 	</ReadMore>
 );
 type ArticleCardProps = {
