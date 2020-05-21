@@ -57,14 +57,6 @@ const ArticleCategory = styled.h5`
 	font-size: 1rem;
 `;
 
-/*
-const ArticleDescription = styled.h5`
-	margin-top: 5px;
-	margin-bottom: 10px;
-	color: black;
-`;
-*/
-
 // Contains Read More button and Whatsapp + Facebook share buttons
 const ArticleFooter = styled.div`
 	display: flex;
@@ -113,31 +105,43 @@ type ArticleCardProps = {
 function ArticleCardComponent(props: ArticleCardProps) {
 	const domain = "www.vize.mx";
 	return (
-		<ArticleCard>
-			<ArticleImage src={props.articleImageURL} />
-			<ArticleDetails>
-				<ArticleTitle>{props.title}</ArticleTitle>
-				<ArticleCategory>{props.topicName}</ArticleCategory>
-				<ArticleFooter>
-					<ReadMoreButton slug={props.slug} />
+		<Link
+			style={{ color: "black" }}
+			to={urlGenerators.vizeArticleUrl(props.slug)}
+			{...props}
+		>
+			<ArticleCard>
+				<ArticleImage src={props.articleImageURL} />
+				<ArticleDetails>
+					<ArticleTitle>{props.title}</ArticleTitle>
+					<ArticleCategory>{props.topicName}</ArticleCategory>
+					<ArticleFooter>
+						<ReadMoreButton slug={props.slug} />
 
-					<WhatsappShareButton
-						url={domain + urlGenerators.vizeArticleUrl(props.slug)}
-						title="Hola, estoy leyendo este artículo y te lo recomiendo!"
-					>
-						<WhatsappIcon size={footerHeight} round={true} />
-					</WhatsappShareButton>
+						<WhatsappShareButton
+							url={
+								domain +
+								urlGenerators.vizeArticleUrl(props.slug)
+							}
+							title="Hola, estoy leyendo este artículo y te lo recomiendo!"
+						>
+							<WhatsappIcon size={footerHeight} round={true} />
+						</WhatsappShareButton>
 
-					<FacebookShareButton
-						url={domain + urlGenerators.vizeArticleUrl(props.slug)}
-						quote="Hola, estoy leyendo este artículo y se los recomiendo!"
-						hashtag="#incentivandoelbien"
-					>
-						<FacebookIcon size={footerHeight} round={true} />
-					</FacebookShareButton>
-				</ArticleFooter>
-			</ArticleDetails>
-		</ArticleCard>
+						<FacebookShareButton
+							url={
+								domain +
+								urlGenerators.vizeArticleUrl(props.slug)
+							}
+							quote="Hola, estoy leyendo este artículo y se los recomiendo!"
+							hashtag="#incentivandoelbien"
+						>
+							<FacebookIcon size={footerHeight} round={true} />
+						</FacebookShareButton>
+					</ArticleFooter>
+				</ArticleDetails>
+			</ArticleCard>
+		</Link>
 	);
 }
 
