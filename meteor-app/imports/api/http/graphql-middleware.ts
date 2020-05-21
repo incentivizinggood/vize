@@ -3,8 +3,8 @@ import { Express } from "express";
 
 import { typeDefs, resolvers } from "imports/api/graphql";
 
+/** Setup the GraphQL API endpoint. */
 export function applyGraphQLMiddleware(app: Express) {
-	// Setup the GraphQL API endpoint.
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers: resolvers as IResolvers,
@@ -14,17 +14,17 @@ export function applyGraphQLMiddleware(app: Express) {
 				user: req.user,
 			};
 		},
+		// Allow introspection queries on production.
+		// This is useful for debugging.
 		introspection: true,
 	});
 
 	apolloServer.applyMiddleware({
 		app,
 		path: "/graphql",
-	});
-
-	app.use("/graphql", (req, res) => {
-		if (req.method === "GET") {
-			res.end();
-		}
+		// Disable automatic adding of these middlewares.
+		// They are added manually in server.ts.
+		cors: false,
+		bodyParserConfig: false,
 	});
 }
