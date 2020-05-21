@@ -12,6 +12,7 @@ import PageWrapper from "imports/ui/components/page-wrapper";
 
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import {
 	FacebookShareButton,
@@ -170,6 +171,7 @@ function Article(props: ArticleProps) {
 		}
 	};
 
+	const domain = "www.vize.mx";
 	return (
 		<>
 			<BackToResourcesHeader>
@@ -198,25 +200,33 @@ function Article(props: ArticleProps) {
 			</Panel>
 
 			<ArticleFooter>
+				{/* commenting out favorites until post mvp
 				<button>
 					<FavoriteBorderIcon />
 				</button>
 				<NumLikes>0</NumLikes>
+				*/}
 
 				<SocialShareButtons>
 					<WhatsappShareButton
-						url="http://localhost:3000/article"
-						title="Hello"
+						url={
+							domain +
+							urlGenerators.vizeArticleUrl(props.article.slug)
+						}
+						title="Hola, estoy leyendo este artículo y te lo recomiendo!"
 					>
-						<WhatsappIcon size="24" round={true} />
+						<WhatsappIcon size="27" round={true} />
 					</WhatsappShareButton>
 
 					<FacebookShareButton
-						url="http://localhost:3000/article"
-						quote="Hello"
+						url={
+							domain +
+							urlGenerators.vizeArticleUrl(props.article.slug)
+						}
+						quote="Hola, estoy leyendo este artículo y se los recomiendo!"
 						hashtag="#incentivandoelbien"
 					>
-						<FacebookIcon size="24" round={true} />
+						<FacebookIcon size="27" round={true} />
 					</FacebookShareButton>
 				</SocialShareButtons>
 			</ArticleFooter>

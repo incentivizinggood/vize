@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { forSize } from "imports/ui/responsive.js";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
 import { Link } from "react-router-dom";
@@ -112,6 +111,7 @@ type ArticleCardProps = {
 };
 
 function ArticleCardComponent(props: ArticleCardProps) {
+	const domain = "www.vize.mx";
 	return (
 		<ArticleCard>
 			<ArticleImage src={props.articleImageURL} />
@@ -122,15 +122,15 @@ function ArticleCardComponent(props: ArticleCardProps) {
 					<ReadMoreButton slug={props.slug} />
 
 					<WhatsappShareButton
-						url="http://localhost:3000/article"
-						title="Hello"
+						url={domain + urlGenerators.vizeArticleUrl(props.slug)}
+						title="Hola, estoy leyendo este artículo y te lo recomiendo!"
 					>
 						<WhatsappIcon size={footerHeight} round={true} />
 					</WhatsappShareButton>
 
 					<FacebookShareButton
-						url="http://localhost:3000/article"
-						quote="Hello"
+						url={domain + urlGenerators.vizeArticleUrl(props.slug)}
+						quote="Hola, estoy leyendo este artículo y se los recomiendo!"
 						hashtag="#incentivandoelbien"
 					>
 						<FacebookIcon size={footerHeight} round={true} />
