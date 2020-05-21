@@ -43,6 +43,26 @@ applyPassportMiddleware(app);
 
 applyGraphQLMiddleware(app);
 
+// Check the heath of this server and test its ability to function.
+app.use("/health-check", async function(req, res, next) {
+	const report: any = {};
+	let noFailures = true;
+
+	// Check that this server can connect to and query the database.
+	try {
+		await pool.query("SELECT NOW() as now");
+		report.postgres = { status: "ok" };
+	} catch (error) {
+		report.postgres = { status: "failing", error };
+		noFailures = false;
+	}
+
+	// Add extra info about this server.
+	report.uptime = process.uptime();
+
+	res.status(noFailures ? 200 : 503).json(report);
+});
+
 // TODO: When we stop using Meteor, `app` will be the main server.
 //       We will need to call app.listen to start the server.
 
