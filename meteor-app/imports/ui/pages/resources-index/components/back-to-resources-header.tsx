@@ -13,7 +13,6 @@ const BackToResourcesHeaderContainer = styled.div`
 	position: relative;
 
 	height: 40px;
-	max-width: 500px;
 	padding-left: 20px;
 	margin: 1px auto;
 
@@ -48,7 +47,7 @@ type BackToResourcesHeaderProps = {
 function BackToResourcesHeader({ topicName }: BackToResourcesHeaderProps) {
 	return (
 		<BackToResourcesHeaderContainer>
-			<Link to="/recursos">
+			<Link to="/recursos" style={{ color: "black" }}>
 				<ArrowBackIconStyled />
 			</Link>
 			<HeaderTitle> {topicName} </HeaderTitle>

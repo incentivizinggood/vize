@@ -12,7 +12,7 @@ import {
 	WhatsappIcon,
 } from "react-share";
 
-const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
+const T = translations.resources;
 
 const articleDetailsPadding = "8px";
 const footerHeight = "27px";
@@ -91,7 +91,7 @@ let ReadMore = styled.button`
 ReadMore = ReadMore.withComponent(Link);
 const ReadMoreButton = props => (
 	<ReadMore primary to={urlGenerators.vizeArticleUrl(props.slug)} {...props}>
-		Read More
+		<T.read />
 	</ReadMore>
 );
 

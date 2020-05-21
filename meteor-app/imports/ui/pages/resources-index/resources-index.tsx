@@ -10,6 +10,10 @@ import { forSize } from "imports/ui/responsive.js";
 import resourcesIndexPageQuery from "./resources-index.graphql";
 import { SectionTitle, Articles, Topics } from "./components";
 
+import { translations } from "imports/ui/translations";
+
+const T = translations.resources;
+
 const NavbarMobileHeight = "65px";
 
 const IndexPageContainer = styled.div`
@@ -79,13 +83,19 @@ function ResourcesIndex(props: ResourcesIndexProps) {
 	return (
 		<PageWrapper title="Recursos">
 			<PanelContainer>
-				<SectionTitle>Highlighted</SectionTitle>
+				<SectionTitle>
+					<T.featuredArticles />
+				</SectionTitle>
 				<Articles articles={props.highlightedArticles} />
 
-				<SectionTitle>Topics</SectionTitle>
+				<SectionTitle>
+					<T.topics />
+				</SectionTitle>
 				<Topics topics={props.topics} />
 
-				<SectionTitle>Recent</SectionTitle>
+				<SectionTitle>
+					<T.recentArticles />
+				</SectionTitle>
 				<Articles articles={props.recentArticles.nodes} />
 			</PanelContainer>
 		</PageWrapper>

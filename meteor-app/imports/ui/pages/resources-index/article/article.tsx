@@ -5,10 +5,16 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
-import { SectionTitle, Articles, Topics } from "../components";
+import {
+	SectionTitle,
+	BackToResourcesHeader,
+	Articles,
+	Topics,
+} from "../components";
 import ArticleContactSection from "./article-contact";
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { forSize } from "imports/ui/responsive.js";
 
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -42,34 +48,14 @@ const ArticlePublishedDate = styled.h6`
 `;
 
 const ArticleImage = styled.img`
-	width: 100vw;
-	margin: 0 -20px;
+	width: calc(100% + 60px);
+	margin: 0 -30px;
 	margin-bottom: 30px;
-`;
 
-const BackToResourcesHeader = styled.div`
-	display: flex;
-	flex-direction: row;
-
-	height: 40px;
-	max-width: 500px;
-	padding-left: 20px;
-	margin: 1px auto;
-
-	background-color: white;
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-
-	> * {
-		margin: auto 0;
-		> * {
-			margin: auto 0;
-		}
+	${forSize.phoneOnly} {
+		width: calc(100% + 40px);
+		margin: 0 -20px;
 	}
-`;
-
-const ArrowBackIconStyled = styled(ArrowBackIcon)`
-	font-size: 25px !important;
-	vertical-align: middle;
 `;
 
 const ArticleFooter = styled.div`
@@ -83,7 +69,7 @@ const ArticleFooter = styled.div`
 	z-index: 1;
 
 	height: 45px;
-	max-width: 500px;
+	max-width: 710px;
 	padding: 0 15px;
 	margin: 0 auto;
 
@@ -102,8 +88,13 @@ const NumLikes = styled.p`
 `;
 
 const SectionLineSeparateor = styled.hr`
-	width: 100vw;
-	margin: 20px -20px;
+	width: calc(100% + 60px);
+	margin: 20px -30px;
+
+	${forSize.phoneOnly} {
+		width: calc(100% + 40px);
+		margin: 20px -20px;
+	}
 `;
 
 const SocialShareButtons = styled.div`
@@ -174,11 +165,8 @@ function Article(props: ArticleProps) {
 	const domain = "www.vize.mx";
 	return (
 		<>
-			<BackToResourcesHeader>
-				<Link to="/recursos">
-					<ArrowBackIconStyled />
-				</Link>
-			</BackToResourcesHeader>
+			<BackToResourcesHeader />
+
 			<Panel>
 				<h2>{props.article.title}</h2>
 

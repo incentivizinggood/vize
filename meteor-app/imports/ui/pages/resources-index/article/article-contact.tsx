@@ -6,6 +6,10 @@ import EmailIcon from "@material-ui/icons/Email";
 import PublicIcon from "@material-ui/icons/Public";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
+import { translations } from "imports/ui/translations";
+
+const T = translations.resources;
+
 const ContactSectionContainter = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -143,7 +147,9 @@ function ArticleContactSection(props: ArticleAuthorProps) {
 
 	return (
 		<ContactSectionContainter>
-			<ContactTitle> Contacto </ContactTitle>
+			<ContactTitle>
+				<T.contact.title />
+			</ContactTitle>
 			<ContactDetails>
 				<AuthorContainter>
 					<AuthorImg />

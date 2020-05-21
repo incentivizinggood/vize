@@ -6,7 +6,7 @@ const NavbarHeigh = "67px";
 const PanelContainer = styled.div`
 	width: 100%;
 	height: 100%;
-	max-width: 800px;
+	max-width: 750px;
 	margin-right: auto;
 	margin-left: auto;
 
