@@ -39,6 +39,7 @@ const ArticleDetails = styled.div`
 `;
 
 const ArticleImage = styled.img`
+	object-fit: cover;
 	width: 110px;
 	height: 110px;
 	margin: auto;
