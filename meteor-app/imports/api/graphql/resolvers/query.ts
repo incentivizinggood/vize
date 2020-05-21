@@ -40,6 +40,14 @@ export const Query: QueryResolvers = {
 	highlightedArticles: (_obj, _args, _context, _info) =>
 		dataModel.getHighlightedArticles(),
 
+	searchArticlesByTopic: (_obj, args, _context, _info) =>
+		dataModel.searchForArticlesByTopic(
+			args.id,
+			args.searchText,
+			args.pageNum,
+			args.pageSize
+		),
+
 	searchRecentArticles: (_obj, args, _context, _info) =>
 		dataModel.searchForRecentArticles(
 			args.searchText,

@@ -17,10 +17,17 @@ type Query {
 	highlightedArticles: [Article!]!
 	articleTopics: [ArticleTopic!]!
 
+	searchArticlesByTopic(
+		id: ID!
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): ArticleConnection!
+
 	searchRecentArticles(
 		searchText: String = ""
 		pageNum: Int = 0
-		pageSize: Int = 10
+		pageSize: Int = 20
 	): ArticleConnection!
 
 	searchCompanies(

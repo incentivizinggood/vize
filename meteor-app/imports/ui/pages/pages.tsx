@@ -3,7 +3,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
 import Article from "imports/ui/pages/resources-index/article";
-import TopicArticles from "imports/ui/pages/resources-index/article";
+import ArticlesByTopicPage from "imports/ui/pages/resources-index/articles-by-topic";
 import ResourcesIndex from "./resources-index";
 import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
@@ -59,10 +59,13 @@ function Pages(props) {
 			<Route path="/worker-resources" component={ResourcesWorkers} />
 			<Route path="/test" component={TestPage} />
 			// recursos = resources
-			<Route path={`/recursos/:slug`} component={() => <Article />} />
 			<Route
-				path={`/recursos/:topicName`}
-				component={() => <TopicArticles />}
+				path={`/recursos/articulo/:slug`}
+				component={() => <Article />}
+			/>
+			<Route
+				path={`/recursos/temas/:topicName`}
+				component={() => <ArticlesByTopicPage />}
 			/>
 			<Route path={`/recursos/`} component={() => <ResourcesIndex />} />
 			<Route

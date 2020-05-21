@@ -40,6 +40,23 @@ export async function getHighlightedArticles(): Promise<Article[] | null> {
 	);
 }
 
+export async function searchForArticlesByTopic(
+	topicName: string,
+	searchText: string,
+	pageNumber: number,
+	pageSize: number
+): Promise<{ nodes: Article[]; totalCount: number }> {
+	return paginate<Article>(
+		sql`
+			${baseQuery}
+			WHERE topic_name=${topicName}
+			ORDER BY publish_date DESC
+		`,
+		pageNumber,
+		pageSize
+	);
+}
+
 /**
  * This is not yet an actual search. It is only implemented
  * to list all articles on the index page.

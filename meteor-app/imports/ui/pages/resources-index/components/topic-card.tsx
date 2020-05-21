@@ -3,11 +3,9 @@ import styled from "styled-components";
 
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
+import { Link } from "react-router-dom";
 
 import ArrowRightIcon from "@material-ui/icons/ArrowRightAlt";
-import styleVariables from "imports/ui/style-variables";
-
-const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
 const articleDetailsPadding = "8px";
 
@@ -51,6 +49,11 @@ const TopicName = styled.h3`
 	text-align: center;
 `;
 
+const LinkRedirect = styled(Link)`
+	margin: 0 auto;
+	color: black;
+`;
+
 type TopicCardProps = {
 	iconImageURL: string;
 	topicName: string;
@@ -59,16 +62,24 @@ type TopicCardProps = {
 function TopicCardComponent(props: TopicCardProps) {
 	return (
 		<TopicCard>
-			<TopicCardContent>
-				<TopicImage src={props.iconImageURL} />
-				<br />
-				<TopicName>{props.topicName}</TopicName>
+			<LinkRedirect
+				to={urlGenerators.vizeArticleTopicUrl(props.topicName)}
+			>
+				<TopicCardContent>
+					<TopicImage src={props.iconImageURL} />
+					<br />
+					<TopicName>{props.topicName}</TopicName>
 
-				<ArrowRightIcon
-					style={{ fontSize: "3.2rem" }}
-					className="center-element"
-				/>
-			</TopicCardContent>
+					<LinkRedirect
+						to={urlGenerators.vizeArticleTopicUrl(props.topicName)}
+					>
+						<ArrowRightIcon
+							style={{ fontSize: "3.4rem" }}
+							className="center-element"
+						/>
+					</LinkRedirect>
+				</TopicCardContent>
+			</LinkRedirect>
 		</TopicCard>
 	);
 }
