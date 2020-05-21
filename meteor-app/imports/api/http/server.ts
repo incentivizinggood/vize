@@ -1,7 +1,10 @@
 import express from "express";
 import connectPgSimple from "connect-pg-simple";
 
-import { testConnection as testPgConnection } from "imports/api/connectors/postgresql";
+import {
+	pool,
+	testConnection as testPgConnection,
+} from "imports/api/connectors/postgresql";
 
 import { applyGraphQLMiddleware } from "./graphql-middleware";
 import { applyHelloWorldMiddleware } from "./hello-world-middleware";
@@ -16,7 +19,7 @@ app.use(bodyParser.json());
 
 app.use(
 	expressSession({
-		store: new (connectPgSimple(expressSession))(),
+		store: new (connectPgSimple(expressSession))({ pool }),
 		secret: "keyboard cat",
 		resave: false,
 		saveUninitialized: false,
