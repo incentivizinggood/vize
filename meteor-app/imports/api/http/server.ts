@@ -7,7 +7,6 @@ import {
 } from "imports/api/connectors/postgresql";
 
 import { applyGraphQLMiddleware } from "./graphql-middleware";
-import { applyHelloWorldMiddleware } from "./hello-world-middleware";
 import { applyPassportMiddleware } from "./passport-middleware";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
@@ -26,8 +25,6 @@ app.use(
 );
 
 applyPassportMiddleware(app);
-
-applyHelloWorldMiddleware(app);
 
 applyGraphQLMiddleware(app);
 
