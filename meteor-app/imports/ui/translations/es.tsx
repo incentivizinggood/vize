@@ -82,7 +82,7 @@ export default {
 		},
 		createAccount: "Crear Cuenta",
 		registerOrLogin:
-			"Regístrese o inicie una sesión para escribir una evaluación",
+			"Regístrate o inicia una sesión para escribir una evaluación",
 		mustBeLoggedIn: "Debes de iniciar una sesión para ver esta página.",
 		errors: {
 			usernameRequired: "Nombre de Usuario es un campo requerido",

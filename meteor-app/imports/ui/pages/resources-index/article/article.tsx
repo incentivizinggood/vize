@@ -1,10 +1,11 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
+import { withUser } from "imports/ui/hoc/user";
 import {
 	SectionTitle,
 	BackToResourcesHeader,
@@ -20,6 +21,9 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 
+import PopupModal from "imports/ui/components/popup-modal";
+import RegisterLoginModal from "imports/ui/components/register-login-modal";
+
 import {
 	FacebookShareButton,
 	WhatsappShareButton,
@@ -29,6 +33,7 @@ import {
 
 import articlePageQuery from "./article.graphql";
 import articleAuthorQuery from "./article-author.graphql";
+import articleLikeMutation from "./article-like.graphql";
 import { PanelContainer, Panel } from "imports/ui/components/panel";
 
 const ArticleSubtitle = styled.h4`
@@ -118,7 +123,10 @@ type ArticleProps = {
 		topicName: string;
 		authorId: string;
 		publishDate: string;
+		isLikedByCurrentUser: boolean;
+		numberOfLikes: number;
 	};
+	user?: any;
 };
 
 function Article(props: ArticleProps) {
@@ -132,7 +140,7 @@ function Article(props: ArticleProps) {
 		props.article.publishDate
 	).toLocaleDateString("es-MX", dateOptions);
 
-	const { loading, error, data: authorData } = useQuery(articleAuthorQuery, {
+	/*const { loading, error, data: authorData } = useQuery(articleAuthorQuery, {
 		variables: { id: props.article.authorId },
 	});
 
@@ -143,9 +151,10 @@ function Article(props: ArticleProps) {
 	if (error) {
 		// TODO: Display errors in better way
 		return <>{JSON.stringify(error)}</>;
-	}
+	}*/
 
 	// Display either the author name or the company name of the author
+	/*
 	const AuthorTitleName = () => {
 		if (authorData.articleAuthor.authorName) {
 			return (
@@ -158,7 +167,41 @@ function Article(props: ArticleProps) {
 				</AuthorName>
 			);
 		}
-	};
+	};*/
+
+	const [articleLike, { likeData }] = useMutation(articleLikeMutation);
+
+	// Modal is displayed if user likes article and is not logged in
+	let [loginRegisterModal, setLoginRegisterModal] = React.useState(
+		loginRegisterModal
+	);
+
+	console.log("queryData", likeData);
+
+	function likeButton() {
+		articleLike({
+			variables: {
+				input: {
+					articleSlug: props.article.slug,
+					isArticleLiked: props.article.isLikedByCurrentUser,
+				},
+			},
+		}).catch(errors => {
+			console.error("err: ", errors.message);
+			if (errors.message.includes("NOT_LOGGED_IN")) {
+				setLoginRegisterModal(
+					<PopupModal isOpen={true}>
+						<RegisterLoginModal errorText="Regístrate o inicia una sesión para guardar el artículo" />
+					</PopupModal>
+				);
+			}
+		});
+	}
+
+	let LikeButtonIcon = () => <FavoriteBorderIcon />;
+	if (props.article && props.article.isLikedByCurrentUser) {
+		LikeButtonIcon = () => <FavoriteIcon />;
+	}
 
 	const domain = "www.vize.mx";
 	return (
@@ -170,7 +213,7 @@ function Article(props: ArticleProps) {
 
 				<ArticleSubtitle>{props.article.subtitle}</ArticleSubtitle>
 
-				<AuthorTitleName />
+				{/*}<AuthorTitleName />*/}
 
 				<ArticlePublishedDate>
 					{articlePublishedDate}
@@ -182,16 +225,14 @@ function Article(props: ArticleProps) {
 
 				<SectionLineSeparateor />
 
-				<ArticleContactSection author={authorData.articleAuthor} />
+				{/*<ArticleContactSection author={authorData.articleAuthor} />*/}
 			</Panel>
 
 			<ArticleFooter>
-				{/* commenting out favorites until post mvp
-				<button>
-					<FavoriteBorderIcon />
+				<button onClick={likeButton}>
+					<LikeButtonIcon />
 				</button>
-				<NumLikes>0</NumLikes>
-				*/}
+				<NumLikes>{props.article.numberOfLikes}</NumLikes>
 
 				<SocialShareButtons>
 					<WhatsappShareButton
@@ -216,11 +257,13 @@ function Article(props: ArticleProps) {
 					</FacebookShareButton>
 				</SocialShareButtons>
 			</ArticleFooter>
+			{loginRegisterModal}
 		</>
 	);
 }
 
 function ArticlePage(props) {
+	console.log("prr", props);
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 
 	const slug = props.match.params.slug;
@@ -229,6 +272,8 @@ function ArticlePage(props) {
 	const { loading, error, data } = useQuery(articlePageQuery, {
 		variables: { id: slug, currentPageNum },
 	});
+
+	console.log("data", data);
 
 	if (loading) {
 		return <Spinner />;
@@ -243,7 +288,7 @@ function ArticlePage(props) {
 		<>
 			<PageWrapper title={data.article.title}>
 				<PanelContainer>
-					<Article article={data.article} />
+					<Article article={data.article} user={props.user} />
 
 					<SectionTitle>Topics</SectionTitle>
 					<Topics topics={data.articleTopics} />
@@ -256,4 +301,4 @@ function ArticlePage(props) {
 	);
 }
 
-export default withRouter(ArticlePage);
+export default withRouter(withUser(ArticlePage));

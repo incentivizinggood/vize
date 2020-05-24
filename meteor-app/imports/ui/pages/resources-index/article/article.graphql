@@ -9,6 +9,8 @@ query articlePage($id: ID!, $currentPageNum: Int!) {
 		articleImageURL
 		topicName
 		authorId
+		numberOfLikes
+		isLikedByCurrentUser
 		publishDate
 	}
 

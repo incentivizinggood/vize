@@ -1,0 +1,18 @@
+mutation articleLike($input: ArticleLikeInput!) {
+	articleLike(input: $input) {
+		article {
+			id
+
+			slug
+			title
+			subtitle
+			body
+			articleImageURL
+			topicName
+			authorId
+			numberOfLikes
+			isLikedByCurrentUser
+			publishDate
+		}
+	}
+}

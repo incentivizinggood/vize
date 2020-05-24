@@ -50,9 +50,9 @@ class RegisterLoginModal extends React.Component {
 
 		const errorDiv = {
 			backgroundColor: "crimson",
-			margin: -4,
+			margin: -10,
 			marginBottom: 10,
-			height: 50,
+			height: 60,
 			textAlign: "center",
 		};
 
@@ -118,13 +118,12 @@ class RegisterLoginModal extends React.Component {
 		return (
 			<div>
 				<div style={errorDiv}>
-					<h4 style={errorText}>
-						<T.registerOrLogin />
-					</h4>
+					<h4 style={errorText}>{this.props.errorText}</h4>
 				</div>
 				{formContent}
 			</div>
 		);
 	}
 }
+
 export default RegisterLoginModal;

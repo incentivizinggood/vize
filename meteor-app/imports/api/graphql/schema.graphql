@@ -48,6 +48,8 @@ type Mutation {
 
 	castVote(input: CastVoteInput!): CastVotePayload
 
+	articleLike(input: ArticleLikeInput!): ArticleLikePayload
+
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
 	createReview(input: CreateReviewInput!): CreateReviewPayload
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
@@ -163,6 +165,15 @@ type CastVotePayload {
 	vote: Vote
 }
 
+input ArticleLikeInput {
+	articleSlug: String!
+	isArticleLiked: Boolean!
+}
+
+type ArticleLikePayload {
+	article: Article
+}
+
 type ArticleConnection {
 	nodes: [Article!]!
 	totalCount: Int!
@@ -226,6 +237,11 @@ type Article {
 	authorId: Int!
 	"If an Article is highlighted show it in the highlighted articles section"
 	isHighlighted: Boolean!
+
+	"The number of times an article has been liked"
+	numberOfLikes: Int!
+	"A boolean for whether the current user has liked the article or not"
+	isLikedByCurrentUser: Boolean!
 	publishDate: DateTime!
 }
 

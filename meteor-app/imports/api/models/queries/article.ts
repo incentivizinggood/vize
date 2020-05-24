@@ -17,9 +17,18 @@ const attributes = sql.raw(
 	].join(", ")
 );
 
+const attributesArticleLikes = sql.raw(
+	["user_id AS userId", "article_slug AS articleSlug"].join(", ")
+);
+
 const baseQuery = sql`
 	SELECT ${attributes}
 	FROM articles
+`;
+
+const baseQueryArticleLikes = sql`
+	SELECT ${attributesArticleLikes}
+	FROM article_likes
 `;
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
@@ -27,6 +36,30 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 		${baseQuery}
 		WHERE slug=${slug}
 	`);
+}
+
+export async function getNumArticleLikes(slug: string): Promise<number> {
+	const count = await simpleQuery1<{ count: number }>(sql`
+		SELECT count(user_id)
+		FROM article_likes
+		WHERE article_slug=${slug}
+	`);
+	return count ? count.count : 0;
+}
+
+export async function isArticleLikedByUser(
+	slug: string,
+	user: User
+): Promise<boolean> {
+	const isLiked = await simpleQuery1<{ isLiked: boolean }>(sql`
+		SELECT exists
+		(
+			SELECT 1 FROM article_likes
+			WHERE article_slug=${slug} AND user_id=${user.userId}
+		)
+	`);
+
+	return isLiked.exists;
 }
 
 export async function getHighlightedArticles(): Promise<Article[] | null> {
