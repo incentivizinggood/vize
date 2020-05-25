@@ -8,7 +8,16 @@ query articlePage($id: ID!, $currentPageNum: Int!) {
 		body
 		articleImageURL
 		topicName
-		authorId
+		author {
+			authorName
+			authorCompanyName
+			authorImageURL
+			authorBio
+			contactPhoneNumber
+			contactEmail
+			websiteURL
+			location
+		}
 		numberOfLikes
 		isLikedByCurrentUser
 		publishDate

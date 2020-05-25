@@ -14,4 +14,10 @@ export const Article: ArticleResolvers = {
 
 		return dataModel.isArticleLikedByUser(obj.slug, context.user);
 	},
+
+	author: (obj, _args, _context, _info) => {
+		return dataModel
+			.getArticleBySlug(obj.slug)
+			.then(article => dataModel.getArticleAuthorById(article.authorId));
+	},
 };

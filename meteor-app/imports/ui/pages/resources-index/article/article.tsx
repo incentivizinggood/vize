@@ -6,6 +6,8 @@ import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { withUser } from "imports/ui/hoc/user";
+import { ArticleAuthor } from "imports/api/models/types";
+
 import {
 	SectionTitle,
 	BackToResourcesHeader,
@@ -121,7 +123,7 @@ type ArticleProps = {
 		body: string;
 		articleImageURL: string;
 		topicName: string;
-		authorId: string;
+		author: ArticleAuthor;
 		publishDate: string;
 		isLikedByCurrentUser: boolean;
 		numberOfLikes: number;
@@ -129,6 +131,7 @@ type ArticleProps = {
 	user?: any;
 };
 
+// Article Component
 function Article(props: ArticleProps) {
 	const dateOptions = {
 		day: "numeric",
@@ -140,34 +143,19 @@ function Article(props: ArticleProps) {
 		props.article.publishDate
 	).toLocaleDateString("es-MX", dateOptions);
 
-	/*const { loading, error, data: authorData } = useQuery(articleAuthorQuery, {
-		variables: { id: props.article.authorId },
-	});
-
-	if (loading) {
-		return <Spinner />;
-	}
-
-	if (error) {
-		// TODO: Display errors in better way
-		return <>{JSON.stringify(error)}</>;
-	}*/
-
 	// Display either the author name or the company name of the author
-	/*
+
 	const AuthorTitleName = () => {
-		if (authorData.articleAuthor.authorName) {
-			return (
-				<AuthorName>{authorData.articleAuthor.authorName}</AuthorName>
-			);
+		if (props.article.author.authorName) {
+			return <AuthorName>{props.article.author.authorName}</AuthorName>;
 		} else {
 			return (
 				<AuthorName>
-					{authorData.articleAuthor.authorCompanyName}
+					{props.article.author.authorCompanyName}
 				</AuthorName>
 			);
 		}
-	};*/
+	};
 
 	const [articleLike, { likeData }] = useMutation(articleLikeMutation);
 
@@ -175,8 +163,6 @@ function Article(props: ArticleProps) {
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(
 		loginRegisterModal
 	);
-
-	console.log("queryData", likeData);
 
 	function likeButton() {
 		articleLike({
@@ -213,7 +199,7 @@ function Article(props: ArticleProps) {
 
 				<ArticleSubtitle>{props.article.subtitle}</ArticleSubtitle>
 
-				{/*}<AuthorTitleName />*/}
+				<AuthorTitleName />
 
 				<ArticlePublishedDate>
 					{articlePublishedDate}
@@ -225,7 +211,7 @@ function Article(props: ArticleProps) {
 
 				<SectionLineSeparateor />
 
-				{/*<ArticleContactSection author={authorData.articleAuthor} />*/}
+				<ArticleContactSection author={props.article.author} />
 			</Panel>
 
 			<ArticleFooter>
@@ -263,7 +249,6 @@ function Article(props: ArticleProps) {
 }
 
 function ArticlePage(props) {
-	console.log("prr", props);
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 
 	const slug = props.match.params.slug;
@@ -272,8 +257,6 @@ function ArticlePage(props) {
 	const { loading, error, data } = useQuery(articlePageQuery, {
 		variables: { id: slug, currentPageNum },
 	});
-
-	console.log("data", data);
 
 	if (loading) {
 		return <Spinner />;

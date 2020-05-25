@@ -237,6 +237,7 @@ type Article {
 	authorId: Int!
 	"If an Article is highlighted show it in the highlighted articles section"
 	isHighlighted: Boolean!
+	author: ArticleAuthor
 
 	"The number of times an article has been liked"
 	numberOfLikes: Int!
