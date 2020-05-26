@@ -124,9 +124,10 @@ export type Salary = {
 
 export type User = {
 	userId: number;
-	username: string;
-	emailAddress: string;
-	passwordHash: string;
+	username: string | null;
+	emailAddress: string | null;
+	passwordHash: string | null;
+	facebookId: string | null;
 	role: "worker" | "company-unverified" | "company";
 	companyId: number | null;
 };

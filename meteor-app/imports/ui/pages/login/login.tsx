@@ -30,6 +30,7 @@ function LoginPage() {
 				<T.login />
 			</FormHeader>
 			<LoginForm />
+			<a href="/auth/facebook">Login with Facebook</a>
 			<FormFooter>
 				<T.noAccount />
 				<Link to={urlGenerators.vizeRegister(userRole)}>
