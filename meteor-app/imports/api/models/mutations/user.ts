@@ -1,12 +1,7 @@
 import * as yup from "yup";
 
 import sql from "imports/lib/sql-template";
-import {
-	Transaction,
-	execTransactionRW,
-	simpleQuery,
-} from "imports/api/connectors/postgresql";
-import { withMongoDB } from "imports/api/connectors/mongodb";
+import { pool } from "imports/api/connectors/postgresql";
 import {
 	User,
 	getUserByUsername,
@@ -17,114 +12,44 @@ import { postToSlack } from "imports/api/connectors/slack-webhook";
 
 import { attributes } from "../queries/user";
 
-// This was for the MongoDB users.
-export type RawUser = {
-	_id: string;
-	username: string;
-	createdAt: Date;
-	role: "worker" | "company-unverified" | "company";
-	companyId: number | null;
-	services: { password: { bcrypt: string } };
-	emails: {
-		address: string;
-		verified: boolean;
-	}[];
-};
+const createUserInputSchema = yup.object({
+	username: yup
+		.string()
+		.trim()
+		.min(1)
+		.max(32)
+		.required(),
+	email: yup
+		.string()
+		.email()
+		.required(),
+	password: yup
+		.string()
+		.min(1)
+		.max(256)
+		.required(),
+	role: yup
+		.mixed<"worker" | "company">()
+		.oneOf(["worker", "company"])
+		.required(),
+});
 
-// Migrate user data from MongoDB to PostgreSQL.
-export async function migrateUsers() {
-	const transaction: Transaction<unknown> = async client => {
-		const users = await withMongoDB(async db =>
-			db
-				.collection<RawUser>("users")
-				.find({})
-				.toArray()
-		);
-
-		for (const user of users) {
-			await client.query(sql`
-				UPDATE users
-				SET
-					username = ${user.username},
-					email_address = ${
-						user.emails && user.emails.length > 0
-							? user.emails[0].address
-							: null
-					},
-					password_hash = ${user.services.password.bcrypt}
-				WHERE usermongoid = ${user._id}
-			`);
-		}
-	};
-
-	console.log("Starting user migration.");
-	await execTransactionRW(transaction);
-	console.log("Finished user migration.");
-}
-
-type CreateUserInput = {
-	username: string;
-	email: string;
-	password: string;
-	role: "worker" | "company";
-};
-
-namespace CreateUserInput {
-	export const schema = yup.object({
-		username: yup
-			.string()
-			.trim()
-			.min(1)
-			.max(32)
-			.required(),
-		email: yup
-			.string()
-			.email()
-			.required(),
-		password: yup
-			.string()
-			.min(1)
-			.max(256)
-			.required(),
-		role: yup
-			.mixed<"worker" | "company">()
-			.oneOf(["worker", "company"])
-			.required(),
-	});
-}
-
-export async function createUser(input: CreateUserInput): Promise<User> {
+export async function createUser(input: unknown): Promise<User> {
 	const {
 		username,
 		email,
 		password,
 		role,
-	} = await CreateUserInput.schema.validate(input, {
+	} = await createUserInputSchema.validate(input, {
 		abortEarly: false,
 	});
 
-	const transaction: Transaction<User> = async client => {
-		if (
-			(await client.query(
-				sql`SELECT userid FROM users WHERE username=${username}`
-			)).rows.length > 0
-		) {
-			throw "username is taken";
-		}
+	const passwordHash = await hashPassword(password);
 
-		if (
-			(await client.query(
-				sql`SELECT userid FROM users WHERE email_address=${email}`
-			)).rows.length > 0
-		) {
-			throw "email is taken";
-		}
-
-		const passwordHash = await hashPassword(password);
-
+	try {
 		const {
 			rows: [user],
-		} = await client.query(sql`
+		} = await pool.query(sql`
 			INSERT INTO users 
 				(username, email_address, password_hash, role) 
 			VALUES 
@@ -137,33 +62,31 @@ export async function createUser(input: CreateUserInput): Promise<User> {
 		);
 
 		return user;
-	};
-
-	return execTransactionRW(transaction);
-}
-
-type VerifyUserInput = {
-	username: string;
-	password: string;
-};
-
-namespace VerifyUserInput {
-	export const schema = yup.object({
-		username: yup
-			.string()
-			.trim()
-			.required(),
-		password: yup.string().required(),
-	});
-}
-
-export async function verifyUser(input: VerifyUserInput): Promise<User> {
-	const { username, password } = await VerifyUserInput.schema.validate(
-		input,
-		{
-			abortEarly: false,
+	} catch (err) {
+		if (err.constraint === "users_username_key") {
+			throw `That username is already taken. Please choose a different one.`;
 		}
-	);
+
+		if (err.constraint === "users_email_address_key") {
+			throw `That email address is used by another account. Please use a different one.`;
+		}
+
+		throw err;
+	}
+}
+
+const verifyUserInputSchema = yup.object({
+	username: yup
+		.string()
+		.trim()
+		.required(),
+	password: yup.string().required(),
+});
+
+export async function verifyUser(input: unknown): Promise<User> {
+	const { username, password } = await verifyUserInputSchema.validate(input, {
+		abortEarly: false,
+	});
 
 	const user = await getUserByUsername(username);
 
@@ -180,11 +103,22 @@ export async function verifyUser(input: VerifyUserInput): Promise<User> {
 	return user;
 }
 
+const changePasswordInputSchema = yup.object({
+	oldPassword: yup.string().required(),
+	newPassword: yup.string().required(),
+});
+
 export async function changePassword(
 	user: User | undefined | null,
-	oldPassword: string,
-	newPassword: string
+	input: unknown
 ) {
+	const {
+		oldPassword,
+		newPassword,
+	} = await changePasswordInputSchema.validate(input, {
+		abortEarly: false,
+	});
+
 	if (!user) {
 		throw "You must be logged in to change your password.";
 	}
@@ -197,7 +131,7 @@ export async function changePassword(
 
 	const newPasswordHash = await hashPassword(newPassword);
 
-	await simpleQuery(sql`
+	await pool.query(sql`
 		UPDATE users
 		SET password_hash = ${newPasswordHash}
 		WHERE username = ${user.username}

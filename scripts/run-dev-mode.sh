@@ -8,7 +8,6 @@ echo 'Running in "dev" mode...'
 echo 'Make sure to start the databases first.'
 
 # Set environment variables for Meteor.
-export MONGO_URL="mongodb://localhost:27017/meteor"
 export PGHOST=localhost
 export PGPORT=5432
 export PGUSER=meteor
