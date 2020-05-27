@@ -28,6 +28,33 @@ export const Query: QueryResolvers = {
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 
+	article: (_obj, args, _context, _info) =>
+		dataModel.getArticleBySlug(args.id),
+
+	articleAuthor: (_obj, args, _context, _info) =>
+		dataModel.getArticleAuthorById(Number(args.id)),
+
+	articleTopics: (_obj, _args, _context, _info) =>
+		dataModel.getArticleTopics(),
+
+	highlightedArticles: (_obj, _args, _context, _info) =>
+		dataModel.getHighlightedArticles(),
+
+	searchArticlesByTopic: (_obj, args, _context, _info) =>
+		dataModel.searchForArticlesByTopic(
+			args.id,
+			args.searchText,
+			args.pageNum,
+			args.pageSize
+		),
+
+	searchRecentArticles: (_obj, args, _context, _info) =>
+		dataModel.searchForRecentArticles(
+			args.searchText,
+			args.pageNum,
+			args.pageSize
+		),
+
 	searchCompanies: (_obj, args, _context, _info) =>
 		dataModel.searchForCompanies(
 			args.searchText,

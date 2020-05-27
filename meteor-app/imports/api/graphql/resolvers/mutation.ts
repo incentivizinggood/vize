@@ -26,6 +26,23 @@ export const Mutation: MutationResolvers = {
 			.then(vote => (vote ? { vote } : null));
 	},
 
+	articleLike: async (
+		_obj,
+		{ input: { articleSlug, isArticleLiked } },
+		context,
+		_info
+	) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const article = await dataModel.articleLike(
+			context.user,
+			articleSlug,
+			isArticleLiked
+		);
+
+		return { article };
+	},
+
 	createCompany: async (_obj, { input }, context, _info) => {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 		const companyId = await dataModel.createCompany(

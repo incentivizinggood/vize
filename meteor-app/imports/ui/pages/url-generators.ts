@@ -1,4 +1,5 @@
 const queryRoutes = {
+	resources: "recursos",
 	companies: "companies",
 	companyProfile: "companyprofile",
 	writeReview: "write-review",
@@ -12,6 +13,12 @@ const queryRoutes = {
 // exporting commonly-used URL generators
 // in order to reduce the risk of typos
 // and reduce the use of magic strings
+const vizeArticleUrl = function(slug: string) {
+	return `/${queryRoutes.resources}/articulo/${slug}`;
+};
+const vizeArticleTopicUrl = function(topicName: string) {
+	return `/${queryRoutes.resources}/temas/${topicName}`;
+};
 const vizeProfileUrl = function(companyId) {
 	return `/${queryRoutes.companyProfile}/?id=${companyId}`;
 };
@@ -50,6 +57,8 @@ const vizeRegisterToLogin = function(userRole?: string) {
 };*/
 
 const urlGenerators = {
+	vizeArticleUrl,
+	vizeArticleTopicUrl,
 	vizeProfileUrl,
 	vizeReviewUrl,
 	vizeSalaryUrl,

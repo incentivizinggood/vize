@@ -37,7 +37,7 @@ function EmployerNavLinks(props) {
 				</Link>
 			</li>
 			<li>
-				<Link to="/employer-resources" className="link-kumya">
+				<Link to="/recursos" className="link-kumya">
 					<span>
 						<T.resources />
 					</span>

@@ -1,0 +1,25 @@
+query resourcesIndexPage($currentPageNum: Int!) {
+	searchRecentArticles(pageNum: $currentPageNum) {
+		totalCount
+		nodes {
+			slug
+			title
+			articleImageURL
+			topicName
+			publishDate
+		}
+	}
+
+	articleTopics {
+		topicName
+		iconImageURL
+	}
+
+	highlightedArticles {
+		slug
+		title
+		articleImageURL
+		topicName
+		publishDate
+	}
+}

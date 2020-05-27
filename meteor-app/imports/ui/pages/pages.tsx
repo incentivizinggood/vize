@@ -2,6 +2,9 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
+import Article from "imports/ui/pages/resources-index/article";
+import ArticlesByTopicPage from "imports/ui/pages/resources-index/articles-by-topic";
+import ResourcesIndex from "./resources-index";
 import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
 import CreateSalary from "./create-salary";
@@ -17,8 +20,6 @@ import NotFoundPage from "./not-found";
 import PasswordChanger from "./password-changer";
 import CreateJobAd from "./create-job-ad";
 import RegisterPage from "./register";
-import ResourcesEmployers from "./resources-employers";
-import ResourcesWorkers from "./resources-workers";
 import ShowJobs from "./show-jobs";
 import UserPage from "./user";
 import CreateReview from "./create-review";
@@ -45,7 +46,6 @@ function Pages(props) {
 			<Route path="/company/create" component={CreateCompany} />
 			<Route path="/contact-us" component={ContactUsPage} />
 			<Route path="/review-submitted" component={ReviewSubmitted} />
-			<Route path="/employer-resources" component={ResourcesEmployers} />
 			<Route path="/for-employers" component={ForEmployers} />
 			<Route path="/help" component={HelpPage} />
 			<Route path="/jobs" component={ShowJobs} />
@@ -53,9 +53,17 @@ function Pages(props) {
 			<Route path="/my-account" component={MyAccountPage} />
 			<Route path="/post-a-job" component={CreateJobAd} />
 			<Route path="/register" component={RegisterPage} />
-			<Route path="/worker-resources" component={ResourcesWorkers} />
 			<Route path="/test" component={TestPage} />
-
+			// recursos = resources
+			<Route
+				path={`/recursos/articulo/:slug`}
+				component={() => <Article />}
+			/>
+			<Route
+				path={`/recursos/temas/:topicName`}
+				component={() => <ArticlesByTopicPage />}
+			/>
+			<Route path={`/recursos/`} component={() => <ResourcesIndex />} />
 			<Route
 				path={`/${queryRoutes.companies}`}
 				component={() => (
@@ -72,7 +80,6 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.writeReview}`}
 				component={() => (
@@ -82,7 +89,6 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.submitSalaryData}`}
 				component={() => (
@@ -91,21 +97,18 @@ function Pages(props) {
 					/>
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.applyForJob}`}
 				component={() => (
 					<ApplyToJobAd jobAdId={fixNullParams(params.get("id"))} />
 				)}
 			/>
-
 			<Route
 				path={`/${queryRoutes.user}`}
 				component={() => (
 					<UserPage user_id={fixNullParams(params.get("id"))} />
 				)}
 			/>
-
 			<Route component={NotFoundPage} />
 		</Switch>
 	);

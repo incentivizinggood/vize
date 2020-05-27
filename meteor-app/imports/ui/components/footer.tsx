@@ -13,6 +13,7 @@ const FooterContainer = styled.footer`
 	background: #232326;
 	text-align: left;
 	color: #cbcbcb;
+	z-index: 3;
 
 	> * {
 		max-width: 800px;

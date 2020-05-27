@@ -224,7 +224,7 @@ function CreateReviewForm({
 				if (errors.message.includes("NOT_LOGGED_IN")) {
 					setContent(
 						<PopupModal isOpen={true}>
-							<RegisterLoginModal />
+							<RegisterLoginModal errorText="Regístrate o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);
 				} else {

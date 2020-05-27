@@ -96,7 +96,7 @@ function CreateSalaryForm({ history, companyName, user }) {
 				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
 					setContent(
 						<PopupModal isOpen={true}>
-							<RegisterLoginModal />
+							<RegisterLoginModal errorText="Regístrate o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);
 				} else {

@@ -42,7 +42,7 @@ function WorkerNavLinks() {
 				</Link>
 			</li>
 			<li>
-				<Link to="/worker-resources">
+				<Link to="/recursos">
 					<span>
 						<T.resources />
 					</span>

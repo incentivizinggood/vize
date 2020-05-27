@@ -1,3 +1,31 @@
+export type Article = {
+	slug: string;
+	title: string;
+	ArticleSubtitle: string;
+	body: string;
+	articleImageURL: string;
+	topicName: string;
+	authorId: number;
+	isHighlighted: boolean;
+	publishDate: Date;
+};
+
+export type ArticleAuthor = {
+	authorName: string;
+	authorCompanyName: string;
+	authorImageURL: string;
+	authorBio: string;
+	contactPhoneNumber: string;
+	contactEmail: string;
+	websiteURL: string;
+	location: string;
+};
+
+export type ArticleTopic = {
+	topicName: string;
+	iconImageURL: string;
+};
+
 export type VoteId =
 	| { subjectType: "comment"; refersTo: number; submittedBy: number }
 	| { subjectType: "review"; refersTo: number; submittedBy: number };

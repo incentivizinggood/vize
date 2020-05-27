@@ -10,6 +10,26 @@ type Query {
 	user(id: ID!): User
 	vote(id: ID!): Vote
 
+	article(id: ID!): Article
+	articleTopic(id: ID!): ArticleTopic
+	articleAuthor(id: ID!): ArticleAuthor
+
+	highlightedArticles: [Article!]!
+	articleTopics: [ArticleTopic!]!
+
+	searchArticlesByTopic(
+		id: ID!
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): ArticleConnection!
+
+	searchRecentArticles(
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): ArticleConnection!
+
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
@@ -27,6 +47,8 @@ type Mutation {
 	): RewardStatus!
 
 	castVote(input: CastVoteInput!): CastVotePayload
+
+	articleLike(input: ArticleLikeInput!): ArticleLikePayload
 
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
 	createReview(input: CreateReviewInput!): CreateReviewPayload
@@ -143,6 +165,20 @@ type CastVotePayload {
 	vote: Vote
 }
 
+input ArticleLikeInput {
+	articleSlug: String!
+	isArticleLiked: Boolean!
+}
+
+type ArticleLikePayload {
+	article: Article
+}
+
+type ArticleConnection {
+	nodes: [Article!]!
+	totalCount: Int!
+}
+
 type CompanyConnection {
 	nodes: [Company!]!
 	totalCount: Int!
@@ -187,6 +223,49 @@ type Comment {
 	children(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The votes cast on this comment."
 	votes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
+}
+
+type Article {
+	id: ID!
+
+	slug: String!
+	title: String!
+	subtitle: String
+	body: String!
+	articleImageURL: String!
+	topicName: String
+	authorId: Int!
+	"If an Article is highlighted show it in the highlighted articles section"
+	isHighlighted: Boolean!
+	author: ArticleAuthor
+
+	"The number of times an article has been liked"
+	numberOfLikes: Int!
+	"A boolean for whether the current user has liked the article or not"
+	isLikedByCurrentUser: Boolean!
+	publishDate: DateTime!
+}
+
+type ArticleAuthor {
+	id: ID!
+
+	authorName: String
+	authorCompanyName: String
+	authorImageURL: String
+	"A short biography on the author"
+	authorBio: String
+	contactPhoneNumber: String
+	contactEmail: String
+	websiteURL: String
+	"Location can either be an address or the city"
+	location: String
+}
+
+type ArticleTopic {
+	id: ID!
+
+	topicName: String!
+	iconImageURL: String!
 }
 
 type Company {

@@ -1,0 +1,12 @@
+query articleAuthorQuery($id: ID!) {
+	articleAuthor(id: $id) {
+		authorName
+		authorCompanyName
+		authorImageURL
+		authorBio
+		contactPhoneNumber
+		contactEmail
+		websiteURL
+		location
+	}
+}

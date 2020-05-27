@@ -1,0 +1,41 @@
+query articlePage($id: ID!, $currentPageNum: Int!) {
+	article(id: $id) {
+		id
+
+		slug
+		title
+		subtitle
+		body
+		articleImageURL
+		topicName
+		author {
+			authorName
+			authorCompanyName
+			authorImageURL
+			authorBio
+			contactPhoneNumber
+			contactEmail
+			websiteURL
+			location
+		}
+		numberOfLikes
+		isLikedByCurrentUser
+		publishDate
+	}
+
+	searchRecentArticles(pageNum: $currentPageNum) {
+		totalCount
+		nodes {
+			slug
+			title
+			articleImageURL
+			topicName
+			publishDate
+		}
+	}
+
+	articleTopics {
+		topicName
+		iconImageURL
+	}
+}

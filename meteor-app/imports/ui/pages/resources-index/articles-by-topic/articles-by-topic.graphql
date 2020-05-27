@@ -1,0 +1,12 @@
+query articlesByTopicPage($id: ID!, $currentPageNum: Int!) {
+	searchArticlesByTopic(id: $id, pageNum: $currentPageNum) {
+		totalCount
+		nodes {
+			slug
+			title
+			articleImageURL
+			topicName
+			publishDate
+		}
+	}
+}
