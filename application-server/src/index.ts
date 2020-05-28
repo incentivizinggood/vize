@@ -1,44 +1,13 @@
-import express from "express";
-import { ApolloServer, IResolvers } from "apollo-server-express";
-import { Pool } from "pg";
 import util from "util";
 
-import typeDefs from "src/schema.graphql";
-//import { Resolvers } from "generated/resolvers-types";
-
-const pool = new Pool();
-
-const resolvers: any = {
-	Query: {
-		hello: () => "Hello world!",
-		now: () =>
-			pool
-				.query("SELECT NOW() as now")
-				.then(res => res.rows[0].now.toISOString()),
-	},
-};
-
-const apolloServer = new ApolloServer({
-	typeDefs,
-	resolvers: resolvers as IResolvers,
-	introspection: true,
-	playground: true,
-});
-
-const app = express();
+import { app, onServerReady } from "src/http";
+import { pool } from "src/connectors/postgresql";
 
 const { PORT = 3000 } = process.env;
 
-app.get("/", (req, res) => {
-	res.send({
-		message: "hello world",
-	});
-});
-
-apolloServer.applyMiddleware({ app });
-
 const server = app.listen(PORT, () => {
 	console.log("server started at http://localhost:" + PORT);
+	onServerReady();
 });
 
 async function gracefulShutdown() {

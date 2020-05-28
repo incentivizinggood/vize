@@ -38,7 +38,11 @@ module.exports = {
 	},
 	plugins: [
 		new NodemonPlugin({
-			nodeArgs: ["-r", "source-map-support/register"],
+			nodeArgs: [
+				"-r",
+				"source-map-support/register",
+				"--experimental-modules",
+			],
 		}),
 		new ProgressBarPlugin(),
 	],
