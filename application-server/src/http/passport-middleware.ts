@@ -8,7 +8,7 @@ import {
 	createUser,
 	verifyUser,
 	changePassword,
-} from "imports/api/models";
+} from "src/models";
 
 /** Set up the users and authentication middleware. */
 export function applyPassportMiddleware(app: Express) {
@@ -95,7 +95,7 @@ export function applyPassportMiddleware(app: Express) {
 
 	app.post("/change-password", async function(req, res, next) {
 		try {
-			await changePassword(req.user, req.body);
+			await changePassword(req.user as User, req.body);
 		} catch (e) {
 			if (e instanceof yup.ValidationError) {
 				res.status(401).json({ errors: e.errors });

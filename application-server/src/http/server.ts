@@ -1,7 +1,7 @@
 import express from "express";
 import connectPgSimple from "connect-pg-simple";
 
-import { testConnection as testPgConnection } from "imports/api/connectors/postgresql";
+import { testConnection as testPgConnection } from "src/connectors/postgresql";
 
 import { applyGraphQLMiddleware } from "./graphql-middleware";
 import { applyHelloWorldMiddleware } from "./hello-world-middleware";

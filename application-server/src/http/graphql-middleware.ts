@@ -1,7 +1,7 @@
 import { ApolloServer, IResolvers } from "apollo-server-express";
 import { Express } from "express";
 
-import { typeDefs, resolvers } from "imports/api/graphql";
+import { typeDefs, resolvers } from "src/graphql";
 
 export function applyGraphQLMiddleware(app: Express) {
 	// Setup the GraphQL API endpoint.
