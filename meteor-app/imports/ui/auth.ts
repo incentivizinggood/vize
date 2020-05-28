@@ -22,7 +22,7 @@ function afterLoginOrLogout<T>(x: T): T {
 export const login = async (username: string, password: string) =>
 	request({
 		method: "POST",
-		uri: `${location.origin}/login`,
+		uri: `${location.origin}/api/login`,
 		body: {
 			username,
 			password,
@@ -33,7 +33,7 @@ export const login = async (username: string, password: string) =>
 export const logout = async () =>
 	request({
 		method: "POST",
-		url: `${location.origin}/logout`,
+		url: `${location.origin}/api/logout`,
 	}).then(afterLoginOrLogout);
 
 export const register = async (options: {
@@ -44,7 +44,7 @@ export const register = async (options: {
 }) =>
 	request({
 		method: "POST",
-		uri: `${location.origin}/register`,
+		uri: `${location.origin}/api/register`,
 		body: options,
 		json: true,
 	}).then(afterLoginOrLogout);
@@ -55,7 +55,7 @@ export const changePassword = async (options: {
 }) =>
 	request({
 		method: "POST",
-		uri: `${location.origin}/change-password`,
+		uri: `${location.origin}/api/change-password`,
 		body: options,
 		json: true,
 	});
