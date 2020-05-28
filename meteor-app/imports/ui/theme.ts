@@ -8,11 +8,13 @@ accent - A color that is distinctive and rarly used. Use to draw attention to a 
 
 const theme = {
 	main: "hsl(204, 63%, 55%)",
-	mainVariant: "hsl(204, 63%, 35%)",
+	mainVariant: "#0480EA",
 	accent: "hsl(48, 99%, 50%)",
+	error: "red",
 
 	background: "hsl(0, 0%, 95%)",
-	// The background color of most things that have things in them.
+	background: "hsl(0, 0%, 95%)",
+	// The background color of most things that have things in them. It is a light gray color
 	surface: "white",
 	surfaceAccent: "hsl(240, 4%, 14%)",
 
@@ -23,6 +25,7 @@ const theme = {
 	onBackground: "#333",
 	onSurface: "#333",
 	onSurfaceAccent: "#cbcbcb",
+	onError: "white",
 
 	// The "weak" colors.
 	// Used for things that are subtle, disabled, or placeholders.

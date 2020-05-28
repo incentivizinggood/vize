@@ -2,10 +2,11 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
-
-import { Accounts } from "meteor/accounts-base";
+import ReactGA from "react-ga";
+import ReactPixel from "react-facebook-pixel";
 
 import * as schemas from "imports/ui/form-schemas";
+import { register } from "imports/ui/auth";
 
 import InnerForm from "./register-inner-form";
 
@@ -18,13 +19,15 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(),
+	username: schemas.username.required(
+		"Nombre de Usuario es un campo requerido"
+	),
 	email: yup
 		.string()
-		.email()
-		.required(),
+		.email("Correo Electrónico debe ser válido")
+		.required("Correo Electrónico es un campo requerido"),
 	companyName: schemas.companyName,
-	password: schemas.password.required(),
+	password: schemas.password.required("Contraseña es un campo requerido"),
 	role: yup
 		.mixed()
 		.oneOf(["worker", "company"])
@@ -32,24 +35,30 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = history => (values, actions) => {
-	const createUserCallback = error => {
-		if (error) {
-			console.error(error);
+	const options = {
+		username: values.username,
+		email: values.email,
+		password: values.password,
+		role: values.role,
+	};
 
-			// Errors to display on form fields
-			const formErrors = {};
-
-			if (error.reason === "Username already exists.") {
-				formErrors.username = "Username already exists";
-			}
-
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
-		} else {
+	register(options)
+		.then(x => {
 			actions.resetForm(initialValues);
-			// checks to see if the current page is the write a reivew page.
+			// checks to see if the current page is the write a review page.
 			// if the current page is write a review page and a register is successful
 			// there should be no redirect so that the user can stay on the write a review page
+
+			ReactGA.event({
+				category: "User",
+				action: "Created Account",
+				label: options.role,
+			});
+			ReactPixel.track("Created Account", {
+				category: "User",
+				label: options.role,
+			});
+
 			if (
 				!(
 					window.location.pathname.includes("/write-review") ||
@@ -58,24 +67,50 @@ const onSubmit = history => (values, actions) => {
 			) {
 				history.push("/");
 			}
-		}
-	};
-	const options = {
-		username: values.username,
-		password: values.password,
-		role: values.role,
-	};
-	Accounts.createUser(options, createUserCallback);
+		})
+		.catch(error => {
+			console.error(error);
+
+			// Errors to display on form fields
+			const formErrors = {};
+
+			if (error.error.errors.includes("username is taken")) {
+				formErrors.username = "Nombre de usuario ya existe";
+			}
+
+			if (error.error.errors.includes("email is taken")) {
+				formErrors.email = "La dirección de correo ya existe";
+			}
+
+			actions.setErrors(formErrors);
+			actions.setSubmitting(false);
+		});
 };
 
-const RegisterForm = props => (
-	<Formik
-		initialValues={initialValues}
-		validationSchema={schema}
-		onSubmit={onSubmit(props.history)}
-	>
-		<InnerForm />
-	</Formik>
-);
+function RegisterForm(props) {
+	const params = new URLSearchParams(location.search);
+	let userRole = "worker";
 
+	if (params != null) {
+		userRole = params.get("user");
+
+		// userRole will be null if the register-login modal is being used
+		if (userRole === null) {
+			userRole = "worker";
+		}
+	}
+
+	initialValues["role"] = userRole;
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={schema}
+			onSubmit={onSubmit(props.history)}
+		>
+			<InnerForm {...props} userRole={userRole} />
+		</Formik>
+	);
+}
+
+// TODO: Switch to useHistory hook.
 export default withRouter(RegisterForm);

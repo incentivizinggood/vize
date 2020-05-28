@@ -7,10 +7,12 @@ import { GraphQLDateTime } from "graphql-iso-date";
 // this code a lot, you may prefer to use `cd meteor-app && npm run gen`
 // instead. This command runs faster and ONLY generates the "resolvers-types.ts"
 // file.)
-import { IResolvers } from "./resolvers-types";
+import { IResolvers } from "imports/gen/graphql-resolvers";
 
 import { Query } from "./query";
 import { Mutation } from "./mutation";
+import { Article } from "./article";
+import { ArticleTopic } from "./article-topic";
 import { CommentParent } from "./comment-parent";
 import { Comment } from "./comment";
 import { Company } from "./company";
@@ -24,6 +26,8 @@ import { Vote } from "./vote";
 export const resolvers: IResolvers = {
 	Query,
 	Mutation,
+	Article,
+	ArticleTopic,
 	CommentParent,
 	Comment,
 	Company,

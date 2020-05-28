@@ -3,9 +3,8 @@ import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
 
-import { Meteor } from "meteor/meteor";
-
 import * as schemas from "imports/ui/form-schemas";
+import { login } from "imports/ui/auth";
 
 import InnerForm from "./login-inner-form";
 
@@ -15,29 +14,16 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(),
-	password: schemas.password.required(),
+	username: schemas.username.required(
+		"Nombre de Usuario es un campo requerido"
+	),
+	password: schemas.password.required("Contraseña es un campo requerido"),
 });
 
 const onSubmit = history => (values, actions) => {
-	const loginCallback = error => {
-		if (error) {
-			console.error(error);
-
-			// Errors to display on form fields
-			const formErrors = {};
-
-			if (error.reason === "User not found") {
-				formErrors.username = "User not found";
-			}
-			if (error.reason === "Incorrect password") {
-				// TODO: clear the password input on this error
-				formErrors.password = "Incorrect password";
-			}
-
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
-		} else {
+	login(values.username, values.password)
+		.then(x => {
+			console.log("then = ", x);
 			actions.resetForm(initialValues);
 			if (
 				!(
@@ -47,10 +33,30 @@ const onSubmit = history => (values, actions) => {
 			) {
 				history.push("/");
 			}
-		}
-	};
+		})
+		.catch(error => {
+			console.error("Login error is", error);
 
-	Meteor.loginWithPassword(values.username, values.password, loginCallback);
+			// Errors to display on form fields
+			const formErrors = {};
+
+			if (
+				error.error.errors.includes(
+					"username does not match any account"
+				)
+			) {
+				formErrors.username =
+					"El nombre de usuario no se ha encontrado";
+			}
+
+			if (error.error.errors.includes("password is incorrect")) {
+				// TODO: clear the password input on this error
+				formErrors.password = "Contraseña incorrecta";
+			}
+
+			actions.setErrors(formErrors);
+			actions.setSubmitting(false);
+		});
 };
 
 const LoginForm = props => (
@@ -59,8 +65,9 @@ const LoginForm = props => (
 		validationSchema={schema}
 		onSubmit={onSubmit(props.history)}
 	>
-		<InnerForm />
+		<InnerForm {...props} />
 	</Formik>
 );
 
+// TODO: Switch to useHistory hook.
 export default withRouter(LoginForm);

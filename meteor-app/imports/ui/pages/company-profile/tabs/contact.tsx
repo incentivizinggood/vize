@@ -1,8 +1,8 @@
 import React from "react";
 
-import { i18n } from "meteor/universe:i18n";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 export default function ContactTab() {
 	return (
@@ -10,7 +10,7 @@ export default function ContactTab() {
 			<div className="col-md-12  section_rview_back_color ">
 				<div className="sect-padding ">
 					<h4 className="head_section_font">
-						<T>common.companyprofile.contact</T>
+						<T.companyprofile.contact />
 					</h4>
 					<hr />
 
@@ -18,8 +18,8 @@ export default function ContactTab() {
 						<div className="wrap-contact">
 							<form className="contact-form validate-form">
 								<span className="contact-form-title">
-									<T>common.companyprofile.feel_free</T>
-									<T>common.companyprofile.reach_us</T>
+									<T.companyprofile.feel_free />
+									<T.companyprofile.reach_us />
 								</span>
 								<div className="wrap-input rs1 validate-input">
 									<input

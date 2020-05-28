@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
 import CompanyRating from "imports/ui/components/companyRatingsComponent";
 import CompanyReview from "imports/ui/components/companyReview";
-import WriteReviewButton from "imports/ui/components/write-review-button";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { WriteReviewButton } from "imports/ui/components/button";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function ReviewsSection(props) {
 	// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
@@ -21,7 +19,7 @@ function ReviewsSection(props) {
 			/>
 		);
 	} else {
-		reviewsToDisplay = <T>common.overview_tab.display_text</T>;
+		reviewsToDisplay = <T.overview_tab.display_text />;
 	}
 
 	return (
@@ -30,10 +28,10 @@ function ReviewsSection(props) {
 				{" "}
 				{/* review link */}
 				<h4 className="head_section_font">
-					{props.company.name} <T>common.overview_tab.reviews</T>
+					{props.company.name} <T.overview_tab.reviews />
 				</h4>
 				<div className="add-buttons">
-					<WriteReviewButton companyId={props.company.id} />
+					<WriteReviewButton companyName={props.company.name} buttonLocation='Company Profile | Overview' />
 				</div>
 				<hr />
 				<CompanyRating company={props.company} />
@@ -52,9 +50,7 @@ function ReviewsSection(props) {
 									data-toggle="tab"
 								>
 									<strong>
-										<T>
-											common.overview_tab.see_all_reviews
-										</T>
+										<T.overview_tab.see_all_reviews />
 									</strong>
 								</Link>
 							</li>
@@ -66,4 +62,4 @@ function ReviewsSection(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(ReviewsSection);
+export default ReviewsSection;

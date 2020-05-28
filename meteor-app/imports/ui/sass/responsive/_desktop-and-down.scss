@@ -54,8 +54,9 @@
 		a {
 			letter-spacing: 0;
 			padding: 10px 11px;
-			font-size: 1.1em;
 			color: white !important;
+			font-weight: bold;
+			font-size: 17px;
 			&:hover {
 				color: white !important;
 			}
@@ -120,17 +121,6 @@
 
 	a.toggle-only-display {
 		display: block !important;
-		height: 55px;
-		padding-top: 17px !important;
-		border-radius: 0px !important;
-		text-align: left;
-		margin-top: -15px;
-
-		&:hover,
-		&:focus,
-		&:active {
-			background: $secondary-color-red;
-		}
 	}
 
 	.navigation-only-display {
@@ -192,10 +182,6 @@
 	.banner-text-info {
 		width: 70%;
 		margin: 11em auto 0;
-	}
-
-	p {
-		font-size: 1em;
 	}
 
 	.full-width-container {

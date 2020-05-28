@@ -10,12 +10,32 @@ type Query {
 	user(id: ID!): User
 	vote(id: ID!): Vote
 
+	article(id: ID!): Article
+	articleTopic(id: ID!): ArticleTopic
+	articleAuthor(id: ID!): ArticleAuthor
+
+	highlightedArticles: [Article!]!
+	articleTopics: [ArticleTopic!]!
+
+	searchArticlesByTopic(
+		id: ID!
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): ArticleConnection!
+
+	searchRecentArticles(
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): ArticleConnection!
+
 	searchCompanies(
 		searchText: String = ""
 		pageNum: Int = 0
-		pageSize: Int = 5
+		pageSize: Int = 20
 	): CompanyConnection!
-	searchJobAds(pageNum: Int = 0, pageSize: Int = 5): JobAdConnection!
+	searchJobAds(pageNum: Int = 0, pageSize: Int = 20): JobAdConnection!
 
 	wroteAReview: RewardStatus!
 }
@@ -27,6 +47,112 @@ type Mutation {
 	): RewardStatus!
 
 	castVote(input: CastVoteInput!): CastVotePayload
+
+	articleLike(input: ArticleLikeInput!): ArticleLikePayload
+
+	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
+	createReview(input: CreateReviewInput!): CreateReviewPayload
+	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
+	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
+	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
+}
+
+input CreateCompanyInput {
+	name: String!
+	contactEmail: String!
+	yearEstablished: Int
+	numEmployees: String
+	industry: String
+	locations: [LocationInput!]!
+	contactPhoneNumber: String
+	websiteURL: String
+	descriptionOfCompany: String
+}
+
+input LocationInput {
+	city: String!
+	address: String!
+	industrialHub: String
+}
+
+type CreateCompanyPayload {
+	company: Company
+}
+
+input CreateReviewInput {
+	companyName: String!
+	reviewTitle: String!
+	location: LocationInput!
+	jobTitle: String!
+	numberOfMonthsWorked: Float!
+	contractType: ContractType!
+	employmentStatus: EmploymentStatus!
+	pros: String!
+	cons: String!
+	wouldRecommendToOtherJobSeekers: Boolean!
+	healthAndSafety: Int!
+	managerRelationship: Int!
+	workEnvironment: Int!
+	benefits: Int!
+	overallSatisfaction: Int!
+	additionalComments: String
+	referredBy: String
+}
+
+type CreateReviewPayload {
+	review: Review
+}
+
+input CreateSalaryInput {
+	companyName: String!
+	location: LocationInput!
+	jobTitle: String!
+	incomeType: IncomeType!
+	incomeAmount: Float!
+	gender: Gender
+}
+
+type CreateSalaryPayload {
+	salary: Salary
+}
+
+enum ContractType {
+	FULL_TIME
+	PART_TIME
+	INTERNSHIP
+	TEMPORARY
+	CONTRACTOR
+}
+
+enum EmploymentStatus {
+	FORMER
+	CURRENT
+}
+
+input CreateJobAdInput {
+	jobTitle: String!
+	locations: [LocationInput!]!
+	pesosPerHour: String!
+	contractType: ContractType!
+	jobDescription: String!
+	responsibilities: String!
+	qualifications: String!
+}
+
+type CreateJobAdPayload {
+	jobAd: JobAd
+}
+
+input ApplyToJobAdInput {
+	jobAdId: ID!
+	fullName: String!
+	email: String!
+	phoneNumber: String!
+	coverLetter: String
+}
+
+type ApplyToJobAdPayload {
+	success: Boolean
 }
 
 input CastVoteInput {
@@ -37,6 +163,20 @@ input CastVoteInput {
 
 type CastVotePayload {
 	vote: Vote
+}
+
+input ArticleLikeInput {
+	articleSlug: String!
+	isArticleLiked: Boolean!
+}
+
+type ArticleLikePayload {
+	article: Article
+}
+
+type ArticleConnection {
+	nodes: [Article!]!
+	totalCount: Int!
 }
 
 type CompanyConnection {
@@ -59,6 +199,7 @@ enum RewardStatus {
 enum PaymentMethod {
 	PAYPAL
 	XOOM
+	SWAP
 }
 
 "The kinds of things that can be commented on."
@@ -82,6 +223,49 @@ type Comment {
 	children(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The votes cast on this comment."
 	votes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
+}
+
+type Article {
+	id: ID!
+
+	slug: String!
+	title: String!
+	subtitle: String
+	body: String!
+	articleImageURL: String!
+	topicName: String
+	authorId: Int!
+	"If an Article is highlighted show it in the highlighted articles section"
+	isHighlighted: Boolean!
+	author: ArticleAuthor
+
+	"The number of times an article has been liked"
+	numberOfLikes: Int!
+	"A boolean for whether the current user has liked the article or not"
+	isLikedByCurrentUser: Boolean!
+	publishDate: DateTime!
+}
+
+type ArticleAuthor {
+	id: ID!
+
+	authorName: String
+	authorCompanyName: String
+	authorImageURL: String
+	"A short biography on the author"
+	authorBio: String
+	contactPhoneNumber: String
+	contactEmail: String
+	websiteURL: String
+	"Location can either be an address or the city"
+	location: String
+}
+
+type ArticleTopic {
+	id: ID!
+
+	topicName: String!
+	iconImageURL: String!
 }
 
 type Company {
@@ -143,6 +327,8 @@ type Review {
 	jobTitle: String!
 	location: Location!
 	numberOfMonthsWorked: Int!
+	contractType: String!
+	employmentStatus: String!
 	pros: String!
 	cons: String!
 	wouldRecommendToOtherJobSeekers: Boolean!
@@ -158,11 +344,24 @@ type Review {
 
 	# TODO: Add a field to let a users see if a review belongs to them.
 	"The company being reviewed"
-	company: Company!
+	company: Company
 	"Comments about this review."
 	comments(pageNum: Int = 0, pageSize: Int = 24): [Comment!]!
 	"The vote that the currently logged in user cast on this review."
 	currentUserVote: Vote
+}
+
+enum IncomeType {
+	YEARLY_SALARY
+	MONTHLY_SALARY
+	WEEKLY_SALARY
+	DAILY_SALARY
+	HOURLY_WAGE
+}
+
+enum Gender {
+	MALE
+	FEMALE
 }
 
 type Salary {
@@ -170,13 +369,13 @@ type Salary {
 
 	jobTitle: String!
 	location: Location!
-	incomeType: String! # TODO change to enum
+	incomeType: IncomeType!
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
 	created: DateTime
 
 	"The company that paid this salary."
-	company: Company!
+	company: Company
 }
 
 "The roles a user can play."
@@ -193,8 +392,6 @@ type User {
 
 	"The user's role."
 	role: UserRole!
-	"The date and time this was created."
-	created: DateTime!
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
@@ -229,6 +426,6 @@ type StarRatings {
 	overallSatisfaction: Float!
 }
 
-# Date and time serialized as a string in the ISO 8601 format.
+# Date and time serialized as a String in the ISO 8601 format.
 # Provided by graphql-iso-date on npm.
 scalar DateTime

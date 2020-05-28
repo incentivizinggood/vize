@@ -1,17 +1,13 @@
-// misc needs to be first because of some wierd bug.
+// misc needs to be first because of some weird bug.
 export * from "./misc";
-
-export * from "./comment";
-export * from "./company";
-export * from "./job-ad";
-export * from "./review";
-export * from "./salary";
-export * from "./user";
-export * from "./vote";
-export * from "./location";
+export * from "./types";
+export * from "./utils";
 
 export * from "./node";
 
-export * from "./reward-wrote-a-review";
+export * from "./queries";
+export * from "./mutations";
 
+export * from "./reward-wrote-a-review";
 export * from "./flags";
+export * from "./password";

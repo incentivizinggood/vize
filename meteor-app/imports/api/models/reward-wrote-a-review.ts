@@ -8,17 +8,17 @@ import {
 } from "imports/api/connectors/postgresql";
 import { postToSlack } from "imports/api/connectors/slack-webhook";
 
-import { User, getReviewsByAuthor, getUserPostgresId } from ".";
+import { User, getReviewsByAuthor } from ".";
 
 export type RewardStatus = "CAN_EARN" | "CAN_CLAIM" | "CLAIMED" | "INELIGIBLE";
 
-export type PaymentMethod = "PAYPAL" | "XOOM";
+export type PaymentMethod = "PAYPAL" | "XOOM" | "SWAP";
 
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 	if (user.role !== "worker") return "INELIGIBLE";
 
 	const transaction: Transaction<RewardStatus> = async client => {
-		const userPId = await getUserPostgresId(user._id);
+		const userPId = user.userId;
 
 		const results = await client.query(
 			sql`
@@ -76,7 +76,7 @@ export async function claimWroteAReview(
 
 		// TODO: Call paypal/xoom connector to send the reward.
 
-		const userPId = await getUserPostgresId(user._id);
+		const userPId = user.userId;
 		await client.query(
 			sql`
 				INSERT INTO reward_wrote_a_review

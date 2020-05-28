@@ -1,12 +1,16 @@
 import React from "react";
 
-import { i18n } from "meteor/universe:i18n";
-
 import RegisterForm from "imports/ui/pages/register/register-form";
 import LoginForm from "imports/ui/pages/login/login-form";
+import { translations } from "imports/ui/translations";
+import styled from "styled-components";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
+
+const TitleText = styled.h2`
+	text-align: center;
+	font-weight: bold;
+`;
 
 /* The page where users can create an account.
  */
@@ -46,9 +50,9 @@ class RegisterLoginModal extends React.Component {
 
 		const errorDiv = {
 			backgroundColor: "crimson",
-			margin: -4,
+			margin: -10,
 			marginBottom: 10,
-			height: 50,
+			height: 60,
 			textAlign: "center",
 		};
 
@@ -59,6 +63,7 @@ class RegisterLoginModal extends React.Component {
 			color: "white",
 			width: "80%",
 			margin: "0 auto",
+			fontWeight: "bold",
 		};
 
 		let formContent = null;
@@ -66,16 +71,20 @@ class RegisterLoginModal extends React.Component {
 		if (this.state.registerLogin === "register") {
 			formContent = (
 				<div>
+					<TitleText>
+						<T.register />
+					</TitleText>
+
 					<RegisterForm showInput={false} />
 
 					<div className="text-center login-link-cs">
 						<br />
-						<T>alreadyAccount</T>
+						<T.alreadyAccount />
 						<button
 							style={linkButton}
 							onClick={this.changeRegisterLoginState}
 						>
-							<T>login</T>
+							<T.login />
 						</button>
 						<div className="clearfix" />
 					</div>
@@ -84,23 +93,21 @@ class RegisterLoginModal extends React.Component {
 		} else {
 			formContent = (
 				<div>
-					<h3 className="top-head-employer" align="center">
-						<T>login</T>
-					</h3>
-
-					<br />
+					<TitleText>
+						<T.login />
+					</TitleText>
 
 					<LoginForm />
 
 					<div className="row">
 						<div className="col-lg-12 text-center">
 							<br />
-							<T>noAccount</T>
+							<T.noAccount />
 							<button
 								style={linkButton}
 								onClick={this.changeRegisterLoginState}
 							>
-								<T>register</T>
+								<T.register />
 							</button>
 						</div>
 					</div>
@@ -111,13 +118,12 @@ class RegisterLoginModal extends React.Component {
 		return (
 			<div>
 				<div style={errorDiv}>
-					<h4 style={errorText}>
-						<T>registerOrLogin</T>
-					</h4>
+					<h4 style={errorText}>{this.props.errorText}</h4>
 				</div>
 				{formContent}
 			</div>
 		);
 	}
 }
+
 export default RegisterLoginModal;

@@ -7,17 +7,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
 import { urlGenerators } from "imports/ui/pages";
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { processLocation } from "imports/ui/misc";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function JobPosting(props) {
 	const datePosted = new Date(props.jobAd.created).toLocaleDateString(
-		"en-US",
+		"es-MX",
 		{
 			weekday: "long",
 			year: "numeric",
@@ -44,7 +42,7 @@ function JobPosting(props) {
 							className="btn btn-primary"
 						>
 							{" "}
-							{i18n.__("common.jobpostings.apply_now")}
+							<T.jobpostings.apply_now />
 						</Link>
 					</div>
 					<p>
@@ -58,7 +56,7 @@ function JobPosting(props) {
 						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
 						{props.jobAd.pesosPerHour}
-						{i18n.__("common.jobpostings.week")}
+						<T.jobpostings.week />
 					</p>
 					<p>
 						<FontAwesomeIcon icon={faCalendar} />
@@ -69,7 +67,7 @@ function JobPosting(props) {
 
 				<hr />
 				<h4 className="h4-font-sz-job">
-					<T>common.jobpostings.job_description</T>
+					<T.jobpostings.job_description />
 				</h4>
 				<div className="h4-font-sz">
 					<article>
@@ -82,13 +80,13 @@ function JobPosting(props) {
 						<div className="read-more-content">
 							<br />
 							<h4>
-								<T>common.jobpostings.qualifications</T>
+								<T.jobpostings.qualifications />
 							</h4>
 							<p>{props.jobAd.qualifications} </p>
 							<br />
 							<div>
 								<h4>
-									<T>common.jobpostings.responsibilities</T>
+									<T.jobpostings.responsibilities />
 								</h4>
 								<p>{props.jobAd.responsibilities}</p>
 							</div>
@@ -102,8 +100,7 @@ function JobPosting(props) {
 						</label>
 						<div className="fl-ri">
 							<p>
-								{i18n.__("common.jobpostings.posted_on")}{" "}
-								{datePosted}
+								<T.jobpostings.posted_on /> {datePosted}
 							</p>
 						</div>
 					</article>
@@ -113,4 +110,4 @@ function JobPosting(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(JobPosting);
+export default JobPosting;

@@ -14,12 +14,15 @@ function EmployerNavLinks(props) {
 		if (Meteor.isDevelopment) console.log(props.user.companyId);
 		companyURL = urlGenerators.vizeProfileUrl(props.user.companyId);
 	} else {
-		companyURL = "/create-company-profile";
+		companyURL = "/company/create";
 	}
 
 	return (
 		<>
 			<li>
+				{
+					//TODO: removing prevState because it for some reason returns error 400 when Used
+				}
 				<Link to={companyURL} className="link-kumya ">
 					<span>
 						<T.my_company />
@@ -34,7 +37,7 @@ function EmployerNavLinks(props) {
 				</Link>
 			</li>
 			<li>
-				<Link to="/employer-resources" className="link-kumya">
+				<Link to="/recursos" className="link-kumya">
 					<span>
 						<T.resources />
 					</span>

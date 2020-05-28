@@ -4,20 +4,6 @@
 import sql, { SqlStatement } from "imports/lib/sql-template";
 import { simpleQuery } from "imports/api/connectors/postgresql";
 
-export type MongoId = string;
-export type PgId = number;
-
-export type StarRatings = {
-	healthAndSafety: number;
-	managerRelationship: number;
-	workEnvironment: number;
-	benefits: number;
-	overallSatisfaction: number;
-};
-
-/** A way of getting nominal type checking in Typescript */
-export type Branded<T, B> = T & { __brand: B };
-
 /**
  * Convert a simple query to a paginated one.
  * @param originalQuery The query to wrap.

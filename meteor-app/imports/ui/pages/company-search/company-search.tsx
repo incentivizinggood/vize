@@ -1,20 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-
-import { i18n } from "meteor/universe:i18n";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
 import PageWrapper from "imports/ui/components/page-wrapper";
 import CompanySearchResult from "imports/ui/components/company-search-result";
 import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
 import Spinner from "imports/ui/components/Spinner";
 import PaginateSystem from "imports/ui/components/paginate/pagination";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { translations } from "imports/ui/translations";
 
 import companySearchQuery from "./company-search.graphql";
 
-const t = i18n.createTranslator("common.search");
-const T = i18n.createComponent(t);
+const T = translations.legacyTranslationsNeedsRefactor.search;
 
 // //////////////////CHILD COMPONENT///////////////////
 const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
@@ -30,6 +29,19 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 				return <h2>{`Error! ${error.message}`}</h2>;
 			}
 
+			// Track successful search event
+			if (searchText !== "") {
+				ReactGA.event({
+					category: "User",
+					action: "Search",
+					label: searchText,
+				});
+				ReactPixel.track("Search", {
+					category: "User",
+					label: searchText,
+				});
+			}
+
 			const totalCompCount = data.searchCompanies.totalCount;
 
 			// searchCompanies is read-only, we do a
@@ -38,7 +50,6 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 			const resultList = data.searchCompanies.nodes.map(function(
 				company
 			) {
-				console.log(company);
 				return (
 					<CompanySearchResult key={company.id} company={company} />
 				);
@@ -48,7 +59,7 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 			if (resultList.length < 1) {
 				return (
 					<h2>
-						<T>noCompaniesMatch</T>
+						<T.noCompaniesMatch />
 					</h2>
 				);
 			}
@@ -147,4 +158,4 @@ CompanySearchTrial.defaultProps = {
 	searchText: "",
 };
 
-export default withUpdateOnChangeLocale(CompanySearchTrial);
+export default CompanySearchTrial;

@@ -1,14 +1,27 @@
 import React from "react";
 import { Query } from "react-apollo";
+import styled from "styled-components";
 
-import { i18n } from "meteor/universe:i18n";
-
-import ShowJobComponent from "imports/ui/components/showJobComponent";
+import ShowJobComponent from "imports/ui/pages/show-jobs/show-job-component";
 import PageWrapper from "imports/ui/components/page-wrapper";
+import { translations } from "imports/ui/translations";
+import { forSize } from "imports/ui/responsive.js";
 
 import ShowJobsQuery from "./show-jobs.graphql";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
+
+const PageStyling = styled.div`
+	padding-top: 135px;
+	padding-bottom: 30px;
+	padding-right: 50px;
+	padding-left: 50px;
+
+	${forSize.tabletAndDown} {
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+`;
 
 const ShowJobs = () => (
 	<Query query={ShowJobsQuery}>
@@ -16,7 +29,7 @@ const ShowJobs = () => (
 			if (loading) {
 				return (
 					<h2>
-						<T>common.jobsearch.loading</T>
+						<T.jobsearch.loading />
 					</h2>
 				);
 			}
@@ -33,7 +46,7 @@ const ShowJobs = () => (
 			if (RenderedItems.length < 1) {
 				message = (
 					<h2>
-						<T>common.jobsearch.nojobs</T>
+						<T.jobsearch.nojobs />
 					</h2>
 				);
 			} else {
@@ -41,28 +54,15 @@ const ShowJobs = () => (
 			}
 
 			return (
-				<PageWrapper>
-					<div className="container-fluid  search_companies">
-						<div className="row all_boxcolor1 select_box1">
-							<div
-								id="companies_header1"
-								className="callbacks_container"
-							>
-								<ul id="slider3">
-									<li>
-										<h2>
-											{data.searchJobAds.nodes.length}{" "}
-											<T>
-												common.jobsearch.jobsAvailable
-											</T>
-										</h2>
-										{message}
-										{RenderedItems}
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<PageWrapper title="Trabajos - Vize">
+					<PageStyling>
+						<h2>
+							{data.searchJobAds.nodes.length}{" "}
+							<T.jobsearch.jobsAvailable />
+						</h2>
+						{message}
+						{RenderedItems}
+					</PageStyling>
 				</PageWrapper>
 			);
 		}}

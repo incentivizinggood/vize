@@ -1,0 +1,16 @@
+mutation createCompany($input: CreateCompanyInput!) {
+	createCompany(input: $input) {
+		company {
+			id
+			name
+			contactEmail
+			yearEstablished
+			numEmployees
+			industry
+			contactPhoneNumber
+			websiteURL
+			descriptionOfCompany
+			dateJoined
+		}
+	}
+}

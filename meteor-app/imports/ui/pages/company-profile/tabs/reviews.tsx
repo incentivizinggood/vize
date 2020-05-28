@@ -1,13 +1,11 @@
 import React from "react";
 
-import { i18n } from "meteor/universe:i18n";
-
 import CompanyReview from "imports/ui/components/companyReview";
 import CompanyRating from "imports/ui/components/companyRatingsComponent";
-import WriteReviewButton from "imports/ui/components/write-review-button";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { WriteReviewButton } from "imports/ui/components/button";
+import { translations } from "imports/ui/translations";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function ReviewTab(props) {
 	const renderItems = props.company.reviews.map(review => (
@@ -24,11 +22,13 @@ function ReviewTab(props) {
 				<div className="container-fluid">
 					<div className="row">
 						<h4 className="head_section_font">
-							{props.company.name}{" "}
-							<T>common.review_tab.reviews</T>
+							{props.company.name} <T.review_tab.reviews />
 						</h4>
 						<div className="add-buttons">
-							<WriteReviewButton companyId={props.company.id} />
+							<WriteReviewButton
+								companyName={props.company.name}
+								buttonLocation='Company Profile | Reviews'
+							/>
 						</div>
 					</div>
 				</div>
@@ -42,4 +42,4 @@ function ReviewTab(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(ReviewTab);
+export default ReviewTab;

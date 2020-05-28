@@ -1,10 +1,16 @@
-class SqlStatement {
+import { QueryConfig } from "pg";
+
+/**
+ * A parametarized SQL statement.
+ * Can be used in place of a QueryConfig from pg.
+ */
+class SqlStatement implements QueryConfig {
 	/** Must always be one element longer than _values */
 	private readonly _strings: string[];
 	/** Must always be one element shorter than _strings */
-	private readonly _values: any[];
+	private readonly _values: unknown[];
 
-	constructor(strings: string[], ...values: any[]) {
+	public constructor(strings: string[], ...values: unknown[]) {
 		this._strings = strings;
 		this._values = values;
 
@@ -56,7 +62,7 @@ class SqlStatement {
 	 * The string representation of this statement as a parametarized
 	 * PostgreSQL query. For use with the pg client.
 	 */
-	get text() {
+	public get text(): string {
 		return this._strings.reduce((acc, cur, idx) => `${acc}$${idx}${cur}`);
 	}
 
@@ -64,16 +70,24 @@ class SqlStatement {
 	 * The values used in this statement.
 	 * These are the parameters of parametarized queries.
 	 */
-	get values() {
+	public get values(): unknown[] {
 		// Return a copy to avoid breaking encaptulation.
 		return this._values.slice();
 	}
 }
 
-function sql(strings: TemplateStringsArray, ...values: any[]) {
+/** Make a parametarized SQL statement from a string template. */
+function sql(
+	strings: TemplateStringsArray,
+	...values: unknown[]
+): SqlStatement {
 	return new SqlStatement(strings.slice(), ...values);
 }
 
+/**
+ * Convert a raw string to a SQL statement.
+ * Be carful to avoid SQL injections!
+ */
 sql.raw = function(string: string) {
 	return new SqlStatement([string]);
 };

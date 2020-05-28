@@ -13,6 +13,7 @@ const FooterContainer = styled.footer`
 	background: #232326;
 	text-align: left;
 	color: #cbcbcb;
+	z-index: 3;
 
 	> * {
 		max-width: 800px;
@@ -23,7 +24,6 @@ const FooterContainer = styled.footer`
 	a {
 		font-size: 17px;
 		color: #cbcbcb;
-		text-decoration: underline;
 
 		&:hover,
 		&:focus {
@@ -46,19 +46,34 @@ const LinksContainer = styled.div`
 	}
 `;
 
-const Links = styled.div`
+const InternalLinks = styled.div`
 	> * {
 		display: inline-block;
-		margin: 0;
+		margin-left: 0;
 	}
+
 	> * + * {
+		margin-left: 60px;
+	}
+`;
+
+const SocialLinks = styled.div`
+	> * {
+		display: inline-block;
 		margin-left: 10px;
 	}
+`;
+
+const WhatsApp = styled.img`
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
 `;
 
 const SocialIcon = styled.img`
 	width: 50px;
 	height: 50px;
+	border-radius: 8px;
 `;
 
 const CopyRight = styled.p`
@@ -70,43 +85,81 @@ const CopyRight = styled.p`
 	text-align: center;
 `;
 
+const ContactNumberLink = styled.a`
+	font-weight: bold;
+	color: #337ab7 !important;
+	text-decoration: underline;
+`;
+
 // About Contact Help | social media
 export default function Footer() {
 	return (
 		<FooterContainer>
 			<LinksContainer>
-				<Links>
+				<InternalLinks>
 					<Link to="/about">
 						<T.aboutUs />
 					</Link>
 					<Link to="/contact-us">
 						<T.contactUs />
 					</Link>
+					{/* commenting out until we have a help page
 					<Link to="/help">
 						<T.help />
 					</Link>
-				</Links>
+					-->*/}
+				</InternalLinks>
 
-				<Links>
-					<a href="https://www.linkedin.com/company/incentivizinggood">
-						<SocialIcon src="/images/linkedin.png" alt="LinkedIn" />
-					</a>
-					<a href="https://www.facebook.com/incentivizinggood">
+				<SocialLinks>
+					<a
+						href="https://www.facebook.com/Vize-Incentivando-El-Bien-468437690335687/"
+						target="_blank"
+					>
 						<SocialIcon src="/images/facebook.png" alt="Facebook" />
 					</a>
-					<a href="https://www.twitter.com/vizeglobal">
+					{/* Commenting until our twitter account is active
+					<a
+						href="https://www.twitter.com/vizeglobal"
+						target="_blank"
+					>
 						<SocialIcon src="/images/twitter.png" alt="Twitter" />
 					</a>
-					<a href="https://www.instagram.com/incentivandoelbien/">
+					*/}
+					<a
+						href="https://www.instagram.com/incentivandoelbien/"
+						target="_blank"
+					>
 						<SocialIcon
 							src="/images/instagram.png"
 							alt="Instagram"
 						/>
 					</a>
-				</Links>
+					<a
+						href="https://www.linkedin.com/company/incentivizinggood"
+						target="_blank"
+					>
+						<SocialIcon src="/images/linkedin.png" alt="LinkedIn" />
+					</a>
+				</SocialLinks>
 			</LinksContainer>
 			<CopyRight>
-				Vize © 2019. <T.allRightsReserved />
+				<LinksContainer>
+					<InternalLinks>
+						<ContactNumberLink
+							href="https://wa.me/5216647480001"
+							target="_blank"
+						>
+							<WhatsApp
+								src="/images/whatsapp.png"
+								alt="WhatsApp"
+							/>{" "}
+							+52 (664) 748-0001
+						</ContactNumberLink>
+					</InternalLinks>
+					<SocialLinks>
+						Vize © 2020. <T.allRightsReserved />
+					</SocialLinks>
+				</LinksContainer>
 			</CopyRight>
 		</FooterContainer>
 	);

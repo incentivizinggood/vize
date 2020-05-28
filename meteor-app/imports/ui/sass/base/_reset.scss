@@ -1,8 +1,6 @@
-body {
-	margin: 0;
-	font-family: "Lato-Light", sans-serifs;
-	background: white;
-	font-weight: normal;
+html {
+	// Override the fontsize because Bootstrap interfears with Matirial-UI.
+	font-size: 14px;
 }
 
 a {
@@ -39,7 +37,6 @@ label {
 
 p {
 	font-size: 1.1em;
-	color: #aaa;
 	line-height: 1.6em;
 	margin-top: 0.5em;
 }
@@ -51,6 +48,11 @@ p {
 .button-center,
 .text-center {
 	text-align: center;
+}
+
+.div-centered-elements {
+	display: flex;
+	justify-content: center;
 }
 
 .white-text-center {

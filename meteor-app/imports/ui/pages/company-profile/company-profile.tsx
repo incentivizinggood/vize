@@ -2,19 +2,17 @@ import React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
+import { processLocation } from "imports/ui/misc";
 import ErrorBoundary from "imports/ui/components/error-boundary";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import Spinner from "imports/ui/components/Spinner";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { translations } from "imports/ui/translations";
 
 import CompanyProfileSummary from "./summary";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
 import companyProfileQuery from "./company-profile.graphql";
 
-const T = i18n.createComponent();
+const T = translations.legacyTranslationsNeedsRefactor;
 
 /* The Company Profile  page of the site. */
 
@@ -22,7 +20,7 @@ function CompanyProfile_(props) {
 	if (props.company === undefined) {
 		return (
 			<h2>
-				<T>common.companyprofile.notfound</T>
+				<T.companyprofile.notfound />
 			</h2>
 		);
 	}
@@ -42,7 +40,7 @@ function CompanyProfile_(props) {
 								<li
 									className="active"
 									role="presentation"
-									style={{ width: "25%" }}
+									style={{ width: "33%" }}
 								>
 									<Link
 										to="#overview"
@@ -50,12 +48,12 @@ function CompanyProfile_(props) {
 										role="tab"
 										data-toggle="tab"
 									>
-										<T>common.companyprofile.overview</T>
+										<T.companyprofile.overview />
 									</Link>
 								</li>
 								<li
 									role="presentation"
-									style={{ width: "25%" }}
+									style={{ width: "33%" }}
 								>
 									<Link
 										to="#reviews"
@@ -63,12 +61,12 @@ function CompanyProfile_(props) {
 										role="tab"
 										data-toggle="tab"
 									>
-										<T>common.companyprofile.reviews</T>
+										<T.companyprofile.reviews />
 									</Link>
 								</li>
 								<li
 									role="presentation"
-									style={{ width: "25%" }}
+									style={{ width: "33%" }}
 								>
 									<Link
 										to="#jobs"
@@ -76,22 +74,25 @@ function CompanyProfile_(props) {
 										role="tab"
 										data-toggle="tab"
 									>
-										<T>common.companyprofile.jobs</T>
+										<T.companyprofile.jobs />
 									</Link>
 								</li>
+								{/*
 								<li
 									role="presentation"
 									style={{ width: "25%" }}
 								>
+
 									<Link
 										to="#salaries"
 										aria-controls="salaries"
 										role="tab"
 										data-toggle="tab"
 									>
-										<T>common.companyprofile.salaries</T>
+										<T.companyprofile.salaries />
 									</Link>
 								</li>
+								*/}
 								{/* Commenting out the Contact Us form for now */}
 								{/* <li role="presentation"><Link to="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</Link></li> */}
 							</ul>
@@ -135,7 +136,7 @@ function CompanyProfile_(props) {
 }
 
 // TODO: Split this file into view and container components.
-const CompanyProfile = withUpdateOnChangeLocale(CompanyProfile_);
+const CompanyProfile = CompanyProfile_;
 
 export default ({ companyId }) => (
 	<Query query={companyProfileQuery} variables={{ companyId }}>

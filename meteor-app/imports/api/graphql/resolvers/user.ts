@@ -1,9 +1,9 @@
 import * as dataModel from "imports/api/models";
 
-import { UserResolvers } from "./resolvers-types";
+import { UserResolvers } from "imports/gen/graphql-resolvers";
 
 export const User: UserResolvers = {
-	id: (obj, _args, _context, _info) => dataModel.userIdToString(obj._id),
+	id: (obj, _args, _context, _info) => String(obj.userId),
 
 	role: (obj, _args, _context, _info) => {
 		if (obj.role === "worker") {
@@ -16,8 +16,6 @@ export const User: UserResolvers = {
 			throw Error("User role is not valid.");
 		}
 	},
-
-	created: (obj, _args, _context, _info) => obj.createdAt,
 
 	company: (obj, _args, _context, _info) => dataModel.getCompanyOfUser(obj),
 };

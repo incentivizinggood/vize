@@ -1,33 +1,51 @@
 import React from "react";
 import { Form } from "formik";
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
 
-import { i18n } from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
-import FormGroup from "imports/ui/components/form-group";
+import { Field, FormToolbar } from "imports/ui/components/form-stuff";
 import { Button } from "imports/ui/components/button";
+import { translations } from "imports/ui/translations";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
-function InnerForm() {
+const LoginButton = styled(Button)`
+	font-size: 22px;
+	width: 100%;
+	margin-top: 20px;
+`;
+
+// defining global variable because I do not want the value to change when user
+// navigates from the register or login page. Esentially making it static
+let userRole = localStorage.getItem("userRole");
+
+function InnerForm(props) {
+	if (props.location.state) {
+		if (
+			props.location.state.prevPath !== "/register" &&
+			props.location.state.prevPath !== "/login"
+		) {
+			userRole = "worker";
+
+			if (props.location.state.prevPath === "/for-employers") {
+				userRole = "company";
+			}
+			// save the role to local storage so that the variable is not reset when page is refreshed
+			localStorage.setItem("userRole", userRole);
+		}
+	}
 	return (
-		<Form>
-			<div className="register-login-form">
-				<FormGroup name="username" type="text" icon={faUser} />
-				<FormGroup name="password" type="password" icon={faLock} />
+		<Form noValidate>
+			<Field name="username" type="text" required t={T.username} />
 
-				<div className="form-group text-center" />
+			<Field name="password" type="password" required t={T.password} />
 
-				<div className="button-center">
-					<Button primary type="submit">
-						<T>login</T>
-					</Button>
-				</div>
-			</div>
+			<FormToolbar>
+				<LoginButton primary type="submit">
+					<T.login />
+				</LoginButton>
+			</FormToolbar>
 		</Form>
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;

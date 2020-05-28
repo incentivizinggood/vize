@@ -1,10 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
 import PageWrapper from "imports/ui/components/page-wrapper";
-import WriteReviewButton from "imports/ui/components/write-review-button";
+import { WriteReviewButton } from "imports/ui/components/button";
 import {
 	LinkButton,
 	WhiteButton,
@@ -12,55 +12,84 @@ import {
 } from "imports/ui/components/button";
 import CompaniesSearchBar from "imports/ui/components/companies-search-bar";
 import { translations } from "imports/ui/translations";
+import ReactGA from "react-ga";
 
 const T = translations.homePage;
+
+function addReviewHomeTop() {
+	ReactGA.event({
+		category: "Button",
+		action: "Add Review Pressed",
+		label: "Home | Top",
+	});
+}
+function addSalaryHomeBottom() {
+	ReactGA.event({
+		category: "Button",
+		action: "Add Salary Pressed",
+		label: "Home | Bottom",
+	});
+}
+
+// no longer using the reward component but keeping it in case we use it in the future again
+function RewardComponent() {
+	return (
+		<div
+			className="full-width-container background-primary"
+			style={{ paddingBottom: "4em" }}
+		>
+			<div className="container">
+				<div className="row add-flex-row">
+					<div className="col-md-2 add-flex-col center-element">
+						<img
+							className="img-responsive vertical-center"
+							src="images/swap-icon.png"
+							alt="Reward"
+						/>
+						<br />
+					</div>
+					<div className="col-md-8">
+						<div>
+							<div>
+								<p
+									className="white-text-center"
+									style={{ fontSize: 23 }}
+								>
+									<T.rewardText />
+								</p>
+								<p
+									className="white-text-center"
+									style={{ fontSize: 23 }}
+								>
+									<T.rewardText2 />
+								</p>
+							</div>
+							<div>
+								<center>
+									<WhiteButton
+										to="/write-review"
+										style={{ fontSize: 18 }}
+										onClick={addReviewHomeTop}
+									>
+										<FontAwesomeIcon icon={faPlus} />
+										&nbsp;
+										<T.add_review_button />
+									</WhiteButton>
+								</center>
+							</div>
+						</div>
+					</div>
+					<div className="col-md-2" />
+				</div>
+				<div className="clearfix" />
+			</div>
+		</div>
+	);
+}
 
 function HomePage() {
 	return (
 		<PageWrapper>
-			<div
-				className="full-width-container background-primary"
-				style={{ paddingBottom: "4em" }}
-			>
-				<div className="container">
-					<div className="row add-flex-row">
-						<div className="col-md-2 add-flex-col center-element">
-							<img
-								className="img-responsive vertical-center"
-								src="images/moneyIcon.png"
-								alt="Reward"
-							/>
-							<br />
-						</div>
-						<div className="col-md-6">
-							<div>
-								<div>
-									<p
-										className="white-text-center"
-										style={{ fontSize: 32 }}
-									>
-										<T.rewardText />
-									</p>
-								</div>
-								<div>
-									<center>
-										<WhiteButton
-											to="/write-review"
-											style={{ fontSize: 18 }}
-										>
-											<FontAwesomeIcon icon={faPlus} />
-											&nbsp;
-											<T.add_review_button />
-										</WhiteButton>
-									</center>
-								</div>
-							</div>
-						</div>
-						<div className="col-md-2" />
-					</div>
-					<div className="clearfix" />
-				</div>
-			</div>
 			<div className="banner">
 				<div className="banner-info">
 					<div className="banner-text">
@@ -80,7 +109,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container">
+			<div className="full-width-container background-white">
 				<div className="container desktop-view">
 					<div className="col-md-8">
 						<div>
@@ -116,7 +145,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container mobile-view">
+				<div className="container mobile-view background-white">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -229,7 +258,7 @@ function HomePage() {
 				</div>
 			</div>
 
-			<div className="full-width-container background-offwhite">
+			<div className="full-width-container">
 				<div className="row">
 					<div className="col-md-12">
 						<center>
@@ -251,7 +280,7 @@ function HomePage() {
 									</div>
 									<br />
 									<div>
-										<WriteReviewButton />
+										<WriteReviewButton buttonLocation="Home | Bottom" />
 									</div>
 									<br />
 								</div>
@@ -278,6 +307,7 @@ function HomePage() {
 										<LinkButton
 											primary
 											to="/submit-salary-data"
+											onClick={addSalaryHomeBottom}
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
@@ -312,7 +342,11 @@ function HomePage() {
 							<div>
 								<center>
 									{" "}
-									<BlackBorderButton to="/register">
+									<BlackBorderButton
+										to={urlGenerators.vizeRegister(
+											"worker"
+										)}
+									>
 										<T.signup_button />
 									</BlackBorderButton>
 								</center>

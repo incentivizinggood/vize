@@ -3,8 +3,15 @@
 # This script gets information about the current version of the app.
 # This is used to tell us what version is running on a server.
 
+# Stop this script if any command fails.
+set -e
+
 COMMIT_HASH=$(git rev-parse HEAD)
+
+# The current time as an ISO 8601 timestamp.
 CURRENT_TIME=$(date -Is --utc)
+
+# The current time in a human readable format.
 CURRENT_TIME_HR=$(date '+%Y %b %d</b> at <b>%l:%M%P %Z')
 
 echo "<!DOCTYPE html>

@@ -1,0 +1,19 @@
+mutation createSalary($input: CreateSalaryInput!) {
+	createSalary(input: $input) {
+		salary {
+			id
+			company {
+				name
+			}
+			jobTitle
+			location {
+				address
+				city
+				industrialHub
+			}
+			incomeType
+			incomeAmount
+			created
+		}
+	}
+}

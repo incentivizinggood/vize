@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { forSize } from "imports/ui/responsive.js";
 
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-
+import { withUser } from "imports/ui/hoc/user";
 import { translations } from "imports/ui/translations";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
 import WorkerNavLinks from "./worker-nav-links";
 import EmployerNavLinks from "./employer-nav-links";
@@ -14,9 +15,16 @@ import LogoutButton from "./logout-button";
 
 const T = translations.header;
 
+let userRole = "worker";
+
+function fixNullParams(param) {
+	if (param === null) return undefined;
+	return param;
+}
+
 function NavLinks({ user }) {
 	// The user is an employer.
-	if (user && user.role === "company") {
+	if (user && user.role === "COMPANY") {
 		return <EmployerNavLinks user={user} />;
 	}
 
@@ -30,18 +38,30 @@ function AccountLink({ user }) {
 			<Link
 				to="/my-account"
 				type="button"
-				className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward navigation-only-display--ui-fix"
+				className="toggle-only-display"
 			>
 				<T.myaccount />
 			</Link>
 		);
 	}
 
+	const params = new URLSearchParams(location.search);
+	if (location.pathname === "/for-employers") {
+		userRole = "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		userRole = fixNullParams(params.get("user"));
+	} else {
+		userRole = "worker";
+	}
+
 	return (
 		<Link
-			to="/login"
+			to={urlGenerators.vizeLogin(userRole)}
 			type="button"
-			className="toggle-only-display btn navbar-btn margin-right btn-green hvr-icon-forward"
+			className="toggle-only-display"
 		>
 			<span>
 				<T.signup_or_login />
@@ -80,11 +100,24 @@ function AccountSection({ user }) {
 		);
 	}
 
+	const params = new URLSearchParams(location.search);
+
+	if (location.pathname === "/for-employers") {
+		userRole = "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		userRole = fixNullParams(params.get("user"));
+	} else {
+		userRole = "worker";
+	}
+
 	return (
 		<>
 			<li>
 				<Link
-					to="/register"
+					to={urlGenerators.vizeRegister(userRole)}
 					type="button"
 					id="register-button"
 					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
@@ -93,7 +126,10 @@ function AccountSection({ user }) {
 				</Link>
 			</li>
 			<li>
-				<Link to="/login" className="navbar-link margin-right">
+				<Link
+					to={urlGenerators.vizeLogin(userRole)}
+					className="navbar-link margin-right"
+				>
 					<T.login />
 				</Link>
 			</li>
@@ -129,10 +165,10 @@ function Header(props) {
 						id="bs-example-navbar-collapse-1"
 					>
 						<ul className="nav navbar-nav left_nav">
+							<NavLinks user={props.user} />
 							<li>
 								<AccountLink user={props.user} />
 							</li>
-							<NavLinks user={props.user} />
 						</ul>
 						<ul className="nav navbar-nav navbar-right">
 							<AccountSection user={props.user} />
@@ -141,7 +177,10 @@ function Header(props) {
 								<LangSelector />
 							</li>
 							<li>
-								<Link to="/foremployers" className="link-kumya">
+								<Link
+									to="/for-employers"
+									className="link-kumya"
+								>
 									<span>
 										<T.for_employers />
 									</span>
@@ -164,6 +203,4 @@ function Header(props) {
 	);
 }
 
-export default withTracker(() => ({
-	user: Meteor.user(),
-}))(Header);
+export default withUser(Header);

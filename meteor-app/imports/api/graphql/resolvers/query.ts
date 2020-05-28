@@ -1,6 +1,6 @@
 import * as dataModel from "imports/api/models";
 
-import { QueryResolvers } from "./resolvers-types";
+import { QueryResolvers } from "imports/gen/graphql-resolvers";
 
 export const Query: QueryResolvers = {
 	say: (_obj, _args, _context, _info) => "Hello world.",
@@ -8,25 +8,52 @@ export const Query: QueryResolvers = {
 	currentUser: (_obj, _args, context, _info) => context.user || null,
 
 	comment: (_obj, args, _context, _info) =>
-		dataModel.getCommentById(dataModel.stringToCommentId(args.id)),
+		dataModel.getCommentById(Number(args.id)),
 
 	company: (_obj, args, _context, _info) =>
-		dataModel.getCompanyById(dataModel.stringToCompanyId(args.id)),
+		dataModel.getCompanyById(Number(args.id)),
 
 	jobAd: (_obj, args, _context, _info) =>
-		dataModel.getJobAdById(dataModel.stringToJobAdId(args.id)),
+		dataModel.getJobAdById(Number(args.id)),
 
 	review: (_obj, args, _context, _info) =>
-		dataModel.getReviewById(dataModel.stringToReviewId(args.id)),
+		dataModel.getReviewById(Number(args.id)),
 
 	salary: (_obj, args, _context, _info) =>
-		dataModel.getSalaryById(dataModel.stringToSalaryId(args.id)),
+		dataModel.getSalaryById(Number(args.id)),
 
 	user: (_obj, args, _context, _info) =>
-		dataModel.getUserById(dataModel.stringToUserId(args.id)),
+		dataModel.getUserById(Number(args.id)),
 
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
+
+	article: (_obj, args, _context, _info) =>
+		dataModel.getArticleBySlug(args.id),
+
+	articleAuthor: (_obj, args, _context, _info) =>
+		dataModel.getArticleAuthorById(Number(args.id)),
+
+	articleTopics: (_obj, _args, _context, _info) =>
+		dataModel.getArticleTopics(),
+
+	highlightedArticles: (_obj, _args, _context, _info) =>
+		dataModel.getHighlightedArticles(),
+
+	searchArticlesByTopic: (_obj, args, _context, _info) =>
+		dataModel.searchForArticlesByTopic(
+			args.id,
+			args.searchText,
+			args.pageNum,
+			args.pageSize
+		),
+
+	searchRecentArticles: (_obj, args, _context, _info) =>
+		dataModel.searchForRecentArticles(
+			args.searchText,
+			args.pageNum,
+			args.pageSize
+		),
 
 	searchCompanies: (_obj, args, _context, _info) =>
 		dataModel.searchForCompanies(

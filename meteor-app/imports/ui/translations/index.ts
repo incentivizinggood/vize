@@ -1,3 +1,4 @@
+export * from "./types";
 import makeTranslationComponents from "./translations";
 
 import en from "./en";

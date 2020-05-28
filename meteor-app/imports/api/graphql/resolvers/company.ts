@@ -1,10 +1,9 @@
 import * as dataModel from "imports/api/models";
 
-import { CompanyResolvers } from "./resolvers-types";
+import { CompanyResolvers } from "imports/gen/graphql-resolvers";
 
 export const Company: CompanyResolvers = {
-	id: (obj, _args, _context, _info) =>
-		dataModel.companyIdToString(obj.companyId),
+	id: (obj, _args, _context, _info) => String(obj.companyId),
 
 	locations: (obj, _args, _context, _info) =>
 		dataModel.getLocationsByCompany(obj),

@@ -7,15 +7,6 @@ services:
       - ./postgres/migrations:/flyway/sql
     depends_on:
       - postgres
-  mongo:
-    image: mongo:3.4
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    deploy:
-      restart_policy:
-        condition: on-failure
   postgres:
     build: ./postgres
     image: vize-postgres
@@ -35,9 +26,4 @@ volumes:
   # persistaint (ie. does not get deleted every so often).
   # NOTE: If you need to start fresh (eg. test out the init scripts or
   # delete all data) just delete these "*-data" volumes and rerun this stack.
-  mongo-data:
   postgres-data:
-  # Meteor's dotfile where meteor is installed and caches its packages. Meteor
-  # downloads and creates a lot of files. We store this data in a volume so that
-  # is does not need to be redownloaded and duplicated any more than nessisary.
-  meteor-dotfile:

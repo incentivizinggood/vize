@@ -1,23 +1,31 @@
-schema: ./imports/api/graphql/schema.graphql
+schema: imports/api/graphql/schema.graphql
+documents: imports/ui/**/*.graphql
 overwrite: true
 generates:
-  ./imports/api/graphql/resolvers/resolvers-types.ts:
+  imports/gen/graphql-resolvers.ts:
     config:
-      contextType: ./context#MyContext
+      contextType: imports/api/graphql/resolvers/context#MyContext
       mappers:
-        Comment: ../../models/comment/comment#Comment
-        CommentParent: ../../models/comment/comment#CommentParent
-        StarRatings: ../../models/misc#StarRatings
-        Company: ../../models/company/company#Company
-        JobAd: ../../models/job-ad/job-ad#JobAd
-        Location: ../../models/location/location#Location
-        Review: ../../models/review/review#Review
-        Salary: ../../models/salary/salary#Salary
-        User: ../../models/user/user#User
-        Vote: ../../models/vote/vote#Vote
+        Comment: imports/api/models/types#Comment
+        CommentParent: imports/api/models/types#CommentParent
+        StarRatings: imports/api/models/types#StarRatings
+        Company: imports/api/models/types#Company
+        JobAd: imports/api/models/types#JobAd
+        Location: imports/api/models/types#Location
+        Review: imports/api/models/types#Review
+        Salary: imports/api/models/types#Salary
+        User: imports/api/models/types#User
+        Vote: imports/api/models/types#Vote
       scalars:
         DateTime: Date
       enumsAsTypes: true
     plugins:
       - typescript
       - typescript-resolvers
+  imports/gen/graphql-operations.tsx:
+    config:
+      withHOC: false # We are not using HOCs for queries or mutations yet.
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

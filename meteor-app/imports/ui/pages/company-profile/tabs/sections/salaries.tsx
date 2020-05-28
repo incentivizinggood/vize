@@ -3,13 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { i18n } from "meteor/universe:i18n";
-
 import { urlGenerators } from "imports/ui/pages";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
-import { LinkButton } from "imports/ui/components/button";
+import { AddSalaryButton } from "imports/ui/components/button";
 
-const T = i18n.createComponent();
+import { translations } from "imports/ui/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor;
 
 function SalariesSection(props) {
 	// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
@@ -31,7 +30,7 @@ function SalariesSection(props) {
 			</div>
 		);
 	} else {
-		salariesToDisplay = <T>common.overview_tab.salaries_text</T>;
+		salariesToDisplay = <T.overview_tab.salaries_text />;
 	}
 
 	return (
@@ -40,19 +39,14 @@ function SalariesSection(props) {
 			{/* salaries  */}
 			<div className="sect-padding">
 				<h4 className="head_section_font">
-					{props.company.numSalaries}{" "}
-					<T>common.overview_tab.job_salaries</T>
+					{props.company.numSalaries} <T.overview_tab.job_salaries />
 				</h4>
 
 				<div className="add-buttons">
-					<LinkButton
-						to={urlGenerators.vizeSalaryUrl(props.company.id)}
-						primary
-					>
-						<FontAwesomeIcon icon={faPlus} />
-						&nbsp;
-						<T>common.salary_tab.add_salary</T>
-					</LinkButton>
+					<AddSalaryButton
+						companyName={props.company.name}
+						buttonLocation='Company Profile | Overview'
+					/>
 				</div>
 				<hr />
 
@@ -72,7 +66,7 @@ function SalariesSection(props) {
 								data-toggle="tab"
 							>
 								<strong>
-									<T>common.overview_tab.see_all_salaries</T>
+									<T.overview_tab.see_all_salaries />
 								</strong>
 							</Link>
 						</li>
@@ -83,4 +77,4 @@ function SalariesSection(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(SalariesSection);
+export default SalariesSection;

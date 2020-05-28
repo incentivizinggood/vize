@@ -8,9 +8,8 @@ import {
 	faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { processLocation } from "imports/api/models/helpers/postgresql/misc";
-import WriteReviewButton from "imports/ui/components/write-review-button";
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
+import { processLocation } from "imports/ui/misc";
+import { WriteReviewButton } from "imports/ui/components/button";
 
 function CompanyProfileSummary(props) {
 	return (
@@ -75,7 +74,7 @@ function CompanyProfileSummary(props) {
 
 				<div className="col-md-4 prostar">
 					<div className="col-md-12">
-						<WriteReviewButton companyId={props.company.id} />
+						<WriteReviewButton companyName={props.company.name} buttonLocation='Company Profile | Top' />
 					</div>
 				</div>
 			</div>
@@ -84,4 +83,4 @@ function CompanyProfileSummary(props) {
 	);
 }
 
-export default withUpdateOnChangeLocale(CompanyProfileSummary);
+export default CompanyProfileSummary;

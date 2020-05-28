@@ -1,49 +1,41 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { urlGenerators } from "imports/ui/pages/url-generators";
 
-import { i18n } from "meteor/universe:i18n";
-
-import PageWrapper from "imports/ui/components/page-wrapper";
+import {
+	FormHeader,
+	FormFooter,
+	FormPageWrapper,
+} from "imports/ui/components/form-stuff";
+import { translations } from "imports/ui/translations";
 
 import RegisterForm from "./register-form";
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const T = translations.loginRegister;
 
 /* The page where users can create an account.
  */
 function RegisterPage() {
+	let userRole = "worker";
+	const params = new URLSearchParams(location.search);
+
+	if (params != null) {
+		userRole = params.get("user");
+	}
+
 	return (
-		<PageWrapper title="Register">
-			<div className="container login-top-spce">
-				<div className="row">
-					<div className="col-md-6 col-md-offset-3">
-						<div className="panel panel-login register-work-employee">
-							<div className="panel-body">
-								<div className="row">
-									<div className="col-lg-12">
-										<RegisterForm />
-									</div>
-								</div>
-							</div>
-							<div className="panel-heading p-head">
-								<div className="row">
-									<div className="col-lg-12">
-										<div className="text-center login-link-cs">
-											<T>alreadyAccount</T>
-											<Link to="/login">
-												<T>login</T>
-											</Link>
-										</div>
-										<div className="clearfix" />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</PageWrapper>
+		<FormPageWrapper title="Register">
+			<FormHeader>
+				<T.register />
+			</FormHeader>
+			<RegisterForm />
+			<FormFooter>
+				<T.alreadyAccount />
+				<Link to={urlGenerators.vizeLogin(userRole)}>
+					<T.login />
+				</Link>
+			</FormFooter>
+		</FormPageWrapper>
 	);
 }
 export default RegisterPage;

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Meteor } from "meteor/meteor";
+import { logout } from "imports/ui/auth";
 
 function LogoutButton(props) {
 	return (
-		<a onClick={Meteor.logout} style={{ cursor: "pointer" }} {...props}>
+		<a onClick={logout} style={{ cursor: "pointer" }} {...props}>
 			{props.children}
 		</a>
 	);

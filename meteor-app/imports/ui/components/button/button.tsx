@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 
-const Button = styled.button`
+export interface ButtonExtraProps {
+	primary?: boolean;
+}
+
+const Button = styled.button<ButtonExtraProps>`
 	&&&&&&&&& { /* Increase specificity to override global styles. */
 
 		/* Color the button to show it's status. */
@@ -22,7 +26,7 @@ const Button = styled.button`
 
 			if (props.primary) {
 				return css`
-					background-color: ${props.theme.main};
+					background-color: #0d8dfb;
 					color: ${props.theme.onMain};
 					:hover {
 						background-color: ${props.theme.mainVariant};
@@ -55,7 +59,7 @@ const Button = styled.button`
 		vertical-align: middle;
 		padding: 0.9rem 3rem;
 		line-height: 1.5;
-		border-radius: 0.25rem;
+		border-radius: 0.4rem;
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 			border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 

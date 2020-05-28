@@ -1,0 +1,51 @@
+mutation createReview(
+	$reviewInput: CreateReviewInput!
+	$salaryInput: CreateSalaryInput!
+) {
+	createReview(input: $reviewInput) {
+		review {
+			id
+			company {
+				name
+			}
+			title
+			jobTitle
+			location {
+				address
+				city
+				industrialHub
+			}
+			numberOfMonthsWorked
+			contractType
+			employmentStatus
+			pros
+			cons
+			wouldRecommendToOtherJobSeekers
+			additionalComments
+			created
+			upvotes
+			downvotes
+			currentUserVote {
+				isUpvote
+			}
+		}
+	}
+
+	createSalary(input: $salaryInput) {
+		salary {
+			id
+			company {
+				name
+			}
+			jobTitle
+			location {
+				address
+				city
+				industrialHub
+			}
+			incomeType
+			incomeAmount
+			created
+		}
+	}
+}

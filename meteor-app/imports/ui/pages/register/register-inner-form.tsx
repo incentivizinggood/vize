@@ -1,63 +1,46 @@
 import React from "react";
 import { Form } from "formik";
-import {
-	faLock,
-	faUser,
-	faEnvelope,
-	faBuilding,
-} from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import { Formik } from "formik";
 
-import { i18n } from "meteor/universe:i18n";
-
-import withUpdateOnChangeLocale from "imports/ui/hoc/update-on-change-locale";
-import IfFormik from "imports/ui/components/if-formik";
-import FormGroup from "imports/ui/components/form-group";
+import { Field, FormToolbar } from "imports/ui/components/form-stuff";
 import { Button } from "imports/ui/components/button";
+import { translations } from "imports/ui/translations";
 
-import RoleInput from "./role-input";
+const T = translations.loginRegister;
 
-const t = i18n.createTranslator("common.loginRegister");
-const T = i18n.createComponent(t);
+const RegisterButton = styled(Button)`
+	font-size: 22px;
+	width: 100%;
+	margin-top: 20px;
+`;
 
-function InnerForm() {
+function InnerForm(props) {
+	if (props.userRole === "company") {
+		let companyNameField = (
+			<Field name="companyName" type="text" t={T.companyName} />
+		);
+	} else {
+		let companyNameField = null;
+	}
+
 	return (
-		<Form id="register-form" style={{ display: "block" }}>
-			<h3 className="top-head-employer" align="center">
-				<T>register</T>
-			</h3>
-			<RoleInput />
-			<br />
+		<Form noValidate>
+			<Field name="username" type="text" required t={T.username} />
 
-			<IfFormik
-				cond={formik =>
-					formik.values.role === "worker" ||
-					formik.values.role === "company"
-				}
-			>
-				<div className="register-login-form">
-					<FormGroup name="username" type="text" icon={faUser} />
+			<Field name="email" type="email" required t={T.email} />
 
-					<FormGroup name="email" type="email" icon={faEnvelope} />
+			{companyNameField}
 
-					<IfFormik cond={formik => formik.values.role === "company"}>
-						<FormGroup
-							name="companyName"
-							type="text"
-							icon={faBuilding}
-						/>
-					</IfFormik>
+			<Field name="password" type="password" required t={T.password} />
 
-					<FormGroup name="password" type="password" icon={faLock} />
-
-					<div className="button-center">
-						<Button primary type="submit">
-							<T>createAccount</T>
-						</Button>
-					</div>
-				</div>
-			</IfFormik>
+			<FormToolbar>
+				<RegisterButton primary type="submit">
+					<T.createAccount />
+				</RegisterButton>
+			</FormToolbar>
 		</Form>
 	);
 }
 
-export default withUpdateOnChangeLocale(InnerForm);
+export default InnerForm;
