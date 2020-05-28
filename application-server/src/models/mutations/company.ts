@@ -1,13 +1,10 @@
 import sql from "src/utils/sql-template";
-import {
-	execTransactionRW,
-	Transaction,
-} from "src/connectors/postgresql";
+import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 
 import CreateCompanyInput from "src/utils/inputs/company";
 
 export async function createCompany(
-	input: CreateCompanyInput,
+	input: unknown,
 	userId: number
 ): Promise<number> {
 	const transaction: Transaction<number> = async client => {

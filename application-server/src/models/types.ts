@@ -11,6 +11,7 @@ export type Article = {
 };
 
 export type ArticleAuthor = {
+	authorId: number;
 	authorName: string;
 	authorCompanyName: string;
 	authorImageURL: string;

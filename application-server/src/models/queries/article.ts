@@ -62,7 +62,7 @@ export async function isArticleLikedByUser(
 	return !!isLiked && isLiked.exists;
 }
 
-export async function getHighlightedArticles(): Promise<Article[] | null> {
+export async function getHighlightedArticles(): Promise<Article[]> {
 	return simpleQuery<Article>(
 		sql`
 			${baseQuery}

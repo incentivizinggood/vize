@@ -4,11 +4,11 @@ import { Pool } from "pg";
 import util from "util";
 
 import typeDefs from "src/schema.graphql";
-import { Resolvers } from "generated/resolvers-types";
+//import { Resolvers } from "generated/resolvers-types";
 
 const pool = new Pool();
 
-const resolvers: Resolvers = {
+const resolvers: any = {
 	Query: {
 		hello: () => "Hello world!",
 		now: () =>

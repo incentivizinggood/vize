@@ -1,6 +1,6 @@
-import * as dataModel from "imports/api/models";
+import * as dataModel from "src/models";
 
-import { QueryResolvers } from "imports/gen/graphql-resolvers";
+import { QueryResolvers } from "generated/graphql-resolvers";
 
 export const Query: QueryResolvers = {
 	say: (_obj, _args, _context, _info) => "Hello world.",

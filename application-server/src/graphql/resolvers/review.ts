@@ -1,6 +1,6 @@
-import * as dataModel from "imports/api/models";
+import * as dataModel from "src/models";
 
-import { ReviewResolvers } from "imports/gen/graphql-resolvers";
+import { ReviewResolvers } from "generated/graphql-resolvers";
 
 export const Review: ReviewResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.reviewId),

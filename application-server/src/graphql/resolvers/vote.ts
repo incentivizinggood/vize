@@ -1,6 +1,6 @@
-import * as dataModel from "imports/api/models";
+import * as dataModel from "src/models";
 
-import { VoteResolvers } from "imports/gen/graphql-resolvers";
+import { VoteResolvers } from "generated/graphql-resolvers";
 
 export const Vote: VoteResolvers = {
 	id: (obj, _args, _context, _info) =>

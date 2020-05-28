@@ -1,8 +1,26 @@
-schema: ./src/schema.graphql
+schema: src/graphql/schema.graphql
 overwrite: true
 generates:
-  ./generated/resolvers-types.ts:
+  ./generated/graphql-resolvers.ts:
     config:
+      contextType: src/graphql/resolvers/context#MyContext
+      mapperTypeSuffix: Model
+      mappers:
+        Article: src/models/types#Article
+        ArticleAuthor: src/models/types#ArticleAuthor
+        ArticleTopic: src/models/types#ArticleTopic
+        Comment: src/models/types#Comment
+        CommentParent: src/models/types#CommentParent
+        StarRatings: src/models/types#StarRatings
+        Company: src/models/types#Company
+        JobAd: src/models/types#JobAd
+        Location: src/models/types#Location
+        Review: src/models/types#Review
+        Salary: src/models/types#Salary
+        User: src/models/types#User
+        Vote: src/models/types#Vote
+      scalars:
+        DateTime: Date
       enumsAsTypes: true
     plugins:
       - typescript

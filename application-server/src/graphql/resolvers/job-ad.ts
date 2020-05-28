@@ -1,6 +1,6 @@
-import * as dataModel from "imports/api/models";
+import * as dataModel from "src/models";
 
-import { JobAdResolvers } from "imports/gen/graphql-resolvers";
+import { JobAdResolvers } from "generated/graphql-resolvers";
 
 export const JobAd: JobAdResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.jobAdId),

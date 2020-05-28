@@ -1,8 +1,10 @@
-import * as dataModel from "imports/api/models";
+import * as dataModel from "src/models";
 
-import { VoteSubjectResolvers } from "imports/gen/graphql-resolvers";
+import { CommentParentResolvers } from "generated/graphql-resolvers";
 
-export const VoteSubject: VoteSubjectResolvers = {
+export const CommentParent: CommentParentResolvers = {
+	// WARNING: Comments have not been fully implemented yet. The code for
+	// them is a half done mess. Keep that in mind when working with it.
 	__resolveType(obj, _context, _info) {
 		// In order to determine what type obj actualy is, we test for the
 		// existance of fields that are unique to each of the types that obj
@@ -19,6 +21,6 @@ export const VoteSubject: VoteSubjectResolvers = {
 		}
 
 		// It should be imposible to get here.
-		throw new Error("NOT_ANY_TYPE_OF_VOTE_SUBJECT");
+		throw new Error("NOT_ANY_TYPE_OF_COMMENT_PARENT");
 	},
 };

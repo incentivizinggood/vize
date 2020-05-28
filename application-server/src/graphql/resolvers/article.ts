@@ -1,5 +1,5 @@
-import { ArticleResolvers } from "imports/gen/graphql-resolvers";
-import * as dataModel from "imports/api/models";
+import { ArticleResolvers } from "generated/graphql-resolvers";
+import * as dataModel from "src/models";
 
 export const Article: ArticleResolvers = {
 	id: (obj, _args, _context, _info) => obj.slug,
@@ -16,8 +16,6 @@ export const Article: ArticleResolvers = {
 	},
 
 	author: (obj, _args, _context, _info) => {
-		return dataModel
-			.getArticleBySlug(obj.slug)
-			.then(article => dataModel.getArticleAuthorById(article.authorId));
+		return dataModel.getArticleAuthorById(obj.authorId);
 	},
 };

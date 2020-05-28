@@ -1,6 +1,6 @@
-import * as dataModel from "imports/api/models";
+import * as dataModel from "src/models";
 
-import { UserResolvers } from "imports/gen/graphql-resolvers";
+import { UserResolvers } from "generated/graphql-resolvers";
 
 export const User: UserResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.userId),
