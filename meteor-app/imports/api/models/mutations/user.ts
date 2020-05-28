@@ -137,3 +137,49 @@ export async function changePassword(
 		WHERE username = ${user.username}
 	`);
 }
+
+const authWithFacebookInputSchema = yup.object({
+	facebookId: yup.string().required(),
+	role: yup
+		.mixed<"worker" | "company">()
+		.oneOf(["worker", "company"])
+		.default("worker")
+		.required(),
+});
+
+/** Creates or verifies user. */
+export async function authWithFacebook(input: unknown) {
+	const { facebookId, role } = await authWithFacebookInputSchema.validate(
+		input,
+		{
+			abortEarly: false,
+		}
+	);
+
+	// Check if this user has logged in with Facebook before.
+	const { rows } = await pool.query(sql`
+		SELECT ${attributes}
+		FROM users
+		WHERE facebook_id=${facebookId}
+	`);
+
+	if (rows.length === 0) {
+		// This is the first time that the user has logged in with Facebook.
+		// Create a new account for the user.
+		const {
+			rows: [user],
+		} = await pool.query(sql`
+			INSERT INTO users
+				(facebook_id, role)
+			VALUES
+				(${facebookId}, ${role})
+			RETURNING ${attributes}
+		`);
+
+		postToSlack(`:tada: A new user has joined Vize.`);
+
+		return user;
+	} else {
+		return rows[0];
+	}
+}

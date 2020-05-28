@@ -8,6 +8,7 @@ import {
 	FormPageWrapper,
 } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
+import LoginWithFacebook from "imports/ui/components/login-with-facebook";
 
 import RegisterForm from "./register-form";
 
@@ -29,6 +30,7 @@ function RegisterPage() {
 				<T.register />
 			</FormHeader>
 			<RegisterForm />
+			<LoginWithFacebook />
 			<FormFooter>
 				<T.alreadyAccount />
 				<Link to={urlGenerators.vizeLogin(userRole)}>
