@@ -50,12 +50,19 @@ export async function searchForCompanies(
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: Company[]; totalCount: number }> {
+	// TODO: When PostgreSQL is upgraded to version 12 use websearch_to_tsquery instead of plainto_tsquery.
+	// websearch_to_tsquery is better, but only available in version 12 and up.
 	return paginate<Company>(
 		sql`
 			${baseQuery}
 				JOIN job_post_counts ON companies.name = job_post_counts.companyname
 				JOIN salary_counts ON companies.name = salary_counts.companyname
-			WHERE name LIKE ${`%${searchText}%`}
+			WHERE
+				(
+					to_tsvector('spanish', coalesce(name, '')) ||
+					to_tsvector('spanish', coalesce(industry, '')) ||
+					to_tsvector('spanish', coalesce(descriptionOfCompany, ''))
+				) @@ plainto_tsquery('spanish', ${searchText})
 			ORDER BY job_post_counts.count*10 + numreviews*1.5 + salary_counts.count DESC
 		`,
 		pageNumber,
