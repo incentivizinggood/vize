@@ -388,7 +388,7 @@ enum UserRole {
 type User {
 	id: ID!
 	"The user's username, as would be typed in the login field."
-	username: String!
+	username: String
 
 	"The user's role."
 	role: UserRole!

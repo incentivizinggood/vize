@@ -8,6 +8,7 @@ import {
 	FormPageWrapper,
 } from "imports/ui/components/form-stuff";
 import { translations } from "imports/ui/translations";
+import LoginWithFacebook from "imports/ui/components/login-with-facebook";
 
 import LoginForm from "./login-form";
 
@@ -30,6 +31,7 @@ function LoginPage() {
 				<T.login />
 			</FormHeader>
 			<LoginForm />
+			<LoginWithFacebook />
 			<FormFooter>
 				<T.noAccount />
 				<Link to={urlGenerators.vizeRegister(userRole)}>

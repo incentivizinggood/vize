@@ -9,6 +9,7 @@ export const attributes = sql.raw(
 		"username",
 		'email_address AS "emailAddress"',
 		'password_hash AS "passwordHash"',
+		'facebook_id AS "facebookId"',
 		"role",
 		'companyid AS "companyId"',
 	].join(", ")

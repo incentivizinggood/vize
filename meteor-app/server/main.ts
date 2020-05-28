@@ -7,7 +7,7 @@ import { app, onServerReady } from "imports/api/http/index";
 import "imports/api/data";
 
 // install the express server within meteor webapp connect
-WebApp.rawConnectHandlers.use(app);
+WebApp.rawConnectHandlers.use("/api", app);
 
 Meteor.startup(() => {
 	onServerReady();

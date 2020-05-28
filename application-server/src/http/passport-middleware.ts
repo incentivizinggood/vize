@@ -1,4 +1,5 @@
 import passport from "passport";
+import { Strategy as FacebookStrategy } from "passport-facebook";
 import { Express } from "express";
 import * as yup from "yup";
 
@@ -8,6 +9,7 @@ import {
 	createUser,
 	verifyUser,
 	changePassword,
+	authWithFacebook,
 } from "src/models";
 
 /** Set up the users and authentication middleware. */
@@ -106,4 +108,45 @@ export function applyPassportMiddleware(app: Express) {
 			}
 		}
 	});
+
+	if (
+		process.env.ROOT_URL &&
+		process.env.FACEBOOK_APP_ID &&
+		process.env.FACEBOOK_APP_SECRET
+	) {
+		passport.use(
+			new FacebookStrategy(
+				{
+					clientID: process.env.FACEBOOK_APP_ID,
+					clientSecret: process.env.FACEBOOK_APP_SECRET,
+					callbackURL: `${process.env.ROOT_URL}/auth/facebook/callback`,
+				},
+				async function(accessToken, refreshToken, profile, cb) {
+					try {
+						const user = await authWithFacebook({
+							facebookId: profile.id,
+						});
+						return cb(undefined, user);
+					} catch (err) {
+						return cb(err, undefined);
+					}
+				}
+			)
+		);
+
+		app.get("/auth/facebook", passport.authenticate("facebook"));
+
+		app.get(
+			"/auth/facebook/callback",
+			passport.authenticate("facebook", { failureRedirect: "/login" }),
+			function(req, res) {
+				// Successful authentication, redirect home.
+				res.redirect("/");
+			}
+		);
+	} else {
+		console.warn(
+			"Not setting up Facebook login. One or more of ROOT_URL, FACEBOOK_APP_ID, and FACEBOOK_APP_SECRET are not set."
+		);
+	}
 }
