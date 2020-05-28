@@ -1,8 +1,8 @@
 // This file is for all of the model code that
 // didn't make sence to put into the other files.
 
-import sql, { SqlStatement } from "imports/lib/sql-template";
-import { simpleQuery } from "imports/api/connectors/postgresql";
+import sql, { SqlStatement } from "src/utils/sql-template";
+import { simpleQuery } from "src/connectors/postgresql";
 
 /**
  * Convert a simple query to a paginated one.

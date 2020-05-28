@@ -15,32 +15,34 @@ type CreateCompanyInput = {
 };
 
 namespace CreateCompanyInput {
-	export const schema = yup.object({
-		name: yup.string().required(),
-		contactEmail: yup
-			.string()
-			.email()
-			.required(),
-		yearEstablished: yup.number(),
-		numEmployees: yup
-			.mixed()
-			.oneOf([
-				"1 - 50",
-				"51 - 500",
-				"501 - 2000",
-				"2001 - 5000",
-				"5000+",
-			]),
-		industry: yup.string(),
-		locations: yup
-			.array()
-			.required()
-			.min(1)
-			.of(LocationInput.schema),
-		contactPhoneNumber: yup.string(),
-		websiteURL: yup.string().url(),
-		descriptionOfCompany: yup.string(),
-	});
+	export const schema = yup
+		.object({
+			name: yup.string().required(),
+			contactEmail: yup
+				.string()
+				.email()
+				.required(),
+			yearEstablished: yup.number(),
+			numEmployees: yup
+				.string()
+				.oneOf([
+					"1 - 50",
+					"51 - 500",
+					"501 - 2000",
+					"2001 - 5000",
+					"5000+",
+				]),
+			industry: yup.string(),
+			locations: yup
+				.array()
+				.required()
+				.min(1)
+				.of(LocationInput.schema),
+			contactPhoneNumber: yup.string(),
+			websiteURL: yup.string().url(),
+			descriptionOfCompany: yup.string(),
+		})
+		.required();
 
 	export type NumEmployees =
 		| "1 - 50"

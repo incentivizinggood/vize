@@ -18,7 +18,7 @@ import {
 	isUser,
 	isVote,
 	Node,
-} from "imports/api/models";
+} from "src/models";
 
 /** An enumeration to encode the node type as an int for use in the id. */
 enum NodeType {
@@ -37,15 +37,7 @@ enum NodeType {
 const hashids = new Hashids("Vize (this is salt)", 4);
 
 export async function getNodeById(nodeId: string): Promise<Node | null> {
-	if (/[0-9a-fA-F]{24}/.test(nodeId)) {
-		// This is very likely a MongoDB id.
-		// Check to see if we can get a user from it.
-		const user = await getUserById(nodeId);
-		if (user) return user;
-		// If we did not get a user try to get something else.
-	}
-
-	const [nodeType, ...restId]: number[] = hashids.decode(nodeId);
+	const [nodeType, ...restId]: number[] = hashids.decode(nodeId) as number[];
 	switch (nodeType) {
 		case NodeType.COMMENT:
 			if (restId.length !== 1) return null;
@@ -64,7 +56,7 @@ export async function getNodeById(nodeId: string): Promise<Node | null> {
 			return getSalaryById(restId[0]);
 		case NodeType.USER:
 			if (restId.length !== 1) return null;
-			throw new Error("NOT_IMPLEMENTED_YET");
+			return getUserById(restId[0]);
 		case NodeType.VOTE:
 			if (restId.length !== 3) return null;
 			const [subjectType, submittedBy, refersTo] = restId;
@@ -91,8 +83,7 @@ export function getIdOfNode(node: Node): string {
 	} else if (isSalary(node)) {
 		id = [NodeType.SALARY, node.salaryId];
 	} else if (isUser(node)) {
-		// Until users are migrated to PostgreSQL, just use their MongoDB ids.
-		return node._id;
+		id = [NodeType.SALARY, node.userId];
 	} else if (isVote(node)) {
 		const { subjectType, submittedBy, refersTo } = getIdOfVote(node);
 		id = [

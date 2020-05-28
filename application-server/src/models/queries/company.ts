@@ -1,8 +1,8 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery1 } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { simpleQuery1 } from "src/connectors/postgresql";
 
-import { Company } from "imports/api/models";
-import { paginate } from "imports/api/models/misc";
+import { Company } from "src/models";
+import { paginate } from "src/models/misc";
 
 const attributes = sql.raw(
 	[

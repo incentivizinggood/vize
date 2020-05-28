@@ -1,6 +1,6 @@
 // WARNING: Comments have not been fully implemented yet. This code is a half
 // done mess. Keep that in mind when working with it.
-import { Comment, CommentParent, User, getUserById } from "imports/api/models";
+import { Comment, CommentParent, User, getUserById } from "src/models";
 
 // Get the comment with a given id.
 export async function getCommentById(id: number): Promise<Comment> {
@@ -18,7 +18,13 @@ export async function getCommentsByAuthor(
 
 // Get the user who wrote a given comment.
 export async function getAuthorOfComment(comment: Comment): Promise<User> {
-	return getUserById(comment.submittedBy);
+	const user = await getUserById(comment.submittedBy);
+
+	if (user === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return user;
 }
 
 // Get all comments that are about a given thing.

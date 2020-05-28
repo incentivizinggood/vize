@@ -1,7 +1,7 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 
-import { ArticleTopic } from "imports/api/models";
+import { ArticleTopic } from "src/models";
 
 const attributes = sql.raw(
 	['topic_name AS "topicName"', 'icon_image_url AS "iconImageURL"'].join(", ")

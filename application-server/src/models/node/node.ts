@@ -6,7 +6,7 @@ import {
 	Salary,
 	User,
 	Vote,
-} from "imports/api/models";
+} from "src/models";
 
 /** Some kind of domain object that has a globally unique id. */
 export type Node = Comment | Company | JobAd | Review | Salary | User | Vote;

@@ -1,6 +1,6 @@
-import { sendEmail } from "imports/api/connectors/email";
-import sql from "imports/lib/sql-template";
-import { simpleQuery1 } from "imports/api/connectors/postgresql";
+import { sendEmail } from "src/connectors/email";
+import sql from "src/utils/sql-template";
+import { simpleQuery1 } from "src/connectors/postgresql";
 import { getUserById } from ".";
 
 export async function flagAReview(
@@ -29,6 +29,12 @@ export async function flagAReview(
 	sendEmail({
 		to: "incentivizinggood@gmail.com",
 		subject: "Someone flagged a review",
-		text: `UserName: ${user.username}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${reviewInfo.reviewTitle}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
+		text: `${
+			user
+				? `UserName: ${user.username}`
+				: `Could not find user for the id: ${userId}`
+		}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${
+			reviewInfo.reviewTitle
+		}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
 	});
 }

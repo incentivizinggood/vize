@@ -1,38 +1,40 @@
 import * as yup from "yup";
 
-import sql from "imports/lib/sql-template";
-import { pool } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { pool } from "src/connectors/postgresql";
 import {
 	User,
 	getUserByUsername,
 	hashPassword,
 	comparePassword,
-} from "imports/api/models";
-import { postToSlack } from "imports/api/connectors/slack-webhook";
+} from "src/models";
+import { postToSlack } from "src/connectors/slack-webhook";
 
 import { attributes } from "../queries/user";
 
-const createUserInputSchema = yup.object({
-	username: yup
-		.string()
-		.trim()
-		.min(1)
-		.max(32)
-		.required(),
-	email: yup
-		.string()
-		.email()
-		.required(),
-	password: yup
-		.string()
-		.min(1)
-		.max(256)
-		.required(),
-	role: yup
-		.mixed<"worker" | "company">()
-		.oneOf(["worker", "company"])
-		.required(),
-});
+const createUserInputSchema = yup
+	.object({
+		username: yup
+			.string()
+			.trim()
+			.min(1)
+			.max(32)
+			.required(),
+		email: yup
+			.string()
+			.email()
+			.required(),
+		password: yup
+			.string()
+			.min(1)
+			.max(256)
+			.required(),
+		role: yup
+			.mixed<"worker" | "company">()
+			.oneOf(["worker", "company"])
+			.required(),
+	})
+	.required();
 
 export async function createUser(input: unknown): Promise<User> {
 	const {
@@ -75,13 +77,15 @@ export async function createUser(input: unknown): Promise<User> {
 	}
 }
 
-const verifyUserInputSchema = yup.object({
-	username: yup
-		.string()
-		.trim()
-		.required(),
-	password: yup.string().required(),
-});
+const verifyUserInputSchema = yup
+	.object({
+		username: yup
+			.string()
+			.trim()
+			.required(),
+		password: yup.string().required(),
+	})
+	.required();
 
 export async function verifyUser(input: unknown): Promise<User> {
 	const { username, password } = await verifyUserInputSchema.validate(input, {
@@ -103,10 +107,12 @@ export async function verifyUser(input: unknown): Promise<User> {
 	return user;
 }
 
-const changePasswordInputSchema = yup.object({
-	oldPassword: yup.string().required(),
-	newPassword: yup.string().required(),
-});
+const changePasswordInputSchema = yup
+	.object({
+		oldPassword: yup.string().required(),
+		newPassword: yup.string().required(),
+	})
+	.required();
 
 export async function changePassword(
 	user: User | undefined | null,

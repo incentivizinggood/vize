@@ -1,12 +1,12 @@
-import sql from "imports/lib/sql-template";
+import sql from "src/utils/sql-template";
 import { parsePhoneNumber } from "libphonenumber-js/max";
 
 import {
 	execTransactionRO,
 	execTransactionRW,
 	Transaction,
-} from "imports/api/connectors/postgresql";
-import { postToSlack } from "imports/api/connectors/slack-webhook";
+} from "src/connectors/postgresql";
+import { postToSlack } from "src/connectors/slack-webhook";
 
 import { User, getReviewsByAuthor } from ".";
 

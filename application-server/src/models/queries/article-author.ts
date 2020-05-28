@@ -1,7 +1,7 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery1 } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { simpleQuery1 } from "src/connectors/postgresql";
 
-import { ArticleAuthor } from "imports/api/models";
+import { ArticleAuthor } from "src/models";
 
 const attributes = sql.raw(
 	[

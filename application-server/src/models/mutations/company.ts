@@ -1,10 +1,10 @@
-import sql from "imports/lib/sql-template";
+import sql from "src/utils/sql-template";
 import {
 	execTransactionRW,
 	Transaction,
-} from "imports/api/connectors/postgresql";
+} from "src/connectors/postgresql";
 
-import CreateCompanyInput from "imports/lib/inputs/company";
+import CreateCompanyInput from "src/utils/inputs/company";
 
 export async function createCompany(
 	input: CreateCompanyInput,

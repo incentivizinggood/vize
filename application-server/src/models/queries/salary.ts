@@ -1,5 +1,5 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 
 import {
 	Company,
@@ -7,7 +7,7 @@ import {
 	User,
 	getUserById,
 	getCompanyByName,
-} from "imports/api/models";
+} from "src/models";
 
 const attributes = sql.raw(
 	[

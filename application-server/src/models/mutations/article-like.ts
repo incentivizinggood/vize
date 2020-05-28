@@ -1,8 +1,8 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery1 } from "imports/api/connectors/postgresql";
-import * as dataModel from "imports/api/models";
+import sql from "src/utils/sql-template";
+import { simpleQuery1 } from "src/connectors/postgresql";
+import * as dataModel from "src/models";
 
-import { User } from "imports/api/models";
+import { User, Article } from "src/models";
 
 /** Create a new vote or, if the subject was already voted on, change the vote.
  * If isUpvote is null then remove the vote.

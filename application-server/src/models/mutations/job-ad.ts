@@ -1,14 +1,14 @@
-import sql from "imports/lib/sql-template";
+import sql from "src/utils/sql-template";
 import {
 	execTransactionRW,
 	Transaction,
-} from "imports/api/connectors/postgresql";
-import { sendEmail } from "imports/api/connectors/email";
+} from "src/connectors/postgresql";
+import { sendEmail } from "src/connectors/email";
 
 import {
 	CreateJobAdInput,
 	CreateApplyToJobAdInput,
-} from "imports/lib/inputs/job-ad";
+} from "src/utils/inputs/job-ad";
 
 export async function createJobAd(
 	input: CreateJobAdInput,

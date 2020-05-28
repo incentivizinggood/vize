@@ -13,28 +13,30 @@ type CreateJobAdInput = {
 };
 
 namespace CreateJobAdInput {
-	export const schema = yup.object({
-		jobTitle: yup.string().required(),
-		locations: yup
-			.array()
-			.required()
-			.min(1)
-			.of(LocationInput.schema),
-		pesosPerHour: yup.string().required(),
-		contractType: yup
-			.mixed()
-			.oneOf([
-				"FULL_TIME",
-				"PART_TIME",
-				"INTERNSHIP",
-				"TEMPORARY",
-				"CONTRACTOR",
-			])
-			.required(),
-		jobDescription: yup.string().required(),
-		responsibilities: yup.string().required(),
-		qualifications: yup.string().required(),
-	});
+	export const schema = yup
+		.object({
+			jobTitle: yup.string().required(),
+			locations: yup
+				.array()
+				.required()
+				.min(1)
+				.of(LocationInput.schema),
+			pesosPerHour: yup.string().required(),
+			contractType: yup
+				.string()
+				.oneOf([
+					"FULL_TIME",
+					"PART_TIME",
+					"INTERNSHIP",
+					"TEMPORARY",
+					"CONTRACTOR",
+				])
+				.required(),
+			jobDescription: yup.string().required(),
+			responsibilities: yup.string().required(),
+			qualifications: yup.string().required(),
+		})
+		.required();
 
 	export type ContractType =
 		| "FULL_TIME"
@@ -53,16 +55,18 @@ type CreateApplyToJobAdInput = {
 };
 
 namespace CreateApplyToJobAdInput {
-	export const schema = yup.object({
-		jobAdId: yup.string().required(),
-		fullName: yup.string().required(),
-		email: yup
-			.string()
-			.email()
-			.required(),
-		phoneNumber: yup.string().required(),
-		coverLetter: yup.string(),
-	});
+	export const schema = yup
+		.object({
+			jobAdId: yup.string().required(),
+			fullName: yup.string().required(),
+			email: yup
+				.string()
+				.email()
+				.required(),
+			phoneNumber: yup.string().required(),
+			coverLetter: yup.string(),
+		})
+		.required();
 }
 
 export { CreateJobAdInput, CreateApplyToJobAdInput };

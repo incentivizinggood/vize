@@ -7,11 +7,13 @@ type LocationInput = {
 };
 
 namespace LocationInput {
-	export const schema = yup.object({
-		city: yup.string().required(),
-		address: yup.string().required(),
-		industrialHub: yup.string(),
-	});
+	export const schema = yup
+		.object({
+			city: yup.string().required(),
+			address: yup.string().required(),
+			industrialHub: yup.string(),
+		})
+		.required();
 }
 
 export default LocationInput;

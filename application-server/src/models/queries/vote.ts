@@ -1,5 +1,5 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 
 import {
 	VoteId,
@@ -10,9 +10,9 @@ import {
 	getReviewById,
 	getCommentById,
 	getVoteSubjectRef,
-} from "imports/api/models";
+} from "src/models";
 
-export const attributes = sql.raw(
+export const voteAttributes = sql.raw(
 	[
 		'submittedby AS "submittedBy"',
 		'refersto AS "refersTo"',
@@ -22,7 +22,7 @@ export const attributes = sql.raw(
 
 const baseQuery = (subjectType: "review" | "comment") =>
 	sql`
-		SELECT ${attributes}, '${sql.raw(subjectType)}' AS "subjectType"
+		SELECT ${voteAttributes}, '${sql.raw(subjectType)}' AS "subjectType"
 		FROM ${sql.raw(subjectType)}_votes
 	`;
 
@@ -81,7 +81,13 @@ export async function getVotesByAuthor(
 
 // Get the user who cast a given vote.
 export async function getAuthorOfVote(vote: Vote): Promise<User> {
-	return getUserById(vote.submittedBy);
+	const user = await getUserById(vote.submittedBy);
+
+	if (user === null) {
+		throw new Error("REFERENCE_ANOMALY");
+	}
+
+	return user;
 }
 
 // Get all votes that were cast on a given thing.

@@ -1,7 +1,7 @@
-import sql from "imports/lib/sql-template";
-import { simpleQuery, simpleQuery1 } from "imports/api/connectors/postgresql";
+import sql from "src/utils/sql-template";
+import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 
-import { Article, paginate } from "imports/api/models";
+import { Article, paginate, User } from "src/models";
 
 const attributes = sql.raw(
 	[
@@ -51,7 +51,7 @@ export async function isArticleLikedByUser(
 	slug: string,
 	user: User
 ): Promise<boolean> {
-	const isLiked = await simpleQuery1<{ isLiked: boolean }>(sql`
+	const isLiked = await simpleQuery1<{ exists: boolean }>(sql`
 		SELECT exists
 		(
 			SELECT 1 FROM article_likes
@@ -59,7 +59,7 @@ export async function isArticleLikedByUser(
 		)
 	`);
 
-	return isLiked.exists;
+	return !!isLiked && isLiked.exists;
 }
 
 export async function getHighlightedArticles(): Promise<Article[] | null> {

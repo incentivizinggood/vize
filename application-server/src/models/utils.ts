@@ -10,7 +10,7 @@ import {
 	isComment,
 	isReview,
 	Location,
-} from "imports/api/models";
+} from "src/models";
 
 /* VoteId's are strings that encode three numbers, [subjectType, submittedBy,
    refersTo]. This is done because the database uses (submittedby,refersto) as

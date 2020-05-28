@@ -1,11 +1,11 @@
-import sql from "imports/lib/sql-template";
+import sql from "src/utils/sql-template";
 import {
 	execTransactionRW,
 	Transaction,
-} from "imports/api/connectors/postgresql";
-import { postToSlack } from "imports/api/connectors/slack-webhook";
+} from "src/connectors/postgresql";
+import { postToSlack } from "src/connectors/slack-webhook";
 
-import CreateReviewInput from "imports/lib/inputs/review";
+import CreateReviewInput from "src/utils/inputs/review";
 
 type PhoneNumber = undefined | string;
 
