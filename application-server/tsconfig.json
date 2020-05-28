@@ -5,6 +5,9 @@
 			"src/*": ["src/*"],
 			"generated/*": ["generated/*"]
 		},
+		"lib": ["es2020"],
+		"module": "commonjs",
+		"target": "es2019",
 		"strict": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
