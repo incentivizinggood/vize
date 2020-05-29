@@ -31,8 +31,6 @@ app.use(
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
-			// Only send session cookies over secured HTTPS.
-			secure: true,
 			// Do not allow client side scripts to access the session cookie.
 			httpOnly: true,
 		},

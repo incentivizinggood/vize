@@ -57,12 +57,17 @@ export async function searchForCompanies(
 			${baseQuery}
 				JOIN job_post_counts ON companies.name = job_post_counts.companyname
 				JOIN salary_counts ON companies.name = salary_counts.companyname
+			${
+				searchText
+					? sql`
 			WHERE
 				(
 					to_tsvector('spanish', coalesce(name, '')) ||
 					to_tsvector('spanish', coalesce(industry, '')) ||
 					to_tsvector('spanish', coalesce(descriptionOfCompany, ''))
-				) @@ plainto_tsquery('spanish', ${searchText})
+				) @@ plainto_tsquery('spanish', ${searchText})`
+					: sql``
+			}
 			ORDER BY job_post_counts.count*10 + numreviews*1.5 + salary_counts.count DESC
 		`,
 		pageNumber,
