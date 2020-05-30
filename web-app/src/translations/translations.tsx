@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LocaleContext } from "imports/ui/startup/i18n";
+import { LocaleContext } from "src/startup/i18n";
 
 import { TranslationNode } from "./types";
 

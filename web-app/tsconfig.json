@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"src/*": ["src/*"],
+			"generated/*": ["generated/*"]
+		},
+		"lib": ["dom", "es2020"],
+		"module": "commonjs",
+		"target": "es6",
+		"jsx": "react",
+		"strict": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"sourceMap": true
+	}
+}

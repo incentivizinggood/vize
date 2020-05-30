@@ -1,0 +1,19 @@
+{
+  "name": "web-app",
+  "private": true,
+  "scripts": {
+    "generate": "graphql-codegen",
+    "build": "webpack",
+    "start": "webpack --watch"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0"
+  }
+}

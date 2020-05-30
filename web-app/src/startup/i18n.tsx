@@ -5,11 +5,11 @@ const localeMetadata = {
 	es: { nativeName: "Español", icon: "/images/flags/mx.jpg" },
 };
 
-const defaultLocale = "es";
+const defaultLocale: string = "es";
 
 /* This is meant to match the fallbacks used by universe:i18n
  */
-function getClosestSupportedLocale(code) {
+function getClosestSupportedLocale(code: string) {
 	const supportedLocales = Object.keys(localeMetadata);
 	let localeCanidate = code;
 
@@ -39,8 +39,6 @@ function getDefaultLocale() {
 	return getClosestSupportedLocale(
 		(navigator.languages && navigator.languages[0]) ||
 			navigator.language ||
-			navigator.browserLanguage ||
-			navigator.userLanguage ||
 			"es"
 	);
 }

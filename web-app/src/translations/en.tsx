@@ -596,7 +596,6 @@ export default {
 			contact: "Contact",
 			feel_free: "Feel free to",
 			reach_us: "reach out to us",
-			add_review: "Add a Review",
 		},
 	},
 };
