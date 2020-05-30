@@ -19,7 +19,7 @@ const vizeArticleUrl = function(slug: string) {
 const vizeArticleTopicUrl = function(topicName: string) {
 	return `/${queryRoutes.resources}/temas/${topicName}`;
 };
-const vizeProfileUrl = function(companyId) {
+const vizeProfileUrl = function(companyId: string) {
 	return `/${queryRoutes.companyProfile}/?id=${companyId}`;
 };
 const vizeReviewUrl = function(companyName?: string) {
@@ -32,7 +32,7 @@ const vizeSalaryUrl = function(companyName?: string) {
 		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
 	}`;
 };
-const vizeApplyForJobUrl = function(jobId) {
+const vizeApplyForJobUrl = function(jobId: string) {
 	return `/${queryRoutes.applyForJob}/?id=${jobId}`;
 };
 const vizeRegister = function(userRole?: string) {

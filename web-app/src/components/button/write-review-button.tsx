@@ -3,17 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ReactGA from "react-ga";
 
-import { urlGenerators } from "imports/ui/pages/url-generators";
-import { LinkButton } from "imports/ui/components/button";
-import { translations } from "imports/ui/translations";
+import { urlGenerators } from "src/pages/url-generators";
+import { LinkButton } from "src/components/button";
+import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.overview_tab;
 
 interface WriteReviewButtonProps {
 	companyName?: string;
+	buttonLocation?: string;
 }
 
-function buttonTracking(buttonLocation) {
+function buttonTracking(buttonLocation?: string) {
 	ReactGA.event({
 		category: "Button",
 		action: "Add Review Pressed",
