@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { VoteButtonsComponent as MutationVoteButtons } from "imports/gen/graphql-operations";
+import { VoteButtonsComponent as MutationVoteButtons } from "generated/graphql-operations";
 
 import VoteButton, { VoteButtonProps } from "./vote-button";
 

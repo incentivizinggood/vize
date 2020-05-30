@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { forSize } from "imports/ui/responsive.js";
+import { forSize } from "src/responsive.js";
 
 const PannelPadding = "30px";
 

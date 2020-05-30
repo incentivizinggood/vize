@@ -1,5 +1,5 @@
 // The legacy variables used in styles. These are the same as in
-// imports/ui/sass/base/_variables.scss. We repeat them here so that they can be
+// src/sass/base/_variables.scss. We repeat them here so that they can be
 // used in newly converted styled components.
 const styleVariables = {
 	concrete: "#f2f2f2",

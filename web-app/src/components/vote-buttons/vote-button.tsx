@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 
-import { VoteButtonsMutationFn } from "imports/gen/graphql-operations";
+import { VoteButtonsMutationFn } from "generated/graphql-operations";
 
 /** The diameter of a vote button in px. */
 const buttonDiameter = 70;
