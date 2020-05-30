@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { forSize } from "imports/ui/responsive";
-import styleVariables from "imports/ui/style-variables";
-import { translations } from "imports/ui/translations";
+import { forSize } from "src/responsive";
+import styleVariables from "src/style-variables";
+import { translations } from "src/translations";
 
 const T = translations.footer;
 
