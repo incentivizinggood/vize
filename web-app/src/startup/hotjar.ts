@@ -1,3 +1,4 @@
+//@ts-nocheck
 export default function initHotjar() {
 	// This is the code sniplet that we copy/pasted from Hotjar.
 	// Do not modify.
