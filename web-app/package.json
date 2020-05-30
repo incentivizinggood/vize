@@ -8,10 +8,19 @@
   },
   "dependencies": {
     "apollo-boost": "^0.4.9",
+    "apollo-client": "^2.6.10",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
     "react": "^16.13.1",
+    "react-apollo": "^3.1.5",
+    "react-dom": "^16.13.1",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.15.0",
+    "@graphql-codegen/typescript": "^1.15.0",
+    "@graphql-codegen/typescript-operations": "^1.15.0",
+    "@graphql-codegen/typescript-react-apollo": "^1.15.0",
     "@types/react": "^16.9.35",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.3",

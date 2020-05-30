@@ -1,0 +1,11 @@
+schema: ../application-server/src/graphql/schema.graphql
+documents: src/**/*.graphql
+overwrite: true
+generates:
+  generated/graphql-operations.tsx:
+    config:
+      withHOC: false # We are not using HOCs for queries or mutations yet.
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

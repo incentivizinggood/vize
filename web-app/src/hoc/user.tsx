@@ -3,7 +3,7 @@ import React from "react";
 import {
 	CurrentUserComponent as QueryCurrentUser,
 	CurrentUserQuery,
-} from "imports/gen/graphql-operations";
+} from "generated/graphql-operations";
 
 export function withUser<T>(
 	WrappedComponent: React.ComponentType<
