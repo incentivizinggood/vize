@@ -1,8 +1,10 @@
 import React from "react";
 
-import { logout } from "imports/ui/auth";
+import { logout } from "src/auth";
 
-function LogoutButton(props) {
+type LogoutButtonProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+function LogoutButton(props: LogoutButtonProps) {
 	return (
 		<a onClick={logout} style={{ cursor: "pointer" }} {...props}>
 			{props.children}

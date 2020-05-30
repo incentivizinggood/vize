@@ -6,9 +6,13 @@ import {
 	LocaleContext,
 	LocaleSetterContext,
 	localeMetadata,
-} from "imports/ui/startup/i18n";
+} from "src/startup/i18n";
 
-const LocaleIcon = ({ code }) => (
+interface LocaleIconProps {
+	code: keyof (typeof localeMetadata);
+}
+
+const LocaleIcon: React.FC<LocaleIconProps> = ({ code }) => (
 	<img
 		src={localeMetadata[code].icon}
 		alt={localeMetadata[code].nativeName}
@@ -22,11 +26,15 @@ const LocaleButton = styled.button`
 	}
 `;
 
+function fak<T>(record: T): (keyof T)[] {
+	return Object.keys(record) as any;
+}
+
 const langOptions = (setLocale: (locale: string) => void) => (
 	close: () => void
 ) => (
 	<>
-		{Object.keys(localeMetadata).map(code => (
+		{fak(localeMetadata).map(code => (
 			<LocaleButton
 				key={code}
 				onClick={() => {
@@ -48,7 +56,9 @@ function LangSelector() {
 		<Popup
 			trigger={
 				<button className="button">
-					<LocaleIcon code={locale} />
+					<LocaleIcon
+						code={/*TODO: fix this type properly */ locale as any}
+					/>
 				</button>
 			}
 			closeOnDocumentClick

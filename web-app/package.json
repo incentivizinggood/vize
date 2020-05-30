@@ -19,6 +19,7 @@
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-router-dom": "^5.2.0",
+    "reactjs-popup": "^1.5.0",
     "request-promise-native": "^1.0.8",
     "styled-components": "^5.1.1",
     "webpack-cli": "^3.3.11",
@@ -34,6 +35,7 @@
     "@types/request-promise-native": "^1.0.17",
     "@types/styled-components": "^5.1.0",
     "@types/yup": "^0.29.1",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.3",
     "webpack": "^4.43.0"

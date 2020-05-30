@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { forSize } from "imports/ui/responsive.js";
-import { translations } from "imports/ui/translations";
+import { forSize } from "src/responsive.js";
+import { translations } from "src/translations";
 
 const T = translations.header;
 

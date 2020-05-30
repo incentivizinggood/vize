@@ -1,11 +1,16 @@
 import styled, { css } from "styled-components";
 
-import withScroll from "imports/ui/hoc/scroll";
+import withScroll from "src/hoc/scroll";
 
 // How far down that the user can scroll before the navbar goes opaque.
 const threshold = 100;
 
-const FadableNav = styled.nav`
+interface FadableNavExtraProps {
+	animated?: boolean;
+	scroll: number;
+}
+
+const FadableNav = styled.nav<FadableNavExtraProps>`
 	${props => {
 		if (props.animated && props.scroll < threshold) {
 			// If we are using the animation, the navbar is transparent when
@@ -32,4 +37,7 @@ const FadableNav = styled.nav`
 	}}
 `;
 
-export default withScroll(FadableNav);
+// TODO: Fix this type so that it works with out a type cast.
+export default (withScroll(FadableNav) as any) as React.ComponentType<{
+	animated?: boolean;
+}>;

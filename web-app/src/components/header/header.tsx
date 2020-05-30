@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { forSize } from "imports/ui/responsive.js";
 
-import { withUser } from "imports/ui/hoc/user";
-import { translations } from "imports/ui/translations";
-import { urlGenerators } from "imports/ui/pages/url-generators";
+import { withUser } from "src/hoc/user";
+import { translations } from "src/translations";
+import { urlGenerators } from "src/pages/url-generators";
 
 import WorkerNavLinks from "./worker-nav-links";
 import EmployerNavLinks from "./employer-nav-links";
@@ -15,14 +13,33 @@ import LogoutButton from "./logout-button";
 
 const T = translations.header;
 
-let userRole = "worker";
+function getUserRole() {
+	const params = new URLSearchParams(location.search);
+	if (location.pathname === "/for-employers") {
+		return "company";
+	} else if (
+		location.pathname === "/register/" ||
+		location.pathname === "/login/"
+	) {
+		return fixNullParams(params.get("user"));
+	} else {
+		return "worker";
+	}
+}
 
-function fixNullParams(param) {
+function fixNullParams<T>(param: T | null | undefined): T | undefined {
 	if (param === null) return undefined;
 	return param;
 }
 
-function NavLinks({ user }) {
+interface NavLinksProps {
+	user?: {
+		role: string;
+		companyId?: string | null;
+	};
+}
+
+function NavLinks({ user }: NavLinksProps) {
 	// The user is an employer.
 	if (user && user.role === "COMPANY") {
 		return <EmployerNavLinks user={user} />;
@@ -32,7 +49,11 @@ function NavLinks({ user }) {
 	return <WorkerNavLinks />;
 }
 
-function AccountLink({ user }) {
+interface AccountLinkProps {
+	user?: unknown;
+}
+
+function AccountLink({ user }: AccountLinkProps) {
 	if (user) {
 		return (
 			<Link
@@ -45,17 +66,7 @@ function AccountLink({ user }) {
 		);
 	}
 
-	const params = new URLSearchParams(location.search);
-	if (location.pathname === "/for-employers") {
-		userRole = "company";
-	} else if (
-		location.pathname === "/register/" ||
-		location.pathname === "/login/"
-	) {
-		userRole = fixNullParams(params.get("user"));
-	} else {
-		userRole = "worker";
-	}
+	const userRole = getUserRole();
 
 	return (
 		<Link
@@ -70,7 +81,11 @@ function AccountLink({ user }) {
 	);
 }
 
-function AccountSection({ user }) {
+interface AccountSectionProps {
+	user?: unknown;
+}
+
+function AccountSection({ user }: AccountSectionProps) {
 	if (user) {
 		return (
 			<li className="navigation-only-display dropdown pf show-on-hover-pf">
@@ -100,18 +115,7 @@ function AccountSection({ user }) {
 		);
 	}
 
-	const params = new URLSearchParams(location.search);
-
-	if (location.pathname === "/for-employers") {
-		userRole = "company";
-	} else if (
-		location.pathname === "/register/" ||
-		location.pathname === "/login/"
-	) {
-		userRole = fixNullParams(params.get("user"));
-	} else {
-		userRole = "worker";
-	}
+	const userRole = getUserRole();
 
 	return (
 		<>
@@ -137,7 +141,15 @@ function AccountSection({ user }) {
 	);
 }
 
-function Header(props) {
+interface HeaderProps {
+	navIsAnimated?: boolean;
+	user?: {
+		role: string;
+		companyId?: string | null;
+	};
+}
+
+function Header(props: HeaderProps) {
 	return (
 		<div className="top-nav">
 			<FadableNav animated={props.navIsAnimated}>
