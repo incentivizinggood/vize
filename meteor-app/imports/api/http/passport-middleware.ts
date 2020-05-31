@@ -119,7 +119,7 @@ export function applyPassportMiddleware(app: Express) {
 				{
 					clientID: process.env.FACEBOOK_APP_ID,
 					clientSecret: process.env.FACEBOOK_APP_SECRET,
-					callbackURL: `${process.env.ROOT_URL}/auth/facebook/callback`,
+					callbackURL: `${process.env.ROOT_URL}/api/auth/facebook/callback`,
 				},
 				async function(accessToken, refreshToken, profile, cb) {
 					try {
