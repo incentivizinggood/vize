@@ -47,4 +47,7 @@ export const Company: CompanyResolvers = {
 
 	numSalaries: (obj, _args, _context, _info) =>
 		dataModel.countSalariesByCompany(obj),
+
+	salaryStats: (obj, _args, _context, _info) =>
+		dataModel.getSalaryStatsByCompanyName(obj.name),
 };

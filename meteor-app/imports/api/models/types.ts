@@ -69,6 +69,14 @@ export type Company = {
 	overallSatisfaction: number;
 };
 
+export type CompanySalaryStats = {
+	companyName: string;
+	jobTitle: string;
+	totalAvgPay: number;
+	totalMaxPay: number;
+	totalMinPay: number;
+};
+
 export type JobAd = {
 	jobAdId: number;
 

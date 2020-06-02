@@ -3,6 +3,7 @@ export * from "./article-topics";
 export * from "./article-author";
 export * from "./comment";
 export * from "./company";
+export * from "./company-salary-stats";
 export * from "./job-ad";
 export * from "./review";
 export * from "./salary";

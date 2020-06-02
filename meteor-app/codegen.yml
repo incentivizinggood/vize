@@ -10,6 +10,7 @@ generates:
         CommentParent: imports/api/models/types#CommentParent
         StarRatings: imports/api/models/types#StarRatings
         Company: imports/api/models/types#Company
+        CompanySalaryStats: imports/api/models/types#CompanySalaryStats
         JobAd: imports/api/models/types#JobAd
         Location: imports/api/models/types#Location
         Review: imports/api/models/types#Review
