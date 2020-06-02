@@ -55,6 +55,18 @@ type Mutation {
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
 	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
 	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
+
+	flagReview(input: FlagReviewInput!): FlagReviewPayload
+}
+
+input FlagReviewInput {
+	reviewId: ID!
+	reason: String!
+	explanation: String!
+}
+
+type FlagReviewPayload {
+	success: Boolean
 }
 
 input CreateCompanyInput {

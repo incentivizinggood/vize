@@ -114,4 +114,11 @@ export const Mutation: MutationResolvers = {
 		const success = await dataModel.applyToJobAd(input);
 		return { success };
 	},
+
+	flagReview: async (_obj, { input }, context, _info) => {
+		if (!context.user) throw new Error("NOT_LOGGED_IN");
+
+		const success = await dataModel.flagReview(context.user, input);
+		return { success };
+	},
 };
