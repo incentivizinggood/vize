@@ -1,10 +1,16 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 
+interface PaginateSystemProps {
+	totalCompanyCount: number;
+	currentPageNum: number;
+	setCurrentPage: (newPageNumber: number) => void;
+}
+
 /**
  * Pagination system appears below the block of companies
  */
-export default function PaginateSystem(props) {
+export default function PaginateSystem(props: PaginateSystemProps) {
 	return (
 		<div className="centeredPag">
 			<ReactPaginate
@@ -18,7 +24,6 @@ export default function PaginateSystem(props) {
 				onPageChange={({ selected }) => props.setCurrentPage(selected)}
 				forcePage={props.currentPageNum}
 				containerClassName="pagination"
-				subContainerClassName="pages pagination"
 				activeClassName="active"
 			/>
 		</div>

@@ -1,9 +1,10 @@
 import React from "react";
 
-function disableGlobalStyle(disabled) {
+function disableGlobalStyle(disabled: boolean) {
 	const styleLinks = document.getElementsByClassName("__meteor-css__");
 
 	for (let i = 0; i < styleLinks.length; ++i) {
+		//@ts-ignore
 		styleLinks[i].disabled = disabled;
 	}
 }
