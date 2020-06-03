@@ -5,20 +5,11 @@ import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import CircularProgressbar from "react-circular-progressbar";
-import { createMuiTheme } from "@material-ui/core";
+import { CircularProgressbar } from "react-circular-progressbar";
 
 import { translations } from "src/translations";
-import { CircularProgressbarStyles } from "react-circular-progressbar/dist/types";
 
 const T = translations.legacyTranslationsNeedsRefactor;
-
-const theme = createMuiTheme({
-	transitions: {
-		// So we have `transition: none;` everywhere
-		create: () => "none",
-	},
-});
 
 const styles = {
 	cardActions: {
@@ -46,64 +37,19 @@ const styles = {
 };
 
 interface ChangingProgressbarProps {
-	stylesForPercentage?: (percentage: number) => CircularProgressbarStyles;
-	percentages: number[];
-	interval: number;
-	strokeWidth: number;
-	initialAnimation?: boolean;
+	percentage: number;
 }
 
-interface ChangingProgressbarState {
-	currentPercentageIndex: number;
+function ChangingProgressbar({ percentage }: ChangingProgressbarProps) {
+	// TODO: animate this
+	return (
+		<CircularProgressbar
+			value={percentage}
+			text={`${percentage}%`}
+			strokeWidth={10}
+		/>
+	);
 }
-
-class ChangingProgressbar extends React.Component<
-	ChangingProgressbarProps,
-	ChangingProgressbarState
-> {
-	constructor(props: Readonly<ChangingProgressbarProps>) {
-		super(props);
-
-		this.state = {
-			currentPercentageIndex: 0,
-		};
-	}
-
-	componentDidMount() {
-		setInterval(() => {
-			this.setState({
-				currentPercentageIndex:
-					(this.state.currentPercentageIndex + 1) %
-					this.props.percentages.length,
-			});
-		}, this.props.interval);
-	}
-
-	getStyles(): CircularProgressbarStyles {
-		return this.props.stylesForPercentage
-			? this.props.stylesForPercentage(this.getCurrentPercentage())
-			: {};
-	}
-
-	getCurrentPercentage() {
-		return this.props.percentages[this.state.currentPercentageIndex];
-	}
-
-	render() {
-		return (
-			//@ts-ignore
-			<CircularProgressbar
-				{...this.props}
-				percentage={this.getCurrentPercentage()}
-				styles={this.getStyles()}
-			/>
-		);
-	}
-}
-//@ts-ignore
-ChangingProgressbar.defaultProps = {
-	interval: 100000,
-};
 
 function CompanyRating(props) {
 	// 	componentDidMount(){
@@ -126,7 +72,6 @@ function CompanyRating(props) {
 								gutterBottom
 								variant="h5"
 								component="h2"
-								disableFocusRipple
 							>
 								<div className="star_border ">
 									<label>
@@ -297,13 +242,9 @@ function CompanyRating(props) {
 						}}
 					>
 						<ChangingProgressbar
-							percentages={[
-								Math.round(
-									props.company.percentRecommended * 100
-								),
-							]}
-							strokeWidth={10}
-							initialAnimation
+							percentage={Math.round(
+								props.company.percentRecommended * 100
+							)}
 						/>
 					</div>
 
