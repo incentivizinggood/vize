@@ -1,5 +1,8 @@
 import React from "react";
 
+import exampleJobPostSquareEn from "src/images/example-job-post-square-en.png";
+import analyticsDashboardEn from "src/images/analytics-dashboard-en.png";
+
 export default {
 	homePage: {
 		mainBanner: "Find a Great Job Near You in Tijuana",
@@ -490,11 +493,11 @@ export default {
 			premiumText4: "Individualized Analysis and Consulting",
 			img: {
 				exampleJobPost: {
-					src: "/images/example-job-post-square-en.png",
+					src: exampleJobPostSquareEn,
 					alt: "",
 				},
 				analyticsDashboard: {
-					src: "/images/analytics-dashboard-en.png",
+					src: analyticsDashboardEn,
 					alt: "",
 				},
 			},

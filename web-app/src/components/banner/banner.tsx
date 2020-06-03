@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import bannerImg from "src/images/banner-img.jpg";
+
 interface BannerDivExtraProps {
 	backgroundImage?: string;
 }
@@ -8,8 +10,7 @@ interface BannerDivExtraProps {
 const BannerDiv = styled.div<BannerDivExtraProps>`
 	height: 700px;
 
-	background: url(${({ backgroundImage }) =>
-			backgroundImage || "/images/banner-img.jpg"})
+	background: url(${({ backgroundImage }) => backgroundImage || bannerImg})
 		no-repeat 0 0;
 	background-size: cover;
 

@@ -1,8 +1,11 @@
 import React from "react";
 
+import usFlagIcon from "src/images/flags/us.jpg";
+import mxFlagIcon from "src/images/flags/mx.jpg";
+
 const localeMetadata = {
-	en: { nativeName: "English", icon: "/images/flags/us.jpg" },
-	es: { nativeName: "Español", icon: "/images/flags/mx.jpg" },
+	en: { nativeName: "English", icon: usFlagIcon },
+	es: { nativeName: "Español", icon: mxFlagIcon },
 };
 
 const defaultLocale: string = "es";

@@ -5,6 +5,9 @@ import { withUser } from "src/hoc/user";
 import { translations } from "src/translations";
 import { urlGenerators } from "src/pages/url-generators";
 
+import vizeLogo from "src/images/logo.png";
+import profileIcon from "src/images/profileIcon.png";
+
 import WorkerNavLinks from "./worker-nav-links";
 import EmployerNavLinks from "./employer-nav-links";
 import FadableNav from "./fadable-nav";
@@ -91,7 +94,7 @@ function AccountSection({ user }: AccountSectionProps) {
 			<li className="navigation-only-display dropdown pf show-on-hover-pf">
 				<div className="dropdown-toggle" data-toggle="dropdown">
 					<img
-						src="/images/profileIcon.png"
+						src={profileIcon}
 						className="img-responsive dp-profile"
 						alt="Profile Icon"
 					/>{" "}
@@ -168,7 +171,7 @@ function Header(props: HeaderProps) {
 						</button>
 						<h2 className="site-logo">
 							<Link to="/">
-								<img src="/images/logo.png" alt="Vize Logo" />
+								<img src={vizeLogo} alt="Vize Logo" />
 							</Link>
 						</h2>
 					</div>

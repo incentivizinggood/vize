@@ -7,6 +7,9 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import { SubmitButton } from "src/components/button";
 
+import swapIcon from "src/images/swap-icon.png";
+import payPalIcon from "src/images/payPal.png";
+
 const GetRewardButton = styled(Button)`
 	font-weight: bold !important;
 	font-size: 1.2rem !important;
@@ -115,10 +118,7 @@ export default class RewardsComponent extends React.Component {
 							<div className="reward">
 								<div className="reward-visual">
 									<a href="https://swap.mx/" target="_blank">
-										<img
-											src="images/swap-icon.png"
-											alt="Swap Logo"
-										/>
+										<img src={swapIcon} alt="Swap Logo" />
 									</a>
 								</div>
 								<p>
@@ -138,10 +138,7 @@ export default class RewardsComponent extends React.Component {
 
 							<div className="reward">
 								<div className="reward-visual">
-									<img
-										src="images/payPal.png"
-										alt="payPal logo"
-									/>
+									<img src={payPalIcon} alt="payPal logo" />
 								</div>
 								<p>
 									<T.paypalCash />

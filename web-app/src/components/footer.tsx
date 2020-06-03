@@ -6,6 +6,11 @@ import { forSize } from "src/responsive";
 import styleVariables from "src/style-variables";
 import { translations } from "src/translations";
 
+import facebookIcon from "src/images/facebook.png";
+import instagramIcon from "src/images/instagram.png";
+import linkedInIcon from "src/images/linkedin.png";
+import whatsAppIcon from "src/images/whatsapp.png";
+
 const T = translations.footer;
 
 const FooterContainer = styled.footer`
@@ -115,7 +120,7 @@ export default function Footer() {
 						href="https://www.facebook.com/Vize-Incentivando-El-Bien-468437690335687/"
 						target="_blank"
 					>
-						<SocialIcon src="/images/facebook.png" alt="Facebook" />
+						<SocialIcon src={facebookIcon} alt="Facebook" />
 					</a>
 					{/* Commenting until our twitter account is active
 					<a
@@ -129,16 +134,13 @@ export default function Footer() {
 						href="https://www.instagram.com/incentivandoelbien/"
 						target="_blank"
 					>
-						<SocialIcon
-							src="/images/instagram.png"
-							alt="Instagram"
-						/>
+						<SocialIcon src={instagramIcon} alt="Instagram" />
 					</a>
 					<a
 						href="https://www.linkedin.com/company/incentivizinggood"
 						target="_blank"
 					>
-						<SocialIcon src="/images/linkedin.png" alt="LinkedIn" />
+						<SocialIcon src={linkedInIcon} alt="LinkedIn" />
 					</a>
 				</SocialLinks>
 			</LinksContainer>
@@ -149,11 +151,8 @@ export default function Footer() {
 							href="https://wa.me/5216647480001"
 							target="_blank"
 						>
-							<WhatsApp
-								src="/images/whatsapp.png"
-								alt="WhatsApp"
-							/>{" "}
-							+52 (664) 748-0001
+							<WhatsApp src={whatsAppIcon} alt="WhatsApp" /> +52
+							(664) 748-0001
 						</ContactNumberLink>
 					</InternalLinks>
 					<SocialLinks>

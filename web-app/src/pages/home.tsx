@@ -14,6 +14,14 @@ import CompaniesSearchBar from "src/components/companies-search-bar";
 import { translations } from "src/translations";
 import ReactGA from "react-ga";
 
+import homeImg1 from "src/images/home-img-1.png";
+import homeImg2 from "src/images/home-img-2.png";
+import swapIcon from "src/images/swap-icon.png";
+import mobile1 from "src/images/mobile-1.png";
+import mobile2 from "src/images/mobile-2.png";
+import communityIcon from "src/images/community-icon.png";
+import salaryIcon from "src/images/salary-icon.png";
+
 const T = translations.homePage;
 
 function addReviewHomeTop() {
@@ -43,7 +51,7 @@ function RewardComponent() {
 					<div className="col-md-2 add-flex-col center-element">
 						<img
 							className="img-responsive vertical-center"
-							src="images/swap-icon.png"
+							src={swapIcon}
 							alt="Reward"
 						/>
 						<br />
@@ -115,7 +123,7 @@ function HomePage() {
 						<div>
 							<img
 								className="img-responsive"
-								src="images/home-img-2.png"
+								src={homeImg2}
 								alt="Computer screen with example job ad."
 							/>
 						</div>
@@ -173,7 +181,7 @@ function HomePage() {
 								{" "}
 								<img
 									className="img-responsive"
-									src="images/mobile-1.png"
+									src={mobile1}
 									alt="Smart phone with example job ad."
 								/>
 							</center>
@@ -210,7 +218,7 @@ function HomePage() {
 						<div>
 							<img
 								className="img-responsive"
-								src="images/home-img-1.png"
+								src={homeImg1}
 								alt="Company Ratings"
 							/>
 						</div>
@@ -248,7 +256,7 @@ function HomePage() {
 								{" "}
 								<img
 									className="img-responsive"
-									src="images/mobile-2.png"
+									src={mobile2}
 									alt="Company ratings"
 								/>
 							</center>
@@ -272,7 +280,7 @@ function HomePage() {
 									<div className="frontLogo">
 										<img
 											className="img-responsive vertical-center"
-											src="images/community-icon.png"
+											src={communityIcon}
 										/>
 									</div>
 									<div className="frontLocation">
@@ -295,7 +303,7 @@ function HomePage() {
 									<div className="frontLogo">
 										<img
 											className="img-responsive vertical-center"
-											src="images/salary-icon.png"
+											src={salaryIcon}
 										/>
 									</div>
 									<div className="frontLocation">

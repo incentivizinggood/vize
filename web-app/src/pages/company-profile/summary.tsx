@@ -11,15 +11,14 @@ import {
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 
+import defaultCompany from "src/images/default-company.png";
+
 function CompanyProfileSummary(props) {
 	return (
 		<div className="full-width-container no-padding--bottom">
 			<div className="container welpad12 box_shadow">
 				<div className="col-md-2 prostar">
-					<img
-						src="/images/default-company.png"
-						className="img-responsive"
-					/>
+					<img src={defaultCompany} className="img-responsive" />
 				</div>
 
 				<div className="col-md-6">
@@ -74,7 +73,10 @@ function CompanyProfileSummary(props) {
 
 				<div className="col-md-4 prostar">
 					<div className="col-md-12">
-						<WriteReviewButton companyName={props.company.name} buttonLocation='Company Profile | Top' />
+						<WriteReviewButton
+							companyName={props.company.name}
+							buttonLocation="Company Profile | Top"
+						/>
 					</div>
 				</div>
 			</div>

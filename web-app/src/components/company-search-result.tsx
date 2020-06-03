@@ -9,6 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+import defaultCompanyImg from "src/images/default-company.png";
+
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
@@ -45,7 +47,7 @@ function CompanySearchResult(props: CompanySearchResultProps) {
 						<Link to={companyProfileUrl}>
 							<div className="company-search-img">
 								<img
-									src="/images/default-company.png"
+									src={defaultCompanyImg}
 									className="img-responsive"
 									alt={`The company logo of ${props.company.name}`}
 								/>

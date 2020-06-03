@@ -6,6 +6,8 @@ import EmailIcon from "@material-ui/icons/Email";
 import PublicIcon from "@material-ui/icons/Public";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
+import profileIcon from "src/images/icons/profile-icon.png";
+
 import { translations } from "src/translations";
 
 const T = translations.resources;
@@ -109,7 +111,7 @@ function ArticleContactSection(props: ArticleAuthorProps) {
 		if (props.author.authorImageURL) {
 			return <AuthorImage src={props.author.authorImageURL} />;
 		} else {
-			return <AuthorImage src="/images/icons/profile-icon.png" />;
+			return <AuthorImage src={profileIcon} />;
 		}
 	};
 
