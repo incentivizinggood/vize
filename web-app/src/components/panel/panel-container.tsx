@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { forSize } from "src/responsive.js";
+import { forSize } from "src/responsive";
 
 const NavbarHeigh = "67px";
 

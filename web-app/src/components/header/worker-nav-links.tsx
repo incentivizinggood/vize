@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { forSize } from "src/responsive.js";
+import { forSize } from "src/responsive";
 import { translations } from "src/translations";
 
 const T = translations.header;

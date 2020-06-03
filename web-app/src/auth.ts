@@ -1,5 +1,3 @@
-import request from "request-promise-native";
-
 import client from "./startup/graphql";
 
 // NOTE: The user's logged in state is tracked by a session.
@@ -20,21 +18,25 @@ function afterLoginOrLogout<T>(x: T): T {
 }
 
 export const login = async (username: string, password: string) =>
-	request({
-		method: "POST",
-		uri: `${location.origin}/api/login`,
-		body: {
-			username,
-			password,
-		},
-		json: true,
-	}).then(afterLoginOrLogout);
+	fetch(
+		new Request(`${location.origin}/api/login`, {
+			method: "POST",
+			headers: new Headers({
+				"Content-Type": "application/json",
+			}),
+			body: JSON.stringify({
+				username,
+				password,
+			}),
+		})
+	).then(afterLoginOrLogout);
 
 export const logout = async () =>
-	request({
-		method: "POST",
-		url: `${location.origin}/api/logout`,
-	}).then(afterLoginOrLogout);
+	fetch(
+		new Request(`${location.origin}/api/logout`, {
+			method: "POST",
+		})
+	).then(afterLoginOrLogout);
 
 export const register = async (options: {
 	username: string;
@@ -42,20 +44,30 @@ export const register = async (options: {
 	password: string;
 	role: "worker" | "company";
 }) =>
-	request({
-		method: "POST",
-		uri: `${location.origin}/api/register`,
-		body: options,
-		json: true,
-	}).then(afterLoginOrLogout);
+	fetch(
+		new Request(`${location.origin}/api/register`, {
+			method: "POST",
+			headers: new Headers({
+				"Content-Type": "application/json",
+			}),
+			body: JSON.stringify({
+				options,
+			}),
+		})
+	).then(afterLoginOrLogout);
 
 export const changePassword = async (options: {
 	oldPassword: string;
 	newPassword: string;
 }) =>
-	request({
-		method: "POST",
-		uri: `${location.origin}/api/change-password`,
-		body: options,
-		json: true,
-	});
+	fetch(
+		new Request(`${location.origin}/api/change-password`, {
+			method: "POST",
+			headers: new Headers({
+				"Content-Type": "application/json",
+			}),
+			body: JSON.stringify({
+				options,
+			}),
+		})
+	);
