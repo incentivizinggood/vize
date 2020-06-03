@@ -1,12 +1,21 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-import { translations as T } from "imports/ui/translations";
+import { translations as T } from "src/translations";
 
-class CompaniesSearchBar extends React.Component {
-	constructor(props) {
+type CompaniesSearchBarProps = RouteComponentProps;
+
+interface CompaniesSearchBarState {
+	search: string;
+}
+
+class CompaniesSearchBar extends React.Component<
+	CompaniesSearchBarProps,
+	CompaniesSearchBarState
+> {
+	constructor(props: Readonly<CompaniesSearchBarProps>) {
 		super(props);
 
 		// Purpose of getting params is so that the search text field doesn't reset to being empty after a search
@@ -23,18 +32,19 @@ class CompaniesSearchBar extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleInputChange(event) {
+	handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
 		const { target } = event;
 		const value =
 			target.type === "checkbox" ? target.checked : target.value;
 		const { name } = target;
 
+		//@ts-ignore
 		this.setState({
 			[name]: value,
 		});
 	}
 
-	handleSubmit(event) {
+	handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		this.props.history.push(`/companies/?search=${this.state.search}`);
 	}
