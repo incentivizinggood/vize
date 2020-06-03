@@ -8,7 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import CircularProgressbar from "react-circular-progressbar";
 import { createMuiTheme } from "@material-ui/core";
 
-import { translations } from "imports/ui/translations";
+import { translations } from "src/translations";
+import { CircularProgressbarStyles } from "react-circular-progressbar/dist/types";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -44,8 +45,23 @@ const styles = {
 	},
 };
 
-class ChangingProgressbar extends React.Component {
-	constructor(props) {
+interface ChangingProgressbarProps {
+	stylesForPercentage?: (percentage: number) => CircularProgressbarStyles;
+	percentages: number[];
+	interval: number;
+	strokeWidth: number;
+	initialAnimation?: boolean;
+}
+
+interface ChangingProgressbarState {
+	currentPercentageIndex: number;
+}
+
+class ChangingProgressbar extends React.Component<
+	ChangingProgressbarProps,
+	ChangingProgressbarState
+> {
+	constructor(props: Readonly<ChangingProgressbarProps>) {
 		super(props);
 
 		this.state = {
@@ -63,7 +79,7 @@ class ChangingProgressbar extends React.Component {
 		}, this.props.interval);
 	}
 
-	getStyles() {
+	getStyles(): CircularProgressbarStyles {
 		return this.props.stylesForPercentage
 			? this.props.stylesForPercentage(this.getCurrentPercentage())
 			: {};
@@ -75,6 +91,7 @@ class ChangingProgressbar extends React.Component {
 
 	render() {
 		return (
+			//@ts-ignore
 			<CircularProgressbar
 				{...this.props}
 				percentage={this.getCurrentPercentage()}
@@ -83,6 +100,7 @@ class ChangingProgressbar extends React.Component {
 		);
 	}
 }
+//@ts-ignore
 ChangingProgressbar.defaultProps = {
 	interval: 100000,
 };
@@ -102,7 +120,7 @@ function CompanyRating(props) {
 		<div>
 			<div className="row">
 				<div className="col-md-6  bodr_lft">
-					<Card disableFocusRipple className={classes.card}>
+					<Card className={classes.card}>
 						<CardMedia>
 							<Typography
 								gutterBottom
