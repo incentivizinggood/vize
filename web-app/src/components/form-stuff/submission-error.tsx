@@ -15,7 +15,11 @@ const Pre = styled.pre`
 	overflow: scroll;
 `;
 
-function SubmissionError({ error }) {
+interface SubmissionErrorProps {
+	error?: unknown;
+}
+
+function SubmissionError({ error }: SubmissionErrorProps) {
 	if (error === null) {
 		return null;
 	}

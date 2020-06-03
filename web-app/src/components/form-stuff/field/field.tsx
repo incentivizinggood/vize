@@ -53,7 +53,9 @@ const FieldInner: React.ComponentType<any> = ({
 
 const FieldComponent: React.ComponentType<any> = ({ t: T, ...restProps }) => {
 	if (T !== undefined) {
-		return <T renderer={t => <FieldInner {...restProps} {...t} />} />;
+		return (
+			<T renderer={(t: any) => <FieldInner {...restProps} {...t} />} />
+		);
 	}
 
 	return FieldInner(restProps);

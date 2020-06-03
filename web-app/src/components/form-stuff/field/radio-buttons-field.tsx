@@ -7,7 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PrivacyIcon from "@material-ui/icons/Security";
 
-const RadioButtonsField = ({
+const RadioButtonsField: React.FC<any> = ({
 	field,
 	form: { touched, errors },
 	name,
@@ -30,7 +30,7 @@ const RadioButtonsField = ({
 				</FormLabel>
 			</span>
 			<RadioGroup {...props} {...field} name={field.name}>
-				{options.map(option => (
+				{options.map((option: any) => (
 					<FormControlLabel
 						value={option.props.value}
 						control={<Radio color="primary" />}

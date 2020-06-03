@@ -1,12 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import PageWrapper from "imports/ui/components/page-wrapper";
-import {
-	Panel,
-	PanelContainer,
-	PannelPadding,
-} from "imports/ui/components/panel";
+import PageWrapper, { PageWrapperProps } from "src/components/page-wrapper";
+import { Panel, PanelContainer, PannelPadding } from "src/components/panel";
 
 const FormHeader = styled.h1`
 	margin-bottom: 10px;
@@ -18,7 +14,7 @@ const FormHeader = styled.h1`
 const FormText = styled.p`
 	margin-bottom: 5px;
 	color: black;
-	font-size: 15px
+	font-size: 15px;
 
 	text-align: left;
 `;
@@ -42,7 +38,9 @@ const FormToolbar = styled.div`
 	margin-top: 20px;
 `;
 
-function FormPageWrapper({ children, ...restProps }) {
+type FormPageWrapperProps = PageWrapperProps;
+
+function FormPageWrapper({ children, ...restProps }: FormPageWrapperProps) {
 	return (
 		<PageWrapper {...restProps}>
 			<PanelContainer>

@@ -1,11 +1,11 @@
 import React from "react";
-import { FieldArray, connect, FormikContext } from "formik";
+import { FieldArray, connect, FormikContextType } from "formik";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "imports/ui/components/button";
-import { TranslationComponent } from "imports/ui/translations";
+import { Button } from "src/components/button";
+import { TranslationComponent } from "src/translations";
 
 const ArrayContainer = styled.div`
 	margin-top: 20px;
@@ -54,7 +54,7 @@ function FormArray({
 	T,
 	ElementRender,
 	formik: { values },
-}: FormArrayProps & { formik: FormikContext<any> }) {
+}: FormArrayProps & { formik: FormikContextType<any> }) {
 	return (
 		<>
 			<FieldArray
@@ -62,7 +62,7 @@ function FormArray({
 				render={arrayHelpers => (
 					<ArrayContainer>
 						{values[name] && values[name].length > 0
-							? values[name].map((x, index: number) => (
+							? values[name].map((x: unknown, index: number) => (
 									<ElementContainer>
 										<ElementDeleteButton
 											type="button"
