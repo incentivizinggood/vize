@@ -123,9 +123,20 @@ export function applyPassportMiddleware(app: Express) {
 				},
 				async function(accessToken, refreshToken, profile, cb) {
 					try {
+						console.log("Facebook user profile =", profile);
+
+						// Try to extract the user's email address.
+						// We are not guarantied to get the email address.
+						const emailAddress =
+							profile.emails && profile.emails.length > 0
+								? profile.emails[0].value
+								: null;
+
 						const user = await authWithFacebook({
 							facebookId: profile.id,
+							emailAddress,
 						});
+
 						return cb(undefined, user);
 					} catch (err) {
 						return cb(err, undefined);
@@ -134,7 +145,12 @@ export function applyPassportMiddleware(app: Express) {
 			)
 		);
 
-		app.get("/auth/facebook", passport.authenticate("facebook"));
+		app.get(
+			"/auth/facebook",
+			passport.authenticate("facebook", {
+				scope: ["email", "public_profile"],
+			})
+		);
 
 		app.get(
 			"/auth/facebook/callback",
