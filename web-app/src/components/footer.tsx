@@ -81,7 +81,7 @@ const SocialIcon = styled.img`
 	border-radius: 8px;
 `;
 
-const CopyRight = styled.p`
+const CopyRight = styled.div`
 	display: block;
 	margin-top: 10px;
 	padding: 7px 0 0 0;
