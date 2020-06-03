@@ -153,6 +153,8 @@ interface HeaderProps {
 }
 
 function Header(props: HeaderProps) {
+	const [expanded, setExpanded] = React.useState(false);
+
 	return (
 		<div className="top-nav">
 			<FadableNav animated={props.navIsAnimated}>
@@ -160,9 +162,14 @@ function Header(props: HeaderProps) {
 					<div className="navbar-header logo">
 						<button
 							type="button"
-							className="navbar-toggle collapsed slide-toggle"
+							className={
+								"navbar-toggle slide-toggle" +
+								(expanded ? "" : " collapsed")
+							}
 							data-toggle="collapse"
 							data-target="#bs-example-navbar-collapse-1"
+							aria-expanded={expanded}
+							onClick={() => setExpanded(x => !x)}
 						>
 							<span className="sr-only">Toggle navigation</span>
 							<span className="icon-bar" />
@@ -176,8 +183,11 @@ function Header(props: HeaderProps) {
 						</h2>
 					</div>
 					<div
-						className="collapse navbar-collapse"
+						className={
+							"navbar-collapse collapse" + (expanded ? " in" : "")
+						}
 						id="bs-example-navbar-collapse-1"
+						aria-expanded={expanded}
 					>
 						<ul className="nav navbar-nav left_nav">
 							<NavLinks user={props.user} />
