@@ -9,13 +9,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { processLocation } from "imports/ui/misc";
-import { WriteReviewButton } from "imports/ui/components/button";
-import { translations } from "imports/ui/translations";
+import { processLocation } from "src/misc";
+import { WriteReviewButton } from "src/components/button";
+import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
 
-function CompanySearchResult(props) {
+interface CompanySearchResultProps {
+	company: {
+		id: unknown;
+		name: string;
+		avgStarRatings: {
+			overallSatisfaction: number;
+		};
+		industry?: string;
+		numEmployees?: string;
+		numReviews: number;
+		numSalaries: number;
+		numJobAds: number;
+		descriptionOfCompany?: string;
+		locations: string[];
+	};
+}
+
+function CompanySearchResult(props: CompanySearchResultProps) {
 	const companyProfileUrl = `/companyprofile/?id=${props.company.id}`;
 	return (
 		<div>
@@ -92,7 +109,7 @@ function CompanySearchResult(props) {
 							<div className="titlestar">
 								<WriteReviewButton
 									companyName={props.company.name}
-									buttonLocation='Search'
+									buttonLocation="Search"
 								/>
 							</div>
 						</div>

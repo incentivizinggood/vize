@@ -2,8 +2,9 @@
 # should never be checked into version control.
 config
 
-# NPM stuff
+# NPM & Yarn stuff
 node_modules
+yarn-error.log
 
 # Webpack stuff
 dist
