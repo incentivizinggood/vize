@@ -10,6 +10,7 @@ generates:
         ArticleAuthor: src/models/types#ArticleAuthor
         ArticleTopic: src/models/types#ArticleTopic
         Comment: src/models/types#Comment
+        CompanySalaryStats: src/models/types#CompanySalaryStats
         CommentParent: src/models/types#CommentParent
         StarRatings: src/models/types#StarRatings
         Company: src/models/types#Company

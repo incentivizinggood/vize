@@ -7,7 +7,7 @@ const X = styled.div`
 
 const LoginWithFacebook: React.FC = () => (
 	<X>
-		or <a href="/auth/facebook">Login with Facebook</a>
+		or <a href="/api/auth/facebook">Login with Facebook</a>
 	</X>
 );
 

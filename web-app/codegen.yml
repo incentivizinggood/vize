@@ -1,4 +1,4 @@
-schema: ../application-server/src/graphql/schema.graphql
+schema: ../api-server/src/graphql/schema.graphql
 documents: src/**/*.graphql
 overwrite: true
 generates:

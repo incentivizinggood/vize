@@ -301,6 +301,16 @@ type Company {
 	salaries(pageNum: Int = 0, pageSize: Int = 24): [Salary!]!
 	"Number of salaries reported to be earned at this company."
 	numSalaries: Int!
+
+	salaryStats: [CompanySalaryStats!]!
+}
+
+type CompanySalaryStats {
+	companyName: String!
+	jobTitle: String!
+	totalAvgPay: Float!
+	totalMaxPay: Float!
+	totalMinPay: Float!
 }
 
 type JobAd {
