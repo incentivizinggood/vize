@@ -10,6 +10,9 @@ module.exports = {
 	devServer: {
 		compress: true,
 		port: 3000,
+		proxy: {
+			"/api": "http://localhost:3001",
+		},
 		historyApiFallback: true,
 	},
 	resolve: {

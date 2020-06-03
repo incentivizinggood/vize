@@ -2,10 +2,15 @@ import util from "util";
 
 import { app, onServerReady } from "src/http";
 import { pool } from "src/connectors/postgresql";
+import express = require("express");
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
-const server = app.listen(PORT, () => {
+const app2 = express();
+
+app2.use("/api", app);
+
+const server = app2.listen(PORT, () => {
 	console.log("server started at http://localhost:" + PORT);
 	onServerReady();
 });
