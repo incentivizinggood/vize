@@ -22,6 +22,18 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.(png|jpe?g|gif|woff)$/i,
+				use: [
+					{
+						loader: "file-loader",
+					},
+				],
+			},
+			{
+				test: /\.s[ac]ss$/i,
+				use: ["style-loader", "css-loader", "sass-loader"],
+			},
+			{
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: [

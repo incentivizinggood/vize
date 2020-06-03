@@ -5,6 +5,7 @@ import client from "src/startup/graphql";
 import initHotjar from "src/startup/hotjar";
 import "src/startup/i18n";
 import AppRoot from "src/app-root";
+import "./sass/_index.scss";
 
 initHotjar();
 
