@@ -8,9 +8,9 @@ module.exports = {
 	// Enable sourcemaps for debugging Webpack's output
 	devtool: "source-map",
 	devServer: {
-		contentBase: path.join(__dirname, "dist"),
 		compress: true,
 		port: 3000,
+		historyApiFallback: true,
 	},
 	resolve: {
 		alias: {
@@ -66,6 +66,7 @@ module.exports = {
 		new HtmlWebPackPlugin({
 			template: "./src/index.html",
 			filename: "./index.html",
+			base: "/",
 		}),
 	],
 };
