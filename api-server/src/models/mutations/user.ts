@@ -160,17 +160,19 @@ const authWithFacebookInputSchema = yup
 			.oneOf(["worker", "company"])
 			.default("worker")
 			.required(),
+		emailAddress: yup.string().nullable(),
 	})
 	.required();
 
 /** Creates or verifies user. */
 export async function authWithFacebook(input: unknown) {
-	const { facebookId, role } = await authWithFacebookInputSchema.validate(
-		input,
-		{
-			abortEarly: false,
-		}
-	);
+	const {
+		facebookId,
+		role,
+		emailAddress,
+	} = await authWithFacebookInputSchema.validate(input, {
+		abortEarly: false,
+	});
 
 	// Check if this user has logged in with Facebook before.
 	const { rows } = await pool.query(sql`
@@ -186,9 +188,9 @@ export async function authWithFacebook(input: unknown) {
 			rows: [user],
 		} = await pool.query(sql`
 			INSERT INTO users
-				(facebook_id, role)
+				(facebook_id, role, email_address)
 			VALUES
-				(${facebookId}, ${role})
+				(${facebookId}, ${role}, ${emailAddress})
 			RETURNING ${attributes}
 		`);
 

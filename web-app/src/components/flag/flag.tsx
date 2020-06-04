@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
-//import { Meteor } from "meteor/meteor";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 import { translations } from "src/translations";
 
@@ -37,42 +37,42 @@ const ButtonSlide = styled.div`
 	margin-top: 7px;
 `;
 
-function FlagSystem(props) {
+const FLAG_REVIEW = gql`
+	mutation FlagReview($input: FlagReviewInput!) {
+		flagReview(input: $input) {
+			success
+		}
+	}
+`;
+
+interface FlagSystemProps {
+	reviewId: string;
+}
+
+function FlagSystem(props: FlagSystemProps) {
 	const [explanation, setExplanation] = React.useState("");
 	const [reason, setReason] = React.useState("");
 
 	console.log(explanation, reason);
 
-	const handleExplanationChange = event => setExplanation(event.target.value);
-	const handleReasonChange = event => setReason(event.target.value);
+	const handleExplanationChange = (
+		event: React.ChangeEvent<HTMLTextAreaElement>
+	) => setExplanation(event.target.value);
 
-	const handleSubmit = event => {
-		if (document.getElementById("textAreaClear").value === "") {
-			alert("please_choose_reason");
-		} else {
-			/*
-			Meteor.call(
-				"flagAReview",
-				props.reviewId,
-				reason,
-				explanation,
-				(err, res) => {
-					if (err) {
-						console.log("--- BEGIN error:");
-						console.log(err);
-						console.log("--- END error");
-					} else {
-						console.log("--- BEGIN success:");
-						console.log(res);
-						console.log("--- END success");
-					}
-				}
-			);
-			*/
-			document.getElementById("textAreaClear").value = "";
-			alert("thanks");
-		}
+	const handleReasonChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
+		setReason(event.target.value);
+
+	const [flagReview] = useMutation(FLAG_REVIEW);
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		flagReview({
+			variables: {
+				input: { reviewId: props.reviewId, reason, explanation },
+			},
+		});
+
+		alert("thanks");
 	};
 
 	return (
@@ -83,34 +83,35 @@ function FlagSystem(props) {
 					<T.report_review />{" "}
 				</FlagTitle>
 				<LinePadding />
+
 				<Reason>
-					<select
-						id="selectClear"
-						className="form-control"
-						value={reason}
-						onChange={handleReasonChange}
-					>
-						<option selected disabled>
-							<T.choose_reason />
-						</option>
-						<option value="Inappropriate Comment">
-							<T.in_comment />
-						</option>
-						<option value="False Information">
-							<T.false />
-						</option>
-						<option value="Other">
-							<T.other />
-						</option>
-					</select>
+					<T
+						renderer={t => (
+							<select
+								id="selectClear"
+								className="form-control"
+								value={reason}
+								onChange={handleReasonChange}
+							>
+								<option selected>{t.choose_reason}</option>
+								<option value="Inappropriate Comment">
+									{t.in_comment}
+								</option>
+								<option value="False Information">
+									{t.false}
+								</option>
+								<option value="Other">{t.other}</option>
+							</select>
+						)}
+					/>
 				</Reason>
 				<TextArea>
 					<T.explanation
 						renderer={t => (
 							<textarea
 								id="textAreaClear"
-								rows="2"
-								cols="200"
+								rows={2}
+								cols={200}
 								placeholder={t}
 								className="form-control shadow-textarea z-depth-1"
 								value={explanation}

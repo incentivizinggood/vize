@@ -7,6 +7,8 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { withUser } from "src/hoc/user";
 import { ArticleAuthor } from "imports/api/models/types";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
 import {
 	SectionTitle,
@@ -266,6 +268,16 @@ function ArticlePage(props) {
 		// TODO: Display errors in better way
 		return <>{JSON.stringify(error)}</>;
 	}
+
+	ReactGA.event({
+		category: "User",
+		action: "Viewed Article",
+		label: slug,
+	});
+	ReactPixel.track("Viewed Article", {
+		category: "User",
+		label: slug,
+	});
 
 	return (
 		<>
