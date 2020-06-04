@@ -1,34 +1,60 @@
+import * as yup from "yup";
+
 import { sendEmail } from "imports/api/connectors/email";
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
-import { getUserById } from ".";
+import { User } from ".";
 
-export async function flagAReview(
-	reviewId: string,
-	userId: number,
-	reason: string,
-	explanation: string
+const flagReviewInputSchema = yup.object({
+	reviewId: yup
+		.string()
+		.trim()
+		.required(),
+	reason: yup
+		.string()
+		.trim()
+		.required(),
+	explanation: yup
+		.string()
+		.trim()
+		.required(),
+});
+
+export async function flagReview(
+	user: User | undefined | null,
+	input: unknown
 ) {
+	const {
+		reviewId,
+		reason,
+		explanation,
+	} = await flagReviewInputSchema.validate(input, {
+		abortEarly: false,
+	});
+
 	const reviewInfo = await simpleQuery1<{
 		reviewTitle: string;
 		companyName: string;
-	}>(
-		sql`
+	}>(sql`
 			SELECT reviewtitle AS "reviewTitle", companies.name AS "companyName"
 			FROM reviews
 			JOIN companies ON reviews.companyid = companies.companyid
 			WHERE reviewid = ${reviewId}
-		`
-	);
+	`);
+
 	if (reviewInfo === null) {
 		throw new Error("That review does not exist.");
 	}
 
-	const user = await getUserById(userId);
-
 	sendEmail({
 		to: "incentivizinggood@gmail.com",
 		subject: "Someone flagged a review",
-		text: `UserName: ${user.username}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${reviewInfo.reviewTitle}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
+		text: `${
+			user ? `UserName: ${user.username}` : `No user was logged in.`
+		}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${
+			reviewInfo.reviewTitle
+		}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
 	});
+
+	return true;
 }
