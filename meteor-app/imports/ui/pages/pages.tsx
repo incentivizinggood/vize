@@ -56,7 +56,7 @@ function Pages(props) {
 			<Route path="/test" component={TestPage} />
 			// recursos = resources
 			<Route
-				path={`/recursos/articulo/:slug`}
+				path={`/recursos/recurso/:slug`}
 				component={() => <Article />}
 			/>
 			<Route

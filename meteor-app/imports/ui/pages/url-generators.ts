@@ -14,7 +14,7 @@ const queryRoutes = {
 // in order to reduce the risk of typos
 // and reduce the use of magic strings
 const vizeArticleUrl = function(slug: string) {
-	return `/${queryRoutes.resources}/articulo/${slug}`;
+	return `/${queryRoutes.resources}/recurso/${slug}`;
 };
 const vizeArticleTopicUrl = function(topicName: string) {
 	return `/${queryRoutes.resources}/temas/${topicName}`;

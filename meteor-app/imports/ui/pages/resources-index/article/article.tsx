@@ -46,12 +46,15 @@ const ArticleSubtitle = styled.h4`
 `;
 
 const AuthorName = styled.h5`
+	display: inline-block;
 	color: black;
-	margin: 5px auto;
+	margin-right: 8px;
 	margin-top: 20px;
+	margin-bottom: 8px;
 `;
 
 const ArticlePublishedDate = styled.h6`
+	display: inline-block;
 	color: rgba(0, 0, 0, 0.54);
 	margin: 5px auto;
 `;
@@ -64,6 +67,7 @@ const ArticleImage = styled.img`
 	${forSize.phoneOnly} {
 		width: calc(100% + 40px);
 		margin: 0 -20px;
+		margin-bottom: 20px;
 	}
 `;
 
@@ -149,11 +153,13 @@ function Article(props: ArticleProps) {
 
 	const AuthorTitleName = () => {
 		if (props.article.author.authorName) {
-			return <AuthorName>{props.article.author.authorName}</AuthorName>;
+			return (
+				<AuthorName>Por {props.article.author.authorName}</AuthorName>
+			);
 		} else {
 			return (
 				<AuthorName>
-					{props.article.author.authorCompanyName}
+					Por {props.article.author.authorCompanyName}
 				</AuthorName>
 			);
 		}
