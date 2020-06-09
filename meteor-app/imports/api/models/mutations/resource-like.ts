@@ -7,20 +7,20 @@ import { User } from "imports/api/models";
 /** Create a new vote or, if the subject was already voted on, change the vote.
  * If isUpvote is null then remove the vote.
  */
-export async function articleLike(
+export async function resourceLike(
 	user: User,
-	articleSlug: string,
+	resourceSlug: string,
 	isLiked: boolean
-): Promise<Article | null> {
+): Promise<Resource | null> {
 	if (!isLiked) {
 		return simpleQuery1(sql`
-			INSERT INTO article_likes (user_id, article_slug)
-			VALUES (${user.userId}, ${articleSlug})
-		`).then(() => dataModel.getArticleBySlug(articleSlug));
+			INSERT INTO resource_likes (user_id, resource_slug)
+			VALUES (${user.userId}, ${resourceSlug})
+		`).then(() => dataModel.getResourceBySlug(resourceSlug));
 	} else {
 		return simpleQuery1(sql`
-			DELETE FROM article_likes
-			WHERE user_id=${user.userId} AND article_slug=${articleSlug}
-		`).then(() => dataModel.getArticleBySlug(articleSlug));
+			DELETE FROM resource_likes
+			WHERE user_id=${user.userId} AND resource_slug=${resourceSlug}
+		`).then(() => dataModel.getResourceBySlug(resourceSlug));
 	}
 }

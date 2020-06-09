@@ -1,4 +1,4 @@
-export * from "./article-like";
+export * from "./resource-like";
 export * from "./company";
 export * from "./job-ad";
 export * from "./review";

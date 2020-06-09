@@ -1,13 +1,13 @@
-mutation articleLike($input: ArticleLikeInput!) {
-	articleLike(input: $input) {
-		article {
+mutation resourceLike($input: ResourceLikeInput!) {
+	resourceLike(input: $input) {
+		resource {
 			id
 
 			slug
 			title
 			subtitle
 			body
-			articleImageURL
+			resourceImageURL
 			topicName
 			authorId
 			numberOfLikes

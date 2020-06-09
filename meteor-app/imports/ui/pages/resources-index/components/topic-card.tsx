@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import ArrowRightIcon from "@material-ui/icons/ArrowRightAlt";
 
-const articleDetailsPadding = "8px";
+const resourceDetailsPadding = "8px";
 
 const TopicCard = styled.div`
 	display: flex;
@@ -29,7 +29,7 @@ const TopicCardContent = styled.div`
 	flex-direction: column;
 
 	width: 100%;
-	padding: ${articleDetailsPadding};
+	padding: ${resourceDetailsPadding};
 `;
 
 const TopicImage = styled.img`
@@ -62,7 +62,7 @@ function TopicCardComponent(props: TopicCardProps) {
 	return (
 		<TopicCard>
 			<LinkRedirect
-				to={urlGenerators.vizeArticleTopicUrl(props.topicName)}
+				to={urlGenerators.vizeResourceTopicUrl(props.topicName)}
 			>
 				<TopicCardContent>
 					<TopicImage src={props.iconImageURL} />
@@ -70,7 +70,7 @@ function TopicCardComponent(props: TopicCardProps) {
 					<TopicName>{props.topicName}</TopicName>
 
 					<LinkRedirect
-						to={urlGenerators.vizeArticleTopicUrl(props.topicName)}
+						to={urlGenerators.vizeResourceTopicUrl(props.topicName)}
 					>
 						<ArrowRightIcon
 							style={{ fontSize: "3.4rem" }}

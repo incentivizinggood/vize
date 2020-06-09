@@ -392,9 +392,9 @@ export default {
 		submit: "Enviar",
 	},
 	resources: {
-		featuredArticles: "Artículos Destacados",
+		featuredResources: "Recursos Destacados",
 		topics: "Temas",
-		recentArticles: "Artículos Recientes",
+		recentResources: "Recursos Recientes",
 		contact: {
 			title: "Contacto",
 			phone: "Telefono",

@@ -1,5 +1,5 @@
-query articleAuthorQuery($id: ID!) {
-	articleAuthor(id: $id) {
+query resourceAuthorQuery($id: ID!) {
+	resourceAuthor(id: $id) {
 		authorName
 		authorCompanyName
 		authorImageURL

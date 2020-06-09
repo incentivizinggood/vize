@@ -1,7 +1,7 @@
 import sql from "imports/lib/sql-template";
 import { simpleQuery1 } from "imports/api/connectors/postgresql";
 
-import { ArticleAuthor } from "imports/api/models";
+import { ResourceAuthor } from "imports/api/models";
 
 const attributes = sql.raw(
 	[
@@ -19,12 +19,12 @@ const attributes = sql.raw(
 
 const baseQuery = sql`
 	SELECT ${attributes}
-	FROM article_authors
+	FROM resource_authors
 `;
 
-export async function getArticleAuthorById(
+export async function getResourceAuthorById(
 	id: number
-): Promise<ArticleAuthor | null> {
+): Promise<ResourceAuthor | null> {
 	return simpleQuery1(sql`
 		${baseQuery}
 		WHERE author_id=${id}

@@ -6,17 +6,21 @@ import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { withUser } from "imports/ui/hoc/user";
+<<<<<<< HEAD:meteor-app/imports/ui/pages/resources-index/article/article.tsx
 import { ArticleAuthor } from "imports/api/models/types";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
+=======
+import { ResourceAuthor } from "imports/api/models/types";
+>>>>>>> refactoring:meteor-app/imports/ui/pages/resources-index/resource/resource.tsx
 
 import {
 	SectionTitle,
 	BackToResourcesHeader,
-	Articles,
+	Resources,
 	Topics,
 } from "../components";
-import ArticleContactSection from "./article-contact";
+import ResourceContactSection from "./resource-contact";
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
 import { forSize } from "imports/ui/responsive.js";
@@ -35,12 +39,12 @@ import {
 	WhatsappIcon,
 } from "react-share";
 
-import articlePageQuery from "./article.graphql";
-import articleAuthorQuery from "./article-author.graphql";
-import articleLikeMutation from "./article-like.graphql";
+import resourcePageQuery from "./resource.graphql";
+import resourceAuthorQuery from "./resource-author.graphql";
+import resourceLikeMutation from "./resource-like.graphql";
 import { PanelContainer, Panel } from "imports/ui/components/panel";
 
-const ArticleSubtitle = styled.h4`
+const ResourceSubtitle = styled.h4`
 	color: rgba(0, 0, 0, 0.54);
 	margin: 5px auto;
 `;
@@ -53,13 +57,13 @@ const AuthorName = styled.h5`
 	margin-bottom: 8px;
 `;
 
-const ArticlePublishedDate = styled.h6`
+const ResourcePublishedDate = styled.h6`
 	display: inline-block;
 	color: rgba(0, 0, 0, 0.54);
 	margin: 5px auto;
 `;
 
-const ArticleImage = styled.img`
+const ResourceImage = styled.img`
 	width: calc(100% + 60px);
 	margin: 0 -30px;
 	margin-bottom: 30px;
@@ -71,7 +75,7 @@ const ArticleImage = styled.img`
 	}
 `;
 
-const ArticleFooter = styled.div`
+const ResourceFooter = styled.div`
 	display: flex;
 	flex-direction: row;
 
@@ -121,15 +125,15 @@ const SocialShareButtons = styled.div`
 	}
 `;
 
-type ArticleProps = {
-	article: {
+type ResourceProps = {
+	resource: {
 		slug: string;
 		title: string;
 		subtitle: string;
 		body: string;
-		articleImageURL: string;
+		resourceImageURL: string;
 		topicName: string;
-		author: ArticleAuthor;
+		author: ResourceAuthor;
 		publishDate: string;
 		isLikedByCurrentUser: boolean;
 		numberOfLikes: number;
@@ -137,47 +141,47 @@ type ArticleProps = {
 	user?: any;
 };
 
-// Article Component
-function Article(props: ArticleProps) {
+// Resource Component
+function Resource(props: ResourceProps) {
 	const dateOptions = {
 		day: "numeric",
 		month: "long",
 		year: "numeric",
 	};
 
-	let articlePublishedDate = new Date(
-		props.article.publishDate
+	let resourcePublishedDate = new Date(
+		props.resource.publishDate
 	).toLocaleDateString("es-MX", dateOptions);
 
 	// Display either the author name or the company name of the author
 
 	const AuthorTitleName = () => {
-		if (props.article.author.authorName) {
+		if (props.resource.author.authorName) {
 			return (
-				<AuthorName>Por {props.article.author.authorName}</AuthorName>
+				<AuthorName>Por {props.resource.author.authorName}</AuthorName>
 			);
 		} else {
 			return (
 				<AuthorName>
-					Por {props.article.author.authorCompanyName}
+					Por {props.resource.author.authorCompanyName}
 				</AuthorName>
 			);
 		}
 	};
 
-	const [articleLike, { likeData }] = useMutation(articleLikeMutation);
+	const [resourceLike, { likeData }] = useMutation(resourceLikeMutation);
 
-	// Modal is displayed if user likes article and is not logged in
+	// Modal is displayed if user likes resource and is not logged in
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(
 		loginRegisterModal
 	);
 
 	function likeButton() {
-		articleLike({
+		resourceLike({
 			variables: {
 				input: {
-					articleSlug: props.article.slug,
-					isArticleLiked: props.article.isLikedByCurrentUser,
+					resourceSlug: props.resource.slug,
+					isResourceLiked: props.resource.isLikedByCurrentUser,
 				},
 			},
 		}).catch(errors => {
@@ -193,7 +197,7 @@ function Article(props: ArticleProps) {
 	}
 
 	let LikeButtonIcon = () => <FavoriteBorderIcon />;
-	if (props.article && props.article.isLikedByCurrentUser) {
+	if (props.resource && props.resource.isLikedByCurrentUser) {
 		LikeButtonIcon = () => <FavoriteIcon />;
 	}
 
@@ -203,36 +207,36 @@ function Article(props: ArticleProps) {
 			<BackToResourcesHeader />
 
 			<Panel>
-				<h2>{props.article.title}</h2>
+				<h2>{props.resource.title}</h2>
 
-				<ArticleSubtitle>{props.article.subtitle}</ArticleSubtitle>
+				<ResourceSubtitle>{props.resource.subtitle}</ResourceSubtitle>
 
 				<AuthorTitleName />
 
-				<ArticlePublishedDate>
-					{articlePublishedDate}
-				</ArticlePublishedDate>
+				<ResourcePublishedDate>
+					{resourcePublishedDate}
+				</ResourcePublishedDate>
 
-				<ArticleImage src={props.article.articleImageURL} />
+				<ResourceImage src={props.resource.resourceImageURL} />
 
-				<ReactMarkdown source={props.article.body} />
+				<ReactMarkdown source={props.resource.body} />
 
 				<SectionLineSeparateor />
 
-				<ArticleContactSection author={props.article.author} />
+				<ResourceContactSection author={props.resource.author} />
 			</Panel>
 
-			<ArticleFooter>
+			<ResourceFooter>
 				<button onClick={likeButton}>
 					<LikeButtonIcon />
 				</button>
-				<NumLikes>{props.article.numberOfLikes}</NumLikes>
+				<NumLikes>{props.resource.numberOfLikes}</NumLikes>
 
 				<SocialShareButtons>
 					<WhatsappShareButton
 						url={
 							domain +
-							urlGenerators.vizeArticleUrl(props.article.slug)
+							urlGenerators.vizeResourceUrl(props.resource.slug)
 						}
 						title="Hola, estoy leyendo este artículo y te lo recomiendo!"
 					>
@@ -242,7 +246,7 @@ function Article(props: ArticleProps) {
 					<FacebookShareButton
 						url={
 							domain +
-							urlGenerators.vizeArticleUrl(props.article.slug)
+							urlGenerators.vizeResourceUrl(props.resource.slug)
 						}
 						quote="Hola, estoy leyendo este artículo y se los recomiendo!"
 						hashtag="#incentivandoelbien"
@@ -250,19 +254,19 @@ function Article(props: ArticleProps) {
 						<FacebookIcon size="27" round={true} />
 					</FacebookShareButton>
 				</SocialShareButtons>
-			</ArticleFooter>
+			</ResourceFooter>
 			{loginRegisterModal}
 		</>
 	);
 }
 
-function ArticlePage(props) {
+function ResourcePage(props) {
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 
 	const slug = props.match.params.slug;
 
-	// Gets data for the article, topics, and recent articles
-	const { loading, error, data } = useQuery(articlePageQuery, {
+	// Gets data for the resource, topics, and recent resources
+	const { loading, error, data } = useQuery(resourcePageQuery, {
 		variables: { id: slug, currentPageNum },
 	});
 
@@ -287,19 +291,19 @@ function ArticlePage(props) {
 
 	return (
 		<>
-			<PageWrapper title={data.article.title}>
+			<PageWrapper title={data.resource.title}>
 				<PanelContainer>
-					<Article article={data.article} user={props.user} />
+					<Resource resource={data.resource} user={props.user} />
 
 					<SectionTitle>Topics</SectionTitle>
-					<Topics topics={data.articleTopics} />
+					<Topics topics={data.resourceTopics} />
 
 					<SectionTitle>Recent</SectionTitle>
-					<Articles articles={data.searchRecentArticles.nodes} />
+					<Resources resources={data.searchRecentResources.nodes} />
 				</PanelContainer>
 			</PageWrapper>
 		</>
 	);
 }
 
-export default withRouter(withUser(ArticlePage));
+export default withRouter(withUser(ResourcePage));

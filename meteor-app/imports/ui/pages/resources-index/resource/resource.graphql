@@ -1,12 +1,12 @@
-query articlePage($id: ID!, $currentPageNum: Int!) {
-	article(id: $id) {
+query resourcePage($id: ID!, $currentPageNum: Int!) {
+	resource(id: $id) {
 		id
 
 		slug
 		title
 		subtitle
 		body
-		articleImageURL
+		resourceImageURL
 		topicName
 		author {
 			authorName
@@ -23,18 +23,18 @@ query articlePage($id: ID!, $currentPageNum: Int!) {
 		publishDate
 	}
 
-	searchRecentArticles(pageNum: $currentPageNum) {
+	searchRecentResources(pageNum: $currentPageNum) {
 		totalCount
 		nodes {
 			slug
 			title
-			articleImageURL
+			resourceImageURL
 			topicName
 			publishDate
 		}
 	}
 
-	articleTopics {
+	resourceTopics {
 		topicName
 		iconImageURL
 	}
