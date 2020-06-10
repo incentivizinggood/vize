@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
 import { Link } from "react-router-dom";
+import { forSize } from "imports/ui/responsive.js";
 
 import {
 	FacebookShareButton,
@@ -22,11 +23,15 @@ const ResourceCard = styled.div`
 	background-color: white;
 	border-radius: 4px;
 	margin: 10px;
-	height: 125px;
+	height: 145px;
 
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
 		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+
+	${forSize.phoneOnly} {
+		height: 125px;
+	}
 `;
 
 const ResourceDetails = styled.div`
@@ -40,16 +45,22 @@ const ResourceDetails = styled.div`
 
 const ResourceImage = styled.img`
 	object-fit: cover;
-	width: 110px;
-	height: 110px;
+	width: 130px;
+	height: 130px;
 	margin: auto;
 	margin-left: 5px;
 	border-radius: 4px;
+
+	${forSize.phoneOnly} {
+		width: 110px;
+		height: 110px;
+	}
 `;
 
 const ResourceTitle = styled.h4`
 	margin-bottom: 5px;
 	font-weight: bold;
+	font-size: 16px;
 `;
 
 const ResourceCategory = styled.h5`

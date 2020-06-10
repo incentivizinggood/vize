@@ -6,13 +6,9 @@ import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { withUser } from "imports/ui/hoc/user";
-<<<<<<< HEAD:meteor-app/imports/ui/pages/resources-index/article/article.tsx
-import { ArticleAuthor } from "imports/api/models/types";
+import { ResourceAuthor } from "imports/api/models/types";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
-=======
-import { ResourceAuthor } from "imports/api/models/types";
->>>>>>> refactoring:meteor-app/imports/ui/pages/resources-index/resource/resource.tsx
 
 import {
 	SectionTitle,
