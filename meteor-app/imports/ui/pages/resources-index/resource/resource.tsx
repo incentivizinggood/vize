@@ -36,7 +36,6 @@ import {
 } from "react-share";
 
 import resourcePageQuery from "./resource.graphql";
-import resourceAuthorQuery from "./resource-author.graphql";
 import resourceLikeMutation from "./resource-like.graphql";
 import { PanelContainer, Panel } from "imports/ui/components/panel";
 
