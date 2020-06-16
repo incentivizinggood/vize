@@ -184,7 +184,7 @@ function Resource(props: ResourceProps) {
 			if (errors.message.includes("NOT_LOGGED_IN")) {
 				setLoginRegisterModal(
 					<PopupModal isOpen={true}>
-						<RegisterLoginModal errorText="Regístrate o inicia una sesión para guardar el artículo" />
+						<RegisterLoginModal errorText="Regístrate o inicia una sesión para guardar el recurso" />
 					</PopupModal>
 				);
 			}
@@ -233,7 +233,7 @@ function Resource(props: ResourceProps) {
 							domain +
 							urlGenerators.vizeResourceUrl(props.resource.slug)
 						}
-						title="Hola, estoy leyendo este artículo y te lo recomiendo!"
+						title="Hola, estoy leyendo este recurso y te lo recomiendo!"
 					>
 						<WhatsappIcon size="27" round={true} />
 					</WhatsappShareButton>
@@ -243,7 +243,7 @@ function Resource(props: ResourceProps) {
 							domain +
 							urlGenerators.vizeResourceUrl(props.resource.slug)
 						}
-						quote="Hola, estoy leyendo este artículo y se los recomiendo!"
+						quote="Hola, estoy leyendo este recurso y se los recomiendo!"
 						hashtag="#incentivandoelbien"
 					>
 						<FacebookIcon size="27" round={true} />

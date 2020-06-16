@@ -135,7 +135,7 @@ function ResourceCardComponent(props: ResourceCardProps) {
 								domain +
 								urlGenerators.vizeResourceUrl(props.slug)
 							}
-							title="Hola, estoy leyendo este artículo y te lo recomiendo!"
+							title="Hola, estoy leyendo este recurso y te lo recomiendo!"
 						>
 							<WhatsappIcon size={footerHeight} round={true} />
 						</WhatsappShareButton>
@@ -145,7 +145,7 @@ function ResourceCardComponent(props: ResourceCardProps) {
 								domain +
 								urlGenerators.vizeResourceUrl(props.slug)
 							}
-							quote="Hola, estoy leyendo este artículo y se los recomiendo!"
+							quote="Hola, estoy leyendo este recurso y se los recomiendo!"
 							hashtag="#incentivandoelbien"
 						>
 							<FacebookIcon size={footerHeight} round={true} />
