@@ -167,9 +167,7 @@ function Resource(props: ResourceProps) {
 	const [resourceLike, { likeData }] = useMutation(resourceLikeMutation);
 
 	// Modal is displayed if user likes resource and is not logged in
-	let [loginRegisterModal, setLoginRegisterModal] = React.useState(
-		loginRegisterModal
-	);
+	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 
 	function likeButton() {
 		resourceLike({
@@ -194,6 +192,10 @@ function Resource(props: ResourceProps) {
 	let LikeButtonIcon = () => <FavoriteBorderIcon />;
 	if (props.resource && props.resource.isLikedByCurrentUser) {
 		LikeButtonIcon = () => <FavoriteIcon />;
+	}
+
+	if (props.user) {
+		loginRegisterModal = null;
 	}
 
 	const domain = "www.vize.mx";
