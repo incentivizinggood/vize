@@ -60,7 +60,7 @@ const ResourceImage = styled.img`
 const ResourceTitle = styled.h4`
 	margin-bottom: 5px;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 15px;
 `;
 
 const ResourceCategory = styled.h5`

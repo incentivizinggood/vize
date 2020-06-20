@@ -38,14 +38,17 @@ const TopicImage = styled.img`
 
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 15px;
+	margin-bottom: 10px;
 	padding: 10px;
 `;
 
 const TopicName = styled.h3`
-	margin-bottom: 5px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 	font-weight: bold;
 	text-align: center;
+	height: 50px;
 `;
 
 const LinkRedirect = styled(Link)`
@@ -66,7 +69,6 @@ function TopicCardComponent(props: TopicCardProps) {
 			>
 				<TopicCardContent>
 					<TopicImage src={props.iconImageURL} />
-					<br />
 					<TopicName>{props.topicName}</TopicName>
 
 					<LinkRedirect
