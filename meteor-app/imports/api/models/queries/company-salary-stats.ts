@@ -7,7 +7,7 @@ export async function getSalaryStatsByCompanyName(
 	companyName: string
 ): Promise<CompanySalaryStats[]> {
 	return simpleQuery(sql`
-		SELECT 
+		SELECT
 			companyname AS "companyName",
 			jobtitle AS "jobTitle",
 			total_avg_pay AS "totalAvgPay",

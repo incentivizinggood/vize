@@ -1,0 +1,8 @@
+query SalaryStats($companyName: String) {
+	salaryStats(companyName: $companyName) {
+		jobTitle
+		totalAvgPay
+		totalMaxPay
+		totalMinPay
+	}
+}

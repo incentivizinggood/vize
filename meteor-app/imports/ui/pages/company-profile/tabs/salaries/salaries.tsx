@@ -11,8 +11,9 @@ import { AddSalaryButton } from "imports/ui/components/button";
 const T = translations.legacyTranslationsNeedsRefactor;
 
 function SalaryTab(props) {
-	const renderedSalaries = props.company.salaries.map(salary => (
-		<SalaryPosting key={salary.id} salary={salary} />
+	console.log("pr", props);
+	const renderedSalaries = props.company.salaryStats.map((salary, i) => (
+		<SalaryPosting key={i} salary={salary} />
 	));
 
 	return (
@@ -24,7 +25,7 @@ function SalaryTab(props) {
 				<div className="add-buttons">
 					<AddSalaryButton
 						companyName={props.company.name}
-						buttonLocation='Company Profile | Salaries'
+						buttonLocation="Company Profile | Salaries"
 					/>
 					{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 				</div>
