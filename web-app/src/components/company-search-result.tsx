@@ -14,6 +14,7 @@ import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
+import defaultCompanyImg from "src/images/default-company.png";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
 
