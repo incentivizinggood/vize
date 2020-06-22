@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "generate": "graphql-codegen",
     "build": "graphql-codegen && webpack",
-    "watch": "webpack --watch",
-    "start": "node -r source-map-support/register --experimental-modules dist/main.js"
+    "start": "node -r source-map-support/register --experimental-modules dist/main.js",
+    "watch": "concurrently -n graphql-codegen,webpack \"graphql-codegen --watch\" \"webpack --watch\""
   },
   "engines": {
     "node": "12.x"
