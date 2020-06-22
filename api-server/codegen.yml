@@ -6,9 +6,9 @@ generates:
       contextType: src/graphql/resolvers/context#MyContext
       mapperTypeSuffix: Model
       mappers:
-        Article: src/models/types#Article
-        ArticleAuthor: src/models/types#ArticleAuthor
-        ArticleTopic: src/models/types#ArticleTopic
+        Resource: src/models/types#Resource
+        ResourceAuthor: src/models/types#ResourceAuthor
+        ResourceTopic: src/models/types#ResourceTopic
         Comment: src/models/types#Comment
         CompanySalaryStats: src/models/types#CompanySalaryStats
         CommentParent: src/models/types#CommentParent

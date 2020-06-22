@@ -10,25 +10,25 @@ type Query {
 	user(id: ID!): User
 	vote(id: ID!): Vote
 
-	article(id: ID!): Article
-	articleTopic(id: ID!): ArticleTopic
-	articleAuthor(id: ID!): ArticleAuthor
+	resource(id: ID!): Resource
+	resourceTopic(id: ID!): ResourceTopic
+	resourceAuthor(id: ID!): ResourceAuthor
 
-	highlightedArticles: [Article!]!
-	articleTopics: [ArticleTopic!]!
+	highlightedResources: [Resource!]!
+	resourceTopics: [ResourceTopic!]!
 
-	searchArticlesByTopic(
+	searchResourcesByTopic(
 		id: ID!
 		searchText: String = ""
 		pageNum: Int = 0
 		pageSize: Int = 20
-	): ArticleConnection!
+	): ResourceConnection!
 
-	searchRecentArticles(
+	searchRecentResources(
 		searchText: String = ""
 		pageNum: Int = 0
 		pageSize: Int = 20
-	): ArticleConnection!
+	): ResourceConnection!
 
 	searchCompanies(
 		searchText: String = ""
@@ -48,7 +48,7 @@ type Mutation {
 
 	castVote(input: CastVoteInput!): CastVotePayload
 
-	articleLike(input: ArticleLikeInput!): ArticleLikePayload
+	resourceLike(input: ResourceLikeInput!): ResourceLikePayload
 
 	createCompany(input: CreateCompanyInput!): CreateCompanyPayload
 	createReview(input: CreateReviewInput!): CreateReviewPayload
@@ -177,17 +177,17 @@ type CastVotePayload {
 	vote: Vote
 }
 
-input ArticleLikeInput {
-	articleSlug: String!
-	isArticleLiked: Boolean!
+input ResourceLikeInput {
+	resourceSlug: String!
+	isResourceLiked: Boolean!
 }
 
-type ArticleLikePayload {
-	article: Article
+type ResourceLikePayload {
+	resource: Resource
 }
 
-type ArticleConnection {
-	nodes: [Article!]!
+type ResourceConnection {
+	nodes: [Resource!]!
 	totalCount: Int!
 }
 
@@ -237,28 +237,28 @@ type Comment {
 	votes(pageNum: Int = 0, pageSize: Int = 24): [Vote!]!
 }
 
-type Article {
+type Resource {
 	id: ID!
 
 	slug: String!
 	title: String!
 	subtitle: String
 	body: String!
-	articleImageURL: String!
+	resourceImageURL: String!
 	topicName: String
 	authorId: Int!
-	"If an Article is highlighted show it in the highlighted articles section"
+	"If an Resource is highlighted show it in the highlighted resources section"
 	isHighlighted: Boolean!
-	author: ArticleAuthor
+	author: ResourceAuthor
 
-	"The number of times an article has been liked"
+	"The number of times an resource has been liked"
 	numberOfLikes: Int!
-	"A boolean for whether the current user has liked the article or not"
+	"A boolean for whether the current user has liked the resource or not"
 	isLikedByCurrentUser: Boolean!
 	publishDate: DateTime!
 }
 
-type ArticleAuthor {
+type ResourceAuthor {
 	id: ID!
 
 	authorName: String
@@ -273,7 +273,7 @@ type ArticleAuthor {
 	location: String
 }
 
-type ArticleTopic {
+type ResourceTopic {
 	id: ID!
 
 	topicName: String!

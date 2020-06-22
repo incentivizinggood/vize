@@ -102,16 +102,12 @@ function HomePage() {
 				<div className="banner-info">
 					<div className="banner-text">
 						<div id="top" className="callbacks_container">
-							<ul id="slider3">
-								<li>
-									<div className="banner-text-info">
-										<h1>
-											<T.mainBanner />
-										</h1>
-									</div>
-									<CompaniesSearchBar />
-								</li>
-							</ul>
+							<div className="banner-text-info">
+								<h1>
+									<T.mainBanner />
+								</h1>
+							</div>
+							<CompaniesSearchBar />
 						</div>
 					</div>
 				</div>

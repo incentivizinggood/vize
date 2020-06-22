@@ -379,9 +379,9 @@ export default {
 		submit: "Submit",
 	},
 	resources: {
-		featuredArticles: "Featured Articles",
+		featuredResources: "Featured Resources",
 		topics: "Topics",
-		recentArticles: "Recent Articles",
+		recentResources: "Recent Resources",
 		contact: {
 			title: "Contact",
 			phone: "Phone",

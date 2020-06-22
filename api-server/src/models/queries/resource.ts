@@ -1,7 +1,7 @@
 import sql from "src/utils/sql-template";
 import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 
-import { Article, paginate, User } from "src/models";
+import { Resource, paginate, User } from "src/models";
 
 const attributes = sql.raw(
 	[
@@ -9,7 +9,7 @@ const attributes = sql.raw(
 		"title",
 		"subtitle",
 		"body",
-		'article_image_url AS "articleImageURL"',
+		'resource_image_url AS "resourceImageURL"',
 		'topic_name AS "topicName"',
 		'author_id AS "authorId"',
 		'is_highlighted AS "isHighlighted"',
@@ -17,53 +17,55 @@ const attributes = sql.raw(
 	].join(", ")
 );
 
-const attributesArticleLikes = sql.raw(
-	["user_id AS userId", "article_slug AS articleSlug"].join(", ")
+const attributesResourceLikes = sql.raw(
+	["user_id AS userId", "resource_slug AS resourceSlug"].join(", ")
 );
 
 const baseQuery = sql`
 	SELECT ${attributes}
-	FROM articles
+	FROM resources
 `;
 
-const baseQueryArticleLikes = sql`
-	SELECT ${attributesArticleLikes}
-	FROM article_likes
+const baseQueryResourceLikes = sql`
+	SELECT ${attributesResourceLikes}
+	FROM resource_likes
 `;
 
-export async function getArticleBySlug(slug: string): Promise<Article | null> {
+export async function getResourceBySlug(
+	slug: string
+): Promise<Resource | null> {
 	return simpleQuery1(sql`
 		${baseQuery}
 		WHERE slug=${slug}
 	`);
 }
 
-export async function getNumArticleLikes(slug: string): Promise<number> {
+export async function getNumResourceLikes(slug: string): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(sql`
 		SELECT count(user_id)
-		FROM article_likes
-		WHERE article_slug=${slug}
+		FROM resource_likes
+		WHERE resource_slug=${slug}
 	`);
 	return count ? count.count : 0;
 }
 
-export async function isArticleLikedByUser(
+export async function isResourceLikedByUser(
 	slug: string,
 	user: User
 ): Promise<boolean> {
 	const isLiked = await simpleQuery1<{ exists: boolean }>(sql`
 		SELECT exists
 		(
-			SELECT 1 FROM article_likes
-			WHERE article_slug=${slug} AND user_id=${user.userId}
+			SELECT 1 FROM resource_likes
+			WHERE resource_slug=${slug} AND user_id=${user.userId}
 		)
 	`);
 
 	return !!isLiked && isLiked.exists;
 }
 
-export async function getHighlightedArticles(): Promise<Article[]> {
-	return simpleQuery<Article>(
+export async function getHighlightedResources(): Promise<Resource[]> {
+	return simpleQuery<Resource>(
 		sql`
 			${baseQuery}
 			WHERE is_highlighted=TRUE
@@ -73,13 +75,13 @@ export async function getHighlightedArticles(): Promise<Article[]> {
 	);
 }
 
-export async function searchForArticlesByTopic(
+export async function searchForResourcesByTopic(
 	topicName: string,
 	searchText: string,
 	pageNumber: number,
 	pageSize: number
-): Promise<{ nodes: Article[]; totalCount: number }> {
-	return paginate<Article>(
+): Promise<{ nodes: Resource[]; totalCount: number }> {
+	return paginate<Resource>(
 		sql`
 			${baseQuery}
 			WHERE topic_name=${topicName}
@@ -92,14 +94,14 @@ export async function searchForArticlesByTopic(
 
 /**
  * This is not yet an actual search. It is only implemented
- * to list all articles on the index page.
+ * to list all resources on the index page.
  */
-export async function searchForRecentArticles(
+export async function searchForRecentResources(
 	searchText: string,
 	pageNumber: number,
 	pageSize: number
-): Promise<{ nodes: Article[]; totalCount: number }> {
-	return paginate<Article>(
+): Promise<{ nodes: Resource[]; totalCount: number }> {
+	return paginate<Resource>(
 		sql`
 			${baseQuery}
 			ORDER BY publish_date DESC

@@ -28,28 +28,28 @@ export const Query: QueryResolvers = {
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 
-	article: (_obj, args, _context, _info) =>
-		dataModel.getArticleBySlug(args.id),
+	resource: (_obj, args, _context, _info) =>
+		dataModel.getResourceBySlug(args.id),
 
-	articleAuthor: (_obj, args, _context, _info) =>
-		dataModel.getArticleAuthorById(Number(args.id)),
+	resourceAuthor: (_obj, args, _context, _info) =>
+		dataModel.getResourceAuthorById(Number(args.id)),
 
-	articleTopics: (_obj, _args, _context, _info) =>
-		dataModel.getArticleTopics(),
+	resourceTopics: (_obj, _args, _context, _info) =>
+		dataModel.getResourceTopics(),
 
-	highlightedArticles: (_obj, _args, _context, _info) =>
-		dataModel.getHighlightedArticles(),
+	highlightedResources: (_obj, _args, _context, _info) =>
+		dataModel.getHighlightedResources(),
 
-	searchArticlesByTopic: (_obj, args, _context, _info) =>
-		dataModel.searchForArticlesByTopic(
+	searchResourcesByTopic: (_obj, args, _context, _info) =>
+		dataModel.searchForResourcesByTopic(
 			args.id,
 			args.searchText,
 			args.pageNum,
 			args.pageSize
 		),
 
-	searchRecentArticles: (_obj, args, _context, _info) =>
-		dataModel.searchForRecentArticles(
+	searchRecentResources: (_obj, args, _context, _info) =>
+		dataModel.searchForRecentResources(
 			args.searchText,
 			args.pageNum,
 			args.pageSize

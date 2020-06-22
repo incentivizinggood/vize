@@ -1,16 +1,16 @@
-export type Article = {
+export type Resource = {
 	slug: string;
 	title: string;
-	ArticleSubtitle: string;
+	ResourceSubtitle: string;
 	body: string;
-	articleImageURL: string;
+	resourceImageURL: string;
 	topicName: string;
 	authorId: number;
 	isHighlighted: boolean;
 	publishDate: Date;
 };
 
-export type ArticleAuthor = {
+export type ResourceAuthor = {
 	authorId: number;
 	authorName: string;
 	authorCompanyName: string;
@@ -22,7 +22,7 @@ export type ArticleAuthor = {
 	location: string;
 };
 
-export type ArticleTopic = {
+export type ResourceTopic = {
 	topicName: string;
 	iconImageURL: string;
 };

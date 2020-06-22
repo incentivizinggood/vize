@@ -25,10 +25,13 @@ const onSubmit = history => (values, actions) => {
 		.then(x => {
 			console.log("then = ", x);
 			actions.resetForm(initialValues);
+
+			// TODO: use query params so that login redirects user back to where they were when they login
 			if (
 				!(
 					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data")
+					window.location.pathname.includes("/submit-salary-data") ||
+					window.location.pathname.includes("/recurso")
 				)
 			) {
 				history.push("/");

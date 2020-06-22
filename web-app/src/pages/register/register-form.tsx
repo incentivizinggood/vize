@@ -62,7 +62,8 @@ const onSubmit = history => (values, actions) => {
 			if (
 				!(
 					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data")
+					window.location.pathname.includes("/submit-salary-data") ||
+					window.location.pathname.includes("/recurso")
 				)
 			) {
 				history.push("/");

@@ -13,10 +13,10 @@ const queryRoutes = {
 // exporting commonly-used URL generators
 // in order to reduce the risk of typos
 // and reduce the use of magic strings
-const vizeArticleUrl = function(slug: string) {
-	return `/${queryRoutes.resources}/articulo/${slug}`;
+const vizeResourceUrl = function(slug: string) {
+	return `/${queryRoutes.resources}/recurso/${slug}`;
 };
-const vizeArticleTopicUrl = function(topicName: string) {
+const vizeResourceTopicUrl = function(topicName: string) {
 	return `/${queryRoutes.resources}/temas/${topicName}`;
 };
 const vizeProfileUrl = function(companyId: string) {
@@ -57,8 +57,8 @@ const vizeRegisterToLogin = function(userRole?: string) {
 };*/
 
 const urlGenerators = {
-	vizeArticleUrl,
-	vizeArticleTopicUrl,
+	vizeResourceUrl,
+	vizeResourceTopicUrl,
 	vizeProfileUrl,
 	vizeReviewUrl,
 	vizeSalaryUrl,

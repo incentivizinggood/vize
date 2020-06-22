@@ -8,14 +8,36 @@ import {
 	faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
-import defaultCompanyImg from "src/images/default-company.png";
+import styled from "styled-components";
 
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
+import { forSize } from "src/responsive";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
+
+const CompanyDataStatisticsComponent = styled.div`
+	margin-top: 4px;
+	padding-bottom: 20px;
+	padding-top: 10px;
+	display: flex;
+	justify-content: center;
+
+	> * {
+		margin-right: 15px;
+	}
+`;
+
+const WriteReviewButtonContainer = styled.div`
+	float: right;
+
+	${forSize.phoneOnly} {
+		float: none;
+		display: flex;
+		justify-content: center;
+	}
+`;
 
 interface CompanySearchResultProps {
 	company: {
@@ -108,42 +130,40 @@ function CompanySearchResult(props: CompanySearchResultProps) {
 					</div>
 					<div className="col-md-5 prostar">
 						<div className="col-md-12">
-							<div className="titlestar">
+							<WriteReviewButtonContainer>
 								<WriteReviewButton
 									companyName={props.company.name}
 									buttonLocation="Search"
 								/>
-							</div>
+							</WriteReviewButtonContainer>
 						</div>
 					</div>
 				</div>
 				<div className="clearfix" />
 				<div className="container  welpad1">
 					<div className="col-md-3">
-						<div className="reviews1">
-							<ul>
-								<li className="active">
-									{props.company.numReviews} <br />
-									<span className="review_text">
-										<T.reviews />
-									</span>
-								</li>
-								<li>
-									{props.company.numSalaries}
-									<br />
-									<span className="review_text">
-										<T.salaries />
-									</span>
-								</li>
-								<li>
-									{props.company.numJobAds}
-									<br />
-									<span className="review_text">
-										<T.jobs />
-									</span>
-								</li>
-							</ul>
-						</div>
+						<CompanyDataStatisticsComponent>
+							<div>
+								{props.company.numReviews} <br />
+								<span className="review_text">
+									<T.reviews />
+								</span>
+							</div>
+							<div>
+								{props.company.numSalaries}
+								<br />
+								<span className="review_text">
+									<T.salaries />
+								</span>
+							</div>
+							<div>
+								{props.company.numJobAds}
+								<br />
+								<span className="review_text">
+									<T.jobs />
+								</span>
+							</div>
+						</CompanyDataStatisticsComponent>
 					</div>
 					<div className="col-md-9">
 						<div className="company-search-desc">

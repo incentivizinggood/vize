@@ -6,8 +6,6 @@ import EmailIcon from "@material-ui/icons/Email";
 import PublicIcon from "@material-ui/icons/Public";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
-import profileIcon from "src/images/icons/profile-icon.png";
-
 import { translations } from "src/translations";
 
 const T = translations.resources;
@@ -36,6 +34,7 @@ const AuthorImage = styled.img`
 	margin-right: 10px;
 	width: 50px;
 	height: 50px;
+	border-radius: 50%;
 `;
 
 const AuthorTitleContainer = styled.div`
@@ -86,7 +85,7 @@ const ContactItemDescription = styled.p`
 	margin-top: 2px;
 `;
 
-type ArticleAuthorProps = {
+type ResourceAuthorProps = {
 	author: {
 		authorName: string;
 		authorCompanyName: string;
@@ -105,13 +104,13 @@ type ContactItemProps = {
 	children: NodeListOf<Element>;
 };
 
-function ArticleContactSection(props: ArticleAuthorProps) {
+function ResourceContactSection(props: ResourceAuthorProps) {
 	// If there is no author image, use the default image
 	const AuthorImg = () => {
 		if (props.author.authorImageURL) {
 			return <AuthorImage src={props.author.authorImageURL} />;
 		} else {
-			return <AuthorImage src={profileIcon} />;
+			return <AuthorImage src="/images/icons/profile-icon.png" />;
 		}
 	};
 
@@ -202,4 +201,4 @@ function ArticleContactSection(props: ArticleAuthorProps) {
 	);
 }
 
-export default ArticleContactSection;
+export default ResourceContactSection;
