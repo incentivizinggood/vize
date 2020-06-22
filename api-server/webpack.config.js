@@ -16,6 +16,7 @@ module.exports = {
 		},
 		extensions: [".ts", ".js"],
 	},
+	node: { __dirname: false },
 	externals: [
 		nodeExternals(),
 		// This second externals is so that the app works with yarn workspaces.
