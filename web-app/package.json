@@ -1,10 +1,14 @@
 {
   "name": "web-app",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "generate": "graphql-codegen",
-    "build": "webpack",
-    "start": "webpack-dev-server --mode development"
+    "build": "graphql-codegen && webpack",
+    "watch": "webpack-dev-server --mode development"
+  },
+  "engines": {
+    "node": "12.x"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",

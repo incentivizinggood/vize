@@ -16,7 +16,14 @@ module.exports = {
 		},
 		extensions: [".ts", ".js"],
 	},
-	externals: [nodeExternals()],
+	externals: [
+		nodeExternals(),
+		// This second externals is so that the app works with yarn workspaces.
+		// Some of this app's deps are installed in ../node_modules instead of ./node_modules.
+		nodeExternals({
+			modulesDir: path.resolve(__dirname, "../node_modules"),
+		}),
+	],
 	module: {
 		rules: [
 			{

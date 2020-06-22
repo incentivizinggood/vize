@@ -1,10 +1,15 @@
 {
-  "name": "application-server",
+  "name": "api-server",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "generate": "graphql-codegen",
-    "build": "webpack",
-    "start": "PGHOST=localhost PGPORT=5432 PGUSER=meteor PGPASSWORD=\"123456789\" PGDATABASE=meteor webpack --watch"
+    "build": "graphql-codegen && webpack",
+    "watch": "webpack --watch",
+    "start": "node -r source-map-support/register --experimental-modules dist/main.js"
+  },
+  "engines": {
+    "node": "12.x"
   },
   "dependencies": {
     "apollo-server-express": "^2.6.7",

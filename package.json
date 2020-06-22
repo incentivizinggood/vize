@@ -1,9 +1,13 @@
 {
   "private": true,
+  "workspaces": ["api-server", "web-app"],
   "scripts": {
-    "build":"cd web-app && yarn install && yarn run generate && yarn build && cd ../api-server && yarn install && yarn run generate && yarn build",
-    "start": "cd api-server && yarn start",
+    "build": "yarn workspace web-app build && yarn workspace api-server build",
+    "start": "yarn workspace api-server start",
     "lint": "eslint --ignore-pattern '*/node_modules/*' ./meteor-app/{client,server,imports}/**/*.{js,jsx,ts,tsx} -f html -o ./eslint-out.html"
+  },
+  "engines": {
+    "node": "12.x"
   },
   "husky": {
     "hooks": {
