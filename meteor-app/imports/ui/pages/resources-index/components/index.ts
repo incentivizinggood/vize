@@ -1,15 +1,15 @@
 import SectionTitle from "./section-title";
-import ArticleCard from "./article-card";
+import ResourceCard from "./resource-card";
 import TopicCard from "./topic-card";
 import BackToResourcesHeader from "./back-to-resources-header";
-import Articles from "./articles-list";
+import Resources from "./resources-list";
 import Topics from "./topics-list";
 
 export {
 	SectionTitle,
-	ArticleCard,
+	ResourceCard,
 	TopicCard,
 	BackToResourcesHeader,
-	Articles,
+	Resources,
 	Topics,
 };

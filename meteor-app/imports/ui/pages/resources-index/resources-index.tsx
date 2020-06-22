@@ -8,7 +8,7 @@ import { PanelContainer } from "imports/ui/components/panel";
 import { forSize } from "imports/ui/responsive.js";
 
 import resourcesIndexPageQuery from "./resources-index.graphql";
-import { SectionTitle, Articles, Topics } from "./components";
+import { SectionTitle, Resources, Topics } from "./components";
 
 import { translations } from "imports/ui/translations";
 
@@ -20,18 +20,18 @@ type ResourcesIndexProps = {
 		topicName: string;
 		iconImageURL: string;
 	}[];
-	recentArticles: {
+	recentResources: {
 		title: string;
 		slug: string;
 		topicName: string;
-		articleImageURL: string;
+		resourceImageURL: string;
 		publishDate: string;
 	}[];
-	highlightedArticles: {
+	highlightedResources: {
 		title: string;
 		slug: string;
 		topicName: string;
-		articleImageURL: string;
+		resourceImageURL: string;
 		publishDate: string;
 	}[];
 
@@ -44,9 +44,9 @@ function ResourcesIndex(props: ResourcesIndexProps) {
 		<PageWrapper title="Recursos">
 			<PanelContainer>
 				<SectionTitle>
-					<T.featuredArticles />
+					<T.featuredResources />
 				</SectionTitle>
-				<Articles articles={props.highlightedArticles} />
+				<Resources resources={props.highlightedResources} />
 
 				<SectionTitle>
 					<T.topics />
@@ -54,9 +54,9 @@ function ResourcesIndex(props: ResourcesIndexProps) {
 				<Topics topics={props.topics} />
 
 				<SectionTitle>
-					<T.recentArticles />
+					<T.recentResources />
 				</SectionTitle>
-				<Articles articles={props.recentArticles.nodes} />
+				<Resources resources={props.recentResources.nodes} />
 			</PanelContainer>
 		</PageWrapper>
 	);
@@ -80,9 +80,9 @@ function ResourcesIndexContainer() {
 
 	return (
 		<ResourcesIndex
-			recentArticles={data.searchRecentArticles}
-			highlightedArticles={data.highlightedArticles}
-			topics={data.articleTopics}
+			recentResources={data.searchRecentResources}
+			highlightedResources={data.highlightedResources}
+			topics={data.resourceTopics}
 			currentPageNum={currentPageNum}
 			setCurrentPageNum={setCurrentPageNum}
 		/>

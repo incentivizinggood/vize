@@ -45,33 +45,25 @@ function SalariesSection(props) {
 				<div className="add-buttons">
 					<AddSalaryButton
 						companyName={props.company.name}
-						buttonLocation='Company Profile | Overview'
+						buttonLocation="Company Profile | Overview"
 					/>
 				</div>
 				<hr />
 
 				{salariesToDisplay}
 
-				<center>
-					<ul className="" role="tablist">
-						<li
-							role="presentation"
-							id="see_all_salaries"
-							className="te_deco"
-						>
-							<Link
-								to="#salaries"
-								aria-controls="salaries"
-								role="tab"
-								data-toggle="tab"
-							>
-								<strong>
-									<T.overview_tab.see_all_salaries />
-								</strong>
-							</Link>
-						</li>
-					</ul>
-				</center>
+				<div style={{ textAlign: "center" }}>
+					<Link
+						to="#salaries"
+						aria-controls="salaries"
+						role="tab"
+						data-toggle="tab"
+					>
+						<strong>
+							<T.overview_tab.see_all_salaries />
+						</strong>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);

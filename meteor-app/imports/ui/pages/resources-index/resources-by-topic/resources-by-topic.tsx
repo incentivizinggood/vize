@@ -3,39 +3,39 @@ import { useQuery } from "react-apollo";
 import Spinner from "imports/ui/components/Spinner";
 import PageWrapper from "imports/ui/components/page-wrapper";
 
-import articleByTopicPageQuery from "./articles-by-topic.graphql";
+import resourceByTopicPageQuery from "./resources-by-topic.graphql";
 import { PanelContainer } from "imports/ui/components/panel";
-import { BackToResourcesHeader, Articles } from "../components";
+import { BackToResourcesHeader, Resources } from "../components";
 import { withRouter } from "react-router-dom";
 
-type ArticlesByTopicProps = {
-	articles: {
+type ResourcesByTopicProps = {
+	resources: {
 		title: string;
 		slug: string;
 		topicName: string;
-		articleImageURL: string;
+		resourceImageURL: string;
 		publishDate: string;
 	}[];
 	topicName: string;
 };
 
-function ArticlesByTopic(props: ArticlesByTopicProps) {
+function ResourcesByTopic(props: ResourcesByTopicProps) {
 	const pageTitle = "Recursos de " + props.topicName + " - Vize";
 	return (
 		<PageWrapper title={pageTitle}>
 			<PanelContainer>
 				<BackToResourcesHeader topicName={props.topicName} />
-				<Articles articles={props.articles} />
+				<Resources resources={props.resources} />
 			</PanelContainer>
 		</PageWrapper>
 	);
 }
 
-function ArticlesByTopicPage(props) {
+function ResourcesByTopicPage(props) {
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 	const topicName = props.match.params.topicName;
 
-	const { loading, error, data } = useQuery(articleByTopicPageQuery, {
+	const { loading, error, data } = useQuery(resourceByTopicPageQuery, {
 		variables: { id: topicName, currentPageNum },
 	});
 
@@ -49,11 +49,11 @@ function ArticlesByTopicPage(props) {
 	}
 
 	return (
-		<ArticlesByTopic
-			articles={data.searchArticlesByTopic.nodes}
+		<ResourcesByTopic
+			resources={data.searchResourcesByTopic.nodes}
 			topicName={topicName}
 		/>
 	);
 }
 
-export default withRouter(ArticlesByTopicPage);
+export default withRouter(ResourcesByTopicPage);

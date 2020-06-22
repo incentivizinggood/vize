@@ -1,0 +1,12 @@
+query resourcesByTopicPage($id: ID!, $currentPageNum: Int!) {
+	searchResourcesByTopic(id: $id, pageNum: $currentPageNum) {
+		totalCount
+		nodes {
+			slug
+			title
+			resourceImageURL
+			topicName
+			publishDate
+		}
+	}
+}

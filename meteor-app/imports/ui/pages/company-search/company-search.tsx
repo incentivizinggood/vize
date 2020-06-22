@@ -66,7 +66,7 @@ const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
 
 			return (
 				<>
-					<ul>{resultList}</ul>
+					<div>{resultList}</div>
 					<PaginateSystem
 						// recall query starting at the last company id
 						totalCompanyCount={totalCompCount}

@@ -7,6 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import CircularProgressbar from "react-circular-progressbar";
 import { createMuiTheme } from "@material-ui/core";
+import styled from "styled-components";
 
 import { translations } from "imports/ui/translations";
 
@@ -23,10 +24,6 @@ const styles = {
 	cardActions: {
 		display: "block",
 		textAlign: "initial",
-	},
-	card: {
-		minWidth: 275,
-		maxHeight: 375,
 	},
 	bullet: {
 		display: "inline-block",

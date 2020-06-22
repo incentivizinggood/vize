@@ -1,31 +1,4 @@
 @include for-size(tablet-and-down) {
-	.article-list-vertical {
-		max-width: 350px;
-		min-height: 450px;
-
-		li {
-			max-width: 350px;
-			min-height: 50px;
-
-			div {
-				float: none;
-				padding: 30px;
-				padding-top: 0;
-				display: block;
-				text-align: center;
-				margin-left: 0px;
-			}
-		}
-
-		& > img {
-			float: none;
-			display: block;
-			text-align: center;
-			max-height: 250px;
-			margin-left: 54px;
-		}
-	}
-
 	.modal-content {
 		width: 95%;
 
@@ -191,7 +164,6 @@
 
 	.banner-text-info {
 		padding-top: 80px;
-		margin: 12em auto 0;
 		width: 90% !important;
 	}
 

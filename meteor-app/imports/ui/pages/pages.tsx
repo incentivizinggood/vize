@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import AboutPage from "./about";
-import Article from "imports/ui/pages/resources-index/article";
-import ArticlesByTopicPage from "imports/ui/pages/resources-index/articles-by-topic";
+import ResourcePage from "imports/ui/pages/resources-index/resource";
+import ResourcesByTopicPage from "imports/ui/pages/resources-index/resources-by-topic";
 import ResourcesIndex from "./resources-index";
 import ApplyToJobAd from "./apply-to-job-ad";
 import CreateCompany from "./create-company";
@@ -56,12 +56,12 @@ function Pages(props) {
 			<Route path="/test" component={TestPage} />
 			// recursos = resources
 			<Route
-				path={`/recursos/articulo/:slug`}
-				component={() => <Article />}
+				path={`/recursos/recurso/:slug`}
+				component={() => <ResourcePage />}
 			/>
 			<Route
 				path={`/recursos/temas/:topicName`}
-				component={() => <ArticlesByTopicPage />}
+				component={() => <ResourcesByTopicPage />}
 			/>
 			<Route path={`/recursos/`} component={() => <ResourcesIndex />} />
 			<Route

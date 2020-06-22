@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { urlGenerators } from "imports/ui/pages/url-generators";
 import { translations } from "imports/ui/translations";
 import { Link } from "react-router-dom";
+import { forSize } from "imports/ui/responsive.js";
 
 import {
 	FacebookShareButton,
@@ -14,52 +15,62 @@ import {
 
 const T = translations.resources;
 
-const articleDetailsPadding = "8px";
+const resourceDetailsPadding = "8px";
 const footerHeight = "27px";
 
-const ArticleCard = styled.div`
+const ResourceCard = styled.div`
 	display: flex;
 	background-color: white;
 	border-radius: 4px;
 	margin: 10px;
-	height: 125px;
+	height: 145px;
 
 	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
 		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+
+	${forSize.phoneOnly} {
+		height: 125px;
+	}
 `;
 
-const ArticleDetails = styled.div`
+const ResourceDetails = styled.div`
 	position: relative;
 	display: flex;
 	flex-direction: column;
 
 	width: 100%;
-	padding: ${articleDetailsPadding};
+	padding: ${resourceDetailsPadding};
 `;
 
-const ArticleImage = styled.img`
+const ResourceImage = styled.img`
 	object-fit: cover;
-	width: 110px;
-	height: 110px;
+	width: 130px;
+	height: 130px;
 	margin: auto;
 	margin-left: 5px;
 	border-radius: 4px;
+
+	${forSize.phoneOnly} {
+		width: 110px;
+		height: 110px;
+	}
 `;
 
-const ArticleTitle = styled.h4`
+const ResourceTitle = styled.h4`
 	margin-bottom: 5px;
 	font-weight: bold;
+	font-size: 15px;
 `;
 
-const ArticleCategory = styled.h5`
+const ResourceCategory = styled.h5`
 	color: rgba(0, 0, 0, 0.54);
 	line-height: 1.25;
 	font-size: 1rem;
 `;
 
 // Contains Read More button and Whatsapp + Facebook share buttons
-const ArticleFooter = styled.div`
+const ResourceFooter = styled.div`
 	display: flex;
 	position: absolute
 	bottom: 0px;
@@ -67,7 +78,7 @@ const ArticleFooter = styled.div`
 	flex-direction: row-reverse;
 
 	width: 100%;
-	padding: ${articleDetailsPadding};
+	padding: ${resourceDetailsPadding};
 
 	> * {
 		margin-right: 6px;
@@ -91,40 +102,40 @@ let ReadMore = styled.button`
 
 ReadMore = ReadMore.withComponent(Link);
 const ReadMoreButton = props => (
-	<ReadMore primary to={urlGenerators.vizeArticleUrl(props.slug)} {...props}>
+	<ReadMore primary to={urlGenerators.vizeResourceUrl(props.slug)} {...props}>
 		<T.read />
 	</ReadMore>
 );
 
-type ArticleCardProps = {
+type ResourceCardProps = {
 	slug: string;
 	title: string;
 	topicName: string;
-	articleImageURL: string;
+	resourceImageURL: string;
 };
 
-function ArticleCardComponent(props: ArticleCardProps) {
+function ResourceCardComponent(props: ResourceCardProps) {
 	const domain = "www.vize.mx";
 	return (
 		<Link
 			style={{ color: "black" }}
-			to={urlGenerators.vizeArticleUrl(props.slug)}
+			to={urlGenerators.vizeResourceUrl(props.slug)}
 			{...props}
 		>
-			<ArticleCard>
-				<ArticleImage src={props.articleImageURL} />
-				<ArticleDetails>
-					<ArticleTitle>{props.title}</ArticleTitle>
-					<ArticleCategory>{props.topicName}</ArticleCategory>
-					<ArticleFooter>
+			<ResourceCard>
+				<ResourceImage src={props.resourceImageURL} />
+				<ResourceDetails>
+					<ResourceTitle>{props.title}</ResourceTitle>
+					<ResourceCategory>{props.topicName}</ResourceCategory>
+					<ResourceFooter>
 						<ReadMoreButton slug={props.slug} />
 
 						<WhatsappShareButton
 							url={
 								domain +
-								urlGenerators.vizeArticleUrl(props.slug)
+								urlGenerators.vizeResourceUrl(props.slug)
 							}
-							title="Hola, estoy leyendo este artículo y te lo recomiendo!"
+							title="Hola, estoy leyendo este recurso y te lo recomiendo!"
 						>
 							<WhatsappIcon size={footerHeight} round={true} />
 						</WhatsappShareButton>
@@ -132,18 +143,18 @@ function ArticleCardComponent(props: ArticleCardProps) {
 						<FacebookShareButton
 							url={
 								domain +
-								urlGenerators.vizeArticleUrl(props.slug)
+								urlGenerators.vizeResourceUrl(props.slug)
 							}
-							quote="Hola, estoy leyendo este artículo y se los recomiendo!"
+							quote="Hola, estoy leyendo este recurso y se los recomiendo!"
 							hashtag="#incentivandoelbien"
 						>
 							<FacebookIcon size={footerHeight} round={true} />
 						</FacebookShareButton>
-					</ArticleFooter>
-				</ArticleDetails>
-			</ArticleCard>
+					</ResourceFooter>
+				</ResourceDetails>
+			</ResourceCard>
 		</Link>
 	);
 }
 
-export default ArticleCardComponent;
+export default ResourceCardComponent;

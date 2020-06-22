@@ -90,10 +90,6 @@
 	border-bottom: 1px solid #4395cc !important;
 }
 
-li.te_deco {
-	list-style-type: none;
-}
-
 .log {
 	margin-top: 20px;
 	z-index: 9999;
@@ -429,10 +425,6 @@ li.te_deco {
 
 .read-more-toggle:checked + .read-more-content + .read-more-toggle-label:after {
 	content: "Minimizar ^";
-}
-
-article p {
-	margin-bottom: 0;
 }
 
 .h4-font-sz {

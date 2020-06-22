@@ -31,32 +31,28 @@ function ReviewsSection(props) {
 					{props.company.name} <T.overview_tab.reviews />
 				</h4>
 				<div className="add-buttons">
-					<WriteReviewButton companyName={props.company.name} buttonLocation='Company Profile | Overview' />
+					<WriteReviewButton
+						companyName={props.company.name}
+						buttonLocation="Company Profile | Overview"
+					/>
 				</div>
 				<hr />
 				<CompanyRating company={props.company} />
 			</div>
 			<div className="col-md-12  section_overtopsect">
 				{reviewsToDisplay}
-
-				<center>
-					<div className="na_tab1">
-						<ul className="" role="tablist">
-							<li role="presentation" className="te_deco">
-								<Link
-									to="#reviews"
-									aria-controls="reviews"
-									role="tab"
-									data-toggle="tab"
-								>
-									<strong>
-										<T.overview_tab.see_all_reviews />
-									</strong>
-								</Link>
-							</li>
-						</ul>
-					</div>
-				</center>
+				<div style={{ textAlign: "center" }}>
+					<Link
+						to="#reviews"
+						aria-controls="reviews"
+						role="tab"
+						data-toggle="tab"
+					>
+						<strong>
+							<T.overview_tab.see_all_reviews />
+						</strong>
+					</Link>
+				</div>
 			</div>
 		</>
 	);

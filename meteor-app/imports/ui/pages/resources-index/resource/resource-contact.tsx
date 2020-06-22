@@ -34,6 +34,7 @@ const AuthorImage = styled.img`
 	margin-right: 10px;
 	width: 50px;
 	height: 50px;
+	border-radius: 50%;
 `;
 
 const AuthorTitleContainer = styled.div`
@@ -84,7 +85,7 @@ const ContactItemDescription = styled.p`
 	margin-top: 2px;
 `;
 
-type ArticleAuthorProps = {
+type ResourceAuthorProps = {
 	author: {
 		authorName: string;
 		authorCompanyName: string;
@@ -103,7 +104,7 @@ type ContactItemProps = {
 	children: NodeListOf<Element>;
 };
 
-function ArticleContactSection(props: ArticleAuthorProps) {
+function ResourceContactSection(props: ResourceAuthorProps) {
 	// If there is no author image, use the default image
 	const AuthorImg = () => {
 		if (props.author.authorImageURL) {
@@ -200,4 +201,4 @@ function ArticleContactSection(props: ArticleAuthorProps) {
 	);
 }
 
-export default ArticleContactSection;
+export default ResourceContactSection;
