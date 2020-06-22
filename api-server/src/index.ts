@@ -10,6 +10,11 @@ const app2 = express();
 
 app2.use("/api", app);
 
+// Serve the web app from the api server. This is done so that the whole app
+// can be run as a single Dyno on Heroku. Normally api-server and web-app should
+// be separate things.
+app2.use(express.static("../web-app/dist"));
+
 const server = app2.listen(PORT, () => {
 	console.log("server started at http://localhost:" + PORT);
 	onServerReady();
