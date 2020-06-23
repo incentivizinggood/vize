@@ -4,23 +4,17 @@
 # Stop this script if any command fails.
 set -e
 
-SETTINGS_FILE="$(realpath $1)"
-
-# Update the version info file.
-./scripts/get-version-info.sh
+# Download the config values from Heroku and set them as environment variables.
+eval $(heroku config -s)
 
 # Migrate the database with Flyway.
 sudo docker run \
     -v "$(pwd)/postgres/migrations:/flyway/sql" \
     --rm boxfuse/flyway:5.2.1 \
-    -url=jdbc:postgresql://$(jq --raw-output '."galaxy.meteor.com".env.PGHOST' $SETTINGS_FILE ):5432/vizedb \
-    -user=vize \
-    -password="$(jq --raw-output '."galaxy.meteor.com".env.PGPASSWORD' $SETTINGS_FILE )" \
+    -url=jdbc:postgresql://$PGHOST:$PGPORT/$PGDATABASE \
+    -user=$PGUSER \
+    -password="$PGPASSWORD" \
     migrate
 
-# Deploy the Meteor app to Galaxy.
-cd meteor-app
-DEPLOY_HOSTNAME=galaxy.meteor.com \
-    meteor deploy \
-    www.vize.mx \
-    --settings $SETTINGS_FILE
+# Deploy to Heroku
+git push heroku HEAD:master -f

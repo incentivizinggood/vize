@@ -2,10 +2,7 @@
 
 TO_DELETE=(
     node_modules
-    meteor-app/node_modules
-    meteor-app/.meteor/local
-    meteor-app/imports/gen
-    meteor-app/public/version.html
+    {api-server,web-app}/{node_modules,generated,dist}
 )
 
 if [[ "$0" != './scripts/clean.sh' ]]; then
