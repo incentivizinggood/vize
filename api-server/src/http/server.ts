@@ -1,10 +1,7 @@
 import express from "express";
 import connectPgSimple from "connect-pg-simple";
 
-import {
-	pool,
-	testConnection as testPgConnection,
-} from "src/connectors/postgresql";
+import { pool } from "src/connectors/postgresql";
 
 import { applyGraphQLMiddleware } from "./graphql-middleware";
 import { applyPassportMiddleware } from "./passport-middleware";
@@ -61,12 +58,4 @@ app.use("/health-check", async function(req, res, next) {
 	res.status(noFailures ? 200 : 503).json(report);
 });
 
-// TODO: When we stop using Meteor, `app` will be the main server.
-//       We will need to call app.listen to start the server.
-
-function onServerReady() {
-	console.log("Server ready.");
-	testPgConnection();
-}
-
-export { app, onServerReady };
+export { app };

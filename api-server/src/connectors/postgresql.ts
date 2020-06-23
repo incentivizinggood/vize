@@ -61,24 +61,3 @@ export async function simpleQuery1<R>(query: QueryConfig): Promise<R | null> {
 		);
 	return rows[0];
 }
-
-// Test the connection to the database by querying the current time.
-// Run this on server startup to catch errors sooner.
-export function testConnection() {
-	pool.query("SELECT NOW() as now")
-		.then(res => {
-			console.log("PostgreSQL connection test succeeded.");
-			console.log(
-				`"SELECT NOW() as now" -> ${JSON.stringify(res.rows[0])}`
-			);
-		})
-		.catch(e => {
-			console.error(e);
-			console.error(
-				"We failed to connect to the PostgreSQL database. Did you forget to start it?"
-			);
-			console.error(
-				"Run the command ./run.sh db in another terminal to start the database."
-			);
-		});
-}
