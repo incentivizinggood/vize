@@ -7,6 +7,8 @@ const { PORT = 3001 } = process.env;
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use("/api", apiRouter);
 
 app.use(webAppRouter);

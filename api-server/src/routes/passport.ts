@@ -35,6 +35,7 @@ router.use(
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
+			secure: process.env.NODE_ENV !== "development",
 			// Do not allow client side scripts to access the session cookie.
 			httpOnly: true,
 		},
