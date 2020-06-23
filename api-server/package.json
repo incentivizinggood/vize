@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "graphql-codegen && webpack",
+    "build": "graphql-codegen && webpack --mode production",
     "start": "node -r source-map-support/register --experimental-modules dist/main.js",
     "watch": "concurrently -n graphql-codegen,webpack \"graphql-codegen --watch\" \"webpack --watch\""
   },
