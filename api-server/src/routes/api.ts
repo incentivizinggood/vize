@@ -2,8 +2,8 @@ import express from "express";
 
 import { pool } from "src/connectors/postgresql";
 
-import { router as graphqlRouter } from "./graphql-middleware";
-import { router as passportRouter } from "./passport-middleware";
+import { router as graphqlRouter } from "./graphql";
+import { router as passportRouter } from "./passport";
 import bodyParser from "body-parser";
 
 export const router = express.Router();
