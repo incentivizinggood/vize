@@ -26,15 +26,11 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(png|jpe?g|gif|woff)$/i,
-				use: [
-					{
-						loader: "file-loader",
-						options: {
-							outputPath: "assets",
-							publicPath: "/assets",
-						},
-					},
-				],
+				loader: "file-loader",
+				options: {
+					outputPath: "assets",
+					publicPath: "/assets",
+				},
 			},
 			{
 				test: /\.s[ac]ss$/i,
@@ -43,14 +39,10 @@ module.exports = {
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
-				use: [
-					{
-						loader: "ts-loader",
-						options: {
-							transpileOnly: true,
-						},
-					},
-				],
+				loader: "ts-loader",
+				options: {
+					transpileOnly: true,
+				},
 			},
 			{
 				test: /\.mjs$/,

@@ -2,10 +2,11 @@ const path = require("path");
 const NodemonPlugin = require("nodemon-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
 	entry: "./src/index.ts",
-	mode: "production",
+	mode: "development",
 	target: "node",
 	// Enable sourcemaps for debugging Webpack's output
 	devtool: "source-map",
@@ -30,7 +31,10 @@ module.exports = {
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
-				use: "ts-loader",
+				loader: "ts-loader",
+				options: {
+					transpileOnly: true,
+				},
 			},
 			{
 				test: /\.mjs$/,
@@ -45,6 +49,7 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new ForkTsCheckerWebpackPlugin(),
 		new NodemonPlugin({
 			nodeArgs: [
 				"-r",

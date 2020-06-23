@@ -45,6 +45,7 @@
     "@types/pg": "^7.4.14",
     "@types/request-promise-native": "^1.0.17",
     "@types/yup": "^0.29.0",
+    "fork-ts-checker-webpack-plugin": "^5.0.4",
     "nodemon-webpack-plugin": "^4.0.8",
     "progress-bar-webpack-plugin": "^2.1.0",
     "ts-loader": "^7.0.5",
