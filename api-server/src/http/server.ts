@@ -8,9 +8,9 @@ import { applyPassportMiddleware } from "./passport-middleware";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
 
-const app = express();
+const router = express.Router();
 
-app.use(bodyParser.json());
+router.use(bodyParser.json());
 
 // Warn if the SESSION_SECRET is not given. This is needed to sign the session
 // cookies and prevent spoofing.
@@ -21,7 +21,7 @@ if (!process.env.SESSION_SECRET) {
 	);
 }
 
-app.use(
+router.use(
 	expressSession({
 		store: new (connectPgSimple(expressSession))({ pool }),
 		secret: process.env.SESSION_SECRET || "keyboard cat",
@@ -34,12 +34,12 @@ app.use(
 	})
 );
 
-applyPassportMiddleware(app);
+applyPassportMiddleware(router);
 
-applyGraphQLMiddleware(app);
+applyGraphQLMiddleware(router);
 
 // Check the heath of this server and test its ability to function.
-app.use("/health-check", async function(req, res, next) {
+router.use("/health-check", async function(req, res, next) {
 	const report: any = {};
 	let noFailures = true;
 
@@ -58,4 +58,4 @@ app.use("/health-check", async function(req, res, next) {
 	res.status(noFailures ? 200 : 503).json(report);
 });
 
-export { app };
+export { router };

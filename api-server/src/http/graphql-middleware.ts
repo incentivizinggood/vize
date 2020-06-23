@@ -1,10 +1,10 @@
 import { ApolloServer, IResolvers } from "apollo-server-express";
-import { Express } from "express";
+import { Router } from "express";
 
 import { typeDefs, resolvers } from "src/graphql";
 
 /** Setup the GraphQL API endpoint. */
-export function applyGraphQLMiddleware(app: Express) {
+export function applyGraphQLMiddleware(router: Router) {
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers: resolvers as IResolvers,
@@ -19,12 +19,13 @@ export function applyGraphQLMiddleware(app: Express) {
 		introspection: true,
 	});
 
-	apolloServer.applyMiddleware({
-		app,
-		path: "/graphql",
-		// Disable automatic adding of these middlewares.
-		// They are added manually in server.ts.
-		cors: false,
-		bodyParserConfig: false,
-	});
+	router.use(
+		apolloServer.getMiddleware({
+			path: "/graphql",
+			// Disable automatic adding of these middlewares.
+			// They are added manually in server.ts.
+			cors: false,
+			bodyParserConfig: false,
+		})
+	);
 }

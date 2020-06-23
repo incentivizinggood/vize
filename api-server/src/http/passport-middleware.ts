@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as FacebookStrategy } from "passport-facebook";
-import { Express } from "express";
+import { Router } from "express";
 import * as yup from "yup";
 
 import {
@@ -13,7 +13,7 @@ import {
 } from "src/models";
 
 /** Set up the users and authentication middleware. */
-export function applyPassportMiddleware(app: Express) {
+export function applyPassportMiddleware(router: Router) {
 	passport.serializeUser<User, string>(function(user, done) {
 		done(null, user ? user.userId.toString() : undefined);
 	});
@@ -25,13 +25,13 @@ export function applyPassportMiddleware(app: Express) {
 		done(null, user === null ? undefined : user);
 	});
 
-	app.use(passport.initialize());
-	app.use(passport.session());
+	router.use(passport.initialize());
+	router.use(passport.session());
 
 	// TODO: HTTP 401 Not Authorized errors may not be the right code for
 	// these errors. Perhaps 409 Conflict would be better?
 
-	app.post("/login", async function(req, res, next) {
+	router.post("/login", async function(req, res, next) {
 		try {
 			const user = await verifyUser(req.body);
 
@@ -59,7 +59,7 @@ export function applyPassportMiddleware(app: Express) {
 		}
 	});
 
-	app.post("/logout", function(req, res) {
+	router.post("/logout", function(req, res) {
 		req.logout();
 
 		// We assume the logout was made by an API call.
@@ -67,7 +67,7 @@ export function applyPassportMiddleware(app: Express) {
 		res.end();
 	});
 
-	app.post("/register", async function(req, res, next) {
+	router.post("/register", async function(req, res, next) {
 		try {
 			const user = await createUser(req.body);
 
@@ -95,7 +95,7 @@ export function applyPassportMiddleware(app: Express) {
 		}
 	});
 
-	app.post("/change-password", async function(req, res, next) {
+	router.post("/change-password", async function(req, res, next) {
 		try {
 			await changePassword(req.user as User, req.body);
 		} catch (e) {
@@ -145,14 +145,14 @@ export function applyPassportMiddleware(app: Express) {
 			)
 		);
 
-		app.get(
+		router.get(
 			"/auth/facebook",
 			passport.authenticate("facebook", {
 				scope: ["email", "public_profile"],
 			})
 		);
 
-		app.get(
+		router.get(
 			"/auth/facebook/callback",
 			passport.authenticate("facebook", { failureRedirect: "/login" }),
 			function(req, res) {
