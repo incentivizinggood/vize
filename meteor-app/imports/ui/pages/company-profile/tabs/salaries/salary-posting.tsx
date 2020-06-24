@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Progress } from "semantic-ui-react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 const SalaryCardContainer = styled.div`

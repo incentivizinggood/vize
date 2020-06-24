@@ -12,7 +12,7 @@ const T = translations.legacyTranslationsNeedsRefactor;
 
 function SalariesSection(props) {
 	// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
-	/*let salariesToDisplay;
+	let salariesToDisplay;
 	if (props.numSalaries > 0) {
 		salariesToDisplay = (
 			<div>
@@ -31,7 +31,7 @@ function SalariesSection(props) {
 		);
 	} else {
 		salariesToDisplay = <T.overview_tab.salaries_text />;
-	}*/
+	}
 
 	return (
 		<div className="col-md-12  section_rview_back_color_job">
