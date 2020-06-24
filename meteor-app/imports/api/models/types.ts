@@ -75,6 +75,7 @@ export type CompanySalaryStats = {
 	totalAvgPay: number;
 	totalMaxPay: number;
 	totalMinPay: number;
+	numSalaries: number;
 };
 
 export type JobAd = {
