@@ -38,7 +38,7 @@ function fixNullParams<T>(param: T | null | undefined): T | undefined {
 interface NavLinksProps {
 	user?: {
 		role: string;
-		companyId?: string | null;
+		company?: { id: string } | null;
 	};
 }
 
@@ -148,7 +148,7 @@ interface HeaderProps {
 	navIsAnimated?: boolean;
 	user?: {
 		role: string;
-		companyId?: string | null;
+		company?: { id: string } | null;
 	};
 }
 

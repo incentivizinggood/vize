@@ -3,5 +3,8 @@ query currentUser {
 		id
 		username
 		role
+		company {
+			id
+		}
 	}
 }
