@@ -12,7 +12,7 @@ export default function JobTab(props) {
 	));
 
 	return (
-		<div role="tabpanel" className="tab-pane" id="jobs">
+		<>
 			<div className="col-md-12  section_rview_back_color03 ">
 				<div className="ava_job ">
 					<h4 className="head_section_font">
@@ -22,6 +22,6 @@ export default function JobTab(props) {
 			</div>
 
 			{renderedJobAds}
-		</div>
+		</>
 	);
 }

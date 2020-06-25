@@ -9,7 +9,7 @@ import {
 
 export default function OverviewTab(props) {
 	return (
-		<div role="tabpanel" className="tab-pane active" id="overview">
+		<>
 			<OverviewSection company={props.company} />
 			<div className="clear" />
 			<ReviewsSection company={props.company} refetch={props.refetch} />
@@ -20,6 +20,6 @@ export default function OverviewTab(props) {
 			{/*
 			<SalariesSection company={props.company} />
 		*/}
-		</div>
+		</>
 	);
 }

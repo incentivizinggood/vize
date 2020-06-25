@@ -16,7 +16,7 @@ function SalaryTab(props) {
 	));
 
 	return (
-		<div role="tabpanel" className="tab-pane" id="salaries">
+		<>
 			<div className="col-md-12  section_rview_back_color03 ">
 				<h4 className="head_section_font">
 					{props.company.numSalaries} <T.salary_tab.job_salaries />
@@ -24,7 +24,7 @@ function SalaryTab(props) {
 				<div className="add-buttons">
 					<AddSalaryButton
 						companyName={props.company.name}
-						buttonLocation='Company Profile | Salaries'
+						buttonLocation="Company Profile | Salaries"
 					/>
 					{/* <button ><i className="fa fa-plus" ></i>&nbsp; Add a Review</button> */}
 				</div>
@@ -44,7 +44,7 @@ function SalaryTab(props) {
 
 				<div className="clear" />
 			</div>
-		</div>
+		</>
 	);
 }
 
