@@ -1,3 +1,4 @@
 {
-	"cSpell.words": ["Incentivizing", "Vize", "deserialize", "prehash"]
+	"cSpell.words": ["Incentivizing", "Vize", "deserialize", "prehash"],
+	"typescript.tsdk": "./node_modules/typescript/lib"
 }
