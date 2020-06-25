@@ -15,14 +15,15 @@ const RegisterButton = styled(Button)`
 	margin-top: 20px;
 `;
 
-function InnerForm(props) {
-	if (props.userRole === "company") {
-		let companyNameField = (
+interface InnerFormProps {
+	userRole: string;
+}
+
+function InnerForm(props: InnerFormProps) {
+	const companyNameField =
+		props.userRole === "company" ? (
 			<Field name="companyName" type="text" t={T.companyName} />
-		);
-	} else {
-		let companyNameField = null;
-	}
+		) : null;
 
 	return (
 		<Form noValidate>
