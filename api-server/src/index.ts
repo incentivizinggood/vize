@@ -10,6 +10,8 @@ const app = express();
 
 app.use(helmet());
 
+// Trust the first proxy. This is needed so that secure cookies will be sent
+// even though this server does not have use TLS/SSL itself.
 app.set("trust proxy", 1);
 
 app.use("/api", apiRouter);
