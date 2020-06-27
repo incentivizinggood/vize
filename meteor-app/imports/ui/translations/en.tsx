@@ -558,6 +558,7 @@ export default {
 			reviews: "Reviews",
 			add_review: "Add a Review",
 			see_all_reviews: "See All Reviews",
+			job_salary: "Job Salary",
 			job_salaries: "Job Salaries",
 			add_salary: "Add a Salary",
 			see_all_salaries: "See All Salaries",
@@ -569,6 +570,7 @@ export default {
 			add_review: "Add a Review",
 		},
 		salary_tab: {
+			job_salary: "Job Salary",
 			job_salaries: "Job Salaries",
 			add_salary: "Add a Salary",
 		},

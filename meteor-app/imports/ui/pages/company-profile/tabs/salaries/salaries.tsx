@@ -56,11 +56,19 @@ function SalaryTab(props: SalaryTabProps) {
 		<SalaryPosting key={i} salary={salary} />
 	));
 
+	const SalaryText = () => {
+		if (props.company.numSalaries == 1) {
+			return <T.salary_tab.job_salary />;
+		} else {
+			return <T.salary_tab.job_salaries />;
+		}
+	};
+
 	return (
 		<div role="tabpanel" className="tab-pane" id="salaries">
 			<SectionHeaderContainer>
 				<SalariesCountText>
-					{props.company.numSalaries} <T.salary_tab.job_salaries />
+					{props.company.numSalaries} <SalaryText />
 				</SalariesCountText>
 				<div className="add-buttons">
 					<AddSalaryButton

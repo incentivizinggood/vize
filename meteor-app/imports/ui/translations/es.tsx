@@ -580,7 +580,8 @@ export default {
 			reviews: "Evaluaciones",
 			add_review: "Agregar Evaluación",
 			see_all_reviews: "Ver Todas las Evaluaciones",
-			job_salaries: "Salario(s) de Trabajo(s)",
+			job_salary: "Salario de Trabajo",
+			job_salaries: "Salarios de Trabajo",
 			add_salary: "Agregar Salario",
 			see_all_salaries: "Ver todos los Salarios",
 			see_all_jobs: "Ver Todos los Trabajos",
@@ -591,7 +592,8 @@ export default {
 			add_review: "Agregar Evaluación",
 		},
 		salary_tab: {
-			job_salaries: "Salario(s) de Trabajo(s)",
+			job_salary: "Salario de Trabajo",
+			job_salaries: "Salarios de Trabajo",
 			add_salary: "Agregar Salario",
 		},
 		showjob: {
