@@ -594,6 +594,8 @@ export default {
 		salary_tab: {
 			job_salary: "Salario de Trabajo",
 			job_salaries: "Salarios de Trabajo",
+			salary: "Salario",
+			salaries: "Salarios",
 			add_salary: "Agregar Salario",
 		},
 		showjob: {

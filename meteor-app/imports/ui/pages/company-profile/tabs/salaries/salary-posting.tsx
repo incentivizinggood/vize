@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
+import { translations } from "imports/ui/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor;
+
 const SalaryCardContainer = styled.div`
 	display: flex;
 	background-color: white;
@@ -50,8 +54,14 @@ export default function SalaryPosting({ salary }: SalaryStatsProps) {
 	const avgSalaryPercentage: number =
 		salary.totalAvgPay / (salary.totalMinPay + salary.totalMaxPay);
 
-	const salaryText: string =
-		salary.numSalaries == 1 ? " Salario" : " Salarios";
+	const SalaryText = () => {
+		if (salary.numSalaries == 1) {
+			return <T.salary_tab.salary />;
+		} else {
+			return <T.salary_tab.salaries />;
+		}
+	};
+
 	return (
 		<SalaryCardContainer>
 			<SalaryDetailsContainer>
@@ -63,7 +73,7 @@ export default function SalaryPosting({ salary }: SalaryStatsProps) {
 				<SalariesDetailsText
 					style={{ color: "gray", fontSize: "12px" }}
 				>
-					{salary.numSalaries + salaryText}
+					{salary.numSalaries} <SalaryText />
 				</SalariesDetailsText>
 				<ProgressBar
 					style={{ overflow: "visible", marginTop: "10px" }}
