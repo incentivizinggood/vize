@@ -5,24 +5,10 @@ import { forSize } from "imports/ui/responsive.js";
 import { translations } from "imports/ui/translations";
 
 import SalaryPosting from "./salary-posting";
+import { SectionHeaderContainer } from "../../components";
 import { AddSalaryButton } from "imports/ui/components/button";
 
 const T = translations.legacyTranslationsNeedsRefactor;
-
-const SectionHeaderContainer = styled.div`
-	display: flex;
-	background-color: white;
-	padding: 10px;
-	margin-bottom: 20px;
-	justify-content: space-between;
-
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-
-	${forSize.phoneOnly} {
-		flex-direction: column;
-		align-items: center;
-	}
-`;
 
 const SalariesCountText = styled.h3`
 	color: black;
@@ -52,6 +38,7 @@ type SalaryTabProps = {
 };
 
 function SalaryTab(props: SalaryTabProps) {
+	console.log("sp", props);
 	const renderedSalaries = props.company.salaryStats.map((salary, i) => (
 		<SalaryPosting key={i} salary={salary} />
 	));

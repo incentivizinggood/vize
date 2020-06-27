@@ -70,9 +70,7 @@ export default function SalaryPosting({ salary }: SalaryStatsProps) {
 				<SalariesDetailsText>
 					Promedio: ${Math.round(salary.totalAvgPay)} / semana
 				</SalariesDetailsText>
-				<SalariesDetailsText
-					style={{ color: "gray", fontSize: "12px" }}
-				>
+				<SalariesDetailsText style={{ color: "gray" }}>
 					{salary.numSalaries} <SalaryText />
 				</SalariesDetailsText>
 				<ProgressBar
