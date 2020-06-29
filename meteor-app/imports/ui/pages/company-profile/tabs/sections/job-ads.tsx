@@ -6,6 +6,11 @@ import {
 	faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+} from "../../components";
 
 import { processLocation } from "imports/ui/misc";
 import { urlGenerators } from "imports/ui/pages";
@@ -74,33 +79,27 @@ export default function JobsSection(props) {
 		jobAdsToDisplay = <T.overview_tab.display_jobs />;
 	}
 	return (
-		<div className="col-md-12  section_rview_back_color_job">
-			{" "}
-			{/* job link */}
-			<div className="sect-padding ">
-				<h4 className="head_section_font">
+		<SectionContainer>
+			<SectionHeaderContainer>
+				<SectionHeaderTitle>
 					{props.numJobAds} <T.overview_tab.jobs_available />
-				</h4>
-				<br />
-				<br />
-				<hr />
-
-				{jobAdsToDisplay}
-				<div style={{ textAlign: "center" }}>
-					<Link
-						to="#jobs"
-						aria-controls="jobs"
-						aria-expanded="true"
-						role="tab"
-						data-toggle="tab"
-					>
-						{" "}
-						<strong>
-							<T.overview_tab.see_all_jobs />
-						</strong>
-					</Link>
-				</div>
+				</SectionHeaderTitle>
+			</SectionHeaderContainer>
+			{jobAdsToDisplay}
+			<div style={{ textAlign: "center" }}>
+				<Link
+					to="#jobs"
+					aria-controls="jobs"
+					aria-expanded="true"
+					role="tab"
+					data-toggle="tab"
+				>
+					{" "}
+					<strong>
+						<T.overview_tab.see_all_jobs />
+					</strong>
+				</Link>
 			</div>
-		</div>
+		</SectionContainer>
 	);
 }

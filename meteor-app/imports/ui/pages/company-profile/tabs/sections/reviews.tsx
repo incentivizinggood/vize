@@ -1,5 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+} from "../../components";
 
 import CompanyRating from "imports/ui/components/companyRatingsComponent";
 import CompanyReview from "imports/ui/components/companyReview";
@@ -24,23 +29,25 @@ function ReviewsSection(props) {
 
 	return (
 		<>
-			<div className="col-md-12  section_rview_back_color08  ">
-				{" "}
-				{/* review link */}
-				<h4 className="head_section_font">
-					{props.company.name} <T.overview_tab.reviews />
-				</h4>
-				<div className="add-buttons">
-					<WriteReviewButton
-						companyName={props.company.name}
-						buttonLocation="Company Profile | Overview"
-					/>
-				</div>
-				<hr />
+			<SectionContainer>
+				<SectionHeaderContainer>
+					<SectionHeaderTitle>
+						{props.company.name} <T.overview_tab.reviews />
+					</SectionHeaderTitle>
+					<div className="add-buttons">
+						<WriteReviewButton
+							companyName={props.company.name}
+							buttonLocation="Company Profile | Overview"
+						/>
+					</div>
+				</SectionHeaderContainer>
 				<CompanyRating company={props.company} />
-			</div>
-			<div className="col-md-12  section_overtopsect">
-				{reviewsToDisplay}
+			</SectionContainer>
+
+			<SectionContainer>
+				<SectionHeaderContainer>
+					{reviewsToDisplay}
+				</SectionHeaderContainer>
 				<div style={{ textAlign: "center" }}>
 					<Link
 						to="#reviews"
@@ -53,7 +60,7 @@ function ReviewsSection(props) {
 						</strong>
 					</Link>
 				</div>
-			</div>
+			</SectionContainer>
 		</>
 	);
 }
