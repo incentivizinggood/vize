@@ -168,8 +168,9 @@ span.headingoo {
 }
 
 .add-buttons {
-	float: right;
-	display: inline;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .tab_str td span {

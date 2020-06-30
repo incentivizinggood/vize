@@ -5,22 +5,21 @@ import { forSize } from "imports/ui/responsive.js";
 import { translations } from "imports/ui/translations";
 
 import SalaryPosting from "./salary-posting";
-import { SectionHeaderContainer } from "../../components";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+} from "../../components";
 import { AddSalaryButton } from "imports/ui/components/button";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
-const SalariesCountText = styled.h3`
-	color: black;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	font-weight: bold;
+const SalaryPostingsContainer = styled.div`
+	margin-bottom: 5px;
 
-	${forSize.phoneOnly} {
-		text-align: center;
-		margin-top: 5px;
-		margin-bottom: 15px;
+	:last-of-type {
+		border: none;
+		margin-bottom: 0px;
 	}
 `;
 
@@ -38,7 +37,6 @@ type SalaryTabProps = {
 };
 
 function SalaryTab(props: SalaryTabProps) {
-	console.log("sp", props);
 	const renderedSalaries = props.company.salaryStats.map((salary, i) => (
 		<SalaryPosting key={i} salary={salary} />
 	));
@@ -53,19 +51,23 @@ function SalaryTab(props: SalaryTabProps) {
 
 	return (
 		<div role="tabpanel" className="tab-pane" id="salaries">
-			<SectionHeaderContainer>
-				<SalariesCountText>
-					{props.company.numSalaries} <SalaryText />
-				</SalariesCountText>
-				<div className="add-buttons">
-					<AddSalaryButton
-						companyName={props.company.name}
-						buttonLocation="Company Profile | Salaries"
-					/>
-				</div>
-			</SectionHeaderContainer>
+			<SectionContainer>
+				<SectionHeaderContainer>
+					<SectionHeaderTitle>
+						{props.company.numSalaries} <SalaryText />
+					</SectionHeaderTitle>
+					<div className="add-buttons">
+						<AddSalaryButton
+							companyName={props.company.name}
+							buttonLocation="Company Profile | Salaries"
+						/>
+					</div>
+				</SectionHeaderContainer>
 
-			<div>{renderedSalaries}</div>
+				<SalaryPostingsContainer>
+					{renderedSalaries}
+				</SalaryPostingsContainer>
+			</SectionContainer>
 		</div>
 	);
 }

@@ -8,20 +8,20 @@ const T = translations.legacyTranslationsNeedsRefactor;
 
 const SalaryCardContainer = styled.div`
 	display: flex;
-	background-color: white;
-	padding: 10px;
-	height: 125px;
-	margin-bottom: 0.10px
-
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-`;
-
-const SalaryDetailsContainer = styled.div`
-	display: flex;
 	flex-direction: column;
+
+	background-color: white;
+
+	min-height: 120px;
+	margin-bottom: 12px;
 	width: 100%;
+
+	border-bottom: 1px solid #dee0e3;
+
+	&:last-of-type {
+		border: none;
+		margin-bottom: 0px;
+	}
 `;
 
 const SalariesTitleText = styled.h4`
@@ -64,25 +64,23 @@ export default function SalaryPosting({ salary }: SalaryStatsProps) {
 
 	return (
 		<SalaryCardContainer>
-			<SalaryDetailsContainer>
-				<SalariesTitleText>{salary.jobTitle}</SalariesTitleText>
+			<SalariesTitleText>{salary.jobTitle}</SalariesTitleText>
 
-				<SalariesDetailsText>
-					Promedio: ${Math.round(salary.totalAvgPay)} / semana
-				</SalariesDetailsText>
-				<SalariesDetailsText style={{ color: "gray" }}>
-					{salary.numSalaries} <SalaryText />
-				</SalariesDetailsText>
-				<ProgressBar
-					style={{ overflow: "visible", marginTop: "10px" }}
-					label={`$${Math.round(salary.totalAvgPay)}`}
-					now={avgSalaryPercentage * 100}
-				/>
-				<MinMaxSalariesTextContainter>
-					<span> ${Math.round(salary.totalMinPay)} </span>
-					<span> ${Math.round(salary.totalMaxPay)} </span>
-				</MinMaxSalariesTextContainter>
-			</SalaryDetailsContainer>
+			<SalariesDetailsText>
+				Promedio: ${Math.round(salary.totalAvgPay)} / semana
+			</SalariesDetailsText>
+			<SalariesDetailsText style={{ color: "gray" }}>
+				{salary.numSalaries} <SalaryText />
+			</SalariesDetailsText>
+			<ProgressBar
+				style={{ overflow: "visible", marginTop: "10px" }}
+				label={`$${Math.round(salary.totalAvgPay)}`}
+				now={avgSalaryPercentage * 100}
+			/>
+			<MinMaxSalariesTextContainter>
+				<span> ${Math.round(salary.totalMinPay)} </span>
+				<span> ${Math.round(salary.totalMaxPay)} </span>
+			</MinMaxSalariesTextContainter>
 		</SalaryCardContainer>
 	);
 }

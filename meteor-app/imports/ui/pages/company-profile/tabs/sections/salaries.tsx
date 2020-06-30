@@ -3,7 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { SalaryPosting } from "../salaries";
-import { SectionHeaderContainer, SectionHeaderTitle } from "../../components";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+} from "../../components";
 import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
 
@@ -29,7 +33,7 @@ function SalariesSection(props) {
 	};
 
 	return (
-		<div style={{ marginTop: "15px" }}>
+		<SectionContainer>
 			<SectionHeaderContainer>
 				<SectionHeaderTitle>
 					{props.company.numSalaries} <T.overview_tab.job_salaries />
@@ -57,7 +61,7 @@ function SalariesSection(props) {
 					</strong>
 				</Link>
 			</div>
-		</div>
+		</SectionContainer>
 	);
 }
 
