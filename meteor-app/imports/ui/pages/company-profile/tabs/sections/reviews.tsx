@@ -4,6 +4,8 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
+	FullWidthLineDivider,
+	SeeMoreFooter,
 } from "../../components";
 
 import CompanyRating from "imports/ui/components/companyRatingsComponent";
@@ -48,18 +50,12 @@ function ReviewsSection(props) {
 				<SectionHeaderContainer>
 					{reviewsToDisplay}
 				</SectionHeaderContainer>
-				<div style={{ textAlign: "center" }}>
-					<Link
-						to="#reviews"
-						aria-controls="reviews"
-						role="tab"
-						data-toggle="tab"
-					>
-						<strong>
-							<T.overview_tab.see_all_reviews />
-						</strong>
-					</Link>
-				</div>
+
+				<FullWidthLineDivider />
+
+				<SeeMoreFooter to={"#reviews"} ariaControls={"reviews"}>
+					<T.overview_tab.see_all_reviews />
+				</SeeMoreFooter>
 			</SectionContainer>
 		</>
 	);

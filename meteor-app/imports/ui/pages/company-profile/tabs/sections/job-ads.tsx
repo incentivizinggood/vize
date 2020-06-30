@@ -10,6 +10,8 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
+	FullWidthLineDivider,
+	SeeMoreFooter,
 } from "../../components";
 
 import { processLocation } from "imports/ui/misc";
@@ -85,21 +87,14 @@ export default function JobsSection(props) {
 					{props.numJobAds} <T.overview_tab.jobs_available />
 				</SectionHeaderTitle>
 			</SectionHeaderContainer>
+
 			{jobAdsToDisplay}
-			<div style={{ textAlign: "center" }}>
-				<Link
-					to="#jobs"
-					aria-controls="jobs"
-					aria-expanded="true"
-					role="tab"
-					data-toggle="tab"
-				>
-					{" "}
-					<strong>
-						<T.overview_tab.see_all_jobs />
-					</strong>
-				</Link>
-			</div>
+
+			<FullWidthLineDivider />
+
+			<SeeMoreFooter to={"#jobs"} ariaControls={"jobs"}>
+				<T.overview_tab.see_all_jobs />
+			</SeeMoreFooter>
 		</SectionContainer>
 	);
 }

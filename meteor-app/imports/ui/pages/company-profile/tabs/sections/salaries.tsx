@@ -1,27 +1,21 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 import { SalaryPosting } from "../salaries";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
 	FullWidthLineDivider,
+	SeeMoreFooter,
 } from "../../components";
-import styled from "styled-components";
-import { forSize } from "imports/ui/responsive.js";
 
-import { urlGenerators } from "imports/ui/pages";
 import { AddSalaryButton } from "imports/ui/components/button";
-
 import { translations } from "imports/ui/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
+// TODO: add type for props
 function SalariesSection(props) {
 	// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
-	console.log("or", props);
 
 	const SalariesToDisplay = () => {
 		if (props.company.numSalaries > 0) {
@@ -53,18 +47,9 @@ function SalariesSection(props) {
 
 			<FullWidthLineDivider />
 
-			<div style={{ textAlign: "center" }}>
-				<Link
-					to="#salaries"
-					aria-controls="salaries"
-					role="tab"
-					data-toggle="tab"
-				>
-					<strong>
-						<T.overview_tab.see_all_salaries />
-					</strong>
-				</Link>
-			</div>
+			<SeeMoreFooter to={"#salaries"} ariaControls={"salaries"}>
+				<T.overview_tab.see_all_salaries />
+			</SeeMoreFooter>
 		</SectionContainer>
 	);
 }
