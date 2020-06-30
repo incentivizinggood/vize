@@ -18,9 +18,9 @@ function SalariesSection(props) {
 
 	const SalariesToDisplay = () => {
 		if (props.company.numSalaries > 0) {
-			return props.company.salaryStats.map((salary, i) => (
-				<SalaryPosting key={i} salary={salary} />
-			));
+			return props.company.salaryStats
+				.slice(0, 2)
+				.map((salary, i) => <SalaryPosting key={i} salary={salary} />);
 		} else {
 			return <T.overview_tab.no_salaries />;
 		}
