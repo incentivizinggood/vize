@@ -4,7 +4,6 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-	FullWidthLineDivider,
 	SeeMoreFooter,
 } from "../../components";
 
@@ -60,8 +59,6 @@ function ReviewsSection(props) {
 				</SectionHeaderContainer>
 
 				<div>{reviewsToDisplay}</div>
-
-				<FullWidthLineDivider />
 
 				<SeeMoreFooter to={"#reviews"} ariaControls={"reviews"}>
 					<T.overview_tab.see_all_reviews />

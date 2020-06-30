@@ -10,7 +10,6 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-	FullWidthLineDivider,
 	SeeMoreFooter,
 } from "../../components";
 
@@ -89,8 +88,6 @@ export default function JobsSection(props) {
 			</SectionHeaderContainer>
 
 			{jobAdsToDisplay}
-
-			<FullWidthLineDivider />
 
 			<SeeMoreFooter to={"#jobs"} ariaControls={"jobs"}>
 				<T.overview_tab.see_all_jobs />

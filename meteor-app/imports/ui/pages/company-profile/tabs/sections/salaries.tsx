@@ -4,7 +4,6 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-	FullWidthLineDivider,
 	SeeMoreFooter,
 } from "../../components";
 
@@ -44,8 +43,6 @@ function SalariesSection(props) {
 			<div>
 				<SalariesToDisplay />
 			</div>
-
-			<FullWidthLineDivider />
 
 			<SeeMoreFooter to={"#salaries"} ariaControls={"salaries"}>
 				<T.overview_tab.see_all_salaries />

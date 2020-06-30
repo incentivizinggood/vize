@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
+import FullWidthLineDivider from "./full-width-line-divider";
 
 import { Link } from "react-router-dom";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -30,17 +31,20 @@ type SeeMoreFooterProps = {
 
 function SeeMoreFooter(props: SeeMoreFooterProps) {
 	return (
-		<SeeMoreFooterContainer>
-			<Link
-				to={props.to}
-				aria-controls={props.ariaControls}
-				role="tab"
-				data-toggle="tab"
-			>
-				{props.children}
-				<ChevronRightIcon />
-			</Link>
-		</SeeMoreFooterContainer>
+		<>
+			<FullWidthLineDivider />
+			<SeeMoreFooterContainer>
+				<Link
+					to={props.to}
+					aria-controls={props.ariaControls}
+					role="tab"
+					data-toggle="tab"
+				>
+					{props.children}
+					<ChevronRightIcon />
+				</Link>
+			</SeeMoreFooterContainer>
+		</>
 	);
 }
 
