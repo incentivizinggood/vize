@@ -26,7 +26,7 @@ function ReviewsSection(props) {
 			/>
 		);
 	} else {
-		reviewsToDisplay = <T.overview_tab.display_text />;
+		reviewsToDisplay = <T.overview_tab.no_reviews />;
 	}
 
 	return (
@@ -48,8 +48,18 @@ function ReviewsSection(props) {
 
 			<SectionContainer>
 				<SectionHeaderContainer>
-					{reviewsToDisplay}
+					<SectionHeaderTitle>
+						{props.company.numReviews} <T.overview_tab.reviews />
+					</SectionHeaderTitle>
+					<div className="add-buttons">
+						<WriteReviewButton
+							companyName={props.company.name}
+							buttonLocation="Company Profile | Overview"
+						/>
+					</div>
 				</SectionHeaderContainer>
+
+				<div>{reviewsToDisplay}</div>
 
 				<FullWidthLineDivider />
 

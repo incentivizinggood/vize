@@ -11,9 +11,10 @@ const T = translations.legacyTranslationsNeedsRefactor.overview_tab;
 
 interface WriteReviewButtonProps {
 	companyName?: string;
+	buttonLocation: string;
 }
 
-function buttonTracking(buttonLocation) {
+function buttonTracking(buttonLocation: string) {
 	ReactGA.event({
 		category: "Button",
 		action: "Add Review Pressed",

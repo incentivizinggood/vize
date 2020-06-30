@@ -78,7 +78,7 @@ export default function JobsSection(props) {
 			</div>
 		);
 	} else {
-		jobAdsToDisplay = <T.overview_tab.display_jobs />;
+		jobAdsToDisplay = <T.overview_tab.no_jobs />;
 	}
 	return (
 		<SectionContainer>

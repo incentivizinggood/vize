@@ -23,7 +23,7 @@ function SalariesSection(props) {
 				<SalaryPosting key={i} salary={salary} />
 			));
 		} else {
-			return <T.overview_tab.salaries_text />;
+			return <T.overview_tab.no_salaries />;
 		}
 	};
 
