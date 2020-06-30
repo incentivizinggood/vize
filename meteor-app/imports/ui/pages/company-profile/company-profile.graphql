@@ -76,7 +76,7 @@ query companyProfilePage($companyId: ID!) {
 			totalAvgPay
 			totalMaxPay
 			totalMinPay
-			numSalaries
+			numSalariesJobTitle
 		}
 		numSalaries
 	}

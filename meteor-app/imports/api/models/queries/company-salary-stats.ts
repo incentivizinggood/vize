@@ -13,7 +13,7 @@ export async function getSalaryStatsByCompanyName(
 			total_avg_pay AS "totalAvgPay",
 			total_max_pay AS "totalMaxPay",
 			total_min_pay AS "totalMinPay",
-			num_salaries AS "numSalaries"
+			num_salaries_job_title AS "numSalariesJobTitle"
 		FROM company_salary_statistics
 		WHERE companyname = ${companyName}
 	`);

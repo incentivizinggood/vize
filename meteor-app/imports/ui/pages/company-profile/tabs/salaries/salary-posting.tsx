@@ -46,7 +46,7 @@ type SalaryStatsProps = {
 		totalAvgPay: number;
 		totalMaxPay: number;
 		totalMinPay: number;
-		numSalaries: number;
+		numSalariesJobTitle: number;
 	};
 };
 
@@ -55,7 +55,7 @@ export default function SalaryPosting({ salary }: SalaryStatsProps) {
 		salary.totalAvgPay / (salary.totalMinPay + salary.totalMaxPay);
 
 	const SalaryText = () => {
-		if (salary.numSalaries == 1) {
+		if (salary.numSalariesJobTitle == 1) {
 			return <T.salary_tab.salary />;
 		} else {
 			return <T.salary_tab.salaries />;
@@ -70,7 +70,7 @@ export default function SalaryPosting({ salary }: SalaryStatsProps) {
 				Promedio: ${Math.round(salary.totalAvgPay)} / semana
 			</SalariesDetailsText>
 			<SalariesDetailsText style={{ color: "gray" }}>
-				{salary.numSalaries} <SalaryText />
+				{salary.numSalariesJobTitle} <SalaryText />
 			</SalariesDetailsText>
 			<ProgressBar
 				style={{ overflow: "visible", marginTop: "10px" }}

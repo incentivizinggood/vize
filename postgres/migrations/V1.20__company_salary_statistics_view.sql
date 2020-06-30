@@ -22,7 +22,7 @@ select
 	total_avg_pay,total_max_pay,total_min_pay,
 	male_avg_pay,male_max_pay,male_min_pay,
 	female_avg_pay,female_max_pay,female_min_pay,
-	num_salaries
+	num_salaries_job_title
 
 from
 	(select
@@ -30,7 +30,7 @@ from
 		avg(income_amount_per_week) as total_avg_pay,
 		max(income_amount_per_week) as total_max_pay,
 		min(income_amount_per_week) as total_min_pay,
-		count(*) as num_salaries
+		count(*) as num_salaries_job_title
 	from
 		company_salary_income_amount
 	group by
