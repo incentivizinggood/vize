@@ -7,6 +7,7 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
+	FullWidthLineDivider,
 } from "../../components";
 import styled from "styled-components";
 import { forSize } from "imports/ui/responsive.js";
@@ -49,6 +50,9 @@ function SalariesSection(props) {
 			<div>
 				<SalariesToDisplay />
 			</div>
+
+			<FullWidthLineDivider />
+
 			<div style={{ textAlign: "center" }}>
 				<Link
 					to="#salaries"
