@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { forSize } from "src/responsive";
+
 const TabButton = styled.button`
 	background: black;
 	color: white;
@@ -9,6 +11,11 @@ const TabButton = styled.button`
 	min-height: 2em;
 	&[aria-selected="true"] {
 		background: #439bd5;
+	}
+
+	${forSize.phoneOnly} {
+		/* Reduce font size so that the tab header can fit on screen. */
+		font-size: 12pt;
 	}
 `;
 
