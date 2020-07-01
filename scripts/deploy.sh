@@ -10,7 +10,7 @@ eval $(heroku config -s)
 # Migrate the database with Flyway.
 sudo docker run \
     -v "$(pwd)/postgres/migrations:/flyway/sql" \
-    --rm boxfuse/flyway:5.2.1 \
+    --rm flyway/flyway:6.5.0 \
     -url=jdbc:postgresql://$PGHOST:$PGPORT/$PGDATABASE \
     -user=$PGUSER \
     -password="$PGPASSWORD" \
