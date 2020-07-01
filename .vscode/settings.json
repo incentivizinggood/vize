@@ -1,5 +1,6 @@
 {
 	"cSpell.words": ["Incentivizing", "Vize", "deserialize", "prehash"],
 	"eslint.validate": ["typescript", "typescriptreact"],
+	"eslint.runtime": "./node_modules/node/bin/node",
 	"typescript.tsdk": "./node_modules/typescript/lib"
 }

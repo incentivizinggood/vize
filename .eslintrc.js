@@ -42,4 +42,10 @@ module.exports = {
 			},
 		],
 	},
+	settings: {
+		react: {
+			version: "detect",
+		},
+		linkComponents: [{ name: "Link", linkAttribute: "to" }],
+	},
 };
