@@ -17,18 +17,9 @@ const attributes = sql.raw(
 	].join(", ")
 );
 
-const attributesResourceLikes = sql.raw(
-	["user_id AS userId", "resource_slug AS resourceSlug"].join(", ")
-);
-
 const baseQuery = sql`
 	SELECT ${attributes}
 	FROM resources
-`;
-
-const baseQueryResourceLikes = sql`
-	SELECT ${attributesResourceLikes}
-	FROM resource_likes
 `;
 
 export async function getResourceBySlug(

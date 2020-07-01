@@ -16,7 +16,7 @@ module.exports = {
 	rules: {
 		// Simple functions are better than classes. We should always use them
 		// if we are not using the class's lifecycle methods.
-		"react/prefer-stateless-function": 1,
+		"react/prefer-stateless-function": "warn",
 		// It is quite hard to make unique ids in React, so instead we put the
 		// control inside of its label to connect them.
 		"jsx-a11y/label-has-associated-control": [
@@ -29,7 +29,7 @@ module.exports = {
 		],
 		// Although it should be avoided, There are some places where we need
 		// to use the any type to silence type checking.
-		"@typescript-eslint/no-explicit-any": 0,
+		"@typescript-eslint/no-explicit-any": "off",
 		// It is good to have explicit return types on declarations, but in a
 		// lot of cases the type of the function is already well constrained.
 		// We do not want extra typing noise in those cases.
@@ -41,6 +41,9 @@ module.exports = {
 				allowHigherOrderFunctions: true,
 			},
 		],
+		// In many places a callbacks do not use all arguments, but it is nice
+		// to bind them and with express.js it is required for error handlers.
+		"@typescript-eslint/no-unused-vars": ["warn", { args: "none" }],
 	},
 	settings: {
 		react: {

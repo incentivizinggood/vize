@@ -1,4 +1,4 @@
-import sql from "src/utils/sql-template";
+import sql, { SqlStatement } from "src/utils/sql-template";
 import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 
 import {
@@ -20,7 +20,7 @@ export const voteAttributes = sql.raw(
 	].join(", ")
 );
 
-const baseQuery = (subjectType: "review" | "comment") =>
+const baseQuery = (subjectType: "review" | "comment"): SqlStatement =>
 	sql`
 		SELECT ${voteAttributes}, '${sql.raw(subjectType)}' AS "subjectType"
 		FROM ${sql.raw(subjectType)}_votes
