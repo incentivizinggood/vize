@@ -1,0 +1,76 @@
+.congratulations {
+	text-align: center;
+	margin-bottom: 30px;
+
+	&-gif {
+		background-image: url(../images/rewarding.gif);
+		height: 300px;
+		clear: left;
+		background-size: 420px 320px;
+		background-repeat: no-repeat;
+		background-position: 50%;
+	}
+	p {
+		font-size: 1.3em;
+	}
+}
+
+.rewards {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	flex-wrap: wrap;
+	.reward {
+		border-radius: 6px;
+		padding: 15px;
+		margin: 15px;
+		margin-top: 15px;
+		max-width: 250px;
+		flex-direction: column;
+		justify-content: space-between;
+		box-shadow: 0px 1px 3px 0px;
+
+		.reward-visual {
+			position: relative;
+
+			img {
+				text-align: center;
+				display: block;
+				border-radius: 50%;
+				border: 1px solid #d4d1d1;
+				padding: 5px;
+				width: 140px;
+				margin: auto;
+				margin-top: 5px;
+				margin-bottom: 15px;
+			}
+		}
+	}
+}
+
+// modal inner markup styling
+.ReactModalPortal {
+	.ReactModal__Content.ReactModal__Content--after-open {
+		width: 60%;
+		max-width: 550px;
+		height: 200px;
+	}
+	form {
+		input[type="tel"] {
+			width: 100%;
+			padding: 2px;
+		}
+		input[type="submit"] {
+			float: right;
+			margin-top: 5px;
+			padding: 5px;
+			padding-left: 15px;
+			padding-right: 15px;
+			background-color: $vize-blue;
+			border: 1px solid #d4d1d1;
+			outline: none;
+			color: white;
+			font-weight: bolder;
+		}
+	}
+}

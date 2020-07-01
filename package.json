@@ -1,7 +1,17 @@
 {
   "private": true,
+  "workspaces": [
+    "api-server",
+    "web-app"
+  ],
   "scripts": {
+    "build": "yarn workspace web-app build && yarn workspace api-server build",
+    "start": "yarn workspace api-server start",
+    "watch": "concurrently -n web-app,api-server \"yarn workspace web-app watch\" \"yarn workspace api-server watch\"",
     "lint": "eslint --ignore-pattern '*/node_modules/*' ./meteor-app/{client,server,imports}/**/*.{js,jsx,ts,tsx} -f html -o ./eslint-out.html"
+  },
+  "engines": {
+    "node": "12.x"
   },
   "husky": {
     "hooks": {
@@ -28,6 +38,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
+    "concurrently": "^5.2.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
@@ -37,6 +48,6 @@
     "husky": "^1.3.1",
     "lint-staged": "^8.1.3",
     "prettier": "^1.16.4",
-    "typescript": "^3.5.2"
+    "typescript": "^3.9.5"
   }
 }
