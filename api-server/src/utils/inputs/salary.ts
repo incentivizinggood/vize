@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
-import LocationInput from "./location";
+import { LocationInput, locationInputSchema } from "./location";
 
-type CreateSalaryInput = {
+export type CreateSalaryInput = {
 	companyName: string;
 	location: LocationInput;
 	jobTitle: string;
@@ -11,29 +11,25 @@ type CreateSalaryInput = {
 	gender?: string;
 };
 
-namespace CreateSalaryInput {
-	export const schema = yup
-		.object({
-			companyName: yup.string().required(),
-			location: LocationInput.schema,
-			jobTitle: yup.string().required(),
-			incomeType: yup
-				.string()
-				.oneOf([
-					"Yearly Salary",
-					"Monthly Salary",
-					"Weekly Salary",
-					"Daily Salary",
-					"Hourly Wage",
-				])
-				.required(),
-			incomeAmount: yup
-				.number()
-				.min(0)
-				.required(),
-			gender: yup.string().oneOf(["Male", "Female"]),
-		})
-		.required();
-}
-
-export default CreateSalaryInput;
+export const createSalaryInputSchema = yup
+	.object({
+		companyName: yup.string().required(),
+		location: locationInputSchema,
+		jobTitle: yup.string().required(),
+		incomeType: yup
+			.string()
+			.oneOf([
+				"Yearly Salary",
+				"Monthly Salary",
+				"Weekly Salary",
+				"Daily Salary",
+				"Hourly Wage",
+			])
+			.required(),
+		incomeAmount: yup
+			.number()
+			.min(0)
+			.required(),
+		gender: yup.string().oneOf(["Male", "Female"]),
+	})
+	.required();

@@ -2,12 +2,12 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { postToSlack } from "src/connectors/slack-webhook";
 
-import CreateReviewInput from "src/utils/inputs/review";
+import { createReviewInputSchema } from "src/utils/inputs/review";
 
 type PhoneNumber = undefined | string;
 
 export async function createReview(
-	input: CreateReviewInput,
+	input: unknown,
 	userId: number
 ): Promise<number> {
 	const {
@@ -28,7 +28,7 @@ export async function createReview(
 		overallSatisfaction,
 		additionalComments,
 		referredBy,
-	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
+	} = await createReviewInputSchema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
 		let phoneNumberReviewer: PhoneNumber = undefined;
