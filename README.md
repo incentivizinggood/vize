@@ -46,20 +46,19 @@ both Docker and Docker Compose.
 
 1. `cd` into the project's root directory (The same directory as this readme
    file).
-2. Run the command `nvm use` to make sure you are using the correct version of
-   node.
-3. Run the command `yarn install` to install the projects dependencies.
-4. Run the command `./scripts/run-databases.sh` to start the databases.
+2. Run the command `./scripts/run-databases.sh` to start the databases.
     - You will need to enter your password because the Docker commands require
       super user access.
     - This command should not exit. It should keep running until you type
-      `ctrl+c` in the terminal.
+      `Ctrl`+`c` in the terminal.
     - You should see a line that says something like
       `vizemeteorapp_flyway_1 exited with code 0` if it works properly. If you
       ever see a line that says something exited with a code that is not zero
       then you have an error.
-5. In a new terminal, run the command `nvm use` again and then run
-   `./scripts/run-dev-mode.sh` to start the app.
+3. In a new terminal, run the command `nvm use` to make sure you are using the
+   correct version of node.
+4. Run the command `yarn install` to install the projects dependencies.
+5. Run the command `./scripts/run-dev-mode.sh` to start the app.
     - You must have `./scripts/run-databases.sh` running for
       `./scripts/run-dev-mode.sh` to work properly.
 6. Go to `http://localhost:3000/` to test the app.

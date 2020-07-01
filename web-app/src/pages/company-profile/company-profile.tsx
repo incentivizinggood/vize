@@ -7,7 +7,7 @@ import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 
 import CompanyProfileSummary from "./summary";
-import { OverviewTab, ReviewTab, JobTab } from "./tabs";
+import { OverviewTab, ReviewTab, JobTab, SalaryTab } from "./tabs";
 import companyProfileQuery from "./company-profile.graphql";
 import Tabs from "src/components/tabs";
 
@@ -60,6 +60,10 @@ function CompanyProfile_(props) {
 										jobsCount={props.jobsCount}
 									/>
 								),
+							},
+							{
+								label: <T.companyprofile.salaries />,
+								content: <SalaryTab company={props.company} />,
 							},
 						]}
 					/>

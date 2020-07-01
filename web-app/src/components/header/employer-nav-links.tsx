@@ -8,14 +8,14 @@ const T = translations.header;
 
 interface EmployerNavLinksProps {
 	user: {
-		companyId?: string | null;
+		company?: { id: string } | null;
 	};
 }
 
 function EmployerNavLinks(props: EmployerNavLinksProps) {
 	let companyURL;
-	if (props.user.companyId) {
-		companyURL = urlGenerators.vizeProfileUrl(props.user.companyId);
+	if (props.user.company) {
+		companyURL = urlGenerators.vizeProfileUrl(props.user.company.id);
 	} else {
 		companyURL = "/company/create";
 	}
@@ -23,9 +23,6 @@ function EmployerNavLinks(props: EmployerNavLinksProps) {
 	return (
 		<>
 			<li>
-				{
-					//TODO: removing prevState because it for some reason returns error 400 when Used
-				}
 				<Link to={companyURL} className="link-kumya ">
 					<span>
 						<T.my_company />

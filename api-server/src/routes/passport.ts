@@ -35,6 +35,8 @@ router.use(
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
+			// Only send session cookies over secured HTTPS
+			// when not in a development environment.
 			secure: process.env.NODE_ENV !== "development",
 			// Do not allow client side scripts to access the session cookie.
 			httpOnly: true,

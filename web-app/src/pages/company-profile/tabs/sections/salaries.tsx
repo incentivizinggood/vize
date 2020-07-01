@@ -1,46 +1,37 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { SalaryPosting } from "../salaries";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+	SeeMoreFooter,
+} from "../../components";
 
-import { urlGenerators } from "src/pages";
 import { AddSalaryButton } from "src/components/button";
-
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
+// TODO: add type for props
 function SalariesSection(props) {
 	// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
-	let salariesToDisplay;
-	if (props.company.salaries.length > 0) {
-		salariesToDisplay = (
-			<div>
-				<div className="hed-soft-mob">
-					<p>{props.company.salaries[0].jobTitle}</p>
-					<hr />
-				</div>
 
-				<p className="mal-r">{props.company.salaries[0].gender}</p>
-
-				<p>
-					{props.company.salaries[0].incomeType}
-					<span>: {props.company.salaries[0].incomeAmount}</span>
-				</p>
-			</div>
-		);
-	} else {
-		salariesToDisplay = <T.overview_tab.salaries_text />;
-	}
+	const SalariesToDisplay = () => {
+		if (props.company.numSalaries > 0) {
+			return props.company.salaryStats
+				.slice(0, 2)
+				.map((salary, i) => <SalaryPosting key={i} salary={salary} />);
+		} else {
+			return <T.overview_tab.no_salaries />;
+		}
+	};
 
 	return (
-		<div className="col-md-12  section_rview_back_color_job">
-			{" "}
-			{/* salaries  */}
-			<div className="sect-padding">
-				<h4 className="head_section_font">
+		<SectionContainer>
+			<SectionHeaderContainer>
+				<SectionHeaderTitle>
 					{props.company.numSalaries} <T.overview_tab.job_salaries />
-				</h4>
+				</SectionHeaderTitle>
 
 				<div className="add-buttons">
 					<AddSalaryButton
@@ -48,24 +39,15 @@ function SalariesSection(props) {
 						buttonLocation="Company Profile | Overview"
 					/>
 				</div>
-				<hr />
-
-				{salariesToDisplay}
-
-				<div style={{ textAlign: "center" }}>
-					<Link
-						to="#salaries"
-						aria-controls="salaries"
-						role="tab"
-						data-toggle="tab"
-					>
-						<strong>
-							<T.overview_tab.see_all_salaries />
-						</strong>
-					</Link>
-				</div>
+			</SectionHeaderContainer>
+			<div>
+				<SalariesToDisplay />
 			</div>
-		</div>
+
+			<SeeMoreFooter to={"#salaries"} ariaControls={"salaries"}>
+				<T.overview_tab.see_all_salaries />
+			</SeeMoreFooter>
+		</SectionContainer>
 	);
 }
 

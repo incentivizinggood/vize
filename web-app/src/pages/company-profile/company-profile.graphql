@@ -71,11 +71,12 @@ query companyProfilePage($companyId: ID!) {
 			created
 		}
 		numJobAds
-		salaries {
-			id
+		salaryStats {
 			jobTitle
-			incomeType
-			incomeAmount
+			totalAvgPay
+			totalMaxPay
+			totalMinPay
+			numSalariesJobTitle
 		}
 		numSalaries
 	}

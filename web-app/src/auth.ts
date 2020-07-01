@@ -50,9 +50,7 @@ export const register = async (options: {
 			headers: new Headers({
 				"Content-Type": "application/json",
 			}),
-			body: JSON.stringify({
-				options,
-			}),
+			body: JSON.stringify(options),
 		})
 	).then(afterLoginOrLogout);
 
@@ -66,8 +64,6 @@ export const changePassword = async (options: {
 			headers: new Headers({
 				"Content-Type": "application/json",
 			}),
-			body: JSON.stringify({
-				options,
-			}),
+			body: JSON.stringify(options),
 		})
 	);

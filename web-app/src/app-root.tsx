@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
@@ -11,11 +11,6 @@ import { LocaleProvider } from "./startup/i18n";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 
-const options = {
-	autoConfig: true, // set pixel's autoConfig
-	debug: true, // enable logs
-};
-
 // Don't run analytics if testing. If testing analytics, comment this out on local
 if (
 	document.location.hostname !== "localhost" &&
@@ -25,7 +20,11 @@ if (
 	ReactPixel.init("812485162458693");
 }
 
-function AppRoot(props) {
+interface AppRootProps {
+	apolloClient: ApolloClient<{}>;
+}
+
+function AppRoot(props: AppRootProps) {
 	ReactPixel.pageView();
 	ReactGA.pageview(window.location.pathname + window.location.search);
 
@@ -42,10 +41,5 @@ function AppRoot(props) {
 		</LocaleProvider>
 	);
 }
-
-/* eslint-disable react/forbid-prop-types */
-AppRoot.propTypes = {
-	apolloClient: PropTypes.any.isRequired,
-};
 
 export default AppRoot;

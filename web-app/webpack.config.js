@@ -1,6 +1,7 @@
 const path = require("path");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
 	entry: "./src/index.tsx",
@@ -63,5 +64,6 @@ module.exports = {
 			filename: "./index.html",
 			base: "/",
 		}),
+		new FaviconsWebpackPlugin("./src/images/VizeLogoThinny.ico"),
 	],
 };

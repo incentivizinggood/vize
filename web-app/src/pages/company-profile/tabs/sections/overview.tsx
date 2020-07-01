@@ -1,23 +1,26 @@
 import React from "react";
 
 import { translations } from "src/translations";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+} from "../../components";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
 export default function OverviewSection(props) {
 	return (
-		<div className="col-md-12  section_rview_back_color ">
-			<div className="sect-padding ">
-				<h4 className="head_section_font">
+		<SectionContainer>
+			<SectionHeaderContainer>
+				<SectionHeaderTitle>
 					{props.company.name} <T.overview_tab.overview />
-				</h4>
+				</SectionHeaderTitle>
+			</SectionHeaderContainer>
 
-				<hr />
-
-				<div className="over_p">
-					<p>{props.company.descriptionOfCompany}</p>
-				</div>
+			<div className="over_p">
+				<p>{props.company.descriptionOfCompany}</p>
 			</div>
-		</div>
+		</SectionContainer>
 	);
 }

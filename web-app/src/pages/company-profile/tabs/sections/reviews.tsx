@@ -1,5 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+	SeeMoreFooter,
+} from "../../components";
 
 import CompanyRating from "src/components/companyRatingsComponent";
 import CompanyReview from "src/components/companyReview";
@@ -19,41 +25,45 @@ function ReviewsSection(props) {
 			/>
 		);
 	} else {
-		reviewsToDisplay = <T.overview_tab.display_text />;
+		reviewsToDisplay = <T.overview_tab.no_reviews />;
 	}
 
 	return (
 		<>
-			<div className="col-md-12  section_rview_back_color08  ">
-				{" "}
-				{/* review link */}
-				<h4 className="head_section_font">
-					{props.company.name} <T.overview_tab.reviews />
-				</h4>
-				<div className="add-buttons">
-					<WriteReviewButton
-						companyName={props.company.name}
-						buttonLocation="Company Profile | Overview"
-					/>
-				</div>
-				<hr />
+			<SectionContainer>
+				<SectionHeaderContainer>
+					<SectionHeaderTitle>
+						{props.company.name} <T.overview_tab.reviews />
+					</SectionHeaderTitle>
+					<div className="add-buttons">
+						<WriteReviewButton
+							companyName={props.company.name}
+							buttonLocation="Company Profile | Overview"
+						/>
+					</div>
+				</SectionHeaderContainer>
 				<CompanyRating company={props.company} />
-			</div>
-			<div className="col-md-12  section_overtopsect">
-				{reviewsToDisplay}
-				<div style={{ textAlign: "center" }}>
-					<Link
-						to="#reviews"
-						aria-controls="reviews"
-						role="tab"
-						data-toggle="tab"
-					>
-						<strong>
-							<T.overview_tab.see_all_reviews />
-						</strong>
-					</Link>
-				</div>
-			</div>
+			</SectionContainer>
+
+			<SectionContainer>
+				<SectionHeaderContainer>
+					<SectionHeaderTitle>
+						{props.company.numReviews} <T.overview_tab.reviews />
+					</SectionHeaderTitle>
+					<div className="add-buttons">
+						<WriteReviewButton
+							companyName={props.company.name}
+							buttonLocation="Company Profile | Overview"
+						/>
+					</div>
+				</SectionHeaderContainer>
+
+				<div>{reviewsToDisplay}</div>
+
+				<SeeMoreFooter to={"#reviews"} ariaControls={"reviews"}>
+					<T.overview_tab.see_all_reviews />
+				</SeeMoreFooter>
+			</SectionContainer>
 		</>
 	);
 }

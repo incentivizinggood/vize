@@ -90,7 +90,7 @@ const onSubmit = history => (values, actions) => {
 
 function RegisterForm(props) {
 	const params = new URLSearchParams(location.search);
-	let userRole = "worker";
+	let userRole: string | null = "worker";
 
 	if (params != null) {
 		userRole = params.get("user");
