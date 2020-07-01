@@ -26,7 +26,7 @@ const Button = styled.button<ButtonExtraProps>`
 
 			if (props.primary) {
 				return css`
-					background-color: #0d8dfb;
+					background-color: ${props.theme.vizeBlue};
 					color: ${props.theme.onMain};
 					:hover {
 						background-color: ${props.theme.mainVariant};

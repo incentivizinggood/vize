@@ -323,6 +323,8 @@ type CompanySalaryStats {
 	totalAvgPay: Float!
 	totalMaxPay: Float!
 	totalMinPay: Float!
+	"The number of salaries for a specific job title at a company"
+	numSalariesJobTitle: Int!
 }
 
 type JobAd {

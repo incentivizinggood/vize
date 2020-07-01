@@ -40,7 +40,7 @@ function CompanyProfile_(props) {
 								<li
 									className="active"
 									role="presentation"
-									style={{ width: "33%" }}
+									style={{ width: "25%" }}
 								>
 									<Link
 										to="#overview"
@@ -53,7 +53,7 @@ function CompanyProfile_(props) {
 								</li>
 								<li
 									role="presentation"
-									style={{ width: "33%" }}
+									style={{ width: "25%" }}
 								>
 									<Link
 										to="#reviews"
@@ -66,7 +66,7 @@ function CompanyProfile_(props) {
 								</li>
 								<li
 									role="presentation"
-									style={{ width: "33%" }}
+									style={{ width: "25%" }}
 								>
 									<Link
 										to="#jobs"
@@ -77,12 +77,11 @@ function CompanyProfile_(props) {
 										<T.companyprofile.jobs />
 									</Link>
 								</li>
-								{/*
+
 								<li
 									role="presentation"
 									style={{ width: "25%" }}
 								>
-
 									<Link
 										to="#salaries"
 										aria-controls="salaries"
@@ -92,7 +91,7 @@ function CompanyProfile_(props) {
 										<T.companyprofile.salaries />
 									</Link>
 								</li>
-								*/}
+
 								{/* Commenting out the Contact Us form for now */}
 								{/* <li role="presentation"><Link to="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</Link></li> */}
 							</ul>

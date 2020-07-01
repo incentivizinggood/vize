@@ -1,29 +1,86 @@
 import React from "react";
+import styled from "styled-components";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
-export default function SalaryPosting(props) {
+import { translations } from "src/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor;
+
+const SalaryCardContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	background-color: white;
+
+	min-height: 120px;
+	margin-bottom: 12px;
+	width: 100%;
+
+	border-bottom: 1px solid #dee0e3;
+
+	&:last-of-type {
+		border: none;
+		margin-bottom: 0px;
+	}
+`;
+
+const SalariesTitleText = styled.h4`
+	font-weight: bold;
+	margin-bottom: 3px;
+`;
+
+const SalariesDetailsText = styled.h6`
+	margin-top: 5px;
+`;
+
+const MinMaxSalariesTextContainter = styled.div`
+	display: flex;
+	justify-content: space-between;
+	font-size: 12px;
+	margin-top: -18px;
+`;
+
+type SalaryStatsProps = {
+	salary: {
+		jobTitle: string;
+		totalAvgPay: number;
+		totalMaxPay: number;
+		totalMinPay: number;
+		numSalariesJobTitle: number;
+	};
+};
+
+export default function SalaryPosting({ salary }: SalaryStatsProps) {
+	const avgSalaryPercentage: number =
+		salary.totalAvgPay / (salary.totalMinPay + salary.totalMaxPay);
+
+	const SalaryText = () => {
+		if (salary.numSalariesJobTitle == 1) {
+			return <T.salary_tab.salary />;
+		} else {
+			return <T.salary_tab.salaries />;
+		}
+	};
+
 	return (
-		<div>
-			<div>
-				<div className="col-md-12 section_rview_back_color05 ">
-					<div className="sect-padding ">
-						<div className="hed-soft-mob">
-							<p>{props.salary.jobTitle}</p>
-							<hr />
-						</div>
+		<SalaryCardContainer>
+			<SalariesTitleText>{salary.jobTitle}</SalariesTitleText>
 
-						{/*
-							ERROR: Gender is not in the API schema.
-							<p className="mal-r">{props.salary.gender}</p>
-						*/}
-						<div className="pad-r">
-							<p>
-								{props.salary.incomeType}
-								<span>: {props.salary.incomeAmount}</span>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+			<SalariesDetailsText>
+				Promedio: ${Math.round(salary.totalAvgPay)} / semana
+			</SalariesDetailsText>
+			<SalariesDetailsText style={{ color: "gray" }}>
+				{salary.numSalariesJobTitle} <SalaryText />
+			</SalariesDetailsText>
+			<ProgressBar
+				style={{ overflow: "visible", marginTop: "10px" }}
+				label={`$${Math.round(salary.totalAvgPay)}`}
+				now={avgSalaryPercentage * 100}
+			/>
+			<MinMaxSalariesTextContainter>
+				<span> ${Math.round(salary.totalMinPay)} </span>
+				<span> ${Math.round(salary.totalMaxPay)} </span>
+			</MinMaxSalariesTextContainter>
+		</SalaryCardContainer>
 	);
 }

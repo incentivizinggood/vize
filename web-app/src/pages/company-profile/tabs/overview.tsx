@@ -17,9 +17,8 @@ export default function OverviewTab(props) {
 				jobAds={props.company.jobAds}
 				numJobAds={props.company.numJobAds}
 			/>
-			{/*
+
 			<SalariesSection company={props.company} />
-		*/}
 		</div>
 	);
 }

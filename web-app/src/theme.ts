@@ -14,6 +14,9 @@ const theme = {
 
 	background: "hsl(0, 0%, 95%)",
 	// The background color of most things that have things in them. It is a light gray color
+
+	vizeBlue: "#439bd5",
+
 	surface: "white",
 	surfaceAccent: "hsl(240, 4%, 14%)",
 

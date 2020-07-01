@@ -6,6 +6,12 @@ import {
 	faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import {
+	SectionContainer,
+	SectionHeaderContainer,
+	SectionHeaderTitle,
+	SeeMoreFooter,
+} from "../../components";
 
 import { processLocation } from "src/misc";
 import { urlGenerators } from "src/pages";
@@ -71,36 +77,21 @@ export default function JobsSection(props) {
 			</div>
 		);
 	} else {
-		jobAdsToDisplay = <T.overview_tab.display_jobs />;
+		jobAdsToDisplay = <T.overview_tab.no_jobs />;
 	}
 	return (
-		<div className="col-md-12  section_rview_back_color_job">
-			{" "}
-			{/* job link */}
-			<div className="sect-padding ">
-				<h4 className="head_section_font">
+		<SectionContainer>
+			<SectionHeaderContainer>
+				<SectionHeaderTitle>
 					{props.numJobAds} <T.overview_tab.jobs_available />
-				</h4>
-				<br />
-				<br />
-				<hr />
+				</SectionHeaderTitle>
+			</SectionHeaderContainer>
 
-				{jobAdsToDisplay}
-				<div style={{ textAlign: "center" }}>
-					<Link
-						to="#jobs"
-						aria-controls="jobs"
-						aria-expanded="true"
-						role="tab"
-						data-toggle="tab"
-					>
-						{" "}
-						<strong>
-							<T.overview_tab.see_all_jobs />
-						</strong>
-					</Link>
-				</div>
-			</div>
-		</div>
+			{jobAdsToDisplay}
+
+			<SeeMoreFooter to={"#jobs"} ariaControls={"jobs"}>
+				<T.overview_tab.see_all_jobs />
+			</SeeMoreFooter>
+		</SectionContainer>
 	);
 }
