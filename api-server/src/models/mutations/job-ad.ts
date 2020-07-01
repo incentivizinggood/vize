@@ -1,8 +1,5 @@
 import sql from "src/utils/sql-template";
-import {
-	execTransactionRW,
-	Transaction,
-} from "src/connectors/postgresql";
+import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
 
 import {

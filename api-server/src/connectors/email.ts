@@ -12,12 +12,12 @@ interface EmailConfig {
  *                       Supports markdown and Slack's emoji markup.
  * @todo Escape inputs to prevent markdown code injection.
  */
-export function sendEmail({ to, subject, text }: EmailConfig) {
-	// Do not actualy make the request if the MAIL_API_KEY is not set.
+export function sendEmail({ to, subject, text }: EmailConfig): void {
+	// Do not actually make the request if the MAIL_API_KEY is not set.
 	if (process.env.MAIL_API_KEY) {
 		// Make a JSON representation of the message we want to post in the email.
 		// the form is the actual body of the request.
-		var options = {
+		const options = {
 			method: "POST",
 			uri: "https://api.mailgun.net/v3/mg.incentivizinggood.com/messages",
 

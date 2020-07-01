@@ -41,7 +41,7 @@ export async function getVoteByAuthorAndSubject(
 	user: User,
 	subject: VoteSubject
 ): Promise<Vote | null> {
-	let { subjectType, refersTo } = getVoteSubjectRef(subject);
+	const { subjectType, refersTo } = getVoteSubjectRef(subject);
 
 	const submittedBy = user.userId;
 
@@ -96,7 +96,7 @@ export async function getVotesBySubject(
 	pageNumber: number,
 	pageSize: number
 ): Promise<Vote[]> {
-	let { subjectType, refersTo } = getVoteSubjectRef(subject);
+	const { subjectType, refersTo } = getVoteSubjectRef(subject);
 
 	// result has subject (string "review" or "comment")
 	// and votes, the query results from the underlying

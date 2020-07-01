@@ -11,7 +11,7 @@ import { simpleQuery } from "src/connectors/postgresql";
  * @param pageSize The number of nodes on each page.
  * @return One page of results and the total number of results that the originalQuery returns.
  */
-export async function paginate<NodeT extends {}>(
+export async function paginate<NodeT extends Record<string, unknown>>(
 	originalQuery: SqlStatement,
 	pageNumber: number,
 	pageSize: number

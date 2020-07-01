@@ -57,7 +57,7 @@ export async function getNodeById(nodeId: string): Promise<Node | null> {
 		case NodeType.USER:
 			if (restId.length !== 1) return null;
 			return getUserById(restId[0]);
-		case NodeType.VOTE:
+		case NodeType.VOTE: {
 			if (restId.length !== 3) return null;
 			const [subjectType, submittedBy, refersTo] = restId;
 			return getVoteById({
@@ -65,6 +65,7 @@ export async function getNodeById(nodeId: string): Promise<Node | null> {
 				submittedBy,
 				refersTo,
 			} as VoteId);
+		}
 		default:
 			return null;
 	}

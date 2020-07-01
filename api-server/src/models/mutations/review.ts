@@ -1,8 +1,5 @@
 import sql from "src/utils/sql-template";
-import {
-	execTransactionRW,
-	Transaction,
-} from "src/connectors/postgresql";
+import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { postToSlack } from "src/connectors/slack-webhook";
 
 import CreateReviewInput from "src/utils/inputs/review";
@@ -34,9 +31,9 @@ export async function createReview(
 	}: CreateReviewInput = await CreateReviewInput.schema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
-		var phoneNumberReviewer: PhoneNumber = undefined;
-		var phoneNumberReferredBy: PhoneNumber = undefined;
-		var totalReviewsCount: number = 0;
+		let phoneNumberReviewer: PhoneNumber = undefined;
+		let phoneNumberReferredBy: PhoneNumber = undefined;
+		let totalReviewsCount = 0;
 
 		// Check if user is worker
 		{
