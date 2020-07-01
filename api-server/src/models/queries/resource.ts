@@ -68,7 +68,7 @@ export async function getHighlightedResources(): Promise<Resource[]> {
 
 export async function searchForResourcesByTopic(
 	topicName: string,
-	searchText: string,
+	_searchText: string,
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: Resource[]; totalCount: number }> {
@@ -88,7 +88,7 @@ export async function searchForResourcesByTopic(
  * to list all resources on the index page.
  */
 export async function searchForRecentResources(
-	searchText: string,
+	_searchText: string,
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: Resource[]; totalCount: number }> {

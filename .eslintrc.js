@@ -43,7 +43,10 @@ module.exports = {
 		],
 		// In many places a callbacks do not use all arguments, but it is nice
 		// to bind them and with express.js it is required for error handlers.
-		"@typescript-eslint/no-unused-vars": ["warn", { args: "none" }],
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{ args: "all", argsIgnorePattern: "^_" },
+		],
 	},
 	settings: {
 		react: {
