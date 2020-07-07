@@ -5,9 +5,9 @@
     "web-app"
   ],
   "scripts": {
-    "build": "yarn workspace web-app build && yarn workspace api-server build",
+    "build": "graphql-codegen && yarn workspace web-app build && yarn workspace api-server build",
     "start": "yarn workspace api-server start",
-    "watch": "concurrently -n graphql-codegen,web-app,api-server 'graphql-codegen --watch' \"yarn workspace web-app watch\" \"yarn workspace api-server watch\"",
+    "watch": "concurrently -n graphql-codegen,web-app,api-server 'graphql-codegen --watch' 'yarn workspace web-app watch' 'yarn workspace api-server watch'",
     "lint": "eslint --ignore-pattern '*/node_modules/*' ./meteor-app/{client,server,imports}/**/*.{js,jsx,ts,tsx} -f html -o ./eslint-out.html"
   },
   "engines": {
@@ -40,6 +40,7 @@
     "@graphql-codegen/typescript": "^1.16.3",
     "@graphql-codegen/typescript-operations": "^1.16.3",
     "@graphql-codegen/typescript-react-apollo": "^1.16.3",
+    "@graphql-codegen/typescript-resolvers": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "concurrently": "^5.2.0",
