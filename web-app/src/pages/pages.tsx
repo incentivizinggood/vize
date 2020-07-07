@@ -1,5 +1,10 @@
 import React from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import {
+	Switch,
+	Route,
+	withRouter,
+	RouteComponentProps,
+} from "react-router-dom";
 
 import AboutPage from "./about";
 import ResourcePage from "src/pages/resources-index/resource";
@@ -28,9 +33,8 @@ import TestPage from "./test";
 
 import { queryRoutes } from "./url-generators";
 
-// Replace null with undefined.
-// TODO: Make pages handel nulls properly on their own.
-function fixNullParams(param) {
+/** Replace null with undefined. */
+function fixNullParams<T>(param?: T | null): T | undefined {
 	if (param === null) return undefined;
 	return param;
 }
@@ -73,10 +77,12 @@ function Pages(props) {
 				)}
 			/>
 			<Route
-				path={`/${queryRoutes.companyProfile}`}
-				component={() => (
+				path={`/${queryRoutes.companyProfile}/:id`}
+				component={({
+					match,
+				}: RouteComponentProps<{ id?: string }>) => (
 					<CompanyProfile
-						companyId={fixNullParams(params.get("id"))}
+						companyId={fixNullParams(match.params.id)}
 					/>
 				)}
 			/>
