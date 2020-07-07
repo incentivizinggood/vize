@@ -61,6 +61,7 @@ function CompanyProfile_(props) {
 						<Tabs
 							tabs={[
 								{
+									path: "overview",
 									label: <T.companyprofile.overview />,
 									content: (
 										<OverviewTab
@@ -70,6 +71,7 @@ function CompanyProfile_(props) {
 									),
 								},
 								{
+									path: "reviews",
 									label: <T.companyprofile.reviews />,
 									content: (
 										<ReviewTab
@@ -79,6 +81,7 @@ function CompanyProfile_(props) {
 									),
 								},
 								{
+									path: "jobs",
 									label: <T.companyprofile.jobs />,
 									content: (
 										<JobTab
@@ -88,6 +91,7 @@ function CompanyProfile_(props) {
 									),
 								},
 								{
+									path: "salaries",
 									label: <T.companyprofile.salaries />,
 									content: (
 										<SalaryTab company={props.company} />
