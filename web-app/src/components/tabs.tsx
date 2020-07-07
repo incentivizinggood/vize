@@ -15,7 +15,7 @@ const TabButton = styled.button`
 
 	${forSize.phoneOnly} {
 		/* Reduce font size so that the tab header can fit on screen. */
-		font-size: 12pt;
+		font-size: 11pt;
 	}
 `;
 

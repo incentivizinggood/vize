@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { forSize } from "src/responsive";
 
 import { translations } from "src/translations";
 

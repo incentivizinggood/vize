@@ -1,5 +1,7 @@
 import React from "react";
 import { Query } from "react-apollo";
+import styled from "styled-components";
+import { forSize } from "src/responsive";
 
 import { processLocation } from "src/misc";
 import PageWrapper from "src/components/page-wrapper";
@@ -12,6 +14,29 @@ import companyProfileQuery from "./company-profile.graphql";
 import Tabs from "src/components/tabs";
 
 const T = translations.legacyTranslationsNeedsRefactor;
+
+const CompanyPageContainer = styled.div`
+	margin-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 1170px;
+	margin-right: auto;
+	margin-left: auto;
+
+	${forSize.tabletLandscapeAndDown} {
+		width: 750px;
+	}
+	${forSize.tabletAndDown} {
+		padding: 1px;
+		width: 100%;
+	}
+`;
+
+const TabsContainer = styled.div`
+	margin-bottom: 15px;
+	margin-right: auto;
+	margin-left: auto;
+`;
 
 /* The Company Profile  page of the site. */
 
@@ -26,49 +51,53 @@ function CompanyProfile_(props) {
 
 	return (
 		<PageWrapper title="Company Profile">
-			<CompanyProfileSummary company={props.company} />
+			<CompanyPageContainer>
+				<CompanyProfileSummary company={props.company} />
 
-			<br />
-			{/* navigation */}
-			<section id="back_col" className="company-profile">
-				<div className="container container-margin">
-					<Tabs
-						tabs={[
-							{
-								label: <T.companyprofile.overview />,
-								content: (
-									<OverviewTab
-										company={props.company}
-										refetch={props.refetch}
-									/>
-								),
-							},
-							{
-								label: <T.companyprofile.reviews />,
-								content: (
-									<ReviewTab
-										company={props.company}
-										refetch={props.refetch}
-									/>
-								),
-							},
-							{
-								label: <T.companyprofile.jobs />,
-								content: (
-									<JobTab
-										jobAds={props.jobAds}
-										jobsCount={props.jobsCount}
-									/>
-								),
-							},
-							{
-								label: <T.companyprofile.salaries />,
-								content: <SalaryTab company={props.company} />,
-							},
-						]}
-					/>
-				</div>
-			</section>
+				<br />
+				{/* navigation */}
+				<section>
+					<TabsContainer>
+						<Tabs
+							tabs={[
+								{
+									label: <T.companyprofile.overview />,
+									content: (
+										<OverviewTab
+											company={props.company}
+											refetch={props.refetch}
+										/>
+									),
+								},
+								{
+									label: <T.companyprofile.reviews />,
+									content: (
+										<ReviewTab
+											company={props.company}
+											refetch={props.refetch}
+										/>
+									),
+								},
+								{
+									label: <T.companyprofile.jobs />,
+									content: (
+										<JobTab
+											jobAds={props.jobAds}
+											jobsCount={props.jobsCount}
+										/>
+									),
+								},
+								{
+									label: <T.companyprofile.salaries />,
+									content: (
+										<SalaryTab company={props.company} />
+									),
+								},
+							]}
+						/>
+					</TabsContainer>
+				</section>
+			</CompanyPageContainer>
 		</PageWrapper>
 	);
 }
