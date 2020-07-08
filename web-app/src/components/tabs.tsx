@@ -20,6 +20,7 @@ const TabButton = styled(NavLink)`
 	font-size: x-large;
 	min-height: 2em;
 	text-align: center;
+	border-right: 1px solid white;
 
 	&.active {
 		background: #439bd5;
