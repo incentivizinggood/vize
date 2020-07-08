@@ -60,7 +60,7 @@ function ReviewsSection(props) {
 
 				<div>{reviewsToDisplay}</div>
 
-				<SeeMoreFooter to={"#reviews"} ariaControls={"reviews"}>
+				<SeeMoreFooter to={"./reviews"} ariaControls={"reviews"}>
 					<T.overview_tab.see_all_reviews />
 				</SeeMoreFooter>
 			</SectionContainer>

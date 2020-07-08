@@ -20,7 +20,7 @@ const vizeResourceTopicUrl = function(topicName: string) {
 	return `/${queryRoutes.resources}/temas/${topicName}`;
 };
 const vizeProfileUrl = function(companyId: string) {
-	return `/${queryRoutes.companyProfile}/?id=${companyId}`;
+	return `/${queryRoutes.companyProfile}/${companyId}`;
 };
 const vizeReviewUrl = function(companyName?: string) {
 	return `/${queryRoutes.writeReview}/${

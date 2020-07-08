@@ -44,7 +44,7 @@ function SalariesSection(props) {
 				<SalariesToDisplay />
 			</div>
 
-			<SeeMoreFooter to={"#salaries"} ariaControls={"salaries"}>
+			<SeeMoreFooter to={"./salaries"} ariaControls={"salaries"}>
 				<T.overview_tab.see_all_salaries />
 			</SeeMoreFooter>
 		</SectionContainer>

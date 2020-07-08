@@ -1,17 +1,14 @@
 import sql from "src/utils/sql-template";
-import {
-	execTransactionRW,
-	Transaction,
-} from "src/connectors/postgresql";
+import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
 
 import {
-	CreateJobAdInput,
-	CreateApplyToJobAdInput,
+	createJobAdInputSchema,
+	createApplyToJobAdInputSchema,
 } from "src/utils/inputs/job-ad";
 
 export async function createJobAd(
-	input: CreateJobAdInput,
+	input: unknown,
 	userId: number
 ): Promise<number> {
 	const {
@@ -22,7 +19,7 @@ export async function createJobAd(
 		jobDescription,
 		responsibilities,
 		qualifications,
-	}: CreateJobAdInput = await CreateJobAdInput.schema.validate(input);
+	} = await createJobAdInputSchema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
 		const {
@@ -83,18 +80,14 @@ export async function createJobAd(
 	return execTransactionRW(transaction);
 }
 
-export async function applyToJobAd(
-	input: CreateApplyToJobAdInput
-): Promise<boolean> {
+export async function applyToJobAd(input: unknown): Promise<boolean> {
 	const {
 		jobAdId,
 		fullName,
 		email: applicantEmail,
 		phoneNumber,
 		coverLetter,
-	}: CreateApplyToJobAdInput = await CreateApplyToJobAdInput.schema.validate(
-		input
-	);
+	} = await createApplyToJobAdInputSchema.validate(input);
 
 	const transaction: Transaction<boolean> = async client => {
 		const {

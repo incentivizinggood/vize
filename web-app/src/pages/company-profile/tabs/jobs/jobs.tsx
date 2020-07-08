@@ -17,16 +17,14 @@ export default function JobTab(props) {
 	));
 
 	return (
-		<div role="tabpanel" className="tab-pane" id="jobs">
-			<SectionContainer>
-				<SectionHeaderContainer>
-					<SectionHeaderTitle>
-						{props.jobsCount} <T.jobscomponent.jobs_available />
-					</SectionHeaderTitle>
-				</SectionHeaderContainer>
+		<SectionContainer>
+			<SectionHeaderContainer>
+				<SectionHeaderTitle>
+					{props.jobsCount} <T.jobscomponent.jobs_available />
+				</SectionHeaderTitle>
+			</SectionHeaderContainer>
 
-				{renderedJobAds}
-			</SectionContainer>
-		</div>
+			{renderedJobAds}
+		</SectionContainer>
 	);
 }

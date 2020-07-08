@@ -1,14 +1,10 @@
 import sql from "src/utils/sql-template";
-import {
-	execTransactionRW,
-	Transaction,
-} from "src/connectors/postgresql";
-import { postToSlack } from "src/connectors/slack-webhook";
+import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 
-import CreateSalaryInput from "src/utils/inputs/salary";
+import { createSalaryInputSchema } from "src/utils/inputs/salary";
 
 export async function createSalary(
-	input: CreateSalaryInput,
+	input: unknown,
 	userId: number
 ): Promise<number> {
 	const {
@@ -18,7 +14,7 @@ export async function createSalary(
 		incomeType,
 		incomeAmount,
 		gender,
-	}: CreateSalaryInput = await CreateSalaryInput.schema.validate(input);
+	} = await createSalaryInputSchema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
 		{

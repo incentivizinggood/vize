@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { forSize } from "src/responsive";
 
 import { translations } from "src/translations";
 
@@ -50,25 +49,23 @@ function SalaryTab(props: SalaryTabProps) {
 	};
 
 	return (
-		<div role="tabpanel" className="tab-pane" id="salaries">
-			<SectionContainer>
-				<SectionHeaderContainer>
-					<SectionHeaderTitle>
-						{props.company.numSalaries} <SalaryText />
-					</SectionHeaderTitle>
-					<div className="add-buttons">
-						<AddSalaryButton
-							companyName={props.company.name}
-							buttonLocation="Company Profile | Salaries"
-						/>
-					</div>
-				</SectionHeaderContainer>
+		<SectionContainer>
+			<SectionHeaderContainer>
+				<SectionHeaderTitle>
+					{props.company.numSalaries} <SalaryText />
+				</SectionHeaderTitle>
+				<div className="add-buttons">
+					<AddSalaryButton
+						companyName={props.company.name}
+						buttonLocation="Company Profile | Salaries"
+					/>
+				</div>
+			</SectionHeaderContainer>
 
-				<SalaryPostingsContainer>
-					{renderedSalaries}
-				</SalaryPostingsContainer>
-			</SectionContainer>
-		</div>
+			<SalaryPostingsContainer>
+				{renderedSalaries}
+			</SalaryPostingsContainer>
+		</SectionContainer>
 	);
 }
 
