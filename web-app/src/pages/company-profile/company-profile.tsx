@@ -42,7 +42,7 @@ export interface CompanyProfileProps {
 
 /* The Company Profile  page of the site. */
 export default function CompanyProfile({ companyId }: CompanyProfileProps) {
-	const { loading, error, data, refetch } = useCompanyProfilePageQuery({
+	const { loading, error, data } = useCompanyProfilePageQuery({
 		variables: { companyId },
 	});
 
@@ -64,11 +64,6 @@ export default function CompanyProfile({ companyId }: CompanyProfileProps) {
 		);
 	}
 
-	const refetchWithLog = () => {
-		console.log("Refetching");
-		refetch();
-	};
-
 	return (
 		<PageWrapper title="Company Profile">
 			<CompanyPageContainer>
@@ -84,20 +79,14 @@ export default function CompanyProfile({ companyId }: CompanyProfileProps) {
 									path: "overview",
 									label: <T.companyprofile.overview />,
 									content: (
-										<OverviewTab
-											company={data.company}
-											refetch={refetch}
-										/>
+										<OverviewTab company={data.company} />
 									),
 								},
 								{
 									path: "reviews",
 									label: <T.companyprofile.reviews />,
 									content: (
-										<ReviewTab
-											company={data.company}
-											refetch={refetch}
-										/>
+										<ReviewTab company={data.company} />
 									),
 								},
 								{

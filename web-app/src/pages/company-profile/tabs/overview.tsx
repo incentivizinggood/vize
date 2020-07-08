@@ -12,7 +12,7 @@ export default function OverviewTab(props) {
 		<>
 			<OverviewSection company={props.company} />
 			<div className="clear" />
-			<ReviewsSection company={props.company} refetch={props.refetch} />
+			<ReviewsSection company={props.company} />
 			<JobsSection
 				jobAds={props.company.jobAds}
 				numJobAds={props.company.numJobAds}
