@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import styled from "styled-components";
 import { forSize } from "src/responsive";
 
-import { processLocation } from "src/misc";
+import ErrorBoundary from "src/components/error-boundary";
 import PageWrapper from "src/components/page-wrapper";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
@@ -126,33 +126,11 @@ export default ({ companyId }) => (
 				refetch();
 			};
 
-			const processedCompany = data.company;
-			let processedCompanyReviews = data.company.reviews;
-			let processedJobAds = data.company.jobAds;
-
-			processedCompany.locations = processedCompany.locations.map(
-				location => processLocation(JSON.stringify(location))
-			);
-			processedCompanyReviews = processedCompanyReviews.map(review => {
-				const processedReview = review;
-				processedReview.location = processLocation(
-					JSON.stringify(processedReview.location)
-				);
-				return processedReview;
-			});
-			processedJobAds = processedJobAds.map(jobad => {
-				const processedJobAd = jobad;
-				processedJobAd.location = processLocation(
-					JSON.stringify(processedJobAd.location)
-				);
-				return jobad;
-			});
-
 			return (
 				<CompanyProfile
-					company={processedCompany}
-					reviews={processedCompanyReviews}
-					jobAds={processedJobAds}
+					company={data.company}
+					reviews={data.company.reviews}
+					jobAds={data.company.jobAds}
 					jobsCount={data.company.numJobAds}
 					salaries={data.company.salaries}
 					salariesCount={data.company.numJobAds}
