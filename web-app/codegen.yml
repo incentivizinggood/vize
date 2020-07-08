@@ -5,6 +5,7 @@ generates:
   generated/graphql-operations.tsx:
     config:
       withHOC: false # We are not using HOCs for queries or mutations yet.
+      withHooks: true
     plugins:
       - typescript
       - typescript-operations
