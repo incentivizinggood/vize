@@ -11,6 +11,9 @@ import {
 import { forSize } from "src/responsive";
 
 const TabButton = styled(NavLink)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background: black;
 	color: white;
 	flex-grow: 1;
@@ -20,6 +23,11 @@ const TabButton = styled(NavLink)`
 
 	&.active {
 		background: #439bd5;
+	}
+
+	&:hover {
+		background: #439bd5;
+		color: white;
 	}
 
 	${forSize.phoneOnly} {
