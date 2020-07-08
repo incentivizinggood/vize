@@ -49,7 +49,9 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new ForkTsCheckerWebpackPlugin(),
+		new ForkTsCheckerWebpackPlugin({
+			eslint: { files: "./src/**/*.{ts,tsx,js,jsx}" },
+		}),
 		new NodemonPlugin({
 			nodeArgs: [
 				"-r",

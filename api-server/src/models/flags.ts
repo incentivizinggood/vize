@@ -25,7 +25,7 @@ const flagReviewInputSchema = yup
 export async function flagReview(
 	user: User | undefined | null,
 	input: unknown
-) {
+): Promise<boolean> {
 	const {
 		reviewId,
 		reason,

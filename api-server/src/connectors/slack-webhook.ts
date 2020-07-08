@@ -6,8 +6,8 @@ import request from "request-promise-native";
  *                       Supports markdown and Slack's emoji markup.
  * @todo Escape inputs to prevent markdown code injection.
  */
-export function postToSlack(text: string) {
-	// Do not actualy make the request if the URL for Slack's WebHook API has not been set.
+export function postToSlack(text: string): void {
+	// Do not actually make the request if the URL for Slack's WebHook API has not been set.
 	if (process.env.SLACK_WEBHOOK_URL) {
 		// Make a JSON representation of the message we want to post.
 		// This var is called "body" because it is the body of the HTTP request.

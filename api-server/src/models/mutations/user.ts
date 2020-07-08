@@ -121,7 +121,7 @@ const changePasswordInputSchema = yup
 export async function changePassword(
 	user: User | undefined | null,
 	input: unknown
-) {
+): Promise<void> {
 	const {
 		oldPassword,
 		newPassword,
@@ -165,7 +165,7 @@ const authWithFacebookInputSchema = yup
 	.required();
 
 /** Creates or verifies user. */
-export async function authWithFacebook(input: unknown) {
+export async function authWithFacebook(input: unknown): Promise<User> {
 	const {
 		facebookId,
 		role,

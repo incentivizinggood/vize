@@ -151,7 +151,7 @@ if (
 				clientSecret: process.env.FACEBOOK_APP_SECRET,
 				callbackURL: `${process.env.ROOT_URL}/api/auth/facebook/callback`,
 			},
-			async function(accessToken, refreshToken, profile, cb) {
+			async function(_accessToken, _refreshToken, profile, cb) {
 				try {
 					console.log("Facebook user profile =", profile);
 
@@ -185,7 +185,7 @@ if (
 	router.get(
 		"/auth/facebook/callback",
 		passport.authenticate("facebook", { failureRedirect: "/login" }),
-		function(req, res) {
+		function(_req, res) {
 			// Successful authentication, redirect home.
 			res.redirect("/");
 		}

@@ -1,7 +1,7 @@
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 
-import CreateCompanyInput from "src/utils/inputs/company";
+import { createCompanyInputSchema } from "src/utils/inputs/company";
 
 export async function createCompany(
 	input: unknown,
@@ -34,7 +34,7 @@ export async function createCompany(
 			contactPhoneNumber,
 			websiteURL,
 			descriptionOfCompany,
-		}: CreateCompanyInput = await CreateCompanyInput.schema.validate(input);
+		} = await createCompanyInputSchema.validate(input);
 
 		const {
 			rows: [{ companyid }],

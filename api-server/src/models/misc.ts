@@ -1,5 +1,5 @@
 // This file is for all of the model code that
-// didn't make sence to put into the other files.
+// didn't make sense to put into the other files.
 
 import sql, { SqlStatement } from "src/utils/sql-template";
 import { simpleQuery } from "src/connectors/postgresql";
@@ -11,7 +11,7 @@ import { simpleQuery } from "src/connectors/postgresql";
  * @param pageSize The number of nodes on each page.
  * @return One page of results and the total number of results that the originalQuery returns.
  */
-export async function paginate<NodeT extends {}>(
+export async function paginate<NodeT extends Record<string, unknown>>(
 	originalQuery: SqlStatement,
 	pageNumber: number,
 	pageSize: number
@@ -26,7 +26,7 @@ export async function paginate<NodeT extends {}>(
 	).then(results => ({
 		// Remove the totalCount column because it is not part of the nodes.
 		nodes: results.map(
-			({ totalCount, ...rest }) => (rest as unknown) as NodeT
+			({ totalCount: _totalCount, ...rest }) => (rest as unknown) as NodeT
 		),
 		// Extract the totalCount from the results.
 		// If there are no results, it's 0.
