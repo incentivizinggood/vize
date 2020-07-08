@@ -89,7 +89,7 @@ export default function JobsSection(props) {
 
 			{jobAdsToDisplay}
 
-			<SeeMoreFooter to={"#jobs"} ariaControls={"jobs"}>
+			<SeeMoreFooter to={"./jobs"} ariaControls={"jobs"}>
 				<T.overview_tab.see_all_jobs />
 			</SeeMoreFooter>
 		</SectionContainer>
