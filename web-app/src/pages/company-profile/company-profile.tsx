@@ -1,18 +1,42 @@
 import React from "react";
 import { Query } from "react-apollo";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { forSize } from "src/responsive";
 
 import { processLocation } from "src/misc";
-import ErrorBoundary from "src/components/error-boundary";
 import PageWrapper from "src/components/page-wrapper";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 
 import CompanyProfileSummary from "./summary";
-import { OverviewTab, ReviewTab, JobTab, SalaryTab, ContactTab } from "./tabs";
+import { OverviewTab, ReviewTab, JobTab, SalaryTab } from "./tabs";
 import companyProfileQuery from "./company-profile.graphql";
+import Tabs from "src/components/tabs";
 
 const T = translations.legacyTranslationsNeedsRefactor;
+
+const CompanyPageContainer = styled.div`
+	margin-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	width: 1170px;
+	margin-right: auto;
+	margin-left: auto;
+
+	${forSize.tabletLandscapeAndDown} {
+		width: 750px;
+	}
+	${forSize.tabletAndDown} {
+		padding: 1px;
+		width: 100%;
+	}
+`;
+
+const TabsContainer = styled.div`
+	margin-bottom: 15px;
+	margin-right: auto;
+	margin-left: auto;
+`;
 
 /* The Company Profile  page of the site. */
 
@@ -27,109 +51,57 @@ function CompanyProfile_(props) {
 
 	return (
 		<PageWrapper title="Company Profile">
-			<CompanyProfileSummary company={props.company} />
+			<CompanyPageContainer>
+				<CompanyProfileSummary company={props.company} />
 
-			<br />
-			{/* navigation */}
-			<section id="back_col" className="company-profile">
-				<div className="container container-margin">
-					<div className="row">
-						<div className="na_tab">
-							<ul className=" nav nav-tabs">
-								{/* Setting the width of each tab to 25% for each tab since we deleted the 5th one */}
-								<li
-									className="active"
-									role="presentation"
-									style={{ width: "25%" }}
-								>
-									<Link
-										to="#overview"
-										aria-controls="overview"
-										role="tab"
-										data-toggle="tab"
-									>
-										<T.companyprofile.overview />
-									</Link>
-								</li>
-								<li
-									role="presentation"
-									style={{ width: "25%" }}
-								>
-									<Link
-										to="#reviews"
-										aria-controls="reviews"
-										role="tab"
-										data-toggle="tab"
-									>
-										<T.companyprofile.reviews />
-									</Link>
-								</li>
-								<li
-									role="presentation"
-									style={{ width: "25%" }}
-								>
-									<Link
-										to="#jobs"
-										aria-controls="jobs"
-										role="tab"
-										data-toggle="tab"
-									>
-										<T.companyprofile.jobs />
-									</Link>
-								</li>
-
-								<li
-									role="presentation"
-									style={{ width: "25%" }}
-								>
-									<Link
-										to="#salaries"
-										aria-controls="salaries"
-										role="tab"
-										data-toggle="tab"
-									>
-										<T.companyprofile.salaries />
-									</Link>
-								</li>
-
-								{/* Commenting out the Contact Us form for now */}
-								{/* <li role="presentation"><Link to="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contact</Link></li> */}
-							</ul>
-						</div>
-
-						<div>
-							<div className="tab-content">
-								<ErrorBoundary>
-									<OverviewTab
-										company={props.company}
-										refetch={props.refetch}
-									/>
-								</ErrorBoundary>
-
-								<ErrorBoundary>
-									<ReviewTab
-										company={props.company}
-										refetch={props.refetch}
-									/>
-								</ErrorBoundary>
-
-								<ErrorBoundary>
-									<JobTab
-										jobAds={props.jobAds}
-										jobsCount={props.jobsCount}
-									/>
-								</ErrorBoundary>
-
-								<ErrorBoundary>
-									<SalaryTab company={props.company} />
-								</ErrorBoundary>
-
-								<ContactTab />
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+				<br />
+				{/* navigation */}
+				<section>
+					<TabsContainer>
+						<Tabs
+							tabs={[
+								{
+									path: "overview",
+									label: <T.companyprofile.overview />,
+									content: (
+										<OverviewTab
+											company={props.company}
+											refetch={props.refetch}
+										/>
+									),
+								},
+								{
+									path: "reviews",
+									label: <T.companyprofile.reviews />,
+									content: (
+										<ReviewTab
+											company={props.company}
+											refetch={props.refetch}
+										/>
+									),
+								},
+								{
+									path: "jobs",
+									label: <T.companyprofile.jobs />,
+									content: (
+										<JobTab
+											jobAds={props.jobAds}
+											jobsCount={props.jobsCount}
+										/>
+									),
+								},
+								{
+									path: "salaries",
+									label: <T.companyprofile.salaries />,
+									content: (
+										<SalaryTab company={props.company} />
+									),
+								},
+							]}
+						/>
+					</TabsContainer>
+				</section>
+			</CompanyPageContainer>
 		</PageWrapper>
 	);
 }
