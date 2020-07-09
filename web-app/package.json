@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "graphql-codegen && webpack --mode production",
-    "start": "webpack-dev-server --mode development",
-    "watch": "concurrently -n graphql-codegen,webpack \"graphql-codegen --watch\" \"webpack --watch\""
+    "build": "webpack --mode production",
+    "watch": "webpack-dev-server --mode development"
   },
   "engines": {
     "node": "12.x"
@@ -43,10 +42,6 @@
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.15.0",
-    "@graphql-codegen/typescript": "^1.15.0",
-    "@graphql-codegen/typescript-operations": "^1.15.0",
-    "@graphql-codegen/typescript-react-apollo": "^1.15.0",
     "@types/react": "^16.9.35",
     "@types/react-circular-progressbar": "^1.1.0",
     "@types/react-dom": "^16.9.8",

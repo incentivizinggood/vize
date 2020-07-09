@@ -1,0 +1,37 @@
+schema: api-server/src/graphql/schema.graphql
+documents: web-app/src/**/*.graphql
+overwrite: true
+generates:
+  api-server/generated/graphql-resolvers.ts:
+    config:
+      contextType: api-server/src/graphql/resolvers/context#MyContext
+      mapperTypeSuffix: Model
+      mappers:
+        Resource: api-server/src/models/types#Resource
+        ResourceAuthor: api-server/src/models/types#ResourceAuthor
+        ResourceTopic: api-server/src/models/types#ResourceTopic
+        Comment: api-server/src/models/types#Comment
+        CompanySalaryStats: api-server/src/models/types#CompanySalaryStats
+        CommentParent: api-server/src/models/types#CommentParent
+        StarRatings: api-server/src/models/types#StarRatings
+        Company: api-server/src/models/types#Company
+        JobAd: api-server/src/models/types#JobAd
+        Location: api-server/src/models/types#Location
+        Review: api-server/src/models/types#Review
+        Salary: api-server/src/models/types#Salary
+        User: api-server/src/models/types#User
+        Vote: api-server/src/models/types#Vote
+      scalars:
+        DateTime: Date
+      enumsAsTypes: true
+    plugins:
+      - typescript
+      - typescript-resolvers
+  web-app/generated/graphql-operations.tsx:
+    config:
+      withHOC: false # We are not using HOCs for queries or mutations yet.
+      withHooks: true
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
