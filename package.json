@@ -5,9 +5,9 @@
     "web-app"
   ],
   "scripts": {
-    "build": "yarn workspace web-app build && yarn workspace api-server build",
+    "build": "graphql-codegen && yarn workspace web-app build && yarn workspace api-server build",
     "start": "yarn workspace api-server start",
-    "watch": "concurrently -n web-app,api-server \"yarn workspace web-app watch\" \"yarn workspace api-server watch\"",
+    "watch": "concurrently -n graphql-codegen,web-app,api-server 'graphql-codegen --watch' 'yarn workspace web-app watch' 'yarn workspace api-server watch'",
     "lint": "eslint --ext ts,tsx ./{web-app,api-server}/src/**/*.{ts,tsx} -f html -o ./eslint-out.html",
     "format": "prettier --config .prettierrc.yaml '{web-app,api-server}/src/**/*.{ts,tsx}' --write"
   },
@@ -37,6 +37,11 @@
     "concurrent": false
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.16.3",
+    "@graphql-codegen/typescript": "^1.16.3",
+    "@graphql-codegen/typescript-operations": "^1.16.3",
+    "@graphql-codegen/typescript-react-apollo": "^1.16.3",
+    "@graphql-codegen/typescript-resolvers": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
     "@typescript-eslint/parser": "^3.5.0",
     "concurrently": "^5.2.0",

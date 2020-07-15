@@ -4,7 +4,7 @@ import helmet from "helmet";
 import { router as apiRouter } from "src/routes/api";
 import { router as webAppRouter } from "src/routes/web-app";
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
