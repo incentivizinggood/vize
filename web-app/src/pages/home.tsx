@@ -11,7 +11,7 @@ import {
 	BlackBorderButton,
 } from "src/components/button";
 import CompaniesSearchBar from "src/components/companies-search-bar";
-import { translations } from "src/translations";
+import { useTranslations } from "src/translations";
 import ReactGA from "react-ga";
 
 import homeImg1 from "src/images/home-img-1.png";
@@ -21,8 +21,6 @@ import mobile1 from "src/images/mobile-1.png";
 import mobile2 from "src/images/mobile-2.png";
 import communityIcon from "src/images/community-icon.png";
 import salaryIcon from "src/images/salary-icon.png";
-
-const T = translations.homePage;
 
 function addReviewHomeTop() {
 	ReactGA.event({
@@ -41,6 +39,8 @@ function addSalaryHomeBottom() {
 
 // no longer using the reward component but keeping it in case we use it in the future again
 function RewardComponent() {
+	const t = useTranslations().homePage;
+
 	return (
 		<div
 			className="full-width-container background-primary"
@@ -63,13 +63,13 @@ function RewardComponent() {
 									className="white-text-center"
 									style={{ fontSize: 23 }}
 								>
-									<T.rewardText />
+									{t.rewardText}
 								</p>
 								<p
 									className="white-text-center"
 									style={{ fontSize: 23 }}
 								>
-									<T.rewardText2 />
+									{t.rewardText2}
 								</p>
 							</div>
 							<div>
@@ -81,7 +81,7 @@ function RewardComponent() {
 									>
 										<FontAwesomeIcon icon={faPlus} />
 										&nbsp;
-										<T.add_review_button />
+										{t.add_review_button}
 									</WhiteButton>
 								</center>
 							</div>
@@ -96,6 +96,8 @@ function RewardComponent() {
 }
 
 function HomePage() {
+	const t = useTranslations().homePage;
+
 	return (
 		<PageWrapper>
 			<div className="banner">
@@ -103,9 +105,7 @@ function HomePage() {
 					<div className="banner-text">
 						<div id="top" className="callbacks_container">
 							<div className="banner-text-info">
-								<h1>
-									<T.mainBanner />
-								</h1>
+								<h1>{t.mainBanner}</h1>
 							</div>
 							<CompaniesSearchBar />
 						</div>
@@ -126,19 +126,15 @@ function HomePage() {
 					</div>
 					<div className="col-md-4">
 						<div className="great-job-hm">
-							<h1>
-								<T.findjob_title />
-							</h1>
+							<h1>{t.findjob_title}</h1>
 						</div>
 						<div className="great-comp-hm">
-							<h4>
-								<T.findjob_text />
-							</h4>
+							<h4>{t.findjob_text}</h4>
 						</div>
 						<div>
 							<center>
 								<BlackBorderButton to="/jobs">
-									<T.jobsButton />
+									{t.jobsButton}
 								</BlackBorderButton>
 							</center>
 						</div>
@@ -152,19 +148,15 @@ function HomePage() {
 				<div className="container mobile-view background-white">
 					<div className="col-md-4">
 						<div className="great-job-hm">
-							<h1>
-								<T.findjob_title />
-							</h1>
+							<h1>{t.findjob_title}</h1>
 						</div>
 						<div className="great-comp-hm">
-							<h4>
-								<T.findjob_text />
-							</h4>
+							<h4>{t.findjob_text}</h4>
 						</div>
 						<div>
 							<center>
 								<BlackBorderButton to="/jobs">
-									<T.jobsButton />
+									{t.jobsButton}
 								</BlackBorderButton>
 							</center>
 						</div>
@@ -194,18 +186,18 @@ function HomePage() {
 					<div className="col-md-5">
 						<div>
 							<h1 className="white-text-center">
-								<T.findemp_title />
+								{t.findemp_title}
 							</h1>
 						</div>
 						<div>
 							<h4 className="white-text-center">
-								<T.findemp_text />
+								{t.findemp_text}
 							</h4>
 						</div>
 						<div>
 							<center>
 								<WhiteButton to="/companies">
-									<T.companiesButton />
+									{t.companiesButton}
 								</WhiteButton>
 							</center>
 						</div>
@@ -228,18 +220,18 @@ function HomePage() {
 					<div className="col-md-5">
 						<div>
 							<h1 className="white-text-center">
-								<T.findemp_title />
+								{t.findemp_title}
 							</h1>
 						</div>
 						<div>
 							<h4 className="white-text-center">
-								<T.findemp_text />
+								{t.findemp_text}
 							</h4>
 						</div>
 						<div>
 							<center>
 								<WhiteButton to="/companies">
-									<T.companiesButton />
+									{t.companiesButton}
 								</WhiteButton>
 							</center>
 						</div>
@@ -269,9 +261,9 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T.hear />
+										{t.hear}
 										<br />
-										<T.community />
+										{t.community}
 									</div>
 									<div className="frontLogo">
 										<img
@@ -280,7 +272,7 @@ function HomePage() {
 										/>
 									</div>
 									<div className="frontLocation">
-										<T.hear_text />
+										{t.hear_text}
 									</div>
 									<br />
 									<div>
@@ -293,8 +285,8 @@ function HomePage() {
 							<div className="panel-card">
 								<div className="front">
 									<div className="frontTitle">
-										<T.get_fair_salary /> <br />
-										<T.your_work />
+										{t.get_fair_salary} <br />
+										{t.your_work}
 									</div>
 									<div className="frontLogo">
 										<img
@@ -303,7 +295,7 @@ function HomePage() {
 										/>
 									</div>
 									<div className="frontLocation">
-										<T.fairsalary_text />
+										{t.fairsalary_text}
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</div>
 									<br />
@@ -315,7 +307,7 @@ function HomePage() {
 										>
 											<FontAwesomeIcon icon={faPlus} />
 											&nbsp;
-											<T.salary_button />
+											{t.salary_button}
 										</LinkButton>
 									</div>
 									<br />
@@ -336,9 +328,7 @@ function HomePage() {
 						<div className="col-md-8">
 							<center>
 								{" "}
-								<h1>
-									<T.discover_employers />{" "}
-								</h1>
+								<h1>{t.discover_employers} </h1>
 								<br />
 							</center>
 						</div>
@@ -351,7 +341,7 @@ function HomePage() {
 											"worker"
 										)}
 									>
-										<T.signup_button />
+										{t.signup_button}
 									</BlackBorderButton>
 								</center>
 							</div>
