@@ -12,7 +12,7 @@ import {
 	SubmissionError,
 	FormText,
 } from "src/components/form-stuff";
-import { translations } from "src/translations";
+import { translations, useTranslations } from "src/translations";
 
 const T = translations.createReview;
 
@@ -23,6 +23,8 @@ const FormDividerLine = styled.hr`
 `;
 
 function InnerForm({ submissionError }) {
+	const t = useTranslations().createReview;
+
 	return (
 		<Form noValidate>
 			<Field
@@ -64,68 +66,70 @@ function InnerForm({ submissionError }) {
 				t={T.fields.numberOfMonthsWorked}
 			/>
 
-			<T.fields.contractType
-				renderer={t => (
-					<Field
-						name="contractType"
-						select
-						variant="privacyTextField"
-						required
-						label={t.label}
-					>
-						<option value="">(Seleccione una Opción)</option>
-						<option value="FULL_TIME">{t.fullTime}</option>
-						<option value="TEMPORARY">{t.temporary}</option>
-						<option value="PART_TIME">{t.partTime}</option>
-						<option value="INTERNSHIP">{t.internship}</option>
-						<option value="CONTRACTOR">{t.contractor}</option>
-					</Field>
-				)}
-			/>
+			<Field
+				name="contractType"
+				select
+				variant="privacyTextField"
+				required
+				label={t.fields.contractType.label}
+			>
+				<option value="">(Seleccione una Opción)</option>
+				<option value="FULL_TIME">
+					{t.fields.contractType.fullTime}
+				</option>
+				<option value="TEMPORARY">
+					{t.fields.contractType.temporary}
+				</option>
+				<option value="PART_TIME">
+					{t.fields.contractType.partTime}
+				</option>
+				<option value="INTERNSHIP">
+					{t.fields.contractType.internship}
+				</option>
+				<option value="CONTRACTOR">
+					{t.fields.contractType.contractor}
+				</option>
+			</Field>
 
 			<br />
 			<br />
 
-			<T.fields.employmentStatus
-				renderer={t => (
-					<Field
-						name="employmentStatus"
-						type="radioButtons"
-						label={t.label}
-						options={[
-							<FormControlLabel
-								value="FORMER"
-								control={<Radio />}
-								label={t.former}
-							/>,
-							<FormControlLabel
-								value="CURRENT"
-								control={<Radio />}
-								label={t.current}
-							/>,
-						]}
-					/>
-				)}
+			<Field
+				name="employmentStatus"
+				type="radioButtons"
+				label={t.fields.employmentStatus.label}
+				options={[
+					<FormControlLabel
+						value="FORMER"
+						control={<Radio />}
+						label={t.fields.employmentStatus.former}
+					/>,
+					<FormControlLabel
+						value="CURRENT"
+						control={<Radio />}
+						label={t.fields.employmentStatus.current}
+					/>,
+				]}
 			/>
 
 			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
 
 			<Field name="cons" required multiline rows={6} t={T.fields.cons} />
 
-			<T.fields.wouldRecommendToOtherJobSeekers
-				renderer={t => (
-					<Field
-						name="wouldRecommendToOtherJobSeekers"
-						select
-						required
-						label={t.label}
-					>
-						<option value="">(Seleccione una Opción)</option>
-						<option value="true">{t.yes}</option>
-						<option value="false">{t.no}</option>
-					</Field>
-				)}
-			/>
+			<Field
+				name="wouldRecommendToOtherJobSeekers"
+				select
+				required
+				label={t.fields.wouldRecommendToOtherJobSeekers.label}
+			>
+				<option value="">(Seleccione una Opción)</option>
+				<option value="true">
+					{t.fields.wouldRecommendToOtherJobSeekers.yes}
+				</option>
+				<option value="false">
+					{t.fields.wouldRecommendToOtherJobSeekers.no}
+				</option>
+			</Field>
 			<br />
 			<br />
 
@@ -174,29 +178,31 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<FormDividerLine />
-			<FormText>
-				<T.formSalaryNotice />
-			</FormText>
+			<FormText>{t.formSalaryNotice}</FormText>
 
-			<T.fields.incomeType
-				renderer={t => (
-					<Field
-						name="incomeType"
-						select
-						variant="privacyTextField"
-						required
-						label={t.label}
-					>
-						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
-						<option value="MONTHLY_SALARY">
-							{t.monthlySalary}
-						</option>
-						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
-						<option value="DAILY_SALARY">{t.dailySalary}</option>
-						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
-					</Field>
-				)}
-			/>
+			<Field
+				name="incomeType"
+				select
+				variant="privacyTextField"
+				required
+				label={t.fields.incomeType.label}
+			>
+				<option value="YEARLY_SALARY">
+					{t.fields.incomeType.yearlySalary}
+				</option>
+				<option value="MONTHLY_SALARY">
+					{t.fields.incomeType.monthlySalary}
+				</option>
+				<option value="WEEKLY_SALARY">
+					{t.fields.incomeType.weeklySalary}
+				</option>
+				<option value="DAILY_SALARY">
+					{t.fields.incomeType.dailySalary}
+				</option>
+				<option value="HOURLY_WAGE">
+					{t.fields.incomeType.hourlyWage}
+				</option>
+			</Field>
 
 			<Field
 				name="incomeAmount"
@@ -215,7 +221,7 @@ function InnerForm({ submissionError }) {
 					type="submit"
 					color="primary"
 				>
-					<T.submit />
+					{t.submit}
 				</SubmitButton>
 			</FormToolbar>
 		</Form>
