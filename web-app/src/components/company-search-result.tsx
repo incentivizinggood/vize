@@ -13,11 +13,9 @@ import styled from "styled-components";
 import { urlGenerators } from "src/pages/url-generators";
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
-import { translations } from "src/translations";
+import { useTranslations } from "src/translations";
 import { forSize } from "src/responsive";
 import defaultCompanyImg from "src/images/default-company.png";
-
-const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
 
 const CompanyDataStatisticsComponent = styled.div`
 	margin-top: 4px;
@@ -59,7 +57,10 @@ interface CompanySearchResultProps {
 }
 
 function CompanySearchResult(props: CompanySearchResultProps) {
+	const t = useTranslations().legacyTranslationsNeedsRefactor
+		.CompanySearchResult;
 	const companyProfileUrl = urlGenerators.vizeProfileUrl(props.company.id);
+
 	return (
 		<div>
 			<div className="container company-search-container">
@@ -147,23 +148,19 @@ function CompanySearchResult(props: CompanySearchResultProps) {
 						<CompanyDataStatisticsComponent>
 							<div>
 								{props.company.numReviews} <br />
-								<span className="review_text">
-									<T.reviews />
-								</span>
+								<span className="review_text">{t.reviews}</span>
 							</div>
 							<div>
 								{props.company.numSalaries}
 								<br />
 								<span className="review_text">
-									<T.salaries />
+									{t.salaries}
 								</span>
 							</div>
 							<div>
 								{props.company.numJobAds}
 								<br />
-								<span className="review_text">
-									<T.jobs />
-								</span>
+								<span className="review_text">{t.jobs}</span>
 							</div>
 						</CompanyDataStatisticsComponent>
 					</div>

@@ -5,9 +5,7 @@ import ReactGA from "react-ga";
 
 import { urlGenerators } from "src/pages/url-generators";
 import { LinkButton } from "src/components/button";
-import { translations } from "src/translations";
-
-const T = translations.legacyTranslationsNeedsRefactor;
+import { useTranslations } from "src/translations";
 
 interface AddSalaryButtonProps {
 	companyName?: string;
@@ -23,6 +21,8 @@ function buttonTracking(buttonLocation?: string) {
 }
 
 function AddSalaryButton(props: AddSalaryButtonProps) {
+	const t = useTranslations().legacyTranslationsNeedsRefactor;
+
 	return (
 		<LinkButton
 			to={urlGenerators.vizeSalaryUrl(props.companyName)}
@@ -31,7 +31,7 @@ function AddSalaryButton(props: AddSalaryButtonProps) {
 		>
 			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;
-			<T.salary_tab.add_salary />
+			{t.salary_tab.add_salary}
 		</LinkButton>
 	);
 }

@@ -5,9 +5,7 @@ import ReactGA from "react-ga";
 
 import { urlGenerators } from "src/pages/url-generators";
 import { LinkButton } from "src/components/button";
-import { translations } from "src/translations";
-
-const T = translations.legacyTranslationsNeedsRefactor.overview_tab;
+import { useTranslations } from "src/translations";
 
 interface WriteReviewButtonProps {
 	companyName?: string;
@@ -23,6 +21,8 @@ function buttonTracking(buttonLocation?: string) {
 }
 
 function WriteReviewButton(props: WriteReviewButtonProps) {
+	const t = useTranslations().legacyTranslationsNeedsRefactor.overview_tab;
+
 	return (
 		<LinkButton
 			to={urlGenerators.vizeReviewUrl(props.companyName)}
@@ -31,7 +31,7 @@ function WriteReviewButton(props: WriteReviewButtonProps) {
 		>
 			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;
-			<T.add_review />
+			{t.add_review}
 		</LinkButton>
 	);
 }
