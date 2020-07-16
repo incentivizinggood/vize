@@ -7,11 +7,9 @@ import {
 	FormHeader,
 	FormPageWrapper,
 } from "src/components/form-stuff";
-import { translations } from "src/translations";
+import { useTranslations } from "src/translations";
 
 import CreateReviewForm from "./create-review-form";
-
-const T = translations.createReview;
 
 interface CreateReviewPageProps {
 	companyName?: string;
@@ -21,17 +19,15 @@ interface CreateReviewPageProps {
 // companyName and referredBy are props that are passed down from pages.tsx.
 // Both of these props are optional url parameters
 function CreateReviewPage({ companyName, referredBy }: CreateReviewPageProps) {
+	const t = useTranslations().createReview;
+
 	return (
 		<FormPageWrapper title="Create Review">
-			<FormHeader>
-				<T.formTitle />
-			</FormHeader>
-			<FormText>
-				<T.formSubTitle1 />
-			</FormText>
+			<FormHeader>{t.formTitle}</FormHeader>
+			<FormText>{t.formSubTitle1}</FormText>
 			<FormText>
 				<PrivacyIcon />
-				<T.formSubTitle3 />
+				{t.formSubTitle3}
 			</FormText>
 			<CreateReviewForm
 				companyName={companyName}
@@ -40,4 +36,5 @@ function CreateReviewPage({ companyName, referredBy }: CreateReviewPageProps) {
 		</FormPageWrapper>
 	);
 }
+
 export default withRouter(CreateReviewPage);

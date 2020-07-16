@@ -12,9 +12,7 @@ import {
 	SubmissionError,
 	FormText,
 } from "src/components/form-stuff";
-import { translations, useTranslations } from "src/translations";
-
-const T = translations.createReview;
+import { useTranslations } from "src/translations";
 
 const FormDividerLine = styled.hr`
 	border-top: 1px solid black;
@@ -31,14 +29,14 @@ function InnerForm({ submissionError }) {
 				name="companyName"
 				type="text"
 				required
-				t={T.fields.companyName}
+				{...t.fields.companyName}
 			/>
 
 			<Field
 				name="reviewTitle"
 				type="text"
 				required
-				t={T.fields.reviewTitle}
+				{...t.fields.reviewTitle}
 			/>
 
 			<Field
@@ -46,24 +44,29 @@ function InnerForm({ submissionError }) {
 				type="text"
 				variant="privacyTextField"
 				required
-				t={T.fields.location.city}
+				{...t.fields.location.city}
 			/>
 
 			<Field
 				name="location.industrialHub"
 				type="text"
 				variant="privacyTextField"
-				t={T.fields.location.industrialHub}
+				{...t.fields.location.industrialHub}
 			/>
 
-			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
+			<Field
+				name="jobTitle"
+				type="text"
+				required
+				{...t.fields.jobTitle}
+			/>
 
 			<Field
 				name="numberOfMonthsWorked"
 				type="number"
 				variant="privacyTextField"
 				required
-				t={T.fields.numberOfMonthsWorked}
+				{...t.fields.numberOfMonthsWorked}
 			/>
 
 			<Field
@@ -112,9 +115,9 @@ function InnerForm({ submissionError }) {
 				]}
 			/>
 
-			<Field name="pros" required multiline rows={6} t={T.fields.pros} />
+			<Field name="pros" required multiline rows={6} {...t.fields.pros} />
 
-			<Field name="cons" required multiline rows={6} t={T.fields.cons} />
+			<Field name="cons" required multiline rows={6} {...t.fields.cons} />
 
 			<Field
 				name="wouldRecommendToOtherJobSeekers"
@@ -137,35 +140,35 @@ function InnerForm({ submissionError }) {
 				name="healthAndSafety"
 				type="rating"
 				required
-				t={T.fields.healthAndSafety}
+				{...t.fields.healthAndSafety}
 			/>
 
 			<Field
 				name="managerRelationship"
 				type="rating"
 				required
-				t={T.fields.managerRelationship}
+				{...t.fields.managerRelationship}
 			/>
 
 			<Field
 				name="workEnvironment"
 				type="rating"
 				required
-				t={T.fields.workEnvironment}
+				{...t.fields.workEnvironment}
 			/>
 
 			<Field
 				name="benefits"
 				type="rating"
 				required
-				t={T.fields.benefits}
+				{...t.fields.benefits}
 			/>
 
 			<Field
 				name="overallSatisfaction"
 				type="rating"
 				required
-				t={T.fields.overallSatisfaction}
+				{...t.fields.overallSatisfaction}
 			/>
 
 			<br />
@@ -174,7 +177,7 @@ function InnerForm({ submissionError }) {
 				name="additionalComments"
 				multiline
 				rows={6}
-				t={T.fields.additionalComments}
+				{...t.fields.additionalComments}
 			/>
 
 			<FormDividerLine />
@@ -209,7 +212,7 @@ function InnerForm({ submissionError }) {
 				type="number"
 				variant="privacyTextField"
 				required
-				t={T.fields.incomeAmount}
+				{...t.fields.incomeAmount}
 			/>
 
 			<SubmissionError error={submissionError} />
