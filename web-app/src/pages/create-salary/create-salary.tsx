@@ -2,22 +2,20 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 import { FormHeader, FormPageWrapper } from "src/components/form-stuff";
-import { translations } from "src/translations";
+import { useTranslations } from "src/translations";
 
 import CreateSalaryForm from "./create-salary-form";
-
-const T = translations.createSalary;
 
 interface CreateSalaryPageProps {
 	companyName?: string;
 }
 
 function CreateSalaryPage({ companyName, user }: CreateSalaryPageProps) {
+	const t = useTranslations().createSalary;
+
 	return (
 		<FormPageWrapper title="Create Salary">
-			<FormHeader>
-				<T.formTitle />
-			</FormHeader>
+			<FormHeader>{t.formTitle}</FormHeader>
 			<CreateSalaryForm companyName={companyName} />
 		</FormPageWrapper>
 	);

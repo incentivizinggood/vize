@@ -1,71 +1,76 @@
 import React from "react";
 import { Form } from "formik";
-import styled from "styled-components";
 import { SubmitButton } from "src/components/button";
 
-import {
-	Field,
-	FormToolbar,
-	SubmissionError,
-} from "src/components/form-stuff";
-import { translations } from "src/translations";
-
-const T = translations.createSalary;
+import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { useTranslations } from "src/translations";
 
 function InnerForm({ submissionError }) {
+	const t = useTranslations().createSalary;
+
 	return (
 		<Form noValidate>
 			<Field
 				name="companyName"
 				type="text"
 				required
-				t={T.fields.companyName}
+				{...t.fields.companyName}
 			/>
 
 			<Field
 				name="location.city"
 				type="text"
 				required
-				t={T.fields.location.city}
+				{...t.fields.location.city}
 			/>
 
 			<Field
 				name="location.industrialHub"
 				type="text"
-				t={T.fields.location.industrialHub}
+				{...t.fields.location.industrialHub}
 			/>
 
-			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
-
-			<T.fields.incomeType
-				renderer={t => (
-					<Field name="incomeType" select required label={t.label}>
-						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
-						<option value="MONTHLY_SALARY">
-							{t.monthlySalary}
-						</option>
-						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
-						<option value="DAILY_SALARY">{t.dailySalary}</option>
-						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
-					</Field>
-				)}
+			<Field
+				name="jobTitle"
+				type="text"
+				required
+				{...t.fields.jobTitle}
 			/>
+
+			<Field
+				name="incomeType"
+				select
+				required
+				label={t.fields.incomeType.label}
+			>
+				<option value="YEARLY_SALARY">
+					{t.fields.incomeType.yearlySalary}
+				</option>
+				<option value="MONTHLY_SALARY">
+					{t.fields.incomeType.monthlySalary}
+				</option>
+				<option value="WEEKLY_SALARY">
+					{t.fields.incomeType.weeklySalary}
+				</option>
+				<option value="DAILY_SALARY">
+					{t.fields.incomeType.dailySalary}
+				</option>
+				<option value="HOURLY_WAGE">
+					{t.fields.incomeType.hourlyWage}
+				</option>
+			</Field>
 
 			<Field
 				name="incomeAmount"
 				type="number"
 				required
-				t={T.fields.incomeAmount}
+				{...t.fields.incomeAmount}
 			/>
 
-			<T.fields.gender
-				renderer={t => (
-					<Field name="gender" select label={t.label}>
-						<option value="MALE">{t.male}</option>
-						<option value="FEMALE">{t.female}</option>
-					</Field>
-				)}
-			/>
+			<Field name="gender" select label={t.fields.gender.label}>
+				<option value="MALE">{t.fields.gender.male}</option>
+				<option value="FEMALE">{t.fields.gender.female}</option>
+			</Field>
 
 			<SubmissionError error={submissionError} />
 
@@ -76,7 +81,7 @@ function InnerForm({ submissionError }) {
 					type="submit"
 					color="primary"
 				>
-					<T.submit />
+					{t.submit}
 				</SubmitButton>
 			</FormToolbar>
 		</Form>
