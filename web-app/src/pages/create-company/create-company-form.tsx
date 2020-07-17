@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter } from "lodash";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 
-import { CreateCompanyComponent as MutationCreateCompany } from "generated/graphql-operations";
+import { useCreateCompanyMutation } from "generated/graphql-operations";
 import * as schemas from "src/form-schemas";
 import { urlGenerators } from "src/pages/url-generators";
 
@@ -123,25 +123,18 @@ const onSubmit = (createCompany, history, setSubmissionError) => (
 			actions.setSubmitting(false);
 		});
 
-const CreateCompanyForm = props => {
+export default function CreateCompanyForm() {
+	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
-	return (
-		<MutationCreateCompany>
-			{createCompany => (
-				<Formik
-					initialValues={initialValues}
-					validationSchema={schema}
-					onSubmit={onSubmit(
-						createCompany,
-						props.history,
-						setSubmissionError
-					)}
-				>
-					<InnerForm submissionError={submissionError} />
-				</Formik>
-			)}
-		</MutationCreateCompany>
-	);
-};
+	const [createCompany] = useCreateCompanyMutation();
 
-export default withRouter(CreateCompanyForm);
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={schema}
+			onSubmit={onSubmit(createCompany, history, setSubmissionError)}
+		>
+			<InnerForm submissionError={submissionError} />
+		</Formik>
+	);
+}
