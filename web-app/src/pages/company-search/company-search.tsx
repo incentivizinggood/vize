@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 
@@ -13,8 +12,17 @@ import { useCompanySearchPageQuery } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
 
-// //////////////////CHILD COMPONENT///////////////////
-function SearchResults({ searchText, currentPageNum, setCurrentPage }) {
+interface SearchResultsProps {
+	searchText: string;
+	currentPageNum: number;
+	setCurrentPage: (newPageNumber: number) => void;
+}
+
+function SearchResults({
+	searchText,
+	currentPageNum,
+	setCurrentPage,
+}: SearchResultsProps) {
 	const { loading, error, data } = useCompanySearchPageQuery({
 		variables: { searchText, currentPageNum },
 	});
@@ -70,13 +78,12 @@ function SearchResults({ searchText, currentPageNum, setCurrentPage }) {
 	);
 }
 
-SearchResults.propTypes = {
-	searchText: PropTypes.string.isRequired,
-};
+interface CompanySearchTrialProps {
+	searchText?: string;
+}
 
-// /////////////Company Search -- Main Component////////////////////
-class CompanySearchTrial extends React.Component {
-	constructor(props) {
+class CompanySearchTrial extends React.Component<CompanySearchTrialProps> {
+	constructor(props: CompanySearchTrialProps) {
 		super(props);
 		this.state = {
 			searchTextInput: this.props.searchText || "",
@@ -140,13 +147,5 @@ class CompanySearchTrial extends React.Component {
 		);
 	}
 }
-
-CompanySearchTrial.propTypes = {
-	searchText: PropTypes.string,
-};
-
-CompanySearchTrial.defaultProps = {
-	searchText: "",
-};
 
 export default CompanySearchTrial;
