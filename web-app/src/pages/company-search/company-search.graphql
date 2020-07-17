@@ -6,22 +6,26 @@ query companySearchPage($searchText: String!, $pageNum: Int!, $pageSize: Int!) {
 	) {
 		totalCount
 		nodes {
-			id
-			name
-			avgStarRatings {
-				overallSatisfaction
-			}
-			locations {
-				city
-				address
-				industrialHub
-			}
-			industry
-			numEmployees
-			descriptionOfCompany
-			numReviews
-			numJobAds
-			numSalaries
+			...CompanySearchResult
 		}
 	}
+}
+
+fragment CompanySearchResult on Company {
+	id
+	name
+	avgStarRatings {
+		overallSatisfaction
+	}
+	locations {
+		city
+		address
+		industrialHub
+	}
+	industry
+	numEmployees
+	descriptionOfCompany
+	numReviews
+	numJobAds
+	numSalaries
 }

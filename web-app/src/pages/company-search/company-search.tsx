@@ -8,7 +8,10 @@ import CompanySearchResult from "src/components/company-search-result";
 import CompaniesSearchBar from "src/components/companies-search-bar";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
-import { useCompanySearchPageQuery } from "generated/graphql-operations";
+import {
+	useCompanySearchPageQuery,
+	CompanySearchResultFragment,
+} from "generated/graphql-operations";
 import { NetworkStatus } from "apollo-boost";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
@@ -38,9 +41,9 @@ function useSearch(
 ): {
 	loading: boolean;
 	error: unknown;
-	companies: any;
+	companies: CompanySearchResultFragment[];
 	totalCount: number | null;
-	infiniteRef: any;
+	infiniteRef: React.MutableRefObject<any>;
 	hasMore: boolean;
 } {
 	const pageSize = 20;
@@ -122,7 +125,7 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 	}
 
 	return (
-		<div ref={infiniteRef as any}>
+		<div ref={infiniteRef}>
 			{totalCount !== null ? (
 				totalCount > 0 ? (
 					<div>{totalCount} companies found.</div>
@@ -132,14 +135,9 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 					</h2>
 				)
 			) : null}
-			{companies
-				? companies.map(company => (
-						<CompanySearchResult
-							key={company.id}
-							company={company}
-						/>
-				  ))
-				: null}
+			{companies.map(company => (
+				<CompanySearchResult key={company.id} company={company} />
+			))}
 			{loading ? <Spinner /> : !hasMore ? <p>No mas.</p> : null}
 		</div>
 	);
