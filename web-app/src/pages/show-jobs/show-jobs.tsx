@@ -1,13 +1,11 @@
 import React from "react";
-import { Query } from "react-apollo";
 import styled from "styled-components";
 
 import ShowJobComponent from "src/pages/show-jobs/show-job-component";
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
-
-import ShowJobsQuery from "./show-jobs.graphql";
+import { useShowJobsQuery } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -23,50 +21,47 @@ const PageStyling = styled.div`
 	}
 `;
 
-const ShowJobs = () => (
-	<Query query={ShowJobsQuery}>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return (
-					<h2>
-						<T.jobsearch.loading />
-					</h2>
-				);
-			}
+export default function ShowJobs(): JSX.Element {
+	const { loading, error, data } = useShowJobsQuery();
 
-			if (error) {
-				console.error(error);
-				return <h2>{`Error! ${error.message}`}</h2>;
-			}
+	if (loading) {
+		return (
+			<h2>
+				<T.jobsearch.loading />
+			</h2>
+		);
+	}
 
-			const RenderedItems = data.searchJobAds.nodes.map(function(jobad) {
-				return <ShowJobComponent key={jobad.id} item={jobad} />;
-			});
-			let message;
-			if (RenderedItems.length < 1) {
-				message = (
-					<h2>
-						<T.jobsearch.nojobs />
-					</h2>
-				);
-			} else {
-				message = "";
-			}
+	if (error) {
+		console.error(error);
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
 
-			return (
-				<PageWrapper title="Trabajos - Vize">
-					<PageStyling>
-						<h2>
-							{data.searchJobAds.nodes.length}{" "}
-							<T.jobsearch.jobsAvailable />
-						</h2>
-						{message}
-						{RenderedItems}
-					</PageStyling>
-				</PageWrapper>
-			);
-		}}
-	</Query>
-);
+	const RenderedItems = data.searchJobAds.nodes.map(function(jobad) {
+		return <ShowJobComponent key={jobad.id} item={jobad} />;
+	});
 
-export default ShowJobs;
+	let message;
+	if (RenderedItems.length < 1) {
+		message = (
+			<h2>
+				<T.jobsearch.nojobs />
+			</h2>
+		);
+	} else {
+		message = "";
+	}
+
+	return (
+		<PageWrapper title="Trabajos - Vize">
+			<PageStyling>
+				<h2>
+					{data.searchJobAds.nodes.length}{" "}
+					<T.jobsearch.jobsAvailable />
+				</h2>
+				{message}
+				{RenderedItems}
+			</PageStyling>
+		</PageWrapper>
+	);
+}
