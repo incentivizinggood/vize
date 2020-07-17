@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useHistory } from "react-router-dom";
 
-import { translations as T } from "src/translations";
+import { useTranslations } from "src/translations";
 
 type Inputs = {
 	search: string;
 };
 
 export default function CompaniesSearchBar() {
+	const t = useTranslations();
 	const location = useLocation();
 	const history = useHistory();
 
@@ -30,15 +31,11 @@ export default function CompaniesSearchBar() {
 	return (
 		<form className="form-search_header" onSubmit={handleSubmit(onSubmit)}>
 			<div className="search-bar-style">
-				<T.companiesSearchBar
-					renderer={({ placeholder }) => (
-						<input
-							name="search"
-							className="companies-search-input"
-							placeholder={placeholder}
-							ref={register}
-						/>
-					)}
+				<input
+					name="search"
+					className="companies-search-input"
+					{...t.companiesSearchBar}
+					ref={register}
 				/>
 				<button type="submit" className="search-icon">
 					<FontAwesomeIcon icon={faSearch} />
