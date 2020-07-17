@@ -16,13 +16,16 @@ interface SearchResultsProps {
 }
 
 function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
-	const { loading, error, data } = useCompanySearchPageQuery({
-		variables: { searchText, currentPageNum: 0 },
+	const pageSize = 20;
+
+	const { loading, error, data, fetchMore } = useCompanySearchPageQuery({
+		variables: { searchText, pageNum: 0, pageSize },
 	});
 
 	if (loading) {
 		return <Spinner />;
 	}
+
 	if (error) {
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
@@ -40,15 +43,7 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 		});
 	}
 
-	// searchCompanies is read-only, we do a
-	// deep copy before we mutate it with sort:
-	// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
-	const resultList = data.searchCompanies.nodes.map(function(company) {
-		return <CompanySearchResult key={company.id} company={company} />;
-	});
-
-	// Break into chunks
-	if (resultList.length < 1) {
+	if (!data || data.searchCompanies.nodes.length < 1) {
 		return (
 			<h2>
 				<T.noCompaniesMatch />
@@ -56,7 +51,44 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 		);
 	}
 
-	return <div>{resultList}</div>;
+	function onEndReached(): void {
+		if (!data) {
+			return;
+		}
+
+		fetchMore({
+			variables: {
+				pageNum: Math.ceil(
+					data.searchCompanies.nodes.length / pageSize
+				),
+			},
+			updateQuery(prev, { fetchMoreResult }) {
+				if (!fetchMoreResult) {
+					return prev;
+				}
+
+				return {
+					...prev,
+					searchCompanies: {
+						...fetchMoreResult.searchCompanies,
+						nodes: [
+							...prev.searchCompanies.nodes,
+							...fetchMoreResult.searchCompanies.nodes,
+						],
+					},
+				};
+			},
+		});
+	}
+
+	return (
+		<div>
+			{data.searchCompanies.nodes.map(company => (
+				<CompanySearchResult key={company.id} company={company} />
+			))}
+			<button onClick={onEndReached}>Load more.</button>
+		</div>
+	);
 }
 
 interface CompanySearchTrialProps {

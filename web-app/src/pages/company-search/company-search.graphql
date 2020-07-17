@@ -1,5 +1,9 @@
-query companySearchPage($searchText: String!, $currentPageNum: Int!) {
-	searchCompanies(searchText: $searchText, pageNum: $currentPageNum) {
+query companySearchPage($searchText: String!, $pageNum: Int!, $pageSize: Int!) {
+	searchCompanies(
+		searchText: $searchText
+		pageNum: $pageNum
+		pageSize: $pageSize
+	) {
 		totalCount
 		nodes {
 			id
