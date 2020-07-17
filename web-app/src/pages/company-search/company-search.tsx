@@ -15,7 +15,9 @@ const T = translations.legacyTranslationsNeedsRefactor.search;
 
 // //////////////////CHILD COMPONENT///////////////////
 function SearchResults({ searchText, currentPageNum, setCurrentPage }) {
-	const { loading, error, data } = useCompanySearchPageQuery();
+	const { loading, error, data } = useCompanySearchPageQuery({
+		variables: { searchText, currentPageNum },
+	});
 
 	if (loading) {
 		return <Spinner />;
