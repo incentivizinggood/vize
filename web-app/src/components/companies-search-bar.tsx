@@ -10,7 +10,7 @@ type Inputs = {
 	search: string;
 };
 
-export default function CompaniesSearchBar() {
+export default function CompaniesSearchBar(): JSX.Element {
 	const t = useTranslations();
 	const location = useLocation();
 	const history = useHistory();
