@@ -82,70 +82,31 @@ interface CompanySearchTrialProps {
 	searchText?: string;
 }
 
-class CompanySearchTrial extends React.Component<CompanySearchTrialProps> {
-	constructor(props: CompanySearchTrialProps) {
-		super(props);
-		this.state = {
-			searchTextInput: this.props.searchText || "",
-			searchText: this.props.searchText || "",
-			currentPageNum: 0,
-		};
-		this.setCurrentPage = this.setCurrentPage.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+export default function CompanySearchTrial(props: CompanySearchTrialProps) {
+	const [pageNumber, setPageNumber] = React.useState(0);
 
-	setCurrentPage(newPageNum) {
-		this.setState({
-			// was newPageNum
-			currentPageNum: newPageNum,
-		});
-	}
-
-	handleInputChange(event) {
-		const { target } = event;
-		const value =
-			target.type === "checkbox" ? target.checked : target.value;
-		const { name } = target;
-
-		this.setState({
-			[name]: value,
-		});
-	}
-
-	handleSubmit(event) {
-		event.preventDefault();
-		this.setState({
-			searchText: this.state.searchTextInput,
-		});
-	}
-
-	render() {
-		return (
-			<PageWrapper title="Company Search">
-				<div className="container-fluid  search_companies">
-					<div className="row all_boxcolor1 select_box1">
-						<div>
-							<div
-								id="companies_header1"
-								className="callbacks_container"
-							>
-								<CompaniesSearchBar />
-							</div>
+	return (
+		<PageWrapper title="Company Search">
+			<div className="container-fluid  search_companies">
+				<div className="row all_boxcolor1 select_box1">
+					<div>
+						<div
+							id="companies_header1"
+							className="callbacks_container"
+						>
+							<CompaniesSearchBar />
 						</div>
 					</div>
-					<div className="clearfix" />
 				</div>
 				<div className="clearfix" />
-				<br />
-				<SearchResults
-					searchText={this.state.searchText}
-					currentPageNum={this.state.currentPageNum}
-					setCurrentPage={this.setCurrentPage}
-				/>
-			</PageWrapper>
-		);
-	}
+			</div>
+			<div className="clearfix" />
+			<br />
+			<SearchResults
+				searchText={props.searchText || ""}
+				currentPageNum={pageNumber}
+				setCurrentPage={setPageNumber}
+			/>
+		</PageWrapper>
+	);
 }
-
-export default CompanySearchTrial;
