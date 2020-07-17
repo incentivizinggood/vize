@@ -9,6 +9,7 @@ import CompaniesSearchBar from "src/components/companies-search-bar";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 import { useCompanySearchPageQuery } from "generated/graphql-operations";
+import { NetworkStatus } from "apollo-boost";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
 
@@ -45,30 +46,27 @@ function useSearch(
 	const pageSize = 20;
 
 	const {
-		loading: initialLoading,
+		loading,
 		error,
 		data,
 		fetchMore,
+		networkStatus,
 	} = useCompanySearchPageQuery({
 		variables: { searchText, pageNum: 0, pageSize },
+		notifyOnNetworkStatusChange: true,
 	});
-
-	const [loadingMore, setLoadingMore] = React.useState(false);
-
-	const loading = initialLoading || loadingMore;
 
 	const hasNextPage =
 		!error &&
 		!!data &&
 		data.searchCompanies.nodes.length < data.searchCompanies.totalCount;
 
-	const onLoadMore = async (): Promise<void> => {
+	const onLoadMore = (): void => {
 		if (error || !data || !hasNextPage) {
 			return;
 		}
 
-		setLoadingMore(true);
-		await fetchMore({
+		fetchMore({
 			variables: {
 				pageNum: Math.ceil(
 					data.searchCompanies.nodes.length / pageSize
@@ -91,11 +89,10 @@ function useSearch(
 				};
 			},
 		});
-		setLoadingMore(false);
 	};
 
 	const infiniteRef = useInfiniteScroll({
-		loading: loadingMore,
+		loading: networkStatus === NetworkStatus.fetchMore,
 		hasNextPage,
 		onLoadMore,
 	});
