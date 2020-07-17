@@ -20,12 +20,11 @@ export default function CompaniesSearchBar() {
 	const params = new URLSearchParams(location.search);
 
 	const { register, handleSubmit } = useForm<Inputs>({
-		defaultValues: { search: params.get("search") || "" },
+		defaultValues: { search: params.get("q") || "" },
 	});
 
 	const onSubmit: SubmitHandler<Inputs> = data => {
-		console.log(data);
-		history.push(`/companies/?search=${data.search}`);
+		history.push(`/companies?q=${data.search}`);
 	};
 
 	return (

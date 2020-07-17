@@ -1,6 +1,5 @@
 const queryRoutes = {
 	resources: "recursos",
-	companies: "companies",
 	companyProfile: "companyprofile",
 	writeReview: "write-review",
 	submitSalaryData: "submit-salary-data",
