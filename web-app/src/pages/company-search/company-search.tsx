@@ -1,6 +1,7 @@
 import React from "react";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
+import { useInfiniteScroll } from "react-infinite-scroll-hook";
 
 import PageWrapper from "src/components/page-wrapper";
 import CompanySearchResult from "src/components/company-search-result";
@@ -15,20 +16,7 @@ interface SearchResultsProps {
 	searchText: string;
 }
 
-function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
-	const pageSize = 20;
-
-	const { loading, error, data, fetchMore } = useCompanySearchPageQuery({
-		variables: { searchText, pageNum: 0, pageSize },
-	});
-
-	if (loading) {
-		return <Spinner />;
-	}
-
-	if (error) {
-		return <h2>{`Error! ${error.message}`}</h2>;
-	}
+/*
 
 	// Track successful search event
 	if (searchText !== "") {
@@ -42,21 +30,45 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 			label: searchText,
 		});
 	}
+	*/
 
-	if (!data || data.searchCompanies.nodes.length < 1) {
-		return (
-			<h2>
-				<T.noCompaniesMatch />
-			</h2>
-		);
-	}
+function useSearch(
+	searchText: string
+): {
+	loading: boolean;
+	error: unknown;
+	companies: any;
+	totalCount: number | null;
+	infiniteRef: any;
+	hasMore: boolean;
+} {
+	const pageSize = 20;
 
-	function onEndReached(): void {
-		if (!data) {
+	const {
+		loading: initialLoading,
+		error,
+		data,
+		fetchMore,
+	} = useCompanySearchPageQuery({
+		variables: { searchText, pageNum: 0, pageSize },
+	});
+
+	const [loadingMore, setLoadingMore] = React.useState(false);
+
+	const loading = initialLoading || loadingMore;
+
+	const hasNextPage =
+		!error &&
+		!!data &&
+		data.searchCompanies.nodes.length < data.searchCompanies.totalCount;
+
+	const onLoadMore = async (): Promise<void> => {
+		if (error || !data || !hasNextPage) {
 			return;
 		}
 
-		fetchMore({
+		setLoadingMore(true);
+		await fetchMore({
 			variables: {
 				pageNum: Math.ceil(
 					data.searchCompanies.nodes.length / pageSize
@@ -79,14 +91,59 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 				};
 			},
 		});
+		setLoadingMore(false);
+	};
+
+	const infiniteRef = useInfiniteScroll({
+		loading: loadingMore,
+		hasNextPage,
+		onLoadMore,
+	});
+
+	return {
+		loading,
+		error,
+		companies: data ? data.searchCompanies.nodes : [],
+		totalCount: data ? data.searchCompanies.totalCount : null,
+		infiniteRef,
+		hasMore: hasNextPage,
+	};
+}
+
+function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
+	const {
+		loading,
+		error,
+		companies,
+		totalCount,
+		infiniteRef,
+		hasMore,
+	} = useSearch(searchText);
+
+	if (error) {
+		return <h2>{`Error! ${JSON.stringify(error)}`}</h2>;
 	}
 
 	return (
-		<div>
-			{data.searchCompanies.nodes.map(company => (
-				<CompanySearchResult key={company.id} company={company} />
-			))}
-			<button onClick={onEndReached}>Load more.</button>
+		<div ref={infiniteRef as any}>
+			{totalCount !== null ? (
+				totalCount > 0 ? (
+					<div>{totalCount} companies found.</div>
+				) : (
+					<h2>
+						<T.noCompaniesMatch />
+					</h2>
+				)
+			) : null}
+			{companies
+				? companies.map(company => (
+						<CompanySearchResult
+							key={company.id}
+							company={company}
+						/>
+				  ))
+				: null}
+			{loading ? <Spinner /> : !hasMore ? <p>No mas.</p> : null}
 		</div>
 	);
 }
