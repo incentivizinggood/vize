@@ -6,7 +6,6 @@ import PageWrapper from "src/components/page-wrapper";
 import CompanySearchResult from "src/components/company-search-result";
 import CompaniesSearchBar from "src/components/companies-search-bar";
 import Spinner from "src/components/Spinner";
-import PaginateSystem from "src/components/paginate/pagination";
 import { translations } from "src/translations";
 import { useCompanySearchPageQuery } from "generated/graphql-operations";
 
@@ -14,17 +13,11 @@ const T = translations.legacyTranslationsNeedsRefactor.search;
 
 interface SearchResultsProps {
 	searchText: string;
-	currentPageNum: number;
-	setCurrentPage: (newPageNumber: number) => void;
 }
 
-function SearchResults({
-	searchText,
-	currentPageNum,
-	setCurrentPage,
-}: SearchResultsProps) {
+function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 	const { loading, error, data } = useCompanySearchPageQuery({
-		variables: { searchText, currentPageNum },
+		variables: { searchText, currentPageNum: 0 },
 	});
 
 	if (loading) {
@@ -47,8 +40,6 @@ function SearchResults({
 		});
 	}
 
-	const totalCompCount = data.searchCompanies.totalCount;
-
 	// searchCompanies is read-only, we do a
 	// deep copy before we mutate it with sort:
 	// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
@@ -65,26 +56,16 @@ function SearchResults({
 		);
 	}
 
-	return (
-		<>
-			<div>{resultList}</div>
-			<PaginateSystem
-				// recall query starting at the last company id
-				totalCompanyCount={totalCompCount}
-				currentPageNum={currentPageNum}
-				setCurrentPage={setCurrentPage}
-			/>
-		</>
-	);
+	return <div>{resultList}</div>;
 }
 
 interface CompanySearchTrialProps {
 	searchText?: string;
 }
 
-export default function CompanySearchTrial(props: CompanySearchTrialProps) {
-	const [pageNumber, setPageNumber] = React.useState(0);
-
+export default function CompanySearchTrial(
+	props: CompanySearchTrialProps
+): JSX.Element {
 	return (
 		<PageWrapper title="Company Search">
 			<div className="container-fluid  search_companies">
@@ -102,11 +83,7 @@ export default function CompanySearchTrial(props: CompanySearchTrialProps) {
 			</div>
 			<div className="clearfix" />
 			<br />
-			<SearchResults
-				searchText={props.searchText || ""}
-				currentPageNum={pageNumber}
-				setCurrentPage={setPageNumber}
-			/>
+			<SearchResults searchText={props.searchText || ""} />
 		</PageWrapper>
 	);
 }
