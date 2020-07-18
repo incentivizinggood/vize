@@ -2,10 +2,11 @@ import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
 import NoGlobalStyle from "src/components/no-global-style";
+import colors from "src/colors";
 
 const Background = styled.div`
-	background-color: ${props => props.theme.background};
-	color: ${props => props.theme.onBackground};
+	background-color: ${colors.background};
+	color: ${colors.onBackground};
 
 	padding: 80px;
 	padding-top: 10px;
@@ -48,27 +49,27 @@ const OnBackground = styled(Swatch)`
 `;
 
 const Surface = styled(Swatch)`
-	background-color: ${props => props.theme.surface};
-	color: ${props => props.theme.onSurface};
+	background-color: ${colors.surface};
+	color: ${colors.onSurface};
 
 	grid-column: span 2;
 `;
 
 const SurfaceAccent = styled(Swatch)`
-	background-color: ${props => props.theme.surfaceAccent};
-	color: ${props => props.theme.onSurfaceAccent};
+	background-color: ${colors.surfaceAccent};
+	color: ${colors.onSurfaceAccent};
 
 	margin-top: 40px;
 	grid-column: span 2;
 `;
 
 const Main = styled(Swatch)`
-	background-color: ${props => props.theme.main};
-	color: ${props => props.theme.onMain};
+	background-color: ${colors.main};
+	color: ${colors.onMain};
 `;
 
 const MainVariant = styled(Main)`
-	background-color: ${props => props.theme.mainVariant};
+	background-color: ${colors.mainVariant};
 `;
 
 const GlobalStyle = createGlobalStyle`

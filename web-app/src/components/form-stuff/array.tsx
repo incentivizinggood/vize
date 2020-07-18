@@ -6,6 +6,7 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "src/components/button";
 import { TranslationComponent } from "src/translations";
+import colors from "src/colors";
 
 const ArrayContainer = styled.div`
 	margin-top: 20px;
@@ -19,8 +20,8 @@ const ElementContainer = styled.div`
 	width: 100%;
 	max-width: 500px;
 
-	background-color: ${props => props.theme.surface};
-	color: ${props => props.theme.onSurface};
+	background-color: ${colors.surface};
+	color: ${colors.onSurface};
 	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
 	padding: 30px;
 	position: relative;

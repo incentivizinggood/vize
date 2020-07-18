@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Header from "src/components/header";
 import Footer from "src/components/footer";
+import colors from "src/colors";
 
 const PageContainer = styled.div`
 	overflow: hidden;
@@ -10,7 +11,7 @@ const PageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	background-color: ${props => props.theme.background};
+	background-color: ${colors.background};
 
 	> *:nth-last-child(2) {
 		flex: 1 0 auto;

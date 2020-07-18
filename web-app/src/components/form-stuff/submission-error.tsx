@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import colors from "src/colors";
+
 const ErrorBox = styled.div`
-	background: ${props => props.theme.error};
-	color: ${props => props.theme.onError};
+	background: ${colors.error};
+	color: ${colors.onError};
 	width: 100%;
 	margin-top: 30px;
 	padding: 10px;

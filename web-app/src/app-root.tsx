@@ -2,11 +2,9 @@ import React from "react";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
 
 import ScrollRestoration from "./components/scroll-restoration";
 import Pages from "./pages";
-import theme from "./theme";
 import { LocaleProvider } from "./startup/i18n";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
@@ -31,12 +29,10 @@ function AppRoot(props: AppRootProps) {
 	return (
 		<LocaleProvider>
 			<ApolloProvider client={props.apolloClient}>
-				<ThemeProvider theme={theme}>
-					<BrowserRouter>
-						<ScrollRestoration />
-						<Pages />
-					</BrowserRouter>
-				</ThemeProvider>
+				<BrowserRouter>
+					<ScrollRestoration />
+					<Pages />
+				</BrowserRouter>
 			</ApolloProvider>
 		</LocaleProvider>
 	);
