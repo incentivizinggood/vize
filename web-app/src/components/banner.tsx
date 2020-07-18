@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 import defaultBannerImage from "src/images/banner-img.jpg";
 
-interface BannerDivExtraProps {
+interface BannerContainerExtraProps {
 	$image: string;
 }
 
-const BannerDiv = styled.div<BannerDivExtraProps>`
+const BannerContainer = styled.div<BannerContainerExtraProps>`
 	height: 700px;
 
 	background: url(${props => props.$image}) no-repeat 0 0;
@@ -16,10 +16,11 @@ const BannerDiv = styled.div<BannerDivExtraProps>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	> div {
-		width: 100%;
-		text-align: center;
-	}
+`;
+
+const BannerContent = styled.div`
+	width: 100%;
+	text-align: center;
 `;
 
 interface BannerProps {
@@ -29,9 +30,9 @@ interface BannerProps {
 
 function Banner({ children, backgroundImage }: BannerProps): JSX.Element {
 	return (
-		<BannerDiv $image={backgroundImage || defaultBannerImage}>
-			<div>{children}</div>
-		</BannerDiv>
+		<BannerContainer $image={backgroundImage || defaultBannerImage}>
+			<BannerContent>{children}</BannerContent>
+		</BannerContainer>
 	);
 }
 
