@@ -5,7 +5,7 @@ import {
 	ReviewsSection,
 	JobsSection,
 	SalariesSection,
-} from "./sections";
+} from "../sections";
 
 export default function OverviewTab(props) {
 	return (

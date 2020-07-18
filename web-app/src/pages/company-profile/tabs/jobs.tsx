@@ -5,9 +5,9 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-} from "../../components";
+} from "../components";
 
-import JobPosting from "./job-posting";
+import JobPosting from "../articles/job-ad";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 

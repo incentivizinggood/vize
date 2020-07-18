@@ -12,7 +12,7 @@ import { withUser } from "src/hoc/user";
 import FlagSystem from "src/components/flag/flag";
 import { translations } from "src/translations";
 
-import VoteButtons from "./vote-buttons";
+import VoteButtons from "src/components/vote-buttons";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 

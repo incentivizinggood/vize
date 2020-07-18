@@ -1,11 +1,11 @@
 import React from "react";
-import { SalaryPosting } from "../salaries";
+import SalaryPosting from "../articles/salary";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
 	SeeMoreFooter,
-} from "../../components";
+} from "../components";
 
 import { AddSalaryButton } from "src/components/button";
 import { translations } from "src/translations";

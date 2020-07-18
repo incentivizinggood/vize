@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
 	SeeMoreFooter,
-} from "../../components";
+} from "../components";
 
-import CompanyRating from "src/components/companyRatingsComponent";
-import CompanyReview from "src/components/companyReview";
+import CompanyReview from "../articles/review";
+import CompanyRating from "../companyRatingsComponent";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
 

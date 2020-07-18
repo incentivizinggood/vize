@@ -11,7 +11,7 @@ import {
 	SectionHeaderContainer,
 	SectionHeaderTitle,
 	SeeMoreFooter,
-} from "../../components";
+} from "../components";
 
 import { processLocation } from "src/misc";
 import { urlGenerators } from "src/pages";

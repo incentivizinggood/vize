@@ -5,7 +5,7 @@ import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-} from "../../components";
+} from "../components";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 

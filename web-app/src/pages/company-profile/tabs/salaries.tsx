@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 import { translations } from "src/translations";
 
-import SalaryPosting from "./salary-posting";
+import SalaryPosting from "../articles/salary";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-} from "../../components";
+} from "../components";
 import { AddSalaryButton } from "src/components/button";
 
 const T = translations.legacyTranslationsNeedsRefactor;

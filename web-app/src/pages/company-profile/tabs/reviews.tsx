@@ -1,7 +1,7 @@
 import React from "react";
 
-import CompanyReview from "src/components/companyReview";
-import CompanyRating from "src/components/companyRatingsComponent";
+import CompanyReview from "../articles/review";
+import CompanyRating from "../companyRatingsComponent";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
 import {
