@@ -1,16 +1,14 @@
 import React from "react";
-import { Query } from "react-apollo";
 import styled from "styled-components";
 import { forSize } from "src/responsive";
 
-import ErrorBoundary from "src/components/error-boundary";
 import PageWrapper from "src/components/page-wrapper";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 
 import CompanyProfileSummary from "./summary";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab } from "./tabs";
-import companyProfileQuery from "./company-profile.graphql";
+import { useCompanyProfilePageQuery } from "generated/graphql-operations";
 import Tabs from "src/components/tabs";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -38,10 +36,27 @@ const TabsContainer = styled.div`
 	margin-left: auto;
 `;
 
-/* The Company Profile  page of the site. */
+export interface CompanyProfileProps {
+	companyId: string;
+}
 
-function CompanyProfile_(props) {
-	if (props.company === undefined) {
+/* The Company Profile  page of the site. */
+export default function CompanyProfile({ companyId }: CompanyProfileProps) {
+	const { loading, error, data } = useCompanyProfilePageQuery({
+		variables: { companyId },
+	});
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		console.log(error);
+		console.log(data);
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
+
+	if (!data || !data.company) {
 		return (
 			<h2>
 				<T.companyprofile.notfound />
@@ -52,7 +67,7 @@ function CompanyProfile_(props) {
 	return (
 		<PageWrapper title="Company Profile">
 			<CompanyPageContainer>
-				<CompanyProfileSummary company={props.company} />
+				<CompanyProfileSummary company={data.company} />
 
 				<br />
 				{/* navigation */}
@@ -64,20 +79,14 @@ function CompanyProfile_(props) {
 									path: "overview",
 									label: <T.companyprofile.overview />,
 									content: (
-										<OverviewTab
-											company={props.company}
-											refetch={props.refetch}
-										/>
+										<OverviewTab company={data.company} />
 									),
 								},
 								{
 									path: "reviews",
 									label: <T.companyprofile.reviews />,
 									content: (
-										<ReviewTab
-											company={props.company}
-											refetch={props.refetch}
-										/>
+										<ReviewTab company={data.company} />
 									),
 								},
 								{
@@ -85,8 +94,8 @@ function CompanyProfile_(props) {
 									label: <T.companyprofile.jobs />,
 									content: (
 										<JobTab
-											jobAds={props.jobAds}
-											jobsCount={props.jobsCount}
+											jobAds={data.company.jobAds}
+											jobsCount={data.company.numJobAds}
 										/>
 									),
 								},
@@ -94,7 +103,7 @@ function CompanyProfile_(props) {
 									path: "salaries",
 									label: <T.companyprofile.salaries />,
 									content: (
-										<SalaryTab company={props.company} />
+										<SalaryTab company={data.company} />
 									),
 								},
 							]}
@@ -105,38 +114,3 @@ function CompanyProfile_(props) {
 		</PageWrapper>
 	);
 }
-
-// TODO: Split this file into view and container components.
-const CompanyProfile = CompanyProfile_;
-
-export default ({ companyId }) => (
-	<Query query={companyProfileQuery} variables={{ companyId }}>
-		{({ loading, error, data, refetch }) => {
-			if (loading) {
-				return <Spinner />;
-			}
-			if (error) {
-				console.log(error);
-				console.log(data);
-				return <h2>{`Error! ${error.message}`}</h2>;
-			}
-
-			const refetchWithLog = () => {
-				console.log("Refetching");
-				refetch();
-			};
-
-			return (
-				<CompanyProfile
-					company={data.company}
-					reviews={data.company.reviews}
-					jobAds={data.company.jobAds}
-					jobsCount={data.company.numJobAds}
-					salaries={data.company.salaries}
-					salariesCount={data.company.numJobAds}
-					refetch={refetchWithLog}
-				/>
-			);
-		}}
-	</Query>
-);

@@ -1,13 +1,13 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
-import { withUser } from "src/hoc/user";
-import { CreateSalaryComponent as MutationCreateSalary } from "generated/graphql-operations";
+import { useUser } from "src/hoc/user";
+import { useCreateSalaryMutation } from "generated/graphql-operations";
 import * as schemas from "src/form-schemas";
 
 import InnerForm from "./create-salary-inner-form";
@@ -70,14 +70,14 @@ const schema = yup.object().shape({
 	gender: yup.string().oneOf(["MALE", "FEMALE"]),
 });
 
-function CreateSalaryForm({ history, companyName, user }) {
+export default function CreateSalaryForm({ companyName }) {
+	const user = useUser();
+	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);
+	const [createSalary] = useCreateSalaryMutation();
 
-	const onSubmit = (createSalary, history, setSubmissionError) => (
-		values,
-		actions
-	) => {
+	const onSubmit = (values, actions) => {
 		createSalary({
 			variables: {
 				input: omitEmptyStrings(values),
@@ -122,28 +122,19 @@ function CreateSalaryForm({ history, companyName, user }) {
 	if (user) {
 		content = null;
 	}
+
 	return (
 		<div>
-			<MutationCreateSalary>
-				{createSalary => (
-					<Formik
-						initialValues={merge(initialValues, {
-							companyName,
-						})}
-						validationSchema={schema}
-						onSubmit={onSubmit(
-							createSalary,
-							history,
-							setSubmissionError
-						)}
-					>
-						<InnerForm submissionError={submissionError} />
-					</Formik>
-				)}
-			</MutationCreateSalary>
+			<Formik
+				initialValues={merge(initialValues, {
+					companyName,
+				})}
+				validationSchema={schema}
+				onSubmit={onSubmit}
+			>
+				<InnerForm submissionError={submissionError} />
+			</Formik>
 			{content}
 		</div>
 	);
 }
-
-export default withRouter(withUser(CreateSalaryForm));

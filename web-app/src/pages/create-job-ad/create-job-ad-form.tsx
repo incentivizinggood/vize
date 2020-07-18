@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter } from "lodash";
 
-import { CreateJobAdComponent as MutationCreateJobAd } from "generated/graphql-operations";
+import { useCreateJobAdMutation } from "generated/graphql-operations";
 import { urlGenerators } from "src/pages/url-generators";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
@@ -119,25 +119,18 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 			actions.setSubmitting(false);
 		});
 
-const CreateJobAdForm = props => {
+export default function CreateJobAdForm() {
+	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
-	return (
-		<MutationCreateJobAd>
-			{createJobAd => (
-				<Formik
-					initialValues={initialValues}
-					validationSchema={schema}
-					onSubmit={onSubmit(
-						createJobAd,
-						props.history,
-						setSubmissionError
-					)}
-				>
-					<InnerForm submissionError={submissionError} />
-				</Formik>
-			)}
-		</MutationCreateJobAd>
-	);
-};
+	const [createJobAd] = useCreateJobAdMutation();
 
-export default withRouter(CreateJobAdForm);
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={schema}
+			onSubmit={onSubmit(createJobAd, history, setSubmissionError)}
+		>
+			<InnerForm submissionError={submissionError} />
+		</Formik>
+	);
+}

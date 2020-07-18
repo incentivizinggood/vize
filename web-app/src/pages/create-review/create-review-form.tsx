@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 import ReactPixel from "react-facebook-pixel";
@@ -8,10 +8,9 @@ import ReactGA from "react-ga";
 
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
-import { withUser } from "src/hoc/user";
-import { CreateReviewComponent as MutationCreateReview } from "generated/graphql-operations";
+import { useUser } from "src/hoc/user";
+import { useCreateReviewMutation } from "generated/graphql-operations";
 import * as schemas from "src/form-schemas";
-import { RouteComponentProps } from "react-router-dom";
 import InnerForm from "./create-review-inner-form";
 
 function omitEmptyStrings(x) {
@@ -144,27 +143,24 @@ const schema = yup
 	})
 	.required();
 
-interface CreateReviewFormProps extends RouteComponentProps<any> {
+interface CreateReviewFormProps {
 	companyName?: string;
-	user?: any;
 	referredBy?: string;
 }
 
 // TODO: Check if user has already added a salary so that there is no error in submitting a review
 // You would just need to write a query to see if the user has written a salary already and if so only call the createReview mutation
-function CreateReviewForm({
-	history,
+export default function CreateReviewForm({
 	companyName,
-	user,
 	referredBy,
 }: CreateReviewFormProps) {
+	const user = useUser();
+	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [content, setContent] = React.useState(null);
+	const [createReview] = useCreateReviewMutation();
 
-	const onSubmit = (createReview, history, setSubmissionError) => async (
-		values,
-		actions
-	) => {
+	const onSubmit = async (values, actions): Promise<void> => {
 		/** The values need to be re-validated here because some of the input
 		 * components give string values that need to be parsed.
 		 */
@@ -260,26 +256,16 @@ function CreateReviewForm({
 
 	return (
 		<div>
-			<MutationCreateReview>
-				{createReview => (
-					<Formik
-						initialValues={merge(initialValues, {
-							companyName,
-						})}
-						validationSchema={schema}
-						onSubmit={onSubmit(
-							createReview,
-							history,
-							setSubmissionError
-						)}
-					>
-						<InnerForm submissionError={submissionError} />
-					</Formik>
-				)}
-			</MutationCreateReview>
+			<Formik
+				initialValues={merge(initialValues, {
+					companyName,
+				})}
+				validationSchema={schema}
+				onSubmit={onSubmit}
+			>
+				<InnerForm submissionError={submissionError} />
+			</Formik>
 			{content}
 		</div>
 	);
 }
-
-export default withRouter(withUser(CreateReviewForm));

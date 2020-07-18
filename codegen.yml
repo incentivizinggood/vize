@@ -29,7 +29,10 @@ generates:
       - typescript-resolvers
   web-app/generated/graphql-operations.tsx:
     config:
-      withHOC: false # We are not using HOCs for queries or mutations yet.
+      # We are only using hooks for queries and mutations.
+      withComponent: false
+      withHOC: false
+      withHooks: true
     plugins:
       - typescript
       - typescript-operations

@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 
-import { ApplyToJobAdComponent as MutationApplyToJobAd } from "generated/graphql-operations";
+import { useApplyToJobAdMutation } from "generated/graphql-operations";
 
 import InnerForm from "./apply-to-job-ad-inner-form";
 
@@ -80,27 +80,24 @@ const onSubmit = (applyToJobAd, history, setSubmissionError) => (
 			actions.setSubmitting(false);
 		});
 
-const ApplyToJobAdForm = ({ history, jobAdId }) => {
-	const [submissionError, setSubmissionError] = React.useState(null);
-	return (
-		<MutationApplyToJobAd>
-			{applyToJobAd => (
-				<Formik
-					initialValues={merge(initialValues, {
-						jobAdId,
-					})}
-					validationSchema={schema}
-					onSubmit={onSubmit(
-						applyToJobAd,
-						history,
-						setSubmissionError
-					)}
-				>
-					<InnerForm submissionError={submissionError} />
-				</Formik>
-			)}
-		</MutationApplyToJobAd>
-	);
-};
+export interface ApplyToJobAdFormProps {
+	jobAdId: string;
+}
 
-export default withRouter(ApplyToJobAdForm);
+export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
+	const history = useHistory();
+	const [submissionError, setSubmissionError] = React.useState(null);
+	const [applyToJobAd] = useApplyToJobAdMutation();
+
+	return (
+		<Formik
+			initialValues={merge(initialValues, {
+				jobAdId,
+			})}
+			validationSchema={schema}
+			onSubmit={onSubmit(applyToJobAd, history, setSubmissionError)}
+		>
+			<InnerForm submissionError={submissionError} />
+		</Formik>
+	);
+}

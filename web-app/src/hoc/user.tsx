@@ -1,23 +1,23 @@
 import React from "react";
 
 import {
-	CurrentUserComponent as QueryCurrentUser,
+	useCurrentUserQuery,
 	CurrentUserQuery,
 } from "generated/graphql-operations";
 
+export type UserInfo = CurrentUserQuery["currentUser"];
+
+export function useUser(): UserInfo {
+	const { data } = useCurrentUserQuery();
+
+	return data ? data.currentUser : null;
+}
+
 export function withUser<T>(
-	WrappedComponent: React.ComponentType<
-		T & { user: CurrentUserQuery["currentUser"] }
-	>
+	WrappedComponent: React.ComponentType<T & { user: UserInfo }>
 ) {
-	return (props: T) => (
-		<QueryCurrentUser>
-			{({ error, loading, data }) => (
-				<WrappedComponent
-					{...props}
-					user={data ? data.currentUser : null}
-				/>
-			)}
-		</QueryCurrentUser>
-	);
+	return function(props: T) {
+		const user = useUser();
+		return <WrappedComponent {...props} user={user} />;
+	};
 }

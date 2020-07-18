@@ -1,4 +1,4 @@
-query {
+query showJobs {
 	searchJobAds {
 		nodes {
 			id

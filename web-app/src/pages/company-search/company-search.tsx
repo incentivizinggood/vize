@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Query } from "react-apollo";
 import ReactPixel from "react-facebook-pixel";
 import ReactGA from "react-ga";
 
@@ -10,74 +9,66 @@ import CompaniesSearchBar from "src/components/companies-search-bar";
 import Spinner from "src/components/Spinner";
 import PaginateSystem from "src/components/paginate/pagination";
 import { translations } from "src/translations";
-
-import companySearchQuery from "./company-search.graphql";
+import { useCompanySearchPageQuery } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
 
 // //////////////////CHILD COMPONENT///////////////////
-const SearchResults = ({ searchText, currentPageNum, setCurrentPage }) => (
-	<Query
-		query={companySearchQuery}
-		variables={{ searchText, currentPageNum }}
-	>
-		{({ loading, error, data }) => {
-			if (loading) {
-				return <Spinner />;
-			}
-			if (error) {
-				return <h2>{`Error! ${error.message}`}</h2>;
-			}
+function SearchResults({ searchText, currentPageNum, setCurrentPage }) {
+	const { loading, error, data } = useCompanySearchPageQuery({
+		variables: { searchText, currentPageNum },
+	});
 
-			// Track successful search event
-			if (searchText !== "") {
-				ReactGA.event({
-					category: "User",
-					action: "Search",
-					label: searchText,
-				});
-				ReactPixel.track("Search", {
-					category: "User",
-					label: searchText,
-				});
-			}
+	if (loading) {
+		return <Spinner />;
+	}
+	if (error) {
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
 
-			const totalCompCount = data.searchCompanies.totalCount;
+	// Track successful search event
+	if (searchText !== "") {
+		ReactGA.event({
+			category: "User",
+			action: "Search",
+			label: searchText,
+		});
+		ReactPixel.track("Search", {
+			category: "User",
+			label: searchText,
+		});
+	}
 
-			// searchCompanies is read-only, we do a
-			// deep copy before we mutate it with sort:
-			// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
-			const resultList = data.searchCompanies.nodes.map(function(
-				company
-			) {
-				return (
-					<CompanySearchResult key={company.id} company={company} />
-				);
-			});
+	const totalCompCount = data.searchCompanies.totalCount;
 
-			// Break into chunks
-			if (resultList.length < 1) {
-				return (
-					<h2>
-						<T.noCompaniesMatch />
-					</h2>
-				);
-			}
+	// searchCompanies is read-only, we do a
+	// deep copy before we mutate it with sort:
+	// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
+	const resultList = data.searchCompanies.nodes.map(function(company) {
+		return <CompanySearchResult key={company.id} company={company} />;
+	});
 
-			return (
-				<>
-					<div>{resultList}</div>
-					<PaginateSystem
-						// recall query starting at the last company id
-						totalCompanyCount={totalCompCount}
-						currentPageNum={currentPageNum}
-						setCurrentPage={setCurrentPage}
-					/>
-				</>
-			);
-		}}
-	</Query>
-);
+	// Break into chunks
+	if (resultList.length < 1) {
+		return (
+			<h2>
+				<T.noCompaniesMatch />
+			</h2>
+		);
+	}
+
+	return (
+		<>
+			<div>{resultList}</div>
+			<PaginateSystem
+				// recall query starting at the last company id
+				totalCompanyCount={totalCompCount}
+				currentPageNum={currentPageNum}
+				setCurrentPage={setCurrentPage}
+			/>
+		</>
+	);
+}
 
 SearchResults.propTypes = {
 	searchText: PropTypes.string.isRequired,
