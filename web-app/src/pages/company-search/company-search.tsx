@@ -1,6 +1,4 @@
 import React from "react";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
 import { useInfiniteScroll } from "react-infinite-scroll-hook";
 
 import PageWrapper from "src/components/page-wrapper";
@@ -12,29 +10,12 @@ import {
 	useCompanySearchPageQuery,
 	CompanySearchResultFragment,
 } from "generated/graphql-operations";
-import { NetworkStatus } from "apollo-boost";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
 
 interface SearchResultsProps {
 	searchText: string;
 }
-
-/*
-
-	// Track successful search event
-	if (searchText !== "") {
-		ReactGA.event({
-			category: "User",
-			action: "Search",
-			label: searchText,
-		});
-		ReactPixel.track("Search", {
-			category: "User",
-			label: searchText,
-		});
-	}
-	*/
 
 function useSearch(
 	searchText: string
@@ -48,14 +29,9 @@ function useSearch(
 } {
 	const pageSize = 4;
 
-	const {
-		loading,
-		error,
-		data,
-		fetchMore,
-		networkStatus,
-	} = useCompanySearchPageQuery({
+	const { loading, error, data, fetchMore } = useCompanySearchPageQuery({
 		variables: { searchText, pageNum: 0, pageSize },
+		// This lets us know when the query is fetching more.
 		notifyOnNetworkStatusChange: true,
 	});
 
@@ -95,7 +71,7 @@ function useSearch(
 	};
 
 	const infiniteRef = useInfiniteScroll({
-		loading: networkStatus === NetworkStatus.fetchMore,
+		loading,
 		hasNextPage,
 		onLoadMore,
 	});
