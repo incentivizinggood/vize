@@ -6,17 +6,21 @@ import {
 	faTimesCircle,
 	faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import PopupModal from "src/components/popup-modal";
 
+import PopupModal from "src/components/popup-modal";
 import { withUser } from "src/hoc/user";
 import FlagSystem from "src/components/flag/flag";
 import { translations } from "src/translations";
-
 import VoteButtons from "src/components/vote-buttons";
+import { CompanyProfileReviewFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
-function ReviewComponent(props) {
+interface ReviewComponentProps {
+	review: CompanyProfileReviewFragment;
+}
+
+function ReviewComponent(props: ReviewComponentProps) {
 	// IF-ELSE for the Recommended option, green tick v/s red cross
 	let className;
 	if (props.review.wouldRecommendToOtherJobSeekers) {
@@ -212,7 +216,6 @@ function ReviewComponent(props) {
 										>
 											<FlagSystem
 												reviewId={props.review.id}
-												companyName={props.companyName}
 											/>
 										</PopupModal>
 									)}

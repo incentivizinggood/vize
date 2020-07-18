@@ -1,3 +1,5 @@
+#import "./articles/review.graphql"
+
 query companyProfilePage($companyId: ID!) {
 	company(id: $companyId) {
 		id
@@ -28,31 +30,7 @@ query companyProfilePage($companyId: ID!) {
 		avgNumMonthsWorked
 
 		reviews {
-			id
-			title
-			jobTitle
-			location {
-				city
-				address
-				industrialHub
-			}
-			numberOfMonthsWorked
-			pros
-			cons
-			wouldRecommendToOtherJobSeekers
-			starRatings {
-				healthAndSafety
-				managerRelationship
-				workEnvironment
-				benefits
-				overallSatisfaction
-			}
-			additionalComments
-			created
-			currentUserVote {
-				id
-				isUpvote
-			}
+			...CompanyProfileReview
 		}
 		numReviews
 		jobAds {
