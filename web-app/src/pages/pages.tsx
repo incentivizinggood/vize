@@ -69,10 +69,10 @@ function Pages(props) {
 			/>
 			<Route path={`/recursos/`} component={() => <ResourcesIndex />} />
 			<Route
-				path={`/${queryRoutes.companies}`}
+				path={`/companies`}
 				component={() => (
 					<CompanySearchTrial
-						searchText={fixNullParams(params.get("search"))}
+						searchText={fixNullParams(params.get("q"))}
 					/>
 				)}
 			/>

@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
 
 import PageWrapper from "src/components/page-wrapper";
 import CompanySearchResult from "src/components/company-search-result";
@@ -24,19 +22,6 @@ function SearchResults({ searchText, currentPageNum, setCurrentPage }) {
 	}
 	if (error) {
 		return <h2>{`Error! ${error.message}`}</h2>;
-	}
-
-	// Track successful search event
-	if (searchText !== "") {
-		ReactGA.event({
-			category: "User",
-			action: "Search",
-			label: searchText,
-		});
-		ReactPixel.track("Search", {
-			category: "User",
-			label: searchText,
-		});
 	}
 
 	const totalCompCount = data.searchCompanies.totalCount;

@@ -69,4 +69,13 @@ function makeTranslationComponents<RootMessage>(
 	return makeTranslationComponent(x => x);
 }
 
+export function makeTranslationHook<RootMessage>(
+	translations: Record<string, RootMessage>
+): () => RootMessage {
+	return function() {
+		const locale = React.useContext(LocaleContext);
+		return translations[locale];
+	};
+}
+
 export default makeTranslationComponents;
