@@ -71,74 +71,77 @@ const starRatingSchema = yup
 	.max(5)
 	.required("Se requiere esta calificación");
 
-const schema = yup.object().shape({
-	companyName: schemas.companyName.required(
-		"Se requiere el nombre de la empresa"
-	),
-	reviewTitle: yup
-		.string()
-		.required("Se requiere el titulo de la evaluación"),
-	location: yup
-		.object()
-		.shape({
-			city: yup
-				.string()
-				.max(300)
-				.required("Se requiere el nombre de la ciudad"),
-			address: yup
-				.string()
-				.max(300)
-				.required("Se requiere la dirección"),
-			industrialHub: yup.string().max(300),
-		})
-		.required(),
-	jobTitle: yup
-		.string()
-		.required("Se requiere el nombre de el puesto desempeñado"),
-	numberOfMonthsWorked: yup
-		.number()
-		.min(0)
-		.required("Se requiere el numero de meses trabajados"),
-	contractType: yup
-		.mixed()
-		.oneOf([
-			"FULL_TIME",
-			"PART_TIME",
-			"INTERNSHIP",
-			"TEMPORARY",
-			"CONTRACTOR",
-		])
-		.required("Se requiere el tipo de contrato"),
-	employmentStatus: yup
-		.mixed()
-		.oneOf(["FORMER", "CURRENT"])
-		.required("Se requiere el estado de empleo"),
-	pros: proConSchema,
-	cons: proConSchema,
-	wouldRecommendToOtherJobSeekers: yup
-		.boolean()
-		.required("Se requiere la recomendación"),
-	healthAndSafety: starRatingSchema,
-	managerRelationship: starRatingSchema,
-	workEnvironment: starRatingSchema,
-	benefits: starRatingSchema,
-	overallSatisfaction: starRatingSchema,
-	additionalComments: yup.string(),
-	incomeType: yup
-		.string()
-		.oneOf([
-			"YEARLY_SALARY",
-			"MONTHLY_SALARY",
-			"WEEKLY_SALARY",
-			"DAILY_SALARY",
-			"HOURLY_WAGE",
-		])
-		.required("Se requiere el tipo de ingreso"),
-	incomeAmount: yup
-		.number()
-		.min(0)
-		.required("Se requiere la cantidad de ingresos"),
-});
+const schema = yup
+	.object()
+	.shape({
+		companyName: schemas.companyName.required(
+			"Se requiere el nombre de la empresa"
+		),
+		reviewTitle: yup
+			.string()
+			.required("Se requiere el titulo de la evaluación"),
+		location: yup
+			.object()
+			.shape({
+				city: yup
+					.string()
+					.max(300)
+					.required("Se requiere el nombre de la ciudad"),
+				address: yup
+					.string()
+					.max(300)
+					.required("Se requiere la dirección"),
+				industrialHub: yup.string().max(300),
+			})
+			.required(),
+		jobTitle: yup
+			.string()
+			.required("Se requiere el nombre de el puesto desempeñado"),
+		numberOfMonthsWorked: yup
+			.number()
+			.min(0)
+			.required("Se requiere el numero de meses trabajados"),
+		contractType: yup
+			.mixed()
+			.oneOf([
+				"FULL_TIME",
+				"PART_TIME",
+				"INTERNSHIP",
+				"TEMPORARY",
+				"CONTRACTOR",
+			])
+			.required("Se requiere el tipo de contrato"),
+		employmentStatus: yup
+			.mixed()
+			.oneOf(["FORMER", "CURRENT"])
+			.required("Se requiere el estado de empleo"),
+		pros: proConSchema,
+		cons: proConSchema,
+		wouldRecommendToOtherJobSeekers: yup
+			.boolean()
+			.required("Se requiere la recomendación"),
+		healthAndSafety: starRatingSchema,
+		managerRelationship: starRatingSchema,
+		workEnvironment: starRatingSchema,
+		benefits: starRatingSchema,
+		overallSatisfaction: starRatingSchema,
+		additionalComments: yup.string(),
+		incomeType: yup
+			.string()
+			.oneOf([
+				"YEARLY_SALARY",
+				"MONTHLY_SALARY",
+				"WEEKLY_SALARY",
+				"DAILY_SALARY",
+				"HOURLY_WAGE",
+			])
+			.required("Se requiere el tipo de ingreso"),
+		incomeAmount: yup
+			.number()
+			.min(0)
+			.required("Se requiere la cantidad de ingresos"),
+	})
+	.required();
 
 interface CreateReviewFormProps {
 	companyName?: string;
@@ -157,43 +160,47 @@ export default function CreateReviewForm({
 	let [content, setContent] = React.useState(null);
 	const [createReview] = useCreateReviewMutation();
 
-	const onSubmit = (values, actions) => {
+	const onSubmit = async (values, actions): Promise<void> => {
+		/** The values need to be re-validated here because some of the input
+		 * components give string values that need to be parsed.
+		 */
+		const validatedValues = await schema.validate(values);
+
 		const reviewValues = {
-			companyName: values.companyName,
-			reviewTitle: values.reviewTitle,
+			companyName: validatedValues.companyName,
+			reviewTitle: validatedValues.reviewTitle,
 			location: {
-				city: values.location.city,
-				address: values.location.address,
-				industrialHub: values.location.industrialHub,
+				city: validatedValues.location.city,
+				address: validatedValues.location.address,
+				industrialHub: validatedValues.location.industrialHub,
 			},
-			jobTitle: values.jobTitle,
-			numberOfMonthsWorked: values.numberOfMonthsWorked,
-			contractType: values.contractType,
-			employmentStatus: values.employmentStatus,
-			pros: values.pros,
-			cons: values.cons,
+			jobTitle: validatedValues.jobTitle,
+			numberOfMonthsWorked: validatedValues.numberOfMonthsWorked,
+			contractType: validatedValues.contractType,
+			employmentStatus: validatedValues.employmentStatus,
+			pros: validatedValues.pros,
+			cons: validatedValues.cons,
 			wouldRecommendToOtherJobSeekers:
-				values.wouldRecommendToOtherJobSeekers,
-			healthAndSafety: values.healthAndSafety,
-			managerRelationship: values.managerRelationship,
-			workEnvironment: values.workEnvironment,
-			benefits: values.benefits,
-			overallSatisfaction: values.overallSatisfaction,
-			additionalComments: values.additionalComments,
+				validatedValues.wouldRecommendToOtherJobSeekers,
+			healthAndSafety: validatedValues.healthAndSafety,
+			managerRelationship: validatedValues.managerRelationship,
+			workEnvironment: validatedValues.workEnvironment,
+			benefits: validatedValues.benefits,
+			overallSatisfaction: validatedValues.overallSatisfaction,
+			additionalComments: validatedValues.additionalComments,
 			referredBy: referredBy,
 		};
 
 		const salaryValues = {
-			companyName: values.companyName,
-			jobTitle: values.jobTitle,
-			incomeAmount: values.incomeAmount,
-			incomeType: values.incomeType,
+			companyName: validatedValues.companyName,
+			jobTitle: validatedValues.jobTitle,
+			incomeAmount: validatedValues.incomeAmount,
+			incomeType: validatedValues.incomeType,
 			location: {
-				city: values.location.city,
-				address: values.location.address,
-				industrialHub: values.location.industrialHub,
+				city: validatedValues.location.city,
+				address: validatedValues.location.address,
+				industrialHub: validatedValues.location.industrialHub,
 			},
-			gender: values.location.gender,
 		};
 
 		createReview({
