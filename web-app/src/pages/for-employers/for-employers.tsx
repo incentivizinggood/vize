@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import PageWrapper from "src/components/page-wrapper";
-import Banner from "src/components/banner";
+import Banner, { BannerTitle } from "src/components/banner";
 import { LinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import { urlGenerators } from "src/pages/url-generators";
@@ -168,24 +168,6 @@ const PlansContainer = styled.div`
 	}
 `;
 
-const PageTitle = styled.h1`
-	display: block;
-	margin-bottom: 40px;
-	max-width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-
-	font-size: 3em;
-	line-height: 1.2em;
-	font-weight: 700;
-	color: white;
-
-	${forSize.tabletAndDown} {
-		padding-left: ${horizontalPaddingVal};
-		padding-right: ${horizontalPaddingVal};
-	}
-`;
-
 const SolutionContainer = styled.section`
 	display: flex;
 	flex-direction: column;
@@ -208,9 +190,9 @@ function ForEmployers() {
 	return (
 		<PageWrapper title="Employers" navIsAnimated>
 			<Banner>
-				<PageTitle>
+				<BannerTitle>
 					<T.headerText />
-				</PageTitle>
+				</BannerTitle>
 				<GetStartedLarge />
 			</Banner>
 

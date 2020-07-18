@@ -23,11 +23,29 @@ const BannerContent = styled.div`
 	text-align: center;
 `;
 
+/** Use in a banner to overlay a header for the page. */
+export const BannerTitle = styled.h1`
+	display: block;
+	margin-bottom: 40px;
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+
+	font-size: 3em;
+	line-height: 1.2em;
+	font-weight: 700;
+	color: white;
+
+	padding-left: 15px;
+	padding-right: 15px;
+`;
+
 interface BannerProps {
 	backgroundImage?: string;
 	children: React.ReactNode;
 }
 
+/** Use at the top of a page to display an image with optional title overlay. */
 function Banner({ children, backgroundImage }: BannerProps): JSX.Element {
 	return (
 		<BannerContainer $image={backgroundImage || defaultBannerImage}>
