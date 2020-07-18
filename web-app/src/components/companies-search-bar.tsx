@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useHistory } from "react-router-dom";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
 import { useTranslations } from "src/translations";
 
@@ -25,6 +27,17 @@ export default function CompaniesSearchBar(): JSX.Element {
 	});
 
 	const onSubmit: SubmitHandler<Inputs> = data => {
+		ReactGA.event({
+			category: "User",
+			action: "Search",
+			label: data.search,
+		});
+
+		ReactPixel.track("Search", {
+			category: "User",
+			label: data.search,
+		});
+
 		history.push(`/companies?q=${data.search}`);
 	};
 
