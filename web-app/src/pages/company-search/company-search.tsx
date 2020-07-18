@@ -46,7 +46,7 @@ function useSearch(
 	infiniteRef: React.MutableRefObject<any>;
 	hasMore: boolean;
 } {
-	const pageSize = 20;
+	const pageSize = 4;
 
 	const {
 		loading,
@@ -111,14 +111,9 @@ function useSearch(
 }
 
 function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
-	const {
-		loading,
-		error,
-		companies,
-		totalCount,
-		infiniteRef,
-		hasMore,
-	} = useSearch(searchText);
+	const { loading, error, companies, totalCount, infiniteRef } = useSearch(
+		searchText
+	);
 
 	if (error) {
 		return <h2>{`Error! ${JSON.stringify(error)}`}</h2>;
@@ -126,19 +121,17 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 
 	return (
 		<div ref={infiniteRef}>
-			{totalCount !== null ? (
-				totalCount > 0 ? (
-					<div>{totalCount} companies found.</div>
-				) : (
-					<h2>
-						<T.noCompaniesMatch />
-					</h2>
-				)
-			) : null}
+			{totalCount !== null
+				? totalCount === 0 && (
+						<h2 className="text-center">
+							<T.noCompaniesMatch />
+						</h2>
+				  )
+				: null}
 			{companies.map(company => (
 				<CompanySearchResult key={company.id} company={company} />
 			))}
-			{loading ? <Spinner /> : !hasMore ? <p>No mas.</p> : null}
+			{loading ? <Spinner /> : null}
 		</div>
 	);
 }
