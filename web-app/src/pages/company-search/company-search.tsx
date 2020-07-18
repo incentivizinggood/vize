@@ -1,6 +1,4 @@
 import React from "react";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
 import { useInfiniteScroll } from "react-infinite-scroll-hook";
 
 import PageWrapper from "src/components/page-wrapper";
@@ -19,22 +17,6 @@ const T = translations.legacyTranslationsNeedsRefactor.search;
 interface SearchResultsProps {
 	searchText: string;
 }
-
-/*
-
-	// Track successful search event
-	if (searchText !== "") {
-		ReactGA.event({
-			category: "User",
-			action: "Search",
-			label: searchText,
-		});
-		ReactPixel.track("Search", {
-			category: "User",
-			label: searchText,
-		});
-	}
-	*/
 
 function useSearch(
 	searchText: string

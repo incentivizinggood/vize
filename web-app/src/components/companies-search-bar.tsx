@@ -1,77 +1,59 @@
 import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
+import ReactPixel from "react-facebook-pixel";
+import ReactGA from "react-ga";
 
-import { translations as T } from "src/translations";
+import { useTranslations } from "src/translations";
 
-type CompaniesSearchBarProps = RouteComponentProps;
-
-interface CompaniesSearchBarState {
+type Inputs = {
 	search: string;
-}
+};
 
-class CompaniesSearchBar extends React.Component<
-	CompaniesSearchBarProps,
-	CompaniesSearchBarState
-> {
-	constructor(props: Readonly<CompaniesSearchBarProps>) {
-		super(props);
+export default function CompaniesSearchBar(): JSX.Element {
+	const t = useTranslations();
+	const location = useLocation();
+	const history = useHistory();
 
-		// Purpose of getting params is so that the search text field doesn't reset to being empty after a search
-		const params = new URLSearchParams(location.search);
-		let searchParams = params.get("search");
-		if (searchParams === null) {
-			searchParams = "";
-		}
+	// The form data is saved in url search params.
+	// We load that data into the form so that the user can edit it
+	// and write it back to the url.
+	const params = new URLSearchParams(location.search);
 
-		this.state = { search: searchParams };
+	const { register, handleSubmit } = useForm<Inputs>({
+		defaultValues: { search: params.get("q") || "" },
+	});
 
-		// These bindings are necessary to make `this` work in callbacks.
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		const { target } = event;
-		const value =
-			target.type === "checkbox" ? target.checked : target.value;
-		const { name } = target;
-
-		//@ts-ignore
-		this.setState({
-			[name]: value,
+	const onSubmit: SubmitHandler<Inputs> = data => {
+		ReactGA.event({
+			category: "User",
+			action: "Search",
+			label: data.search,
 		});
-	}
 
-	handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		this.props.history.push(`/companies/?search=${this.state.search}`);
-	}
+		ReactPixel.track("Search", {
+			category: "User",
+			label: data.search,
+		});
 
-	render() {
-		return (
-			<form className="form-search_header" onSubmit={this.handleSubmit}>
-				<div className="search-bar-style">
-					<T.companiesSearchBar
-						renderer={({ placeholder }) => (
-							<input
-								type="text"
-								className="companies-search-input"
-								name="search"
-								placeholder={placeholder}
-								value={this.state.search}
-								onChange={this.handleInputChange}
-							/>
-						)}
-					/>
-					<button type="submit" className="search-icon">
-						<FontAwesomeIcon icon={faSearch} />
-					</button>
-				</div>
-			</form>
-		);
-	}
+		history.push(`/companies?q=${data.search}`);
+	};
+
+	return (
+		<form className="form-search_header" onSubmit={handleSubmit(onSubmit)}>
+			<div className="search-bar-style">
+				<input
+					name="search"
+					className="companies-search-input"
+					{...t.companiesSearchBar}
+					ref={register}
+				/>
+				<button type="submit" className="search-icon">
+					<FontAwesomeIcon icon={faSearch} />
+				</button>
+			</div>
+		</form>
+	);
 }
-
-export default withRouter(CompaniesSearchBar);
