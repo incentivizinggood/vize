@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { VoteButtonsComponent as MutationVoteButtons } from "generated/graphql-operations";
+import { useVoteButtonsMutation } from "generated/graphql-operations";
 
 import VoteButton, { VoteButtonProps } from "./vote-button";
 
@@ -29,18 +29,12 @@ type VoteButtonsProps = {
  * This contains two buttons, the upvote button and the downvote button.
  */
 export default function VoteButtons(props: VoteButtonsProps) {
+	const [castVote] = useVoteButtonsMutation();
+
 	return (
-		<MutationVoteButtons>
-			{castVote => (
-				<VoteDiv>
-					<VoteButton
-						isUpButton
-						castVote={castVote}
-						review={props.review}
-					/>
-					<VoteButton castVote={castVote} review={props.review} />
-				</VoteDiv>
-			)}
-		</MutationVoteButtons>
+		<VoteDiv>
+			<VoteButton isUpButton castVote={castVote} review={props.review} />
+			<VoteButton castVote={castVote} review={props.review} />
+		</VoteDiv>
 	);
 }

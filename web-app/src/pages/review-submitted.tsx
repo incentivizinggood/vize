@@ -1,46 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
 import styled from "styled-components";
 import { forSize } from "src/responsive";
 import { urlGenerators } from "src/pages/url-generators";
 import ClipboardIcon from "@material-ui/icons/Assignment";
 import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
 
-import { withUser } from "src/hoc/user";
+import { useUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
 
-import RewardsComponent from "./rewardsComponent";
-import rewardsEligibility from "./rewards-eligibility.graphql";
 import { WriteReviewButton } from "src/components/button";
 
 import {
-	EmailShareButton,
 	FacebookShareButton,
-	TwitterShareButton,
 	WhatsappShareButton,
-	EmailIcon,
 	FacebookIcon,
-	TwitterIcon,
 	WhatsappIcon,
 } from "react-share";
 
 const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
 const TLogin = translations.loginRegister;
-
-const REWARD_DATA_SUBMISSION = gql`
-	mutation RewardDataSubmission(
-		$phoneNumber: String!
-		$paymentMethod: PaymentMethod!
-	) {
-		claimWroteAReview(
-			phoneNumber: $phoneNumber
-			paymentMethod: $paymentMethod
-		)
-	}
-`;
 
 const RewardSection = styled.div`
 	margin-top: 250px;
@@ -77,20 +57,14 @@ const personalReferralMessage =
 const publicReferralMessage =
 	"Hola, les quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Los invito a participar. \r\n\r\nnPueden llenar la encuesta aquí:";
 
-function ReviewSubmitted({ user }) {
+export default function ReviewSubmitted() {
+	const user = useUser();
 	const [copySuccess, setCopySuccess] = React.useState("");
 	const textAreaRef = React.useRef(null);
 
 	function copyToClipboard(text: string) {
 		navigator.clipboard.writeText(text);
 		setCopySuccess("Copiado!");
-	}
-
-	function changeReviewStatusState() {
-		// reload the page when a phone number is successfully inputed to claim a Reward
-		// this is done because the reward status query does not get update until the
-		// page is refreshed
-		window.location.reload();
 	}
 
 	function renderContent() {
@@ -187,4 +161,3 @@ function ReviewSubmitted({ user }) {
 		</PageWrapper>
 	);
 }
-export default withUser(ReviewSubmitted);
