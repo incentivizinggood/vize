@@ -10,7 +10,6 @@ import {
 	useCompanySearchPageQuery,
 	CompanySearchResultFragment,
 } from "generated/graphql-operations";
-import { NetworkStatus } from "apollo-boost";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
 
@@ -30,14 +29,9 @@ function useSearch(
 } {
 	const pageSize = 20;
 
-	const {
-		loading,
-		error,
-		data,
-		fetchMore,
-		networkStatus,
-	} = useCompanySearchPageQuery({
+	const { loading, error, data, fetchMore } = useCompanySearchPageQuery({
 		variables: { searchText, pageNum: 0, pageSize },
+		// This lets us know when the query is fetching more.
 		notifyOnNetworkStatusChange: true,
 	});
 
@@ -77,7 +71,7 @@ function useSearch(
 	};
 
 	const infiniteRef = useInfiniteScroll({
-		loading: networkStatus === NetworkStatus.fetchMore,
+		loading,
 		hasNextPage,
 		onLoadMore,
 	});
