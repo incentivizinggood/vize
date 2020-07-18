@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 
 export interface ButtonExtraProps {
-	primary?: boolean;
+	/** Style this button to make it look more important. */
+	$primary?: boolean;
 }
 
 const Button = styled.button<ButtonExtraProps>`
@@ -10,7 +11,7 @@ const Button = styled.button<ButtonExtraProps>`
 		/* Color the button to show it's status. */
 		${props => {
 			if (props.disabled) {
-				if (props.primary) {
+				if (props.$primary) {
 					return css`
 						background-color: ${props.theme.onSurfaceWeak};
 						color: ${props.theme.surface};
@@ -24,7 +25,7 @@ const Button = styled.button<ButtonExtraProps>`
 				`;
 			}
 
-			if (props.primary) {
+			if (props.$primary) {
 				return css`
 					background-color: ${props.theme.vizeBlue};
 					color: ${props.theme.onMain};

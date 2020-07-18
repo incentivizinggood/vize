@@ -36,7 +36,7 @@ function InnerForm(props: InnerFormProps) {
 			<Field name="password" type="password" required t={T.password} />
 
 			<FormToolbar>
-				<RegisterButton primary type="submit">
+				<RegisterButton $primary type="submit">
 					<T.createAccount />
 				</RegisterButton>
 			</FormToolbar>

@@ -85,7 +85,7 @@ const ResourceFooter = styled.div`
 	}
 `;
 
-let ReadMore = styled.button`
+const ReadMore = styled(Link)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -100,9 +100,8 @@ let ReadMore = styled.button`
 	border-radius: 0.4rem;
 `;
 
-ReadMore = ReadMore.withComponent(Link);
 const ReadMoreButton = props => (
-	<ReadMore primary to={urlGenerators.vizeResourceUrl(props.slug)} {...props}>
+	<ReadMore to={urlGenerators.vizeResourceUrl(props.slug)} {...props}>
 		<T.read />
 	</ReadMore>
 );

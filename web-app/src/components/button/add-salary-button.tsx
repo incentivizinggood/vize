@@ -27,7 +27,7 @@ function AddSalaryButton(props: AddSalaryButtonProps) {
 		<LinkButton
 			to={urlGenerators.vizeSalaryUrl(props.companyName)}
 			onClick={() => buttonTracking(props.buttonLocation)}
-			primary
+			$primary
 		>
 			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;

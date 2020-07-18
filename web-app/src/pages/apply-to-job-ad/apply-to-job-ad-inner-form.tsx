@@ -2,11 +2,7 @@ import React from "react";
 import { Form } from "formik";
 
 import { Button } from "src/components/button";
-import {
-	Field,
-	FormToolbar,
-	SubmissionError,
-} from "src/components/form-stuff";
+import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { translations } from "src/translations";
 
 const T = translations.applyToJobAd;
@@ -36,7 +32,7 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button primary type="submit">
+				<Button $primary type="submit">
 					<T.submit />
 				</Button>
 			</FormToolbar>

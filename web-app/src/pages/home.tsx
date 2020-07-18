@@ -309,7 +309,7 @@ function HomePage() {
 									<br />
 									<div>
 										<LinkButton
-											primary
+											$primary
 											to="/submit-salary-data"
 											onClick={addSalaryHomeBottom}
 										>

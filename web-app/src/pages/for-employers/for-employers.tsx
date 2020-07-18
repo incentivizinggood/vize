@@ -76,7 +76,7 @@ const SectionContainer = styled.section`
 `;
 
 const GetStarted = props => (
-	<LinkButton primary to={urlGenerators.vizeRegister("company")} {...props}>
+	<LinkButton $primary to={urlGenerators.vizeRegister("company")} {...props}>
 		<T.getStarted />
 	</LinkButton>
 );

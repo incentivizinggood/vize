@@ -27,7 +27,7 @@ function WriteReviewButton(props: WriteReviewButtonProps) {
 		<LinkButton
 			to={urlGenerators.vizeReviewUrl(props.companyName)}
 			onClick={() => buttonTracking(props.buttonLocation)}
-			primary
+			$primary
 		>
 			<FontAwesomeIcon icon={faPlus} />
 			&nbsp;
