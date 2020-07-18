@@ -422,7 +422,7 @@ export default {
 		},
 		search: {
 			loading: "Cargando...",
-			noCompaniesMatch: "No hay empresas que coincidan",
+			noCompaniesMatch: "Tu búsqueda no coincidio con una empresa",
 			placeholder: "Busquar una empresa...",
 			button: "Buscar",
 		},

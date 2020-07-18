@@ -1,6 +1,5 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faUsers,
@@ -16,6 +15,7 @@ import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
 import defaultCompanyImg from "src/images/default-company.png";
+import { CompanySearchResultFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
 
@@ -42,23 +42,10 @@ const WriteReviewButtonContainer = styled.div`
 `;
 
 interface CompanySearchResultProps {
-	company: {
-		id: unknown;
-		name: string;
-		avgStarRatings: {
-			overallSatisfaction: number;
-		};
-		industry?: string;
-		numEmployees?: string;
-		numReviews: number;
-		numSalaries: number;
-		numJobAds: number;
-		descriptionOfCompany?: string;
-		locations: string[];
-	};
+	company: CompanySearchResultFragment;
 }
 
-function CompanySearchResult(props: CompanySearchResultProps) {
+function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 	const companyProfileUrl = urlGenerators.vizeProfileUrl(props.company.id);
 	return (
 		<div>
@@ -202,22 +189,5 @@ function CompanySearchResult(props: CompanySearchResultProps) {
 		</div>
 	);
 }
-
-CompanySearchResult.propTypes = {
-	company: PropTypes.shape({
-		id: PropTypes.string.isRequired,
-		name: PropTypes.string.isRequired,
-		numEmployees: PropTypes.string,
-		industry: PropTypes.string,
-		locations: PropTypes.arrayOf(PropTypes.string).isRequired,
-		descriptionOfCompany: PropTypes.string,
-		avgStarRatings: PropTypes.shape({
-			overallSatisfaction: PropTypes.number.isRequired,
-		}),
-		numReviews: PropTypes.number.isRequired,
-		numJobAds: PropTypes.number.isRequired,
-		numSalaries: PropTypes.number.isRequired,
-	}).isRequired,
-};
 
 export default CompanySearchResult;

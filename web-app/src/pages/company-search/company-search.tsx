@@ -1,137 +1,142 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { useInfiniteScroll } from "react-infinite-scroll-hook";
 
 import PageWrapper from "src/components/page-wrapper";
 import CompanySearchResult from "src/components/company-search-result";
 import CompaniesSearchBar from "src/components/companies-search-bar";
 import Spinner from "src/components/Spinner";
-import PaginateSystem from "src/components/paginate/pagination";
 import { translations } from "src/translations";
-import { useCompanySearchPageQuery } from "generated/graphql-operations";
+import {
+	useCompanySearchPageQuery,
+	CompanySearchResultFragment,
+} from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor.search;
 
-// //////////////////CHILD COMPONENT///////////////////
-function SearchResults({ searchText, currentPageNum, setCurrentPage }) {
-	const { loading, error, data } = useCompanySearchPageQuery({
-		variables: { searchText, currentPageNum },
+interface SearchResultsProps {
+	searchText: string;
+}
+
+function useSearch(
+	searchText: string
+): {
+	loading: boolean;
+	error: unknown;
+	companies: CompanySearchResultFragment[];
+	totalCount: number | null;
+	infiniteRef: React.MutableRefObject<any>;
+	hasMore: boolean;
+} {
+	const pageSize = 4;
+
+	const { loading, error, data, fetchMore } = useCompanySearchPageQuery({
+		variables: { searchText, pageNum: 0, pageSize },
+		// This lets us know when the query is fetching more.
+		notifyOnNetworkStatusChange: true,
 	});
 
-	if (loading) {
-		return <Spinner />;
-	}
+	const hasNextPage =
+		!error &&
+		!!data &&
+		data.searchCompanies.nodes.length < data.searchCompanies.totalCount;
+
+	const onLoadMore = (): void => {
+		if (error || !data || !hasNextPage) {
+			return;
+		}
+
+		fetchMore({
+			variables: {
+				pageNum: Math.ceil(
+					data.searchCompanies.nodes.length / pageSize
+				),
+			},
+			updateQuery(prev, { fetchMoreResult }) {
+				if (!fetchMoreResult) {
+					return prev;
+				}
+
+				return {
+					...prev,
+					searchCompanies: {
+						...fetchMoreResult.searchCompanies,
+						nodes: [
+							...prev.searchCompanies.nodes,
+							...fetchMoreResult.searchCompanies.nodes,
+						],
+					},
+				};
+			},
+		});
+	};
+
+	const infiniteRef = useInfiniteScroll({
+		loading,
+		hasNextPage,
+		onLoadMore,
+	});
+
+	return {
+		loading,
+		error,
+		companies: data ? data.searchCompanies.nodes : [],
+		totalCount: data ? data.searchCompanies.totalCount : null,
+		infiniteRef,
+		hasMore: hasNextPage,
+	};
+}
+
+function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
+	const { loading, error, companies, totalCount, infiniteRef } = useSearch(
+		searchText
+	);
+
 	if (error) {
-		return <h2>{`Error! ${error.message}`}</h2>;
-	}
-
-	const totalCompCount = data.searchCompanies.totalCount;
-
-	// searchCompanies is read-only, we do a
-	// deep copy before we mutate it with sort:
-	// https://stackoverflow.com/questions/597588/how-do-you-clone-an-array-of-objects-in-javascript
-	const resultList = data.searchCompanies.nodes.map(function(company) {
-		return <CompanySearchResult key={company.id} company={company} />;
-	});
-
-	// Break into chunks
-	if (resultList.length < 1) {
-		return (
-			<h2>
-				<T.noCompaniesMatch />
-			</h2>
-		);
+		return <h2>{`Error! ${JSON.stringify(error)}`}</h2>;
 	}
 
 	return (
-		<>
-			<div>{resultList}</div>
-			<PaginateSystem
-				// recall query starting at the last company id
-				totalCompanyCount={totalCompCount}
-				currentPageNum={currentPageNum}
-				setCurrentPage={setCurrentPage}
-			/>
-		</>
+		<div ref={infiniteRef}>
+			{totalCount !== null
+				? totalCount === 0 && (
+						<h2 className="text-center">
+							<T.noCompaniesMatch />
+						</h2>
+				  )
+				: null}
+			{companies.map(company => (
+				<CompanySearchResult key={company.id} company={company} />
+			))}
+			{loading ? <Spinner /> : null}
+		</div>
 	);
 }
 
-SearchResults.propTypes = {
-	searchText: PropTypes.string.isRequired,
-};
-
-// /////////////Company Search -- Main Component////////////////////
-class CompanySearchTrial extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			searchTextInput: this.props.searchText || "",
-			searchText: this.props.searchText || "",
-			currentPageNum: 0,
-		};
-		this.setCurrentPage = this.setCurrentPage.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	setCurrentPage(newPageNum) {
-		this.setState({
-			// was newPageNum
-			currentPageNum: newPageNum,
-		});
-	}
-
-	handleInputChange(event) {
-		const { target } = event;
-		const value =
-			target.type === "checkbox" ? target.checked : target.value;
-		const { name } = target;
-
-		this.setState({
-			[name]: value,
-		});
-	}
-
-	handleSubmit(event) {
-		event.preventDefault();
-		this.setState({
-			searchText: this.state.searchTextInput,
-		});
-	}
-
-	render() {
-		return (
-			<PageWrapper title="Company Search">
-				<div className="container-fluid  search_companies">
-					<div className="row all_boxcolor1 select_box1">
-						<div>
-							<div
-								id="companies_header1"
-								className="callbacks_container"
-							>
-								<CompaniesSearchBar />
-							</div>
-						</div>
-					</div>
-					<div className="clearfix" />
-				</div>
-				<div className="clearfix" />
-				<br />
-				<SearchResults
-					searchText={this.state.searchText}
-					currentPageNum={this.state.currentPageNum}
-					setCurrentPage={this.setCurrentPage}
-				/>
-			</PageWrapper>
-		);
-	}
+interface CompanySearchTrialProps {
+	searchText?: string;
 }
 
-CompanySearchTrial.propTypes = {
-	searchText: PropTypes.string,
-};
-
-CompanySearchTrial.defaultProps = {
-	searchText: "",
-};
-
-export default CompanySearchTrial;
+export default function CompanySearchTrial(
+	props: CompanySearchTrialProps
+): JSX.Element {
+	return (
+		<PageWrapper title="Company Search">
+			<div className="container-fluid  search_companies">
+				<div className="row all_boxcolor1 select_box1">
+					<div>
+						<div
+							id="companies_header1"
+							className="callbacks_container"
+						>
+							<CompaniesSearchBar />
+						</div>
+					</div>
+				</div>
+				<div className="clearfix" />
+			</div>
+			<div className="clearfix" />
+			<br />
+			<SearchResults searchText={props.searchText || ""} />
+		</PageWrapper>
+	);
+}

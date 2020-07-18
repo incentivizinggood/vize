@@ -9585,6 +9585,11 @@ react-hook-form@^6.0.7:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.0.7.tgz#65dc9b110787fef83b4c5fd5ca451bd25ea38207"
   integrity sha512-9CmZbZLzJlMNda0ot/icEFeCq+MaZlK+j3mjxgLv4Kf2wf1E6hCmSmjHoaDyPIqYCuDUSFO+Lcf+lscBm2tdXg==
 
+react-infinite-scroll-hook@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-hook/-/react-infinite-scroll-hook-2.0.1.tgz#9aff0f7d836f501591a5a92729026ad301eb690d"
+  integrity sha512-gKeqcnT9L2vwWQvUxQGaPc5UpS8NFw7ixV81avur5Vu44kqm3fhlZkie0t6bvaoM3ODxpjA0kx+zwHTGTTUmrQ==
+
 react-is@^16.3.2, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

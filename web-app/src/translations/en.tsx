@@ -405,7 +405,7 @@ export default {
 		},
 		search: {
 			loading: "Loading...",
-			noCompaniesMatch: "No Companies match",
+			noCompaniesMatch: "Your search did not match any companies",
 			placeholder: "Search for a Company...",
 			button: "SEARCH",
 		},
