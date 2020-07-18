@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import bannerImg from "src/images/banner-img.jpg";
+import defaultBannerImage from "src/images/banner-img.jpg";
 
 interface BannerDivExtraProps {
-	backgroundImage?: string;
+	$image: string;
 }
 
 const BannerDiv = styled.div<BannerDivExtraProps>`
 	height: 700px;
 
-	background: url(${({ backgroundImage }) => backgroundImage || bannerImg})
-		no-repeat 0 0;
+	background: url(${props => props.$image}) no-repeat 0 0;
 	background-size: cover;
 
 	display: flex;
@@ -28,9 +27,9 @@ interface BannerProps {
 	children: React.ReactNode;
 }
 
-function Banner({ children, backgroundImage }: BannerProps) {
+function Banner({ children, backgroundImage }: BannerProps): JSX.Element {
 	return (
-		<BannerDiv backgroundImage={backgroundImage}>
+		<BannerDiv $image={backgroundImage || defaultBannerImage}>
 			<div>{children}</div>
 		</BannerDiv>
 	);
