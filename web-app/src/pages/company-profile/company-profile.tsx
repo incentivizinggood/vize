@@ -105,7 +105,7 @@ export default function CompanyProfile({
 									path: "salaries",
 									label: <T.companyprofile.salaries />,
 									content: (
-										<SalaryTab company={data.company} />
+										<SalaryTab companyId={companyId} />
 									),
 								},
 							]}
