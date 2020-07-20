@@ -81,7 +81,7 @@ export default function CompanyProfile({
 									path: "overview",
 									label: <T.companyprofile.overview />,
 									content: (
-										<OverviewTab company={data.company} />
+										<OverviewTab companyId={companyId} />
 									),
 								},
 								{

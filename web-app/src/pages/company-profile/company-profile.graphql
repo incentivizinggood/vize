@@ -1,6 +1,5 @@
 #import "./articles/job-ad.graphql"
 #import "./articles/review.graphql"
-#import "./articles/salary.graphql"
 #import "./companyRatingsComponent.graphql"
 
 query companyProfilePage($companyId: ID!) {
@@ -21,10 +20,5 @@ query companyProfilePage($companyId: ID!) {
 			...CompanyProfileJobAd
 		}
 		numJobAds
-
-		salaryStats {
-			...CompanyProfileSalaryStats
-		}
-		numSalaries
 	}
 }
