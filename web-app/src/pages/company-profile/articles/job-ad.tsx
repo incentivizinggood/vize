@@ -10,10 +10,15 @@ import { Link } from "react-router-dom";
 import { urlGenerators } from "src/pages";
 import { processLocation } from "src/misc";
 import { translations } from "src/translations";
+import { CompanyProfileJobAdFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
-function JobPosting(props) {
+interface JobPostingProps {
+	jobAd: CompanyProfileJobAdFragment;
+}
+
+function JobPosting(props: JobPostingProps): JSX.Element {
 	const datePosted = new Date(props.jobAd.created).toLocaleDateString(
 		"es-MX",
 		{

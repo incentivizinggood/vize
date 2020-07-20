@@ -20,7 +20,7 @@ interface ReviewComponentProps {
 	review: CompanyProfileReviewFragment;
 }
 
-function ReviewComponent(props: ReviewComponentProps) {
+function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 	// IF-ELSE for the Recommended option, green tick v/s red cross
 	let className;
 	if (props.review.wouldRecommendToOtherJobSeekers) {

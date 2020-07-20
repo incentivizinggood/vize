@@ -1,4 +1,6 @@
+#import "./articles/job-ad.graphql"
 #import "./articles/review.graphql"
+#import "./articles/salary.graphql"
 
 query companyProfilePage($companyId: ID!) {
 	company(id: $companyId) {
@@ -34,27 +36,11 @@ query companyProfilePage($companyId: ID!) {
 		}
 		numReviews
 		jobAds {
-			id
-			jobTitle
-			locations {
-				city
-				address
-				industrialHub
-			}
-			pesosPerHour
-			contractType
-			jobDescription
-			qualifications
-			responsibilities
-			created
+			...CompanyProfileJobAd
 		}
 		numJobAds
 		salaryStats {
-			jobTitle
-			totalAvgPay
-			totalMaxPay
-			totalMinPay
-			numSalariesJobTitle
+			...CompanyProfileSalaryStats
 		}
 		numSalaries
 	}

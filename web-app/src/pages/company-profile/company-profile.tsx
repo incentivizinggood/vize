@@ -41,7 +41,9 @@ export interface CompanyProfileProps {
 }
 
 /* The Company Profile  page of the site. */
-export default function CompanyProfile({ companyId }: CompanyProfileProps) {
+export default function CompanyProfile({
+	companyId,
+}: CompanyProfileProps): JSX.Element {
 	const { loading, error, data } = useCompanyProfilePageQuery({
 		variables: { companyId },
 	});
