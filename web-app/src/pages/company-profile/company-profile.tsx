@@ -3,12 +3,10 @@ import styled from "styled-components";
 import { forSize } from "src/responsive";
 
 import PageWrapper from "src/components/page-wrapper";
-import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 
 import CompanyProfileSummary from "./summary";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab } from "./tabs";
-import { useCompanyProfilePageQuery } from "generated/graphql-operations";
 import Tabs from "src/components/tabs";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -44,28 +42,6 @@ export interface CompanyProfileProps {
 export default function CompanyProfile({
 	companyId,
 }: CompanyProfileProps): JSX.Element {
-	const { loading, error, data } = useCompanyProfilePageQuery({
-		variables: { companyId },
-	});
-
-	if (loading) {
-		return <Spinner />;
-	}
-
-	if (error) {
-		console.log(error);
-		console.log(data);
-		return <h2>{`Error! ${error.message}`}</h2>;
-	}
-
-	if (!data || !data.company) {
-		return (
-			<h2>
-				<T.companyprofile.notfound />
-			</h2>
-		);
-	}
-
 	return (
 		<PageWrapper title="Company Profile">
 			<CompanyPageContainer>
@@ -94,12 +70,7 @@ export default function CompanyProfile({
 								{
 									path: "jobs",
 									label: <T.companyprofile.jobs />,
-									content: (
-										<JobTab
-											jobAds={data.company.jobAds}
-											jobsCount={data.company.numJobAds}
-										/>
-									),
+									content: <JobTab companyId={companyId} />,
 								},
 								{
 									path: "salaries",

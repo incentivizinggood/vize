@@ -1,6 +1,6 @@
-#import "./articles/job-ad.graphql"
+#import "../articles/job-ad.graphql"
 
-query companyProfilePage($companyId: ID!) {
+query CompanyProfileJobTab($companyId: ID!) {
 	company(id: $companyId) {
 		id
 
