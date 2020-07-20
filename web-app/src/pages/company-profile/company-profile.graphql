@@ -1,44 +1,29 @@
 #import "./articles/job-ad.graphql"
 #import "./articles/review.graphql"
 #import "./articles/salary.graphql"
+#import "./companyRatingsComponent.graphql"
+#import "./summary.graphql"
 
 query companyProfilePage($companyId: ID!) {
 	company(id: $companyId) {
 		id
 
 		name
-		contactEmail
-		yearEstablished
-		numEmployees
-		industry
-		locations {
-			city
-			address
-			industrialHub
-		}
-		contactPhoneNumber
-		websiteURL
 		descriptionOfCompany
-		dateJoined
-		numFlags
-		avgStarRatings {
-			healthAndSafety
-			managerRelationship
-			workEnvironment
-			benefits
-			overallSatisfaction
-		}
-		percentRecommended
-		avgNumMonthsWorked
+
+		...CompanyRatingsComponent
+		...CompanyProfileSummary
 
 		reviews {
 			...CompanyProfileReview
 		}
 		numReviews
+
 		jobAds {
 			...CompanyProfileJobAd
 		}
 		numJobAds
+
 		salaryStats {
 			...CompanyProfileSalaryStats
 		}

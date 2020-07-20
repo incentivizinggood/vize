@@ -11,6 +11,7 @@ import {
 
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
+import { CompanyProfileSummaryFragment } from "generated/graphql-operations";
 
 import defaultCompany from "src/images/default-company.png";
 
@@ -20,7 +21,11 @@ const CompanySummaryContainer = styled.div`
 	background-color: white;
 `;
 
-function CompanyProfileSummary(props) {
+interface CompanyProfileSummaryProps {
+	company: CompanyProfileSummaryFragment;
+}
+
+function CompanyProfileSummary(props: CompanyProfileSummaryProps): JSX.Element {
 	return (
 		<CompanySummaryContainer>
 			<div className="col-md-2 prostar">

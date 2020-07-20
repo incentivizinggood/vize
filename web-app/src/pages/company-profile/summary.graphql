@@ -1,0 +1,14 @@
+fragment CompanyProfileSummary on Company {
+	name
+	numEmployees
+	industry
+	locations {
+		city
+		address
+		industrialHub
+	}
+	avgStarRatings {
+		overallSatisfaction
+	}
+	websiteURL
+}
