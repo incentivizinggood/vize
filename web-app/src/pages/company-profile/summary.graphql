@@ -1,14 +1,18 @@
-fragment CompanyProfileSummary on Company {
-	name
-	numEmployees
-	industry
-	locations {
-		city
-		address
-		industrialHub
+query CompanyProfileSummary($companyId: ID!) {
+	company(id: $companyId) {
+		id
+
+		name
+		numEmployees
+		industry
+		locations {
+			city
+			address
+			industrialHub
+		}
+		avgStarRatings {
+			overallSatisfaction
+		}
+		websiteURL
 	}
-	avgStarRatings {
-		overallSatisfaction
-	}
-	websiteURL
 }

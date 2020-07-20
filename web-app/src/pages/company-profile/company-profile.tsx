@@ -69,7 +69,7 @@ export default function CompanyProfile({
 	return (
 		<PageWrapper title="Company Profile">
 			<CompanyPageContainer>
-				<CompanyProfileSummary company={data.company} />
+				<CompanyProfileSummary companyId={companyId} />
 
 				<br />
 				{/* navigation */}

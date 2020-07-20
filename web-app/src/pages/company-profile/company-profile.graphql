@@ -2,7 +2,6 @@
 #import "./articles/review.graphql"
 #import "./articles/salary.graphql"
 #import "./companyRatingsComponent.graphql"
-#import "./summary.graphql"
 
 query companyProfilePage($companyId: ID!) {
 	company(id: $companyId) {
@@ -12,7 +11,6 @@ query companyProfilePage($companyId: ID!) {
 		descriptionOfCompany
 
 		...CompanyRatingsComponent
-		...CompanyProfileSummary
 
 		reviews {
 			...CompanyProfileReview
