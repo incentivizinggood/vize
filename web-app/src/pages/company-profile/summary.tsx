@@ -29,7 +29,7 @@ interface CompanyProfileSummaryProps {
 	companyId: string;
 }
 
-function CompanyProfileSummary({
+export default function CompanyProfileSummary({
 	companyId,
 }: CompanyProfileSummaryProps): JSX.Element {
 	const { loading, error, data } = useCompanyProfileSummaryQuery({
@@ -55,7 +55,11 @@ function CompanyProfileSummary({
 	return (
 		<CompanySummaryContainer>
 			<div className="col-md-2 prostar">
-				<img src={defaultCompany} className="img-responsive" />
+				<img
+					src={defaultCompany}
+					className="img-responsive"
+					alt="Company profile"
+				/>
 			</div>
 
 			<div className="col-md-6">
@@ -65,45 +69,56 @@ function CompanyProfileSummary({
 							<span className="headingoo">
 								{data.company.name}
 							</span>
-							&nbsp;&nbsp;
-							<StarRatings
-								rating={
-									data.company.avgStarRatings
-										.overallSatisfaction
-								}
-								starDimension="25px"
-								starSpacing="2px"
-							/>
+							{data.company.avgStarRatings ? (
+								<>
+									&nbsp;&nbsp;
+									<StarRatings
+										rating={
+											data.company.avgStarRatings
+												.overallSatisfaction
+										}
+										starDimension="25px"
+										starSpacing="2px"
+									/>
+								</>
+							) : null}
 						</fieldset>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-md-12">
-						<p>
-							<FontAwesomeIcon icon={faMapMarker} />{" "}
-							{processLocation(
-								JSON.stringify(data.company.locations[0])
-							)}
-						</p>
-						{/* displaying just the first company location for now, from the list */}
-						<p>
-							<FontAwesomeIcon icon={faFlask} />{" "}
-							{data.company.industry}
-						</p>
-						<p>
-							<FontAwesomeIcon icon={faGlobe} />{" "}
-							<a
-								href={data.company.websiteURL}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{data.company.websiteURL}
-							</a>
-						</p>
-						<p>
-							<FontAwesomeIcon icon={faUsers} />{" "}
-							{data.company.numEmployees}
-						</p>
+						{data.company.locations.length > 0 ? (
+							<p>
+								<FontAwesomeIcon icon={faMapMarker} />{" "}
+								{processLocation(
+									JSON.stringify(data.company.locations[0])
+								)}
+							</p>
+						) : null}
+						{data.company.industry ? (
+							<p>
+								<FontAwesomeIcon icon={faFlask} />{" "}
+								{data.company.industry}
+							</p>
+						) : null}
+						{data.company.websiteURL ? (
+							<p>
+								<FontAwesomeIcon icon={faGlobe} />{" "}
+								<a
+									href={data.company.websiteURL}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{data.company.websiteURL}
+								</a>
+							</p>
+						) : null}
+						{data.company.numEmployees ? (
+							<p>
+								<FontAwesomeIcon icon={faUsers} />{" "}
+								{data.company.numEmployees}
+							</p>
+						) : null}
 					</div>
 				</div>
 			</div>
@@ -120,5 +135,3 @@ function CompanyProfileSummary({
 		</CompanySummaryContainer>
 	);
 }
-
-export default CompanyProfileSummary;
