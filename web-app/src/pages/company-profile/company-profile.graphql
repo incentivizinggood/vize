@@ -1,20 +1,10 @@
 #import "./articles/job-ad.graphql"
-#import "./articles/review.graphql"
-#import "./companyRatingsComponent.graphql"
 
 query companyProfilePage($companyId: ID!) {
 	company(id: $companyId) {
 		id
 
 		name
-		descriptionOfCompany
-
-		...CompanyRatingsComponent
-
-		reviews {
-			...CompanyProfileReview
-		}
-		numReviews
 
 		jobAds {
 			...CompanyProfileJobAd

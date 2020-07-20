@@ -88,7 +88,7 @@ export default function CompanyProfile({
 									path: "reviews",
 									label: <T.companyprofile.reviews />,
 									content: (
-										<ReviewTab company={data.company} />
+										<ReviewTab companyId={companyId} />
 									),
 								},
 								{

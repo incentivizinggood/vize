@@ -1,0 +1,17 @@
+#import "../articles/review.graphql"
+#import "../companyRatingsComponent.graphql"
+
+query CompanyProfileReviewTab($companyId: ID!) {
+	company(id: $companyId) {
+		id
+
+		name
+
+		...CompanyRatingsComponent
+
+		reviews {
+			...CompanyProfileReview
+		}
+		numReviews
+	}
+}
