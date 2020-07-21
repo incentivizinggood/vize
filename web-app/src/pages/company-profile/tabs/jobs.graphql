@@ -1,5 +1,3 @@
-#import "../articles/job-ad.graphql"
-
 query CompanyProfileJobTab($companyId: ID!) {
 	company(id: $companyId) {
 		id

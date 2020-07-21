@@ -1,8 +1,3 @@
-#import "../articles/job-ad.graphql"
-#import "../articles/review.graphql"
-#import "../articles/salary.graphql"
-#import "../companyRatingsComponent.graphql"
-
 query CompanyProfileOverviewTab($companyId: ID!) {
 	company(id: $companyId) {
 		id

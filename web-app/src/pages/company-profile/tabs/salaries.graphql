@@ -1,5 +1,3 @@
-#import "../articles/salary.graphql"
-
 query CompanyProfileSalaryTab($companyId: ID!) {
 	company(id: $companyId) {
 		id
