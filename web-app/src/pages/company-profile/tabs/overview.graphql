@@ -7,24 +7,9 @@ query CompanyProfileOverviewTab($companyId: ID!) {
 	company(id: $companyId) {
 		id
 
-		name
-		descriptionOfCompany
-
-		...CompanyRatingsComponent
-
-		reviews {
-			...CompanyProfileReview
-		}
-		numReviews
-
-		jobAds {
-			...CompanyProfileJobAd
-		}
-		numJobAds
-
-		salaryStats {
-			...CompanyProfileSalaryStats
-		}
-		numSalaries
+		...CompanyProfileOverviewSection
+		...CompanyProfileReviewsSection
+		...CompanyProfileJobsSection
+		...CompanyProfileSalariesSection
 	}
 }

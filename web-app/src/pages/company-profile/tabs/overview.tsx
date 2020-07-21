@@ -45,11 +45,7 @@ export default function OverviewTab({
 			<OverviewSection company={data.company} />
 			<div className="clear" />
 			<ReviewsSection company={data.company} />
-			<JobsSection
-				jobAds={data.company.jobAds}
-				numJobAds={data.company.numJobAds}
-			/>
-
+			<JobsSection company={data.company} />
 			<SalariesSection company={data.company} />
 		</>
 	);

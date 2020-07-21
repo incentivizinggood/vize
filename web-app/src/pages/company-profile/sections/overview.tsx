@@ -1,5 +1,6 @@
 import React from "react";
 
+import { CompanyProfileOverviewSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
 import {
 	SectionContainer,
@@ -9,7 +10,13 @@ import {
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
-export default function OverviewSection(props) {
+interface OverviewSectionProps {
+	company: CompanyProfileOverviewSectionFragment;
+}
+
+export default function OverviewSection(
+	props: OverviewSectionProps
+): JSX.Element {
 	return (
 		<SectionContainer>
 			<SectionHeaderContainer>

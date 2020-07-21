@@ -1,0 +1,4 @@
+fragment CompanyProfileOverviewSection on Company {
+	name
+	descriptionOfCompany
+}

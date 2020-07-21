@@ -16,19 +16,24 @@ import {
 import { processLocation } from "src/misc";
 import { urlGenerators } from "src/pages";
 
+import { CompanyProfileJobsSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
-export default function JobsSection(props) {
+interface JobsSectionProps {
+	company: CompanyProfileJobsSectionFragment;
+}
+
+export default function JobsSection(props: JobsSectionProps): JSX.Element {
 	// FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
 	let jobAdsToDisplay;
-	if (props.jobAds.length > 0) {
+	if (props.company.jobAds.length > 0) {
 		jobAdsToDisplay = (
 			<div>
 				<div>
 					<h4>
-						<strong>{props.jobAds[0].jobTitle}</strong>
+						<strong>{props.company.jobAds[0].jobTitle}</strong>
 					</h4>
 				</div>
 				<div>
@@ -38,7 +43,7 @@ export default function JobsSection(props) {
 					>
 						<Link
 							to={urlGenerators.vizeApplyForJobUrl(
-								props.jobAds[0].id
+								props.company.jobAds[0].id
 							)}
 							style={{ float: "right" }}
 							className="btn btn-primary"
@@ -51,19 +56,19 @@ export default function JobsSection(props) {
 						<FontAwesomeIcon icon={faMapMarker} />
 						&nbsp;&nbsp;&nbsp;
 						{processLocation(
-							JSON.stringify(props.jobAds[0].locations[0])
+							JSON.stringify(props.company.jobAds[0].locations[0])
 						)}
 					</p>
 					<p>
 						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
-						{props.jobAds[0].pesosPerHour}
+						{props.company.jobAds[0].pesosPerHour}
 						<T.overview_tab.hour />
 					</p>
 					<p>
 						<FontAwesomeIcon icon={faCalendar} />
 						&nbsp;&nbsp;
-						{props.jobAds[0].contractType}
+						{props.company.jobAds[0].contractType}
 					</p>
 				</div>
 
@@ -72,7 +77,7 @@ export default function JobsSection(props) {
 					<T.overview_tab.job_description />
 				</h4>
 				<div className="h4-font-sz">
-					<p>{props.jobAds[0].jobDescription}</p>
+					<p>{props.company.jobAds[0].jobDescription}</p>
 				</div>
 			</div>
 		);
@@ -83,7 +88,7 @@ export default function JobsSection(props) {
 		<SectionContainer>
 			<SectionHeaderContainer>
 				<SectionHeaderTitle>
-					{props.numJobAds} <T.overview_tab.jobs_available />
+					{props.company.numJobAds} <T.overview_tab.jobs_available />
 				</SectionHeaderTitle>
 			</SectionHeaderContainer>
 

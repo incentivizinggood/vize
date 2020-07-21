@@ -1,0 +1,8 @@
+fragment CompanyProfileSalariesSection on Company {
+	name
+
+	salaryStats {
+		...CompanyProfileSalaryStats
+	}
+	numSalaries
+}
