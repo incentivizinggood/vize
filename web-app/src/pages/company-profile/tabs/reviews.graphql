@@ -1,4 +1,8 @@
-query CompanyProfileReviewTab($companyId: ID!) {
+query CompanyProfileReviewTab(
+	$companyId: ID!
+	$pageNum: Int!
+	$pageSize: Int!
+) {
 	company(id: $companyId) {
 		id
 
@@ -6,7 +10,7 @@ query CompanyProfileReviewTab($companyId: ID!) {
 
 		...CompanyRatingsComponent
 
-		reviews {
+		reviews(pageNum: $pageNum, pageSize: $pageSize) {
 			...CompanyProfileReview
 		}
 		numReviews

@@ -58,7 +58,7 @@ function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 	);
 
 	return (
-		<div className="col-md-12  section_over_revi2 ">
+		<div className="section_over_revi2">
 			<div className="rev_section">
 				<div className="mar_pad2">
 					<p>

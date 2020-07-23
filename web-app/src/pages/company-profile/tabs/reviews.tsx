@@ -1,4 +1,5 @@
 import React from "react";
+import { useInfiniteScroll } from "react-infinite-scroll-hook";
 
 import CompanyReview from "../articles/review";
 import CompanyRating from "../companyRatingsComponent";
@@ -19,19 +20,68 @@ interface ReviewTabProps {
 }
 
 function ReviewTab({ companyId }: ReviewTabProps): JSX.Element {
-	const { loading, error, data } = useCompanyProfileReviewTabQuery({
-		variables: { companyId },
-	});
+	const pageSize = 4;
 
-	if (loading) {
-		return <Spinner />;
-	}
+	const { loading, error, data, fetchMore } = useCompanyProfileReviewTabQuery(
+		{
+			variables: { companyId, pageNum: 0, pageSize },
+			// This lets us know when the query is fetching more.
+			notifyOnNetworkStatusChange: true,
+		}
+	);
+
+	const hasNextPage =
+		!error &&
+		!!data &&
+		!!data.company &&
+		data.company.reviews.length < data.company.numReviews;
+
+	const onLoadMore = (): void => {
+		if (error || !data || !data.company || !hasNextPage) {
+			return;
+		}
+
+		fetchMore({
+			variables: {
+				pageNum: Math.ceil(data.company.reviews.length / pageSize),
+			},
+			updateQuery(prev, { fetchMoreResult }) {
+				if (!fetchMoreResult) {
+					return prev;
+				}
+
+				return {
+					...prev,
+					company: fetchMoreResult.company
+						? {
+								...fetchMoreResult.company,
+								reviews: prev.company
+									? [
+											...prev.company.reviews,
+											...fetchMoreResult.company.reviews,
+									  ]
+									: fetchMoreResult.company.reviews,
+						  }
+						: prev.company,
+				};
+			},
+		});
+	};
+
+	const infiniteRef = useInfiniteScroll<any>({
+		loading,
+		hasNextPage,
+		onLoadMore,
+	});
 
 	if (error) {
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
 
 	if (!data || !data.company) {
+		if (loading) {
+			return <Spinner />;
+		}
 		return (
 			<h2>
 				<T.companyprofile.notfound />
@@ -39,16 +89,13 @@ function ReviewTab({ companyId }: ReviewTabProps): JSX.Element {
 		);
 	}
 
-	const renderItems = data.company.reviews.map(review => (
-		<CompanyReview
-			key={review.id}
-			review={review}
-			companyName={data.company.name}
-		/>
-	));
-
 	return (
-		<div role="tabpanel" className="tab-pane" id="reviews">
+		<div
+			role="tabpanel"
+			className="tab-pane"
+			id="reviews"
+			ref={infiniteRef}
+		>
 			<SectionContainer>
 				<SectionHeaderContainer>
 					<SectionHeaderTitle>
@@ -64,8 +111,10 @@ function ReviewTab({ companyId }: ReviewTabProps): JSX.Element {
 
 				<CompanyRating company={data.company} />
 			</SectionContainer>
-
-			{renderItems}
+			{data.company.reviews.map(review => (
+				<CompanyReview key={review.id} review={review} />
+			))}
+			{loading ? <Spinner /> : null}
 		</div>
 	);
 }
