@@ -1,10 +1,8 @@
-query CompanyProfileJobTab($companyId: ID!) {
+query CompanyProfileJobTab($companyId: ID!, $pageNum: Int!, $pageSize: Int!) {
 	company(id: $companyId) {
 		id
 
-		name
-
-		jobAds {
+		jobAds(pageNum: $pageNum, pageSize: $pageSize) {
 			...CompanyProfileJobAd
 		}
 		numJobAds
