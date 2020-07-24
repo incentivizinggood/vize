@@ -40,7 +40,7 @@ function InnerForm(props) {
 			<Field name="password" type="password" required t={T.password} />
 
 			<FormToolbar>
-				<LoginButton primary type="submit">
+				<LoginButton $primary type="submit">
 					<T.login />
 				</LoginButton>
 			</FormToolbar>

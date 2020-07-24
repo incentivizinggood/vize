@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { forSize } from "src/responsive";
-import styleVariables from "src/style-variables";
+import colors from "src/colors";
 import { translations } from "src/translations";
 
 import facebookIcon from "src/images/facebook.png";
@@ -32,7 +32,7 @@ const FooterContainer = styled.footer`
 
 		&:hover,
 		&:focus {
-			color: ${styleVariables.vizeBlue};
+			color: ${colors.old.vizeBlue};
 		}
 	}
 `;

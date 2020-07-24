@@ -4,6 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { urlGenerators } from "src/pages/url-generators";
 
 import PageWrapper from "src/components/page-wrapper";
+import Banner, { BannerTitle } from "src/components/banner";
 import { WriteReviewButton } from "src/components/button";
 import {
 	LinkButton,
@@ -98,20 +99,12 @@ function RewardComponent() {
 function HomePage() {
 	return (
 		<PageWrapper>
-			<div className="banner">
-				<div className="banner-info">
-					<div className="banner-text">
-						<div id="top" className="callbacks_container">
-							<div className="banner-text-info">
-								<h1>
-									<T.mainBanner />
-								</h1>
-							</div>
-							<CompaniesSearchBar />
-						</div>
-					</div>
-				</div>
-			</div>
+			<Banner>
+				<BannerTitle>
+					<T.mainBanner />
+				</BannerTitle>
+				<CompaniesSearchBar />
+			</Banner>
 
 			<div className="full-width-container background-white">
 				<div className="container desktop-view">
@@ -309,7 +302,7 @@ function HomePage() {
 									<br />
 									<div>
 										<LinkButton
-											primary
+											$primary
 											to="/submit-salary-data"
 											onClick={addSalaryHomeBottom}
 										>

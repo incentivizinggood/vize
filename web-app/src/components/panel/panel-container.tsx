@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import { forSize } from "src/responsive";
+import colors from "src/colors";
 
 const NavbarHeigh = "67px";
 
@@ -10,7 +12,7 @@ const PanelContainer = styled.div`
 	margin-right: auto;
 	margin-left: auto;
 
-	background-color: ${props => props.theme.background};
+	background-color: ${colors.background};
 	padding: 112px 20px 20px 20px;
 
 	${forSize.phoneOnly} {

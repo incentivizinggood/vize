@@ -29,7 +29,6 @@ import ShowJobs from "./show-jobs";
 import UserPage from "./user";
 import CreateReview from "./create-review";
 import ReviewSubmitted from "./review-submitted";
-import TestPage from "./test";
 
 import { queryRoutes } from "./url-generators";
 
@@ -57,7 +56,6 @@ function Pages(props) {
 			<Route path="/my-account" component={MyAccountPage} />
 			<Route path="/post-a-job" component={CreateJobAd} />
 			<Route path="/register" component={RegisterPage} />
-			<Route path="/test" component={TestPage} />
 			// recursos = resources
 			<Route
 				path={`/recursos/recurso/:slug`}

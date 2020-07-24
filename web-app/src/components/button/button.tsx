@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
 
+import colors from "src/colors";
+
 export interface ButtonExtraProps {
-	primary?: boolean;
+	/** Style this button to make it look more important. */
+	$primary?: boolean;
 }
 
 const Button = styled.button<ButtonExtraProps>`
@@ -10,35 +13,35 @@ const Button = styled.button<ButtonExtraProps>`
 		/* Color the button to show it's status. */
 		${props => {
 			if (props.disabled) {
-				if (props.primary) {
+				if (props.$primary) {
 					return css`
-						background-color: ${props.theme.onSurfaceWeak};
-						color: ${props.theme.surface};
+						background-color: ${colors.onSurfaceWeak};
+						color: ${colors.surface};
 					`;
 				}
 
 				return css`
-					background-color: ${props.theme.surface};
-					color: ${props.theme.onSurfaceWeak};
+					background-color: ${colors.surface};
+					color: ${colors.onSurfaceWeak};
 					border: 1px solid;
 				`;
 			}
 
-			if (props.primary) {
+			if (props.$primary) {
 				return css`
-					background-color: ${props.theme.vizeBlue};
-					color: ${props.theme.onMain};
+					background-color: ${colors.vizeBlue};
+					color: ${colors.onMain};
 					:hover {
-						background-color: ${props.theme.mainVariant};
+						background-color: ${colors.mainVariant};
 					}
 				`;
 			}
 
 			return css`
-				background-color: ${props.theme.surface};
-				color: ${props.theme.main};
+				background-color: ${colors.surface};
+				color: ${colors.main};
 				:hover {
-					color: ${props.theme.mainVariant};
+					color: ${colors.mainVariant};
 				}
 				border: 1px solid;
 			`;

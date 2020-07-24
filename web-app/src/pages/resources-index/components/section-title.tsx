@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import { forSize } from "src/responsive";
+import colors from "src/colors";
 
 const SectionTitle = styled.div`
 	margin-left: auto;
@@ -12,8 +14,8 @@ const SectionTitle = styled.div`
 	font-size: 27px;
 	font-weight: bold;
 
-	background-color: ${props => props.theme.surface};
-	color: ${props => props.theme.onSurface};
+	background-color: ${colors.surface};
+	color: ${colors.onSurface};
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	padding: 30px;
 

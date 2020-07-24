@@ -89,7 +89,7 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button primary type="submit">
+				<Button $primary type="submit">
 					<T.submit />
 				</Button>
 			</FormToolbar>

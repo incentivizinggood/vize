@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import PageWrapper from "src/components/page-wrapper";
-import Banner from "src/components/banner";
+import Banner, { BannerTitle } from "src/components/banner";
 import { LinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import { urlGenerators } from "src/pages/url-generators";
+import colors from "src/colors";
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
@@ -13,7 +14,7 @@ const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 const horizontalPaddingVal = "15px";
 
 const P = styled.p`
-	color: ${props => props.theme.main};
+	color: ${colors.main};
 	text-align: center;
 	font-size: 30px;
 
@@ -37,7 +38,7 @@ const ProblemPoint = styled.p`
 
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	background-color: white;
-	color: ${props => props.theme.main};
+	color: ${colors.main};
 	text-align: center;
 	font-size: 30px;
 
@@ -52,7 +53,7 @@ const ProblemPoint = styled.p`
 `;
 
 const SectionTitle = styled.h1`
-	color: ${props => props.theme.main};
+	color: ${colors.main};
 	padding: 30px 0;
 	text-align: center;
 	font-weight: bold;
@@ -64,7 +65,7 @@ const SectionTitle = styled.h1`
 `;
 
 const SubsectionTitle = styled.h2`
-	color: ${props => props.theme.main};
+	color: ${colors.main};
 	text-align: center;
 	font-weight: bold;
 	font-size: 36px;
@@ -76,7 +77,7 @@ const SectionContainer = styled.section`
 `;
 
 const GetStarted = props => (
-	<LinkButton primary to={urlGenerators.vizeRegister("company")} {...props}>
+	<LinkButton $primary to={urlGenerators.vizeRegister("company")} {...props}>
 		<T.getStarted />
 	</LinkButton>
 );
@@ -93,7 +94,7 @@ const GetStartedLarge = styled(GetStarted)`
 const PlanBox = styled.div`
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 	background-color: white;
-	color: ${props => props.theme.main};
+	color: ${colors.main};
 	margin: 10px;
 	width: 30rem;
 	padding: calc(3rem - 20px) 2rem;
@@ -167,24 +168,6 @@ const PlansContainer = styled.div`
 	}
 `;
 
-const PageTitle = styled.h1`
-	display: block;
-	margin-bottom: 40px;
-	max-width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-
-	font-size: 3em;
-	line-height: 1.2em;
-	font-weight: 700;
-	color: white;
-
-	${forSize.tabletAndDown} {
-		padding-left: ${horizontalPaddingVal};
-		padding-right: ${horizontalPaddingVal};
-	}
-`;
-
 const SolutionContainer = styled.section`
 	display: flex;
 	flex-direction: column;
@@ -207,9 +190,9 @@ function ForEmployers() {
 	return (
 		<PageWrapper title="Employers" navIsAnimated>
 			<Banner>
-				<PageTitle>
+				<BannerTitle>
 					<T.headerText />
-				</PageTitle>
+				</BannerTitle>
 				<GetStartedLarge />
 			</Banner>
 

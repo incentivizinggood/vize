@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import PageWrapper, { PageWrapperProps } from "src/components/page-wrapper";
 import { Panel, PanelContainer, PannelPadding } from "src/components/panel";
+import colors from "src/colors";
 
 const FormHeader = styled.h1`
 	margin-bottom: 10px;
@@ -26,7 +27,7 @@ const FormFooter = styled.div`
 	padding: ${PannelPadding} ${PannelPadding} 0 ${PannelPadding};
 	margin-top: ${PannelPadding};
 
-	border-top: 1px solid ${props => props.theme.onSurfaceWeak};
+	border-top: 1px solid ${colors.onSurfaceWeak};
 
 	text-align: center;
 	font-size: 16px;
