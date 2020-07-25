@@ -1,24 +1,52 @@
 import React from "react";
 
+import Spinner from "src/components/Spinner";
+import { useCompanyProfileOverviewTabQuery } from "generated/graphql-operations";
+import { translations } from "src/translations";
+
 import {
 	OverviewSection,
 	ReviewsSection,
 	JobsSection,
 	SalariesSection,
-} from "./sections";
+} from "../sections";
 
-export default function OverviewTab(props) {
+const T = translations.legacyTranslationsNeedsRefactor;
+
+interface OverviewTabProps {
+	companyId: string;
+}
+
+export default function OverviewTab({
+	companyId,
+}: OverviewTabProps): JSX.Element {
+	const { loading, error, data } = useCompanyProfileOverviewTabQuery({
+		variables: { companyId },
+	});
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
+
+	if (!data || !data.company) {
+		return (
+			<h2>
+				<T.companyprofile.notfound />
+			</h2>
+		);
+	}
+
 	return (
 		<>
-			<OverviewSection company={props.company} />
+			<OverviewSection company={data.company} />
 			<div className="clear" />
-			<ReviewsSection company={props.company} />
-			<JobsSection
-				jobAds={props.company.jobAds}
-				numJobAds={props.company.numJobAds}
-			/>
-
-			<SalariesSection company={props.company} />
+			<ReviewsSection company={data.company} />
+			<JobsSection company={data.company} />
+			<SalariesSection company={data.company} />
 		</>
 	);
 }

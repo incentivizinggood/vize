@@ -1,0 +1,10 @@
+query CompanyProfileOverviewTab($companyId: ID!) {
+	company(id: $companyId) {
+		id
+
+		...CompanyProfileOverviewSection
+		...CompanyProfileReviewsSection
+		...CompanyProfileJobsSection
+		...CompanyProfileSalariesSection
+	}
+}

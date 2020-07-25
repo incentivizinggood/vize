@@ -6,3 +6,11 @@ mutation voteButtons($input: CastVoteInput!) {
 		}
 	}
 }
+
+fragment VoteButtons on Review {
+	id
+	currentUserVote {
+		id
+		isUpvote
+	}
+}

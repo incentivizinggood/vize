@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import styled, { css } from "styled-components";
 
-import { VoteButtonsMutationFn } from "generated/graphql-operations";
+import {
+	VoteButtonsMutationFn,
+	VoteButtonsFragment,
+} from "generated/graphql-operations";
 
 /** The diameter of a vote button in px. */
 const buttonDiameter = 70;
@@ -56,10 +59,7 @@ const Button = styled.button<ButtonProps>`
 export type VoteButtonProps = {
 	isUpButton?: boolean;
 	castVote: VoteButtonsMutationFn;
-	review: {
-		id: string;
-		currentUserVote: { id: string; isUpvote: boolean | null };
-	};
+	review: VoteButtonsFragment;
 };
 /**
  * A single vote button. Is either an upvote button or a downvote button.

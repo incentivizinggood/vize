@@ -1,0 +1,11 @@
+fragment CompanyRatingsComponent on Company {
+	avgStarRatings {
+		healthAndSafety
+		managerRelationship
+		workEnvironment
+		benefits
+		overallSatisfaction
+	}
+	percentRecommended
+	avgNumMonthsWorked
+}

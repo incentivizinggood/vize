@@ -6,9 +6,8 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { CircularProgressbar } from "react-circular-progressbar";
-import { createMuiTheme } from "@material-ui/core";
-import styled from "styled-components";
 
+import { CompanyRatingsComponentFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -49,7 +48,11 @@ function ChangingProgressbar({ percentage }: ChangingProgressbarProps) {
 	);
 }
 
-function CompanyRating(props) {
+interface CompanyRatingProps {
+	company: CompanyRatingsComponentFragment;
+}
+
+function CompanyRating(props: CompanyRatingProps): JSX.Element {
 	// 	componentDidMount(){
 	//   //Do this to all components you would like to disable the ripple effect.
 	//   CompanyRating.defaultProps.disableTouchRipple = true;

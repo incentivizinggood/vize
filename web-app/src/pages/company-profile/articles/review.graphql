@@ -1,0 +1,25 @@
+fragment CompanyProfileReview on Review {
+	id
+	title
+	jobTitle
+	location {
+		city
+		address
+		industrialHub
+	}
+	numberOfMonthsWorked
+	pros
+	cons
+	wouldRecommendToOtherJobSeekers
+	starRatings {
+		healthAndSafety
+		managerRelationship
+		workEnvironment
+		benefits
+		overallSatisfaction
+	}
+	additionalComments
+	created
+
+	...VoteButtons
+}

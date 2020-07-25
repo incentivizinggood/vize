@@ -3,12 +3,10 @@ import styled from "styled-components";
 import { forSize } from "src/responsive";
 
 import PageWrapper from "src/components/page-wrapper";
-import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 
 import CompanyProfileSummary from "./summary";
 import { OverviewTab, ReviewTab, JobTab, SalaryTab } from "./tabs";
-import { useCompanyProfilePageQuery } from "generated/graphql-operations";
 import Tabs from "src/components/tabs";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -41,33 +39,13 @@ export interface CompanyProfileProps {
 }
 
 /* The Company Profile  page of the site. */
-export default function CompanyProfile({ companyId }: CompanyProfileProps) {
-	const { loading, error, data } = useCompanyProfilePageQuery({
-		variables: { companyId },
-	});
-
-	if (loading) {
-		return <Spinner />;
-	}
-
-	if (error) {
-		console.log(error);
-		console.log(data);
-		return <h2>{`Error! ${error.message}`}</h2>;
-	}
-
-	if (!data || !data.company) {
-		return (
-			<h2>
-				<T.companyprofile.notfound />
-			</h2>
-		);
-	}
-
+export default function CompanyProfile({
+	companyId,
+}: CompanyProfileProps): JSX.Element {
 	return (
 		<PageWrapper title="Company Profile">
 			<CompanyPageContainer>
-				<CompanyProfileSummary company={data.company} />
+				<CompanyProfileSummary companyId={companyId} />
 
 				<br />
 				{/* navigation */}
@@ -79,31 +57,26 @@ export default function CompanyProfile({ companyId }: CompanyProfileProps) {
 									path: "overview",
 									label: <T.companyprofile.overview />,
 									content: (
-										<OverviewTab company={data.company} />
+										<OverviewTab companyId={companyId} />
 									),
 								},
 								{
 									path: "reviews",
 									label: <T.companyprofile.reviews />,
 									content: (
-										<ReviewTab company={data.company} />
+										<ReviewTab companyId={companyId} />
 									),
 								},
 								{
 									path: "jobs",
 									label: <T.companyprofile.jobs />,
-									content: (
-										<JobTab
-											jobAds={data.company.jobAds}
-											jobsCount={data.company.numJobAds}
-										/>
-									),
+									content: <JobTab companyId={companyId} />,
 								},
 								{
 									path: "salaries",
 									label: <T.companyprofile.salaries />,
 									content: (
-										<SalaryTab company={data.company} />
+										<SalaryTab companyId={companyId} />
 									),
 								},
 							]}

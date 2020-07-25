@@ -1,0 +1,18 @@
+query CompanyProfileReviewTab(
+	$companyId: ID!
+	$pageNum: Int!
+	$pageSize: Int!
+) {
+	company(id: $companyId) {
+		id
+
+		name
+
+		...CompanyRatingsComponent
+
+		reviews(pageNum: $pageNum, pageSize: $pageSize) {
+			...CompanyProfileReview
+		}
+		numReviews
+	}
+}

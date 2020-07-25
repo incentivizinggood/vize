@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 import { translations } from "src/translations";
+import { CompanyProfileSalaryStatsFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -41,16 +42,12 @@ const MinMaxSalariesTextContainter = styled.div`
 `;
 
 type SalaryStatsProps = {
-	salary: {
-		jobTitle: string;
-		totalAvgPay: number;
-		totalMaxPay: number;
-		totalMinPay: number;
-		numSalariesJobTitle: number;
-	};
+	salary: CompanyProfileSalaryStatsFragment;
 };
 
-export default function SalaryPosting({ salary }: SalaryStatsProps) {
+export default function SalaryPosting({
+	salary,
+}: SalaryStatsProps): JSX.Element {
 	const avgSalaryPercentage: number =
 		salary.totalAvgPay / (salary.totalMinPay + salary.totalMaxPay);
 

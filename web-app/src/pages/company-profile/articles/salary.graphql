@@ -1,0 +1,7 @@
+fragment CompanyProfileSalaryStats on CompanySalaryStats {
+	jobTitle
+	totalAvgPay
+	totalMaxPay
+	totalMinPay
+	numSalariesJobTitle
+}

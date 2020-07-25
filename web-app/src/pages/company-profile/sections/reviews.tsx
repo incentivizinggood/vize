@@ -1,29 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
 	SeeMoreFooter,
-} from "../../components";
+} from "../components";
 
-import CompanyRating from "src/components/companyRatingsComponent";
-import CompanyReview from "src/components/companyReview";
+import CompanyReview from "../articles/review";
+import CompanyRating from "../companyRatingsComponent";
 import { WriteReviewButton } from "src/components/button";
+import { CompanyProfileReviewsSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
-function ReviewsSection(props) {
+interface ReviewsSectionProps {
+	company: CompanyProfileReviewsSectionFragment;
+}
+
+function ReviewsSection(props: ReviewsSectionProps): JSX.Element {
 	// FIRST REVIEW CODE TO SHOW ON THE OVERVIEW TAB
 	let reviewsToDisplay;
 	if (props.company.reviews.length > 0) {
-		reviewsToDisplay = (
-			<CompanyReview
-				review={props.company.reviews[0]}
-				companyName={props.company.name}
-			/>
-		);
+		reviewsToDisplay = <CompanyReview review={props.company.reviews[0]} />;
 	} else {
 		reviewsToDisplay = <T.overview_tab.no_reviews />;
 	}

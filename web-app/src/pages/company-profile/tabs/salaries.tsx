@@ -3,13 +3,15 @@ import styled from "styled-components";
 
 import { translations } from "src/translations";
 
-import SalaryPosting from "./salary-posting";
+import SalaryPosting from "../articles/salary";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
-} from "../../components";
+} from "../components";
 import { AddSalaryButton } from "src/components/button";
+import Spinner from "src/components/Spinner";
+import { useCompanyProfileSalaryTabQuery } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -23,25 +25,36 @@ const SalaryPostingsContainer = styled.div`
 `;
 
 type SalaryTabProps = {
-	company: {
-		salaryStats: {
-			jobTitle: string;
-			totalAvgPay: number;
-			totalMaxPay: number;
-			totalMinPay: number;
-		};
-		numSalaries: number;
-		name: string;
-	};
+	companyId: string;
 };
 
-function SalaryTab(props: SalaryTabProps) {
-	const renderedSalaries = props.company.salaryStats.map((salary, i) => (
+function SalaryTab({ companyId }: SalaryTabProps): JSX.Element {
+	const { loading, error, data } = useCompanyProfileSalaryTabQuery({
+		variables: { companyId },
+	});
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
+
+	if (!data || !data.company) {
+		return (
+			<h2>
+				<T.companyprofile.notfound />
+			</h2>
+		);
+	}
+
+	const renderedSalaries = data.company.salaryStats.map((salary, i) => (
 		<SalaryPosting key={i} salary={salary} />
 	));
 
 	const SalaryText = () => {
-		if (props.company.numSalaries == 1) {
+		if (data.company.numSalaries == 1) {
 			return <T.salary_tab.job_salary />;
 		} else {
 			return <T.salary_tab.job_salaries />;
@@ -52,11 +65,11 @@ function SalaryTab(props: SalaryTabProps) {
 		<SectionContainer>
 			<SectionHeaderContainer>
 				<SectionHeaderTitle>
-					{props.company.numSalaries} <SalaryText />
+					{data.company.numSalaries} <SalaryText />
 				</SectionHeaderTitle>
 				<div className="add-buttons">
 					<AddSalaryButton
-						companyName={props.company.name}
+						companyName={data.company.name}
 						buttonLocation="Company Profile | Salaries"
 					/>
 				</div>

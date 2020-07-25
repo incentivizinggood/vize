@@ -11,8 +11,13 @@ import {
 
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
+import Spinner from "src/components/Spinner";
+import { useCompanyProfileSummaryQuery } from "generated/graphql-operations";
+import { translations } from "src/translations";
 
 import defaultCompany from "src/images/default-company.png";
+
+const T = translations.legacyTranslationsNeedsRefactor;
 
 const CompanySummaryContainer = styled.div`
 	margin-top: 8em;
@@ -20,11 +25,41 @@ const CompanySummaryContainer = styled.div`
 	background-color: white;
 `;
 
-function CompanyProfileSummary(props) {
+interface CompanyProfileSummaryProps {
+	companyId: string;
+}
+
+export default function CompanyProfileSummary({
+	companyId,
+}: CompanyProfileSummaryProps): JSX.Element {
+	const { loading, error, data } = useCompanyProfileSummaryQuery({
+		variables: { companyId },
+	});
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
+
+	if (!data || !data.company) {
+		return (
+			<h2>
+				<T.companyprofile.notfound />
+			</h2>
+		);
+	}
+
 	return (
 		<CompanySummaryContainer>
 			<div className="col-md-2 prostar">
-				<img src={defaultCompany} className="img-responsive" />
+				<img
+					src={defaultCompany}
+					className="img-responsive"
+					alt="Company profile"
+				/>
 			</div>
 
 			<div className="col-md-6">
@@ -32,47 +67,58 @@ function CompanyProfileSummary(props) {
 					<div className="col-md-12">
 						<fieldset className="rating">
 							<span className="headingoo">
-								{props.company.name}
+								{data.company.name}
 							</span>
-							&nbsp;&nbsp;
-							<StarRatings
-								rating={
-									props.company.avgStarRatings
-										.overallSatisfaction
-								}
-								starDimension="25px"
-								starSpacing="2px"
-							/>
+							{data.company.avgStarRatings ? (
+								<>
+									&nbsp;&nbsp;
+									<StarRatings
+										rating={
+											data.company.avgStarRatings
+												.overallSatisfaction
+										}
+										starDimension="25px"
+										starSpacing="2px"
+									/>
+								</>
+							) : null}
 						</fieldset>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-md-12">
-						<p>
-							<FontAwesomeIcon icon={faMapMarker} />{" "}
-							{processLocation(
-								JSON.stringify(props.company.locations[0])
-							)}
-						</p>
-						{/* displaying just the first company location for now, from the list */}
-						<p>
-							<FontAwesomeIcon icon={faFlask} />{" "}
-							{props.company.industry}
-						</p>
-						<p>
-							<FontAwesomeIcon icon={faGlobe} />{" "}
-							<a
-								href={props.company.websiteURL}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{props.company.websiteURL}
-							</a>
-						</p>
-						<p>
-							<FontAwesomeIcon icon={faUsers} />{" "}
-							{props.company.numEmployees}
-						</p>
+						{data.company.locations.length > 0 ? (
+							<p>
+								<FontAwesomeIcon icon={faMapMarker} />{" "}
+								{processLocation(
+									JSON.stringify(data.company.locations[0])
+								)}
+							</p>
+						) : null}
+						{data.company.industry ? (
+							<p>
+								<FontAwesomeIcon icon={faFlask} />{" "}
+								{data.company.industry}
+							</p>
+						) : null}
+						{data.company.websiteURL ? (
+							<p>
+								<FontAwesomeIcon icon={faGlobe} />{" "}
+								<a
+									href={data.company.websiteURL}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{data.company.websiteURL}
+								</a>
+							</p>
+						) : null}
+						{data.company.numEmployees ? (
+							<p>
+								<FontAwesomeIcon icon={faUsers} />{" "}
+								{data.company.numEmployees}
+							</p>
+						) : null}
 					</div>
 				</div>
 			</div>
@@ -80,7 +126,7 @@ function CompanyProfileSummary(props) {
 			<div className="col-md-4 prostar">
 				<div className="col-md-12">
 					<WriteReviewButton
-						companyName={props.company.name}
+						companyName={data.company.name}
 						buttonLocation="Company Profile | Top"
 					/>
 				</div>
@@ -89,5 +135,3 @@ function CompanyProfileSummary(props) {
 		</CompanySummaryContainer>
 	);
 }
-
-export default CompanyProfileSummary;

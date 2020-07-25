@@ -1,19 +1,24 @@
 import React from "react";
-import { SalaryPosting } from "../salaries";
+import SalaryPosting from "../articles/salary";
 import {
 	SectionContainer,
 	SectionHeaderContainer,
 	SectionHeaderTitle,
 	SeeMoreFooter,
-} from "../../components";
+} from "../components";
 
 import { AddSalaryButton } from "src/components/button";
+import { CompanyProfileSalariesSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
+interface SalariesSectionProps {
+	company: CompanyProfileSalariesSectionFragment;
+}
+
 // TODO: add type for props
-function SalariesSection(props) {
+function SalariesSection(props: SalariesSectionProps): JSX.Element {
 	// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
 
 	const SalariesToDisplay = () => {

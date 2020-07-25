@@ -1,0 +1,10 @@
+fragment CompanyProfileReviewsSection on Company {
+	name
+
+	...CompanyRatingsComponent
+
+	reviews(pageSize: 1) {
+		...CompanyProfileReview
+	}
+	numReviews
+}
