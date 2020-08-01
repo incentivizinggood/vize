@@ -72,7 +72,7 @@ const ResourceCategory = styled.h5`
 // Contains Read More button and Whatsapp + Facebook share buttons
 const ResourceFooter = styled.div`
 	display: flex;
-	position: absolute
+	position: absolute;
 	bottom: 0px;
 	right: 0px;
 	flex-direction: row-reverse;
