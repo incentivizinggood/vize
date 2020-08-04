@@ -11,8 +11,7 @@ const resourceDetailsPadding = "8px";
 const TopicCard = styled.div`
 	display: flex;
 	width: 46%;
-	margin-right: 2%
-	margin-left: 2%
+	margin-left: 2.5%;
 	margin-bottom: 10px;
 
 	background-color: white;
