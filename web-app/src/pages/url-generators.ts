@@ -18,7 +18,7 @@ const vizeResourceUrl = function(slug: string) {
 const vizeResourceTopicUrl = function(topicName: string) {
 	return `/${queryRoutes.resources}/temas/${topicName}`;
 };
-const vizeProfileUrl = function(companyId: string) {
+const vizeCompanyProfileUrl = function(companyId: string) {
 	return `/${queryRoutes.companyProfile}/${companyId}`;
 };
 const vizeReviewUrl = function(companyName?: string) {
@@ -58,7 +58,7 @@ const vizeRegisterToLogin = function(userRole?: string) {
 const urlGenerators = {
 	vizeResourceUrl,
 	vizeResourceTopicUrl,
-	vizeProfileUrl,
+	vizeCompanyProfileUrl,
 	vizeReviewUrl,
 	vizeSalaryUrl,
 	vizeApplyForJobUrl,

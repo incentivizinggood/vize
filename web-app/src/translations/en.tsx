@@ -589,6 +589,8 @@ export default {
 			fullTime: "Full time",
 			partTime: "Part time",
 			contractor: "Contractor",
+			internship: "Internship",
+			temporary: "Temporary",
 		},
 		CompanySearchResult: {
 			reviews: "Reviews",

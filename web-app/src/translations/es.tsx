@@ -612,6 +612,8 @@ export default {
 			fullTime: "Tiempo completo",
 			partTime: "Medio tiempo",
 			contractor: "Contratista",
+			internship: "Prácticas (Pasantía)",
+			temporary: "Proyecto (Temporal)",
 		},
 		CompanySearchResult: {
 			reviews: "Evaluaciones",
