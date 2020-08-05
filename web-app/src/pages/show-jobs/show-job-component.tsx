@@ -15,6 +15,25 @@ import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
+const JobContainer = styled.div`
+	margin-top: 15px;
+	padding: 20px 30px;
+
+	background-color: white;
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+`;
+
+const DatePostedDiv = styled.div`
+	float: right;
+	margin-top: -32px;
+
+	${forSize.tabletAndDown} {
+		float: none;
+		margin-top: 0px;
+		text-align: center !important;
+	}
+`;
+
 function ShowJobComponent(props) {
 	// @options -  For the date formatting
 	const options = {
@@ -23,49 +42,20 @@ function ShowJobComponent(props) {
 		month: "long",
 		day: "numeric",
 	};
-
-	const JobContainer = styled.div`
-		margin-top: 15px;
-		padding: 20px 30px;
-
-		background-color: white;
-		box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08),
-			0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	`;
-
-	const DatePostedDiv = styled.div`
-		float: right;
-		margin-top: -32px;
-
-		${forSize.tabletAndDown} {
-			float: none;
-			margin-top: 0px;
-			text-align: center !important;
-		}
-	`;
-
 	const datePosted = new Date(props.item.created);
 
 	let contractType =
-		props.item.contractType === "FULL_TIME"
-			? "Tiempo completo"
-			: props.item.contractType === "PART_TIME"
-			? "Medio tiempo"
-			: props.item.contractType === "INTERNSHIP"
-			? "Prácticas (Pasantía)"
-			: props.item.contractType === "TEMPORARY"
-			? "Proyecto (Temporal)"
-			: "Contratista";
-
-	const companyProfileUrl = `/companyprofile/?id=${props.item.company.id}`;
-	let contractType;
-	if (props.item.contractType === "Full time") {
-		contractType = <T.showjob.fullTime />;
-	} else if (props.item.contractType === "Part time") {
-		contractType = <T.showjob.partTime />;
-	} else {
-		contractType = <T.showjob.contractor />;
-	}
+		props.item.contractType === "FULL_TIME" ? (
+			<T.showjob.fullTime />
+		) : props.item.contractType === "PART_TIME" ? (
+			<T.showjob.partTime />
+		) : props.item.contractType === "INTERNSHIP" ? (
+			<T.showjob.internship />
+		) : props.item.contractType === "TEMPORARY" ? (
+			<T.showjob.temporary />
+		) : (
+			<T.showjob.contractor />
+		);
 
 	return (
 		<JobContainer>
@@ -74,7 +64,11 @@ function ShowJobComponent(props) {
 			</h3>
 			<br />
 			<h3 style={{ fontSize: "20px" }}>
-				<Link to={companyProfileUrl}>
+				<Link
+					to={urlGenerators.vizeCompanyProfileUrl(
+						props.item.company.id
+					)}
+				>
 					<strong>{props.item.company.name}</strong>
 				</Link>
 			</h3>

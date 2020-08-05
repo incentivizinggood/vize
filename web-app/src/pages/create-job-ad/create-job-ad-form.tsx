@@ -93,7 +93,7 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 
 			// Go to the newly created jobAd's page.
 			history.push(
-				urlGenerators.vizeProfileUrl(data.createJobAd.jobAd.id)
+				urlGenerators.vizeCompanyProfileUrl(data.createJobAd.jobAd.id)
 			);
 		})
 		.catch(errors => {
