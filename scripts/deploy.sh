@@ -4,8 +4,12 @@
 # Stop this script if any command fails.
 set -e
 
+# You must specify what remote to deploy to. 
+# This tells heroku what enviornment (staging or production) to deploy to.
+REMOTE=$1
+
 # Download the config values from Heroku and set them as environment variables.
-eval $(heroku config -s)
+eval $(heroku config --remote $REMOTE --shell)
 
 # Migrate the database with Flyway.
 sudo docker run \
@@ -17,4 +21,4 @@ sudo docker run \
     migrate
 
 # Deploy to Heroku
-git push heroku HEAD:master -f
+git push $REMOTE HEAD:master -f
