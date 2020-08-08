@@ -14,9 +14,11 @@ app.set("trust proxy", 1);
 
 // Force the app to use https instead of http in production.
 if (process.env.NODE_ENV === "production") {
-	app.use(function(req, res) {
-		if (!req.secure) {
-			res.redirect(301, `https://${req.hostname}/${req.originalUrl}`);
+	app.use(function(req, res, next) {
+		if (req.secure) {
+			next();
+		} else {
+			res.redirect(301, `https://${req.hostname}${req.originalUrl}`);
 		}
 	});
 }
