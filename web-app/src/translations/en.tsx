@@ -552,14 +552,10 @@ export default {
 		},
 		overview_tab: {
 			apply_now: "Apply Now",
-<<<<<<< HEAD:web-app/src/translations/en.tsx
 			hour: "/Hour",
 			no_reviews: "No reviews to show right now",
 			no_jobs: "No Jobs to show right now",
 			no_salaries: "No Salaries to display right now",
-=======
-			hour: " Pesos Per Hour",
->>>>>>> 85b196d11cb19abdd3e9a1708d79c803f3ea27e2:meteor-app/imports/ui/translations/en.tsx
 			job_description: "Job Description",
 			overview: "Overview",
 			reviews: "Reviews",

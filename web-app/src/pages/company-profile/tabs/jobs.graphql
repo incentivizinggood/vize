@@ -3,7 +3,7 @@ query CompanyProfileJobTab($companyId: ID!, $pageNum: Int!, $pageSize: Int!) {
 		id
 
 		jobAds(pageNum: $pageNum, pageSize: $pageSize) {
-			...CompanyProfileJobAd
+			...JobPosting
 		}
 		numJobAds
 	}

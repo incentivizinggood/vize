@@ -10,12 +10,12 @@ import { Link } from "react-router-dom";
 import { urlGenerators } from "src/pages";
 import { processLocation } from "src/misc";
 import { translations } from "src/translations";
-import { CompanyProfileJobAdFragment } from "generated/graphql-operations";
+import { JobPostingFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
 interface JobPostingProps {
-	jobAd: CompanyProfileJobAdFragment;
+	jobAd: JobPostingFragment;
 }
 
 function JobPosting(props: JobPostingProps): JSX.Element {
