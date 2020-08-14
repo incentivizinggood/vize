@@ -1,4 +1,4 @@
-fragment CompanyProfileJobAd on JobAd {
+fragment JobPosting on JobAd {
 	id
 	jobTitle
 	locations {
@@ -12,4 +12,8 @@ fragment CompanyProfileJobAd on JobAd {
 	qualifications
 	responsibilities
 	created
+	company {
+		id
+		name
+	}
 }

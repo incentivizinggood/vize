@@ -12,6 +12,7 @@ import { forSize } from "src/responsive";
 import { processLocation } from "src/misc";
 import { urlGenerators } from "src/pages";
 import { translations } from "src/translations";
+import { JobPostingFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -33,8 +34,11 @@ const DatePostedDiv = styled.div`
 		text-align: center !important;
 	}
 `;
+interface JobPostingProps {
+	job: JobPostingFragment;
+}
 
-function ShowJobComponent(props) {
+function JobPosting({ job }: JobPostingProps) {
 	// @options -  For the date formatting
 	const options = {
 		weekday: "long",
@@ -42,15 +46,16 @@ function ShowJobComponent(props) {
 		month: "long",
 		day: "numeric",
 	};
-	const datePosted = new Date(props.item.created);
+	const datePosted = new Date(job.created);
+
 	let contractType =
-		props.item.contractType === "FULL_TIME" ? (
+		job.contractType === "FULL_TIME" ? (
 			<T.showjob.fullTime />
-		) : props.item.contractType === "PART_TIME" ? (
+		) : job.contractType === "PART_TIME" ? (
 			<T.showjob.partTime />
-		) : props.item.contractType === "INTERNSHIP" ? (
+		) : job.contractType === "INTERNSHIP" ? (
 			<T.showjob.internship />
-		) : props.item.contractType === "TEMPORARY" ? (
+		) : job.contractType === "TEMPORARY" ? (
 			<T.showjob.temporary />
 		) : (
 			<T.showjob.contractor />
@@ -59,16 +64,12 @@ function ShowJobComponent(props) {
 	return (
 		<JobContainer>
 			<h3>
-				<strong>{props.item.jobTitle}</strong>
+				<strong>{job.jobTitle}</strong>
 			</h3>
 			<br />
 			<h3 style={{ fontSize: "20px" }}>
-				<Link
-					to={urlGenerators.vizeCompanyProfileUrl(
-						props.item.company.id
-					)}
-				>
-					<strong>{props.item.company.name}</strong>
+				<Link to={urlGenerators.vizeCompanyProfileUrl(job.company.id)}>
+					<strong>{job.company.name}</strong>
 				</Link>
 			</h3>
 
@@ -77,7 +78,7 @@ function ShowJobComponent(props) {
 				style={{ float: "right", marginTop: "0px" }}
 			>
 				<Link
-					to={urlGenerators.vizeApplyForJobUrl(props.item.id)}
+					to={urlGenerators.vizeApplyForJobUrl(job.id)}
 					className="btn btn-primary"
 				>
 					{" "}
@@ -88,13 +89,13 @@ function ShowJobComponent(props) {
 				{" "}
 				<FontAwesomeIcon icon={faMapMarker} />
 				&nbsp;&nbsp;&nbsp;
-				{processLocation(JSON.stringify(props.item.locations[0]))}
+				{processLocation(JSON.stringify(job.locations[0]))}
 			</p>
 			<p>
 				{" "}
 				<FontAwesomeIcon icon={faMoneyBillAlt} />
 				&nbsp;&nbsp;
-				{props.item.pesosPerHour}
+				{job.pesosPerHour}
 				<T.showjob.hour />
 			</p>
 			<p>
@@ -110,9 +111,9 @@ function ShowJobComponent(props) {
 			</h4>
 			<div className="h4-font-sz">
 				<article>
-					<p>{props.item.jobDescription}</p>
+					<p>{job.jobDescription}</p>
 					<input
-						id={props.item.id}
+						id={job.id}
 						className="read-more-toggle"
 						type="checkbox"
 					/>
@@ -121,20 +122,17 @@ function ShowJobComponent(props) {
 						<h4>
 							<T.showjob.qualifications />
 						</h4>
-						<p>{props.item.qualifications} </p>
+						<p>{job.qualifications} </p>
 						<br />
 						<div>
 							<h4>
 								<T.showjob.responsibilities />
 							</h4>
-							<p>{props.item.responsibilities}</p>
+							<p>{job.responsibilities}</p>
 						</div>
 					</div>
 
-					<label
-						className="read-more-toggle-label"
-						htmlFor={props.item.id}
-					>
+					<label className="read-more-toggle-label" htmlFor={job.id}>
 						{" "}
 					</label>
 					<DatePostedDiv>
@@ -149,4 +147,4 @@ function ShowJobComponent(props) {
 	);
 }
 
-export default ShowJobComponent;
+export default JobPosting;
