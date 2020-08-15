@@ -18,9 +18,11 @@ const T = translations.legacyTranslationsNeedsRefactor;
 
 const JobContainer = styled.div`
 	margin-top: 15px;
+	margin-bottom: 15px;
 	padding: 20px 30px;
 
 	background-color: white;
+	border-radius: 10px;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 `;
 
