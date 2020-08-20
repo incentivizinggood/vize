@@ -13,7 +13,7 @@ import { processLocation } from "src/misc";
 import { urlGenerators } from "src/pages";
 import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
-
+import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
 
 const JobContainer = styled.div`
@@ -62,6 +62,12 @@ function JobPosting({ job }: JobPostingProps) {
 		) : (
 			<T.showjob.contractor />
 		);
+	let jobLocation = processLocation(JSON.stringify(job.locations[0]));
+
+	if (job.locations[0].city && job.locations[0].industrialHub) {
+		jobLocation =
+			job.locations[0].city + " | " + job.locations[0].industrialHub;
+	}
 
 	return (
 		<JobContainer>
@@ -74,6 +80,8 @@ function JobPosting({ job }: JobPostingProps) {
 					<strong>{job.company.name}</strong>
 				</Link>
 			</h3>
+
+			<RatingsDropdown ratings={job.company.avgStarRatings} />
 
 			<div
 				className="add-buttons"
@@ -91,7 +99,7 @@ function JobPosting({ job }: JobPostingProps) {
 				{" "}
 				<FontAwesomeIcon icon={faMapMarker} />
 				&nbsp;&nbsp;&nbsp;
-				{processLocation(JSON.stringify(job.locations[0]))}
+				{jobLocation}
 			</p>
 			<p>
 				{" "}

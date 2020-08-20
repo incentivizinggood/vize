@@ -80,8 +80,6 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 		},
 	})
 		.then(({ data }) => {
-			console.log("data", data);
-
 			actions.resetForm(initialValues);
 
 			// Track successful job posted event

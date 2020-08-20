@@ -15,5 +15,12 @@ fragment JobPosting on JobAd {
 	company {
 		id
 		name
+		avgStarRatings {
+			healthAndSafety
+			managerRelationship
+			workEnvironment
+			benefits
+			overallSatisfaction
+		}
 	}
 }
