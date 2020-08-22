@@ -16,11 +16,23 @@ const StarRatingsDropdownButton = styled.a`
 	padding-bottom: 6px;
 `;
 
+const NumRatingsText = styled.span`
+	margin-left: 6px;
+`;
+
 interface StartRatingsProps {
 	ratings: StartRatingsType;
+	numReviews?: number;
 }
 
-function RatingsDropdown({ ratings }: StartRatingsProps) {
+function RatingsDropdown({ ratings, numReviews }: StartRatingsProps) {
+	const numReviewsText =
+		numReviews === 1 ? (
+			<T.companyreview.review />
+		) : (
+			<T.companyreview.reviews />
+		);
+
 	return (
 		<StarRatingsDropdownButton className="show-on-hover">
 			<StarRatings
@@ -36,6 +48,11 @@ function RatingsDropdown({ ratings }: StartRatingsProps) {
 			/>
 			&nbsp;
 			<FontAwesomeIcon icon={faCaretDown} />
+			{numReviews && (
+				<NumRatingsText>
+					{numReviews} {numReviewsText}
+				</NumRatingsText>
+			)}
 			<ul className="dropdown-menu" role="menu">
 				<li>
 					<label>

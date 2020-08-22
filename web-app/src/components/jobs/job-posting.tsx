@@ -69,11 +69,6 @@ function JobPosting({ job }: JobPostingProps) {
 			job.locations[0].city + " | " + job.locations[0].industrialHub;
 	}
 
-	// {job.company.avgStarRatings &&
-	// 	job.company.avgStarRatings.benefits != 0 && (
-	// 		<RatingsDropdown ratings={job.company.avgStarRatings} />
-	// 	)}
-
 	return (
 		<JobContainer>
 			<h3>
@@ -86,7 +81,13 @@ function JobPosting({ job }: JobPostingProps) {
 				</Link>
 			</h3>
 
-			<RatingsDropdown ratings={job.company.avgStarRatings} />
+			{job.company.avgStarRatings &&
+				job.company.avgStarRatings.benefits != 0 && (
+					<RatingsDropdown
+						ratings={job.company.avgStarRatings}
+						numReviews={job.company.numReviews}
+					/>
+				)}
 
 			<div
 				className="add-buttons"

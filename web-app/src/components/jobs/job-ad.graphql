@@ -15,6 +15,7 @@ fragment JobPosting on JobAd {
 	company {
 		id
 		name
+		numReviews
 		avgStarRatings {
 			healthAndSafety
 			managerRelationship

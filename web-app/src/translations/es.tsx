@@ -526,6 +526,8 @@ export default {
 		},
 		companyreview: {
 			recommend: "Recomendado",
+			reviews: "Evaluaciones",
+			review: "Evaluación",
 			not_recommend: "No recomendado",
 			overall: "En general",
 			health_safety: "Salud y Seguridad",

@@ -55,7 +55,6 @@ function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 			day: "numeric",
 		}
 	);
-	console.log("reb", props.review.starRatings);
 
 	return (
 		<div className="section_over_revi2">
