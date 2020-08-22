@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { translations } from "src/translations";
@@ -7,32 +8,34 @@ import { StarRatings as StartRatingsType } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
+const StarRatingsDropdownButton = styled.a`
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	padding-top: 4px;
+	padding-bottom: 6px;
+`;
+
 interface StartRatingsProps {
 	ratings: StartRatingsType;
 }
 
 function RatingsDropdown({ ratings }: StartRatingsProps) {
 	return (
-		<div className="btn-group show-on-hover">
-			<a
-				type="button"
-				className="btn btn-default dropdown-toggle  btbn"
-				data-toggle="dropdown"
-			>
-				<StarRatings
-					rating={
-						(ratings.healthAndSafety +
-							ratings.managerRelationship +
-							ratings.workEnvironment +
-							ratings.benefits) /
-						4
-					} // the average rating of all 5 ratings
-					starDimension="15px"
-					starSpacing="1.5px"
-				/>
-				&nbsp;
-				<FontAwesomeIcon icon={faCaretDown} />
-			</a>
+		<StarRatingsDropdownButton className="show-on-hover">
+			<StarRatings
+				rating={
+					(ratings.healthAndSafety +
+						ratings.managerRelationship +
+						ratings.workEnvironment +
+						ratings.benefits) /
+					4
+				} // the average rating of all 5 ratings
+				starDimension="15px"
+				starSpacing="1.5px"
+			/>
+			&nbsp;
+			<FontAwesomeIcon icon={faCaretDown} />
 			<ul className="dropdown-menu" role="menu">
 				<li>
 					<label>
@@ -92,7 +95,7 @@ function RatingsDropdown({ ratings }: StartRatingsProps) {
 					/>
 				</li>
 			</ul>
-		</div>
+		</StarRatingsDropdownButton>
 	);
 }
 

@@ -55,6 +55,7 @@ function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 			day: "numeric",
 		}
 	);
+	console.log("reb", props.review.starRatings);
 
 	return (
 		<div className="section_over_revi2">
@@ -68,9 +69,7 @@ function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 						</span>
 					</p>
 					<h2 className="head-rev-con">{props.review.title}</h2>
-
 					<RatingsDropdown ratings={props.review.starRatings} />
-
 					<br />
 					{/* // Does the IF-ELSE, and changes class to the ticked one if recommended
         //and to the crossed one, if not recommended. */}

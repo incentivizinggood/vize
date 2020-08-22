@@ -69,6 +69,11 @@ function JobPosting({ job }: JobPostingProps) {
 			job.locations[0].city + " | " + job.locations[0].industrialHub;
 	}
 
+	// {job.company.avgStarRatings &&
+	// 	job.company.avgStarRatings.benefits != 0 && (
+	// 		<RatingsDropdown ratings={job.company.avgStarRatings} />
+	// 	)}
+
 	return (
 		<JobContainer>
 			<h3>
@@ -114,7 +119,6 @@ function JobPosting({ job }: JobPostingProps) {
 				&nbsp;&nbsp;
 				{contractType}
 			</p>
-
 			<hr />
 			<h4 className="h4-font-sz-job">
 				<T.showjob.job_description />
