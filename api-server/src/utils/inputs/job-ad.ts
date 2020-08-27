@@ -12,7 +12,14 @@ export type ContractType =
 export type CreateJobAdInput = {
 	jobTitle: string;
 	locations: LocationInput[];
-	pesosPerHour: string;
+	salaryMin: number;
+	salaryMax: number;
+	salaryType:
+		| "YEARLY_SALARY"
+		| "MONTHLY_SALARY"
+		| "WEEKLY_SALARY"
+		| "DAILY_SALARY"
+		| "HOURLY_WAGE";
 	contractType: ContractType;
 	jobDescription: string;
 	responsibilities: string;
@@ -27,7 +34,18 @@ export const createJobAdInputSchema = yup
 			.required()
 			.min(1)
 			.of(locationInputSchema),
-		pesosPerHour: yup.string().required(),
+		salaryMin: yup.number().required(),
+		salaryMax: yup.number().required(),
+		salaryType: yup
+			.string()
+			.oneOf([
+				"YEARLY_SALARY",
+				"MONTHLY_SALARY",
+				"WEEKLY_SALARY",
+				"DAILY_SALARY",
+				"HOURLY_WAGE",
+			])
+			.required(),
 		contractType: yup
 			.string()
 			.oneOf([

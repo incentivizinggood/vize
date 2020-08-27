@@ -120,6 +120,7 @@ input CreateSalaryInput {
 	location: LocationInput!
 	jobTitle: String!
 	incomeType: IncomeType!
+	"In units of pesos."
 	incomeAmount: Float!
 	gender: Gender
 }
@@ -144,7 +145,11 @@ enum EmploymentStatus {
 input CreateJobAdInput {
 	jobTitle: String!
 	locations: [LocationInput!]!
-	pesosPerHour: String!
+	"In units of pesos."
+	salaryMin: Float!
+	"In units of pesos."
+	salaryMax: Float!
+	salaryType: IncomeType!
 	contractType: ContractType!
 	jobDescription: String!
 	responsibilities: String!
@@ -320,8 +325,11 @@ type Company {
 type CompanySalaryStats {
 	companyName: String!
 	jobTitle: String!
+	"In units of pesos."
 	totalAvgPay: Float!
+	"In units of pesos."
 	totalMaxPay: Float!
+	"In units of pesos."
 	totalMinPay: Float!
 	"The number of salaries for a specific job title at a company"
 	numSalariesJobTitle: Int!
@@ -332,7 +340,11 @@ type JobAd {
 
 	jobTitle: String!
 	locations: [Location!]!
-	pesosPerHour: String! # TODO convert to unit aware system
+	"In units of pesos."
+	salaryMin: Float!
+	"In units of pesos."
+	salaryMax: Float!
+	salaryType: IncomeType!
 	contractType: String!
 	jobDescription: String!
 	responsibilities: String!
@@ -394,6 +406,7 @@ type Salary {
 	jobTitle: String!
 	location: Location!
 	incomeType: IncomeType!
+	"In units of pesos."
 	incomeAmount: Float! # TODO convert to unit aware system
 	"The date and time this was created."
 	created: DateTime
