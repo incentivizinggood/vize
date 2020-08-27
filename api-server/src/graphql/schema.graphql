@@ -141,6 +141,15 @@ enum EmploymentStatus {
 	CURRENT
 }
 
+type MonetaryAmount {
+	"A localized string representation of this ammount. If no locale is specified a default of es-MX is used."
+	display(locale: String): String
+	"The numeric value of this ammount in terms of it's currency's major unit. Because this is a float it is not gaurentied to be exact."
+	value: Float
+	"The ISO 4217 currency code for this ammount."
+	currency: String
+}
+
 input CreateJobAdInput {
 	jobTitle: String!
 	locations: [LocationInput!]!
