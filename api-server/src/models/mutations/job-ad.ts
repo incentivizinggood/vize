@@ -14,7 +14,9 @@ export async function createJobAd(
 	const {
 		jobTitle,
 		locations,
-		pesosPerHour,
+		salaryMin,
+		salaryMax,
+		salaryType,
 		contractType,
 		jobDescription,
 		responsibilities,
@@ -45,7 +47,9 @@ export async function createJobAd(
 				(
 					companyid,
 					jobtitle,
-					pesosperhour,
+					salary_min,
+					salary_max,
+					salary_type,
 					contracttype,
 					jobdescription,
 					responsibilities,
@@ -55,7 +59,9 @@ export async function createJobAd(
 				(
 					${companyid},
 					${jobTitle},
-					${pesosPerHour},
+					${salaryMin},
+					${salaryMax},
+					${salaryType},
 					${contractType},
 					${jobDescription},
 					${responsibilities},
