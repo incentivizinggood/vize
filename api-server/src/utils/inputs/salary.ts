@@ -1,15 +1,6 @@
 import * as yup from "yup";
 
-import { LocationInput, locationInputSchema } from "./location";
-
-export type CreateSalaryInput = {
-	companyName: string;
-	location: LocationInput;
-	jobTitle: string;
-	incomeType: string;
-	incomeAmount: number;
-	gender?: string;
-};
+import { locationInputSchema } from "./location";
 
 export const createSalaryInputSchema = yup
 	.object({

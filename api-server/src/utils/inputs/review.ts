@@ -1,35 +1,6 @@
 import * as yup from "yup";
 
-import { LocationInput, locationInputSchema } from "./location";
-
-export type ContractType =
-	| "FULL_TIME"
-	| "PART_TIME"
-	| "INTERNSHIP"
-	| "TEMPORARY"
-	| "CONTRACTOR";
-
-export type EmploymentStatus = "FORMER" | "CURRENT";
-
-export type CreateReviewInput = {
-	companyName: string;
-	reviewTitle: string;
-	location: LocationInput;
-	jobTitle: string;
-	numberOfMonthsWorked: number;
-	contractType: ContractType;
-	employmentStatus: EmploymentStatus;
-	pros: string;
-	cons: string;
-	wouldRecommendToOtherJobSeekers: boolean;
-	healthAndSafety: number;
-	managerRelationship: number;
-	workEnvironment: number;
-	benefits: number;
-	overallSatisfaction: number;
-	additionalComments?: string | null;
-	referredBy?: string | null;
-};
+import { locationInputSchema } from "./location";
 
 export const starRatingSchema = yup
 	.number()
