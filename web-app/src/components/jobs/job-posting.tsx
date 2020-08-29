@@ -7,6 +7,7 @@ import {
 	faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import colors from "src/colors";
 
 import { forSize } from "src/responsive";
 import { processLocation } from "src/misc";
@@ -24,6 +25,32 @@ const JobContainer = styled.div`
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+
+	${forSize.tabletAndDown} {
+		padding: 12px;
+	}
+`;
+
+const ApplyNowButton = styled(Link)`
+	background-color: ${colors.vizeBlue};
+	color: white;
+	font-weight: bold;
+	border-radius: 6px;
+	font-size: 15px;
+	padding: 8px 15px;
+	max-height: 40px;
+	min-width: 110px;
+
+	&:hover {
+		color: white;
+		filter: grayscale(80%);
+	}
+`;
+
+const JobTitleAndApplyButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 `;
 
 const DatePostedDiv = styled.div`
@@ -71,9 +98,14 @@ function JobPosting({ job }: JobPostingProps) {
 
 	return (
 		<JobContainer>
-			<h3>
-				<strong>{job.jobTitle}</strong>
-			</h3>
+			<JobTitleAndApplyButtonContainer>
+				<h3>
+					<strong>{job.jobTitle}</strong>
+				</h3>
+				<ApplyNowButton to={urlGenerators.vizeApplyForJobUrl(job.id)}>
+					<T.showjob.apply_now />
+				</ApplyNowButton>
+			</JobTitleAndApplyButtonContainer>
 			<br />
 			<h3 style={{ fontSize: "20px" }}>
 				<Link to={urlGenerators.vizeCompanyProfileUrl(job.company.id)}>
@@ -88,19 +120,6 @@ function JobPosting({ job }: JobPostingProps) {
 						numReviews={job.company.numReviews}
 					/>
 				)}
-
-			<div
-				className="add-buttons"
-				style={{ float: "right", marginTop: "0px" }}
-			>
-				<Link
-					to={urlGenerators.vizeApplyForJobUrl(job.id)}
-					className="btn btn-primary"
-				>
-					{" "}
-					<T.showjob.apply_now />
-				</Link>
-			</div>
 			<p>
 				{" "}
 				<FontAwesomeIcon icon={faMapMarker} />
