@@ -91,9 +91,9 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 			});
 			ReactPixel.track("Job Posted", { category: "Company" });
 
-			// Go to the newly created jobAd's page.
+			// Go to the company profile page for this jobAd's company.
 			history.push(
-				urlGenerators.vizeProfileUrl(data.createJobAd.jobAd.id)
+				urlGenerators.vizeProfileUrl(data.createJobAd.jobAd.company.id)
 			);
 		})
 		.catch(errors => {
