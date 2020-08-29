@@ -118,6 +118,7 @@ function JobPosting({ job }: JobPostingProps) {
 					<RatingsDropdown
 						ratings={job.company.avgStarRatings}
 						numReviews={job.company.numReviews}
+						companyName={job.company.id}
 					/>
 				)}
 			<p>

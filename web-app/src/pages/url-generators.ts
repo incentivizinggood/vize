@@ -18,8 +18,12 @@ const vizeResourceUrl = function(slug: string) {
 const vizeResourceTopicUrl = function(topicName: string) {
 	return `/${queryRoutes.resources}/temas/${topicName}`;
 };
-const vizeCompanyProfileUrl = function(companyId: string) {
-	return `/${queryRoutes.companyProfile}/${companyId}`;
+const vizeCompanyProfileUrl = function(companyId: string, companyTab?: string) {
+	if (companyTab) {
+		return `/${queryRoutes.companyProfile}/${companyId}/${companyTab}`;
+	} else {
+		return `/${queryRoutes.companyProfile}/${companyId}`;
+	}
 };
 const vizeReviewUrl = function(companyName?: string) {
 	return `/${queryRoutes.writeReview}/${

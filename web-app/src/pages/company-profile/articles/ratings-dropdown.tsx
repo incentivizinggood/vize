@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { translations } from "src/translations";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { StarRatings as StartRatingsType } from "generated/graphql-operations";
+import { urlGenerators } from "src/pages/url-generators";
+import { Link } from "react-router-dom";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -16,16 +18,22 @@ const StarRatingsDropdownButton = styled.a`
 	padding-bottom: 6px;
 `;
 
-const NumRatingsText = styled.span`
+const NumRatingsText = styled(Link)`
 	margin-left: 6px;
+	font-weight: bold;
 `;
 
 interface StartRatingsProps {
 	ratings: StartRatingsType;
 	numReviews?: number;
+	companyName?: string;
 }
 
-function RatingsDropdown({ ratings, numReviews }: StartRatingsProps) {
+function RatingsDropdown({
+	ratings,
+	numReviews,
+	companyName,
+}: StartRatingsProps) {
 	const numReviewsText =
 		numReviews === 1 ? (
 			<T.companyreview.review />
@@ -48,8 +56,13 @@ function RatingsDropdown({ ratings, numReviews }: StartRatingsProps) {
 			/>
 			&nbsp;
 			<FontAwesomeIcon icon={faCaretDown} />
-			{numReviews && (
-				<NumRatingsText>
+			{numReviews && companyName && (
+				<NumRatingsText
+					to={urlGenerators.vizeCompanyProfileUrl(
+						companyName,
+						"reviews"
+					)}
+				>
 					{numReviews} {numReviewsText}
 				</NumRatingsText>
 			)}
