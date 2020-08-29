@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./scripts/with-dev-env-vars.sh psql
+psql -h localhost -U meteor -d meteor
