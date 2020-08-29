@@ -90,10 +90,15 @@ function JobPosting({ job }: JobPostingProps) {
 			<T.showjob.contractor />
 		);
 	let jobLocation = processLocation(JSON.stringify(job.locations[0]));
+	// True if there is a city and an industrial hub for a job
+	const isTwoJobLocations =
+		job.locations[0].city && job.locations[0].industrialHub;
 
 	if (job.locations[0].city && job.locations[0].industrialHub) {
 		jobLocation =
-			job.locations[0].city + " | " + job.locations[0].industrialHub;
+			job.locations[0].city +
+			" {&#8226;} " +
+			job.locations[0].industrialHub;
 	}
 
 	return (
@@ -125,7 +130,12 @@ function JobPosting({ job }: JobPostingProps) {
 				{" "}
 				<FontAwesomeIcon icon={faMapMarker} />
 				&nbsp;&nbsp;&nbsp;
-				{jobLocation}
+				{isTwoJobLocations && (
+					<>
+						{job.locations[0].city}&nbsp;&#8226;&nbsp;
+						{job.locations[0].industrialHub}
+					</>
+				)}
 			</p>
 			<p>
 				{" "}
