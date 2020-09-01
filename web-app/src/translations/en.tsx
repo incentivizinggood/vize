@@ -327,9 +327,21 @@ export default {
 						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 				},
 			},
-			pesosPerHour: {
-				label: "Pesos per Week",
-				placeholder: "Enter a value, $x, or a range of values, $x - $y",
+			salaryMin: {
+				label: "Salary Minimum",
+				placeholder: "Enter a number in pesos",
+			},
+			salaryMax: {
+				label: "Salary Maximum",
+				placeholder: "Enter a number in pesos",
+			},
+			salaryType: {
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
+				hourlyWage: "Hourly Wage",
 			},
 			contractType: {
 				label: "Contract Type",
@@ -529,6 +541,7 @@ export default {
 		jobpostings: {
 			apply_now: "Apply Now",
 			hour: "Pesos Per Hour",
+			day: "Pesos Per Day",
 			week: "Pesos Per Week",
 			month: "Pesos Per Month",
 			year: "Pesos Per Year",
@@ -581,7 +594,11 @@ export default {
 		},
 		showjob: {
 			apply_now: "Apply Now",
-			hour: "/Hour",
+			hour: "Pesos Per Hour",
+			day: "Pesos Per Day",
+			week: "Pesos Per Week",
+			month: "Pesos Per Month",
+			year: "Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",

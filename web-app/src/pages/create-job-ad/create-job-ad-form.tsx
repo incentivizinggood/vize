@@ -29,7 +29,9 @@ const initialValues = {
 			industrialHub: "",
 		},
 	],
-	pesosPerHour: "",
+	salaryMin: "",
+	salaryMax: "",
+	salaryType: "",
 	contractType: "",
 	jobDescription: "",
 	responsibilities: "",
@@ -54,7 +56,18 @@ const schema = yup.object().shape({
 			})
 		)
 		.required(),
-	pesosPerHour: yup.string().required(),
+	salaryMin: yup.number().required(),
+	salaryMax: yup.number().required(),
+	salaryType: yup
+		.string()
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		])
+		.required(),
 	contractType: yup
 		.mixed()
 		.oneOf([

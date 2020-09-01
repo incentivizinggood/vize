@@ -44,10 +44,31 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<Field
-				name="pesosPerHour"
-				type="text"
+				name="salaryMin"
+				type="number"
 				required
-				t={T.fields.pesosPerHour}
+				t={T.fields.salaryMin}
+			/>
+
+			<Field
+				name="salaryMax"
+				type="number"
+				required
+				t={T.fields.salaryMax}
+			/>
+
+			<T.fields.salaryType
+				renderer={t => (
+					<Field name="salaryType" select required label={t.label}>
+						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
+						<option value="MONTHLY_SALARY">
+							{t.monthlySalary}
+						</option>
+						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
+						<option value="DAILY_SALARY">{t.dailySalary}</option>
+						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
+					</Field>
+				)}
 			/>
 
 			<T.fields.contractType

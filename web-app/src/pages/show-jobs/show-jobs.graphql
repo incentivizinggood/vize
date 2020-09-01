@@ -8,7 +8,9 @@ query showJobs {
 				address
 				industrialHub
 			}
-			pesosPerHour
+			salaryMin
+			salaryMax
+			salaryType
 			contractType
 			jobDescription
 			responsibilities
