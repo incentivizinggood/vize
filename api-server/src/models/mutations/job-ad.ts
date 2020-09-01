@@ -1,11 +1,46 @@
+import * as yup from "yup";
+
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
 
-import {
-	createJobAdInputSchema,
-	createApplyToJobAdInputSchema,
-} from "src/utils/inputs/job-ad";
+import { locationInputSchema } from "./location";
+
+const createJobAdInputSchema = yup
+	.object({
+		jobTitle: yup.string().required(),
+		locations: yup
+			.array()
+			.required()
+			.min(1)
+			.of(locationInputSchema),
+		salaryMin: yup.number().required(),
+		salaryMax: yup.number().required(),
+		salaryType: yup
+			.string()
+			.oneOf([
+				"YEARLY_SALARY",
+				"MONTHLY_SALARY",
+				"WEEKLY_SALARY",
+				"DAILY_SALARY",
+				"HOURLY_WAGE",
+			])
+			.required(),
+		contractType: yup
+			.string()
+			.oneOf([
+				"FULL_TIME",
+				"PART_TIME",
+				"INTERNSHIP",
+				"TEMPORARY",
+				"CONTRACTOR",
+			])
+			.required(),
+		jobDescription: yup.string().required(),
+		responsibilities: yup.string().required(),
+		qualifications: yup.string().required(),
+	})
+	.required();
 
 export async function createJobAd(
 	input: unknown,
@@ -85,6 +120,19 @@ export async function createJobAd(
 
 	return execTransactionRW(transaction);
 }
+
+const createApplyToJobAdInputSchema = yup
+	.object({
+		jobAdId: yup.string().required(),
+		fullName: yup.string().required(),
+		email: yup
+			.string()
+			.email()
+			.required(),
+		phoneNumber: yup.string().required(),
+		coverLetter: yup.string(),
+	})
+	.required();
 
 export async function applyToJobAd(input: unknown): Promise<boolean> {
 	const {

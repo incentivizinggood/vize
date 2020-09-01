@@ -1,10 +1,56 @@
+import * as yup from "yup";
+
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { postToSlack } from "src/connectors/slack-webhook";
 
-import { createReviewInputSchema } from "src/utils/inputs/review";
+import { locationInputSchema } from "./location";
 
 type PhoneNumber = undefined | string;
+
+const starRatingSchema = yup
+	.number()
+	.integer()
+	.min(0)
+	.max(5)
+	.required();
+
+const createReviewInputSchema = yup
+	.object({
+		companyName: yup.string().required(),
+		reviewTitle: yup.string().required(),
+		location: locationInputSchema,
+		jobTitle: yup.string().required(),
+		numberOfMonthsWorked: yup
+			.number()
+			.min(0)
+			.required(),
+		contractType: yup
+			.string()
+			.oneOf([
+				"FULL_TIME",
+				"PART_TIME",
+				"INTERNSHIP",
+				"TEMPORARY",
+				"CONTRACTOR",
+			])
+			.required(),
+		employmentStatus: yup
+			.string()
+			.oneOf(["FORMER", "CURRENT"])
+			.required(),
+		pros: yup.string().required(),
+		cons: yup.string().required(),
+		wouldRecommendToOtherJobSeekers: yup.boolean().required(),
+		healthAndSafety: starRatingSchema,
+		managerRelationship: starRatingSchema,
+		workEnvironment: starRatingSchema,
+		benefits: starRatingSchema,
+		overallSatisfaction: starRatingSchema,
+		additionalComments: yup.string(),
+		referredBy: yup.string(),
+	})
+	.required();
 
 export async function createReview(
 	input: unknown,
