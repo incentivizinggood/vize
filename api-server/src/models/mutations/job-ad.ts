@@ -58,6 +58,10 @@ export async function createJobAd(
 		qualifications,
 	} = await createJobAdInputSchema.validate(input);
 
+	if (salaryMin > salaryMax) {
+		throw new Error("salaryMin must be less than or equal to salaryMax.");
+	}
+
 	const transaction: Transaction<number> = async client => {
 		const {
 			rows: [{ role, companyid }],
