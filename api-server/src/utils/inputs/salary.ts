@@ -6,9 +6,14 @@ export type CreateSalaryInput = {
 	companyName: string;
 	location: LocationInput;
 	jobTitle: string;
-	incomeType: string;
+	incomeType:
+		| "YEARLY_SALARY"
+		| "MONTHLY_SALARY"
+		| "WEEKLY_SALARY"
+		| "DAILY_SALARY"
+		| "HOURLY_WAGE";
 	incomeAmount: number;
-	gender?: string;
+	gender?: "MALE" | "FEMALE";
 };
 
 export const createSalaryInputSchema = yup
@@ -19,17 +24,17 @@ export const createSalaryInputSchema = yup
 		incomeType: yup
 			.string()
 			.oneOf([
-				"Yearly Salary",
-				"Monthly Salary",
-				"Weekly Salary",
-				"Daily Salary",
-				"Hourly Wage",
+				"YEARLY_SALARY",
+				"MONTHLY_SALARY",
+				"WEEKLY_SALARY",
+				"DAILY_SALARY",
+				"HOURLY_WAGE",
 			])
 			.required(),
 		incomeAmount: yup
 			.number()
 			.min(0)
 			.required(),
-		gender: yup.string().oneOf(["Male", "Female"]),
+		gender: yup.string().oneOf(["MALE", "FEMALE"]),
 	})
 	.required();

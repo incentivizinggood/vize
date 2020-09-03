@@ -127,7 +127,12 @@ export type Salary = {
 	companyId: number | null;
 	location: string;
 	jobTitle: string;
-	incomeType: string;
+	incomeType:
+		| "YEARLY_SALARY"
+		| "MONTHLY_SALARY"
+		| "WEEKLY_SALARY"
+		| "DAILY_SALARY"
+		| "HOURLY_WAGE";
 	incomeAmount: number;
 	dateAdded: Date;
 };

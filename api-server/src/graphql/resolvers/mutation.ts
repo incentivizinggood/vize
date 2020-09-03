@@ -65,35 +65,11 @@ export const Mutation: MutationResolvers = {
 		return { review };
 	},
 
-	createSalary: async (
-		_obj,
-		{ input: { incomeType, gender, ...input } },
-		context,
-		_info
-	) => {
+	createSalary: async (_obj, { input }, context, _info) => {
 		if (!context.user) throw new Error("NOT_LOGGED_IN");
 
 		const salaryId = await dataModel.createSalary(
-			{
-				// TODO: change the database so that we do not need to convert these.
-				incomeType:
-					incomeType === "YEARLY_SALARY"
-						? "Yearly Salary"
-						: incomeType === "MONTHLY_SALARY"
-						? "Monthly Salary"
-						: incomeType === "WEEKLY_SALARY"
-						? "Weekly Salary"
-						: incomeType === "DAILY_SALARY"
-						? "Daily Salary"
-						: "Hourly Wage",
-				gender:
-					gender === "MALE"
-						? "Male"
-						: gender === "FEMALE"
-						? "Female"
-						: undefined,
-				...input,
-			},
+			input,
 			context.user.userId
 		);
 		const salary = await dataModel.getSalaryById(salaryId);
