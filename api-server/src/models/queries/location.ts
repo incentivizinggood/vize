@@ -3,28 +3,24 @@ import { simpleQuery } from "src/connectors/postgresql";
 
 import { Location, Company, JobAd } from "src/models/types";
 
-import { parseLocationString } from "src/models/utils";
-
 export async function getLocationsByCompany(
 	company: Company
 ): Promise<Location[]> {
-	return simpleQuery<{ companylocation: string }>(
+	return simpleQuery(
 		sql`
-			SELECT companylocation
+			SELECT city, address, industrial_hub AS "industrialHub"
 			FROM company_locations
 			WHERE companyid=${company.companyId}
 		`
-	).then(results =>
-		results.map(loc => parseLocationString(loc.companylocation))
 	);
 }
 
 export async function getLocationsByJobAd(jobAd: JobAd): Promise<Location[]> {
-	return simpleQuery<{ joblocation: string }>(
+	return simpleQuery(
 		sql`
-			SELECT joblocation
+			SELECT city, address, industrial_hub AS "industrialHub"
 			FROM job_locations
 			WHERE jobadid=${jobAd.jobAdId}
 		`
-	).then(results => results.map(loc => parseLocationString(loc.joblocation)));
+	);
 }

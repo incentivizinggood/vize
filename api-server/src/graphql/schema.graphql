@@ -82,8 +82,8 @@ input CreateCompanyInput {
 }
 
 input LocationInput {
-	city: String!
-	address: String!
+	city: String
+	address: String
 	industrialHub: String
 }
 
@@ -437,8 +437,8 @@ type Vote {
 }
 
 type Location {
-	city: String!
-	address: String!
+	city: String
+	address: String
 	industrialHub: String
 }
 

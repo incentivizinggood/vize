@@ -5,8 +5,11 @@ import { SalaryResolvers } from "generated/graphql-resolvers";
 export const Salary: SalaryResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.salaryId),
 
-	location: (obj, _args, _context, _info) =>
-		dataModel.parseLocationString(obj.location),
+	location: (obj, _args, _context, _info) => ({
+		city: obj.city,
+		address: obj.address,
+		industrialHub: obj.industrialHub,
+	}),
 
 	incomeType: ({ incomeType }, _args, _context, _info) =>
 		incomeType === "Yearly Salary"
