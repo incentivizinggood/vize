@@ -8,7 +8,15 @@ import {
 	getUserById,
 	getCompanyByName,
 } from "src/models";
-import { reviewVoteCounts } from "../views";
+
+const reviewVoteCounts = sql`
+select
+    refersto as reviewid,
+    count(*) filter (where value = true) as upvotes,
+    count(*) filter (where value = false) as downvotes
+from review_votes
+group by refersto
+`;
 
 const attributes = sql.raw(
 	[

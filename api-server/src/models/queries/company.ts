@@ -3,7 +3,21 @@ import { simpleQuery1 } from "src/connectors/postgresql";
 
 import { Company } from "src/models";
 import { paginate } from "src/models/misc";
-import { companyReviewStatistics } from "../views";
+
+const companyReviewStatistics = sql`
+SELECT
+    companyname AS name,
+    count(*) AS numreviews,
+    avg(nummonthsworked) AS avgnummonthsworked,
+    avg(wouldrecommend::integer) AS percentrecommended,
+    avg(healthandsafety) AS healthandsafety,
+    avg(managerrelationship) AS managerrelationship,
+    avg(workenvironment) AS workenvironment,
+    avg(benefits) AS benefits,
+    avg(overallsatisfaction) AS overallsatisfaction
+FROM reviews
+GROUP BY companyname
+`;
 
 const attributes = sql.raw(
 	[
