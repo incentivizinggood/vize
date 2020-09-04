@@ -8,6 +8,7 @@ import {
 	getUserById,
 	getCompanyByName,
 } from "src/models";
+import { reviewVoteCounts } from "../views";
 
 const attributes = sql.raw(
 	[
@@ -38,8 +39,7 @@ const attributes = sql.raw(
 
 const baseQuery = sql`
 	SELECT ${attributes}
-	FROM reviews JOIN review_vote_counts
-	ON review_vote_counts.refersto = reviews.reviewid
+	FROM reviews natural left join (${reviewVoteCounts}) vc
 `;
 
 // Get the review with a given id.

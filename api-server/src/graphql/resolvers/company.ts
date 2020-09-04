@@ -12,15 +12,10 @@ export const Company: CompanyResolvers = {
 	avgStarRatings: (obj, _args, _context, _info) => {
 		if (
 			obj.healthAndSafety === null ||
-			obj.healthAndSafety === undefined ||
 			obj.managerRelationship === null ||
-			obj.managerRelationship === undefined ||
 			obj.workEnvironment === null ||
-			obj.workEnvironment === undefined ||
 			obj.benefits === null ||
-			obj.benefits === undefined ||
-			obj.overallSatisfaction === null ||
-			obj.overallSatisfaction === undefined
+			obj.overallSatisfaction === null
 		) {
 			return null;
 		} else {
@@ -37,11 +32,14 @@ export const Company: CompanyResolvers = {
 	reviews: (obj, args, _context, _info) =>
 		dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
 
+	numReviews: (obj, _args, _context, _info) => obj.numReviews || 0,
+
 	jobAds: (obj, args, _context, _info) =>
 		dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
 
 	numJobAds: (obj, _args, _context, _info) =>
 		dataModel.countJobAdsByCompany(obj),
+
 	salaries: (obj, args, _context, _info) =>
 		dataModel.getSalariesByCompany(obj, args.pageNum, args.pageSize),
 

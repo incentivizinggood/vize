@@ -3,6 +3,7 @@ import { simpleQuery1 } from "src/connectors/postgresql";
 
 import { Company } from "src/models";
 import { paginate } from "src/models/misc";
+import { companyReviewStatistics } from "../views";
 
 const attributes = sql.raw(
 	[
@@ -30,7 +31,7 @@ const attributes = sql.raw(
 
 const baseQuery = sql`
 	SELECT ${attributes}
-	FROM companies NATURAL JOIN company_review_statistics
+	FROM companies NATURAL LEFT JOIN (${companyReviewStatistics}) rs
 `;
 
 // Get the company with a given id.
@@ -55,8 +56,6 @@ export async function searchForCompanies(
 	return paginate<Company>(
 		sql`
 			${baseQuery}
-				JOIN job_post_counts ON companies.name = job_post_counts.companyname
-				JOIN salary_counts ON companies.name = salary_counts.companyname
 			${
 				searchText
 					? sql`
@@ -68,7 +67,21 @@ export async function searchForCompanies(
 				) @@ plainto_tsquery('spanish', ${searchText})`
 					: sql``
 			}
-			ORDER BY job_post_counts.count*10 + numreviews*1.5 + salary_counts.count DESC
+			ORDER BY
+				(
+					select count(*)
+					from jobads
+					where jobads.companyname = companies.name
+				) * 10 + (
+					select count(*)
+					from reviews
+					where reviews.companyname = companies.name
+				) * 1.5 + (
+					select count(*)
+					from salaries
+					where salaries.companyname = companies.name
+				)
+				desc
 		`,
 		pageNumber,
 		pageSize
