@@ -63,6 +63,11 @@ function CompanyRating(props: CompanyRatingProps): JSX.Element {
 	const numDigits = 2;
 	const { classes } = props;
 
+	// TODO: Handle nulls properly
+	if (!props.company.avgStarRatings) {
+		return <>No reviews yet</>;
+	}
+
 	return (
 		<div>
 			<div className="row">
