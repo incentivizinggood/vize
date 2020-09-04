@@ -47,10 +47,6 @@ SET
     address = fix_location_null(joblocation::jsonb->>'address'),
     industrial_hub = fix_location_null(joblocation::jsonb->>'industrialHub');
 
-ALTER TABLE job_locations
-    DROP COLUMN joblocation;
-
-
 
 ALTER TABLE company_locations
     ADD COLUMN city text,
@@ -62,10 +58,6 @@ SET
     city = fix_location_null(companylocation::jsonb->>'city'),
     address = fix_location_null(companylocation::jsonb->>'address'),
     industrial_hub = fix_location_null(companylocation::jsonb->>'industrialHub');
-
-ALTER TABLE company_locations
-    DROP COLUMN companylocation;
-
 
 
 ALTER TABLE reviews
@@ -79,10 +71,6 @@ SET
     address = fix_location_null(reviewlocation::jsonb->>'address'),
     industrial_hub = fix_location_null(reviewlocation::jsonb->>'industrialHub');
 
-ALTER TABLE reviews
-    DROP COLUMN reviewlocation;
-
-
 
 ALTER TABLE salaries
     ADD COLUMN city text,
@@ -94,9 +82,6 @@ SET
     city = fix_location_null(salarylocation::jsonb->>'city'),
     address = fix_location_null(salarylocation::jsonb->>'address'),
     industrial_hub = fix_location_null(salarylocation::jsonb->>'industrialHub');
-
-ALTER TABLE salaries
-    DROP COLUMN salarylocation;
 
 
 -- This function is only usefull in this migration.
