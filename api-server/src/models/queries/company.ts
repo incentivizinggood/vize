@@ -65,11 +65,36 @@ export async function searchForCompanies(
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: Company[]; totalCount: number }> {
+	const jobAdCounts = sql`
+			select
+				companyname,
+				count(*) as total
+			from jobads j
+			group by companyname
+		`;
+	const reviewCounts = sql`
+			select
+				companyname,
+				count(*) as total
+			from reviews r
+			group by companyname
+		`;
+	const salaryCounts = sql`
+			select
+				companyname,
+				count(*) as total
+			from salaries s
+			group by companyname
+		`;
+
 	// TODO: When PostgreSQL is upgraded to version 12 use websearch_to_tsquery instead of plainto_tsquery.
 	// websearch_to_tsquery is better, but only available in version 12 and up.
 	return paginate<Company>(
 		sql`
 			${baseQuery}
+			left join (${jobAdCounts}) jc on jc.companyname = companies.name
+			left join (${reviewCounts}) rc on rc.companyname = companies.name
+			left join (${salaryCounts}) sc on sc.companyname = companies.name
 			${
 				searchText
 					? sql`
@@ -81,21 +106,11 @@ export async function searchForCompanies(
 				) @@ plainto_tsquery('spanish', ${searchText})`
 					: sql``
 			}
-			ORDER BY
-				(
-					select count(*)
-					from jobads
-					where jobads.companyname = companies.name
-				) * 10 + (
-					select count(*)
-					from reviews
-					where reviews.companyname = companies.name
-				) * 1.5 + (
-					select count(*)
-					from salaries
-					where salaries.companyname = companies.name
-				)
-				desc
+			ORDER BY (
+					coalesce(jc.total, 0) * 10 +
+					coalesce(rc.total, 0) * 1.5 +
+					coalesce(sc.total, 0)
+				) desc
 		`,
 		pageNumber,
 		pageSize
