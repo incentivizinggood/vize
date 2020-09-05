@@ -526,6 +526,8 @@ export default {
 		},
 		companyreview: {
 			recommend: "Recomendado",
+			reviews: "Evaluaciones",
+			review: "Evaluación",
 			not_recommend: "No recomendado",
 			overall: "En general",
 			health_safety: "Salud y Seguridad",
@@ -549,7 +551,7 @@ export default {
 			report_review: "Reportar Evaluación",
 		},
 		jobpostings: {
-			apply_now: "Aplica Ahora",
+			apply_now: "Postularme",
 			hour: " Pesos Por Hora",
 			week: " Pesos Por Semana",
 			month: " Pesos Por Mes",
@@ -573,7 +575,7 @@ export default {
 			jobs_available: "Trabajo(s) Disponible(s)",
 		},
 		overview_tab: {
-			apply_now: "Aplica Ahora",
+			apply_now: "Postularme",
 			hour: " Por Hora",
 			job_description: "Descripción del Trabajo",
 			no_reviews: "No hay evaluaciones para mostrar en este momento",
@@ -602,13 +604,18 @@ export default {
 			add_salary: "Agregar Salario",
 		},
 		showjob: {
-			apply_now: "Aplica Ahora",
+			apply_now: "Postularme",
 			hour: " Por Hora",
 			week: " Por Semana",
 			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
 			posted_on: "Publicado",
+			fullTime: "Tiempo completo",
+			partTime: "Medio tiempo",
+			contractor: "Contratista",
+			internship: "Prácticas (Pasantía)",
+			temporary: "Proyecto (Temporal)",
 		},
 		CompanySearchResult: {
 			reviews: "Evaluaciones",

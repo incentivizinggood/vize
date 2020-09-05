@@ -2,7 +2,7 @@ fragment CompanyProfileJobsSection on Company {
 	name
 
 	jobAds(pageSize: 1) {
-		...CompanyProfileJobAd
+		...JobPosting
 	}
 	numJobAds
 }

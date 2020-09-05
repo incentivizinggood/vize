@@ -328,7 +328,7 @@ export default {
 				},
 			},
 			pesosPerHour: {
-				label: "Pesos per Week",
+				label: " Pesos per Week",
 				placeholder: "Enter a value, $x, or a range of values, $x - $y",
 			},
 			contractType: {
@@ -504,6 +504,8 @@ export default {
 		},
 		companyreview: {
 			recommend: "Recommended",
+			reviews: "Reviews",
+			review: "Review",
 			not_recommend: "Not Recommended",
 			overall: "Overall",
 			health_safety: "Health & Safety",
@@ -528,10 +530,10 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Apply Now",
-			hour: "Pesos Per Hour",
-			week: "Pesos Per Week",
-			month: "Pesos Per Month",
-			year: "Pesos Per Year",
+			hour: " Pesos Per Hour",
+			week: " Pesos Per Week",
+			month: " Pesos Per Month",
+			year: " Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
@@ -581,11 +583,16 @@ export default {
 		},
 		showjob: {
 			apply_now: "Apply Now",
-			hour: "/Hour",
+			hour: " Pesos Per Hour",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
 			posted_on: "Posted on",
+			fullTime: "Full time",
+			partTime: "Part time",
+			contractor: "Contractor",
+			internship: "Internship",
+			temporary: "Temporary",
 		},
 		CompanySearchResult: {
 			reviews: "Reviews",

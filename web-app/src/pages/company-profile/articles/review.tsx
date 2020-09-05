@@ -1,12 +1,11 @@
 import React from "react";
-import StarRatings from "react-star-ratings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faCheckSquare,
 	faTimesCircle,
-	faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 
+import RatingsDropdown from "./ratings-dropdown";
 import PopupModal from "src/components/popup-modal";
 import { withUser } from "src/hoc/user";
 import FlagSystem from "src/components/flag/flag";
@@ -69,100 +68,7 @@ function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 						</span>
 					</p>
 					<h2 className="head-rev-con">{props.review.title}</h2>
-
-					<div className="btn-group show-on-hover">
-						<a
-							type="button"
-							className="btn btn-default dropdown-toggle  btbn"
-							data-toggle="dropdown"
-						>
-							<StarRatings
-								rating={
-									(props.review.starRatings.healthAndSafety +
-										props.review.starRatings
-											.managerRelationship +
-										props.review.starRatings
-											.workEnvironment +
-										props.review.starRatings.benefits) /
-									4
-								} // the average rating of all 5 ratings
-								starDimension="15px"
-								starSpacing="1.5px"
-							/>
-							&nbsp;
-							<FontAwesomeIcon icon={faCaretDown} />
-						</a>
-						<ul className="dropdown-menu" role="menu">
-							<li>
-								<label>
-									<T.companyreview.overall />
-								</label>
-								<br />
-								<StarRatings
-									rating={
-										props.review.starRatings
-											.overallSatisfaction
-									}
-									starDimension="15px"
-									starSpacing="1.5px"
-								/>
-							</li>
-							<li>
-								<label>
-									<T.companyreview.health_safety />
-								</label>
-								<br />
-								<StarRatings
-									rating={
-										props.review.starRatings.healthAndSafety
-									}
-									starDimension="15px"
-									starSpacing="1.5px"
-								/>
-							</li>
-							<li>
-								{" "}
-								<label>
-									<T.companyreview.work_env />
-								</label>
-								<br />
-								<StarRatings
-									rating={
-										props.review.starRatings.workEnvironment
-									}
-									starDimension="15px"
-									starSpacing="1.5px"
-								/>
-							</li>
-							<li>
-								<label>
-									<T.companyreview.benefits />
-								</label>
-								<br />
-								<StarRatings
-									rating={props.review.starRatings.benefits}
-									starDimension="15px"
-									starSpacing="1.5px"
-								/>
-							</li>
-							<li>
-								{" "}
-								<label>
-									<T.companyreview.manager_relation />
-								</label>
-								<br />
-								<StarRatings
-									rating={
-										props.review.starRatings
-											.managerRelationship
-									}
-									starDimension="15px"
-									starSpacing="1.5px"
-								/>
-							</li>
-						</ul>
-					</div>
-
+					<RatingsDropdown ratings={props.review.starRatings} />
 					<br />
 					{/* // Does the IF-ELSE, and changes class to the ticked one if recommended
         //and to the crossed one, if not recommended. */}

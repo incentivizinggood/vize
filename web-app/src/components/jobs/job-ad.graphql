@@ -1,0 +1,27 @@
+fragment JobPosting on JobAd {
+	id
+	jobTitle
+	locations {
+		city
+		address
+		industrialHub
+	}
+	pesosPerHour
+	contractType
+	jobDescription
+	qualifications
+	responsibilities
+	created
+	company {
+		id
+		name
+		numReviews
+		avgStarRatings {
+			healthAndSafety
+			managerRelationship
+			workEnvironment
+			benefits
+			overallSatisfaction
+		}
+	}
+}

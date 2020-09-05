@@ -46,7 +46,7 @@ interface CompanySearchResultProps {
 }
 
 function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
-	const companyProfileUrl = urlGenerators.vizeProfileUrl(props.company.id);
+	const companyProfileUrl = urlGenerators.vizeCompanyProfileUrl(props.company.id);
 	return (
 		<div>
 			<div className="container company-search-container">
