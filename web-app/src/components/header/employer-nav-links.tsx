@@ -15,7 +15,7 @@ interface EmployerNavLinksProps {
 function EmployerNavLinks(props: EmployerNavLinksProps) {
 	let companyURL;
 	if (props.user.company) {
-		companyURL = urlGenerators.vizeProfileUrl(props.user.company.id);
+		companyURL = urlGenerators.vizeCompanyProfileUrl(props.user.company.id);
 	} else {
 		companyURL = "/company/create";
 	}

@@ -97,7 +97,7 @@ const onSubmit = (createCompany, history, setSubmissionError) => (
 
 			// Go to the newly created company's page.
 			history.push(
-				urlGenerators.vizeProfileUrl(data.createCompany.company.id)
+				urlGenerators.vizeCompanyProfileUrl(data.createCompany.company.id)
 			);
 		})
 		.catch(errors => {

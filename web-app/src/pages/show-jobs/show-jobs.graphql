@@ -2,23 +2,7 @@ query showJobs {
 	searchJobAds {
 		nodes {
 			id
-			jobTitle
-			locations {
-				city
-				address
-				industrialHub
-			}
-			salaryMin
-			salaryMax
-			salaryType
-			contractType
-			jobDescription
-			responsibilities
-			qualifications
-			created
-			company {
-				name
-			}
+			...JobPosting
 		}
 	}
 }
