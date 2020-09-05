@@ -8,7 +8,9 @@ mutation createJobAd($input: CreateJobAdInput!) {
 				address
 				industrialHub
 			}
-			pesosPerHour
+			salaryMin
+			salaryMax
+			salaryType
 			contractType
 			jobDescription
 			responsibilities

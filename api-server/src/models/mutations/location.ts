@@ -1,11 +1,5 @@
 import * as yup from "yup";
 
-export type LocationInput = {
-	city: string;
-	address: string;
-	industrialHub?: string | null;
-};
-
 export const locationInputSchema = yup
 	.object({
 		city: yup.string().required(),
@@ -13,3 +7,6 @@ export const locationInputSchema = yup
 		industrialHub: yup.string(),
 	})
 	.required();
+
+// The actual creation of locations is done by the objects that use them.
+// For now this file only holds the input schema.

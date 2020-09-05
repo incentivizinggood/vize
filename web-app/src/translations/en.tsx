@@ -327,9 +327,23 @@ export default {
 						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 				},
 			},
-			pesosPerHour: {
-				label: " Pesos per Week",
-				placeholder: "Enter a value, $x, or a range of values, $x - $y",
+			salaryExplanation:
+				"Enter a range with the minimum and maximum salary you are willing to offer for this job. You can also set the minimum and maximum to the same value.",
+			salaryMin: {
+				label: "Minimum Salary (in Pesos)",
+				placeholder: "e.g. 2000",
+			},
+			salaryMax: {
+				label: "Maximum Salary (in Pesos)",
+				placeholder: "e.g. 2200",
+			},
+			salaryType: {
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
+				hourlyWage: "Hourly Wage",
 			},
 			contractType: {
 				label: "Contract Type",
@@ -530,10 +544,11 @@ export default {
 		},
 		jobpostings: {
 			apply_now: "Apply Now",
-			hour: " Pesos Per Hour",
-			week: " Pesos Per Week",
-			month: " Pesos Per Month",
-			year: " Pesos Per Year",
+			hour: "Pesos Per Hour",
+			day: "Pesos Per Day",
+			week: "Pesos Per Week",
+			month: "Pesos Per Month",
+			year: "Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
@@ -583,7 +598,11 @@ export default {
 		},
 		showjob: {
 			apply_now: "Apply Now",
-			hour: " Pesos Per Hour",
+			hour: "Pesos Per Hour",
+			day: "Pesos Per Day",
+			week: "Pesos Per Week",
+			month: "Pesos Per Month",
+			year: "Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",

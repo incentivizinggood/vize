@@ -1,0 +1,17 @@
+fragment CompanyProfileJobAd on JobAd {
+	id
+	jobTitle
+	locations {
+		city
+		address
+		industrialHub
+	}
+	salaryMin
+	salaryMax
+	salaryType
+	contractType
+	jobDescription
+	qualifications
+	responsibilities
+	created
+}

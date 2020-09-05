@@ -339,11 +339,23 @@ export default {
 						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
 				},
 			},
-
-			pesosPerHour: {
-				label: "Pesos por Semana",
-				placeholder:
-					"Ingrese un valor, $x, o un rango de valores, $x-$y en pesos por semana",
+			salaryExplanation:
+				"Ingrese un rango con el salario mínimo y máximo que está dispuesto a ofrecer para este trabajo. También puedes ingresar el mismo valor para el salario mínimo y máximo.",
+			salaryMin: {
+				label: "Salario Mínimo (en Pesos)",
+				placeholder: "Ej. 2000",
+			},
+			salaryMax: {
+				label: "Salario Máximo (en Pesos)",
+				placeholder: "Ej. 2200",
+			},
+			salaryType: {
+				label: "Tipo de Ingreso (en Pesos)",
+				yearlySalary: "Anual",
+				monthlySalary: "Mensual",
+				weeklySalary: "Sueldo por Semana",
+				dailySalary: "Sueldo por Día",
+				hourlyWage: "Sueldo por Hora",
 			},
 			contractType: {
 				label: "Tipo de Contrato",
@@ -553,6 +565,7 @@ export default {
 		jobpostings: {
 			apply_now: "Postularme",
 			hour: " Pesos Por Hora",
+			day: " Pesos Por Dia",
 			week: " Pesos Por Semana",
 			month: " Pesos Por Mes",
 			year: " Pesos Por Año",
@@ -605,8 +618,11 @@ export default {
 		},
 		showjob: {
 			apply_now: "Postularme",
-			hour: " Por Hora",
-			week: " Por Semana",
+			hour: " Pesos Por Hora",
+			day: " Pesos Por Dia",
+			week: " Pesos Por Semana",
+			month: " Pesos Por Mes",
+			year: " Pesos Por Año",
 			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
