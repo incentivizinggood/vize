@@ -38,6 +38,7 @@ function InnerForm({ submissionError }) {
 						<Field
 							name={`${name}.industrialHub`}
 							type="text"
+							required
 							t={T.fields.locations.industrialHub}
 						/>
 					</>

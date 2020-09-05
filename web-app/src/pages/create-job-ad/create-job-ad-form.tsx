@@ -39,7 +39,7 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	jobTitle: yup.string().required(),
+	jobTitle: yup.string().required("Se requiere el titulo de empleo"),
 	locations: yup
 		.array()
 		.of(
@@ -47,17 +47,20 @@ const schema = yup.object().shape({
 				city: yup
 					.string()
 					.max(300)
-					.required(),
+					.required("Se requiere la ciudad"),
 				address: yup
 					.string()
 					.max(300)
-					.required(),
-				industrialHub: yup.string().max(300),
+					.required("Se requiere la dirección"),
+				industrialHub: yup
+					.string()
+					.max(300)
+					.required("Se requiere el parque industrial"),
 			})
 		)
 		.required(),
-	salaryMin: yup.number().required(),
-	salaryMax: yup.number().required(),
+	salaryMin: yup.number().required("Se requiere el salario minimo"),
+	salaryMax: yup.number().required("Se requiere el salario maximo"),
 	salaryType: yup
 		.string()
 		.oneOf([
@@ -67,7 +70,7 @@ const schema = yup.object().shape({
 			"DAILY_SALARY",
 			"HOURLY_WAGE",
 		])
-		.required(),
+		.required("Se requiere el tipo de ingreso"),
 	contractType: yup
 		.mixed()
 		.oneOf([
@@ -77,10 +80,14 @@ const schema = yup.object().shape({
 			"TEMPORARY",
 			"CONTRACTOR",
 		])
-		.required(),
-	jobDescription: yup.string().required(),
-	responsibilities: yup.string().required(),
-	qualifications: yup.string().required(),
+		.required("Se requiere el tipo de contrato"),
+	jobDescription: yup
+		.string()
+		.required("Se requiere la descripción del trabajo"),
+	responsibilities: yup
+		.string()
+		.required("Se requieren las responabilidades"),
+	qualifications: yup.string().required("Se requieren las calificaciones"),
 });
 
 const onSubmit = (createJobAd, history, setSubmissionError) => (
