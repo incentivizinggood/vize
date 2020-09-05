@@ -327,13 +327,15 @@ export default {
 						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 				},
 			},
+			salaryExplanation:
+				"Enter a range with the minimum and maximum salary you are willing to offer for this job. You can also set the minimum and maximum to the same value.",
 			salaryMin: {
-				label: "Salary Minimum",
-				placeholder: "Enter a number in pesos",
+				label: "Minimum Salary (in Pesos)",
+				placeholder: "e.g. 2000",
 			},
 			salaryMax: {
-				label: "Salary Maximum",
-				placeholder: "Enter a number in pesos",
+				label: "Maximum Salary (in Pesos)",
+				placeholder: "e.g. 2200",
 			},
 			salaryType: {
 				label: "Income Type (in Pesos)",

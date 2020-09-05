@@ -339,13 +339,15 @@ export default {
 						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
 				},
 			},
+			salaryExplanation:
+				"Ingrese un rango con el salario mínimo y máximo que está dispuesto a ofrecer para este trabajo. También puedes ingresar el mismo valor para el salario mínimo y máximo.",
 			salaryMin: {
-				label: "Salario Mínimo",
-				placeholder: "Ingrese un número en pesos",
+				label: "Salario Mínimo (en Pesos)",
+				placeholder: "Ej. 2000",
 			},
 			salaryMax: {
-				label: "Salario Máximo",
-				placeholder: "Ingrese un número en pesos",
+				label: "Salario Máximo (en Pesos)",
+				placeholder: "Ej. 2200",
 			},
 			salaryType: {
 				label: "Tipo de Ingreso (en Pesos)",

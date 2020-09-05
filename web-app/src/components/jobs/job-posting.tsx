@@ -141,8 +141,24 @@ function JobPosting({ job }: JobPostingProps) {
 				{" "}
 				<FontAwesomeIcon icon={faMoneyBillAlt} />
 				&nbsp;&nbsp;
-				{job.pesosPerHour}
-				<T.showjob.hour />
+				{job.salaryMin === job.salaryMax ? (
+					job.salaryMin
+				) : (
+					<>
+						{"$"}
+						{job.salaryMin} - {"$"}
+						{job.salaryMax}
+					</>
+				)}{" "}
+				{
+					{
+						YEARLY_SALARY: <T.showjob.year />,
+						MONTHLY_SALARY: <T.showjob.month />,
+						WEEKLY_SALARY: <T.showjob.week />,
+						DAILY_SALARY: <T.showjob.day />,
+						HOURLY_WAGE: <T.showjob.hour />,
+					}[job.salaryType]
+				}
 			</p>
 			<p>
 				{" "}
