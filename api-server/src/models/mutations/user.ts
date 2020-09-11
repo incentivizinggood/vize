@@ -174,30 +174,24 @@ export async function authWithFacebook(input: unknown): Promise<User> {
 		abortEarly: false,
 	});
 
-	// Check if this user has logged in with Facebook before.
-	const { rows } = await pool.query(sql`
-		SELECT ${attributes}
-		FROM users
-		WHERE facebook_id=${facebookId}
+	/* If this is the first time that the user has logged in with Facebook
+	 * then create a new account for the user. If this is not the first
+	 * time, try to get the user's email_address if we do not already have it.
+	 */
+	const {
+		rows: [user],
+	} = await pool.query(sql`
+		insert into users
+			(facebook_id, role, email_address)
+		values
+			(${facebookId}, ${role}, ${emailAddress})
+		on conflict (users_facebook_id_key) do update set
+			email_address = coalesce(
+				users.email_address,
+				excluded.email_address
+			)
+		returning ${attributes}
 	`);
 
-	if (rows.length === 0) {
-		// This is the first time that the user has logged in with Facebook.
-		// Create a new account for the user.
-		const {
-			rows: [user],
-		} = await pool.query(sql`
-			INSERT INTO users
-				(facebook_id, role, email_address)
-			VALUES
-				(${facebookId}, ${role}, ${emailAddress})
-			RETURNING ${attributes}
-		`);
-
-		postToSlack(`:tada: A new user has joined Vize.`);
-
-		return user;
-	} else {
-		return rows[0];
-	}
+	return user;
 }
