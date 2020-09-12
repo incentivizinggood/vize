@@ -1,5 +1,7 @@
 import React from "react";
 import { Form } from "formik";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AttachMoney from "@material-ui/icons/AttachMoney";
 
 import { Button } from "src/components/button";
 import {
@@ -36,6 +38,7 @@ function InnerForm({ submissionError }) {
 						<Field
 							name={`${name}.industrialHub`}
 							type="text"
+							required
 							t={T.fields.locations.industrialHub}
 						/>
 					</>
@@ -43,12 +46,55 @@ function InnerForm({ submissionError }) {
 				T={T.fields.locations}
 			/>
 
-			<Field
-				name="pesosPerHour"
-				type="text"
-				required
-				t={T.fields.pesosPerHour}
+			<T.fields.salaryType
+				renderer={t => (
+					<Field name="salaryType" select required label={t.label}>
+						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
+						<option value="MONTHLY_SALARY">
+							{t.monthlySalary}
+						</option>
+						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
+						<option value="DAILY_SALARY">{t.dailySalary}</option>
+						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
+					</Field>
+				)}
 			/>
+			<div style={{ marginTop: "10px" }}>
+				<T.fields.salaryExplanation />
+			</div>
+			<span>
+				<Field
+					name="salaryMin"
+					type="number"
+					fullWidth={false}
+					required
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<AttachMoney />
+							</InputAdornment>
+						),
+					}}
+					style={{ width: "49%", marginRight: "2%" }}
+					t={T.fields.salaryMin}
+				/>
+
+				<Field
+					name="salaryMax"
+					type="number"
+					fullWidth={false}
+					required
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<AttachMoney />
+							</InputAdornment>
+						),
+					}}
+					style={{ width: "49%" }}
+					t={T.fields.salaryMax}
+				/>
+			</span>
 
 			<T.fields.contractType
 				renderer={t => (

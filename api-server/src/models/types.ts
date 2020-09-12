@@ -86,7 +86,14 @@ export type JobAd = {
 	companyId: number;
 
 	jobTitle: string;
-	pesosPerHour: string;
+	salaryMin: number;
+	salaryMax: number;
+	salaryType:
+		| "YEARLY_SALARY"
+		| "MONTHLY_SALARY"
+		| "WEEKLY_SALARY"
+		| "DAILY_SALARY"
+		| "HOURLY_WAGE";
 	contractType: string;
 	jobDescription: string;
 	responsibilities: string;
