@@ -65,7 +65,16 @@ function CompanyRating(props: CompanyRatingProps): JSX.Element {
 
 	// TODO: Handle nulls properly
 	if (!props.company.avgStarRatings) {
-		return <>No reviews yet</>;
+		return (
+			<>
+				<h3 style={{ textAlign: "center" }}>
+					<T.review_tab.have_you_worked_at /> {props.company.name}
+					{"? "}
+					<T.review_tab.first_review />
+				</h3>
+				<br />
+			</>
+		);
 	}
 
 	return (

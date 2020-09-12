@@ -49,12 +49,29 @@ function SalaryTab({ companyId }: SalaryTabProps): JSX.Element {
 		);
 	}
 
-	const renderedSalaries = data.company.salaryStats.map((salary, i) => (
-		<SalaryPosting key={i} salary={salary} />
-	));
+	const Salaries = () => {
+		if (!data.company.numSalaries) {
+			return (
+				<>
+					<h3 style={{ textAlign: "center" }}>
+						<T.salary_tab.have_you_worked_at /> {data.company.name}
+						{"? "}
+						<T.salary_tab.first_salary />
+					</h3>
+					<br />
+				</>
+			);
+		} else {
+			// Render list of salaries
+			return data.company.salaryStats.map((salary, i) => (
+				<SalaryPosting key={i} salary={salary} />
+			));
+		}
+	};
 
+	// Correct spelling depending on the amount of salaries
 	const SalaryText = () => {
-		if (data.company.numSalaries == 1) {
+		if (data.company.numSalaries === 1) {
 			return <T.salary_tab.job_salary />;
 		} else {
 			return <T.salary_tab.job_salaries />;
@@ -76,7 +93,7 @@ function SalaryTab({ companyId }: SalaryTabProps): JSX.Element {
 			</SectionHeaderContainer>
 
 			<SalaryPostingsContainer>
-				{renderedSalaries}
+				<Salaries />
 			</SalaryPostingsContainer>
 		</SectionContainer>
 	);

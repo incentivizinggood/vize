@@ -89,6 +89,14 @@ function ReviewTab({ companyId }: ReviewTabProps): JSX.Element {
 		);
 	}
 
+	const ReviewsText = () => {
+		if (data.company.numReviews === 1) {
+			return <T.review_tab.review />;
+		} else {
+			return <T.review_tab.reviews />;
+		}
+	};
+
 	return (
 		<div
 			role="tabpanel"
@@ -99,7 +107,7 @@ function ReviewTab({ companyId }: ReviewTabProps): JSX.Element {
 			<SectionContainer>
 				<SectionHeaderContainer>
 					<SectionHeaderTitle>
-						{data.company.name} <T.review_tab.reviews />
+						{data.company.numReviews} <ReviewsText />
 					</SectionHeaderTitle>
 					<div className="add-buttons">
 						<WriteReviewButton
