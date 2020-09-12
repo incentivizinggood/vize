@@ -7,32 +7,14 @@ export const Company: CompanyResolvers = {
 
 	locations: (obj, _args, _context, _info) =>
 		dataModel.getLocationsByCompany(obj),
-	dateJoined: (obj, _args, _context, _info) => obj.dateAdded,
 
-	avgStarRatings: (obj, _args, _context, _info) => {
-		if (
-			obj.healthAndSafety === null ||
-			obj.managerRelationship === null ||
-			obj.workEnvironment === null ||
-			obj.benefits === null ||
-			obj.overallSatisfaction === null
-		) {
-			return null;
-		} else {
-			return {
-				healthAndSafety: obj.healthAndSafety,
-				managerRelationship: obj.managerRelationship,
-				workEnvironment: obj.workEnvironment,
-				benefits: obj.benefits,
-				overallSatisfaction: obj.overallSatisfaction,
-			};
-		}
-	},
+	dateJoined: (obj, _args, _context, _info) => obj.dateAdded,
 
 	reviews: (obj, args, _context, _info) =>
 		dataModel.getReviewsByCompany(obj, args.pageNum, args.pageSize),
 
-	numReviews: (obj, _args, _context, _info) => obj.numReviews || 0,
+	numReviews: (obj, _args, _context, _info) =>
+		dataModel.countReviewsByCompany(obj),
 
 	jobAds: (obj, args, _context, _info) =>
 		dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
@@ -45,6 +27,14 @@ export const Company: CompanyResolvers = {
 
 	numSalaries: (obj, _args, _context, _info) =>
 		dataModel.countSalariesByCompany(obj),
+
+	reviewStats: async (obj, _args, _context, _info) => {
+		const reviewStats = await dataModel.getReviewStatsByCompanyName(
+			obj.name
+		);
+		console.log({ reviewStats });
+		return reviewStats;
+	},
 
 	salaryStats: (obj, _args, _context, _info) =>
 		dataModel.getSalaryStatsByCompanyName(obj.name),

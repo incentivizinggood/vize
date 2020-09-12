@@ -4,21 +4,6 @@ import { simpleQuery1 } from "src/connectors/postgresql";
 import { Company } from "src/models";
 import { paginate } from "src/models/misc";
 
-const companyReviewStatistics = sql`
-SELECT
-    companyname AS name,
-    count(*) AS numreviews,
-    avg(nummonthsworked) AS avgnummonthsworked,
-    avg(wouldrecommend::integer) AS percentrecommended,
-    avg(healthandsafety) AS healthandsafety,
-    avg(managerrelationship) AS managerrelationship,
-    avg(workenvironment) AS workenvironment,
-    avg(benefits) AS benefits,
-    avg(overallsatisfaction) AS overallsatisfaction
-FROM reviews
-GROUP BY companyname
-`;
-
 const attributes = sql.raw(
 	[
 		'companyid AS "companyId"',
@@ -32,20 +17,12 @@ const attributes = sql.raw(
 		'websiteurl AS "websiteURL"',
 		'contactphonenumber AS "contactPhoneNumber"',
 		'numflags AS "numFlags"',
-		'numreviews AS "numReviews"',
-		'avgnummonthsworked AS "avgNumMonthsWorked"',
-		'percentrecommended AS "percentRecommended"',
-		'healthandsafety AS "healthAndSafety"',
-		'managerrelationship AS "managerRelationship"',
-		'workenvironment AS "workEnvironment"',
-		"benefits",
-		'overallsatisfaction AS "overallSatisfaction"',
 	].join(", ")
 );
 
 const baseQuery = sql`
 	SELECT ${attributes}
-	FROM companies NATURAL LEFT JOIN (${companyReviewStatistics}) rs
+	FROM companies
 `;
 
 // Get the company with a given id.

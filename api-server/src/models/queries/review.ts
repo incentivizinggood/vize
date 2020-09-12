@@ -102,3 +102,11 @@ export async function getCompanyOfReview(
 
 	return company;
 }
+
+// Count the number of reviews written about a given company.
+export async function countReviewsByCompany(company: Company): Promise<number> {
+	const count = await simpleQuery1<{ count: number }>(
+		sql`SELECT COUNT(*) AS count FROM reviews WHERE companyname = ${company.name}`
+	);
+	return count ? count.count : 0;
+}

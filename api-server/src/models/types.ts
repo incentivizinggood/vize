@@ -58,8 +58,10 @@ export type Company = {
 	websiteURL: string;
 	contactPhoneNumber: string;
 	numFlags: number;
-	// TODO: Separate the review stats into a separate graphql type so that we
-	// do not have to join on every company query.
+};
+
+export type CompanyReviewStats = {
+	companyName: string;
 	numReviews: number | null;
 	avgNumMonthsWorked: number | null;
 	percentRecommended: number | null;

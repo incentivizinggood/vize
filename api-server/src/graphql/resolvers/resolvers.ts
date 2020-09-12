@@ -16,6 +16,7 @@ import { ResourceTopic } from "./resource-topic";
 import { CommentParent } from "./comment-parent";
 import { Comment } from "./comment";
 import { Company } from "./company";
+import { CompanyReviewStats } from "./company-review-stats";
 import { JobAd } from "./job-ad";
 import { Review } from "./review";
 import { Salary } from "./salary";
@@ -31,6 +32,7 @@ export const resolvers: IResolvers = {
 	CommentParent,
 	Comment,
 	Company,
+	CompanyReviewStats,
 	JobAd,
 	Review,
 	Salary,

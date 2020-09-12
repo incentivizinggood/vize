@@ -11,6 +11,7 @@ generates:
         ResourceAuthor: api-server/src/models/types#ResourceAuthor
         ResourceTopic: api-server/src/models/types#ResourceTopic
         Comment: api-server/src/models/types#Comment
+        CompanyReviewStats: api-server/src/models/types#CompanyReviewStats
         CompanySalaryStats: api-server/src/models/types#CompanySalaryStats
         CommentParent: api-server/src/models/types#CommentParent
         StarRatings: api-server/src/models/types#StarRatings

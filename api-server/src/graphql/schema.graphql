@@ -295,12 +295,6 @@ type Company {
 	dateJoined: DateTime
 	numFlags: Int
 
-	# TODO: Move these fields into a ReviewStats type for better preformance and
-	# code quality.
-	avgStarRatings: StarRatings
-	percentRecommended: Float
-	avgNumMonthsWorked: Float
-
 	"Reviews about this company."
 	reviews(pageNum: Int = 0, pageSize: Int = 24): [Review!]!
 	"Number of reviews about this company."
@@ -314,7 +308,17 @@ type Company {
 	"Number of salaries reported to be earned at this company."
 	numSalaries: Int!
 
+	reviewStats: CompanyReviewStats
+
 	salaryStats: [CompanySalaryStats!]!
+}
+
+type CompanyReviewStats {
+	companyName: String!
+	numReviews: Int!
+	percentRecommended: Float
+	avgNumMonthsWorked: Float
+	avgStarRatings: StarRatings
 }
 
 type CompanySalaryStats {
