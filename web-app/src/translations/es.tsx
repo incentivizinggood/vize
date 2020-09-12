@@ -606,8 +606,11 @@ export default {
 			jobs_available: "Trabajo(s) Disponibles",
 		},
 		review_tab: {
+			review: "Evaluación",
 			reviews: "Evaluaciones",
 			add_review: "Agregar Evaluación",
+			have_you_worked_at: "¿Has trabajado en ",
+			first_review: "¡Agrega la primera evaluación!",
 		},
 		salary_tab: {
 			job_salary: "Salario de Trabajo",
@@ -615,6 +618,8 @@ export default {
 			salary: "Salario",
 			salaries: "Salarios",
 			add_salary: "Agregar Salario",
+			have_you_worked_at: "¿Has trabajado en ",
+			first_salary: "¡Agrega el primer salario!",
 		},
 		showjob: {
 			apply_now: "Postularme",

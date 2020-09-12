@@ -80,7 +80,7 @@ export async function countSalariesByCompany(
 	company: Company
 ): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		sql`SELECT count FROM salary_counts WHERE companyname=${company.name}`
+		sql`SELECT COUNT(*) AS count FROM salaries WHERE companyname = ${company.name}`
 	);
 	return count ? count.count : 0;
 }

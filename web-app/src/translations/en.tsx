@@ -586,8 +586,11 @@ export default {
 			jobs_available: "Job(s) Available",
 		},
 		review_tab: {
+			review: "Review",
 			reviews: "Reviews",
 			add_review: "Add a Review",
+			have_you_worked_at: "Have you worked at ",
+			first_review: "Be the first to add a review!",
 		},
 		salary_tab: {
 			job_salary: "Job Salary",
@@ -595,6 +598,8 @@ export default {
 			salary: "Salary",
 			salaries: "Salaries",
 			add_salary: "Add a Salary",
+			have_you_worked_at: "Have you worked at ",
+			first_salary: "Be the first to add a salary!",
 		},
 		showjob: {
 			apply_now: "Apply Now",

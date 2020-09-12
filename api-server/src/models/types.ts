@@ -60,14 +60,14 @@ export type Company = {
 	numFlags: number;
 	// TODO: Separate the review stats into a separate graphql type so that we
 	// do not have to join on every company query.
-	numReviews: number;
-	avgNumMonthsWorked: number;
-	percentRecommended: number;
-	healthAndSafety: number;
-	managerRelationship: number;
-	workEnvironment: number;
-	benefits: number;
-	overallSatisfaction: number;
+	numReviews: number | null;
+	avgNumMonthsWorked: number | null;
+	percentRecommended: number | null;
+	healthAndSafety: number | null;
+	managerRelationship: number | null;
+	workEnvironment: number | null;
+	benefits: number | null;
+	overallSatisfaction: number | null;
 };
 
 export type CompanySalaryStats = {
