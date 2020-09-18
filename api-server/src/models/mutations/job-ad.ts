@@ -39,6 +39,19 @@ const createJobAdInputSchema = yup
 		jobDescription: yup.string().required(),
 		responsibilities: yup.string().required(),
 		qualifications: yup.string().required(),
+		// TODO: Should we check for a valid time format here? The database ensures this for now.
+		startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
+		endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
+		startDay: yup
+			.number()
+			.integer()
+			.min(0)
+			.max(6),
+		endDay: yup
+			.number()
+			.integer()
+			.min(0)
+			.max(6),
 	})
 	.required();
 
@@ -56,6 +69,10 @@ export async function createJobAd(
 		jobDescription,
 		responsibilities,
 		qualifications,
+		startTime,
+		endTime,
+		startDay,
+		endDay,
 	} = await createJobAdInputSchema.validate(input);
 
 	if (salaryMin > salaryMax) {
@@ -93,6 +110,10 @@ export async function createJobAd(
 					jobdescription,
 					responsibilities,
 					qualifications
+					start_time,
+					end_time,
+					start_day,
+					end_day
 				)
 			VALUES
 				(
@@ -104,7 +125,11 @@ export async function createJobAd(
 					${contractType},
 					${jobDescription},
 					${responsibilities},
-					${qualifications}
+					${qualifications},
+					${startTime},
+					${endTime},
+					${startDay},
+					${endDay}
 				)
 			RETURNING jobadid
 		`);
