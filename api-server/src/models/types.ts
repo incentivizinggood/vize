@@ -107,7 +107,9 @@ export type Review = {
 	submittedBy: number;
 	companyName: string;
 	companyId: number | null;
-	location: string;
+	city: string | null;
+	address: string | null;
+	industrialHub: string | null;
 	title: string;
 	jobTitle: string;
 	numberOfMonthsWorked: number;
@@ -132,7 +134,9 @@ export type Salary = {
 	submittedBy: number;
 	companyName: string;
 	companyId: number | null;
-	location: string;
+	city: string | null;
+	address: string | null;
+	industrialHub: string | null;
 	jobTitle: string;
 	incomeType: string;
 	incomeAmount: number;
@@ -162,8 +166,8 @@ export type Vote = SubjectRef & {
 export type VoteSubject = Comment | Review;
 
 export type Location = {
-	city: string;
-	address: string;
+	city: string | null;
+	address: string | null;
 	industrialHub: string | null;
 };
 

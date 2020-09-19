@@ -9,7 +9,6 @@ import {
 	Review,
 	isComment,
 	isReview,
-	Location,
 } from "src/models";
 
 /* VoteId's are strings that encode three numbers, [subjectType, submittedBy,
@@ -61,8 +60,4 @@ export function getVoteSubjectRef(subject: VoteSubject): SubjectRef {
 	} else {
 		throw new Error("NOT_ANY_TYPE_OF_VOTE_SUBJECT");
 	}
-}
-
-export function parseLocationString(str: string): Location {
-	return JSON.parse(str);
 }

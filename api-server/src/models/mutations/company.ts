@@ -90,14 +90,21 @@ export async function createCompany(
 			WHERE userid=${userId}
 		`);
 
-		const locationValues = locations
-			.map(l => sql`(${companyid}, ${JSON.stringify(l)})`)
-			.reduce((a, c) => sql`${a}, ${c}`);
 		await client.query(sql`
 			INSERT INTO company_locations
-				(companyid, companylocation)
+				(companyid, city, address, industrial_hub)
 			VALUES
-				${locationValues}
+				${locations
+					.map(
+						l =>
+							sql`(
+								${companyid},
+								${l.city},
+								${l.address},
+								${l.industrialHub}
+							)`
+					)
+					.reduce((a, c) => sql`${a}, ${c}`)}
 		`);
 
 		return companyid;

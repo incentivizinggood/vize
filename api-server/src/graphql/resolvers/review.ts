@@ -5,8 +5,11 @@ import { ReviewResolvers } from "generated/graphql-resolvers";
 export const Review: ReviewResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.reviewId),
 
-	location: (obj, _args, _context, _info) =>
-		dataModel.parseLocationString(obj.location),
+	location: (obj, _args, _context, _info) => ({
+		city: obj.city,
+		address: obj.address,
+		industrialHub: obj.industrialHub,
+	}),
 	wouldRecommendToOtherJobSeekers: (obj, _args, _context, _info) =>
 		obj.wouldRecommend,
 

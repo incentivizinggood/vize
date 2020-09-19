@@ -76,7 +76,9 @@ export async function createSalary(
 				(
 					submittedby,
 					companyname,
-					salarylocation,
+					city,
+					address,
+					industrial_hub,
 					jobtitle,
 					incometype,
 					incomeamount,
@@ -86,7 +88,9 @@ export async function createSalary(
 				(
 					${userId},
 					${companyName},
-					${location},
+					${location.city},
+					${location.address},
+					${location.industrialHub},
 					${jobTitle},
 					${incomeType},
 					${incomeAmount},
