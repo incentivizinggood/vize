@@ -155,9 +155,9 @@ input CreateJobAdInput {
 	responsibilities: String!
 	qualifications: String!
 
-	"The time of day that this job starts."
+	"The time of day that this job starts in the local time of the job site."
 	startTime: String
-	"The time of day that this job ends."
+	"The time of day that this job ends in the local time of the job site."
 	endTime: String
 	"The day of week that this job starts. (0 - 6; Sunday is 0)"
 	startDay: Int

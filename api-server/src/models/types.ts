@@ -100,8 +100,8 @@ export type JobAd = {
 	qualifications: string;
 	dateAdded: Date;
 
-	startTime: unknown | null;
-	endTime: unknown | null;
+	startTime: string | null;
+	endTime: string | null;
 	startDay: number | null;
 	endDay: number | null;
 };

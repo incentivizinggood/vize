@@ -109,7 +109,7 @@ export async function createJobAd(
 					contracttype,
 					jobdescription,
 					responsibilities,
-					qualifications
+					qualifications,
 					start_time,
 					end_time,
 					start_day,
