@@ -109,14 +109,21 @@ export async function createJobAd(
 			RETURNING jobadid
 		`);
 
-		const locationValues = locations
-			.map(l => sql`(${jobadid}, ${JSON.stringify(l)})`)
-			.reduce((a, c) => sql`${a}, ${c}`);
 		await client.query(sql`
 			INSERT INTO job_locations
-				(jobadid, joblocation)
+				(jobadid, city, address, industrial_hub)
 			VALUES
-				${locationValues}
+				${locations
+					.map(
+						l =>
+							sql`(
+								${jobadid},
+								${l.city},
+								${l.address},
+								${l.industrialHub}
+							)`
+					)
+					.reduce((a, c) => sql`${a}, ${c}`)}
 		`);
 
 		return jobadid;
