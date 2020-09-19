@@ -10,7 +10,9 @@ const attributes = sql.raw(
 		'companyname AS "companyName"',
 		'companyid AS "companyId"',
 		'jobtitle AS "jobTitle"',
-		'pesosperhour AS "pesosPerHour"',
+		'salary_min AS "salaryMin"',
+		'salary_max AS "salaryMax"',
+		'salary_type AS "salaryType"',
 		'contracttype AS "contractType"',
 		'jobdescription AS "jobDescription"',
 		"responsibilities",
@@ -52,7 +54,7 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 // Count the number of job ads posted by a given company.
 export async function countJobAdsByCompany(company: Company): Promise<number> {
 	const count = await simpleQuery1<{ count: number }>(
-		sql`SELECT count FROM job_post_counts WHERE companyname=${company.name}`
+		sql`SELECT COUNT(*) AS count FROM jobads WHERE companyname=${company.name}`
 	);
 	return count ? count.count : 0;
 }

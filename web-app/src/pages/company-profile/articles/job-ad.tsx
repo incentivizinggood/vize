@@ -60,8 +60,23 @@ function JobPosting(props: JobPostingProps): JSX.Element {
 					<p>
 						<FontAwesomeIcon icon={faMoneyBillAlt} />
 						&nbsp;&nbsp;
-						{props.jobAd.pesosPerHour}
-						<T.jobpostings.week />
+						{props.jobAd.salaryMin === props.jobAd.salaryMax ? (
+							props.jobAd.salaryMin
+						) : (
+							<>
+								{props.jobAd.salaryMin} to{" "}
+								{props.jobAd.salaryMax}
+							</>
+						)}
+						{
+							{
+								YEARLY_SALARY: <T.jobpostings.year />,
+								MONTHLY_SALARY: <T.jobpostings.month />,
+								WEEKLY_SALARY: <T.jobpostings.week />,
+								DAILY_SALARY: <T.jobpostings.day />,
+								HOURLY_WAGE: <T.jobpostings.hour />,
+							}[props.jobAd.salaryType]
+						}
 					</p>
 					<p>
 						<FontAwesomeIcon icon={faCalendar} />

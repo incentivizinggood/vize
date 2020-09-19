@@ -327,9 +327,23 @@ export default {
 						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
 				},
 			},
-			pesosPerHour: {
-				label: "Pesos per Week",
-				placeholder: "Enter a value, $x, or a range of values, $x - $y",
+			salaryExplanation:
+				"Enter a range with the minimum and maximum salary you are willing to offer for this job. You can also set the minimum and maximum to the same value.",
+			salaryMin: {
+				label: "Minimum Salary (in Pesos)",
+				placeholder: "e.g. 2000",
+			},
+			salaryMax: {
+				label: "Maximum Salary (in Pesos)",
+				placeholder: "e.g. 2200",
+			},
+			salaryType: {
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
+				hourlyWage: "Hourly Wage",
 			},
 			contractType: {
 				label: "Contract Type",
@@ -504,6 +518,8 @@ export default {
 		},
 		companyreview: {
 			recommend: "Recommended",
+			reviews: "Reviews",
+			review: "Review",
 			not_recommend: "Not Recommended",
 			overall: "Overall",
 			health_safety: "Health & Safety",
@@ -529,6 +545,7 @@ export default {
 		jobpostings: {
 			apply_now: "Apply Now",
 			hour: "Pesos Per Hour",
+			day: "Pesos Per Day",
 			week: "Pesos Per Week",
 			month: "Pesos Per Month",
 			year: "Pesos Per Year",
@@ -569,8 +586,11 @@ export default {
 			jobs_available: "Job(s) Available",
 		},
 		review_tab: {
+			review: "Review",
 			reviews: "Reviews",
 			add_review: "Add a Review",
+			have_you_worked_at: "Have you worked at ",
+			first_review: "Be the first to add a review!",
 		},
 		salary_tab: {
 			job_salary: "Job Salary",
@@ -578,14 +598,25 @@ export default {
 			salary: "Salary",
 			salaries: "Salaries",
 			add_salary: "Add a Salary",
+			have_you_worked_at: "Have you worked at ",
+			first_salary: "Be the first to add a salary!",
 		},
 		showjob: {
 			apply_now: "Apply Now",
-			hour: "/Hour",
+			hour: "Pesos Per Hour",
+			day: "Pesos Per Day",
+			week: "Pesos Per Week",
+			month: "Pesos Per Month",
+			year: "Pesos Per Year",
 			job_description: "Job Description",
 			qualifications: "Qualifications",
 			responsibilities: "Responsibilities",
 			posted_on: "Posted on",
+			fullTime: "Full time",
+			partTime: "Part time",
+			contractor: "Contractor",
+			internship: "Internship",
+			temporary: "Temporary",
 		},
 		CompanySearchResult: {
 			reviews: "Reviews",

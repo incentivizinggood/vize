@@ -4,6 +4,21 @@ import { simpleQuery1 } from "src/connectors/postgresql";
 import { Company } from "src/models";
 import { paginate } from "src/models/misc";
 
+const companyReviewStatistics = sql`
+SELECT
+    companyname AS name,
+    count(*) AS numreviews,
+    avg(nummonthsworked) AS avgnummonthsworked,
+    avg(wouldrecommend::integer) AS percentrecommended,
+    avg(healthandsafety) AS healthandsafety,
+    avg(managerrelationship) AS managerrelationship,
+    avg(workenvironment) AS workenvironment,
+    avg(benefits) AS benefits,
+    avg(overallsatisfaction) AS overallsatisfaction
+FROM reviews
+GROUP BY companyname
+`;
+
 const attributes = sql.raw(
 	[
 		'companyid AS "companyId"',
@@ -30,7 +45,7 @@ const attributes = sql.raw(
 
 const baseQuery = sql`
 	SELECT ${attributes}
-	FROM companies NATURAL JOIN company_review_statistics
+	FROM companies NATURAL LEFT JOIN (${companyReviewStatistics}) rs
 `;
 
 // Get the company with a given id.
@@ -50,13 +65,36 @@ export async function searchForCompanies(
 	pageNumber: number,
 	pageSize: number
 ): Promise<{ nodes: Company[]; totalCount: number }> {
+	const jobAdCounts = sql`
+			select
+				companyname,
+				count(*) as total
+			from jobads j
+			group by companyname
+		`;
+	const reviewCounts = sql`
+			select
+				companyname,
+				count(*) as total
+			from reviews r
+			group by companyname
+		`;
+	const salaryCounts = sql`
+			select
+				companyname,
+				count(*) as total
+			from salaries s
+			group by companyname
+		`;
+
 	// TODO: When PostgreSQL is upgraded to version 12 use websearch_to_tsquery instead of plainto_tsquery.
 	// websearch_to_tsquery is better, but only available in version 12 and up.
 	return paginate<Company>(
 		sql`
 			${baseQuery}
-				JOIN job_post_counts ON companies.name = job_post_counts.companyname
-				JOIN salary_counts ON companies.name = salary_counts.companyname
+			left join (${jobAdCounts}) jc on jc.companyname = companies.name
+			left join (${reviewCounts}) rc on rc.companyname = companies.name
+			left join (${salaryCounts}) sc on sc.companyname = companies.name
 			${
 				searchText
 					? sql`
@@ -68,7 +106,11 @@ export async function searchForCompanies(
 				) @@ plainto_tsquery('spanish', ${searchText})`
 					: sql``
 			}
-			ORDER BY job_post_counts.count*10 + numreviews*1.5 + salary_counts.count DESC
+			ORDER BY (
+					coalesce(jc.total, 0) * 10 +
+					coalesce(rc.total, 0) * 1.5 +
+					coalesce(sc.total, 0)
+				) desc
 		`,
 		pageNumber,
 		pageSize

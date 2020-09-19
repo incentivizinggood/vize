@@ -6,7 +6,9 @@ fragment CompanyProfileJobAd on JobAd {
 		address
 		industrialHub
 	}
-	pesosPerHour
+	salaryMin
+	salaryMax
+	salaryType
 	contractType
 	jobDescription
 	qualifications

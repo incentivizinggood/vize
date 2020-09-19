@@ -1,7 +1,32 @@
+import * as yup from "yup";
+
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 
-import { createSalaryInputSchema } from "src/utils/inputs/salary";
+import { locationInputSchema } from "./location";
+
+const createSalaryInputSchema = yup
+	.object({
+		companyName: yup.string().required(),
+		location: locationInputSchema,
+		jobTitle: yup.string().required(),
+		incomeType: yup
+			.string()
+			.oneOf([
+				"Yearly Salary",
+				"Monthly Salary",
+				"Weekly Salary",
+				"Daily Salary",
+				"Hourly Wage",
+			])
+			.required(),
+		incomeAmount: yup
+			.number()
+			.min(0)
+			.required(),
+		gender: yup.string().oneOf(["Male", "Female"]),
+	})
+	.required();
 
 export async function createSalary(
 	input: unknown,

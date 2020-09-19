@@ -89,8 +89,22 @@ function ShowJobComponent(props) {
 				{" "}
 				<FontAwesomeIcon icon={faMoneyBillAlt} />
 				&nbsp;&nbsp;
-				{props.item.pesosPerHour}
-				<T.showjob.hour />
+				{props.item.salaryMin === props.item.salaryMax ? (
+					props.item.salaryMin
+				) : (
+					<>
+						{props.item.salaryMin} to {props.item.salaryMax}
+					</>
+				)}
+				{
+					{
+						YEARLY_SALARY: <T.showjob.year />,
+						MONTHLY_SALARY: <T.showjob.month />,
+						WEEKLY_SALARY: <T.showjob.week />,
+						DAILY_SALARY: <T.showjob.day />,
+						HOURLY_WAGE: <T.showjob.hour />,
+					}[props.item.salaryType]
+				}
 			</p>
 			<p>
 				{" "}

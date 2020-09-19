@@ -46,7 +46,7 @@ interface CompanySearchResultProps {
 }
 
 function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
-	const companyProfileUrl = urlGenerators.vizeProfileUrl(props.company.id);
+	const companyProfileUrl = urlGenerators.vizeCompanyProfileUrl(props.company.id);
 	return (
 		<div>
 			<div className="container company-search-container">
@@ -75,14 +75,19 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 								{props.company.name}
 							</Link>
 						</span>
-						&nbsp;&nbsp;
-						<StarRatings
-							rating={
-								props.company.avgStarRatings.overallSatisfaction
-							}
-							starDimension="25px"
-							starSpacing="2px"
-						/>
+						{props.company.avgStarRatings ? (
+							<>
+								&nbsp;&nbsp;
+								<StarRatings
+									rating={
+										props.company.avgStarRatings
+											.overallSatisfaction
+									}
+									starDimension="25px"
+									starSpacing="2px"
+								/>
+							</>
+						) : null}
 						<div className="col-md-12 comp-class">
 							<div className="locahed">
 								<h4>
