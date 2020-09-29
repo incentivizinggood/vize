@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { pool } from "src/connectors/postgresql";
 import {
 	User,
-	getUserByUsername,
+	getUserByLogin,
 	hashPassword,
 	comparePassword,
 } from "src/models";
@@ -92,7 +92,7 @@ export async function verifyUser(input: unknown): Promise<User> {
 		abortEarly: false,
 	});
 
-	const user = await getUserByUsername(username);
+	const user = await getUserByLogin(username);
 
 	if (!user) {
 		throw "username does not match any account";
