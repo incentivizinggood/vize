@@ -37,7 +37,7 @@ export function isSalary(node: Node): node is Salary {
 }
 
 export function isUser(node: Node): node is User {
-	return (node as User).username !== undefined;
+	return (node as User).role !== undefined;
 }
 
 export function isVote(node: Node): node is Vote {

@@ -9,19 +9,22 @@ import { login } from "src/auth";
 import InnerForm from "./login-inner-form";
 
 const initialValues = {
-	username: "",
+	loginId: "",
 	password: "",
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(
-		"Nombre de Usuario es un campo requerido"
-	),
+	loginId: yup
+		.string()
+		.trim()
+		.required(
+			"Ingrese su dirección de correo electrónico o nombre de usuario."
+		),
 	password: schemas.password.required("Contraseña es un campo requerido"),
 });
 
 const onSubmit = history => (values, actions) => {
-	login(values.username, values.password)
+	login(values.loginId, values.password)
 		.then(x => {
 			console.log("then = ", x);
 			actions.resetForm(initialValues);
@@ -48,8 +51,8 @@ const onSubmit = history => (values, actions) => {
 					"username does not match any account"
 				)
 			) {
-				formErrors.username =
-					"El nombre de usuario no se ha encontrado";
+				formErrors.loginId =
+					"No se encontró una cuenta para ese correo electrónico o nombre de usuario";
 			}
 
 			if (error.error.errors.includes("password is incorrect")) {

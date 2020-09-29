@@ -14,12 +14,6 @@ import { attributes } from "../queries/user";
 
 const createUserInputSchema = yup
 	.object({
-		username: yup
-			.string()
-			.trim()
-			.min(1)
-			.max(32)
-			.required(),
 		email: yup
 			.string()
 			.email()
@@ -37,14 +31,12 @@ const createUserInputSchema = yup
 	.required();
 
 export async function createUser(input: unknown): Promise<User> {
-	const {
-		username,
-		email,
-		password,
-		role,
-	} = await createUserInputSchema.validate(input, {
-		abortEarly: false,
-	});
+	const { email, password, role } = await createUserInputSchema.validate(
+		input,
+		{
+			abortEarly: false,
+		}
+	);
 
 	const passwordHash = await hashPassword(password);
 
@@ -53,22 +45,18 @@ export async function createUser(input: unknown): Promise<User> {
 			rows: [user],
 		} = await pool.query(sql`
 			INSERT INTO users 
-				(username, email_address, password_hash, role) 
+				(email_address, password_hash, role) 
 			VALUES 
-				(${username}, ${email}, ${passwordHash}, ${role}) 
+				(${email}, ${passwordHash}, ${role}) 
 			RETURNING ${attributes}
 		`);
 
 		postToSlack(
-			`:tada: A new user has joined Vize. Please welcome \`${username}\`.`
+			`:tada: A new user has joined Vize. Please welcome id#: \`${user.userId}\`.`
 		);
 
 		return user;
 	} catch (err) {
-		if (err.constraint === "users_username_key") {
-			throw `That username is already taken. Please choose a different one.`;
-		}
-
 		if (err.constraint === "users_email_address_key") {
 			throw `That email address is used by another account. Please use a different one.`;
 		}
@@ -148,7 +136,7 @@ export async function changePassword(
 	await pool.query(sql`
 		UPDATE users
 		SET password_hash = ${newPasswordHash}
-		WHERE username = ${user.username}
+		WHERE userid = ${user.userId}
 	`);
 }
 

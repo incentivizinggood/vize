@@ -11,7 +11,6 @@ import { register } from "src/auth";
 import InnerForm from "./register-inner-form";
 
 const initialValues = {
-	username: "",
 	email: "",
 	companyName: "",
 	password: "",
@@ -19,9 +18,6 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	username: schemas.username.required(
-		"Nombre de Usuario es un campo requerido"
-	),
 	email: yup
 		.string()
 		.email("Correo Electrónico debe ser válido")
@@ -36,7 +32,6 @@ const schema = yup.object().shape({
 
 const onSubmit = history => (values, actions) => {
 	const options = {
-		username: values.username,
 		email: values.email,
 		password: values.password,
 		role: values.role,
@@ -74,10 +69,6 @@ const onSubmit = history => (values, actions) => {
 
 			// Errors to display on form fields
 			const formErrors = {};
-
-			if (error.error.errors.includes("username is taken")) {
-				formErrors.username = "Nombre de usuario ya existe";
-			}
 
 			if (error.error.errors.includes("email is taken")) {
 				formErrors.email = "La dirección de correo ya existe";

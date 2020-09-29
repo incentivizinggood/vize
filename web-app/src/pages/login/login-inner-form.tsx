@@ -35,7 +35,7 @@ function InnerForm(props) {
 	}
 	return (
 		<Form noValidate>
-			<Field name="username" type="text" required t={T.username} />
+			<Field name="loginId" type="text" required t={T.loginId} />
 
 			<Field name="password" type="password" required t={T.password} />
 

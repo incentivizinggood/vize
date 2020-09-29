@@ -27,8 +27,6 @@ function InnerForm(props: InnerFormProps) {
 
 	return (
 		<Form noValidate>
-			<Field name="username" type="text" required t={T.username} />
-
 			<Field name="email" type="email" required t={T.email} />
 
 			{companyNameField}

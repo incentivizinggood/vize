@@ -70,11 +70,10 @@ router.post("/login", async function(req, res, next) {
 				throw err;
 			}
 			// We assume the login was made by an API call.
-			// Return username and id in case the client wants to redirect.
+			// Return id in case the client wants to redirect.
 			res.json({
 				user: {
 					id: user.userId,
-					username: user.username,
 				},
 			});
 		});
@@ -106,11 +105,10 @@ router.post("/register", async function(req, res, next) {
 			if (err) {
 				throw err;
 			}
-			// Return username and id in case the client wants to redirect.
+			// Return id in case the client wants to redirect.
 			res.json({
 				user: {
 					id: user.userId,
-					username: user.username,
 				},
 			});
 		});

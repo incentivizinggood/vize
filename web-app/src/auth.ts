@@ -17,7 +17,7 @@ function afterLoginOrLogout<T>(x: T): T {
 	return x;
 }
 
-export const login = async (username: string, password: string) =>
+export const login = async (loginId: string, password: string) =>
 	fetch(
 		new Request(`${location.origin}/api/login`, {
 			method: "POST",
@@ -25,7 +25,7 @@ export const login = async (username: string, password: string) =>
 				"Content-Type": "application/json",
 			}),
 			body: JSON.stringify({
-				username,
+				username: loginId,
 				password,
 			}),
 		})
@@ -39,7 +39,6 @@ export const logout = async () =>
 	).then(afterLoginOrLogout);
 
 export const register = async (options: {
-	username: string;
 	email: string;
 	password: string;
 	role: "worker" | "company";
