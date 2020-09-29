@@ -52,10 +52,7 @@ const schema = yup.object().shape({
 					.string()
 					.max(300)
 					.required("Se requiere la dirección"),
-				industrialHub: yup
-					.string()
-					.max(300)
-					.required("Se requiere el parque industrial"),
+				industrialHub: yup.string().max(300),
 			})
 		)
 		.required(),
