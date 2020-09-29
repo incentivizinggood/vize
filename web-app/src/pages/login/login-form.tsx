@@ -48,11 +48,11 @@ const onSubmit = history => (values, actions) => {
 
 			if (
 				error.error.errors.includes(
-					"username does not match any account"
+					"No account was found for that email or username."
 				)
 			) {
 				formErrors.loginId =
-					"No se encontró una cuenta para ese correo electrónico o nombre de usuario";
+					"No se encontró ninguna cuenta para ese correo electrónico o nombre de usuario.";
 			}
 
 			if (error.error.errors.includes("password is incorrect")) {

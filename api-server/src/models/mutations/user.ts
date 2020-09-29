@@ -67,7 +67,7 @@ export async function createUser(input: unknown): Promise<User> {
 
 const verifyUserInputSchema = yup
 	.object({
-		username: yup
+		loginId: yup
 			.string()
 			.trim()
 			.required(),
@@ -76,14 +76,14 @@ const verifyUserInputSchema = yup
 	.required();
 
 export async function verifyUser(input: unknown): Promise<User> {
-	const { username, password } = await verifyUserInputSchema.validate(input, {
+	const { loginId, password } = await verifyUserInputSchema.validate(input, {
 		abortEarly: false,
 	});
 
-	const user = await getUserByLogin(username);
+	const user = await getUserByLogin(loginId);
 
 	if (!user) {
-		throw "username does not match any account";
+		throw "No account was found for that email or username.";
 	}
 
 	if (!user.passwordHash) {
