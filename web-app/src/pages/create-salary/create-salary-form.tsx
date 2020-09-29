@@ -38,20 +38,7 @@ const schema = yup.object().shape({
 	companyName: schemas.companyName.required(
 		"Se requiere el nombre de la empresa"
 	),
-	location: yup
-		.object()
-		.shape({
-			city: yup
-				.string()
-				.max(300)
-				.required("Se requiere el nombre de la ciudad"),
-			address: yup
-				.string()
-				.max(300)
-				.required("Se requiere la dirección"),
-			industrialHub: yup.string().max(300),
-		})
-		.required(),
+	location: schemas.locationSchema,
 	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
 	incomeType: yup
 		.string()
