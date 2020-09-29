@@ -1,6 +1,7 @@
 import React from "react";
-import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { Formik, FormikHelpers, FormikErrors } from "formik";
+import { useHistory } from "react-router-dom";
+import { History } from "history";
 import * as yup from "yup";
 import ReactGA from "react-ga";
 import ReactPixel from "react-facebook-pixel";
@@ -8,38 +9,41 @@ import ReactPixel from "react-facebook-pixel";
 import * as schemas from "src/form-schemas";
 import { register } from "src/auth";
 
-import InnerForm from "./register-inner-form";
+import { InnerForm } from "./register-inner-form";
 
-const initialValues = {
+const schema = yup
+	.object()
+	.shape({
+		email: yup
+			.string()
+			.email("Correo Electrónico debe ser válido")
+			.required("Correo Electrónico es un campo requerido"),
+		companyName: schemas.companyName,
+		password: schemas.password.required("Contraseña es un campo requerido"),
+	})
+	.required();
+
+type Values = yup.InferType<typeof schema>;
+
+const initialValues: Values = {
 	email: "",
 	companyName: "",
 	password: "",
-	role: "",
 };
 
-const schema = yup.object().shape({
-	email: yup
-		.string()
-		.email("Correo Electrónico debe ser válido")
-		.required("Correo Electrónico es un campo requerido"),
-	companyName: schemas.companyName,
-	password: schemas.password.required("Contraseña es un campo requerido"),
-	role: yup
-		.mixed()
-		.oneOf(["worker", "company"])
-		.required(),
-});
-
-const onSubmit = history => (values, actions) => {
+const onSubmit = (history: History, role: "worker" | "company") => (
+	values: Values,
+	actions: FormikHelpers<Values>
+) => {
 	const options = {
 		email: values.email,
 		password: values.password,
-		role: values.role,
+		role,
 	};
 
 	register(options)
 		.then(x => {
-			actions.resetForm(initialValues);
+			actions.resetForm({ values: initialValues });
 			// checks to see if the current page is the write a review page.
 			// if the current page is write a review page and a register is successful
 			// there should be no redirect so that the user can stay on the write a review page
@@ -68,7 +72,7 @@ const onSubmit = history => (values, actions) => {
 			console.error(error);
 
 			// Errors to display on form fields
-			const formErrors = {};
+			const formErrors: FormikErrors<Values> = {};
 
 			if (error.error.errors.includes("email is taken")) {
 				formErrors.email = "La dirección de correo ya existe";
@@ -79,7 +83,9 @@ const onSubmit = history => (values, actions) => {
 		});
 };
 
-function RegisterForm(props) {
+export function RegisterForm(): JSX.Element {
+	const history = useHistory();
+
 	const params = new URLSearchParams(location.search);
 	let userRole: string | null = "worker";
 
@@ -92,17 +98,13 @@ function RegisterForm(props) {
 		}
 	}
 
-	initialValues["role"] = userRole;
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={schema}
-			onSubmit={onSubmit(props.history)}
+			onSubmit={onSubmit(history, userRole)}
 		>
-			<InnerForm {...props} userRole={userRole} />
+			<InnerForm userRole={userRole} />
 		</Formik>
 	);
 }
-
-// TODO: Switch to useHistory hook.
-export default withRouter(RegisterForm);

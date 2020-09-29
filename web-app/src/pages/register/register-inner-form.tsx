@@ -1,7 +1,6 @@
 import React from "react";
 import { Form } from "formik";
 import styled from "styled-components";
-import { Formik } from "formik";
 
 import { Field, FormToolbar } from "src/components/form-stuff";
 import { Button } from "src/components/button";
@@ -19,7 +18,7 @@ interface InnerFormProps {
 	userRole: string;
 }
 
-function InnerForm(props: InnerFormProps) {
+export function InnerForm(props: InnerFormProps): JSX.Element {
 	const companyNameField =
 		props.userRole === "company" ? (
 			<Field name="companyName" type="text" t={T.companyName} />
@@ -41,5 +40,3 @@ function InnerForm(props: InnerFormProps) {
 		</Form>
 	);
 }
-
-export default InnerForm;
