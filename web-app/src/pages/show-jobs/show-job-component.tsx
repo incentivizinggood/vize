@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 import { forSize } from "src/responsive";
 import { processLocation } from "src/misc";
-import { urlGenerators } from "src/pages";
+import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;

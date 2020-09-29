@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ReactGA from "react-ga";
 
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 import { LinkButton } from "src/components/button";
 import { translations } from "src/translations";
 

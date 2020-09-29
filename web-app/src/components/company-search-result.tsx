@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
@@ -46,7 +46,9 @@ interface CompanySearchResultProps {
 }
 
 function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
-	const companyProfileUrl = urlGenerators.vizeCompanyProfileUrl(props.company.id);
+	const companyProfileUrl = urlGenerators.vizeCompanyProfileUrl(
+		props.company.id
+	);
 	return (
 		<div>
 			<div className="container company-search-container">

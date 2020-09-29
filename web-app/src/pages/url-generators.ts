@@ -59,15 +59,3 @@ export function vizeLogin(userRole?: string): string {
 		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
 	}`;
 }
-
-/** @deprecated Directly import the url generators instead of this object. */
-export const urlGenerators = {
-	vizeResourceUrl,
-	vizeResourceTopicUrl,
-	vizeCompanyProfileUrl,
-	vizeReviewUrl,
-	vizeSalaryUrl,
-	vizeApplyForJobUrl,
-	vizeRegister,
-	vizeLogin,
-};

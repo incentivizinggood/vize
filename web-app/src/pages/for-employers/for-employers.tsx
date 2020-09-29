@@ -5,7 +5,7 @@ import PageWrapper from "src/components/page-wrapper";
 import Banner, { BannerTitle } from "src/components/banner";
 import { LinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
 import { translations } from "src/translations";
 

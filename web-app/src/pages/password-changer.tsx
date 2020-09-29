@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 
 import { withUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";

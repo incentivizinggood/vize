@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import { urlGenerators } from "src/pages";
+import * as urlGenerators from "src/pages/url-generators";
 import { processLocation } from "src/misc";
 import { translations } from "src/translations";
 import { CompanyProfileJobAdFragment } from "generated/graphql-operations";
