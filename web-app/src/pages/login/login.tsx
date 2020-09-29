@@ -14,10 +14,8 @@ import LoginForm from "./login-form";
 
 const T = translations.loginRegister;
 
-/* The page where users can login to the app.
- */
-
-function LoginPage() {
+/** The page where users can login to the app. */
+function LoginPage(): JSX.Element {
 	let userRole = "worker";
 	const params = new URLSearchParams(location.search);
 

@@ -1,6 +1,7 @@
 import React from "react";
-import { Formik } from "formik";
-import { withRouter } from "react-router-dom";
+import { Formik, FormikHelpers, FormikErrors } from "formik";
+import { useHistory } from "react-router-dom";
+import { History } from "history";
 import * as yup from "yup";
 
 import * as schemas from "src/form-schemas";
@@ -8,26 +9,34 @@ import { login } from "src/auth";
 
 import InnerForm from "./login-inner-form";
 
-const initialValues = {
+const schema = yup
+	.object()
+	.shape({
+		loginId: yup
+			.string()
+			.trim()
+			.required(
+				"Ingrese su dirección de correo electrónico o nombre de usuario."
+			),
+		password: schemas.password.required("Contraseña es un campo requerido"),
+	})
+	.required();
+
+type Values = yup.InferType<typeof schema>;
+
+const initialValues: Values = {
 	loginId: "",
 	password: "",
 };
 
-const schema = yup.object().shape({
-	loginId: yup
-		.string()
-		.trim()
-		.required(
-			"Ingrese su dirección de correo electrónico o nombre de usuario."
-		),
-	password: schemas.password.required("Contraseña es un campo requerido"),
-});
-
-const onSubmit = history => (values, actions) => {
+const onSubmit = (history: History) => (
+	values: Values,
+	actions: FormikHelpers<Values>
+) => {
 	login(values.loginId, values.password)
 		.then(x => {
 			console.log("then = ", x);
-			actions.resetForm(initialValues);
+			actions.resetForm({ values: initialValues });
 
 			// TODO: use query params so that login redirects user back to where they were when they login
 			if (
@@ -44,7 +53,7 @@ const onSubmit = history => (values, actions) => {
 			console.error("Login error is", error);
 
 			// Errors to display on form fields
-			const formErrors = {};
+			const formErrors: FormikErrors<Values> = {};
 
 			if (
 				error.error.errors.includes(
@@ -65,15 +74,16 @@ const onSubmit = history => (values, actions) => {
 		});
 };
 
-const LoginForm = props => (
-	<Formik
-		initialValues={initialValues}
-		validationSchema={schema}
-		onSubmit={onSubmit(props.history)}
-	>
-		<InnerForm {...props} />
-	</Formik>
-);
+export default function LoginForm(): JSX.Element {
+	const history = useHistory();
 
-// TODO: Switch to useHistory hook.
-export default withRouter(LoginForm);
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={schema}
+			onSubmit={onSubmit(history)}
+		>
+			<InnerForm />
+		</Formik>
+	);
+}
