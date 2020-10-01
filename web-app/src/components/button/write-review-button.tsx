@@ -22,7 +22,9 @@ function buttonTracking(buttonLocation?: string) {
 	});
 }
 
-function WriteReviewButton(props: WriteReviewButtonProps) {
+export default function WriteReviewButton(
+	props: WriteReviewButtonProps
+): JSX.Element {
 	return (
 		<LinkButton
 			to={urlGenerators.vizeReviewUrl(props.companyName)}
@@ -35,8 +37,3 @@ function WriteReviewButton(props: WriteReviewButtonProps) {
 		</LinkButton>
 	);
 }
-
-// Work around until we get types on withUpdateOnChangeLocale.
-const foo: React.ComponentType<WriteReviewButtonProps> = WriteReviewButton;
-
-export default foo;

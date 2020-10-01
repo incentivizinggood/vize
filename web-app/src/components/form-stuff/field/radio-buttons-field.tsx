@@ -7,14 +7,14 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PrivacyIcon from "@material-ui/icons/Security";
 
-const RadioButtonsField: React.FC<any> = ({
+export default function RadioButtonsField({
 	field,
 	form: { touched, errors },
 	name,
 	options,
 	label,
 	...props
-}) => {
+}: any): JSX.Element {
 	const [value, setValue] = React.useState("FORMER");
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +40,4 @@ const RadioButtonsField: React.FC<any> = ({
 			</RadioGroup>
 		</FormControl>
 	);
-};
-
-export default RadioButtonsField;
+}

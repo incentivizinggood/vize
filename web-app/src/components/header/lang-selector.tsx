@@ -12,12 +12,14 @@ interface LocaleIconProps {
 	code: keyof (typeof localeMetadata);
 }
 
-const LocaleIcon: React.FC<LocaleIconProps> = ({ code }) => (
-	<img
-		src={localeMetadata[code].icon}
-		alt={localeMetadata[code].nativeName}
-	/>
-);
+function LocaleIcon({ code }: LocaleIconProps): JSX.Element {
+	return (
+		<img
+			src={localeMetadata[code].icon}
+			alt={localeMetadata[code].nativeName}
+		/>
+	);
+}
 
 const LocaleButton = styled.button`
 	padding: 0;
@@ -48,7 +50,7 @@ const langOptions = (setLocale: (locale: string) => void) => (
 	</>
 );
 
-function LangSelector() {
+export default function LangSelector(): JSX.Element {
 	const locale = React.useContext(LocaleContext);
 	const setLocale = React.useContext(LocaleSetterContext);
 
@@ -68,5 +70,3 @@ function LangSelector() {
 		</Popup>
 	);
 }
-
-export default LangSelector;

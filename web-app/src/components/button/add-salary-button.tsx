@@ -22,7 +22,9 @@ function buttonTracking(buttonLocation?: string) {
 	});
 }
 
-function AddSalaryButton(props: AddSalaryButtonProps) {
+export default function AddSalaryButton(
+	props: AddSalaryButtonProps
+): JSX.Element {
 	return (
 		<LinkButton
 			to={urlGenerators.vizeSalaryUrl(props.companyName)}
@@ -35,8 +37,3 @@ function AddSalaryButton(props: AddSalaryButtonProps) {
 		</LinkButton>
 	);
 }
-
-// Work around until we get types on withUpdateOnChangeLocale.
-const foo: React.ComponentType<AddSalaryButtonProps> = AddSalaryButton;
-
-export default foo;
