@@ -118,6 +118,7 @@ export default function Footer() {
 				<SocialLinks>
 					<a
 						href="https://www.facebook.com/Vize-Incentivando-El-Bien-468437690335687/"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src={facebookIcon} alt="Facebook" />
@@ -125,6 +126,7 @@ export default function Footer() {
 					{/* Commenting until our twitter account is active
 					<a
 						href="https://www.twitter.com/vizeglobal"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src="/images/twitter.png" alt="Twitter" />
@@ -132,12 +134,14 @@ export default function Footer() {
 					*/}
 					<a
 						href="https://www.instagram.com/incentivandoelbien/"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src={instagramIcon} alt="Instagram" />
 					</a>
 					<a
 						href="https://www.linkedin.com/company/incentivizinggood"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src={linkedInIcon} alt="LinkedIn" />
@@ -149,6 +153,7 @@ export default function Footer() {
 					<InternalLinks>
 						<ContactNumberLink
 							href="https://wa.me/5216647480001"
+							rel="noreferrer"
 							target="_blank"
 						>
 							<WhatsApp src={whatsAppIcon} alt="WhatsApp" /> +52
