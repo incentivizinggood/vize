@@ -4,14 +4,12 @@ import styled from "styled-components";
 
 import { forSize } from "src/responsive";
 import colors from "src/colors";
-import { translations } from "src/translations";
+import { useTranslations } from "src/translations";
 
 import facebookIcon from "src/images/facebook.png";
 import instagramIcon from "src/images/instagram.png";
 import linkedInIcon from "src/images/linkedin.png";
 import whatsAppIcon from "src/images/whatsapp.png";
-
-const T = translations.footer;
 
 const FooterContainer = styled.footer`
 	padding: 1.5em;
@@ -96,21 +94,18 @@ const ContactNumberLink = styled.a`
 	text-decoration: underline;
 `;
 
-// About Contact Help | social media
-export default function Footer() {
+export default function Footer(): JSX.Element {
+	const t = useTranslations().footer;
+
 	return (
 		<FooterContainer>
 			<LinksContainer>
 				<InternalLinks>
-					<Link to="/about">
-						<T.aboutUs />
-					</Link>
-					<Link to="/contact-us">
-						<T.contactUs />
-					</Link>
+					<Link to="/about">{t.aboutUs}</Link>
+					<Link to="/contact-us">{t.contactUs}</Link>
 					{/* commenting out until we have a help page
 					<Link to="/help">
-						<T.help />
+						{t.help}
 					</Link>
 					-->*/}
 				</InternalLinks>
@@ -161,7 +156,7 @@ export default function Footer() {
 						</ContactNumberLink>
 					</InternalLinks>
 					<SocialLinks>
-						Vize © 2020. <T.allRightsReserved />
+						Vize © 2020. {t.allRightsReserved}
 					</SocialLinks>
 				</LinksContainer>
 			</CopyRight>
