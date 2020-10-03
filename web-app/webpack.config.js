@@ -2,6 +2,7 @@ const path = require("path");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
 	entry: "./src/index.tsx",
@@ -58,6 +59,9 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new ForkTsCheckerWebpackPlugin({
+			eslint: { files: "./src/**/*.{ts,tsx,js,jsx}" },
+		}),
 		new ProgressBarPlugin(),
 		new HtmlWebPackPlugin({
 			template: "./src/index.html",
