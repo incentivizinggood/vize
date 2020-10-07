@@ -148,18 +148,22 @@ export async function companyNameSuggestions(
 		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
 	].join(" & ");
 
-	const results = await simpleQuery<{ name: string }>(sql`
+	const results = await simpleQuery<{ company_name: string }>(sql`
 		SELECT
-			name
+			company_name
 		FROM
-			companies,
+			(
+				SELECT name AS company_name FROM companies
+				UNION
+				SELECT companyname AS company_name FROM reviews
+			) names,
 			to_tsquery(${tsquery}) query,
-			to_tsvector(name) search_vector,
+			to_tsvector(company_name) search_vector,
 			ts_rank(search_vector, query) rank
 		WHERE query @@ search_vector
 		ORDER BY rank DESC
 		LIMIT 10;
 	`);
 
-	return results.map(({ name }) => name);
+	return results.map(({ company_name }) => company_name);
 }
