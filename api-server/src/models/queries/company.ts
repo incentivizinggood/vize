@@ -1,5 +1,5 @@
 import sql from "src/utils/sql-template";
-import { simpleQuery1 } from "src/connectors/postgresql";
+import { simpleQuery1, simpleQuery } from "src/connectors/postgresql";
 
 import { Company } from "src/models";
 import { paginate } from "src/models/misc";
@@ -115,4 +115,51 @@ export async function searchForCompanies(
 		pageNumber,
 		pageSize
 	);
+}
+
+/** For use in inputs to PostgreSQL's to_tsquery. */
+function escapeTsqueryTerm(term: string): string {
+	return `'${term.replace("'", "''")}'`;
+}
+
+/** Get autocomplete suggestions for company names. */
+export async function companyNameSuggestions(
+	partialCompanyName: string
+): Promise<string[]> {
+	/**
+	 * Words that end before the end of the string.
+	 * The user has finished typing these.
+	 */
+	const finishedWords = partialCompanyName.match(/\w+\b(?!$)/g) || [];
+
+	/**
+	 * Words that end at the end of the string.
+	 * The user may not have finished typing these.
+	 */
+	const unfinishedWords = partialCompanyName.match(/\w+$/g) || [];
+
+	if (finishedWords.length + unfinishedWords.length < 1) {
+		// The user has not typed enough to make any suggestions.
+		return [];
+	}
+
+	const tsquery = [
+		...finishedWords.map(escapeTsqueryTerm),
+		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
+	].join(" & ");
+
+	const results = await simpleQuery<{ name: string }>(sql`
+		SELECT
+			name
+		FROM
+			companies,
+			to_tsquery(${tsquery}) query,
+			to_tsvector(name) search_vector,
+			ts_rank(search_vector, query) rank
+		WHERE query @@ search_vector
+		ORDER BY rank DESC
+		LIMIT 10;
+	`);
+
+	return results.map(({ name }) => name);
 }
