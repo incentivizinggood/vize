@@ -3,8 +3,9 @@ import ReactGA from "react-ga";
 import ReactPixel from "react-facebook-pixel";
 import { useLocation } from "react-router-dom";
 
-/** Don't run analytics if testing.
- * If testing analytics, test this to true manually.
+/**
+ * Don't run analytics if testing.
+ * If testing analytics, set this to true manually.
  */
 export const analyticsEnabled = document.location.hostname === "www.vize.mx";
 
@@ -14,6 +15,8 @@ if (analyticsEnabled) {
 }
 
 function sendPageView(path: string): void {
+	if (!analyticsEnabled) return;
+
 	ReactGA.set({ page: path });
 	ReactGA.pageview(path);
 
@@ -21,6 +24,8 @@ function sendPageView(path: string): void {
 }
 
 export function sendEvent(args: ReactGA.EventArgs): void {
+	if (!analyticsEnabled) return;
+
 	const { action, ...data } = args;
 
 	ReactGA.event(args);
@@ -28,6 +33,10 @@ export function sendEvent(args: ReactGA.EventArgs): void {
 }
 
 export function usePageView(): void {
+	// Normally guard clauses in hooks would cause bugs, but because
+	// analyticsEnabled is a global constant this should be fine.
+	if (!analyticsEnabled) return;
+
 	const location = useLocation();
 
 	React.useEffect(() => {
