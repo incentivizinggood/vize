@@ -44,15 +44,15 @@ export async function createUser(input: unknown): Promise<User> {
 		const {
 			rows: [user],
 		} = await pool.query(sql`
-			INSERT INTO users 
-				(email_address, password_hash, role) 
-			VALUES 
-				(${email}, ${passwordHash}, ${role}) 
+			INSERT INTO users
+				(email_address, password_hash, role)
+			VALUES
+				(${email}, ${passwordHash}, ${role})
 			RETURNING ${attributes}
 		`);
 
 		postToSlack(
-			`:tada: A new user has joined Vize. Please welcome id#: \`${user.userId}\`.`
+			`:tada: A new user has joined Vize. Please welcome user with email: \`${user.emailAddress}\`.`
 		);
 
 		return user;
