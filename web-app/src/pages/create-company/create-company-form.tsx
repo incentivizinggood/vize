@@ -52,19 +52,7 @@ const schema = yup.object().shape({
 	industry: yup.string().max(50),
 	locations: yup
 		.array()
-		.of(
-			yup.object().shape({
-				city: yup
-					.string()
-					.max(300)
-					.required(),
-				address: yup
-					.string()
-					.max(300)
-					.required(),
-				industrialHub: yup.string().max(300),
-			})
-		)
+		.of(schemas.locationSchema)
 		.required(),
 	websiteURL: yup
 		.string()

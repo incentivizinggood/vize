@@ -79,20 +79,7 @@ const schema = yup
 		reviewTitle: yup
 			.string()
 			.required("Se requiere el titulo de la evaluación"),
-		location: yup
-			.object()
-			.shape({
-				city: yup
-					.string()
-					.max(300)
-					.required("Se requiere el nombre de la ciudad"),
-				address: yup
-					.string()
-					.max(300)
-					.required("Se requiere la dirección"),
-				industrialHub: yup.string().max(300),
-			})
-			.required(),
+		location: schemas.locationSchema,
 		jobTitle: yup
 			.string()
 			.required("Se requiere el nombre de el puesto desempeñado"),
