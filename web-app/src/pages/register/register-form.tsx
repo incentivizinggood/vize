@@ -2,9 +2,8 @@ import React from "react";
 import { Formik } from "formik";
 import { withRouter } from "react-router-dom";
 import * as yup from "yup";
-import ReactGA from "react-ga";
-import ReactPixel from "react-facebook-pixel";
 
+import * as analytics from "src/startup/analytics";
 import * as schemas from "src/form-schemas";
 import { register } from "src/auth";
 
@@ -49,13 +48,9 @@ const onSubmit = history => (values, actions) => {
 			// if the current page is write a review page and a register is successful
 			// there should be no redirect so that the user can stay on the write a review page
 
-			ReactGA.event({
+			analytics.sendEvent({
 				category: "User",
 				action: "Created Account",
-				label: options.role,
-			});
-			ReactPixel.track("Created Account", {
-				category: "User",
 				label: options.role,
 			});
 

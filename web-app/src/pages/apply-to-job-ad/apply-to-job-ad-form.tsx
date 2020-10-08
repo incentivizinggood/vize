@@ -3,8 +3,7 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
+import * as analytics from "src/startup/analytics";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 
@@ -53,13 +52,9 @@ const onSubmit = (applyToJobAd, history, setSubmissionError) => (
 			actions.resetForm(initialValues);
 
 			// Track successful job application submitted event
-			ReactGA.event({
+			analytics.sendEvent({
 				category: "User",
 				action: "Job Application Submitted",
-				label: values.jobAdId,
-			});
-			ReactPixel.track("Job Application Submitted", {
-				category: "User",
 				label: values.jobAdId,
 			});
 

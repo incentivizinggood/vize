@@ -20,6 +20,13 @@ function sendPageView(path: string): void {
 	ReactPixel.pageView();
 }
 
+export function sendEvent(args: ReactGA.EventArgs): void {
+	const { action, ...data } = args;
+
+	ReactGA.event(args);
+	ReactPixel.track(action, data);
+}
+
 export function usePageView(): void {
 	const location = useLocation();
 
