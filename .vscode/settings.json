@@ -1,5 +1,11 @@
 {
-	"cSpell.words": ["Incentivizing", "Vize", "deserialize", "prehash"],
+	"cSpell.words": [
+		"Formik",
+		"Incentivizing",
+		"Vize",
+		"deserialize",
+		"prehash"
+	],
 	"eslint.validate": ["typescript", "typescriptreact"],
 	"eslint.run": "onSave",
 	"typescript.tsdk": "./node_modules/typescript/lib"

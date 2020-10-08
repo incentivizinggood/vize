@@ -1,6 +1,6 @@
 import React from "react";
 
-import RegisterForm from "src/pages/register/register-form";
+import { RegisterForm } from "src/pages/register/register-form";
 import LoginForm from "src/pages/login/login-form";
 import { translations } from "src/translations";
 import styled from "styled-components";

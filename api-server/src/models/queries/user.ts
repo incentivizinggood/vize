@@ -14,6 +14,7 @@ export const attributes = sql.raw(
 		'companyid AS "companyId"',
 	].join(", ")
 );
+
 const baseQuery = sql`SELECT ${attributes} FROM users`;
 
 // Get the user with a given id.
@@ -32,6 +33,27 @@ export async function getUserByUsername(
 		${baseQuery}
 		WHERE username=${username}
 	`);
+}
+
+/** Get the user with a given email address. */
+export async function getUserByEmailAddress(
+	emailAddress: string
+): Promise<User | null> {
+	return simpleQuery1<User>(sql`
+		${baseQuery}
+		WHERE email_address = ${emailAddress}
+	`);
+}
+
+/** Get the user with a given email or username. */
+export async function getUserByLogin(login: string): Promise<User | null> {
+	let user = await getUserByEmailAddress(login);
+
+	if (user === null) {
+		user = await getUserByUsername(login);
+	}
+
+	return user;
 }
 
 // Get all users administering a given company.

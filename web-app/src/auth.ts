@@ -17,34 +17,42 @@ function afterLoginOrLogout<T>(x: T): T {
 	return x;
 }
 
-export const login = async (username: string, password: string) =>
-	fetch(
+export async function login(
+	loginId: string,
+	password: string
+): Promise<unknown> {
+	const x = await fetch(
 		new Request(`${location.origin}/api/login`, {
 			method: "POST",
 			headers: new Headers({
 				"Content-Type": "application/json",
 			}),
 			body: JSON.stringify({
-				username,
+				loginId,
 				password,
 			}),
 		})
-	).then(afterLoginOrLogout);
+	);
 
-export const logout = async () =>
-	fetch(
+	return afterLoginOrLogout(x);
+}
+
+export async function logout(): Promise<unknown> {
+	const x = await fetch(
 		new Request(`${location.origin}/api/logout`, {
 			method: "POST",
 		})
-	).then(afterLoginOrLogout);
+	);
 
-export const register = async (options: {
-	username: string;
+	return afterLoginOrLogout(x);
+}
+
+export async function register(options: {
 	email: string;
 	password: string;
 	role: "worker" | "company";
-}) =>
-	fetch(
+}): Promise<unknown> {
+	const x = await fetch(
 		new Request(`${location.origin}/api/register`, {
 			method: "POST",
 			headers: new Headers({
@@ -52,13 +60,16 @@ export const register = async (options: {
 			}),
 			body: JSON.stringify(options),
 		})
-	).then(afterLoginOrLogout);
+	);
 
-export const changePassword = async (options: {
+	return afterLoginOrLogout(x);
+}
+
+export function changePassword(options: {
 	oldPassword: string;
 	newPassword: string;
-}) =>
-	fetch(
+}): Promise<unknown> {
+	return fetch(
 		new Request(`${location.origin}/api/change-password`, {
 			method: "POST",
 			headers: new Headers({
@@ -67,3 +78,4 @@ export const changePassword = async (options: {
 			body: JSON.stringify(options),
 		})
 	);
+}

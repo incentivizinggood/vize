@@ -68,6 +68,10 @@ export default {
 		noAccount: "Don't have an account? ",
 		register: "Register",
 		username: { label: "Username", placeholder: "Username" },
+		loginId: {
+			label: "Email or username",
+			placeholder: "Email or username",
+		},
 		password: { label: "Password", placeholder: "Password" },
 		registrationSuccess: "Registration successful!",
 		companyName: { label: "Company Name", placeholder: "Company Name" },

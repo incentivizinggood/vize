@@ -14,28 +14,10 @@ const LoginButton = styled(Button)`
 	margin-top: 20px;
 `;
 
-// defining global variable because I do not want the value to change when user
-// navigates from the register or login page. Esentially making it static
-let userRole = localStorage.getItem("userRole");
-
-function InnerForm(props) {
-	if (props.location.state) {
-		if (
-			props.location.state.prevPath !== "/register" &&
-			props.location.state.prevPath !== "/login"
-		) {
-			userRole = "worker";
-
-			if (props.location.state.prevPath === "/for-employers") {
-				userRole = "company";
-			}
-			// save the role to local storage so that the variable is not reset when page is refreshed
-			localStorage.setItem("userRole", userRole);
-		}
-	}
+export default function InnerForm(): JSX.Element {
 	return (
 		<Form noValidate>
-			<Field name="username" type="text" required t={T.username} />
+			<Field name="loginId" type="text" required t={T.loginId} />
 
 			<Field name="password" type="password" required t={T.password} />
 
@@ -47,5 +29,3 @@ function InnerForm(props) {
 		</Form>
 	);
 }
-
-export default InnerForm;

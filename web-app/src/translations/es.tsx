@@ -70,6 +70,10 @@ export default {
 			label: "Nombre de Usuario",
 			placeholder: "Nombre de Usuario",
 		},
+		loginId: {
+			label: "Correo electrónico o nombre de usuario",
+			placeholder: "Correo electrónico o nombre de usuario",
+		},
 		password: { label: "Contraseña", placeholder: "Contraseña" },
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
