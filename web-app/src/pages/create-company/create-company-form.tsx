@@ -3,10 +3,9 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter } from "lodash";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
 
 import { useCreateCompanyMutation } from "generated/graphql-operations";
+import * as analytics from "src/startup/analytics";
 import * as schemas from "src/form-schemas";
 import { urlGenerators } from "src/pages/url-generators";
 
@@ -77,11 +76,10 @@ const onSubmit = (createCompany, history, setSubmissionError) => (
 			actions.resetForm(initialValues);
 
 			// Track successful Company Created event
-			ReactGA.event({
+			analytics.sendEvent({
 				category: "Company",
 				action: "Company Created",
 			});
-			ReactPixel.track("Company Created", { category: "Company" });
 
 			// Go to the newly created company's page.
 			history.push(
