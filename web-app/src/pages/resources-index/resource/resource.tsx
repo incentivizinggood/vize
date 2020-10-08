@@ -7,8 +7,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { withUser } from "src/hoc/user";
 import { ResourceAuthor } from "imports/api/models/types";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
+import * as analytics from "src/startup/analytics";
 
 import {
 	SectionTitle,
@@ -276,13 +275,9 @@ function ResourcePage(props) {
 		return <>{JSON.stringify(error)}</>;
 	}
 
-	ReactGA.event({
+	analytics.sendEvent({
 		category: "User",
 		action: "Viewed Article",
-		label: slug,
-	});
-	ReactPixel.track("Viewed Article", {
-		category: "User",
 		label: slug,
 	});
 

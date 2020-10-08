@@ -13,7 +13,7 @@ import {
 } from "src/components/button";
 import CompaniesSearchBar from "src/components/companies-search-bar";
 import { translations } from "src/translations";
-import ReactGA from "react-ga";
+import * as analytics from "src/startup/analytics";
 
 import homeImg1 from "src/images/home-img-1.png";
 import homeImg2 from "src/images/home-img-2.png";
@@ -26,14 +26,14 @@ import salaryIcon from "src/images/salary-icon.png";
 const T = translations.homePage;
 
 function addReviewHomeTop() {
-	ReactGA.event({
+	analytics.sendEvent({
 		category: "Button",
 		action: "Add Review Pressed",
 		label: "Home | Top",
 	});
 }
 function addSalaryHomeBottom() {
-	ReactGA.event({
+	analytics.sendEvent({
 		category: "Button",
 		action: "Add Salary Pressed",
 		label: "Home | Bottom",
