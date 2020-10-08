@@ -1,4 +1,4 @@
-const queryRoutes = {
+export const queryRoutes = {
 	resources: "recursos",
 	companyProfile: "companyprofile",
 	writeReview: "write-review",
@@ -12,62 +12,50 @@ const queryRoutes = {
 // exporting commonly-used URL generators
 // in order to reduce the risk of typos
 // and reduce the use of magic strings
-const vizeResourceUrl = function(slug: string) {
+
+export function vizeResourceUrl(slug: string): string {
 	return `/${queryRoutes.resources}/recurso/${slug}`;
-};
-const vizeResourceTopicUrl = function(topicName: string) {
+}
+
+export function vizeResourceTopicUrl(topicName: string): string {
 	return `/${queryRoutes.resources}/temas/${topicName}`;
-};
-const vizeCompanyProfileUrl = function(companyId: string, companyTab?: string) {
+}
+
+export function vizeCompanyProfileUrl(
+	companyId: string,
+	companyTab?: string
+): string {
 	if (companyTab) {
 		return `/${queryRoutes.companyProfile}/${companyId}/${companyTab}`;
 	} else {
 		return `/${queryRoutes.companyProfile}/${companyId}`;
 	}
-};
-const vizeReviewUrl = function(companyName?: string) {
+}
+
+export function vizeReviewUrl(companyName?: string): string {
 	return `/${queryRoutes.writeReview}/${
 		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
 	}`;
-};
-const vizeSalaryUrl = function(companyName?: string) {
+}
+
+export function vizeSalaryUrl(companyName?: string): string {
 	return `/${queryRoutes.submitSalaryData}/${
 		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
 	}`;
-};
-const vizeApplyForJobUrl = function(jobId: string) {
+}
+
+export function vizeApplyForJobUrl(jobId: string): string {
 	return `/${queryRoutes.applyForJob}/?id=${jobId}`;
-};
-const vizeRegister = function(userRole?: string) {
+}
+
+export function vizeRegister(userRole?: string): string {
 	return `/${queryRoutes.register}/${
 		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
 	}`;
-};
-const vizeLogin = function(userRole?: string) {
-	return `/${queryRoutes.login}/${
-		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
-	}`;
-};
-/*const vizeLoginToRegister = function(userRole?: string) {
-	return `/${queryRoutes.login}/${
-		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
-	}`;
-};
-const vizeRegisterToLogin = function(userRole?: string) {
-	return `/${queryRoutes.login}/${
-		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
-	}`;
-};*/
+}
 
-const urlGenerators = {
-	vizeResourceUrl,
-	vizeResourceTopicUrl,
-	vizeCompanyProfileUrl,
-	vizeReviewUrl,
-	vizeSalaryUrl,
-	vizeApplyForJobUrl,
-	vizeRegister,
-	vizeLogin,
-};
-
-export { queryRoutes, urlGenerators };
+export function vizeLogin(userRole?: string): string {
+	return `/${queryRoutes.login}/${
+		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+	}`;
+}

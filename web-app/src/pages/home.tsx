@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 
 import PageWrapper from "src/components/page-wrapper";
 import Banner, { BannerTitle } from "src/components/banner";

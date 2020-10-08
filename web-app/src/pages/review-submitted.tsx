@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { forSize } from "src/responsive";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 import ClipboardIcon from "@material-ui/icons/Assignment";
 import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
 

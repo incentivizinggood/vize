@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { translations } from "src/translations";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { StarRatings as StartRatingsType } from "generated/graphql-operations";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 import { Link } from "react-router-dom";
 
 const T = translations.legacyTranslationsNeedsRefactor;

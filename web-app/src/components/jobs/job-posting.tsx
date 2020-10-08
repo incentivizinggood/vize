@@ -11,7 +11,7 @@ import colors from "src/colors";
 
 import { forSize } from "src/responsive";
 import { processLocation } from "src/misc";
-import { urlGenerators } from "src/pages";
+import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";

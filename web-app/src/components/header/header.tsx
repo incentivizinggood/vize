@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { withUser } from "src/hoc/user";
 import { translations } from "src/translations";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 
 import vizeLogo from "src/images/logo.png";
 import profileIcon from "src/images/profileIcon.png";

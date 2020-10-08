@@ -5,7 +5,8 @@ import * as yup from "yup";
 import { mapValues, map, omitBy, filter } from "lodash";
 
 import { useCreateJobAdMutation } from "generated/graphql-operations";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
+import * as analytics from "src/startup/analytics";
 
 import InnerForm from "./create-job-ad-inner-form";
 

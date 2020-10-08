@@ -7,7 +7,7 @@ import { mapValues, map, omitBy, filter } from "lodash";
 import { useCreateCompanyMutation } from "generated/graphql-operations";
 import * as analytics from "src/startup/analytics";
 import * as schemas from "src/form-schemas";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 
 import InnerForm from "./create-company-inner-form";
 

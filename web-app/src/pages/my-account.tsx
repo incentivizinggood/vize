@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { withUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";
 
-import { urlGenerators } from "./url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 
 /* The page where users can view their account details,
  * update their profiles, and change settings.
