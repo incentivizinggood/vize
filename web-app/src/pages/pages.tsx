@@ -6,6 +6,8 @@ import {
 	RouteComponentProps,
 } from "react-router-dom";
 
+import * as analytics from "src/startup/analytics";
+
 import AboutPage from "./about";
 import ResourcePage from "src/pages/resources-index/resource";
 import ResourcesByTopicPage from "src/pages/resources-index/resources-by-topic";
@@ -39,6 +41,8 @@ function fixNullParams<T>(param?: T | null): T | undefined {
 }
 
 function Pages(props) {
+	analytics.usePageView();
+
 	const params = new URLSearchParams(props.location.search);
 
 	return (

@@ -20,3 +20,15 @@ export const companyName = yup
 	.trim()
 	.min(1)
 	.max(100);
+
+export const locationSchema = yup.object().shape({
+	city: yup
+		.string()
+		.max(300)
+		.required("Se requiere la ciudad"),
+	address: yup
+		.string()
+		.max(300)
+		.required("Se requiere la dirección"),
+	industrialHub: yup.string().max(300),
+});

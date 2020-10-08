@@ -6,8 +6,7 @@ import { mapValues, map, omitBy, filter } from "lodash";
 
 import { useCreateJobAdMutation } from "generated/graphql-operations";
 import * as urlGenerators from "src/pages/url-generators";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
+import * as analytics from "src/startup/analytics";
 
 import InnerForm from "./create-job-ad-inner-form";
 
@@ -42,22 +41,7 @@ const schema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el titulo de empleo"),
 	locations: yup
 		.array()
-		.of(
-			yup.object().shape({
-				city: yup
-					.string()
-					.max(300)
-					.required("Se requiere la ciudad"),
-				address: yup
-					.string()
-					.max(300)
-					.required("Se requiere la dirección"),
-				industrialHub: yup
-					.string()
-					.max(300)
-					.required("Se requiere el parque industrial"),
-			})
-		)
+		.of(schemas.locationSchema)
 		.required(),
 	salaryMin: yup.number().required("Se requiere el salario minimo"),
 	salaryMax: yup.number().required("Se requiere el salario maximo"),
@@ -103,11 +87,10 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 			actions.resetForm(initialValues);
 
 			// Track successful job posted event
-			ReactGA.event({
+			analytics.sendEvent({
 				category: "Company",
 				action: "Job Posted",
 			});
-			ReactPixel.track("Job Posted", { category: "Company" });
 
 			// Go to the company profile page for this jobAd's company.
 			history.push(

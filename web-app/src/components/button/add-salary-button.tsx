@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import ReactGA from "react-ga";
 
 import * as urlGenerators from "src/pages/url-generators";
+import * as analytics from "src/startup/analytics";
 import { LinkButton } from "src/components/button";
 import { translations } from "src/translations";
 
@@ -15,7 +15,7 @@ interface AddSalaryButtonProps {
 }
 
 function buttonTracking(buttonLocation?: string) {
-	ReactGA.event({
+	analytics.sendEvent({
 		category: "Button",
 		action: "Add Salary Pressed",
 		label: buttonLocation,
