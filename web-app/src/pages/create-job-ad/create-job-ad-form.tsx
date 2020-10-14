@@ -30,6 +30,10 @@ const initialValues = {
 	],
 	salaryMin: "",
 	salaryMax: "",
+	startDay: 1,
+	endDay: 5,
+	startTime: "08:00",
+	endTime: "18:00",
 	salaryType: "",
 	contractType: "",
 	jobDescription: "",
@@ -45,6 +49,20 @@ const schema = yup.object().shape({
 		.required(),
 	salaryMin: yup.number().required("Se requiere el salario minimo"),
 	salaryMax: yup.number().required("Se requiere el salario maximo"),
+	startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
+	endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
+	startDay: yup
+		.number()
+		.integer()
+		.min(0)
+		.max(6)
+		.required("Se requiere el día de inicio del turno"),
+	endDay: yup
+		.number()
+		.integer()
+		.min(0)
+		.max(6)
+		.required("Se requiere el día final del turno"),
 	salaryType: yup
 		.string()
 		.oneOf([

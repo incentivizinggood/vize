@@ -96,6 +96,82 @@ function InnerForm({ submissionError }) {
 				/>
 			</span>
 
+			<span>
+				<T.fields.jobSchedule
+					renderer={t => (
+						<Field
+							name="startDay"
+							select
+							fullWidth={false}
+							required
+							defaultValue="1"
+							label={t.labelStartDay}
+							style={{ width: "49%", marginRight: "2%" }}
+						>
+							<option value="1">{t.monday}</option>
+							<option value="2">{t.tuesday}</option>
+							<option value="3">{t.wednesday}</option>
+							<option value="4">{t.thursday}</option>
+							<option value="5">{t.friday}</option>
+							<option value="6">{t.saturday}</option>
+							<option value="0">{t.sunday}</option>
+						</Field>
+					)}
+				/>
+
+				<T.fields.jobSchedule
+					renderer={t => (
+						<Field
+							name="endDay"
+							select
+							fullWidth={false}
+							required
+							defaultValue="5"
+							label={t.labelEndDay}
+							style={{ width: "49%" }}
+						>
+							<option value="1">{t.monday}</option>
+							<option value="2">{t.tuesday}</option>
+							<option value="3">{t.wednesday}</option>
+							<option value="4">{t.thursday}</option>
+							<option value="5">{t.friday}</option>
+							<option value="6">{t.saturday}</option>
+							<option value="0">{t.sunday}</option>
+						</Field>
+					)}
+				/>
+			</span>
+
+			<span>
+				<T.fields.jobSchedule
+					renderer={t => (
+						<Field
+							name="startTime"
+							type="time"
+							fullWidth={false}
+							required
+							defaultValue="08:00"
+							label={t.labelStartTime}
+							style={{ width: "49%", marginRight: "2%" }}
+						/>
+					)}
+				/>
+
+				<T.fields.jobSchedule
+					renderer={t => (
+						<Field
+							name="endTime"
+							type="time"
+							fullWidth={false}
+							required
+							defaultValue="18:00"
+							label={t.labelEndTime}
+							style={{ width: "49%" }}
+						/>
+					)}
+				/>
+			</span>
+
 			<T.fields.contractType
 				renderer={t => (
 					<Field name="contractType" select required label={t.label}>
