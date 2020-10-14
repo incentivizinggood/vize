@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TodayIcon from "@material-ui/icons/Today";
 import {
 	faMapMarker,
 	faMoneyBillAlt,
-	faCalendar,
+	faFileSignature,
+	faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import colors from "src/colors";
@@ -16,6 +18,13 @@ import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
+const TJobAd = translations.createJobAd.fields;
+
+const FontAwesomeIconSized = styled(FontAwesomeIcon)`
+	width: 16px !important;
+	height: 16px;
+	margin-right: 8px;
+`;
 
 const JobContainer = styled.div`
 	margin-top: 15px;
@@ -69,6 +78,7 @@ interface JobPostingProps {
 
 function JobPosting({ job }: JobPostingProps) {
 	// @options -  For the date formatting
+	console.log(job);
 	const options = {
 		weekday: "long",
 		year: "numeric",
@@ -76,6 +86,46 @@ function JobPosting({ job }: JobPostingProps) {
 		day: "numeric",
 	};
 	const datePosted = new Date(job.created);
+
+	const dayValueToText: { [key: number]: JSX.Element } = {
+		1: <TJobAd.jobSchedule.monday />,
+		2: <TJobAd.jobSchedule.tuesday />,
+		3: <TJobAd.jobSchedule.wednesday />,
+		4: <TJobAd.jobSchedule.thursday />,
+		5: <TJobAd.jobSchedule.friday />,
+		6: <TJobAd.jobSchedule.saturday />,
+		0: <TJobAd.jobSchedule.sunday />,
+	};
+
+	const startDay = job.startDay ? dayValueToText[job.startDay] : "";
+	const endDay = job.endDay ? dayValueToText[job.endDay] : "";
+
+	let shiftTimeRange = "";
+
+	if (job.startTime && job.endTime) {
+		const startTimeNum = Number(job.startTime.substring(0, 2));
+		const startTimeSuffix = startTimeNum >= 12 ? "PM" : "AM";
+		let startTime = String(((startTimeNum + 11) % 12) + 1);
+		startTime += job.startTime.substring(2, 5);
+
+		const endTimeNum = Number(job.endTime.substring(0, 2));
+		const endTimeSuffix = endTimeNum >= 12 ? "PM" : "AM";
+		let endTime = String(((endTimeNum + 11) % 12) + 1);
+		endTime += job.endTime.substring(2, 5);
+
+		shiftTimeRange =
+			" | " +
+			startTime +
+			" " +
+			startTimeSuffix +
+			" - " +
+			endTime +
+			" " +
+			endTimeSuffix;
+	}
+
+	const workSchedule = startDay + " - " + endDay;
+	console.log(workSchedule);
 
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
@@ -126,21 +176,17 @@ function JobPosting({ job }: JobPostingProps) {
 						companyName={job.company.id}
 					/>
 				)}
-			<p>
-				{" "}
-				<FontAwesomeIcon icon={faMapMarker} />
-				&nbsp;&nbsp;&nbsp;
+			<div>
+				<FontAwesomeIconSized icon={faMapMarker} />
 				{isTwoJobLocations && (
 					<>
 						{job.locations[0].city}&nbsp;&#8226;&nbsp;
 						{job.locations[0].industrialHub}
 					</>
 				)}
-			</p>
-			<p>
-				{" "}
-				<FontAwesomeIcon icon={faMoneyBillAlt} />
-				&nbsp;&nbsp;
+			</div>
+			<div>
+				<FontAwesomeIconSized icon={faMoneyBillAlt} />
 				{job.salaryMin === job.salaryMax ? (
 					job.salaryMin
 				) : (
@@ -159,13 +205,18 @@ function JobPosting({ job }: JobPostingProps) {
 						HOURLY_WAGE: <T.showjob.hour />,
 					}[job.salaryType]
 				}
-			</p>
-			<p>
-				{" "}
-				<FontAwesomeIcon icon={faCalendar} />
-				&nbsp;&nbsp;
+			</div>
+			<div>
+				<FontAwesomeIconSized icon={faFileSignature} />
 				{contractType}
-			</p>
+			</div>
+			<div>
+				<FontAwesomeIconSized icon={faClock} />
+				{startDay}
+				{" - "}
+				{endDay}
+				{shiftTimeRange}
+			</div>
 			<hr />
 			<h4 className="h4-font-sz-job">
 				<T.showjob.job_description />
