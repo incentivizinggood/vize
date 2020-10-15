@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TodayIcon from "@material-ui/icons/Today";
 import {
 	faMapMarker,
 	faMoneyBillAlt,
@@ -12,7 +11,6 @@ import { Link } from "react-router-dom";
 import colors from "src/colors";
 
 import { forSize } from "src/responsive";
-import { processLocation } from "src/misc";
 import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
@@ -20,10 +18,20 @@ import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown
 const T = translations.legacyTranslationsNeedsRefactor;
 const TJobAd = translations.createJobAd.fields;
 
+const dayValueToText: { [key: number]: JSX.Element } = {
+	1: <TJobAd.jobSchedule.monday />,
+	2: <TJobAd.jobSchedule.tuesday />,
+	3: <TJobAd.jobSchedule.wednesday />,
+	4: <TJobAd.jobSchedule.thursday />,
+	5: <TJobAd.jobSchedule.friday />,
+	6: <TJobAd.jobSchedule.saturday />,
+	0: <TJobAd.jobSchedule.sunday />,
+};
+
 const FontAwesomeIconSized = styled(FontAwesomeIcon)`
 	width: 16px !important;
 	height: 16px;
-	margin-right: 8px;
+	margin-right: 10px;
 `;
 
 const JobContainer = styled.div`
@@ -72,13 +80,36 @@ const DatePostedDiv = styled.div`
 		text-align: center !important;
 	}
 `;
+
+function getShiftTimeRange(startTimeRaw: string, endTimeRaw: string) {
+	const startTimeNum = Number(startTimeRaw.substring(0, 2));
+	const startTimeSuffix = startTimeNum >= 12 ? "PM" : "AM";
+	let startTime = String(((startTimeNum + 11) % 12) + 1);
+	startTime += startTimeRaw.substring(2, 5);
+
+	const endTimeNum = Number(endTimeRaw.substring(0, 2));
+	const endTimeSuffix = endTimeNum >= 12 ? "PM" : "AM";
+	let endTime = String(((endTimeNum + 11) % 12) + 1);
+	endTime += endTimeRaw.substring(2, 5);
+
+	return (
+		" | " +
+		startTime +
+		" " +
+		startTimeSuffix +
+		" - " +
+		endTime +
+		" " +
+		endTimeSuffix
+	);
+}
+
 interface JobPostingProps {
 	job: JobPostingFragment;
 }
 
 function JobPosting({ job }: JobPostingProps) {
 	// @options -  For the date formatting
-	console.log(job);
 	const options = {
 		weekday: "long",
 		year: "numeric",
@@ -87,45 +118,13 @@ function JobPosting({ job }: JobPostingProps) {
 	};
 	const datePosted = new Date(job.created);
 
-	const dayValueToText: { [key: number]: JSX.Element } = {
-		1: <TJobAd.jobSchedule.monday />,
-		2: <TJobAd.jobSchedule.tuesday />,
-		3: <TJobAd.jobSchedule.wednesday />,
-		4: <TJobAd.jobSchedule.thursday />,
-		5: <TJobAd.jobSchedule.friday />,
-		6: <TJobAd.jobSchedule.saturday />,
-		0: <TJobAd.jobSchedule.sunday />,
-	};
-
 	const startDay = job.startDay ? dayValueToText[job.startDay] : "";
 	const endDay = job.endDay ? dayValueToText[job.endDay] : "";
 
-	let shiftTimeRange = "";
-
-	if (job.startTime && job.endTime) {
-		const startTimeNum = Number(job.startTime.substring(0, 2));
-		const startTimeSuffix = startTimeNum >= 12 ? "PM" : "AM";
-		let startTime = String(((startTimeNum + 11) % 12) + 1);
-		startTime += job.startTime.substring(2, 5);
-
-		const endTimeNum = Number(job.endTime.substring(0, 2));
-		const endTimeSuffix = endTimeNum >= 12 ? "PM" : "AM";
-		let endTime = String(((endTimeNum + 11) % 12) + 1);
-		endTime += job.endTime.substring(2, 5);
-
-		shiftTimeRange =
-			" | " +
-			startTime +
-			" " +
-			startTimeSuffix +
-			" - " +
-			endTime +
-			" " +
-			endTimeSuffix;
-	}
-
-	const workSchedule = startDay + " - " + endDay;
-	console.log(workSchedule);
+	let shiftTimeRange =
+		job.startTime && job.endTime
+			? getShiftTimeRange(job.startTime, job.endTime)
+			: "";
 
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
@@ -139,17 +138,10 @@ function JobPosting({ job }: JobPostingProps) {
 		) : (
 			<T.showjob.contractor />
 		);
-	let jobLocation = processLocation(JSON.stringify(job.locations[0]));
+
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
-
-	if (job.locations[0].city && job.locations[0].industrialHub) {
-		jobLocation =
-			job.locations[0].city +
-			" {&#8226;} " +
-			job.locations[0].industrialHub;
-	}
 
 	return (
 		<JobContainer>
