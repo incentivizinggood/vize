@@ -104,17 +104,17 @@ function InnerForm({ submissionError }) {
 							select
 							fullWidth={false}
 							required
-							defaultValue="1"
+							defaultValue={1}
 							label={t.labelStartDay}
 							style={{ width: "49%", marginRight: "2%" }}
 						>
-							<option value="1">{t.monday}</option>
-							<option value="2">{t.tuesday}</option>
-							<option value="3">{t.wednesday}</option>
-							<option value="4">{t.thursday}</option>
-							<option value="5">{t.friday}</option>
-							<option value="6">{t.saturday}</option>
-							<option value="0">{t.sunday}</option>
+							<option value={1}>{t.monday}</option>
+							<option value={2}>{t.tuesday}</option>
+							<option value={3}>{t.wednesday}</option>
+							<option value={4}>{t.thursday}</option>
+							<option value={5}>{t.friday}</option>
+							<option value={6}>{t.saturday}</option>
+							<option value={0}>{t.sunday}</option>
 						</Field>
 					)}
 				/>
@@ -126,17 +126,17 @@ function InnerForm({ submissionError }) {
 							select
 							fullWidth={false}
 							required
-							defaultValue="5"
+							defaultValue={5}
 							label={t.labelEndDay}
 							style={{ width: "49%" }}
 						>
-							<option value="1">{t.monday}</option>
-							<option value="2">{t.tuesday}</option>
-							<option value="3">{t.wednesday}</option>
-							<option value="4">{t.thursday}</option>
-							<option value="5">{t.friday}</option>
-							<option value="6">{t.saturday}</option>
-							<option value="0">{t.sunday}</option>
+							<option value={1}>{t.monday}</option>
+							<option value={2}>{t.tuesday}</option>
+							<option value={3}>{t.wednesday}</option>
+							<option value={4}>{t.thursday}</option>
+							<option value={5}>{t.friday}</option>
+							<option value={6}>{t.saturday}</option>
+							<option value={0}>{t.sunday}</option>
 						</Field>
 					)}
 				/>
