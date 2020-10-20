@@ -124,7 +124,8 @@ function escapeTsqueryTerm(term: string): string {
 
 /** Get autocomplete suggestions for company names. */
 export async function companyNameSuggestions(
-	partialCompanyName: string
+	partialCompanyName: string,
+	onlyCompaniesWithProfiles?: boolean | null
 ): Promise<string[]> {
 	/**
 	 * Words that end before the end of the string.
@@ -154,18 +155,26 @@ export async function companyNameSuggestions(
 		FROM
 			(
 				SELECT name AS company_name FROM companies
+				${
+					onlyCompaniesWithProfiles
+						? sql``
+						: sql.raw(`
 				UNION
 				SELECT companyname AS company_name FROM jobads
 				UNION
 				SELECT companyname AS company_name FROM reviews
 				UNION
 				SELECT companyname AS company_name FROM salaries
+								`)
+				}
 			) names,
 			to_tsquery(${tsquery}) query,
 			to_tsvector(company_name) search_vector,
 			ts_rank(search_vector, query) rank
 		WHERE query @@ search_vector
-		ORDER BY rank DESC
+		-- Sometimes company names can have the same rank.
+		-- So also order by company_name to ensure consistent ordering.
+		ORDER BY rank DESC, company_name ASC
 		LIMIT 10;
 	`);
 

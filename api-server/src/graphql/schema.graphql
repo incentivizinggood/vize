@@ -36,7 +36,12 @@ type Query {
 		pageSize: Int = 20
 	): CompanyConnection!
 
-	companyNameSuggestions(partialCompanyName: String!): [String!]!
+	companyNameSuggestions(
+		"What the user has typed in so far for a company name."
+		partialCompanyName: String!
+		"Only suggest names of companies that have company profiles. Default is false."
+		onlyCompaniesWithProfiles: Boolean
+	): [String!]!
 
 	searchJobAds(pageNum: Int = 0, pageSize: Int = 20): JobAdConnection!
 
