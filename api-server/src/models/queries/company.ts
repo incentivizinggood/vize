@@ -167,7 +167,7 @@ export async function companyNameSuggestions(
 				SELECT companyname AS company_name FROM salaries
 								`)
 				}
-			) names,
+			) company_names,
 			to_tsquery(${tsquery}) query,
 			to_tsvector(company_name) search_vector,
 			ts_rank(search_vector, query) rank
@@ -179,4 +179,54 @@ export async function companyNameSuggestions(
 	`);
 
 	return results.map(({ company_name }) => company_name);
+}
+
+/** Get autocomplete suggestions for job titles. */
+export async function jobTitleSuggestions(
+	partialJobTitle: string
+): Promise<string[]> {
+	/**
+	 * Words that end before the end of the string.
+	 * The user has finished typing these.
+	 */
+	const finishedWords = partialJobTitle.match(/\w+\b(?!$)/g) || [];
+
+	/**
+	 * Words that end at the end of the string.
+	 * The user may not have finished typing these.
+	 */
+	const unfinishedWords = partialJobTitle.match(/\w+$/g) || [];
+
+	if (finishedWords.length + unfinishedWords.length < 1) {
+		// The user has not typed enough to make any suggestions.
+		return [];
+	}
+
+	const tsquery = [
+		...finishedWords.map(escapeTsqueryTerm),
+		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
+	].join(" & ");
+
+	const results = await simpleQuery<{ job_title: string }>(sql`
+		SELECT
+			job_title
+		FROM
+			(
+				SELECT jobtitle AS job_title FROM jobads
+				UNION
+				SELECT jobtitle AS job_title FROM reviews
+				UNION
+				SELECT jobtitle AS job_title FROM salaries
+			) job_titles,
+			to_tsquery(${tsquery}) query,
+			to_tsvector(job_title) search_vector,
+			ts_rank(search_vector, query) rank
+		WHERE query @@ search_vector
+		-- Sometimes job titles can have the same rank.
+		-- So also order by job_title to ensure consistent ordering.
+		ORDER BY rank DESC, job_title ASC
+		LIMIT 10;
+	`);
+
+	return results.map(({ job_title }) => job_title);
 }

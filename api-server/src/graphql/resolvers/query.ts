@@ -68,6 +68,9 @@ export const Query: QueryResolvers = {
 			args.onlyCompaniesWithProfiles
 		),
 
+	jobTitleSuggestions: (_obj, args, _context, _info) =>
+		dataModel.jobTitleSuggestions(args.partialJobTitle),
+
 	searchJobAds: (_obj, args, _context, _info) =>
 		dataModel.searchForJobAds(args.pageNum, args.pageSize),
 
