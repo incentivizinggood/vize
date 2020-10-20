@@ -155,7 +155,11 @@ export async function companyNameSuggestions(
 			(
 				SELECT name AS company_name FROM companies
 				UNION
+				SELECT companyname AS company_name FROM jobads
+				UNION
 				SELECT companyname AS company_name FROM reviews
+				UNION
+				SELECT companyname AS company_name FROM salaries
 			) names,
 			to_tsquery(${tsquery}) query,
 			to_tsvector(company_name) search_vector,
