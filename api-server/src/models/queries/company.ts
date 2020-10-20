@@ -1,4 +1,4 @@
-import sql from "src/utils/sql-template";
+import sql, { SqlStatement } from "src/utils/sql-template";
 import { simpleQuery1, simpleQuery } from "src/connectors/postgresql";
 
 import { Company } from "src/models";
@@ -122,22 +122,22 @@ function escapeTsqueryTerm(term: string): string {
 	return `'${term.replace("'", "''")}'`;
 }
 
-/** Get autocomplete suggestions for company names. */
-export async function companyNameSuggestions(
-	partialCompanyName: string,
-	onlyCompaniesWithProfiles?: boolean | null
+async function autocompleteSuggestions(
+	sourceQuery: SqlStatement,
+	columnName: string,
+	partialUserInput: string
 ): Promise<string[]> {
 	/**
 	 * Words that end before the end of the string.
 	 * The user has finished typing these.
 	 */
-	const finishedWords = partialCompanyName.match(/\w+\b(?!$)/g) || [];
+	const finishedWords = partialUserInput.match(/\w+\b(?!$)/g) || [];
 
 	/**
 	 * Words that end at the end of the string.
 	 * The user may not have finished typing these.
 	 */
-	const unfinishedWords = partialCompanyName.match(/\w+$/g) || [];
+	const unfinishedWords = partialUserInput.match(/\w+$/g) || [];
 
 	if (finishedWords.length + unfinishedWords.length < 1) {
 		// The user has not typed enough to make any suggestions.
@@ -149,84 +149,63 @@ export async function companyNameSuggestions(
 		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
 	].join(" & ");
 
-	const results = await simpleQuery<{ company_name: string }>(sql`
+	const results = await simpleQuery<any>(sql`
 		SELECT
-			company_name
+			${sql.raw(columnName)}
 		FROM
-			(
-				SELECT name AS company_name FROM companies
-				${
-					onlyCompaniesWithProfiles
-						? sql``
-						: sql.raw(`
-				UNION
-				SELECT companyname AS company_name FROM jobads
-				UNION
-				SELECT companyname AS company_name FROM reviews
-				UNION
-				SELECT companyname AS company_name FROM salaries
-								`)
-				}
-			) company_names,
+			(${sourceQuery}) suggestions,
 			to_tsquery(${tsquery}) query,
-			to_tsvector(company_name) search_vector,
+			to_tsvector(${sql.raw(columnName)}) search_vector,
 			ts_rank(search_vector, query) rank
 		WHERE query @@ search_vector
-		-- Sometimes company names can have the same rank.
-		-- So also order by company_name to ensure consistent ordering.
-		ORDER BY rank DESC, company_name ASC
+		-- Sometimes suggestions can have the same rank.
+		-- So also order by the suggestions to ensure consistent ordering.
+		ORDER BY rank DESC, ${sql.raw(columnName)} ASC
 		LIMIT 10;
 	`);
 
-	return results.map(({ company_name }) => company_name);
+	return results.map(x => x[columnName]);
+}
+
+/** Get autocomplete suggestions for company names. */
+export async function companyNameSuggestions(
+	partialCompanyName: string,
+	onlyCompaniesWithProfiles?: boolean | null
+): Promise<string[]> {
+	return autocompleteSuggestions(
+		sql`
+			SELECT name AS company_name FROM companies
+			${
+				onlyCompaniesWithProfiles
+					? sql``
+					: sql.raw(`
+			UNION
+			SELECT companyname AS company_name FROM jobads
+			UNION
+			SELECT companyname AS company_name FROM reviews
+			UNION
+			SELECT companyname AS company_name FROM salaries
+							`)
+			}
+		`,
+		"company_name",
+		partialCompanyName
+	);
 }
 
 /** Get autocomplete suggestions for job titles. */
 export async function jobTitleSuggestions(
 	partialJobTitle: string
 ): Promise<string[]> {
-	/**
-	 * Words that end before the end of the string.
-	 * The user has finished typing these.
-	 */
-	const finishedWords = partialJobTitle.match(/\w+\b(?!$)/g) || [];
-
-	/**
-	 * Words that end at the end of the string.
-	 * The user may not have finished typing these.
-	 */
-	const unfinishedWords = partialJobTitle.match(/\w+$/g) || [];
-
-	if (finishedWords.length + unfinishedWords.length < 1) {
-		// The user has not typed enough to make any suggestions.
-		return [];
-	}
-
-	const tsquery = [
-		...finishedWords.map(escapeTsqueryTerm),
-		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
-	].join(" & ");
-
-	const results = await simpleQuery<{ job_title: string }>(sql`
-		SELECT
-			job_title
-		FROM
-			(
-				SELECT jobtitle AS job_title FROM jobads
-				UNION
-				SELECT jobtitle AS job_title FROM reviews
-				UNION
-				SELECT jobtitle AS job_title FROM salaries
-			) job_titles,
-			to_tsquery(${tsquery}) query,
-			to_tsvector(job_title) search_vector,
-			ts_rank(search_vector, query) rank
-		WHERE query @@ search_vector
-		-- Sometimes job titles can have the same rank.
-		-- So also order by job_title to ensure consistent ordering.
-		ORDER BY rank DESC, job_title ASC
-		LIMIT 10;
-	`);
-
-	return results.map(({ job_title }) => job_title);
+	return autocompleteSuggestions(
+		sql`
+			SELECT jobtitle AS job_title FROM jobads
+			UNION
+			SELECT jobtitle AS job_title FROM reviews
+			UNION
+			SELECT jobtitle AS job_title FROM salaries
+		`,
+		"job_title",
+		partialJobTitle
+	);
 }
