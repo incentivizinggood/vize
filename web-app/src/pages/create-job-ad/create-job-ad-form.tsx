@@ -7,6 +7,7 @@ import { mapValues, map, omitBy, filter } from "lodash";
 import { useCreateJobAdMutation } from "generated/graphql-operations";
 import * as urlGenerators from "src/pages/url-generators";
 import * as analytics from "src/startup/analytics";
+import * as schemas from "src/form-schemas";
 
 import InnerForm from "./create-job-ad-inner-form";
 
@@ -30,6 +31,10 @@ const initialValues = {
 	],
 	salaryMin: "",
 	salaryMax: "",
+	startDay: 1,
+	endDay: 5,
+	startTime: "08:00",
+	endTime: "18:00",
 	salaryType: "",
 	contractType: "",
 	jobDescription: "",
@@ -45,6 +50,20 @@ const schema = yup.object().shape({
 		.required(),
 	salaryMin: yup.number().required("Se requiere el salario minimo"),
 	salaryMax: yup.number().required("Se requiere el salario maximo"),
+	startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
+	endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
+	startDay: yup
+		.number()
+		.integer()
+		.min(0)
+		.max(6)
+		.required("Se requiere el día de inicio del turno"),
+	endDay: yup
+		.number()
+		.integer()
+		.min(0)
+		.max(6)
+		.required("Se requiere el día final del turno"),
 	salaryType: yup
 		.string()
 		.oneOf([

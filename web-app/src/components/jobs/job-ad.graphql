@@ -8,6 +8,10 @@ fragment JobPosting on JobAd {
 	}
 	salaryMin
 	salaryMax
+	startDay
+	endDay
+	startTime
+	endTime
 	salaryType
 	contractType
 	jobDescription

@@ -4,18 +4,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faMapMarker,
 	faMoneyBillAlt,
-	faCalendar,
+	faFileSignature,
+	faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import colors from "src/colors";
 
 import { forSize } from "src/responsive";
-import { processLocation } from "src/misc";
 import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
+const TJobAd = translations.createJobAd.fields;
+
+const dayValueToText: { [key: number]: JSX.Element } = {
+	1: <TJobAd.jobSchedule.monday />,
+	2: <TJobAd.jobSchedule.tuesday />,
+	3: <TJobAd.jobSchedule.wednesday />,
+	4: <TJobAd.jobSchedule.thursday />,
+	5: <TJobAd.jobSchedule.friday />,
+	6: <TJobAd.jobSchedule.saturday />,
+	0: <TJobAd.jobSchedule.sunday />,
+};
+
+const FontAwesomeIconSized = styled(FontAwesomeIcon)`
+	width: 16px !important;
+	height: 16px;
+	margin-right: 10px;
+`;
 
 const JobContainer = styled.div`
 	margin-top: 15px;
@@ -63,6 +80,30 @@ const DatePostedDiv = styled.div`
 		text-align: center !important;
 	}
 `;
+
+function getShiftTimeRange(startTimeRaw: string, endTimeRaw: string) {
+	const startTimeNum = Number(startTimeRaw.substring(0, 2));
+	const startTimeSuffix = startTimeNum >= 12 ? "PM" : "AM";
+	let startTime = String(((startTimeNum + 11) % 12) + 1);
+	startTime += startTimeRaw.substring(2, 5);
+
+	const endTimeNum = Number(endTimeRaw.substring(0, 2));
+	const endTimeSuffix = endTimeNum >= 12 ? "PM" : "AM";
+	let endTime = String(((endTimeNum + 11) % 12) + 1);
+	endTime += endTimeRaw.substring(2, 5);
+
+	return (
+		" | " +
+		startTime +
+		" " +
+		startTimeSuffix +
+		" - " +
+		endTime +
+		" " +
+		endTimeSuffix
+	);
+}
+
 interface JobPostingProps {
 	job: JobPostingFragment;
 }
@@ -77,6 +118,14 @@ function JobPosting({ job }: JobPostingProps) {
 	};
 	const datePosted = new Date(job.created);
 
+	const startDay = job.startDay ? dayValueToText[job.startDay] : "";
+	const endDay = job.endDay ? dayValueToText[job.endDay] : "";
+
+	let shiftTimeRange =
+		job.startTime && job.endTime
+			? getShiftTimeRange(job.startTime, job.endTime)
+			: "";
+
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
 			<T.showjob.fullTime />
@@ -89,17 +138,10 @@ function JobPosting({ job }: JobPostingProps) {
 		) : (
 			<T.showjob.contractor />
 		);
-	let jobLocation = processLocation(JSON.stringify(job.locations[0]));
+
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
-
-	if (job.locations[0].city && job.locations[0].industrialHub) {
-		jobLocation =
-			job.locations[0].city +
-			" {&#8226;} " +
-			job.locations[0].industrialHub;
-	}
 
 	return (
 		<JobContainer>
@@ -126,21 +168,17 @@ function JobPosting({ job }: JobPostingProps) {
 						companyName={job.company.id}
 					/>
 				)}
-			<p>
-				{" "}
-				<FontAwesomeIcon icon={faMapMarker} />
-				&nbsp;&nbsp;&nbsp;
+			<div>
+				<FontAwesomeIconSized icon={faMapMarker} />
 				{isTwoJobLocations && (
 					<>
 						{job.locations[0].city}&nbsp;&#8226;&nbsp;
 						{job.locations[0].industrialHub}
 					</>
 				)}
-			</p>
-			<p>
-				{" "}
-				<FontAwesomeIcon icon={faMoneyBillAlt} />
-				&nbsp;&nbsp;
+			</div>
+			<div>
+				<FontAwesomeIconSized icon={faMoneyBillAlt} />
 				{job.salaryMin === job.salaryMax ? (
 					job.salaryMin
 				) : (
@@ -159,13 +197,18 @@ function JobPosting({ job }: JobPostingProps) {
 						HOURLY_WAGE: <T.showjob.hour />,
 					}[job.salaryType]
 				}
-			</p>
-			<p>
-				{" "}
-				<FontAwesomeIcon icon={faCalendar} />
-				&nbsp;&nbsp;
+			</div>
+			<div>
+				<FontAwesomeIconSized icon={faFileSignature} />
 				{contractType}
-			</p>
+			</div>
+			<div>
+				<FontAwesomeIconSized icon={faClock} />
+				{startDay}
+				{" - "}
+				{endDay}
+				{shiftTimeRange}
+			</div>
 			<hr />
 			<h4 className="h4-font-sz-job">
 				<T.showjob.job_description />

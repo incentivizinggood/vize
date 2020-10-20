@@ -154,6 +154,15 @@ input CreateJobAdInput {
 	jobDescription: String!
 	responsibilities: String!
 	qualifications: String!
+
+	"The time of day that this job starts in the local time of the job site."
+	startTime: String
+	"The time of day that this job ends in the local time of the job site."
+	endTime: String
+	"The day of week that this job starts. (0 - 6; Sunday is 0)"
+	startDay: Int
+	"The day of week that this job ends. (0 - 6; Sunday is 0)"
+	endDay: Int
 }
 
 type CreateJobAdPayload {
@@ -351,6 +360,15 @@ type JobAd {
 	qualifications: String!
 	"The date and time this was created."
 	created: DateTime
+
+	"The time of day that this job starts."
+	startTime: String
+	"The time of day that this job ends."
+	endTime: String
+	"The day of week that this job starts. (0 - 6; Sunday is 0)"
+	startDay: Int
+	"The day of week that this job ends. (0 - 6; Sunday is 0)"
+	endDay: Int
 
 	"The company that is hiring."
 	company: Company!
