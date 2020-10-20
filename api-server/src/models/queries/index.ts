@@ -7,6 +7,7 @@ export * from "./company-salary-stats";
 export * from "./job-ad";
 export * from "./review";
 export * from "./salary";
+export * from "./suggestions";
 export * from "./user";
 export * from "./vote";
 export * from "./location";
