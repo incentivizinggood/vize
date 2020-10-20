@@ -1,0 +1,6 @@
+query SearchSuggestions($partialCompanyName: String!) {
+	companyNameSuggestions(
+		partialCompanyName: $partialCompanyName
+		onlyCompaniesWithProfiles: true
+	)
+}
