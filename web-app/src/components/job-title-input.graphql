@@ -1,0 +1,3 @@
+query JobTitleInput($partialJobTitle: String!) {
+	jobTitleSuggestions(partialJobTitle: $partialJobTitle)
+}

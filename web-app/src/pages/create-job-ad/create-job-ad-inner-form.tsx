@@ -10,14 +10,17 @@ import {
 	FormToolbar,
 	SubmissionError,
 } from "src/components/form-stuff";
-import { translations } from "src/translations";
+import { JobTitleInput } from "src/components/job-title-input";
+import { translations, useTranslations } from "src/translations";
 
 const T = translations.createJobAd;
 
 function InnerForm({ submissionError }) {
+	const t = useTranslations().createJobAd;
+
 	return (
 		<Form noValidate>
-			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
+			<JobTitleInput name="jobTitle" required {...t.fields.jobTitle} />
 
 			<FormArray
 				name="locations"

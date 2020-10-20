@@ -5,6 +5,7 @@ import { SubmitButton } from "src/components/button";
 
 import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { CompanyNameInput } from "src/components/company-name-input";
+import { JobTitleInput } from "src/components/job-title-input";
 import { translations, useTranslations } from "src/translations";
 
 const T = translations.createSalary;
@@ -33,7 +34,7 @@ function InnerForm({ submissionError }) {
 				t={T.fields.location.industrialHub}
 			/>
 
-			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
+			<JobTitleInput name="jobTitle" required {...t.fields.jobTitle} />
 
 			<T.fields.incomeType
 				renderer={t => (
