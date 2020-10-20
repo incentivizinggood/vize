@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { pool } from "src/connectors/postgresql";
 import {
 	User,
-	getUserByUsername,
+	getUserByLogin,
 	hashPassword,
 	comparePassword,
 } from "src/models";
@@ -14,12 +14,6 @@ import { attributes } from "../queries/user";
 
 const createUserInputSchema = yup
 	.object({
-		username: yup
-			.string()
-			.trim()
-			.min(1)
-			.max(32)
-			.required(),
 		email: yup
 			.string()
 			.email()
@@ -37,14 +31,12 @@ const createUserInputSchema = yup
 	.required();
 
 export async function createUser(input: unknown): Promise<User> {
-	const {
-		username,
-		email,
-		password,
-		role,
-	} = await createUserInputSchema.validate(input, {
-		abortEarly: false,
-	});
+	const { email, password, role } = await createUserInputSchema.validate(
+		input,
+		{
+			abortEarly: false,
+		}
+	);
 
 	const passwordHash = await hashPassword(password);
 
@@ -52,23 +44,19 @@ export async function createUser(input: unknown): Promise<User> {
 		const {
 			rows: [user],
 		} = await pool.query(sql`
-			INSERT INTO users 
-				(username, email_address, password_hash, role) 
-			VALUES 
-				(${username}, ${email}, ${passwordHash}, ${role}) 
+			INSERT INTO users
+				(email_address, password_hash, role)
+			VALUES
+				(${email}, ${passwordHash}, ${role})
 			RETURNING ${attributes}
 		`);
 
 		postToSlack(
-			`:tada: A new user has joined Vize. Please welcome \`${username}\`.`
+			`:tada: A new user has joined Vize. Please welcome user with email: \`${user.emailAddress}\`.`
 		);
 
 		return user;
 	} catch (err) {
-		if (err.constraint === "users_username_key") {
-			throw `That username is already taken. Please choose a different one.`;
-		}
-
 		if (err.constraint === "users_email_address_key") {
 			throw `That email address is used by another account. Please use a different one.`;
 		}
@@ -79,7 +67,7 @@ export async function createUser(input: unknown): Promise<User> {
 
 const verifyUserInputSchema = yup
 	.object({
-		username: yup
+		loginId: yup
 			.string()
 			.trim()
 			.required(),
@@ -88,14 +76,14 @@ const verifyUserInputSchema = yup
 	.required();
 
 export async function verifyUser(input: unknown): Promise<User> {
-	const { username, password } = await verifyUserInputSchema.validate(input, {
+	const { loginId, password } = await verifyUserInputSchema.validate(input, {
 		abortEarly: false,
 	});
 
-	const user = await getUserByUsername(username);
+	const user = await getUserByLogin(loginId);
 
 	if (!user) {
-		throw "username does not match any account";
+		throw "No account was found for that email or username.";
 	}
 
 	if (!user.passwordHash) {
@@ -148,7 +136,7 @@ export async function changePassword(
 	await pool.query(sql`
 		UPDATE users
 		SET password_hash = ${newPasswordHash}
-		WHERE username = ${user.username}
+		WHERE userid = ${user.userId}
 	`);
 }
 

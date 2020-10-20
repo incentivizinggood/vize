@@ -70,6 +70,10 @@ export default {
 			label: "Nombre de Usuario",
 			placeholder: "Nombre de Usuario",
 		},
+		loginId: {
+			label: "Correo electrónico o nombre de usuario",
+			placeholder: "Correo electrónico o nombre de usuario",
+		},
 		password: { label: "Contraseña", placeholder: "Contraseña" },
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
@@ -356,6 +360,19 @@ export default {
 				weeklySalary: "Sueldo por Semana",
 				dailySalary: "Sueldo por Día",
 				hourlyWage: "Sueldo por Hora",
+			},
+			jobSchedule: {
+				labelStartDay: "Día de Inicio del Turno",
+				labelEndDay: "Día Final del Turno",
+				labelStartTime: "Hora de Inicio del Turno",
+				labelEndTime: "Hora Final del Turno",
+				monday: "Lunes",
+				tuesday: "Martes",
+				wednesday: "Miércoles",
+				thursday: "Jueves",
+				friday: "Viernes",
+				saturday: "Sábado",
+				sunday: "Domingo",
 			},
 			contractType: {
 				label: "Tipo de Contrato",

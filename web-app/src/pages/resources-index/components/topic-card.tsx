@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 import { Link } from "react-router-dom";
 
 import ArrowRightIcon from "@material-ui/icons/ArrowRightAlt";

@@ -18,6 +18,10 @@ const attributes = sql.raw(
 		"responsibilities",
 		"qualifications",
 		'dateadded AS "dateAdded"',
+		'start_time AS "startTime"',
+		'end_time AS "endTime"',
+		'start_day AS "startDay"',
+		'end_day AS "endDay"',
 	].join(", ")
 );
 const baseQuery = sql`SELECT ${attributes} FROM jobads`;

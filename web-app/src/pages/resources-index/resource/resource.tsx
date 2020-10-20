@@ -7,8 +7,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import { withUser } from "src/hoc/user";
 import { ResourceAuthor } from "imports/api/models/types";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
+import * as analytics from "src/startup/analytics";
 
 import {
 	SectionTitle,
@@ -23,7 +22,7 @@ import { forSize } from "src/responsive";
 
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { urlGenerators } from "src/pages/url-generators";
+import * as urlGenerators from "src/pages/url-generators";
 
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
@@ -276,13 +275,9 @@ function ResourcePage(props) {
 		return <>{JSON.stringify(error)}</>;
 	}
 
-	ReactGA.event({
+	analytics.sendEvent({
 		category: "User",
 		action: "Viewed Article",
-		label: slug,
-	});
-	ReactPixel.track("Viewed Article", {
-		category: "User",
 		label: slug,
 	});
 

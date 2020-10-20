@@ -99,6 +99,11 @@ export type JobAd = {
 	responsibilities: string;
 	qualifications: string;
 	dateAdded: Date;
+
+	startTime: string | null;
+	endTime: string | null;
+	startDay: number | null;
+	endDay: number | null;
 };
 
 export type Review = {

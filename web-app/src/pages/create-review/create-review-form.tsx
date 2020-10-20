@@ -3,9 +3,8 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
-import ReactPixel from "react-facebook-pixel";
-import ReactGA from "react-ga";
 
+import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
@@ -80,20 +79,7 @@ const schema = yup
 		reviewTitle: yup
 			.string()
 			.required("Se requiere el titulo de la evaluación"),
-		location: yup
-			.object()
-			.shape({
-				city: yup
-					.string()
-					.max(300)
-					.required("Se requiere el nombre de la ciudad"),
-				address: yup
-					.string()
-					.max(300)
-					.required("Se requiere la dirección"),
-				industrialHub: yup.string().max(300),
-			})
-			.required(),
+		location: schemas.locationSchema,
 		jobTitle: yup
 			.string()
 			.required("Se requiere el nombre de el puesto desempeñado"),
@@ -213,11 +199,10 @@ export default function CreateReviewForm({
 				actions.resetForm(initialValues);
 
 				// Track successful review written event
-				ReactGA.event({
+				analytics.sendEvent({
 					category: "User",
 					action: "Review Submitted",
 				});
-				ReactPixel.track("Review Submitted", { category: "User" });
 
 				// Go to the review submitted page so that the user can claim their reward.
 				history.push("/review-submitted");
