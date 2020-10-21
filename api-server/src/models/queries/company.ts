@@ -1,5 +1,5 @@
 import sql from "src/utils/sql-template";
-import { simpleQuery1 } from "src/connectors/postgresql";
+import { simpleQuery1, simpleQuery } from "src/connectors/postgresql";
 
 import { Company } from "src/models";
 import { paginate } from "src/models/misc";
@@ -115,4 +115,68 @@ export async function searchForCompanies(
 		pageNumber,
 		pageSize
 	);
+}
+
+/** For use in inputs to PostgreSQL's to_tsquery. */
+function escapeTsqueryTerm(term: string): string {
+	return `'${term.replace("'", "''")}'`;
+}
+
+/** Get autocomplete suggestions for company names. */
+export async function companyNameSuggestions(
+	partialCompanyName: string,
+	onlyCompaniesWithProfiles?: boolean | null
+): Promise<string[]> {
+	/**
+	 * Words that end before the end of the string.
+	 * The user has finished typing these.
+	 */
+	const finishedWords = partialCompanyName.match(/\w+\b(?!$)/g) || [];
+
+	/**
+	 * Words that end at the end of the string.
+	 * The user may not have finished typing these.
+	 */
+	const unfinishedWords = partialCompanyName.match(/\w+$/g) || [];
+
+	if (finishedWords.length + unfinishedWords.length < 1) {
+		// The user has not typed enough to make any suggestions.
+		return [];
+	}
+
+	const tsquery = [
+		...finishedWords.map(escapeTsqueryTerm),
+		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
+	].join(" & ");
+
+	const results = await simpleQuery<{ company_name: string }>(sql`
+		SELECT
+			company_name
+		FROM
+			(
+				SELECT name AS company_name FROM companies
+				${
+					onlyCompaniesWithProfiles
+						? sql``
+						: sql.raw(`
+				UNION
+				SELECT companyname AS company_name FROM jobads
+				UNION
+				SELECT companyname AS company_name FROM reviews
+				UNION
+				SELECT companyname AS company_name FROM salaries
+								`)
+				}
+			) names,
+			to_tsquery(${tsquery}) query,
+			to_tsvector(company_name) search_vector,
+			ts_rank(search_vector, query) rank
+		WHERE query @@ search_vector
+		-- Sometimes company names can have the same rank.
+		-- So also order by company_name to ensure consistent ordering.
+		ORDER BY rank DESC, company_name ASC
+		LIMIT 10;
+	`);
+
+	return results.map(({ company_name }) => company_name);
 }

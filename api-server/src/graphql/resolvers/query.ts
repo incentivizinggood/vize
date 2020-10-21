@@ -62,6 +62,12 @@ export const Query: QueryResolvers = {
 			args.pageSize
 		),
 
+	companyNameSuggestions: (_obj, args, _context, _info) =>
+		dataModel.companyNameSuggestions(
+			args.partialCompanyName,
+			args.onlyCompaniesWithProfiles
+		),
+
 	searchJobAds: (_obj, args, _context, _info) =>
 		dataModel.searchForJobAds(args.pageNum, args.pageSize),
 
