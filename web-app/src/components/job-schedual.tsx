@@ -1,7 +1,7 @@
 import React from "react";
 import { translations } from "src/translations";
 
-const T = translations.createJobAd.fields;
+const T = translations.legacyTranslationsNeedsRefactor;
 
 interface Interval {
 	start: number;
@@ -65,8 +65,8 @@ export function loopedIntervalOverlap(
 }
 
 const t4am = 4 * 60;
-const noon = 12 * 60;
-const t8pm = 20 * 60;
+const t11am = 11 * 60;
+const t6pm = 18 * 60;
 
 export function getShiftName(
 	startTime: string | null | undefined,
@@ -76,14 +76,14 @@ export function getShiftName(
 		return null;
 	}
 
-	const startTimeInt = Number(startTime.substring(0, 2));
-	const endTimeInt = Number(endTime.substring(0, 2));
+	const startTimeInt = Number(startTime.substring(0, 2)) * 60;
+	const endTimeInt = Number(endTime.substring(0, 2)) * 60;
 	const shift: Interval = { start: startTimeInt, end: endTimeInt };
 
 	const shifts = [
-		{ name: "Matutino (diurno)", start: t4am, end: noon }, // Morning shift
-		{ name: "Vespertino (mixto)", start: noon, end: t8pm }, // Afternoon shift
-		{ name: "Nocturno", start: t8pm, end: t4am }, // Night shift
+		{ name: "Matutino (diurno)", start: t4am, end: t11am }, // Morning shift
+		{ name: "Vespertino (mixto)", start: t11am, end: t6pm }, // Afternoon shift
+		{ name: "Nocturno", start: t6pm, end: t4am }, // Night shift
 	];
 
 	return shifts
@@ -100,22 +100,22 @@ export function getShiftName(
 
 function dayName(day: number): JSX.Element {
 	return [
-		<T.jobSchedule.sunday />,
-		<T.jobSchedule.monday />,
-		<T.jobSchedule.tuesday />,
-		<T.jobSchedule.wednesday />,
-		<T.jobSchedule.thursday />,
-		<T.jobSchedule.friday />,
-		<T.jobSchedule.saturday />,
+		<T.showjob.sunday />,
+		<T.showjob.monday />,
+		<T.showjob.tuesday />,
+		<T.showjob.wednesday />,
+		<T.showjob.thursday />,
+		<T.showjob.friday />,
+		<T.showjob.saturday />,
 	][day];
 }
 
 function getShiftDayRange(
 	startDay: number | null | undefined,
 	endDay: number | null | undefined
-): JSX.Element | null {
-	if (!startDay || !endDay) {
-		return null;
+): JSX.Element {
+	if (typeof startDay !== "number" || typeof endDay !== "number") {
+		return <></>;
 	}
 	return (
 		<>
@@ -163,11 +163,13 @@ interface JobScheduleProps {
 }
 
 export function JobSchedule(props: JobScheduleProps): JSX.Element {
-	console.log(props.startDay);
+	console.log(props.startDay + " " + props.endDay);
+	const daysAreNumeric =
+		typeof props.startDay === "number" && typeof props.endDay === "number";
 	return (
 		<span>
 			{getShiftName(props.startTime, props.endTime)}
-			{props.startDay && props.endDay && " | "}
+			{daysAreNumeric && " | "}
 			{getShiftDayRange(props.startDay, props.endDay)}
 			{props.startTime && props.endTime && " | "}
 			{getShiftTimeRange(props.startTime, props.endTime)}
