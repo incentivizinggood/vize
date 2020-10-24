@@ -55,7 +55,7 @@ function breakLoopedInterval(loop: Interval, interval: Interval): Interval[] {
  */
 export function loopedIntervalOverlap(
 	loop: Interval,
-	intervalA: Interval,
+	intervalShift: Interval,
 	intervalB: Interval
 ): number {
 	return intervalSetOverlap(
@@ -75,10 +75,7 @@ export function getShiftName(
 	if (!startTime || !endTime) {
 		return null;
 	}
-
 	const startTimeInt = Number(startTime.substring(0, 2)) * 60;
-	const endTimeInt = Number(endTime.substring(0, 2)) * 60;
-	const shift: Interval = { start: startTimeInt, end: endTimeInt };
 
 	const shifts = [
 		{ name: "Matutino (diurno)", start: t4am, end: t11am }, // Morning shift
@@ -86,16 +83,26 @@ export function getShiftName(
 		{ name: "Nocturno", start: t6pm, end: t4am }, // Night shift
 	];
 
-	return shifts
-		.map(s => ({
-			...s,
-			overlap: loopedIntervalOverlap(
-				{ start: 0, end: 24 * 60 },
-				s,
-				shift
-			),
-		}))
-		.sort((a, b) => a.overlap - b.overlap)[0].name;
+	if (startTimeInt >= shifts[2].start) {
+		return shifts[2].name;
+	} else if (startTimeInt >= shifts[1].start) {
+		return shifts[1].name;
+	} else {
+		return shifts[0].name;
+	}
+
+	//return "test";
+
+	// return shifts
+	// 	.map(s => ({
+	// 		...s,
+	// 		overlap: loopedIntervalOverlap(
+	// 			{ start: 0, end: 24 * 60 },
+	// 			s,
+	// 			shift
+	// 		),
+	// 	}))
+	// 	.sort((a, b) => a.overlap - b.overlap)[0].name;
 }
 
 function dayName(day: number): JSX.Element {
@@ -163,7 +170,6 @@ interface JobScheduleProps {
 }
 
 export function JobSchedule(props: JobScheduleProps): JSX.Element {
-	console.log(props.startDay + " " + props.endDay);
 	const daysAreNumeric =
 		typeof props.startDay === "number" && typeof props.endDay === "number";
 	return (

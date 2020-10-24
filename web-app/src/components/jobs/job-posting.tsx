@@ -85,8 +85,6 @@ function JobPosting({ job }: JobPostingProps) {
 	};
 	const datePosted = new Date(job.created);
 
-	console.log(job);
-
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
 			<T.showjob.fullTime />
