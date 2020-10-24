@@ -322,7 +322,7 @@ export default {
 			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
 		fields: {
 			jobTitle: {
-				label: "Titulo de Empleo",
+				label: "Nombre del Cargo",
 				placeholder: "Ingrese el título del empleo que está anunciando",
 			},
 			locations: {

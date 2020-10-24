@@ -39,7 +39,7 @@ const schema = yup.object().shape({
 		"Se requiere el nombre de la empresa"
 	),
 	location: schemas.locationSchema,
-	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
+	jobTitle: yup.string().required("Se requiere el nombre del cargo"),
 	incomeType: yup
 		.string()
 		.oneOf([
