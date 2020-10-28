@@ -89,8 +89,9 @@ function Pages(props) {
 					/>
 				)}
 			/>
+			{/* Trabajo = Job */}
 			<Route
-				path={`/job-ad/:id`}
+				path={`/trabajo/:id`}
 				component={({ match }: RouteComponentProps<{ id: string }>) => (
 					<JobAdPage jobAdId={match.params.id} />
 				)}
