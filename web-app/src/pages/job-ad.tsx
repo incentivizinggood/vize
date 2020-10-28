@@ -29,7 +29,7 @@ export function JobAdPage({ jobAdId }: JobAdPageProps): JSX.Element {
 				<Spinner />
 			) : data && data.jobAd ? (
 				<Center>
-					<JobPosting job={data.jobAd} />
+					<JobPosting job={data.jobAd} isMinimizable={false} />
 				</Center>
 			) : (
 				"Could not find that job ad."
