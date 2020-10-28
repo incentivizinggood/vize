@@ -33,6 +33,7 @@ import CreateReview from "./create-review";
 import ReviewSubmitted from "./review-submitted";
 
 import { queryRoutes } from "./url-generators";
+import { JobAdPage } from "./job-ad";
 
 /** Replace null with undefined. */
 function fixNullParams<T>(param?: T | null): T | undefined {
@@ -86,6 +87,13 @@ function Pages(props) {
 					<CompanyProfile
 						companyId={fixNullParams(match.params.id)}
 					/>
+				)}
+			/>
+			{/* Trabajo = Job */}
+			<Route
+				path={`/trabajo/:id`}
+				component={({ match }: RouteComponentProps<{ id: string }>) => (
+					<JobAdPage jobAdId={match.params.id} />
 				)}
 			/>
 			<Route

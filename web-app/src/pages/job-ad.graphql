@@ -1,0 +1,5 @@
+query JobAdPage($jobAdId: ID!) {
+	jobAd(id: $jobAdId) {
+		...JobPosting
+	}
+}

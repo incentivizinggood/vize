@@ -16,17 +16,7 @@ import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
-const TJobAd = translations.createJobAd.fields;
-
-const dayValueToText: { [key: number]: JSX.Element } = {
-	1: <TJobAd.jobSchedule.monday />,
-	2: <TJobAd.jobSchedule.tuesday />,
-	3: <TJobAd.jobSchedule.wednesday />,
-	4: <TJobAd.jobSchedule.thursday />,
-	5: <TJobAd.jobSchedule.friday />,
-	6: <TJobAd.jobSchedule.saturday />,
-	0: <TJobAd.jobSchedule.sunday />,
-};
+import { JobSchedule } from "src/components/job-schedual";
 
 const FontAwesomeIconSized = styled(FontAwesomeIcon)`
 	width: 16px !important;
@@ -81,34 +71,12 @@ const DatePostedDiv = styled.div`
 	}
 `;
 
-function getShiftTimeRange(startTimeRaw: string, endTimeRaw: string) {
-	const startTimeNum = Number(startTimeRaw.substring(0, 2));
-	const startTimeSuffix = startTimeNum >= 12 ? "PM" : "AM";
-	let startTime = String(((startTimeNum + 11) % 12) + 1);
-	startTime += startTimeRaw.substring(2, 5);
-
-	const endTimeNum = Number(endTimeRaw.substring(0, 2));
-	const endTimeSuffix = endTimeNum >= 12 ? "PM" : "AM";
-	let endTime = String(((endTimeNum + 11) % 12) + 1);
-	endTime += endTimeRaw.substring(2, 5);
-
-	return (
-		" | " +
-		startTime +
-		" " +
-		startTimeSuffix +
-		" - " +
-		endTime +
-		" " +
-		endTimeSuffix
-	);
-}
-
 interface JobPostingProps {
 	job: JobPostingFragment;
+	isMinimizable: boolean; // If false, the abimity to expand and minimize the job post will be disabled
 }
 
-function JobPosting({ job }: JobPostingProps) {
+function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	// @options -  For the date formatting
 	const options = {
 		weekday: "long",
@@ -117,14 +85,6 @@ function JobPosting({ job }: JobPostingProps) {
 		day: "numeric",
 	};
 	const datePosted = new Date(job.created);
-
-	const startDay = job.startDay ? dayValueToText[job.startDay] : "";
-	const endDay = job.endDay ? dayValueToText[job.endDay] : "";
-
-	let shiftTimeRange =
-		job.startTime && job.endTime
-			? getShiftTimeRange(job.startTime, job.endTime)
-			: "";
 
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
@@ -142,6 +102,45 @@ function JobPosting({ job }: JobPostingProps) {
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
+	const showJobSchedule =
+		(job.startTime && job.endTime) || (job.startDay && job.endDay);
+
+	const QualificationsAndResponsibilities = () => {
+		if (isMinimizable) {
+			return (
+				<div className="read-more-content">
+					<br />
+					<h4>
+						<T.showjob.qualifications />
+					</h4>
+					<p>{job.qualifications} </p>
+					<br />
+					<div>
+						<h4>
+							<T.showjob.responsibilities />
+						</h4>
+						<p>{job.responsibilities}</p>
+					</div>
+				</div>
+			);
+		}
+		return (
+			<>
+				<br />
+				<h4>
+					<T.showjob.qualifications />
+				</h4>
+				<p>{job.qualifications} </p>
+				<br />
+				<div>
+					<h4>
+						<T.showjob.responsibilities />
+					</h4>
+					<p>{job.responsibilities}</p>
+				</div>
+			</>
+		);
+	};
 
 	return (
 		<JobContainer>
@@ -202,13 +201,19 @@ function JobPosting({ job }: JobPostingProps) {
 				<FontAwesomeIconSized icon={faFileSignature} />
 				{contractType}
 			</div>
-			<div>
-				<FontAwesomeIconSized icon={faClock} />
-				{startDay}
-				{" - "}
-				{endDay}
-				{shiftTimeRange}
-			</div>
+
+			{showJobSchedule && (
+				<div>
+					<FontAwesomeIconSized icon={faClock} />
+					<JobSchedule
+						startTime={job.startTime}
+						endTime={job.endTime}
+						startDay={job.startDay}
+						endDay={job.endDay}
+					/>
+				</div>
+			)}
+
 			<hr />
 			<h4 className="h4-font-sz-job">
 				<T.showjob.job_description />
@@ -221,24 +226,16 @@ function JobPosting({ job }: JobPostingProps) {
 						className="read-more-toggle"
 						type="checkbox"
 					/>
-					<div className="read-more-content">
-						<br />
-						<h4>
-							<T.showjob.qualifications />
-						</h4>
-						<p>{job.qualifications} </p>
-						<br />
-						<div>
-							<h4>
-								<T.showjob.responsibilities />
-							</h4>
-							<p>{job.responsibilities}</p>
-						</div>
-					</div>
 
-					<label className="read-more-toggle-label" htmlFor={job.id}>
-						{" "}
-					</label>
+					<QualificationsAndResponsibilities />
+
+					{isMinimizable && (
+						<label
+							className="read-more-toggle-label"
+							htmlFor={job.id}
+						/>
+					)}
+
 					<DatePostedDiv>
 						<p>
 							<T.showjob.posted_on />{" "}
