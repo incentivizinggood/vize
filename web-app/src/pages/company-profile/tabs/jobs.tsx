@@ -85,6 +85,7 @@ export default function JobTab({ companyId }: JobTabProps): JSX.Element {
 			</h2>
 		);
 	}
+	console.log(data.company);
 
 	return (
 		<SectionContainer ref={infiniteRef}>

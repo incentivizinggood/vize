@@ -72,7 +72,7 @@ export async function searchForJobAds(
 	return paginate<JobAd>(
 		sql`
 			${baseQuery}
-			ORDER BY jobadid DESC
+			ORDER BY dateadded DESC
 		`,
 		pageNumber,
 		pageSize
