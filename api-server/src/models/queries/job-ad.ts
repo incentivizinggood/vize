@@ -40,6 +40,7 @@ export async function getJobAdsByCompany(
 	return simpleQuery(sql`
 		${baseQuery}
 		WHERE companyname=${company.name}
+		ORDER BY dateadded DESC
 		OFFSET ${pageNumber * pageSize}
 		LIMIT ${pageSize}
 	`);
