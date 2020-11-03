@@ -35,7 +35,6 @@ const onSubmit = (history: History) => (
 ) => {
 	login(values.loginId, values.password)
 		.then(x => {
-			console.log("then = ", x);
 			actions.resetForm({ values: initialValues });
 
 			// TODO: use query params so that login redirects user back to where they were when they login
@@ -43,6 +42,7 @@ const onSubmit = (history: History) => (
 				!(
 					window.location.pathname.includes("/write-review") ||
 					window.location.pathname.includes("/submit-salary-data") ||
+					window.location.pathname.includes("/apply-for-job") ||
 					window.location.pathname.includes("/recurso")
 				)
 			) {
