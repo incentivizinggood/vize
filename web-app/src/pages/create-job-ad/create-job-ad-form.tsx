@@ -119,23 +119,12 @@ const onSubmit = (createJobAd, history, setSubmissionError) => (
 			);
 		})
 		.catch(errors => {
-			// console.error(errors);
-			// console.log(mapValues(errors, x => x));
-
-			setSubmissionError(errors);
-
 			// Errors to display on form fields
 			const formErrors = {};
 
-			/*
-			if (error.reason === "User not found") {
-				formErrors.username = "User not found";
-			}
-			if (error.reason === "Incorrect password") {
-				// TODO: clear the password input on this error
-				formErrors.password = "Incorrect password";
-			}
-			*/
+			// cut out the "GraphQL error: " from error message
+			const errorMessage = errors.message.substring(14);
+			setSubmissionError(errorMessage);
 
 			actions.setErrors(formErrors);
 			actions.setSubmitting(false);

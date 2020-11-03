@@ -4,7 +4,9 @@ import { MutationResolvers } from "generated/graphql-resolvers";
 
 export const Mutation: MutationResolvers = {
 	claimWroteAReview: (_obj, args, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		return dataModel.claimWroteAReview(
 			context.user,
@@ -19,7 +21,9 @@ export const Mutation: MutationResolvers = {
 		context,
 		_info
 	) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		return dataModel
 			.castVote(context.user, Number(subjectId), isUpvote)
@@ -32,7 +36,9 @@ export const Mutation: MutationResolvers = {
 		context,
 		_info
 	) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		const resource = await dataModel.resourceLike(
 			context.user,
@@ -44,7 +50,9 @@ export const Mutation: MutationResolvers = {
 	},
 
 	createCompany: async (_obj, { input }, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 		const companyId = await dataModel.createCompany(
 			input,
 			context.user.userId
@@ -54,7 +62,9 @@ export const Mutation: MutationResolvers = {
 	},
 
 	createReview: async (_obj, { input }, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		const reviewId = await dataModel.createReview(
 			input,
@@ -71,7 +81,9 @@ export const Mutation: MutationResolvers = {
 		context,
 		_info
 	) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		const salaryId = await dataModel.createSalary(
 			{
@@ -101,7 +113,9 @@ export const Mutation: MutationResolvers = {
 	},
 
 	createJobAd: async (_obj, { input }, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		const jobAdId = await dataModel.createJobAd(input, context.user.userId);
 		const jobAd = await dataModel.getJobAdById(jobAdId);
@@ -109,14 +123,18 @@ export const Mutation: MutationResolvers = {
 	},
 
 	applyToJobAd: async (_obj, { input }, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		const success = await dataModel.applyToJobAd(input);
 		return { success };
 	},
 
 	flagReview: async (_obj, { input }, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		const success = await dataModel.flagReview(context.user, input);
 		return { success };

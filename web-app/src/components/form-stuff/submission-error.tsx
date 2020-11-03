@@ -22,6 +22,7 @@ interface SubmissionErrorProps {
 }
 
 function SubmissionError({ error }: SubmissionErrorProps) {
+	console.log("err", error);
 	if (error === null) {
 		return null;
 	}

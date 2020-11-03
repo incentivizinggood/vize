@@ -61,15 +61,12 @@ const onSubmit = (applyToJobAd, history, setSubmissionError) => (
 			history.push("/");
 		})
 		.catch(errors => {
-			console.error(errors);
-			console.log(mapValues(errors, x => x));
-
-			setSubmissionError(errors);
+			// cut out the "GraphQL error: " from error message
+			const errorMessage = errors.message.substring(14);
+			setSubmissionError(errorMessage);
 
 			// Errors to display on form fields
 			const formErrors = {};
-
-			// TODO: better error displaying.
 
 			actions.setErrors(formErrors);
 			actions.setSubmitting(false);

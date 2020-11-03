@@ -72,7 +72,9 @@ export const Query: QueryResolvers = {
 		dataModel.searchForJobAds(args.pageNum, args.pageSize),
 
 	wroteAReview: (_obj, _args, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		return dataModel.wroteAReviewStatus(context.user);
 	},
