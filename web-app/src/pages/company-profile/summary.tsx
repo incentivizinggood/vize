@@ -51,6 +51,7 @@ export default function CompanyProfileSummary({
 			</h2>
 		);
 	}
+	console.log(data.company);
 
 	return (
 		<CompanySummaryContainer>
