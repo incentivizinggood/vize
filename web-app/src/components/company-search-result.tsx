@@ -14,7 +14,7 @@ import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
-import defaultCompanyImg from "src/images/default-company.png";
+import defaultCompanyIcon from "src/images/default-company.png";
 import { CompanySearchResultFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
@@ -49,6 +49,11 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 	const companyProfileUrl = urlGenerators.vizeCompanyProfileUrl(
 		props.company.id
 	);
+
+	const companyProfileIcon = props.company.companyIconURL
+		? props.company.companyIconURL
+		: defaultCompanyIcon;
+
 	return (
 		<div>
 			<div className="container company-search-container">
@@ -60,7 +65,7 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 						<Link to={companyProfileUrl}>
 							<div className="company-search-img">
 								<img
-									src={defaultCompanyImg}
+									src={companyProfileIcon}
 									className="img-responsive"
 									alt={`The company logo of ${props.company.name}`}
 								/>

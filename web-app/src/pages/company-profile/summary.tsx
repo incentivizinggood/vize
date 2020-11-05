@@ -15,7 +15,7 @@ import Spinner from "src/components/Spinner";
 import { useCompanyProfileSummaryQuery } from "generated/graphql-operations";
 import { translations } from "src/translations";
 
-import defaultCompany from "src/images/default-company.png";
+import defaultCompanyIcon from "src/images/default-company.png";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -51,13 +51,16 @@ export default function CompanyProfileSummary({
 			</h2>
 		);
 	}
-	console.log(data.company);
+
+	const companyProfileIcon = data.company.companyIconURL
+		? data.company.companyIconURL
+		: defaultCompanyIcon;
 
 	return (
 		<CompanySummaryContainer>
 			<div className="col-md-2 prostar">
 				<img
-					src={defaultCompany}
+					src={companyProfileIcon}
 					className="img-responsive"
 					alt="Company profile"
 				/>
