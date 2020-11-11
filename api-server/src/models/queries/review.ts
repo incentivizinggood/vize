@@ -66,6 +66,7 @@ export async function getReviewsByAuthor(
 	return simpleQuery(sql`
 		${baseQuery}
 		WHERE submittedby=${user.userId}
+		ORDER BY dateadded DESC
 		OFFSET ${pageNumber * pageSize}
 		LIMIT ${pageSize}
 	`);
@@ -91,6 +92,7 @@ export async function getReviewsByCompany(
 	return simpleQuery(sql`
 		${baseQuery}
 		WHERE companyname=${company.name}
+		ORDER BY dateadded DESC
 		OFFSET ${pageNumber * pageSize}
 		LIMIT ${pageSize}
 	`);
