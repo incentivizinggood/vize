@@ -14,6 +14,7 @@ import { WriteReviewButton } from "src/components/button";
 import Spinner from "src/components/Spinner";
 import { useCompanyProfileSummaryQuery } from "generated/graphql-operations";
 import { translations } from "src/translations";
+import { forSize } from "src/responsive";
 
 import defaultCompanyIcon from "src/images/default-company.png";
 
@@ -21,8 +22,42 @@ const T = translations.legacyTranslationsNeedsRefactor;
 
 const CompanySummaryContainer = styled.div`
 	margin-top: 8em;
+	padding: 15px;
+	display: flex;
+
 	box-shadow: 1px 1px 5px 1px #dac1c1;
 	background-color: white;
+
+	${forSize.phoneOnly} {
+		flex-direction: column;
+	}
+`;
+
+const CompanyProfileImageContainer = styled.div`
+	display: flex;
+	padding-right: 15px;
+	align-items: center;
+`;
+
+const CompanyProfileImage = styled.img`
+	max-width: 180px;
+	max-height: 180px;
+	margin: 0 auto;
+`;
+
+// Contains the location, industry, URL, and number of employees
+const CompanyInfoComponent = styled.div`
+	display: flex
+	flex-direction: column;
+`;
+
+const WriteReviewButtonContainer = styled.div`
+	margin-left: auto;
+
+	${forSize.phoneOnly} {
+		margin: 0 auto;
+		margin-top: 10px;
+	}
 `;
 
 interface CompanyProfileSummaryProps {
@@ -58,15 +93,14 @@ export default function CompanyProfileSummary({
 
 	return (
 		<CompanySummaryContainer>
-			<div className="col-md-2 prostar">
-				<img
+			<CompanyProfileImageContainer>
+				<CompanyProfileImage
 					src={companyProfileIcon}
-					className="img-responsive"
 					alt="Company profile"
 				/>
-			</div>
+			</CompanyProfileImageContainer>
 
-			<div className="col-md-6">
+			<CompanyInfoComponent>
 				<div className="row">
 					<div className="col-md-12">
 						<fieldset className="rating">
@@ -125,16 +159,13 @@ export default function CompanyProfileSummary({
 						) : null}
 					</div>
 				</div>
-			</div>
-
-			<div className="col-md-4 prostar">
-				<div className="col-md-12">
-					<WriteReviewButton
-						companyName={data.company.name}
-						buttonLocation="Company Profile | Top"
-					/>
-				</div>
-			</div>
+			</CompanyInfoComponent>
+			<WriteReviewButtonContainer>
+				<WriteReviewButton
+					companyName={data.company.name}
+					buttonLocation="Company Profile | Top"
+				/>
+			</WriteReviewButtonContainer>
 			<div className="clearfix" />
 		</CompanySummaryContainer>
 	);
