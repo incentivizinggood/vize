@@ -28,4 +28,5 @@ fragment CompanySearchResult on Company {
 	numReviews
 	numJobAds
 	numSalaries
+	companyIconURL
 }

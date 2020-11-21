@@ -14,5 +14,6 @@ query CompanyProfileSummary($companyId: ID!) {
 			overallSatisfaction
 		}
 		websiteURL
+		companyIconURL
 	}
 }

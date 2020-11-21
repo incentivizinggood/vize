@@ -335,6 +335,8 @@ type Company {
 	salaries(pageNum: Int = 0, pageSize: Int = 24): [Salary!]!
 	"Number of salaries reported to be earned at this company."
 	numSalaries: Int!
+	"URL for the company icon image"
+	companyIconURL: String
 
 	salaryStats: [CompanySalaryStats!]!
 }

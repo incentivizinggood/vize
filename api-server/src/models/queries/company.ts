@@ -40,6 +40,7 @@ const attributes = sql.raw(
 		'workenvironment AS "workEnvironment"',
 		"benefits",
 		'overallsatisfaction AS "overallSatisfaction"',
+		'company_icon_url AS "companyIconURL"',
 	].join(", ")
 );
 
