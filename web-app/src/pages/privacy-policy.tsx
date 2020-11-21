@@ -64,10 +64,8 @@ export function PrivacyPolicy(): JSX.Element {
 			</p>
 			<p>
 				Our website uses these &quot;cookies&quot; to collect
-				information and to improve our Service. You have the option to
-				either accept or refuse these cookies, and know when a cookie is
-				being sent to your computer. If you choose to refuse our
-				cookies, you may not be able to use some portions of our
+				information and to improve our Service. If you choose to refuse
+				our cookies, you may not be able to use some portions of our
 				Service.
 			</p>
 			<p>
