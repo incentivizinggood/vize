@@ -57,6 +57,7 @@ const onSubmit = (history: History, role: "worker" | "company") => (
 				!(
 					window.location.pathname.includes("/write-review") ||
 					window.location.pathname.includes("/submit-salary-data") ||
+					window.location.pathname.includes("/apply-for-job") ||
 					window.location.pathname.includes("/recurso")
 				)
 			) {
@@ -64,8 +65,6 @@ const onSubmit = (history: History, role: "worker" | "company") => (
 			}
 		})
 		.catch(error => {
-			console.error(error);
-
 			// Errors to display on form fields
 			const formErrors: FormikErrors<Values> = {};
 

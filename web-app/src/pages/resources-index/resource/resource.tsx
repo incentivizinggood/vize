@@ -177,8 +177,12 @@ function Resource(props: ResourceProps) {
 				},
 			},
 		}).catch(errors => {
-			console.error("err: ", errors.message);
-			if (errors.message.includes("NOT_LOGGED_IN")) {
+			// Error in English: Not Logged In
+			if (
+				errors.message.includes(
+					"Tienes que iniciar una sesión o registrarte"
+				)
+			) {
 				setLoginRegisterModal(
 					<PopupModal isOpen={true}>
 						<RegisterLoginModal errorText="Regístrate o inicia una sesión para guardar el recurso" />

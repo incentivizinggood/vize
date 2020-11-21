@@ -322,7 +322,7 @@ export default {
 			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
 		fields: {
 			jobTitle: {
-				label: "Titulo de Empleo",
+				label: "Nombre del Cargo",
 				placeholder: "Ingrese el título del empleo que está anunciando",
 			},
 			locations: {
@@ -648,12 +648,16 @@ export default {
 			job_description: "Descripción del Trabajo",
 			qualifications: "Calificaciones",
 			responsibilities: "Reponsabilidades",
-			posted_on: "Publicado",
+			posted_on: "Publicado hace",
 			fullTime: "Tiempo completo",
 			partTime: "Medio tiempo",
 			contractor: "Contratista",
 			internship: "Prácticas (Pasantía)",
 			temporary: "Proyecto (Temporal)",
+			day_ago: "día",
+			days_ago: "dias",
+			month_ago: "mes",
+			months_ago: "meses",
 		},
 		CompanySearchResult: {
 			reviews: "Evaluaciones",

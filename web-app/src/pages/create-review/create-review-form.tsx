@@ -208,26 +208,24 @@ export default function CreateReviewForm({
 				history.push("/review-submitted");
 			})
 			.catch(errors => {
-				console.error("err: ", errors.message);
-				if (errors.message.includes("NOT_LOGGED_IN")) {
+				// Error in English: Not Logged In
+				if (
+					errors.message.includes(
+						"Tienes que iniciar una sesión o registrarte"
+					)
+				) {
 					setContent(
 						<PopupModal isOpen={true}>
 							<RegisterLoginModal errorText="Regístrate o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);
 				} else {
-					//if (errors.nessage);
-					console.log(mapValues(errors, x => x));
-
 					// cut out the "GraphQL error: " from error message
 					const errorMessage = errors.message.substring(14);
-
 					setSubmissionError(errorMessage);
 
 					// Errors to display on form fields
 					const formErrors = {};
-
-					// TODO: better error displaying.
 
 					actions.setErrors(formErrors);
 				}
