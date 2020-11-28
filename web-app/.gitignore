@@ -1,1 +1,5 @@
+# Files created by graphql-codegen.
 generated/
+
+# Files output by jest.
+coverage
