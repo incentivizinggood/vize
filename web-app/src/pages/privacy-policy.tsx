@@ -37,6 +37,8 @@ export function PrivacyPolicy(): JSX.Element {
 				<a href="https://www.vize.mx/">https://www.vize.mx/</a>, unless
 				otherwise defined in this Privacy Policy.
 			</p>
+			<br />
+
 			<h2>Information Collection and Use</h2>
 			<p>
 				For a better experience while using our Service, we may require
@@ -45,6 +47,8 @@ export function PrivacyPolicy(): JSX.Element {
 				number, and postal address. The information that we collect will
 				be used to contact or identify you.
 			</p>
+			<br />
+
 			<h2>Log Data</h2>
 			<p>
 				We want to inform you that whenever you visit our Service, we
@@ -55,6 +59,8 @@ export function PrivacyPolicy(): JSX.Element {
 				and date of your visit, the time spent on those pages, and other
 				statistics.
 			</p>
+			<br />
+
 			<h2>Cookies</h2>
 			<p>
 				Cookies are files with small amount of data that is commonly
@@ -75,6 +81,8 @@ export function PrivacyPolicy(): JSX.Element {
 				</a>
 				.
 			</p>
+			<br />
+
 			<h2>Service Providers</h2>
 			<p>
 				We may employ third-party companies and individuals due to the
@@ -93,6 +101,8 @@ export function PrivacyPolicy(): JSX.Element {
 				are obligated not to disclose or use the information for any
 				other purpose.
 			</p>
+			<br />
+
 			<h2>Security</h2>
 			<p>
 				We value your trust in providing us your Personal Information,
@@ -101,6 +111,8 @@ export function PrivacyPolicy(): JSX.Element {
 				the internet, or method of electronic storage is 100% secure and
 				reliable, and we cannot guarantee its absolute security.
 			</p>
+			<br />
+
 			<h2>Links to Other Sites</h2>
 			<p>
 				Our Service may contain links to other sites. If you click on a
@@ -111,6 +123,8 @@ export function PrivacyPolicy(): JSX.Element {
 				for the content, privacy policies, or practices of any
 				third-party sites or services.
 			</p>
+			<br />
+
 			<h2>Children&apos;s Privacy</h2>
 			<p>
 				Our Services do not address anyone under the age of 13. We do
@@ -122,6 +136,7 @@ export function PrivacyPolicy(): JSX.Element {
 				information, please contact us so that we will be able to do
 				necessary actions.
 			</p>
+			<br />
 			<h2>Changes to This Privacy Policy</h2>
 			<p>
 				We may update our Privacy Policy from time to time. Thus, we
@@ -130,11 +145,32 @@ export function PrivacyPolicy(): JSX.Element {
 				on this page. These changes are effective immediately, after
 				they are posted on this page.
 			</p>
+			<br />
+
+			<br />
+			<h2 id="data-deletion-instructions">User Data Deletion Instructions</h2>
+			<p>
+				In order to delete all of the data linked to your Facebook account, please send us an email with your request to{" "}
+				<a href="mailto:incentivizinggood@gmail.com">
+					incentivizinggood@gmail.com
+				</a>.
+			</p>
+			<br />
+
 			<h2>Contact Us</h2>
 			<p>
 				If you have any questions or suggestions about our Privacy
 				Policy, do not hesitate to contact us.
 			</p>
+			<p>
+				Email: <a href="mailto:incentivizinggood@gmail.com"> incentivizinggood@gmail.com</a>
+			</p>
+			<p>
+				Phone: <a href="https://wa.me/5216647480001">+52 (664) 748-0001</a>
+			</p>
+			<br />
+
+			
 		</>
 	);
 }
