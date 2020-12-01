@@ -43,7 +43,17 @@ type Query {
 		onlyCompaniesWithProfiles: Boolean
 	): [String!]!
 
-	searchJobAds(pageNum: Int = 0, pageSize: Int = 20): JobAdConnection!
+	searchJobAds(
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): JobAdConnection!
+
+	searchReviews(
+		searchText: String = ""
+		pageNum: Int = 0
+		pageSize: Int = 20
+	): ReviewConnection!
 
 	wroteAReview: RewardStatus!
 }
@@ -220,6 +230,11 @@ type CompanyConnection {
 
 type JobAdConnection {
 	nodes: [JobAd!]!
+	totalCount: Int!
+}
+
+type ReviewConnection {
+	nodes: [Review!]!
 	totalCount: Int!
 }
 

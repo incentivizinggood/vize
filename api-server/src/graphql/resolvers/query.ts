@@ -71,6 +71,9 @@ export const Query: QueryResolvers = {
 	searchJobAds: (_obj, args, _context, _info) =>
 		dataModel.searchForJobAds(args.pageNum, args.pageSize),
 
+	searchReviews: (_obj, args, _context, _info) =>
+		dataModel.searchForReviews(args.pageNum, args.pageSize),
+
 	wroteAReview: (_obj, _args, context, _info) => {
 		// Error in English: Not Logged In
 		if (!context.user)

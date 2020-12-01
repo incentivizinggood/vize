@@ -7,6 +7,7 @@ import {
 	User,
 	getUserById,
 	getCompanyByName,
+	paginate,
 } from "src/models";
 
 const reviewVoteCounts = sql`
@@ -105,4 +106,20 @@ export async function getCompanyOfReview(
 	const company: Company | null = await getCompanyByName(review.companyName);
 
 	return company;
+}
+
+// return all reviews
+// TODO: add search parameters
+export async function searchForReviews(
+	pageNumber: number,
+	pageSize: number
+): Promise<{ nodes: Review[]; totalCount: number }> {
+	return paginate<Review>(
+		sql`
+			${baseQuery}
+			ORDER BY dateadded DESC, reviewid
+		`,
+		pageNumber,
+		pageSize
+	);
 }

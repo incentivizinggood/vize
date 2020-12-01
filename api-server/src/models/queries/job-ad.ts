@@ -65,7 +65,7 @@ export async function countJobAdsByCompany(company: Company): Promise<number> {
 }
 
 // return all job ads
-// TODO: add search paramaters
+// TODO: add search parameters
 export async function searchForJobAds(
 	pageNumber: number,
 	pageSize: number
@@ -73,7 +73,7 @@ export async function searchForJobAds(
 	return paginate<JobAd>(
 		sql`
 			${baseQuery}
-			ORDER BY dateadded DESC
+			ORDER BY dateadded DESC, jobadid
 		`,
 		pageNumber,
 		pageSize
