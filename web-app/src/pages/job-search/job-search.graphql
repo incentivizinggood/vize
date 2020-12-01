@@ -1,0 +1,12 @@
+query jobSearchPage($searchText: String!, $pageNum: Int!, $pageSize: Int!) {
+	searchJobAds(
+		searchText: $searchText
+		pageNum: $pageNum
+		pageSize: $pageSize
+	) {
+		totalCount
+		nodes {
+			...JobPosting
+		}
+	}
+}
