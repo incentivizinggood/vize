@@ -74,6 +74,7 @@ const DatePostedDiv = styled.div`
 const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 const _MS_PER_MONTH = 1000 * 60 * 60 * 24 * 30.5;
 
+// gets the date a job was posted in relative terms (ex. 5 days ago instead of using and exact date)
 function getDateDifference(datePosted: Date): JSX.Element {
 	const currentDate = new Date();
 	const postedDateUTC = Date.UTC(
@@ -149,6 +150,8 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const showJobSchedule =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
 
+	// A job post will not be minimizable if we are only looking at that one job post (using the job post link). 
+	// In this case, we want to display all of the data for the job post without having to minizmize or expand the details
 	const QualificationsAndResponsibilities = () => {
 		if (isMinimizable) {
 			return (
