@@ -12,11 +12,7 @@ const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
 `;
 
-const FieldInner: React.ComponentType<any> = ({
-	type,
-	variant,
-	...restProps
-}) => {
+function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
 	}
@@ -49,9 +45,9 @@ const FieldInner: React.ComponentType<any> = ({
 			fullWidth
 		/>
 	);
-};
+}
 
-const FieldComponent: React.ComponentType<any> = ({ t: T, ...restProps }) => {
+function FieldComponent({ t: T, ...restProps }: any): JSX.Element {
 	if (T !== undefined) {
 		return (
 			<T renderer={(t: any) => <FieldInner {...restProps} {...t} />} />
@@ -59,7 +55,7 @@ const FieldComponent: React.ComponentType<any> = ({ t: T, ...restProps }) => {
 	}
 
 	return FieldInner(restProps);
-};
+}
 
 // Added this margin so that error messages do not overlap with other fields
 const Field = styled(FieldComponent)`
