@@ -71,19 +71,65 @@ const DatePostedDiv = styled.div`
 	}
 `;
 
-interface JobPostingProps {
-	job: JobPostingFragment;
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+const _MS_PER_MONTH = 1000 * 60 * 60 * 24 * 30.5;
+
+// gets the date a job was posted in relative terms (ex. 5 days ago instead of using and exact date)
+function getDateDifference(datePosted: Date): JSX.Element {
+	const currentDate = new Date();
+	const postedDateUTC = Date.UTC(
+		datePosted.getFullYear(),
+		datePosted.getMonth(),
+		datePosted.getDate()
+	);
+	const currentDateUTC = Date.UTC(
+		currentDate.getFullYear(),
+		currentDate.getMonth(),
+		currentDate.getDate()
+	);
+	const diffDays = Math.floor((currentDateUTC - postedDateUTC) / _MS_PER_DAY);
+	const diffMonths = Math.floor(
+		(currentDateUTC - postedDateUTC) / _MS_PER_MONTH
+	);
+
+	if (diffDays == 1) {
+		return (
+			<>
+				<T.showjob.posted_on /> {diffDays} <T.showjob.day_ago />
+			</>
+		);
+	}
+	if (diffDays < 30.5) {
+		return (
+			<>
+				<T.showjob.posted_on /> {diffDays} <T.showjob.days_ago />
+			</>
+		);
+	} else if (diffMonths === 1) {
+		return (
+			<>
+				<T.showjob.posted_on /> {diffMonths} <T.showjob.month_ago />
+			</>
+		);
+	} else {
+		return (
+			<>
+				<T.showjob.posted_on /> {diffMonths} <T.showjob.months_ago />
+			</>
+		);
+	}
 }
 
-function JobPosting({ job }: JobPostingProps) {
-	// @options -  For the date formatting
-	const options = {
-		weekday: "long",
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	};
+interface JobPostingProps {
+	job: JobPostingFragment;
+	isMinimizable: boolean; // If false, the abimity to expand and minimize the job post will be disabled
+}
+
+function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const datePosted = new Date(job.created);
+	const DatePostedComponent = () => {
+		return getDateDifference(datePosted);
+	};
 
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
@@ -103,6 +149,45 @@ function JobPosting({ job }: JobPostingProps) {
 		job.locations[0].city && job.locations[0].industrialHub;
 	const showJobSchedule =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
+
+	// A job post will not be minimizable if we are only looking at that one job post (using the job post link). 
+	// In this case, we want to display all of the data for the job post without having to minizmize or expand the details
+	const QualificationsAndResponsibilities = () => {
+		if (isMinimizable) {
+			return (
+				<div className="read-more-content">
+					<br />
+					<h4>
+						<T.showjob.qualifications />
+					</h4>
+					<p>{job.qualifications} </p>
+					<br />
+					<div>
+						<h4>
+							<T.showjob.responsibilities />
+						</h4>
+						<p>{job.responsibilities}</p>
+					</div>
+				</div>
+			);
+		}
+		return (
+			<>
+				<br />
+				<h4>
+					<T.showjob.qualifications />
+				</h4>
+				<p>{job.qualifications} </p>
+				<br />
+				<div>
+					<h4>
+						<T.showjob.responsibilities />
+					</h4>
+					<p>{job.responsibilities}</p>
+				</div>
+			</>
+		);
+	};
 
 	return (
 		<JobContainer>
@@ -188,28 +273,19 @@ function JobPosting({ job }: JobPostingProps) {
 						className="read-more-toggle"
 						type="checkbox"
 					/>
-					<div className="read-more-content">
-						<br />
-						<h4>
-							<T.showjob.qualifications />
-						</h4>
-						<p>{job.qualifications} </p>
-						<br />
-						<div>
-							<h4>
-								<T.showjob.responsibilities />
-							</h4>
-							<p>{job.responsibilities}</p>
-						</div>
-					</div>
 
-					<label className="read-more-toggle-label" htmlFor={job.id}>
-						{" "}
-					</label>
+					<QualificationsAndResponsibilities />
+
+					{isMinimizable && (
+						<label
+							className="read-more-toggle-label"
+							htmlFor={job.id}
+						/>
+					)}
+
 					<DatePostedDiv>
 						<p>
-							<T.showjob.posted_on />{" "}
-							{datePosted.toLocaleDateString("es-MX", options)}
+							<DatePostedComponent />
 						</p>
 					</DatePostedDiv>
 				</article>

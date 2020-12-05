@@ -39,7 +39,7 @@ const schema = yup.object().shape({
 		"Se requiere el nombre de la empresa"
 	),
 	location: schemas.locationSchema,
-	jobTitle: yup.string().required("Se requiere el titulo de trabajo"),
+	jobTitle: yup.string().required("Se requiere el nombre del cargo"),
 	incomeType: yup
 		.string()
 		.oneOf([
@@ -79,26 +79,24 @@ export default function CreateSalaryForm({ companyName }) {
 				history.push("/");
 			})
 			.catch(errors => {
-				console.error(errors.message);
-				if (errors.message === "GraphQL error: NOT_LOGGED_IN") {
+				// Error in English: Not Logged In
+				if (
+					errors.message.includes(
+						"Tienes que iniciar una sesión o registrarte"
+					)
+				) {
 					setContent(
 						<PopupModal isOpen={true}>
 							<RegisterLoginModal errorText="Regístrate o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);
 				} else {
-					//if (errors.nessage);
-					console.log(mapValues(errors, x => x));
-
 					// cut out the "GraphQL error: " from error message
 					const errorMessage = errors.message.substring(14);
-
 					setSubmissionError(errorMessage);
 
 					// Errors to display on form fields
 					const formErrors = {};
-
-					// TODO: better error displaying.
 
 					actions.setErrors(formErrors);
 				}

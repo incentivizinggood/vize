@@ -76,7 +76,10 @@ export async function createJobAd(
 	} = await createJobAdInputSchema.validate(input);
 
 	if (salaryMin > salaryMax) {
-		throw new Error("salaryMin must be less than or equal to salaryMax.");
+		// Error in English: salaryMin must be less than or equal to salaryMax
+		throw new Error(
+			"El salario minimo debe de ser menos que el salario maximo."
+		);
 	}
 
 	const transaction: Transaction<number> = async client => {
@@ -87,12 +90,16 @@ export async function createJobAd(
 		);
 
 		if (role !== "company-unverified" && role !== "company") {
-			throw new Error("Only employers may create a company.");
+			// Error in English: Only employers may create a company. You must create an employer account.
+			throw new Error(
+				"Solo los empleadores pueden crear una empresa. Tienes que crear una cuenta de empleador."
+			);
 		}
 
 		if (companyid === null) {
+			// Error in English: "You must create a company profile before posting job ads. Navigate to My Company to create a profile"
 			throw new Error(
-				"You must create a company profile before posting job ads."
+				'Tienes que crear un perfil para la empresa antes de publicar ofertas de empleo. Navega a "Mi Empresa" en la barra de navegación y llena la encuesta para crear el perfil.'
 			);
 		}
 

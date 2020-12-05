@@ -25,7 +25,6 @@ const customStyles = {
 export default class PopupModal extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log("const");
 
 		this.state = {
 			modalIsOpen: this.props.isOpen,

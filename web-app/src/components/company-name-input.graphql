@@ -1,0 +1,3 @@
+query CompanyNameInput($partialCompanyName: String!) {
+	companyNameSuggestions(partialCompanyName: $partialCompanyName)
+}

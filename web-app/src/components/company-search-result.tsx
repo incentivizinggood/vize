@@ -14,10 +14,49 @@ import { processLocation } from "src/misc";
 import { WriteReviewButton } from "src/components/button";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
-import defaultCompanyImg from "src/images/default-company.png";
+import defaultCompanyIcon from "src/images/default-company.png";
 import { CompanySearchResultFragment } from "generated/graphql-operations";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
+
+const CompanySearchContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+
+	padding: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 35px;
+
+	box-shadow: 0px 0px 3px 0px;
+	background-color: white;
+	border-radius: 8px;
+
+	width: 60%;
+
+	${forSize.phoneOnly} {
+		width: 95%;
+		margin-bottom: 15px;
+	}
+`;
+
+// Contains the logo, comp title, ratings, location, industry, size, and write a review button
+const CompanySearchTopItemsContainer = styled.div`
+	display: flex;
+
+	${forSize.phoneOnly} {
+		flex-direction: column;
+	}
+`;
+
+// Contains the company stats and description
+const CompanySearchBottomItemsContainer = styled.div`
+	display: flex;
+
+	${forSize.phoneOnly} {
+		flex-direction: column;
+	}
+`;
 
 const CompanyDataStatisticsComponent = styled.div`
 	margin-top: 4px;
@@ -41,6 +80,30 @@ const WriteReviewButtonContainer = styled.div`
 	}
 `;
 
+const CompanyProfileImageContainer = styled.div`
+	display: flex;
+	padding: 10px;
+	align-items: center;
+	width: 25%;
+
+	${forSize.phoneOnly} {
+		width: 100%;
+	}
+`;
+
+const CompanyProfileImage = styled.img`
+	display: block;
+	max-width: 160px;
+	max-height: 160px;
+	height: auto;
+
+	${forSize.phoneOnly} {
+		height: auto;
+		width: 190px;
+		margin: 0 auto;
+	}
+`;
+
 interface CompanySearchResultProps {
 	company: CompanySearchResultFragment;
 }
@@ -49,24 +112,26 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 	const companyProfileUrl = urlGenerators.vizeCompanyProfileUrl(
 		props.company.id
 	);
+
+	const companyProfileIcon = props.company.companyIconURL
+		? props.company.companyIconURL
+		: defaultCompanyIcon;
+
 	return (
 		<div>
-			<div className="container company-search-container">
-				<div className="container">
-					<div className="col-md-3  prostar">
-						{
-							//TODO: removing prevState because it for some reason returns error 400 when Used
-						}
-						<Link to={companyProfileUrl}>
-							<div className="company-search-img">
-								<img
-									src={defaultCompanyImg}
-									className="img-responsive"
-									alt={`The company logo of ${props.company.name}`}
-								/>
-							</div>
+			<CompanySearchContainer>
+				<CompanySearchTopItemsContainer>
+					<CompanyProfileImageContainer>
+						<Link
+							to={companyProfileUrl}
+							style={{ margin: "0 auto" }}
+						>
+							<CompanyProfileImage
+								src={companyProfileIcon}
+								alt={`The company logo of ${props.company.name}`}
+							/>
 						</Link>
-					</div>
+					</CompanyProfileImageContainer>
 					<div className="col-md-4  prostar">
 						<span className="goo">
 							{" "}
@@ -134,9 +199,9 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 							</WriteReviewButtonContainer>
 						</div>
 					</div>
-				</div>
-				<div className="clearfix" />
-				<div className="container  welpad1">
+				</CompanySearchTopItemsContainer>
+
+				<CompanySearchBottomItemsContainer>
 					<div className="col-md-3">
 						<CompanyDataStatisticsComponent>
 							<div>
@@ -190,9 +255,9 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 							</div>
 						</div>
 					</div>
-				</div>
+				</CompanySearchBottomItemsContainer>
 				<div className="clearfix" />
-			</div>
+			</CompanySearchContainer>
 		</div>
 	);
 }

@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 import * as analytics from "src/startup/analytics";
+import PopupModal from "src/components/popup-modal";
+import RegisterLoginModal from "src/components/register-login-modal";
+import { useUser } from "src/hoc/user";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 
@@ -37,18 +40,18 @@ const schema = yup.object().shape({
 	coverLetter: yup.string(),
 });
 
-const onSubmit = (applyToJobAd, history, setSubmissionError) => (
-	values,
-	actions
-) =>
+const onSubmit = (
+	applyToJobAd,
+	history,
+	setSubmissionError,
+	setLoginRegisterModal
+) => (values, actions) =>
 	applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(values),
 		},
 	})
 		.then(({ data }) => {
-			console.log("bals", values);
-
 			actions.resetForm(initialValues);
 
 			// Track successful job application submitted event
@@ -61,18 +64,28 @@ const onSubmit = (applyToJobAd, history, setSubmissionError) => (
 			history.push("/");
 		})
 		.catch(errors => {
-			console.error(errors);
-			console.log(mapValues(errors, x => x));
+			// Error in English: Not Logged In
+			if (
+				errors.message.includes(
+					"Tienes que iniciar una sesión o registrarte"
+				)
+			) {
+				setLoginRegisterModal(
+					<PopupModal isOpen={true}>
+						<RegisterLoginModal errorText="Regístrate o inicia una sesión para postularte a este trabajo" />
+					</PopupModal>
+				);
+			} else {
+				// cut out the "GraphQL error: " from error message
+				const errorMessage = errors.message.substring(14);
+				setSubmissionError(errorMessage);
 
-			setSubmissionError(errors);
+				// Errors to display on form fields
+				const formErrors = {};
 
-			// Errors to display on form fields
-			const formErrors = {};
-
-			// TODO: better error displaying.
-
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
+				actions.setErrors(formErrors);
+				actions.setSubmitting(false);
+			}
 		});
 
 export interface ApplyToJobAdFormProps {
@@ -82,17 +95,31 @@ export interface ApplyToJobAdFormProps {
 export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
+	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	const [applyToJobAd] = useApplyToJobAdMutation();
+	const user = useUser();
+
+	if (user) {
+		loginRegisterModal = null;
+	}
 
 	return (
-		<Formik
-			initialValues={merge(initialValues, {
-				jobAdId,
-			})}
-			validationSchema={schema}
-			onSubmit={onSubmit(applyToJobAd, history, setSubmissionError)}
-		>
-			<InnerForm submissionError={submissionError} />
-		</Formik>
+		<>
+			<Formik
+				initialValues={merge(initialValues, {
+					jobAdId,
+				})}
+				validationSchema={schema}
+				onSubmit={onSubmit(
+					applyToJobAd,
+					history,
+					setSubmissionError,
+					setLoginRegisterModal
+				)}
+			>
+				<InnerForm submissionError={submissionError} />
+			</Formik>
+			{loginRegisterModal}
+		</>
 	);
 }

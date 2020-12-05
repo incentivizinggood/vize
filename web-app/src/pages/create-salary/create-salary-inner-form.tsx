@@ -3,23 +3,21 @@ import { Form } from "formik";
 import styled from "styled-components";
 import { SubmitButton } from "src/components/button";
 
-import {
-	Field,
-	FormToolbar,
-	SubmissionError,
-} from "src/components/form-stuff";
-import { translations } from "src/translations";
+import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { CompanyNameInput } from "src/components/company-name-input";
+import { translations, useTranslations } from "src/translations";
 
 const T = translations.createSalary;
 
 function InnerForm({ submissionError }) {
+	const t = useTranslations().createSalary;
+
 	return (
 		<Form noValidate>
-			<Field
+			<CompanyNameInput
 				name="companyName"
-				type="text"
 				required
-				t={T.fields.companyName}
+				{...t.fields.companyName}
 			/>
 
 			<Field

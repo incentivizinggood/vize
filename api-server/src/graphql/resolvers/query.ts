@@ -62,11 +62,19 @@ export const Query: QueryResolvers = {
 			args.pageSize
 		),
 
+	companyNameSuggestions: (_obj, args, _context, _info) =>
+		dataModel.companyNameSuggestions(
+			args.partialCompanyName,
+			args.onlyCompaniesWithProfiles
+		),
+
 	searchJobAds: (_obj, args, _context, _info) =>
 		dataModel.searchForJobAds(args.pageNum, args.pageSize),
 
 	wroteAReview: (_obj, _args, context, _info) => {
-		if (!context.user) throw new Error("NOT_LOGGED_IN");
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
 
 		return dataModel.wroteAReviewStatus(context.user);
 	},

@@ -12,7 +12,8 @@ import {
 	SubmissionError,
 	FormText,
 } from "src/components/form-stuff";
-import { translations } from "src/translations";
+import { CompanyNameInput } from "src/components/company-name-input";
+import { translations, useTranslations } from "src/translations";
 
 const T = translations.createReview;
 
@@ -23,13 +24,14 @@ const FormDividerLine = styled.hr`
 `;
 
 function InnerForm({ submissionError }) {
+	const t = useTranslations().createReview;
+
 	return (
 		<Form noValidate>
-			<Field
+			<CompanyNameInput
 				name="companyName"
-				type="text"
 				required
-				t={T.fields.companyName}
+				{...t.fields.companyName}
 			/>
 
 			<Field
