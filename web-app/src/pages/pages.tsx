@@ -2,7 +2,7 @@ import React from "react";
 import {
 	Switch,
 	Route,
-	withRouter,
+	useLocation,
 	RouteComponentProps,
 } from "react-router-dom";
 
@@ -42,10 +42,11 @@ function fixNullParams<T>(param?: T | null): T | undefined {
 	return param;
 }
 
-function Pages(props) {
+export default function Pages(): JSX.Element {
 	analytics.usePageView();
 
-	const params = new URLSearchParams(props.location.search);
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
 
 	return (
 		<Switch>
@@ -63,7 +64,7 @@ function Pages(props) {
 			<Route path="/my-account" component={MyAccountPage} />
 			<Route path="/post-a-job" component={CreateJobAd} />
 			<Route path="/register" component={RegisterPage} />
-			// recursos = resources
+			{/* recursos = resources */}
 			<Route
 				path={`/recursos/recurso/:slug`}
 				component={() => <ResourcePage />}
@@ -83,12 +84,8 @@ function Pages(props) {
 			/>
 			<Route
 				path={`/${queryRoutes.companyProfile}/:id`}
-				component={({
-					match,
-				}: RouteComponentProps<{ id?: string }>) => (
-					<CompanyProfile
-						companyId={fixNullParams(match.params.id)}
-					/>
+				component={({ match }: RouteComponentProps<{ id: string }>) => (
+					<CompanyProfile companyId={match.params.id} />
 				)}
 			/>
 			{/* Trabajo = Job */}
@@ -131,5 +128,3 @@ function Pages(props) {
 		</Switch>
 	);
 }
-
-export default withRouter(Pages);
