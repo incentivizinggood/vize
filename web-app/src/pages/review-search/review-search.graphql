@@ -1,0 +1,13 @@
+query reviewSearchPage($searchText: String!, $pageNum: Int!, $pageSize: Int!) {
+	searchReviews(
+		searchText: $searchText
+		pageNum: $pageNum
+		pageSize: $pageSize
+	) {
+		totalCount
+		nodes {
+			# Stealing the review component from the company page for now.
+			...CompanyProfileReview
+		}
+	}
+}

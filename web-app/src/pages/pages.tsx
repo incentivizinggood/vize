@@ -28,6 +28,7 @@ import PasswordChanger from "./password-changer";
 import CreateJobAd from "./create-job-ad";
 import RegisterPage from "./register";
 import JobSearch from "./job-search";
+import ReviewSearch from "./review-search";
 import UserPage from "./user";
 import CreateReview from "./create-review";
 import ReviewSubmitted from "./review-submitted";
@@ -59,6 +60,7 @@ function Pages(props) {
 			<Route path="/for-employers" component={ForEmployers} />
 			<Route path="/help" component={HelpPage} />
 			<Route path="/jobs" component={JobSearch} />
+			<Route path="/reviews" component={ReviewSearch} />
 			<Route path="/login" component={LoginPage} />
 			<Route path="/my-account" component={MyAccountPage} />
 			<Route path="/post-a-job" component={CreateJobAd} />
