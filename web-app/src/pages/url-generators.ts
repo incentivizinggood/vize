@@ -11,6 +11,7 @@ export const queryRoutes = {
 	myAccount: "mi-cuenta",
 	postJob: "publicar-una-oferta",
 	companies: "empresas",
+	overview: "descripcion-general",
 	resources: "recursos",
 	companyProfile: "perfil-de-la-empresa",
 	writeReview: "escribir-evaluacion",

@@ -231,7 +231,6 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								{/* empresas = companies */}
 								<WhiteButton to={`/${urlGenerators.queryRoutes.companies}`}>
 									<T.companiesButton />
 								</WhiteButton>

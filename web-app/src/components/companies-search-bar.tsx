@@ -35,7 +35,6 @@ export default function CompaniesSearchBar(): JSX.Element {
 			label: data.search,
 		});
 
-		// empresas = companies
 		history.push(`/${urlGenerators.queryRoutes.companies}?q=${data.search}`);
 	};
 

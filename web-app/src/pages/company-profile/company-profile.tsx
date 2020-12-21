@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { forSize } from "src/responsive";
+import * as urlGenerators from "src/pages/url-generators";
 
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
@@ -54,26 +55,26 @@ export default function CompanyProfile({
 						<Tabs
 							tabs={[
 								{
-									path: "descripcion-general",
+									path: urlGenerators.queryRoutes.overview,
 									label: <T.companyprofile.overview />,
 									content: (
 										<OverviewTab companyId={companyId} />
 									),
 								},
 								{
-									path: "evaluaciones",
+									path: urlGenerators.queryRoutes.reviews,
 									label: <T.companyprofile.reviews />,
 									content: (
 										<ReviewTab companyId={companyId} />
 									),
 								},
 								{
-									path: "trabajos",
+									path: urlGenerators.queryRoutes.jobs,
 									label: <T.companyprofile.jobs />,
 									content: <JobTab companyId={companyId} />,
 								},
 								{
-									path: "salarios",
+									path: urlGenerators.queryRoutes.salaries,
 									label: <T.companyprofile.salaries />,
 									content: (
 										<SalaryTab companyId={companyId} />
