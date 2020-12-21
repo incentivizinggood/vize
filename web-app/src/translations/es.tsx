@@ -56,6 +56,15 @@ export default {
 		logout: "Cerrar Seccion",
 		myaccount: "Mi Cuenta",
 	},
+	myAccount: {
+		myAccount: "Mi Cuenta",
+		username: "Nombre de Usuario",
+		changePassword: "Cambiar Contraseña",
+	},
+	needToBeLoggedInToView: {
+		youNeedToBeLoggedInToView: "Tienes que iniciar una sesión para usar esta página.",
+		login: "Iniciar Sesión",
+	},
 	footer: {
 		aboutUs: "Acerca de nosotros",
 		contactUs: "Contáctenos",

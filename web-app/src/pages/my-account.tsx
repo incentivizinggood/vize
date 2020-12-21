@@ -5,6 +5,10 @@ import { withUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";
 
 import * as urlGenerators from "src/pages/url-generators";
+import { translations } from "src/translations";
+
+const T = translations.myAccount;
+const TLoggedIn = translations.needToBeLoggedInToView;
 
 /* The page where users can view their account details,
  * update their profiles, and change settings.
@@ -15,16 +19,16 @@ class MyAccountPage extends React.Component {
 			<div style={{ width: "80%", margin: "0 auto" }}>
 				<br />
 				<h2>
-					<strong>My Account</strong>
+					<strong><T.myAccount /></strong>
 				</h2>
 				<hr />
 				<div>
-					<strong>Username: </strong>
+					<strong><T.username />: </strong>
 					{this.props.user.username}
 					<br />
 					<br />
 					<Link className="btn btn-info" to={`/${urlGenerators.queryRoutes.changePassword}`}>
-						Change Password
+						<T.changePassword />
 					</Link>
 					<br />
 					<br />
@@ -41,13 +45,15 @@ class MyAccountPage extends React.Component {
 			content = (
 				<div style={{ width: "80%", margin: "0 auto" }}>
 					<br />
-					You must be logged in to use this page. <br /> <br />
+					<TLoggedIn.youNeedToBeLoggedInToView /> <br /> <br />
 					<Link
 						className="btn btn-primary"
 						to={urlGenerators.vizeLogin("worker")}
 					>
-						Log In
+						<TLoggedIn.login />
 					</Link>
+
+					<br />
 					<br />
 				</div>
 			);
