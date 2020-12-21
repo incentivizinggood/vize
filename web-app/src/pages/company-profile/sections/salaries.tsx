@@ -10,6 +10,7 @@ import {
 import { AddSalaryButton } from "src/components/button";
 import { CompanyProfileSalariesSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
+import * as urlGenerators from "src/pages/url-generators";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -49,7 +50,7 @@ function SalariesSection(props: SalariesSectionProps): JSX.Element {
 				<SalariesToDisplay />
 			</div>
 
-			<SeeMoreFooter to={"./salaries"} ariaControls={"salaries"}>
+			<SeeMoreFooter to={`./${urlGenerators.queryRoutes.salaries}`} ariaControls={urlGenerators.queryRoutes.salaries}>
 				<T.overview_tab.see_all_salaries />
 			</SeeMoreFooter>
 		</SectionContainer>

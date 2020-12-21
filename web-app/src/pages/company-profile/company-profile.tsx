@@ -54,7 +54,7 @@ export default function CompanyProfile({
 						<Tabs
 							tabs={[
 								{
-									path: "descripción-general",
+									path: "descripcion-general",
 									label: <T.companyprofile.overview />,
 									content: (
 										<OverviewTab companyId={companyId} />

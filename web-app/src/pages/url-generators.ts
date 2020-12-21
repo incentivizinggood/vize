@@ -1,12 +1,27 @@
 export const queryRoutes = {
+	about: "acerca-de-nosotros",
+	createCompanyProfile: "crear-perfil-de-la-empresa",
+	contactUs: "contactenos",
+	reviews: "evaluaciones",
+	reviewSubmitted: "evaluacion-enviada",
+	forEmployers: "empleadores",
+	help: "ayuda",
+	jobs: "trabajos",
+	job: "trabajo",
+	myAccount: "mi-cuenta",
+	postJob: "publicar-una-oferta",
+	companies: "empresas",
 	resources: "recursos",
 	companyProfile: "perfil-de-la-empresa",
 	writeReview: "escribir-evaluacion",
 	submitSalaryData: "agregar-salario",
+	salaries: "salarios",
 	applyForJob: "postularme",
 	register: "crear-cuenta",
 	login: "iniciar-sesion",
 	user: "usuario",
+	privacyPolicy: "poliza-de-privacidad",
+	changePassword: "cambiar-contraseña",
 };
 
 export const queryParameters = {

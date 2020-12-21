@@ -19,14 +19,14 @@ const T = translations.header;
 function getUserRole() {
 	const params = new URLSearchParams(location.search);
 	// empleadores = employers
-	if (location.pathname === "/empleadores") {
+	if (location.pathname.includes(urlGenerators.queryRoutes.forEmployers)) {
 		return "company";
 	} else if (
 		// crear cuenta = register, iniciar sesion = log in
-		location.pathname === "/crear-cuenta/" ||
-		location.pathname === "/iniciar-sesion/"
+		location.pathname.includes(urlGenerators.queryRoutes.register) ||
+		location.pathname.includes(urlGenerators.queryRoutes.login)
 	) {
-		return fixNullParams(params.get("user"));
+		return fixNullParams(params.get(urlGenerators.queryParameters.user));
 	} else {
 		return "worker";
 	}
@@ -63,7 +63,7 @@ function AccountLink({ user }: AccountLinkProps) {
 		// mi cuenta = my account
 		return (
 			<Link
-				to="/mi-cuenta"
+				to={`/${urlGenerators.queryRoutes.myAccount}`}
 				type="button"
 				className="toggle-only-display"
 			>
@@ -106,7 +106,7 @@ function AccountSection({ user }: AccountSectionProps) {
 					<li className="tr">
 						{/* mi cuenta = my account */}
 						<Link
-							to="/mi-cuenta"
+							to={`/${urlGenerators.queryRoutes.myAccount}`}
 							className="navbar-link margin-right"
 						>
 							<T.myaccount />
@@ -207,7 +207,7 @@ function Header(props: HeaderProps) {
 							</li>
 							<li>
 								<Link
-									to="/empleadores"
+									to={`/${urlGenerators.queryRoutes.forEmployers}`}
 									className="link-kumya"
 								>
 									<span>

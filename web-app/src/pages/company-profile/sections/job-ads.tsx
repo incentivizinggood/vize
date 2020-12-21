@@ -2,6 +2,7 @@ import React from "react";
 
 import { CompanyProfileJobsSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
+import * as urlGenerators from "src/pages/url-generators";
 
 import {
 	SectionContainer,
@@ -36,7 +37,7 @@ export default function JobsSection(props: JobsSectionProps): JSX.Element {
 
 			{jobAdsToDisplay}
 
-			<SeeMoreFooter to={"./trabajos"} ariaControls={"trabajos"}>
+			<SeeMoreFooter to={`./${urlGenerators.queryRoutes.jobs}`} ariaControls={urlGenerators.queryRoutes.jobs}>
 				<T.overview_tab.see_all_jobs />
 			</SeeMoreFooter>
 		</SectionContainer>

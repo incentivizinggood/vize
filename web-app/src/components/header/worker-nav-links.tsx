@@ -30,21 +30,21 @@ function WorkerNavLinks() {
 				</WriteReviewButton>
 			</li>
 			<li>
-				<Link to="/empresas">
+				<Link to={`/${urlGenerators.queryRoutes.companies}`}>
 					<span>
 						<T.companies />
 					</span>
 				</Link>
 			</li>
 			<li>
-				<Link to="/trabajos">
+				<Link to={`/${urlGenerators.queryRoutes.jobs}`}>
 					<span>
 						<T.jobs />
 					</span>
 				</Link>
 			</li>
 			<li>
-				<Link to="/recursos">
+				<Link to={`/${urlGenerators.queryRoutes.resources}`}>
 					<span>
 						<T.resources />
 					</span>

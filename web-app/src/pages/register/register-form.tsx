@@ -84,7 +84,7 @@ export function RegisterForm(): JSX.Element {
 	let userRole: string | null = "worker";
 
 	if (params != null) {
-		userRole = params.get("user");
+		userRole = params.get(urlGenerators.queryParameters.user);
 
 		// userRole will be null if the register-login modal is being used
 		if (userRole === null) {

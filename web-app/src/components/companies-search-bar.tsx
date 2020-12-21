@@ -6,6 +6,7 @@ import { useLocation, useHistory } from "react-router-dom";
 
 import { useTranslations } from "src/translations";
 import * as analytics from "src/startup/analytics";
+import * as urlGenerators from "src/pages/url-generators";
 
 import { SearchSuggestions } from "./search-suggestions";
 
@@ -35,7 +36,7 @@ export default function CompaniesSearchBar(): JSX.Element {
 		});
 
 		// empresas = companies
-		history.push(`/empresas?q=${data.search}`);
+		history.push(`/${urlGenerators.queryRoutes.companies}?q=${data.search}`);
 	};
 
 	return (

@@ -130,7 +130,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton to="/trabajos">
+								<BlackBorderButton to={`/${urlGenerators.queryRoutes.jobs}`}>
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -156,7 +156,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton to="/trabajos">
+								<BlackBorderButton to={`/${urlGenerators.queryRoutes.jobs}`}>
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -197,8 +197,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								{/* empresas = companies */}
-								<WhiteButton to="/empresas">
+								<WhiteButton to={`/${urlGenerators.queryRoutes.companies}`}>
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -233,7 +232,7 @@ function HomePage() {
 						<div>
 							<center>
 								{/* empresas = companies */}
-								<WhiteButton to="/empresas">
+								<WhiteButton to={`/${urlGenerators.queryRoutes.companies}`}>
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
