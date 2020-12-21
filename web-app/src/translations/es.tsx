@@ -37,7 +37,7 @@ export default {
 			"Encuentre cientos de salarios para diferentes puestos de trabajo y géneros. Comparta su salario de forma anónima para asegurarse de que otros reciban una compensación justa.",
 		salary_button: "Agregar Salario",
 		discover_employers: "Comience a descubrir nuevos empleadores ahora",
-		signup_button: "Registrar",
+		signup_button: "Crear Cuenta",
 	},
 	companiesSearchBar: {
 		placeholder: "Buscar una empresa...",
@@ -51,8 +51,8 @@ export default {
 		post_a_job: "Publicar un Trabajo",
 		for_employers: "Para Empleadores",
 		login: "Iniciar Sesión",
-		signup: "Registrar",
-		signup_or_login: "Registrar O Iniciar Sesion",
+		signup: "Crear Cuenta",
+		signup_or_login: "Crear Cuenta O Iniciar Sesión",
 		logout: "Cerrar Seccion",
 		myaccount: "Mi Cuenta",
 	},
@@ -65,7 +65,7 @@ export default {
 	loginRegister: {
 		login: "Iniciar Sesión",
 		noAccount: "¿No tienes una cuenta? ",
-		register: "Registrar",
+		register: "Crear Cuenta",
 		username: {
 			label: "Nombre de Usuario",
 			placeholder: "Nombre de Usuario",

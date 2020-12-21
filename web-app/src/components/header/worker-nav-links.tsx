@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { forSize } from "src/responsive";
 import { translations } from "src/translations";
 
+import * as urlGenerators from "src/pages/url-generators";
+
 const T = translations.header;
 
 // This button is only displayed in the mobile navigation bar
@@ -23,19 +25,19 @@ function WorkerNavLinks() {
 	return (
 		<>
 			<li>
-				<WriteReviewButton to="/write-review">
+				<WriteReviewButton to={urlGenerators.queryRoutes.writeReview}>
 					<T.write_review />
 				</WriteReviewButton>
 			</li>
 			<li>
-				<Link to="/companies">
+				<Link to="/empresas">
 					<span>
 						<T.companies />
 					</span>
 				</Link>
 			</li>
 			<li>
-				<Link to="/jobs">
+				<Link to="/trabajos">
 					<span>
 						<T.jobs />
 					</span>

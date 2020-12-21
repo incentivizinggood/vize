@@ -101,10 +101,11 @@ export default function Footer(): JSX.Element {
 		<FooterContainer>
 			<LinksContainer>
 				<InternalLinks>
-					<Link to="/about">{t.aboutUs}</Link>
-					<Link to="/contact-us">{t.contactUs}</Link>
+					{/* acerca-de-nosotros = about us, contactenos = contact-us*/}
+					<Link to="/acerca-de-nosotros">{t.aboutUs}</Link>
+					<Link to="/contactenos">{t.contactUs}</Link>
 					{/* commenting out until we have a help page
-					<Link to="/help">
+					<Link to="/ayuda">
 						{t.help}
 					</Link>
 					-->*/}

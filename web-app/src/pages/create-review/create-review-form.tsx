@@ -205,7 +205,8 @@ export default function CreateReviewForm({
 				});
 
 				// Go to the review submitted page so that the user can claim their reward.
-				history.push("/review-submitted");
+				// evaluacion-enviada = review-submitted
+				history.push("/evaluacion-enviada");
 			})
 			.catch(errors => {
 				// Error in English: Not Logged In

@@ -36,7 +36,7 @@ export default function JobsSection(props: JobsSectionProps): JSX.Element {
 
 			{jobAdsToDisplay}
 
-			<SeeMoreFooter to={"./jobs"} ariaControls={"jobs"}>
+			<SeeMoreFooter to={"./trabajos"} ariaControls={"trabajos"}>
 				<T.overview_tab.see_all_jobs />
 			</SeeMoreFooter>
 		</SectionContainer>

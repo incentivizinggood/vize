@@ -17,7 +17,8 @@ function EmployerNavLinks(props: EmployerNavLinksProps) {
 	if (props.user.company) {
 		companyURL = urlGenerators.vizeCompanyProfileUrl(props.user.company.id);
 	} else {
-		companyURL = "/company/create";
+		{/* /empresa/crear = /company/create */}
+		companyURL = "/empresa/crear";
 	}
 
 	return (
@@ -30,7 +31,7 @@ function EmployerNavLinks(props: EmployerNavLinksProps) {
 				</Link>
 			</li>
 			<li>
-				<Link to="/post-a-job" className="link-kumya">
+				<Link to="/publicar-una-oferta" className="link-kumya">
 					<span>
 						<T.post_a_job />
 					</span>

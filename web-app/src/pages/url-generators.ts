@@ -1,12 +1,12 @@
 export const queryRoutes = {
 	resources: "recursos",
-	companyProfile: "companyprofile",
-	writeReview: "write-review",
+	companyProfile: "perfil-de-la-empresa",
+	writeReview: "escribir-evaluacion",
 	submitSalaryData: "submit-salary-data",
-	applyForJob: "apply-for-job",
-	register: "register",
-	login: "login",
-	user: "user",
+	applyForJob: "postularme",
+	register: "crear-cuenta",
+	login: "iniciar-sesion",
+	user: "usuario",
 };
 
 // exporting commonly-used URL generators

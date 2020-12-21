@@ -54,26 +54,26 @@ export default function CompanyProfile({
 						<Tabs
 							tabs={[
 								{
-									path: "overview",
+									path: "descripción-general",
 									label: <T.companyprofile.overview />,
 									content: (
 										<OverviewTab companyId={companyId} />
 									),
 								},
 								{
-									path: "reviews",
+									path: "evaluaciones",
 									label: <T.companyprofile.reviews />,
 									content: (
 										<ReviewTab companyId={companyId} />
 									),
 								},
 								{
-									path: "jobs",
+									path: "trabajos",
 									label: <T.companyprofile.jobs />,
 									content: <JobTab companyId={companyId} />,
 								},
 								{
-									path: "salaries",
+									path: "salarios",
 									label: <T.companyprofile.salaries />,
 									content: (
 										<SalaryTab companyId={companyId} />

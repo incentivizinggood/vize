@@ -23,7 +23,8 @@ class MyAccountPage extends React.Component {
 					{this.props.user.username}
 					<br />
 					<br />
-					<Link className="btn btn-info" to="/change-password">
+					{/* cambiar-contraseña = change password */}
+					<Link className="btn btn-info" to="/cambiar-contraseña">
 						Change Password
 					</Link>
 					<br />

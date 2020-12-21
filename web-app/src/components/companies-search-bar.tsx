@@ -34,7 +34,8 @@ export default function CompaniesSearchBar(): JSX.Element {
 			label: data.search,
 		});
 
-		history.push(`/companies?q=${data.search}`);
+		// empresas = companies
+		history.push(`/empresas?q=${data.search}`);
 	};
 
 	return (

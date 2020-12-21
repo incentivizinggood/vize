@@ -18,11 +18,13 @@ const T = translations.header;
 
 function getUserRole() {
 	const params = new URLSearchParams(location.search);
-	if (location.pathname === "/for-employers") {
+	// empleadores = employers
+	if (location.pathname === "/empleadores") {
 		return "company";
 	} else if (
-		location.pathname === "/register/" ||
-		location.pathname === "/login/"
+		// crear cuenta = register, iniciar sesion = log in
+		location.pathname === "/crear-cuenta/" ||
+		location.pathname === "/iniciar-sesion/"
 	) {
 		return fixNullParams(params.get("user"));
 	} else {
@@ -58,9 +60,10 @@ interface AccountLinkProps {
 
 function AccountLink({ user }: AccountLinkProps) {
 	if (user) {
+		// mi cuenta = my account
 		return (
 			<Link
-				to="/my-account"
+				to="/mi-cuenta"
 				type="button"
 				className="toggle-only-display"
 			>
@@ -101,8 +104,9 @@ function AccountSection({ user }: AccountSectionProps) {
 				</div>
 				<ul className="dropdown-menu pf">
 					<li className="tr">
+						{/* mi cuenta = my account */}
 						<Link
-							to="/my-account"
+							to="/mi-cuenta"
 							className="navbar-link margin-right"
 						>
 							<T.myaccount />
@@ -203,7 +207,7 @@ function Header(props: HeaderProps) {
 							</li>
 							<li>
 								<Link
-									to="/for-employers"
+									to="/empleadores"
 									className="link-kumya"
 								>
 									<span>

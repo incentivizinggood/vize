@@ -51,19 +51,19 @@ export default function Pages(): JSX.Element {
 	return (
 		<Switch>
 			<Route path="/" exact component={HomePage} />
-			<Route path="/about" component={AboutPage} />
-			<Route path="/privacy-policy" component={PrivacyPolicy} />
-			<Route path="/change-password" component={PasswordChanger} />
-			<Route path="/company/create" component={CreateCompany} />
-			<Route path="/contact-us" component={ContactUsPage} />
-			<Route path="/review-submitted" component={ReviewSubmitted} />
-			<Route path="/for-employers" component={ForEmployers} />
-			<Route path="/help" component={HelpPage} />
-			<Route path="/jobs" component={ShowJobs} />
-			<Route path="/login" component={LoginPage} />
-			<Route path="/my-account" component={MyAccountPage} />
-			<Route path="/post-a-job" component={CreateJobAd} />
-			<Route path="/register" component={RegisterPage} />
+			<Route path="/acerca-de-nosotros" component={AboutPage} />
+			<Route path="/poliza-de-privacidad" component={PrivacyPolicy} />
+			<Route path="/cambiar-contraseña" component={PasswordChanger} />
+			<Route path="/empresa/crear" component={CreateCompany} />
+			<Route path="/contactenos" component={ContactUsPage} />
+			<Route path="/evaluacion-enviada" component={ReviewSubmitted} />
+			<Route path="/empleadores" component={ForEmployers} />
+			<Route path="/ayuda" component={HelpPage} />
+			<Route path="/trabajos" component={ShowJobs} />
+			<Route path="/iniciar-sesion" component={LoginPage} />
+			<Route path="/mi-cuenta" component={MyAccountPage} />
+			<Route path="/publicar-una-oferta" component={CreateJobAd} />
+			<Route path="/crear-cuenta" component={RegisterPage} />
 			{/* recursos = resources */}
 			<Route
 				path={`/recursos/recurso/:slug`}
@@ -74,8 +74,9 @@ export default function Pages(): JSX.Element {
 				component={() => <ResourcesByTopicPage />}
 			/>
 			<Route path={`/recursos/`} component={() => <ResourcesIndex />} />
+			{/* empresas = companies */}
 			<Route
-				path={`/companies`}
+				path={`/empresas`}
 				component={() => (
 					<CompanySearchTrial
 						searchText={fixNullParams(params.get("q"))}
