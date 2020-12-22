@@ -21,7 +21,7 @@ function RegisterPage(): JSX.Element {
 	const params = new URLSearchParams(location.search);
 
 	if (params != null) {
-		userRole = params.get("user");
+		userRole = params.get(urlGenerators.queryParameters.user);
 	}
 
 	return (

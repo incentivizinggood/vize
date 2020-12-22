@@ -1,13 +1,34 @@
 export const queryRoutes = {
+	about: "acerca-de-nosotros",
+	createCompanyProfile: "crear-perfil-de-la-empresa",
+	contactUs: "contactenos",
+	reviews: "evaluaciones",
+	reviewSubmitted: "evaluacion-enviada",
+	forEmployers: "empleadores",
+	help: "ayuda",
+	jobs: "trabajos",
+	job: "trabajo",
+	myAccount: "mi-cuenta",
+	postJob: "publicar-una-oferta",
+	companies: "empresas",
+	overview: "descripcion-general",
 	resources: "recursos",
-	companyProfile: "companyprofile",
-	writeReview: "write-review",
-	submitSalaryData: "submit-salary-data",
-	applyForJob: "apply-for-job",
-	register: "register",
-	login: "login",
-	user: "user",
+	companyProfile: "perfil-de-la-empresa",
+	writeReview: "escribir-evaluacion",
+	submitSalaryData: "agregar-salario",
+	salaries: "salarios",
+	applyForJob: "postularme",
+	register: "crear-cuenta",
+	login: "iniciar-sesion",
+	user: "usuario",
+	privacyPolicy: "poliza-de-privacidad",
+	changePassword: "cambiar-contraseña",
 };
+
+export const queryParameters = {
+	companyName: "nombre-de-empresa",
+	user: "usuario",
+}
 
 // exporting commonly-used URL generators
 // in order to reduce the risk of typos
@@ -34,13 +55,13 @@ export function vizeCompanyProfileUrl(
 
 export function vizeReviewUrl(companyName?: string): string {
 	return `/${queryRoutes.writeReview}/${
-		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
+		companyName ? `?${queryParameters.companyName}=${encodeURIComponent(companyName)}` : ""
 	}`;
 }
 
 export function vizeSalaryUrl(companyName?: string): string {
 	return `/${queryRoutes.submitSalaryData}/${
-		companyName ? `?companyname=${encodeURIComponent(companyName)}` : ""
+		companyName ? `?${queryParameters.companyName}=${encodeURIComponent(companyName)}` : ""
 	}`;
 }
 
@@ -50,12 +71,12 @@ export function vizeApplyForJobUrl(jobId: string): string {
 
 export function vizeRegister(userRole?: string): string {
 	return `/${queryRoutes.register}/${
-		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+		userRole ? `?${queryParameters.user}=${encodeURIComponent(userRole)}` : ""
 	}`;
 }
 
 export function vizeLogin(userRole?: string): string {
 	return `/${queryRoutes.login}/${
-		userRole ? `?user=${encodeURIComponent(userRole)}` : ""
+		userRole ? `?${queryParameters.user}=${encodeURIComponent(userRole)}` : ""
 	}`;
 }

@@ -57,6 +57,15 @@ export default {
 		logout: "LOG OUT",
 		myaccount: "MY ACCOUNT",
 	},
+	myAccount: {
+		myAccount: "My Account",
+		username: "Username",
+		changePassword: "Change Password",
+	},
+	needToBeLoggedInToView: {
+		youNeedToBeLoggedInToView: "You have to be logged in to use this page.",
+		login: "Log In",
+	},
 	footer: {
 		aboutUs: "About Us",
 		contactUs: "Contact Us",

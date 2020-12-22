@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import * as urlGenerators from "src/pages/url-generators";
 
 import { forSize } from "src/responsive";
 import colors from "src/colors";
@@ -101,10 +102,10 @@ export default function Footer(): JSX.Element {
 		<FooterContainer>
 			<LinksContainer>
 				<InternalLinks>
-					<Link to="/about">{t.aboutUs}</Link>
-					<Link to="/contact-us">{t.contactUs}</Link>
+					<Link to={`/${urlGenerators.queryRoutes.about}`}>{t.aboutUs}</Link>
+					<Link to={`/${urlGenerators.queryRoutes.contactUs}`}>{t.contactUs}</Link>
 					{/* commenting out until we have a help page
-					<Link to="/help">
+					<Link to={`/${urlGenerators.queryRoutes.help}`}>
 						{t.help}
 					</Link>
 					-->*/}

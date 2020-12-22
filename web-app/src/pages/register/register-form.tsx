@@ -3,7 +3,7 @@ import { Formik, FormikHelpers, FormikErrors } from "formik";
 import { useHistory } from "react-router-dom";
 import { History } from "history";
 import * as yup from "yup";
-
+import * as urlGenerators from "src/pages/url-generators";
 import * as analytics from "src/startup/analytics";
 import * as schemas from "src/form-schemas";
 import { register } from "src/auth";
@@ -55,10 +55,10 @@ const onSubmit = (history: History, role: "worker" | "company") => (
 
 			if (
 				!(
-					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data") ||
-					window.location.pathname.includes("/apply-for-job") ||
-					window.location.pathname.includes("/recurso")
+					window.location.pathname.includes(urlGenerators.queryRoutes.writeReview) ||
+					window.location.pathname.includes(urlGenerators.queryRoutes.submitSalaryData) ||
+					window.location.pathname.includes(urlGenerators.queryRoutes.applyForJob) ||
+					window.location.pathname.includes(urlGenerators.queryRoutes.resources)
 				)
 			) {
 				history.push("/");
@@ -84,7 +84,7 @@ export function RegisterForm(): JSX.Element {
 	let userRole: string | null = "worker";
 
 	if (params != null) {
-		userRole = params.get("user");
+		userRole = params.get(urlGenerators.queryParameters.user);
 
 		// userRole will be null if the register-login modal is being used
 		if (userRole === null) {

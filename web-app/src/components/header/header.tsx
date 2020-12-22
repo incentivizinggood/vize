@@ -18,13 +18,15 @@ const T = translations.header;
 
 function getUserRole() {
 	const params = new URLSearchParams(location.search);
-	if (location.pathname === "/for-employers") {
+	// empleadores = employers
+	if (location.pathname.includes(urlGenerators.queryRoutes.forEmployers)) {
 		return "company";
 	} else if (
-		location.pathname === "/register/" ||
-		location.pathname === "/login/"
+		// crear cuenta = register, iniciar sesion = log in
+		location.pathname.includes(urlGenerators.queryRoutes.register) ||
+		location.pathname.includes(urlGenerators.queryRoutes.login)
 	) {
-		return fixNullParams(params.get("user"));
+		return fixNullParams(params.get(urlGenerators.queryParameters.user));
 	} else {
 		return "worker";
 	}
@@ -58,9 +60,10 @@ interface AccountLinkProps {
 
 function AccountLink({ user }: AccountLinkProps) {
 	if (user) {
+		// mi cuenta = my account
 		return (
 			<Link
-				to="/my-account"
+				to={`/${urlGenerators.queryRoutes.myAccount}`}
 				type="button"
 				className="toggle-only-display"
 			>
@@ -101,8 +104,9 @@ function AccountSection({ user }: AccountSectionProps) {
 				</div>
 				<ul className="dropdown-menu pf">
 					<li className="tr">
+						{/* mi cuenta = my account */}
 						<Link
-							to="/my-account"
+							to={`/${urlGenerators.queryRoutes.myAccount}`}
 							className="navbar-link margin-right"
 						>
 							<T.myaccount />
@@ -203,7 +207,7 @@ function Header(props: HeaderProps) {
 							</li>
 							<li>
 								<Link
-									to="/for-employers"
+									to={`/${urlGenerators.queryRoutes.forEmployers}`}
 									className="link-kumya"
 								>
 									<span>

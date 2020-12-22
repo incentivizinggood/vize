@@ -76,7 +76,7 @@ function RewardComponent() {
 							<div>
 								<center>
 									<WhiteButton
-										to="/write-review"
+										to={urlGenerators.queryRoutes.writeReview}
 										style={{ fontSize: 18 }}
 										onClick={addReviewHomeTop}
 									>
@@ -130,7 +130,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton to="/jobs">
+								<BlackBorderButton to={`/${urlGenerators.queryRoutes.jobs}`}>
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -156,7 +156,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<BlackBorderButton to="/jobs">
+								<BlackBorderButton to={`/${urlGenerators.queryRoutes.jobs}`}>
 									<T.jobsButton />
 								</BlackBorderButton>
 							</center>
@@ -197,7 +197,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<WhiteButton to="/companies">
+								<WhiteButton to={`/${urlGenerators.queryRoutes.companies}`}>
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -231,7 +231,7 @@ function HomePage() {
 						</div>
 						<div>
 							<center>
-								<WhiteButton to="/companies">
+								<WhiteButton to={`/${urlGenerators.queryRoutes.companies}`}>
 									<T.companiesButton />
 								</WhiteButton>
 							</center>
@@ -303,7 +303,7 @@ function HomePage() {
 									<div>
 										<LinkButton
 											$primary
-											to="/submit-salary-data"
+											to={urlGenerators.queryRoutes.submitSalaryData}
 											onClick={addSalaryHomeBottom}
 										>
 											<FontAwesomeIcon icon={faPlus} />

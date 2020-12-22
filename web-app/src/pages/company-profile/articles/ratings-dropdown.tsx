@@ -60,7 +60,7 @@ function RatingsDropdown({
 				<NumRatingsText
 					to={urlGenerators.vizeCompanyProfileUrl(
 						companyName,
-						"reviews"
+						urlGenerators.queryRoutes.reviews
 					)}
 				>
 					{numReviews} {numReviewsText}

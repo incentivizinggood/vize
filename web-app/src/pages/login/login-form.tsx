@@ -3,7 +3,7 @@ import { Formik, FormikHelpers, FormikErrors } from "formik";
 import { useHistory } from "react-router-dom";
 import { History } from "history";
 import * as yup from "yup";
-
+import * as urlGenerators from "src/pages/url-generators";
 import * as schemas from "src/form-schemas";
 import { login } from "src/auth";
 
@@ -40,10 +40,10 @@ const onSubmit = (history: History) => (
 			// TODO: use query params so that login redirects user back to where they were when they login
 			if (
 				!(
-					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data") ||
-					window.location.pathname.includes("/apply-for-job") ||
-					window.location.pathname.includes("/recurso")
+					window.location.pathname.includes(urlGenerators.queryRoutes.writeReview) ||
+					window.location.pathname.includes(urlGenerators.queryRoutes.submitSalaryData) ||
+					window.location.pathname.includes(urlGenerators.queryRoutes.applyForJob) ||
+					window.location.pathname.includes(urlGenerators.queryRoutes.resources)
 				)
 			) {
 				history.push("/");
