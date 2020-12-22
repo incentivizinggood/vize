@@ -72,7 +72,7 @@ const onSubmit = (
 			) {
 				setLoginRegisterModal(
 					<PopupModal isOpen={true}>
-						<RegisterLoginModal errorText="Regístrate o inicia una sesión para postularte a este trabajo" />
+						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo" />
 					</PopupModal>
 				);
 			} else {
