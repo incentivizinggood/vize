@@ -54,6 +54,12 @@ const PageContentContainer = styled.div`
 	}
 `;
 
+const ContactNumberLink = styled.a`
+	font-weight: bold;
+	color: #337ab7 !important;
+	text-decoration: underline;
+`;
+
 const personalReferralMessage =
 	"Hola que tal! Te quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Te invito a participar. \r\n\r\nPuedes llenar la encuesta aquí:";
 
@@ -77,7 +83,7 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 		return (
 			<>
 				<h2>
-					<T.jobApplicationSubmitted /> {data?.company?.name}
+					<T.jobApplicationSubmitted /> {data?.company?.name}asdf
 				</h2>
 				
 				<br />
@@ -86,7 +92,13 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 					{data?.company?.name} <T.companyWillReachOut />
 				</p>
 				<p>
-					<T.contactUs />
+					<T.contactUs /> 
+					<ContactNumberLink
+						href="https://wa.me/5216647480001"
+						rel="noreferrer"
+						target="_blank"
+					>+52(664)748-0001
+				</ContactNumberLink>
 				</p>
 
 				
