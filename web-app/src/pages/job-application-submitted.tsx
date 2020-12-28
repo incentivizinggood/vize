@@ -19,10 +19,10 @@ import {
 	WhatsappIcon,
 } from "react-share";
 
-const T = translations.legacyTranslationsNeedsRefactor.reviewSubmitted;
+const T = translations.legacyTranslationsNeedsRefactor.jobApplicationSubmitted;
 const TLogin = translations.loginRegister;
 
-const RewardSection = styled.div`
+const PageContentContainer = styled.div`
 	margin-top: 250px;
 	margin-bottom: 250px;
 	padding: 50px;
@@ -30,6 +30,7 @@ const RewardSection = styled.div`
 	box-shadow: 0px 1px 3px 0px;
 	width: 80%;
 	display: flex;
+	border-radius: 8px;
 
 	margin-right: auto;
 	margin-left: auto;
@@ -48,6 +49,7 @@ const RewardSection = styled.div`
 		margin-top: 70px;
 		margin-bottom: 0px;
 		padding: 30px 0px;
+		border-radius: 0px;
 	}
 `;
 
@@ -57,46 +59,29 @@ const personalReferralMessage =
 const publicReferralMessage =
 	"Hola, les quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Los invito a participar. \r\n\r\nnPueden llenar la encuesta aquí:";
 
-export default function ReviewSubmitted() {
-	const user = useUser();
-	const [copySuccess, setCopySuccess] = React.useState("");
-	const textAreaRef = React.useRef(null);
+interface JobApplicationSubmittedProps {
+	companyName?: string;
+}
 
-	function copyToClipboard(text: string) {
-		navigator.clipboard.writeText(text);
-		setCopySuccess("Copiado!");
-	}
+export default function JobApplicationSubmitted({companyName}: JobApplicationSubmittedProps) {
+	const user = useUser();
+	const referralLink = "vize.mx";
+	console.log("ccmp", companyName);
 
 	function renderContent() {
-		const referralLink: string =
-			`https://www.vize.mx/${urlGenerators.queryRoutes.writeReview}?ref=${user.id}`;
-		let ClipboardStatusIcon = <ClipboardIcon />;
-		if (copySuccess === "Copiado!") {
-			ClipboardStatusIcon = <ClipboardCopiedIcon />;
-		}
 		return (
 			<div className="col-md-12">
 				<h2 className="text-center">
-					<T.contributing />
+					<T.jobApplicationSubmitted /> {companyName}
 				</h2>
 				<p>
-					<T.reviewSubmitted />
+					{companyName} <T.companyWillReachOut />
 				</p>
 				<p>
-					<T.inviteFriends />
+					<T.contactUs />
 				</p>
 
-				<p>
-					<button onClick={() => copyToClipboard(referralLink)}>
-						{ClipboardStatusIcon}
-					</button>
-					<button onClick={() => copyToClipboard(referralLink)}>
-						<a ref={textAreaRef} value={referralLink}>
-							<strong>{referralLink}</strong>
-						</a>
-					</button>
-					{copySuccess}
-				</p>
+				
 
 				<br />
 
@@ -126,7 +111,7 @@ export default function ReviewSubmitted() {
 		);
 	}
 
-	let content = null;
+	let content = null; 
 	if (user) {
 		content = renderContent();
 	} else {
@@ -155,8 +140,8 @@ export default function ReviewSubmitted() {
 	}
 
 	return (
-		<PageWrapper title="Recompensa">
-			<RewardSection>{content}</RewardSection>
+		<PageWrapper title="Solicitud Enviada">
+			<PageContentContainer>{content}</PageContentContainer>
 		</PageWrapper>
 	);
 }

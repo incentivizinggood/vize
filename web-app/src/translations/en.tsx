@@ -480,6 +480,13 @@ export default {
 			nojobs: "No Jobs Available right now.",
 			jobsAvailable: "Employment Offer(s) Available",
 		},
+		jobApplicationSubmitted: {
+			jobApplicationSubmitted: "Your job application was successfully submitted to ",
+			companyWillReachOut: " will reach out to you soon if there is any interest. We will inform you when no new applications are being accepted.",
+			contactUs: "Please contact us if you have any questions or issues: ",
+			returnToCompany: "Return To Company Profile",
+			viewMoreJobs: "View More Jobs From Other Companies",
+		},
 		aboutUs: {
 			about: "About",
 			the_problem: "The Problem",

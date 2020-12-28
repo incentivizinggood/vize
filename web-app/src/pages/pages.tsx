@@ -32,6 +32,7 @@ import ShowJobs from "./show-jobs";
 import UserPage from "./user";
 import CreateReview from "./create-review";
 import ReviewSubmitted from "./review-submitted";
+import JobApplicationSubmitted from "./job-application-submitted";
 import { PrivacyPolicy } from "./privacy-policy";
 
 import { queryRoutes } from "./url-generators";
@@ -93,6 +94,14 @@ export default function Pages(): JSX.Element {
 				path={`/${urlGenerators.queryRoutes.job}/:id`}
 				component={({ match }: RouteComponentProps<{ id: string }>) => (
 					<JobAdPage jobAdId={match.params.id} />
+				)}
+			/>
+			<Route 
+				path={`/${urlGenerators.queryRoutes.jobApplicationSubmitted}`} 
+				component={() => (
+					<JobApplicationSubmitted
+						companyName={fixNullParams(params.get(urlGenerators.queryParameters.companyName))}
+					/>
 				)}
 			/>
 			<Route
