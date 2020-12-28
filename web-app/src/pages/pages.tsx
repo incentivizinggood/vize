@@ -100,7 +100,7 @@ export default function Pages(): JSX.Element {
 				path={`/${urlGenerators.queryRoutes.jobApplicationSubmitted}`} 
 				component={() => (
 					<JobApplicationSubmitted
-						companyName={fixNullParams(params.get(urlGenerators.queryParameters.companyName))}
+						companyId={fixNullParams(params.get("id"))}
 					/>
 				)}
 			/>

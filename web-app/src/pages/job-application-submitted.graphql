@@ -1,0 +1,5 @@
+query JobApplicationSubmitted($companyId: ID!) {
+	company(id: $companyId) {
+		name
+	}
+}
