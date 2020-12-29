@@ -195,7 +195,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		);
 
 		postToSlack(
-			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company email is ${companyEmail}`
+			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
 		const emailOptions = {

@@ -78,6 +78,7 @@ interface JobApplicationSubmittedProps {
 	companyId?: string;
 }
 
+// The page that users see when a job application is submitted
 export default function JobApplicationSubmitted({companyId}: JobApplicationSubmittedProps) {
 	const referralLink: string = `www.vize.mx/${urlGenerators.queryRoutes.jobs}?ref=jobapp`;
 	const [copySuccess, setCopySuccess] = React.useState("");
