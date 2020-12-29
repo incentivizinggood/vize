@@ -91,8 +91,6 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 		navigator.clipboard.writeText(text);
 		setCopySuccess("Copiado!");
 	}
-	
-	console.log("ccmp", data);
 
 	function renderContent() {
 		const referralLink: string =

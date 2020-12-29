@@ -3,6 +3,7 @@ import * as yup from "yup";
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
+import { postToSlack } from "src/connectors/slack-webhook";
 
 import { locationInputSchema } from "./location";
 
@@ -191,6 +192,10 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			rows: [{ name: companyName, contactemail: companyEmail }],
 		} = await client.query(
 			sql`SELECT name, contactemail FROM companies JOIN jobads ON companies.companyid = jobads.companyid WHERE jobadid=${jobAdId}`
+		);
+
+		postToSlack(
+			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company email is ${companyEmail}`
 		);
 
 		const emailOptions = {
