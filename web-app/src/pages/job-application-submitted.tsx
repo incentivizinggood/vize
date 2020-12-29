@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import { useJobApplicationSubmittedQuery } from "generated/graphql-operations";
+import ClipboardIcon from "@material-ui/icons/Assignment";
+import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
 
 import { useUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";
@@ -25,7 +27,8 @@ const PageContentContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-    align-items: center;
+	align-items: center;
+	text-align: center;
 
 	margin-top: 250px;
 	margin-bottom: 250px;
@@ -49,9 +52,15 @@ const PageContentContainer = styled.div`
 		width: 100%;
 		margin-top: 70px;
 		margin-bottom: 0px;
-		padding: 30px 0px;
+		padding: 30px 10px;
 		border-radius: 0px;
 	}
+`;
+
+const ReferralLinkContainer = styled.div`
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
 `;
 
 const ContactNumberLink = styled.a`
@@ -61,10 +70,10 @@ const ContactNumberLink = styled.a`
 `;
 
 const personalReferralMessage =
-	"Hola que tal! Te quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Te invito a participar. \r\n\r\nPuedes llenar la encuesta aquí:";
+	"Hola! Si estas buscando empleos en una fabrica en Tijuana, te recomiendo este sito web que se llama Vize (Incentivando El Bien). Aqui puedes encontrar empleos y tambien puedes leer evaluaciones de otros empleados que han trabajado ahi para que puedas hacer una decision mejor informada sobre donde quieres trabajar.";
 
 const publicReferralMessage =
-	"Hola, les quiero contar de una empresa que se llama Vize (Incentivando el Bien) que tiene el objetivo de mejorar las condiciones de trabajo en las fabricas por medio de que los empleados escriban evaluaciones totalmente anónimas sobre sus experiencias laborando en ellas. Los invito a participar. \r\n\r\nnPueden llenar la encuesta aquí:";
+	"Hola, si estan buscando empleos en una fabrica en Tijuana, les recomiendo este sito web que se llama Vize (Incentivando El Bien). Aqui pueden encontrar empleos y tambien pueden leer evaluaciones de otros empleados que han trabajado ahi para que puedan hacer una decision mejor informada sobre donde quieren trabajar.";
 
 interface JobApplicationSubmittedProps {
 	companyId?: string;
@@ -75,15 +84,27 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 	const { loading, data } = useJobApplicationSubmittedQuery({
 		variables: { companyId },
 	});
+	const [copySuccess, setCopySuccess] = React.useState("");
+	const textAreaRef = React.useRef(null);
+
+	function copyToClipboard(text: string) {
+		navigator.clipboard.writeText(text);
+		setCopySuccess("Copiado!");
+	}
 	
-	const referralLink = "vize.mx";
 	console.log("ccmp", data);
 
 	function renderContent() {
+		const referralLink: string =
+			`www.vize.mx/${urlGenerators.queryRoutes.jobs}?ref=jobapp`;
+		let ClipboardStatusIcon = <ClipboardIcon />;
+		if (copySuccess === "Copiado!") {
+			ClipboardStatusIcon = <ClipboardCopiedIcon />;
+		}
 		return (
 			<>
 				<h2>
-					<T.jobApplicationSubmitted /> {data?.company?.name}asdf
+					<T.jobApplicationSubmitted /> {data?.company?.name}
 				</h2>
 				
 				<br />
@@ -101,18 +122,39 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 				</ContactNumberLink>
 				</p>
 
-				
+				<br />
+
+				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}`} style={{ width: "350px" }} $primary> <T.returnToCompany /> </LinkButton>
+				<br />
+				<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
 
 				<br />
 
-				<div className="div-centered-elements">
+				<p>
+					<T.referralMessage />
+				</p>
+
+				<ReferralLinkContainer>
+					<button onClick={() => copyToClipboard(referralLink)}>
+						{ClipboardStatusIcon}
+					</button>
+					<button onClick={() => copyToClipboard(referralLink)}>
+						<a ref={textAreaRef} value={referralLink}>
+							<strong>{referralLink}</strong>
+						</a>
+					</button>
+					{copySuccess}
+				</ReferralLinkContainer>
+
+				<div>
 					<WhatsappShareButton
 						url={referralLink}
 						title={personalReferralMessage}
+						style={{ marginRight: "7px"}}
 					>
 						<WhatsappIcon size={48} round={true} />
 					</WhatsappShareButton>
-					{"    "}
+					
 					<FacebookShareButton
 						url={referralLink}
 						quote={publicReferralMessage}
@@ -121,12 +163,6 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 						<FacebookIcon size={48} round={true} />
 					</FacebookShareButton>
 				</div>
-
-				<br />
-
-				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}`} style={{ width: "350px" }} $primary> <T.returnToCompany /> </LinkButton>
-				<br />
-				<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
 			</>
 		);
 	}

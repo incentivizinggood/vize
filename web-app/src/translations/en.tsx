@@ -486,6 +486,7 @@ export default {
 			contactUs: "Please contact us if you have any questions or issues: ",
 			returnToCompany: "Return To Company Profile",
 			viewMoreJobs: "View More Jobs From Other Companies",
+			referralMessage: "Do you know someone that is looking for a job? You can share the link below or use one of the buttons below to share the jobs page to WhatsApp or Facebook.",
 		},
 		aboutUs: {
 			about: "About",

@@ -499,6 +499,7 @@ export default {
 			contactUs: "Por favor contáctanos si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experencia para poder mejorar la plataforma: ",
 			returnToCompany: "Volver Al Perfil de la Empresa",
 			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
+			referralMessage: "¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
 		},
 		jobsearch: {
 			loading: "Cargando...",
