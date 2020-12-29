@@ -7,8 +7,10 @@ import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
+import * as urlGenerators from "src/pages/url-generators";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
+import { useCompanyIdFromJobAdIdQuery } from "generated/graphql-operations";
 
 import InnerForm from "./apply-to-job-ad-inner-form";
 
@@ -44,7 +46,8 @@ const onSubmit = (
 	applyToJobAd,
 	history,
 	setSubmissionError,
-	setLoginRegisterModal
+	setLoginRegisterModal,
+	companyId
 ) => (values, actions) =>
 	applyToJobAd({
 		variables: {
@@ -61,7 +64,7 @@ const onSubmit = (
 				label: values.jobAdId,
 			});
 
-			history.push("/");
+			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${companyId}`);
 		})
 		.catch(errors => {
 			// Error in English: Not Logged In
@@ -97,6 +100,9 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	const [applyToJobAd] = useApplyToJobAdMutation();
+	const { data } = useCompanyIdFromJobAdIdQuery({
+		variables: { jobAdId },
+	});
 	const user = useUser();
 
 	if (user) {
@@ -114,7 +120,8 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 					applyToJobAd,
 					history,
 					setSubmissionError,
-					setLoginRegisterModal
+					setLoginRegisterModal,
+					data?.jobAd?.company.id
 				)}
 			>
 				<InnerForm submissionError={submissionError} />
