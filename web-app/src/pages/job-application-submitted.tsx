@@ -1,13 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import { useJobApplicationSubmittedQuery } from "generated/graphql-operations";
 import ClipboardIcon from "@material-ui/icons/Assignment";
 import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
+import Spinner from "src/components/Spinner";
 
-import { useUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
 
@@ -80,27 +79,31 @@ interface JobApplicationSubmittedProps {
 }
 
 export default function JobApplicationSubmitted({companyId}: JobApplicationSubmittedProps) {
-	const user = useUser();
+	const referralLink: string = `www.vize.mx/${urlGenerators.queryRoutes.jobs}?ref=jobapp`;
+	const [copySuccess, setCopySuccess] = React.useState("");
+	const textAreaRef = React.useRef(null);
+	let ClipboardStatusIcon = <ClipboardIcon />;
+
 	const { loading, data } = useJobApplicationSubmittedQuery({
 		variables: { companyId },
 	});
-	const [copySuccess, setCopySuccess] = React.useState("");
-	const textAreaRef = React.useRef(null);
+
+	if (loading) {
+		return <Spinner />;
+	}
+	
+	if (copySuccess === "Copiado!") {
+		ClipboardStatusIcon = <ClipboardCopiedIcon />;
+	}
 
 	function copyToClipboard(text: string) {
 		navigator.clipboard.writeText(text);
 		setCopySuccess("Copiado!");
 	}
 
-	function renderContent() {
-		const referralLink: string =
-			`www.vize.mx/${urlGenerators.queryRoutes.jobs}?ref=jobapp`;
-		let ClipboardStatusIcon = <ClipboardIcon />;
-		if (copySuccess === "Copiado!") {
-			ClipboardStatusIcon = <ClipboardCopiedIcon />;
-		}
-		return (
-			<>
+	return (
+		<PageWrapper title="Solicitud Enviada">
+			<PageContentContainer>
 				<h2>
 					<T.jobApplicationSubmitted /> {data?.company?.name}
 				</h2>
@@ -122,7 +125,7 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 
 				<br />
 
-				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}`} style={{ width: "350px" }} $primary> <T.returnToCompany /> </LinkButton>
+				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "350px" }} $primary> <T.returnToCompany /> </LinkButton>
 				<br />
 				<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
 
@@ -151,7 +154,7 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 						style={{ marginRight: "7px"}}
 					>
 						<WhatsappIcon size={48} round={true} />
-					</WhatsappShareButton>
+					</WhatsappShareButton>4
 					
 					<FacebookShareButton
 						url={referralLink}
@@ -160,42 +163,8 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 					>
 						<FacebookIcon size={48} round={true} />
 					</FacebookShareButton>
-				</div>
-			</>
-		);
-	}
-
-	let content = null; 
-	if (user) {
-		content = renderContent();
-	} else {
-		content = (
-			<div
-				style={{
-					width: "80%",
-					margin: "0 auto",
-					backgroundColor: "white",
-				}}
-			>
-				<br />
-				<h3>
-					<TLogin.mustBeLoggedIn />
-				</h3>
-				<br />
-				<Link
-					className="btn btn-primary"
-					to={urlGenerators.vizeLogin("worker")}
-				>
-					Iniciar Sesión
-				</Link>
-				<br />
-			</div>
-		);
-	}
-
-	return (
-		<PageWrapper title="Solicitud Enviada">
-			<PageContentContainer>{content}</PageContentContainer>
+				</div>	
+			</PageContentContainer>
 		</PageWrapper>
 	);
 }
