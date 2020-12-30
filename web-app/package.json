@@ -19,6 +19,7 @@
     "@material-ui/lab": "^4.0.0-alpha.55",
     "apollo-boost": "^0.4.9",
     "apollo-client": "^2.6.10",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "formik": "^2.1.4",
     "formik-material-ui": "^2.0.0-beta.1",
