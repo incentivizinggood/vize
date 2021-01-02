@@ -29,11 +29,10 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (history: History) => async (
+const onSubmit = (history: History, setSubmissionError: any) => async (
 	values: Values,
 	actions: FormikHelpers<Values>
 ) => {
-	const [submissionError, setSubmissionError] = React.useState(null);
 	try {
 		await login(values.loginId, values.password);
 
@@ -59,39 +58,22 @@ const onSubmit = (history: History) => async (
 			history.push("/");
 		}
 	} catch (error) {
-		console.error("Login error is", error);
-
-		// Errors to display on form fields
-		const formErrors: FormikErrors<Values> = {};
-		setSubmissionError(error);
-
-		if (
-			error.error.errors.includes(
-				"No account was found for that email or username."
-			)
-		) {
-			formErrors.loginId =
-				"No se encontró ninguna cuenta para ese correo electrónico o nombre de usuario.";
-		}
-
-		if (error.error.errors.includes("password is incorrect")) {
-			// TODO: clear the password input on this error
-			formErrors.password = "Contraseña incorrecta";
-		}
-
-		actions.setErrors(formErrors);
+		// Error to display at bottom of form
+		setSubmissionError(error.message);
+		
 		actions.setSubmitting(false);
 	}
 };
 
 export default function LoginForm(): JSX.Element {
 	const history = useHistory();
+	const [submissionError, setSubmissionError] = React.useState(null);
 
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={schema}
-			onSubmit={onSubmit(history)}
+			onSubmit={onSubmit(history, setSubmissionError)}
 		>
 			<InnerForm submissionError={submissionError} />
 		</Formik>

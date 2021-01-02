@@ -87,7 +87,6 @@ export function RegisterForm(): JSX.Element {
 			userRole = "worker";
 		}
 	}
-	console.log('suberr', submissionError);
 
 	return (
 		<Formik

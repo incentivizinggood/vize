@@ -224,7 +224,7 @@ export default function CreateReviewForm({
 					// cut out the "GraphQL error: " from error message
 					const errorMessage = errors.message.substring(14);
 					setSubmissionError(errorMessage);
-
+El nombre de usuario y la contraseña que especificaste son inválidos. Vuelve a intentarlo.
 					// Errors to display on form fields
 					const formErrors = {};
 
