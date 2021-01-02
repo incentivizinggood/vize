@@ -30,7 +30,7 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (history: History, role: "worker" | "company") => (
+const onSubmit = (history: History, role: "worker" | "company", setSubmissionError: any) => (
 	values: Values,
 	actions: FormikHelpers<Values>
 ) => {
@@ -65,20 +65,16 @@ const onSubmit = (history: History, role: "worker" | "company") => (
 			}
 		})
 		.catch(error => {
-			// Errors to display on form fields
-			const formErrors: FormikErrors<Values> = {};
+			// Error to display at bottom of form
+			setSubmissionError(error.message);
 
-			if (error.error.errors.includes("email is taken")) {
-				formErrors.email = "La dirección de correo ya existe";
-			}
-
-			actions.setErrors(formErrors);
 			actions.setSubmitting(false);
 		});
 };
 
 export function RegisterForm(): JSX.Element {
 	const history = useHistory();
+	const [submissionError, setSubmissionError] = React.useState(null);
 
 	const params = new URLSearchParams(location.search);
 	let userRole: string | null = "worker";
@@ -91,14 +87,15 @@ export function RegisterForm(): JSX.Element {
 			userRole = "worker";
 		}
 	}
+	console.log('suberr', submissionError);
 
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={schema}
-			onSubmit={onSubmit(history, userRole)}
+			onSubmit={onSubmit(history, userRole, setSubmissionError)}
 		>
-			<InnerForm userRole={userRole} />
+			<InnerForm userRole={userRole} submissionError={submissionError} />
 		</Formik>
 	);
 }

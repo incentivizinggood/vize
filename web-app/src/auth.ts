@@ -42,7 +42,13 @@ export async function register(options: {
 	password: string;
 	role: "worker" | "company";
 }): Promise<AxiosResponse<unknown>> {
-	const x = await axios.post(`${location.origin}/api/register`, options);
+	const x = await axios.post(`${location.origin}/api/register`, options)
+		.catch(function (error) {
+			console.log('easdf', error.response.data.errors[0]);
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0])
+		});
+	console.log('asdfe', x);
 
 	afterLoginOrLogout();
 

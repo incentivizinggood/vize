@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "formik";
 import styled from "styled-components";
 
-import { Field, FormToolbar } from "src/components/form-stuff";
+import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { Button } from "src/components/button";
 import { translations } from "src/translations";
 
@@ -16,6 +16,7 @@ const RegisterButton = styled(Button)`
 
 interface InnerFormProps {
 	userRole: string;
+	submissionError: any;
 }
 
 export function InnerForm(props: InnerFormProps): JSX.Element {
@@ -31,6 +32,8 @@ export function InnerForm(props: InnerFormProps): JSX.Element {
 			{companyNameField}
 
 			<Field name="password" type="password" required t={T.password} />
+
+			<SubmissionError error={props.submissionError} />
 
 			<FormToolbar>
 				<RegisterButton $primary type="submit">

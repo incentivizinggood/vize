@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "formik";
 import styled from "styled-components";
 
-import { Field, FormToolbar } from "src/components/form-stuff";
+import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { Button } from "src/components/button";
 import { translations } from "src/translations";
 
@@ -14,12 +14,14 @@ const LoginButton = styled(Button)`
 	margin-top: 20px;
 `;
 
-export default function InnerForm(): JSX.Element {
+export default function InnerForm({ submissionError }: any): JSX.Element {
 	return (
 		<Form noValidate>
 			<Field name="loginId" type="text" required t={T.loginId} />
 
 			<Field name="password" type="password" required t={T.password} />
+
+			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
 				<LoginButton $primary type="submit">

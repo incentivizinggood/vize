@@ -33,6 +33,7 @@ const onSubmit = (history: History) => async (
 	values: Values,
 	actions: FormikHelpers<Values>
 ) => {
+	const [submissionError, setSubmissionError] = React.useState(null);
 	try {
 		await login(values.loginId, values.password);
 
@@ -59,13 +60,10 @@ const onSubmit = (history: History) => async (
 		}
 	} catch (error) {
 		console.error("Login error is", error);
-		/********************************
-		 * The following code is wrong. *
-		 * It needs to be fixed.        *
-		 ********************************/
 
 		// Errors to display on form fields
 		const formErrors: FormikErrors<Values> = {};
+		setSubmissionError(error);
 
 		if (
 			error.error.errors.includes(
@@ -95,7 +93,7 @@ export default function LoginForm(): JSX.Element {
 			validationSchema={schema}
 			onSubmit={onSubmit(history)}
 		>
-			<InnerForm />
+			<InnerForm submissionError={submissionError} />
 		</Formik>
 	);
 }
