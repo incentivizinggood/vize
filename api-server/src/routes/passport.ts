@@ -148,6 +148,8 @@ if (
 				clientID: process.env.FACEBOOK_APP_ID,
 				clientSecret: process.env.FACEBOOK_APP_SECRET,
 				callbackURL: `${process.env.ROOT_URL}/api/auth/facebook/callback`,
+				passReqToCallback: true,
+				profileFields: ["id", "emails"],
 			},
 			async function(_accessToken, _refreshToken, profile, cb) {
 				try {
