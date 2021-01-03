@@ -59,7 +59,7 @@ export async function createUser(input: unknown): Promise<User> {
 	} catch (err) {
 		if (err.constraint === "users_email_address_key") {
 			// Error in English: "That email address is used by another account. Please use a different one."
-			throw `Esa dirección de correo electrónico es utilizada por otra cuenta. Utilice una diferente.`;
+			throw `Esa dirección de correo electrónico es utilizada por otra cuenta. Utilica una diferente.`;
 		}
 
 		throw err;

@@ -30,10 +30,11 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (history: History, role: "worker" | "company", setSubmissionError: any) => (
-	values: Values,
-	actions: FormikHelpers<Values>
-) => {
+const onSubmit = (
+	history: History,
+	role: "worker" | "company",
+	setSubmissionError: any
+) => (values: Values, actions: FormikHelpers<Values>) => {
 	const options = {
 		email: values.email,
 		password: values.password,
@@ -55,10 +56,18 @@ const onSubmit = (history: History, role: "worker" | "company", setSubmissionErr
 
 			if (
 				!(
-					window.location.pathname.includes(urlGenerators.queryRoutes.writeReview) ||
-					window.location.pathname.includes(urlGenerators.queryRoutes.submitSalaryData) ||
-					window.location.pathname.includes(urlGenerators.queryRoutes.applyForJob) ||
-					window.location.pathname.includes(urlGenerators.queryRoutes.resources)
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.writeReview
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.submitSalaryData
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.applyForJob
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.resources
+					)
 				)
 			) {
 				history.push("/");
