@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
+import * as urlGenerators from "src/pages/url-generators";
 
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
@@ -205,7 +206,7 @@ export default function CreateReviewForm({
 				});
 
 				// Go to the review submitted page so that the user can claim their reward.
-				history.push("/review-submitted");
+				history.push(`/${urlGenerators.queryRoutes.reviewSubmitted}`);
 			})
 			.catch(errors => {
 				// Error in English: Not Logged In

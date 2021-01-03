@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --mode production",
-    "watch": "webpack-dev-server --mode development"
+    "watch": "webpack-dev-server --mode development",
+    "test": "jest --coverage"
   },
   "engines": {
     "node": "12.x"
@@ -18,6 +19,7 @@
     "@material-ui/lab": "^4.0.0-alpha.55",
     "apollo-boost": "^0.4.9",
     "apollo-client": "^2.6.10",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "formik": "^2.1.4",
     "formik-material-ui": "^2.0.0-beta.1",
@@ -40,10 +42,10 @@
     "react-star-ratings": "^2.3.0",
     "reactjs-popup": "^1.5.0",
     "styled-components": "^5.1.1",
-    "webpack-cli": "^3.3.11",
     "yup": "^0.29.1"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.15",
     "@types/react": "^16.9.35",
     "@types/react-circular-progressbar": "^1.1.0",
     "@types/react-dom": "^16.9.8",
@@ -54,16 +56,22 @@
     "@types/styled-components": "^5.1.0",
     "@types/yup": "^0.29.1",
     "css-loader": "^3.5.3",
+    "enzyme": "^3.11.0",
     "favicons-webpack-plugin": "^3.0.1",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.6.1",
     "progress-bar-webpack-plugin": "^2.1.0",
+    "react-test-renderer": "^17.0.1",
     "sass": "^1.26.7",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
+    "ts-jest": "^26.4.3",
     "ts-loader": "^7.0.5",
+    "ts-node": "^9.0.0",
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
   }
 }

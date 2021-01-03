@@ -23,7 +23,7 @@ const FormDividerLine = styled.hr`
 	margin-right: -30px;
 `;
 
-function InnerForm({ submissionError }) {
+function InnerForm({ submissionError }: { submissionError: string | null }) {
 	const t = useTranslations().createReview;
 
 	return (

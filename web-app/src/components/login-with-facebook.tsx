@@ -5,10 +5,10 @@ const X = styled.div`
 	text-align: center;
 `;
 
-const LoginWithFacebook: React.FC = () => (
-	<X>
-		or <a href="/api/auth/facebook">Login with Facebook</a>
-	</X>
-);
-
-export default LoginWithFacebook;
+export default function LoginWithFacebook(): JSX.Element {
+	return (
+		<X>
+			or <a href="/api/auth/facebook">Login with Facebook</a>
+		</X>
+	);
+}

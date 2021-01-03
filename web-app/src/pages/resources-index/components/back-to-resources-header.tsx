@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import * as urlGenerators from "src/pages/url-generators";
 
 import { Link } from "react-router-dom";
 
@@ -47,7 +48,7 @@ type BackToResourcesHeaderProps = {
 function BackToResourcesHeader({ topicName }: BackToResourcesHeaderProps) {
 	return (
 		<BackToResourcesHeaderContainer>
-			<Link to="/recursos" style={{ color: "black" }}>
+			<Link to={`/${urlGenerators.queryRoutes.resources}`} style={{ color: "black" }}>
 				<ArrowBackIconStyled />
 			</Link>
 			<HeaderTitle> {topicName} </HeaderTitle>

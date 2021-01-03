@@ -8,10 +8,10 @@ import Pages from "./pages";
 import { LocaleProvider } from "./startup/i18n";
 
 interface AppRootProps {
-	apolloClient: ApolloClient<{}>;
+	apolloClient: ApolloClient<unknown>;
 }
 
-function AppRoot(props: AppRootProps) {
+function AppRoot(props: AppRootProps): JSX.Element {
 	return (
 		<LocaleProvider>
 			<ApolloProvider client={props.apolloClient}>

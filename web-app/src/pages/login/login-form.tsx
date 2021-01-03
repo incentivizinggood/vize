@@ -3,7 +3,7 @@ import { Formik, FormikHelpers, FormikErrors } from "formik";
 import { useHistory } from "react-router-dom";
 import { History } from "history";
 import * as yup from "yup";
-
+import * as urlGenerators from "src/pages/url-generators";
 import * as schemas from "src/form-schemas";
 import { login } from "src/auth";
 
@@ -29,61 +29,53 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (history: History) => (
+const onSubmit = (history: History, setSubmissionError: any) => async (
 	values: Values,
 	actions: FormikHelpers<Values>
 ) => {
-	login(values.loginId, values.password)
-		.then(x => {
-			actions.resetForm({ values: initialValues });
+	try {
+		await login(values.loginId, values.password);
 
-			// TODO: use query params so that login redirects user back to where they were when they login
-			if (
-				!(
-					window.location.pathname.includes("/write-review") ||
-					window.location.pathname.includes("/submit-salary-data") ||
-					window.location.pathname.includes("/apply-for-job") ||
-					window.location.pathname.includes("/recurso")
+		actions.resetForm({ values: initialValues });
+
+		// TODO: use query params so that login redirects user back to where they were when they login
+		if (
+			!(
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.writeReview
+				) ||
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.submitSalaryData
+				) ||
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.applyForJob
+				) ||
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.resources
 				)
-			) {
-				history.push("/");
-			}
-		})
-		.catch(error => {
-			console.error("Login error is", error);
-
-			// Errors to display on form fields
-			const formErrors: FormikErrors<Values> = {};
-
-			if (
-				error.error.errors.includes(
-					"No account was found for that email or username."
-				)
-			) {
-				formErrors.loginId =
-					"No se encontró ninguna cuenta para ese correo electrónico o nombre de usuario.";
-			}
-
-			if (error.error.errors.includes("password is incorrect")) {
-				// TODO: clear the password input on this error
-				formErrors.password = "Contraseña incorrecta";
-			}
-
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
-		});
+			)
+		) {
+			history.push("/");
+		}
+	} catch (error) {
+		// Error to display at bottom of form
+		setSubmissionError(error.message);
+		
+		actions.setSubmitting(false);
+	}
 };
 
 export default function LoginForm(): JSX.Element {
 	const history = useHistory();
+	const [submissionError, setSubmissionError] = React.useState(null);
 
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={schema}
-			onSubmit={onSubmit(history)}
+			onSubmit={onSubmit(history, setSubmissionError)}
 		>
-			<InnerForm />
+			<InnerForm submissionError={submissionError} />
 		</Formik>
 	);
 }

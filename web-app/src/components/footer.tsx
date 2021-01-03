@@ -1,17 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import * as urlGenerators from "src/pages/url-generators";
 
 import { forSize } from "src/responsive";
 import colors from "src/colors";
-import { translations } from "src/translations";
+import { useTranslations } from "src/translations";
 
 import facebookIcon from "src/images/facebook.png";
 import instagramIcon from "src/images/instagram.png";
 import linkedInIcon from "src/images/linkedin.png";
 import whatsAppIcon from "src/images/whatsapp.png";
-
-const T = translations.footer;
 
 const FooterContainer = styled.footer`
 	padding: 1.5em;
@@ -96,21 +95,18 @@ const ContactNumberLink = styled.a`
 	text-decoration: underline;
 `;
 
-// About Contact Help | social media
-export default function Footer() {
+export default function Footer(): JSX.Element {
+	const t = useTranslations().footer;
+
 	return (
 		<FooterContainer>
 			<LinksContainer>
 				<InternalLinks>
-					<Link to="/about">
-						<T.aboutUs />
-					</Link>
-					<Link to="/contact-us">
-						<T.contactUs />
-					</Link>
+					<Link to={`/${urlGenerators.queryRoutes.about}`}>{t.aboutUs}</Link>
+					<Link to={`/${urlGenerators.queryRoutes.contactUs}`}>{t.contactUs}</Link>
 					{/* commenting out until we have a help page
-					<Link to="/help">
-						<T.help />
+					<Link to={`/${urlGenerators.queryRoutes.help}`}>
+						{t.help}
 					</Link>
 					-->*/}
 				</InternalLinks>
@@ -118,6 +114,7 @@ export default function Footer() {
 				<SocialLinks>
 					<a
 						href="https://www.facebook.com/Vize-Incentivando-El-Bien-468437690335687/"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src={facebookIcon} alt="Facebook" />
@@ -125,6 +122,7 @@ export default function Footer() {
 					{/* Commenting until our twitter account is active
 					<a
 						href="https://www.twitter.com/vizeglobal"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src="/images/twitter.png" alt="Twitter" />
@@ -132,12 +130,14 @@ export default function Footer() {
 					*/}
 					<a
 						href="https://www.instagram.com/incentivandoelbien/"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src={instagramIcon} alt="Instagram" />
 					</a>
 					<a
 						href="https://www.linkedin.com/company/incentivizinggood"
+						rel="noreferrer"
 						target="_blank"
 					>
 						<SocialIcon src={linkedInIcon} alt="LinkedIn" />
@@ -149,6 +149,7 @@ export default function Footer() {
 					<InternalLinks>
 						<ContactNumberLink
 							href="https://wa.me/5216647480001"
+							rel="noreferrer"
 							target="_blank"
 						>
 							<WhatsApp src={whatsAppIcon} alt="WhatsApp" /> +52
@@ -156,7 +157,7 @@ export default function Footer() {
 						</ContactNumberLink>
 					</InternalLinks>
 					<SocialLinks>
-						Vize © 2020. <T.allRightsReserved />
+						Vize © 2020. {t.allRightsReserved}
 					</SocialLinks>
 				</LinksContainer>
 			</CopyRight>

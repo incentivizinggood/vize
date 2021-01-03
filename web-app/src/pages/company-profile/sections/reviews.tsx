@@ -11,6 +11,7 @@ import CompanyRating from "../companyRatingsComponent";
 import { WriteReviewButton } from "src/components/button";
 import { CompanyProfileReviewsSectionFragment } from "generated/graphql-operations";
 import { translations } from "src/translations";
+import * as urlGenerators from "src/pages/url-generators";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -59,7 +60,7 @@ function ReviewsSection(props: ReviewsSectionProps): JSX.Element {
 
 				<div>{reviewsToDisplay}</div>
 
-				<SeeMoreFooter to={"./reviews"} ariaControls={"reviews"}>
+				<SeeMoreFooter to={`./${urlGenerators.queryRoutes.reviews}`} ariaControls={urlGenerators.queryRoutes.reviews}>
 					<T.overview_tab.see_all_reviews />
 				</SeeMoreFooter>
 			</SectionContainer>

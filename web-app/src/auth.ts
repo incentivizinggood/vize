@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from "axios";
 import client from "./startup/graphql";
 
 // NOTE: The user's logged in state is tracked by a session.
@@ -7,75 +8,65 @@ import client from "./startup/graphql";
 /**
  * Handle some tasks that need to happen when the user's authentication state changes.
  */
-function afterLoginOrLogout<T>(x: T): T {
+function afterLoginOrLogout(): void {
 	// Nuke the GraphQL cache to prevent cache errors.
 	// This is inefficient, but it will only happen when
 	// the user logs in and logs out so it doesn't matter.
 	client.resetStore();
-
-	// Pass the response unchanged.
-	return x;
 }
 
 export async function login(
 	loginId: string,
 	password: string
-): Promise<unknown> {
-	const x = await fetch(
-		new Request(`${location.origin}/api/login`, {
-			method: "POST",
-			headers: new Headers({
-				"Content-Type": "application/json",
-			}),
-			body: JSON.stringify({
-				loginId,
-				password,
-			}),
+): Promise<AxiosResponse<unknown>> {
+	const x = await axios
+		.post(`${location.origin}/api/login`, {
+			loginId,
+			password,
 		})
-	);
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
 
-	return afterLoginOrLogout(x);
+	afterLoginOrLogout();
+
+	return x;
 }
 
-export async function logout(): Promise<unknown> {
-	const x = await fetch(
-		new Request(`${location.origin}/api/logout`, {
-			method: "POST",
-		})
-	);
+export async function logout(): Promise<AxiosResponse<unknown>> {
+	const x = await axios.post(`${location.origin}/api/logout`);
 
-	return afterLoginOrLogout(x);
+	afterLoginOrLogout();
+
+	return x;
 }
 
 export async function register(options: {
 	email: string;
 	password: string;
 	role: "worker" | "company";
-}): Promise<unknown> {
-	const x = await fetch(
-		new Request(`${location.origin}/api/register`, {
-			method: "POST",
-			headers: new Headers({
-				"Content-Type": "application/json",
-			}),
-			body: JSON.stringify(options),
-		})
-	);
+}): Promise<AxiosResponse<unknown>> {
+	const x = await axios
+		.post(`${location.origin}/api/register`, options)
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
 
-	return afterLoginOrLogout(x);
+	afterLoginOrLogout();
+
+	return x;
 }
 
-export function changePassword(options: {
+export async function changePassword(options: {
 	oldPassword: string;
 	newPassword: string;
-}): Promise<unknown> {
-	return fetch(
-		new Request(`${location.origin}/api/change-password`, {
-			method: "POST",
-			headers: new Headers({
-				"Content-Type": "application/json",
-			}),
-			body: JSON.stringify(options),
-		})
-	);
+}): Promise<AxiosResponse<unknown>> {
+	return await axios
+		.post(`${location.origin}/api/change-password`, options)
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
 }
