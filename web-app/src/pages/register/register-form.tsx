@@ -30,10 +30,11 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (history: History, role: "worker" | "company") => (
-	values: Values,
-	actions: FormikHelpers<Values>
-) => {
+const onSubmit = (
+	history: History,
+	role: "worker" | "company",
+	setSubmissionError: any
+) => (values: Values, actions: FormikHelpers<Values>) => {
 	const options = {
 		email: values.email,
 		password: values.password,
@@ -55,30 +56,34 @@ const onSubmit = (history: History, role: "worker" | "company") => (
 
 			if (
 				!(
-					window.location.pathname.includes(urlGenerators.queryRoutes.writeReview) ||
-					window.location.pathname.includes(urlGenerators.queryRoutes.submitSalaryData) ||
-					window.location.pathname.includes(urlGenerators.queryRoutes.applyForJob) ||
-					window.location.pathname.includes(urlGenerators.queryRoutes.resources)
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.writeReview
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.submitSalaryData
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.applyForJob
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.resources
+					)
 				)
 			) {
 				history.push("/");
 			}
 		})
 		.catch(error => {
-			// Errors to display on form fields
-			const formErrors: FormikErrors<Values> = {};
+			// Error to display at bottom of form
+			setSubmissionError(error.message);
 
-			if (error.error.errors.includes("email is taken")) {
-				formErrors.email = "La dirección de correo ya existe";
-			}
-
-			actions.setErrors(formErrors);
 			actions.setSubmitting(false);
 		});
 };
 
 export function RegisterForm(): JSX.Element {
 	const history = useHistory();
+	const [submissionError, setSubmissionError] = React.useState(null);
 
 	const params = new URLSearchParams(location.search);
 	let userRole: string | null = "worker";
@@ -96,9 +101,9 @@ export function RegisterForm(): JSX.Element {
 		<Formik
 			initialValues={initialValues}
 			validationSchema={schema}
-			onSubmit={onSubmit(history, userRole)}
+			onSubmit={onSubmit(history, userRole, setSubmissionError)}
 		>
-			<InnerForm userRole={userRole} />
+			<InnerForm userRole={userRole} submissionError={submissionError} />
 		</Formik>
 	);
 }

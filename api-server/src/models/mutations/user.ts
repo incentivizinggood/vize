@@ -58,7 +58,8 @@ export async function createUser(input: unknown): Promise<User> {
 		return user;
 	} catch (err) {
 		if (err.constraint === "users_email_address_key") {
-			throw `That email address is used by another account. Please use a different one.`;
+			// Error in English: "That email address is used by another account. Please use a different one."
+			throw `Esa dirección de correo electrónico es utilizada por otra cuenta. Utilica una diferente.`;
 		}
 
 		throw err;
@@ -81,19 +82,17 @@ export async function verifyUser(input: unknown): Promise<User> {
 	});
 
 	const user = await getUserByLogin(loginId);
+	const didMatch = await comparePassword(password, user.passwordHash);
 
-	if (!user) {
-		throw "No account was found for that email or username.";
+	if (!user || !didMatch) {
+		// Combining username and password incorrect in one place for better security
+		// Error in English: "The username or password is incorrect. Try again."
+		throw "El nombre de usuario o la contraseña que especificaste son inválidos. Vuelve a intentarlo.";
 	}
 
 	if (!user.passwordHash) {
-		throw "You do not have a password set. You must login some other way.";
-	}
-
-	const didMatch = await comparePassword(password, user.passwordHash);
-
-	if (!didMatch) {
-		throw "password is incorrect";
+		// Error in English: You do not have a password set. You must login some other way.
+		throw "No tienes una contraseña establecida. Debes iniciar una sesión a través de Facebook.";
 	}
 
 	return user;
@@ -118,17 +117,20 @@ export async function changePassword(
 	});
 
 	if (!user) {
-		throw "You must be logged in to change your password.";
+		// Error in English: "You must be logged in to change your password."
+		throw "Debes iniciar una sesión para cambiar tu contraseña.";
 	}
 
 	if (!user.passwordHash) {
-		throw "You do not have a password set. You cannot set it with this.";
+		// Error in English: "You do not have a password set, which means you can not change it. Login with Facebook instead."
+		throw "No tienes una contraseña establecida. Inicia una sesión con Facebook.";
 	}
 
 	const didMatch = await comparePassword(oldPassword, user.passwordHash);
 
 	if (!didMatch) {
-		throw "The old password is you gave is incorrect.";
+		// Error in English: "The old password is you gave is incorrect."
+		throw "La contraseña anterior que proporcionaste es incorrecta.";
 	}
 
 	const newPasswordHash = await hashPassword(newPassword);

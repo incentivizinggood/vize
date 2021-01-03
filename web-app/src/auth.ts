@@ -19,10 +19,15 @@ export async function login(
 	loginId: string,
 	password: string
 ): Promise<AxiosResponse<unknown>> {
-	const x = await axios.post(`${location.origin}/api/login`, {
-		loginId,
-		password,
-	});
+	const x = await axios
+		.post(`${location.origin}/api/login`, {
+			loginId,
+			password,
+		})
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
 
 	afterLoginOrLogout();
 
@@ -42,7 +47,12 @@ export async function register(options: {
 	password: string;
 	role: "worker" | "company";
 }): Promise<AxiosResponse<unknown>> {
-	const x = await axios.post(`${location.origin}/api/register`, options);
+	const x = await axios
+		.post(`${location.origin}/api/register`, options)
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
 
 	afterLoginOrLogout();
 
@@ -53,5 +63,10 @@ export async function changePassword(options: {
 	oldPassword: string;
 	newPassword: string;
 }): Promise<AxiosResponse<unknown>> {
-	return await axios.post(`${location.origin}/api/change-password`, options);
+	return await axios
+		.post(`${location.origin}/api/change-password`, options)
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
 }
