@@ -117,17 +117,20 @@ export async function changePassword(
 	});
 
 	if (!user) {
-		throw "You must be logged in to change your password.";
+		// Error in English: "You must be logged in to change your password."
+		throw "Debes iniciar una sesión para cambiar tu contraseña.";
 	}
 
 	if (!user.passwordHash) {
-		throw "You do not have a password set. You cannot set it with this.";
+		// Error in English: "You do not have a password set, which means you can not change it. Login with Facebook instead."
+		throw "No tienes una contraseña establecida. Inicia una sesión con Facebook.";
 	}
 
 	const didMatch = await comparePassword(oldPassword, user.passwordHash);
 
 	if (!didMatch) {
-		throw "The old password is you gave is incorrect.";
+		// Error in English: "The old password is you gave is incorrect."
+		throw "La contraseña anterior que proporcionaste es incorrecta.";
 	}
 
 	const newPasswordHash = await hashPassword(newPassword);

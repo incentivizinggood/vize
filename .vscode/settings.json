@@ -8,5 +8,6 @@
 	],
 	"eslint.validate": ["typescript", "typescriptreact"],
 	"eslint.run": "onSave",
-	"typescript.tsdk": "./node_modules/typescript/lib"
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	"editor.defaultFormatter": "esbenp.prettier-vscode"
 }
