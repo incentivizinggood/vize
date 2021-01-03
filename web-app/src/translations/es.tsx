@@ -42,6 +42,12 @@ export default {
 	companiesSearchBar: {
 		placeholder: "Buscar una empresa...",
 	},
+	jobSearchBar: {
+		placeholder: "Buscar una trabajo...",
+	},
+	reviewSearchBar: {
+		placeholder: "Buscar una evaluación...",
+	},
 	header: {
 		companies: "Empresas",
 		write_review: "Agregar Evaluación",
@@ -62,7 +68,8 @@ export default {
 		changePassword: "Cambiar Contraseña",
 	},
 	needToBeLoggedInToView: {
-		youNeedToBeLoggedInToView: "Tienes que iniciar una sesión para usar esta página.",
+		youNeedToBeLoggedInToView:
+			"Tienes que iniciar una sesión para usar esta página.",
 		login: "Iniciar Sesión",
 	},
 	footer: {

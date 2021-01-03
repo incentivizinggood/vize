@@ -3,7 +3,7 @@ import { useInfiniteScroll } from "react-infinite-scroll-hook";
 
 import PageWrapper from "src/components/page-wrapper";
 import JobPosting from "src/components/jobs/job-posting.tsx";
-import CompaniesSearchBar from "src/components/companies-search-bar";
+import JobSearchBar from "src/components/job-search-bar";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 import {
@@ -124,7 +124,7 @@ export default function JobSearch(props: JobSearchProps): JSX.Element {
 							id="companies_header1"
 							className="callbacks_container"
 						>
-							<CompaniesSearchBar />
+							<JobSearchBar />
 						</div>
 					</div>
 				</div>

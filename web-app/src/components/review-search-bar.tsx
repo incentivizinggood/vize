@@ -8,13 +8,12 @@ import { useTranslations } from "src/translations";
 import * as analytics from "src/startup/analytics";
 import * as urlGenerators from "src/pages/url-generators";
 
-import { SearchSuggestions } from "./search-suggestions";
-
 type Inputs = {
 	search: string;
 };
 
-export default function CompaniesSearchBar(): JSX.Element {
+/** @todo Combine this with CompaniesSearchBar */
+export default function ReviewSearchBar(): JSX.Element {
 	const t = useTranslations();
 	const location = useLocation();
 	const history = useHistory();
@@ -24,7 +23,7 @@ export default function CompaniesSearchBar(): JSX.Element {
 	// and write it back to the url.
 	const params = new URLSearchParams(location.search);
 
-	const { register, handleSubmit, control } = useForm<Inputs>({
+	const { register, handleSubmit } = useForm<Inputs>({
 		defaultValues: { search: params.get("q") || "" },
 	});
 
@@ -35,9 +34,7 @@ export default function CompaniesSearchBar(): JSX.Element {
 			label: data.search,
 		});
 
-		history.push(
-			`/${urlGenerators.queryRoutes.companies}?q=${data.search}`
-		);
+		history.push(`/${urlGenerators.queryRoutes.reviews}?q=${data.search}`);
 	};
 
 	return (
@@ -45,16 +42,10 @@ export default function CompaniesSearchBar(): JSX.Element {
 			<div className="search-bar-style">
 				<input
 					name="search"
-					list="search-suggestions"
 					autoComplete="off"
 					className="companies-search-input"
-					{...t.companiesSearchBar}
+					{...t.reviewSearchBar}
 					ref={register}
-				/>
-				<SearchSuggestions
-					id="search-suggestions"
-					name="search"
-					control={control}
 				/>
 				<button type="submit" className="search-icon">
 					<FontAwesomeIcon icon={faSearch} />

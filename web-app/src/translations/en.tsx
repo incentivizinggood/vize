@@ -43,6 +43,12 @@ export default {
 	companiesSearchBar: {
 		placeholder: "Search for a Company...",
 	},
+	jobSearchBar: {
+		placeholder: "Search for a Job...",
+	},
+	reviewSearchBar: {
+		placeholder: "Search for a Review...",
+	},
 	header: {
 		companies: "Companies",
 		write_review: "Write Review",

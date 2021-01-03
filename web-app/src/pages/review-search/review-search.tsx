@@ -5,7 +5,7 @@ import PageWrapper from "src/components/page-wrapper";
 // Stealing the review component from the company page for now.
 // TODO: Make a component for this search page to use properly.
 import ReviewComponent from "src/pages/company-profile/articles/review";
-import CompaniesSearchBar from "src/components/companies-search-bar";
+import ReviewSearchBar from "src/components/review-search-bar";
 import Spinner from "src/components/Spinner";
 import { translations } from "src/translations";
 import {
@@ -127,7 +127,7 @@ export default function ReviewSearch(props: ReviewSearchProps): JSX.Element {
 							id="companies_header1"
 							className="callbacks_container"
 						>
-							<CompaniesSearchBar />
+							<ReviewSearchBar />
 						</div>
 					</div>
 				</div>
