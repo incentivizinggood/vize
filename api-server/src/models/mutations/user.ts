@@ -82,9 +82,8 @@ export async function verifyUser(input: unknown): Promise<User> {
 	});
 
 	const user = await getUserByLogin(loginId);
-	const didMatch = await comparePassword(password, user.passwordHash);
 
-	if (!user || !didMatch) {
+	if (!user) {
 		// Combining username and password incorrect in one place for better security
 		// Error in English: "The username or password is incorrect. Try again."
 		throw "El nombre de usuario o la contraseña que especificaste son inválidos. Vuelve a intentarlo.";
@@ -93,6 +92,14 @@ export async function verifyUser(input: unknown): Promise<User> {
 	if (!user.passwordHash) {
 		// Error in English: You do not have a password set. You must login some other way.
 		throw "No tienes una contraseña establecida. Debes iniciar una sesión a través de Facebook.";
+	}
+
+	const didMatch = await comparePassword(password, user.passwordHash);
+
+	if (!didMatch) {
+		// Combining username and password incorrect in one place for better security
+		// Error in English: "The username or password is incorrect. Try again."
+		throw "El nombre de usuario o la contraseña que especificaste son inválidos. Vuelve a intentarlo.";
 	}
 
 	return user;
