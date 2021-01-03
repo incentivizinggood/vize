@@ -14,7 +14,11 @@ const LoginButton = styled(Button)`
 	margin-top: 20px;
 `;
 
-export default function InnerForm({ submissionError }: any): JSX.Element {
+export default function InnerForm({
+	submissionError,
+}: {
+	submissionError: string | null;
+}): JSX.Element {
 	return (
 		<Form noValidate>
 			<Field name="loginId" type="text" required t={T.loginId} />

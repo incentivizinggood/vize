@@ -16,7 +16,7 @@ const RegisterButton = styled(Button)`
 
 interface InnerFormProps {
 	userRole: string;
-	submissionError: any;
+	submissionError: string | null;
 }
 
 export function InnerForm(props: InnerFormProps): JSX.Element {
