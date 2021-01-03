@@ -148,10 +148,10 @@ if (
 				clientID: process.env.FACEBOOK_APP_ID,
 				clientSecret: process.env.FACEBOOK_APP_SECRET,
 				callbackURL: `${process.env.ROOT_URL}/api/auth/facebook/callback`,
-				passReqToCallback: true,
 				profileFields: ["id", "emails"],
+				passReqToCallback: true,
 			},
-			async function(_accessToken, _refreshToken, profile, cb) {
+			async function(_req, _accessToken, _refreshToken, profile, cb) {
 				try {
 					console.log("Facebook user profile =", profile);
 
