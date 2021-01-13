@@ -155,7 +155,7 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 						style={{ marginRight: "7px"}}
 					>
 						<WhatsappIcon size={48} round={true} />
-					</WhatsappShareButton>4
+					</WhatsappShareButton>
 					
 					<FacebookShareButton
 						url={referralLink}
