@@ -496,7 +496,7 @@ export default {
 		jobApplicationSubmitted: {
 			jobApplicationSubmitted: "Tu solicitud de trabajo se envió con exito a ",
 			companyWillReachOut: " se comunicará contigo pronto si hay algún interés. Te informaremos cuando se cubran las vacantes para este empleo.",
-			contactUs: "Por favor contáctanos si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experencia para poder mejorar la plataforma: ",
+			contactUs: "Por favor contáctanos si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: ",
 			returnToCompany: "Volver Al Perfil de la Empresa",
 			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
 			referralMessage: "¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
