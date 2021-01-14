@@ -125,8 +125,11 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 				</p>
 
 				<br />
-
-				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "350px" }} $primary> <T.returnToCompany /> </LinkButton>
+				<p>
+					<T.readReviews />
+				</p>
+				<br />
+				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "350px" }} $primary> <T.readReviewsButton /> </LinkButton>
 				<br />
 				<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
 
