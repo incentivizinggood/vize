@@ -8,6 +8,7 @@ export const queryRoutes = {
 	help: "ayuda",
 	jobs: "trabajos",
 	job: "trabajo",
+	jobApplicationSubmitted: "solicitud-enviada",
 	myAccount: "mi-cuenta",
 	postJob: "publicar-una-oferta",
 	companies: "empresas",

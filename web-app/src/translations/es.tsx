@@ -493,6 +493,15 @@ export default {
 			invalidPhoneNumber: "Número de teléfono invalido",
 			submit: "Enviar",
 		},
+		jobApplicationSubmitted: {
+			jobApplicationSubmitted: "Tu solicitud de trabajo se envió con exito a ",
+			companyWillReachOut: " se comunicará contigo pronto si hay algún interés. Te informaremos cuando se cubran las vacantes para este empleo.",
+			contactUs: "Por favor mandanos un mensaje por WhatsApp o responde a este email si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: ",
+			readReviews: "Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
+			readReviewsButton: "Leer Evaluaciones",
+			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
+			referralMessage: "¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
+		},
 		jobsearch: {
 			loading: "Cargando...",
 			nojobs: "No hay anuncios de trabajo disponibles en este momento.",

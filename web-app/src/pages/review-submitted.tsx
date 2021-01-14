@@ -126,8 +126,7 @@ export default function ReviewSubmitted() {
 		);
 	}
 
-	let content = null; // 				<RewardSection>{content}</RewardSection>
-	console.log("user", user);
+	let content = null;
 	if (user) {
 		content = renderContent();
 	} else {
