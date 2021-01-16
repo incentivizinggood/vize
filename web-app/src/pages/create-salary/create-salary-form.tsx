@@ -87,7 +87,7 @@ export default function CreateSalaryForm({ companyName }) {
 				) {
 					setContent(
 						<PopupModal isOpen={true}>
-							<RegisterLoginModal errorText="Regístrate o inicia una sesión para escribir una evaluación" />
+							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);
 				} else {

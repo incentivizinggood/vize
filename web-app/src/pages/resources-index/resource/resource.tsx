@@ -185,7 +185,7 @@ function Resource(props: ResourceProps) {
 			) {
 				setLoginRegisterModal(
 					<PopupModal isOpen={true}>
-						<RegisterLoginModal errorText="Regístrate o inicia una sesión para guardar el recurso" />
+						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para guardar el recurso" />
 					</PopupModal>
 				);
 			}
