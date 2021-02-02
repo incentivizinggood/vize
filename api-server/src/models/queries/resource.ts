@@ -11,6 +11,7 @@ const attributes = sql.raw(
 		"body",
 		'resource_image_url AS "resourceImageURL"',
 		'topic_name AS "topicName"',
+		'audience_type AS "audienceType"',
 		'author_id AS "authorId"',
 		'is_highlighted AS "isHighlighted"',
 		'publish_date AS "publishDate"',

@@ -433,8 +433,8 @@ enum Gender {
 }
 
 enum AudienceType {
-	EMPLOYER
-	WORKER
+	EMPLOYERS
+	WORKERS
 }
 
 type Salary {
