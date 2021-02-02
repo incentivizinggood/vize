@@ -268,6 +268,8 @@ type Resource {
 	body: String!
 	resourceImageURL: String!
 	topicName: String
+	"Who the resource is intended for (employer or worker)"
+	audienceType: AudienceType!
 	authorId: Int!
 	"If an Resource is highlighted show it in the highlighted resources section"
 	isHighlighted: Boolean!
@@ -300,6 +302,8 @@ type ResourceTopic {
 
 	topicName: String!
 	iconImageURL: String!
+	"Who the topic is intended for (employer or worker)"
+	audienceType: AudienceType!
 }
 
 type Company {
@@ -426,6 +430,11 @@ enum IncomeType {
 enum Gender {
 	MALE
 	FEMALE
+}
+
+enum AudienceType {
+	EMPLOYER
+	WORKER
 }
 
 type Salary {
