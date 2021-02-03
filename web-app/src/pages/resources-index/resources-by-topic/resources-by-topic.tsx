@@ -36,7 +36,7 @@ function ResourcesByTopicPage(props) {
 	const topicName = props.match.params.topicName;
 
 	const { loading, error, data } = useQuery(resourceByTopicPageQuery, {
-		variables: { id: topicName, currentPageNum },
+		variables: { id: topicName, currentPageNum, audienceType: props.audienceType },
 	});
 
 	if (loading) {

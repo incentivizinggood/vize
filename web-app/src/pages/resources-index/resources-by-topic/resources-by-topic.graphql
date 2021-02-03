@@ -1,5 +1,5 @@
-query resourcesByTopicPage($id: ID!, $currentPageNum: Int!) {
-	searchResourcesByTopic(id: $id, pageNum: $currentPageNum) {
+query resourcesByTopicPage($id: ID!, $currentPageNum: Int!, $audienceType: String!) {
+	searchResourcesByTopic(id: $id, pageNum: $currentPageNum, audienceType: $audienceType) {
 		totalCount
 		nodes {
 			slug

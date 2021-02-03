@@ -41,7 +41,7 @@ export function vizeResourceUrl(slug: string): string {
 }
 
 export function vizeResourceTopicUrl(topicName: string): string {
-	return `/${queryRoutes.workerResources}/temas/${topicName}`;
+	return `./${queryRoutes.workerResources}/temas/${topicName}`;
 }
 
 export function vizeCompanyProfileUrl(
