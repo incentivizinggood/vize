@@ -30,14 +30,18 @@ export const queryRoutes = {
 export const queryParameters = {
 	companyName: "nombre-de-empresa",
 	user: "usuario",
-}
+};
 
 // exporting commonly-used URL generators
 // in order to reduce the risk of typos
 // and reduce the use of magic strings
 
-export function vizeResourceUrl(slug: string): string {
-	return `/${queryRoutes.workerResources}/recurso/${slug}`;
+export function vizeResourceUrl(slug: string, audienceType: string): string {
+	if (audienceType === "EMPLOYERS") {
+		return `/${queryRoutes.employerResources}/recurso/${slug}`;
+	} else {
+		return `/${queryRoutes.workerResources}/recurso/${slug}`;
+	}
 }
 
 export function vizeResourceTopicUrl(topicName: string): string {
@@ -57,13 +61,21 @@ export function vizeCompanyProfileUrl(
 
 export function vizeReviewUrl(companyName?: string): string {
 	return `/${queryRoutes.writeReview}/${
-		companyName ? `?${queryParameters.companyName}=${encodeURIComponent(companyName)}` : ""
+		companyName
+			? `?${queryParameters.companyName}=${encodeURIComponent(
+					companyName
+			  )}`
+			: ""
 	}`;
 }
 
 export function vizeSalaryUrl(companyName?: string): string {
 	return `/${queryRoutes.submitSalaryData}/${
-		companyName ? `?${queryParameters.companyName}=${encodeURIComponent(companyName)}` : ""
+		companyName
+			? `?${queryParameters.companyName}=${encodeURIComponent(
+					companyName
+			  )}`
+			: ""
 	}`;
 }
 
@@ -73,12 +85,16 @@ export function vizeApplyForJobUrl(jobId: string): string {
 
 export function vizeRegister(userRole?: string): string {
 	return `/${queryRoutes.register}/${
-		userRole ? `?${queryParameters.user}=${encodeURIComponent(userRole)}` : ""
+		userRole
+			? `?${queryParameters.user}=${encodeURIComponent(userRole)}`
+			: ""
 	}`;
 }
 
 export function vizeLogin(userRole?: string): string {
 	return `/${queryRoutes.login}/${
-		userRole ? `?${queryParameters.user}=${encodeURIComponent(userRole)}` : ""
+		userRole
+			? `?${queryParameters.user}=${encodeURIComponent(userRole)}`
+			: ""
 	}`;
 }
