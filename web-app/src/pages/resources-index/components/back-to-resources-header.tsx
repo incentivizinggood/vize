@@ -48,7 +48,7 @@ type BackToResourcesHeaderProps = {
 function BackToResourcesHeader({ topicName }: BackToResourcesHeaderProps) {
 	return (
 		<BackToResourcesHeaderContainer>
-			<Link to={`/${urlGenerators.queryRoutes.resources}`} style={{ color: "black" }}>
+			<Link to={`/${urlGenerators.queryRoutes.workerResources}`} style={{ color: "black" }}>
 				<ArrowBackIconStyled />
 			</Link>
 			<HeaderTitle> {topicName} </HeaderTitle>

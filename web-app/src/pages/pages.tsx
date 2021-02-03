@@ -59,6 +59,7 @@ export default function Pages(): JSX.Element {
 			<Route path={`/${urlGenerators.queryRoutes.createCompanyProfile}`} component={CreateCompany} />
 			<Route path={`/${urlGenerators.queryRoutes.contactUs}`} component={ContactUsPage} />
 			<Route path={`/${urlGenerators.queryRoutes.reviewSubmitted}`} component={ReviewSubmitted} />
+			<Route path={`/${urlGenerators.queryRoutes.employerResources}`} component={() => <ResourcesIndex audienceType={"EMPLOYERS"} />} />
 			<Route path={`/${urlGenerators.queryRoutes.forEmployers}`} component={ForEmployers} />
 			<Route path={`/${urlGenerators.queryRoutes.help}`} component={HelpPage} />
 			<Route path={`/${urlGenerators.queryRoutes.jobs}`} component={ShowJobs} />
@@ -68,14 +69,14 @@ export default function Pages(): JSX.Element {
 			<Route path={`/${urlGenerators.queryRoutes.postJob}`} component={CreateJobAd} />
 			
 			<Route
-				path={`/${urlGenerators.queryRoutes.resources}/recurso/:slug`}
+				path={`/${urlGenerators.queryRoutes.workerResources}/recurso/:slug`}
 				component={() => <ResourcePage />}
 			/>
 			<Route
-				path={`/${urlGenerators.queryRoutes.resources}/temas/:topicName`}
+				path={`/${urlGenerators.queryRoutes.workerResources}/temas/:topicName`}
 				component={() => <ResourcesByTopicPage />}
 			/>
-			<Route path={`/${urlGenerators.queryRoutes.resources}/`} component={() => <ResourcesIndex />} />
+			<Route path={`/${urlGenerators.queryRoutes.workerResources}/`} component={() => <ResourcesIndex audienceType={"WORKERS"}/>} />
 			<Route
 				path={`/${urlGenerators.queryRoutes.companies}`}
 				component={() => (

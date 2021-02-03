@@ -13,7 +13,8 @@ export const queryRoutes = {
 	postJob: "publicar-una-oferta",
 	companies: "empresas",
 	overview: "descripcion-general",
-	resources: "recursos",
+	workerResources: "recursos",
+	employerResources: "empleadores/recursos",
 	companyProfile: "perfil-de-la-empresa",
 	writeReview: "escribir-evaluacion",
 	submitSalaryData: "agregar-salario",
@@ -36,11 +37,11 @@ export const queryParameters = {
 // and reduce the use of magic strings
 
 export function vizeResourceUrl(slug: string): string {
-	return `/${queryRoutes.resources}/recurso/${slug}`;
+	return `/${queryRoutes.workerResources}/recurso/${slug}`;
 }
 
 export function vizeResourceTopicUrl(topicName: string): string {
-	return `/${queryRoutes.resources}/temas/${topicName}`;
+	return `/${queryRoutes.workerResources}/temas/${topicName}`;
 }
 
 export function vizeCompanyProfileUrl(

@@ -4,7 +4,11 @@ import { simpleQuery, simpleQuery1 } from "src/connectors/postgresql";
 import { ResourceTopic } from "src/models";
 
 const attributes = sql.raw(
-	['topic_name AS "topicName"', 'icon_image_url AS "iconImageURL"'].join(", ")
+	[
+		'topic_name AS "topicName"', 
+		'icon_image_url AS "iconImageURL"',
+		'audience_type AS "audienceType"'
+	].join(", ")
 );
 
 const baseQuery = sql`
@@ -12,20 +16,24 @@ const baseQuery = sql`
 `;
 
 export async function getResourceTopic(
-	topicName: string
+	topicName: string,
+	audienceType: string
 ): Promise<ResourceTopic | null> {
 	return simpleQuery1(
 		sql`
 			${baseQuery}
-			WHERE topic_name=${topicName}
+			WHERE topic_name=${topicName} AND (audience_type=${audienceType} OR audience_type='ALL')
 		`
 	);
 }
 
-export async function getResourceTopics(): Promise<ResourceTopic[]> {
+export async function getResourceTopics(
+	audienceType: string
+): Promise<ResourceTopic[]> {
 	return simpleQuery(
 		sql`
 			${baseQuery}
+			WHERE audience_type=${audienceType} OR audience_type='ALL'
 			ORDER BY topic_name ASC
 		`
 	);

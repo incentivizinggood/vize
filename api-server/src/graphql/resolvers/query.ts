@@ -34,25 +34,27 @@ export const Query: QueryResolvers = {
 	resourceAuthor: (_obj, args, _context, _info) =>
 		dataModel.getResourceAuthorById(Number(args.id)),
 
-	resourceTopics: (_obj, _args, _context, _info) =>
-		dataModel.getResourceTopics(),
+	resourceTopics: (_obj, args, _context, _info) =>
+		dataModel.getResourceTopics(args.audienceType),
 
-	highlightedResources: (_obj, _args, _context, _info) =>
-		dataModel.getHighlightedResources(),
+	highlightedResources: (_obj, args, _context, _info) =>
+		dataModel.getHighlightedResources(args.audienceType),
 
 	searchResourcesByTopic: (_obj, args, _context, _info) =>
 		dataModel.searchForResourcesByTopic(
 			args.id,
 			args.searchText,
 			args.pageNum,
-			args.pageSize
+			args.pageSize,
+			args.audienceType
 		),
 
 	searchRecentResources: (_obj, args, _context, _info) =>
 		dataModel.searchForRecentResources(
 			args.searchText,
 			args.pageNum,
-			args.pageSize
+			args.pageSize,
+			args.audienceType
 		),
 
 	searchCompanies: (_obj, args, _context, _info) =>

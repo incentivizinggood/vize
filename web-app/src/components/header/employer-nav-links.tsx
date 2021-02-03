@@ -37,7 +37,7 @@ function EmployerNavLinks(props: EmployerNavLinksProps) {
 				</Link>
 			</li>
 			<li>
-				<Link to={`/${urlGenerators.queryRoutes.resources}`} className="link-kumya">
+				<Link to={`/${urlGenerators.queryRoutes.workerResources}`} className="link-kumya">
 					<span>
 						<T.resources />
 					</span>
