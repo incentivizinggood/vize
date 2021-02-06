@@ -186,9 +186,50 @@ const PricingTextContainer = styled(P)`
 	margin-right: auto;
 `;
 
+function RewardComponent() {
+	return (
+		<div
+			className="full-width-container background-primary"
+			style={{ paddingBottom: "4em" }}
+		>
+			<div className="container">
+				<div className="row add-flex-row">
+					<div className="col-md-2 add-flex-col center-element">
+						<br />
+					</div>
+					<div className="col-md-8">
+						<div>
+							<div>
+								<p
+									className="white-text-center"
+									style={{ fontSize: 23 }}
+								>
+									asdf
+								</p>
+								<p
+									className="white-text-center"
+									style={{ fontSize: 23 }}
+								>
+									qwer
+								</p>
+							</div>
+							<div>
+								<center>asdf</center>
+							</div>
+						</div>
+					</div>
+					<div className="col-md-2" />
+				</div>
+				<div className="clearfix" />
+			</div>
+		</div>
+	);
+}
+
 function ForEmployers() {
 	return (
-		<PageWrapper title="Employers" navIsAnimated>
+		<PageWrapper title="Employers">
+			<SectionContainer style={{ backgroundColor: colors.vizeBlue }} />
 			<Banner>
 				<BannerTitle>
 					<T.headerText />

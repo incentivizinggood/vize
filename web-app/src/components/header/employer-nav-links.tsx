@@ -30,14 +30,20 @@ function EmployerNavLinks(props: EmployerNavLinksProps) {
 				</Link>
 			</li>
 			<li>
-				<Link to={`/${urlGenerators.queryRoutes.postJob}`} className="link-kumya">
+				<Link
+					to={`/${urlGenerators.queryRoutes.postJob}`}
+					className="link-kumya"
+				>
 					<span>
 						<T.post_a_job />
 					</span>
 				</Link>
 			</li>
 			<li>
-				<Link to={`/${urlGenerators.queryRoutes.workerResources}`} className="link-kumya">
+				<Link
+					to={`/${urlGenerators.queryRoutes.employerResources}`}
+					className="link-kumya"
+				>
 					<span>
 						<T.resources />
 					</span>
