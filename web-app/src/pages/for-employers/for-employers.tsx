@@ -10,6 +10,7 @@ import colors from "src/colors";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import { WhiteButton } from "src/components/button";
+import resourcesIcon from "src/images/icons/resources-icon.png";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
@@ -96,7 +97,7 @@ const ResourcesSectionContainer = styled.section`
 `;
 
 const ResourcesIconImage = styled.img`
-	height: 80%;
+	height: 70%;
 
 	${forSize.phoneOnly} {
 		display: none;
@@ -246,7 +247,7 @@ function ForEmployers() {
 					marginTop: navbarHeight,
 				}}
 			>
-				<ResourcesIconImage src="https://iconarchive.com/download/i97950/thehoth/seo/seo-article.ico" />
+				<ResourcesIconImage src={resourcesIcon} />
 				<div
 					style={{
 						flexDirection: "column",
@@ -255,16 +256,14 @@ function ForEmployers() {
 					}}
 				>
 					<ResourcesSectionText>
-						Learn how you can lower turnover rates, decrease
-						recruiting costs, improve your recruiting practices, and
-						much more with our employer resources
+						<T.resourcesPageText />
 					</ResourcesSectionText>
 					<br />
 					<WhiteButton
 						to={urlGenerators.queryRoutes.employerResources}
 						style={{ fontSize: 22 }}
 					>
-						&nbsp; Resources
+						<T.resources />
 					</WhiteButton>
 				</div>
 			</ResourcesSectionContainer>

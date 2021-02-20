@@ -525,6 +525,8 @@ export default {
 			placeholder_comments: "Por favor deje sus comentarios",
 		},
 		forEmployers: {
+			resourcesPageText: "Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
+			resources: "Recursos",
 			headerText:
 				"Recluta y retiene a la mejor fuerza laboral en Tijuna con Vize",
 			getStarted: "Empezar",
