@@ -84,22 +84,32 @@ const ResourcesSectionContainer = styled.section`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 200px;
+	height: 250px;
 
 	padding-left: 15%;
 	padding-right: 15%;
 
 	${forSize.phoneOnly} {
-		padding-left: 5%;
-		padding-right: 5%;
+		padding-left: 3%;
+		padding-right: 3%;
 	}
 `;
 
-const ResourceIconImage = styled.img`
+const ResourcesIconImage = styled.img`
 	height: 80%;
 
 	${forSize.phoneOnly} {
-		height: 60%;
+		display: none;
+	}
+`;
+
+const ResourcesSectionText = styled.p`
+	text-align: center;
+	font-weight: bold;
+	font-size: 22px;
+
+	${forSize.phoneOnly} {
+		font-size: 18px;
 	}
 `;
 
@@ -236,7 +246,7 @@ function ForEmployers() {
 					marginTop: navbarHeight,
 				}}
 			>
-				<ResourceIconImage src="https://iconarchive.com/download/i97950/thehoth/seo/seo-article.ico" />
+				<ResourcesIconImage src="https://iconarchive.com/download/i97950/thehoth/seo/seo-article.ico" />
 				<div
 					style={{
 						flexDirection: "column",
@@ -244,15 +254,15 @@ function ForEmployers() {
 						alignItems: "center",
 					}}
 				>
-					<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
+					<ResourcesSectionText>
 						Learn how you can lower turnover rates, decrease
 						recruiting costs, improve your recruiting practices, and
 						much more with our employer resources
-					</h3>
+					</ResourcesSectionText>
 					<br />
 					<WhiteButton
 						to={urlGenerators.queryRoutes.employerResources}
-						style={{ fontSize: 18 }}
+						style={{ fontSize: 22 }}
 					>
 						&nbsp; Resources
 					</WhiteButton>
