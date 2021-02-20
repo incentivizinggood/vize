@@ -8,6 +8,8 @@ import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
 import { translations } from "src/translations";
+import { useState, useEffect } from "react";
+import { WhiteButton } from "src/components/button";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
@@ -74,6 +76,31 @@ const SubsectionTitle = styled.h2`
 const SectionContainer = styled.section`
 	padding-top: 60px;
 	padding-bottom: 60px;
+`;
+
+const ResourcesSectionContainer = styled.section`
+	background-color: ${colors.vizeBlue};
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+
+	padding-left: 15%;
+	padding-right: 15%;
+
+	${forSize.phoneOnly} {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+`;
+
+const ResourceIconImage = styled.img`
+	height: 80%;
+
+	${forSize.phoneOnly} {
+		height: 60%;
+	}
 `;
 
 const GetStarted = props => (
@@ -186,50 +213,51 @@ const PricingTextContainer = styled(P)`
 	margin-right: auto;
 `;
 
-function RewardComponent() {
-	return (
-		<div
-			className="full-width-container background-primary"
-			style={{ paddingBottom: "4em" }}
-		>
-			<div className="container">
-				<div className="row add-flex-row">
-					<div className="col-md-2 add-flex-col center-element">
-						<br />
-					</div>
-					<div className="col-md-8">
-						<div>
-							<div>
-								<p
-									className="white-text-center"
-									style={{ fontSize: 23 }}
-								>
-									asdf
-								</p>
-								<p
-									className="white-text-center"
-									style={{ fontSize: 23 }}
-								>
-									qwer
-								</p>
-							</div>
-							<div>
-								<center>asdf</center>
-							</div>
-						</div>
-					</div>
-					<div className="col-md-2" />
-				</div>
-				<div className="clearfix" />
-			</div>
-		</div>
-	);
-}
-
 function ForEmployers() {
+	// TODO Refactor: Refactor so that navbarheight is used as a global variable
+	const [width, setWidth] = useState<number>(window.innerWidth);
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+	useEffect(() => {
+		window.addEventListener("resize", handleWindowSizeChange);
+		return () => {
+			window.removeEventListener("resize", handleWindowSizeChange);
+		};
+	}, []);
+
+	let isMobile: boolean = width <= 768;
+	const navbarHeight = isMobile ? 65 : 75;
+
 	return (
-		<PageWrapper title="Employers">
-			<SectionContainer style={{ backgroundColor: colors.vizeBlue }} />
+		<PageWrapper title="Empleadores">
+			<ResourcesSectionContainer
+				style={{
+					marginTop: navbarHeight,
+				}}
+			>
+				<ResourceIconImage src="https://iconarchive.com/download/i97950/thehoth/seo/seo-article.ico" />
+				<div
+					style={{
+						flexDirection: "column",
+						display: "flex",
+						alignItems: "center",
+					}}
+				>
+					<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
+						Learn how you can lower turnover rates, decrease
+						recruiting costs, improve your recruiting practices, and
+						much more with our employer resources
+					</h3>
+					<br />
+					<WhiteButton
+						to={urlGenerators.queryRoutes.employerResources}
+						style={{ fontSize: 18 }}
+					>
+						&nbsp; Resources
+					</WhiteButton>
+				</div>
+			</ResourcesSectionContainer>
 			<Banner>
 				<BannerTitle>
 					<T.headerText />
