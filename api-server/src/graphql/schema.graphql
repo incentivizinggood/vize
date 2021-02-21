@@ -14,20 +14,26 @@ type Query {
 	resourceTopic(id: ID!): ResourceTopic
 	resourceAuthor(id: ID!): ResourceAuthor
 
-	highlightedResources: [Resource!]!
-	resourceTopics: [ResourceTopic!]!
+	highlightedResources(
+		audienceType: String = "WORKERS"
+	): [Resource!]!
+	resourceTopics(
+		audienceType: String = "WORKERS"
+	): [ResourceTopic!]!
 
 	searchResourcesByTopic(
 		id: ID!
 		searchText: String = ""
 		pageNum: Int = 0
 		pageSize: Int = 20
+		audienceType: String = "WORKERS"
 	): ResourceConnection!
 
 	searchRecentResources(
 		searchText: String = ""
 		pageNum: Int = 0
 		pageSize: Int = 20
+		audienceType: String = "WORKERS"
 	): ResourceConnection!
 
 	searchCompanies(
@@ -268,6 +274,8 @@ type Resource {
 	body: String!
 	resourceImageURL: String!
 	topicName: String
+	"Who the resource is intended for (EMPLOYERS or WORKERS)"
+	audienceType: String!
 	authorId: Int!
 	"If an Resource is highlighted show it in the highlighted resources section"
 	isHighlighted: Boolean!
@@ -300,6 +308,8 @@ type ResourceTopic {
 
 	topicName: String!
 	iconImageURL: String!
+	"Who the topic is intended for (EMPLOYERS or WORKERS)"
+	audienceType: String!
 }
 
 type Company {

@@ -1,5 +1,5 @@
-query resourcesIndexPage($currentPageNum: Int!) {
-	searchRecentResources(pageNum: $currentPageNum) {
+query resourcesIndexPage($currentPageNum: Int!, $audienceType: String!) {
+	searchRecentResources(pageNum: $currentPageNum, audienceType: $audienceType) {
 		totalCount
 		nodes {
 			slug
@@ -10,12 +10,12 @@ query resourcesIndexPage($currentPageNum: Int!) {
 		}
 	}
 
-	resourceTopics {
+	resourceTopics(audienceType: $audienceType) {
 		topicName
 		iconImageURL
 	}
 
-	highlightedResources {
+	highlightedResources(audienceType: $audienceType) {
 		slug
 		title
 		resourceImageURL

@@ -51,7 +51,7 @@ const onSubmit = (history: History, setSubmissionError: any) => async (
 					urlGenerators.queryRoutes.applyForJob
 				) ||
 				window.location.pathname.includes(
-					urlGenerators.queryRoutes.resources
+					urlGenerators.queryRoutes.workerResources
 				)
 			)
 		) {

@@ -115,10 +115,18 @@ type ResourceCardProps = {
 
 function ResourceCardComponent(props: ResourceCardProps) {
 	const domain = "www.vize.mx";
+	let audienceType = "WORKERS";
+	if (
+		window.location.href.includes(
+			urlGenerators.queryRoutes.employerResources
+		)
+	)
+		audienceType = "EMPLOYERS";
+
 	return (
 		<Link
 			style={{ color: "black" }}
-			to={urlGenerators.vizeResourceUrl(props.slug)}
+			to={urlGenerators.vizeResourceUrl(props.slug, audienceType)}
 			{...props}
 		>
 			<ResourceCard>

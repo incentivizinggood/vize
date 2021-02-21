@@ -44,7 +44,7 @@ function WorkerNavLinks() {
 				</Link>
 			</li>
 			<li>
-				<Link to={`/${urlGenerators.queryRoutes.resources}`}>
+				<Link to={`/${urlGenerators.queryRoutes.workerResources}`}>
 					<span>
 						<T.resources />
 					</span>

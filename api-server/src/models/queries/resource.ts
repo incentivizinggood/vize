@@ -11,6 +11,7 @@ const attributes = sql.raw(
 		"body",
 		'resource_image_url AS "resourceImageURL"',
 		'topic_name AS "topicName"',
+		'audience_type AS "audienceType"',
 		'author_id AS "authorId"',
 		'is_highlighted AS "isHighlighted"',
 		'publish_date AS "publishDate"',
@@ -55,11 +56,13 @@ export async function isResourceLikedByUser(
 	return !!isLiked && isLiked.exists;
 }
 
-export async function getHighlightedResources(): Promise<Resource[]> {
+export async function getHighlightedResources(
+	audienceType: string
+): Promise<Resource[]> {
 	return simpleQuery<Resource>(
 		sql`
 			${baseQuery}
-			WHERE is_highlighted=TRUE
+			WHERE is_highlighted=TRUE AND audience_type=${audienceType}
 			ORDER BY publish_date DESC
 			LIMIT 4
 		`
@@ -70,12 +73,13 @@ export async function searchForResourcesByTopic(
 	topicName: string,
 	_searchText: string,
 	pageNumber: number,
-	pageSize: number
+	pageSize: number,
+	audienceType: string
 ): Promise<{ nodes: Resource[]; totalCount: number }> {
 	return paginate<Resource>(
 		sql`
 			${baseQuery}
-			WHERE topic_name=${topicName}
+			WHERE topic_name=${topicName} AND audience_type=${audienceType}
 			ORDER BY publish_date DESC
 		`,
 		pageNumber,
@@ -90,11 +94,13 @@ export async function searchForResourcesByTopic(
 export async function searchForRecentResources(
 	_searchText: string,
 	pageNumber: number,
-	pageSize: number
+	pageSize: number,
+	audienceType: string
 ): Promise<{ nodes: Resource[]; totalCount: number }> {
 	return paginate<Resource>(
 		sql`
 			${baseQuery}
+			WHERE audience_type=${audienceType}
 			ORDER BY publish_date DESC
 		`,
 		pageNumber,

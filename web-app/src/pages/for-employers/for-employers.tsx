@@ -8,6 +8,9 @@ import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
 import { translations } from "src/translations";
+import { useState, useEffect } from "react";
+import { WhiteButton } from "src/components/button";
+import resourcesIcon from "src/images/icons/resources-icon.png";
 
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
@@ -74,6 +77,41 @@ const SubsectionTitle = styled.h2`
 const SectionContainer = styled.section`
 	padding-top: 60px;
 	padding-bottom: 60px;
+`;
+
+const ResourcesSectionContainer = styled.section`
+	background-color: ${colors.vizeBlue};
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 250px;
+
+	padding-left: 15%;
+	padding-right: 15%;
+
+	${forSize.phoneOnly} {
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+`;
+
+const ResourcesIconImage = styled.img`
+	height: 70%;
+
+	${forSize.phoneOnly} {
+		display: none;
+	}
+`;
+
+const ResourcesSectionText = styled.p`
+	text-align: center;
+	font-weight: bold;
+	font-size: 22px;
+
+	${forSize.phoneOnly} {
+		font-size: 18px;
+	}
 `;
 
 const GetStarted = props => (
@@ -187,8 +225,48 @@ const PricingTextContainer = styled(P)`
 `;
 
 function ForEmployers() {
+	// TODO Refactor: Refactor so that navbarheight is used as a global variable
+	const [width, setWidth] = useState<number>(window.innerWidth);
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+	useEffect(() => {
+		window.addEventListener("resize", handleWindowSizeChange);
+		return () => {
+			window.removeEventListener("resize", handleWindowSizeChange);
+		};
+	}, []);
+
+	let isMobile: boolean = width <= 768;
+	const navbarHeight = isMobile ? 65 : 75;
+
 	return (
-		<PageWrapper title="Employers" navIsAnimated>
+		<PageWrapper title="Empleadores">
+			<ResourcesSectionContainer
+				style={{
+					marginTop: navbarHeight,
+				}}
+			>
+				<ResourcesIconImage src={resourcesIcon} />
+				<div
+					style={{
+						flexDirection: "column",
+						display: "flex",
+						alignItems: "center",
+					}}
+				>
+					<ResourcesSectionText>
+						<T.resourcesPageText />
+					</ResourcesSectionText>
+					<br />
+					<WhiteButton
+						to={urlGenerators.queryRoutes.employerResources}
+						style={{ fontSize: 22 }}
+					>
+						<T.resources />
+					</WhiteButton>
+				</div>
+			</ResourcesSectionContainer>
 			<Banner>
 				<BannerTitle>
 					<T.headerText />

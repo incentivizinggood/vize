@@ -481,13 +481,18 @@ export default {
 			jobsAvailable: "Employment Offer(s) Available",
 		},
 		jobApplicationSubmitted: {
-			jobApplicationSubmitted: "Your job application was successfully submitted to ",
-			companyWillReachOut: " will reach out to you soon if there is any interest. We will inform you when no new applications are being accepted.",
-			contactUs: "Please message us through WhatsApp if you have any questions or issues: ",
-			readReviews: "Read reviews written by other employees that work at this company to gather more information about what it is like to work there.",
+			jobApplicationSubmitted:
+				"Your job application was successfully submitted to ",
+			companyWillReachOut:
+				" will reach out to you soon if there is any interest. We will inform you when no new applications are being accepted.",
+			contactUs:
+				"Please message us through WhatsApp if you have any questions or issues: ",
+			readReviews:
+				"Read reviews written by other employees that work at this company to gather more information about what it is like to work there.",
 			readReviewsButton: "Leer Evaluaciones",
 			viewMoreJobs: "View More Jobs From Other Companies",
-			referralMessage: "Do you know someone that is looking for a job? You can share the link below or use one of the buttons below to share the jobs page to WhatsApp or Facebook.",
+			referralMessage:
+				"Do you know someone that is looking for a job? You can share the link below or use one of the buttons below to share the jobs page to WhatsApp or Facebook.",
 		},
 		aboutUs: {
 			about: "About",
@@ -506,6 +511,9 @@ export default {
 			placeholder_comments: "Please enter your comments...",
 		},
 		forEmployers: {
+			resourcesPageText:
+				"Learn how you can lower turnover rates, decrease recruiting costs, improve your recruiting practices, and much more with our resources",
+			resources: "Resources",
 			headerText:
 				"Recruit and retain the best workforce in Tijuna with Vize",
 			getStarted: "Get Started",
