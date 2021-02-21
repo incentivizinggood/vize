@@ -56,7 +56,9 @@ export async function isResourceLikedByUser(
 	return !!isLiked && isLiked.exists;
 }
 
-export async function getHighlightedResources(audienceType: string): Promise<Resource[]> {
+export async function getHighlightedResources(
+	audienceType: string
+): Promise<Resource[]> {
 	return simpleQuery<Resource>(
 		sql`
 			${baseQuery}

@@ -5,9 +5,9 @@ import { ResourceTopic } from "src/models";
 
 const attributes = sql.raw(
 	[
-		'topic_name AS "topicName"', 
+		'topic_name AS "topicName"',
 		'icon_image_url AS "iconImageURL"',
-		'audience_type AS "audienceType"'
+		'audience_type AS "audienceType"',
 	].join(", ")
 );
 
