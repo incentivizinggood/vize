@@ -3,9 +3,9 @@ mutation applyToJobAd($input: ApplyToJobAdInput!) {
 		success
 	}
 }
-
-query companyIdFromJobAdId($jobAdId: ID!) {
-	jobAd(id: $jobAdId){
+query getJobTitleAndCompanyId($jobAdId: ID!) {
+	jobAd(id: $jobAdId) {
+		jobTitle
 		company {
 			id
 		}

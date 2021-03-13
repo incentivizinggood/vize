@@ -13,7 +13,7 @@ interface ApplyToJobAdPageProps {
 
 function ApplyToJobAdPage({ jobAdId }: ApplyToJobAdPageProps) {
 	return (
-		<FormPageWrapper title="Apply To Job Ad">
+		<FormPageWrapper title="Solicitar un Empleo">
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>

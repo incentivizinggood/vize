@@ -168,6 +168,7 @@ export async function createJobAd(
 const createApplyToJobAdInputSchema = yup
 	.object({
 		jobAdId: yup.string().required(),
+		jobTitle: yup.string().required(),
 		fullName: yup.string().required(),
 		email: yup
 			.string()
@@ -181,6 +182,7 @@ const createApplyToJobAdInputSchema = yup
 export async function applyToJobAd(input: unknown): Promise<boolean> {
 	const {
 		jobAdId,
+		jobTitle,
 		fullName,
 		email: applicantEmail,
 		phoneNumber,
@@ -227,27 +229,30 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 
 		const emailOptions = {
 			to: companyEmail,
-			from: "postmaster@incentivizinggood.com",
-			cc: applicantEmail,
-			subject: `VIZE ${fullName} ha respondido a su anuncio de trabajo`,
+			subject: `¡${fullName} aplico a su oferta de empleo en Vize!`,
 			text: `
 Para los que están en ${companyName},
 
-	Felicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, ${fullName}, ha respondido a su puesto de trabajo (que recibió el id = ${jobAdId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente.
+¡Felicitaciones, acaban de recibir una solicitud de empleo nueva! Esta solicitud fue para la oferta de trabajo con el título del empleo "${jobTitle}". Puedes ver la oferta de trabajo con este enlace: www.vize.mx/trabajo/${jobAdId}
 
-	Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!
+Aquí les proporcionamos la información del solicitante: 
+Nombre completo: ${fullName} 
+Email: ${applicantEmail} 
+Número de teléfono: ${phoneNumber} 
+Carta de presentación/Comentarios adicionales: ${coverLetter}
 
-Le deseamos lo mejor,
+¿Ya llenaste esta vacante? Responde a este email para hacernos saber. Nosotros quitaremos la oferta de la plataforma y le avisaremos a los solicitantes.
 
-	El equipo de VIZE
+¿Quieres editar la información en esta oferta de trabajo? Responde a este email con los cambios que quieras hacer.
 
-INFORMACIÓN DEL SOLICITANTE
-Nombre completo: ${fullName}
-Email: ${applicantEmail}
-Número de teléfono: ${phoneNumber}
-carta de presentacion/Comentarios adicionales:
-${coverLetter}
-`.trim(),
+¿Tienes más vacantes? Nos puedes mandar la información de la oferta de trabajo y nosotros podemos publicar la oferta. Si prefieres, también puedes iniciar una sesión con tu cuenta aqui: https://www.vize.mx/login y despues puedes llenar esta encuesta para crear la oferta de empleo: https://www.vize.mx/post-a-job
+
+Si tienes algún problema o una sugerencia de cómo mejorar este proceso, por favor háganoslo saber. ¡Esperamos que encuentren empleados excepcionales para su empresa!
+
+También me puedes contactar por WhatsApp para cualquier cosa: +52(664)748-0001 (https://wa.me/5216647480001)
+
+Todo lo mejor,
+Julian`.trim(),
 		};
 
 		await sendEmail(emailOptions);

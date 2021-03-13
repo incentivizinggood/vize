@@ -182,6 +182,7 @@ type CreateJobAdPayload {
 
 input ApplyToJobAdInput {
 	jobAdId: ID!
+	jobTitle: String!
 	fullName: String!
 	email: String!
 	phoneNumber: String!

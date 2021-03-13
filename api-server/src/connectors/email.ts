@@ -27,7 +27,7 @@ export function sendEmail({ to, subject, text }: EmailConfig): void {
 			},
 
 			form: {
-				from: "Vize Reclutamiento <mailgun@mg.vize.mx>",
+				from: "Vize <mailgun@vize.mx>",
 				to,
 				subject,
 				text,
