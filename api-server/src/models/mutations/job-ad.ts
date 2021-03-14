@@ -264,7 +264,7 @@ Julian Alvarez`.trim(),
 			spaceIndex === -1 ? fullName : fullName.substr(0, spaceIndex);
 
 		const readReview =
-			parseInt(numReviews) > 0
+			numReviews > 0
 				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}`
 				: "";
 
