@@ -19,7 +19,7 @@ export function sendEmail({ to, subject, text }: EmailConfig): void {
 		// the form is the actual body of the request.
 		const options = {
 			method: "POST",
-			uri: "https://api.mailgun.net/v3/mg.vize.mx/messages",
+			uri: "https://api.mailgun.net/v3/vize.mx/messages",
 
 			auth: {
 				user: "api",
