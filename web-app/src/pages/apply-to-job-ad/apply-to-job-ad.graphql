@@ -8,6 +8,7 @@ query getJobTitleAndCompanyId($jobAdId: ID!) {
 		jobTitle
 		company {
 			id
+			numReviews
 		}
 	}
 }

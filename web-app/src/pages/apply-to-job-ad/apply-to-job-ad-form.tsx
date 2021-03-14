@@ -47,7 +47,6 @@ const onSubmit = (
 	history,
 	setSubmissionError,
 	setLoginRegisterModal,
-	companyID,
 ) => (values, actions) =>
 	applyToJobAd({
 		variables: {
@@ -64,7 +63,7 @@ const onSubmit = (
 				label: values.jobAdId,
 			});
 
-			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${companyID}`);
+			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${values.companyId}`);
 		})
 		.catch(errors => {
 			// Error in English: Not Logged In
@@ -106,7 +105,8 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	const user = useUser();
 
 	const jobTitle = data?.jobAd?.jobTitle;
-	const companyID = data?.jobAd?.company.id;
+	const companyId = data?.jobAd?.company.id;
+	const numReviews = data?.jobAd?.company.numReviews;
 
 	if (user) {
 		loginRegisterModal = null;
@@ -118,14 +118,15 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 				initialValues={merge(initialValues, {
 					jobAdId,
 					jobTitle,
+					companyId,
+					numReviews,
 				})}
 				validationSchema={schema}
 				onSubmit={onSubmit(
 					applyToJobAd,
 					history,
 					setSubmissionError,
-					setLoginRegisterModal,
-					companyID
+					setLoginRegisterModal
 				)}
 			>
 				<InnerForm submissionError={submissionError} />
