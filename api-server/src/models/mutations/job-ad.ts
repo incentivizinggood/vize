@@ -265,7 +265,7 @@ Julian Alvarez`.trim(),
 
 		const readReview =
 			numReviews > 0
-				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}`
+				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}/evaluaciones`
 				: "";
 
 		const applicantEmailOptions = {
