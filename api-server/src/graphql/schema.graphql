@@ -397,6 +397,9 @@ type JobApplication {
 	email: String!
 	phoneNumber: String!
 	coverLetter: String
+
+	jobAd: JobAd
+	company: Company
 }
 
 type Review {

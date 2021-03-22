@@ -189,10 +189,37 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 
 	const transaction: Transaction<boolean> = async client => {
 		const {
-			rows: [{ name: companyName, contactemail: companyEmail }],
+			rows: [
+				{
+					companyid: companyId,
+					name: companyName,
+					contactemail: companyEmail,
+				},
+			],
 		} = await client.query(
-			sql`SELECT name, contactemail FROM companies JOIN jobads ON companies.companyid = jobads.companyid WHERE jobadid=${jobAdId}`
+			sql`SELECT companies.companyid, name, contactemail FROM companies JOIN jobads ON companies.companyid = jobads.companyid WHERE jobadid=${jobAdId}`
 		);
+
+		await client.query(sql`
+			INSERT INTO job_applications
+				(
+					full_name,
+					phone_number,
+					email,
+					cover_letter,
+					jobadid,
+					companyid
+				)
+			VALUES
+				(
+					${fullName},
+					${phoneNumber},
+					${applicantEmail},
+					${coverLetter},
+					${jobAdId},
+					${companyId}
+				)
+		`);
 
 		postToSlack(
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
