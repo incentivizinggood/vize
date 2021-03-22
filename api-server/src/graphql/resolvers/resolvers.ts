@@ -17,6 +17,7 @@ import { CommentParent } from "./comment-parent";
 import { Comment } from "./comment";
 import { Company } from "./company";
 import { JobAd } from "./job-ad";
+import { JobApplication } from "./job-application";
 import { Review } from "./review";
 import { Salary } from "./salary";
 import { User } from "./user";
@@ -32,6 +33,7 @@ export const resolvers: IResolvers = {
 	Comment,
 	Company,
 	JobAd,
+	JobApplication,
 	Review,
 	Salary,
 	User,

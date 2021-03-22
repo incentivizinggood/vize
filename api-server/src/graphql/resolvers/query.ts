@@ -16,6 +16,9 @@ export const Query: QueryResolvers = {
 	jobAd: (_obj, args, _context, _info) =>
 		dataModel.getJobAdById(Number(args.id)),
 
+	jobApplication: (_obj, args, _context, _info) =>
+		dataModel.getJobApplicationById(Number(args.id)),
+
 	review: (_obj, args, _context, _info) =>
 		dataModel.getReviewById(Number(args.id)),
 
