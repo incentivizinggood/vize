@@ -270,7 +270,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			}`,
 		};
 
-		//await sendEmail(applicantEmailOptions);
+		await sendEmail(applicantEmailOptions);
 		await sendEmail(employerEmailOptions);
 
 		return true;
