@@ -266,6 +266,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				"companyName": "${companyName}",
 				"jobTitle": "${jobTitle}",
 				"applicantName": "${firstName}",
+				"companyId": "${companyId}",
+				"jobAdId": "${jobAdId}",
 				"readEmployerReviews": "${readEmployerReviews}"
 			}`,
 		};
