@@ -22,21 +22,20 @@ const attributes = sql.raw(
 );
 const baseQuery = sql`SELECT ${attributes} FROM job_applications`;
 
-// Get the job ad with a given id.
+// Get the job application from a given id
 export async function getJobApplicationById(
 	id: number
 ): Promise<JobApplication | null> {
 	return simpleQuery1(sql`${baseQuery} WHERE application_id=${id}`);
 }
 
-// Get the company that posted a given job application.
+// Get the company that posted a given job application
 export async function getCompanyOfJobApplication(
 	jobApplication: JobApplication
 ): Promise<Company> {
 	const company: Company | null = await getCompanyById(
 		jobApplication.companyId
 	);
-	//const company: Company | null = jobApplication.companyId;
 
 	if (company === null) {
 		throw new Error("REFERENCE_ANOMALY");
@@ -50,7 +49,6 @@ export async function getJobAdOfJobApplication(
 	jobApplication: JobApplication
 ): Promise<JobAd> {
 	const jobAd: JobAd | null = await getJobAdById(jobApplication.companyId);
-	//const company: Company | null = jobApplication.companyId;
 
 	if (jobAd === null) {
 		throw new Error("REFERENCE_ANOMALY");
