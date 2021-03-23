@@ -1,9 +1,9 @@
 import request from "request-promise-native";
 //import SibApiV3Sdk from "sib-api-v3-typescript";
 interface EmailConfig {
+	templateId: number;
 	to: string;
-	subject: string;
-	text: string;
+	params: any;
 }
 
 /**
@@ -12,7 +12,7 @@ interface EmailConfig {
  *                       Supports markdown and Slack's emoji markup.
  * @todo Escape inputs to prevent markdown code injection.
  */
-export function sendEmail({ to, subject, text }: EmailConfig): void {
+export function sendEmail({ templateId, to, params }: EmailConfig): void {
 	// var url = "https://api.sendinblue.com/v3/smtp/email";
 
 	// var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -53,6 +53,8 @@ export function sendEmail({ to, subject, text }: EmailConfig): void {
 
 	//var request = require("request");
 
+	// const thejob = "Supaa Job";
+
 	var headers = {
 		accept: "application/json",
 		"api-key":
@@ -62,17 +64,18 @@ export function sendEmail({ to, subject, text }: EmailConfig): void {
 
 	var dataString = `{ 
 			"sender":{ 
-				"name":"Sender Alex", 
-				"email":"julianjear10@gmail.com" 
+				"name":"Julian Alvarez de Vize", 
+				"email":"jalvarez@vize.mx" 
 			}, 
 			"to":[ { 
-				"email":"jalvarez@vize.mx", 
-				"name":"John Doe" 
-			} ], 
-			"subject":"Hello world",
-			"htmlContent":"<html><head></head><body><p>Hello,</p>This is my first transactional email sent from Sendinblue.</p></body></html>" }
-		`;
+				"email":"julianjear10@gmail.com"
+			} ],
+			"templateId": ${templateId},
+			"params": ${params}
+		}
+	`;
 
+	// console.log("test", JSON.stringify(dataString));
 	var options = {
 		url: "https://api.sendinblue.com/v3/smtp/email",
 		method: "POST",

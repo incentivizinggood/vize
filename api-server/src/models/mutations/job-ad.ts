@@ -231,67 +231,46 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
+		// Have to make some adjustments for the required JSON formatting
+		const coverLetterJSON = coverLetter
+			? coverLetter.replace(/\n/g, "\\n")
+			: null;
+
 		const employerEmailOptions = {
+			templateId: 2,
 			to: companyEmail,
-			subject: `¡${fullName} aplico a su oferta de empleo en Vize!`,
-			text: `
-Para los que están en ${companyName},
-
-¡Felicitaciones, acaban de recibir una solicitud de empleo nueva! Esta solicitud fue para la oferta de trabajo con el título del empleo "${jobTitle}". Puedes ver la oferta de trabajo con este enlace: www.vize.mx/trabajo/${jobAdId}
-
-Aquí les proporcionamos la información del solicitante: 
-Nombre completo: ${fullName} 
-Email: ${applicantEmail} 
-Número de teléfono: ${phoneNumber} 
-Carta de presentación/Comentarios adicionales: ${coverLetter}
-
-¿Ya llenaste esta vacante? Responde a este email para hacernos saber. Nosotros quitaremos la oferta de la plataforma y le avisaremos a los solicitantes.
-
-¿Quieres editar la información en esta oferta de trabajo? Responde a este email con los cambios que quieras hacer.
-
-¿Tienes más vacantes? Nos puedes mandar la información de la oferta de trabajo y nosotros podemos publicar la oferta. Si prefieres, también puedes iniciar una sesión con tu cuenta aqui: https://www.vize.mx/iniciar-sesion y despues puedes llenar esta encuesta para crear la oferta de empleo: https://www.vize.mx/publicar-una-oferta
-
-Si tienes algún problema o una sugerencia de cómo mejorar este proceso, por favor háganoslo saber. ¡Esperamos que encuentren empleados excepcionales para su empresa!
-
-También me puedes contactar por WhatsApp para cualquier cosa: +52(664)748-0001 (https://wa.me/5216647480001)
-
-Todo lo mejor,
-Julian Alvarez`.trim(),
+			params: `{
+				"companyName": "${companyName}",
+				"jobTitle": "${jobTitle}",
+				"jobAdId": "${jobAdId}",
+				"applicantEmail": "${applicantEmail}",
+				"applicantName": "${fullName}",
+				"phoneNumber": "${phoneNumber}",
+				"coverLetter": "${coverLetterJSON}"
+			}`,
 		};
 
 		const spaceIndex = fullName.indexOf(" ");
 		const firstName =
 			spaceIndex === -1 ? fullName : fullName.substr(0, spaceIndex);
 
-		const readReview =
+		const readEmployerReviews =
 			numReviews > 0
 				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}/evaluaciones`
 				: "";
 
 		const applicantEmailOptions = {
+			templateId: 3,
 			to: applicantEmail,
-			subject: `¡Tu solicitud a ${companyName} se envió con éxito!`,
-			text: `
-Hola ${firstName},
-
-Tu solicitud para el puesto "${jobTitle}" se envió con éxito a ${companyName}.
-
-${companyName} se comunicará contigo pronto si hay algún interés. Te informaremos cuando se llenen las vacantes para este empleo.
-
-Por favor mandanos un mensaje por WhatsApp o responde a este email si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: +52(664)748-0001 (https://wa.me/5216647480001)
-
-${readReview}
-
-Puedes encontrar más empleos para postularte aquí: https://www.vize.mx/trabajos
-
-¿Conoces a alguien que esté buscando empleo en una fábrica? Comparte este enlace con ellos para que puedan encontrar un buen trabajo. https://www.vize.mx/trabajos
-
-Todo lo mejor,
-Julian Alvarez
-`.trim(),
+			params: `{
+				"companyName": "${companyName}",
+				"jobTitle": "${jobTitle}",
+				"applicantName": "${firstName}",
+				"readEmployerReviews": "${readEmployerReviews}"
+			}`,
 		};
 
-		await sendEmail(applicantEmailOptions);
+		//await sendEmail(applicantEmailOptions);
 		await sendEmail(employerEmailOptions);
 
 		return true;
