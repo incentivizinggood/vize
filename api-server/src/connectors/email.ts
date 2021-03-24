@@ -1,5 +1,4 @@
 import request from "request-promise-native";
-//import SibApiV3Sdk from "sib-api-v3-typescript";
 interface EmailConfig {
 	templateId: number;
 	to: string;
