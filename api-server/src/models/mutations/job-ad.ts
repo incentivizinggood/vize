@@ -169,7 +169,6 @@ const createApplyToJobAdInputSchema = yup
 	.object({
 		jobAdId: yup.string().required(),
 		jobTitle: yup.string().required(),
-		companyId: yup.string().required(),
 		numReviews: yup.number().required(),
 		fullName: yup.string().required(),
 		email: yup
@@ -189,7 +188,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		email: applicantEmail,
 		phoneNumber,
 		coverLetter,
-		companyId,
 		numReviews,
 	} = await createApplyToJobAdInputSchema.validate(input);
 
