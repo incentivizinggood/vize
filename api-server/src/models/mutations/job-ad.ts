@@ -4,6 +4,7 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
+import { getJobApplicationById } from "src/models";
 
 import { locationInputSchema } from "./location";
 
@@ -199,6 +200,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		} = await client.query(
 			sql`SELECT companies.companyid, name, contactemail FROM companies JOIN jobads ON companies.companyid = jobads.companyid WHERE jobadid=${jobAdId}`
 		);
+		// const tester = await getJobApplicationById(Number(jobAdId), 11);
+		// console.log("tester", tester);
 
 		await client.query(sql`
 			INSERT INTO job_applications

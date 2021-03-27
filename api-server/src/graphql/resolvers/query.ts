@@ -16,8 +16,16 @@ export const Query: QueryResolvers = {
 	jobAd: (_obj, args, _context, _info) =>
 		dataModel.getJobAdById(Number(args.id)),
 
-	jobApplication: (_obj, args, _context, _info) =>
-		dataModel.getJobApplicationById(Number(args.id)),
+	jobApplication: (_obj, args, context, _info) => {
+		console.log("con", context);
+		if (!context.user || context.user.role !== "company")
+			throw new Error("Only companies can access this information.");
+
+		dataModel.getJobApplicationById(
+			Number(args.id),
+			context.user.companyId
+		);
+	},
 
 	review: (_obj, args, _context, _info) =>
 		dataModel.getReviewById(Number(args.id)),
