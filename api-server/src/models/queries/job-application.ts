@@ -25,9 +25,8 @@ const baseQuery = sql`SELECT ${attributes} FROM job_applications`;
 // Get the job application from a given id
 export async function getJobApplicationById(
 	jobId: number,
-	companyId: number
+	companyId: number | null
 ): Promise<JobApplication | null> {
-	//if (companyId !== "company")
 	const jobApplication: JobApplication | null = await simpleQuery1(
 		sql`${baseQuery} WHERE application_id=${jobId}`
 	);
