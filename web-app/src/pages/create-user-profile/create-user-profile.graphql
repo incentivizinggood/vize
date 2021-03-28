@@ -1,0 +1,13 @@
+mutation applyToJobAd($input: ApplyToJobAdInput!) {
+	applyToJobAd(input: $input) {
+		success
+	}
+}
+
+query companyIdFromJobAdId($jobAdId: ID!) {
+	jobAd(id: $jobAdId){
+		company {
+			id
+		}
+	}
+}

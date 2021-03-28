@@ -14,6 +14,7 @@ import ResourcePage from "src/pages/resources-index/resource";
 import ResourcesByTopicPage from "src/pages/resources-index/resources-by-topic";
 import ResourcesIndex from "./resources-index";
 import ApplyToJobAd from "./apply-to-job-ad";
+import CreateUserProfile from "./create-user-profile";
 import CreateCompany from "./create-company";
 import CreateSalary from "./create-salary";
 import CompanyProfile from "./company-profile";
@@ -112,7 +113,10 @@ export default function Pages(): JSX.Element {
 				path={`/${urlGenerators.queryRoutes.postJob}`}
 				component={CreateJobAd}
 			/>
-
+			<Route
+				path={`/${urlGenerators.queryRoutes.createUserProfile}`}
+				component={CreateUserProfile}
+			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.employerResources}/recurso/:slug`}
 				component={() => <ResourcePage />}

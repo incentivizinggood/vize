@@ -430,6 +430,45 @@ export default {
 		},
 		submit: "Submit",
 	},
+	userProfileForm: {
+		formTitle: "Create a User Profile",
+		fields: {
+			fullName: {
+				label: "Full Name",
+				placeholder: "Please enter your full name here",
+			},
+			phoneNumber: {
+				label: "Phone Number",
+				placeholder: "###-###-####",
+			},
+			fiveYearGoal: {
+				label: "Five Year Goal",
+				placeholder: "What is your professional goal in 5 years?",
+			},
+			workExperiences: {
+				label: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "another" : "a"} experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+			},
+		},
+		submit: "Submit",
+	},
 	resources: {
 		featuredResources: "Featured Resources",
 		topics: "Topics",
