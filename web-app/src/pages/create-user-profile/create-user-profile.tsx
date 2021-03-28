@@ -5,7 +5,7 @@ import { translations } from "src/translations";
 
 import CreateUserProfileForm from "./create-user-profile-form";
 
-//const T = translations.CreateUserProfile;
+const T = translations.userProfileForm;
 
 interface CreateUserProfilePageProps {
 	jobAdId?: string;
@@ -14,7 +14,9 @@ interface CreateUserProfilePageProps {
 function CreateUserProfilePage({ jobAdId }: CreateUserProfilePageProps) {
 	return (
 		<FormPageWrapper title="Crear Perfil de Usuario">
-			<FormHeader>{/* <T.formTitle /> */}</FormHeader>
+			<FormHeader>
+				<T.formTitle />
+			</FormHeader>
 			<CreateUserProfileForm />
 		</FormPageWrapper>
 	);

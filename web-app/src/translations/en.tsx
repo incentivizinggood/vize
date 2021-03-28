@@ -436,7 +436,7 @@ export default {
 			workExperiences: {
 				label: "Work Experience",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "a"} experience`,
+					`Add ${array.length > 0 ? "another" : "an"} experience`,
 				jobTitle: {
 					label: "Job Title",
 					placeholder: "Enter the job title",
@@ -445,6 +445,10 @@ export default {
 					label: "Company Name",
 					placeholder: "Enter the name of the company you worked at",
 				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
 				startDate: {
 					label: "Start Date",
 					placeholder: "Enter the date you started your job",
@@ -452,6 +456,11 @@ export default {
 				endDate: {
 					label: "End Date",
 					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
 				},
 			},
 		},
