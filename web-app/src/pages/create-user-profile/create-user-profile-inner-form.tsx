@@ -32,7 +32,7 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<FormArray
-				name="experience"
+				name="workExperience"
 				ElementRender={({ name }) => (
 					<>
 						<Field
@@ -48,13 +48,31 @@ function InnerForm({ submissionError }) {
 							t={T.fields.workExperiences.companyName}
 						/>
 						<Field
+							name={`${name}.city`}
+							type="text"
+							required
+							t={T.fields.workExperiences.city}
+						/>
+						<Field
 							name={`${name}.startDate`}
 							type="text"
 							t={T.fields.workExperiences.startDate}
 						/>
+						<Field
+							name={`${name}.endDate`}
+							type="text"
+							t={T.fields.workExperiences.startDate}
+						/>
+						<Field
+							name={`${name}.experienceDescription`}
+							multiline
+							rows={6}
+							required
+							t={T.fields.workExperiences.experienceDescription}
+						/>
 					</>
 				)}
-				T={T.fields.locations}
+				T={T.fields.workExperiences}
 			/>
 
 			<SubmissionError error={submissionError} />

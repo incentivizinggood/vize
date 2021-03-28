@@ -29,6 +29,14 @@ const initialValues = {
 	email: "",
 	phoneNumber: "",
 	coverLetter: "",
+	workExperience: {
+		jobTitle: "",
+		companyName: "",
+		city: "",
+		startDate: "",
+		endDate: "",
+		experienceDescription: "",
+	},
 };
 
 const schema = yup.object().shape({
