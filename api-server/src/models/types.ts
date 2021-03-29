@@ -107,6 +107,17 @@ export type JobAd = {
 	endDay: number | null;
 };
 
+export type JobApplication = {
+	applicationId: number;
+	fullName: string;
+	email: string;
+	phoneNumber: string;
+	coverLetter: string | null;
+
+	jobAdId: number;
+	companyId: number;
+};
+
 export type Review = {
 	reviewId: number;
 

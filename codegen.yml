@@ -16,6 +16,7 @@ generates:
         StarRatings: api-server/src/models/types#StarRatings
         Company: api-server/src/models/types#Company
         JobAd: api-server/src/models/types#JobAd
+        JobApplication: api-server/src/models/types#JobApplication
         Location: api-server/src/models/types#Location
         Review: api-server/src/models/types#Review
         Salary: api-server/src/models/types#Salary

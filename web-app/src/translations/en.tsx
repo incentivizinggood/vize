@@ -515,7 +515,7 @@ export default {
 				"Learn how you can lower turnover rates, decrease recruiting costs, improve your recruiting practices, and much more with our resources",
 			resources: "Resources",
 			headerText:
-				"Recruit and retain the best workforce in Tijuna with Vize",
+				"Recruit and retain the best workforce in Tijuana with Vize",
 			getStarted: "Get Started",
 			heading1: "The Problem",
 			card1part1: "Many factories like yours face turnover rates of",
@@ -532,7 +532,7 @@ export default {
 				"We help you recruit the best employees with affordable and effective job posts.",
 			retainmentHeading: "Retainment",
 			retainmentText:
-				"We then give you actionable insights on how to retain these employees using data directly from workers all across Tijuna.",
+				"We then give you actionable insights on how to retain these employees using data directly from workers all across Tijuana.",
 			heading3: "Pricing",
 			pricingText1: "The first 10 customers get full",
 			pricingText2: "premium access",

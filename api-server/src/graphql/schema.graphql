@@ -5,6 +5,7 @@ type Query {
 	comment(id: ID!): Comment
 	company(id: ID!): Company
 	jobAd(id: ID!): JobAd
+	jobApplication(id: ID!): JobApplication
 	review(id: ID!): Review
 	salary(id: ID!): Salary
 	user(id: ID!): User
@@ -14,12 +15,8 @@ type Query {
 	resourceTopic(id: ID!): ResourceTopic
 	resourceAuthor(id: ID!): ResourceAuthor
 
-	highlightedResources(
-		audienceType: String = "WORKERS"
-	): [Resource!]!
-	resourceTopics(
-		audienceType: String = "WORKERS"
-	): [ResourceTopic!]!
+	highlightedResources(audienceType: String = "WORKERS"): [Resource!]!
+	resourceTopics(audienceType: String = "WORKERS"): [ResourceTopic!]!
 
 	searchResourcesByTopic(
 		id: ID!
@@ -391,6 +388,17 @@ type JobAd {
 	endDay: Int
 
 	"The company that is hiring."
+	company: Company!
+}
+
+type JobApplication {
+	id: ID!
+	fullName: String!
+	email: String!
+	phoneNumber: String!
+	coverLetter: String
+
+	jobAd: JobAd!
 	company: Company!
 }
 
