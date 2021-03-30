@@ -7,7 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PrivacyIcon from "@material-ui/icons/Security";
 
-export default function CheckboxField({
+export default function CheckboxButtonsField({
 	field,
 	form: { touched, errors },
 	name,
@@ -22,10 +22,16 @@ export default function CheckboxField({
 	};
 
 	return (
-		<FormControl component="fieldset">
+		<FormControl component="fieldset" style={{ marginTop: "15px" }}>
 			<span>
-				<PrivacyIcon /> {"  "}
-				<FormLabel required component="label">
+				<FormLabel
+					required
+					component="label"
+					style={{
+						fontWeight: "bold",
+						color: "black",
+					}}
+				>
 					{label}
 				</FormLabel>
 			</span>
@@ -35,6 +41,7 @@ export default function CheckboxField({
 						value={option.props.value}
 						control={<Checkbox color="primary" />}
 						label={option.props.label}
+						style={{ marginBottom: "-10px" }}
 					/>
 				))}
 			</FormGroup>

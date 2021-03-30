@@ -7,7 +7,7 @@ import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
 import RadioButtonsField from "./radio-buttons-field";
-import CheckboxField from "./checkbox";
+import CheckboxButtonsField from "./checkbox-buttons-field";
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
@@ -20,8 +20,8 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 	if (type === "radioButtons") {
 		return <Formik.Field {...restProps} component={RadioButtonsField} />;
 	}
-	if (type === "checkbox") {
-		return <Formik.Field {...restProps} component={CheckboxField} />;
+	if (type === "checkboxButtons") {
+		return <Formik.Field {...restProps} component={CheckboxButtonsField} />;
 	}
 	if (variant === "privacyTextField") {
 		return (

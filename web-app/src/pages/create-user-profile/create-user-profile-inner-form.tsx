@@ -62,7 +62,7 @@ function InnerForm({ submissionError }) {
 						/>
 
 						<span>
-							<div
+							<h5
 								style={{
 									marginTop: "15px",
 									marginBottom: "-10px",
@@ -70,7 +70,7 @@ function InnerForm({ submissionError }) {
 								}}
 							>
 								Start Date
-							</div>
+							</h5>
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
@@ -138,7 +138,7 @@ function InnerForm({ submissionError }) {
 						</span>
 
 						<span>
-							<div
+							<h5
 								style={{
 									marginTop: "15px",
 									marginBottom: "-10px",
@@ -146,7 +146,7 @@ function InnerForm({ submissionError }) {
 								}}
 							>
 								End Date
-							</div>
+							</h5>
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
@@ -244,19 +244,19 @@ function InnerForm({ submissionError }) {
 			<T.fields.availability
 				renderer={t => (
 					<Field
-						name="employmentStatus"
-						type="checkbox"
+						name="availability"
+						type="checkboxButtons"
 						label={t.label}
 						options={[
 							<FormControlLabel
 								value="FORMER"
 								control={<Checkbox />}
-								label="lets"
+								label={t.morning}
 							/>,
 							<FormControlLabel
 								value="CURRENT"
 								control={<Checkbox />}
-								label="see"
+								label={t.afternoon}
 							/>,
 						]}
 					/>
