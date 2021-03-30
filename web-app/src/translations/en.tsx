@@ -491,12 +491,17 @@ export default {
 				placeholder: "What is your professional goal in 5 years?",
 			},
 			availability: {
-				label: "Education",
-				morning: "Morning",
-				morning: "Afternoon",
-				morning: "Night",
-				any: "Any",
+				label: "Availability",
 				placeholder: "What is your professional goal in 5 years?",
+
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
 			},
 		},
 		submit: "Submit",
