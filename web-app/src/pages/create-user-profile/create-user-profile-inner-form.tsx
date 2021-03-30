@@ -225,12 +225,20 @@ function InnerForm({ submissionError }) {
 				T={T.fields.workExperiences}
 			/>
 
-			<Field name="skills" type="text" required t={T.fields.skills} />
+			<Field
+				name="skills"
+				type="text"
+				multiline
+				rows={3}
+				required
+				t={T.fields.skills}
+			/>
 
 			<Field
 				name="certificatesAndLicences"
 				type="text"
-				required
+				multiline
+				rows={2}
 				t={T.fields.certificatesAndLicences}
 			/>
 
@@ -258,23 +266,23 @@ function InnerForm({ submissionError }) {
 								control={<Checkbox />}
 								label={t.afternoon}
 							/>,
+							<FormControlLabel
+								value="CURRENT"
+								control={<Checkbox />}
+								label={t.night}
+							/>,
 						]}
 					/>
 				)}
 			/>
 
-			{/* <Field
-				name="availability"
+			<Field
+				name="availabilityComments"
 				type="text"
-				required
-				t={T.fields.fiveYearGoal}
+				multiline
+				rows={2}
+				t={T.fields.availabilityComments}
 			/>
-
-<Field
-				name="availabilityNotes"
-				type="text"
-				t={T.fields.availabilityNotes}
-			/> */}
 
 			<SubmissionError error={submissionError} />
 
