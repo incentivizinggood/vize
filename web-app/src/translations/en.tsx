@@ -474,6 +474,7 @@ export default {
 					placeholder:
 						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
 				},
+				iCurrentlyWorkHere: "I currently work here",
 				month: "Month",
 				year: "Year",
 				january: "Janauary",

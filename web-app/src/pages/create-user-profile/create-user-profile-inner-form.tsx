@@ -209,6 +209,17 @@ function InnerForm({ submissionError }) {
 							/>
 						</span>
 
+						<T.fields.workExperiences
+							renderer={t => (
+								<FormControlLabel
+									value="Placeholder"
+									control={<Checkbox color="primary" />}
+									label={t.iCurrentlyWorkHere}
+									style={{ marginBottom: "-10px" }}
+								/>
+							)}
+						/>
+
 						<Field
 							name={`${name}.experienceDescription`}
 							multiline
