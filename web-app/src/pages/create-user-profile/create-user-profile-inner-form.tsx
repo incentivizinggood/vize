@@ -14,12 +14,13 @@ import { translations } from "src/translations";
 
 const T = translations.userProfileForm;
 
+const currentYear = new Date().getFullYear();
+let years: Array<number> = [];
+for (let year = currentYear; year > currentYear - 30; year--) {
+	years.push(year);
+}
+
 function InnerForm({ submissionError }) {
-	const currentYear = new Date().getFullYear();
-	let years: Array<number> = [];
-	for (let year = currentYear; year > currentYear - 30; year--) {
-		years.push(year);
-	}
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -31,12 +32,7 @@ function InnerForm({ submissionError }) {
 				t={T.fields.phoneNumber}
 			/>
 
-			<Field
-				name="fiveYearGoal"
-				type="text"
-				required
-				t={T.fields.fiveYearGoal}
-			/>
+			<Field name="fiveYearGoal" type="text" t={T.fields.fiveYearGoal} />
 
 			<FormArray
 				name="workExperience"
