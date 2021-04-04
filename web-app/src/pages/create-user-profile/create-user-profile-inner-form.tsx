@@ -236,6 +236,13 @@ function InnerForm({ submissionError }) {
 				T={T.fields.workExperiences}
 			/>
 
+			<br />
+			<h5 style={{ fontWeight: "bold" }}>Skills</h5>
+			<p>
+				Write a list of any of manufaturing related skills that you
+				have. Seperate out each skill with a comma.
+			</p>
+
 			<Field
 				name="skills"
 				type="text"
@@ -245,6 +252,14 @@ function InnerForm({ submissionError }) {
 				t={T.fields.skills}
 			/>
 
+			<br />
+			<br />
+			<h5 style={{ fontWeight: "bold" }}>Certificates & Licences</h5>
+			<p>
+				Write a list of any manufacturing related certificates and
+				licenses that you have. Seperate out each Certificate / Licence
+				with a comma.
+			</p>
 			<Field
 				name="certificatesAndLicences"
 				type="text"
