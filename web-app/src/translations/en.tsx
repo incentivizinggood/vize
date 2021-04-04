@@ -488,12 +488,14 @@ export default {
 				placeholder: "e.g. ISO, CAC Machinery, CAD",
 			},
 			education: {
-				label: "Education",
-				placeholder: "What is your professional goal in 5 years?",
+				label: "Highest level of education", // Grado mas alto de educacion
+				someHighScool: "Some High School", // Preparatoria Trunca
+				highSchool: "High School", // Preparatoria Trunca
+				someCollege: "Some College", // Universidad Trunca
+				collegeDegree: "College Degree", //Educacion Superiro
 			},
 			availability: {
 				label: "Availability",
-				placeholder: "What is your professional goal in 5 years?",
 
 				morning: "Morning Shift",
 				afternoon: "Afternoon Shift",

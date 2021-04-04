@@ -93,6 +93,7 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 					<Field
 						name="employmentStatus"
 						type="radioButtons"
+						showPrivacyIcon={true}
 						label={t.label}
 						options={[
 							<FormControlLabel

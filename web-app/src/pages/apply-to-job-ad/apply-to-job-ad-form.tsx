@@ -129,7 +129,7 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 					setLoginRegisterModal
 				)}
 			>
-				<InnerForm submissionError={submissionError} />
+				<InnerForm submissionError={submissionError} fullName={fullName} />
 			</Formik>
 			{loginRegisterModal}
 		</>
