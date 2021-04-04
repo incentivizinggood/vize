@@ -429,9 +429,9 @@ export default {
 				label: "Phone Number",
 				placeholder: "###-###-####",
 			},
-			fiveYearGoal: {
-				label: "Five Year Goal",
-				placeholder: "What is your professional goal in 5 years?",
+			longTermGoal: {
+				label: "Long Term Professional Goal",
+				placeholder: "What is your professional goal in 3-10 years?",
 			},
 			workExperiences: {
 				label: "Work Experience",

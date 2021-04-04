@@ -22,10 +22,13 @@ for (let year = currentYear; year > currentYear - 30; year--) {
 	years.push(year);
 }
 
-// const FieldDescription = styled.p`
-// style={{ fontSize: "1.0em" }}
-//
-// `;
+const FieldDescription = styled.p`
+	font-size: 1em;
+`;
+
+const FieldTitle = styled.h5`
+	font-weight: bold;
+`;
 
 function InnerForm({ submissionError }) {
 	return (
@@ -66,15 +69,14 @@ function InnerForm({ submissionError }) {
 						/>
 
 						<span>
-							<h5
+							<FieldTitle
 								style={{
 									marginTop: "15px",
 									marginBottom: "-10px",
-									fontWeight: "bold",
 								}}
 							>
 								Start Date
-							</h5>
+							</FieldTitle>
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
@@ -142,15 +144,14 @@ function InnerForm({ submissionError }) {
 						</span>
 
 						<span>
-							<h5
+							<FieldTitle
 								style={{
 									marginTop: "15px",
 									marginBottom: "-10px",
-									fontWeight: "bold",
 								}}
 							>
 								End Date
-							</h5>
+							</FieldTitle>
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
@@ -241,11 +242,11 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<br />
-			<h5 style={{ fontWeight: "bold" }}>Skills</h5>
-			<p>
+			<FieldTitle>Skills</FieldTitle>
+			<FieldDescription>
 				Write a list of any of manufaturing related skills that you
 				have. Seperate out each skill with a comma.
-			</p>
+			</FieldDescription>
 
 			<Field
 				name="skills"
@@ -258,12 +259,13 @@ function InnerForm({ submissionError }) {
 
 			<br />
 			<br />
-			<h5 style={{ fontWeight: "bold" }}>Certificates & Licences</h5>
-			<p style={{ fontSize: "1.0em" }}>
+			<br />
+			<FieldTitle>Certificates & Licences</FieldTitle>
+			<FieldDescription>
 				Write a list of any manufacturing related certificates and
 				licenses that you have. Seperate out each Certificate / Licence
 				with a comma.
-			</p>
+			</FieldDescription>
 			<Field
 				name="certificatesAndLicences"
 				type="text"
@@ -349,18 +351,18 @@ function InnerForm({ submissionError }) {
 			<br />
 			<br />
 			<br />
-			<h5 style={{ fontWeight: "bold" }}>Long Term Professional Goal</h5>
-			<p style={{ fontSize: "1.0em" }}>
+			<FieldTitle>Long Term Professional Goal</FieldTitle>
+			<FieldDescription>
 				Where do you want to be professionally in 3-10 years? What is
 				your dream job or dream company?
-			</p>
-			<p style={{ fontSize: "1.0em" }}>
+			</FieldDescription>
+			<FieldDescription>
 				This information will not be shared with any employer when you
 				apply to a job. If you choose to fill out this field, we will
 				use your goal to match you with other workers that have similar
 				goals
-			</p>
-			<Field name="longTermGoal" type="text" t={T.fields.fiveYearGoal} />
+			</FieldDescription>
+			<Field name="longTermGoal" type="text" t={T.fields.longTermGoal} />
 
 			<SubmissionError error={submissionError} />
 
