@@ -13,6 +13,7 @@ export default function RadioButtonsField({
 	name,
 	options,
 	label,
+	showPrivacyIcon,
 	...props
 }: any): JSX.Element {
 	const [value, setValue] = React.useState("FORMER");
@@ -24,14 +25,25 @@ export default function RadioButtonsField({
 	return (
 		<FormControl component="fieldset">
 			<span>
-				<PrivacyIcon /> {"  "}
-				<FormLabel required component="label">
+				{showPrivacyIcon && (
+					<PrivacyIcon style={{ marginRight: "5px" }} />
+				)}
+
+				<FormLabel
+					required
+					component="label"
+					style={{
+						fontWeight: "bold",
+						color: "black",
+					}}
+				>
 					{label}
 				</FormLabel>
 			</span>
 			<RadioGroup {...props} {...field} name={field.name}>
 				{options.map((option: any) => (
 					<FormControlLabel
+						style={{ marginBottom: "-8px" }}
 						value={option.props.value}
 						control={<Radio color="primary" />}
 						label={option.props.label}

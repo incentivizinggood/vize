@@ -41,7 +41,7 @@ export default function CheckboxButtonsField({
 						value={option.props.value}
 						control={<Checkbox color="primary" />}
 						label={option.props.label}
-						style={{ marginBottom: "-10px" }}
+						style={{ marginBottom: "-8px" }}
 					/>
 				))}
 			</FormGroup>

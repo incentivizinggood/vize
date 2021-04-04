@@ -2,6 +2,7 @@ import React from "react";
 import { Form } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Radio from "@material-ui/core/Radio";
 
 import { Button } from "src/components/button";
 import {
@@ -38,6 +39,9 @@ function InnerForm({ submissionError }) {
 				name="workExperience"
 				ElementRender={({ name }) => (
 					<>
+						<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
+							Add Experience
+						</h3>
 						<Field
 							name={`${name}.jobTitle`}
 							type="text"
@@ -249,12 +253,43 @@ function InnerForm({ submissionError }) {
 				t={T.fields.certificatesAndLicences}
 			/>
 
-			<Field
-				name="education"
-				type="text"
-				required
-				t={T.fields.education}
+			<br />
+			<br />
+
+			<T.fields.education
+				renderer={t => (
+					<Field
+						name="employmentStatus"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="FORMER"
+								control={<Radio />}
+								label={t.someHighScool}
+							/>,
+							<FormControlLabel
+								value="CURRENT"
+								control={<Radio />}
+								label={t.highSchool}
+							/>,
+							<FormControlLabel
+								value="CURRENT"
+								control={<Radio />}
+								label={t.someCollege}
+							/>,
+							<FormControlLabel
+								value="CURRENT"
+								control={<Radio />}
+								label={t.collegeDegree}
+							/>,
+						]}
+					/>
+				)}
 			/>
+
+			<br />
+			<br />
 
 			<T.fields.availability
 				renderer={t => (
