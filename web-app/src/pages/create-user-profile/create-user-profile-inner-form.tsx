@@ -3,6 +3,7 @@ import { Form } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
+import styled from "styled-components";
 
 import { Button } from "src/components/button";
 import {
@@ -21,6 +22,11 @@ for (let year = currentYear; year > currentYear - 30; year--) {
 	years.push(year);
 }
 
+// const FieldDescription = styled.p`
+// style={{ fontSize: "1.0em" }}
+//
+// `;
+
 function InnerForm({ submissionError }) {
 	return (
 		<Form noValidate>
@@ -32,8 +38,6 @@ function InnerForm({ submissionError }) {
 				required
 				t={T.fields.phoneNumber}
 			/>
-
-			<Field name="fiveYearGoal" type="text" t={T.fields.fiveYearGoal} />
 
 			<FormArray
 				name="workExperience"
@@ -255,7 +259,7 @@ function InnerForm({ submissionError }) {
 			<br />
 			<br />
 			<h5 style={{ fontWeight: "bold" }}>Certificates & Licences</h5>
-			<p>
+			<p style={{ fontSize: "1.0em" }}>
 				Write a list of any manufacturing related certificates and
 				licenses that you have. Seperate out each Certificate / Licence
 				with a comma.
@@ -268,6 +272,7 @@ function InnerForm({ submissionError }) {
 				t={T.fields.certificatesAndLicences}
 			/>
 
+			<br />
 			<br />
 			<br />
 
@@ -340,6 +345,22 @@ function InnerForm({ submissionError }) {
 				rows={2}
 				t={T.fields.availabilityComments}
 			/>
+
+			<br />
+			<br />
+			<br />
+			<h5 style={{ fontWeight: "bold" }}>Long Term Professional Goal</h5>
+			<p style={{ fontSize: "1.0em" }}>
+				Where do you want to be professionally in 3-10 years? What is
+				your dream job or dream company?
+			</p>
+			<p style={{ fontSize: "1.0em" }}>
+				This information will not be shared with any employer when you
+				apply to a job. If you choose to fill out this field, we will
+				use your goal to match you with other workers that have similar
+				goals
+			</p>
+			<Field name="longTermGoal" type="text" t={T.fields.fiveYearGoal} />
 
 			<SubmissionError error={submissionError} />
 
