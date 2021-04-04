@@ -26,17 +26,25 @@ function omitEmptyStrings(x) {
 const initialValues = {
 	jobAdId: "",
 	fullName: "",
-	email: "",
 	phoneNumber: "",
-	coverLetter: "",
-	workExperience: {
-		jobTitle: "",
-		companyName: "",
-		city: "",
-		startDate: "",
-		endDate: "",
-		experienceDescription: "",
-	},
+	workExperience: [
+		{
+			jobTitle: "",
+			companyName: "",
+			city: "",
+			startDateMonth: "",
+			startDateYear: "",
+			endDateMonth: "",
+			endDateYear: "",
+			experienceDescription: "",
+		},
+	],
+	skills: "",
+	certificatesAndLicenses: "",
+	highestLevelOfEducation: "",
+	availability: "",
+	availabilityComments: "",
+	longTermGoal: "",
 };
 
 const schema = yup.object().shape({
