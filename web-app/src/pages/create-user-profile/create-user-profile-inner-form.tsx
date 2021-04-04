@@ -48,7 +48,7 @@ function InnerForm({ submissionError }) {
 				ElementRender={({ name }) => (
 					<>
 						<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
-							Add Experience
+							Work Experience
 						</h3>
 						<Field
 							name={`${name}.jobTitle`}
