@@ -4,6 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
+import PrivacyIcon from "@material-ui/icons/Security";
 
 import { Button } from "src/components/button";
 import {
@@ -357,10 +358,11 @@ function InnerForm({ submissionError }) {
 				your dream job or dream company?
 			</FieldDescription>
 			<FieldDescription>
+				<PrivacyIcon style={{ marginRight: "5px" }} />
 				This information will not be shared with any employer when you
 				apply to a job. If you choose to fill out this field, we will
-				use your goal to match you with other workers that have similar
-				goals
+				use your goal to match you with other workers that have a
+				similar goal.
 			</FieldDescription>
 			<Field name="longTermGoal" type="text" t={T.fields.longTermGoal} />
 
