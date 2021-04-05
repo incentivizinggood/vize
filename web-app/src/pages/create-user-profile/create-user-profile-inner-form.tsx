@@ -43,6 +43,12 @@ function InnerForm({ submissionError }) {
 				t={T.fields.phoneNumber}
 			/>
 
+			<Field name="city" type="text" required t={T.fields.city} />
+
+			<Field name="neighborhood" type="text" t={T.fields.neighborhood} />
+
+			<Field name="address" type="text" t={T.fields.address} />
+
 			<FormArray
 				name="workExperience"
 				ElementRender={({ name }) => (
