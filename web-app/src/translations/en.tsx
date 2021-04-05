@@ -441,6 +441,20 @@ export default {
 				label: "Phone Number",
 				placeholder: "###-###-####",
 			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			address: {
+				label: "Address",
+				placeholder: "Enter the address where you live",
+			},
 			longTermGoal: {
 				label: "Long Term Professional Goal",
 				placeholder: "What is your professional goal in 3-10 years?",
