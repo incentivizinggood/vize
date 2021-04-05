@@ -1,6 +1,9 @@
 import React from "react";
-
-import { FormHeader, FormPageWrapper } from "src/components/form-stuff";
+import {
+	FormHeader,
+	FormText,
+	FormPageWrapper,
+} from "src/components/form-stuff";
 import { translations } from "src/translations";
 
 import CreateUserProfileForm from "./create-user-profile-form";
@@ -17,6 +20,9 @@ function CreateUserProfilePage({ jobAdId }: CreateUserProfilePageProps) {
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>
+			<FormText>
+				<T.formDescription />
+			</FormText>
 			<CreateUserProfileForm />
 		</FormPageWrapper>
 	);

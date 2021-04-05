@@ -420,6 +420,8 @@ export default {
 	},
 	userProfileForm: {
 		formTitle: "Create a User Profile",
+		formDescription:
+			"Create a user profile to apply to jobs with one click. This will save you a lot of time and make it easier to apply to many jobs.",
 		fields: {
 			fullName: {
 				label: "Full Name",
