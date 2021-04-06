@@ -170,6 +170,26 @@ export type User = {
 	companyId: number | null;
 };
 
+type UserProfile = {
+	userId: number;
+	fullName: string;
+	phoneNumber: string;
+	city: string;
+	neighborhood: string | null;
+	address: string | null;
+	workExperiences: any;
+	skills: Array<string> | null;
+	certificatesAndLicences: Array<string> | null;
+	highestLevelOfEducation:
+		| "SOME_HIGH_SCHOOL"
+		| "HIGH_SCHOOL"
+		| "SOME_COLLEGE"
+		| "COLLEGE_DEGREE";
+	availability: Array<string>;
+	availabilityComments: string | null;
+	longTermProfessionalGoal: string | null;
+};
+
 /** A reference to the subject of a vote. */
 export type SubjectRef =
 	| { subjectType: "comment"; refersTo: number }
