@@ -533,6 +533,7 @@ type UserProfile {
 
 type UserProfile {
 	id: ID!
+	email: String
 	fullName: String!
 	phoneNumber: String!
 	city: String!
