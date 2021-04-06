@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS user_profiles CASCADE;
 CREATE TABLE user_profiles (
 	userid serial PRIMARY KEY,
+    date_added timestamp with time zone default now(),
 	full_name VARCHAR(40) NOT NULL,
 	phone_number VARCHAR(16) NOT NULL,
 	location_city text NOT NULL,

@@ -9,6 +9,7 @@ type Query {
 	review(id: ID!): Review
 	salary(id: ID!): Salary
 	user(id: ID!): User
+	userProfile(id: ID!): UserProfile
 	vote(id: ID!): Vote
 
 	resource(id: ID!): Resource
@@ -65,6 +66,7 @@ type Mutation {
 	createReview(input: CreateReviewInput!): CreateReviewPayload
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
 	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
+	createUserProfile(input: CreateUserProfileInput!): CreateUserProfilePayload
 	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
 
 	flagReview(input: FlagReviewInput!): FlagReviewPayload
@@ -100,6 +102,36 @@ input LocationInput {
 
 type CreateCompanyPayload {
 	company: Company
+}
+
+input CreateUserProfileInput {
+	fullName: String!
+	phoneNumber: String!
+	city: String!
+	neighborhood: String
+	address: String
+	workExperiences: [WorkExperienceInput!]!
+	skills: [String]
+	certificatesAndLicences: [String]
+	highestLevelOfEducation: String!
+	availability: [String]!
+	availabilityComments: String
+	longTermProfessionalGoal: String
+}
+
+input WorkExperienceInput {
+	jobTitle: String!
+	companyName: String!
+	city: String!
+	startDateMonth: String!
+	startDateYear: String!
+	endDateMonth: String
+	endDateYear: String
+	description: String!
+}
+
+type CreateUserProfilePayload {
+	userProfile: UserProfile
 }
 
 input CreateReviewInput {
@@ -481,6 +513,49 @@ type User {
 
 	"The company that this user is administering. Will be null if this user does not or can not admin a company."
 	company: Company
+}
+
+type UserProfile {
+	id: ID!
+
+	fullName: String!
+	jobTitle: String!
+	location: Location!
+	incomeType: IncomeType!
+	"In units of pesos."
+	incomeAmount: Float! # TODO convert to unit aware system
+	"The date and time this was created."
+	created: DateTime
+
+	"The company that paid this salary."
+	company: Company
+}
+
+type UserProfile {
+	id: ID!
+	fullName: String!
+	phoneNumber: String!
+	city: String!
+	neighborhood: String
+	address: String
+	workExperiences: [WorkExperience!]!
+	skills: [String]
+	certificatesAndLicences: [String]
+	highestLevelOfEducation: String!
+	availability: [String]!
+	availabilityComments: String
+	longTermProfessionalGoal: String
+}
+
+input WorkExperience {
+	jobTitle: String!
+	companyName: String!
+	city: String!
+	startDateMonth: String!
+	startDateYear: String!
+	endDateMonth: String
+	endDateYear: String
+	description: String!
 }
 
 "The kinds of things that can be voted on."
