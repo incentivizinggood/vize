@@ -24,9 +24,19 @@ const baseQuery = sql`SELECT ${attributes} FROM job_applications`;
 
 // Get the job application from a given id
 export async function getJobApplicationById(
-	id: number
+	jobId: number,
+	companyId: number | null
 ): Promise<JobApplication | null> {
-	return simpleQuery1(sql`${baseQuery} WHERE application_id=${id}`);
+	const jobApplication: JobApplication | null = await simpleQuery1(
+		sql`${baseQuery} WHERE application_id=${jobId}`
+	);
+	if (!jobApplication) {
+		throw new Error("Job Application Id is invalid");
+	}
+	if (jobApplication.companyId !== companyId) {
+		throw new Error("You do not have permission to view this information");
+	}
+	return jobApplication;
 }
 
 // Get the company that posted a given job application
