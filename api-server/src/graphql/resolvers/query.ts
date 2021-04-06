@@ -35,6 +35,9 @@ export const Query: QueryResolvers = {
 	user: (_obj, args, _context, _info) =>
 		dataModel.getUserById(Number(args.id)),
 
+	userProfile: (_obj, args, _context, _info) =>
+		dataModel.getUserProfileById(Number(args.id)),
+
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 
