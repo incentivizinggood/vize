@@ -288,7 +288,7 @@ function InnerForm({ submissionError }) {
 			<T.fields.education
 				renderer={t => (
 					<Field
-						name="employmentStatus"
+						name="highestLevelOfEducation"
 						type="radioButtons"
 						label={t.label}
 						options={[
