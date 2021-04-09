@@ -16,9 +16,9 @@ CREATE TABLE user_profiles (
         CHECK (education_level IN ('SOME_HIGH_SCHOOL', 'HIGH_SCHOOL', 'SOME_COLLEGE', 'COLLEGE_DEGREE')),
     work_availability text[]
         NOT NULL
-        CHECK (work_availability IN ('MORNING_SHIFT', 'AFTERNOON_SHIFT', 'NIGHT_SHIFT')),
+        CHECK (work_availability <@ ARRAY['MORNING_SHIFT', 'AFTERNOON_SHIFT', 'NIGHT_SHIFT']),
     availability_comments text,
-    long_term_professional_goal text,
+    long_term_professional_goal text
 );
 
 COMMENT ON COLUMN user_profiles.long_term_professional_goal IS

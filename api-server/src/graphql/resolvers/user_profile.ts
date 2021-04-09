@@ -6,6 +6,12 @@ export const User: UserProfileResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.userId),
 
 	email: (obj, _args, _context, _info) => {
-		return dataModel.getUserById(obj.userId).email_address;
+		const user = dataModel.getUserById(obj.userId);
+
+		if (user == null) {
+			throw Error("User does not exist.");
+		}
+
+		return null;
 	},
 };

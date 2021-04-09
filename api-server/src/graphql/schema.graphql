@@ -517,22 +517,6 @@ type User {
 
 type UserProfile {
 	id: ID!
-
-	fullName: String!
-	jobTitle: String!
-	location: Location!
-	incomeType: IncomeType!
-	"In units of pesos."
-	incomeAmount: Float! # TODO convert to unit aware system
-	"The date and time this was created."
-	created: DateTime
-
-	"The company that paid this salary."
-	company: Company
-}
-
-type UserProfile {
-	id: ID!
 	email: String
 	fullName: String!
 	phoneNumber: String!
@@ -548,7 +532,7 @@ type UserProfile {
 	longTermProfessionalGoal: String
 }
 
-input WorkExperience {
+type WorkExperience {
 	jobTitle: String!
 	companyName: String!
 	city: String!

@@ -3,7 +3,7 @@ import { simpleQuery1 } from "src/connectors/postgresql";
 
 import { UserProfile } from "src/models";
 
-export const attributes = sql.raw(
+const attributes = sql.raw(
 	[
 		'userid AS "userId"',
 		'full_name AS "fullName"',
