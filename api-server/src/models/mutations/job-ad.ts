@@ -169,6 +169,8 @@ export async function createJobAd(
 const createApplyToJobAdInputSchema = yup
 	.object({
 		jobAdId: yup.string().required(),
+		jobTitle: yup.string().required(),
+		numReviews: yup.number().required(),
 		fullName: yup.string().required(),
 		email: yup
 			.string()
@@ -182,10 +184,12 @@ const createApplyToJobAdInputSchema = yup
 export async function applyToJobAd(input: unknown): Promise<boolean> {
 	const {
 		jobAdId,
+		jobTitle,
 		fullName,
 		email: applicantEmail,
 		phoneNumber,
 		coverLetter,
+		numReviews,
 	} = await createApplyToJobAdInputSchema.validate(input);
 
 	const transaction: Transaction<boolean> = async client => {
@@ -226,32 +230,49 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
-		const emailOptions = {
+		// Have to make some adjustments for the required JSON formatting
+		const coverLetterJSON = coverLetter
+			? coverLetter.replace(/\n/g, "\\n")
+			: null;
+
+		const employerEmailOptions = {
+			templateId: 2,
 			to: companyEmail,
-			from: "postmaster@incentivizinggood.com",
-			cc: applicantEmail,
-			subject: `VIZE ${fullName} ha respondido a su anuncio de trabajo`,
-			text: `
-Para los que están en ${companyName},
-
-	Felicitaciones, ¡acaban de recibir una nueva solicitud de empleo! Un usuario de Vize, ${fullName}, ha respondido a su puesto de trabajo (que recibió el id = ${jobAdId}). Proporcionaron la información de contacto a continuación, siéntanse libres de contactarlos directamente.
-
-	Si tiene algún problema con este proceso, háganoslo saber. Si contrata a este empleado, envíenos un mensaje indicándonos lo que piensa de nuestro servicio. ¡Esperamos que haya encontrado el empleado perfecto para su empresa y el puesto!
-
-Le deseamos lo mejor,
-
-	El equipo de VIZE
-
-INFORMACIÓN DEL SOLICITANTE
-Nombre completo: ${fullName}
-Email: ${applicantEmail}
-Número de teléfono: ${phoneNumber}
-carta de presentacion/Comentarios adicionales:
-${coverLetter}
-`.trim(),
+			params: `{
+				"companyName": "${companyName}",
+				"jobTitle": "${jobTitle}",
+				"jobAdId": "${jobAdId}",
+				"applicantEmail": "${applicantEmail}",
+				"applicantName": "${fullName}",
+				"phoneNumber": "${phoneNumber}",
+				"coverLetter": "${coverLetterJSON}"
+			}`,
 		};
 
-		await sendEmail(emailOptions);
+		const spaceIndex = fullName.indexOf(" ");
+		const firstName =
+			spaceIndex === -1 ? fullName : fullName.substr(0, spaceIndex);
+
+		const readEmployerReviews =
+			numReviews > 0
+				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}/evaluaciones`
+				: "";
+
+		const applicantEmailOptions = {
+			templateId: 3,
+			to: applicantEmail,
+			params: `{
+				"companyName": "${companyName}",
+				"jobTitle": "${jobTitle}",
+				"applicantName": "${firstName}",
+				"companyId": "${companyId}",
+				"jobAdId": "${jobAdId}",
+				"readEmployerReviews": "${readEmployerReviews}"
+			}`,
+		};
+
+		await sendEmail(applicantEmailOptions);
+		await sendEmail(employerEmailOptions);
 
 		return true;
 	};

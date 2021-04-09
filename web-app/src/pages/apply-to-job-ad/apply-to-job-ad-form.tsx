@@ -10,7 +10,7 @@ import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
-import { useCompanyIdFromJobAdIdQuery } from "generated/graphql-operations";
+import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
 
 import InnerForm from "./apply-to-job-ad-inner-form";
 
@@ -47,7 +47,6 @@ const onSubmit = (
 	history,
 	setSubmissionError,
 	setLoginRegisterModal,
-	companyId
 ) => (values, actions) =>
 	applyToJobAd({
 		variables: {
@@ -64,7 +63,7 @@ const onSubmit = (
 				label: values.jobAdId,
 			});
 
-			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${companyId}`);
+			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${values.companyId}`);
 		})
 		.catch(errors => {
 			// Error in English: Not Logged In
@@ -100,10 +99,14 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	const [applyToJobAd] = useApplyToJobAdMutation();
-	const { data } = useCompanyIdFromJobAdIdQuery({
+	const { data } = useGetJobTitleAndCompanyIdQuery({
 		variables: { jobAdId },
 	});
 	const user = useUser();
+
+	const jobTitle = data?.jobAd?.jobTitle;
+	const companyId = data?.jobAd?.company.id;
+	const numReviews = data?.jobAd?.company.numReviews;
 
 	if (user) {
 		loginRegisterModal = null;
@@ -114,14 +117,16 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 			<Formik
 				initialValues={merge(initialValues, {
 					jobAdId,
+					jobTitle,
+					companyId,
+					numReviews,
 				})}
 				validationSchema={schema}
 				onSubmit={onSubmit(
 					applyToJobAd,
 					history,
 					setSubmissionError,
-					setLoginRegisterModal,
-					data?.jobAd?.company.id
+					setLoginRegisterModal
 				)}
 			>
 				<InnerForm submissionError={submissionError} />

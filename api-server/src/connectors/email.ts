@@ -1,47 +1,54 @@
 import request from "request-promise-native";
-
 interface EmailConfig {
+	templateId: number;
 	to: string;
-	subject: string;
-	text: string;
+	params: any;
 }
 
 /**
- * Send an email via MailGun.
- * @param  {string} text The text of the message.
- *                       Supports markdown and Slack's emoji markup.
- * @todo Escape inputs to prevent markdown code injection.
+ * Send an email via Sendinmail.
+ * The text for the message can be found on the Sendinmail website (message Julian for access)
  */
-export function sendEmail({ to, subject, text }: EmailConfig): void {
-	// Do not actually make the request if the MAIL_API_KEY is not set.
+export function sendEmail({ templateId, to, params }: EmailConfig): void {
 	if (process.env.MAIL_API_KEY) {
-		// Make a JSON representation of the message we want to post in the email.
-		// the form is the actual body of the request.
-		const options = {
-			method: "POST",
-			uri: "https://api.mailgun.net/v3/mg.incentivizinggood.com/messages",
-
-			auth: {
-				user: "api",
-				pass: process.env.MAIL_API_KEY,
-			},
-
-			form: {
-				from: "Vize Flag <mailgun@mg.incentivizinggood.com>",
-				to,
-				subject,
-				text,
-			},
-
-			headers: {},
+		var headers = {
+			accept: "application/json",
+			"api-key": process.env.MAIL_API_KEY,
+			"content-type": "application/json",
 		};
 
-		request(options);
+		var dataString = `{ 
+					"sender":{ 
+						"name":"Julian Alvarez de Vize", 
+						"email":"jalvarez@vize.mx" 
+					}, 
+					"to":[ { 
+						"email":"${to}"
+					} ],
+					"templateId": ${templateId},
+					"params": ${params}
+				}
+			`;
+
+		var options = {
+			url: "https://api.sendinblue.com/v3/smtp/email",
+			method: "POST",
+			headers: headers,
+			body: dataString,
+		};
+
+		function callback(error, response, body) {
+			if (!error && response.statusCode == 200) {
+				console.log(body);
+			}
+		}
+
+		request(options, callback);
 	} else {
 		console.warn(
 			"Could not send email because MAIL_API_KEY was not set.",
 			"The message you tried to send was",
-			{ to, subject, text }
+			{ templateId, to, params }
 		);
 	}
 }
