@@ -6,9 +6,9 @@ export const workExperienceInputSchema = yup
 		companyName: yup.string().required(),
 		city: yup.string().required(),
 		startDateMonth: yup.string().required(),
-		startDateYear: yup.string().required(),
+		startDateYear: yup.number().required(),
 		endDateMonth: yup.string(),
-		endDateYear: yup.string(),
+		endDateYear: yup.number(),
 		description: yup.string().required(),
 	})
 	.required();

@@ -8,8 +8,9 @@ import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
+import { workExperienceSchema } from "src/form-schemas";
 
-import { useApplyToJobAdMutation } from "generated/graphql-operations";
+import { useCreateUserProfileMutation } from "generated/graphql-operations";
 // import { useCompanyIdFromJobAdIdQuery } from "generated/graphql-operations";
 
 import InnerForm from "./create-user-profile-inner-form";
@@ -24,7 +25,6 @@ function omitEmptyStrings(x) {
 }
 
 const initialValues = {
-	jobAdId: "",
 	fullName: "",
 	phoneNumber: "",
 	workExperience: [
@@ -48,14 +48,30 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	jobAdId: yup.string().required(),
 	fullName: yup.string().required(),
-	email: yup
-		.string()
-		.email()
-		.required(),
 	phoneNumber: yup.string().required(),
-	coverLetter: yup.string(),
+	city: yup.string().required(),
+	neighborhood: yup.string().required(),
+	address: yup.string().required(),
+	workExperiences: yup.array().of(workExperienceSchema),
+	skills: yup.array().of(yup.string()),
+	certificatesAndLicences: yup.array().of(yup.string()),
+	highestLevelOfEducation: yup
+		.string()
+		.oneOf([
+			"SOME_HIGH_SCOOL",
+			"HIGH_SCHOOL",
+			"SOME_COLLEGE",
+			"COLLEGE_DEGREE",
+		])
+		.required(),
+	availability: yup
+		.array()
+		.required()
+		.min(1)
+		.of(yup.string()),
+	availabilityComments: yup.string(),
+	longTermGoal: yup.string(),
 });
 
 const onSubmit = (
@@ -71,6 +87,7 @@ const onSubmit = (
 	})
 		.then(({ data }) => {
 			actions.resetForm(initialValues);
+			console.log("worked");
 
 			// Track successful job application submitted event
 			analytics.sendEvent({
@@ -114,7 +131,7 @@ export default function CreateUserProfileForm() {
 	// const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
-	const [CreateUserProfile] = useApplyToJobAdMutation();
+	const [CreateUserProfile] = useCreateUserProfileMutation();
 	// const { data } = useCompanyIdFromJobAdIdQuery({
 	// 	variables: { jobAdId },
 	// });

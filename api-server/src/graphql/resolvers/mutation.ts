@@ -61,6 +61,17 @@ export const Mutation: MutationResolvers = {
 		return { company };
 	},
 
+	createUserProfile: async (_obj, { input }, context, _info) => {
+		// Error in English: Not Logged In
+		if (!context.user)
+			throw new Error("Tienes que iniciar una sesión o registrarte");
+		const userId = await dataModel.createUserProfile(
+			input,
+			context.user.userId
+		);
+		return userId;
+	},
+
 	createReview: async (_obj, { input }, context, _info) => {
 		// Error in English: Not Logged In
 		if (!context.user)

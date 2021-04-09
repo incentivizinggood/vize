@@ -32,3 +32,14 @@ export const locationSchema = yup.object().shape({
 		.required("Se requiere la dirección"),
 	industrialHub: yup.string().max(300),
 });
+
+export const workExperienceSchema = yup.object().shape({
+	jobTitle: yup.string().required(),
+	companyName: yup.string().required(),
+	city: yup.string().required(),
+	startDateMonth: yup.string().required(),
+	startDateYear: yup.number().required(),
+	endDateMonth: yup.string(),
+	endDateYear: yup.number(),
+	description: yup.string().required(),
+});
