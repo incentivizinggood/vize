@@ -17,11 +17,10 @@ export const Query: QueryResolvers = {
 		dataModel.getJobAdById(Number(args.id)),
 
 	jobApplication: (_obj, args, context, _info) => {
-		console.log("con", context);
 		if (!context.user || context.user.role !== "company")
 			throw new Error("Only companies can access this information.");
 
-		dataModel.getJobApplicationById(
+		return dataModel.getJobApplicationById(
 			Number(args.id),
 			context.user.companyId
 		);
