@@ -1,13 +1,5 @@
-mutation applyToJobAd($input: ApplyToJobAdInput!) {
-	applyToJobAd(input: $input) {
+mutation createUserProfile($input: CreateUserProfileInput!) {
+	createUserProfile(input: $input) {
 		success
-	}
-}
-
-query companyIdFromJobAdId($jobAdId: ID!) {
-	jobAd(id: $jobAdId){
-		company {
-			id
-		}
 	}
 }
