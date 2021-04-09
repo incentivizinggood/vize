@@ -1,16 +1,7 @@
 import * as yup from "yup";
 
 import sql from "src/utils/sql-template";
-import { pool } from "src/connectors/postgresql";
-import {
-	User,
-	getUserByLogin,
-	hashPassword,
-	comparePassword,
-} from "src/models";
-import { postToSlack } from "src/connectors/slack-webhook";
-
-import { attributes } from "../queries/user";
+import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { workExperienceInputSchema } from "./work-experience";
 
 const createUserProfileInputSchema = yup
@@ -21,8 +12,6 @@ const createUserProfileInputSchema = yup
 		neighborhood: yup.string().required(),
 		address: yup.string().required(),
 		workExperiences: yup.array().of(workExperienceInputSchema),
-		salaryMin: yup.number().required(),
-		salaryMax: yup.number().required(),
 		skills: yup.array().of(yup.string()),
 		certificatesAndLicences: yup.array().of(yup.string()),
 		highestLevelOfEducation: yup
@@ -44,110 +33,83 @@ const createUserProfileInputSchema = yup
 	})
 	.required();
 
-export async function createJobAd(
+export async function createUserProfile(
 	input: unknown,
 	userId: number
 ): Promise<number> {
 	const {
-		jobTitle,
-		locations,
-		salaryMin,
-		salaryMax,
-		salaryType,
-		contractType,
-		jobDescription,
-		responsibilities,
-		qualifications,
-		startTime,
-		endTime,
-		startDay,
-		endDay,
-	} = await createJobAdInputSchema.validate(input);
-
-	if (salaryMin > salaryMax) {
-		// Error in English: salaryMin must be less than or equal to salaryMax
-		throw new Error(
-			"El salario minimo debe de ser menos que el salario maximo."
-		);
-	}
+		fullName,
+		phoneNumber,
+		city,
+		neighborhood,
+		address,
+		workExperiences,
+		skills,
+		certificatesAndLicences,
+		highestLevelOfEducation,
+		availability,
+		availabilityComments,
+		longTermGoal,
+	} = await createUserProfileInputSchema.validate(input);
 
 	const transaction: Transaction<number> = async client => {
 		const {
-			rows: [{ role, companyid }],
+			rows: [{ role }],
 		} = await client.query(
-			sql`SELECT role, companyid FROM users WHERE userid=${userId}`
+			sql`SELECT role, userid FROM users WHERE userid=${userId}`
 		);
 
-		if (role !== "company-unverified" && role !== "company") {
-			// Error in English: Only employers may create a company. You must create an employer account.
+		if (role !== "worker") {
+			// Error in English: Only workers can create a user profile. You must create a worker account.
 			throw new Error(
-				"Solo los empleadores pueden crear una empresa. Tienes que crear una cuenta de empleador."
+				"Solo los trabajadores pueden crear un perfil de usuario. Tienes que crear una cuenta de trabajador."
 			);
 		}
 
-		if (companyid === null) {
-			// Error in English: "You must create a company profile before posting job ads. Navigate to My Company to create a profile"
+		if (userId === null) {
+			// Error in English: "You must create an account before you can create a User Profile."
 			throw new Error(
-				'Tienes que crear un perfil para la empresa antes de publicar ofertas de empleo. Navega a "Mi Empresa" en la barra de navegación y llena la encuesta para crear el perfil.'
+				'Tienes que crear una cuenta antes de crear un perfil de usuari. Navega a "Crear Cuenta" en la barra de navegación.'
 			);
 		}
 
-		const {
-			rows: [{ jobadid }],
-		} = await client.query(sql`
-			INSERT INTO jobads
+		await client.query(sql`
+			INSERT INTO user_profiles
 				(
-					companyid,
-					jobtitle,
-					salary_min,
-					salary_max,
-					salary_type,
-					contracttype,
-					jobdescription,
-					responsibilities,
-					qualifications,
-					start_time,
-					end_time,
-					start_day,
-					end_day
+					userid,
+					full_name,
+					phone_number,
+					location_city,
+					location_neighborhood,
+					location_address,
+					work_experiences,
+					skills,
+					certificates_and_licences,
+					education_level,
+					work_availability,
+					availability_comments,
+					long_term_professional_goal
 				)
 			VALUES
 				(
-					${companyid},
-					${jobTitle},
-					${salaryMin},
-					${salaryMax},
-					${salaryType},
-					${contractType},
-					${jobDescription},
-					${responsibilities},
-					${qualifications},
-					${startTime},
-					${endTime},
-					${startDay},
-					${endDay}
+					${userId},
+					${fullName},
+					${phoneNumber},
+					${city},
+					${neighborhood},
+					${address},
+					${workExperiences},
+					${skills},
+					${certificatesAndLicences},
+					${highestLevelOfEducation},
+					${availability},
+					${availabilityComments},
+					${longTermGoal}
 				)
 			RETURNING jobadid
 		`);
 
-		await client.query(sql`
-			INSERT INTO job_locations
-				(jobadid, city, address, industrial_hub)
-			VALUES
-				${locations
-					.map(
-						l =>
-							sql`(
-								${jobadid},
-								${l.city},
-								${l.address},
-								${l.industrialHub}
-							)`
-					)
-					.reduce((a, c) => sql`${a}, ${c}`)}
-		`);
-
-		return jobadid;
+		return userId;
 	};
 
 	return execTransactionRW(transaction);
