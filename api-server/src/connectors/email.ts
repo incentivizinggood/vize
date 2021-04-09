@@ -11,13 +11,13 @@ interface EmailConfig {
  */
 export function sendEmail({ templateId, to, params }: EmailConfig): void {
 	if (process.env.MAIL_API_KEY) {
-		var headers = {
+		const headers = {
 			accept: "application/json",
 			"api-key": process.env.MAIL_API_KEY,
 			"content-type": "application/json",
 		};
 
-		var dataString = `{ 
+		const dataString = `{ 
 					"sender":{ 
 						"name":"Julian Alvarez de Vize", 
 						"email":"jalvarez@vize.mx" 

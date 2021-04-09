@@ -170,7 +170,7 @@ export type User = {
 	companyId: number | null;
 };
 
-type UserProfile = {
+export type UserProfile = {
 	userId: number;
 	fullName: string;
 	phoneNumber: string;
