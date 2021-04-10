@@ -9,8 +9,8 @@ const createUserProfileInputSchema = yup
 		fullName: yup.string().required(),
 		phoneNumber: yup.string().required(),
 		city: yup.string().required(),
-		neighborhood: yup.string().required(),
-		address: yup.string().required(),
+		neighborhood: yup.string(),
+		address: yup.string(),
 		workExperiences: yup.array().of(workExperienceInputSchema),
 		skills: yup.array().of(yup.string()),
 		certificatesAndLicences: yup.array().of(yup.string()),
@@ -36,7 +36,8 @@ const createUserProfileInputSchema = yup
 export async function createUserProfile(
 	input: unknown,
 	userId: number
-): Promise<number> {
+): Promise<boolean> {
+	console.log("now in trans");
 	const {
 		fullName,
 		phoneNumber,
@@ -52,7 +53,7 @@ export async function createUserProfile(
 		longTermGoal,
 	} = await createUserProfileInputSchema.validate(input);
 
-	const transaction: Transaction<number> = async client => {
+	const transaction: Transaction<boolean> = async client => {
 		const {
 			rows: [{ role }],
 		} = await client.query(
@@ -109,7 +110,7 @@ export async function createUserProfile(
 			RETURNING jobadid
 		`);
 
-		return userId;
+		return true;
 	};
 
 	return execTransactionRW(transaction);

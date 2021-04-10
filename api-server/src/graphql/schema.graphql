@@ -110,7 +110,7 @@ input CreateUserProfileInput {
 	city: String!
 	neighborhood: String
 	address: String
-	workExperiences: [WorkExperienceInput!]!
+	workExperiences: [WorkExperienceInput]
 	skills: [String]
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
@@ -124,14 +124,14 @@ input WorkExperienceInput {
 	companyName: String!
 	city: String!
 	startDateMonth: String!
-	startDateYear: String!
+	startDateYear: Int!
 	endDateMonth: String
-	endDateYear: String
-	description: String!
+	endDateYear: Int
+	experienceDescription: String!
 }
 
 type CreateUserProfilePayload {
-	userProfile: UserProfile
+	success: Boolean
 }
 
 input CreateReviewInput {
@@ -523,7 +523,7 @@ type UserProfile {
 	city: String!
 	neighborhood: String
 	address: String
-	workExperiences: [WorkExperience!]!
+	workExperiences: [WorkExperience!]
 	skills: [String]
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
@@ -537,9 +537,9 @@ type WorkExperience {
 	companyName: String!
 	city: String!
 	startDateMonth: String!
-	startDateYear: String!
+	startDateYear: Int!
 	endDateMonth: String
-	endDateYear: String
+	endDateYear: Int
 	description: String!
 }
 
