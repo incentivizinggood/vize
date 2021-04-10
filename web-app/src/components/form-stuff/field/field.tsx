@@ -1,16 +1,20 @@
 import React from "react";
 import * as Formik from "formik";
-import { TextField } from "formik-material-ui";
+import { TextField, Checkbox } from "formik-material-ui";
 import styled from "styled-components";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
 import RadioButtonsField from "./radio-buttons-field";
-import CheckboxButtonsField from "./checkbox-buttons-field";
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
+`;
+
+// Added this margin so that error messages do not overlap with other fields
+const Field = styled(FieldComponent)`
+	margin-bottom: 9px;
 `;
 
 function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
@@ -24,7 +28,14 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 		return <Formik.Field {...restProps} component={CheckboxButtonsField} />;
 	}
 	if (type === "checkbox") {
-		return <FormikField {...restProps} type={type} />;
+		return (
+			<Formik.Field
+				{...restProps}
+				type={type}
+				component={Checkbox}
+				color="primary"
+			/>
+		);
 	}
 	if (variant === "privacyTextField") {
 		return (
@@ -63,10 +74,5 @@ function FieldComponent({ t: T, ...restProps }: any): JSX.Element {
 
 	return FieldInner(restProps);
 }
-
-// Added this margin so that error messages do not overlap with other fields
-const Field = styled(FieldComponent)`
-	margin-bottom: 7px !important;
-`;
 
 export default Field;

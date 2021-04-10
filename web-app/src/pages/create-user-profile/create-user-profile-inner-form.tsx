@@ -2,7 +2,6 @@ import React from "react";
 import { Form, useFormikContext } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
-import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import PrivacyIcon from "@material-ui/icons/Security";
@@ -30,6 +29,15 @@ const FieldDescription = styled.p`
 
 const FieldTitle = styled.h5`
 	font-weight: bold;
+`;
+
+const CheckboxLabel = styled.label`
+	margin-bottom: -8px;
+	font-weight: 500;
+`;
+
+const CheckboxField = styled(Field)`
+	padding-left: 0px !important;
 `;
 
 function InnerForm({ submissionError }) {
@@ -341,18 +349,22 @@ function InnerForm({ submissionError }) {
 			<br />
 
 			<FormGroup>
-				<label>
-					<Field name="morning" type="checkbox" />
-					<T.fields.availability.morning />
-				</label>
-				<label>
-					<Field name="afternoon" type="checkbox" />
-					<T.fields.availability.afternoon />
-				</label>
-				<label>
-					<Field name="night" type="checkbox" />
-					<T.fields.availability.night />
-				</label>
+				<CheckboxLabel>
+					<CheckboxField
+						name="morning"
+						type="checkbox"
+						Label={T.fields.availability.morning}
+					/>
+					<span>Morning Shift</span>
+				</CheckboxLabel>
+				<CheckboxLabel>
+					<CheckboxField name="afternoon" type="checkbox" />
+					Morning Shift
+				</CheckboxLabel>
+				<CheckboxLabel>
+					<CheckboxField name="night" type="checkbox" />
+					Morning Shift
+				</CheckboxLabel>
 			</FormGroup>
 
 			{/* <T.fields.availability
