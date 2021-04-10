@@ -17,7 +17,7 @@ const createUserProfileInputSchema = yup
 		highestLevelOfEducation: yup
 			.string()
 			.oneOf([
-				"SOME_HIGH_SCOOL",
+				"SOME_HIGH_SCHOOL",
 				"HIGH_SCHOOL",
 				"SOME_COLLEGE",
 				"COLLEGE_DEGREE",
@@ -99,7 +99,7 @@ export async function createUserProfile(
 					${city},
 					${neighborhood},
 					${address},
-					${workExperiences},
+					${JSON.stringify(workExperiences)},
 					${skills},
 					${certificatesAndLicences},
 					${highestLevelOfEducation},
@@ -107,7 +107,6 @@ export async function createUserProfile(
 					${availabilityComments},
 					${longTermGoal}
 				)
-			RETURNING jobadid
 		`);
 
 		return true;
