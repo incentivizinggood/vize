@@ -41,5 +41,5 @@ export const workExperienceSchema = yup.object().shape({
 	startDateYear: yup.number().required(),
 	endDateMonth: yup.string(),
 	endDateYear: yup.number(),
-	description: yup.string().required(),
+	experienceDescription: yup.string().required(),
 });

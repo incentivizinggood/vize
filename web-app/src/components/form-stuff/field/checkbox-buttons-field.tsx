@@ -34,7 +34,7 @@ export default function CheckboxButtonsField({
 					{label}
 				</FormLabel>
 			</span>
-			<FormGroup {...props} {...field} name={field.name}>
+			<FormGroup {...props} {...field} name="availability">
 				{options.map((option: any) => (
 					<FormControlLabel
 						value={option.props.value}

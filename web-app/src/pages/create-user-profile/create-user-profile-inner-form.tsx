@@ -1,6 +1,7 @@
 import React from "react";
 import { Form } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
@@ -50,7 +51,7 @@ function InnerForm({ submissionError }) {
 			<Field name="address" type="text" t={T.fields.address} />
 
 			<FormArray
-				name="workExperience"
+				name="workExperiences"
 				ElementRender={({ name }) => (
 					<>
 						<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
@@ -87,7 +88,7 @@ function InnerForm({ submissionError }) {
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
-										name="startDateMonth"
+										name={`${name}.startDateMonth`}
 										select
 										required
 										label={t.month}
@@ -130,7 +131,7 @@ function InnerForm({ submissionError }) {
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
-										name="startDateYear"
+										name={`${name}.startDateYear`}
 										select
 										required
 										label={t.year}
@@ -141,7 +142,7 @@ function InnerForm({ submissionError }) {
 										}}
 									>
 										{years.map((year, i) => (
-											<option value="MARCH">
+											<option value={year} key={i}>
 												{year}
 											</option>
 										))}
@@ -162,7 +163,7 @@ function InnerForm({ submissionError }) {
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
-										name="endDateMonth"
+										name={`${name}.endDateMonth`}
 										select
 										required
 										label={t.month}
@@ -205,7 +206,7 @@ function InnerForm({ submissionError }) {
 							<T.fields.workExperiences
 								renderer={t => (
 									<Field
-										name="endDateYear"
+										name={`${name}.endDateYear`}
 										select
 										required
 										label={t.year}
@@ -216,7 +217,7 @@ function InnerForm({ submissionError }) {
 										}}
 									>
 										{years.map((year, i) => (
-											<option value="MARCH">
+											<option value={year} key={i}>
 												{year}
 											</option>
 										))}
@@ -293,22 +294,22 @@ function InnerForm({ submissionError }) {
 						label={t.label}
 						options={[
 							<FormControlLabel
-								value="FORMER"
+								value="SOME_HIGH_SCHOOL"
 								control={<Radio />}
 								label={t.someHighScool}
 							/>,
 							<FormControlLabel
-								value="CURRENT"
+								value="HIGH_SCHOOL"
 								control={<Radio />}
 								label={t.highSchool}
 							/>,
 							<FormControlLabel
-								value="CURRENT"
+								value="SOME_COLLEGE"
 								control={<Radio />}
 								label={t.someCollege}
 							/>,
 							<FormControlLabel
-								value="CURRENT"
+								value="COLLEGE_DEGREE"
 								control={<Radio />}
 								label={t.collegeDegree}
 							/>,
@@ -320,7 +321,22 @@ function InnerForm({ submissionError }) {
 			<br />
 			<br />
 
-			<T.fields.availability
+			<FormGroup>
+				<label>
+					<Field name="morning" type="checkbox" />
+					<T.fields.availability.morning />
+				</label>
+				<label>
+					<Field name="afternoon" type="checkbox" />
+					<T.fields.availability.afternoon />
+				</label>
+				<label>
+					<Field name="night" type="checkbox" />
+					<T.fields.availability.night />
+				</label>
+			</FormGroup>
+
+			{/* <T.fields.availability
 				renderer={t => (
 					<Field
 						name="availability"
@@ -328,24 +344,24 @@ function InnerForm({ submissionError }) {
 						label={t.label}
 						options={[
 							<FormControlLabel
-								value="FORMER"
+								name="supaTest"
 								control={<Checkbox />}
 								label={t.morning}
 							/>,
 							<FormControlLabel
-								value="CURRENT"
+								name="supaTest2"
 								control={<Checkbox />}
 								label={t.afternoon}
 							/>,
 							<FormControlLabel
-								value="CURRENT"
+								name="supaTest3"
 								control={<Checkbox />}
 								label={t.night}
 							/>,
 						]}
 					/>
 				)}
-			/>
+			/> */}
 
 			<Field
 				name="availabilityComments"

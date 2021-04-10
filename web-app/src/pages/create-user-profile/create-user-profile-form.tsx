@@ -27,7 +27,10 @@ function omitEmptyStrings(x) {
 const initialValues = {
 	fullName: "",
 	phoneNumber: "",
-	workExperience: [
+	city: "",
+	neighborhood: "",
+	address: "",
+	workExperiences: [
 		{
 			jobTitle: "",
 			companyName: "",
@@ -39,48 +42,58 @@ const initialValues = {
 			experienceDescription: "",
 		},
 	],
-	skills: "",
-	certificatesAndLicenses: "",
+	skills: ["skill1"],
+	certificatesAndLicences: ["certif"],
 	highestLevelOfEducation: "",
-	availability: "",
+	morning: false,
+	afternoon: false,
+	night: false,
 	availabilityComments: "",
 	longTermGoal: "",
 };
 
 const schema = yup.object().shape({
-	fullName: yup.string().required(),
+	fullName: yup.string().required("name required"),
 	phoneNumber: yup.string().required(),
 	city: yup.string().required(),
-	neighborhood: yup.string().required(),
-	address: yup.string().required(),
+	neighborhood: yup.string(),
+	address: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
 	skills: yup.array().of(yup.string()),
 	certificatesAndLicences: yup.array().of(yup.string()),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
-			"SOME_HIGH_SCOOL",
+			"SOME_HIGH_SCHOOL",
 			"HIGH_SCHOOL",
 			"SOME_COLLEGE",
 			"COLLEGE_DEGREE",
 		])
-		.required(),
-	availability: yup
-		.array()
-		.required()
-		.min(1)
-		.of(yup.string()),
+		.required("test"),
+	morning: yup.boolean(),
+	afternoon: yup.boolean(),
+	night: yup.boolean(),
 	availabilityComments: yup.string(),
 	longTermGoal: yup.string(),
 });
 
 const onSubmit = (
-	CreateUserProfile,
+	createUserProfile,
 	history,
 	setSubmissionError,
 	setLoginRegisterModal
-) => (values, actions) =>
-	CreateUserProfile({
+) => (values, actions) => {
+	let availabilityArray = [];
+	if (values.morning) availabilityArray.push("MORNING_SHIFT");
+	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
+	if (values.night) availabilityArray.push("NIGHT_SHIFT");
+	delete values["morning"];
+	delete values["afternoon"];
+	delete values["night"];
+
+	values["availability"] = availabilityArray;
+	console.log("through", values);
+	return createUserProfile({
 		variables: {
 			input: omitEmptyStrings(values),
 		},
@@ -100,6 +113,7 @@ const onSubmit = (
 		})
 		.catch(errors => {
 			// Error in English: Not Logged In
+			console.log("superbad", errors);
 			if (
 				errors.message.includes(
 					"Tienes que iniciar una sesión o registrarte"
@@ -122,16 +136,17 @@ const onSubmit = (
 				actions.setSubmitting(false);
 			}
 		});
+};
 
 // export interface CreateUserProfileFormProps {
 // 	jobAdId: string;
 // }
 
 export default function CreateUserProfileForm() {
-	// const history = useHistory();
+	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
-	const [CreateUserProfile] = useCreateUserProfileMutation();
+	const [createUserProfile] = useCreateUserProfileMutation();
 	// const { data } = useCompanyIdFromJobAdIdQuery({
 	// 	variables: { jobAdId },
 	// });
@@ -147,7 +162,7 @@ export default function CreateUserProfileForm() {
 				initialValues={initialValues}
 				validationSchema={schema}
 				onSubmit={onSubmit(
-					CreateUserProfile,
+					createUserProfile,
 					history,
 					setSubmissionError,
 					setLoginRegisterModal
