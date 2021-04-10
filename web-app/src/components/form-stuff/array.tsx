@@ -47,7 +47,7 @@ interface FormArrayProps {
 			({ array }: { array: unknown[] }) => string
 		>;
 	};
-	ElementRender: React.ComponentType<{ name: string }>;
+	ElementRender: React.ComponentType<{ name: string; index: number }>;
 }
 
 function FormArray({
@@ -75,6 +75,7 @@ function FormArray({
 										</ElementDeleteButton>
 										<ElementRender
 											name={`${name}[${index}]`}
+											index={index}
 										/>
 									</ElementContainer>
 							  ))
