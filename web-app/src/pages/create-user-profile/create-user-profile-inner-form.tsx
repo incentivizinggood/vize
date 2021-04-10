@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "formik";
+import { Form, useFormikContext } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -33,6 +33,11 @@ const FieldTitle = styled.h5`
 `;
 
 function InnerForm({ submissionError }) {
+	const { values } = useFormikContext();
+	console.log("val", values);
+	let iCurrentlyWorkHere = values.workExperiences[0].iCurrentlyWorkHere;
+	console.log("cr", iCurrentlyWorkHere);
+	//values.workExperiences[0].iCurrentlyWorkHere = false;
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -52,7 +57,7 @@ function InnerForm({ submissionError }) {
 
 			<FormArray
 				name="workExperiences"
-				ElementRender={({ name }) => (
+				ElementRender={({ name, index }) => (
 					<>
 						<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
 							Work Experience
@@ -151,91 +156,105 @@ function InnerForm({ submissionError }) {
 							/>
 						</span>
 
-						<span>
-							<FieldTitle
-								style={{
-									marginTop: "15px",
-									marginBottom: "-10px",
-								}}
-							>
-								End Date
-							</FieldTitle>
-							<T.fields.workExperiences
-								renderer={t => (
-									<Field
-										name={`${name}.endDateMonth`}
-										select
-										required
-										label={t.month}
-										fullWidth={false}
-										style={{
-											width: "47%",
-											marginRight: "3%",
-										}}
-									>
-										<option value="JANUARY">
-											{t.january}
-										</option>
-										<option value="FEBRUARY">
-											{t.february}
-										</option>
-										<option value="MARCH">{t.march}</option>
-										<option value="APRIL">{t.april}</option>
-										<option value="MAY">{t.may}</option>
-										<option value="JUNE">{t.june}</option>
-										<option value="JULY">{t.july}</option>
-										<option value="AUGUST">
-											{t.august}
-										</option>
-										<option value="SEPTEMBER">
-											{t.september}
-										</option>
-										<option value="OCTOBER">
-											{t.october}
-										</option>
-										<option value="NOVEMBER">
-											{t.november}
-										</option>
-										<option value="DECEMBER">
-											{t.december}
-										</option>
-									</Field>
-								)}
-							/>
-
-							<T.fields.workExperiences
-								renderer={t => (
-									<Field
-										name={`${name}.endDateYear`}
-										select
-										required
-										label={t.year}
-										fullWidth={false}
-										style={{
-											width: "47%",
-											marginLeft: "3%",
-										}}
-									>
-										{years.map((year, i) => (
-											<option value={year} key={i}>
-												{year}
+						<FieldTitle
+							style={{
+								marginTop: "15px",
+								marginBottom: "-10px",
+							}}
+						>
+							End Date
+						</FieldTitle>
+						{values.workExperiences[index].iCurrentlyWorkHere && (
+							<>
+								<br />
+								Present
+								<br />
+							</>
+						)}
+						{!values.workExperiences[index].iCurrentlyWorkHere && (
+							<span>
+								<T.fields.workExperiences
+									renderer={t => (
+										<Field
+											name={`${name}.endDateMonth`}
+											select
+											required
+											label={t.month}
+											fullWidth={false}
+											style={{
+												width: "47%",
+												marginRight: "3%",
+											}}
+										>
+											<option value="JANUARY">
+												{t.january}
 											</option>
-										))}
-									</Field>
-								)}
-							/>
-						</span>
-
-						<T.fields.workExperiences
-							renderer={t => (
-								<FormControlLabel
-									value="Placeholder"
-									control={<Checkbox color="primary" />}
-									label={t.iCurrentlyWorkHere}
-									style={{ marginBottom: "-10px" }}
+											<option value="FEBRUARY">
+												{t.february}
+											</option>
+											<option value="MARCH">
+												{t.march}
+											</option>
+											<option value="APRIL">
+												{t.april}
+											</option>
+											<option value="MAY">{t.may}</option>
+											<option value="JUNE">
+												{t.june}
+											</option>
+											<option value="JULY">
+												{t.july}
+											</option>
+											<option value="AUGUST">
+												{t.august}
+											</option>
+											<option value="SEPTEMBER">
+												{t.september}
+											</option>
+											<option value="OCTOBER">
+												{t.october}
+											</option>
+											<option value="NOVEMBER">
+												{t.november}
+											</option>
+											<option value="DECEMBER">
+												{t.december}
+											</option>
+										</Field>
+									)}
 								/>
-							)}
-						/>
+
+								<T.fields.workExperiences
+									renderer={t => (
+										<Field
+											name={`${name}.endDateYear`}
+											select
+											required
+											label={t.year}
+											fullWidth={false}
+											style={{
+												width: "47%",
+												marginLeft: "3%",
+											}}
+										>
+											{years.map((year, i) => (
+												<option value={year} key={i}>
+													{year}
+												</option>
+											))}
+										</Field>
+									)}
+								/>
+							</span>
+						)}
+
+						<label>
+							<Field
+								name={`${name}.iCurrentlyWorkHere`}
+								type="checkbox"
+							/>
+							<T.fields.workExperiences.iCurrentlyWorkHere />
+						</label>
 
 						<Field
 							name={`${name}.experienceDescription`}
