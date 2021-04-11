@@ -42,10 +42,7 @@ const CheckboxField = styled(Field)`
 
 function InnerForm({ submissionError }) {
 	const { values } = useFormikContext();
-	console.log("val", values);
-	let iCurrentlyWorkHere = values.workExperiences[0].iCurrentlyWorkHere;
-	console.log("cr", iCurrentlyWorkHere);
-	//values.workExperiences[0].iCurrentlyWorkHere = false;
+
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -256,13 +253,13 @@ function InnerForm({ submissionError }) {
 							</span>
 						)}
 
-						<label>
-							<Field
+						<CheckboxLabel>
+							<CheckboxField
 								name={`${name}.iCurrentlyWorkHere`}
 								type="checkbox"
 							/>
 							<T.fields.workExperiences.iCurrentlyWorkHere />
-						</label>
+						</CheckboxLabel>
 
 						<Field
 							name={`${name}.experienceDescription`}
@@ -348,51 +345,23 @@ function InnerForm({ submissionError }) {
 			<br />
 			<br />
 
+			<FieldTitle>
+				<T.fields.availability.label /> {" *"}
+			</FieldTitle>
 			<FormGroup>
 				<CheckboxLabel>
-					<CheckboxField
-						name="morning"
-						type="checkbox"
-						Label={T.fields.availability.morning}
-					/>
-					<span>Morning Shift</span>
+					<CheckboxField name="morning" type="checkbox" />
+					<T.fields.availability.morning />
 				</CheckboxLabel>
 				<CheckboxLabel>
 					<CheckboxField name="afternoon" type="checkbox" />
-					Morning Shift
+					<T.fields.availability.afternoon />
 				</CheckboxLabel>
 				<CheckboxLabel>
 					<CheckboxField name="night" type="checkbox" />
-					Morning Shift
+					<T.fields.availability.night />
 				</CheckboxLabel>
 			</FormGroup>
-
-			{/* <T.fields.availability
-				renderer={t => (
-					<Field
-						name="availability"
-						type="checkboxButtons"
-						label={t.label}
-						options={[
-							<FormControlLabel
-								name="supaTest"
-								control={<Checkbox />}
-								label={t.morning}
-							/>,
-							<FormControlLabel
-								name="supaTest2"
-								control={<Checkbox />}
-								label={t.afternoon}
-							/>,
-							<FormControlLabel
-								name="supaTest3"
-								control={<Checkbox />}
-								label={t.night}
-							/>,
-						]}
-					/>
-				)}
-			/> */}
 
 			<Field
 				name="availabilityComments"
