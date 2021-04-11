@@ -39,6 +39,7 @@ const initialValues = {
 			startDateYear: "",
 			endDateMonth: "",
 			endDateYear: "",
+			iCurrentlyWorkHere: false,
 			experienceDescription: "",
 		},
 	],
