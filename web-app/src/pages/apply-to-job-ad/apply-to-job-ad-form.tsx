@@ -8,6 +8,7 @@ import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
+import { workExperienceSchema } from "src/form-schemas";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
@@ -28,6 +29,28 @@ const initialValues = {
 	fullName: "",
 	email: "",
 	phoneNumber: "",
+	city: "",
+	neighborhood: "",
+	workExperiences: [
+		{
+			jobTitle: "",
+			companyName: "",
+			city: "",
+			startDateMonth: "",
+			startDateYear: "",
+			endDateMonth: "",
+			endDateYear: "",
+			iCurrentlyWorkHere: false,
+			experienceDescription: "",
+		},
+	],
+	skills: ["skill1"],
+	certificatesAndLicences: ["certif"],
+	highestLevelOfEducation: "",
+	morning: false,
+	afternoon: false,
+	night: false,
+	availabilityComments: "",
 	coverLetter: "",
 };
 
@@ -39,6 +62,24 @@ const schema = yup.object().shape({
 		.email()
 		.required(),
 	phoneNumber: yup.string().required(),
+	city: yup.string().required(),
+	neighborhood: yup.string(),
+	workExperiences: yup.array().of(workExperienceSchema),
+	skills: yup.array().of(yup.string()),
+	certificatesAndLicences: yup.array().of(yup.string()),
+	highestLevelOfEducation: yup
+		.string()
+		.oneOf([
+			"SOME_HIGH_SCHOOL",
+			"HIGH_SCHOOL",
+			"SOME_COLLEGE",
+			"COLLEGE_DEGREE",
+		])
+		.required("test"),
+	morning: yup.boolean(),
+	afternoon: yup.boolean(),
+	night: yup.boolean(),
+	availabilityComments: yup.string(),
 	coverLetter: yup.string(),
 });
 
@@ -129,7 +170,7 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 					setLoginRegisterModal
 				)}
 			>
-				<InnerForm submissionError={submissionError} fullName={fullName} />
+				<InnerForm submissionError={submissionError} />
 			</Formik>
 			{loginRegisterModal}
 		</>

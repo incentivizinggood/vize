@@ -62,7 +62,8 @@ export default {
 		changePassword: "Cambiar Contraseña",
 	},
 	needToBeLoggedInToView: {
-		youNeedToBeLoggedInToView: "Tienes que iniciar una sesión para usar esta página.",
+		youNeedToBeLoggedInToView:
+			"Tienes que iniciar una sesión para usar esta página.",
 		login: "Iniciar Sesión",
 	},
 	footer: {
@@ -424,6 +425,89 @@ export default {
 				label: "Numero telefonico",
 				placeholder: "###-###-####",
 			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			workExperiences: {
+				label: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "another" : "an"} experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+				},
+				iCurrentlyWorkHere: "I currently work here",
+				month: "Month",
+				year: "Year",
+				january: "Janauary",
+				february: "February",
+				march: "March",
+				april: "April",
+				may: "May",
+				june: "June",
+				july: "July",
+				august: "August",
+				september: "September",
+				october: "October",
+				november: "November",
+				december: "December",
+			},
+			skills: {
+				label: "Skills",
+				placeholder:
+					"e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder: "e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Highest level of education", // Grado mas alto de educacion
+				someHighScool: "Some High School", // Preparatoria Trunca
+				highSchool: "High School", // Preparatoria Trunca
+				someCollege: "Some College", // Universidad Trunca
+				collegeDegree: "College Degree", //Educacion Superiro
+			},
+			availability: {
+				label: "Availability",
+
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
+			},
 			coverLetter: {
 				label: "Carta de presentación / Comentarios adicionales",
 				placeholder:
@@ -494,13 +578,18 @@ export default {
 			submit: "Enviar",
 		},
 		jobApplicationSubmitted: {
-			jobApplicationSubmitted: "Tu solicitud de trabajo se envió con exito a ",
-			companyWillReachOut: " se comunicará contigo pronto si hay algún interés. Te informaremos cuando se cubran las vacantes para este empleo.",
-			contactUs: "Por favor mandanos un mensaje por WhatsApp o responde a este email si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: ",
-			readReviews: "Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
+			jobApplicationSubmitted:
+				"Tu solicitud de trabajo se envió con exito a ",
+			companyWillReachOut:
+				" se comunicará contigo pronto si hay algún interés. Te informaremos cuando se cubran las vacantes para este empleo.",
+			contactUs:
+				"Por favor mandanos un mensaje por WhatsApp o responde a este email si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: ",
+			readReviews:
+				"Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
 			readReviewsButton: "Leer Evaluaciones",
 			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
-			referralMessage: "¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
+			referralMessage:
+				"¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
 		},
 		jobsearch: {
 			loading: "Cargando...",
@@ -525,7 +614,8 @@ export default {
 			placeholder_comments: "Por favor deje sus comentarios",
 		},
 		forEmployers: {
-			resourcesPageText: "Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
+			resourcesPageText:
+				"Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
 			resources: "Recursos",
 			headerText:
 				"Recluta y retiene a la mejor fuerza laboral en Tijuna con Vize",

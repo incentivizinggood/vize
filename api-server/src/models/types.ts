@@ -112,6 +112,18 @@ export type JobApplication = {
 	fullName: string;
 	email: string;
 	phoneNumber: string;
+	city: string;
+	neighborhood: string | null;
+	workExperiences: any;
+	skills: Array<string> | null;
+	certificatesAndLicences: Array<string> | null;
+	highestLevelOfEducation:
+		| "SOME_HIGH_SCHOOL"
+		| "HIGH_SCHOOL"
+		| "SOME_COLLEGE"
+		| "COLLEGE_DEGREE";
+	availability: Array<string>;
+	availabilityComments: string | null;
 	coverLetter: string | null;
 
 	jobAdId: number;

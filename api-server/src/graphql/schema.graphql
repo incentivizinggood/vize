@@ -219,6 +219,14 @@ input ApplyToJobAdInput {
 	fullName: String!
 	email: String!
 	phoneNumber: String!
+	city: String!
+	neighborhood: String
+	workExperiences: [WorkExperienceInput]
+	skills: [String]
+	certificatesAndLicences: [String]
+	highestLevelOfEducation: String!
+	availability: [String]!
+	availabilityComments: String
 	coverLetter: String
 }
 
@@ -430,6 +438,14 @@ type JobApplication {
 	fullName: String!
 	email: String!
 	phoneNumber: String!
+	city: String!
+	neighborhood: String
+	workExperiences: [WorkExperience]
+	skills: [String]
+	certificatesAndLicences: [String]
+	highestLevelOfEducation: String!
+	availability: [String]!
+	availabilityComments: String
 	coverLetter: String
 
 	jobAd: JobAd!
@@ -521,7 +537,7 @@ type UserProfile {
 	phoneNumber: String!
 	city: String!
 	neighborhood: String
-	workExperiences: [WorkExperience!]
+	workExperiences: [WorkExperience]
 	skills: [String]
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
