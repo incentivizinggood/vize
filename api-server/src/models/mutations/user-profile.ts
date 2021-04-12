@@ -36,7 +36,6 @@ export async function createUserProfile(
 	input: unknown,
 	userId: number
 ): Promise<boolean> {
-	console.log("now in trans");
 	const {
 		fullName,
 		phoneNumber,

@@ -88,8 +88,18 @@ const onSubmit = (
 	history,
 	setSubmissionError,
 	setLoginRegisterModal,
-) => (values, actions) =>
-	applyToJobAd({
+) => (values, actions) => {
+	let availabilityArray = [];
+	if (values.morning) availabilityArray.push("MORNING_SHIFT");
+	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
+	if (values.night) availabilityArray.push("NIGHT_SHIFT");
+	delete values["morning"];
+	delete values["afternoon"];
+	delete values["night"];
+
+	values["availability"] = availabilityArray;
+	
+	return applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(values),
 		},
@@ -129,7 +139,8 @@ const onSubmit = (
 				actions.setErrors(formErrors);
 				actions.setSubmitting(false);
 			}
-		});
+		})
+	};
 
 export interface ApplyToJobAdFormProps {
 	jobAdId: string;

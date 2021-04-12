@@ -6,6 +6,7 @@ import { sendEmail, EmailConfig } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
 
 import { locationInputSchema } from "./location";
+import { workExperienceInputSchema } from "./work-experience";
 
 const createJobAdInputSchema = yup
 	.object({
@@ -176,6 +177,26 @@ const createApplyToJobAdInputSchema = yup
 			.email()
 			.required(),
 		phoneNumber: yup.string().required(),
+		city: yup.string().required(),
+		neighborhood: yup.string(),
+		workExperiences: yup.array().of(workExperienceInputSchema),
+		skills: yup.array().of(yup.string()),
+		certificatesAndLicences: yup.array().of(yup.string()),
+		highestLevelOfEducation: yup
+			.string()
+			.oneOf([
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			])
+			.required(),
+		availability: yup
+			.array()
+			.required()
+			.min(1)
+			.of(yup.string()),
+		availabilityComments: yup.string(),
 		coverLetter: yup.string(),
 	})
 	.required();
@@ -187,6 +208,14 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		fullName,
 		email: applicantEmail,
 		phoneNumber,
+		city,
+		neighborhood,
+		workExperiences,
+		skills,
+		certificatesAndLicences,
+		highestLevelOfEducation,
+		availability,
+		availabilityComments,
 		coverLetter,
 		numReviews,
 	} = await createApplyToJobAdInputSchema.validate(input);
@@ -210,6 +239,14 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					full_name,
 					phone_number,
 					email,
+					location_city,
+					location_neighborhood,
+					work_experiences,
+					skills,
+					certificates_and_licences,
+					education_level,
+					work_availability,
+					availability_comments,
 					cover_letter,
 					jobadid,
 					companyid
@@ -219,6 +256,14 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					${fullName},
 					${phoneNumber},
 					${applicantEmail},
+					${city},
+					${neighborhood},
+					${JSON.stringify(workExperiences)},
+					${skills},
+					${certificatesAndLicences},
+					${highestLevelOfEducation},
+					${availability},
+					${availabilityComments},
 					${coverLetter},
 					${jobAdId},
 					${companyId}

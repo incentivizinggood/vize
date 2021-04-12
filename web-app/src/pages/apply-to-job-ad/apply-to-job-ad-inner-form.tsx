@@ -4,7 +4,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
-import PrivacyIcon from "@material-ui/icons/Security";
 
 import { Button } from "src/components/button";
 import {
