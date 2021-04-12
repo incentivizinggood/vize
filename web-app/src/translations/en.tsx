@@ -422,6 +422,89 @@ export default {
 				label: "Phone Number",
 				placeholder: "###-###-####",
 			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			workExperiences: {
+				label: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "another" : "an"} experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+				},
+				iCurrentlyWorkHere: "I currently work here",
+				month: "Month",
+				year: "Year",
+				january: "Janauary",
+				february: "February",
+				march: "March",
+				april: "April",
+				may: "May",
+				june: "June",
+				july: "July",
+				august: "August",
+				september: "September",
+				october: "October",
+				november: "November",
+				december: "December",
+			},
+			skills: {
+				label: "Skills",
+				placeholder:
+					"e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder: "e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Highest level of education", // Grado mas alto de educacion
+				someHighScool: "Some High School", // Preparatoria Trunca
+				highSchool: "High School", // Preparatoria Trunca
+				someCollege: "Some College", // Universidad Trunca
+				collegeDegree: "College Degree", //Educacion Superiro
+			},
+			availability: {
+				label: "Availability",
+
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
+			},
 			coverLetter: {
 				label: "Cover Letter/Additional Comments",
 				placeholder:
