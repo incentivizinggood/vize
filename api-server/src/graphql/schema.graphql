@@ -109,7 +109,6 @@ input CreateUserProfileInput {
 	phoneNumber: String!
 	city: String!
 	neighborhood: String
-	address: String
 	workExperiences: [WorkExperienceInput]
 	skills: [String]
 	certificatesAndLicences: [String]
@@ -522,7 +521,6 @@ type UserProfile {
 	phoneNumber: String!
 	city: String!
 	neighborhood: String
-	address: String
 	workExperiences: [WorkExperience!]
 	skills: [String]
 	certificatesAndLicences: [String]
