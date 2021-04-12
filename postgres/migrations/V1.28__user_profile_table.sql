@@ -4,12 +4,12 @@ CREATE TABLE user_profiles (
 	userid serial PRIMARY KEY,
     date_added timestamp with time zone default now(),
 	full_name VARCHAR(40) NOT NULL,
-	phone_number VARCHAR(16) NOT NULL,
+	phone_number VARCHAR(15) NOT NULL,
 	location_city text NOT NULL,
 	location_neighborhood text,
     work_experiences jsonb,
 	skills text[],
-	certificates_and_licences text,
+	certificates_and_licences text[],
 	education_level text
         NOT NULL
         CHECK (education_level IN ('SOME_HIGH_SCHOOL', 'HIGH_SCHOOL', 'SOME_COLLEGE', 'COLLEGE_DEGREE')),
