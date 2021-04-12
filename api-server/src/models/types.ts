@@ -176,7 +176,6 @@ export type UserProfile = {
 	phoneNumber: string;
 	city: string;
 	neighborhood: string | null;
-	address: string | null;
 	workExperiences: any;
 	skills: Array<string> | null;
 	certificatesAndLicences: Array<string> | null;

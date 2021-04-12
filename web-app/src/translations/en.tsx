@@ -453,10 +453,6 @@ export default {
 				placeholder:
 					"Enter the name of the neighborhood or area of the city that you live in",
 			},
-			address: {
-				label: "Address",
-				placeholder: "Enter the address where you live",
-			},
 			longTermGoal: {
 				label: "Long Term Professional Goal",
 				placeholder: "What is your professional goal in 3-10 years?",

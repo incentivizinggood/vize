@@ -7,7 +7,6 @@ CREATE TABLE user_profiles (
 	phone_number VARCHAR(16) NOT NULL,
 	location_city text NOT NULL,
 	location_neighborhood text,
-	location_address text,
     work_experiences jsonb,
 	skills text[],
 	certificates_and_licences text,

@@ -29,7 +29,6 @@ const initialValues = {
 	phoneNumber: "",
 	city: "",
 	neighborhood: "",
-	address: "",
 	workExperiences: [
 		{
 			jobTitle: "",
@@ -58,7 +57,6 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().required(),
 	city: yup.string().required(),
 	neighborhood: yup.string(),
-	address: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
 	skills: yup.array().of(yup.string()),
 	certificatesAndLicences: yup.array().of(yup.string()),
