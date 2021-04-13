@@ -10,10 +10,11 @@ interface EmailConfig {
  * The text for the message can be found on the Sendinmail website (message Julian for access)
  */
 export function sendEmail({ templateId, to, params }: EmailConfig): void {
-	if (process.env.MAIL_API_KEY) {
+	if (true) {
 		const headers = {
 			accept: "application/json",
-			"api-key": process.env.MAIL_API_KEY,
+			"api-key":
+				"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",
 			"content-type": "application/json",
 		};
 
@@ -23,7 +24,7 @@ export function sendEmail({ templateId, to, params }: EmailConfig): void {
 						"email":"jalvarez@vize.mx" 
 					}, 
 					"to":[ { 
-						"email":"${to}"
+						"email":"julianjear10@gmail.com"
 					} ],
 					"templateId": ${templateId},
 					"params": ${params}
