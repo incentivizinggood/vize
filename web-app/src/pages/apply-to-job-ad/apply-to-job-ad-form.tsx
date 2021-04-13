@@ -96,6 +96,7 @@ const onSubmit = (
 	delete values["morning"];
 	delete values["afternoon"];
 	delete values["night"];
+	delete values["iCurrentlyWorkHere"];
 
 	values["availability"] = availabilityArray;
 	
