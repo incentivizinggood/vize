@@ -21,6 +21,7 @@ import { JobApplication } from "./job-application";
 import { Review } from "./review";
 import { Salary } from "./salary";
 import { User } from "./user";
+import { UserProfile } from "./user-profile";
 import { VoteSubject } from "./vote-subject";
 import { Vote } from "./vote";
 
@@ -37,6 +38,7 @@ export const resolvers: IResolvers = {
 	Review,
 	Salary,
 	User,
+	UserProfile,
 	VoteSubject,
 	Vote,
 	DateTime: GraphQLDateTime,
