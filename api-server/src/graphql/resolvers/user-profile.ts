@@ -14,4 +14,7 @@ export const User: UserProfileResolvers = {
 
 		return null;
 	},
+
+	highestLevelOfEducation: (obj, _args, _context, _info) =>
+		String(obj.highestLevelOfEducation),
 };
