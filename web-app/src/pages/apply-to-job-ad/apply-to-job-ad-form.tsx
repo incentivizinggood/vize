@@ -12,6 +12,7 @@ import { workExperienceSchema } from "src/form-schemas";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
+import { useGetUserProfileDataQuery } from "generated/graphql-operations";
 
 import InnerForm from "./apply-to-job-ad-inner-form";
 
@@ -24,7 +25,7 @@ function omitEmptyStrings(x) {
 	return x;
 }
 
-const initialValues = {
+let initialValues = {
 	jobAdId: "",
 	fullName: "",
 	email: "",
@@ -149,13 +150,35 @@ export interface ApplyToJobAdFormProps {
 
 export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	const history = useHistory();
+	const user = useUser();
+
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	const [applyToJobAd] = useApplyToJobAdMutation();
 	const { data } = useGetJobTitleAndCompanyIdQuery({
 		variables: { jobAdId },
 	});
-	const user = useUser();
+	console.log('user', user);
+
+	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
+		variables: { userId: user ? user.id : "0" },
+	});
+
+	if(userProfileData?.userProfile) {
+		let userProfile = userProfileData.userProfile;
+		// if (userProfile["availability"].includes("AFTERNOON_SHIFT")) userProfile.afternoon = true;
+		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
+		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
+		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
+		delete userProfile["availability"];
+
+		console.log('up', userProfile);
+	}
+	
+	console.log('userProfile', userProfileData);
+	console.log('userProfileload', loading);
+	console.log('userProfileerror', error);
+	
 
 	const jobTitle = data?.jobAd?.jobTitle;
 	const companyId = data?.jobAd?.company.id;
@@ -163,6 +186,11 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 
 	if (user) {
 		loginRegisterModal = null;
+		
+		
+		// const userId = user.id;
+		
+		// console.log('user', data);
 	}
 
 	return (

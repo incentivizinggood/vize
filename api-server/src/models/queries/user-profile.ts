@@ -9,7 +9,7 @@ const attributes = sql.raw(
 		'full_name AS "fullName"',
 		'phone_number AS "phoneNumber"',
 		'location_city AS "city"',
-		'location_neighborhood AS "locationNeighborhood"',
+		'location_neighborhood AS "neighborhood"',
 		'work_experiences AS "workExperiences"',
 		"skills",
 		'certificates_and_licences AS "certificatesAndLicences"',
