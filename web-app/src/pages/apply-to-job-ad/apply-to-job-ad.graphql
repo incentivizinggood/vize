@@ -18,6 +18,7 @@ query getUserProfileData($userId: ID!) {
 		fullName
 		phoneNumber
 		city
+		email
 		neighborhood
 		workExperiences {
 			jobTitle
