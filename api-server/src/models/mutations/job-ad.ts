@@ -196,7 +196,7 @@ const createApplyToJobAdInputSchema = yup
 			.required()
 			.min(1)
 			.of(yup.string()),
-		availabilityComments: yup.string(),
+		availabilityComments: yup.string().nullable(),
 		coverLetter: yup.string(),
 	})
 	.required();

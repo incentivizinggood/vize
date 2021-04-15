@@ -72,7 +72,7 @@ const schema = yup.object().shape({
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
-	availabilityComments: yup.string(),
+	availabilityComments: yup.string().nullable(),
 	longTermGoal: yup.string(),
 });
 

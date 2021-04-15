@@ -37,8 +37,6 @@ function formatUserProfileData(userProfile: any) {
 		delete userProfile["availability"];
 	}
 
-	userProfile.skills = ["skill1"];
-	userProfile.certificatesAndLicences = ["certif"];
 	userProfile.coverLetter = "";
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
@@ -104,7 +102,7 @@ const schema = yup.object().shape({
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
-	availabilityComments: yup.string(),
+	availabilityComments: yup.string().nullable(),
 	coverLetter: yup.string(),
 });
 
@@ -114,7 +112,6 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal,
 ) => (values, actions) => {
-	console.log('valll 111', values);
 	let availabilityArray = [];
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -126,10 +123,7 @@ const onSubmit = (
 	values.workExperiences?.forEach(function(_: any, index: number) {
 		delete values.workExperiences[index].iCurrentlyWorkHere;
 	});
-	//delete values.workExperiences[0]["iCurrentlyWorkHere"];
 
-	values["availability"] = availabilityArray;
-	console.log('valll', values);
 	return applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(values),
@@ -187,7 +181,6 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	const { data } = useGetJobTitleAndCompanyIdQuery({
 		variables: { jobAdId },
 	});
-	console.log('user', user);
 
 	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
 		variables: { userId: user ? user.id : "0" },
@@ -201,9 +194,7 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 
 	// If user has a user profile, fill in the form fields with the user profile data
 	if(userProfileData?.userProfile) {
-		initialValues = formatUserProfileData(userProfileData.userProfile, initialValues);
-
-		console.log('upinit', initialValues);
+		initialValues = formatUserProfileData(userProfileData.userProfile);
 	}
 
 	const jobTitle = data?.jobAd?.jobTitle;
@@ -213,7 +204,6 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	if (user) {
 		loginRegisterModal = null;
 	}
-	console.log('iiinniitt', initialValues);
 
 	return (
 		<>
