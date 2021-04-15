@@ -9,6 +9,7 @@ import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
 import { workExperienceSchema } from "src/form-schemas";
+import Spinner from "src/components/Spinner";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
@@ -154,30 +155,51 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
+	let [testValues, setTestValues] = React.useState(initialValues);
 	const [applyToJobAd] = useApplyToJobAdMutation();
 	const { data } = useGetJobTitleAndCompanyIdQuery({
 		variables: { jobAdId },
 	});
 	console.log('user', user);
+	console.log('testval 1', testValues);
 
 	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
 		variables: { userId: user ? user.id : "0" },
 	});
+	if (loading) return <Spinner />;
 
-	if(userProfileData?.userProfile) {
-		let userProfile = userProfileData.userProfile;
-		// if (userProfile["availability"].includes("AFTERNOON_SHIFT")) userProfile.afternoon = true;
-		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
-		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
-		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
-		delete userProfile["availability"];
-
-		console.log('up', userProfile);
-	}
-	
 	console.log('userProfile', userProfileData);
 	console.log('userProfileload', loading);
 	console.log('userProfileerror', error);
+
+	if(userProfileData?.userProfile) {
+		let userProfile = userProfileData.userProfile;
+		delete userProfile["companyId"];
+
+
+		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
+		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
+		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
+		//delete userProfile["availability"];
+
+		userProfile.email = "";
+		userProfile.skills = ["skill1"];
+		userProfile.certificatesAndLicences = ["certif"];
+		userProfile.coverLetter = "";
+
+		userProfile.workExperiences?.forEach(function(experience, index) {
+			userProfile.workExperiences[index].iCurrentlyWorkHere = false;
+		});
+	
+
+		initialValues = userProfile;
+
+		console.log('up', userProfile);
+		console.log('upinit', initialValues);
+		testValues = userProfile;
+	}
+	
+
 	
 
 	const jobTitle = data?.jobAd?.jobTitle;
@@ -192,11 +214,13 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 		
 		// console.log('user', data);
 	}
+	console.log('iiinniitt', initialValues);
+	console.log('testval 2', testValues);
 
 	return (
 		<>
 			<Formik
-				initialValues={merge(initialValues, {
+				initialValues={merge(testValues, {
 					jobAdId,
 					jobTitle,
 					companyId,
