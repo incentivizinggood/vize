@@ -28,19 +28,22 @@ function omitEmptyStrings(x) {
 
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
+	delete userProfile["__typename"];
 
-	userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
-	userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
-	userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
-	delete userProfile["availability"];
+	if(userProfile["availability"]) {
+		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
+		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
+		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
+		delete userProfile["availability"];
+	}
 
-	//userProfile.email = "";
 	userProfile.skills = ["skill1"];
 	userProfile.certificatesAndLicences = ["certif"];
 	userProfile.coverLetter = "";
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
 		userProfile.workExperiences[index].iCurrentlyWorkHere = false;
+		delete userProfile.workExperiences[index].__typename;
 	});
 
 	return userProfile;
@@ -111,6 +114,7 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal,
 ) => (values, actions) => {
+	console.log('valll 111', values);
 	let availabilityArray = [];
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -118,10 +122,14 @@ const onSubmit = (
 	delete values["morning"];
 	delete values["afternoon"];
 	delete values["night"];
-	delete values.workExperiences[0]["iCurrentlyWorkHere"];
+
+	values.workExperiences?.forEach(function(_: any, index: number) {
+		delete values.workExperiences[index].iCurrentlyWorkHere;
+	});
+	//delete values.workExperiences[0]["iCurrentlyWorkHere"];
 
 	values["availability"] = availabilityArray;
-	
+	console.log('valll', values);
 	return applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(values),
@@ -193,7 +201,7 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 
 	// If user has a user profile, fill in the form fields with the user profile data
 	if(userProfileData?.userProfile) {
-		initialValues = formatUserProfileData(userProfileData.userProfile);
+		initialValues = formatUserProfileData(userProfileData.userProfile, initialValues);
 
 		console.log('upinit', initialValues);
 	}
