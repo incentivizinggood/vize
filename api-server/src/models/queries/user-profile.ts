@@ -5,16 +5,16 @@ import { UserProfile } from "src/models";
 
 const attributes = sql.raw(
 	[
-		'userid AS "userId"',
+		'userid AS "id"',
 		'full_name AS "fullName"',
 		'phone_number AS "phoneNumber"',
-		'location_city AS "locationCity"',
+		'location_city AS "city"',
 		'location_neighborhood AS "locationNeighborhood"',
 		'work_experiences AS "workExperiences"',
 		"skills",
 		'certificates_and_licences AS "certificatesAndLicences"',
-		'education_level AS "educationLevel"',
-		'work_availability AS "workAvailability"',
+		'education_level AS "highestLevelOfEducation"',
+		'work_availability AS "availability"',
 		'availability_comments AS "availabilityComments"',
 		'long_term_professional_goal AS "longTermProfessionalGoal"',
 	].join(", ")

@@ -89,6 +89,7 @@ const onSubmit = (
 	delete values["morning"];
 	delete values["afternoon"];
 	delete values["night"];
+	delete values.workExperiences[0]["iCurrentlyWorkHere"];
 
 	values["availability"] = availabilityArray;
 	console.log("through", values);
