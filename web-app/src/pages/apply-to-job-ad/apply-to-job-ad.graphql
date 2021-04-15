@@ -14,7 +14,7 @@ query getJobTitleAndCompanyId($jobAdId: ID!) {
 }
 
 query getUserProfileData($userId: ID!) {
-	userProfile(id: userId) {
+	userProfile(id: $userId) {
 		fullName
 		phoneNumber
 		city
@@ -27,13 +27,12 @@ query getUserProfileData($userId: ID!) {
 			startDateYear
 			endDateMonth
 			endDateYear
-			description
+			experienceDescription
 		}
 		skills
 		certificatesAndLicences
 		highestLevelOfEducation
 		availability
 		availabilityComments
-		longTermGoal
 	}
 }

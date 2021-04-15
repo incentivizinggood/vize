@@ -554,7 +554,7 @@ type WorkExperience {
 	startDateYear: Int!
 	endDateMonth: String
 	endDateYear: Int
-	description: String!
+	experienceDescription: String!
 }
 
 "The kinds of things that can be voted on."
