@@ -59,7 +59,10 @@ const schema = yup.object().shape({
 	neighborhood: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
 	skills: yup.array().of(yup.string()),
-	certificatesAndLicences: yup.array().of(yup.string()),
+	certificatesAndLicences: yup
+		.array()
+		.of(yup.string())
+		.nullable(),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([

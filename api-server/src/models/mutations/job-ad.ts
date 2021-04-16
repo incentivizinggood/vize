@@ -181,7 +181,10 @@ const createApplyToJobAdInputSchema = yup
 		neighborhood: yup.string(),
 		workExperiences: yup.array().of(workExperienceInputSchema),
 		skills: yup.array().of(yup.string()),
-		certificatesAndLicences: yup.array().of(yup.string()),
+		certificatesAndLicences: yup
+			.array()
+			.of(yup.string())
+			.nullable(),
 		highestLevelOfEducation: yup
 			.string()
 			.oneOf([
@@ -279,8 +282,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			? coverLetter.replace(/\n/g, "\\n")
 			: null;
 
-		console.log("expp", workExperiences);
-
 		const employerEmailOptions = {
 			templateId: 2,
 			to: companyEmail,
@@ -293,7 +294,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				"phoneNumber": "${phoneNumber}",
 				"city": "${city}",
 				"neighborhood": "${neighborhood}",
-				"workExperiences": "${workExperiences}",
+				"workExperiences": ${JSON.stringify(workExperiences)},
 				"skills": "${skills}",
 				"certificatesAndLicences": "${certificatesAndLicences}",
 				"highestLevelOfEducation": "${highestLevelOfEducation}",
