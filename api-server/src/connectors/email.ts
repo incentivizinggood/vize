@@ -10,11 +10,10 @@ interface EmailConfig {
  * The text for the message can be found on the Sendinmail website (message Julian for access)
  */
 export function sendEmail({ templateId, to, params }: EmailConfig): void {
-	if (true) {
+	if (process.env.MAIL_API_KEY) {
 		const headers = {
 			accept: "application/json",
-			"api-key":
-				"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",
+			"api-key": process.env.MAIL_API_KEY,
 			"content-type": "application/json",
 		};
 
@@ -38,7 +37,7 @@ export function sendEmail({ templateId, to, params }: EmailConfig): void {
 			body: dataString,
 		};
 
-		function callback(error, response, body) {
+		function callback(error: any, response: any, body: any) {
 			if (!error && response.statusCode == 200) {
 				console.log(body);
 			}

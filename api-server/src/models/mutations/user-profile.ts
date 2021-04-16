@@ -12,7 +12,10 @@ const createUserProfileInputSchema = yup
 		neighborhood: yup.string(),
 		workExperiences: yup.array().of(workExperienceInputSchema),
 		skills: yup.array().of(yup.string()),
-		certificatesAndLicences: yup.array().of(yup.string()),
+		certificatesAndLicences: yup
+			.array()
+			.of(yup.string())
+			.nullable(),
 		highestLevelOfEducation: yup
 			.string()
 			.oneOf([
