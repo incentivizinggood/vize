@@ -39,7 +39,7 @@ function formatUserProfileData(userProfile: any) {
 	}
 
 	userProfile.coverLetter = "";
-	userProfile.skills = ["Super Skill"];
+	//userProfile.skills = ["Super Skill"];
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
 		userProfile.workExperiences[index].iCurrentlyWorkHere = false;
@@ -69,8 +69,8 @@ let initialValues = {
 			experienceDescription: "",
 		},
 	],
-	skills: ["skill1"],
-	certificatesAndLicences: ["certif"],
+	skills: "",
+	certificatesAndLicences: "",
 	highestLevelOfEducation: "",
 	morning: false,
 	afternoon: false,
@@ -90,8 +90,8 @@ const schema = yup.object().shape({
 	city: yup.string().required(),
 	neighborhood: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
-	skills: yup.array().of(yup.string()),
-	certificatesAndLicences: yup.array().of(yup.string()).nullable(),
+	skills: yup.string().required(),
+	certificatesAndLicences: yup.string().nullable(),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
@@ -114,8 +114,6 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal,
 ) => (values, actions) => {
-	console.log('val 11', values);
-
 	let availabilityArray = [];
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -128,7 +126,7 @@ const onSubmit = (
 	values.workExperiences?.forEach(function(_: any, index: number) {
 		delete values.workExperiences[index].iCurrentlyWorkHere;
 	});
-	console.log('val 22', values);
+
 	return applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(values),

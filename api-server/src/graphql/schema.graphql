@@ -110,7 +110,7 @@ input CreateUserProfileInput {
 	city: String!
 	neighborhood: String
 	workExperiences: [WorkExperienceInput]
-	skills: [String]
+	skills: [String]!
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
 	availability: [String]!
@@ -222,7 +222,7 @@ input ApplyToJobAdInput {
 	city: String!
 	neighborhood: String
 	workExperiences: [WorkExperienceInput]
-	skills: [String]
+	skills: [String]!
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
 	availability: [String]!
@@ -441,7 +441,7 @@ type JobApplication {
 	city: String!
 	neighborhood: String
 	workExperiences: [WorkExperience]
-	skills: [String]
+	skills: [String]!
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
 	availability: [String]!
@@ -538,7 +538,7 @@ type UserProfile {
 	city: String!
 	neighborhood: String
 	workExperiences: [WorkExperience]
-	skills: [String]
+	skills: [String]!
 	certificatesAndLicences: [String]
 	highestLevelOfEducation: String!
 	availability: [String]!
