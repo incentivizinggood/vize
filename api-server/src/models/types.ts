@@ -115,7 +115,7 @@ export type JobApplication = {
 	city: string;
 	neighborhood: string | null;
 	workExperiences: any;
-	skills: Array<string> | null;
+	skills: Array<string>;
 	certificatesAndLicences: Array<string> | null;
 	highestLevelOfEducation:
 		| "SOME_HIGH_SCHOOL"
@@ -189,7 +189,7 @@ export type UserProfile = {
 	city: string;
 	neighborhood: string | null;
 	workExperiences: any;
-	skills: Array<string> | null;
+	skills: Array<string>;
 	certificatesAndLicences: Array<string> | null;
 	highestLevelOfEducation:
 		| "SOME_HIGH_SCHOOL"

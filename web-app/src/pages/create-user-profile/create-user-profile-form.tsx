@@ -42,8 +42,8 @@ const initialValues = {
 			experienceDescription: "",
 		},
 	],
-	skills: ["skill1"],
-	certificatesAndLicences: ["certif"],
+	skills: "",
+	certificatesAndLicences: "",
 	highestLevelOfEducation: "",
 	morning: false,
 	afternoon: false,
@@ -58,11 +58,9 @@ const schema = yup.object().shape({
 	city: yup.string().required(),
 	neighborhood: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
-	skills: yup.array().of(yup.string()),
+	skills: yup.string().required(),
 	certificatesAndLicences: yup
-		.array()
-		.of(yup.string())
-		.nullable(),
+		.string(),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
@@ -89,12 +87,21 @@ const onSubmit = (
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (values.night) availabilityArray.push("NIGHT_SHIFT");
+	values["availability"] = availabilityArray;
+
+	const skillsArray = values.skills.split(",");
+	const certificatesAndLicencesArray = values.certificatesAndLicences.split(",");
+	values.skills = skillsArray;
+	values.certificatesAndLicences = certificatesAndLicencesArray;
+	console.log('skills', skillsArray);
 	delete values["morning"];
 	delete values["afternoon"];
 	delete values["night"];
-	delete values.workExperiences[0]["iCurrentlyWorkHere"];
 
-	values["availability"] = availabilityArray;
+	values.workExperiences?.forEach(function(_: any, index: number) {
+		delete values.workExperiences[index].iCurrentlyWorkHere;
+	});
+
 	console.log("through", values);
 	return createUserProfile({
 		variables: {

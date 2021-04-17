@@ -180,7 +180,11 @@ const createApplyToJobAdInputSchema = yup
 		city: yup.string().required(),
 		neighborhood: yup.string(),
 		workExperiences: yup.array().of(workExperienceInputSchema),
-		skills: yup.array().of(yup.string()),
+		skills: yup
+			.array()
+			.required()
+			.min(1)
+			.of(yup.string()),
 		certificatesAndLicences: yup
 			.array()
 			.of(yup.string())
