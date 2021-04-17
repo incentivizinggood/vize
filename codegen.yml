@@ -25,6 +25,7 @@ generates:
         Vote: api-server/src/models/types#Vote
       scalars:
         DateTime: Date
+        Date: Date
       enumsAsTypes: true
     plugins:
       - typescript

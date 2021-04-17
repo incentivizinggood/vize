@@ -57,6 +57,8 @@ export async function createUserProfile(
 		longTermGoal,
 	} = await createUserProfileInputSchema.validate(input);
 
+	console.log("WORK EXP", workExperiences);
+
 	const transaction: Transaction<boolean> = async client => {
 		const {
 			rows: [{ role }],

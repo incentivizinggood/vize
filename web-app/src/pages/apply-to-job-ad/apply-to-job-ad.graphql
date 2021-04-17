@@ -24,10 +24,8 @@ query getUserProfileData($userId: ID!) {
 			jobTitle
 			companyName
 			city
-			startDateMonth
-			startDateYear
-			endDateMonth
-			endDateYear
+			startDate
+			endDate
 			experienceDescription
 		}
 		skills

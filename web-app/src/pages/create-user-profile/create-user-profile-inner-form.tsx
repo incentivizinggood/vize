@@ -106,32 +106,18 @@ function InnerForm({ submissionError }) {
 											marginRight: "3%",
 										}}
 									>
-										<option value="JANUARY">
-											{t.january}
-										</option>
-										<option value="FEBRUARY">
-											{t.february}
-										</option>
-										<option value="MARCH">{t.march}</option>
-										<option value="APRIL">{t.april}</option>
-										<option value="MAY">{t.may}</option>
-										<option value="JUNE">{t.june}</option>
-										<option value="JULY">{t.july}</option>
-										<option value="AUGUST">
-											{t.august}
-										</option>
-										<option value="SEPTEMBER">
-											{t.september}
-										</option>
-										<option value="OCTOBER">
-											{t.october}
-										</option>
-										<option value="NOVEMBER">
-											{t.november}
-										</option>
-										<option value="DECEMBER">
-											{t.december}
-										</option>
+										<option value={0}>{t.january}</option>
+										<option value={1}>{t.february}</option>
+										<option value={2}>{t.march}</option>
+										<option value={3}>{t.april}</option>
+										<option value={4}>{t.may}</option>
+										<option value={5}>{t.june}</option>
+										<option value={6}>{t.july}</option>
+										<option value={7}>{t.august}</option>
+										<option value={8}>{t.september}</option>
+										<option value={9}>{t.october}</option>
+										<option value={10}>{t.november}</option>
+										<option value={11}>{t.december}</option>
 									</Field>
 								)}
 							/>
@@ -189,38 +175,30 @@ function InnerForm({ submissionError }) {
 												marginRight: "3%",
 											}}
 										>
-											<option value="JANUARY">
+											<option value={0}>
 												{t.january}
 											</option>
-											<option value="FEBRUARY">
+											<option value={1}>
 												{t.february}
 											</option>
-											<option value="MARCH">
-												{t.march}
-											</option>
-											<option value="APRIL">
-												{t.april}
-											</option>
-											<option value="MAY">{t.may}</option>
-											<option value="JUNE">
-												{t.june}
-											</option>
-											<option value="JULY">
-												{t.july}
-											</option>
-											<option value="AUGUST">
+											<option value={2}>{t.march}</option>
+											<option value={3}>{t.april}</option>
+											<option value={4}>{t.may}</option>
+											<option value={5}>{t.june}</option>
+											<option value={6}>{t.july}</option>
+											<option value={7}>
 												{t.august}
 											</option>
-											<option value="SEPTEMBER">
+											<option value={8}>
 												{t.september}
 											</option>
-											<option value="OCTOBER">
+											<option value={9}>
 												{t.october}
 											</option>
-											<option value="NOVEMBER">
+											<option value={10}>
 												{t.november}
 											</option>
-											<option value="DECEMBER">
+											<option value={11}>
 												{t.december}
 											</option>
 										</Field>

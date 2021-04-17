@@ -122,10 +122,8 @@ input WorkExperienceInput {
 	jobTitle: String!
 	companyName: String!
 	city: String!
-	startDateMonth: String!
-	startDateYear: Int!
-	endDateMonth: String
-	endDateYear: Int
+	startDate: DateTime!
+	endDate: DateTime
 	experienceDescription: String!
 }
 
@@ -550,10 +548,8 @@ type WorkExperience {
 	jobTitle: String!
 	companyName: String!
 	city: String!
-	startDateMonth: String!
-	startDateYear: Int!
-	endDateMonth: String
-	endDateYear: Int
+	startDate: String!
+	endDate: String
 	experienceDescription: String!
 }
 
@@ -589,3 +585,4 @@ type StarRatings {
 # Date and time serialized as a String in the ISO 8601 format.
 # Provided by graphql-iso-date on npm.
 scalar DateTime
+scalar Date

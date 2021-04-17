@@ -26,10 +26,16 @@ function omitEmptyStrings(x) {
 	return x;
 }
 
+function parseISOString(s: any) {
+	var b = s.split(/\D+/);
+	return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+  }
+
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["__typename"];
 	console.log('userr', userProfile);
+
 
 	if(userProfile["availability"]) {
 		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
@@ -44,6 +50,14 @@ function formatUserProfileData(userProfile: any) {
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
 		userProfile.workExperiences[index].iCurrentlyWorkHere = false;
 		delete userProfile.workExperiences[index].__typename;
+
+		const startDate = new Date(userProfile.workExperiences[index].startDate);
+		const endDate = new Date(userProfile.workExperiences[index].endDate);
+		
+		userProfile.workExperiences[index].startDateMonth = startDate.getMonth();
+		userProfile.workExperiences[index].startDateYear = startDate.getFullYear();
+		userProfile.workExperiences[index].endDateMonth = endDate.getMonth();
+		userProfile.workExperiences[index].endDateYear = endDate.getFullYear();
 	});
 
 	return userProfile;
@@ -114,6 +128,7 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal,
 ) => (values, actions) => {
+	console.log('vall', values);
 	let availabilityArray = [];
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -207,6 +222,8 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 	if (user) {
 		loginRegisterModal = null;
 	}
+
+	console.log('init', initialValues);
 
 	return (
 		<>
