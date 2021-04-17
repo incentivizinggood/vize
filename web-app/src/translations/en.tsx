@@ -525,8 +525,9 @@ export default {
 					"Enter the name of the neighborhood or area of the city that you live in",
 			},
 			longTermGoal: {
-				label: "Long Term Professional Goal",
-				placeholder: "What is your professional goal in 3-10 years?",
+				label: "Your Dream Job",
+				placeholder:
+					"What job do you want to have in 5 years? We'll match you with other people that have a similar goal.",
 			},
 			workExperiences: {
 				label: "Work Experience",

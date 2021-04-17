@@ -374,15 +374,13 @@ function InnerForm({ submissionError }) {
 			<br />
 			<FieldTitle>Long Term Professional Goal</FieldTitle>
 			<FieldDescription>
-				Where do you want to be professionally in 3-10 years? What is
-				your dream job or dream company?
+				What job do you want to have in 5 years? We'll match you with
+				other people that have a similar goal.
 			</FieldDescription>
 			<FieldDescription>
 				<PrivacyIcon style={{ marginRight: "5px" }} />
 				This information will not be shared with any employer when you
-				apply to a job. If you choose to fill out this field, we will
-				use your goal to match you with other workers that have a
-				similar goal.
+				apply to a job.
 			</FieldDescription>
 			<Field name="longTermGoal" type="text" t={T.fields.longTermGoal} />
 
