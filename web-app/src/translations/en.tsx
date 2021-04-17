@@ -514,9 +514,9 @@ export default {
 		submit: "Submit",
 	},
 	userProfileForm: {
-		formTitle: "Create a User Profile",
+		formTitle: "Create a Profile",
 		formDescription:
-			"Create a user profile to apply to jobs with one click. This will save you a lot of time and make it easier to apply to many jobs.",
+			"With this profile you can apply to jobs with just one click!",
 		fields: {
 			fullName: {
 				label: "Full Name",
