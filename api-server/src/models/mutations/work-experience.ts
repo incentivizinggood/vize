@@ -6,7 +6,12 @@ export const workExperienceInputSchema = yup
 		companyName: yup.string().required(),
 		city: yup.string().required(),
 		startDate: yup.date().required(),
-		endDate: yup.date(),
+		endDate: yup
+			.date()
+			.min(
+				yup.ref("startDate"),
+				"La fecha de finalización debe de ser despues de la fecha de comienzo"
+			),
 		experienceDescription: yup.string().required(),
 	})
 	.required();
