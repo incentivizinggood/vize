@@ -100,6 +100,20 @@ const onSubmit = (
 
 	values.workExperiences?.forEach(function(_: any, index: number) {
 		delete values.workExperiences[index].iCurrentlyWorkHere;
+
+		const startDateYear = values.workExperiences[index].startDateYear;
+		const startDateMonth = values.workExperiences[index].startDateMonth;
+		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
+		values.workExperiences[index].startDate = startDate;
+		delete values.workExperiences[index].startDateMonth;
+		delete values.workExperiences[index].startDateYear;
+
+		const endDateYear = values.workExperiences[index].endDateYear;
+		const endDateMonth = values.workExperiences[index].endDateMonth;
+		const endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+		values.workExperiences[index].endDate = endDate;
+		delete values.workExperiences[index].endDateMonth;
+		delete values.workExperiences[index].endDateYear;
 	});
 
 	console.log("through", values);

@@ -63,7 +63,7 @@ export const Mutation: MutationResolvers = {
 
 	createUserProfile: async (_obj, { input }, context, _info) => {
 		// Error in English: Not Logged In
-		console.log("were in here");
+		console.log("were in here", input);
 		if (!context.user)
 			throw new Error("Tienes que iniciar una sesión o registrarte");
 		const success = await dataModel.createUserProfile(

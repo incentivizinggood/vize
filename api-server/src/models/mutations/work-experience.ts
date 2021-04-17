@@ -5,10 +5,8 @@ export const workExperienceInputSchema = yup
 		jobTitle: yup.string().required(),
 		companyName: yup.string().required(),
 		city: yup.string().required(),
-		startDateMonth: yup.string().required(),
-		startDateYear: yup.number().required(),
-		endDateMonth: yup.string(),
-		endDateYear: yup.number(),
+		startDate: yup.date().required(),
+		endDate: yup.date(),
 		experienceDescription: yup.string().required(),
 	})
 	.required();
