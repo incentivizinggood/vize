@@ -84,14 +84,16 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal
 ) => (values, actions) => {
+	console.log("through BEFORE", values);
+
 	let availabilityArray = [];
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (values.night) availabilityArray.push("NIGHT_SHIFT");
 	values["availability"] = availabilityArray;
 
-	const skillsArray = values.skills.split(",");
-	const certificatesAndLicencesArray = values.certificatesAndLicences.split(",");
+	const skillsArray = values.skills.includes(",") ? values.skills.split(",") : [values.skills];
+	const certificatesAndLicencesArray = values.certificatesAndLicences.includes(",") ? values.certificatesAndLicences.split(",") : [values.certificatesAndLicences];
 	values.skills = skillsArray;
 	values.certificatesAndLicences = certificatesAndLicencesArray;
 	console.log('skills', skillsArray);
@@ -119,7 +121,6 @@ const onSubmit = (
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 
 	console.log("through", values);
-	console.log("userProfileddaata", userProfile);
 	return updateOrCreateUserProfile({
 		variables: {
 			input: omitEmptyStrings(values),
