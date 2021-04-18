@@ -1,0 +1,28 @@
+mutation createUserProfile($input: CreateUserProfileInput!) {
+	createUserProfile(input: $input) {
+		success
+	}
+}
+
+query getUserProfileData($userId: ID!) {
+	userProfile(id: $userId) {
+		fullName
+		phoneNumber
+		city
+		email
+		neighborhood
+		workExperiences {
+			jobTitle
+			companyName
+			city
+			startDate
+			endDate
+			experienceDescription
+		}
+		skills
+		certificatesAndLicences
+		highestLevelOfEducation
+		availability
+		availabilityComments
+	}
+}
