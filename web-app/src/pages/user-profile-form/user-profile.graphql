@@ -4,6 +4,12 @@ mutation createUserProfile($input: CreateUserProfileInput!) {
 	}
 }
 
+mutation updateUserProfile($input: CreateUserProfileInput!) {
+	updateUserProfile(input: $input) {
+		success
+	}
+}
+
 query getUserProfileData($userId: ID!) {
 	userProfile(id: $userId) {
 		fullName
