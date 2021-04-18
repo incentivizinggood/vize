@@ -15,6 +15,7 @@ const T = translations.userProfileForm;
 
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
+	delete userProfile["email"];
 	delete userProfile["__typename"];
 	console.log('userr', userProfile);
 

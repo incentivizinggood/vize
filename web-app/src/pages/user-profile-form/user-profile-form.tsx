@@ -77,7 +77,9 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = (
+	userProfile,
 	createUserProfile,
+	updateUserProfile,
 	history,
 	setSubmissionError,
 	setLoginRegisterModal
@@ -114,9 +116,11 @@ const onSubmit = (
 		delete values.workExperiences[index].endDateMonth;
 		delete values.workExperiences[index].endDateYear;
 	});
+	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 
 	console.log("through", values);
-	return createUserProfile({
+	console.log("userProfileddaata", userProfile);
+	return updateOrCreateUserProfile({
 		variables: {
 			input: omitEmptyStrings(values),
 		},
@@ -175,10 +179,12 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	const [createUserProfile] = useCreateUserProfileMutation();
+	const [updateUserProfile] = useUpdateUserProfileMutation();
 
 	if (userProfile) {
 		initialValues = userProfile;
 	}
+	console.log('up user', userProfile);	
 	// const { data } = useCompanyIdFromJobAdIdQuery({
 	// 	variables: { jobAdId },
 	// });
@@ -194,7 +200,9 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 				initialValues={initialValues}
 				validationSchema={schema}
 				onSubmit={onSubmit(
+					userProfile,
 					createUserProfile,
+					updateUserProfile,
 					history,
 					setSubmissionError,
 					setLoginRegisterModal
