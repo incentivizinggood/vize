@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { workExperienceInputSchema } from "./work-experience";
 
-const createUserProfileInputSchema = yup
+const userProfileInputSchema = yup
 	.object({
 		fullName: yup.string().required(),
 		phoneNumber: yup.string().required(),
@@ -55,7 +55,7 @@ export async function createUserProfile(
 		availability,
 		availabilityComments,
 		longTermGoal,
-	} = await createUserProfileInputSchema.validate(input);
+	} = await userProfileInputSchema.validate(input);
 
 	console.log("WORK EXP", workExperiences);
 
@@ -111,6 +111,67 @@ export async function createUserProfile(
 					${availabilityComments},
 					${longTermGoal}
 				)
+		`);
+
+		return true;
+	};
+
+	return execTransactionRW(transaction);
+}
+
+export async function updateUserProfile(
+	input: unknown,
+	userId: number
+): Promise<boolean> {
+	const {
+		fullName,
+		phoneNumber,
+		city,
+		neighborhood,
+		workExperiences,
+		skills,
+		certificatesAndLicences,
+		highestLevelOfEducation,
+		availability,
+		availabilityComments,
+		longTermGoal,
+	} = await userProfileInputSchema.validate(input);
+
+	const transaction: Transaction<boolean> = async client => {
+		const {
+			rows: [{ role }],
+		} = await client.query(
+			sql`SELECT role, userid FROM users WHERE userid=${userId}`
+		);
+
+		if (role !== "worker") {
+			// Error in English: Only workers can update a user profile. You must create a worker account.
+			throw new Error(
+				"Solo los trabajadores pueden actualizar su perfil. Tienes que crear una cuenta de trabajador."
+			);
+		}
+
+		if (userId === null) {
+			// Error in English: "You must create an account before you can create a User Profile."
+			throw new Error(
+				'Tienes que crear una cuenta antes de crear un perfil. Navega a "Crear Cuenta" en la barra de navegación.'
+			);
+		}
+
+		await client.query(sql`
+			UPDATE user_profiles 
+			SET	full_name = ${fullName},
+				phone_number = ${phoneNumber},
+				location_city = ${city},
+				location_neighborhood = ${neighborhood},
+				work_experiences = ${JSON.stringify(workExperiences)},
+				skills = ${skills},
+				certificates_and_licences = ${certificatesAndLicences},
+				education_level = ${highestLevelOfEducation},
+				work_availability = ${availability},
+				availability_comments = ${availabilityComments},
+				long_term_professional_goal = ${longTermGoal}
+			WHERE userid = ${userId}
 		`);
 
 		return true;

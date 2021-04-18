@@ -1,5 +1,0 @@
-mutation createUserProfile($input: CreateUserProfileInput!) {
-	createUserProfile(input: $input) {
-		success
-	}
-}

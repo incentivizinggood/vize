@@ -67,6 +67,7 @@ type Mutation {
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
 	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
 	createUserProfile(input: CreateUserProfileInput!): CreateUserProfilePayload
+	updateUserProfile(input: CreateUserProfileInput!): CreateUserProfilePayload
 	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
 
 	flagReview(input: FlagReviewInput!): FlagReviewPayload
