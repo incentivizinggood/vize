@@ -1,7 +1,7 @@
 export const queryRoutes = {
 	about: "acerca-de-nosotros",
 	createCompanyProfile: "crear-perfil-de-la-empresa",
-	createUserProfile: "crear-perfil-de-usuario",
+	userProfileForm: "perfil",
 	contactUs: "contactenos",
 	reviews: "evaluaciones",
 	reviewSubmitted: "evaluacion-enviada",
