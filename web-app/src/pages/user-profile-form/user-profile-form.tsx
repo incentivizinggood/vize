@@ -6,12 +6,11 @@ import { mapValues, map, omitBy, filter, merge } from "lodash";
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
-import { useUser } from "src/hoc/user";
 import { workExperienceSchema } from "src/form-schemas";
-import Spinner from "src/components/Spinner";
+
 
 import { useCreateUserProfileMutation } from "generated/graphql-operations";
-import { useGetUserProfileDataQuery } from "generated/graphql-operations";
+import { useUpdateUserProfileMutation } from "generated/graphql-operations";
 
 import InnerForm from "./user-profile-inner-form";
 
@@ -22,38 +21,6 @@ function omitEmptyStrings(x) {
 	if (x instanceof Object)
 		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
 	return x;
-}
-
-function formatUserProfileData(userProfile: any) {
-	delete userProfile["companyId"];
-	delete userProfile["__typename"];
-	console.log('userr', userProfile);
-
-
-	if(userProfile["availability"]) {
-		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
-		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
-		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
-		delete userProfile["availability"];
-	}
-
-	userProfile.coverLetter = "";
-	//userProfile.skills = ["Super Skill"];
-
-	userProfile.workExperiences?.forEach(function(_: any, index: number) {
-		userProfile.workExperiences[index].iCurrentlyWorkHere = false;
-		delete userProfile.workExperiences[index].__typename;
-
-		const startDate = new Date(userProfile.workExperiences[index].startDate);
-		const endDate = new Date(userProfile.workExperiences[index].endDate);
-		
-		userProfile.workExperiences[index].startDateMonth = startDate.getMonth();
-		userProfile.workExperiences[index].startDateYear = startDate.getFullYear();
-		userProfile.workExperiences[index].endDateMonth = endDate.getMonth();
-		userProfile.workExperiences[index].endDateYear = endDate.getFullYear();
-	});
-
-	return userProfile;
 }
 
 let initialValues = {
@@ -198,27 +165,19 @@ const onSubmit = (
 // 	jobAdId: string;
 // }
 
-export default function CreateUserProfileForm() {
+interface UserProfileFormProps {
+	userProfile?: any;
+}
+
+export default function CreateUserProfileForm({ userProfile }: UserProfileFormProps) {
 	const history = useHistory();
-	const user = useUser();
 
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	const [createUserProfile] = useCreateUserProfileMutation();
 
-	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
-		variables: { userId: user ? user.id : "0" },
-	});
-
-	if (loading) return <Spinner />;
-
-	console.log('userProfile', userProfileData);
-	console.log('userProfileload', loading);
-	console.log('userProfileerror', error);
-
-	// If user has a user profile, fill in the form fields with the user profile data
-	if(userProfileData?.userProfile) {
-		initialValues = formatUserProfileData(userProfileData.userProfile);
+	if (userProfile) {
+		initialValues = userProfile;
 	}
 	// const { data } = useCompanyIdFromJobAdIdQuery({
 	// 	variables: { jobAdId },
