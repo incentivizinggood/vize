@@ -66,14 +66,17 @@ function CreateUserProfilePage({ jobAdId }: UserProfilePageProps) {
 	console.log('userProfileerror', error);
 	let userProfile = null;
 
+	let profileFormTitle = (<T.formTitleCreateProfile />);
+
 	// If user has a user profile, fill in the form fields with the user profile data
 	if(userProfileData?.userProfile) {
 		userProfile = formatUserProfileData(userProfileData.userProfile);
+		profileFormTitle = (<T.formTitleEditProfile />);
 	}
 	return (
-		<FormPageWrapper title="Crear Perfil de Usuario">
+		<FormPageWrapper title="Formulario de Perfil">
 			<FormHeader>
-				<T.formTitle />
+				{profileFormTitle}
 			</FormHeader>
 			<FormText>
 				<T.formDescription />
