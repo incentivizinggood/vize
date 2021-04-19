@@ -134,6 +134,26 @@ const onSubmit = (
 	delete values["night"];
 
 	values.workExperiences?.forEach(function(_: any, index: number) {
+		const startDateYear = values.workExperiences[index].startDateYear;
+		const startDateMonth = values.workExperiences[index].startDateMonth;
+		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
+		values.workExperiences[index].startDate = startDate;
+		delete values.workExperiences[index].startDateMonth;
+		delete values.workExperiences[index].startDateYear;
+
+		let endDate: String | null  = null;
+		const iCurrentlyWorkHere = values.workExperiences[index].iCurrentlyWorkHere;
+		console.log('work', iCurrentlyWorkHere);
+		if (!values.workExperiences[index].iCurrentlyWorkHere) {
+			const endDateYear = values.workExperiences[index].endDateYear;
+			const endDateMonth = values.workExperiences[index].endDateMonth;
+			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+		}
+		console.log('endd', endDate);
+		
+		values.workExperiences[index].endDate = endDate;
+		delete values.workExperiences[index].endDateMonth;
+		delete values.workExperiences[index].endDateYear;
 		delete values.workExperiences[index].iCurrentlyWorkHere;
 	});
 	console.log('vall AFTER', values);
