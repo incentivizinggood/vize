@@ -46,9 +46,10 @@ const ICurrentlyWorkHereCheckbox = styled(Checkbox)`
 	padding-left: 0px !important;
 `;
 
-const renderWorkExperience = ({ name, index }) => {
-	const [iCurrentlyWorkHere, setICurrentlyWorkHere] = React.useState(true);
-	console.log("yee inner", iCurrentlyWorkHere);
+const renderWorkExperience = ({ name, index, initialValues }) => {
+	const [iCurrentlyWorkHere, setICurrentlyWorkHere] = React.useState(
+		initialValues.workExperiences[index].iCurrentlyWorkHere
+	);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setICurrentlyWorkHere(event.target.checked);
@@ -244,11 +245,13 @@ const renderWorkExperience = ({ name, index }) => {
 interface UserProfileInnerFormProps {
 	submissionError: any;
 	profileExists: boolean;
+	initialValues: any;
 }
 
 function InnerForm({
 	submissionError,
 	profileExists,
+	initialValues,
 }: UserProfileInnerFormProps) {
 	const submitText = profileExists ? <T.update /> : <T.submit />;
 
@@ -273,6 +276,7 @@ function InnerForm({
 					renderWorkExperience({
 						name,
 						index,
+						initialValues,
 					})
 				}
 				T={T.fields.workExperiences}

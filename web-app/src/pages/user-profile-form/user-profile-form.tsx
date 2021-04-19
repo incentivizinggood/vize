@@ -23,6 +23,43 @@ function omitEmptyStrings(x) {
 	return x;
 }
 
+function formatInputData(inputValues: any) {
+console.log('inp', inputValues);
+	let availabilityArray = [];
+	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
+	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
+	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
+	inputValues["availability"] = availabilityArray;
+
+	const skillsArray = inputValues.skills.includes(",") ? inputValues.skills.split(",") : [inputValues.skills];
+	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(",") ? inputValues.certificatesAndLicences.split(",") : [inputValues.certificatesAndLicences];
+	inputValues.skills = skillsArray;
+	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
+	console.log('skills', skillsArray);
+	delete inputValues["morning"];
+	delete inputValues["afternoon"];
+	delete inputValues["night"];
+
+	inputValues.workExperiences?.forEach(function(_: any, index: number) {
+		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
+
+		const startDateYear = inputValues.workExperiences[index].startDateYear;
+		const startDateMonth = inputValues.workExperiences[index].startDateMonth;
+		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
+		inputValues.workExperiences[index].startDate = startDate;
+		delete inputValues.workExperiences[index].startDateMonth;
+		delete inputValues.workExperiences[index].startDateYear;
+
+		const endDateYear = inputValues.workExperiences[index].endDateYear;
+		const endDateMonth = inputValues.workExperiences[index].endDateMonth;
+		const endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+		inputValues.workExperiences[index].endDate = endDate;
+		delete inputValues.workExperiences[index].endDateMonth;
+		delete inputValues.workExperiences[index].endDateYear;
+	});
+
+	return inputValues;
+}
 let initialValues = {
 	fullName: "",
 	phoneNumber: "",
@@ -86,44 +123,14 @@ const onSubmit = (
 ) => (values, actions) => {
 	console.log("through BEFORE", values);
 
-	let availabilityArray = [];
-	if (values.morning) availabilityArray.push("MORNING_SHIFT");
-	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
-	if (values.night) availabilityArray.push("NIGHT_SHIFT");
-	values["availability"] = availabilityArray;
-
-	const skillsArray = values.skills.includes(",") ? values.skills.split(",") : [values.skills];
-	const certificatesAndLicencesArray = values.certificatesAndLicences.includes(",") ? values.certificatesAndLicences.split(",") : [values.certificatesAndLicences];
-	values.skills = skillsArray;
-	values.certificatesAndLicences = certificatesAndLicencesArray;
-	console.log('skills', skillsArray);
-	delete values["morning"];
-	delete values["afternoon"];
-	delete values["night"];
-
-	values.workExperiences?.forEach(function(_: any, index: number) {
-		delete values.workExperiences[index].iCurrentlyWorkHere;
-
-		const startDateYear = values.workExperiences[index].startDateYear;
-		const startDateMonth = values.workExperiences[index].startDateMonth;
-		const startDate = new Date(startDateYear, startDateMonth, 1);
-		values.workExperiences[index].startDate = startDate;
-		delete values.workExperiences[index].startDateMonth;
-		delete values.workExperiences[index].startDateYear;
-
-		const endDateYear = values.workExperiences[index].endDateYear;
-		const endDateMonth = values.workExperiences[index].endDateMonth;
-		const endDate = new Date(endDateYear, endDateMonth, 1);
-		values.workExperiences[index].endDate = endDate;
-		delete values.workExperiences[index].endDateMonth;
-		delete values.workExperiences[index].endDateYear;
-	});
+	let formattedValues = values;
+	formattedValues = formatInputData(formattedValues);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 
-	console.log("through", values);
+	console.log("through", formattedValues);
 	return updateOrCreateUserProfile({
 		variables: {
-			input: omitEmptyStrings(values),
+			input: omitEmptyStrings(formattedValues),
 		},
 	})
 		.then(({ data }) => {
@@ -134,7 +141,7 @@ const onSubmit = (
 			analytics.sendEvent({
 				category: "User",
 				action: "Job Application Submitted",
-				label: values.jobAdId,
+				label: formattedValues.jobAdId,
 			});
 
 			history.push(`/`);
@@ -210,7 +217,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 				)}
 			>
 				 
-			<InnerForm submissionError={submissionError} profileExists={userProfile != null}/>
+			<InnerForm submissionError={submissionError} profileExists={userProfile != null} initialValues={initialValues} />
 
            
 			</Formik>
