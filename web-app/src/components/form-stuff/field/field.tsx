@@ -24,9 +24,9 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 	if (type === "radioButtons") {
 		return <Formik.Field {...restProps} component={RadioButtonsField} />;
 	}
-	if (type === "checkboxButtons") {
-		return <Formik.Field {...restProps} component={CheckboxButtonsField} />;
-	}
+	// if (type === "checkboxButtons") {
+	// 	return <Formik.Field {...restProps} component={CheckboxButtonsField} />;
+	// }
 	if (type === "checkbox") {
 		return (
 			<Formik.Field

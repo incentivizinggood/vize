@@ -41,12 +41,13 @@ export default function RadioButtonsField({
 				</FormLabel>
 			</span>
 			<RadioGroup {...props} {...field} name={field.name}>
-				{options.map((option: any) => (
+				{options.map((option: any, index: number) => (
 					<FormControlLabel
 						style={{ marginBottom: "-8px" }}
 						value={option.props.value}
 						control={<Radio color="primary" />}
 						label={option.props.label}
+						key={index}
 					/>
 				))}
 			</RadioGroup>

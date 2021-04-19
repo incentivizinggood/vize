@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, useFormikContext } from "formik";
+import { Form, useFormikContext, FieldArray } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
@@ -41,7 +41,8 @@ const CheckboxField = styled(Field)`
 
 function InnerForm({ submissionError }) {
 	const { values } = useFormikContext();
-
+	console.log("form val", values);
+	const friends = ["", "", ""];
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -59,33 +60,105 @@ function InnerForm({ submissionError }) {
 
 			<Field name="neighborhood" type="text" t={T.fields.neighborhood} />
 
+			<FieldArray
+				name="friends"
+				render={({ remove, push }) => (
+					<>
+						{friends.map((friend, i) => (
+							<div key={`friend-${i}`}>
+								<Field name={`friends[${i}]`} type="email" />
+								<button type="button" onClick={() => remove(i)}>
+									X
+								</button>
+							</div>
+						))}
+						<button type="button" onClick={() => push("")}>
+							Add friend
+						</button>
+					</>
+				)}
+			/>
+
+			<FieldArray
+				name="workExperiences"
+				render={arrayHelpers => (
+					<div>
+						{friends.map((friend, index) => (
+							<div key={`test-${index}`}>
+								<Button
+									type="button"
+									onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+								>
+									X
+								</Button>
+								<>
+									<h3
+										style={{
+											textAlign: "center",
+											fontWeight: "bold",
+										}}
+									>
+										Work Experience
+									</h3>
+									<Field
+										name={`workExperiences[${index}].jobTitle`}
+										type="text"
+										required
+										t={T.fields.workExperiences.jobTitle}
+									/>
+									<Field
+										name={`workExperiences[${index}].companyName`}
+										type="text"
+										required
+										t={T.fields.workExperiences.companyName}
+									/>
+									<Field
+										name={`workExperiences[${index}].city`}
+										type="text"
+										required
+										t={T.fields.workExperiences.city}
+									/>
+								</>
+							</div>
+						))}
+
+						<Button
+							type="button"
+							onClick={() => arrayHelpers.push("")}
+						>
+							Add
+						</Button>
+					</div>
+				)}
+			/>
+
 			<FormArray
 				name="workExperiences"
 				ElementRender={({ name, index }) => (
-					<>
+					<div key={`wow-${index}`}>
 						<h3 style={{ textAlign: "center", fontWeight: "bold" }}>
 							Work Experience
 						</h3>
 						<Field
-							name={`${name}.jobTitle`}
+							name={`workExperiences[${index}].jobTitle`}
 							type="text"
 							required
 							t={T.fields.workExperiences.jobTitle}
 						/>
 						<Field
-							name={`${name}.companyName`}
+							name={`workExperiences[${index}].companyName`}
 							type="text"
 							required
 							t={T.fields.workExperiences.companyName}
 						/>
 						<Field
-							name={`${name}.city`}
+							name={`workExperiences[${index}].city`}
 							type="text"
 							required
 							t={T.fields.workExperiences.city}
 						/>
 
-						<span>
+						{/* <span>
 							<FieldTitle
 								style={{
 									marginTop: "15px",
@@ -244,10 +317,9 @@ function InnerForm({ submissionError }) {
 							rows={6}
 							required
 							t={T.fields.workExperiences.experienceDescription}
-						/>
-					</>
+						/> */}
+					</div>
 				)}
-				T={T.fields.workExperiences}
 			/>
 
 			<br />
