@@ -60,6 +60,7 @@ console.log('inp', inputValues);
 
 	return inputValues;
 }
+
 let initialValues = {
 	fullName: "",
 	phoneNumber: "",
@@ -123,8 +124,7 @@ const onSubmit = (
 ) => (values, actions) => {
 	console.log("through BEFORE", values);
 
-	let formattedValues = values;
-	formattedValues = formatInputData(formattedValues);
+	let formattedValues = formatInputData(values);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 
 	console.log("through", formattedValues);
