@@ -209,7 +209,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 					setLoginRegisterModal
 				)}
 			>
-				<InnerForm submissionError={submissionError} />
+				<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
 			</Formik>
 			{/* {loginRegisterModal} */}
 		</>

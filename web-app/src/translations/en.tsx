@@ -514,7 +514,8 @@ export default {
 		submit: "Submit",
 	},
 	userProfileForm: {
-		formTitle: "Create a Profile",
+		formTitleCreateProfile: "Create a Profile",
+		formTitleEditProfile: "Edit Your Profile",
 		formDescription:
 			"With this profile you can apply to jobs with just one click!",
 		fields: {
@@ -616,6 +617,7 @@ export default {
 			},
 		},
 		submit: "Submit",
+		update: "Update",
 	},
 	resources: {
 		featuredResources: "Featured Resources",

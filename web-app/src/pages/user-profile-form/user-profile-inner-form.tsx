@@ -40,8 +40,17 @@ const CheckboxField = styled(Field)`
 	padding-left: 0px !important;
 `;
 
-function InnerForm({ submissionError }) {
+interface UserProfileInnerFormProps {
+	submissionError: any;
+	profileExists: boolean;
+}
+
+function InnerForm({
+	submissionError,
+	profileExists,
+}: UserProfileInnerFormProps) {
 	const { values } = useFormikContext();
+	const submitText = profileExists ? <T.update /> : <T.submit />;
 
 	return (
 		<Form noValidate>
@@ -366,7 +375,7 @@ function InnerForm({ submissionError }) {
 
 			<FormToolbar>
 				<Button $primary type="submit">
-					<T.submit />
+					{submitText}
 				</Button>
 			</FormToolbar>
 		</Form>
