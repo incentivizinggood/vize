@@ -37,11 +37,12 @@ const CheckboxLabel = styled.label`
 	font-weight: 500;
 `;
 
-const FormikCheckboxField = styled(Field)`
+const CheckboxField = styled(Field)`
 	padding-left: 0px !important;
 `;
 
-const CheckboxField = styled(Checkbox)`
+const ICurrentlyWorkHereCheckbox = styled(Checkbox)`
+	margin-top: 5px;
 	padding-left: 0px !important;
 `;
 
@@ -210,9 +211,10 @@ const renderWorkExperience = ({ name, index }) => {
 
 			{/* Had to use material UI checkbox instead of formik checkbox because getting the value of the checkbox using "useFormikContext()" was causing a bug in the form */}
 			<CheckboxLabel>
-				<Checkbox
+				<ICurrentlyWorkHereCheckbox
 					checked={iCurrentlyWorkHere}
 					onChange={handleChange}
+					color="primary"
 					inputProps={{ "aria-label": "primary checkbox" }}
 					style={{ paddingLeft: "0px !important" }}
 				/>
@@ -225,6 +227,8 @@ const renderWorkExperience = ({ name, index }) => {
 				/>
 				<T.fields.workExperiences.iCurrentlyWorkHere />
 			</CheckboxLabel>
+
+			<br />
 
 			<Field
 				name={`${name}.experienceDescription`}
@@ -246,17 +250,6 @@ function InnerForm({
 	submissionError,
 	profileExists,
 }: UserProfileInnerFormProps) {
-	// const {
-	// 	values,
-	// 	handleChange,
-	// 	setFieldValue,
-	// 	handleSubmit,
-	// 	isSubmitting,
-	// 	isValid,
-	// } = useFormikContext();
-	//console.log("val", values);
-	// console.log("valid", setFieldValue);
-
 	const submitText = profileExists ? <T.update /> : <T.submit />;
 
 	return (
