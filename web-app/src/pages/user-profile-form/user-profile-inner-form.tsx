@@ -47,9 +47,9 @@ const ICurrentlyWorkHereCheckbox = styled(Checkbox)`
 `;
 
 const renderWorkExperience = ({ name, index, initialValues }) => {
-	const [iCurrentlyWorkHere, setICurrentlyWorkHere] = React.useState(
-		initialValues.workExperiences[index].iCurrentlyWorkHere
-	);
+	// const testVal = initialValues.workExperiences[index].iCurrentlyWorkHere;
+	const [iCurrentlyWorkHere, setICurrentlyWorkHere] = React.useState(true);
+	console.log("work val", iCurrentlyWorkHere);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setICurrentlyWorkHere(event.target.checked);

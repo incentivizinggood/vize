@@ -24,7 +24,7 @@ function omitEmptyStrings(x) {
 }
 
 function formatInputData(inputValues: any) {
-console.log('inp', inputValues);
+	console.log('inp', inputValues);
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -41,8 +41,6 @@ console.log('inp', inputValues);
 	delete inputValues["night"];
 
 	inputValues.workExperiences?.forEach(function(_: any, index: number) {
-		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
-
 		const startDateYear = inputValues.workExperiences[index].startDateYear;
 		const startDateMonth = inputValues.workExperiences[index].startDateMonth;
 		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
@@ -50,12 +48,21 @@ console.log('inp', inputValues);
 		delete inputValues.workExperiences[index].startDateMonth;
 		delete inputValues.workExperiences[index].startDateYear;
 
-		const endDateYear = inputValues.workExperiences[index].endDateYear;
-		const endDateMonth = inputValues.workExperiences[index].endDateMonth;
-		const endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+		let endDate: String | null  = null;
+		const iCurrentlyWorkHere = inputValues.workExperiences[index].iCurrentlyWorkHere;
+		console.log('work', iCurrentlyWorkHere);
+		if (!inputValues.workExperiences[index].iCurrentlyWorkHere) {
+			const endDateYear = inputValues.workExperiences[index].endDateYear;
+			const endDateMonth = inputValues.workExperiences[index].endDateMonth;
+			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+		}
+		console.log('endd', endDate);
+		
 		inputValues.workExperiences[index].endDate = endDate;
 		delete inputValues.workExperiences[index].endDateMonth;
 		delete inputValues.workExperiences[index].endDateYear;
+		// delete inputValues.workExperiences[index].iCurrentlyWorkHere;
+
 	});
 
 	return inputValues;
@@ -71,10 +78,10 @@ let initialValues = {
 			jobTitle: "",
 			companyName: "",
 			city: "",
-			startDateMonth: 2,
-			startDateYear: 2008,
-			endDateMonth: 3,
-			endDateYear: 2020,
+			startDateMonth: "",
+			startDateYear: "",
+			endDateMonth: "",
+			endDateYear: "",
 			iCurrentlyWorkHere: false,
 			experienceDescription: "",
 		},

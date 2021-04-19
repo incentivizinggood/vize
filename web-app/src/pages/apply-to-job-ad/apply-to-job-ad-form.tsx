@@ -123,7 +123,7 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal,
 ) => (values, actions) => {
-	console.log('vall', values);
+	console.log('vall BEFORE', values);
 	let availabilityArray = [];
 	if (values.morning) availabilityArray.push("MORNING_SHIFT");
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -136,6 +136,7 @@ const onSubmit = (
 	values.workExperiences?.forEach(function(_: any, index: number) {
 		delete values.workExperiences[index].iCurrentlyWorkHere;
 	});
+	console.log('vall AFTER', values);
 
 	return applyToJobAd({
 		variables: {
@@ -155,6 +156,7 @@ const onSubmit = (
 			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${values.companyId}`);
 		})
 		.catch(errors => {
+			console.log('ERROR', values);
 			// Error in English: Not Logged In
 			if (
 				errors.message.includes(
