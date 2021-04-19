@@ -33,10 +33,10 @@ let initialValues = {
 			jobTitle: "",
 			companyName: "",
 			city: "",
-			startDateMonth: "",
-			startDateYear: "",
-			endDateMonth: "",
-			endDateYear: "",
+			startDateMonth: 2,
+			startDateYear: 2008,
+			endDateMonth: 3,
+			endDateYear: 2020,
 			iCurrentlyWorkHere: false,
 			experienceDescription: "",
 		},
@@ -209,7 +209,10 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 					setLoginRegisterModal
 				)}
 			>
-				<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
+				 
+			<InnerForm submissionError={submissionError} profileExists={userProfile != null}/>
+
+           
 			</Formik>
 			{/* {loginRegisterModal} */}
 		</>
