@@ -8,11 +8,11 @@ import { Button } from "src/components/button";
 import { TranslationComponent } from "src/translations";
 import colors from "src/colors";
 
-const ArrayContainer = styled.div`
+export const ArrayContainer = styled.div`
 	margin-top: 20px;
 `;
 
-const ElementContainer = styled.div`
+export const ElementContainer = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
@@ -28,7 +28,7 @@ const ElementContainer = styled.div`
 	padding-top: 20px;
 `;
 
-const ElementDeleteButton = styled(Button)`
+export const ElementDeleteButton = styled(Button)`
 	&&&&&&&&& {
 		padding: 0;
 		width: 1.5em;
@@ -69,7 +69,7 @@ function FormArray({
 											type="button"
 											onClick={() =>
 												arrayHelpers.remove(index)
-											} // remove a friend from the list
+											}
 										>
 											<FontAwesomeIcon icon={faTimes} />
 										</ElementDeleteButton>
