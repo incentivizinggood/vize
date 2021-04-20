@@ -47,12 +47,17 @@ function formatUserProfileData(userProfile: any) {
 		delete userProfile.workExperiences[index].__typename;
 
 		const startDate = new Date(userProfile.workExperiences[index].startDate);
-		const endDate = new Date(userProfile.workExperiences[index].endDate);
-		
 		userProfile.workExperiences[index].startDateMonth = startDate.getMonth();
 		userProfile.workExperiences[index].startDateYear = startDate.getFullYear();
-		userProfile.workExperiences[index].endDateMonth = endDate.getMonth();
-		userProfile.workExperiences[index].endDateYear = endDate.getFullYear();
+
+		if (userProfile.workExperiences[index].endDate) {
+			userProfile.workExperiences[index].iCurrentlyWorkHere = false;
+			const endDate = new Date(userProfile.workExperiences[index].endDate);
+			userProfile.workExperiences[index].endDateMonth = endDate.getMonth();
+			userProfile.workExperiences[index].endDateYear = endDate.getFullYear();
+		} else {
+			userProfile.workExperiences[index].iCurrentlyWorkHere = true;
+		}
 	});
 
 	return userProfile;
