@@ -61,7 +61,7 @@ function formatInputData(inputValues: any) {
 		inputValues.workExperiences[index].endDate = endDate;
 		delete inputValues.workExperiences[index].endDateMonth;
 		delete inputValues.workExperiences[index].endDateYear;
-		// delete inputValues.workExperiences[index].iCurrentlyWorkHere;
+		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
 
 	});
 
@@ -180,10 +180,6 @@ const onSubmit = (
 		});
 };
 
-// export interface CreateUserProfileFormProps {
-// 	jobAdId: string;
-// }
-
 interface UserProfileFormProps {
 	userProfile?: any;
 }
@@ -200,9 +196,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 		initialValues = userProfile;
 	}
 	console.log('up user', userProfile);	
-	// const { data } = useCompanyIdFromJobAdIdQuery({
-	// 	variables: { jobAdId },
-	// });
+
 	// const user = useUser();
 
 	// if (user) {
@@ -224,7 +218,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 				)}
 			>
 				 
-			<InnerForm submissionError={submissionError} profileExists={userProfile != null} initialValues={initialValues} />
+			<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
 
            
 			</Formik>
