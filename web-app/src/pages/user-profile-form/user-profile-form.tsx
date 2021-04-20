@@ -30,12 +30,21 @@ function formatInputData(inputValues: any) {
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
 	inputValues["availability"] = availabilityArray;
-
+	
 	const skillsArray = inputValues.skills.includes(",") ? inputValues.skills.split(",") : [inputValues.skills];
 	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(",") ? inputValues.certificatesAndLicences.split(",") : [inputValues.certificatesAndLicences];
+	
+	// Clean up the white space from the input
+	skillsArray.forEach(function(_: any, index: number) {
+		skillsArray[index] = skillsArray[index].trim();
+	});
+	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
+		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[index].trim();
+	});
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
 	console.log('skills', skillsArray);
+
 	delete inputValues["morning"];
 	delete inputValues["afternoon"];
 	delete inputValues["night"];
@@ -49,8 +58,6 @@ function formatInputData(inputValues: any) {
 		delete inputValues.workExperiences[index].startDateYear;
 
 		let endDate: String | null  = null;
-		const iCurrentlyWorkHere = inputValues.workExperiences[index].iCurrentlyWorkHere;
-		console.log('work', iCurrentlyWorkHere);
 		if (!inputValues.workExperiences[index].iCurrentlyWorkHere) {
 			const endDateYear = inputValues.workExperiences[index].endDateYear;
 			const endDateMonth = inputValues.workExperiences[index].endDateMonth;

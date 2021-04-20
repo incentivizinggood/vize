@@ -28,7 +28,7 @@ function formatUserProfileData(userProfile: any) {
 
 	userProfile.coverLetter = "";
 
-	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(",") : userProfile.skills;
+	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(", ") : userProfile.skills;
 	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {

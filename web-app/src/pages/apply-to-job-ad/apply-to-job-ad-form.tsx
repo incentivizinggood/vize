@@ -40,7 +40,8 @@ function formatUserProfileData(userProfile: any) {
 	}
 
 	userProfile.coverLetter = "";
-	//userProfile.skills = ["Super Skill"];
+	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(", ") : userProfile.skills;
+	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
 		userProfile.workExperiences[index].iCurrentlyWorkHere = false;
@@ -134,6 +135,20 @@ const onSubmit = (
 	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (values.night) availabilityArray.push("NIGHT_SHIFT");
 	values["availability"] = availabilityArray;
+
+	const skillsArray = values.skills.includes(",") ? values.skills.split(",") : [values.skills];
+	const certificatesAndLicencesArray = values.certificatesAndLicences.includes(",") ? values.certificatesAndLicences.split(",") : [values.certificatesAndLicences];
+	
+	// Clean up the white space from the input
+	skillsArray.forEach(function(_: any, index: number) {
+		skillsArray[index] = skillsArray[index].trim();
+	});
+	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
+		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[index].trim();
+	});
+	values.skills = skillsArray;
+	values.certificatesAndLicences = certificatesAndLicencesArray;
+
 	delete values["morning"];
 	delete values["afternoon"];
 	delete values["night"];
@@ -147,8 +162,6 @@ const onSubmit = (
 		delete values.workExperiences[index].startDateYear;
 
 		let endDate: String | null  = null;
-		const iCurrentlyWorkHere = values.workExperiences[index].iCurrentlyWorkHere;
-		console.log('work', iCurrentlyWorkHere);
 		if (!values.workExperiences[index].iCurrentlyWorkHere) {
 			const endDateYear = values.workExperiences[index].endDateYear;
 			const endDateMonth = values.workExperiences[index].endDateMonth;
