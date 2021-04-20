@@ -7,21 +7,15 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
+import { Button } from "src/components/button";
 import {
 	ArrayContainer,
 	ElementContainer,
 	ElementDeleteButton,
 } from "src/components/form-stuff/array";
-import { Button } from "src/components/button";
-import {
-	Field,
-	FormToolbar,
-	SubmissionError,
-	FormArray,
-} from "src/components/form-stuff";
-import { translations } from "src/translations";
-import { IsAny } from "react-hook-form/dist/types/utils";
+import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 
+import { translations } from "src/translations";
 const T = translations.applyToJobAd;
 
 const currentYear = new Date().getFullYear();
@@ -323,6 +317,7 @@ function InnerForm({ submissionError }: any) {
 							type="button"
 							onClick={() => arrayHelpers.push("")}
 						>
+							<FontAwesomeIcon icon={faPlus} /> {"  "}
 							<T.fields.workExperiences.addElement
 								array={values.workExperiences}
 							/>
