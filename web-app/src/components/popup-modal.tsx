@@ -19,7 +19,7 @@ const ModalStyled = styled(Modal)`
 	-ms-overflow-style: none;
 	border-radius: 10px;
 	outline: none;
-	padding: 10px;
+	padding: 15px;
 	margin-right: -50%;
 	margin-top: 30px;
 	height: auto !important;
@@ -30,6 +30,14 @@ const ModalStyled = styled(Modal)`
 		width: 0;
 		height: 0;
 	}
+`;
+
+const LineSeparator = styled.hr`
+	border-top: 1px solid #d9d9d9;
+	width: calc(100% + 30px);
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-top: 15px;
 `;
 
 const ModalTitle = styled.h3`
@@ -114,9 +122,12 @@ export default class PopupModal extends React.Component {
 					)}
 
 					{this.props.modalTitle && (
-						<ModalTitle>{this.props.modalTitle}</ModalTitle>
+						<>
+							<ModalTitle>{this.props.modalTitle}</ModalTitle>
+							<LineSeparator />
+						</>
 					)}
-					<hr />
+
 					{this.props.children}
 				</ModalStyled>
 			</div>
