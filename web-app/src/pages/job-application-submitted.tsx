@@ -74,12 +74,11 @@ const personalReferralMessage =
 const publicReferralMessage =
 	"Hola, si estan buscando empleos en una fabrica en Tijuana, les recomiendo este sito web que se llama Vize (Incentivando El Bien). Aqui pueden encontrar empleos y tambien pueden leer evaluaciones de otros empleados que han trabajado ahi para que puedan hacer una decision mejor informada sobre donde quieren trabajar.";
 
-interface JobApplicationSubmittedProps {
+interface JobApplicationSubmittedInnerContentProps {
 	companyId?: string;
 }
 
-// The page that users see when a job application is submitted
-export default function JobApplicationSubmitted({companyId}: JobApplicationSubmittedProps) {
+export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicationSubmittedInnerContentProps) {
 	const referralLink: string = `www.vize.mx/${urlGenerators.queryRoutes.jobs}?ref=jobapp`;
 	const [copySuccess, setCopySuccess] = React.useState("");
 	const textAreaRef = React.useRef(null);
@@ -101,11 +100,9 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 		navigator.clipboard.writeText(text);
 		setCopySuccess("Copiado!");
 	}
-
-	return (
-		<PageWrapper title="Solicitud Enviada">
-			<PageContentContainer>
-				<h2>
+	return(
+		<>
+		<h2>
 					<T.jobApplicationSubmitted /> {data?.company?.name}
 				</h2>
 				
@@ -167,7 +164,21 @@ export default function JobApplicationSubmitted({companyId}: JobApplicationSubmi
 					>
 						<FacebookIcon size={48} round={true} />
 					</FacebookShareButton>
-				</div>	
+				</div>
+				</>	
+	);
+}
+
+interface JobApplicationSubmittedProps {
+	companyId?: string;
+}
+
+// The page that users see when a job application is submitted
+export default function JobApplicationSubmitted({companyId}: JobApplicationSubmittedProps) {
+	return (
+		<PageWrapper title="Solicitud Enviada">
+			<PageContentContainer>
+				<JobApplicationSubmittedInnerContent companyId={companyId} />
 			</PageContentContainer>
 		</PageWrapper>
 	);

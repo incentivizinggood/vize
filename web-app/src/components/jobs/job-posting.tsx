@@ -144,7 +144,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				setJobApplicationModal={setJobApplicationModal}
 			>
 				<FormHeader>Apply to Job</FormHeader>
-				<ApplyToJobAdForm jobAdId={job.id} />
+				<ApplyToJobAdForm jobAdId={job.id} modalIsOpen={true} />
 			</PopupModal>
 		);
 	}
