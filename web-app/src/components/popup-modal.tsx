@@ -30,6 +30,15 @@ const ModalStyled = styled(Modal)`
 		width: 0;
 		height: 0;
 	}
+
+	${forSize.phoneOnly} {
+		width: 100% !important;
+		border: none;
+		border-radius: 0px;
+		max-height: 100%;
+		margin-top: 65px;
+		padding-bottom: 100px;
+	}
 `;
 
 const LineSeparator = styled.hr`
@@ -38,23 +47,12 @@ const LineSeparator = styled.hr`
 	margin-left: -15px;
 	margin-right: -15px;
 	margin-top: 15px;
+	margin-bottom: 10px;
 `;
 
 const ModalTitle = styled.h3`
 	font-weight: bold;
 	text-align: center;
-	// ${forSize.phoneOnly} {
-	// 	padding: 12px;
-	// }
-`;
-
-const ModalTitleContainer = styled.div`
-	font-weight: bold;
-	text-align: center;
-	margin-bottom: 10px;
-	// ${forSize.phoneOnly} {
-	// 	padding: 12px;
-	// }
 `;
 
 // This modal component is being used so that specific styles can be applied
