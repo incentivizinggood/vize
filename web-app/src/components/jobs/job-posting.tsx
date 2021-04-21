@@ -9,6 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import colors from "src/colors";
+import PopupModal from "src/components/popup-modal";
+import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
+import { Button } from "src/components/button";
+import { FormHeader } from "src/components/form-stuff";
 
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
@@ -38,7 +42,7 @@ const JobContainer = styled.div`
 	}
 `;
 
-const ApplyNowButton = styled(Link)`
+const ApplyNowButton = styled(Button)`
 	background-color: ${colors.vizeBlue};
 	color: white;
 	font-weight: bold;
@@ -130,6 +134,20 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const DatePostedComponent = () => {
 		return getDateDifference(datePosted);
 	};
+	let [jobApplicationModal, setJobApplicationModal] = React.useState(null);
+
+	function ShowApplyToJobModal() {
+		console.log("touching");
+		setJobApplicationModal(
+			<PopupModal
+				isOpen={true}
+				setJobApplicationModal={setJobApplicationModal}
+			>
+				<FormHeader>Apply to Job</FormHeader>
+				<ApplyToJobAdForm jobAdId={job.id} />
+			</PopupModal>
+		);
+	}
 
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
@@ -150,7 +168,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const showJobSchedule =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
 
-	// A job post will not be minimizable if we are only looking at that one job post (using the job post link). 
+	// A job post will not be minimizable if we are only looking at that one job post (using the job post link).
 	// In this case, we want to display all of the data for the job post without having to minizmize or expand the details
 	const QualificationsAndResponsibilities = () => {
 		if (isMinimizable) {
@@ -195,7 +213,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				<h3>
 					<strong>{job.jobTitle}</strong>
 				</h3>
-				<ApplyNowButton to={urlGenerators.vizeApplyForJobUrl(job.id)}>
+				<ApplyNowButton onClick={ShowApplyToJobModal}>
 					<T.showjob.apply_now />
 				</ApplyNowButton>
 			</JobTitleAndApplyButtonContainer>
@@ -290,6 +308,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 					</DatePostedDiv>
 				</article>
 			</div>
+			{jobApplicationModal}
 		</JobContainer>
 	);
 }
