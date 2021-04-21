@@ -23,15 +23,9 @@ const T = translations.legacyTranslationsNeedsRefactor.jobApplicationSubmitted;
 const TLogin = translations.loginRegister;
 
 const PageContentContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-
-	margin-top: 250px;
-	margin-bottom: 250px;
-	padding: 50px;
+	margin-top: 200px;
+	margin-bottom: 200px;
+	padding: 20px;
 	margin-right: auto;
 	margin-left: auto;
 
@@ -49,10 +43,36 @@ const PageContentContainer = styled.div`
 
 	${forSize.phoneOnly} {
 		width: 100%;
-		margin-top: 70px;
+		margin-top: 50px;
 		margin-bottom: 0px;
 		padding: 30px 10px;
 		border-radius: 0px;
+	}
+`;
+
+const PageInnerContentContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 30px 10px;
+	margin-right: auto;
+	margin-left: auto;
+
+	width: 100%;
+
+	color: black;
+
+	h3 {
+		font-weight: bold;
+	}
+
+	${forSize.phoneOnly} {
+		padding: 20px 0px;
 	}
 `;
 
@@ -101,71 +121,71 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 		setCopySuccess("Copiado!");
 	}
 	return(
-		<>
-		<h2>
-					<T.jobApplicationSubmitted /> {data?.company?.name}
-				</h2>
+		<PageInnerContentContainer>
+			<h3>
+				<T.jobApplicationSubmitted /> {data?.company?.name}
+			</h3>
+			
+			<br />
+			
+			<p>
+				{data?.company?.name} <T.companyWillReachOut />
+			</p>
+			<p>
+				<T.contactUs /> 
+				<ContactNumberLink
+					href="https://wa.me/5216647480001"
+					rel="noreferrer"
+					target="_blank"
+				>+52(664)748-0001
+			</ContactNumberLink>
+			</p>
+
+			<br />
+			<p>
+				<T.readReviews />
+			</p>
+			<br />
+			<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "350px" }} $primary> <T.readReviewsButton /> </LinkButton>
+			<br />
+			<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
+
+			<br />
+
+			<p>
+				<T.referralMessage />
+			</p>
+
+			<ReferralLinkContainer>
+				<button onClick={() => copyToClipboard(referralLink)}>
+					{ClipboardStatusIcon}
+				</button>
+				<button onClick={() => copyToClipboard(referralLink)}>
+					<a ref={textAreaRef} value={referralLink}>
+						<strong>{referralLink}</strong>
+					</a>
+				</button>
+				{copySuccess}
+			</ReferralLinkContainer>
+
+			<div>
+				<WhatsappShareButton
+					url={referralLink}
+					title={personalReferralMessage}
+					style={{ marginRight: "7px"}}
+				>
+					<WhatsappIcon size={48} round={true} />
+				</WhatsappShareButton>
 				
-				<br />
-				
-				<p>
-					{data?.company?.name} <T.companyWillReachOut />
-				</p>
-				<p>
-					<T.contactUs /> 
-					<ContactNumberLink
-						href="https://wa.me/5216647480001"
-						rel="noreferrer"
-						target="_blank"
-					>+52(664)748-0001
-				</ContactNumberLink>
-				</p>
-
-				<br />
-				<p>
-					<T.readReviews />
-				</p>
-				<br />
-				<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "350px" }} $primary> <T.readReviewsButton /> </LinkButton>
-				<br />
-				<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
-
-				<br />
-
-				<p>
-					<T.referralMessage />
-				</p>
-
-				<ReferralLinkContainer>
-					<button onClick={() => copyToClipboard(referralLink)}>
-						{ClipboardStatusIcon}
-					</button>
-					<button onClick={() => copyToClipboard(referralLink)}>
-						<a ref={textAreaRef} value={referralLink}>
-							<strong>{referralLink}</strong>
-						</a>
-					</button>
-					{copySuccess}
-				</ReferralLinkContainer>
-
-				<div>
-					<WhatsappShareButton
-						url={referralLink}
-						title={personalReferralMessage}
-						style={{ marginRight: "7px"}}
-					>
-						<WhatsappIcon size={48} round={true} />
-					</WhatsappShareButton>
-					
-					<FacebookShareButton
-						url={referralLink}
-						quote={publicReferralMessage}
-						hashtag="#incentivandoelbien"
-					>
-						<FacebookIcon size={48} round={true} />
-					</FacebookShareButton>
-				</div>
-				</>	
+				<FacebookShareButton
+					url={referralLink}
+					quote={publicReferralMessage}
+					hashtag="#incentivandoelbien"
+				>
+					<FacebookIcon size={48} round={true} />
+				</FacebookShareButton>
+			</div>
+		</PageInnerContentContainer>	
 	);
 }
 
