@@ -10,6 +10,7 @@ import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
 import { workExperienceSchema } from "src/form-schemas";
 import Spinner from "src/components/Spinner";
+import { JobApplicationSubmittedInnerContent } from "src/pages/job-application-submitted";
 
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
@@ -128,6 +129,8 @@ const onSubmit = (
 	history,
 	setSubmissionError,
 	setLoginRegisterModal,
+	setJobApplicationFormContent,
+	modalIsOpen,
 ) => (values, actions) => {
 	console.log('vall BEFORE', values);
 	let availabilityArray = [];
@@ -191,7 +194,17 @@ const onSubmit = (
 				label: values.jobAdId,
 			});
 
-			history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${values.companyId}`);
+			if (modalIsOpen) {
+				console.log('modal went');
+				setJobApplicationFormContent(
+		<JobApplicationSubmittedInnerContent
+								companyId={values.jobAdId}
+							/>
+				);
+					
+			} else {
+				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${values.companyId}`);
+			}
 		})
 		.catch(errors => {
 			console.log('ERROR', values);
@@ -222,14 +235,16 @@ const onSubmit = (
 
 export interface ApplyToJobAdFormProps {
 	jobAdId: string;
+	modalIsOpen?: boolean;
 }
 
-export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
+export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdFormProps) {
 	const history = useHistory();
 	const user = useUser();
 
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
+	let [jobApplicationFormContent, setJobApplicationFormContent]: any = React.useState(null);
 	const [applyToJobAd] = useApplyToJobAdMutation();
 	const { data } = useGetJobTitleAndCompanyIdQuery({
 		variables: { jobAdId },
@@ -258,27 +273,33 @@ export default function ApplyToJobAdForm({ jobAdId }: ApplyToJobAdFormProps) {
 		loginRegisterModal = null;
 	}
 
+	if (jobApplicationFormContent === null)
+		jobApplicationFormContent = (
+		<Formik
+		initialValues={merge(initialValues, {
+			jobAdId,
+			jobTitle,
+			companyId,
+			numReviews,
+		})}
+		validationSchema={schema}
+		onSubmit={onSubmit(
+			applyToJobAd,
+			history,
+			setSubmissionError,
+			setLoginRegisterModal,
+			setJobApplicationFormContent,
+			modalIsOpen
+		)}
+	>
+		<InnerForm submissionError={submissionError} />
+	</Formik>);
+
 	console.log('init', initialValues);
 
 	return (
 		<>
-			<Formik
-				initialValues={merge(initialValues, {
-					jobAdId,
-					jobTitle,
-					companyId,
-					numReviews,
-				})}
-				validationSchema={schema}
-				onSubmit={onSubmit(
-					applyToJobAd,
-					history,
-					setSubmissionError,
-					setLoginRegisterModal
-				)}
-			>
-				<InnerForm submissionError={submissionError} />
-			</Formik>
+			{jobApplicationFormContent}
 			{loginRegisterModal}
 		</>
 	);
