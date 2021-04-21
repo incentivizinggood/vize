@@ -16,7 +16,7 @@ const customStyles = {
 		height: "auto",
 		maxHeight: "80%",
 		transform: "translate(-50%, -50%)",
-		overflow: "hidden",
+		overflowY: "auto",
 	},
 };
 
@@ -48,6 +48,8 @@ export default class PopupModal extends React.Component {
 		if (this.props.canCloseModal) {
 			this.setState({ modalIsOpen: false });
 		}
+		if (this.props.setJobApplicationModal)
+			this.props.setJobApplicationModal(null);
 	}
 
 	render() {
