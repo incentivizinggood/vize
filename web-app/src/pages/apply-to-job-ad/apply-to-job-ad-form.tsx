@@ -197,9 +197,9 @@ const onSubmit = (
 			if (modalIsOpen) {
 				console.log('modal went');
 				setJobApplicationFormContent(
-		<JobApplicationSubmittedInnerContent
-								companyId={values.jobAdId}
-							/>
+					<JobApplicationSubmittedInnerContent
+						companyId={values.companyId}
+					/>
 				);
 					
 			} else {
