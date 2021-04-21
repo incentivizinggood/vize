@@ -1,8 +1,27 @@
 import React from "react";
 import Modal from "react-modal";
+import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { forSize } from "src/responsive";
+
+const ModalTitle = styled.h3`
+	font-weight: bold;
+	text-align: center;
+	// ${forSize.phoneOnly} {
+	// 	padding: 12px;
+	// }
+`;
+
+const ModalTitleContainer = styled.div`
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 10px;
+	// ${forSize.phoneOnly} {
+	// 	padding: 12px;
+	// }
+`;
 
 const customStyles = {
 	content: {
@@ -78,12 +97,17 @@ export default class PopupModal extends React.Component {
 				>
 					{this.props.showCloseButton && (
 						<button
-							style={{ float: "right" }}
+							style={{ float: "left" }}
 							onClick={this.closeModal}
 						>
-							<FontAwesomeIcon icon={faTimes} />
+							<FontAwesomeIcon icon={faTimes} size="2x" />
 						</button>
 					)}
+
+					{this.props.modalTitle && (
+						<ModalTitle>{this.props.modalTitle}</ModalTitle>
+					)}
+					<hr />
 					{this.props.children}
 				</Modal>
 			</div>

@@ -138,12 +138,14 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 
 	function ShowApplyToJobModal() {
 		console.log("touching");
+		const applyToJobModalTitle: string = `Aplicar a ${job.company.name}`;
+
 		setJobApplicationModal(
 			<PopupModal
 				isOpen={true}
+				modalTitle={applyToJobModalTitle}
 				setJobApplicationModal={setJobApplicationModal}
 			>
-				<FormHeader>Apply to Job</FormHeader>
 				<ApplyToJobAdForm jobAdId={job.id} modalIsOpen={true} />
 			</PopupModal>
 		);

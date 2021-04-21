@@ -195,7 +195,6 @@ const onSubmit = (
 			});
 
 			if (modalIsOpen) {
-				console.log('modal went');
 				setJobApplicationFormContent(
 					<JobApplicationSubmittedInnerContent
 						companyId={values.companyId}
