@@ -6,6 +6,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { forSize } from "src/responsive";
 
+const ModalStyled = styled(Modal)`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	right: auto;
+	bottom: auto;
+	border: 1px solid rgb(204, 204, 204);
+	background: rgb(255, 255, 255);
+	overflow-y: scroll;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	border-radius: 10px;
+	outline: none;
+	padding: 10px;
+	margin-right: -50%;
+	margin-top: 30px;
+	height: auto !important;
+	max-height: 80%;
+	transform: translate(-50%, -50%);
+
+	&::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+	}
+`;
+
 const ModalTitle = styled.h3`
 	font-weight: bold;
 	text-align: center;
@@ -22,22 +48,6 @@ const ModalTitleContainer = styled.div`
 	// 	padding: 12px;
 	// }
 `;
-
-const customStyles = {
-	content: {
-		top: "50%",
-		left: "50%",
-		right: "auto",
-		bottom: "auto",
-		padding: "10px",
-		marginRight: "-50%",
-		marginTop: "30px",
-		height: "auto",
-		maxHeight: "80%",
-		transform: "translate(-50%, -50%)",
-		overflowY: "auto",
-	},
-};
 
 // This modal component is being used so that specific styles can be applied
 // that look good on web and mobile
@@ -87,12 +97,11 @@ export default class PopupModal extends React.Component {
 		return (
 			<div>
 				{buttonContent}
-				<Modal
+				<ModalStyled
 					isOpen={this.state.modalIsOpen}
 					onAfterOpen={this.afterOpenModal}
 					onRequestClose={this.closeModal}
 					ariaHideApp={false}
-					style={customStyles}
 					contentLabel="Modal"
 				>
 					{this.props.showCloseButton && (
@@ -109,7 +118,7 @@ export default class PopupModal extends React.Component {
 					)}
 					<hr />
 					{this.props.children}
-				</Modal>
+				</ModalStyled>
 			</div>
 		);
 	}
