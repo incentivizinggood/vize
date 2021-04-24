@@ -60,6 +60,9 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 			{...restProps}
 			type={type}
 			component={TextField}
+			InputLabelProps={{
+				shrink: true,
+			}}
 			fullWidth
 		/>
 	);
