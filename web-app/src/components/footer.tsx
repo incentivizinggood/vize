@@ -97,13 +97,18 @@ const ContactNumberLink = styled.a`
 
 export default function Footer(): JSX.Element {
 	const t = useTranslations().footer;
+	const currentYear = new Date().getFullYear();
 
 	return (
 		<FooterContainer>
 			<LinksContainer>
 				<InternalLinks>
-					<Link to={`/${urlGenerators.queryRoutes.about}`}>{t.aboutUs}</Link>
-					<Link to={`/${urlGenerators.queryRoutes.contactUs}`}>{t.contactUs}</Link>
+					<Link to={`/${urlGenerators.queryRoutes.about}`}>
+						{t.aboutUs}
+					</Link>
+					<Link to={`/${urlGenerators.queryRoutes.contactUs}`}>
+						{t.contactUs}
+					</Link>
 					{/* commenting out until we have a help page
 					<Link to={`/${urlGenerators.queryRoutes.help}`}>
 						{t.help}
@@ -157,7 +162,7 @@ export default function Footer(): JSX.Element {
 						</ContactNumberLink>
 					</InternalLinks>
 					<SocialLinks>
-						Vize © 2020. {t.allRightsReserved}
+						Vize © {currentYear}. {t.allRightsReserved}
 					</SocialLinks>
 				</LinksContainer>
 			</CopyRight>
