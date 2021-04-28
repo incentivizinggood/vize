@@ -196,6 +196,18 @@ export type UserProfile = {
 		| "HIGH_SCHOOL"
 		| "SOME_COLLEGE"
 		| "COLLEGE_DEGREE";
+	spanishProficiency:
+		| "NATIVE_LANGUAGE"
+		| "FLUENT"
+		| "CONVERSATIONAL"
+		| "BASIC"
+		| "NO_PROFICIENCY";
+	englishProficiency:
+		| "NATIVE_LANGUAGE"
+		| "FLUENT"
+		| "CONVERSATIONAL"
+		| "BASIC"
+		| "NO_PROFICIENCY";
 	availability: Array<string>;
 	availabilityComments: string | null;
 	longTermProfessionalGoal: string | null;
