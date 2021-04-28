@@ -113,6 +113,8 @@ input CreateUserProfileInput {
 	workExperiences: [WorkExperienceInput]
 	skills: [String]!
 	certificatesAndLicences: [String]
+	spanishProficiency: String!
+	englishProficiency: String!
 	highestLevelOfEducation: String!
 	availability: [String]!
 	availabilityComments: String
@@ -539,6 +541,8 @@ type UserProfile {
 	workExperiences: [WorkExperience]
 	skills: [String]!
 	certificatesAndLicences: [String]
+	spanishProficiency: String!
+	englishProficiency: String!
 	highestLevelOfEducation: String!
 	availability: [String]!
 	availabilityComments: String
