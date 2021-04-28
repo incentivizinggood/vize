@@ -371,6 +371,88 @@ function InnerForm({
 			<br />
 			<br />
 
+			<T.fields.spanishProficiency
+				renderer={t => (
+					<Field
+						name="spanishProficiency"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="SOME_HIGH_SCHOOL"
+								control={<Radio />}
+								label={t.native}
+							/>,
+							<FormControlLabel
+								value="HIGH_SCHOOL"
+								control={<Radio />}
+								label={t.fluent}
+							/>,
+							<FormControlLabel
+								value="SOME_COLLEGE"
+								control={<Radio />}
+								label={t.conversational}
+							/>,
+							<FormControlLabel
+								value="COLLEGE_DEGREE"
+								control={<Radio />}
+								label={t.basic}
+							/>,
+							<FormControlLabel
+								value="COLLEGE_DEGREE"
+								control={<Radio />}
+								label={t.none}
+							/>,
+						]}
+					/>
+				)}
+			/>
+
+			<br />
+			<br />
+			<br />
+
+			<T.fields.englishProficiency
+				renderer={t => (
+					<Field
+						name="englishProficiency"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="SOME_HIGH_SCHOOL"
+								control={<Radio />}
+								label={t.native}
+							/>,
+							<FormControlLabel
+								value="HIGH_SCHOOL"
+								control={<Radio />}
+								label={t.fluent}
+							/>,
+							<FormControlLabel
+								value="SOME_COLLEGE"
+								control={<Radio />}
+								label={t.conversational}
+							/>,
+							<FormControlLabel
+								value="COLLEGE_DEGREE"
+								control={<Radio />}
+								label={t.basic}
+							/>,
+							<FormControlLabel
+								value="COLLEGE_DEGREE"
+								control={<Radio />}
+								label={t.none}
+							/>,
+						]}
+					/>
+				)}
+			/>
+
+			<br />
+			<br />
+			<br />
+
 			<T.fields.education
 				renderer={t => (
 					<Field
