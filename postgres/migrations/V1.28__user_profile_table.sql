@@ -10,6 +10,12 @@ CREATE TABLE user_profiles (
     work_experiences jsonb,
 	skills text[],
 	certificates_and_licences text[],
+	spanish_proficiency text
+        NOT NULL
+        CHECK (spanish_proficiency IN ('NATIVE_LANGUAGE', 'FLUENT', 'CONVERSATIONAL', 'BASIC', 'NO_PROFICIENCY')),
+	english_proficiency text
+        NOT NULL
+        CHECK (english_proficiency IN ('NATIVE_LANGUAGE', 'FLUENT', 'CONVERSATIONAL', 'BASIC', 'NO_PROFICIENCY')),
 	education_level text
         NOT NULL
         CHECK (education_level IN ('SOME_HIGH_SCHOOL', 'HIGH_SCHOOL', 'SOME_COLLEGE', 'COLLEGE_DEGREE')),
