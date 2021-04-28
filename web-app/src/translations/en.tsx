@@ -603,6 +603,22 @@ export default {
 				someCollege: "Some College", // Universidad Trunca
 				collegeDegree: "College Degree", //Educacion Superiro
 			},
+			englishProficiency: {
+				label: "English Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
+			spanishProficiency: {
+				label: "Spanish Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
 			availability: {
 				label: "Availability",
 
