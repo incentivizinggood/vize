@@ -379,27 +379,27 @@ function InnerForm({
 						label={t.label}
 						options={[
 							<FormControlLabel
-								value="SOME_HIGH_SCHOOL"
+								value="NATIVE_LANGUAGE"
 								control={<Radio />}
 								label={t.native}
 							/>,
 							<FormControlLabel
-								value="HIGH_SCHOOL"
+								value="FLUENT"
 								control={<Radio />}
 								label={t.fluent}
 							/>,
 							<FormControlLabel
-								value="SOME_COLLEGE"
+								value="CONVERSATIONAL"
 								control={<Radio />}
 								label={t.conversational}
 							/>,
 							<FormControlLabel
-								value="COLLEGE_DEGREE"
+								value="BASIC"
 								control={<Radio />}
 								label={t.basic}
 							/>,
 							<FormControlLabel
-								value="COLLEGE_DEGREE"
+								value="NO_PROFICIENCY"
 								control={<Radio />}
 								label={t.none}
 							/>,
@@ -420,27 +420,27 @@ function InnerForm({
 						label={t.label}
 						options={[
 							<FormControlLabel
-								value="SOME_HIGH_SCHOOL"
+								value="NATIVE_LANGUAGE"
 								control={<Radio />}
 								label={t.native}
 							/>,
 							<FormControlLabel
-								value="HIGH_SCHOOL"
+								value="FLUENT"
 								control={<Radio />}
 								label={t.fluent}
 							/>,
 							<FormControlLabel
-								value="SOME_COLLEGE"
+								value="CONVERSATIONAL"
 								control={<Radio />}
 								label={t.conversational}
 							/>,
 							<FormControlLabel
-								value="COLLEGE_DEGREE"
+								value="BASIC"
 								control={<Radio />}
 								label={t.basic}
 							/>,
 							<FormControlLabel
-								value="COLLEGE_DEGREE"
+								value="NO_PROFICIENCY"
 								control={<Radio />}
 								label={t.none}
 							/>,

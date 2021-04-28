@@ -95,6 +95,8 @@ let initialValues = {
 	],
 	skills: "",
 	certificatesAndLicences: "",
+	spanishProficiency: "",
+	englishProficiency: "",
 	highestLevelOfEducation: "",
 	morning: false,
 	afternoon: false,
@@ -112,6 +114,26 @@ const schema = yup.object().shape({
 	skills: yup.string().required(),
 	certificatesAndLicences: yup
 		.string(),
+	spanishProficiency: yup
+		.string()
+		.oneOf([
+			"NATIVE_LANGUAGE",
+			"FLUENT",
+			"CONVERSATIONAL",
+			"BASIC",
+			"NO_PROFICIENCY",
+		])
+		.required(),
+	englishProficiency: yup
+		.string()
+		.oneOf([
+			"NATIVE_LANGUAGE",
+			"FLUENT",
+			"CONVERSATIONAL",
+			"BASIC",
+			"NO_PROFICIENCY",
+		])
+		.required(),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
