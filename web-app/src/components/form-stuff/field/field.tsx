@@ -40,11 +40,15 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 	}
 	if (type === "phoneNumber") {
 		return (
-			<Formik.Field
+			<FormikField
 				{...restProps}
 				type={type}
 				component={TextField}
 				InputProps={{ inputComponent: PhoneNumberInputMask }}
+				InputLabelProps={{
+					shrink: true,
+				}}
+				fullWidth
 				color="primary"
 			/>
 		);
