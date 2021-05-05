@@ -78,31 +78,10 @@ function InnerForm({
 
 			<Field
 				name="phoneNumber"
-				type="text"
-				required
-				t={T.fields.phoneNumber}
-			/>
-			<Field
-				name="phoneNumber"
 				type="phoneNumber"
 				required
 				t={T.fields.phoneNumber}
 			/>
-
-			<Field name="phoneNumber">
-				{({ field }) => (
-					<MaskedInput
-						{...field}
-						mask={phoneNumberMask}
-						id="phoneNumber"
-						placeholder="Enter your phone number"
-						type="text"
-						render={(ref, props) => (
-							<TextField innerRef={ref} {...props} />
-						)}
-					/>
-				)}
-			</Field>
 
 			<Field name="city" type="text" required t={T.fields.city} />
 

@@ -11,6 +11,9 @@ const PhoneNumberInputMask = (props: any) => {
 				inputRef(ref ? ref.inputElement : null);
 			}}
 			mask={[
+				"+",
+				"5",
+				"2",
 				"(",
 				/[1-9]/,
 				/\d/,
@@ -27,7 +30,6 @@ const PhoneNumberInputMask = (props: any) => {
 				/\d/,
 			]}
 			placeholderChar={"\u2000"}
-			showMask
 		/>
 	);
 };
