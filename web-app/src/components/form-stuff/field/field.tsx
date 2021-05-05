@@ -7,6 +7,7 @@ import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
 import RadioButtonsField from "./radio-buttons-field";
+import PhoneNumberInputMask from "./phone-number-input";
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
@@ -33,6 +34,17 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 				{...restProps}
 				type={type}
 				component={Checkbox}
+				color="primary"
+			/>
+		);
+	}
+	if (type === "phoneNumber") {
+		return (
+			<Formik.Field
+				{...restProps}
+				type={type}
+				component={TextField}
+				InputProps={{ inputComponent: PhoneNumberInputMask }}
 				color="primary"
 			/>
 		);
