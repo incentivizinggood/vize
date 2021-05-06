@@ -30,6 +30,11 @@ function formatInputData(inputValues: any) {
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
 	inputValues["availability"] = availabilityArray;
+
+	inputValues.phoneNumber = inputValues.phoneNumber.replace('-','');
+	inputValues.phoneNumber = inputValues.phoneNumber.replace('(','');
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(')','');
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(' ','');
 	
 	const skillsArray = inputValues.skills.includes(",") ? inputValues.skills.split(",") : [inputValues.skills];
 	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(",") ? inputValues.certificatesAndLicences.split(",") : [inputValues.certificatesAndLicences];
@@ -44,6 +49,7 @@ function formatInputData(inputValues: any) {
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
 	console.log('skills', skillsArray);
+
 
 	delete inputValues["morning"];
 	delete inputValues["afternoon"];

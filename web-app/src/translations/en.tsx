@@ -513,7 +513,7 @@ export default {
 			},
 			phoneNumber: {
 				label: "Phone Number",
-				placeholder: "###-###-####",
+				placeholder: "+52(   )   -    ",
 			},
 			city: {
 				label: "City",
