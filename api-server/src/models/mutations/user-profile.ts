@@ -86,12 +86,6 @@ export async function createUserProfile(
 			sql`SELECT role, userid FROM users WHERE userid=${userId}`
 		);
 
-		const {
-			rows: [{ phoneNumberTable }],
-		} = await client.query(
-			sql`SELECT EXISTS(SELECT 1 FROM user_profiles WHERE phone_number=${phoneNumber})`
-		);
-
 		const { rows } = await client.query(
 			sql`SELECT phone_number FROM user_profiles WHERE phone_number=${phoneNumber}
 			LIMIT 1`
@@ -104,19 +98,17 @@ export async function createUserProfile(
 			);
 		}
 
-		console.log("phonee", phoneNumberTable);
-		if (rows.length > 0) {
-			console.log("wahhh");
-			// Error in English: Only workers can create a user profile. You must create a worker account.
-			throw new Error(
-				"Ya hay un perfil con ese numero de telefono. Por favor utiliza otro numero o contactanos si alguien mas esta utilizando tu numero."
-			);
-		}
-
 		if (userId === null) {
 			// Error in English: "You must create an account before you can create a User Profile."
 			throw new Error(
 				'Tienes que crear una cuenta antes de crear un perfil de usuari. Navega a "Crear Cuenta" en la barra de navegación.'
+			);
+		}
+
+		if (rows.length > 0) {
+			// Error in English: There is already a profile with the phone number. Please use another one or contact us if someone is using your phone number
+			throw new Error(
+				"Ya hay un perfil con ese numero de telefono. Por favor utiliza otro numero o contactanos si alguien mas esta utilizando tu numero."
 			);
 		}
 
@@ -190,6 +182,11 @@ export async function updateUserProfile(
 			sql`SELECT role, userid FROM users WHERE userid=${userId}`
 		);
 
+		const { rows } = await client.query(
+			sql`SELECT userid FROM user_profiles WHERE phone_number=${phoneNumber}
+			LIMIT 1`
+		);
+
 		if (role !== "worker") {
 			// Error in English: Only workers can update a user profile. You must create a worker account.
 			throw new Error(
@@ -202,6 +199,17 @@ export async function updateUserProfile(
 			throw new Error(
 				'Tienes que crear una cuenta antes de crear un perfil. Navega a "Crear Cuenta" en la barra de navegación.'
 			);
+		}
+
+		console.log("row", rows);
+		if (rows.length > 0) {
+			// This additional check is to make sure the the matching phone number does not correspond to the user updating their profile (meaning the phone number is the same because they did not change it)
+			if (rows[0].userid !== userId) {
+				// Error in English: There is already a profile with the phone number. Please use another one or contact us if someone is using your phone number
+				throw new Error(
+					"Ya hay un perfil con ese numero de telefono. Por favor utiliza otro numero o contactanos si alguien mas esta utilizando tu numero."
+				);
+			}
 		}
 
 		await client.query(sql`
