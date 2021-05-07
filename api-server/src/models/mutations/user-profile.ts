@@ -201,7 +201,6 @@ export async function updateUserProfile(
 			);
 		}
 
-		console.log("row", rows);
 		if (rows.length > 0) {
 			// This additional check is to make sure the the matching phone number does not correspond to the user updating their profile (meaning the phone number is the same because they did not change it)
 			if (rows[0].userid !== userId) {
