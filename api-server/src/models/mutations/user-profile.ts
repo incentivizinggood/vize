@@ -86,10 +86,30 @@ export async function createUserProfile(
 			sql`SELECT role, userid FROM users WHERE userid=${userId}`
 		);
 
+		const {
+			rows: [{ phoneNumberTable }],
+		} = await client.query(
+			sql`SELECT EXISTS(SELECT 1 FROM user_profiles WHERE phone_number=${phoneNumber})`
+		);
+
+		const { rows } = await client.query(
+			sql`SELECT phone_number FROM user_profiles WHERE phone_number=${phoneNumber}
+			LIMIT 1`
+		);
+
 		if (role !== "worker") {
 			// Error in English: Only workers can create a user profile. You must create a worker account.
 			throw new Error(
 				"Solo los trabajadores pueden crear un perfil de usuario. Tienes que crear una cuenta de trabajador."
+			);
+		}
+
+		console.log("phonee", phoneNumberTable);
+		if (rows.length > 0) {
+			console.log("wahhh");
+			// Error in English: Only workers can create a user profile. You must create a worker account.
+			throw new Error(
+				"Ya hay un perfil con ese numero de telefono. Por favor utiliza otro numero o contactanos si alguien mas esta utilizando tu numero."
 			);
 		}
 
