@@ -101,7 +101,7 @@ export async function createUserProfile(
 		if (userId === null) {
 			// Error in English: "You must create an account before you can create a User Profile."
 			throw new Error(
-				'Tienes que crear una cuenta antes de crear un perfil de usuari. Navega a "Crear Cuenta" en la barra de navegación.'
+				'Tienes que crear una cuenta o iniciar una sesión antes de crear un perfil de usuari. Navega a "Crear Cuenta" en la barra de navegación.'
 			);
 		}
 
@@ -197,7 +197,7 @@ export async function updateUserProfile(
 		if (userId === null) {
 			// Error in English: "You must create an account before you can create a User Profile."
 			throw new Error(
-				'Tienes que crear una cuenta antes de crear un perfil. Navega a "Crear Cuenta" en la barra de navegación.'
+				'Tienes que crear una cuenta o iniciar una sesión antes de crear un perfil. Navega a "Crear Cuenta" en la barra de navegación.'
 			);
 		}
 
