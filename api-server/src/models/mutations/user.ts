@@ -1,7 +1,9 @@
 import * as yup from "yup";
+import { nanoid } from "nanoid";
 
 import sql from "src/utils/sql-template";
 import { pool } from "src/connectors/postgresql";
+import { sendEmail } from "src/connectors/email";
 import {
 	User,
 	getUserByLogin,
@@ -197,4 +199,53 @@ export async function authWithFacebook(input: unknown): Promise<User> {
 	} else {
 		return rows[0];
 	}
+}
+
+const requestPasswordResetInputSchema = yup
+	.object({
+		emailAddress: yup
+			.string()
+			.email()
+			.required(),
+	})
+	.required();
+
+export async function requestPasswordReset(input: unknown): Promise<void> {
+	const { emailAddress } = await requestPasswordResetInputSchema.validate(
+		input,
+		{
+			abortEarly: false,
+		}
+	);
+
+	const { userid: userId } =
+		(await pool.query<{ userid: number }>(sql`
+			SELECT userid
+			FROM users
+			WHERE email_address=${emailAddress}
+			LIMIT 1
+		`)).rows[0] || {};
+
+	if (userId === undefined) {
+		throw "There is no user with that email address.";
+	}
+
+	const passwordResetRequestId = nanoid();
+
+	await pool.query(sql`
+		INSERT INTO password_reset_requests
+			(id, user_id, expiration_date)
+		VALUES
+			(${passwordResetRequestId}, ${userId}, NOW() + interval '24 hours')
+	`);
+
+	await sendEmail({
+		templateId: 4,
+		to: emailAddress,
+		params: {
+			passwordResetRequestId,
+		},
+	});
+
+	postToSlack(`A password reset has been requested for ${emailAddress}.`);
 }
