@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
-import { sendEmail } from "src/connectors/email";
+import { sendEmail, EmailConfig } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
 
 import { locationInputSchema } from "./location";
@@ -229,45 +229,38 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
-		// Have to make some adjustments for the required JSON formatting
-		const coverLetterJSON = coverLetter
-			? coverLetter.replace(/\n/g, "\\n")
-			: null;
-
-		const employerEmailOptions = {
+		const employerEmailOptions: EmailConfig<2> = {
 			templateId: 2,
 			to: companyEmail,
-			params: `{
-				"companyName": "${companyName}",
-				"jobTitle": "${jobTitle}",
-				"jobAdId": "${jobAdId}",
-				"applicantEmail": "${applicantEmail}",
-				"applicantName": "${fullName}",
-				"phoneNumber": "${phoneNumber}",
-				"coverLetter": "${coverLetterJSON}"
-			}`,
+			params: {
+				companyName: `${companyName}`,
+				jobTitle: `${jobTitle}`,
+				jobAdId: `${jobAdId}`,
+				applicantEmail: `${applicantEmail}`,
+				applicantName: `${fullName}`,
+				phoneNumber: `${phoneNumber}`,
+				coverLetter: coverLetter || null,
+			},
 		};
 
-		const spaceIndex = fullName.indexOf(" ");
-		const firstName =
-			spaceIndex === -1 ? fullName : fullName.substr(0, spaceIndex);
+		const firstName = fullName.split(" ")[0];
 
 		const readEmployerReviews =
 			numReviews > 0
 				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}/evaluaciones`
 				: "";
 
-		const applicantEmailOptions = {
+		const applicantEmailOptions: EmailConfig<3> = {
 			templateId: 3,
 			to: applicantEmail,
-			params: `{
-				"companyName": "${companyName}",
-				"jobTitle": "${jobTitle}",
-				"applicantName": "${firstName}",
-				"companyId": "${companyId}",
-				"jobAdId": "${jobAdId}",
-				"readEmployerReviews": "${readEmployerReviews}"
-			}`,
+			params: {
+				companyName: `${companyName}`,
+				jobTitle: `${jobTitle}`,
+				applicantName: `${firstName}`,
+				companyId: `${companyId}`,
+				jobAdId: `${jobAdId}`,
+				readEmployerReviews: `${readEmployerReviews}`,
+			},
 		};
 
 		await sendEmail(applicantEmailOptions);
