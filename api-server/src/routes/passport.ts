@@ -15,6 +15,7 @@ import {
 	changePassword,
 	authWithFacebook,
 	requestPasswordReset,
+	resetPassword,
 } from "src/models";
 
 /** Set up the users and authentication middleware. */
@@ -143,6 +144,22 @@ router.post("/change-password", async function(req, res, next) {
 router.post("/request-password-reset", async function(req, res, next) {
 	try {
 		await requestPasswordReset(req.body);
+
+		res.end();
+	} catch (e) {
+		if (e instanceof yup.ValidationError) {
+			res.status(400).json({ errors: e.errors });
+		} else if (typeof e === "string") {
+			res.status(400).json({ errors: [e] });
+		} else {
+			next(e);
+		}
+	}
+});
+
+router.post("/reset-password", async function(req, res, next) {
+	try {
+		await resetPassword(req.body);
 
 		res.end();
 	} catch (e) {
