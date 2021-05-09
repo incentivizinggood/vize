@@ -209,7 +209,7 @@ const createApplyToJobAdInputSchema = yup
 	.required();
 
 export async function applyToJobAd(input: unknown): Promise<boolean> {
-	const {
+	let {
 		jobAdId,
 		jobTitle,
 		fullName,
@@ -281,10 +281,77 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
+		const monthTranlsations = {
+			1: "enero",
+			2: "febrero",
+			3: "marzo",
+			4: "abril",
+			5: "mayo",
+			6: "junio",
+			7: "julio",
+			8: "agosto",
+			9: "septiembre",
+			10: "octubre",
+			11: "noviembre",
+			12: "diciembre"
+		};
+
+		const educationLevelTranslation = {
+			"SOME_HIGH_SCHOOL": "Preparatoria Trunca",
+			"HIGH_SCHOOL": "Preparatoria",
+			"SOME_COLLEGE": "Universidad Trunca",
+			"COLLEGE_DEGREE": "Titulo Universitario",
+		};
+
+		const workShiftTranlsations = {
+			"MORNING_SHIFT": "Turno Matutino",
+			"AFTERNOON_SHIFT": "Turno Vespertino",
+			"NIGHT_SHIFT": "Turno Nocturno",
+		};
+
+		// This is the message we will use to inform companies that the worker left a field blank
+		const userLeftFieldBlankMessage: string = "*El solicitante dejó este campo en blanco*";
+
+		// Adjusting formatting for the employer email
+		const availabilityTranslated = availability.map(function(_: any, index: number) {	
+			// prettier-ignore
+			return workShiftTranlsations[availability[index]];
+		});
+		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
+		const skillsFormatted = skills.join(", ");
+		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
+		const highestLevelOfEducationTranslated = educationLevelTranslation[highestLevelOfEducation];
+		if (!availabilityComments)
+			availabilityComments = userLeftFieldBlankMessage;
+		if (!neighborhood)
+			neighborhood = userLeftFieldBlankMessage;
+
+		console.log('cert', certificatesAndLicences);
+
+		workExperiences?.forEach(function(_: any, index: number) {	
+			const startDate = new Date(workExperiences[index].startDate);
+			const startDateMonth = monthTranlsations[startDate.getMonth()];
+			const startDateYear = startDate.getFullYear();
+			const startDateText = `${startDateMonth} ${startDateYear}`;
+	
+			let endDateText = "Presente";
+			if (workExperiences[index].endDate) {
+				const endDate = new Date(workExperiences[index].endDate);
+				const endDateMonth = monthTranlsations[endDate.getMonth()];
+				const endDateYear = endDate.getFullYear();
+				endDateText = `${endDateMonth} ${endDateYear}`;
+			}
+			const employmentDate = `${startDateText} - ${endDateText}`;
+			workExperiences[index].employmentDate = employmentDate;
+		});
+		console.log('datee', workExperiences);
+
 		// Have to make some adjustments for the required JSON formatting
 		const coverLetterJSON = coverLetter
 			? coverLetter.replace(/\n/g, "\\n")
-			: null;
+			: userLeftFieldBlankMessage;
+
+
 
 		const employerEmailOptions = {
 			templateId: 2,
@@ -299,10 +366,10 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				"city": "${city}",
 				"neighborhood": "${neighborhood}",
 				"workExperiences": ${JSON.stringify(workExperiences)},
-				"skills": "${skills}",
-				"certificatesAndLicences": "${certificatesAndLicences}",
-				"highestLevelOfEducation": "${highestLevelOfEducation}",
-				"availability": "${availability}",
+				"skills": "${skillsFormatted}",
+				"certificatesAndLicences": "${certificatesAndLicencesFormatted}",
+				"highestLevelOfEducation": "${highestLevelOfEducationTranslated}",
+				"availability": "${availabilityTranslatedAndFormatted}",
 				"availabilityComments": "${availabilityComments}",
 				"phoneNumber": "${phoneNumber}",
 				"coverLetter": "${coverLetterJSON}"
