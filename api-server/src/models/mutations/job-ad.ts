@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail, EmailConfig } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
-
+import { monthTranlsations, educationLevelTranslations, workShiftTranlsations } from "src/utils/translation-utils"
 import { locationInputSchema } from "./location";
 import { workExperienceInputSchema } from "./work-experience";
 
@@ -302,34 +302,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
-		const monthTranlsations = {
-			1: "enero",
-			2: "febrero",
-			3: "marzo",
-			4: "abril",
-			5: "mayo",
-			6: "junio",
-			7: "julio",
-			8: "agosto",
-			9: "septiembre",
-			10: "octubre",
-			11: "noviembre",
-			12: "diciembre"
-		};
-
-		const educationLevelTranslation = {
-			"SOME_HIGH_SCHOOL": "Preparatoria Trunca",
-			"HIGH_SCHOOL": "Preparatoria",
-			"SOME_COLLEGE": "Universidad Trunca",
-			"COLLEGE_DEGREE": "Titulo Universitario",
-		};
-
-		const workShiftTranlsations = {
-			"MORNING_SHIFT": "Turno Matutino",
-			"AFTERNOON_SHIFT": "Turno Vespertino",
-			"NIGHT_SHIFT": "Turno Nocturno",
-		};
-
 		// This is the message we will use to inform companies that the worker left a field blank
 		const userLeftFieldBlankMessage: string = "*El solicitante dejó este campo en blanco*";
 
@@ -342,7 +314,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
 		const skillsFormatted = skills.join(", ");
 		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
-		const highestLevelOfEducationTranslated = educationLevelTranslation[highestLevelOfEducation];
+		const highestLevelOfEducationTranslated = educationLevelTranslations[highestLevelOfEducation];
 		if (!availabilityComments)
 			availabilityComments = userLeftFieldBlankMessage;
 		if (!neighborhood)
