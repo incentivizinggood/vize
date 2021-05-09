@@ -601,7 +601,7 @@ export default {
 				someHighScool: "Some High School", // Preparatoria Trunca
 				highSchool: "High School", // Preparatoria Trunca
 				someCollege: "Some College", // Universidad Trunca
-				collegeDegree: "College Degree", //Educacion Superiro
+				collegeDegree: "College Degree", //Titulo Universitario
 			},
 			englishProficiency: {
 				label: "English Proficiency",
