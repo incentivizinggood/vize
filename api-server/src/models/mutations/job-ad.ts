@@ -166,6 +166,27 @@ export async function createJobAd(
 	return execTransactionRW(transaction);
 }
 
+function formatWorkExperiences(workExperiences: any) { 
+	workExperiences?.forEach(function(_: any, index: number) {	
+		const startDate = new Date(workExperiences[index].startDate);
+		const startDateMonth = monthTranlsations[startDate.getMonth()];
+		const startDateYear = startDate.getFullYear();
+		const startDateText = `${startDateMonth} ${startDateYear}`;
+
+		let endDateText = "Presente";
+		if (workExperiences[index].endDate) {
+			const endDate = new Date(workExperiences[index].endDate);
+			const endDateMonth = monthTranlsations[endDate.getMonth()];
+			const endDateYear = endDate.getFullYear();
+			endDateText = `${endDateMonth} ${endDateYear}`;
+		}
+		const employmentDate = `${startDateText} - ${endDateText}`;
+		workExperiences[index].employmentDate = employmentDate;
+	});
+
+	return workExperiences;
+}
+
 const createApplyToJobAdInputSchema = yup
 	.object({
 		jobAdId: yup.string().required(),
@@ -313,6 +334,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		const userLeftFieldBlankMessage: string = "*El solicitante dejó este campo en blanco*";
 
 		// Adjusting formatting for the employer email
+		workExperiences = formatWorkExperiences(workExperiences);
 		const availabilityTranslated = availability.map(function(_: any, index: number) {	
 			// prettier-ignore
 			return workShiftTranlsations[availability[index]];
@@ -325,26 +347,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 			availabilityComments = userLeftFieldBlankMessage;
 		if (!neighborhood)
 			neighborhood = userLeftFieldBlankMessage;
-
-		console.log('cert', certificatesAndLicences);
-
-		workExperiences?.forEach(function(_: any, index: number) {	
-			const startDate = new Date(workExperiences[index].startDate);
-			const startDateMonth = monthTranlsations[startDate.getMonth()];
-			const startDateYear = startDate.getFullYear();
-			const startDateText = `${startDateMonth} ${startDateYear}`;
-	
-			let endDateText = "Presente";
-			if (workExperiences[index].endDate) {
-				const endDate = new Date(workExperiences[index].endDate);
-				const endDateMonth = monthTranlsations[endDate.getMonth()];
-				const endDateYear = endDate.getFullYear();
-				endDateText = `${endDateMonth} ${endDateYear}`;
-			}
-			const employmentDate = `${startDateText} - ${endDateText}`;
-			workExperiences[index].employmentDate = employmentDate;
-		});
-		console.log('datee', workExperiences);
 
 		// Have to make some adjustments for the required JSON formatting
 		const coverLetterJSON = coverLetter
