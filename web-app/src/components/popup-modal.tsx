@@ -115,7 +115,11 @@ export default class PopupModal extends React.Component {
 							style={{ float: "left" }}
 							onClick={this.closeModal}
 						>
-							<FontAwesomeIcon icon={faTimes} size="2x" />
+							<FontAwesomeIcon
+								icon={faTimes}
+								color={this.props.closeModalButtonColor}
+								size="2x"
+							/>
 						</button>
 					)}
 
@@ -137,4 +141,5 @@ PopupModal.defaultProps = {
 	showCloseButton: true,
 	canCloseModal: true,
 	isOpen: false,
+	closeModalButtonColor: "black",
 };

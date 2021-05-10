@@ -537,11 +537,6 @@ export default {
 				placeholder:
 					"Enter the name of the neighborhood or area of the city that you live in",
 			},
-			longTermGoal: {
-				label: "Your Dream Job",
-				placeholder:
-					"What job do you want to have in 5 years? We'll match you with other people that have a similar goal.",
-			},
 			workExperiences: {
 				label: "Work Experience",
 				addElement: ({ array }: { array: unknown[] }) =>
@@ -631,6 +626,10 @@ export default {
 				label: "Availability Comments",
 				placeholder:
 					"Would you like to provide any additional information related to your availability?",
+			},
+			yourDreamJob: {
+				label: "Your Dream Job",
+				placeholder: "What job do you want to have in 2-5 years?",
 			},
 		},
 		submit: "Submit",
