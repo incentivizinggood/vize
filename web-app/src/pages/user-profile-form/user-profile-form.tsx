@@ -6,6 +6,7 @@ import { mapValues, map, omitBy, filter, merge } from "lodash";
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
+import { useUser } from "src/hoc/user";
 import { workExperienceSchema } from "src/form-schemas";
 
 
@@ -197,8 +198,8 @@ const onSubmit = (
 				)
 			) {
 				setLoginRegisterModal(
-					<PopupModal isOpen={true}>
-						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo" />
+					<PopupModal isOpen={true} closeModalButtonColor="white">
+						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para crear un perfil" />
 					</PopupModal>
 				);
 			} else {
@@ -232,11 +233,11 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 	}
 	console.log('up user', userProfile);	
 
-	// const user = useUser();
+	const user = useUser();
 
-	// if (user) {
-	// 	loginRegisterModal = null;
-	// }
+	if (user) {
+		loginRegisterModal = null;
+	}
 
 	return (
 		<>
@@ -257,7 +258,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 
            
 			</Formik>
-			{/* {loginRegisterModal} */}
+			{loginRegisterModal}
 		</>
 	);
 }
