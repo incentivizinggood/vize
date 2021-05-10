@@ -7,8 +7,6 @@ import styled from "styled-components";
 import PrivacyIcon from "@material-ui/icons/Security";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import MaskedInput from "react-text-mask";
-import TextField from "@material-ui/core/TextField";
 
 import { Button } from "src/components/button";
 import {
@@ -43,22 +41,6 @@ const CheckboxLabel = styled.label`
 const CheckboxField = styled(Field)`
 	padding-left: 0px !important;
 `;
-const phoneNumberMask = [
-	"(",
-	/[1-9]/,
-	/\d/,
-	/\d/,
-	")",
-	" ",
-	/\d/,
-	/\d/,
-	/\d/,
-	"-",
-	/\d/,
-	/\d/,
-	/\d/,
-	/\d/,
-];
 
 interface UserProfileInnerFormProps {
 	submissionError: any;
