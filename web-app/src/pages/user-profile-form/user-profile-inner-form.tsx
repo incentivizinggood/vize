@@ -335,17 +335,12 @@ function InnerForm({
 			/>
 
 			<br />
-			<FieldTitle>Skills</FieldTitle>
-			<FieldDescription>
-				Write a list of any of manufaturing related skills that you
-				have. Seperate out each skill with a comma.
-			</FieldDescription>
 
 			<Field
 				name="skills"
 				type="text"
 				multiline
-				rows={3}
+				rows={4}
 				required
 				t={T.fields.skills}
 			/>
@@ -353,17 +348,12 @@ function InnerForm({
 			<br />
 			<br />
 			<br />
-			<FieldTitle>Certificates & Licences</FieldTitle>
-			<FieldDescription>
-				Write a list of any manufacturing related certificates and
-				licenses that you have. Seperate out each Certificate / Licence
-				with a comma.
-			</FieldDescription>
+
 			<Field
 				name="certificatesAndLicences"
 				type="text"
 				multiline
-				rows={2}
+				rows={4}
 				t={T.fields.certificatesAndLicences}
 			/>
 

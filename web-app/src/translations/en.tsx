@@ -578,11 +578,12 @@ export default {
 			skills: {
 				label: "Skills",
 				placeholder:
-					"e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
 			},
 			certificatesAndLicences: {
 				label: "Certificates & Licences",
-				placeholder: "e.g. ISO, CAC Machinery, CAD",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
 			},
 			education: {
 				label: "Highest level of education", // Grado mas alto de educacion
