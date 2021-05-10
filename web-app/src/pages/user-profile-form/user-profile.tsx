@@ -26,8 +26,6 @@ function formatUserProfileData(userProfile: any) {
 		delete userProfile["availability"];
 	}
 
-	userProfile.coverLetter = "";
-
 	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(", ") : userProfile.skills;
 	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
 
