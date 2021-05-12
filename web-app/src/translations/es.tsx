@@ -516,6 +516,125 @@ export default {
 		},
 		submit: "Enviar",
 	},
+	userProfileForm: {
+		formTitleCreateProfile: "Crear un Perfil",
+		formTitleEditProfile: "Editar Tu Perfil",
+		formDescription:
+			"¡Con este perfil puedes postularte a empleos con solo un clic!",
+		fields: {
+			fullName: {
+				label: "Nombre Completo",
+				placeholder: "Por favor ingresa tu nombre completo",
+			},
+			phoneNumber: {
+				label: "Numero de Telefono",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "Ciudad",
+				placeholder:
+					"Ingresa el nombre de la ciudad en la que resides actualmente",
+			},
+			neighborhood: {
+				label: "Colonia",
+				placeholder:
+					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
+			},
+			workExperiences: {
+				label: "Experiencia Laboral",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "otra" : "una"} experiencia`,
+				jobTitle: {
+					label: "Puesto de Trabajo",
+					placeholder: "Ingresa el nombre de el puesto desempeñado",
+				},
+				companyName: {
+					label: "Nombre de la Empresa",
+					placeholder: "Ingresa el nombre de la empresa",
+				},
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingresa el nombre de la ciudad",
+				},
+				startDate: {
+					label: "Fecha de Inicio",
+				},
+				endDate: {
+					label: "Fecha de Finalización",
+				},
+				experienceDescription: {
+					label: "Descripción",
+					placeholder:
+						"Describe tu experiencia laboral. ¿Qué hacíste en el trabajo? ¿Cuáles eran tus responsabilidades? ¿Cuáles fueron tus logros?",
+				},
+				iCurrentlyWorkHere: "Actualmente trabajo aquí",
+				month: "Mes",
+				year: "Año",
+				january: "enero",
+				february: "febrero",
+				march: "marzo",
+				april: "abril",
+				may: "mayo",
+				june: "junio",
+				july: "julio",
+				august: "agosto",
+				september: "septiembre",
+				october: "octubre",
+				november: "noviembre",
+				december: "diciembre",
+			},
+			skills: {
+				label: "Habilidades",
+				placeholder:
+					"Escriba una lista de todas las habilidades relacionadas con la manufactura que tenga. Separe cada habilidad con una coma.",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Nivel Educativo Más Alto",
+				someHighScool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
+			},
+			englishProficiency: {
+				label: "Dominio del Inglés",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			spanishProficiency: {
+				label: "Dominio del español",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			availability: {
+				label: "Disponibilidad",
+				morning: "Turno Matutino",
+				afternoon: "Turno Vespertino",
+				night: "Turno Nocturno",
+			},
+			availabilityComments: {
+				label: "Comentarios de Disponibilidad",
+				placeholder:
+					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
+			},
+			yourDreamJob: {
+				label: "El Trabajo de tus Sueños",
+				placeholder: "¿Qué trabajo te gustaría tener en 2-5 años?",
+			},
+		},
+		submit: "Enviar",
+		update: "Actualizar",
+	},
 	resources: {
 		featuredResources: "Recursos Destacados",
 		topics: "Temas",
