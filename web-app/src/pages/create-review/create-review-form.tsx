@@ -216,7 +216,7 @@ export default function CreateReviewForm({
 					)
 				) {
 					setContent(
-						<PopupModal isOpen={true}>
+						<PopupModal isOpen={true} closeModalButtonColor="white">
 							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);
