@@ -213,7 +213,7 @@ const onSubmit = (
 					"Tienes que iniciar una sesión o registrarte"
 				)
 			) {
-				setLoginRegisterModal(6
+				setLoginRegisterModal(
 					<PopupModal isOpen={true} closeModalButtonColor="white" >
 						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo" />
 					</PopupModal>

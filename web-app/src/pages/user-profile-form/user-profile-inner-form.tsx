@@ -340,7 +340,7 @@ function InnerForm({
 				name="skills"
 				type="text"
 				multiline
-				rows={4}
+				rows={5}
 				required
 				t={T.fields.skills}
 			/>
@@ -353,7 +353,7 @@ function InnerForm({
 				name="certificatesAndLicences"
 				type="text"
 				multiline
-				rows={4}
+				rows={5}
 				t={T.fields.certificatesAndLicences}
 			/>
 
@@ -475,6 +475,7 @@ function InnerForm({
 				)}
 			/>
 
+			<br />
 			<br />
 			<br />
 

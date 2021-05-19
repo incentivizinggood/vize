@@ -524,7 +524,7 @@ export default {
 		fields: {
 			fullName: {
 				label: "Nombre Completo",
-				placeholder: "Por favor ingresa tu nombre completo",
+				placeholder: "Ingresa tu nombre completo",
 			},
 			phoneNumber: {
 				label: "Numero de Telefono",
@@ -543,7 +543,7 @@ export default {
 			workExperiences: {
 				label: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Agrega ${array.length > 0 ? "otra" : "una"} experiencia`,
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
 				jobTitle: {
 					label: "Puesto de Trabajo",
 					placeholder: "Ingresa el nombre de el puesto desempeñado",
@@ -586,12 +586,12 @@ export default {
 			skills: {
 				label: "Habilidades",
 				placeholder:
-					"Escriba una lista de todas las habilidades relacionadas con la manufactura que tenga. Separe cada habilidad con una coma.",
+					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
 			},
 			certificatesAndLicences: {
 				label: "Certificates & Licences",
 				placeholder:
-					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
 			},
 			education: {
 				label: "Nivel Educativo Más Alto",
@@ -609,7 +609,7 @@ export default {
 				none: "Ninguno",
 			},
 			spanishProficiency: {
-				label: "Dominio del español",
+				label: "Dominio del Español",
 				native: "Nativo",
 				fluent: "Fluido",
 				conversational: "Conversacional",
@@ -628,6 +628,10 @@ export default {
 					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
 			},
 			yourDreamJob: {
+				description:
+					"¿Qué trabajo deseas tener en 2-5 años? Te emparejaremos con otras personas que tengan una meta similar.",
+				privacyInformation:
+					"No se compartirá esta información con ningún empleador cuando envies una solicitud de empleo.",
 				label: "El Trabajo de tus Sueños",
 				placeholder: "¿Qué trabajo te gustaría tener en 2-5 años?",
 			},
