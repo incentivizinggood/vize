@@ -540,7 +540,7 @@ export default {
 			workExperiences: {
 				label: "Work Experience",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "an"} experience`,
+					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
 				jobTitle: {
 					label: "Job Title",
 					placeholder: "Enter the job title",
@@ -628,6 +628,10 @@ export default {
 					"Would you like to provide any additional information related to your availability?",
 			},
 			yourDreamJob: {
+				description:
+					"What job do you want to have in 2-5 years? We'll match you with other people that have a similar goal.",
+				privacyInformation:
+					"This information will not be shared with any employer when you apply to a job.",
 				label: "Your Dream Job",
 				placeholder: "What job do you want to have in 2-5 years?",
 			},
