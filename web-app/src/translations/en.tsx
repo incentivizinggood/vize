@@ -408,7 +408,7 @@ export default {
 			},
 			phoneNumber: {
 				label: "Phone Number",
-				placeholder: "###-###-####",
+				placeholder: "+52(   )   -    ",
 			},
 			city: {
 				label: "City",
@@ -423,7 +423,7 @@ export default {
 			workExperiences: {
 				label: "Work Experience",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "an"} experience`,
+					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
 				jobTitle: {
 					label: "Job Title",
 					placeholder: "Enter the job title",
@@ -468,22 +468,38 @@ export default {
 			skills: {
 				label: "Skills",
 				placeholder:
-					"e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
 			},
 			certificatesAndLicences: {
 				label: "Certificates & Licences",
-				placeholder: "e.g. ISO, CAC Machinery, CAD",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
 			},
 			education: {
-				label: "Highest level of education", // Grado mas alto de educacion
-				someHighScool: "Some High School", // Preparatoria Trunca
-				highSchool: "High School", // Preparatoria Trunca
-				someCollege: "Some College", // Universidad Trunca
-				collegeDegree: "College Degree", //Educacion Superiro
+				label: "Highest level of education",
+				someHighScool: "Some High School",
+				highSchool: "High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			englishProficiency: {
+				label: "English Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
+			spanishProficiency: {
+				label: "Spanish Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
 			},
 			availability: {
 				label: "Availability",
-
 				morning: "Morning Shift",
 				afternoon: "Afternoon Shift",
 				night: "Night Shift",
@@ -499,7 +515,7 @@ export default {
 					"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			},
 		},
-		submit: "Submit",
+		submit: "Apply",
 	},
 	userProfileForm: {
 		formTitleCreateProfile: "Create a Profile",
