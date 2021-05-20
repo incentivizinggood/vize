@@ -10,7 +10,11 @@ const userProfileInputSchema = yup
 		phoneNumber: yup.string().required(),
 		city: yup.string().required(),
 		neighborhood: yup.string(),
-		workExperiences: yup.array().of(workExperienceInputSchema),
+		workExperiences: yup
+			.array()
+			.required()
+			.min(1)
+			.of(workExperienceInputSchema),
 		skills: yup
 			.array()
 			.required()

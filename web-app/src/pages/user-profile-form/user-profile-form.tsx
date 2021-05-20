@@ -117,7 +117,11 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
 	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
-	workExperiences: yup.array().of(workExperienceSchema),
+	workExperiences: yup
+		.array()
+		.required()
+		.min(1)
+		.of(workExperienceSchema),
 	skills: yup.string().required("Se requiere al menos una habilidad"),
 	certificatesAndLicences: yup
 		.string(),
