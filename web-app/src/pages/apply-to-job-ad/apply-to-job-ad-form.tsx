@@ -96,18 +96,39 @@ let initialValues = {
 };
 
 const schema = yup.object().shape({
-	jobAdId: yup.string().required(),
-	fullName: yup.string().required(),
+	jobAdId: yup.string().required(),	
+	fullName: yup.string().required("Se requiere el nombre completo"),
 	email: yup
 		.string()
 		.email()
 		.required(),
-	phoneNumber: yup.string().required(),
-	city: yup.string().required(),
+	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
+	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
-	skills: yup.string().required(),
-	certificatesAndLicences: yup.string().nullable(),
+	skills: yup.string().required("Se requiere al menos una habilidad"),
+	certificatesAndLicences: yup
+		.string(),
+	spanishProficiency: yup
+		.string()
+		.oneOf([
+			"NATIVE_LANGUAGE",
+			"FLUENT",
+			"CONVERSATIONAL",
+			"BASIC",
+			"NO_PROFICIENCY",
+		])
+		.required("Se requiere la seleccion que describa tu dominio del español"),
+	englishProficiency: yup
+		.string()
+		.oneOf([
+			"NATIVE_LANGUAGE",
+			"FLUENT",
+			"CONVERSATIONAL",
+			"BASIC",
+			"NO_PROFICIENCY",
+		])
+		.required("Se requiere la seleccion que describa tu dominio del ingles"),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
@@ -116,7 +137,7 @@ const schema = yup.object().shape({
 			"SOME_COLLEGE",
 			"COLLEGE_DEGREE",
 		])
-		.required("test"),
+		.required("Se requiere la seleccion que describa el nivel educativo más alto"),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
