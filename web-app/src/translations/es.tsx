@@ -416,7 +416,7 @@ export default {
 			label: "Direccion de Correo Electronico",
 			placeholder: "ejemplo@gmail.com",
 		},
-		fields: {
+		fsdields: {
 			fullName: {
 				label: "Nombre Completo",
 				placeholder: "Ingresa tu nombre completo",
