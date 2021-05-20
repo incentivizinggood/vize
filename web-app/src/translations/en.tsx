@@ -593,11 +593,11 @@ export default {
 					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
 			},
 			education: {
-				label: "Highest level of education", // Grado mas alto de educacion
-				someHighScool: "Some High School", // Preparatoria Trunca
-				highSchool: "High School", // Preparatoria Trunca
-				someCollege: "Some College", // Universidad Trunca
-				collegeDegree: "College Degree", //Titulo Universitario
+				label: "Highest level of education",
+				someHighScool: "Some High School",
+				highSchool: "High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
 			},
 			englishProficiency: {
 				label: "English Proficiency",
@@ -617,7 +617,6 @@ export default {
 			},
 			availability: {
 				label: "Availability",
-
 				morning: "Morning Shift",
 				afternoon: "Afternoon Shift",
 				night: "Night Shift",
@@ -636,8 +635,8 @@ export default {
 				placeholder: "What job do you want to have in 2-5 years?",
 			},
 		},
-		submit: "Submit",
-		update: "Update",
+		submit: "Create Profile",
+		update: "Update Profile",
 	},
 	resources: {
 		featuredResources: "Featured Resources",
