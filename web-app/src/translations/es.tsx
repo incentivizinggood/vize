@@ -432,110 +432,124 @@ export default {
 		submit: "Enviar",
 	},
 	applyToJobAd: {
-		formTitle: "Solicitar un trabajo",
+		formTitle: "Solicitar un Trabajo",
+		email: {
+			label: "Direccion de Correo Electronico",
+			placeholder: "ejemplo@gmail.com",
+		},
 		fields: {
 			fullName: {
-				label: "Nombre completo",
-				placeholder: "Por favor ingrese su nombre completo aquí",
-			},
-			email: {
-				label: "Direccion de correo electronico",
-				placeholder: "ejemplo@gmail.com",
+				label: "Nombre Completo",
+				placeholder: "Ingresa tu nombre completo",
 			},
 			phoneNumber: {
-				label: "Numero telefonico",
-				placeholder: "###-###-####",
+				label: "Numero de Telefono",
+				placeholder: "+52(   )   -    ",
 			},
 			city: {
-				label: "City",
+				label: "Ciudad",
 				placeholder:
-					"Enter the name of the city that you currently live in",
+					"Ingresa el nombre de la ciudad en la que resides actualmente",
 			},
 			neighborhood: {
-				label: "Neighborhood",
+				label: "Colonia",
 				placeholder:
-					"Enter the name of the neighborhood or area of the city that you live in",
+					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
 			},
 			workExperiences: {
-				label: "Work Experience",
+				label: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "an"} experience`,
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
 				jobTitle: {
-					label: "Job Title",
-					placeholder: "Enter the job title",
+					label: "Puesto de Trabajo",
+					placeholder: "Ingresa el nombre de el puesto desempeñado",
 				},
 				companyName: {
-					label: "Company Name",
-					placeholder: "Enter the name of the company you worked at",
+					label: "Nombre de la Empresa",
+					placeholder: "Ingresa el nombre de la empresa",
 				},
 				city: {
-					label: "City",
-					placeholder: "Enter the city that your job was located",
+					label: "Ciudad",
+					placeholder: "Ingresa el nombre de la ciudad",
 				},
 				startDate: {
-					label: "Start Date",
-					placeholder: "Enter the date you started your job",
+					label: "Fecha de Inicio",
 				},
 				endDate: {
-					label: "End Date",
-					placeholder: "Enter the date you ended your job",
+					label: "Fecha de Finalización",
 				},
 				experienceDescription: {
-					label: "Description",
+					label: "Descripción",
 					placeholder:
-						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+						"Describe tu experiencia laboral. ¿Qué hacíste en el trabajo? ¿Cuáles eran tus responsabilidades? ¿Cuáles fueron tus logros?",
 				},
-				iCurrentlyWorkHere: "I currently work here",
-				month: "Month",
-				year: "Year",
-				january: "Janauary",
-				february: "February",
-				march: "March",
-				april: "April",
-				may: "May",
-				june: "June",
-				july: "July",
-				august: "August",
-				september: "September",
-				october: "October",
-				november: "November",
-				december: "December",
+				iCurrentlyWorkHere: "Actualmente trabajo aquí",
+				month: "Mes",
+				year: "Año",
+				january: "enero",
+				february: "febrero",
+				march: "marzo",
+				april: "abril",
+				may: "mayo",
+				june: "junio",
+				july: "julio",
+				august: "agosto",
+				september: "septiembre",
+				october: "octubre",
+				november: "noviembre",
+				december: "diciembre",
 			},
 			skills: {
-				label: "Skills",
+				label: "Habilidades",
 				placeholder:
-					"e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
 			},
 			certificatesAndLicences: {
 				label: "Certificates & Licences",
-				placeholder: "e.g. ISO, CAC Machinery, CAD",
+				placeholder:
+					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
 			},
 			education: {
-				label: "Highest level of education", // Grado mas alto de educacion
-				someHighScool: "Some High School", // Preparatoria Trunca
-				highSchool: "High School", // Preparatoria Trunca
-				someCollege: "Some College", // Universidad Trunca
-				collegeDegree: "College Degree", //Educacion Superiro
+				label: "Nivel Educativo Más Alto",
+				someHighScool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
+			},
+			englishProficiency: {
+				label: "Dominio del Inglés",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			spanishProficiency: {
+				label: "Dominio del Español",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
 			},
 			availability: {
-				label: "Availability",
-
-				morning: "Morning Shift",
-				afternoon: "Afternoon Shift",
-				night: "Night Shift",
+				label: "Disponibilidad",
+				morning: "Turno Matutino",
+				afternoon: "Turno Vespertino",
+				night: "Turno Nocturno",
 			},
 			availabilityComments: {
-				label: "Availability Comments",
+				label: "Comentarios de Disponibilidad",
 				placeholder:
-					"Would you like to provide any additional information related to your availability?",
+					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
 			},
 			coverLetter: {
-				label: "Carta de presentación / Comentarios adicionales",
+				label: "Carta de Presentación / Comentarios Adicionales",
 				placeholder:
-					"Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
+					"Usa este espacio para describir por qué serías la persona mas adecuada para esta posición. También puede incluir cualquier comentario adicional que te gustaría enviar a la empresa junto con tu solicitud",
 			},
 		},
-		submit: "Enviar",
+		submit: "Aplicar",
 	},
 	userProfileForm: {
 		formTitleCreateProfile: "Crear un Perfil",

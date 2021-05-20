@@ -327,17 +327,12 @@ function InnerForm({ submissionError }: any) {
 			/>
 
 			<br />
-			<FieldTitle>Skills</FieldTitle>
-			<FieldDescription>
-				Write a list of any of manufaturing related skills that you
-				have. Seperate out each skill with a comma.
-			</FieldDescription>
-
+			
 			<Field
 				name="skills"
 				type="text"
 				multiline
-				rows={3}
+				rows={5}
 				required
 				t={T.fields.skills}
 			/>
@@ -345,18 +340,95 @@ function InnerForm({ submissionError }: any) {
 			<br />
 			<br />
 			<br />
-			<FieldTitle>Certificates & Licences</FieldTitle>
-			<FieldDescription>
-				Write a list of any manufacturing related certificates and
-				licenses that you have. Seperate out each Certificate / Licence
-				with a comma.
-			</FieldDescription>
+
 			<Field
 				name="certificatesAndLicences"
 				type="text"
 				multiline
-				rows={2}
+				rows={5}
 				t={T.fields.certificatesAndLicences}
+			/>
+
+			<br />
+			<br />
+			<br />
+
+			<T.fields.spanishProficiency
+				renderer={t => (
+					<Field
+						name="spanishProficiency"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="NATIVE_LANGUAGE"
+								control={<Radio />}
+								label={t.native}
+							/>,
+							<FormControlLabel
+								value="FLUENT"
+								control={<Radio />}
+								label={t.fluent}
+							/>,
+							<FormControlLabel
+								value="CONVERSATIONAL"
+								control={<Radio />}
+								label={t.conversational}
+							/>,
+							<FormControlLabel
+								value="BASIC"
+								control={<Radio />}
+								label={t.basic}
+							/>,
+							<FormControlLabel
+								value="NO_PROFICIENCY"
+								control={<Radio />}
+								label={t.none}
+							/>,
+						]}
+					/>
+				)}
+			/>
+
+			<br />
+			<br />
+			<br />
+
+			<T.fields.englishProficiency
+				renderer={t => (
+					<Field
+						name="englishProficiency"
+						type="radioButtons"
+						label={t.label}
+						options={[
+							<FormControlLabel
+								value="NATIVE_LANGUAGE"
+								control={<Radio />}
+								label={t.native}
+							/>,
+							<FormControlLabel
+								value="FLUENT"
+								control={<Radio />}
+								label={t.fluent}
+							/>,
+							<FormControlLabel
+								value="CONVERSATIONAL"
+								control={<Radio />}
+								label={t.conversational}
+							/>,
+							<FormControlLabel
+								value="BASIC"
+								control={<Radio />}
+								label={t.basic}
+							/>,
+							<FormControlLabel
+								value="NO_PROFICIENCY"
+								control={<Radio />}
+								label={t.none}
+							/>,
+						]}
+					/>
+				)}
 			/>
 
 			<br />
@@ -395,6 +467,7 @@ function InnerForm({ submissionError }: any) {
 				)}
 			/>
 
+			<br />
 			<br />
 			<br />
 
