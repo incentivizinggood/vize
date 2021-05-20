@@ -636,8 +636,8 @@ export default {
 				placeholder: "¿Qué trabajo te gustaría tener en 2-5 años?",
 			},
 		},
-		submit: "Enviar",
-		update: "Actualizar",
+		submit: "Crear Perfil",
+		update: "Actualizar Perfil",
 	},
 	resources: {
 		featuredResources: "Recursos Destacados",

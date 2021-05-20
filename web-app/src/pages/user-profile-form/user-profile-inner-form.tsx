@@ -508,15 +508,13 @@ function InnerForm({
 			<br />
 			<br />
 			<br />
-			<FieldTitle>Your Dream Job</FieldTitle>
+			<FieldTitle><T.fields.yourDreamJob.label /></FieldTitle>
 			<FieldDescription>
-				What job do you want to have in 2-5 years? We'll match you with
-				other people that have a similar goal.
+			<T.fields.yourDreamJob.description />
 			</FieldDescription>
 			<FieldDescription>
 				<PrivacyIcon style={{ marginRight: "5px" }} />
-				This information will not be shared with any employer when you
-				apply to a job.
+				<T.fields.yourDreamJob.privacyInformation />
 			</FieldDescription>
 			<Field name="longTermGoal" type="text" t={T.fields.yourDreamJob} />
 
