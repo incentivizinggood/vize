@@ -6,6 +6,7 @@ import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { SubmitButton } from "src/components/button";
 
 import { Button } from "src/components/button";
 import {
@@ -508,9 +509,14 @@ function InnerForm({ submissionError }: any) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button $primary type="submit">
+				<SubmitButton
+					variant="contained"
+					size="large"
+					type="submit"
+					color="primary"
+				>
 					<T.submit />
-				</Button>
+				</SubmitButton>
 			</FormToolbar>
 		</Form>
 	);
