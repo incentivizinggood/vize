@@ -5,6 +5,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import PrivacyIcon from "@material-ui/icons/Security";
+import { SubmitButton } from "src/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -521,9 +522,14 @@ function InnerForm({
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button $primary type="submit">
+				<SubmitButton
+					variant="contained"
+					size="large"
+					type="submit"
+					color="primary"
+				>
 					{submitButtonText}
-				</Button>
+				</SubmitButton>
 			</FormToolbar>
 		</Form>
 	);
