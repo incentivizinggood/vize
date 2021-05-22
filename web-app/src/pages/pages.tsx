@@ -29,6 +29,7 @@ import PasswordChanger from "./password-changer";
 import CreateJobAd from "./create-job-ad";
 import RegisterPage from "./register";
 import RequestPasswordResetPage from "./request-password-reset";
+import ResetPasswordPage from "./reset-password";
 import ShowJobs from "./show-jobs";
 import UserPage from "./user";
 import CreateReview from "./create-review";
@@ -98,6 +99,10 @@ export default function Pages(): JSX.Element {
 			<Route
 				path={`/${urlGenerators.queryRoutes.requestPasswordReset}`}
 				component={RequestPasswordResetPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.resetPassword}`}
+				component={ResetPasswordPage}
 			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.myAccount}`}
