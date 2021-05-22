@@ -25,7 +25,7 @@ export async function login(
 			password,
 		})
 		.catch(function(error) {
-			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
 
@@ -50,7 +50,7 @@ export async function register(options: {
 	const x = await axios
 		.post(`${location.origin}/api/register`, options)
 		.catch(function(error) {
-			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
 
@@ -66,7 +66,30 @@ export async function changePassword(options: {
 	return await axios
 		.post(`${location.origin}/api/change-password`, options)
 		.catch(function(error) {
-			// The error message is currently defaulted to "Request fialed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
+}
+
+export async function requestPasswordReset(options: {
+	emailAddress: string;
+}): Promise<AxiosResponse<unknown>> {
+	return await axios
+		.post(`${location.origin}/api/request-password-reset`, options)
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
+			throw Error(error.response.data.errors[0]);
+		});
+}
+
+export async function resetPassword(options: {
+	passwordResetRequestId: string;
+	newPassword: string;
+}): Promise<AxiosResponse<unknown>> {
+	return await axios
+		.post(`${location.origin}/api/reset-password`, options)
+		.catch(function(error) {
+			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
 }
