@@ -28,6 +28,7 @@ import NotFoundPage from "./not-found";
 import PasswordChanger from "./password-changer";
 import CreateJobAd from "./create-job-ad";
 import RegisterPage from "./register";
+import RequestPasswordResetPage from "./request-password-reset";
 import ShowJobs from "./show-jobs";
 import UserPage from "./user";
 import CreateReview from "./create-review";
@@ -53,21 +54,59 @@ export default function Pages(): JSX.Element {
 	return (
 		<Switch>
 			<Route path="/" exact component={HomePage} />
-			<Route path={`/${urlGenerators.queryRoutes.about}`} component={AboutPage} />
-			<Route path={`/${urlGenerators.queryRoutes.privacyPolicy}`} component={PrivacyPolicy} />
-			<Route path={`/${urlGenerators.queryRoutes.changePassword}`} component={PasswordChanger} />
-			<Route path={`/${urlGenerators.queryRoutes.createCompanyProfile}`} component={CreateCompany} />
-			<Route path={`/${urlGenerators.queryRoutes.contactUs}`} component={ContactUsPage} />
-			<Route path={`/${urlGenerators.queryRoutes.reviewSubmitted}`} component={ReviewSubmitted} />
-			
-			<Route path={`/${urlGenerators.queryRoutes.help}`} component={HelpPage} />
-			<Route path={`/${urlGenerators.queryRoutes.jobs}`} component={ShowJobs} />
-			<Route path={`/${urlGenerators.queryRoutes.login}`} component={LoginPage} />
-			<Route path={`/${urlGenerators.queryRoutes.register}`} component={RegisterPage} />
-			<Route path={`/${urlGenerators.queryRoutes.myAccount}`} component={MyAccountPage} />
-			<Route path={`/${urlGenerators.queryRoutes.postJob}`} component={CreateJobAd} />
-			
+			<Route
+				path={`/${urlGenerators.queryRoutes.about}`}
+				component={AboutPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.privacyPolicy}`}
+				component={PrivacyPolicy}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.changePassword}`}
+				component={PasswordChanger}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.createCompanyProfile}`}
+				component={CreateCompany}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.contactUs}`}
+				component={ContactUsPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.reviewSubmitted}`}
+				component={ReviewSubmitted}
+			/>
 
+			<Route
+				path={`/${urlGenerators.queryRoutes.help}`}
+				component={HelpPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.jobs}`}
+				component={ShowJobs}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.login}`}
+				component={LoginPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.register}`}
+				component={RegisterPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.requestPasswordReset}`}
+				component={RequestPasswordResetPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.myAccount}`}
+				component={MyAccountPage}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.postJob}`}
+				component={CreateJobAd}
+			/>
 
 			<Route
 				path={`/${urlGenerators.queryRoutes.employerResources}/recurso/:slug`}
@@ -75,10 +114,18 @@ export default function Pages(): JSX.Element {
 			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.employerResources}/temas/:topicName`}
-				component={() => <ResourcesByTopicPage audienceType={"EMPLOYERS"} />}
+				component={() => (
+					<ResourcesByTopicPage audienceType={"EMPLOYERS"} />
+				)}
 			/>
-			<Route path={`/${urlGenerators.queryRoutes.employerResources}`} component={() => <ResourcesIndex audienceType={"EMPLOYERS"} />} />
-			<Route path={`/${urlGenerators.queryRoutes.forEmployers}`} component={ForEmployers} />
+			<Route
+				path={`/${urlGenerators.queryRoutes.employerResources}`}
+				component={() => <ResourcesIndex audienceType={"EMPLOYERS"} />}
+			/>
+			<Route
+				path={`/${urlGenerators.queryRoutes.forEmployers}`}
+				component={ForEmployers}
+			/>
 
 			<Route
 				path={`/${urlGenerators.queryRoutes.workerResources}/recurso/:slug`}
@@ -86,9 +133,14 @@ export default function Pages(): JSX.Element {
 			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.workerResources}/temas/:topicName`}
-				component={() => <ResourcesByTopicPage audienceType={"WORKERS"} />}
+				component={() => (
+					<ResourcesByTopicPage audienceType={"WORKERS"} />
+				)}
 			/>
-			<Route path={`/${urlGenerators.queryRoutes.workerResources}/`} component={() => <ResourcesIndex audienceType={"WORKERS"}/>} />
+			<Route
+				path={`/${urlGenerators.queryRoutes.workerResources}/`}
+				component={() => <ResourcesIndex audienceType={"WORKERS"} />}
+			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.companies}`}
 				component={() => (
@@ -109,8 +161,8 @@ export default function Pages(): JSX.Element {
 					<JobAdPage jobAdId={match.params.id} />
 				)}
 			/>
-			<Route 
-				path={`/${urlGenerators.queryRoutes.jobApplicationSubmitted}`} 
+			<Route
+				path={`/${urlGenerators.queryRoutes.jobApplicationSubmitted}`}
 				component={() => (
 					<JobApplicationSubmitted
 						companyId={fixNullParams(params.get("id"))}
@@ -121,7 +173,11 @@ export default function Pages(): JSX.Element {
 				path={`/${queryRoutes.writeReview}`}
 				component={() => (
 					<CreateReview
-						companyName={fixNullParams(params.get(urlGenerators.queryParameters.companyName))}
+						companyName={fixNullParams(
+							params.get(
+								urlGenerators.queryParameters.companyName
+							)
+						)}
 						referredBy={fixNullParams(params.get("ref"))}
 					/>
 				)}
@@ -130,7 +186,11 @@ export default function Pages(): JSX.Element {
 				path={`/${queryRoutes.submitSalaryData}`}
 				component={() => (
 					<CreateSalary
-						companyName={fixNullParams(params.get(urlGenerators.queryParameters.companyName))}
+						companyName={fixNullParams(
+							params.get(
+								urlGenerators.queryParameters.companyName
+							)
+						)}
 					/>
 				)}
 			/>
