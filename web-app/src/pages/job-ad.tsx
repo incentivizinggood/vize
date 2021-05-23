@@ -19,21 +19,22 @@ interface JobAdPageProps {
 }
 
 export function JobAdPage({ jobAdId }: JobAdPageProps): JSX.Element {
-	const { loading, data } = useJobAdPageQuery({
-		variables: { jobAdId },
-	});
+	// const { loading, data } = useJobAdPageQuery({
+	// 	variables: { jobAdId },
+	// });
 
 	return (
 		<PageWrapper>
-			{loading ? (
+			{/* {loading ? (
 				<Spinner />
 			) : data && data.jobAd ? (
 				<Center>
-					<JobPosting job={data.jobAd} isMinimizable={false} />
+					
 				</Center>
 			) : (
 				"Could not find that job ad."
-			)}
+			)} */}
+			hello
 		</PageWrapper>
 	);
 }
