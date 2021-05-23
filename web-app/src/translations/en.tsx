@@ -554,7 +554,7 @@ export default {
 					"Enter the name of the neighborhood or area of the city that you live in",
 			},
 			workExperiences: {
-				label: "Work Experience",
+				workExperience: "Work Experience",
 				addElement: ({ array }: { array: unknown[] }) =>
 					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
 				jobTitle: {

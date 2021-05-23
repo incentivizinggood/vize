@@ -23,8 +23,8 @@ CREATE TABLE job_applications (
 	companyid INTEGER
 );
 
-COMMENT ON COLUMN user_profiles.location_neighborhood IS
+COMMENT ON COLUMN job_applications.location_neighborhood IS
 	'The neighborhood or area of the city where the worker is located';
 
-COMMENT ON COLUMN user_profiles.education_level IS
+COMMENT ON COLUMN job_applications.education_level IS
 	'The highest level of education a worker has achieved';
