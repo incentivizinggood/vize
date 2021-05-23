@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import JobPosting from "src/components/jobs/job-posting.tsx";
+import JobPosting from "src/components/jobs/job-posting";
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";

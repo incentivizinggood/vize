@@ -433,14 +433,14 @@ export default {
 	},
 	applyToJobAd: {
 		formTitle: "Solicitar un Trabajo",
-		email: {
-			label: "Direccion de Correo Electronico",
-			placeholder: "ejemplo@gmail.com",
-		},
-		fsdields: {
+		fields: {
 			fullName: {
 				label: "Nombre Completo",
 				placeholder: "Ingresa tu nombre completo",
+			},
+			email: {
+				label: "Direccion de Correo Electronico",
+				placeholder: "ejemplo@gmail.com",
 			},
 			phoneNumber: {
 				label: "Numero de Telefono",
