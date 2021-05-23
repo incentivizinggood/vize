@@ -90,7 +90,7 @@ function InnerForm({
 											fontWeight: "bold",
 										}}
 									>
-										Work Experience
+										<T.fields.workExperiences.workExperience />
 									</h3>
 									<Field
 										name={`workExperiences[${index}].jobTitle`}
@@ -117,7 +117,7 @@ function InnerForm({
 												marginBottom: "-10px",
 											}}
 										>
-											Start Date
+											<T.fields.workExperiences.startDate.label />
 										</FieldTitle>
 
 										<T.fields.workExperiences
@@ -205,7 +205,7 @@ function InnerForm({
 											marginBottom: "-10px",
 										}}
 									>
-										End Date
+										<T.fields.workExperiences.endDate.label />
 									</FieldTitle>
 									{values.workExperiences[index]
 										.iCurrentlyWorkHere && (
@@ -520,6 +520,8 @@ function InnerForm({
 			<Field name="longTermGoal" type="text" t={T.fields.yourDreamJob} />
 
 			<SubmissionError error={submissionError} />
+
+			<br />
 
 			<FormToolbar>
 				<SubmitButton

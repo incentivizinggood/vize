@@ -555,7 +555,7 @@ export default {
 					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
 			},
 			workExperiences: {
-				label: "Experiencia Laboral",
+				workExperience: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
 					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
 				jobTitle: {
