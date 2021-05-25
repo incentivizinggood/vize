@@ -12,7 +12,6 @@ import colors from "src/colors";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 import { Button } from "src/components/button";
-import { FormHeader } from "src/components/form-stuff";
 
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
