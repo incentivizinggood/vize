@@ -60,6 +60,8 @@ export default {
 		myAccount: "Mi Cuenta",
 		username: "Nombre de Usuario",
 		changePassword: "Cambiar Contraseña",
+		editProfile: "Editar Perfil",
+		createProfile: "Crear Perfil",
 	},
 	needToBeLoggedInToView: {
 		youNeedToBeLoggedInToView:

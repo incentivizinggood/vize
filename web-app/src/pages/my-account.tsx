@@ -21,22 +21,21 @@ const TLoggedIn = translations.needToBeLoggedInToView;
 export default function MyAccountPage() {
 	const user = useUser();
 
-	// let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
-	// 	variables: { userId: user ? user.id : "0" },
-	// });
+	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
+		variables: { userId: user ? user.id : "0" },
+	});
 
-	// if (loading) return <Spinner />;
+	if (loading) return <Spinner />;
 
-	// console.log('userProfile', userProfileData);
-	// console.log('userProfileload', loading);
-	// console.log('userProfileerror', error);
-	// let userProfile = null;
+	console.log('userProfile', userProfileData);
+	console.log('userProfileload', loading);
+	console.log('userProfileerror', error);
+	let userProfileButtonText = (<T.createProfile />);
 
-	// // If user has a user profile, fill in the form fields with the user profile data
-	// if(userProfileData?.userProfile) {
-	// 	userProfile = formatUserProfileData(userProfileData.userProfile);
-	// 	profileFormTitle = (<T.formTitleEditProfile />);
-	// }
+	// If user has a user profile, fill in the form fields with the user profile data
+	if(userProfileData?.userProfile) {
+		userProfileButtonText = (<T.editProfile />);
+	}
 
 	
 		let content = null;
@@ -50,8 +49,9 @@ export default function MyAccountPage() {
 				</h2>
 				<hr />
 				<div>
-					<strong><T.username />: </strong>
-					{user.username}
+					<LinkButton to={`/${urlGenerators.queryRoutes.userProfileForm}`} $primary>
+						{userProfileButtonText}
+					</LinkButton>
 					<br />
 					<br />
 					<LinkButton to={`/${urlGenerators.queryRoutes.changePassword}`} $primary>

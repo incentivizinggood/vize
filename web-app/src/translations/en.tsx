@@ -61,6 +61,8 @@ export default {
 		myAccount: "My Account",
 		username: "Username",
 		changePassword: "Change Password",
+		editProfile: "Edit Profile",
+		createProfile: "Create Profile",
 	},
 	needToBeLoggedInToView: {
 		youNeedToBeLoggedInToView: "You have to be logged in to use this page.",
