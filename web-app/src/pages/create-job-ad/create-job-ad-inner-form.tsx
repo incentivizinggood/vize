@@ -11,40 +11,57 @@ import {
 	SubmissionError,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
+import { Typography } from "@material-ui/core";
 
 const T = translations.createJobAd;
-
+console.log(T.fields);
+// {
+// 	/* <T renderer={(t: any) => <FieldInner {...restProps} {...t} />} /> */
+// }
+// const Labels = translations.createJobAd.map();
+// console.log(Labels);
 function InnerForm({ submissionError }) {
 	return (
 		<Form noValidate>
-			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
+			<Typography variant="subtitle1">Job Title</Typography>
+			<Field
+				name="jobTitle"
+				type="text"
+				variant="outlined"
+				required
+				// t={T.fields.jobTitle}
+			/>
 
-			<FormArray
+			{/* <FormArray
 				name="locations"
 				ElementRender={({ name }) => (
-					<>
-						<Field
-							name={`${name}.city`}
-							type="text"
-							required
-							t={T.fields.locations.city}
-						/>
-						<Field
-							name={`${name}.address`}
-							type="text"
-							required
-							t={T.fields.locations.address}
-						/>
-						<Field
-							name={`${name}.industrialHub`}
-							type="text"
-							required
-							t={T.fields.locations.industrialHub}
-						/>
-					</>
-				)}
-				T={T.fields.locations}
+					<> */}
+			<Typography variant="subtitle1">City</Typography>
+			<Field
+				name={`${name}.city`}
+				type="text"
+				required
+				variant="outlined"
 			/>
+			<Typography variant="subtitle1">Address</Typography>
+			<Field
+				name={`${name}.address`}
+				type="text"
+				required
+				variant="outlined"
+			/>
+			<Typography variant="subtitle1">Industrial Park</Typography>
+			<Field
+				name={`${name}.industrialHub`}
+				type="text"
+				required
+				variant="outlined"
+				// t={T.fields.locations.industrialHub}
+			/>
+			{/* </> */}
+			{/* // 	)}
+			// 	T={T.fields.locations}
+			// /> */}
 
 			<T.fields.salaryType
 				renderer={t => (
@@ -183,28 +200,31 @@ function InnerForm({ submissionError }) {
 					</Field>
 				)}
 			/>
-
+			<Typography variant="subtitle1">Job Description</Typography>
 			<Field
 				name="jobDescription"
 				multiline
 				rows={6}
 				required
+				variant="outlined"
 				t={T.fields.jobDescription}
 			/>
-
+			<Typography variant="subtitle1">Responsibilities</Typography>
 			<Field
 				name="responsibilities"
 				multiline
 				rows={6}
 				required
+				variant="outlined"
 				t={T.fields.responsibilities}
 			/>
-
+			<Typography variant="subtitle1">Qualifications</Typography>
 			<Field
 				name="qualifications"
 				multiline
 				rows={6}
 				required
+				variant="outlined"
 				t={T.fields.qualifications}
 			/>
 

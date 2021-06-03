@@ -24,6 +24,8 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 			<FormikField
 				{...restProps}
 				type={type}
+				variant="outlined"
+
 				component={TextField}
 				fullWidth
 				InputProps={{
@@ -40,6 +42,7 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 	return (
 		<FormikField
 			{...restProps}
+			variant={variant}
 			type={type}
 			component={TextField}
 			fullWidth
