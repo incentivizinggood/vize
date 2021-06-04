@@ -11,7 +11,13 @@ import {
 	SubmissionError,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import { Box, Checkbox, FormControlLabel, Typography } from "@material-ui/core";
+import {
+	Box,
+	Checkbox,
+	Container,
+	FormControlLabel,
+	Typography,
+} from "@material-ui/core";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import RadioButtonUncheckedOutlinedIcon from "@material-ui/icons/RadioButtonUncheckedOutlined";
@@ -46,39 +52,37 @@ function InnerForm({ submissionError }) {
 					required
 					// t={T.fields.jobTitle}
 				/>
-
+				{/* 
 				<FormArray
 					name="locations"
-					ElementRender={({ name }) => (
-						<>
-							<Typography variant="subtitle1">City</Typography>
-							<Field
-								name={`${name}.city`}
-								type="text"
-								required
-								variant="outlined"
-							/>
-							<Typography variant="subtitle1">Address</Typography>
-							<Field
-								name={`${name}.address`}
-								type="text"
-								required
-								variant="outlined"
-							/>
-							<Typography variant="`subtitle1">
-								Industrial Park
-							</Typography>
-							<Field
-								name={`${name}.industrialHub`}
-								type="text"
-								required
-								variant="outlined"
-								// t={T.fields.locations.industrialHub}
-							/>
-						</>
-					)}
+					ElementRender={({ name }) => ( */}
+				<>
+					<Typography variant="subtitle1">City</Typography>
+					<Field
+						name={`${name}.city`}
+						type="text"
+						required
+						variant="outlined"
+					/>
+					<Typography variant="subtitle1">Address</Typography>
+					<Field
+						name={`${name}.address`}
+						type="text"
+						required
+						variant="outlined"
+					/>
+					<Typography variant="subtitle1">Industrial Park</Typography>
+					<Field
+						name={`${name}.industrialHub`}
+						type="text"
+						required
+						variant="outlined"
+						// t={T.fields.locations.industrialHub}
+					/>
+				</>
+				{/* )}
 					T={T.fields.locations}
-				/>
+				/> */}
 				<Typography variant="subtitle1">
 					Minimum level of education
 				</Typography>
@@ -125,6 +129,122 @@ function InnerForm({ submissionError }) {
 						}
 						label="Degree College"
 					/>
+				</Box>
+				<Typography variant="subtitle1">
+					Minimum language proficiency
+				</Typography>
+				<Box
+					display="flex"
+					justifyContent="space-between"
+					alignSelf="left"
+				>
+					<Container>
+						{" "}
+						<Typography variant="h6">English</Typography>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Native"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Fluent"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Conversational"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Basic"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="None"
+						/>
+					</Container>{" "}
+					<Container>
+						<Typography variant="h6">Spanish</Typography>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Native"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Fluent"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Conversational"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="Basic"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									icon={<RadioButtonUncheckedOutlinedIcon />}
+									checkedIcon={<CheckCircleOutlineIcon />}
+									name="checkedH"
+								/>
+							}
+							label="None"
+						/>
+					</Container>
 				</Box>
 				<T.fields.salaryType
 					renderer={t => (
