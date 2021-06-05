@@ -50,6 +50,7 @@ function InnerForm({ submissionError }) {
 					type="text"
 					variant="outlined"
 					required
+					placeholder="Enter your job title"
 					// t={T.fields.jobTitle}
 				/>
 				{/* 
@@ -57,26 +58,32 @@ function InnerForm({ submissionError }) {
 					name="locations"
 					ElementRender={({ name }) => ( */}
 				<>
-					<Typography variant="subtitle1">City</Typography>
+					<Typography variant="subtitle1">Job Description</Typography>
 					<Field
 						name={`${name}.city`}
 						type="text"
 						required
 						variant="outlined"
+						placeholder="Enter a formal description of this job"
 					/>
-					<Typography variant="subtitle1">Address</Typography>
+					<Typography variant="subtitle1">Job Skills</Typography>
 					<Field
 						name={`${name}.address`}
 						type="text"
 						required
 						variant="outlined"
+						placeholder="Enter your skills of this job"
 					/>
-					<Typography variant="subtitle1">Industrial Park</Typography>
+					<Typography variant="subtitle1">
+						Certificates & License
+					</Typography>
 					<Field
 						name={`${name}.industrialHub`}
 						type="text"
 						required
 						variant="outlined"
+						placeholder="Enter your Certificates & License
+						"
 						// t={T.fields.locations.industrialHub}
 					/>
 				</>
@@ -245,6 +252,76 @@ function InnerForm({ submissionError }) {
 							label="None"
 						/>
 					</Container>
+				</Box>
+				<Typography variant="subtitle1">
+					Additional Requirements
+				</Typography>
+				<Field
+					name="jobTitle"
+					type="text"
+					variant="outlined"
+					multiline
+					rows={6}
+					required
+					placeholder="List out any additional requirements for the position that were not captured above"
+					// t={T.fields.jobTitle}
+				/>
+				{/* choose contract section */}
+				<Typography variant="subtitle1">
+					Choose Contract Type For This Job
+				</Typography>
+				{/* choose type from this job  */}
+				<Box display="flex">
+					<FormControlLabel
+						control={
+							<Checkbox
+								icon={<RadioButtonUncheckedOutlinedIcon />}
+								checkedIcon={<CheckCircleOutlineIcon />}
+								name="checkedH"
+							/>
+						}
+						label="Full Time"
+					/>
+					<FormControlLabel
+						control={
+							<Checkbox
+								icon={<RadioButtonUncheckedOutlinedIcon />}
+								checkedIcon={<CheckCircleOutlineIcon />}
+								name="checkedH"
+							/>
+						}
+						label="Temporary"
+					/>
+					<FormControlLabel
+						control={
+							<Checkbox
+								icon={<RadioButtonUncheckedOutlinedIcon />}
+								checkedIcon={<CheckCircleOutlineIcon />}
+								name="checkedH"
+							/>
+						}
+						label="Part Time"
+					/>
+					<FormControlLabel
+						control={
+							<Checkbox
+								icon={<RadioButtonUncheckedOutlinedIcon />}
+								checkedIcon={<CheckCircleOutlineIcon />}
+								name="checkedH"
+							/>
+						}
+						label="Internship"
+					/>
+					<FormControlLabel
+						control={
+							<Checkbox
+								icon={<RadioButtonUncheckedOutlinedIcon />}
+								checkedIcon={<CheckCircleOutlineIcon />}
+								name="checkedH"
+							/>
+						}
+						label="Contractor"
+					/>
 				</Box>
 				<T.fields.salaryType
 					renderer={t => (
