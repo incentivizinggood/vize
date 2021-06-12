@@ -21,6 +21,10 @@ export const queryRoutes = {
 	salaries: "salarios",
 	applyForJob: "postularme",
 	register: "crear-cuenta",
+	// TODO translate
+	requestPasswordReset: "request-password-reset",
+	// TODO translate
+	resetPassword: "reset-password",
 	login: "iniciar-sesion",
 	user: "usuario",
 	privacyPolicy: "poliza-de-privacidad",
@@ -97,4 +101,12 @@ export function vizeLogin(userRole?: string): string {
 			? `?${queryParameters.user}=${encodeURIComponent(userRole)}`
 			: ""
 	}`;
+}
+
+export function vizeRequestPasswordReset(): string {
+	return `/${queryRoutes.requestPasswordReset}`;
+}
+
+export function vizeResetPassword(): string {
+	return `/${queryRoutes.resetPassword}`;
 }

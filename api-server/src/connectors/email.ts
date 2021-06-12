@@ -1,49 +1,66 @@
-import request from "request-promise-native";
-interface EmailConfig {
-	templateId: number;
+import axios from "axios";
+
+type TemplateParams = {
+	2: {
+		companyName: string;
+		jobTitle: string;
+		jobAdId: string;
+		applicantEmail: string;
+		applicantName: string;
+		phoneNumber: string;
+		coverLetter: string | null;
+	};
+	3: {
+		companyName: string;
+		jobTitle: string;
+		applicantName: string;
+		companyId: string;
+		jobAdId: string;
+		readEmployerReviews: string;
+	};
+	4: {
+		passwordResetRequestId: string | number;
+	};
+};
+
+export interface EmailConfig<TID extends keyof TemplateParams> {
+	templateId: TID;
 	to: string;
-	params: any;
+	params: TemplateParams[TID];
 }
 
 /**
  * Send an email via Sendinmail.
  * The text for the message can be found on the Sendinmail website (message Julian for access)
  */
-export function sendEmail({ templateId, to, params }: EmailConfig): void {
+export async function sendEmail<TID extends keyof TemplateParams>({
+	templateId,
+	to,
+	params,
+}: EmailConfig<TID>): Promise<void> {
 	if (process.env.MAIL_API_KEY) {
-		var headers = {
-			accept: "application/json",
-			"api-key": process.env.MAIL_API_KEY,
-			"content-type": "application/json",
-		};
+		try {
+			const response = await axios({
+				method: "POST",
+				url: "https://api.sendinblue.com/v3/smtp/email",
+				headers: {
+					"api-key": process.env.MAIL_API_KEY,
+				},
+				data: {
+					sender: {
+						name: "Julian Alvarez de Vize",
+						email: "jalvarez@vize.mx",
+					},
+					to: [{ email: to }],
+					templateId: templateId,
+					params: params,
+				},
+			});
 
-		var dataString = `{ 
-					"sender":{ 
-						"name":"Julian Alvarez de Vize", 
-						"email":"jalvarez@vize.mx" 
-					}, 
-					"to":[ { 
-						"email":"${to}"
-					} ],
-					"templateId": ${templateId},
-					"params": ${params}
-				}
-			`;
-
-		var options = {
-			url: "https://api.sendinblue.com/v3/smtp/email",
-			method: "POST",
-			headers: headers,
-			body: dataString,
-		};
-
-		function callback(error, response, body) {
-			if (!error && response.statusCode == 200) {
-				console.log(body);
-			}
+			console.log(response.data);
+		} catch (error) {
+			console.error(error);
 		}
-
-		request(options, callback);
 	} else {
 		console.warn(
 			"Could not send email because MAIL_API_KEY was not set.",

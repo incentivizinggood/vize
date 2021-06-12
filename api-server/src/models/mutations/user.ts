@@ -1,7 +1,9 @@
 import * as yup from "yup";
+import { nanoid } from "nanoid";
 
 import sql from "src/utils/sql-template";
 import { pool } from "src/connectors/postgresql";
+import { sendEmail } from "src/connectors/email";
 import {
 	User,
 	getUserByLogin,
@@ -197,4 +199,95 @@ export async function authWithFacebook(input: unknown): Promise<User> {
 	} else {
 		return rows[0];
 	}
+}
+
+const requestPasswordResetInputSchema = yup
+	.object({
+		emailAddress: yup
+			.string()
+			.email()
+			.required(),
+	})
+	.required();
+
+export async function requestPasswordReset(input: unknown): Promise<void> {
+	const { emailAddress } = await requestPasswordResetInputSchema.validate(
+		input,
+		{
+			abortEarly: false,
+		}
+	);
+
+	const { userid: userId } =
+		(await pool.query<{ userid: number }>(sql`
+			SELECT userid
+			FROM users
+			WHERE email_address=${emailAddress}
+			LIMIT 1
+		`)).rows[0] || {};
+
+	if (userId === undefined) {
+		throw "There is no user with that email address.";
+	}
+
+	const passwordResetRequestId = nanoid();
+
+	await pool.query(sql`
+		INSERT INTO password_reset_requests
+			(id, user_id, expiration_date)
+		VALUES
+			(${passwordResetRequestId}, ${userId}, NOW() + interval '24 hours')
+	`);
+
+	await sendEmail({
+		templateId: 4,
+		to: emailAddress,
+		params: {
+			passwordResetRequestId,
+		},
+	});
+
+	postToSlack(`A password reset has been requested for ${emailAddress}.`);
+}
+
+const resetPasswordInputSchema = yup
+	.object({
+		passwordResetRequestId: yup.string().required(),
+		newPassword: yup.string().required(),
+	})
+	.required();
+
+export async function resetPassword(input: unknown): Promise<void> {
+	const {
+		passwordResetRequestId,
+		newPassword,
+	} = await resetPasswordInputSchema.validate(input, {
+		abortEarly: false,
+	});
+
+	const { user_id: userId } =
+		(await pool.query<{ user_id: number }>(sql`
+			SELECT user_id
+			FROM password_reset_requests
+			WHERE id = ${passwordResetRequestId} 
+			  AND expiration_date > NOW()
+			LIMIT 1
+		`)).rows[0] || {};
+
+	if (userId === undefined) {
+		throw "This password reset request is invalid or expired.";
+	}
+
+	const newPasswordHash = await hashPassword(newPassword);
+
+	await pool.query(sql`
+		UPDATE users
+		SET password_hash = ${newPasswordHash}
+		WHERE userid = ${userId}
+	`);
+
+	await pool.query(sql`
+		DELETE FROM password_reset_requests
+		WHERE id = ${passwordResetRequestId}
+	`);
 }
