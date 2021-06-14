@@ -17,7 +17,6 @@ import CustomCheckbox from "src/components/form-stuff/field/checkbox";
 
 const T = translations.createJobAd;
 function InnerForm({ submissionError }) {
-	const variant = "outlined";
 	return (
 		<Form noValidate>
 			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
@@ -47,24 +46,14 @@ function InnerForm({ submissionError }) {
 				t={T.fields.qualifications}
 			/>
 			<Box display="flex">
-				{/* {T.checkboxes.minimunEducation.map((x: unknown, index: number) => (
-									<ElementContainer>
-										<ElementHeading>{name}</ElementHeading>
-										<ElementDeleteButton
-											type="button"
-											onClick={() =>
-												arrayHelpers.remove(index)
-											} // remove a friend from the list
-										>
-											<FontAwesomeIcon icon={faTimes} />
-										</ElementDeleteButton>
-										<ElementRender
-											name={`${name}[${index}]`}
-										/>
-									</ElementContainer>
-							  ))
-							: null} */}
-				<CustomCheckbox />
+				<T.checkboxes.minimunEducation
+					renderer={(t: { label: any }) => (
+						<CustomCheckbox
+							checkboxTitle={t.checkboxTitle}
+							label={t.label}
+						/>
+					)}
+				/>
 			</Box>
 			<span>
 				<T.fields.jobSchedule

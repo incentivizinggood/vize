@@ -18,7 +18,8 @@ function CustomCheckbox({
 	return (
 		<FormikCheckboxWrapper>
 			<ChecckboxHeading>
-				{label} <span className="optional">{optional}</span>
+				{label}
+				<span className="optional">{optional}</span>
 			</ChecckboxHeading>
 
 			<FormControlLabel

@@ -70,14 +70,19 @@ function FormArray({
 							? values[name].map((x: unknown, index: number) => (
 									<ElementContainer>
 										<ElementHeading>{name}</ElementHeading>
-										<ElementDeleteButton
-											type="button"
-											onClick={() =>
-												arrayHelpers.remove(index)
-											} // remove a friend from the list
-										>
-											<FontAwesomeIcon icon={faTimes} />
-										</ElementDeleteButton>
+										{index !== 0 && (
+											<ElementDeleteButton
+												type="button"
+												onClick={() =>
+													arrayHelpers.remove(index)
+												} // remove a friend from the list
+											>
+												<FontAwesomeIcon
+													icon={faTimes}
+												/>
+											</ElementDeleteButton>
+										)}
+
 										<ElementRender
 											name={`${name}[${index}]`}
 										/>

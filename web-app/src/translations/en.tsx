@@ -318,21 +318,21 @@ export default {
 		header1: "Reach hundreds of workers instantly with our job posts",
 		checkboxes: {
 			minimunEducation: {
-				label: "Minumum Level Of Education",
+				checkboxTitle: "Minumum Level Of Education",
 				highSchool: {
-					name: "heighSchool",
+					// name: "heighSchool",
 					label: "Some High School",
 				},
 				completeSchool: {
-					name: "completeSchool",
+					// name: "completeSchool",
 					label: "Complete High School",
 				},
 				someCollege: {
-					name: "someSchool",
+					// name: "someSchool",
 					label: "Some College",
 				},
 				collegeDegrees: {
-					name: "collegeDegrees",
+					// name: "collegeDegrees",
 					label: "College Degrees",
 				},
 			},
