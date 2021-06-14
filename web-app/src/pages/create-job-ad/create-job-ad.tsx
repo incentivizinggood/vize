@@ -3,6 +3,7 @@ import React from "react";
 import {
 	FormHeader,
 	FormPageWrapper,
+	PostFormHeaderContainer,
 	PostFormMainHeader,
 	PostFormSubHeader,
 } from "src/components/form-stuff";
@@ -15,12 +16,14 @@ const T = translations.createJobAd;
 function CreateJobAdPage() {
 	return (
 		<FormPageWrapper title="Create Job Ad">
-			<PostFormMainHeader>
-				<T.formTitle />
-			</PostFormMainHeader>
-			<PostFormSubHeader>
-				<T.header1 />
-			</PostFormSubHeader>
+			<PostFormHeaderContainer>
+				<PostFormMainHeader>
+					<T.formTitle />
+				</PostFormMainHeader>
+				<PostFormSubHeader>
+					<T.header1 />
+				</PostFormSubHeader>
+			</PostFormHeaderContainer>
 			<CreateJobAdForm />
 		</FormPageWrapper>
 	);

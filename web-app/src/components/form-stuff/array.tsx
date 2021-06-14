@@ -13,21 +13,25 @@ const ArrayContainer = styled.div`
 `;
 
 const ElementContainer = styled.div`
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 20px;
+	// margin-left: auto;
+	// margin-right: auto;
+	// margin-bottom: 20px;
 	margin-top: 20px;
 	width: 100%;
-	max-width: 500px;
+	// max-width: 500px;
 
 	background-color: ${colors.surface};
 	color: ${colors.onSurface};
-	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
-	padding: 30px;
+	// box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
+	// padding: 30px;
 	position: relative;
 	padding-top: 20px;
 `;
-
+const ElementHeading = styled.h5`
+	text-transform: capitalize;
+	color: hsl(204, 63%, 55%);
+	margin-bottom: 20px;
+`;
 const ElementDeleteButton = styled(Button)`
 	&&&&&&&&& {
 		padding: 0;
@@ -65,6 +69,7 @@ function FormArray({
 						{values[name] && values[name].length > 0
 							? values[name].map((x: unknown, index: number) => (
 									<ElementContainer>
+										<ElementHeading>{name}</ElementHeading>
 										<ElementDeleteButton
 											type="button"
 											onClick={() =>

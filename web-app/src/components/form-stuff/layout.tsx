@@ -13,9 +13,10 @@ const PostFormMainHeader = styled.h2`
 const PostFormSubHeader = styled.p`
 	text-align: left;
 	margin-bottom: 5px;
-	font-weight: 0;
-	font-size: 15px;
+	font-weight: 0 !important;
+	font-size: 14px;
 	text-align: left;
+	color: #808080;
 `;
 
 const FormHeader = styled.h1`
@@ -52,6 +53,10 @@ const FormToolbar = styled.div`
 	margin-top: 20px;
 `;
 
+const PostFormHeaderContainer = styled.div`
+	margin-bottom: 20px;
+`;
+
 type FormPageWrapperProps = PageWrapperProps;
 
 function FormPageWrapper({ children, ...restProps }: FormPageWrapperProps) {
@@ -72,4 +77,5 @@ export {
 	FormPageWrapper,
 	PostFormMainHeader,
 	PostFormSubHeader,
+	PostFormHeaderContainer,
 };

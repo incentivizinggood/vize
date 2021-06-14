@@ -316,6 +316,27 @@ export default {
 	createJobAd: {
 		formTitle: "Post a Job",
 		header1: "Reach hundreds of workers instantly with our job posts",
+		checkboxes: {
+			minimunEducation: {
+				label: "Minumum Level Of Education",
+				highSchool: {
+					name: "heighSchool",
+					label: "Some High School",
+				},
+				completeSchool: {
+					name: "completeSchool",
+					label: "Complete High School",
+				},
+				someCollege: {
+					name: "someSchool",
+					label: "Some College",
+				},
+				collegeDegrees: {
+					name: "collegeDegrees",
+					label: "College Degrees",
+				},
+			},
+		},
 		fields: {
 			jobTitle: {
 				label: "Job Title",
@@ -327,17 +348,16 @@ export default {
 				addElement: ({ array }: { array: unknown[] }) =>
 					`Add ${array.length > 0 ? "another" : "a"} location`,
 				city: {
-					label: "City",
-					placeholder: "Enter the city for your location",
+					label: "Add a city for a job",
+					placeholder: "Enter your city",
 				},
 				address: {
-					label: "Address",
-					placeholder: "Enter the street address for your location",
+					label: "Add an address for a job",
+					placeholder: "Enter your address",
 				},
 				industrialHub: {
-					label: "Industrial Park",
-					placeholder:
-						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+					label: "Add an industrial park for a job",
+					placeholder: "Enter industrial park",
 				},
 			},
 			salaryExplanation:
@@ -381,16 +401,17 @@ export default {
 			},
 			jobDescription: {
 				label: "Job Description",
-				placeholder: "Enter a formal description of this job",
+				placeholder:
+					"Enter a formal description of this job and include details such as the relevant job functions and responsiblities",
 			},
 			responsibilities: {
-				label: "Responsibilities",
-				placeholder: "Summarize the responsibilities of this position",
+				label: "Job Skills",
+				placeholder: "Enter the skills needed for the job",
 			},
 			qualifications: {
-				label: "Qualifications",
+				label: "Certificates & Licences",
 				placeholder:
-					"Summarize the qualifications needed for this position",
+					"Enter the certificates and licences preferred for this position",
 			},
 		},
 		submit: "Submit",

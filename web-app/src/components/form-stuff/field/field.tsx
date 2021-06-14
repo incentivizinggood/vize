@@ -8,11 +8,34 @@ import PrivacyIcon from "@material-ui/icons/Security";
 import RatingField from "./rating-field";
 import RadioButtonsField from "./radio-buttons-field";
 
-const FormikField = styled(Formik.Field)`
-	margin-top: 10px !important;
+const FormikFieldWrapper = styled.div`
+	margin-bottom: 1.5rem;
 `;
 
-function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
+const FormikField = styled(Formik.Field)`
+	margin-top: 10px !important;
+	background-color: #f0f8ff;
+	border-radius: 10px;
+	.MuiOutlinedInput-root {
+		border-radius: 10px;
+	}
+	.MuiOutlinedInput-notchedOutline {
+		border: 1px solid #dcdcdc !important;
+	}
+`;
+const FieldHeading = styled.p`
+	font-size: 0.9rem;
+	.optional {
+		color: red;
+	}
+`;
+function FieldInner({
+	type,
+	variant,
+	label,
+	optional,
+	...restProps
+}: any): JSX.Element {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
 	}
@@ -39,13 +62,19 @@ function FieldInner({ type, variant, ...restProps }: any): JSX.Element {
 	}
 
 	return (
-		<FormikField
-			{...restProps}
-			variant={"outlined"}
-			type={type}
-			component={TextField}
-			fullWidth
-		/>
+		<FormikFieldWrapper>
+			<FieldHeading>
+				{label} <span className="optional">{optional}</span>
+			</FieldHeading>
+			<FormikField
+				{...restProps}
+				className={"customInputClass"}
+				variant={"outlined"}
+				type={type}
+				component={TextField}
+				fullWidth
+			/>
+		</FormikFieldWrapper>
 	);
 }
 

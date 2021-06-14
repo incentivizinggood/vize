@@ -12,6 +12,8 @@ import {
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
 import { PostElementContainer } from "src/components/form-stuff/style";
+import { Box } from "@material-ui/core";
+import CustomCheckbox from "src/components/form-stuff/field/checkbox";
 
 const T = translations.createJobAd;
 function InnerForm({ submissionError }) {
@@ -19,83 +21,51 @@ function InnerForm({ submissionError }) {
 	return (
 		<Form noValidate>
 			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
-			<FormArray
-				name="locations"
-				ElementRender={({ name }) => (
-					<>
-						<Field
-							name={`${name}.city`}
-							type="text"
-							required
-							t={T.fields.locations.city}
-						/>
-						<Field
-							name={`${name}.address`}
-							type="text"
-							required
-							t={T.fields.locations.address}
-						/>
-						<Field
-							name={`${name}.industrialHub`}
-							type="text"
-							required
-							t={T.fields.locations.industrialHub}
-						/>
-					</>
-				)}
-				T={T.fields.locations}
+
+			<Field
+				name="jobDescription"
+				optional="*"
+				multiline
+				rows={6}
+				required
+				t={T.fields.jobDescription}
 			/>
 
-			<T.fields.salaryType
-				renderer={t => (
-					<Field name="salaryType" select required label={t.label}>
-						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
-						<option value="MONTHLY_SALARY">
-							{t.monthlySalary}
-						</option>
-						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
-						<option value="DAILY_SALARY">{t.dailySalary}</option>
-						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
-					</Field>
-				)}
+			<Field
+				name="responsibilities"
+				multiline
+				rows={6}
+				required
+				t={T.fields.responsibilities}
 			/>
-			<div style={{ marginTop: "10px" }}>
-				<T.fields.salaryExplanation />
-			</div>
-			<span>
-				<Field
-					name="salaryMin"
-					type="number"
-					fullWidth={false}
-					required
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<AttachMoney />
-							</InputAdornment>
-						),
-					}}
-					style={{ width: "49%", marginRight: "2%" }}
-					t={T.fields.salaryMin}
-				/>
 
-				<Field
-					name="salaryMax"
-					type="number"
-					fullWidth={false}
-					required
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<AttachMoney />
-							</InputAdornment>
-						),
-					}}
-					style={{ width: "49%" }}
-					t={T.fields.salaryMax}
-				/>
-			</span>
-
+			<Field
+				name="qualifications"
+				multiline
+				rows={6}
+				required
+				t={T.fields.qualifications}
+			/>
+			<Box display="flex">
+				{/* {T.checkboxes.minimunEducation.map((x: unknown, index: number) => (
+									<ElementContainer>
+										<ElementHeading>{name}</ElementHeading>
+										<ElementDeleteButton
+											type="button"
+											onClick={() =>
+												arrayHelpers.remove(index)
+											} // remove a friend from the list
+										>
+											<FontAwesomeIcon icon={faTimes} />
+										</ElementDeleteButton>
+										<ElementRender
+											name={`${name}[${index}]`}
+										/>
+									</ElementContainer>
+							  ))
+							: null} */}
+				<CustomCheckbox />
+			</Box>
 			<span>
 				<T.fields.jobSchedule
 					renderer={t => (
@@ -183,30 +153,82 @@ function InnerForm({ submissionError }) {
 					</Field>
 				)}
 			/>
-
-			<Field
-				name="jobDescription"
-				multiline
-				rows={6}
-				required
-				t={T.fields.jobDescription}
+			<FormArray
+				name="locations"
+				ElementRender={({ name }) => (
+					<>
+						<Field
+							name={`${name}.city`}
+							type="text"
+							required
+							t={T.fields.locations.city}
+						/>
+						<Field
+							name={`${name}.address`}
+							type="text"
+							required
+							t={T.fields.locations.address}
+						/>
+						<Field
+							name={`${name}.industrialHub`}
+							type="text"
+							required
+							t={T.fields.locations.industrialHub}
+						/>
+					</>
+				)}
+				T={T.fields.locations}
 			/>
 
-			<Field
-				name="responsibilities"
-				multiline
-				rows={6}
-				required
-				t={T.fields.responsibilities}
+			<T.fields.salaryType
+				renderer={t => (
+					<Field name="salaryType" select required label={t.label}>
+						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
+						<option value="MONTHLY_SALARY">
+							{t.monthlySalary}
+						</option>
+						<option value="WEEKLY_SALARY">{t.weeklySalary}</option>
+						<option value="DAILY_SALARY">{t.dailySalary}</option>
+						<option value="HOURLY_WAGE">{t.hourlyWage}</option>
+					</Field>
+				)}
 			/>
+			<div style={{ marginTop: "10px" }}>
+				<T.fields.salaryExplanation />
+			</div>
+			{/* <span>
+				<Field
+					name="salaryMin"
+					type="number"
+					fullWidth={false}
+					required
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<AttachMoney />
+							</InputAdornment>
+						),
+					}}
+					style={{ width: "49%", marginRight: "2%" }}
+					t={T.fields.salaryMin}
+				/>
 
-			<Field
-				name="qualifications"
-				multiline
-				rows={6}
-				required
-				t={T.fields.qualifications}
-			/>
+				<Field
+					name="salaryMax"
+					type="number"
+					fullWidth={false}
+					required
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<AttachMoney />
+							</InputAdornment>
+						),
+					}}
+					style={{ width: "49%" }}
+					t={T.fields.salaryMax}
+				/>
+			</span> */}
 
 			<SubmissionError error={submissionError} />
 
