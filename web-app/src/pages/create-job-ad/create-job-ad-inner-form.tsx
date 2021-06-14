@@ -47,13 +47,14 @@ function InnerForm({ submissionError }) {
 			/>
 			<Box display="flex">
 				<T.checkboxes.minimunEducation
-					renderer={(t: { label: any }) => (
+					renderer={(t: any) => (
 						<CustomCheckbox
-							checkboxTitle={t.checkboxTitle}
-							label={t.label}
+							label={t.checkboxTitle}
+							checkboxes={t.list}
 						/>
 					)}
 				/>
+				{/* <CustomCheckbox checkboxTitle={"test"} label={"test"} /> */}
 			</Box>
 			<span>
 				<T.fields.jobSchedule

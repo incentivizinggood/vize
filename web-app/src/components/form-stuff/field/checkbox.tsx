@@ -13,6 +13,7 @@ function CustomCheckbox({
 	name,
 	label,
 	optional,
+	checkboxes,
 	...restProps
 }: any): JSX.Element {
 	return (
@@ -22,18 +23,20 @@ function CustomCheckbox({
 				<span className="optional">{optional}</span>
 			</ChecckboxHeading>
 
-			<FormControlLabel
-				control={
-					<Checkbox
-						{...restProps}
-						icon={<RadioButtonUncheckedOutlinedIcon />}
-						checkedIcon={<CheckCircleOutlineIcon />}
-						name={name}
-						color="secondary"
-					/>
-				}
-				label={label}
-			/>
+			{checkboxes.map((c: any) => (
+				<FormControlLabel
+					control={
+						<Checkbox
+							{...c}
+							icon={<RadioButtonUncheckedOutlinedIcon />}
+							checkedIcon={<CheckCircleOutlineIcon />}
+							name={c._name}
+							color="secondary"
+						/>
+					}
+					label={c.label}
+				/>
+			))}
 		</FormikCheckboxWrapper>
 	);
 }

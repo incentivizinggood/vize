@@ -319,22 +319,24 @@ export default {
 		checkboxes: {
 			minimunEducation: {
 				checkboxTitle: "Minumum Level Of Education",
-				highSchool: {
-					// name: "heighSchool",
-					label: "Some High School",
-				},
-				completeSchool: {
-					// name: "completeSchool",
-					label: "Complete High School",
-				},
-				someCollege: {
-					// name: "someSchool",
-					label: "Some College",
-				},
-				collegeDegrees: {
-					// name: "collegeDegrees",
-					label: "College Degrees",
-				},
+				list: [
+					{
+						label: "Some High School",
+						_name: "heighSchool",
+					},
+					{
+						label: "Complete High School",
+						_name: "completeSchool",
+					},
+					{
+						label: "Some College",
+						_name: "someSchool",
+					},
+					{
+						label: "College Degrees",
+						_name: "collegeDegrees",
+					},
+				],
 			},
 		},
 		fields: {
