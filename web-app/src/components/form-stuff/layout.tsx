@@ -5,6 +5,19 @@ import PageWrapper, { PageWrapperProps } from "src/components/page-wrapper";
 import { Panel, PanelContainer, PannelPadding } from "src/components/panel";
 import colors from "src/colors";
 
+const PostFormMainHeader = styled.h2`
+	text-align: left;
+	margin-bottom: 10px;
+`;
+
+const PostFormSubHeader = styled.p`
+	text-align: left;
+	margin-bottom: 5px;
+	font-weight: 0;
+	font-size: 15px;
+	text-align: left;
+`;
+
 const FormHeader = styled.h1`
 	margin-bottom: 10px;
 	font-weight: bold;
@@ -51,4 +64,12 @@ function FormPageWrapper({ children, ...restProps }: FormPageWrapperProps) {
 	);
 }
 
-export { FormHeader, FormText, FormFooter, FormToolbar, FormPageWrapper };
+export {
+	FormHeader,
+	FormText,
+	FormFooter,
+	FormToolbar,
+	FormPageWrapper,
+	PostFormMainHeader,
+	PostFormSubHeader,
+};

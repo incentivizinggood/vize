@@ -65,7 +65,7 @@ heroku git:remote --app vize-production --remote heroku-production
 
 1. `cd` into the project's root directory (The same directory as this readme
    file).
-2. Run the command `./scripts/run-databases.sh` to start the databases.
+2. Run the command `č./scripts/run-databases.sh` to start the databases.
     - You will need to enter your password because the Docker commands require
       super user access.
     - This command should not exit. It should keep running until you type
