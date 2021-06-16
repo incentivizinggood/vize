@@ -50,12 +50,15 @@ export async function flagReview(
 
 	sendEmail({
 		to: "incentivizinggood@gmail.com",
-		subject: "Someone flagged a review",
-		text: `${
-			user ? `UserName: ${user.username}` : `No user was logged in.`
-		}\nReason: ${reason}\nExplanation: ${explanation}\nReview Title: ${
-			reviewInfo.reviewTitle
-		}\nReview Id: ${reviewId}\nCompany Name: ${reviewInfo.companyName}`,
+		templateId: 5,
+		params: {
+			username: user ? user.username : null,
+			reason,
+			explanation,
+			reviewTitle: reviewInfo.reviewTitle,
+			reviewId,
+			companyName: reviewInfo.companyName,
+		},
 	});
 
 	return true;
