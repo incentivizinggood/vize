@@ -12,6 +12,7 @@ import colors from "src/colors";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 import { Button } from "src/components/button";
+import { LinkButton } from "src/components/button";
 
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
@@ -41,20 +42,8 @@ const JobContainer = styled.div`
 	}
 `;
 
-const ApplyNowButton = styled(Button)`
-	background-color: ${colors.vizeBlue};
-	color: white;
-	font-weight: bold;
-	border-radius: 6px;
-	font-size: 15px;
-	padding: 8px 15px;
-	max-height: 40px;
-	min-width: 110px;
-
-	&:hover {
-		color: white;
-		filter: grayscale(80%);
-	}
+const ApplyNowButton = styled(LinkButton)`
+	padding: 12px 25px !important;
 `;
 
 const JobTitleAndApplyButtonContainer = styled.div`
@@ -214,7 +203,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				<h3>
 					<strong>{job.jobTitle}</strong>
 				</h3>
-				<ApplyNowButton onClick={ShowApplyToJobModal}>
+				<ApplyNowButton $primary onClick={ShowApplyToJobModal}>
 					<T.showjob.apply_now />
 				</ApplyNowButton>
 			</JobTitleAndApplyButtonContainer>
