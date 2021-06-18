@@ -170,11 +170,18 @@ const onSubmit = (
 	setLoginRegisterModal
 ) => (values, actions) => {
 	console.log("through BEFORE", values);
+	if (values.workExperiences[0].endDate === null && values.workExperiences[0].iCurrentlyWorkHere === false) {
+		console.log("FUCK")
+		setSubmissionError("errorMessage");
+		return null;
+	}
 
 	let formattedValues = formatInputData(values);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
-
 	console.log("through", formattedValues);
+
+	
+
 	return updateOrCreateUserProfile({
 		variables: {
 			input: omitEmptyStrings(formattedValues),

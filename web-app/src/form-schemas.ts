@@ -34,13 +34,13 @@ export const locationSchema = yup.object().shape({
 });
 
 export const workExperienceSchema = yup.object().shape({
-	jobTitle: yup.string().required(),
-	companyName: yup.string().required(),
-	city: yup.string().required(),
-	startDateMonth: yup.string().required(),
-	startDateYear: yup.number().required(),
+	jobTitle: yup.string().required("Se requiere el puesto de trabajo"),
+	companyName: yup.string().required("Se requiere el nombre de la empresa"),
+	city: yup.string().required("Se requiere el nombre de la ciudad"),
+	startDateMonth: yup.string().required("Se requiere el mes"),
+	startDateYear: yup.number().required("Se requiere el año"),
 	endDateMonth: yup.string(),
 	endDateYear: yup.number(),
 	iCurrentlyWorkHere: yup.boolean(),
-	experienceDescription: yup.string().required(),
+	experienceDescription: yup.string().required("Se requiere la descripción de la experiencia"),
 });
