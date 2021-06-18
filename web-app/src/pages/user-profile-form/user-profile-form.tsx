@@ -170,11 +170,19 @@ const onSubmit = (
 	setLoginRegisterModal
 ) => (values, actions) => {
 	console.log("through BEFORE", values);
-	if (values.workExperiences[0].endDate === null && values.workExperiences[0].iCurrentlyWorkHere === false) {
-		console.log("FUCK")
-		setSubmissionError("errorMessage");
-		return null;
-	}
+
+	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
+	// "I Currently Work Here" box is not checked
+	let endDateNotInputted = false;
+	values.workExperiences?.map(function(_: any, index: number) {
+		if (values.workExperiences[index].endDate === null && values.workExperiences[index].iCurrentlyWorkHere === false) {
+			setSubmissionError("Se require la fecha de finalización en la experencia laboral");
+			endDateNotInputted = true;
+			return null;
+		}
+
+	});
+	if(endDateNotInputted) return null;
 
 	let formattedValues = formatInputData(values);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
