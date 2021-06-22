@@ -82,6 +82,7 @@ export default {
 			placeholder: "Email or username",
 		},
 		password: { label: "Password", placeholder: "Password" },
+		confirmPassword: { label: "Confirm Password", placeholder: "Password" },
 		registrationSuccess: "Registration successful!",
 		companyName: { label: "Company Name", placeholder: "Company Name" },
 		alreadyAccount: "Already have an account? ",

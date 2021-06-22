@@ -16,6 +16,16 @@ const schema = yup
 		newPassword: schemas.password.required(
 			"Contraseña es un campo requerido"
 		),
+		confirmNewPassword: schemas.password
+			.required("Contraseña es un campo requerido")
+			.test("passwords-match", "Las contraseñas no coinciden", function(
+				value
+			) {
+				return (
+					!this.parent.newPassword ||
+					value === this.parent.newPassword
+				);
+			}),
 	})
 	.required();
 
@@ -23,6 +33,7 @@ type Values = yup.InferType<typeof schema>;
 
 const initialValues: Values = {
 	newPassword: "",
+	confirmNewPassword: "",
 };
 
 const onSubmit = (history: History, setSubmissionError: any) => async (

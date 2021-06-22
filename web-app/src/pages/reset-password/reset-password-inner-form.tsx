@@ -23,6 +23,13 @@ export default function InnerForm({
 		<Form noValidate>
 			<Field name="newPassword" type="password" required t={T.password} />
 
+			<Field
+				name="confirmNewPassword"
+				type="password"
+				required
+				t={T.confirmPassword}
+			/>
+
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
