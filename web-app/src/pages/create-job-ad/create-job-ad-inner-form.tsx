@@ -14,9 +14,10 @@ import { translations } from "src/translations";
 import { PostElementContainer } from "src/components/form-stuff/style";
 import { Box } from "@material-ui/core";
 import CustomCheckbox from "src/components/form-stuff/field/checkbox";
+import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
 
 const T = translations.createJobAd;
-function InnerForm({ submissionError }) {
+function InnerForm({ submissionError }: any) {
 	return (
 		<Form noValidate>
 			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
@@ -45,7 +46,7 @@ function InnerForm({ submissionError }) {
 				required
 				t={T.fields.qualifications}
 			/>
-			<Box display="flex">
+			<Box>
 				<T.checkboxes.minimunEducation
 					renderer={(t: any) => (
 						<CustomCheckbox
@@ -56,81 +57,6 @@ function InnerForm({ submissionError }) {
 				/>
 				{/* <CustomCheckbox checkboxTitle={"test"} label={"test"} /> */}
 			</Box>
-			<span>
-				<T.fields.jobSchedule
-					renderer={t => (
-						<Field
-							name="startDay"
-							select
-							fullWidth={false}
-							required
-							defaultValue={1}
-							label={t.labelStartDay}
-							style={{ width: "49%", marginRight: "2%" }}
-						>
-							<option value={1}>{t.monday}</option>
-							<option value={2}>{t.tuesday}</option>
-							<option value={3}>{t.wednesday}</option>
-							<option value={4}>{t.thursday}</option>
-							<option value={5}>{t.friday}</option>
-							<option value={6}>{t.saturday}</option>
-							<option value={0}>{t.sunday}</option>
-						</Field>
-					)}
-				/>
-
-				<T.fields.jobSchedule
-					renderer={t => (
-						<Field
-							name="endDay"
-							select
-							fullWidth={false}
-							required
-							defaultValue={5}
-							label={t.labelEndDay}
-							style={{ width: "49%" }}
-						>
-							<option value={1}>{t.monday}</option>
-							<option value={2}>{t.tuesday}</option>
-							<option value={3}>{t.wednesday}</option>
-							<option value={4}>{t.thursday}</option>
-							<option value={5}>{t.friday}</option>
-							<option value={6}>{t.saturday}</option>
-							<option value={0}>{t.sunday}</option>
-						</Field>
-					)}
-				/>
-			</span>
-
-			<span>
-				<T.fields.jobSchedule
-					renderer={t => (
-						<Field
-							name="startTime"
-							type="time"
-							fullWidth={false}
-							required
-							defaultValue="08:00"
-							label={t.labelStartTime}
-							style={{ width: "49%", marginRight: "2%" }}
-						/>
-					)}
-				/>
-
-				<T.fields.jobSchedule
-					renderer={t => (
-						<Field
-							name="endTime"
-							type="time"
-							fullWidth={false}
-							required
-							defaultValue="18:00"
-							label={t.labelEndTime}
-							style={{ width: "49%" }}
-						/>
-					)}
-				/>
-			</span>
 
 			<T.fields.contractType
 				renderer={t => (
@@ -144,8 +70,95 @@ function InnerForm({ submissionError }) {
 				)}
 			/>
 			<FormArray
+				name="shifts"
+				ElementRender={({ name }: { name: string }) => (
+					<T.fields.jobSchedule
+						renderer={(t: any) => (
+							<Box display="flex" justifyContent="space-between">
+								<Field
+									name="startDay"
+									select
+									// fullWidth={false}
+									required
+									defaultValue={1}
+									label={t.startDay.label}
+									style={{ width: "100%" }}
+								>
+									<option value={1}>
+										{t.startDay.monday}
+									</option>
+									<option value={2}>
+										{t.startDay.tuesday}
+									</option>
+									<option value={3}>
+										{t.startDay.wednesday}
+									</option>
+									<option value={4}>
+										{t.startDay.thursday}
+									</option>
+									<option value={5}>
+										{t.startDay.friday}
+									</option>
+									<option value={6}>
+										{t.startDay.saturday}
+									</option>
+									<option value={0}>
+										{t.startDay.sunday}
+									</option>
+								</Field>
+								<Field
+									name="endDay"
+									select
+									// fullWidth={false}
+									required
+									defaultValue={5}
+									label={t.endDay.label}
+									style={{ width: "100%" }}
+								>
+									<option value={1}>{t.endDay.monday}</option>
+									<option value={2}>
+										{t.endDay.tuesday}
+									</option>
+									<option value={3}>
+										{t.endDay.wednesday}
+									</option>
+									<option value={4}>
+										{t.endDay.thursday}
+									</option>
+									<option value={5}>{t.endDay.friday}</option>
+									<option value={6}>
+										{t.endDay.saturday}
+									</option>
+									<option value={0}>{t.endDay.sunday}</option>
+								</Field>
+								<Field
+									name="startTime"
+									type="time"
+									// fullWidth={false}
+									required
+									defaultValue="08:00"
+									label={t.startTime.label}
+									style={{ width: "100%" }}
+								/>
+								<Field
+									name="endTime"
+									type="time"
+									// fullWidth={false}
+									required
+									defaultValue="18:00"
+									label={t.endTime.label}
+									style={{ width: "100%" }}
+								/>
+							</Box>
+						)}
+					/>
+				)}
+				T={T.fields.jobSchedule}
+			/>
+
+			<FormArray
 				name="locations"
-				ElementRender={({ name }) => (
+				ElementRender={({ name }: any) => (
 					<>
 						<Field
 							name={`${name}.city`}

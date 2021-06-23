@@ -347,8 +347,10 @@ export default {
 			},
 			locations: {
 				label: "Locations",
-				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "a"} location`,
+				addElement: ({ array }: { array: unknown[] }) =>{
+					// console.log("Locations", array)
+					return `Add ${array?.length > 0 ? "another" : "a"} location`
+				},
 				city: {
 					label: "Add a city for a job",
 					placeholder: "Enter your city",
@@ -360,6 +362,38 @@ export default {
 				industrialHub: {
 					label: "Add an industrial park for a job",
 					placeholder: "Enter industrial park",
+				},
+			},
+			jobSchedule: {
+				label: "Shifts",
+				addElement: ({ array }: { array: unknown[] }) => {
+					return `Add ${array?.length > 0 ? "another" : "a"} Shifts`;
+				},
+				startDay: {
+					label: "Start Day",
+					monday: "Monday",
+					tuesday: "Tuesday",
+					wednesday: "Wednesday",
+					thursday: "Thursday",
+					friday: "Friday",
+					saturday: "Saturday",
+					sunday: "Sunday",
+				},
+				endDay: {
+					label: "End Day",
+					monday: "Monday",
+					tuesday: "Tuesday",
+					wednesday: "Wednesday",
+					thursday: "Thursday",
+					friday: "Friday",
+					saturday: "Saturday",
+					sunday: "Sunday",
+				},
+				startTime: {
+					label: "Start Time",
+				},
+				endTime: {
+					label: "End Time",
 				},
 			},
 			salaryExplanation:
@@ -379,19 +413,6 @@ export default {
 				weeklySalary: "Weekly Salary",
 				dailySalary: "Daily Salary",
 				hourlyWage: "Hourly Wage",
-			},
-			jobSchedule: {
-				labelStartDay: "Start Day",
-				labelEndDay: "End Day",
-				labelStartTime: "Start Time",
-				labelEndTime: "End Time",
-				monday: "Monday",
-				tuesday: "Tuesday",
-				wednesday: "Wednesday",
-				thursday: "Thursday",
-				friday: "Friday",
-				saturday: "Saturday",
-				sunday: "Sunday",
 			},
 			contractType: {
 				label: "Contract Type",

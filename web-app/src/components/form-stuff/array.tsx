@@ -37,11 +37,14 @@ const ElementDeleteButton = styled(Button)`
 		padding: 0;
 		width: 1.5em;
 		height: 1.5em;
-
 		position: absolute;
 		right: 10px;
 		top: 10px;
 	}
+`;
+const ElementAddButton = styled(Button)`
+	border-radius: 3rem !important;
+	background-color: #f0f8ff;
 `;
 
 interface FormArrayProps {
@@ -60,6 +63,7 @@ function FormArray({
 	ElementRender,
 	formik: { values },
 }: FormArrayProps & { formik: FormikContextType<any> }) {
+
 	return (
 		<>
 			<FieldArray
@@ -89,7 +93,7 @@ function FormArray({
 									</ElementContainer>
 							  ))
 							: null}
-						<Button
+						{!(name === 'shifts' && values.shifts?.length >= 3 ) && <ElementAddButton
 							type="button"
 							onClick={() => arrayHelpers.push("")}
 						>
@@ -100,7 +104,7 @@ function FormArray({
 									<T.addElement array={values[name]} />
 								</>
 							) : null}
-						</Button>
+						</ElementAddButton>}
 					</ArrayContainer>
 				)}
 			/>
@@ -108,4 +112,4 @@ function FormArray({
 	);
 }
 
-export default connect<FormArrayProps, any>(FormArray);
+export default connect<any, any>(FormArray);

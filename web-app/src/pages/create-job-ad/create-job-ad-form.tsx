@@ -29,6 +29,14 @@ const initialValues = {
 			industrialHub: "",
 		},
 	],
+	shifts: [
+		{
+			startDay: "",
+			endDay: "",
+			startTime: "",
+			endTime: "",
+		},
+	],
 	salaryMin: "",
 	salaryMax: "",
 	startDay: 1,

@@ -148,6 +148,23 @@ export default {
 						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
 				},
 			},
+			schedule: {
+				label: "Locations",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "another" : "a"} schedule`,
+				city: {
+					label: "Add a city for a job",
+					placeholder: "Enter your city",
+				},
+				address: {
+					label: "Add an address for a job",
+					placeholder: "Enter your address",
+				},
+				industrialHub: {
+					label: "Add an industrial park for a job",
+					placeholder: "Enter industrial park",
+				},
+			},
 			contactPhoneNumber: {
 				label: "Numbero de Contacto",
 				placeholder: "###-###-####",
