@@ -407,12 +407,34 @@ export default {
 				placeholder: "e.g. 2200",
 			},
 			salaryType: {
-				label: "Income Type (in Pesos)",
-				yearlySalary: "Yearly Salary",
-				monthlySalary: "Monthly Salary",
-				weeklySalary: "Weekly Salary",
-				dailySalary: "Daily Salary",
-				hourlyWage: "Hourly Wage",
+				label: "Choose income Type (in Pesos)",
+				list: [
+					{
+						label: "Yearly Salary",
+						_name: "yearlySalary",
+					},
+					{
+						label: "Monthly Salary",
+						_name: "monthlySalary",
+					},
+					{
+						label: "Weekly Salary",
+						_name: "weeklySalary",
+					},
+					{
+						label: "Daily Salary",
+						_name: "dailySalary",
+					},
+					{
+						label: "Hourly Wage",
+						_name: "hourlyWage",
+					},
+				],
+				// yearlySalary: "Yearly Salary",
+				// monthlySalary: "Monthly Salary",
+				// weeklySalary: "Weekly Salary",
+				// dailySalary: "Daily Salary",
+				// hourlyWage: "Hourly Wage",
 			},
 			contractType: {
 				label: "Contract Type",

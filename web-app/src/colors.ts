@@ -6,6 +6,7 @@ const colors = {
 	error: "red",
 
 	background: "hsl(0, 0%, 95%)",
+	formBackground: "#F0FFFF",
 	// The background color of most things that have things in them. It is a light gray color
 
 	vizeBlue: "#439bd5",

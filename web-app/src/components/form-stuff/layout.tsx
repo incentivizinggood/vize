@@ -55,6 +55,10 @@ const FormToolbar = styled.div`
 
 const PostFormHeaderContainer = styled.div`
 	margin-bottom: 20px;
+	padding: 30px 30px 0px 30px;
+`;
+const PostFormFieldContainer = styled.div`
+	padding: 30px;
 `;
 
 type FormPageWrapperProps = PageWrapperProps;
@@ -78,4 +82,5 @@ export {
 	PostFormMainHeader,
 	PostFormSubHeader,
 	PostFormHeaderContainer,
+	PostFormFieldContainer,
 };

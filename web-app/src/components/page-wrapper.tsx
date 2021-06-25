@@ -11,7 +11,7 @@ const PageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	background-color: ${colors.background};
+	background-color: ${colors.formBackground};
 
 	> *:nth-last-child(2) {
 		flex: 1 0 auto;

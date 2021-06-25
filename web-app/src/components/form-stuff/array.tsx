@@ -44,7 +44,9 @@ const ElementDeleteButton = styled(Button)`
 `;
 const ElementAddButton = styled(Button)`
 	border-radius: 3rem !important;
-	background-color: #f0f8ff;
+	background-color: #F0F8FF !important;
+	border: none !important;
+	font-weight : 0 !important;
 `;
 
 interface FormArrayProps {

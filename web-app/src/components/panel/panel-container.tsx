@@ -12,9 +12,8 @@ const PanelContainer = styled.div`
 	margin-right: auto;
 	margin-left: auto;
 
-	background-color: ${colors.background};
+	background-color: ${colors.formBackground};
 	padding: 112px 20px 20px 20px;
-
 	${forSize.phoneOnly} {
 		padding: ${NavbarHeigh} 0px 50px 0px;
 	}
