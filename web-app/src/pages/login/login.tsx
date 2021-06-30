@@ -34,6 +34,7 @@ function LoginPage(): JSX.Element {
 				<T.login />
 			</FormHeader>
 			<LoginForm />
+			<br />
 			<LoginWithFacebook />
 			<X>
 				{/* TODO Make this look nice. */}
