@@ -1,10 +1,6 @@
 import React from "react";
 
-import {
-	FormHeader,
-	FormFooter,
-	FormPageWrapper,
-} from "src/components/form-stuff";
+import { FormHeader, FormPageWrapper } from "src/components/form-stuff";
 
 import ResetPasswordForm from "./reset-password-form";
 
@@ -16,7 +12,6 @@ function ResetPasswordPage(): JSX.Element {
 				Reset Password
 			</FormHeader>
 			<ResetPasswordForm />
-			<FormFooter>Placeholder</FormFooter>
 		</FormPageWrapper>
 	);
 }
