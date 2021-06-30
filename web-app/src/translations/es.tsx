@@ -74,6 +74,7 @@ export default {
 	},
 	loginRegister: {
 		login: "Iniciar Sesión",
+		forgotPassword: "¿Has olvidado tu contraseña?",
 		noAccount: "¿No tienes una cuenta? ",
 		register: "Crear Cuenta",
 		username: {
@@ -113,6 +114,13 @@ export default {
 			passwordRequired: "Contraseña es un campo requerido",
 			passwordIncorrect: "Contraseña incorrecta",
 			companyNameRequired: "Nombre de Compañía es un campo requerido",
+		},
+	},
+	requestPasswordReset: {
+		requestPasswordReset: "Restablecer Contraseña",
+		email: {
+			label: "Correo Electrónico",
+			placeholder: "Correo Electrónico",
 		},
 	},
 	createCompany: {
