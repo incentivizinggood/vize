@@ -62,7 +62,8 @@ export default {
 		changePassword: "Cambiar Contraseña",
 	},
 	needToBeLoggedInToView: {
-		youNeedToBeLoggedInToView: "Tienes que iniciar una sesión para usar esta página.",
+		youNeedToBeLoggedInToView:
+			"Tienes que iniciar una sesión para usar esta página.",
 		login: "Iniciar Sesión",
 	},
 	footer: {
@@ -73,6 +74,7 @@ export default {
 	},
 	loginRegister: {
 		login: "Iniciar Sesión",
+		forgotPassword: "¿Has olvidado tu contraseña?",
 		noAccount: "¿No tienes una cuenta? ",
 		register: "Crear Cuenta",
 		username: {
@@ -84,6 +86,10 @@ export default {
 			placeholder: "Correo electrónico o nombre de usuario",
 		},
 		password: { label: "Contraseña", placeholder: "Contraseña" },
+		confirmPassword: {
+			label: "Confirmar Contraseña",
+			placeholder: "Confirmar Contraseña",
+		},
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
 			label: "Nombre de Empresa",
@@ -108,6 +114,22 @@ export default {
 			passwordRequired: "Contraseña es un campo requerido",
 			passwordIncorrect: "Contraseña incorrecta",
 			companyNameRequired: "Nombre de Compañía es un campo requerido",
+		},
+	},
+	requestPasswordReset: {
+		requestPasswordReset: "Solicitud Para Restablecer Contraseña",
+		submitRequest: "Enviar Solicitud",
+		email: {
+			label: "Correo Electrónico",
+			placeholder: "Correo Electrónico",
+		},
+	},
+	resetPassword: {
+		resetPassword: "Restablecer Contraseña",
+		password: { label: "Contraseña", placeholder: "Contraseña" },
+		confirmPassword: {
+			label: "Confirmar Contraseña",
+			placeholder: "Confirmar Contraseña",
 		},
 	},
 	createCompany: {
@@ -494,13 +516,18 @@ export default {
 			submit: "Enviar",
 		},
 		jobApplicationSubmitted: {
-			jobApplicationSubmitted: "Tu solicitud de trabajo se envió con exito a ",
-			companyWillReachOut: " se comunicará contigo pronto si hay algún interés. Te informaremos cuando se cubran las vacantes para este empleo.",
-			contactUs: "Por favor mandanos un mensaje por WhatsApp o responde a este email si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: ",
-			readReviews: "Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
+			jobApplicationSubmitted:
+				"Tu solicitud de trabajo se envió con exito a ",
+			companyWillReachOut:
+				" se comunicará contigo pronto si hay algún interés. Te informaremos cuando se cubran las vacantes para este empleo.",
+			contactUs:
+				"Por favor mandanos un mensaje por WhatsApp o responde a este email si tienes alguna pregunta, problema, o duda. Nos encantaría escuchar de tu experiencia para poder mejorar la plataforma: ",
+			readReviews:
+				"Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
 			readReviewsButton: "Leer Evaluaciones",
 			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
-			referralMessage: "¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
+			referralMessage:
+				"¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
 		},
 		jobsearch: {
 			loading: "Cargando...",
@@ -525,7 +552,8 @@ export default {
 			placeholder_comments: "Por favor deje sus comentarios",
 		},
 		forEmployers: {
-			resourcesPageText: "Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
+			resourcesPageText:
+				"Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
 			resources: "Recursos",
 			headerText:
 				"Recluta y retiene a la mejor fuerza laboral en Tijuna con Vize",

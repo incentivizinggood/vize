@@ -1,6 +1,7 @@
 import axios from "axios";
 
 type TemplateParams = {
+	/** Job Application Received (For Employers) */
 	2: {
 		companyName: string;
 		jobTitle: string;
@@ -10,6 +11,7 @@ type TemplateParams = {
 		phoneNumber: string;
 		coverLetter: string | null;
 	};
+	/** Job Application Sent (For Workers) */
 	3: {
 		companyName: string;
 		jobTitle: string;
@@ -18,8 +20,18 @@ type TemplateParams = {
 		jobAdId: string;
 		readEmployerReviews: string;
 	};
+	/** Password Reset Request */
 	4: {
 		passwordResetRequestId: string | number;
+	};
+	/** Flagged a Review */
+	5: {
+		username: string | null;
+		reason: string;
+		explanation: string;
+		reviewTitle: string;
+		reviewId: string;
+		companyName: string;
 	};
 };
 

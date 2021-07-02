@@ -74,6 +74,7 @@ export default {
 	},
 	loginRegister: {
 		login: "Login",
+		forgotPassword: "Forgot your password?",
 		noAccount: "Don't have an account? ",
 		register: "Register",
 		username: { label: "Username", placeholder: "Username" },
@@ -82,6 +83,7 @@ export default {
 			placeholder: "Email or username",
 		},
 		password: { label: "Password", placeholder: "Password" },
+		confirmPassword: { label: "Confirm Password", placeholder: "Password" },
 		registrationSuccess: "Registration successful!",
 		companyName: { label: "Company Name", placeholder: "Company Name" },
 		alreadyAccount: "Already have an account? ",
@@ -100,6 +102,16 @@ export default {
 			passwordIncorrect: "Incorrect password",
 			companyNameRequired: "Company Name is a required field",
 		},
+	},
+	requestPasswordReset: {
+		requestPasswordReset: "Request Password Reset",
+		submitRequest: "Submit Request",
+		email: { label: "Email", placeholder: "Email" },
+	},
+	resetPassword: {
+		resetPassword: "Reset Password",
+		password: { label: "Password", placeholder: "Password" },
+		confirmPassword: { label: "Confirm Password", placeholder: "Password" },
 	},
 	createCompany: {
 		formTitle: "Create a New Profile",

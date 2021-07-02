@@ -36,7 +36,10 @@ const onSubmit = (history: History, setSubmissionError: any) => async (
 		actions.resetForm({ values: initialValues });
 
 		// TODO Make a better UI for successful submission.
-		alert("We have emailed you a link to reset your password.");
+		// English Translation: "We have emailed you a link to reset your password"
+		alert(
+			"Te hemos enviado un enlace por correo electrónico para restablecer tu contraseña."
+		);
 		history.push("/");
 	} catch (error) {
 		// Error to display at bottom of form

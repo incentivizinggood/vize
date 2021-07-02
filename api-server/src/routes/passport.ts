@@ -141,7 +141,12 @@ router.post("/change-password", async function(req, res, next) {
 	}
 });
 
-router.post("/request-password-reset", async function(req, res, next) {
+// English Translation for Route: "/request-password-resets"
+router.post("solicitud-para-restablecer-contraseña", async function(
+	req,
+	res,
+	next
+) {
 	try {
 		await requestPasswordReset(req.body);
 
@@ -157,7 +162,8 @@ router.post("/request-password-reset", async function(req, res, next) {
 	}
 });
 
-router.post("/reset-password", async function(req, res, next) {
+// English Translation for Route: "/reset-password"
+router.post("/restablecer-contraseña", async function(req, res, next) {
 	try {
 		await resetPassword(req.body);
 

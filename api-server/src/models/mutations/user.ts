@@ -227,7 +227,8 @@ export async function requestPasswordReset(input: unknown): Promise<void> {
 		`)).rows[0] || {};
 
 	if (userId === undefined) {
-		throw "There is no user with that email address.";
+		// English Translation: "There is no user with that email address."
+		throw "No hay ningún usuario con ese correo electrónico.";
 	}
 
 	const passwordResetRequestId = nanoid();
@@ -275,7 +276,8 @@ export async function resetPassword(input: unknown): Promise<void> {
 		`)).rows[0] || {};
 
 	if (userId === undefined) {
-		throw "This password reset request is invalid or expired.";
+		// English Translation: "This password reset request is invalid or expired."
+		throw "Esta solicitud de restablecimiento de contraseña no es válida o se ha expirado.";
 	}
 
 	const newPasswordHash = await hashPassword(newPassword);

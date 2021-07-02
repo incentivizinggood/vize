@@ -74,8 +74,12 @@ export async function changePassword(options: {
 export async function requestPasswordReset(options: {
 	emailAddress: string;
 }): Promise<AxiosResponse<unknown>> {
+	// Translation: "request-password-reset"
 	return await axios
-		.post(`${location.origin}/api/request-password-reset`, options)
+		.post(
+			`${location.origin}/api/solicitud-para-restablecer-contraseña`,
+			options
+		)
 		.catch(function(error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
@@ -86,8 +90,9 @@ export async function resetPassword(options: {
 	passwordResetRequestId: string;
 	newPassword: string;
 }): Promise<AxiosResponse<unknown>> {
+	// Translation: "eset-password"
 	return await axios
-		.post(`${location.origin}/api/reset-password`, options)
+		.post(`${location.origin}/api/restablecer-contraseña`, options)
 		.catch(function(error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);

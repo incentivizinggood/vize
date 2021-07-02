@@ -34,12 +34,12 @@ function LoginPage(): JSX.Element {
 				<T.login />
 			</FormHeader>
 			<LoginForm />
+			<br />
 			<LoginWithFacebook />
 			<X>
 				{/* TODO Make this look nice. */}
 				<Link to={urlGenerators.vizeRequestPasswordReset()}>
-					{/* TODO translate */}
-					Forgot password
+					<T.forgotPassword />
 				</Link>
 			</X>
 			<FormFooter>

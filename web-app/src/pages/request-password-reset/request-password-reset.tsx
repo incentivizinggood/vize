@@ -1,22 +1,17 @@
 import React from "react";
-
-import {
-	FormHeader,
-	FormFooter,
-	FormPageWrapper,
-} from "src/components/form-stuff";
-
+import { FormHeader, FormPageWrapper } from "src/components/form-stuff";
 import RequestPasswordResetForm from "./request-password-reset-form";
+import { translations } from "src/translations";
+
+const T = translations.requestPasswordReset;
 
 function RequestPasswordResetPage(): JSX.Element {
 	return (
-		<FormPageWrapper title="Request Password Reset">
+		<FormPageWrapper title="Solicitud Para Restablecer Contraseña">
 			<FormHeader>
-				{/* TODO translate */}
-				Request Password Reset
+				<T.requestPasswordReset />
 			</FormHeader>
 			<RequestPasswordResetForm />
-			<FormFooter>Placeholder</FormFooter>
 		</FormPageWrapper>
 	);
 }

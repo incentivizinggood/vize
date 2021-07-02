@@ -6,7 +6,7 @@ import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { Button } from "src/components/button";
 import { translations } from "src/translations";
 
-const T = translations.loginRegister;
+const T = translations.resetPassword;
 
 const ResetPasswordButton = styled(Button)`
 	font-size: 22px;
@@ -23,12 +23,18 @@ export default function InnerForm({
 		<Form noValidate>
 			<Field name="newPassword" type="password" required t={T.password} />
 
+			<Field
+				name="confirmNewPassword"
+				type="password"
+				required
+				t={T.confirmPassword}
+			/>
+
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
 				<ResetPasswordButton $primary type="submit">
-					{/* TODO translate */}
-					Reset Password
+					<T.resetPassword />
 				</ResetPasswordButton>
 			</FormToolbar>
 		</Form>
