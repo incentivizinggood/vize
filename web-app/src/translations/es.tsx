@@ -88,7 +88,7 @@ export default {
 		password: { label: "Contraseña", placeholder: "Contraseña" },
 		confirmPassword: {
 			label: "Confirmar Contraseña",
-			placeholder: "Contraseña",
+			placeholder: "Confirmar Contraseña",
 		},
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
@@ -117,10 +117,19 @@ export default {
 		},
 	},
 	requestPasswordReset: {
-		requestPasswordReset: "Restablecer Contraseña",
+		requestPasswordReset: "Solicitud Para Restablecer Contraseña",
+		submitRequest: "Enviar Solicitud",
 		email: {
 			label: "Correo Electrónico",
 			placeholder: "Correo Electrónico",
+		},
+	},
+	resetPassword: {
+		resetPassword: "Restablecer Contraseña",
+		password: { label: "Contraseña", placeholder: "Contraseña" },
+		confirmPassword: {
+			label: "Confirmar Contraseña",
+			placeholder: "Confirmar Contraseña",
 		},
 	},
 	createCompany: {

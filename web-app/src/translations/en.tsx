@@ -105,7 +105,13 @@ export default {
 	},
 	requestPasswordReset: {
 		requestPasswordReset: "Request Password Reset",
+		submitRequest: "Submit Request",
 		email: { label: "Email", placeholder: "Email" },
+	},
+	resetPassword: {
+		resetPassword: "Reset Password",
+		password: { label: "Password", placeholder: "Password" },
+		confirmPassword: { label: "Confirm Password", placeholder: "Password" },
 	},
 	createCompany: {
 		formTitle: "Create a New Profile",

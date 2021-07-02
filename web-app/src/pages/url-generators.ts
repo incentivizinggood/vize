@@ -21,10 +21,8 @@ export const queryRoutes = {
 	salaries: "salarios",
 	applyForJob: "postularme",
 	register: "crear-cuenta",
-	// TODO translate
-	requestPasswordReset: "request-password-reset",
-	// TODO translate
-	resetPassword: "reset-password",
+	requestPasswordReset: "solicitud-para-restablecer-contraseña",
+	resetPassword: "restablecer-contraseña",
 	login: "iniciar-sesion",
 	user: "usuario",
 	privacyPolicy: "poliza-de-privacidad",

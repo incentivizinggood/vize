@@ -27,7 +27,7 @@ export default function InnerForm({
 
 			<FormToolbar>
 				<RequestPasswordResetButton $primary type="submit">
-					<T.requestPasswordReset />
+					<T.submitRequest />
 				</RequestPasswordResetButton>
 			</FormToolbar>
 		</Form>

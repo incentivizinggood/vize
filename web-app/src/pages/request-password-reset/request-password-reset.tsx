@@ -7,7 +7,7 @@ const T = translations.requestPasswordReset;
 
 function RequestPasswordResetPage(): JSX.Element {
 	return (
-		<FormPageWrapper title="Restablecer Contraseña">
+		<FormPageWrapper title="Solicitud Para Restablecer Contraseña">
 			<FormHeader>
 				<T.requestPasswordReset />
 			</FormHeader>
