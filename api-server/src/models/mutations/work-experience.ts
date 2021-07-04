@@ -10,7 +10,7 @@ export const workExperienceInputSchema = yup
 			.date()
 			.min(
 				yup.ref("startDate"),
-				"La fecha de finalización debe de ser despues de la fecha de comienzo"
+				"La fecha de finalización debe de ser despues de la fecha de comienzo en la experiencia laboral"
 			)
 			.nullable(),
 		experienceDescription: yup.string().required(),

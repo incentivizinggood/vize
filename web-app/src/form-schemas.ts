@@ -39,7 +39,21 @@ export const workExperienceSchema = yup.object().shape({
 	city: yup.string().required("Se requiere el nombre de la ciudad"),
 	startDateMonth: yup.string().required("Se requiere el mes"),
 	startDateYear: yup.number().required("Se requiere el año"),
-	endDateMonth: yup.string(),
+	endDateMonth: yup.string()
+		.test({
+			name: 'end-date-after-start-date-check',
+			exclusive: false,
+			message: 'La fecha de finalización debe de ser despues de la fecha de comienzo',
+			test: function (value) {
+				if (this.parent.startDateYear && this.parent.startDateMonth && this.parent.endDateYear && value) {
+					const startDate = new Date(this.parent.startDateYear, this.parent.startDateMonth, 1).toISOString();
+					const endDate = new Date(this.parent.endDateYear, value, 1).toISOString();
+					return startDate < endDate;
+				} else {
+					return true;
+				}
+			},
+		}),
 	endDateYear: yup.number(),
 	iCurrentlyWorkHere: yup.boolean(),
 	experienceDescription: yup.string().required("Se requiere la descripción de la experiencia"),
