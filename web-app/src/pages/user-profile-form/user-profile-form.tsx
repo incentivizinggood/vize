@@ -176,13 +176,19 @@ const onSubmit = (
 	let endDateNotInputted = false;
 	values.workExperiences?.map(function(_: any, index: number) {
 		if ((values.workExperiences[index].endDateMonth == "" || values.workExperiences[index].endDateYear == "") && values.workExperiences[index].iCurrentlyWorkHere === false) {
-			setSubmissionError("Se require la fecha de finalización en la experencia laboral");
+			setSubmissionError("Se requiere la fecha de finalización en la experencia laboral");
 			endDateNotInputted = true;
 			return null;
 		}
 	});
 	// If an end date was not inputted, return null so that the error can be displayed
 	if(endDateNotInputted) return null;
+
+	// Check if at least one value has been selected for the availability
+	if (!values.morning && !values.afternoon && !values.night) {
+		setSubmissionError("Se requiere tu disponibilidad");
+		return null;
+	}
 
 	let formattedValues = formatInputData(values);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
