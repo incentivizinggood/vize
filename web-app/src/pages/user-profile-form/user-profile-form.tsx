@@ -175,64 +175,64 @@ const onSubmit = (
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
 	values.workExperiences?.map(function(_: any, index: number) {
-		if ((values.workExperiences[index].endDateMonth === null || values.workExperiences[index].endDateYear === null) && values.workExperiences[index].iCurrentlyWorkHere === false) {
+		if ((values.workExperiences[index].endDateMonth == "" || values.workExperiences[index].endDateYear == "") && values.workExperiences[index].iCurrentlyWorkHere === false) {
 			setSubmissionError("Se require la fecha de finalización en la experencia laboral");
 			endDateNotInputted = true;
 			return null;
 		}
-
 	});
+	// If an end date was not inputted, return null so that the error can be displayed
 	if(endDateNotInputted) return null;
 
-	// let formattedValues = formatInputData(values);
-	// const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
-	// console.log("through", formattedValues);
+	let formattedValues = formatInputData(values);
+	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
+	console.log("through", formattedValues);
 
 	
 
-	// return updateOrCreateUserProfile({
-	// 	variables: {
-	// 		input: omitEmptyStrings(formattedValues),
-	// 	},
-	// })
-	// 	.then(({ data }) => {
-	// 		actions.resetForm(initialValues);
-	// 		console.log("worked");
+	return updateOrCreateUserProfile({
+		variables: {
+			input: omitEmptyStrings(formattedValues),
+		},
+	})
+		.then(({ data }) => {
+			actions.resetForm(initialValues);
+			console.log("worked");
 
-	// 		// Track successful job application submitted event
-	// 		analytics.sendEvent({
-	// 			category: "User",
-	// 			action: "Job Application Submitted",
-	// 			label: formattedValues.jobAdId,
-	// 		});
+			// Track successful job application submitted event
+			analytics.sendEvent({
+				category: "User",
+				action: "Job Application Submitted",
+				label: formattedValues.jobAdId,
+			});
 
-	// 		history.push(`/`);
-	// 	})
-	// 	.catch(errors => {
-	// 		// Error in English: Not Logged In
-	// 		console.log("superbad", errors);
-	// 		if (
-	// 			errors.message.includes(
-	// 				"Tienes que iniciar una sesión o registrarte"
-	// 			)
-	// 		) {
-	// 			setLoginRegisterModal(
-	// 				<PopupModal isOpen={true} closeModalButtonColor="white">
-	// 					<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para crear un perfil" />
-	// 				</PopupModal>
-	// 			);
-	// 		} else {
-	// 			// cut out the "GraphQL error: " from error message
-	// 			const errorMessage = errors.message.substring(14);
-	// 			setSubmissionError(errorMessage);
+			history.push(`/`);
+		})
+		.catch(errors => {
+			// Error in English: Not Logged In
+			console.log("superbad", errors);
+			if (
+				errors.message.includes(
+					"Tienes que iniciar una sesión o registrarte"
+				)
+			) {
+				setLoginRegisterModal(
+					<PopupModal isOpen={true} closeModalButtonColor="white">
+						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para crear un perfil" />
+					</PopupModal>
+				);
+			} else {
+				// cut out the "GraphQL error: " from error message
+				const errorMessage = errors.message.substring(14);
+				setSubmissionError(errorMessage);
 
-	// 			// Errors to display on form fields
-	// 			const formErrors = {};
+				// Errors to display on form fields
+				const formErrors = {};
 
-	// 			actions.setErrors(formErrors);
-	// 			actions.setSubmitting(false);
-	// 		}
-	// 	});
+				actions.setErrors(formErrors);
+				actions.setSubmitting(false);
+			}
+		});
 };
 
 interface UserProfileFormProps {
@@ -249,6 +249,12 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 
 	if (userProfile) {
 		initialValues = userProfile;
+		initialValues.workExperiences?.map(function(_: any, index: number) {
+			if (initialValues.workExperiences[index].iCurrentlyWorkHere === true) {
+				initialValues.workExperiences[index].endDateMonth = "";
+				initialValues.workExperiences[index].endDateYear = "";
+			}
+		});
 	}
 	console.log('up user', userProfile);	
 
