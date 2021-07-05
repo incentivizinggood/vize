@@ -15,6 +15,8 @@ import { JobApplicationSubmittedInnerContent } from "src/pages/job-application-s
 import { useApplyToJobAdMutation } from "generated/graphql-operations";
 import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
 import { useGetUserProfileDataQuery } from "generated/graphql-operations";
+import { useCreateUserProfileMutation } from "generated/graphql-operations";
+import { useUpdateUserProfileMutation } from "generated/graphql-operations";
 
 import InnerForm from "./apply-to-job-ad-inner-form";
 
@@ -40,6 +42,7 @@ function formatUserProfileData(userProfile: any) {
 	}
 
 	userProfile.coverLetter = "";
+	userProfile.saveDataToProfile = true;
 	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(", ") : userProfile.skills;
 	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
 
@@ -115,7 +118,7 @@ function formatInputData(inputValues: any) {
 		delete inputValues.workExperiences[index].endDateYear;
 		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
 	});
-	console.log('What input', inputValues);
+	delete inputValues.saveDataToProfile;
 	return inputValues;
 }
 
@@ -149,6 +152,7 @@ let initialValues = {
 	night: false,
 	availabilityComments: "",
 	coverLetter: "",
+	saveDataToProfile: true,
 };
 
 const schema = yup.object().shape({
@@ -199,10 +203,13 @@ const schema = yup.object().shape({
 	night: yup.boolean(),
 	availabilityComments: yup.string().nullable(),
 	coverLetter: yup.string(),
+	saveDataToProfile: yup.boolean(),
 });
 
 const onSubmit = (
 	userProfile,
+	createUserProfile,
+	updateUserProfile,
 	applyToJobAd,
 	history,
 	setSubmissionError,
@@ -211,6 +218,12 @@ const onSubmit = (
 	modalIsOpen,
 ) => (values, actions) => {
 	console.log('vall BEFORE', values);
+	const jobApplicationFormValues = JSON.parse(JSON.stringify(values));
+	const userProfileFormValues = JSON.parse(JSON.stringify(values));
+
+	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
+	const willSaveDataToProfile = values.saveDataToProfile;
+
 	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
@@ -229,25 +242,47 @@ const onSubmit = (
 		setSubmissionError("Se requiere tu disponibilidad");
 		return null;
 	}
-
-	let formattedValues = formatInputData(values);
-	// const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
-	console.log("through", formattedValues);
+	
+	let jobApplicationFormFormattedValues = formatInputData(jobApplicationFormValues);
+	
+	console.log("through", jobApplicationFormFormattedValues);
 
 	return applyToJobAd({
 		variables: {
-			input: omitEmptyStrings(formattedValues),
+			input: omitEmptyStrings(jobApplicationFormFormattedValues),
 		},
 	})
 		.then(({ data }) => {
 			actions.resetForm(initialValues);
 
+			// Call the mutation for updating/creating the user profile after apply to job mutation has succeeded
+			if (willSaveDataToProfile) {
+				delete userProfileFormValues.coverLetter;
+				delete userProfileFormValues.email;
+				delete userProfileFormValues.companyId;
+				delete userProfileFormValues.numReviews;
+				delete userProfileFormValues.jobTitle;
+				delete userProfileFormValues.jobAdId;
+				let userProfileFormFormattedValues = formatInputData(userProfileFormValues);
+
+				updateOrCreateUserProfile({
+					variables: {
+						input: omitEmptyStrings(userProfileFormFormattedValues),
+					},
+				})
+				.then(({ data }) => {
+					console.log("Updated/Created User Profile");
+				});
+			}
+
 			// Track successful job application submitted event
 			analytics.sendEvent({
 				category: "User",
 				action: "Job Application Submitted",
-				label: formattedValues.jobAdId,
+				label: jobApplicationFormFormattedValues.jobAdId,
 			});
+
+			
 
 			if (modalIsOpen) {
 				setJobApplicationFormContent(
@@ -257,11 +292,11 @@ const onSubmit = (
 				);
 					
 			} else {
-				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${formattedValues.companyId}`);
+				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${jobApplicationFormFormattedValues.companyId}`);
 			}
 		})
 		.catch(errors => {
-			console.log('ERROR', formattedValues);
+			console.log('ERROR', errors.message);
 			// Error in English: Not Logged In
 			if (
 				errors.message.includes(
@@ -296,6 +331,8 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 	const history = useHistory();
 	const user = useUser();
 
+	const [createUserProfile] = useCreateUserProfileMutation();
+	const [updateUserProfile] = useUpdateUserProfileMutation();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 	let [jobApplicationFormContent, setJobApplicationFormContent]: any = React.useState(null);
@@ -344,6 +381,8 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 		validationSchema={schema}
 		onSubmit={onSubmit(
 			userProfile,
+			createUserProfile,
+			updateUserProfile,
 			applyToJobAd,
 			history,
 			setSubmissionError,
@@ -352,7 +391,7 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 			modalIsOpen
 		)}
 	>
-		<InnerForm submissionError={submissionError} />
+		<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
 	</Formik>);
 
 	console.log('init', initialValues);

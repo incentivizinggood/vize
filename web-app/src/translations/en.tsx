@@ -528,6 +528,10 @@ export default {
 				placeholder:
 					"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			},
+			createProfileWithFormData:
+				"Create a profile with the data in this form (apply to jobs with one click)",
+			updateProfileWithFormData:
+				"Update your profile with the data in this form",
 		},
 		submit: "Apply",
 	},

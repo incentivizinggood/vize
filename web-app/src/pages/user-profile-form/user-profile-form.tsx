@@ -9,7 +9,6 @@ import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import { workExperienceSchema } from "src/form-schemas";
 
-
 import { useCreateUserProfileMutation } from "generated/graphql-operations";
 import { useUpdateUserProfileMutation } from "generated/graphql-operations";
 

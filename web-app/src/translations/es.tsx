@@ -550,6 +550,10 @@ export default {
 				placeholder:
 					"Usa este espacio para describir por qué serías la persona mas adecuada para esta posición. También puede incluir cualquier comentario adicional que te gustaría enviar a la empresa junto con tu solicitud",
 			},
+			createProfileWithFormData:
+				"Crea un perfil con los datos en este formulario (para postularte con un clic)",
+			updateProfileWithFormData:
+				"Actualiza tu perfil con los datos en este formulario",
 		},
 		submit: "Aplicar",
 	},
