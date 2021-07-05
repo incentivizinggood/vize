@@ -43,6 +43,12 @@ const CheckboxField = styled(Field)`
 	padding-left: 0px !important;
 `;
 
+const AddAnotherExperienceButton = styled(Button)`
+	margin: 0 auto;
+  	display: block !important;
+`;
+
+
 interface UserProfileInnerFormProps {
 	submissionError: any;
 	profileExists: boolean;
@@ -323,7 +329,8 @@ function InnerForm({
 							</ElementContainer>
 						))}
 
-						<Button
+						<AddAnotherExperienceButton
+							$primary
 							type="button"
 							onClick={() => {
 								arrayHelpers.push({
