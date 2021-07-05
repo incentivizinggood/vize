@@ -44,7 +44,7 @@ const CheckboxField = styled(Field)`
 
 const AddAnotherExperienceButton = styled(Button)`
 	margin: 0 auto;
-  	display: block !important;
+	display: block !important;
 `;
 
 function InnerForm({ submissionError }: any) {
@@ -346,7 +346,7 @@ function InnerForm({ submissionError }: any) {
 			/>
 
 			<br />
-			
+
 			<Field
 				name="skills"
 				type="text"

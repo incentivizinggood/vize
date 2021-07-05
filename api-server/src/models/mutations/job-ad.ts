@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail, EmailConfig } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
-import { monthTranlsations, educationLevelTranslations, workShiftTranlsations } from "src/utils/translation-utils"
+import { monthTranslations, educationTranslations, workShiftTranlsations } from "src/utils/translation-utils"
 import { locationInputSchema } from "./location";
 import { workExperienceInputSchema } from "./work-experience";
 
@@ -169,14 +169,14 @@ export async function createJobAd(
 function formatWorkExperiences(workExperiences: any) { 
 	workExperiences?.forEach(function(_: any, index: number) {	
 		const startDate = new Date(workExperiences[index].startDate);
-		const startDateMonth = monthTranlsations[startDate.getMonth()];
+		const startDateMonth = monthTranslations[startDate.getMonth()];
 		const startDateYear = startDate.getFullYear();
 		const startDateText = `${startDateMonth} ${startDateYear}`;
 
 		let endDateText = "Presente";
 		if (workExperiences[index].endDate) {
 			const endDate = new Date(workExperiences[index].endDate);
-			const endDateMonth = monthTranlsations[endDate.getMonth()];
+			const endDateMonth = monthTranslations[endDate.getMonth()];
 			const endDateYear = endDate.getFullYear();
 			endDateText = `${endDateMonth} ${endDateYear}`;
 		}
@@ -210,6 +210,26 @@ const createApplyToJobAdInputSchema = yup
 			.array()
 			.of(yup.string())
 			.nullable(),
+		spanishProficiency: yup
+			.string()
+			.oneOf([
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			])
+			.required(),
+		englishProficiency: yup
+			.string()
+			.oneOf([
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			])
+			.required(),
 		highestLevelOfEducation: yup
 			.string()
 			.oneOf([
@@ -241,6 +261,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		workExperiences,
 		skills,
 		certificatesAndLicences,
+		spanishProficiency,
+		englishProficiency,
 		highestLevelOfEducation,
 		availability,
 		availabilityComments,
@@ -260,7 +282,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		} = await client.query(
 			sql`SELECT companies.companyid, name, contactemail FROM companies JOIN jobads ON companies.companyid = jobads.companyid WHERE jobadid=${jobAdId}`
 		);
-
+		console.log('test 1', highestLevelOfEducation, jobTitle, fullName, applicantEmail, phoneNumber, city, neighborhood);
 		await client.query(sql`
 			INSERT INTO job_applications
 				(
@@ -272,6 +294,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					work_experiences,
 					skills,
 					certificates_and_licences,
+					spanish_proficiency,
+					english_proficiency,
 					education_level,
 					work_availability,
 					availability_comments,
@@ -289,6 +313,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					${JSON.stringify(workExperiences)},
 					${skills},
 					${certificatesAndLicences},
+					${spanishProficiency},
+					${englishProficiency},
 					${highestLevelOfEducation},
 					${availability},
 					${availabilityComments},
@@ -297,7 +323,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					${companyId}
 				)
 		`);
-
+console.log('test 2');
 		postToSlack(
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
@@ -314,7 +340,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
 		const skillsFormatted = skills.join(", ");
 		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
-		const highestLevelOfEducationTranslated = educationLevelTranslations[highestLevelOfEducation];
+		const highestLevelOfEducationTranslated = educationTranslations[highestLevelOfEducation];
 		if (!availabilityComments)
 			availabilityComments = userLeftFieldBlankMessage;
 		if (!neighborhood)

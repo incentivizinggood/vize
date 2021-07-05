@@ -14,14 +14,14 @@ export const monthTranslations = {
 };
 
 export const workShiftTranlsations = {
-    "MORNING_SHIFT": "Turno Matutino",
-    "AFTERNOON_SHIFT": "Turno Vespertino",
-    "NIGHT_SHIFT": "Turno Nocturno",
+	MORNING_SHIFT: "Turno Matutino",
+	AFTERNOON_SHIFT: "Turno Vespertino",
+	NIGHT_SHIFT: "Turno Nocturno",
 };
 
 export const educationTranslations = {
-    "SOME_HIGH_SCHOOL": "Preparatoria Trunca",
-    "HIGH_SCHOOL": "Preparatoria",
-    "SOME_COLLEGE": "Universidad Trunca",
-    "COLLEGE_DEGREE": "Título Universitario",
+	SOME_HIGH_SCHOOL: "Preparatoria Trunca",
+	HIGH_SCHOOL: "Preparatoria",
+	SOME_COLLEGE: "Universidad Trunca",
+	COLLEGE_DEGREE: "Título Universitario",
 };

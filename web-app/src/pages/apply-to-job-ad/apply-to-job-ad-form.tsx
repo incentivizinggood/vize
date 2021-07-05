@@ -70,6 +70,7 @@ function formatInputData(inputValues: any) {
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
 	inputValues["availability"] = availabilityArray;
+	console.log('av', availabilityArray);
 
 	inputValues.phoneNumber = inputValues.phoneNumber.replace('-','');
 	inputValues.phoneNumber = inputValues.phoneNumber.replace('(','');
@@ -114,7 +115,7 @@ function formatInputData(inputValues: any) {
 		delete inputValues.workExperiences[index].endDateYear;
 		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
 	});
-
+	console.log('What input', inputValues);
 	return inputValues;
 }
 
@@ -140,6 +141,8 @@ let initialValues = {
 	],
 	skills: "",
 	certificatesAndLicences: "",
+	spanishProficiency: "",
+	englishProficiency: "",
 	highestLevelOfEducation: "",
 	morning: false,
 	afternoon: false,
@@ -233,7 +236,7 @@ const onSubmit = (
 
 	return applyToJobAd({
 		variables: {
-			input: omitEmptyStrings(values),
+			input: omitEmptyStrings(formattedValues),
 		},
 	})
 		.then(({ data }) => {
@@ -243,7 +246,7 @@ const onSubmit = (
 			analytics.sendEvent({
 				category: "User",
 				action: "Job Application Submitted",
-				label: values.jobAdId,
+				label: formattedValues.jobAdId,
 			});
 
 			if (modalIsOpen) {
@@ -254,11 +257,11 @@ const onSubmit = (
 				);
 					
 			} else {
-				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${values.companyId}`);
+				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${formattedValues.companyId}`);
 			}
 		})
 		.catch(errors => {
-			console.log('ERROR', values);
+			console.log('ERROR', formattedValues);
 			// Error in English: Not Logged In
 			if (
 				errors.message.includes(
