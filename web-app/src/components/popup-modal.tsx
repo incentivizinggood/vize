@@ -101,8 +101,7 @@ export default class PopupModal extends React.Component {
 		}
 
 		return (
-			<div style={{    zIndex: "10",
-				position: "fixed" }}>
+			<>
 				{buttonContent}
 				<ModalStyled
 					isOpen={this.state.modalIsOpen}
@@ -133,7 +132,7 @@ export default class PopupModal extends React.Component {
 
 					{this.props.children}
 				</ModalStyled>
-			</div>
+			</>
 		);
 	}
 }
