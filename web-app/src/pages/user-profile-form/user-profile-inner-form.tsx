@@ -337,16 +337,6 @@ function InnerForm({
 									iCurrentlyWorkHere: false,
 									description: "",
 								});
-								// const workExperienceIndex: number = values.workExperiences.length;
-								// values.workExperiences[workExperienceIndex].jobTitle = "hello";
-								// values.workExperiences[workExperienceIndex].companyName = "";
-								// values.workExperiences[workExperienceIndex].city = "";
-								// values.workExperiences[workExperienceIndex].startDateMonth = "";
-								// values.workExperiences[workExperienceIndex].startDateYear = "";
-								// values.workExperiences[workExperienceIndex].endDateMonth = "";
-								// values.workExperiences[workExperienceIndex].endDateYear = "";
-								// values.workExperiences[workExperienceIndex].iCurrentlyWorkHere = false;
-								// values.workExperiences[workExperienceIndex].description = "";
 							}}
 						>
 							<FontAwesomeIcon icon={faPlus} /> {"  "}
