@@ -117,6 +117,18 @@ export type JobApplication = {
 	workExperiences: any;
 	skills: Array<string>;
 	certificatesAndLicences: Array<string> | null;
+	spanishProficiency:
+		| "NATIVE_LANGUAGE"
+		| "FLUENT"
+		| "CONVERSATIONAL"
+		| "BASIC"
+		| "NO_PROFICIENCY";
+	englishProficiency:
+		| "NATIVE_LANGUAGE"
+		| "FLUENT"
+		| "CONVERSATIONAL"
+		| "BASIC"
+		| "NO_PROFICIENCY";
 	highestLevelOfEducation:
 		| "SOME_HIGH_SCHOOL"
 		| "HIGH_SCHOOL"

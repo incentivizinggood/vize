@@ -225,6 +225,8 @@ input ApplyToJobAdInput {
 	workExperiences: [WorkExperienceInput]
 	skills: [String]!
 	certificatesAndLicences: [String]
+	spanishProficiency: String!
+	englishProficiency: String!
 	highestLevelOfEducation: String!
 	availability: [String]!
 	availabilityComments: String
@@ -444,6 +446,8 @@ type JobApplication {
 	workExperiences: [WorkExperience]
 	skills: [String]!
 	certificatesAndLicences: [String]
+	spanishProficiency: String!
+	englishProficiency: String!
 	highestLevelOfEducation: String!
 	availability: [String]!
 	availabilityComments: String
