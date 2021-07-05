@@ -16,7 +16,6 @@ const FormText = styled.p`
 	margin-bottom: 5px;
 	color: black;
 	font-size: 15px;
-
 	text-align: left;
 `;
 
