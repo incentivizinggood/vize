@@ -41,7 +41,7 @@ export const workExperienceSchema = yup.object().shape({
 	startDateYear: yup.number().required("Se requiere el año"),
 	endDateMonth: yup.string()
 		.test({
-			name: 'end-date-after-start-date-check',
+			name: 'end-date-month-after-start-date-check',
 			exclusive: false,
 			message: 'La fecha de finalización debe de ser despues de la fecha de comienzo',
 			test: function (value) {
@@ -54,7 +54,21 @@ export const workExperienceSchema = yup.object().shape({
 				}
 			},
 		}),
-	endDateYear: yup.number(),
+	endDateYear: yup.number()
+		.test({
+			name: 'end-date-year-after-start-date-check',
+			exclusive: false,
+			message: 'La fecha de finalización debe de ser despues de la fecha de comienzo',
+			test: function (value) {
+				if (this.parent.startDateYear && this.parent.startDateMonth && this.parent.endDateYear && value) {
+					const startDate = new Date(this.parent.startDateYear, this.parent.startDateMonth, 1).toISOString();
+					const endDate = new Date(value, this.parent.endDateMonth, 1).toISOString();
+					return startDate < endDate;
+				} else {
+					return true;
+				}
+			},
+		}),
 	iCurrentlyWorkHere: yup.boolean(),
 	experienceDescription: yup.string().required("Se requiere la descripción de la experiencia"),
 });

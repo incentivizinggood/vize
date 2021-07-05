@@ -68,7 +68,6 @@ function InnerForm({
 			<Field
 				name="phoneNumber"
 				type="phoneNumber"
-				defaultValue="wow"
 				required
 				t={T.fields.phoneNumber}
 			/>
@@ -350,7 +349,7 @@ function InnerForm({
 							<T.fields.workExperiences.addElement
 								array={values.workExperiences}
 							/>
-						</Button>
+						</AddAnotherExperienceButton>
 					</ArrayContainer>
 				)}
 			/>

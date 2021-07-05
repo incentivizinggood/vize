@@ -42,6 +42,11 @@ const CheckboxField = styled(Field)`
 	padding-left: 0px !important;
 `;
 
+const AddAnotherExperienceButton = styled(Button)`
+	margin: 0 auto;
+  	display: block !important;
+`;
+
 function InnerForm({ submissionError }: any) {
 	const { values }: any = useFormikContext();
 	console.log("form val", values);
@@ -314,15 +319,28 @@ function InnerForm({ submissionError }: any) {
 							</ElementContainer>
 						))}
 
-						<Button
+						<AddAnotherExperienceButton
+							$primary
 							type="button"
-							onClick={() => arrayHelpers.push("")}
+							onClick={() => {
+								arrayHelpers.push({
+									jobTitle: "",
+									companyName: "",
+									city: "",
+									startDateMonth: "",
+									startDateYear: "",
+									endDateMonth: "",
+									endDateYear: "",
+									iCurrentlyWorkHere: false,
+									description: "",
+								});
+							}}
 						>
 							<FontAwesomeIcon icon={faPlus} /> {"  "}
 							<T.fields.workExperiences.addElement
 								array={values.workExperiences}
 							/>
-						</Button>
+						</AddAnotherExperienceButton>
 					</ArrayContainer>
 				)}
 			/>

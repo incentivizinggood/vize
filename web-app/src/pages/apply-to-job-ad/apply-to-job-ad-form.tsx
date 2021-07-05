@@ -30,8 +30,7 @@ function omitEmptyStrings(x) {
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["__typename"];
-	console.log('userr', userProfile);
-
+	console.log('get userr profile', userProfile);
 
 	if(userProfile["availability"]) {
 		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
@@ -45,7 +44,6 @@ function formatUserProfileData(userProfile: any) {
 	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
-		userProfile.workExperiences[index].iCurrentlyWorkHere = false;
 		delete userProfile.workExperiences[index].__typename;
 
 		const startDate = new Date(userProfile.workExperiences[index].startDate);
@@ -63,6 +61,61 @@ function formatUserProfileData(userProfile: any) {
 	});
 
 	return userProfile;
+}
+
+function formatInputData(inputValues: any) {
+	console.log('inp', inputValues);
+	let availabilityArray = [];
+	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
+	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
+	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
+	inputValues["availability"] = availabilityArray;
+
+	inputValues.phoneNumber = inputValues.phoneNumber.replace('-','');
+	inputValues.phoneNumber = inputValues.phoneNumber.replace('(','');
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(')','');
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(' ','');
+	
+	const skillsArray = inputValues.skills.includes(",") ? inputValues.skills.split(",") : [inputValues.skills];
+	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(",") ? inputValues.certificatesAndLicences.split(",") : [inputValues.certificatesAndLicences];
+	
+	// Clean up the white space from the input
+	skillsArray.forEach(function(_: any, index: number) {
+		skillsArray[index] = skillsArray[index].trim();
+	});
+	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
+		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[index].trim();
+	});
+	inputValues.skills = skillsArray;
+	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
+	console.log('skills', skillsArray);
+
+	delete inputValues["morning"];
+	delete inputValues["afternoon"];
+	delete inputValues["night"];
+
+	inputValues.workExperiences?.forEach(function(_: any, index: number) {
+		const startDateYear = inputValues.workExperiences[index].startDateYear;
+		const startDateMonth = inputValues.workExperiences[index].startDateMonth;
+		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
+		inputValues.workExperiences[index].startDate = startDate;
+		delete inputValues.workExperiences[index].startDateMonth;
+		delete inputValues.workExperiences[index].startDateYear;
+
+		let endDate: String | null  = null;
+		if (!inputValues.workExperiences[index].iCurrentlyWorkHere) {
+			const endDateYear = inputValues.workExperiences[index].endDateYear;
+			const endDateMonth = inputValues.workExperiences[index].endDateMonth;
+			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+		}
+		
+		inputValues.workExperiences[index].endDate = endDate;
+		delete inputValues.workExperiences[index].endDateMonth;
+		delete inputValues.workExperiences[index].endDateYear;
+		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
+	});
+
+	return inputValues;
 }
 
 let initialValues = {
@@ -101,7 +154,7 @@ const schema = yup.object().shape({
 	email: yup
 		.string()
 		.email()
-		.required(),
+		.required("Se requiere el correo electrónico"),
 	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
 	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
@@ -146,6 +199,7 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = (
+	userProfile,
 	applyToJobAd,
 	history,
 	setSubmissionError,
@@ -154,51 +208,28 @@ const onSubmit = (
 	modalIsOpen,
 ) => (values, actions) => {
 	console.log('vall BEFORE', values);
-	let availabilityArray = [];
-	if (values.morning) availabilityArray.push("MORNING_SHIFT");
-	if (values.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
-	if (values.night) availabilityArray.push("NIGHT_SHIFT");
-	values["availability"] = availabilityArray;
-
-	const skillsArray = values.skills.includes(",") ? values.skills.split(",") : [values.skills];
-	const certificatesAndLicencesArray = values.certificatesAndLicences.includes(",") ? values.certificatesAndLicences.split(",") : [values.certificatesAndLicences];
-	
-	// Clean up the white space from the input
-	skillsArray.forEach(function(_: any, index: number) {
-		skillsArray[index] = skillsArray[index].trim();
-	});
-	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
-		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[index].trim();
-	});
-	values.skills = skillsArray;
-	values.certificatesAndLicences = certificatesAndLicencesArray;
-
-	delete values["morning"];
-	delete values["afternoon"];
-	delete values["night"];
-
-	values.workExperiences?.forEach(function(_: any, index: number) {
-		const startDateYear = values.workExperiences[index].startDateYear;
-		const startDateMonth = values.workExperiences[index].startDateMonth;
-		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
-		values.workExperiences[index].startDate = startDate;
-		delete values.workExperiences[index].startDateMonth;
-		delete values.workExperiences[index].startDateYear;
-
-		let endDate: String | null  = null;
-		if (!values.workExperiences[index].iCurrentlyWorkHere) {
-			const endDateYear = values.workExperiences[index].endDateYear;
-			const endDateMonth = values.workExperiences[index].endDateMonth;
-			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
+	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
+	// "I Currently Work Here" box is not checked
+	let endDateNotInputted = false;
+	values.workExperiences?.map(function(_: any, index: number) {
+		if ((values.workExperiences[index].endDateMonth == "" || values.workExperiences[index].endDateYear == "") && values.workExperiences[index].iCurrentlyWorkHere === false) {
+			setSubmissionError("Se requiere la fecha de finalización en la experencia laboral");
+			endDateNotInputted = true;
+			return null;
 		}
-		console.log('endd', endDate);
-		
-		values.workExperiences[index].endDate = endDate;
-		delete values.workExperiences[index].endDateMonth;
-		delete values.workExperiences[index].endDateYear;
-		delete values.workExperiences[index].iCurrentlyWorkHere;
 	});
-	console.log('vall AFTER', values);
+	// If an end date was not inputted, return null so that the error can be displayed
+	if(endDateNotInputted) return null;
+
+	// Check if at least one value has been selected for the availability
+	if (!values.morning && !values.afternoon && !values.night) {
+		setSubmissionError("Se requiere tu disponibilidad");
+		return null;
+	}
+
+	let formattedValues = formatInputData(values);
+	// const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
+	console.log("through", formattedValues);
 
 	return applyToJobAd({
 		variables: {
@@ -276,13 +307,18 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 
 	if (loading) return <Spinner />;
 
-	console.log('userProfile', userProfileData);
-	console.log('userProfileload', loading);
-	console.log('userProfileerror', error);
+	let userProfile = null;
 
 	// If user has a user profile, fill in the form fields with the user profile data
 	if(userProfileData?.userProfile) {
-		initialValues = formatUserProfileData(userProfileData.userProfile);
+		userProfile = formatUserProfileData(userProfileData.userProfile);
+		initialValues = userProfile;
+		initialValues.workExperiences?.map(function(_: any, index: number) {
+			if (initialValues.workExperiences[index].iCurrentlyWorkHere === true) {
+				initialValues.workExperiences[index].endDateMonth = "";
+				initialValues.workExperiences[index].endDateYear = "";
+			}
+		});
 	}
 
 	const jobTitle = data?.jobAd?.jobTitle;
@@ -304,6 +340,7 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 		})}
 		validationSchema={schema}
 		onSubmit={onSubmit(
+			userProfile,
 			applyToJobAd,
 			history,
 			setSubmissionError,

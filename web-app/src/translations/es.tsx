@@ -420,7 +420,7 @@ export default {
 				placeholder: "Ingresa tu nombre completo",
 			},
 			email: {
-				label: "Direccion de Correo Electronico",
+				label: "Correo Electrónico",
 				placeholder: "ejemplo@gmail.com",
 			},
 			phoneNumber: {
