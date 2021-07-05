@@ -47,9 +47,22 @@ const AddAnotherExperienceButton = styled(Button)`
 	display: block !important;
 `;
 
-function InnerForm({ submissionError }: any) {
+interface ApplyToJobAdInnerFormProps {
+	submissionError: any;
+	profileExists: boolean;
+}
+
+function InnerForm({
+	submissionError,
+	profileExists,
+}: ApplyToJobAdInnerFormProps) {
 	const { values }: any = useFormikContext();
 	console.log("form val", values);
+	const updateOrCreateProfileText = profileExists ? (
+		<T.fields.updateProfileWithFormData />
+	) : (
+		<T.fields.createProfileWithFormData />
+	);
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -523,6 +536,11 @@ function InnerForm({ submissionError }: any) {
 				required
 				t={T.fields.coverLetter}
 			/>
+
+			<CheckboxLabel>
+				<CheckboxField name="saveDataToProfile" type="checkbox" />
+				{updateOrCreateProfileText}
+			</CheckboxLabel>
 
 			<SubmissionError error={submissionError} />
 
