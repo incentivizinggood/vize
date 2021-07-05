@@ -76,7 +76,6 @@ function formatInputData(inputValues: any) {
 		delete inputValues.workExperiences[index].endDateMonth;
 		delete inputValues.workExperiences[index].endDateYear;
 		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
-
 	});
 
 	return inputValues;
@@ -253,6 +252,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 	const [createUserProfile] = useCreateUserProfileMutation();
 	const [updateUserProfile] = useUpdateUserProfileMutation();
 
+	// If user has a user profile, fill in the form fields with the user profile data
 	if (userProfile) {
 		initialValues = userProfile;
 		initialValues.workExperiences?.map(function(_: any, index: number) {
