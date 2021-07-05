@@ -45,7 +45,7 @@ function FormPageWrapper({ children, ...restProps }: FormPageWrapperProps) {
 	return (
 		<PageWrapper {...restProps}>
 			<PanelContainer>
-				<Panel>{children}</Panel>
+				<Panel roundedEdges>{children}</Panel>
 			</PanelContainer>
 		</PageWrapper>
 	);
