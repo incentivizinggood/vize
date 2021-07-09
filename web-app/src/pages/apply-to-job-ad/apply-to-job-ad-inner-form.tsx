@@ -533,7 +533,6 @@ function InnerForm({
 				name="coverLetter"
 				multiline
 				rows={6}
-				required
 				t={T.fields.coverLetter}
 			/>
 

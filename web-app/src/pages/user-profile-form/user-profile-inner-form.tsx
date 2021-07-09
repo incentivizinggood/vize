@@ -45,9 +45,8 @@ const CheckboxField = styled(Field)`
 
 const AddAnotherExperienceButton = styled(Button)`
 	margin: 0 auto;
-  	display: block !important;
+	display: block !important;
 `;
-
 
 interface UserProfileInnerFormProps {
 	submissionError: any;
@@ -58,9 +57,9 @@ function InnerForm({
 	submissionError,
 	profileExists,
 }: UserProfileInnerFormProps) {
-	const { values }: any = useFormikContext();
+	const { values, errors }: any = useFormikContext();
 	const submitButtonText = profileExists ? <T.update /> : <T.submit />;
-
+	console.log("errrrrr", errors);
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -387,6 +386,7 @@ function InnerForm({
 						name="spanishProficiency"
 						type="radioButtons"
 						label={t.label}
+						error={errors.spanishProficiency}
 						options={[
 							<FormControlLabel
 								value="NATIVE_LANGUAGE"
@@ -528,9 +528,11 @@ function InnerForm({
 			<br />
 			<br />
 			<br />
-			<FieldTitle><T.fields.yourDreamJob.label /></FieldTitle>
+			<FieldTitle>
+				<T.fields.yourDreamJob.label />
+			</FieldTitle>
 			<FieldDescription>
-			<T.fields.yourDreamJob.description />
+				<T.fields.yourDreamJob.description />
 			</FieldDescription>
 			<FieldDescription>
 				<PrivacyIcon style={{ marginRight: "5px" }} />
