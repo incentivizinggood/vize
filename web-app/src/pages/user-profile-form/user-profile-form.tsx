@@ -131,8 +131,7 @@ const schema = yup.object().shape({
 			"CONVERSATIONAL",
 			"BASIC",
 			"NO_PROFICIENCY",
-		])
-		.required("Se requiere la seleccion que describa tu dominio del español"),
+		]),
 	englishProficiency: yup
 		.string()
 		.oneOf([
@@ -141,8 +140,7 @@ const schema = yup.object().shape({
 			"CONVERSATIONAL",
 			"BASIC",
 			"NO_PROFICIENCY",
-		])
-		.required("Se requiere la seleccion que describa tu dominio del ingles"),
+		]),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
@@ -150,8 +148,7 @@ const schema = yup.object().shape({
 			"HIGH_SCHOOL",
 			"SOME_COLLEGE",
 			"COLLEGE_DEGREE",
-		])
-		.required("Se requiere la seleccion que describa el nivel educativo más alto"),
+		]),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
@@ -168,12 +165,13 @@ const onSubmit = (
 	setLoginRegisterModal
 ) => (values, actions) => {
 	console.log("through BEFORE", values);
+	const userProfileFormValues = JSON.parse(JSON.stringify(values));
 
 	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
-	values.workExperiences?.map(function(_: any, index: number) {
-		if ((values.workExperiences[index].endDateMonth == "" || values.workExperiences[index].endDateYear == "") && values.workExperiences[index].iCurrentlyWorkHere === false) {
+	userProfileFormValues.workExperiences?.map(function(_: any, index: number) {
+		if ((userProfileFormValues.workExperiences[index].endDateMonth == "" || userProfileFormValues.workExperiences[index].endDateYear == "") && userProfileFormValues.workExperiences[index].iCurrentlyWorkHere === false) {
 			setSubmissionError("Se requiere la fecha de finalización en la experencia laboral");
 			endDateNotInputted = true;
 			return null;
@@ -183,12 +181,25 @@ const onSubmit = (
 	if(endDateNotInputted) return null;
 
 	// Check if at least one value has been selected for the availability
-	if (!values.morning && !values.afternoon && !values.night) {
+	if (!userProfileFormValues.morning && !userProfileFormValues.afternoon && !userProfileFormValues.night) {
 		setSubmissionError("Se requiere tu disponibilidad");
 		return null;
 	}
 
-	let formattedValues = formatInputData(values);
+	if (userProfileFormValues.englishProficiency == "") {
+		setSubmissionError("Se requiere la seleccion que describa tu dominio del ingles");
+		return null;
+	}
+	if (userProfileFormValues.spanishProficiency == "") {
+		setSubmissionError("Se requiere la seleccion que describa tu dominio del español");
+		return null;
+	}
+	if (userProfileFormValues.highestLevelOfEducation == "") {
+		setSubmissionError("Se requiere la seleccion que describa el nivel educativo más alto");
+		return null;
+	}
+
+	let formattedValues = formatInputData(userProfileFormValues);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 	console.log("through", formattedValues);
 
