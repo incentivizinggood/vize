@@ -71,7 +71,7 @@ function InnerForm({
 
 			<Field
 				name="phoneNumber"
-				type="text"
+				type="phoneNumber"
 				required
 				t={T.fields.phoneNumber}
 			/>

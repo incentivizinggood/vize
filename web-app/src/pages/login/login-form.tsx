@@ -55,6 +55,9 @@ const onSubmit = (history: History, setSubmissionError: any) => async (
 				) ||
 				window.location.pathname.includes(
 					urlGenerators.queryRoutes.userProfileForm
+				) ||
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.jobs
 				)
 			)
 		) {
