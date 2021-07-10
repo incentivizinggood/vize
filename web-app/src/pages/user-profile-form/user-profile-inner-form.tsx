@@ -57,9 +57,9 @@ function InnerForm({
 	submissionError,
 	profileExists,
 }: UserProfileInnerFormProps) {
-	const { values, errors }: any = useFormikContext();
+	const { values }: any = useFormikContext();
 	const submitButtonText = profileExists ? <T.update /> : <T.submit />;
-	console.log("errrrrr", errors);
+
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
@@ -82,12 +82,17 @@ function InnerForm({
 					<ArrayContainer>
 						{values.workExperiences.map((_: any, index: number) => (
 							<ElementContainer key={`experience-${index}`}>
-								<ElementDeleteButton
-									type="button"
-									onClick={() => arrayHelpers.remove(index)}
-								>
-									<FontAwesomeIcon icon={faTimes} />
-								</ElementDeleteButton>
+								{index > 0 && (
+									<ElementDeleteButton
+										type="button"
+										onClick={() =>
+											arrayHelpers.remove(index)
+										}
+									>
+										<FontAwesomeIcon icon={faTimes} />
+									</ElementDeleteButton>
+								)}
+
 								<>
 									<h3
 										style={{
@@ -386,7 +391,6 @@ function InnerForm({
 						name="spanishProficiency"
 						type="radioButtons"
 						label={t.label}
-						error={errors.spanishProficiency}
 						options={[
 							<FormControlLabel
 								value="NATIVE_LANGUAGE"
