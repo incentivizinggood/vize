@@ -23,6 +23,37 @@ function omitEmptyStrings(x) {
 	return x;
 }
 
+function onSubmitErrorChecking(inputValues: any) {
+	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
+	// "I Currently Work Here" box is not checked
+	let endDateNotInputted = false;
+	inputValues.workExperiences?.map(function(_: any, index: number) {
+		if ((inputValues.workExperiences[index].endDateMonth == "" || inputValues.workExperiences[index].endDateYear == "") && inputValues.workExperiences[index].iCurrentlyWorkHere === false) {
+			endDateNotInputted = true;
+		}
+	});
+	if(endDateNotInputted) return "Se requiere la fecha de finalización para la experencia laboral";
+
+	// Check if at least one value has been selected for the availability
+	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night) {
+		return "Se requiere tu disponibilidad";
+	}
+	if (inputValues.englishProficiency == "") {
+		return "Se requiere la seleccion que describa tu dominio del ingles";
+	}
+	if (inputValues.spanishProficiency == "") {
+		return "Se requiere la seleccion que describa tu dominio del español";
+	}
+	if (inputValues.highestLevelOfEducation == "") {
+		return "Se requiere la seleccion que describa el nivel educativo más alto";
+	}
+	if (!inputValues.workExperiences) {
+		return "Se requiere por lo menos una experiencia laboral";
+	}
+	
+	return null;
+}
+
 function formatInputData(inputValues: any) {
 	console.log('inp', inputValues);
 	let availabilityArray = [];
@@ -167,35 +198,9 @@ const onSubmit = (
 	console.log("through BEFORE", values);
 	const userProfileFormValues = JSON.parse(JSON.stringify(values));
 
-	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
-	// "I Currently Work Here" box is not checked
-	let endDateNotInputted = false;
-	userProfileFormValues.workExperiences?.map(function(_: any, index: number) {
-		if ((userProfileFormValues.workExperiences[index].endDateMonth == "" || userProfileFormValues.workExperiences[index].endDateYear == "") && userProfileFormValues.workExperiences[index].iCurrentlyWorkHere === false) {
-			setSubmissionError("Se requiere la fecha de finalización en la experencia laboral");
-			endDateNotInputted = true;
-			return null;
-		}
-	});
-	// If an end date was not inputted, return null so that the error can be displayed
-	if(endDateNotInputted) return null;
-
-	// Check if at least one value has been selected for the availability
-	if (!userProfileFormValues.morning && !userProfileFormValues.afternoon && !userProfileFormValues.night) {
-		setSubmissionError("Se requiere tu disponibilidad");
-		return null;
-	}
-
-	if (userProfileFormValues.englishProficiency == "") {
-		setSubmissionError("Se requiere la seleccion que describa tu dominio del ingles");
-		return null;
-	}
-	if (userProfileFormValues.spanishProficiency == "") {
-		setSubmissionError("Se requiere la seleccion que describa tu dominio del español");
-		return null;
-	}
-	if (userProfileFormValues.highestLevelOfEducation == "") {
-		setSubmissionError("Se requiere la seleccion que describa el nivel educativo más alto");
+	const errorMessage = onSubmitErrorChecking(userProfileFormValues);
+	if (errorMessage) {
+		setSubmissionError(errorMessage);
 		return null;
 	}
 
