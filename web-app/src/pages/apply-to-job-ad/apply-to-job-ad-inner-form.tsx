@@ -87,12 +87,16 @@ function InnerForm({
 					<ArrayContainer>
 						{values.workExperiences.map((_: any, index: number) => (
 							<ElementContainer key={`experience-${index}`}>
-								<ElementDeleteButton
-									type="button"
-									onClick={() => arrayHelpers.remove(index)}
-								>
-									<FontAwesomeIcon icon={faTimes} />
-								</ElementDeleteButton>
+								{index > 0 && (
+									<ElementDeleteButton
+										type="button"
+										onClick={() =>
+											arrayHelpers.remove(index)
+										}
+									>
+										<FontAwesomeIcon icon={faTimes} />
+									</ElementDeleteButton>
+								)}
 								<>
 									<h3
 										style={{
