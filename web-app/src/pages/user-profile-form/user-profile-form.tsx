@@ -28,29 +28,23 @@ function onSubmitErrorChecking(inputValues: any) {
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
 	inputValues.workExperiences?.map(function(_: any, index: number) {
-		if ((inputValues.workExperiences[index].endDateMonth == "" || inputValues.workExperiences[index].endDateYear == "") && inputValues.workExperiences[index].iCurrentlyWorkHere === false) {
+		if ((inputValues.workExperiences[index].endDateMonth == "" || inputValues.workExperiences[index].endDateYear == "") && inputValues.workExperiences[index].iCurrentlyWorkHere === false)
 			endDateNotInputted = true;
-		}
 	});
 	if(endDateNotInputted) return "Se requiere la fecha de finalización para la experencia laboral";
 
 	// Check if at least one value has been selected for the availability
-	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night) {
+	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night) 
 		return "Se requiere tu disponibilidad";
-	}
-	if (inputValues.englishProficiency == "") {
+	if (inputValues.englishProficiency == "") 
 		return "Se requiere la seleccion que describa tu dominio del ingles";
-	}
-	if (inputValues.spanishProficiency == "") {
+	if (inputValues.spanishProficiency == "") 
 		return "Se requiere la seleccion que describa tu dominio del español";
-	}
-	if (inputValues.highestLevelOfEducation == "") {
+	if (inputValues.highestLevelOfEducation == "") 
 		return "Se requiere la seleccion que describa el nivel educativo más alto";
-	}
-	if (!inputValues.workExperiences) {
+	if (!inputValues.workExperiences) 
 		return "Se requiere por lo menos una experiencia laboral";
-	}
-	
+
 	return null;
 }
 
@@ -208,8 +202,6 @@ const onSubmit = (
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 	console.log("through", formattedValues);
 
-	
-
 	return updateOrCreateUserProfile({
 		variables: {
 			input: omitEmptyStrings(formattedValues),
@@ -299,10 +291,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 					setLoginRegisterModal
 				)}
 			>
-				 
-			<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
-
-           
+				<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
 			</Formik>
 			{loginRegisterModal}
 		</>

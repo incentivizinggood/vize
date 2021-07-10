@@ -82,6 +82,7 @@ function InnerForm({
 					<ArrayContainer>
 						{values.workExperiences.map((_: any, index: number) => (
 							<ElementContainer key={`experience-${index}`}>
+								{/* Remove the delete button for only the first work experience */}
 								{index > 0 && (
 									<ElementDeleteButton
 										type="button"
@@ -221,7 +222,7 @@ function InnerForm({
 										.iCurrentlyWorkHere && (
 										<>
 											<br />
-											Present
+											<T.fields.workExperiences.present />
 											<br />
 										</>
 									)}

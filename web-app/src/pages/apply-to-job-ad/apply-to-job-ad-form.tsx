@@ -66,6 +66,31 @@ function formatUserProfileData(userProfile: any) {
 	return userProfile;
 }
 
+function onSubmitErrorChecking(inputValues: any) {
+	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
+	// "I Currently Work Here" box is not checked
+	let endDateNotInputted = false;
+	inputValues.workExperiences?.map(function(_: any, index: number) {
+		if ((inputValues.workExperiences[index].endDateMonth == "" || inputValues.workExperiences[index].endDateYear == "") && inputValues.workExperiences[index].iCurrentlyWorkHere === false)
+			endDateNotInputted = true;
+	});
+	if(endDateNotInputted) return "Se requiere la fecha de finalización para la experencia laboral";
+
+	// Check if at least one value has been selected for the availability
+	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night) 
+		return "Se requiere tu disponibilidad";
+	if (inputValues.englishProficiency == "") 
+		return "Se requiere la seleccion que describa tu dominio del ingles";
+	if (inputValues.spanishProficiency == "") 
+		return "Se requiere la seleccion que describa tu dominio del español";
+	if (inputValues.highestLevelOfEducation == "") 
+		return "Se requiere la seleccion que describa el nivel educativo más alto";
+	if (!inputValues.workExperiences) 
+		return "Se requiere por lo menos una experiencia laboral";
+
+	return null;
+}
+
 function formatInputData(inputValues: any) {
 	console.log('inp', inputValues);
 	let availabilityArray = [];
@@ -73,7 +98,6 @@ function formatInputData(inputValues: any) {
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
 	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
 	inputValues["availability"] = availabilityArray;
-	console.log('av', availabilityArray);
 
 	inputValues.phoneNumber = inputValues.phoneNumber.replace('-','');
 	inputValues.phoneNumber = inputValues.phoneNumber.replace('(','');
@@ -177,8 +201,7 @@ const schema = yup.object().shape({
 			"CONVERSATIONAL",
 			"BASIC",
 			"NO_PROFICIENCY",
-		])
-		.required("Se requiere la seleccion que describa tu dominio del español"),
+		]),
 	englishProficiency: yup
 		.string()
 		.oneOf([
@@ -187,8 +210,7 @@ const schema = yup.object().shape({
 			"CONVERSATIONAL",
 			"BASIC",
 			"NO_PROFICIENCY",
-		])
-		.required("Se requiere la seleccion que describa tu dominio del ingles"),
+		]),
 	highestLevelOfEducation: yup
 		.string()
 		.oneOf([
@@ -196,8 +218,7 @@ const schema = yup.object().shape({
 			"HIGH_SCHOOL",
 			"SOME_COLLEGE",
 			"COLLEGE_DEGREE",
-		])
-		.required("Se requiere la seleccion que describa el nivel educativo más alto"),
+		]),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
@@ -224,25 +245,12 @@ const onSubmit = (
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
 	const willSaveDataToProfile = values.saveDataToProfile;
 
-	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
-	// "I Currently Work Here" box is not checked
-	let endDateNotInputted = false;
-	values.workExperiences?.map(function(_: any, index: number) {
-		if ((values.workExperiences[index].endDateMonth == "" || values.workExperiences[index].endDateYear == "") && values.workExperiences[index].iCurrentlyWorkHere === false) {
-			setSubmissionError("Se requiere la fecha de finalización en la experencia laboral");
-			endDateNotInputted = true;
-			return null;
-		}
-	});
-	// If an end date was not inputted, return null so that the error can be displayed
-	if(endDateNotInputted) return null;
-
-	// Check if at least one value has been selected for the availability
-	if (!values.morning && !values.afternoon && !values.night) {
-		setSubmissionError("Se requiere tu disponibilidad");
+	const errorMessage = onSubmitErrorChecking(userProfileFormValues);
+	if (errorMessage) {
+		setSubmissionError(errorMessage);
 		return null;
 	}
-	
+
 	let jobApplicationFormFormattedValues = formatInputData(jobApplicationFormValues);
 	
 	console.log("through", jobApplicationFormFormattedValues);
@@ -281,8 +289,6 @@ const onSubmit = (
 				action: "Job Application Submitted",
 				label: jobApplicationFormFormattedValues.jobAdId,
 			});
-
-			
 
 			if (modalIsOpen) {
 				setJobApplicationFormContent(
