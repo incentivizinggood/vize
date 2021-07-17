@@ -57,7 +57,6 @@ function InnerForm({
 	profileExists,
 }: ApplyToJobAdInnerFormProps) {
 	const { values }: any = useFormikContext();
-	console.log("form val", values);
 	const updateOrCreateProfileText = profileExists ? (
 		<T.fields.updateProfileWithFormData />
 	) : (
@@ -67,7 +66,7 @@ function InnerForm({
 		<Form noValidate>
 			{profileExists && (
 				<>
-					<ApplyButtonTop
+					<SubmitButton
 						variant="contained"
 						size="large"
 						type="submit"
@@ -80,7 +79,7 @@ function InnerForm({
 						}}
 					>
 						<T.submit />
-					</ApplyButtonTop>
+					</SubmitButton>
 					<hr />
 				</>
 			)}

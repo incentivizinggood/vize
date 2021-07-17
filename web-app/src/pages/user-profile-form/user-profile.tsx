@@ -17,7 +17,6 @@ function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["email"];
 	delete userProfile["__typename"];
-	console.log('get userr profile', userProfile);
 
 	if(userProfile["availability"]) {
 		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
@@ -61,10 +60,7 @@ function CreateUserProfilePage({ jobAdId }: UserProfilePageProps) {
 	});
 
 	if (loading) return <Spinner />;
-
-	console.log('userProfile', userProfileData);
-	console.log('userProfileload', loading);
-	console.log('userProfileerror', error);
+	
 	let userProfile = null;
 
 	let profileFormTitle = (<T.formTitleCreateProfile />);

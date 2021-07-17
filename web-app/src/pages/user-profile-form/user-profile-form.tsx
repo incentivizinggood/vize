@@ -49,7 +49,6 @@ function onSubmitErrorChecking(inputValues: any) {
 }
 
 function formatInputData(inputValues: any) {
-	console.log('inp', inputValues);
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -73,8 +72,6 @@ function formatInputData(inputValues: any) {
 	});
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
-	console.log('skills', skillsArray);
-
 
 	delete inputValues["morning"];
 	delete inputValues["afternoon"];
@@ -94,7 +91,6 @@ function formatInputData(inputValues: any) {
 			const endDateMonth = inputValues.workExperiences[index].endDateMonth;
 			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
 		}
-		console.log('endd', endDate);
 		
 		inputValues.workExperiences[index].endDate = endDate;
 		delete inputValues.workExperiences[index].endDateMonth;
@@ -189,7 +185,6 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal
 ) => (values, actions) => {
-	console.log("through BEFORE", values);
 	const userProfileFormValues = JSON.parse(JSON.stringify(values));
 
 	const errorMessage = onSubmitErrorChecking(userProfileFormValues);
@@ -200,7 +195,6 @@ const onSubmit = (
 
 	let formattedValues = formatInputData(userProfileFormValues);
 	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
-	console.log("through", formattedValues);
 
 	return updateOrCreateUserProfile({
 		variables: {
@@ -209,7 +203,6 @@ const onSubmit = (
 	})
 		.then(({ data }) => {
 			actions.resetForm(initialValues);
-			console.log("worked");
 
 			// Track successful job application submitted event
 			analytics.sendEvent({
@@ -269,7 +262,6 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 			}
 		});
 	}
-	console.log('up user', userProfile);	
 
 	const user = useUser();
 

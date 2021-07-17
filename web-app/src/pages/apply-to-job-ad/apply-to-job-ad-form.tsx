@@ -32,7 +32,6 @@ function omitEmptyStrings(x) {
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["__typename"];
-	console.log('get userr profile', userProfile);
 
 	if(userProfile["availability"]) {
 		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
@@ -92,7 +91,6 @@ function onSubmitErrorChecking(inputValues: any) {
 }
 
 function formatInputData(inputValues: any) {
-	console.log('inp', inputValues);
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -116,7 +114,6 @@ function formatInputData(inputValues: any) {
 	});
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
-	console.log('skills', skillsArray);
 
 	delete inputValues["morning"];
 	delete inputValues["afternoon"];
@@ -238,7 +235,6 @@ const onSubmit = (
 	setJobApplicationFormContent,
 	modalIsOpen,
 ) => (values, actions) => {
-	console.log('vall BEFORE', values);
 	const jobApplicationFormValues = JSON.parse(JSON.stringify(values));
 	const userProfileFormValues = JSON.parse(JSON.stringify(values));
 
@@ -253,8 +249,6 @@ const onSubmit = (
 
 	let jobApplicationFormFormattedValues = formatInputData(jobApplicationFormValues);
 	
-	console.log("through", jobApplicationFormFormattedValues);
-
 	return applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(jobApplicationFormFormattedValues),
