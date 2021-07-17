@@ -36,8 +36,8 @@ export function JobAdPage({ jobAdId }: JobAdPageProps): JSX.Element {
 			) : (
 				<PanelContainer>
 					<Panel roundedEdges>
-						{/* TODO: Add better error reporting */}
 						<p>
+							{/* English: The job post could not be found. It is possible the company removed the job post */}
 							La oferta de empleo no se pudo encontrar. Es
 							probable que la empresa elimino la oferta.
 						</p>

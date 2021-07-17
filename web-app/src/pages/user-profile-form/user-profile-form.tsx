@@ -8,6 +8,7 @@ import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import { workExperienceSchema } from "src/form-schemas";
+import { queryRoutes } from "src/pages/url-generators";
 
 import { useCreateUserProfileMutation } from "generated/graphql-operations";
 import { useUpdateUserProfileMutation } from "generated/graphql-operations";
@@ -211,11 +212,11 @@ const onSubmit = (
 				label: formattedValues.jobAdId,
 			});
 
-			history.push(`/`);
+			history.push(`/${queryRoutes.jobs}`);
 		})
 		.catch(errors => {
 			// Error in English: Not Logged In
-			console.log("superbad", errors);
+			console.log("Error", errors);
 			if (
 				errors.message.includes(
 					"Tienes que iniciar una sesión o registrarte"
