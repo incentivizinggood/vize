@@ -65,6 +65,26 @@ function InnerForm({
 	);
 	return (
 		<Form noValidate>
+			{profileExists && (
+				<>
+					<ApplyButtonTop
+						variant="contained"
+						size="large"
+						type="submit"
+						color="primary"
+						style={{
+							margin: "0 auto",
+							marginTop: "20px",
+							marginBottom: "20px",
+							display: "flex",
+						}}
+					>
+						<T.submit />
+					</ApplyButtonTop>
+					<hr />
+				</>
+			)}
+
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
 
 			<Field name="email" type="email" required t={T.fields.email} />
