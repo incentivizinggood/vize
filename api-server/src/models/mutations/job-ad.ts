@@ -334,7 +334,7 @@ console.log('test 2');
 		// Adjusting formatting for the employer email
 		workExperiences = formatWorkExperiences(workExperiences);
 		const availabilityTranslated = availability.map(function(_: any, index: number) {	
-			// prettier-ignore
+			// @ts-ignore
 			return workShiftTranlsations[availability[index]];
 		});
 		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
@@ -351,31 +351,6 @@ console.log('test 2');
 			? coverLetter.replace(/\n/g, "\\n")
 			: userLeftFieldBlankMessage;
 
-
-
-		const employerEmailOptions = {
-			templateId: 2,
-			to: companyEmail,
-			params: `{
-				"companyName": "${companyName}",
-				"jobTitle": "${jobTitle}",
-				"jobAdId": "${jobAdId}",
-				"applicantEmail": "${applicantEmail}",
-				"applicantName": "${fullName}",
-				"phoneNumber": "${phoneNumber}",
-				"city": "${city}",
-				"neighborhood": "${neighborhood}",
-				"workExperiences": ${JSON.stringify(workExperiences)},
-				"skills": "${skillsFormatted}",
-				"certificatesAndLicences": "${certificatesAndLicencesFormatted}",
-				"highestLevelOfEducation": "${highestLevelOfEducationTranslated}",
-				"availability": "${availabilityTranslatedAndFormatted}",
-				"availabilityComments": "${availabilityComments}",
-				"phoneNumber": "${phoneNumber}",
-				"coverLetter": "${coverLetterJSON}"
-			}`,
-		};
-
 		const spaceIndex = fullName.indexOf(" ");
 		const firstName =
 			spaceIndex === -1 ? fullName : fullName.substr(0, spaceIndex);
@@ -385,21 +360,39 @@ console.log('test 2');
 				? `Lee evaluaciones escritas por empleados que han trabajado en ${companyName} para obtener más información sobre cómo es la experiencia de trabajar en esta fábrica: https://www.vize.mx/perfil-de-la-empresa/${companyId}/evaluaciones`
 				: "";
 
-		const applicantEmailOptions = {
+		await sendEmail({
 			templateId: 3,
-			to: applicantEmail,
-			params: `{
-				"companyName": "${companyName}",
-				"jobTitle": "${jobTitle}",
-				"applicantName": "${firstName}",
-				"companyId": "${companyId}",
-				"jobAdId": "${jobAdId}",
-				"readEmployerReviews": "${readEmployerReviews}"
-			}`,
-		};
-
-		await sendEmail(applicantEmailOptions);
-		await sendEmail(employerEmailOptions);
+			to: "julianjear10@gmail.com",
+			params: {
+				companyName: `${companyName}`,
+				jobTitle: `${jobTitle}`,
+				applicantName: `${firstName}`,
+				companyId: `${companyId}`,
+				jobAdId: `${jobAdId}`,
+				readEmployerReviews: `${readEmployerReviews}`
+			},
+		});
+		await sendEmail({
+			templateId: 2,
+			to: "julianjear10@gmail.com",
+			params: {
+				companyName: `${companyName}`,
+				jobTitle: `${jobTitle}`,
+				jobAdId: `${jobAdId}`,
+				applicantEmail: `${applicantEmail}`,
+				applicantName: `${fullName}`,
+				phoneNumber: `${phoneNumber}`,
+				city: `${city}`,
+				neighborhood: `${neighborhood}`,
+				workExperiences: workExperiences,
+				skills: `${skillsFormatted}`,
+				certificatesAndLicences: `${certificatesAndLicencesFormatted}`,
+				highestLevelOfEducation: `${highestLevelOfEducationTranslated}`,
+				availability: `${availabilityTranslatedAndFormatted}`,
+				availabilityComments: `${availabilityComments}`,
+				coverLetter: `${coverLetterJSON}`
+			},
+		});
 
 		return true;
 	};

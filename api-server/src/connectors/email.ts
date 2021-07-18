@@ -9,8 +9,17 @@ type TemplateParams = {
 		applicantEmail: string;
 		applicantName: string;
 		phoneNumber: string;
+		city: string;
+		neighborhood: string | null;
+		workExperiences: any;
+		skills: string;
+		certificatesAndLicences: string | null;
+		highestLevelOfEducation: string;
+		availability: string;
+		availabilityComments: string | null;
 		coverLetter: string | null;
 	};
+
 	/** Job Application Sent (For Workers) */
 	3: {
 		companyName: string;
@@ -50,6 +59,7 @@ export async function sendEmail<TID extends keyof TemplateParams>({
 	to,
 	params,
 }: EmailConfig<TID>): Promise<void> {
+	console.log("params", params);
 	if (process.env.MAIL_API_KEY) {
 		try {
 			const response = await axios({
