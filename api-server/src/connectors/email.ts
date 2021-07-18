@@ -14,6 +14,7 @@ type TemplateParams = {
 		workExperiences: any;
 		skills: string;
 		certificatesAndLicences: string | null;
+		englishProficiency: string;
 		highestLevelOfEducation: string;
 		availability: string;
 		availabilityComments: string | null;
@@ -59,7 +60,6 @@ export async function sendEmail<TID extends keyof TemplateParams>({
 	to,
 	params,
 }: EmailConfig<TID>): Promise<void> {
-	console.log("params", params);
 	if (process.env.MAIL_API_KEY) {
 		try {
 			const response = await axios({

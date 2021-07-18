@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail, EmailConfig } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
-import { monthTranslations, educationTranslations, workShiftTranlsations } from "src/utils/translation-utils"
+import { monthTranslations, educationTranslations, languageProficiencyTranslations, workShiftTranlsations } from "src/utils/translation-utils"
 import { locationInputSchema } from "./location";
 import { workExperienceInputSchema } from "./work-experience";
 
@@ -340,6 +340,7 @@ console.log('test 2');
 		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
 		const skillsFormatted = skills.join(", ");
 		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
+		const englishProficiencyTranslated = languageProficiencyTranslations[englishProficiency];
 		const highestLevelOfEducationTranslated = educationTranslations[highestLevelOfEducation];
 		if (!availabilityComments)
 			availabilityComments = userLeftFieldBlankMessage;
@@ -362,7 +363,7 @@ console.log('test 2');
 
 		await sendEmail({
 			templateId: 3,
-			to: "julianjear10@gmail.com",
+			to: applicantEmail,
 			params: {
 				companyName: `${companyName}`,
 				jobTitle: `${jobTitle}`,
@@ -374,7 +375,7 @@ console.log('test 2');
 		});
 		await sendEmail({
 			templateId: 2,
-			to: "julianjear10@gmail.com",
+			to: companyEmail,
 			params: {
 				companyName: `${companyName}`,
 				jobTitle: `${jobTitle}`,
@@ -387,6 +388,7 @@ console.log('test 2');
 				workExperiences: workExperiences,
 				skills: `${skillsFormatted}`,
 				certificatesAndLicences: `${certificatesAndLicencesFormatted}`,
+				englishProficiency: `${englishProficiencyTranslated}`,
 				highestLevelOfEducation: `${highestLevelOfEducationTranslated}`,
 				availability: `${availabilityTranslatedAndFormatted}`,
 				availabilityComments: `${availabilityComments}`,

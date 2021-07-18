@@ -29,3 +29,11 @@ export const educationTranslations = {
 	SOME_COLLEGE: "Universidad Trunca",
 	COLLEGE_DEGREE: "Título Universitario",
 };
+
+export const languageProficiencyTranslations = {
+	NATIVE_LANGUAGE: "Nativo",
+	FLUENT: "Fluido",
+	CONVERSATIONAL: "Conversacional",
+	BASIC: "Básico",
+	NO_PROFICIENCY: "Ninguno",
+};
