@@ -62,7 +62,7 @@ const Button = styled.button<ButtonExtraProps>`
 		vertical-align: middle;
 		padding: 0.9rem 3rem;
 		line-height: 1.5;
-		border-radius: 0.4rem;
+		border-radius: 30px;
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 			border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
