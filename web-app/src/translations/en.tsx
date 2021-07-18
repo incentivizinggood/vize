@@ -273,7 +273,7 @@ export default {
 				label: "Income Amount",
 			},
 		},
-		submit: "Submit",
+		submit: "Publish Review",
 	},
 	createSalary: {
 		formTitle: "Submit Salary Data",
@@ -325,7 +325,7 @@ export default {
 				female: "Female",
 			},
 		},
-		submit: "Submit",
+		submit: "Publish Salary",
 	},
 	createJobAd: {
 		formTitle: "Post a Job",
@@ -407,7 +407,7 @@ export default {
 					"Summarize the qualifications needed for this position",
 			},
 		},
-		submit: "Submit",
+		submit: "Post Job",
 	},
 	applyToJobAd: {
 		formTitle: "Apply for a Job",
@@ -534,7 +534,7 @@ export default {
 			updateProfileWithFormData:
 				"Update your profile with the data in this form",
 		},
-		submit: "Apply",
+		submit: "Submit Application",
 	},
 	userProfileForm: {
 		formTitleCreateProfile: "Create a Profile",

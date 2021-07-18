@@ -294,7 +294,7 @@ export default {
 				label: "Cantidad de Ingresos",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Evaluación",
 	},
 	createSalary: {
 		formTitle: "Forma Salarial",
@@ -347,7 +347,7 @@ export default {
 				female: "Mujer",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Salario",
 	},
 	createJobAd: {
 		formTitle: "Publicar un Trabajo",
@@ -431,7 +431,7 @@ export default {
 					"Por favor resuma las calificaciones necesarias para este puesto",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Oferta",
 	},
 	applyToJobAd: {
 		formTitle: "Solicitar un Trabajo",
@@ -556,7 +556,7 @@ export default {
 			updateProfileWithFormData:
 				"Actualiza tu perfil con los datos en este formulario",
 		},
-		submit: "Aplicar",
+		submit: "Enviar Solicitud",
 	},
 	userProfileForm: {
 		formTitleCreateProfile: "Crear un Perfil",

@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "formik";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoney from "@material-ui/icons/AttachMoney";
-import { SubmitButton } from "src/components/button";
+import { Button } from "src/components/button";
 
 import {
 	FormArray,
@@ -211,14 +211,9 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					type="submit"
-					color="primary"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);

@@ -6,7 +6,6 @@ import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { SubmitButton } from "src/components/button";
 
 import { Button } from "src/components/button";
 import {
@@ -66,11 +65,9 @@ function InnerForm({
 		<Form noValidate>
 			{profileExists && (
 				<>
-					<SubmitButton
-						variant="contained"
-						size="large"
+					<Button
+						$primary
 						type="submit"
-						color="primary"
 						style={{
 							margin: "0 auto",
 							marginTop: "20px",
@@ -79,7 +76,7 @@ function InnerForm({
 						}}
 					>
 						<T.submit />
-					</SubmitButton>
+					</Button>
 					<hr />
 				</>
 			)}
@@ -567,14 +564,9 @@ function InnerForm({
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					type="submit"
-					color="primary"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);
