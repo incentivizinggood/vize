@@ -1,4 +1,8 @@
-export const monthTranslations = {
+interface MonthTranslationsInterface {
+	[key: string]: string;
+}
+
+export const monthTranslations: MonthTranslationsInterface = {
 	0: "enero",
 	1: "febrero",
 	2: "marzo",

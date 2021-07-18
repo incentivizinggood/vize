@@ -169,14 +169,14 @@ export async function createJobAd(
 function formatWorkExperiences(workExperiences: any) { 
 	workExperiences?.forEach(function(_: any, index: number) {	
 		const startDate = new Date(workExperiences[index].startDate);
-		const startDateMonth = monthTranslations[startDate.getMonth()];
+		const startDateMonth = monthTranslations[startDate.getMonth().toString()];
 		const startDateYear = startDate.getFullYear();
 		const startDateText = `${startDateMonth} ${startDateYear}`;
 
 		let endDateText = "Presente";
 		if (workExperiences[index].endDate) {
 			const endDate = new Date(workExperiences[index].endDate);
-			const endDateMonth = monthTranslations[endDate.getMonth()];
+			const endDateMonth = monthTranslations[endDate.getMonth().toString()];
 			const endDateYear = endDate.getFullYear();
 			endDateText = `${endDateMonth} ${endDateYear}`;
 		}
