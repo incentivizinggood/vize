@@ -49,7 +49,7 @@ const userProfileInputSchema = yup
 			.min(1)
 			.of(yup.string()),
 		availabilityComments: yup.string().nullable(),
-		longTermGoal: yup.string(),
+		longTermProfessionalGoal: yup.string(),
 	})
 	.required();
 
@@ -69,7 +69,7 @@ export async function createUserProfile(
 		highestLevelOfEducation,
 		availability,
 		availabilityComments,
-		longTermGoal,
+		longTermProfessionalGoal,
 	} = await userProfileInputSchema.validate(input);
 
 	const transaction: Transaction<boolean> = async client => {
@@ -136,7 +136,7 @@ export async function createUserProfile(
 					${highestLevelOfEducation},
 					${availability},
 					${availabilityComments},
-					${longTermGoal}
+					${longTermProfessionalGoal}
 				)
 		`);
 
@@ -162,7 +162,7 @@ export async function updateUserProfile(
 		highestLevelOfEducation,
 		availability,
 		availabilityComments,
-		longTermGoal,
+		longTermProfessionalGoal,
 	} = await userProfileInputSchema.validate(input);
 
 	const transaction: Transaction<boolean> = async client => {
@@ -214,7 +214,7 @@ export async function updateUserProfile(
 				education_level = ${highestLevelOfEducation},
 				work_availability = ${availability},
 				availability_comments = ${availabilityComments},
-				long_term_professional_goal = ${longTermGoal}
+				long_term_professional_goal = ${longTermProfessionalGoal}
 			WHERE userid = ${userId}
 		`);
 

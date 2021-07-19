@@ -9,7 +9,6 @@ import { Button } from "src/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "src/components/button";
 import {
 	ArrayContainer,
 	ElementContainer,
@@ -502,7 +501,11 @@ function InnerForm({
 				<PrivacyIcon style={{ marginRight: "5px" }} />
 				<T.fields.yourDreamJob.privacyInformation />
 			</FieldDescription>
-			<Field name="longTermGoal" type="text" t={T.fields.yourDreamJob} />
+			<Field
+				name="longTermProfessionalGoal"
+				type="text"
+				t={T.fields.yourDreamJob}
+			/>
 
 			<SubmissionError error={submissionError} />
 

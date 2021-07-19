@@ -5,7 +5,8 @@ import { UserProfileResolvers } from "generated/graphql-resolvers";
 export const UserProfile: UserProfileResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.userId),
 
-	email: async (obj, _args, context, _info) => {
+	email: async (_obj, _args, context, _info) => {
+		//prettier-ignore
 		if (context.user?.userId == null) {
 			return null;
 		}

@@ -31,5 +31,6 @@ query getUserProfileData($userId: ID!) {
 		englishProficiency
 		availability
 		availabilityComments
+		longTermProfessionalGoal
 	}
 }

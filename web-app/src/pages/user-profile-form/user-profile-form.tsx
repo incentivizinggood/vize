@@ -126,7 +126,7 @@ let initialValues = {
 	afternoon: false,
 	night: false,
 	availabilityComments: "",
-	longTermGoal: "",
+	longTermProfessionalGoal: "",
 };
 
 const schema = yup.object().shape({
@@ -163,7 +163,7 @@ const schema = yup.object().shape({
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
 	availabilityComments: yup.string().nullable(),
-	longTermGoal: yup.string(),
+	longTermProfessionalGoal: yup.string(),
 });
 
 const onSubmit = (
