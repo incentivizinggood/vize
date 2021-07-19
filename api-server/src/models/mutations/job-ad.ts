@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
-import { sendEmail, EmailConfig } from "src/connectors/email";
+import { sendEmail } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
 import { monthTranslations, educationTranslations, languageProficiencyTranslations, workShiftTranlsations } from "src/utils/translation-utils"
 import { locationInputSchema } from "./location";
@@ -166,7 +166,8 @@ export async function createJobAd(
 	return execTransactionRW(transaction);
 }
 
-function formatWorkExperiences(workExperiences: any) { 
+function formatWorkExperiences(workExperiences: any): any {
+	// prettier-ignore
 	workExperiences?.forEach(function(_: any, index: number) {	
 		const startDate = new Date(workExperiences[index].startDate);
 		const startDateMonth = monthTranslations[startDate.getMonth().toString()];
@@ -240,7 +241,7 @@ const createApplyToJobAdInputSchema = yup
 	.required();
 
 export async function applyToJobAd(input: unknown): Promise<boolean> {
-	let {
+	const {
 		jobAdId,
 		jobTitle,
 		fullName,
@@ -310,16 +311,16 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					${companyId}
 				)
 		`);
-console.log('test 2');
+
 		postToSlack(
 			`The user with the email ${applicantEmail} and the phone number ${phoneNumber} has applied to the job with id=${jobAdId} for the company ${companyName}. The company's email is ${companyEmail}`
 		);
 
 		// This is the message we will use to inform companies that the worker left a field blank
-		const userLeftFieldBlankMessage: string = "*El solicitante dejó este campo en blanco*";
+		const userLeftFieldBlankMessage = "*El solicitante dejó este campo en blanco*";
 
 		// Adjusting formatting for the employer email
-		workExperiences = formatWorkExperiences(workExperiences);
+		const workExperiencesFormatted = formatWorkExperiences(workExperiences);
 		const availabilityTranslated = availability.map(function(_: any, index: number) {	
 			// @ts-ignore
 			return workShiftTranlsations[availability[index]];
@@ -329,10 +330,13 @@ console.log('test 2');
 		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
 		const englishProficiencyTranslated = languageProficiencyTranslations[englishProficiency];
 		const highestLevelOfEducationTranslated = educationTranslations[highestLevelOfEducation];
+		let availabilityCommentsFormatted = availabilityComments;
+		let neighborhoodFormatted = neighborhood;
+
 		if (!availabilityComments)
-			availabilityComments = userLeftFieldBlankMessage;
+			availabilityCommentsFormatted = userLeftFieldBlankMessage;
 		if (!neighborhood)
-			neighborhood = userLeftFieldBlankMessage;
+			neighborhoodFormatted = userLeftFieldBlankMessage;
 
 		// Have to make some adjustments for the required JSON formatting
 		const coverLetterJSON = coverLetter
@@ -371,14 +375,14 @@ console.log('test 2');
 				applicantName: `${fullName}`,
 				phoneNumber: `${phoneNumber}`,
 				city: `${city}`,
-				neighborhood: `${neighborhood}`,
-				workExperiences: workExperiences,
+				neighborhood: `${neighborhoodFormatted}`,
+				workExperiences: workExperiencesFormatted,
 				skills: `${skillsFormatted}`,
 				certificatesAndLicences: `${certificatesAndLicencesFormatted}`,
 				englishProficiency: `${englishProficiencyTranslated}`,
 				highestLevelOfEducation: `${highestLevelOfEducationTranslated}`,
 				availability: `${availabilityTranslatedAndFormatted}`,
-				availabilityComments: `${availabilityComments}`,
+				availabilityComments: `${availabilityCommentsFormatted}`,
 				coverLetter: `${coverLetterJSON}`
 			},
 		});

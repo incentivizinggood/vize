@@ -3,6 +3,7 @@ import * as yup from "yup";
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { workExperienceInputSchema } from "./work-experience";
+import { postToSlack } from "src/connectors/slack-webhook";
 
 const userProfileInputSchema = yup
 	.object({
@@ -74,9 +75,9 @@ export async function createUserProfile(
 
 	const transaction: Transaction<boolean> = async client => {
 		const {
-			rows: [{ role }],
+			rows: [{ role, email_address: email }],
 		} = await client.query(
-			sql`SELECT role, userid FROM users WHERE userid=${userId}`
+			sql`SELECT role, email_address FROM users WHERE userid=${userId}`
 		);
 
 		const { rows } = await client.query(
@@ -139,6 +140,9 @@ export async function createUserProfile(
 					${longTermProfessionalGoal}
 				)
 		`);
+		postToSlack(
+			`The user with the email ${email} and the phone number ${phoneNumber} has created a user profile`
+		);
 
 		return true;
 	};

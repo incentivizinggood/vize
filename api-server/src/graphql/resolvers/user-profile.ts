@@ -6,7 +6,7 @@ export const UserProfile: UserProfileResolvers = {
 	id: (obj, _args, _context, _info) => String(obj.userId),
 
 	email: async (_obj, _args, context, _info) => {
-		//prettier-ignore
+		// prettier-ignore
 		if (context.user?.userId == null) {
 			return null;
 		}
