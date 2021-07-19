@@ -13,7 +13,6 @@ const attributes = sql.raw(
 		'work_experiences AS "workExperiences"',
 		"skills",
 		'certificates_and_licences AS "certificatesAndLicences"',
-		'spanish_proficiency AS "spanishProficiency"',
 		'english_proficiency AS "englishProficiency"',
 		'education_level AS "highestLevelOfEducation"',
 		'work_availability AS "availability"',

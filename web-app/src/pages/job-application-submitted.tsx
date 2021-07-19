@@ -146,9 +146,9 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 				<T.readReviews />
 			</p>
 			<br />
-			<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "350px" }} $primary> <T.readReviewsButton /> </LinkButton>
+			<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "100%" }} $primary> <T.readReviewsButton /> </LinkButton>
 			<br />
-			<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "350px" }} $primary> <T.viewMoreJobs /> </LinkButton>
+			<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "100%" }} $primary> <T.viewMoreJobs /> </LinkButton>
 
 			<br />
 

@@ -210,16 +210,6 @@ const createApplyToJobAdInputSchema = yup
 			.array()
 			.of(yup.string())
 			.nullable(),
-		spanishProficiency: yup
-			.string()
-			.oneOf([
-				"NATIVE_LANGUAGE",
-				"FLUENT",
-				"CONVERSATIONAL",
-				"BASIC",
-				"NO_PROFICIENCY",
-			])
-			.required(),
 		englishProficiency: yup
 			.string()
 			.oneOf([
@@ -261,7 +251,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		workExperiences,
 		skills,
 		certificatesAndLicences,
-		spanishProficiency,
 		englishProficiency,
 		highestLevelOfEducation,
 		availability,
@@ -294,7 +283,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					work_experiences,
 					skills,
 					certificates_and_licences,
-					spanish_proficiency,
 					english_proficiency,
 					education_level,
 					work_availability,
@@ -313,7 +301,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 					${JSON.stringify(workExperiences)},
 					${skills},
 					${certificatesAndLicences},
-					${spanishProficiency},
 					${englishProficiency},
 					${highestLevelOfEducation},
 					${availability},

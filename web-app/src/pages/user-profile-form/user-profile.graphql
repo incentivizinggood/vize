@@ -28,7 +28,6 @@ query getUserProfileData($userId: ID!) {
 		skills
 		certificatesAndLicences
 		highestLevelOfEducation
-		spanishProficiency
 		englishProficiency
 		availability
 		availabilityComments

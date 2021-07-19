@@ -505,14 +505,6 @@ export default {
 				basic: "Basic",
 				none: "None",
 			},
-			spanishProficiency: {
-				label: "Spanish Proficiency",
-				native: "Native",
-				fluent: "Fluent",
-				conversational: "Conversational",
-				basic: "Basic",
-				none: "None",
-			},
 			availability: {
 				label: "Availability",
 				morning: "Morning Shift",
@@ -631,14 +623,6 @@ export default {
 				basic: "Basic",
 				none: "None",
 			},
-			spanishProficiency: {
-				label: "Spanish Proficiency",
-				native: "Native",
-				fluent: "Fluent",
-				conversational: "Conversational",
-				basic: "Basic",
-				none: "None",
-			},
 			availability: {
 				label: "Availability",
 				morning: "Morning Shift",
@@ -734,7 +718,7 @@ export default {
 			readReviews:
 				"Read reviews written by other employees that work at this company to gather more information about what it is like to work there.",
 			readReviewsButton: "Leer Evaluaciones",
-			viewMoreJobs: "View More Jobs From Other Companies",
+			viewMoreJobs: "View More Jobs",
 			referralMessage:
 				"Do you know someone that is looking for a job? You can share the link below or use one of the buttons below to share the jobs page to WhatsApp or Facebook.",
 		},

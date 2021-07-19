@@ -24,16 +24,6 @@ const userProfileInputSchema = yup
 			.array()
 			.of(yup.string())
 			.nullable(),
-		spanishProficiency: yup
-			.string()
-			.oneOf([
-				"NATIVE_LANGUAGE",
-				"FLUENT",
-				"CONVERSATIONAL",
-				"BASIC",
-				"NO_PROFICIENCY",
-			])
-			.required(),
 		englishProficiency: yup
 			.string()
 			.oneOf([
@@ -75,7 +65,6 @@ export async function createUserProfile(
 		workExperiences,
 		skills,
 		certificatesAndLicences,
-		spanishProficiency,
 		englishProficiency,
 		highestLevelOfEducation,
 		availability,
@@ -127,7 +116,6 @@ export async function createUserProfile(
 					work_experiences,
 					skills,
 					certificates_and_licences,
-					spanish_proficiency,
 					english_proficiency,
 					education_level,
 					work_availability,
@@ -144,7 +132,6 @@ export async function createUserProfile(
 					${JSON.stringify(workExperiences)},
 					${skills},
 					${certificatesAndLicences},
-					${spanishProficiency},
 					${englishProficiency},
 					${highestLevelOfEducation},
 					${availability},
@@ -171,7 +158,6 @@ export async function updateUserProfile(
 		workExperiences,
 		skills,
 		certificatesAndLicences,
-		spanishProficiency,
 		englishProficiency,
 		highestLevelOfEducation,
 		availability,
@@ -224,7 +210,6 @@ export async function updateUserProfile(
 				work_experiences = ${JSON.stringify(workExperiences)},
 				skills = ${skills},
 				certificates_and_licences = ${certificatesAndLicences},
-				spanish_proficiency = ${spanishProficiency},
 				english_proficiency = ${englishProficiency},
 				education_level = ${highestLevelOfEducation},
 				work_availability = ${availability},

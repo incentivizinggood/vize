@@ -386,47 +386,6 @@ function InnerForm({
 			<br />
 			<br />
 
-			<T.fields.spanishProficiency
-				renderer={t => (
-					<Field
-						name="spanishProficiency"
-						type="radioButtons"
-						label={t.label}
-						options={[
-							<FormControlLabel
-								value="NATIVE_LANGUAGE"
-								control={<Radio />}
-								label={t.native}
-							/>,
-							<FormControlLabel
-								value="FLUENT"
-								control={<Radio />}
-								label={t.fluent}
-							/>,
-							<FormControlLabel
-								value="CONVERSATIONAL"
-								control={<Radio />}
-								label={t.conversational}
-							/>,
-							<FormControlLabel
-								value="BASIC"
-								control={<Radio />}
-								label={t.basic}
-							/>,
-							<FormControlLabel
-								value="NO_PROFICIENCY"
-								control={<Radio />}
-								label={t.none}
-							/>,
-						]}
-					/>
-				)}
-			/>
-
-			<br />
-			<br />
-			<br />
-
 			<T.fields.englishProficiency
 				renderer={t => (
 					<Field

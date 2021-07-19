@@ -80,8 +80,6 @@ function onSubmitErrorChecking(inputValues: any) {
 		return "Se requiere tu disponibilidad";
 	if (inputValues.englishProficiency == "") 
 		return "Se requiere la seleccion que describa tu dominio del ingles";
-	if (inputValues.spanishProficiency == "") 
-		return "Se requiere la seleccion que describa tu dominio del español";
 	if (inputValues.highestLevelOfEducation == "") 
 		return "Se requiere la seleccion que describa el nivel educativo más alto";
 	if (!inputValues.workExperiences) 
@@ -165,7 +163,6 @@ let initialValues = {
 	],
 	skills: "",
 	certificatesAndLicences: "",
-	spanishProficiency: "",
 	englishProficiency: "",
 	highestLevelOfEducation: "",
 	morning: false,
@@ -190,15 +187,6 @@ const schema = yup.object().shape({
 	skills: yup.string().required("Se requiere al menos una habilidad"),
 	certificatesAndLicences: yup
 		.string(),
-	spanishProficiency: yup
-		.string()
-		.oneOf([
-			"NATIVE_LANGUAGE",
-			"FLUENT",
-			"CONVERSATIONAL",
-			"BASIC",
-			"NO_PROFICIENCY",
-		]),
 	englishProficiency: yup
 		.string()
 		.oneOf([

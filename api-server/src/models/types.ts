@@ -117,12 +117,6 @@ export type JobApplication = {
 	workExperiences: any;
 	skills: Array<string>;
 	certificatesAndLicences: Array<string> | null;
-	spanishProficiency:
-		| "NATIVE_LANGUAGE"
-		| "FLUENT"
-		| "CONVERSATIONAL"
-		| "BASIC"
-		| "NO_PROFICIENCY";
 	englishProficiency:
 		| "NATIVE_LANGUAGE"
 		| "FLUENT"
@@ -208,12 +202,6 @@ export type UserProfile = {
 		| "HIGH_SCHOOL"
 		| "SOME_COLLEGE"
 		| "COLLEGE_DEGREE";
-	spanishProficiency:
-		| "NATIVE_LANGUAGE"
-		| "FLUENT"
-		| "CONVERSATIONAL"
-		| "BASIC"
-		| "NO_PROFICIENCY";
 	englishProficiency:
 		| "NATIVE_LANGUAGE"
 		| "FLUENT"
