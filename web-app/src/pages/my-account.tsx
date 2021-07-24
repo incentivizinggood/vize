@@ -27,9 +27,6 @@ export default function MyAccountPage() {
 
 	if (loading) return <Spinner />;
 
-	console.log('userProfile', userProfileData);
-	console.log('userProfileload', loading);
-	console.log('userProfileerror', error);
 	let userProfileButtonText = (<T.createProfile />);
 
 	// If user has a user profile, fill in the form fields with the user profile data
@@ -40,7 +37,6 @@ export default function MyAccountPage() {
 	
 		let content = null;
 		if (user) {
-			console.log('user', user);
 			content = (
 				<div style={{ width: "80%", margin: "0 auto" }}>
 				<br />

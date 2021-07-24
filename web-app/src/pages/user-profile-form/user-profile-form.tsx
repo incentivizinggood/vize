@@ -49,7 +49,7 @@ function onSubmitErrorChecking(inputValues: any) {
 
 function formatInputData(inputValues: any) {
 	if (inputValues["email"]) delete inputValues["email"];
-	
+
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
@@ -169,6 +169,7 @@ const schema = yup.object().shape({
 });
 
 const onSubmit = (
+	user,
 	userProfile,
 	createUserProfile,
 	updateUserProfile,
@@ -194,13 +195,19 @@ const onSubmit = (
 	})
 		.then(({ data }) => {
 			actions.resetForm(initialValues);
-
-			// Track successful job application submitted event
-			analytics.sendEvent({
-				category: "User",
-				action: "Job Application Submitted",
-				label: formattedValues.jobAdId,
-			});
+			if (updateOrCreateUserProfile === updateUserProfile) {
+				analytics.sendEvent({
+					category: "User",
+					action: "User Profile Updated",
+					label: user.id,
+				});
+			} else {
+				analytics.sendEvent({
+					category: "User",
+					action: "User Profile Created",
+					label: user.id,
+				});
+			}			
 
 			history.push(`/${queryRoutes.jobs}`);
 		})
@@ -266,6 +273,7 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 				initialValues={initialValues}
 				validationSchema={schema}
 				onSubmit={onSubmit(
+					user,
 					userProfile,
 					createUserProfile,
 					updateUserProfile,

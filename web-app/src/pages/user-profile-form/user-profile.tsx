@@ -66,7 +66,6 @@ function CreateUserProfilePage({ jobAdId }: UserProfilePageProps) {
 	});
 
 	if (loading) return <Spinner />;
-	console.log('dda', userProfileData);
 	
 	let userProfile = null;
 

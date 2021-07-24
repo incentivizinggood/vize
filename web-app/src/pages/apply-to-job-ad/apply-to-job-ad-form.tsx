@@ -383,8 +383,6 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 		<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
 	</Formik>);
 
-	console.log('init', initialValues);
-
 	return (
 		<>
 			{jobApplicationFormContent}
