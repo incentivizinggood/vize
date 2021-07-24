@@ -48,6 +48,8 @@ function onSubmitErrorChecking(inputValues: any) {
 }
 
 function formatInputData(inputValues: any) {
+	if (inputValues["email"]) delete inputValues["email"];
+	
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");
