@@ -32,6 +32,7 @@ function omitEmptyStrings(x) {
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["__typename"];
+	delete userProfile["longTermProfessionalGoal"];
 
 	if(userProfile["availability"]) {
 		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;

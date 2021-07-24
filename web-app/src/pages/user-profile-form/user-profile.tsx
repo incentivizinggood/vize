@@ -17,6 +17,13 @@ function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["email"];
 	delete userProfile["__typename"];
+	if (userProfile["numReviews"]) delete userProfile["numReviews"];
+	if (userProfile["saveDataToProfile"]) delete userProfile["saveDataToProfile"];
+	if (userProfile["jobAdId"]) delete userProfile["jobAdId"];
+	if (userProfile["jobTitle"]) delete userProfile["jobTitle"];
+
+	if (!userProfile["longTermProfessionalGoal"]) 
+		userProfile.longTermProfessionalGoal = "";
 
 	if(userProfile["availability"]) {
 		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
