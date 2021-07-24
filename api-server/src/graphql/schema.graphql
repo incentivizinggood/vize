@@ -113,8 +113,8 @@ input CreateUserProfileInput {
 	workExperiences: [WorkExperienceInput]
 	skills: [String]!
 	certificatesAndLicences: [String]
-	englishProficiency: String!
-	highestLevelOfEducation: String!
+	englishProficiency: LanguageProficiencies!
+	highestLevelOfEducation: HighestLevelOfEducation!
 	availability: [String]!
 	availabilityComments: String
 	longTermProfessionalGoal: String
@@ -179,6 +179,21 @@ enum ContractType {
 	CONTRACTOR
 }
 
+enum LanguageProficiencies {
+	NATIVE_LANGUAGE
+	FLUENT
+	CONVERSATIONAL
+	BASIC
+	NO_PROFICIENCY
+}
+
+enum HighestLevelOfEducation {
+	SOME_HIGH_SCHOOL
+	HIGH_SCHOOL
+	SOME_COLLEGE
+	COLLEGE_DEGREE
+}
+
 enum EmploymentStatus {
 	FORMER
 	CURRENT
@@ -224,8 +239,8 @@ input ApplyToJobAdInput {
 	workExperiences: [WorkExperienceInput]
 	skills: [String]!
 	certificatesAndLicences: [String]
-	englishProficiency: String!
-	highestLevelOfEducation: String!
+	englishProficiency: LanguageProficiencies!
+	highestLevelOfEducation: HighestLevelOfEducation!
 	availability: [String]!
 	availabilityComments: String
 	coverLetter: String
@@ -444,8 +459,8 @@ type JobApplication {
 	workExperiences: [WorkExperience]
 	skills: [String]!
 	certificatesAndLicences: [String]
-	englishProficiency: String!
-	highestLevelOfEducation: String!
+	englishProficiency: LanguageProficiencies!
+	highestLevelOfEducation: HighestLevelOfEducation!
 	availability: [String]!
 	availabilityComments: String
 	coverLetter: String
@@ -542,8 +557,8 @@ type UserProfile {
 	workExperiences: [WorkExperience]
 	skills: [String]!
 	certificatesAndLicences: [String]
-	englishProficiency: String!
-	highestLevelOfEducation: String!
+	englishProficiency: LanguageProficiencies!
+	highestLevelOfEducation: HighestLevelOfEducation!
 	availability: [String]!
 	availabilityComments: String
 	longTermProfessionalGoal: String
