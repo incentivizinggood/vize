@@ -241,7 +241,7 @@ const createApplyToJobAdInputSchema = yup
 	.required();
 
 export async function applyToJobAd(input: unknown): Promise<boolean> {
-	const {
+	let {
 		jobAdId,
 		jobTitle,
 		fullName,

@@ -330,9 +330,7 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 		variables: { jobAdId },
 	});
 
-	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
-		variables: { userId: user ? user.id : "0" },
-	});
+	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery();
 
 	if (loading) return <Spinner />;
 

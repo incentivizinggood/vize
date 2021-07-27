@@ -379,7 +379,6 @@ function InnerForm({
 			/>
 
 			<br />
-
 			<Field
 				name="skills"
 				type="text"
@@ -523,9 +522,14 @@ function InnerForm({
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button $primary type="submit">
+				<SubmitButton
+					variant="contained"
+					size="large"
+					type="submit"
+					color="primary"
+				>
 					<T.submit />
-				</Button>
+				</SubmitButton>
 			</FormToolbar>
 		</Form>
 	);

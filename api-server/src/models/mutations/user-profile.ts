@@ -153,7 +153,7 @@ export async function createUserProfile(
 export async function updateUserProfile(
 	input: unknown,
 	userId: number
-): Promise<boolean> {
+): Promise<void> {
 	const {
 		fullName,
 		phoneNumber,
@@ -169,7 +169,7 @@ export async function updateUserProfile(
 		longTermProfessionalGoal,
 	} = await userProfileInputSchema.validate(input);
 
-	const transaction: Transaction<boolean> = async client => {
+	const transaction: Transaction<void> = async client => {
 		const {
 			rows: [{ role }],
 		} = await client.query(
@@ -221,8 +221,6 @@ export async function updateUserProfile(
 				long_term_professional_goal = ${longTermProfessionalGoal}
 			WHERE userid = ${userId}
 		`);
-
-		return true;
 	};
 
 	return execTransactionRW(transaction);

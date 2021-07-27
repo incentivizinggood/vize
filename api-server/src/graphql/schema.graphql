@@ -9,7 +9,7 @@ type Query {
 	review(id: ID!): Review
 	salary(id: ID!): Salary
 	user(id: ID!): User
-	userProfile(id: ID!): UserProfile
+	userProfile: UserProfile
 	vote(id: ID!): Vote
 
 	resource(id: ID!): Resource
@@ -66,8 +66,8 @@ type Mutation {
 	createReview(input: CreateReviewInput!): CreateReviewPayload
 	createSalary(input: CreateSalaryInput!): CreateSalaryPayload
 	createJobAd(input: CreateJobAdInput!): CreateJobAdPayload
-	createUserProfile(input: CreateUserProfileInput!): CreateUserProfilePayload
-	updateUserProfile(input: CreateUserProfileInput!): CreateUserProfilePayload
+	createUserProfile(input: UserProfileInput!): UserProfilePayload
+	updateUserProfile(input: UserProfileInput!): UserProfilePayload
 	applyToJobAd(input: ApplyToJobAdInput!): ApplyToJobAdPayload
 
 	flagReview(input: FlagReviewInput!): FlagReviewPayload
@@ -105,7 +105,7 @@ type CreateCompanyPayload {
 	company: Company
 }
 
-input CreateUserProfileInput {
+input UserProfileInput {
 	fullName: String!
 	phoneNumber: String!
 	city: String!
@@ -129,8 +129,8 @@ input WorkExperienceInput {
 	experienceDescription: String!
 }
 
-type CreateUserProfilePayload {
-	success: Boolean
+type UserProfilePayload {
+	userProfile: UserProfile
 }
 
 input CreateReviewInput {
