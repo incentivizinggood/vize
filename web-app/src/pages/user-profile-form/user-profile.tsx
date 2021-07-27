@@ -54,11 +54,7 @@ interface UserProfilePageProps {
 }
 
 function CreateUserProfilePage({ jobAdId }: UserProfilePageProps) {
-	const user = useUser();
-
-	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
-		variables: { userId: user ? user.id : "0" },
-	});
+	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery();
 
 	if (loading) return <Spinner />;
 

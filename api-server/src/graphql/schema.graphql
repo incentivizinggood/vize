@@ -9,7 +9,7 @@ type Query {
 	review(id: ID!): Review
 	salary(id: ID!): Salary
 	user(id: ID!): User
-	userProfile(id: ID!): UserProfile
+	userProfile: UserProfile
 	vote(id: ID!): Vote
 
 	resource(id: ID!): Resource
@@ -131,7 +131,7 @@ input WorkExperienceInput {
 }
 
 type CreateUserProfilePayload {
-	success: Boolean
+	userProfile: UserProfile
 }
 
 input CreateReviewInput {

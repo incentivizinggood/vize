@@ -1,7 +1,7 @@
 import sql from "src/utils/sql-template";
 import { simpleQuery1 } from "src/connectors/postgresql";
 
-import { UserProfile } from "src/models";
+import { User, UserProfile } from "src/models";
 
 const attributes = sql.raw(
 	[
@@ -25,11 +25,11 @@ const attributes = sql.raw(
 const baseQuery = sql`SELECT ${attributes} FROM user_profiles`;
 
 // Get the user with a given id.
-export async function getUserProfileById(
-	id: number
+export async function getUserProfileByUser(
+	user: User,
 ): Promise<UserProfile | null> {
 	return simpleQuery1<UserProfile>(sql`
 		${baseQuery}
-		WHERE userid=${id}
+		WHERE userid=${user.userId}
 	`);
 }

@@ -1,36 +1,46 @@
 mutation createUserProfile($input: CreateUserProfileInput!) {
 	createUserProfile(input: $input) {
-		success
+		userProfile {
+			...ReNameMePlz
+		}
 	}
 }
 
 mutation updateUserProfile($input: CreateUserProfileInput!) {
 	updateUserProfile(input: $input) {
-		success
+		userProfile {
+			...ReNameMePlz
+		}
 	}
 }
 
-query getUserProfileData($userId: ID!) {
-	userProfile(id: $userId) {
-		fullName
-		phoneNumber
-		city
-		email
-		neighborhood
-		workExperiences {
-			jobTitle
-			companyName
-			city
-			startDate
-			endDate
-			experienceDescription
-		}
-		skills
-		certificatesAndLicences
-		highestLevelOfEducation
-		spanishProficiency
-		englishProficiency
-		availability
-		availabilityComments
+query getUserProfileData() {
+	userProfile {
+		...ReNameMePlz
 	}
+}
+
+
+fragment ReNameMePlz on UserProfile {
+	id
+	fullName
+	phoneNumber
+	city
+	email
+	neighborhood
+	workExperiences {
+		jobTitle
+		companyName
+		city
+		startDate
+		endDate
+		experienceDescription
+	}
+	skills
+	certificatesAndLicences
+	highestLevelOfEducation
+	spanishProficiency
+	englishProficiency
+	availability
+	availabilityComments
 }
