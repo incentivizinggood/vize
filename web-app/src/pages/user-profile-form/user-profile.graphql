@@ -1,4 +1,4 @@
-mutation createUserProfile($input: CreateUserProfileInput!) {
+mutation createUserProfile($input: UserProfileInput!) {
 	createUserProfile(input: $input) {
 		userProfile {
 			...UserProfileData
@@ -6,7 +6,7 @@ mutation createUserProfile($input: CreateUserProfileInput!) {
 	}
 }
 
-mutation updateUserProfile($input: CreateUserProfileInput!) {
+mutation updateUserProfile($input: UserProfileInput!) {
 	updateUserProfile(input: $input) {
 		userProfile {
 			...UserProfileData
@@ -14,12 +14,11 @@ mutation updateUserProfile($input: CreateUserProfileInput!) {
 	}
 }
 
-query getUserProfileData() {
+query getUserProfileData {
 	userProfile {
 		...UserProfileData
 	}
 }
-
 
 fragment UserProfileData on UserProfile {
 	id
@@ -39,7 +38,6 @@ fragment UserProfileData on UserProfile {
 	skills
 	certificatesAndLicences
 	highestLevelOfEducation
-	spanishProficiency
 	englishProficiency
 	availability
 	availabilityComments
