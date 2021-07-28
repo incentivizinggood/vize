@@ -272,7 +272,6 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		} = await client.query(
 			sql`SELECT companies.companyid, name, contactemail FROM companies JOIN jobads ON companies.companyid = jobads.companyid WHERE jobadid=${jobAdId}`
 		);
-		console.log('test 1', highestLevelOfEducation, jobTitle, fullName, applicantEmail, phoneNumber, city, neighborhood);
 		await client.query(sql`
 			INSERT INTO job_applications
 				(

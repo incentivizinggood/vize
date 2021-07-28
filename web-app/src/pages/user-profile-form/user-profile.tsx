@@ -16,10 +16,6 @@ const T = translations.userProfileForm;
 function formatUserProfileData(userProfile: any) {
 	delete userProfile["companyId"];
 	delete userProfile["__typename"];
-	if (userProfile["numReviews"]) delete userProfile["numReviews"];
-	if (userProfile["saveDataToProfile"]) delete userProfile["saveDataToProfile"];
-	if (userProfile["jobAdId"]) delete userProfile["jobAdId"];
-	if (userProfile["jobTitle"]) delete userProfile["jobTitle"];
 
 	if (!userProfile["longTermProfessionalGoal"]) 
 		userProfile.longTermProfessionalGoal = "";
@@ -63,7 +59,6 @@ function CreateUserProfilePage({ jobAdId }: UserProfilePageProps) {
 
 	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery();
 
-	console.log('lets see', userProfileData);
 	if (loading) return <Spinner />;
 	
 	let userProfile = null;

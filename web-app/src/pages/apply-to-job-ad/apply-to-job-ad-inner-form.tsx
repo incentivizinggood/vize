@@ -522,14 +522,9 @@ function InnerForm({
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					type="submit"
-					color="primary"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);

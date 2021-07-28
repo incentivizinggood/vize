@@ -189,7 +189,7 @@ export type User = {
 };
 
 export type UserProfile = {
-	userId: number;
+	id: number;
 	fullName: string;
 	phoneNumber: string;
 	city: string;

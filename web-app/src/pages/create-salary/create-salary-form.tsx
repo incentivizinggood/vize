@@ -71,8 +71,6 @@ export default function CreateSalaryForm({ companyName }) {
 			},
 		})
 			.then(({ data }) => {
-				console.log("data", data);
-
 				actions.resetForm(initialValues);
 
 				// Go to the review submitted page so that the user can claim their reward.

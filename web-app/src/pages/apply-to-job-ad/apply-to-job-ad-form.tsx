@@ -90,6 +90,8 @@ function onSubmitErrorChecking(inputValues: any) {
 }
 
 function formatInputData(inputValues: any) {
+	if (inputValues["id"]) delete inputValues["id"];
+
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
 	if (inputValues.afternoon) availabilityArray.push("AFTERNOON_SHIFT");

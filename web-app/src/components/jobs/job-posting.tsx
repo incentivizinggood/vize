@@ -125,7 +125,6 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	let [jobApplicationModal, setJobApplicationModal] = React.useState(null);
 
 	function ShowApplyToJobModal() {
-		console.log("touching");
 		const applyToJobModalTitle: string = `Aplicar a ${job.company.name}`;
 
 		setJobApplicationModal(

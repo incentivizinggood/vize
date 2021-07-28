@@ -49,6 +49,11 @@ function onSubmitErrorChecking(inputValues: any) {
 
 function formatInputData(inputValues: any) {
 	if (inputValues["email"]) delete inputValues["email"];
+	if (inputValues["numReviews"] !== null) delete inputValues["numReviews"];
+	if (inputValues["saveDataToProfile"]) delete inputValues["saveDataToProfile"];
+	if (inputValues["jobAdId"]) delete inputValues["jobAdId"];
+	if (inputValues["jobTitle"]) delete inputValues["jobTitle"];
+	if (inputValues["id"]) delete inputValues["id"];
 
 	let availabilityArray = [];
 	if (inputValues.morning) availabilityArray.push("MORNING_SHIFT");
