@@ -12,6 +12,7 @@ export default function RadioButtonsField({
 	form: { touched, errors },
 	name,
 	options,
+	title,
 	label,
 	...props
 }: any): JSX.Element {
@@ -20,11 +21,11 @@ export default function RadioButtonsField({
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue((event.target as HTMLInputElement).value);
 	};
-
+	console.log(label);
 	return (
 		<FormControl component="fieldset">
 			<span>
-				<PrivacyIcon /> {"  "}
+				{/* <PrivacyIcon /> {"  "} */}
 				<FormLabel required component="label">
 					{label}
 				</FormLabel>

@@ -37,12 +37,22 @@ const initialValues = {
 			endTime: "",
 		},
 	],
-	salaryMin: "",
-	salaryMax: "",
-	startDay: 1,
-	endDay: 5,
-	startTime: "08:00",
-	endTime: "18:00",
+	minimumLanguage: [
+		{ 
+			english : "", 
+			spanish: ""
+		}
+	],
+	// salaryMin: "",
+	// salaryMax: "",
+	jobSchedule: [
+		{	
+		startDay: 1,
+		endDay: 5,
+		startTime: "08:00",
+		endTime: "18:00",
+	}
+]
 	salaryType: "",
 	contractType: "",
 	jobDescription: "",
@@ -53,6 +63,10 @@ const initialValues = {
 const schema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el titulo de empleo"),
 	locations: yup
+		.array()
+		.of(schemas.locationSchema)
+		.required(),
+	minimuLanguage: yup
 		.array()
 		.of(schemas.locationSchema)
 		.required(),

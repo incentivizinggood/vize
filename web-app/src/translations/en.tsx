@@ -316,34 +316,42 @@ export default {
 	createJobAd: {
 		formTitle: "Post a Job",
 		header1: "Reach hundreds of workers instantly with our job posts",
-		checkboxes: {
-			minimunEducation: {
-				checkboxTitle: "Minumum Level Of Education",
-				list: [
-					{
-						label: "Some High School",
-						_name: "heighSchool",
-					},
-					{
-						label: "Complete High School",
-						_name: "completeSchool",
-					},
-					{
-						label: "Some College",
-						_name: "someSchool",
-					},
-					{
-						label: "College Degrees",
-						_name: "collegeDegrees",
-					},
-				],
-			},
-		},
+		// checkboxes: {
+		// 	minimunEducation: {
+		// 		checkboxTitle: "Minumum Level Of Education",
+		// 		list: [
+		// 			{
+		// 				label: "Some High School",
+		// 				_name: "heighSchool",
+		// 			},
+		// 			{
+		// 				label: "Complete High School",
+		// 				_name: "completeSchool",
+		// 			},
+		// 			{
+		// 				label: "Some College",
+		// 				_name: "someSchool",
+		// 			},
+		// 			{
+		// 				label: "College Degrees",
+		// 				_name: "collegeDegrees",
+		// 			},
+		// 		],
+		// 	},
+		// },
 		fields: {
 			jobTitle: {
 				label: "Job Title",
 				placeholder:
 					"Tell us the title of the position you are advertising",
+			},
+			minimunEducation: {	
+
+				label: "Minimum level of education",
+					someHighSchool: "Some High School",
+					completedHighSchool: "Completed High School",
+					someCollege: "Some College",
+					collegeDegree: "College Degree",
 			},
 			locations: {
 				label: "Locations",
@@ -407,34 +415,12 @@ export default {
 				placeholder: "e.g. 2200",
 			},
 			salaryType: {
-				label: "Choose income Type (in Pesos)",
-				list: [
-					{
-						label: "Yearly Salary",
-						_name: "yearlySalary",
-					},
-					{
-						label: "Monthly Salary",
-						_name: "monthlySalary",
-					},
-					{
-						label: "Weekly Salary",
-						_name: "weeklySalary",
-					},
-					{
-						label: "Daily Salary",
-						_name: "dailySalary",
-					},
-					{
-						label: "Hourly Wage",
-						_name: "hourlyWage",
-					},
-				],
-				// yearlySalary: "Yearly Salary",
-				// monthlySalary: "Monthly Salary",
-				// weeklySalary: "Weekly Salary",
-				// dailySalary: "Daily Salary",
-				// hourlyWage: "Hourly Wage",
+				label: "Income Type (in Pesos)",
+				yearlySalary: "Yearly Salary",
+				monthlySalary: "Monthly Salary",
+				weeklySalary: "Weekly Salary",
+				dailySalary: "Daily Salary",
+				hourlyWage: "Hourly Wage",
 			},
 			contractType: {
 				label: "Contract Type",

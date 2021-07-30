@@ -14,8 +14,10 @@ const FormikFieldWrapper = styled.div`
 
 const FormikField = styled(Formik.Field)`
 	margin-top: 10px !important;
-	background-color: #f0f8ff;
 	border-radius: 10px;
+	.MuiInputBase-formControl {
+		background-color: #f0f8ff;
+	}
 	.MuiOutlinedInput-root {
 		border-radius: 10px;
 	}
@@ -40,7 +42,13 @@ function FieldInner({
 		return <Formik.Field {...restProps} component={RatingField} />;
 	}
 	if (type === "radioButtons") {
-		return <Formik.Field {...restProps} component={RadioButtonsField} />;
+		return (
+			<Formik.Field
+				{...restProps}
+				label={label}
+				component={RadioButtonsField}
+			/>
+		);
 	}
 	if (variant === "privacyTextField") {
 		return (

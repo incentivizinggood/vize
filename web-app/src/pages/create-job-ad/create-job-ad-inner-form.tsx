@@ -3,6 +3,8 @@ import { Form } from "formik";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoney from "@material-ui/icons/AttachMoney";
 import { SubmitButton } from "src/components/button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 
 import {
 	FormArray,
@@ -12,8 +14,11 @@ import {
 	PostFormFieldContainer,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import { PostElementContainer } from "src/components/form-stuff/style";
-import { Box, Container } from "@material-ui/core";
+import {
+	PostElementContainer,
+	MinimunEducationWrapper,
+} from "src/components/form-stuff/style";
+import { Box, Container, Typography } from "@material-ui/core";
 import CustomCheckbox from "src/components/form-stuff/field/checkbox";
 import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -53,34 +58,88 @@ function InnerForm({ submissionError }: any) {
 					required
 					t={T.fields.qualifications}
 				/>
-				{/* <Box display="flex" flexDirection="row"> */}
-				<T.checkboxes.minimunEducation
-					renderer={(t: any) => (
-						<CustomCheckbox
-							flexDirection="column"
-							label={t.checkboxTitle}
-							checkboxes={t.list}
+				<T.fields.minimunEducation
+					renderer={t => (
+						<Field
+							name="minimunEducation"
+							type="radioButtons"
+							label={t.label}
+							options={[
+								<FormControlLabel
+									value="someHighSchool"
+									control={<Radio />}
+									label={t.someHighSchool}
+								/>,
+								<FormControlLabel
+									value="completedHighSchool"
+									control={<Radio />}
+									label={t.completedHighSchool}
+								/>,
+								<FormControlLabel
+									value="someCollege"
+									control={<Radio />}
+									label={t.someCollege}
+								/>,
+								<FormControlLabel
+									value="collegeDegree"
+									control={<Radio />}
+									label={t.collegeDegree}
+								/>,
+							]}
 						/>
 					)}
 				/>
-				{/* </Box> */}
-
-				<T.fields.contractType
+				{/* <Box display="flex" flexDirection="row"> */}
+				{/* <T.fields.minimunEducation
+					renderer={(t: any) => ( */}
+				{/* <Field */}
+				{/* // name="minimumeducation"
+						// type="radioButtons"
+						// required
+						// options={T.fields.minimunEducation}
+							// flexDirection="column"
+							// display="flex"
+							// label={t.checkboxTitle}
+							// checkboxes={t.list} */}
+				{/* /> */}
+				{/* )}
+				/> */}
+				{/* Minimum Level of education */}
+				{/* <MinimunEducationWrapper>
+					<Box width="49%">
+					<T.fields.minimumLanguage.english
+						renderer={(t: any) => (
+							<CustomCheckbox
+								flexDirection="column"
+								label={t.label}
+								checkboxes={t.list}
+							/>
+						)}
+					/>
+					</Box>
+					<div className="saperator" />
+					<Box width="49%">
+					<T.fields.minimumLanguage.spanish
+						renderer={(t: any) => (
+							<CustomCheckbox
+								flexDirection="column"
+								label={t.label}
+								checkboxes={t.list}
+							/>
+						)}
+					/>
+					</Box>
+				</MinimunEducationWrapper> */}
+				{/* end */}
+				{/* <T.fields.contractType
 					renderer={t => (
-						<Field
-							name="contractType"
-							select
-							required
-							label={t.label}
-						>
-							<option value="FULL_TIME">{t.fullTime}</option>
-							<option value="TEMPORARY">{t.temporary}</option>
-							<option value="PART_TIME">{t.partTime}</option>
-							<option value="INTERNSHIP">{t.internship}</option>
-							<option value="CONTRACTOR">{t.contractor}</option>
-						</Field>
+						<CustomCheckbox
+						label={t.label}
+						display="flex"
+						checkboxes={t.list}
+					/>
 					)}
-				/>
+				/> */}
 				<FormArray
 					name="shifts"
 					ElementRender={({ name }: { name: string }) => (
@@ -92,8 +151,6 @@ function InnerForm({ submissionError }: any) {
 								>
 									<Field
 										name="startDay"
-										select
-										// fullWidth={false}
 										required
 										defaultValue={1}
 										label={t.startDay.label}
@@ -203,16 +260,25 @@ function InnerForm({ submissionError }: any) {
 					)}
 					T={T.fields.locations}
 				/>
-				<Box>
+				{/* <Box>
 					<T.fields.salaryType
 						renderer={(t: any) => (
-							<CustomCheckbox
-								label={t.label}
-								checkboxes={t.list}
-							/>
+							<Field
+										name="salaryType"
+										select
+										// fullWidth={false}
+										required
+										defaultValue={t.label}
+										label={t.label}
+										style={{ width: "100%" }}
+									>
+										{t.list.map(salary => <option value={salary.label}>
+											{salary.label}
+										</option> )}
+									</Field>
 						)}
 					/>
-				</Box>
+				</Box> */}
 				{/* <div style={{ marginTop: "10px" }}>
 				<T.fields.salaryExplanation />
 			</div> */}

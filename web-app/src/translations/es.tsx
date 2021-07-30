@@ -148,23 +148,6 @@ export default {
 						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
 				},
 			},
-			schedule: {
-				label: "Locations",
-				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "a"} schedule`,
-				city: {
-					label: "Add a city for a job",
-					placeholder: "Enter your city",
-				},
-				address: {
-					label: "Add an address for a job",
-					placeholder: "Enter your address",
-				},
-				industrialHub: {
-					label: "Add an industrial park for a job",
-					placeholder: "Enter industrial park",
-				},
-			},
 			contactPhoneNumber: {
 				label: "Numbero de Contacto",
 				placeholder: "###-###-####",
@@ -347,31 +330,38 @@ export default {
 		formTitle: "Publicar un Trabajo",
 		header1:
 			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
-		checkboxes: {
-			minimunEducation: {
-				label: "Minumum Level Of Education",
-				highSchool: {
-					// name: "heighSchool",
-					label: "Some High School",
-				},
-				completeSchool: {
-					// name: "completeSchool",
-					label: "Complete High School",
-				},
-				someCollege: {
-					// name: "someSchool",
-					label: "Some College",
-				},
-				collegeDegrees: {
-					// name: "collegeDegrees",
-					label: "College Degrees",
-				},
-			},
-		},
+		// checkboxes: {
+		// 	minimunEducation: {
+		// 		label: "Minumum Level Of Education",
+		// 		highSchool: {
+		// 			// name: "heighSchool",
+		// 			label: "Some High School",
+		// 		},
+		// 		completeSchool: {
+		// 			// name: "completeSchool",
+		// 			label: "Complete High School",
+		// 		},
+		// 		someCollege: {
+		// 			// name: "someSchool",
+		// 			label: "Some College",
+		// 		},
+		// 		collegeDegrees: {
+		// 			// name: "collegeDegrees",
+		// 			label: "College Degrees",
+		// 		},
+		// 	},
+		// },
 		fields: {
 			jobTitle: {
 				label: "Nombre del Cargo",
 				placeholder: "Ingrese el título del empleo que está anunciando",
+			},
+			minimunEducation: {
+				label: "Minimum level of education",
+				someHighSchool: "Some High School",
+				completedHighSchool: "Completed High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
 			},
 			locations: {
 				label: "Ubicaciones",

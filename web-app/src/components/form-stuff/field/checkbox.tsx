@@ -7,6 +7,9 @@ import RadioButtonUncheckedOutlinedIcon from "@material-ui/icons/RadioButtonUnch
 
 const FormikCheckboxWrapper = styled.div`
 	margin: 1.5rem 0;
+	.customCheckbox {
+		width: 40%;
+	}
 `;
 
 const FormikCheckbox = styled(Formik.Field)``;
@@ -19,6 +22,7 @@ function CustomCheckbox({
 	optional,
 	flexDirection,
 	checkboxes,
+	display,
 	...restProps
 }: any): JSX.Element {
 	return (
@@ -27,9 +31,10 @@ function CustomCheckbox({
 				{label}
 				<span className="optional">{optional}</span>
 			</CheckboxHeading>
-			<Box display="flex" flexDirection={flexDirection}>
+			<Box display={display} flexDirection={flexDirection}>
 				{checkboxes.map((c: any) => (
 					<FormControlLabel
+					className="customCheckbox"
 						control={
 							<Checkbox
 								{...c}
