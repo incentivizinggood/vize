@@ -22,7 +22,7 @@ export default function CreateReviewPage({
 	referredBy,
 }: CreateReviewPageProps): JSX.Element {
 	return (
-		<FormPageWrapper title="Create Review">
+		<FormPageWrapper title="Escribir Evaluación">
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>

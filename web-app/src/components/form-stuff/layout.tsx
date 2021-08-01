@@ -16,7 +16,6 @@ const FormText = styled.p`
 	margin-bottom: 5px;
 	color: black;
 	font-size: 15px;
-
 	text-align: left;
 `;
 
@@ -45,7 +44,7 @@ function FormPageWrapper({ children, ...restProps }: FormPageWrapperProps) {
 	return (
 		<PageWrapper {...restProps}>
 			<PanelContainer>
-				<Panel>{children}</Panel>
+				<Panel roundedEdges>{children}</Panel>
 			</PanelContainer>
 		</PageWrapper>
 	);

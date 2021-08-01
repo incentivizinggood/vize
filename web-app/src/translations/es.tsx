@@ -60,6 +60,8 @@ export default {
 		myAccount: "Mi Cuenta",
 		username: "Nombre de Usuario",
 		changePassword: "Cambiar Contraseña",
+		editProfile: "Editar Perfil",
+		createProfile: "Crear Perfil",
 	},
 	needToBeLoggedInToView: {
 		youNeedToBeLoggedInToView:
@@ -292,7 +294,7 @@ export default {
 				label: "Cantidad de Ingresos",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Evaluación",
 	},
 	createSalary: {
 		formTitle: "Forma Salarial",
@@ -345,7 +347,7 @@ export default {
 				female: "Mujer",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Salario",
 	},
 	createJobAd: {
 		formTitle: "Publicar un Trabajo",
@@ -429,30 +431,240 @@ export default {
 					"Por favor resuma las calificaciones necesarias para este puesto",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Oferta",
 	},
 	applyToJobAd: {
-		formTitle: "Solicitar un trabajo",
+		formTitle: "Solicitar un Trabajo",
 		fields: {
 			fullName: {
-				label: "Nombre completo",
-				placeholder: "Por favor ingrese su nombre completo aquí",
+				label: "Nombre Completo",
+				placeholder: "Ingresa tu nombre completo",
 			},
 			email: {
-				label: "Direccion de correo electronico",
+				label: "Correo Electrónico",
 				placeholder: "ejemplo@gmail.com",
 			},
 			phoneNumber: {
-				label: "Numero telefonico",
-				placeholder: "###-###-####",
+				label: "Numero de Telefono",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "Ciudad",
+				placeholder:
+					"Ingresa el nombre de la ciudad en la que resides actualmente",
+			},
+			neighborhood: {
+				label: "Colonia",
+				placeholder:
+					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
+			},
+			workExperiences: {
+				label: "Experiencia Laboral",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+				jobTitle: {
+					label: "Puesto de Trabajo",
+					placeholder: "Ingresa el nombre de el puesto desempeñado",
+				},
+				companyName: {
+					label: "Nombre de la Empresa",
+					placeholder: "Ingresa el nombre de la empresa",
+				},
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingresa el nombre de la ciudad",
+				},
+				startDate: {
+					label: "Fecha de Inicio",
+				},
+				endDate: {
+					label: "Fecha de Finalización",
+				},
+				experienceDescription: {
+					label: "Descripción",
+					placeholder:
+						"Describe tu experiencia laboral. ¿Qué hacíste en el trabajo? ¿Cuáles eran tus responsabilidades? ¿Cuáles fueron tus logros?",
+				},
+				iCurrentlyWorkHere: "Actualmente trabajo aquí",
+				present: "Presente",
+				month: "Mes",
+				year: "Año",
+				january: "enero",
+				february: "febrero",
+				march: "marzo",
+				april: "abril",
+				may: "mayo",
+				june: "junio",
+				july: "julio",
+				august: "agosto",
+				september: "septiembre",
+				october: "octubre",
+				november: "noviembre",
+				december: "diciembre",
+			},
+			skills: {
+				label: "Habilidades",
+				placeholder:
+					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
+			},
+			education: {
+				label: "Nivel Educativo Más Alto",
+				someHighScool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
+			},
+			englishProficiency: {
+				label: "Dominio del Inglés",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			availability: {
+				label: "Disponibilidad",
+				morning: "Turno Matutino",
+				afternoon: "Turno Vespertino",
+				night: "Turno Nocturno",
+			},
+			availabilityComments: {
+				label: "Comentarios de Disponibilidad",
+				placeholder:
+					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
 			},
 			coverLetter: {
-				label: "Carta de presentación / Comentarios adicionales",
+				label: "Carta de Presentación / Comentarios Adicionales",
 				placeholder:
-					"Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
+					"Usa este espacio para describir por qué serías la persona mas adecuada para esta posición. También puede incluir cualquier comentario adicional que te gustaría enviar a la empresa junto con tu solicitud",
+			},
+			createProfileWithFormData:
+				"Crea un perfil con los datos en este formulario (para postularte con un clic)",
+			updateProfileWithFormData:
+				"Actualiza tu perfil con los datos en este formulario",
+		},
+		submit: "Enviar Solicitud",
+	},
+	userProfileForm: {
+		formTitleCreateProfile: "Crear un Perfil",
+		formTitleEditProfile: "Editar Tu Perfil",
+		formDescription:
+			"¡Con este perfil puedes postularte a empleos con solo un clic!",
+		fields: {
+			fullName: {
+				label: "Nombre Completo",
+				placeholder: "Ingresa tu nombre completo",
+			},
+			phoneNumber: {
+				label: "Numero de Telefono",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "Ciudad",
+				placeholder:
+					"Ingresa el nombre de la ciudad en la que resides actualmente",
+			},
+			neighborhood: {
+				label: "Colonia",
+				placeholder:
+					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
+			},
+			workExperiences: {
+				workExperience: "Experiencia Laboral",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+				jobTitle: {
+					label: "Puesto de Trabajo",
+					placeholder: "Ingresa el nombre de el puesto desempeñado",
+				},
+				companyName: {
+					label: "Nombre de la Empresa",
+					placeholder: "Ingresa el nombre de la empresa",
+				},
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingresa el nombre de la ciudad",
+				},
+				startDate: {
+					label: "Fecha de Inicio",
+				},
+				endDate: {
+					label: "Fecha de Finalización",
+				},
+				experienceDescription: {
+					label: "Descripción",
+					placeholder:
+						"Describe tu experiencia laboral. ¿Qué hacíste en el trabajo? ¿Cuáles eran tus responsabilidades? ¿Cuáles fueron tus logros?",
+				},
+				iCurrentlyWorkHere: "Actualmente trabajo aquí",
+				present: "Presente",
+				month: "Mes",
+				year: "Año",
+				january: "enero",
+				february: "febrero",
+				march: "marzo",
+				april: "abril",
+				may: "mayo",
+				june: "junio",
+				july: "julio",
+				august: "agosto",
+				september: "septiembre",
+				october: "octubre",
+				november: "noviembre",
+				december: "diciembre",
+			},
+			skills: {
+				label: "Habilidades",
+				placeholder:
+					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
+			},
+			education: {
+				label: "Nivel Educativo Más Alto",
+				someHighScool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
+			},
+			englishProficiency: {
+				label: "Dominio del Inglés",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			availability: {
+				label: "Disponibilidad",
+				morning: "Turno Matutino",
+				afternoon: "Turno Vespertino",
+				night: "Turno Nocturno",
+			},
+			availabilityComments: {
+				label: "Comentarios de Disponibilidad",
+				placeholder:
+					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
+			},
+			yourDreamJob: {
+				description:
+					"¿Qué trabajo deseas tener en 2-5 años? Te emparejaremos con otras personas que tengan una meta similar.",
+				privacyInformation:
+					"No se compartirá esta información con ningún empleador cuando envies una solicitud de empleo.",
+				label: "El Trabajo de tus Sueños",
+				placeholder: "¿Qué trabajo te gustaría tener en 2-5 años?",
 			},
 		},
-		submit: "Enviar",
+		submit: "Crear Perfil",
+		update: "Actualizar Perfil",
 	},
 	resources: {
 		featuredResources: "Recursos Destacados",
@@ -525,7 +737,7 @@ export default {
 			readReviews:
 				"Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
 			readReviewsButton: "Leer Evaluaciones",
-			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
+			viewMoreJobs: "Ver Más Ofertas de Empleo",
 			referralMessage:
 				"¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
 		},

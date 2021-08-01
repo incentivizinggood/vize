@@ -10,7 +10,7 @@ import {
 	SectionHeaderTitle,
 } from "../components";
 
-import JobPosting from "src/components/jobs/job-posting.tsx";
+import JobPosting from "src/components/jobs/job-posting";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 

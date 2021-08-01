@@ -5,7 +5,13 @@ import colors from "src/colors";
 
 const PannelPadding = "30px";
 
-const Panel = styled.div`
+interface Props {
+	roundedEdges?: boolean;
+}
+
+const Panel = styled.div<Props>`
+	${props => props.roundedEdges && "border-radius: 10px;"};
+
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;

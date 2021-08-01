@@ -9,5 +9,6 @@ export * from "./job-application";
 export * from "./review";
 export * from "./salary";
 export * from "./user";
+export * from "./user-profile";
 export * from "./vote";
 export * from "./location";

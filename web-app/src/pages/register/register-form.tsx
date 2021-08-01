@@ -67,6 +67,12 @@ const onSubmit = (
 					) ||
 					window.location.pathname.includes(
 						urlGenerators.queryRoutes.workerResources
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.userProfileForm
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.jobs
 					)
 				)
 			) {

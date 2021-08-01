@@ -61,6 +61,8 @@ export default {
 		myAccount: "My Account",
 		username: "Username",
 		changePassword: "Change Password",
+		editProfile: "Edit Profile",
+		createProfile: "Create Profile",
 	},
 	needToBeLoggedInToView: {
 		youNeedToBeLoggedInToView: "You have to be logged in to use this page.",
@@ -271,7 +273,7 @@ export default {
 				label: "Income Amount",
 			},
 		},
-		submit: "Submit",
+		submit: "Publish Review",
 	},
 	createSalary: {
 		formTitle: "Submit Salary Data",
@@ -323,7 +325,7 @@ export default {
 				female: "Female",
 			},
 		},
-		submit: "Submit",
+		submit: "Publish Salary",
 	},
 	createJobAd: {
 		formTitle: "Post a Job",
@@ -405,7 +407,7 @@ export default {
 					"Summarize the qualifications needed for this position",
 			},
 		},
-		submit: "Submit",
+		submit: "Post Job",
 	},
 	applyToJobAd: {
 		formTitle: "Apply for a Job",
@@ -420,15 +422,229 @@ export default {
 			},
 			phoneNumber: {
 				label: "Phone Number",
-				placeholder: "###-###-####",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			workExperiences: {
+				label: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+				},
+				iCurrentlyWorkHere: "I currently work here",
+				present: "Present",
+				month: "Month",
+				year: "Year",
+				january: "Janauary",
+				february: "February",
+				march: "March",
+				april: "April",
+				may: "May",
+				june: "June",
+				july: "July",
+				august: "August",
+				september: "September",
+				october: "October",
+				november: "November",
+				december: "December",
+			},
+			skills: {
+				label: "Skills",
+				placeholder:
+					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Highest level of education",
+				someHighScool: "Some High School",
+				highSchool: "High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			englishProficiency: {
+				label: "English Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
+			availability: {
+				label: "Availability",
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
 			},
 			coverLetter: {
 				label: "Cover Letter/Additional Comments",
 				placeholder:
 					"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			},
+			createProfileWithFormData:
+				"Create a profile with the data in this form (apply to jobs with one click)",
+			updateProfileWithFormData:
+				"Update your profile with the data in this form",
 		},
-		submit: "Submit",
+		submit: "Submit Application",
+	},
+	userProfileForm: {
+		formTitleCreateProfile: "Create a Profile",
+		formTitleEditProfile: "Edit Your Profile",
+		formDescription:
+			"With this profile you can apply to jobs with just one click!",
+		fields: {
+			fullName: {
+				label: "Full Name",
+				placeholder: "Please enter your full name here",
+			},
+			phoneNumber: {
+				label: "Phone Number",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			workExperiences: {
+				workExperience: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+				},
+				iCurrentlyWorkHere: "I currently work here",
+				present: "Present",
+				month: "Month",
+				year: "Year",
+				january: "Janauary",
+				february: "February",
+				march: "March",
+				april: "April",
+				may: "May",
+				june: "June",
+				july: "July",
+				august: "August",
+				september: "September",
+				october: "October",
+				november: "November",
+				december: "December",
+			},
+			skills: {
+				label: "Skills",
+				placeholder:
+					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Highest level of education",
+				someHighScool: "Some High School",
+				highSchool: "High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			englishProficiency: {
+				label: "English Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
+			availability: {
+				label: "Availability",
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
+			},
+			yourDreamJob: {
+				description:
+					"What job do you want to have in 2-5 years? We'll match you with other people that have a similar goal.",
+				privacyInformation:
+					"This information will not be shared with any employer when you apply to a job.",
+				label: "Your Dream Job",
+				placeholder: "What job do you want to have in 2-5 years?",
+			},
+		},
+		submit: "Create Profile",
+		update: "Update Profile",
 	},
 	resources: {
 		featuredResources: "Featured Resources",
@@ -502,7 +718,7 @@ export default {
 			readReviews:
 				"Read reviews written by other employees that work at this company to gather more information about what it is like to work there.",
 			readReviewsButton: "Leer Evaluaciones",
-			viewMoreJobs: "View More Jobs From Other Companies",
+			viewMoreJobs: "View More Jobs",
 			referralMessage:
 				"Do you know someone that is looking for a job? You can share the link below or use one of the buttons below to share the jobs page to WhatsApp or Facebook.",
 		},

@@ -52,6 +52,12 @@ const onSubmit = (history: History, setSubmissionError: any) => async (
 				) ||
 				window.location.pathname.includes(
 					urlGenerators.queryRoutes.workerResources
+				) ||
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.userProfileForm
+				) ||
+				window.location.pathname.includes(
+					urlGenerators.queryRoutes.jobs
 				)
 			)
 		) {
@@ -60,7 +66,7 @@ const onSubmit = (history: History, setSubmissionError: any) => async (
 	} catch (error) {
 		// Error to display at bottom of form
 		setSubmissionError(error.message);
-		
+
 		actions.setSubmitting(false);
 	}
 };

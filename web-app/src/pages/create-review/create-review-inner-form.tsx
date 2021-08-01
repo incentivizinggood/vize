@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "formik";
-import { SubmitButton } from "src/components/button";
+import { Button } from "src/components/button";
 import styled from "styled-components";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -93,6 +93,7 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 					<Field
 						name="employmentStatus"
 						type="radioButtons"
+						showPrivacyIcon={true}
 						label={t.label}
 						options={[
 							<FormControlLabel
@@ -211,14 +212,9 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					type="submit"
-					color="primary"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);

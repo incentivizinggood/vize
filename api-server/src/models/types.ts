@@ -112,6 +112,24 @@ export type JobApplication = {
 	fullName: string;
 	email: string;
 	phoneNumber: string;
+	city: string;
+	neighborhood: string | null;
+	workExperiences: any;
+	skills: Array<string>;
+	certificatesAndLicences: Array<string> | null;
+	englishProficiency:
+		| "NATIVE_LANGUAGE"
+		| "FLUENT"
+		| "CONVERSATIONAL"
+		| "BASIC"
+		| "NO_PROFICIENCY";
+	highestLevelOfEducation:
+		| "SOME_HIGH_SCHOOL"
+		| "HIGH_SCHOOL"
+		| "SOME_COLLEGE"
+		| "COLLEGE_DEGREE";
+	availability: Array<string>;
+	availabilityComments: string | null;
 	coverLetter: string | null;
 
 	jobAdId: number;
@@ -168,6 +186,31 @@ export type User = {
 	facebookId: string | null;
 	role: "worker" | "company-unverified" | "company";
 	companyId: number | null;
+};
+
+export type UserProfile = {
+	id: number;
+	fullName: string;
+	phoneNumber: string;
+	city: string;
+	neighborhood: string | null;
+	workExperiences: any;
+	skills: Array<string>;
+	certificatesAndLicences: Array<string> | null;
+	highestLevelOfEducation:
+		| "SOME_HIGH_SCHOOL"
+		| "HIGH_SCHOOL"
+		| "SOME_COLLEGE"
+		| "COLLEGE_DEGREE";
+	englishProficiency:
+		| "NATIVE_LANGUAGE"
+		| "FLUENT"
+		| "CONVERSATIONAL"
+		| "BASIC"
+		| "NO_PROFICIENCY";
+	availability: Array<string>;
+	availabilityComments: string | null;
+	longTermProfessionalGoal: string | null;
 };
 
 /** A reference to the subject of a vote. */

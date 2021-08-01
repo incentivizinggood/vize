@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "formik";
 import styled from "styled-components";
-import { SubmitButton } from "src/components/button";
+import { Button } from "src/components/button";
 
 import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { CompanyNameInput } from "src/components/company-name-input";
@@ -68,14 +68,9 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					type="submit"
-					color="primary"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);

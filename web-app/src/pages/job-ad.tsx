@@ -5,6 +5,7 @@ import PageWrapper from "src/components/page-wrapper";
 import JobPosting from "src/components/jobs/job-posting";
 import { useJobAdPageQuery } from "generated/graphql-operations";
 import Spinner from "src/components/Spinner";
+import { PanelContainer, Panel } from "src/components/panel";
 
 const Center = styled.div`
 	margin-left: auto;
@@ -18,6 +19,7 @@ interface JobAdPageProps {
 	jobAdId: string;
 }
 
+// This page is to view a single job post (which can currently only be done through a direct URL)
 export function JobAdPage({ jobAdId }: JobAdPageProps): JSX.Element {
 	const { loading, data } = useJobAdPageQuery({
 		variables: { jobAdId },
@@ -32,7 +34,15 @@ export function JobAdPage({ jobAdId }: JobAdPageProps): JSX.Element {
 					<JobPosting job={data.jobAd} isMinimizable={false} />
 				</Center>
 			) : (
-				"Could not find that job ad."
+				<PanelContainer>
+					<Panel roundedEdges>
+						<p>
+							{/* English: The job post could not be found. It is possible the company removed the job post */}
+							La oferta de empleo no se pudo encontrar. Es
+							probable que la empresa elimino la oferta.
+						</p>
+					</Panel>
+				</PanelContainer>
 			)}
 		</PageWrapper>
 	);

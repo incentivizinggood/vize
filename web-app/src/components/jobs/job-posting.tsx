@@ -9,6 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import colors from "src/colors";
+import PopupModal from "src/components/popup-modal";
+import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
+import { Button } from "src/components/button";
+import { LinkButton } from "src/components/button";
 
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
@@ -38,20 +42,8 @@ const JobContainer = styled.div`
 	}
 `;
 
-const ApplyNowButton = styled(Link)`
-	background-color: ${colors.vizeBlue};
-	color: white;
-	font-weight: bold;
-	border-radius: 6px;
-	font-size: 15px;
-	padding: 8px 15px;
-	max-height: 40px;
-	min-width: 110px;
-
-	&:hover {
-		color: white;
-		filter: grayscale(80%);
-	}
+const ApplyNowButton = styled(LinkButton)`
+	padding: 12px 25px !important;
 `;
 
 const JobTitleAndApplyButtonContainer = styled.div`
@@ -130,6 +122,21 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const DatePostedComponent = () => {
 		return getDateDifference(datePosted);
 	};
+	let [jobApplicationModal, setJobApplicationModal] = React.useState(null);
+
+	function ShowApplyToJobModal() {
+		const applyToJobModalTitle: string = `Aplicar a ${job.company.name}`;
+
+		setJobApplicationModal(
+			<PopupModal
+				isOpen={true}
+				modalTitle={applyToJobModalTitle}
+				setJobApplicationModal={setJobApplicationModal}
+			>
+				<ApplyToJobAdForm jobAdId={job.id} modalIsOpen={true} />
+			</PopupModal>
+		);
+	}
 
 	let contractType =
 		job.contractType === "FULL_TIME" ? (
@@ -150,7 +157,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const showJobSchedule =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
 
-	// A job post will not be minimizable if we are only looking at that one job post (using the job post link). 
+	// A job post will not be minimizable if we are only looking at that one job post (using the job post link).
 	// In this case, we want to display all of the data for the job post without having to minizmize or expand the details
 	const QualificationsAndResponsibilities = () => {
 		if (isMinimizable) {
@@ -195,7 +202,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				<h3>
 					<strong>{job.jobTitle}</strong>
 				</h3>
-				<ApplyNowButton to={urlGenerators.vizeApplyForJobUrl(job.id)}>
+				<ApplyNowButton $primary onClick={ShowApplyToJobModal}>
 					<T.showjob.apply_now />
 				</ApplyNowButton>
 			</JobTitleAndApplyButtonContainer>
@@ -290,6 +297,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 					</DatePostedDiv>
 				</article>
 			</div>
+			{jobApplicationModal}
 		</JobContainer>
 	);
 }

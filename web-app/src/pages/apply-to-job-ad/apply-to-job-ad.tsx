@@ -9,15 +9,16 @@ const T = translations.applyToJobAd;
 
 interface ApplyToJobAdPageProps {
 	jobAdId?: string;
+	modalIsOpen?: boolean;
 }
 
-function ApplyToJobAdPage({ jobAdId }: ApplyToJobAdPageProps) {
+function ApplyToJobAdPage({ jobAdId, modalIsOpen }: ApplyToJobAdPageProps) {
 	return (
 		<FormPageWrapper title="Solicitar un Empleo">
 			<FormHeader>
 				<T.formTitle />
 			</FormHeader>
-			<ApplyToJobAdForm jobAdId={jobAdId} />
+			<ApplyToJobAdForm jobAdId={jobAdId} modalIsOpen={modalIsOpen} />
 		</FormPageWrapper>
 	);
 }

@@ -71,8 +71,6 @@ export default function CreateSalaryForm({ companyName }) {
 			},
 		})
 			.then(({ data }) => {
-				console.log("data", data);
-
 				actions.resetForm(initialValues);
 
 				// Go to the review submitted page so that the user can claim their reward.
@@ -86,8 +84,8 @@ export default function CreateSalaryForm({ companyName }) {
 					)
 				) {
 					setContent(
-						<PopupModal isOpen={true}>
-							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para escribir una evaluación" />
+						<PopupModal isOpen={true} closeModalButtonColor="white">
+							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para agregar un salario" />
 						</PopupModal>
 					);
 				} else {

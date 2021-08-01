@@ -4,10 +4,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
+import PrivacyIcon from "@material-ui/icons/Security";
+import { Button } from "src/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "src/components/button";
 import {
 	ArrayContainer,
 	ElementContainer,
@@ -16,7 +17,7 @@ import {
 import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 
 import { translations } from "src/translations";
-const T = translations.applyToJobAd;
+const T = translations.userProfileForm;
 
 const currentYear = new Date().getFullYear();
 let years: Array<number> = [];
@@ -46,7 +47,7 @@ const AddAnotherExperienceButton = styled(Button)`
 	display: block !important;
 `;
 
-interface ApplyToJobAdInnerFormProps {
+interface UserProfileInnerFormProps {
 	submissionError: any;
 	profileExists: boolean;
 }
@@ -54,36 +55,13 @@ interface ApplyToJobAdInnerFormProps {
 function InnerForm({
 	submissionError,
 	profileExists,
-}: ApplyToJobAdInnerFormProps) {
+}: UserProfileInnerFormProps) {
 	const { values }: any = useFormikContext();
-	const updateOrCreateProfileText = profileExists ? (
-		<T.fields.updateProfileWithFormData />
-	) : (
-		<T.fields.createProfileWithFormData />
-	);
+	const submitButtonText = profileExists ? <T.update /> : <T.submit />;
+
 	return (
 		<Form noValidate>
-			{profileExists && (
-				<>
-					<Button
-						$primary
-						type="submit"
-						style={{
-							margin: "0 auto",
-							marginTop: "20px",
-							marginBottom: "20px",
-							display: "flex",
-						}}
-					>
-						<T.submit />
-					</Button>
-					<hr />
-				</>
-			)}
-
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
-
-			<Field name="email" type="email" required t={T.fields.email} />
 
 			<Field
 				name="phoneNumber"
@@ -103,6 +81,7 @@ function InnerForm({
 					<ArrayContainer>
 						{values.workExperiences.map((_: any, index: number) => (
 							<ElementContainer key={`experience-${index}`}>
+								{/* Remove the delete button for only the first work experience */}
 								{index > 0 && (
 									<ElementDeleteButton
 										type="button"
@@ -113,6 +92,7 @@ function InnerForm({
 										<FontAwesomeIcon icon={faTimes} />
 									</ElementDeleteButton>
 								)}
+
 								<>
 									<h3
 										style={{
@@ -120,7 +100,7 @@ function InnerForm({
 											fontWeight: "bold",
 										}}
 									>
-										Work Experience
+										<T.fields.workExperiences.workExperience />
 									</h3>
 									<Field
 										name={`workExperiences[${index}].jobTitle`}
@@ -147,7 +127,7 @@ function InnerForm({
 												marginBottom: "-10px",
 											}}
 										>
-											Start Date
+											<T.fields.workExperiences.startDate.label />
 										</FieldTitle>
 
 										<T.fields.workExperiences
@@ -235,7 +215,7 @@ function InnerForm({
 											marginBottom: "-10px",
 										}}
 									>
-										End Date
+										<T.fields.workExperiences.endDate.label />
 									</FieldTitle>
 									{values.workExperiences[index]
 										.iCurrentlyWorkHere && (
@@ -379,6 +359,7 @@ function InnerForm({
 			/>
 
 			<br />
+
 			<Field
 				name="skills"
 				type="text"
@@ -507,23 +488,32 @@ function InnerForm({
 				t={T.fields.availabilityComments}
 			/>
 
+			<br />
+			<br />
+			<br />
+			<FieldTitle>
+				<T.fields.yourDreamJob.label />
+			</FieldTitle>
+			<FieldDescription>
+				<T.fields.yourDreamJob.description />
+			</FieldDescription>
+			<FieldDescription>
+				<PrivacyIcon style={{ marginRight: "5px" }} />
+				<T.fields.yourDreamJob.privacyInformation />
+			</FieldDescription>
 			<Field
-				name="coverLetter"
-				multiline
-				rows={6}
-				t={T.fields.coverLetter}
+				name="longTermProfessionalGoal"
+				type="text"
+				t={T.fields.yourDreamJob}
 			/>
-
-			<CheckboxLabel>
-				<CheckboxField name="saveDataToProfile" type="checkbox" />
-				{updateOrCreateProfileText}
-			</CheckboxLabel>
 
 			<SubmissionError error={submissionError} />
 
+			<br />
+
 			<FormToolbar>
 				<Button $primary type="submit">
-					<T.submit />
+					{submitButtonText}
 				</Button>
 			</FormToolbar>
 		</Form>

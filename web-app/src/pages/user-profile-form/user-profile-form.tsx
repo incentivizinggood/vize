@@ -7,18 +7,13 @@ import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
 import RegisterLoginModal from "src/components/register-login-modal";
 import { useUser } from "src/hoc/user";
-import * as urlGenerators from "src/pages/url-generators";
 import { workExperienceSchema } from "src/form-schemas";
-import Spinner from "src/components/Spinner";
-import { JobApplicationSubmittedInnerContent } from "src/pages/job-application-submitted";
+import { queryRoutes } from "src/pages/url-generators";
 
-import { useApplyToJobAdMutation } from "generated/graphql-operations";
-import { useGetJobTitleAndCompanyIdQuery } from "generated/graphql-operations";
-import { useGetUserProfileDataQuery } from "generated/graphql-operations";
 import { useCreateUserProfileMutation } from "generated/graphql-operations";
 import { useUpdateUserProfileMutation } from "generated/graphql-operations";
 
-import InnerForm from "./apply-to-job-ad-inner-form";
+import InnerForm from "./user-profile-inner-form";
 
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
@@ -27,43 +22,6 @@ function omitEmptyStrings(x) {
 	if (x instanceof Object)
 		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
 	return x;
-}
-
-function formatUserProfileData(userProfile: any) {
-	delete userProfile["companyId"];
-	delete userProfile["__typename"];
-	delete userProfile["longTermProfessionalGoal"];
-
-	if(userProfile["availability"]) {
-		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
-		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
-		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
-		delete userProfile["availability"];
-	}
-
-	userProfile.coverLetter = "";
-	userProfile.saveDataToProfile = true;
-	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(", ") : userProfile.skills;
-	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
-
-	userProfile.workExperiences?.forEach(function(_: any, index: number) {
-		delete userProfile.workExperiences[index].__typename;
-
-		const startDate = new Date(userProfile.workExperiences[index].startDate);
-		userProfile.workExperiences[index].startDateMonth = startDate.getMonth();
-		userProfile.workExperiences[index].startDateYear = startDate.getFullYear();
-
-		if (userProfile.workExperiences[index].endDate) {
-			userProfile.workExperiences[index].iCurrentlyWorkHere = false;
-			const endDate = new Date(userProfile.workExperiences[index].endDate);
-			userProfile.workExperiences[index].endDateMonth = endDate.getMonth();
-			userProfile.workExperiences[index].endDateYear = endDate.getFullYear();
-		} else {
-			userProfile.workExperiences[index].iCurrentlyWorkHere = true;
-		}
-	});
-
-	return userProfile;
 }
 
 function onSubmitErrorChecking(inputValues: any) {
@@ -90,6 +48,11 @@ function onSubmitErrorChecking(inputValues: any) {
 }
 
 function formatInputData(inputValues: any) {
+	if (inputValues["email"]) delete inputValues["email"];
+	if (inputValues["numReviews"] !== null) delete inputValues["numReviews"];
+	if (inputValues["saveDataToProfile"]) delete inputValues["saveDataToProfile"];
+	if (inputValues["jobAdId"]) delete inputValues["jobAdId"];
+	if (inputValues["jobTitle"]) delete inputValues["jobTitle"];
 	if (inputValues["id"]) delete inputValues["id"];
 
 	let availabilityArray = [];
@@ -140,14 +103,12 @@ function formatInputData(inputValues: any) {
 		delete inputValues.workExperiences[index].endDateYear;
 		delete inputValues.workExperiences[index].iCurrentlyWorkHere;
 	});
-	delete inputValues.saveDataToProfile;
+
 	return inputValues;
 }
 
 let initialValues = {
-	jobAdId: "",
 	fullName: "",
-	email: "",
 	phoneNumber: "",
 	city: "",
 	neighborhood: "",
@@ -172,21 +133,19 @@ let initialValues = {
 	afternoon: false,
 	night: false,
 	availabilityComments: "",
-	coverLetter: "",
-	saveDataToProfile: true,
+	longTermProfessionalGoal: "",
 };
 
 const schema = yup.object().shape({
-	jobAdId: yup.string().required(),	
 	fullName: yup.string().required("Se requiere el nombre completo"),
-	email: yup
-		.string()
-		.email()
-		.required("Se requiere el correo electrónico"),
 	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
 	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
-	workExperiences: yup.array().of(workExperienceSchema),
+	workExperiences: yup
+		.array()
+		.required()
+		.min(1)
+		.of(workExperienceSchema),
 	skills: yup.string().required("Se requiere al menos una habilidad"),
 	certificatesAndLicences: yup
 		.string(),
@@ -211,26 +170,19 @@ const schema = yup.object().shape({
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
 	availabilityComments: yup.string().nullable(),
-	coverLetter: yup.string(),
-	saveDataToProfile: yup.boolean(),
+	longTermProfessionalGoal: yup.string(),
 });
 
 const onSubmit = (
+	user,
 	userProfile,
 	createUserProfile,
 	updateUserProfile,
-	applyToJobAd,
 	history,
 	setSubmissionError,
-	setLoginRegisterModal,
-	setJobApplicationFormContent,
-	modalIsOpen,
+	setLoginRegisterModal
 ) => (values, actions) => {
-	const jobApplicationFormValues = JSON.parse(JSON.stringify(values));
 	const userProfileFormValues = JSON.parse(JSON.stringify(values));
-
-	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
-	const willSaveDataToProfile = values.saveDataToProfile;
 
 	const errorMessage = onSubmitErrorChecking(userProfileFormValues);
 	if (errorMessage) {
@@ -238,65 +190,43 @@ const onSubmit = (
 		return null;
 	}
 
-	let jobApplicationFormFormattedValues = formatInputData(jobApplicationFormValues);
-	
-	return applyToJobAd({
+	let formattedValues = formatInputData(userProfileFormValues);
+	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
+
+	return updateOrCreateUserProfile({
 		variables: {
-			input: omitEmptyStrings(jobApplicationFormFormattedValues),
+			input: omitEmptyStrings(formattedValues),
 		},
 	})
 		.then(({ data }) => {
 			actions.resetForm(initialValues);
-
-			// Call the mutation for updating/creating the user profile after apply to job mutation has succeeded
-			if (willSaveDataToProfile) {
-				delete userProfileFormValues.coverLetter;
-				delete userProfileFormValues.email;
-				delete userProfileFormValues.companyId;
-				delete userProfileFormValues.numReviews;
-				delete userProfileFormValues.jobTitle;
-				delete userProfileFormValues.jobAdId;
-				let userProfileFormFormattedValues = formatInputData(userProfileFormValues);
-
-				updateOrCreateUserProfile({
-					variables: {
-						input: omitEmptyStrings(userProfileFormFormattedValues),
-					},
-				})
-				.then(({ data }) => {
-					console.log("Updated/Created User Profile");
+			if (updateOrCreateUserProfile === updateUserProfile) {
+				analytics.sendEvent({
+					category: "User",
+					action: "User Profile Updated",
+					label: user.id,
 				});
-			}
-
-			// Track successful job application submitted event
-			analytics.sendEvent({
-				category: "User",
-				action: "Job Application Submitted",
-				label: jobApplicationFormFormattedValues.jobAdId,
-			});
-
-			if (modalIsOpen) {
-				setJobApplicationFormContent(
-					<JobApplicationSubmittedInnerContent
-						companyId={values.companyId}
-					/>
-				);
-					
 			} else {
-				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${jobApplicationFormFormattedValues.companyId}`);
-			}
+				analytics.sendEvent({
+					category: "User",
+					action: "User Profile Created",
+					label: user.id,
+				});
+			}			
+
+			history.push(`/${queryRoutes.jobs}`);
 		})
 		.catch(errors => {
-			console.log('ERROR', errors.message);
 			// Error in English: Not Logged In
+			console.log("Error", errors);
 			if (
 				errors.message.includes(
 					"Tienes que iniciar una sesión o registrarte"
 				)
 			) {
 				setLoginRegisterModal(
-					<PopupModal isOpen={true} closeModalButtonColor="white" >
-						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo" />
+					<PopupModal isOpen={true} closeModalButtonColor="white">
+						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para crear un perfil" />
 					</PopupModal>
 				);
 			} else {
@@ -310,37 +240,23 @@ const onSubmit = (
 				actions.setErrors(formErrors);
 				actions.setSubmitting(false);
 			}
-		})
-	};
+		});
+};
 
-export interface ApplyToJobAdFormProps {
-	jobAdId: string;
-	modalIsOpen?: boolean;
+interface UserProfileFormProps {
+	userProfile?: any;
 }
 
-export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdFormProps) {
+export default function CreateUserProfileForm({ userProfile }: UserProfileFormProps) {
 	const history = useHistory();
-	const user = useUser();
 
-	const [createUserProfile] = useCreateUserProfileMutation();
-	const [updateUserProfile] = useUpdateUserProfileMutation();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
-	let [jobApplicationFormContent, setJobApplicationFormContent]: any = React.useState(null);
-	const [applyToJobAd] = useApplyToJobAdMutation();
-	const { data } = useGetJobTitleAndCompanyIdQuery({
-		variables: { jobAdId },
-	});
-
-	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery();
-
-	if (loading) return <Spinner />;
-
-	let userProfile = null;
+	const [createUserProfile] = useCreateUserProfileMutation();
+	const [updateUserProfile] = useUpdateUserProfileMutation();
 
 	// If user has a user profile, fill in the form fields with the user profile data
-	if(userProfileData?.userProfile) {
-		userProfile = formatUserProfileData(userProfileData.userProfile);
+	if (userProfile) {
 		initialValues = userProfile;
 		initialValues.workExperiences?.map(function(_: any, index: number) {
 			if (initialValues.workExperiences[index].iCurrentlyWorkHere === true) {
@@ -350,42 +266,29 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 		});
 	}
 
-	const jobTitle = data?.jobAd?.jobTitle;
-	const companyId = data?.jobAd?.company.id;
-	const numReviews = data?.jobAd?.company.numReviews;
+	const user = useUser();
 
 	if (user) {
 		loginRegisterModal = null;
 	}
 
-	if (jobApplicationFormContent === null)
-		jobApplicationFormContent = (
-		<Formik
-		initialValues={merge(initialValues, {
-			jobAdId,
-			jobTitle,
-			companyId,
-			numReviews,
-		})}
-		validationSchema={schema}
-		onSubmit={onSubmit(
-			userProfile,
-			createUserProfile,
-			updateUserProfile,
-			applyToJobAd,
-			history,
-			setSubmissionError,
-			setLoginRegisterModal,
-			setJobApplicationFormContent,
-			modalIsOpen
-		)}
-	>
-		<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
-	</Formik>);
-
 	return (
 		<>
-			{jobApplicationFormContent}
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schema}
+				onSubmit={onSubmit(
+					user,
+					userProfile,
+					createUserProfile,
+					updateUserProfile,
+					history,
+					setSubmissionError,
+					setLoginRegisterModal
+				)}
+			>
+				<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
+			</Formik>
 			{loginRegisterModal}
 		</>
 	);
