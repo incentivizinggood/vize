@@ -12,9 +12,7 @@ const boundary = {
 // Media queries for the different screen catagories that we support.
 const forSize = {
 	desktopAndDown: `@media (max-width: ${boundary.desktopMaxWidth})`,
-	tabletLandscapeAndDown: `@media (max-width: ${
-		boundary.tabletLandscapeMaxWidth
-	})`,
+	tabletLandscapeAndDown: `@media (max-width: ${boundary.tabletLandscapeMaxWidth})`,
 	tabletAndDown: `@media (max-width: ${boundary.tabletPortraitMaxWidth})`,
 	phoneOnly: `@media (max-width: ${boundary.phoneMaxWidth})`,
 };

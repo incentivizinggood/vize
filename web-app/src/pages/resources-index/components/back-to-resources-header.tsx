@@ -48,8 +48,8 @@ type BackToResourcesHeaderProps = {
 function BackToResourcesHeader({ topicName }: BackToResourcesHeaderProps) {
 	// Remove last two directories of the path so that the correct resources page can be navigated to
 	let backButtonURL = window.location.pathname;
-	backButtonURL = backButtonURL.substring(0, backButtonURL.lastIndexOf('/'));
-	backButtonURL = backButtonURL.substring(0, backButtonURL.lastIndexOf('/'));
+	backButtonURL = backButtonURL.substring(0, backButtonURL.lastIndexOf("/"));
+	backButtonURL = backButtonURL.substring(0, backButtonURL.lastIndexOf("/"));
 
 	return (
 		<BackToResourcesHeaderContainer>

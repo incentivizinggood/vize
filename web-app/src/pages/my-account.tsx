@@ -27,69 +27,71 @@ export default function MyAccountPage() {
 
 	if (loading) return <Spinner />;
 
-	let userProfileButtonText = (<T.createProfile />);
+	let userProfileButtonText = <T.createProfile />;
 
 	// If user has a user profile, fill in the form fields with the user profile data
-	if(userProfileData?.userProfile) {
-		userProfileButtonText = (<T.editProfile />);
+	if (userProfileData?.userProfile) {
+		userProfileButtonText = <T.editProfile />;
 	}
 
-	
-		let content = null;
-		if (user) {
-			content = (
-				<div style={{ width: "80%", margin: "0 auto" }}>
+	let content = null;
+	if (user) {
+		content = (
+			<div style={{ width: "80%", margin: "0 auto" }}>
 				<br />
 				<h2>
-					<strong><T.myAccount /></strong>
+					<strong>
+						<T.myAccount />
+					</strong>
 				</h2>
 				<hr />
 				<div>
-					<LinkButton to={`/${urlGenerators.queryRoutes.userProfileForm}`} $primary>
+					<LinkButton
+						to={`/${urlGenerators.queryRoutes.userProfileForm}`}
+						$primary
+					>
 						{userProfileButtonText}
 					</LinkButton>
 					<br />
 					<br />
-					<LinkButton to={`/${urlGenerators.queryRoutes.changePassword}`} $primary>
+					<LinkButton
+						to={`/${urlGenerators.queryRoutes.changePassword}`}
+						$primary
+					>
 						<T.changePassword />
 					</LinkButton>
 					<br />
 					<br />
 				</div>
 			</div>
-			);
-		} else {
-			content = (
-				<div style={{ width: "80%", margin: "0 auto" }}>
-					<br />
-					<TLoggedIn.youNeedToBeLoggedInToView /> <br /> <br />
-					<LinkButton
-						to={urlGenerators.vizeLogin("worker")}
-						$primary
+		);
+	} else {
+		content = (
+			<div style={{ width: "80%", margin: "0 auto" }}>
+				<br />
+				<TLoggedIn.youNeedToBeLoggedInToView /> <br /> <br />
+				<LinkButton to={urlGenerators.vizeLogin("worker")} $primary>
+					<TLoggedIn.login />
+				</LinkButton>
+				<br />
+				<br />
+			</div>
+		);
+	}
+
+	return (
+		<PageWrapper title="Account Page">
+			<div className="container form-page">
+				<div className="row">
+					<div
+						className="back_top_hover"
+						style={{ backgroundColor: "#ffffff" }}
 					>
-						<TLoggedIn.login />
-					</LinkButton>
-
-					<br />
-					<br />
-				</div>
-			);
-		}
-
-		return (
-			<PageWrapper title="Account Page">
-				<div className="container form-page">
-					<div className="row">
-						<div
-							className="back_top_hover"
-							style={{ backgroundColor: "#ffffff" }}
-						>
-							<br />
-							{content}
-						</div>
+						<br />
+						{content}
 					</div>
 				</div>
-			</PageWrapper>
-		);
-	
+			</div>
+		</PageWrapper>
+	);
 }

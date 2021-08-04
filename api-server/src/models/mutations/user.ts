@@ -219,12 +219,14 @@ export async function requestPasswordReset(input: unknown): Promise<void> {
 	);
 
 	const { userid: userId } =
-		(await pool.query<{ userid: number }>(sql`
+		(
+			await pool.query<{ userid: number }>(sql`
 			SELECT userid
 			FROM users
 			WHERE email_address=${emailAddress}
 			LIMIT 1
-		`)).rows[0] || {};
+		`)
+		).rows[0] || {};
 
 	if (userId === undefined) {
 		// English Translation: "There is no user with that email address."
@@ -267,13 +269,15 @@ export async function resetPassword(input: unknown): Promise<void> {
 	});
 
 	const { user_id: userId } =
-		(await pool.query<{ user_id: number }>(sql`
+		(
+			await pool.query<{ user_id: number }>(sql`
 			SELECT user_id
 			FROM password_reset_requests
 			WHERE id = ${passwordResetRequestId} 
 			  AND expiration_date > NOW()
 			LIMIT 1
-		`)).rows[0] || {};
+		`)
+		).rows[0] || {};
 
 	if (userId === undefined) {
 		// English Translation: "This password reset request is invalid or expired."

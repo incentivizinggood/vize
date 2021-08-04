@@ -4,7 +4,12 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
-import { monthTranslations, educationTranslations, languageProficiencyTranslations, workShiftTranlsations } from "src/utils/translation-utils"
+import {
+	monthTranslations,
+	educationTranslations,
+	languageProficiencyTranslations,
+	workShiftTranlsations,
+} from "src/utils/translation-utils";
 import { locationInputSchema } from "./location";
 import { workExperienceInputSchema } from "./work-experience";
 
@@ -241,7 +246,7 @@ const createApplyToJobAdInputSchema = yup
 	.required();
 
 export async function applyToJobAd(input: unknown): Promise<boolean> {
-	let {
+	const {
 		jobAdId,
 		jobTitle,
 		fullName,
@@ -316,26 +321,36 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		);
 
 		// This is the message we will use to inform companies that the worker left a field blank
-		const userLeftFieldBlankMessage = "*El solicitante dejó este campo en blanco*";
+		const userLeftFieldBlankMessage =
+			"*El solicitante dejó este campo en blanco*";
 
 		// Adjusting formatting for the employer email
 		const workExperiencesFormatted = formatWorkExperiences(workExperiences);
-		const availabilityTranslated = availability.map(function(_: any, index: number) {	
+		const availabilityTranslated = availability.map(function(
+			_: any,
+			index: number
+		) {
 			// @ts-ignore
 			return workShiftTranlsations[availability[index]];
 		});
-		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
+		const availabilityTranslatedAndFormatted = availabilityTranslated.join(
+			", "
+		);
 		const skillsFormatted = skills.join(", ");
-		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
-		const englishProficiencyTranslated = languageProficiencyTranslations[englishProficiency];
-		const highestLevelOfEducationTranslated = educationTranslations[highestLevelOfEducation];
+		const certificatesAndLicencesFormatted =
+			certificatesAndLicences && certificatesAndLicences.length > 0
+				? certificatesAndLicences.join(", ")
+				: userLeftFieldBlankMessage;
+		const englishProficiencyTranslated =
+			languageProficiencyTranslations[englishProficiency];
+		const highestLevelOfEducationTranslated =
+			educationTranslations[highestLevelOfEducation];
 		let availabilityCommentsFormatted = availabilityComments;
 		let neighborhoodFormatted = neighborhood;
 
 		if (!availabilityComments)
 			availabilityCommentsFormatted = userLeftFieldBlankMessage;
-		if (!neighborhood)
-			neighborhoodFormatted = userLeftFieldBlankMessage;
+		if (!neighborhood) neighborhoodFormatted = userLeftFieldBlankMessage;
 
 		// Have to make some adjustments for the required JSON formatting
 		const coverLetterJSON = coverLetter
@@ -360,7 +375,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				applicantName: `${firstName}`,
 				companyId: `${companyId}`,
 				jobAdId: `${jobAdId}`,
-				readEmployerReviews: `${readEmployerReviews}`
+				readEmployerReviews: `${readEmployerReviews}`,
 			},
 		});
 		await sendEmail({
@@ -382,7 +397,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				highestLevelOfEducation: `${highestLevelOfEducationTranslated}`,
 				availability: `${availabilityTranslatedAndFormatted}`,
 				availabilityComments: `${availabilityCommentsFormatted}`,
-				coverLetter: `${coverLetterJSON}`
+				coverLetter: `${coverLetterJSON}`,
 			},
 		});
 

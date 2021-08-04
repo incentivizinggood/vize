@@ -148,12 +148,16 @@ export function PrivacyPolicy(): JSX.Element {
 			<br />
 
 			<br />
-			<h2 id="data-deletion-instructions">User Data Deletion Instructions</h2>
+			<h2 id="data-deletion-instructions">
+				User Data Deletion Instructions
+			</h2>
 			<p>
-				In order to delete all of the data linked to your Facebook account, please send us an email with your request to{" "}
+				In order to delete all of the data linked to your Facebook
+				account, please send us an email with your request to{" "}
 				<a href="mailto:incentivizinggood@gmail.com">
 					incentivizinggood@gmail.com
-				</a>.
+				</a>
+				.
 			</p>
 			<br />
 
@@ -163,14 +167,17 @@ export function PrivacyPolicy(): JSX.Element {
 				Policy, do not hesitate to contact us.
 			</p>
 			<p>
-				Email: <a href="mailto:incentivizinggood@gmail.com"> incentivizinggood@gmail.com</a>
+				Email:{" "}
+				<a href="mailto:incentivizinggood@gmail.com">
+					{" "}
+					incentivizinggood@gmail.com
+				</a>
 			</p>
 			<p>
-				Phone: <a href="https://wa.me/5216647480001">+52 (664) 748-0001</a>
+				Phone:{" "}
+				<a href="https://wa.me/5216647480001">+52 (664) 748-0001</a>
 			</p>
 			<br />
-
-			
 		</>
 	);
 }

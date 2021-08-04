@@ -63,12 +63,14 @@ export async function claimWroteAReview(
 	const transaction: Transaction<void> = async client => {
 		// Check if the phone number has already been used.
 		if (
-			(await client.query(
-				sql`
+			(
+				await client.query(
+					sql`
 					SELECT * FROM reward_wrote_a_review
 					WHERE phone_number=${phoneNumber}
 				`
-			)).rows.length > 0
+				)
+			).rows.length > 0
 		)
 			throw Error("PHONENUMBER_ALREADY_USED");
 

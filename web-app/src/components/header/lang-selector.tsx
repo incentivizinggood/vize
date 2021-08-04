@@ -9,7 +9,7 @@ import {
 } from "src/startup/i18n";
 
 interface LocaleIconProps {
-	code: keyof (typeof localeMetadata);
+	code: keyof typeof localeMetadata;
 }
 
 function LocaleIcon({ code }: LocaleIconProps): JSX.Element {

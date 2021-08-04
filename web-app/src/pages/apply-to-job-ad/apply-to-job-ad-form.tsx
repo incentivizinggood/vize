@@ -34,30 +34,54 @@ function formatUserProfileData(userProfile: any) {
 	delete userProfile["__typename"];
 	delete userProfile["longTermProfessionalGoal"];
 
-	if(userProfile["availability"]) {
-		userProfile["availability"].includes("MORNING_SHIFT") ? userProfile.morning = true : userProfile.morning = false;
-		userProfile["availability"].includes("AFTERNOON_SHIFT") ? userProfile.afternoon = true : userProfile.afternoon = false;
-		userProfile["availability"].includes("NIGHT_SHIFT") ? userProfile.night = true : userProfile.night = false;
+	if (userProfile["availability"]) {
+		userProfile["availability"].includes("MORNING_SHIFT")
+			? (userProfile.morning = true)
+			: (userProfile.morning = false);
+		userProfile["availability"].includes("AFTERNOON_SHIFT")
+			? (userProfile.afternoon = true)
+			: (userProfile.afternoon = false);
+		userProfile["availability"].includes("NIGHT_SHIFT")
+			? (userProfile.night = true)
+			: (userProfile.night = false);
 		delete userProfile["availability"];
 	}
 
 	userProfile.coverLetter = "";
 	userProfile.saveDataToProfile = true;
-	userProfile.skills = Array.isArray(userProfile.skills) ? userProfile.skills.join(", ") : userProfile.skills;
-	userProfile.certificatesAndLicences = Array.isArray(userProfile.certificatesAndLicences) ? userProfile.certificatesAndLicences.join(", ") : userProfile.certificatesAndLicences;
+	userProfile.skills = Array.isArray(userProfile.skills)
+		? userProfile.skills.join(", ")
+		: userProfile.skills;
+	userProfile.certificatesAndLicences = Array.isArray(
+		userProfile.certificatesAndLicences
+	)
+		? userProfile.certificatesAndLicences.join(", ")
+		: userProfile.certificatesAndLicences;
 
 	userProfile.workExperiences?.forEach(function(_: any, index: number) {
 		delete userProfile.workExperiences[index].__typename;
 
-		const startDate = new Date(userProfile.workExperiences[index].startDate);
-		userProfile.workExperiences[index].startDateMonth = startDate.getMonth();
-		userProfile.workExperiences[index].startDateYear = startDate.getFullYear();
+		const startDate = new Date(
+			userProfile.workExperiences[index].startDate
+		);
+		userProfile.workExperiences[
+			index
+		].startDateMonth = startDate.getMonth();
+		userProfile.workExperiences[
+			index
+		].startDateYear = startDate.getFullYear();
 
 		if (userProfile.workExperiences[index].endDate) {
 			userProfile.workExperiences[index].iCurrentlyWorkHere = false;
-			const endDate = new Date(userProfile.workExperiences[index].endDate);
-			userProfile.workExperiences[index].endDateMonth = endDate.getMonth();
-			userProfile.workExperiences[index].endDateYear = endDate.getFullYear();
+			const endDate = new Date(
+				userProfile.workExperiences[index].endDate
+			);
+			userProfile.workExperiences[
+				index
+			].endDateMonth = endDate.getMonth();
+			userProfile.workExperiences[
+				index
+			].endDateYear = endDate.getFullYear();
 		} else {
 			userProfile.workExperiences[index].iCurrentlyWorkHere = true;
 		}
@@ -71,19 +95,24 @@ function onSubmitErrorChecking(inputValues: any) {
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
 	inputValues.workExperiences?.map(function(_: any, index: number) {
-		if ((inputValues.workExperiences[index].endDateMonth == "" || inputValues.workExperiences[index].endDateYear == "") && inputValues.workExperiences[index].iCurrentlyWorkHere === false)
+		if (
+			(inputValues.workExperiences[index].endDateMonth == "" ||
+				inputValues.workExperiences[index].endDateYear == "") &&
+			inputValues.workExperiences[index].iCurrentlyWorkHere === false
+		)
 			endDateNotInputted = true;
 	});
-	if(endDateNotInputted) return "Se requiere la fecha de finalización para la experencia laboral";
+	if (endDateNotInputted)
+		return "Se requiere la fecha de finalización para la experencia laboral";
 
 	// Check if at least one value has been selected for the availability
-	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night) 
+	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night)
 		return "Se requiere tu disponibilidad";
-	if (inputValues.englishProficiency == "") 
+	if (inputValues.englishProficiency == "")
 		return "Se requiere la seleccion que describa tu dominio del ingles";
-	if (inputValues.highestLevelOfEducation == "") 
+	if (inputValues.highestLevelOfEducation == "")
 		return "Se requiere la seleccion que describa el nivel educativo más alto";
-	if (!inputValues.workExperiences) 
+	if (!inputValues.workExperiences)
 		return "Se requiere por lo menos una experiencia laboral";
 
 	return null;
@@ -98,20 +127,28 @@ function formatInputData(inputValues: any) {
 	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
 	inputValues["availability"] = availabilityArray;
 
-	inputValues.phoneNumber = inputValues.phoneNumber.replace('-','');
-	inputValues.phoneNumber = inputValues.phoneNumber.replace('(','');
-	inputValues.phoneNumber = inputValues.phoneNumber.replace(')','');
-	inputValues.phoneNumber = inputValues.phoneNumber.replace(' ','');
-	
-	const skillsArray = inputValues.skills.includes(",") ? inputValues.skills.split(",") : [inputValues.skills];
-	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(",") ? inputValues.certificatesAndLicences.split(",") : [inputValues.certificatesAndLicences];
-	
+	inputValues.phoneNumber = inputValues.phoneNumber.replace("-", "");
+	inputValues.phoneNumber = inputValues.phoneNumber.replace("(", "");
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(")", "");
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(" ", "");
+
+	const skillsArray = inputValues.skills.includes(",")
+		? inputValues.skills.split(",")
+		: [inputValues.skills];
+	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(
+		","
+	)
+		? inputValues.certificatesAndLicences.split(",")
+		: [inputValues.certificatesAndLicences];
+
 	// Clean up the white space from the input
 	skillsArray.forEach(function(_: any, index: number) {
 		skillsArray[index] = skillsArray[index].trim();
 	});
 	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
-		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[index].trim();
+		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[
+			index
+		].trim();
 	});
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
@@ -122,19 +159,25 @@ function formatInputData(inputValues: any) {
 
 	inputValues.workExperiences?.forEach(function(_: any, index: number) {
 		const startDateYear = inputValues.workExperiences[index].startDateYear;
-		const startDateMonth = inputValues.workExperiences[index].startDateMonth;
-		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
+		const startDateMonth =
+			inputValues.workExperiences[index].startDateMonth;
+		const startDate = new Date(
+			startDateYear,
+			startDateMonth,
+			1
+		).toISOString();
 		inputValues.workExperiences[index].startDate = startDate;
 		delete inputValues.workExperiences[index].startDateMonth;
 		delete inputValues.workExperiences[index].startDateYear;
 
-		let endDate: String | null  = null;
+		let endDate: String | null = null;
 		if (!inputValues.workExperiences[index].iCurrentlyWorkHere) {
 			const endDateYear = inputValues.workExperiences[index].endDateYear;
-			const endDateMonth = inputValues.workExperiences[index].endDateMonth;
+			const endDateMonth =
+				inputValues.workExperiences[index].endDateMonth;
 			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
 		}
-		
+
 		inputValues.workExperiences[index].endDate = endDate;
 		delete inputValues.workExperiences[index].endDateMonth;
 		delete inputValues.workExperiences[index].endDateYear;
@@ -177,7 +220,7 @@ let initialValues = {
 };
 
 const schema = yup.object().shape({
-	jobAdId: yup.string().required(),	
+	jobAdId: yup.string().required(),
 	fullName: yup.string().required("Se requiere el nombre completo"),
 	email: yup
 		.string()
@@ -188,8 +231,7 @@ const schema = yup.object().shape({
 	neighborhood: yup.string(),
 	workExperiences: yup.array().of(workExperienceSchema),
 	skills: yup.string().required("Se requiere al menos una habilidad"),
-	certificatesAndLicences: yup
-		.string(),
+	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
 		.string()
 		.oneOf([
@@ -224,12 +266,14 @@ const onSubmit = (
 	setSubmissionError,
 	setLoginRegisterModal,
 	setJobApplicationFormContent,
-	modalIsOpen,
+	modalIsOpen
 ) => (values, actions) => {
 	const jobApplicationFormValues = JSON.parse(JSON.stringify(values));
 	const userProfileFormValues = JSON.parse(JSON.stringify(values));
 
-	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
+	const updateOrCreateUserProfile = userProfile
+		? updateUserProfile
+		: createUserProfile;
 	const willSaveDataToProfile = values.saveDataToProfile;
 
 	const errorMessage = onSubmitErrorChecking(userProfileFormValues);
@@ -238,8 +282,10 @@ const onSubmit = (
 		return null;
 	}
 
-	let jobApplicationFormFormattedValues = formatInputData(jobApplicationFormValues);
-	
+	let jobApplicationFormFormattedValues = formatInputData(
+		jobApplicationFormValues
+	);
+
 	return applyToJobAd({
 		variables: {
 			input: omitEmptyStrings(jobApplicationFormFormattedValues),
@@ -256,14 +302,15 @@ const onSubmit = (
 				delete userProfileFormValues.numReviews;
 				delete userProfileFormValues.jobTitle;
 				delete userProfileFormValues.jobAdId;
-				let userProfileFormFormattedValues = formatInputData(userProfileFormValues);
+				let userProfileFormFormattedValues = formatInputData(
+					userProfileFormValues
+				);
 
 				updateOrCreateUserProfile({
 					variables: {
 						input: omitEmptyStrings(userProfileFormFormattedValues),
 					},
-				})
-				.then(({ data }) => {
+				}).then(({ data }) => {
 					console.log("Updated/Created User Profile");
 				});
 			}
@@ -281,13 +328,14 @@ const onSubmit = (
 						companyId={values.companyId}
 					/>
 				);
-					
 			} else {
-				history.push(`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${jobApplicationFormFormattedValues.companyId}`);
+				history.push(
+					`/${urlGenerators.queryRoutes.jobApplicationSubmitted}?id=${jobApplicationFormFormattedValues.companyId}`
+				);
 			}
 		})
 		.catch(errors => {
-			console.log('ERROR', errors.message);
+			console.log("ERROR", errors.message);
 			// Error in English: Not Logged In
 			if (
 				errors.message.includes(
@@ -295,7 +343,7 @@ const onSubmit = (
 				)
 			) {
 				setLoginRegisterModal(
-					<PopupModal isOpen={true} closeModalButtonColor="white" >
+					<PopupModal isOpen={true} closeModalButtonColor="white">
 						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo" />
 					</PopupModal>
 				);
@@ -310,15 +358,18 @@ const onSubmit = (
 				actions.setErrors(formErrors);
 				actions.setSubmitting(false);
 			}
-		})
-	};
+		});
+};
 
 export interface ApplyToJobAdFormProps {
 	jobAdId: string;
 	modalIsOpen?: boolean;
 }
 
-export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdFormProps) {
+export default function ApplyToJobAdForm({
+	jobAdId,
+	modalIsOpen,
+}: ApplyToJobAdFormProps) {
 	const history = useHistory();
 	const user = useUser();
 
@@ -326,24 +377,33 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 	const [updateUserProfile] = useUpdateUserProfileMutation();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	let [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
-	let [jobApplicationFormContent, setJobApplicationFormContent]: any = React.useState(null);
+	let [
+		jobApplicationFormContent,
+		setJobApplicationFormContent,
+	]: any = React.useState(null);
 	const [applyToJobAd] = useApplyToJobAdMutation();
 	const { data } = useGetJobTitleAndCompanyIdQuery({
 		variables: { jobAdId },
 	});
 
-	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery();
+	let {
+		data: userProfileData,
+		loading,
+		error,
+	} = useGetUserProfileDataQuery();
 
 	if (loading) return <Spinner />;
 
 	let userProfile = null;
 
 	// If user has a user profile, fill in the form fields with the user profile data
-	if(userProfileData?.userProfile) {
+	if (userProfileData?.userProfile) {
 		userProfile = formatUserProfileData(userProfileData.userProfile);
 		initialValues = userProfile;
 		initialValues.workExperiences?.map(function(_: any, index: number) {
-			if (initialValues.workExperiences[index].iCurrentlyWorkHere === true) {
+			if (
+				initialValues.workExperiences[index].iCurrentlyWorkHere === true
+			) {
 				initialValues.workExperiences[index].endDateMonth = "";
 				initialValues.workExperiences[index].endDateYear = "";
 			}
@@ -360,28 +420,32 @@ export default function ApplyToJobAdForm({ jobAdId, modalIsOpen }: ApplyToJobAdF
 
 	if (jobApplicationFormContent === null)
 		jobApplicationFormContent = (
-		<Formik
-		initialValues={merge(initialValues, {
-			jobAdId,
-			jobTitle,
-			companyId,
-			numReviews,
-		})}
-		validationSchema={schema}
-		onSubmit={onSubmit(
-			userProfile,
-			createUserProfile,
-			updateUserProfile,
-			applyToJobAd,
-			history,
-			setSubmissionError,
-			setLoginRegisterModal,
-			setJobApplicationFormContent,
-			modalIsOpen
-		)}
-	>
-		<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
-	</Formik>);
+			<Formik
+				initialValues={merge(initialValues, {
+					jobAdId,
+					jobTitle,
+					companyId,
+					numReviews,
+				})}
+				validationSchema={schema}
+				onSubmit={onSubmit(
+					userProfile,
+					createUserProfile,
+					updateUserProfile,
+					applyToJobAd,
+					history,
+					setSubmissionError,
+					setLoginRegisterModal,
+					setJobApplicationFormContent,
+					modalIsOpen
+				)}
+			>
+				<InnerForm
+					submissionError={submissionError}
+					profileExists={userProfile != null}
+				/>
+			</Formik>
+		);
 
 	return (
 		<>

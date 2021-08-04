@@ -29,19 +29,24 @@ function onSubmitErrorChecking(inputValues: any) {
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
 	inputValues.workExperiences?.map(function(_: any, index: number) {
-		if ((inputValues.workExperiences[index].endDateMonth == "" || inputValues.workExperiences[index].endDateYear == "") && inputValues.workExperiences[index].iCurrentlyWorkHere === false)
+		if (
+			(inputValues.workExperiences[index].endDateMonth == "" ||
+				inputValues.workExperiences[index].endDateYear == "") &&
+			inputValues.workExperiences[index].iCurrentlyWorkHere === false
+		)
 			endDateNotInputted = true;
 	});
-	if(endDateNotInputted) return "Se requiere la fecha de finalización para la experencia laboral";
+	if (endDateNotInputted)
+		return "Se requiere la fecha de finalización para la experencia laboral";
 
 	// Check if at least one value has been selected for the availability
-	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night) 
+	if (!inputValues.morning && !inputValues.afternoon && !inputValues.night)
 		return "Se requiere tu disponibilidad";
-	if (inputValues.englishProficiency == "") 
+	if (inputValues.englishProficiency == "")
 		return "Se requiere la seleccion que describa tu dominio del ingles";
-	if (inputValues.highestLevelOfEducation == "") 
+	if (inputValues.highestLevelOfEducation == "")
 		return "Se requiere la seleccion que describa el nivel educativo más alto";
-	if (!inputValues.workExperiences) 
+	if (!inputValues.workExperiences)
 		return "Se requiere por lo menos una experiencia laboral";
 
 	return null;
@@ -50,7 +55,8 @@ function onSubmitErrorChecking(inputValues: any) {
 function formatInputData(inputValues: any) {
 	if (inputValues["email"]) delete inputValues["email"];
 	if (inputValues["numReviews"] !== null) delete inputValues["numReviews"];
-	if (inputValues["saveDataToProfile"]) delete inputValues["saveDataToProfile"];
+	if (inputValues["saveDataToProfile"])
+		delete inputValues["saveDataToProfile"];
 	if (inputValues["jobAdId"]) delete inputValues["jobAdId"];
 	if (inputValues["jobTitle"]) delete inputValues["jobTitle"];
 	if (inputValues["id"]) delete inputValues["id"];
@@ -61,20 +67,28 @@ function formatInputData(inputValues: any) {
 	if (inputValues.night) availabilityArray.push("NIGHT_SHIFT");
 	inputValues["availability"] = availabilityArray;
 
-	inputValues.phoneNumber = inputValues.phoneNumber.replace('-','');
-	inputValues.phoneNumber = inputValues.phoneNumber.replace('(','');
-	inputValues.phoneNumber = inputValues.phoneNumber.replace(')','');
-	inputValues.phoneNumber = inputValues.phoneNumber.replace(' ','');
-	
-	const skillsArray = inputValues.skills.includes(",") ? inputValues.skills.split(",") : [inputValues.skills];
-	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(",") ? inputValues.certificatesAndLicences.split(",") : [inputValues.certificatesAndLicences];
-	
+	inputValues.phoneNumber = inputValues.phoneNumber.replace("-", "");
+	inputValues.phoneNumber = inputValues.phoneNumber.replace("(", "");
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(")", "");
+	inputValues.phoneNumber = inputValues.phoneNumber.replace(" ", "");
+
+	const skillsArray = inputValues.skills.includes(",")
+		? inputValues.skills.split(",")
+		: [inputValues.skills];
+	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(
+		","
+	)
+		? inputValues.certificatesAndLicences.split(",")
+		: [inputValues.certificatesAndLicences];
+
 	// Clean up the white space from the input
 	skillsArray.forEach(function(_: any, index: number) {
 		skillsArray[index] = skillsArray[index].trim();
 	});
 	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
-		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[index].trim();
+		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[
+			index
+		].trim();
 	});
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
@@ -85,19 +99,25 @@ function formatInputData(inputValues: any) {
 
 	inputValues.workExperiences?.forEach(function(_: any, index: number) {
 		const startDateYear = inputValues.workExperiences[index].startDateYear;
-		const startDateMonth = inputValues.workExperiences[index].startDateMonth;
-		const startDate = new Date(startDateYear, startDateMonth, 1).toISOString();
+		const startDateMonth =
+			inputValues.workExperiences[index].startDateMonth;
+		const startDate = new Date(
+			startDateYear,
+			startDateMonth,
+			1
+		).toISOString();
 		inputValues.workExperiences[index].startDate = startDate;
 		delete inputValues.workExperiences[index].startDateMonth;
 		delete inputValues.workExperiences[index].startDateYear;
 
-		let endDate: String | null  = null;
+		let endDate: String | null = null;
 		if (!inputValues.workExperiences[index].iCurrentlyWorkHere) {
 			const endDateYear = inputValues.workExperiences[index].endDateYear;
-			const endDateMonth = inputValues.workExperiences[index].endDateMonth;
+			const endDateMonth =
+				inputValues.workExperiences[index].endDateMonth;
 			endDate = new Date(endDateYear, endDateMonth, 1).toISOString();
 		}
-		
+
 		inputValues.workExperiences[index].endDate = endDate;
 		delete inputValues.workExperiences[index].endDateMonth;
 		delete inputValues.workExperiences[index].endDateYear;
@@ -147,8 +167,7 @@ const schema = yup.object().shape({
 		.min(1)
 		.of(workExperienceSchema),
 	skills: yup.string().required("Se requiere al menos una habilidad"),
-	certificatesAndLicences: yup
-		.string(),
+	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
 		.string()
 		.oneOf([
@@ -191,7 +210,9 @@ const onSubmit = (
 	}
 
 	let formattedValues = formatInputData(userProfileFormValues);
-	const updateOrCreateUserProfile = userProfile ? updateUserProfile : createUserProfile;
+	const updateOrCreateUserProfile = userProfile
+		? updateUserProfile
+		: createUserProfile;
 
 	return updateOrCreateUserProfile({
 		variables: {
@@ -212,7 +233,7 @@ const onSubmit = (
 					action: "User Profile Created",
 					label: user.id,
 				});
-			}			
+			}
 
 			history.push(`/${queryRoutes.jobs}`);
 		})
@@ -247,7 +268,9 @@ interface UserProfileFormProps {
 	userProfile?: any;
 }
 
-export default function CreateUserProfileForm({ userProfile }: UserProfileFormProps) {
+export default function CreateUserProfileForm({
+	userProfile,
+}: UserProfileFormProps) {
 	const history = useHistory();
 
 	const [submissionError, setSubmissionError] = React.useState(null);
@@ -259,7 +282,9 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 	if (userProfile) {
 		initialValues = userProfile;
 		initialValues.workExperiences?.map(function(_: any, index: number) {
-			if (initialValues.workExperiences[index].iCurrentlyWorkHere === true) {
+			if (
+				initialValues.workExperiences[index].iCurrentlyWorkHere === true
+			) {
 				initialValues.workExperiences[index].endDateMonth = "";
 				initialValues.workExperiences[index].endDateYear = "";
 			}
@@ -287,7 +312,10 @@ export default function CreateUserProfileForm({ userProfile }: UserProfileFormPr
 					setLoginRegisterModal
 				)}
 			>
-				<InnerForm submissionError={submissionError} profileExists={userProfile != null} />
+				<InnerForm
+					submissionError={submissionError}
+					profileExists={userProfile != null}
+				/>
 			</Formik>
 			{loginRegisterModal}
 		</>
