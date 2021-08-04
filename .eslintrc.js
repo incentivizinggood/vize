@@ -47,6 +47,7 @@ module.exports = {
 			{ args: "all", argsIgnorePattern: "^_" },
 		],
 		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/no-mixed-spaces-and-tabs": "off",
 	},
 	settings: {
 		react: {
