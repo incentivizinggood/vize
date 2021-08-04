@@ -4,32 +4,15 @@ import * as yup from "yup";
  * These are schemas for validating user input on the client side.
  */
 
-export const username = yup
-	.string()
-	.trim()
-	.min(1)
-	.max(32);
+export const username = yup.string().trim().min(1).max(32);
 
-export const password = yup
-	.string()
-	.min(1)
-	.max(256);
+export const password = yup.string().min(1).max(256);
 
-export const companyName = yup
-	.string()
-	.trim()
-	.min(1)
-	.max(100);
+export const companyName = yup.string().trim().min(1).max(100);
 
 export const locationSchema = yup.object().shape({
-	city: yup
-		.string()
-		.max(300)
-		.required("Se requiere la ciudad"),
-	address: yup
-		.string()
-		.max(300)
-		.required("Se requiere la dirección"),
+	city: yup.string().max(300).required("Se requiere la ciudad"),
+	address: yup.string().max(300).required("Se requiere la dirección"),
 	industrialHub: yup.string().max(300),
 });
 
@@ -44,7 +27,7 @@ export const workExperienceSchema = yup.object().shape({
 		exclusive: false,
 		message:
 			"La fecha de finalización debe de ser despues de la fecha de comienzo",
-		test: function(value) {
+		test: function (value) {
 			if (
 				this.parent.startDateYear &&
 				this.parent.startDateMonth &&
@@ -72,7 +55,7 @@ export const workExperienceSchema = yup.object().shape({
 		exclusive: false,
 		message:
 			"La fecha de finalización debe de ser despues de la fecha de comienzo",
-		test: function(value) {
+		test: function (value) {
 			if (
 				this.parent.startDateYear &&
 				this.parent.startDateMonth &&

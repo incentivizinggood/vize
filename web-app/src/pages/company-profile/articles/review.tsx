@@ -115,7 +115,7 @@ function ReviewComponent(props: ReviewComponentProps): JSX.Element {
 							*/}
 							{props.user ? (
 								<T.companyreview.report
-									renderer={t => (
+									renderer={(t) => (
 										<PopupModal
 											buttonClass="flag-style-btn"
 											buttonText={t}

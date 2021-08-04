@@ -24,7 +24,7 @@ const Button = styled.button<ButtonProps>`
 	border: 0.833333px solid;
 
 	/* Color the button to show its status. */
-	${props => {
+	${(props) => {
 		if (props.disabled) {
 			return css`
 				color: lightgrey;

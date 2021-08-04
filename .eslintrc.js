@@ -46,7 +46,7 @@ module.exports = {
 			"warn",
 			{ args: "all", argsIgnorePattern: "^_" },
 		],
-		"@typescript-eslint/ban-ts-ignore": "off",
+		"@typescript-eslint/ban-ts-comment": "off",
 	},
 	settings: {
 		react: {

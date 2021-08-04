@@ -28,7 +28,7 @@ export default function CompaniesSearchBar(): JSX.Element {
 		defaultValues: { search: params.get("q") || "" },
 	});
 
-	const onSubmit: SubmitHandler<Inputs> = data => {
+	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		analytics.sendEvent({
 			category: "User",
 			action: "Search",

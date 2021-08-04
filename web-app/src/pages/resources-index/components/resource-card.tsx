@@ -100,7 +100,7 @@ const ReadMore = styled(Link)`
 	border-radius: 0.4rem;
 `;
 
-const ReadMoreButton = props => (
+const ReadMoreButton = (props) => (
 	<ReadMore to={urlGenerators.vizeResourceUrl(props.slug)} {...props}>
 		<T.read />
 	</ReadMore>

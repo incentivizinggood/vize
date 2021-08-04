@@ -15,7 +15,7 @@ router.use(passportRouter);
 router.use(graphqlRouter);
 
 // Check the heath of this server and test its ability to function.
-router.use("/health-check", async function(_req, res, _next) {
+router.use("/health-check", async function (_req, res, _next) {
 	const report: any = {};
 	let noFailures = true;
 

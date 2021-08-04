@@ -18,14 +18,16 @@ const schema = yup
 		),
 		confirmNewPassword: schemas.password
 			.required("Contraseña es un campo requerido")
-			.test("passwords-match", "Las contraseñas no coinciden", function(
-				value
-			) {
-				return (
-					!this.parent.newPassword ||
-					value === this.parent.newPassword
-				);
-			}),
+			.test(
+				"passwords-match",
+				"Las contraseñas no coinciden",
+				function (value) {
+					return (
+						!this.parent.newPassword ||
+						value === this.parent.newPassword
+					);
+				}
+			),
 	})
 	.required();
 
@@ -36,30 +38,29 @@ const initialValues: Values = {
 	confirmNewPassword: "",
 };
 
-const onSubmit = (history: History, setSubmissionError: any) => async (
-	values: Values,
-	actions: FormikHelpers<Values>
-) => {
-	try {
-		const params = new URLSearchParams(location.search);
+const onSubmit =
+	(history: History, setSubmissionError: any) =>
+	async (values: Values, actions: FormikHelpers<Values>) => {
+		try {
+			const params = new URLSearchParams(location.search);
 
-		await resetPassword({
-			passwordResetRequestId: params.get("id") || "",
-			newPassword: values.newPassword,
-		});
+			await resetPassword({
+				passwordResetRequestId: params.get("id") || "",
+				newPassword: values.newPassword,
+			});
 
-		actions.resetForm({ values: initialValues });
+			actions.resetForm({ values: initialValues });
 
-		// TODO Make a better UI for successful submission.
-		alert("Your password has been reset.");
-		history.push(urlGenerators.vizeLogin());
-	} catch (error) {
-		// Error to display at bottom of form
-		setSubmissionError(error.message);
+			// TODO Make a better UI for successful submission.
+			alert("Your password has been reset.");
+			history.push(urlGenerators.vizeLogin());
+		} catch (error) {
+			// Error to display at bottom of form
+			setSubmissionError(error.message);
 
-		actions.setSubmitting(false);
-	}
-};
+			actions.setSubmitting(false);
+		}
+	};
 
 export default function ResetPasswordForm(): JSX.Element {
 	const history = useHistory();

@@ -20,10 +20,7 @@ const createSalaryInputSchema = yup
 				"Hourly Wage",
 			])
 			.required(),
-		incomeAmount: yup
-			.number()
-			.min(0)
-			.required(),
+		incomeAmount: yup.number().min(0).required(),
 		gender: yup.string().oneOf(["Male", "Female"]),
 	})
 	.required();
@@ -41,7 +38,7 @@ export async function createSalary(
 		gender,
 	} = await createSalaryInputSchema.validate(input);
 
-	const transaction: Transaction<number> = async client => {
+	const transaction: Transaction<number> = async (client) => {
 		{
 			const {
 				rows: [{ role }],

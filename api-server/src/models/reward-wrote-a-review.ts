@@ -17,7 +17,7 @@ export type PaymentMethod = "PAYPAL" | "XOOM" | "SWAP";
 export async function wroteAReviewStatus(user: User): Promise<RewardStatus> {
 	if (user.role !== "worker") return "INELIGIBLE";
 
-	const transaction: Transaction<RewardStatus> = async client => {
+	const transaction: Transaction<RewardStatus> = async (client) => {
 		const userPId = user.userId;
 
 		const results = await client.query(
@@ -60,7 +60,7 @@ export async function claimWroteAReview(
 	// like Google Voice.
 	if (phoneNumberInfo.country !== "MX") throw Error("NON_MEXICO_NUMBER");
 
-	const transaction: Transaction<void> = async client => {
+	const transaction: Transaction<void> = async (client) => {
 		// Check if the phone number has already been used.
 		if (
 			(

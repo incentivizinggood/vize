@@ -42,10 +42,10 @@ export function CompanyNameInput(props: CompanyNameInputProps): JSX.Element {
 				setOpen(false);
 			}}
 			getOptionSelected={(option, value) => option === value}
-			getOptionLabel={option => option}
+			getOptionLabel={(option) => option}
 			options={options}
 			loading={loading}
-			renderInput={params => (
+			renderInput={(params) => (
 				<TextField
 					{...params}
 					field={field}

@@ -24,7 +24,7 @@ export async function login(
 			loginId,
 			password,
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
@@ -49,7 +49,7 @@ export async function register(options: {
 }): Promise<AxiosResponse<unknown>> {
 	const x = await axios
 		.post(`${location.origin}/api/register`, options)
-		.catch(function(error) {
+		.catch(function (error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
@@ -65,7 +65,7 @@ export async function changePassword(options: {
 }): Promise<AxiosResponse<unknown>> {
 	return await axios
 		.post(`${location.origin}/api/change-password`, options)
-		.catch(function(error) {
+		.catch(function (error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
@@ -80,7 +80,7 @@ export async function requestPasswordReset(options: {
 			`${location.origin}/api/solicitud-para-restablecer-contraseña`,
 			options
 		)
-		.catch(function(error) {
+		.catch(function (error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});
@@ -93,7 +93,7 @@ export async function resetPassword(options: {
 	// Translation: "eset-password"
 	return await axios
 		.post(`${location.origin}/api/restablecer-contraseña`, options)
-		.catch(function(error) {
+		.catch(function (error) {
 			// The error message is currently defaulted to "Request failed with status code 401" so we need to get the response.data.errors in order to get the actual message of the error
 			throw Error(error.response.data.errors[0]);
 		});

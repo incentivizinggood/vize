@@ -20,9 +20,8 @@ class RegisterLoginModal extends React.Component {
 		this.state = {
 			registerLogin: "register",
 		};
-		this.changeRegisterLoginState = this.changeRegisterLoginState.bind(
-			this
-		);
+		this.changeRegisterLoginState =
+			this.changeRegisterLoginState.bind(this);
 	}
 
 	changeRegisterLoginState() {

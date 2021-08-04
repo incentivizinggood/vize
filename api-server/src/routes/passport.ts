@@ -46,11 +46,11 @@ router.use(
 	})
 );
 
-passport.serializeUser<User, string>(function(user, done) {
+passport.serializeUser<User, string>(function (user, done) {
 	done(null, user ? user.userId.toString() : undefined);
 });
 
-passport.deserializeUser<User, string>(async function(id, done) {
+passport.deserializeUser<User, string>(async function (id, done) {
 	const user = await getUserById(parseInt(id));
 	// I'm not sure if this is correct.
 	// We may need to return an error if the user is not found.
@@ -63,11 +63,11 @@ router.use(passport.session());
 // TODO: HTTP 401 Not Authorized errors may not be the right code for
 // these errors. Perhaps 409 Conflict would be better?
 
-router.post("/login", async function(req, res, next) {
+router.post("/login", async function (req, res, next) {
 	try {
 		const user = await verifyUser(req.body);
 
-		req.logIn(user, function(err) {
+		req.logIn(user, function (err) {
 			if (err) {
 				throw err;
 			}
@@ -90,7 +90,7 @@ router.post("/login", async function(req, res, next) {
 	}
 });
 
-router.post("/logout", function(req, res) {
+router.post("/logout", function (req, res) {
 	req.logout();
 
 	// We assume the logout was made by an API call.
@@ -98,12 +98,12 @@ router.post("/logout", function(req, res) {
 	res.end();
 });
 
-router.post("/register", async function(req, res, next) {
+router.post("/register", async function (req, res, next) {
 	try {
 		const user = await createUser(req.body);
 
 		// Automatically log the new user in.
-		req.logIn(user, function(err) {
+		req.logIn(user, function (err) {
 			if (err) {
 				throw err;
 			}
@@ -125,7 +125,7 @@ router.post("/register", async function(req, res, next) {
 	}
 });
 
-router.post("/change-password", async function(req, res, next) {
+router.post("/change-password", async function (req, res, next) {
 	try {
 		await changePassword(req.user as User, req.body);
 
@@ -142,28 +142,27 @@ router.post("/change-password", async function(req, res, next) {
 });
 
 // English Translation for Route: "/request-password-resets"
-router.post("solicitud-para-restablecer-contraseña", async function(
-	req,
-	res,
-	next
-) {
-	try {
-		await requestPasswordReset(req.body);
+router.post(
+	"solicitud-para-restablecer-contraseña",
+	async function (req, res, next) {
+		try {
+			await requestPasswordReset(req.body);
 
-		res.end();
-	} catch (e) {
-		if (e instanceof yup.ValidationError) {
-			res.status(400).json({ errors: e.errors });
-		} else if (typeof e === "string") {
-			res.status(400).json({ errors: [e] });
-		} else {
-			next(e);
+			res.end();
+		} catch (e) {
+			if (e instanceof yup.ValidationError) {
+				res.status(400).json({ errors: e.errors });
+			} else if (typeof e === "string") {
+				res.status(400).json({ errors: [e] });
+			} else {
+				next(e);
+			}
 		}
 	}
-});
+);
 
 // English Translation for Route: "/reset-password"
-router.post("/restablecer-contraseña", async function(req, res, next) {
+router.post("/restablecer-contraseña", async function (req, res, next) {
 	try {
 		await resetPassword(req.body);
 
@@ -193,7 +192,7 @@ if (
 				profileFields: ["id", "emails"],
 				passReqToCallback: true,
 			},
-			async function(_req, _accessToken, _refreshToken, profile, cb) {
+			async function (_req, _accessToken, _refreshToken, profile, cb) {
 				try {
 					console.log("Facebook user profile =", profile);
 
@@ -227,7 +226,7 @@ if (
 	router.get(
 		"/auth/facebook/callback",
 		passport.authenticate("facebook", { failureRedirect: "/login" }),
-		function(_req, res) {
+		function (_req, res) {
 			// Successful authentication, redirect home.
 			res.redirect("/");
 		}

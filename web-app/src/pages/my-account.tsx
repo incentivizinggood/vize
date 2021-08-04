@@ -21,7 +21,11 @@ const TLoggedIn = translations.needToBeLoggedInToView;
 export default function MyAccountPage() {
 	const user = useUser();
 
-	let { data: userProfileData, loading, error } = useGetUserProfileDataQuery({
+	let {
+		data: userProfileData,
+		loading,
+		error,
+	} = useGetUserProfileDataQuery({
 		variables: { userId: user ? user.id : "0" },
 	});
 

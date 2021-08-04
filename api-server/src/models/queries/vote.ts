@@ -50,7 +50,7 @@ export async function getVoteByAuthorAndSubject(
 			${baseQuery(subjectType)}
 			WHERE submittedby=${submittedBy} AND refersto=${refersTo}
 		`
-	).then(vote =>
+	).then((vote) =>
 		vote !== null
 			? vote
 			: ({

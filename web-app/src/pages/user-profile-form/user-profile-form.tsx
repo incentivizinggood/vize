@@ -18,9 +18,9 @@ import InnerForm from "./user-profile-inner-form";
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
 	if (x instanceof Array)
-		return filter(map(x, omitEmptyStrings), y => y !== undefined);
+		return filter(map(x, omitEmptyStrings), (y) => y !== undefined);
 	if (x instanceof Object)
-		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
+		return omitBy(mapValues(x, omitEmptyStrings), (y) => y === undefined);
 	return x;
 }
 
@@ -28,7 +28,7 @@ function onSubmitErrorChecking(inputValues: any) {
 	// End date is not required when the "I Currently Work Here" box is checked so manual checking needs to be done when the
 	// "I Currently Work Here" box is not checked
 	let endDateNotInputted = false;
-	inputValues.workExperiences?.map(function(_: any, index: number) {
+	inputValues.workExperiences?.map(function (_: any, index: number) {
 		if (
 			(inputValues.workExperiences[index].endDateMonth == "" ||
 				inputValues.workExperiences[index].endDateYear == "") &&
@@ -75,20 +75,18 @@ function formatInputData(inputValues: any) {
 	const skillsArray = inputValues.skills.includes(",")
 		? inputValues.skills.split(",")
 		: [inputValues.skills];
-	const certificatesAndLicencesArray = inputValues.certificatesAndLicences.includes(
-		","
-	)
-		? inputValues.certificatesAndLicences.split(",")
-		: [inputValues.certificatesAndLicences];
+	const certificatesAndLicencesArray =
+		inputValues.certificatesAndLicences.includes(",")
+			? inputValues.certificatesAndLicences.split(",")
+			: [inputValues.certificatesAndLicences];
 
 	// Clean up the white space from the input
-	skillsArray.forEach(function(_: any, index: number) {
+	skillsArray.forEach(function (_: any, index: number) {
 		skillsArray[index] = skillsArray[index].trim();
 	});
-	certificatesAndLicencesArray.forEach(function(_: any, index: number) {
-		certificatesAndLicencesArray[index] = certificatesAndLicencesArray[
-			index
-		].trim();
+	certificatesAndLicencesArray.forEach(function (_: any, index: number) {
+		certificatesAndLicencesArray[index] =
+			certificatesAndLicencesArray[index].trim();
 	});
 	inputValues.skills = skillsArray;
 	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
@@ -97,7 +95,7 @@ function formatInputData(inputValues: any) {
 	delete inputValues["afternoon"];
 	delete inputValues["night"];
 
-	inputValues.workExperiences?.forEach(function(_: any, index: number) {
+	inputValues.workExperiences?.forEach(function (_: any, index: number) {
 		const startDateYear = inputValues.workExperiences[index].startDateYear;
 		const startDateMonth =
 			inputValues.workExperiences[index].startDateMonth;
@@ -161,11 +159,7 @@ const schema = yup.object().shape({
 	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
 	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
-	workExperiences: yup
-		.array()
-		.required()
-		.min(1)
-		.of(workExperienceSchema),
+	workExperiences: yup.array().required().min(1).of(workExperienceSchema),
 	skills: yup.string().required("Se requiere al menos una habilidad"),
 	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
@@ -192,77 +186,79 @@ const schema = yup.object().shape({
 	longTermProfessionalGoal: yup.string(),
 });
 
-const onSubmit = (
-	user,
-	userProfile,
-	createUserProfile,
-	updateUserProfile,
-	history,
-	setSubmissionError,
-	setLoginRegisterModal
-) => (values, actions) => {
-	const userProfileFormValues = JSON.parse(JSON.stringify(values));
+const onSubmit =
+	(
+		user,
+		userProfile,
+		createUserProfile,
+		updateUserProfile,
+		history,
+		setSubmissionError,
+		setLoginRegisterModal
+	) =>
+	(values, actions) => {
+		const userProfileFormValues = JSON.parse(JSON.stringify(values));
 
-	const errorMessage = onSubmitErrorChecking(userProfileFormValues);
-	if (errorMessage) {
-		setSubmissionError(errorMessage);
-		return null;
-	}
+		const errorMessage = onSubmitErrorChecking(userProfileFormValues);
+		if (errorMessage) {
+			setSubmissionError(errorMessage);
+			return null;
+		}
 
-	let formattedValues = formatInputData(userProfileFormValues);
-	const updateOrCreateUserProfile = userProfile
-		? updateUserProfile
-		: createUserProfile;
+		let formattedValues = formatInputData(userProfileFormValues);
+		const updateOrCreateUserProfile = userProfile
+			? updateUserProfile
+			: createUserProfile;
 
-	return updateOrCreateUserProfile({
-		variables: {
-			input: omitEmptyStrings(formattedValues),
-		},
-	})
-		.then(({ data }) => {
-			actions.resetForm(initialValues);
-			if (updateOrCreateUserProfile === updateUserProfile) {
-				analytics.sendEvent({
-					category: "User",
-					action: "User Profile Updated",
-					label: user.id,
-				});
-			} else {
-				analytics.sendEvent({
-					category: "User",
-					action: "User Profile Created",
-					label: user.id,
-				});
-			}
-
-			history.push(`/${queryRoutes.jobs}`);
+		return updateOrCreateUserProfile({
+			variables: {
+				input: omitEmptyStrings(formattedValues),
+			},
 		})
-		.catch(errors => {
-			// Error in English: Not Logged In
-			console.log("Error", errors);
-			if (
-				errors.message.includes(
-					"Tienes que iniciar una sesión o registrarte"
-				)
-			) {
-				setLoginRegisterModal(
-					<PopupModal isOpen={true} closeModalButtonColor="white">
-						<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para crear un perfil" />
-					</PopupModal>
-				);
-			} else {
-				// cut out the "GraphQL error: " from error message
-				const errorMessage = errors.message.substring(14);
-				setSubmissionError(errorMessage);
+			.then(({ data }) => {
+				actions.resetForm(initialValues);
+				if (updateOrCreateUserProfile === updateUserProfile) {
+					analytics.sendEvent({
+						category: "User",
+						action: "User Profile Updated",
+						label: user.id,
+					});
+				} else {
+					analytics.sendEvent({
+						category: "User",
+						action: "User Profile Created",
+						label: user.id,
+					});
+				}
 
-				// Errors to display on form fields
-				const formErrors = {};
+				history.push(`/${queryRoutes.jobs}`);
+			})
+			.catch((errors) => {
+				// Error in English: Not Logged In
+				console.log("Error", errors);
+				if (
+					errors.message.includes(
+						"Tienes que iniciar una sesión o registrarte"
+					)
+				) {
+					setLoginRegisterModal(
+						<PopupModal isOpen={true} closeModalButtonColor="white">
+							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para crear un perfil" />
+						</PopupModal>
+					);
+				} else {
+					// cut out the "GraphQL error: " from error message
+					const errorMessage = errors.message.substring(14);
+					setSubmissionError(errorMessage);
 
-				actions.setErrors(formErrors);
-				actions.setSubmitting(false);
-			}
-		});
-};
+					// Errors to display on form fields
+					const formErrors = {};
+
+					actions.setErrors(formErrors);
+					actions.setSubmitting(false);
+				}
+			});
+	};
 
 interface UserProfileFormProps {
 	userProfile?: any;
@@ -281,7 +277,7 @@ export default function CreateUserProfileForm({
 	// If user has a user profile, fill in the form fields with the user profile data
 	if (userProfile) {
 		initialValues = userProfile;
-		initialValues.workExperiences?.map(function(_: any, index: number) {
+		initialValues.workExperiences?.map(function (_: any, index: number) {
 			if (
 				initialValues.workExperiences[index].iCurrentlyWorkHere === true
 			) {

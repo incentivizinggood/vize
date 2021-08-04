@@ -37,7 +37,7 @@ export default function ShowJobs(): JSX.Element {
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
 
-	const RenderedItems = data.searchJobAds.nodes.map(function(jobad) {
+	const RenderedItems = data.searchJobAds.nodes.map(function (jobad) {
 		return <JobPosting key={jobad.id} job={jobad} />;
 	});
 

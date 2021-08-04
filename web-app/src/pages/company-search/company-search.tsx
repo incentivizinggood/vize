@@ -17,9 +17,7 @@ interface SearchResultsProps {
 	searchText: string;
 }
 
-function useSearch(
-	searchText: string
-): {
+function useSearch(searchText: string): {
 	loading: boolean;
 	error: unknown;
 	companies: CompanySearchResultFragment[];
@@ -87,9 +85,8 @@ function useSearch(
 }
 
 function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
-	const { loading, error, companies, totalCount, infiniteRef } = useSearch(
-		searchText
-	);
+	const { loading, error, companies, totalCount, infiniteRef } =
+		useSearch(searchText);
 
 	if (error) {
 		return <h2>{`Error! ${JSON.stringify(error)}`}</h2>;
@@ -104,7 +101,7 @@ function SearchResults({ searchText }: SearchResultsProps): JSX.Element {
 						</h2>
 				  )
 				: null}
-			{companies.map(company => (
+			{companies.map((company) => (
 				<CompanySearchResult key={company.id} company={company} />
 			))}
 			{loading ? <Spinner /> : null}

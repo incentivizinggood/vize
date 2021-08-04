@@ -55,7 +55,7 @@ export default function Tabs(props: TabsProps) {
 	return (
 		<div>
 			<TabHeader>
-				{props.tabs.map(tab => (
+				{props.tabs.map((tab) => (
 					<TabButton key={tab.path} to={`${url}/${tab.path}`}>
 						{tab.label}
 					</TabButton>

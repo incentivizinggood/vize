@@ -29,47 +29,46 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (history: History, setSubmissionError: any) => async (
-	values: Values,
-	actions: FormikHelpers<Values>
-) => {
-	try {
-		await login(values.loginId, values.password);
+const onSubmit =
+	(history: History, setSubmissionError: any) =>
+	async (values: Values, actions: FormikHelpers<Values>) => {
+		try {
+			await login(values.loginId, values.password);
 
-		actions.resetForm({ values: initialValues });
+			actions.resetForm({ values: initialValues });
 
-		// TODO: use query params so that login redirects user back to where they were when they login
-		if (
-			!(
-				window.location.pathname.includes(
-					urlGenerators.queryRoutes.writeReview
-				) ||
-				window.location.pathname.includes(
-					urlGenerators.queryRoutes.submitSalaryData
-				) ||
-				window.location.pathname.includes(
-					urlGenerators.queryRoutes.applyForJob
-				) ||
-				window.location.pathname.includes(
-					urlGenerators.queryRoutes.workerResources
-				) ||
-				window.location.pathname.includes(
-					urlGenerators.queryRoutes.userProfileForm
-				) ||
-				window.location.pathname.includes(
-					urlGenerators.queryRoutes.jobs
+			// TODO: use query params so that login redirects user back to where they were when they login
+			if (
+				!(
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.writeReview
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.submitSalaryData
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.applyForJob
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.workerResources
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.userProfileForm
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.jobs
+					)
 				)
-			)
-		) {
-			history.push("/");
-		}
-	} catch (error) {
-		// Error to display at bottom of form
-		setSubmissionError(error.message);
+			) {
+				history.push("/");
+			}
+		} catch (error) {
+			// Error to display at bottom of form
+			setSubmissionError(error.message);
 
-		actions.setSubmitting(false);
-	}
-};
+			actions.setSubmitting(false);
+		}
+	};
 
 export default function LoginForm(): JSX.Element {
 	const history = useHistory();

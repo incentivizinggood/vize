@@ -173,7 +173,7 @@ function Header(props: HeaderProps) {
 							data-toggle="collapse"
 							data-target="#bs-example-navbar-collapse-1"
 							aria-expanded={expanded}
-							onClick={() => setExpanded(x => !x)}
+							onClick={() => setExpanded((x) => !x)}
 						>
 							<span className="sr-only">Toggle navigation</span>
 							<span className="icon-bar" />
