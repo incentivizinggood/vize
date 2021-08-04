@@ -160,7 +160,7 @@ export async function createJobAd(
 }
 
 function formatWorkExperiences(workExperiences: any): any {
-	// prettier-ignore
+	
 	workExperiences?.forEach(function(_: any, index: number) {	
 		const startDate = new Date(workExperiences[index].startDate);
 		const startDateMonth = monthTranslations[startDate.getMonth().toString()];
