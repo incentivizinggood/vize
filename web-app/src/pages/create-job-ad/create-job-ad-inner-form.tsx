@@ -63,6 +63,7 @@ function InnerForm({ submissionError }: any) {
 						<Field
 							name="minimunEducation"
 							type="radioButtons"
+							flexDirection="row"
 							label={t.label}
 							options={[
 								<FormControlLabel
@@ -89,47 +90,90 @@ function InnerForm({ submissionError }: any) {
 						/>
 					)}
 				/>
-				{/* <Box display="flex" flexDirection="row"> */}
-				{/* <T.fields.minimunEducation
-					renderer={(t: any) => ( */}
-				{/* <Field */}
-				{/* // name="minimumeducation"
-						// type="radioButtons"
-						// required
-						// options={T.fields.minimunEducation}
-							// flexDirection="column"
-							// display="flex"
-							// label={t.checkboxTitle}
-							// checkboxes={t.list} */}
-				{/* /> */}
-				{/* )}
-				/> */}
 				{/* Minimum Level of education */}
-				{/* <MinimunEducationWrapper>
+				<MinimunEducationWrapper>
 					<Box width="49%">
-					<T.fields.minimumLanguage.english
-						renderer={(t: any) => (
-							<CustomCheckbox
-								flexDirection="column"
-								label={t.label}
-								checkboxes={t.list}
-							/>
-						)}
-					/>
+						<T.fields.minimumLanguage.english
+							renderer={t => (
+								<Field
+									name="minimunEducation"
+									type="radioButtons"
+									width="45%"
+									label={t.label}
+									options={[
+										<FormControlLabel
+											value="native"
+											control={<Radio />}
+											label={t.native}
+										/>,
+										<FormControlLabel
+											value="fluent"
+											control={<Radio />}
+											label={t.fluent}
+										/>,
+										<FormControlLabel
+											value="conversational"
+											control={<Radio />}
+											label={t.conversational}
+										/>,
+										<FormControlLabel
+											value="basic"
+											control={<Radio />}
+											label={t.basic}
+										/>,
+										<FormControlLabel
+											value="none"
+											control={<Radio />}
+											label={t.none}
+										/>,
+									]}
+								/>
+							)}
+						/>
 					</Box>
 					<div className="saperator" />
 					<Box width="49%">
-					<T.fields.minimumLanguage.spanish
-						renderer={(t: any) => (
-							<CustomCheckbox
-								flexDirection="column"
-								label={t.label}
-								checkboxes={t.list}
-							/>
-						)}
-					/>
+						<T.fields.minimumLanguage.spanish
+							renderer={(t: any) => (
+								<Field
+									name="minimunEducation"
+									type="radioButtons"
+									display="block"
+									width="45%"
+									label={t.label}
+									options={[
+										<FormControlLabel
+											value="native"
+											control={<Radio />}
+											label={t.native}
+										/>,
+										<FormControlLabel
+											value="fluent"
+											control={<Radio />}
+											label={t.fluent}
+										/>,
+										<FormControlLabel
+											value="conversational"
+											control={<Radio />}
+											label={t.conversational}
+										/>,
+
+										<FormControlLabel
+											value="basic"
+											control={<Radio />}
+											label={t.basic}
+										/>,
+										<FormControlLabel
+											value="none"
+											control={<Radio />}
+											label={t.none}
+										/>,
+									]}
+								/>
+							)}
+						/>
 					</Box>
-				</MinimunEducationWrapper> */}
+				</MinimunEducationWrapper>
 				{/* end */}
 				{/* <T.fields.contractType
 					renderer={t => (
@@ -260,25 +304,67 @@ function InnerForm({ submissionError }: any) {
 					)}
 					T={T.fields.locations}
 				/>
-				{/* <Box>
-					<T.fields.salaryType
+				<T.fields.salaryType
+					renderer={(t: any) => (
+						<Field
+							name="salaryType"
+							select
+							// fullWidth={false}
+							required
+							defaultValue={t.yearlySalary}
+							label={t.label}
+							style={{ width: "100%" }}
+						>
+							<option value={1}>{t.yearlySalary}</option>
+							<option value={2}>{t.monthlySalary}</option>
+							<option value={3}>{t.weeklySalary}</option>
+							<option value={4}>{t.dailySalary}</option>
+							<option value={5}>{t.hourlyWage}</option>
+						</Field>
+					)}
+				/>
+
+				<Box>
+					<T.fields.contractType
 						renderer={(t: any) => (
 							<Field
-										name="salaryType"
-										select
-										// fullWidth={false}
-										required
-										defaultValue={t.label}
-										label={t.label}
-										style={{ width: "100%" }}
-									>
-										{t.list.map(salary => <option value={salary.label}>
-											{salary.label}
-										</option> )}
-									</Field>
+								name="contractType"
+								type="radioButtons"
+								display="block"
+								label={t.label}
+								options={[
+									<FormControlLabel
+										value="fullTime"
+										control={<Radio />}
+										label={t.fullTime}
+									/>,
+									<FormControlLabel
+										value="partTime"
+										control={<Radio />}
+										label={t.partTime}
+									/>,
+									<FormControlLabel
+										value="internship"
+										control={<Radio />}
+										label={t.internship}
+									/>,
+
+									<FormControlLabel
+										value="temporary"
+										control={<Radio />}
+										label={t.temporary}
+									/>,
+									<FormControlLabel
+										value="contractor"
+										control={<Radio />}
+										label={t.contractor}
+									/>,
+								]}
+							/>
 						)}
 					/>
-				</Box> */}
+				</Box>
+
 				{/* <div style={{ marginTop: "10px" }}>
 				<T.fields.salaryExplanation />
 			</div> */}

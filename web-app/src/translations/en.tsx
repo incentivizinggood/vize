@@ -353,6 +353,24 @@ export default {
 					someCollege: "Some College",
 					collegeDegree: "College Degree",
 			},
+			minimumLanguage: {
+				english: {
+					label: "English",
+					native: "Native",
+					conversational: "Conversational",
+					fluent: "Fluent",
+					basic: "Basic",
+					none: "None",
+				},
+				spanish: {
+					label: "Spanish",
+					native: "Native",
+					conversational: "Conversational",
+					fluent: "Fluent",
+					basic: "Basic",
+					none: "None",
+				}
+			},
 			locations: {
 				label: "Locations",
 				addElement: ({ array }: { array: unknown[] }) =>{

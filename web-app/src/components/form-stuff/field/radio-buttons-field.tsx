@@ -6,6 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PrivacyIcon from "@material-ui/icons/Security";
+import { Box } from "@material-ui/core";
 
 export default function RadioButtonsField({
 	field,
@@ -14,6 +15,8 @@ export default function RadioButtonsField({
 	options,
 	title,
 	label,
+	width,
+	display,
 	...props
 }: any): JSX.Element {
 	const [value, setValue] = React.useState("FORMER");
@@ -21,7 +24,6 @@ export default function RadioButtonsField({
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue((event.target as HTMLInputElement).value);
 	};
-	console.log(label);
 	return (
 		<FormControl component="fieldset">
 			<span>
@@ -31,13 +33,16 @@ export default function RadioButtonsField({
 				</FormLabel>
 			</span>
 			<RadioGroup {...props} {...field} name={field.name}>
-				{options.map((option: any) => (
-					<FormControlLabel
-						value={option.props.value}
-						control={<Radio color="primary" />}
-						label={option.props.label}
-					/>
-				))}
+				<Box display={display}>
+					{options.map((option: any) => (
+						<FormControlLabel
+							style={{ width: width }}
+							value={option.props.value}
+							control={<Radio color="primary" />}
+							label={option.props.label}
+						/>
+					))}
+				</Box>
 			</RadioGroup>
 		</FormControl>
 	);

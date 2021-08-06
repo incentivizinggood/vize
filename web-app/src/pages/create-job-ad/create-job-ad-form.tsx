@@ -38,21 +38,21 @@ const initialValues = {
 		},
 	],
 	minimumLanguage: [
-		{ 
-			english : "", 
-			spanish: ""
-		}
+		{
+			english: "",
+			spanish: "",
+		},
 	],
 	// salaryMin: "",
 	// salaryMax: "",
 	jobSchedule: [
-		{	
-		startDay: 1,
-		endDay: 5,
-		startTime: "08:00",
-		endTime: "18:00",
-	}
-]
+		{
+			startDay: 1,
+			endDay: 5,
+			startTime: "08:00",
+			endTime: "18:00",
+		},
+	],
 	salaryType: "",
 	contractType: "",
 	jobDescription: "",

@@ -10,6 +10,7 @@ import RadioButtonsField from "./radio-buttons-field";
 
 const FormikFieldWrapper = styled.div`
 	margin-bottom: 1.5rem;
+	margin-top: 20px;
 `;
 
 const FormikField = styled(Formik.Field)`
@@ -36,16 +37,23 @@ function FieldInner({
 	variant,
 	label,
 	optional,
+	flexDirection,
+	display,
+	width,
 	...restProps
 }: any): JSX.Element {
 	if (type === "rating") {
 		return <Formik.Field {...restProps} component={RatingField} />;
 	}
+	console.log(width);
 	if (type === "radioButtons") {
 		return (
 			<Formik.Field
 				{...restProps}
 				label={label}
+				width={width}
+				display={display}
+				flexDirection={flexDirection}
 				component={RadioButtonsField}
 			/>
 		);
