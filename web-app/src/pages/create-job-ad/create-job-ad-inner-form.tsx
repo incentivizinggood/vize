@@ -1,7 +1,5 @@
 import React from "react";
 import { Form } from "formik";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import AttachMoney from "@material-ui/icons/AttachMoney";
 import { SubmitButton } from "src/components/button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
@@ -14,13 +12,8 @@ import {
 	PostFormFieldContainer,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import {
-	PostElementContainer,
-	MinimunEducationWrapper,
-} from "src/components/form-stuff/style";
-import { Box, Container, Typography } from "@material-ui/core";
-import CustomCheckbox from "src/components/form-stuff/field/checkbox";
-import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
+import { MinimunEducationWrapper } from "src/components/form-stuff/style";
+import { Box } from "@material-ui/core";
 
 const T = translations.createJobAd;
 function InnerForm({ submissionError }: any) {
@@ -33,7 +26,6 @@ function InnerForm({ submissionError }: any) {
 					required
 					t={T.fields.jobTitle}
 				/>
-
 				<Field
 					name="jobDescription"
 					optional="*"
@@ -42,7 +34,6 @@ function InnerForm({ submissionError }: any) {
 					required
 					t={T.fields.jobDescription}
 				/>
-
 				<Field
 					name="responsibilities"
 					multiline
@@ -50,7 +41,6 @@ function InnerForm({ submissionError }: any) {
 					required
 					t={T.fields.responsibilities}
 				/>
-
 				<Field
 					name="qualifications"
 					multiline
@@ -175,15 +165,6 @@ function InnerForm({ submissionError }: any) {
 					</Box>
 				</MinimunEducationWrapper>
 				{/* end */}
-				{/* <T.fields.contractType
-					renderer={t => (
-						<CustomCheckbox
-						label={t.label}
-						display="flex"
-						checkboxes={t.list}
-					/>
-					)}
-				/> */}
 				<FormArray
 					name="shifts"
 					ElementRender={({ name }: { name: string }) => (
@@ -225,7 +206,6 @@ function InnerForm({ submissionError }: any) {
 									<Field
 										name="endDay"
 										select
-										// fullWidth={false}
 										required
 										defaultValue={5}
 										label={t.endDay.label}
@@ -277,7 +257,6 @@ function InnerForm({ submissionError }: any) {
 					)}
 					T={T.fields.jobSchedule}
 				/>
-
 				<FormArray
 					name="locations"
 					ElementRender={({ name }: any) => (
@@ -309,7 +288,6 @@ function InnerForm({ submissionError }: any) {
 						<Field
 							name="salaryType"
 							select
-							// fullWidth={false}
 							required
 							defaultValue={t.yearlySalary}
 							label={t.label}
@@ -323,7 +301,6 @@ function InnerForm({ submissionError }: any) {
 						</Field>
 					)}
 				/>
-
 				<Box>
 					<T.fields.contractType
 						renderer={(t: any) => (
@@ -364,7 +341,6 @@ function InnerForm({ submissionError }: any) {
 						)}
 					/>
 				</Box>
-
 				{/* <div style={{ marginTop: "10px" }}>
 				<T.fields.salaryExplanation />
 			</div> */}
@@ -401,7 +377,6 @@ function InnerForm({ submissionError }: any) {
 					t={T.fields.salaryMax}
 				/>
 			</span> */}
-
 				<SubmissionError error={submissionError} />
 			</PostFormFieldContainer>
 			<FormToolbar>
