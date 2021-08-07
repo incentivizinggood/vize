@@ -236,7 +236,6 @@ function InnerForm({ submissionError }: any) {
 									<Field
 										name="startTime"
 										type="time"
-										// fullWidth={false}
 										required
 										defaultValue="08:00"
 										label={t.startTime.label}
@@ -245,7 +244,6 @@ function InnerForm({ submissionError }: any) {
 									<Field
 										name="endTime"
 										type="time"
-										// fullWidth={false}
 										required
 										defaultValue="18:00"
 										label={t.endTime.label}
@@ -260,26 +258,29 @@ function InnerForm({ submissionError }: any) {
 				<FormArray
 					name="locations"
 					ElementRender={({ name }: any) => (
-						<>
-							<Field
-								name={`${name}.city`}
-								type="text"
-								required
-								t={T.fields.locations.city}
-							/>
-							<Field
-								name={`${name}.address`}
-								type="text"
-								required
-								t={T.fields.locations.address}
-							/>
-							<Field
-								name={`${name}.industrialHub`}
-								type="text"
-								required
-								t={T.fields.locations.industrialHub}
-							/>
-						</>
+						console.log(name),
+						(
+							<>
+								<Field
+									name={`${name}.city`}
+									type="text"
+									required
+									t={T.fields.locations.city}
+								/>
+								<Field
+									name={`${name}.address`}
+									type="text"
+									required
+									t={T.fields.locations.address}
+								/>
+								<Field
+									name={`${name}.industrialHub`}
+									type="text"
+									required
+									t={T.fields.locations.industrialHub}
+								/>
+							</>
+						)
 					)}
 					T={T.fields.locations}
 				/>

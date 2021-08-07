@@ -316,37 +316,27 @@ export default {
 	createJobAd: {
 		formTitle: "Post a Job",
 		header1: "Reach hundreds of workers instantly with our job posts",
-		// checkboxes: {
-		// 	minimunEducation: {
-		// 		checkboxTitle: "Minumum Level Of Education",
-		// 		list: [
-		// 			{
-		// 				label: "Some High School",
-		// 				_name: "heighSchool",
-		// 			},
-		// 			{
-		// 				label: "Complete High School",
-		// 				_name: "completeSchool",
-		// 			},
-		// 			{
-		// 				label: "Some College",
-		// 				_name: "someSchool",
-		// 			},
-		// 			{
-		// 				label: "College Degrees",
-		// 				_name: "collegeDegrees",
-		// 			},
-		// 		],
-		// 	},
-		// },
 		fields: {
 			jobTitle: {
 				label: "Job Title",
 				placeholder:
 					"Tell us the title of the position you are advertising",
 			},
+			jobDescription: {
+				label: "Job Description",
+				placeholder:
+					"Enter a formal description of this job and include details such as the relevant job functions and responsiblities",
+			},
+			responsibilities: {
+				label: "Job Skills",
+				placeholder: "Enter the skills needed for the job",
+			},
+			qualifications: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Enter the certificates and licences preferred for this position",
+			},
 			minimunEducation: {	
-
 				label: "Minimum level of education",
 					someHighSchool: "Some High School",
 					completedHighSchool: "Completed High School",
@@ -447,20 +437,6 @@ export default {
 				internship: "Internship",
 				temporary: "Temporary",
 				contractor: "Contractor",
-			},
-			jobDescription: {
-				label: "Job Description",
-				placeholder:
-					"Enter a formal description of this job and include details such as the relevant job functions and responsiblities",
-			},
-			responsibilities: {
-				label: "Job Skills",
-				placeholder: "Enter the skills needed for the job",
-			},
-			qualifications: {
-				label: "Certificates & Licences",
-				placeholder:
-					"Enter the certificates and licences preferred for this position",
 			},
 		},
 		submit: "Submit",

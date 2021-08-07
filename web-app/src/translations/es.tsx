@@ -330,31 +330,25 @@ export default {
 		formTitle: "Publicar un Trabajo",
 		header1:
 			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
-		// checkboxes: {
-		// 	minimunEducation: {
-		// 		label: "Minumum Level Of Education",
-		// 		highSchool: {
-		// 			// name: "heighSchool",
-		// 			label: "Some High School",
-		// 		},
-		// 		completeSchool: {
-		// 			// name: "completeSchool",
-		// 			label: "Complete High School",
-		// 		},
-		// 		someCollege: {
-		// 			// name: "someSchool",
-		// 			label: "Some College",
-		// 		},
-		// 		collegeDegrees: {
-		// 			// name: "collegeDegrees",
-		// 			label: "College Degrees",
-		// 		},
-		// 	},
-		// },
 		fields: {
 			jobTitle: {
 				label: "Nombre del Cargo",
 				placeholder: "Ingrese el título del empleo que está anunciando",
+			},
+			jobDescription: {
+				label: "Descripción del Trabajo",
+				placeholder:
+					"Por favor ingrese una descripción formal de este trabajo",
+			},
+			responsibilities: {
+				label: "Resposabilidades",
+				placeholder:
+					"Por favor resuma las responsabilidades de este puesto",
+			},
+			qualifications: {
+				label: "Calificaciones",
+				placeholder:
+					"Por favor resuma las calificaciones necesarias para este puesto",
 			},
 			minimunEducation: {
 				label: "Minimum level of education",
@@ -437,21 +431,6 @@ export default {
 				internship: "Prácticas (Pasantía)",
 				temporary: "Proyecto (Temporal)",
 				contractor: "Contratista",
-			},
-			jobDescription: {
-				label: "Descripción del Trabajo",
-				placeholder:
-					"Por favor ingrese una descripción formal de este trabajo",
-			},
-			responsibilities: {
-				label: "Resposabilidades",
-				placeholder:
-					"Por favor resuma las responsabilidades de este puesto",
-			},
-			qualifications: {
-				label: "Calificaciones",
-				placeholder:
-					"Por favor resuma las calificaciones necesarias para este puesto",
 			},
 		},
 		submit: "Enviar",
