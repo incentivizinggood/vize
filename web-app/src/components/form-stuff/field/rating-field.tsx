@@ -9,7 +9,7 @@ import colors from "src/colors";
 const RatingContainer = styled.div<{ hasError: boolean }>`
 	margin-top: 16px;
 
-	color: ${props => (props.hasError ? colors.error : "inherit")};
+	color: ${(props) => (props.hasError ? colors.error : "inherit")};
 `;
 
 const RatingLayout = styled.div`

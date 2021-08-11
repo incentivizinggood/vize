@@ -7,18 +7,9 @@ import { User } from ".";
 
 const flagReviewInputSchema = yup
 	.object({
-		reviewId: yup
-			.string()
-			.trim()
-			.required(),
-		reason: yup
-			.string()
-			.trim()
-			.required(),
-		explanation: yup
-			.string()
-			.trim()
-			.required(),
+		reviewId: yup.string().trim().required(),
+		reason: yup.string().trim().required(),
+		explanation: yup.string().trim().required(),
 	})
 	.required();
 
@@ -26,13 +17,10 @@ export async function flagReview(
 	user: User | undefined | null,
 	input: unknown
 ): Promise<boolean> {
-	const {
-		reviewId,
-		reason,
-		explanation,
-	} = await flagReviewInputSchema.validate(input, {
-		abortEarly: false,
-	});
+	const { reviewId, reason, explanation } =
+		await flagReviewInputSchema.validate(input, {
+			abortEarly: false,
+		});
 
 	const reviewInfo = await simpleQuery1<{
 		reviewTitle: string;

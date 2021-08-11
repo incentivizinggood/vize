@@ -4,18 +4,19 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { sendEmail } from "src/connectors/email";
 import { postToSlack } from "src/connectors/slack-webhook";
-import { monthTranslations, educationTranslations, languageProficiencyTranslations, workShiftTranlsations } from "src/utils/translation-utils"
+import {
+	monthTranslations,
+	educationTranslations,
+	languageProficiencyTranslations,
+	workShiftTranlsations,
+} from "src/utils/translation-utils";
 import { locationInputSchema } from "./location";
 import { workExperienceInputSchema } from "./work-experience";
 
 const createJobAdInputSchema = yup
 	.object({
 		jobTitle: yup.string().required(),
-		locations: yup
-			.array()
-			.required()
-			.min(1)
-			.of(locationInputSchema),
+		locations: yup.array().required().min(1).of(locationInputSchema),
 		salaryMin: yup.number().required(),
 		salaryMax: yup.number().required(),
 		salaryType: yup
@@ -44,16 +45,8 @@ const createJobAdInputSchema = yup
 		// TODO: Should we check for a valid time format here? The database ensures this for now.
 		startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
 		endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-		startDay: yup
-			.number()
-			.integer()
-			.min(0)
-			.max(6),
-		endDay: yup
-			.number()
-			.integer()
-			.min(0)
-			.max(6),
+		startDay: yup.number().integer().min(0).max(6),
+		endDay: yup.number().integer().min(0).max(6),
 	})
 	.required();
 
@@ -84,7 +77,7 @@ export async function createJobAd(
 		);
 	}
 
-	const transaction: Transaction<number> = async client => {
+	const transaction: Transaction<number> = async (client) => {
 		const {
 			rows: [{ role, companyid }],
 		} = await client.query(
@@ -149,7 +142,7 @@ export async function createJobAd(
 			VALUES
 				${locations
 					.map(
-						l =>
+						(l) =>
 							sql`(
 								${jobadid},
 								${l.city},
@@ -167,7 +160,7 @@ export async function createJobAd(
 }
 
 function formatWorkExperiences(workExperiences: any): any {
-	// prettier-ignore
+	
 	workExperiences?.forEach(function(_: any, index: number) {	
 		const startDate = new Date(workExperiences[index].startDate);
 		const startDateMonth = monthTranslations[startDate.getMonth().toString()];
@@ -194,23 +187,13 @@ const createApplyToJobAdInputSchema = yup
 		jobTitle: yup.string().required(),
 		numReviews: yup.number().required(),
 		fullName: yup.string().required(),
-		email: yup
-			.string()
-			.email()
-			.required(),
+		email: yup.string().email().required(),
 		phoneNumber: yup.string().required(),
 		city: yup.string().required(),
 		neighborhood: yup.string(),
 		workExperiences: yup.array().of(workExperienceInputSchema),
-		skills: yup
-			.array()
-			.required()
-			.min(1)
-			.of(yup.string()),
-		certificatesAndLicences: yup
-			.array()
-			.of(yup.string())
-			.nullable(),
+		skills: yup.array().required().min(1).of(yup.string()),
+		certificatesAndLicences: yup.array().of(yup.string()).nullable(),
 		englishProficiency: yup
 			.string()
 			.oneOf([
@@ -230,18 +213,14 @@ const createApplyToJobAdInputSchema = yup
 				"COLLEGE_DEGREE",
 			])
 			.required(),
-		availability: yup
-			.array()
-			.required()
-			.min(1)
-			.of(yup.string()),
+		availability: yup.array().required().min(1).of(yup.string()),
 		availabilityComments: yup.string().nullable(),
 		coverLetter: yup.string(),
 	})
 	.required();
 
 export async function applyToJobAd(input: unknown): Promise<boolean> {
-	let {
+	const {
 		jobAdId,
 		jobTitle,
 		fullName,
@@ -260,7 +239,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		numReviews,
 	} = await createApplyToJobAdInputSchema.validate(input);
 
-	const transaction: Transaction<boolean> = async client => {
+	const transaction: Transaction<boolean> = async (client) => {
 		const {
 			rows: [
 				{
@@ -316,26 +295,35 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		);
 
 		// This is the message we will use to inform companies that the worker left a field blank
-		const userLeftFieldBlankMessage = "*El solicitante dejó este campo en blanco*";
+		const userLeftFieldBlankMessage =
+			"*El solicitante dejó este campo en blanco*";
 
 		// Adjusting formatting for the employer email
 		const workExperiencesFormatted = formatWorkExperiences(workExperiences);
-		const availabilityTranslated = availability.map(function(_: any, index: number) {	
+		const availabilityTranslated = availability.map(function (
+			_: any,
+			index: number
+		) {
 			// @ts-ignore
 			return workShiftTranlsations[availability[index]];
 		});
-		const availabilityTranslatedAndFormatted = availabilityTranslated.join(", ");
+		const availabilityTranslatedAndFormatted =
+			availabilityTranslated.join(", ");
 		const skillsFormatted = skills.join(", ");
-		const certificatesAndLicencesFormatted = (certificatesAndLicences && certificatesAndLicences.length > 0) ? certificatesAndLicences.join(", ") : userLeftFieldBlankMessage;
-		const englishProficiencyTranslated = languageProficiencyTranslations[englishProficiency];
-		const highestLevelOfEducationTranslated = educationTranslations[highestLevelOfEducation];
+		const certificatesAndLicencesFormatted =
+			certificatesAndLicences && certificatesAndLicences.length > 0
+				? certificatesAndLicences.join(", ")
+				: userLeftFieldBlankMessage;
+		const englishProficiencyTranslated =
+			languageProficiencyTranslations[englishProficiency];
+		const highestLevelOfEducationTranslated =
+			educationTranslations[highestLevelOfEducation];
 		let availabilityCommentsFormatted = availabilityComments;
 		let neighborhoodFormatted = neighborhood;
 
 		if (!availabilityComments)
 			availabilityCommentsFormatted = userLeftFieldBlankMessage;
-		if (!neighborhood)
-			neighborhoodFormatted = userLeftFieldBlankMessage;
+		if (!neighborhood) neighborhoodFormatted = userLeftFieldBlankMessage;
 
 		// Have to make some adjustments for the required JSON formatting
 		const coverLetterJSON = coverLetter
@@ -360,7 +348,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				applicantName: `${firstName}`,
 				companyId: `${companyId}`,
 				jobAdId: `${jobAdId}`,
-				readEmployerReviews: `${readEmployerReviews}`
+				readEmployerReviews: `${readEmployerReviews}`,
 			},
 		});
 		await sendEmail({
@@ -382,7 +370,7 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 				highestLevelOfEducation: `${highestLevelOfEducationTranslated}`,
 				availability: `${availabilityTranslatedAndFormatted}`,
 				availabilityComments: `${availabilityCommentsFormatted}`,
-				coverLetter: `${coverLetterJSON}`
+				coverLetter: `${coverLetterJSON}`,
 			},
 		});
 

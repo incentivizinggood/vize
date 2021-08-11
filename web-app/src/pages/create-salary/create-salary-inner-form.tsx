@@ -36,7 +36,7 @@ function InnerForm({ submissionError }) {
 			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
 
 			<T.fields.incomeType
-				renderer={t => (
+				renderer={(t) => (
 					<Field name="incomeType" select required label={t.label}>
 						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
 						<option value="MONTHLY_SALARY">
@@ -57,7 +57,7 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<T.fields.gender
-				renderer={t => (
+				renderer={(t) => (
 					<Field name="gender" select label={t.label}>
 						<option value="MALE">{t.male}</option>
 						<option value="FEMALE">{t.female}</option>

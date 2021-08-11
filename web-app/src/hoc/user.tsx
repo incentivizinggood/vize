@@ -16,7 +16,7 @@ export function useUser(): UserInfo {
 export function withUser<T>(
 	WrappedComponent: React.ComponentType<T & { user: UserInfo }>
 ) {
-	return function(props: T) {
+	return function (props: T) {
 		const user = useUser();
 		return <WrappedComponent {...props} user={user} />;
 	};

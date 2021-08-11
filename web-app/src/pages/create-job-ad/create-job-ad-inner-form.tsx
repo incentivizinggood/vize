@@ -47,7 +47,7 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<T.fields.salaryType
-				renderer={t => (
+				renderer={(t) => (
 					<Field name="salaryType" select required label={t.label}>
 						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
 						<option value="MONTHLY_SALARY">
@@ -98,7 +98,7 @@ function InnerForm({ submissionError }) {
 
 			<span>
 				<T.fields.jobSchedule
-					renderer={t => (
+					renderer={(t) => (
 						<Field
 							name="startDay"
 							select
@@ -120,7 +120,7 @@ function InnerForm({ submissionError }) {
 				/>
 
 				<T.fields.jobSchedule
-					renderer={t => (
+					renderer={(t) => (
 						<Field
 							name="endDay"
 							select
@@ -144,7 +144,7 @@ function InnerForm({ submissionError }) {
 
 			<span>
 				<T.fields.jobSchedule
-					renderer={t => (
+					renderer={(t) => (
 						<Field
 							name="startTime"
 							type="time"
@@ -158,7 +158,7 @@ function InnerForm({ submissionError }) {
 				/>
 
 				<T.fields.jobSchedule
-					renderer={t => (
+					renderer={(t) => (
 						<Field
 							name="endTime"
 							type="time"
@@ -173,7 +173,7 @@ function InnerForm({ submissionError }) {
 			</span>
 
 			<T.fields.contractType
-				renderer={t => (
+				renderer={(t) => (
 					<Field name="contractType" select required label={t.label}>
 						<option value="FULL_TIME">{t.fullTime}</option>
 						<option value="TEMPORARY">{t.temporary}</option>

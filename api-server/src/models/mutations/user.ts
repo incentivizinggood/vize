@@ -16,15 +16,8 @@ import { attributes } from "../queries/user";
 
 const createUserInputSchema = yup
 	.object({
-		email: yup
-			.string()
-			.email()
-			.required(),
-		password: yup
-			.string()
-			.min(1)
-			.max(256)
-			.required(),
+		email: yup.string().email().required(),
+		password: yup.string().min(1).max(256).required(),
 		role: yup
 			.mixed<"worker" | "company">()
 			.oneOf(["worker", "company"])
@@ -70,10 +63,7 @@ export async function createUser(input: unknown): Promise<User> {
 
 const verifyUserInputSchema = yup
 	.object({
-		loginId: yup
-			.string()
-			.trim()
-			.required(),
+		loginId: yup.string().trim().required(),
 		password: yup.string().required(),
 	})
 	.required();
@@ -118,12 +108,10 @@ export async function changePassword(
 	user: User | undefined | null,
 	input: unknown
 ): Promise<void> {
-	const {
-		oldPassword,
-		newPassword,
-	} = await changePasswordInputSchema.validate(input, {
-		abortEarly: false,
-	});
+	const { oldPassword, newPassword } =
+		await changePasswordInputSchema.validate(input, {
+			abortEarly: false,
+		});
 
 	if (!user) {
 		// Error in English: "You must be logged in to change your password."
@@ -165,13 +153,10 @@ const authWithFacebookInputSchema = yup
 
 /** Creates or verifies user. */
 export async function authWithFacebook(input: unknown): Promise<User> {
-	const {
-		facebookId,
-		role,
-		emailAddress,
-	} = await authWithFacebookInputSchema.validate(input, {
-		abortEarly: false,
-	});
+	const { facebookId, role, emailAddress } =
+		await authWithFacebookInputSchema.validate(input, {
+			abortEarly: false,
+		});
 
 	// Check if this user has logged in with Facebook before.
 	const { rows } = await pool.query(sql`
@@ -203,10 +188,7 @@ export async function authWithFacebook(input: unknown): Promise<User> {
 
 const requestPasswordResetInputSchema = yup
 	.object({
-		emailAddress: yup
-			.string()
-			.email()
-			.required(),
+		emailAddress: yup.string().email().required(),
 	})
 	.required();
 
@@ -219,12 +201,14 @@ export async function requestPasswordReset(input: unknown): Promise<void> {
 	);
 
 	const { userid: userId } =
-		(await pool.query<{ userid: number }>(sql`
+		(
+			await pool.query<{ userid: number }>(sql`
 			SELECT userid
 			FROM users
 			WHERE email_address=${emailAddress}
 			LIMIT 1
-		`)).rows[0] || {};
+		`)
+		).rows[0] || {};
 
 	if (userId === undefined) {
 		// English Translation: "There is no user with that email address."
@@ -259,21 +243,21 @@ const resetPasswordInputSchema = yup
 	.required();
 
 export async function resetPassword(input: unknown): Promise<void> {
-	const {
-		passwordResetRequestId,
-		newPassword,
-	} = await resetPasswordInputSchema.validate(input, {
-		abortEarly: false,
-	});
+	const { passwordResetRequestId, newPassword } =
+		await resetPasswordInputSchema.validate(input, {
+			abortEarly: false,
+		});
 
 	const { user_id: userId } =
-		(await pool.query<{ user_id: number }>(sql`
+		(
+			await pool.query<{ user_id: number }>(sql`
 			SELECT user_id
 			FROM password_reset_requests
 			WHERE id = ${passwordResetRequestId} 
 			  AND expiration_date > NOW()
 			LIMIT 1
-		`)).rows[0] || {};
+		`)
+		).rows[0] || {};
 
 	if (userId === undefined) {
 		// English Translation: "This password reset request is invalid or expired."

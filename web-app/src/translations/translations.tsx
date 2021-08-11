@@ -58,7 +58,7 @@ function makeTranslationComponents<RootMessage>(
 		) {
 			for (const k of Object.keys(message)) {
 				TranslationComponent[k] = makeTranslationComponent(
-					rootMessage => getMessage(rootMessage)[k]
+					(rootMessage) => getMessage(rootMessage)[k]
 				);
 			}
 		}
@@ -66,13 +66,13 @@ function makeTranslationComponents<RootMessage>(
 		return TranslationComponent;
 	}
 
-	return makeTranslationComponent(x => x);
+	return makeTranslationComponent((x) => x);
 }
 
 export function makeTranslationHook<RootMessage>(
 	translations: Record<string, RootMessage>
 ): () => RootMessage {
-	return function() {
+	return function () {
 		const locale = React.useContext(LocaleContext);
 		return translations[locale];
 	};

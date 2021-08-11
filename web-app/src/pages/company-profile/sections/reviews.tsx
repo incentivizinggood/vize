@@ -60,7 +60,10 @@ function ReviewsSection(props: ReviewsSectionProps): JSX.Element {
 
 				<div>{reviewsToDisplay}</div>
 
-				<SeeMoreFooter to={`./${urlGenerators.queryRoutes.reviews}`} ariaControls={urlGenerators.queryRoutes.reviews}>
+				<SeeMoreFooter
+					to={`./${urlGenerators.queryRoutes.reviews}`}
+					ariaControls={urlGenerators.queryRoutes.reviews}
+				>
 					<T.overview_tab.see_all_reviews />
 				</SeeMoreFooter>
 			</SectionContainer>

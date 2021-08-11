@@ -88,7 +88,7 @@ function sql(
  * Convert a raw string to a SQL statement.
  * Be carful to avoid SQL injections!
  */
-sql.raw = function(string: string) {
+sql.raw = function (string: string) {
 	return new SqlStatement([string]);
 };
 

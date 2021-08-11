@@ -99,7 +99,7 @@ function InnerForm({
 			{/* Had to manually code the form array here because I was getting a bug where the field would lose focus after typing a character */}
 			<FieldArray
 				name="workExperiences"
-				render={arrayHelpers => (
+				render={(arrayHelpers) => (
 					<ArrayContainer>
 						{values.workExperiences.map((_: any, index: number) => (
 							<ElementContainer key={`experience-${index}`}>
@@ -151,7 +151,7 @@ function InnerForm({
 										</FieldTitle>
 
 										<T.fields.workExperiences
-											renderer={t => (
+											renderer={(t) => (
 												<Field
 													name={`workExperiences[${index}].startDateMonth`}
 													select
@@ -204,7 +204,7 @@ function InnerForm({
 										/>
 
 										<T.fields.workExperiences
-											renderer={t => (
+											renderer={(t) => (
 												<Field
 													name={`workExperiences[${index}].startDateYear`}
 													select
@@ -249,7 +249,7 @@ function InnerForm({
 										.iCurrentlyWorkHere && (
 										<span>
 											<T.fields.workExperiences
-												renderer={t => (
+												renderer={(t) => (
 													<Field
 														name={`workExperiences[${index}].endDateMonth`}
 														select
@@ -302,7 +302,7 @@ function InnerForm({
 											/>
 
 											<T.fields.workExperiences
-												renderer={t => (
+												renderer={(t) => (
 													<Field
 														name={`workExperiences[${index}].endDateYear`}
 														select
@@ -405,7 +405,7 @@ function InnerForm({
 			<br />
 
 			<T.fields.englishProficiency
-				renderer={t => (
+				renderer={(t) => (
 					<Field
 						name="englishProficiency"
 						type="radioButtons"
@@ -446,7 +446,7 @@ function InnerForm({
 			<br />
 
 			<T.fields.education
-				renderer={t => (
+				renderer={(t) => (
 					<Field
 						name="highestLevelOfEducation"
 						type="radioButtons"

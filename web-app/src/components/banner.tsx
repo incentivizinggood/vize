@@ -10,7 +10,7 @@ interface BannerContainerExtraProps {
 const BannerContainer = styled.div<BannerContainerExtraProps>`
 	height: 700px;
 
-	background: url(${props => props.$image}) no-repeat 0 0;
+	background: url(${(props) => props.$image}) no-repeat 0 0;
 	background-size: cover;
 
 	display: flex;

@@ -82,7 +82,7 @@ class ContactForm extends React.Component {
 					</span>
 					<div className="wrap-input rs1 validate-input">
 						<T.aboutUs.placeholder_name
-							renderer={t => (
+							renderer={(t) => (
 								<input
 									id="first-name"
 									className="input"
@@ -97,7 +97,7 @@ class ContactForm extends React.Component {
 					</div>
 					<div className="wrap-input rs1 validate-input">
 						<T.aboutUs.placeholder_email
-							renderer={t => (
+							renderer={(t) => (
 								<input
 									id="email"
 									className="input"
@@ -112,7 +112,7 @@ class ContactForm extends React.Component {
 					</div>
 					<div className="wrap-input validate-input">
 						<T.aboutUs.placeholder_comments
-							renderer={t => (
+							renderer={(t) => (
 								<textarea
 									id="message"
 									className="input"

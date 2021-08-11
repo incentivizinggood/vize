@@ -24,30 +24,29 @@ const initialValues: Values = {
 	email: "",
 };
 
-const onSubmit = (history: History, setSubmissionError: any) => async (
-	values: Values,
-	actions: FormikHelpers<Values>
-) => {
-	try {
-		await requestPasswordReset({
-			emailAddress: values.email,
-		});
+const onSubmit =
+	(history: History, setSubmissionError: any) =>
+	async (values: Values, actions: FormikHelpers<Values>) => {
+		try {
+			await requestPasswordReset({
+				emailAddress: values.email,
+			});
 
-		actions.resetForm({ values: initialValues });
+			actions.resetForm({ values: initialValues });
 
-		// TODO Make a better UI for successful submission.
-		// English Translation: "We have emailed you a link to reset your password"
-		alert(
-			"Te hemos enviado un enlace por correo electrónico para restablecer tu contraseña."
-		);
-		history.push("/");
-	} catch (error) {
-		// Error to display at bottom of form
-		setSubmissionError(error.message);
+			// TODO Make a better UI for successful submission.
+			// English Translation: "We have emailed you a link to reset your password"
+			alert(
+				"Te hemos enviado un enlace por correo electrónico para restablecer tu contraseña."
+			);
+			history.push("/");
+		} catch (error) {
+			// Error to display at bottom of form
+			setSubmissionError(error.message);
 
-		actions.setSubmitting(false);
-	}
-};
+			actions.setSubmitting(false);
+		}
+	};
 
 export default function RequestPasswordResetForm(): JSX.Element {
 	const history = useHistory();

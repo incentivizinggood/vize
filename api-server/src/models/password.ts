@@ -5,10 +5,7 @@ function prehash(password: string): string {
 	// For some reason Meteor's account system hashed passwords before
 	// passing them to bcrypt. We must replicate that behavior here so that
 	// password hashes from the old database will still work.
-	return crypto
-		.createHash("sha256")
-		.update(password)
-		.digest("hex");
+	return crypto.createHash("sha256").update(password).digest("hex");
 }
 
 export async function hashPassword(password: string): Promise<string> {

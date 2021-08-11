@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Panel = styled.div<Props>`
-	${props => props.roundedEdges && "border-radius: 10px;"};
+	${(props) => props.roundedEdges && "border-radius: 10px;"};
 
 	margin-left: auto;
 	margin-right: auto;

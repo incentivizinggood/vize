@@ -13,27 +13,27 @@ export const pool = new Pool();
 // sense, not the food)
 export type Transaction<R> = (query: PoolClient) => Promise<R>;
 
-const execTransaction = (readOnly: boolean) => async <R>(
-	transaction: Transaction<R>
-): Promise<R> => {
-	const client = await pool.connect();
-	try {
-		await client.query(
-			readOnly ? "START TRANSACTION READ ONLY" : "START TRANSACTION"
-		);
+const execTransaction =
+	(readOnly: boolean) =>
+	async <R>(transaction: Transaction<R>): Promise<R> => {
+		const client = await pool.connect();
+		try {
+			await client.query(
+				readOnly ? "START TRANSACTION READ ONLY" : "START TRANSACTION"
+			);
 
-		const result = await transaction(client);
+			const result = await transaction(client);
 
-		await client.query("COMMIT");
+			await client.query("COMMIT");
 
-		return result;
-	} catch (err) {
-		await client.query("ROLLBACK");
-		throw err;
-	} finally {
-		await client.release();
-	}
-};
+			return result;
+		} catch (err) {
+			await client.query("ROLLBACK");
+			throw err;
+		} finally {
+			await client.release();
+		}
+	};
 
 // Execute a read-only transaction on the database.
 export const execTransactionRO = execTransaction(true);

@@ -15,9 +15,9 @@ import InnerForm from "./create-salary-inner-form";
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
 	if (x instanceof Array)
-		return filter(map(x, omitEmptyStrings), y => y !== undefined);
+		return filter(map(x, omitEmptyStrings), (y) => y !== undefined);
 	if (x instanceof Object)
-		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
+		return omitBy(mapValues(x, omitEmptyStrings), (y) => y === undefined);
 	return x;
 }
 
@@ -76,7 +76,7 @@ export default function CreateSalaryForm({ companyName }) {
 				// Go to the review submitted page so that the user can claim their reward.
 				history.push("/");
 			})
-			.catch(errors => {
+			.catch((errors) => {
 				// Error in English: Not Logged In
 				if (
 					errors.message.includes(

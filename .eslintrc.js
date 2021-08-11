@@ -4,14 +4,13 @@ module.exports = {
 		node: true,
 		browser: true,
 	},
-	plugins: ["react", "jsx-a11y", "@typescript-eslint", "prettier"],
+	plugins: ["react", "jsx-a11y", "@typescript-eslint"],
 	extends: [
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:jsx-a11y/recommended",
 		"plugin:@typescript-eslint/recommended",
 		"prettier/@typescript-eslint",
-		"plugin:prettier/recommended",
 	],
 	rules: {
 		// Simple functions are better than classes. We should always use them
@@ -47,6 +46,8 @@ module.exports = {
 			"warn",
 			{ args: "all", argsIgnorePattern: "^_" },
 		],
+		"@typescript-eslint/ban-ts-comment": "off",
+		"no-mixed-spaces-and-tabs": "off",
 	},
 	settings: {
 		react: {

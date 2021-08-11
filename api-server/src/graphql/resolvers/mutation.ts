@@ -27,7 +27,7 @@ export const Mutation: MutationResolvers = {
 
 		return dataModel
 			.castVote(context.user, Number(subjectId), isUpvote)
-			.then(vote => (vote ? { vote } : null));
+			.then((vote) => (vote ? { vote } : null));
 	},
 
 	resourceLike: async (

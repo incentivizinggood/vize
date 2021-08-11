@@ -94,7 +94,7 @@ export default function JobTab({ companyId }: JobTabProps): JSX.Element {
 				</SectionHeaderTitle>
 			</SectionHeaderContainer>
 
-			{data.company.jobAds.map(jobAd => (
+			{data.company.jobAds.map((jobAd) => (
 				<JobPosting key={jobAd.id} job={jobAd} />
 			))}
 			{loading ? <Spinner /> : null}

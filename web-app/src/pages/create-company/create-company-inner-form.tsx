@@ -31,17 +31,19 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<Field name="numEmployees" select t={T.fields.numEmployees}>
-				{// TODO: Refactor
-				[
-					<option value="">(Select One)</option>,
-					...[
-						"1 - 50",
-						"51 - 500",
-						"501 - 2000",
-						"2001 - 5000",
-						"5000+",
-					].map(x => <option value={x}>{x}</option>),
-				]}
+				{
+					// TODO: Refactor
+					[
+						<option value="">(Select One)</option>,
+						...[
+							"1 - 50",
+							"51 - 500",
+							"501 - 2000",
+							"2001 - 5000",
+							"5000+",
+						].map((x) => <option value={x}>{x}</option>),
+					]
+				}
 			</Field>
 
 			<Field name="industry" type="text" t={T.fields.industry} />

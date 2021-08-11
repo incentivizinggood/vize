@@ -8,10 +8,11 @@ export interface ButtonExtraProps {
 }
 
 const Button = styled.button<ButtonExtraProps>`
-	&&&&&&&&& { /* Increase specificity to override global styles. */
+	&&&&&&&&& {
+		/* Increase specificity to override global styles. */
 
 		/* Color the button to show it's status. */
-		${props => {
+		${(props) => {
 			if (props.disabled) {
 				if (props.$primary) {
 					return css`
@@ -48,7 +49,7 @@ const Button = styled.button<ButtonExtraProps>`
 		}}
 
 		/* Disabled buttons cannot be clicked */
-		${props =>
+		${(props) =>
 			props.disabled &&
 			css`
 				pointer-events: none;

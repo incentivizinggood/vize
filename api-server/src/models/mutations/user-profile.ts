@@ -16,15 +16,8 @@ const userProfileInputSchema = yup
 			.required()
 			.min(1)
 			.of(workExperienceInputSchema),
-		skills: yup
-			.array()
-			.required()
-			.min(1)
-			.of(yup.string()),
-		certificatesAndLicences: yup
-			.array()
-			.of(yup.string())
-			.nullable(),
+		skills: yup.array().required().min(1).of(yup.string()),
+		certificatesAndLicences: yup.array().of(yup.string()).nullable(),
 		englishProficiency: yup
 			.string()
 			.oneOf([
@@ -44,11 +37,7 @@ const userProfileInputSchema = yup
 				"COLLEGE_DEGREE",
 			])
 			.required(),
-		availability: yup
-			.array()
-			.required()
-			.min(1)
-			.of(yup.string()),
+		availability: yup.array().required().min(1).of(yup.string()),
 		availabilityComments: yup.string().nullable(),
 		longTermProfessionalGoal: yup.string(),
 	})
@@ -73,7 +62,7 @@ export async function createUserProfile(
 		longTermProfessionalGoal,
 	} = await userProfileInputSchema.validate(input);
 
-	const transaction: Transaction<boolean> = async client => {
+	const transaction: Transaction<boolean> = async (client) => {
 		const {
 			rows: [{ role, email_address: email }],
 		} = await client.query(
@@ -169,7 +158,7 @@ export async function updateUserProfile(
 		longTermProfessionalGoal,
 	} = await userProfileInputSchema.validate(input);
 
-	const transaction: Transaction<void> = async client => {
+	const transaction: Transaction<void> = async (client) => {
 		const {
 			rows: [{ role }],
 		} = await client.query(

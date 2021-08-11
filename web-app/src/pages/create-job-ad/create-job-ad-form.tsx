@@ -14,9 +14,9 @@ import InnerForm from "./create-job-ad-inner-form";
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
 	if (x instanceof Array)
-		return filter(map(x, omitEmptyStrings), y => y !== undefined);
+		return filter(map(x, omitEmptyStrings), (y) => y !== undefined);
 	if (x instanceof Object)
-		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
+		return omitBy(mapValues(x, omitEmptyStrings), (y) => y === undefined);
 	return x;
 }
 
@@ -44,10 +44,7 @@ const initialValues = {
 
 const schema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el titulo de empleo"),
-	locations: yup
-		.array()
-		.of(schemas.locationSchema)
-		.required(),
+	locations: yup.array().of(schemas.locationSchema).required(),
 	salaryMin: yup.number().required("Se requiere el salario minimo"),
 	salaryMax: yup.number().required("Se requiere el salario maximo"),
 	startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
@@ -93,42 +90,40 @@ const schema = yup.object().shape({
 	qualifications: yup.string().required("Se requieren las calificaciones"),
 });
 
-const onSubmit = (createJobAd, history, setSubmissionError) => (
-	values,
-	actions
-) =>
-	createJobAd({
-		variables: {
-			input: omitEmptyStrings(values),
-		},
-	})
-		.then(({ data }) => {
-			actions.resetForm(initialValues);
-
-			// Track successful job posted event
-			analytics.sendEvent({
-				category: "Company",
-				action: "Job Posted",
-			});
-
-			// Go to the company profile page for this jobAd's company.
-			history.push(
-				urlGenerators.vizeCompanyProfileUrl(
-					data.createJobAd.jobAd.company.id
-				)
-			);
+const onSubmit =
+	(createJobAd, history, setSubmissionError) => (values, actions) =>
+		createJobAd({
+			variables: {
+				input: omitEmptyStrings(values),
+			},
 		})
-		.catch(errors => {
-			// Errors to display on form fields
-			const formErrors = {};
+			.then(({ data }) => {
+				actions.resetForm(initialValues);
 
-			// cut out the "GraphQL error: " from error message
-			const errorMessage = errors.message.substring(14);
-			setSubmissionError(errorMessage);
+				// Track successful job posted event
+				analytics.sendEvent({
+					category: "Company",
+					action: "Job Posted",
+				});
 
-			actions.setErrors(formErrors);
-			actions.setSubmitting(false);
-		});
+				// Go to the company profile page for this jobAd's company.
+				history.push(
+					urlGenerators.vizeCompanyProfileUrl(
+						data.createJobAd.jobAd.company.id
+					)
+				);
+			})
+			.catch((errors) => {
+				// Errors to display on form fields
+				const formErrors = {};
+
+				// cut out the "GraphQL error: " from error message
+				const errorMessage = errors.message.substring(14);
+				setSubmissionError(errorMessage);
+
+				actions.setErrors(formErrors);
+				actions.setSubmitting(false);
+			});
 
 export default function CreateJobAdForm() {
 	const history = useHistory();

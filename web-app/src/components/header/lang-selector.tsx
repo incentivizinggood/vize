@@ -9,7 +9,7 @@ import {
 } from "src/startup/i18n";
 
 interface LocaleIconProps {
-	code: keyof (typeof localeMetadata);
+	code: keyof typeof localeMetadata;
 }
 
 function LocaleIcon({ code }: LocaleIconProps): JSX.Element {
@@ -33,23 +33,23 @@ function fak<T>(record: T): (keyof T)[] {
 	return Object.keys(record) as any;
 }
 
-const langOptions = (setLocale: (locale: string) => void) => (
-	close: () => void
-) => (
-	<>
-		{fak(localeMetadata).map(code => (
-			<LocaleButton
-				key={code}
-				onClick={() => {
-					setLocale(code);
-					close();
-				}}
-			>
-				<LocaleIcon code={code} />
-			</LocaleButton>
-		))}
-	</>
-);
+const langOptions =
+	(setLocale: (locale: string) => void) => (close: () => void) =>
+		(
+			<>
+				{fak(localeMetadata).map((code) => (
+					<LocaleButton
+						key={code}
+						onClick={() => {
+							setLocale(code);
+							close();
+						}}
+					>
+						<LocaleIcon code={code} />
+					</LocaleButton>
+				))}
+			</>
+		);
 
 export default function LangSelector(): JSX.Element {
 	const locale = React.useContext(LocaleContext);

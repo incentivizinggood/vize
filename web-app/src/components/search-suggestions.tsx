@@ -23,7 +23,7 @@ export function SearchSuggestions({
 
 	return (
 		<datalist id={id}>
-			{options.map(x => (
+			{options.map((x) => (
 				<option key={x} value={x} />
 			))}
 		</datalist>

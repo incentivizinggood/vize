@@ -119,7 +119,7 @@ function ReviewTab({ companyId }: ReviewTabProps): JSX.Element {
 
 				<CompanyRating company={data.company} />
 			</SectionContainer>
-			{data.company.reviews.map(review => (
+			{data.company.reviews.map((review) => (
 				<CompanyReview key={review.id} review={review} />
 			))}
 			{loading ? <Spinner /> : null}

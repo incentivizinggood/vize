@@ -114,7 +114,7 @@ const ResourcesSectionText = styled.p`
 	}
 `;
 
-const GetStarted = props => (
+const GetStarted = (props) => (
 	<LinkButton $primary to={urlGenerators.vizeRegister("company")} {...props}>
 		<T.getStarted />
 	</LinkButton>
@@ -182,7 +182,7 @@ const PlanOption = ({ name, items }: PlanOptionProps) => (
 	<PlanBox>
 		<PlanName>{name}</PlanName>
 		<PlanFeatureList>
-			{items.map(item => (
+			{items.map((item) => (
 				<li>{item}</li>
 			))}
 		</PlanFeatureList>
@@ -315,7 +315,7 @@ function ForEmployers() {
 						</P>
 					</div>
 					<T.img.exampleJobPost
-						renderer={t => (
+						renderer={(t) => (
 							<img
 								className="img-responsive"
 								src={t.src}
@@ -334,7 +334,7 @@ function ForEmployers() {
 						</P>
 					</div>
 					<T.img.analyticsDashboard
-						renderer={t => (
+						renderer={(t) => (
 							<img
 								className="img-responsive"
 								src={t.src}

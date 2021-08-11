@@ -61,7 +61,7 @@ function FormArray({
 		<>
 			<FieldArray
 				name={name}
-				render={arrayHelpers => (
+				render={(arrayHelpers) => (
 					<ArrayContainer>
 						{values[name] && values[name].length > 0
 							? values[name].map((x: unknown, index: number) => (

@@ -98,7 +98,9 @@ interface JobApplicationSubmittedInnerContentProps {
 	companyId?: string;
 }
 
-export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicationSubmittedInnerContentProps) {
+export function JobApplicationSubmittedInnerContent({
+	companyId,
+}: JobApplicationSubmittedInnerContentProps) {
 	const referralLink: string = `www.vize.mx/${urlGenerators.queryRoutes.jobs}?ref=jobapp`;
 	const [copySuccess, setCopySuccess] = React.useState("");
 	const textAreaRef = React.useRef(null);
@@ -111,7 +113,7 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 	if (loading) {
 		return <Spinner />;
 	}
-	
+
 	if (copySuccess === "Copiado!") {
 		ClipboardStatusIcon = <ClipboardCopiedIcon />;
 	}
@@ -120,25 +122,26 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 		navigator.clipboard.writeText(text);
 		setCopySuccess("Copiado!");
 	}
-	return(
+	return (
 		<PageInnerContentContainer>
 			<h3>
 				<T.jobApplicationSubmitted /> {data?.company?.name}
 			</h3>
-			
+
 			<br />
-			
+
 			<p>
 				{data?.company?.name} <T.companyWillReachOut />
 			</p>
 			<p>
-				<T.contactUs /> 
+				<T.contactUs />
 				<ContactNumberLink
 					href="https://wa.me/5216647480001"
 					rel="noreferrer"
 					target="_blank"
-				>+52(664)748-0001
-			</ContactNumberLink>
+				>
+					+52(664)748-0001
+				</ContactNumberLink>
 			</p>
 
 			<br />
@@ -146,9 +149,23 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 				<T.readReviews />
 			</p>
 			<br />
-			<LinkButton to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`} style={{ width: "100%" }} $primary> <T.readReviewsButton /> </LinkButton>
+			<LinkButton
+				to={`${urlGenerators.queryRoutes.companyProfile}/${companyId}/${urlGenerators.queryRoutes.jobs}`}
+				style={{ width: "100%" }}
+				$primary
+			>
+				{" "}
+				<T.readReviewsButton />{" "}
+			</LinkButton>
 			<br />
-			<LinkButton to={urlGenerators.queryRoutes.jobs} style={{ width: "100%" }} $primary> <T.viewMoreJobs /> </LinkButton>
+			<LinkButton
+				to={urlGenerators.queryRoutes.jobs}
+				style={{ width: "100%" }}
+				$primary
+			>
+				{" "}
+				<T.viewMoreJobs />{" "}
+			</LinkButton>
 
 			<br />
 
@@ -172,11 +189,11 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 				<WhatsappShareButton
 					url={referralLink}
 					title={personalReferralMessage}
-					style={{ marginRight: "7px"}}
+					style={{ marginRight: "7px" }}
 				>
 					<WhatsappIcon size={48} round={true} />
 				</WhatsappShareButton>
-				
+
 				<FacebookShareButton
 					url={referralLink}
 					quote={publicReferralMessage}
@@ -185,7 +202,7 @@ export function JobApplicationSubmittedInnerContent({ companyId }: JobApplicatio
 					<FacebookIcon size={48} round={true} />
 				</FacebookShareButton>
 			</div>
-		</PageInnerContentContainer>	
+		</PageInnerContentContainer>
 	);
 }
 
@@ -194,7 +211,9 @@ interface JobApplicationSubmittedProps {
 }
 
 // The page that users see when a job application is submitted
-export default function JobApplicationSubmitted({companyId}: JobApplicationSubmittedProps) {
+export default function JobApplicationSubmitted({
+	companyId,
+}: JobApplicationSubmittedProps) {
 	return (
 		<PageWrapper title="Solicitud Enviada">
 			<PageContentContainer>
