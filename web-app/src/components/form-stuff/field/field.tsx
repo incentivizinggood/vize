@@ -26,7 +26,7 @@ const FormikField = styled(Formik.Field)`
 		border: 1px solid #dcdcdc !important;
 	}
 `;
-const FieldHeading = styled.p`
+export const FieldHeading = styled.p`
 	font-size: 0.9rem;
 	.optional {
 		color: red;

@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PrivacyIcon from "@material-ui/icons/Security";
 import { Box } from "@material-ui/core";
+import styled from "styled-components";
 
 export default function RadioButtonsField({
 	field,
@@ -25,25 +26,43 @@ export default function RadioButtonsField({
 		setValue((event.target as HTMLInputElement).value);
 	};
 	return (
-		<FormControl component="fieldset">
-			<span>
-				{/* <PrivacyIcon /> {"  "} */}
-				<FormLabel required component="label">
-					{label}
-				</FormLabel>
-			</span>
-			<RadioGroup {...props} {...field} name={field.name}>
-				<Box display={display}>
-					{options.map((option: any) => (
-						<FormControlLabel
-							style={{ width: width }}
-							value={option.props.value}
-							control={<Radio color="primary" />}
-							label={option.props.label}
-						/>
-					))}
-				</Box>
-			</RadioGroup>
-		</FormControl>
+		<RadioButtonWrapper>
+			<FormControl component="fieldset">
+				<span>
+					{/* <PrivacyIcon /> {"  "} */}
+					<FormLabel required component="label">
+						{label}
+					</FormLabel>
+				</span>
+				<RadioGroup {...props} {...field} name={field.name}>
+					<Box display={display}>
+						{options.map((option: any) => (
+							<FormControlLabel
+								style={{ width: width }}
+								className={"customRadioButton"}
+								value={option.props.value}
+								control={<Radio color="primary" />}
+								label={option.props.label}
+							/>
+						))}
+					</Box>
+				</RadioGroup>
+			</FormControl>
+		</RadioButtonWrapper>
 	);
 }
+const RadioButtonWrapper = styled.div`
+	// .MuiFormControlLabel-root.customRadioButton {
+	// 	.MuiButtonBase-root {
+	// 		opacity: 0;
+	// 		position: absolute;
+	// 	}
+	// 	.MuiButtonBase-root,
+	// 	.MuiIconButton-label {
+	// 		display: inline-block;
+	// 		vertical-align: middle;
+	// 		margin: 5px;
+	// 		cursor: pointer;
+	// 	}
+	// }
+`;
