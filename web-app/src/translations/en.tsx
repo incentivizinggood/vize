@@ -51,7 +51,7 @@ export default {
 		my_company: "My Company",
 		post_a_job: "Post a Job",
 		for_employers: "For Employers",
-		login: "LOG IN",
+		login: "Sign In",
 		signup: "SIGN UP",
 		signup_or_login: "SIGN UP OR LOGIN",
 		logout: "LOG OUT",

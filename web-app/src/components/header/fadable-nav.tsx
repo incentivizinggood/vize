@@ -20,9 +20,7 @@ const FadableNav = styled.nav<FadableNavExtraProps>`
 
 		// These styles make the nav opaque.
 		return css`
-			background: white;
-			box-shadow: 0 0 5px;
-
+			background: transparent;
 			ul li a {
 				color: black;
 				cursor: pointer;
