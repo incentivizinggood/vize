@@ -147,7 +147,7 @@ function AccountSection({ user }: AccountSectionProps) {
 											}
 										>
 											<T.signup />
-										</LinkButton>
+										</LinkButton>							
 			</li>
 		</>
 	);

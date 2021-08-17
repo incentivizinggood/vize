@@ -1,7 +1,7 @@
 # The config/settings files contain secrets and
 # should never be checked into version control.
 config
-
+.history
 # NPM & Yarn stuff
 node_modules
 yarn-error.log

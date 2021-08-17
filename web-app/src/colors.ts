@@ -7,7 +7,7 @@ const colors = {
 
 	background: "rgb(241, 249, 255)",
 
-	backgroundImage: "linear-gradient(to top, #1da1f2, #64b7f5, #93cdf8, #bfe2fb, #eaf7ff)",
+	backgroundImage: "linear-gradient(to top, #1da1f2, #eaf7ff, #eaf7ff, #eaf7ff, #eaf7ff)",
 	// The background color of most things that have things in them. It is a light gray color
 
 	vizeBlue: "#439bd5",
