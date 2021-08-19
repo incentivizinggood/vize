@@ -9,6 +9,8 @@ import colors from "src/colors";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
+import ResourcePreviewCard from "./ResourcePreviewCard";
+import ResourceTopicButton from "./ResourceTopicButton";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
 import arrowDownImage from "../../images/arrow-down-circle-line.png";
@@ -39,8 +41,8 @@ const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
 const horizontalPaddingVal = "15px";
 const ContentWrapper = styled.div`
-	margin-left: 14%;
-	margin-right: 14%;
+	margin-left: 12%;
+	margin-right: 12%;
 	${forSize.tabletAndDown} {
 		margin-left: 4%;
 		margin-right: 4%;
@@ -66,7 +68,7 @@ const BannerNormalContent = styled.span`
 const BannerHighlightedContent = styled.span`
 	font-size: 50px;
 	font-weight: bolder;
-	color: #3c4689;
+	color: #057642;
 	${forSize.tabletAndDown} {
 		font-size: 30px;
 	}
@@ -75,7 +77,7 @@ const BannerVizeContent = styled.span`
 	position: relative;
 	font-size: 50px;
 	font-weight: bolder;
-	color: #3c4689;
+	color: #057642;
 	z-index: 1;
 	${forSize.tabletAndDown} {
 		font-size: 30px;
@@ -124,14 +126,19 @@ const CardImageWRapper = styled.img`
 
 const CardContent = styled.div`
 	height: 352px;
-	justify-content: center;
-	align-items: center;
+	display:flex;
+	flex-direction:column;
+	
 	background-color: #ffffff;
 	margin-top: 5px;
 	margin-bottom: 10px;
 	border-radius: 15px;
 	padding: 30px;
 	line-height: 1.6;
+	${forSize.tabletAndDown} {
+		justify-content: center;
+		align-items: center;
+	}
 `;
 
 const CardIcon = styled.div`
@@ -142,10 +149,11 @@ const SignupTodayWrapper = styled.div`
 	display:flex;
 	justify-content:center;
 	margin-bottom:20px;
+	margin-top:20px;
 
 `;
 const HorizontalRow = styled.div`
-	border-bottom:1px solid #efefef;
+	border-bottom:1px solid #cfcfcf;
 `;
 const JobPostWrapper = styled.div`
 	display:flex;
@@ -157,6 +165,12 @@ const SectionTitle = styled.div`
 	text-align:center;
 	margin: 20px auto; 
 `;
+const ResourceTopicTitle = styled.div`
+	font-size:28px;
+	font-weight:500;
+	text-align:center;
+	margin: 30px auto; 
+`;
 const SectionSubTitle = styled.div`
 	font-size:18px;
 	text-align:center;
@@ -166,7 +180,7 @@ const JobPostCard = styled.div`
 	margin-bottom:20px;
 	background:#fff;
 	border-radius:6px;
-	padding:10px;
+	padding:20px;
 	.basic-details{
 		border-bottom: 1px solid #d1d1d1;
     	padding-bottom: 20px;
@@ -230,7 +244,7 @@ align-items:center;
 justify-content:center;
 `;
 const JobDetailsTitle = styled.div`
-color:#3c4689;
+color:#057642;
 font-weight:500;
 margin-bottom:5px;
 `;
@@ -274,7 +288,7 @@ height:26px;
 const DescriptionTag = styled.div`
 	padding:8px 10px;
 	border-radius:16px;
-	color:#3c4689;
+	color:#057642;
 	background-color:#d9e4f6;
 	margin-right:5px;
 	margin-bottom:5px;
@@ -292,7 +306,7 @@ const StyledRankedTable = styled.div`
     > .table {
       margin-bottom: 0px;
       > thead {
-        background-color: hsl(232deg 39% 39%);
+        background-color: #057642;
         color: white;
         > tr {
           > th {
@@ -321,31 +335,7 @@ const ResourcesWrapper = styled.div`
 const ResourceCardRow = styled(Row)`
 	margin-top:20px;
 `;
-const ResourceCard = styled.div`
-	background:#fff;
-	border-radius:16px 16px 6px;
-	margin-bottom:10px;
-	img{
-		height:260px;
-		border-radius:16px;
-		width:100%;
-	}
-	
-	div{
-		padding:10px 20px;
-		display:flex;
-		flex-direction:column;
-		
-		.title{
-			font-size:20px;
-			font-weight:700;
-			padding-bottom:10px;
-		}
-		.text{
-			line-height:1.8;
-		}
-	}
-`;
+
 const ResourceCardNavigation = styled.div`
 	display:flex;
 	justify-content:center;
@@ -388,28 +378,11 @@ ${forSize.tabletAndDown} {
 	flex-direction:column;
 	align-items:center;
 }
-
 `;
-const TopicItem = styled.div`
-width:250px;
-background:#fff;
-border-radius:16px;
-margin:0 15px;
-margin-bottom:5px;
-padding:5px;
-display: flex;
-align-items: center;
-div{
-	width:40%;
-	display: flex;
-    justify-content: flex-end;
-	float:right;
-	margin-right:10px;
-}
-span{
-	width:50%;
-	font-weight:600;
-}
+const ViewAllResourceWrapper = styled.div`
+	display:flex;
+	justify-content:center;
+	margin-bottom:20px;
 `;
 function ForEmployers() {
 	// TODO Refactor: Refactor so that navbarheight is used as a global variable
@@ -481,10 +454,10 @@ function ForEmployers() {
 			contacto: "664 555 8024"
 		}
 	];
-	const reducerCard = [
+	const resources = [
 		{
 			id: 1,
-			date: "16/03/1980",
+			date: "July 26, 20120",
 			title:
 				"Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
 			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
@@ -492,7 +465,7 @@ function ForEmployers() {
 		},
 		{
 			id: 2,
-			date: "19/06/1978",
+			date: "July 30, 20120",
 			title:
 				"Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
 			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
@@ -500,7 +473,7 @@ function ForEmployers() {
 		},
 		{
 			id: 3,
-			date: "08/08/2000",
+			date: "Aug 4, 20120",
 			title:
 				"Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
 			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
@@ -582,9 +555,7 @@ function ForEmployers() {
 					<Row>
 						<Col xs={12} md={4}>
 							<CardContent>
-								<CardIcon>
-									<CardImageWRapper src={saveMoneyImage} alt="save-money" />
-								</CardIcon>
+								<CardImageWRapper src={saveMoneyImage} alt="save-money" />
 								<CardTitle>
 									Save Money
 								</CardTitle>
@@ -773,14 +744,14 @@ function ForEmployers() {
 											</LanguageContentWrapper>
 										</div>
 										<div>
-											<LanguageImage src={cityImage} alt="dollar-img" />
+											<LanguageImage src={industrialParkImage} alt="dollar-img" />
 											<LanguageContentWrapper border>
 												<LanguageTitle>Industrial Park</LanguageTitle>
 												<LanguageDescription>EL Logo</LanguageDescription>
 											</LanguageContentWrapper>
 										</div>
 										<div>
-											<LanguageImage src={cityImage} alt="dollar-img" />
+											<LanguageImage src={addressImage} alt="dollar-img" />
 											<LanguageContentWrapper border={false}>
 												<LanguageTitle>Address</LanguageTitle>
 												<LanguageDescription>Calle Lagua Maynar 5520, Section C</LanguageDescription>
@@ -904,17 +875,8 @@ function ForEmployers() {
 						Improve your HR practices by learning about industry best standards with our resources
 					</SectionSubTitle>
 					<ResourceCardRow>
-						{reducerCard.map((card) => (
-							<Col xs={12} md={4} key={card.id} className={isMobile ? activeResourceCard === card.id ? 'active' : 'inactive' : ''}>
-								<ResourceCard>
-									<img alt="top" src={card.img} />
-									<div>
-										<small className="text-muted">{card.date}</small>
-										<span className="title">{card.title}</span>
-										<span className="text">{card.text}</span>
-									</div>
-								</ResourceCard>
-							</Col>
+						{resources.map((resource) => (
+							<ResourcePreviewCard key={resource.id} resource={resource} isMobile={isMobile} activeResourceCard={activeResourceCard} />
 						))}
 					</ResourceCardRow>
 					{isMobile ? <ResourceCardNavigation>
@@ -931,29 +893,26 @@ function ForEmployers() {
 					</ResourceCardNavigation> : null}
 				</ResourcesWrapper>
 				<ResourcesWrapper>
-					<SectionTitle>
-						Topics
-					</SectionTitle>
+					<ResourceTopicTitle>
+						Resource Topics
+					</ResourceTopicTitle>
 					<TopicsContent>
-						<TopicItem>
-							<div>
-								<img src={topic1Image} alt=""></img>
-							</div>
-							<span>Legal</span>
-						</TopicItem>
-						<TopicItem>
-							<div>
-								<img src={topic2Image} alt=""></img>
-							</div>
-							<span>Turnover Rates</span>
-						</TopicItem>
-						<TopicItem>
-							<div>
-								<img src={topic3Image} alt=""></img>
-							</div>
-							<span>Hiring Best Practices</span>
-						</TopicItem>
+						<ResourceTopicButton title="Legal" img={topic1Image} />
+						<ResourceTopicButton title="Turnover Rates" img={topic2Image} />
+						<ResourceTopicButton title="Hiring Best Practices" img={topic3Image} />
+						<ResourceTopicButton title="View All Topics" />
 					</TopicsContent>
+					<ViewAllResourceWrapper>
+						<LinkButton
+							$primary
+							to={
+								urlGenerators.queryRoutes
+									.employerResources
+							}
+						>
+							View All Resources
+						</LinkButton>
+					</ViewAllResourceWrapper>
 				</ResourcesWrapper>
 			</ContentWrapper>
 		</PageWrapper>
