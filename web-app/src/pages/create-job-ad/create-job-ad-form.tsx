@@ -37,12 +37,8 @@ const initialValues = {
 			endTime: "",
 		},
 	],
-	minimumLanguage: [
-		{
-			english: "",
-			spanish: "",
-		},
-	],
+	minimumLevel: "",
+	minimumLanguage: "",
 	// salaryMin: "",
 	// salaryMax: "",
 	jobSchedule: [

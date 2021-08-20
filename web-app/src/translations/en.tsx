@@ -344,22 +344,12 @@ export default {
 					collegeDegree: "College Degree",
 			},
 			minimumLanguage: {
-				english: {
-					label: "English",
+					label: "Minimum Language Proficiency",
 					native: "Native",
 					conversational: "Conversational",
 					fluent: "Fluent",
 					basic: "Basic",
 					none: "None",
-				},
-				spanish: {
-					label: "Spanish",
-					native: "Native",
-					conversational: "Conversational",
-					fluent: "Fluent",
-					basic: "Basic",
-					none: "None",
-				}
 			},
 			locations: {
 				label: "Locations",

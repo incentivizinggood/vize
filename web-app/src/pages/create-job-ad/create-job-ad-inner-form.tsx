@@ -12,7 +12,6 @@ import {
 	PostFormFieldContainer,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import { MinimunEducationWrapper } from "src/components/form-stuff/style";
 import { Box } from "@material-ui/core";
 
 const T = translations.createJobAd;
@@ -81,89 +80,43 @@ function InnerForm({ submissionError }: any) {
 					)}
 				/>
 				{/* Minimum Level of education */}
-				<MinimunEducationWrapper>
-					<Box width="49%">
-						<T.fields.minimumLanguage.english
-							renderer={t => (
-								<Field
-									name="minimunEducation"
-									type="radioButtons"
-									width="45%"
-									label={t.label}
-									options={[
-										<FormControlLabel
-											value="native"
-											control={<Radio />}
-											label={t.native}
-										/>,
-										<FormControlLabel
-											value="fluent"
-											control={<Radio />}
-											label={t.fluent}
-										/>,
-										<FormControlLabel
-											value="conversational"
-											control={<Radio />}
-											label={t.conversational}
-										/>,
-										<FormControlLabel
-											value="basic"
-											control={<Radio />}
-											label={t.basic}
-										/>,
-										<FormControlLabel
-											value="none"
-											control={<Radio />}
-											label={t.none}
-										/>,
-									]}
-								/>
-							)}
+				<T.fields.minimumLanguage
+					renderer={t => (
+						<Field
+							name="minimunEducation"
+							type="radioButtons"
+							// width="45%"
+							label={t.label}
+							options={[
+								<FormControlLabel
+									value="native"
+									control={<Radio />}
+									label={t.native}
+								/>,
+								<FormControlLabel
+									value="fluent"
+									control={<Radio />}
+									label={t.fluent}
+								/>,
+								<FormControlLabel
+									value="conversational"
+									control={<Radio />}
+									label={t.conversational}
+								/>,
+								<FormControlLabel
+									value="basic"
+									control={<Radio />}
+									label={t.basic}
+								/>,
+								<FormControlLabel
+									value="none"
+									control={<Radio />}
+									label={t.none}
+								/>,
+							]}
 						/>
-					</Box>
-					<div className="saperator" />
-					<Box width="49%">
-						<T.fields.minimumLanguage.spanish
-							renderer={(t: any) => (
-								<Field
-									name="minimunEducation"
-									type="radioButtons"
-									display="block"
-									width="45%"
-									label={t.label}
-									options={[
-										<FormControlLabel
-											value="native"
-											control={<Radio />}
-											label={t.native}
-										/>,
-										<FormControlLabel
-											value="fluent"
-											control={<Radio />}
-											label={t.fluent}
-										/>,
-										<FormControlLabel
-											value="conversational"
-											control={<Radio />}
-											label={t.conversational}
-										/>,
-
-										<FormControlLabel
-											value="basic"
-											control={<Radio />}
-											label={t.basic}
-										/>,
-										<FormControlLabel
-											value="none"
-											control={<Radio />}
-											label={t.none}
-										/>,
-									]}
-								/>
-							)}
-						/>
-					</Box>
-				</MinimunEducationWrapper>
+					)}
+				/>
 				{/* end */}
 				<FormArray
 					name="shifts"
