@@ -68,7 +68,7 @@ const BannerNormalContent = styled.span`
 const BannerHighlightedContent = styled.span`
 	font-size: 50px;
 	font-weight: bolder;
-	color: #057642;
+	color: ${colors.secondaryColorGreen};
 	${forSize.tabletAndDown} {
 		font-size: 30px;
 	}
@@ -77,7 +77,7 @@ const BannerVizeContent = styled.span`
 	position: relative;
 	font-size: 50px;
 	font-weight: bolder;
-	color: #057642;
+	color: ${colors.secondaryColorGreen};
 	z-index: 1;
 	${forSize.tabletAndDown} {
 		font-size: 30px;
@@ -244,7 +244,7 @@ align-items:center;
 justify-content:center;
 `;
 const JobDetailsTitle = styled.div`
-color:#057642;
+color:${colors.secondaryColorGreen};
 font-weight:500;
 margin-bottom:5px;
 `;
@@ -276,25 +276,24 @@ const LanguageContentWrapper = styled.div`
 	
 `;
 const LanguageTitle = styled.span`
-color:#c2c2c2;
+	color:#c2c2c2;
 `;
 const LanguageDescription = styled.span`
-font-weight:600;
+	font-weight:600;
 `;
 const LanguageImage = styled.img`
-width:26px;
-height:26px;
+	width:26px;
+	height:26px;
 `;
 const DescriptionTag = styled.div`
 	padding:8px 10px;
 	border-radius:16px;
-	color:#057642;
+	color:${colors.secondaryColorGreen};
 	background-color:#d9e4f6;
 	margin-right:5px;
 	margin-bottom:5px;
 `;
 const TableWrapper = styled.div`
-	
 `;
 
 const StyledRankedTable = styled.div`
@@ -306,7 +305,7 @@ const StyledRankedTable = styled.div`
     > .table {
       margin-bottom: 0px;
       > thead {
-        background-color: #057642;
+        background-color: ${colors.secondaryColorGreen};
         color: white;
         > tr {
           > th {

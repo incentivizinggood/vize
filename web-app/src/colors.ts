@@ -1,5 +1,8 @@
 /** The color pallette to use across the website. */
 const colors = {
+	primaryColorBlue: "#1da1f2",
+	secondaryColorGreen: "#057642",
+	tertiaryColorLightBlue: "#eaf7ff",
 	main: "hsl(204, 63%, 55%)",
 	mainVariant: "#0480EA",
 	accent: "hsl(48, 99%, 50%)",
