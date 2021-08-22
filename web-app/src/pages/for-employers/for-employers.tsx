@@ -539,6 +539,7 @@ function ForEmployers() {
 								</div>
 								<BannerButtonContainer>
 									<LinkButton
+										$primary
 										to={
 											urlGenerators.queryRoutes
 												.submitSalaryData

@@ -46,7 +46,7 @@ const Button = styled.button<ButtonExtraProps>`
 					color: black;
 				}
 				border: 1px solid;
-				border-color: ${colors.lightGray};
+				border-color: ${colors.darkGray};
 			`;
 		}}
 
