@@ -33,12 +33,6 @@ nav {
 			letter-spacing: 1px;
 			font-size: 1.2em;
 			color: white;
-			&:not(#register-button):hover,
-			&:not(#register-button):focus,
-			&:not(#register-button):active {
-				background-color: transparent !important;
-				color: white;
-			}
 		}
 	}
 

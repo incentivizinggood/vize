@@ -13,8 +13,7 @@ import EmployerNavLinks from "./employer-nav-links";
 import FadableNav from "./fadable-nav";
 import LangSelector from "./lang-selector";
 import LogoutButton from "./logout-button";
-import ButtonOutline from "../../components/button/button-outline";
-import {LinkButton,WhiteButton} from "../../components/button/";
+import { LinkButton } from "../../components/button/";
 const T = translations.header;
 
 function getUserRole() {
@@ -128,26 +127,14 @@ function AccountSection({ user }: AccountSectionProps) {
 	return (
 		<>
 			<li>
-			<LinkButton
-			to={urlGenerators.vizeLogin(userRole)}
-			className="navbar-link margin-right" 
-		>
-			<T.login />
-		</LinkButton>
-				{/* <ButtonOutline >
+				<LinkButton to={urlGenerators.vizeLogin(userRole)}>
 					<T.login />
-				</ButtonOutline> */}
+				</LinkButton>
 			</li>
 			<li>
-			<LinkButton
-											$primary
-											to={
-												urlGenerators.queryRoutes
-													.submitSalaryData
-											}
-										>
-											<T.signup />
-										</LinkButton>							
+				<LinkButton $primary to={urlGenerators.vizeRegister(userRole)}>
+					<T.signup />
+				</LinkButton>
 			</li>
 		</>
 	);
@@ -205,7 +192,7 @@ function Header(props: HeaderProps) {
 							</li>
 						</ul>
 						<ul className="nav navbar-nav navbar-right">
-						<li>
+							<li>
 								<Link
 									to={`/${urlGenerators.queryRoutes.forEmployers}`}
 									className="link-kumya"
@@ -220,7 +207,7 @@ function Header(props: HeaderProps) {
 							<li className="dropdown">
 								<LangSelector />
 							</li>
-						
+
 							<br />
 							{props.user ? (
 								<li>

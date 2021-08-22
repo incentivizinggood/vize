@@ -22,17 +22,6 @@ const FadableNav = styled.nav<FadableNavExtraProps>`
 		return css`
 			background: white;
 			box-shadow: 0 0 5px;
-
-			ul li a {
-				color: black;
-				cursor: pointer;
-
-				&:not(#register-button):hover,
-				&:not(#register-button):focus,
-				&:not(#register-button):active {
-					color: black;
-				}
-			}
 		`;
 	}}
 `;
