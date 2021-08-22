@@ -376,7 +376,7 @@ export default {
 					return `Add ${array?.length > 0 ? "another" : "a"} Shifts`;
 				},
 				startDay: {
-					label: "Start Day",
+					label: "Working Days From",
 					monday: "Monday",
 					tuesday: "Tuesday",
 					wednesday: "Wednesday",
@@ -386,7 +386,7 @@ export default {
 					sunday: "Sunday",
 				},
 				endDay: {
-					label: "End Day",
+					label: "To",
 					monday: "Monday",
 					tuesday: "Tuesday",
 					wednesday: "Wednesday",
@@ -396,10 +396,10 @@ export default {
 					sunday: "Sunday",
 				},
 				startTime: {
-					label: "Start Time",
+					label: "Working Time From",
 				},
 				endTime: {
-					label: "End Time",
+					label: "To",
 				},
 			},
 			salaryExplanation:

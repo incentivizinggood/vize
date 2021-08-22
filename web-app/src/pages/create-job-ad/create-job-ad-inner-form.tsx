@@ -10,6 +10,7 @@ import {
 	FormToolbar,
 	SubmissionError,
 	PostFormFieldContainer,
+	ShiftSelectionWrapper,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
 import { Box } from "@material-ui/core";
@@ -123,16 +124,17 @@ function InnerForm({ submissionError }: any) {
 					ElementRender={({ name }: { name: string }) => (
 						<T.fields.jobSchedule
 							renderer={(t: any) => (
-								<Box
-									display="flex"
-									justifyContent="space-between"
-								>
+								// <Box
+								// 	display="flex"
+								// 	// justifyContent="space-between"
+								// >
+								<ShiftSelectionWrapper>
 									<Field
 										name="startDay"
 										required
+										select
 										defaultValue={1}
 										label={t.startDay.label}
-										style={{ width: "100%" }}
 									>
 										<option value={1}>
 											{t.startDay.monday}
@@ -162,7 +164,6 @@ function InnerForm({ submissionError }: any) {
 										required
 										defaultValue={5}
 										label={t.endDay.label}
-										style={{ width: "100%" }}
 									>
 										<option value={1}>
 											{t.endDay.monday}
@@ -192,7 +193,6 @@ function InnerForm({ submissionError }: any) {
 										required
 										defaultValue="08:00"
 										label={t.startTime.label}
-										style={{ width: "100%" }}
 									/>
 									<Field
 										name="endTime"
@@ -200,9 +200,8 @@ function InnerForm({ submissionError }: any) {
 										required
 										defaultValue="18:00"
 										label={t.endTime.label}
-										style={{ width: "100%" }}
 									/>
-								</Box>
+								</ShiftSelectionWrapper>
 							)}
 						/>
 					)}

@@ -402,17 +402,36 @@ export default {
 				hourlyWage: "Sueldo por Hora",
 			},
 			jobSchedule: {
-				labelStartDay: "Día de Inicio del Turno",
-				labelEndDay: "Día Final del Turno",
-				labelStartTime: "Hora de Inicio del Turno",
-				labelEndTime: "Hora Final del Turno",
-				monday: "Lunes",
-				tuesday: "Martes",
-				wednesday: "Miércoles",
-				thursday: "Jueves",
-				friday: "Viernes",
-				saturday: "Sábado",
-				sunday: "Domingo",
+				label: "Shifts",
+				addElement: ({ array }: { array: unknown[] }) => {
+					return `Add ${array?.length > 0 ? "another" : "a"} Shifts`;
+				},
+				startDay: {
+					label: "Working Days From",
+					monday: "Lunes",
+					tuesday: "Martes",
+					wednesday: "Miércoles",
+					thursday: "Jueves",
+					friday: "Viernes",
+					saturday: "Sábado",
+					sunday: "Domingo",
+				},
+				endDay: {
+					label: "To",
+					monday: "Lunes",
+					tuesday: "Martes",
+					wednesday: "Miércoles",
+					thursday: "Jueves",
+					friday: "Viernes",
+					saturday: "Sábado",
+					sunday: "Domingo",
+				},
+				startTime: {
+					label: "Working Time From",
+				},
+				endTime: {
+					label: "To",
+				},
 			},
 			contractType: {
 				label: "Tipo de Contrato",

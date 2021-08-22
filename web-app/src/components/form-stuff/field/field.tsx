@@ -11,6 +11,7 @@ import RadioButtonsField from "./radio-buttons-field";
 const FormikFieldWrapper = styled.div`
 	margin-bottom: 1.5rem;
 	margin-top: 20px;
+	flex-grow: 1;
 `;
 
 const FormikField = styled(Formik.Field)`

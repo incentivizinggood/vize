@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PageWrapper, { PageWrapperProps } from "src/components/page-wrapper";
 import { Panel, PanelContainer, PannelPadding } from "src/components/panel";
 import colors from "src/colors";
+import { forSize } from "src/responsive";
 
 const PostFormMainHeader = styled.h2`
 	text-align: left;
@@ -60,7 +61,22 @@ const PostFormHeaderContainer = styled.div`
 const PostFormFieldContainer = styled.div`
 	padding: 30px;
 `;
-
+const ShiftSelectionWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	> div {
+		margin-right: 10px;
+	}
+	> div:last-child {
+		margin-right: 0;
+	}
+	${forSize.phoneOnly} {
+		display: block;
+		> div {
+			margin-right: 0;
+		}
+	}
+`;
 type FormPageWrapperProps = PageWrapperProps;
 
 function FormPageWrapper({ children, ...restProps }: FormPageWrapperProps) {
@@ -83,4 +99,5 @@ export {
 	PostFormSubHeader,
 	PostFormHeaderContainer,
 	PostFormFieldContainer,
+	ShiftSelectionWrapper,
 };
