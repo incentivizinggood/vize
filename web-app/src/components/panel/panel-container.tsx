@@ -12,7 +12,7 @@ const PanelContainer = styled.div`
 	margin-right: auto;
 	margin-left: auto;
 
-	background-color: ${colors.background};
+	background-color: ${colors.tertiaryColorLightBlue};
 	padding: 112px 20px 20px 20px;
 
 	${forSize.phoneOnly} {

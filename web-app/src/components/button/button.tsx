@@ -17,12 +17,12 @@ const Button = styled.button<ButtonExtraProps>`
 				if (props.$primary) {
 					return css`
 						background-color: ${colors.onSurfaceWeak};
-						color: ${colors.surface};
+						color: white;
 					`;
 				}
 
 				return css`
-					background-color: ${colors.surface};
+					background-color: white;
 					color: ${colors.onSurfaceWeak};
 					border: 1px solid;
 				`;
@@ -30,21 +30,23 @@ const Button = styled.button<ButtonExtraProps>`
 
 			if (props.$primary) {
 				return css`
-					background-color: ${colors.vizeBlue};
-					color: ${colors.onMain};
+					background-color: ${colors.primaryColorBlue};
+					color: white;
 					:hover {
-						background-color: ${colors.mainVariant};
+						background-color: ${colors.darkPrimaryBlue};
 					}
 				`;
 			}
 
 			return css`
-				background-color: ${colors.surface};
-				color: ${colors.main};
+				background-color: white;
+				color: black;
 				:hover {
-					color: ${colors.mainVariant};
+					background-color: ${colors.lightGray};
+					color: black;
 				}
 				border: 1px solid;
+				border-color: ${colors.lightGray};
 			`;
 		}}
 

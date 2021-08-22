@@ -100,7 +100,7 @@ const VizeBackgroundEffect = styled.div`
 	z-index: -1;
 	${forSize.tabletAndDown} {
 		top: 21px;
-    	height: 6px;
+		height: 6px;
 	}
 `;
 const BannerImage = styled.img`
@@ -117,7 +117,7 @@ const FeaturesWrapper = styled.div`
 	margin-top: 40px;
 `;
 const CardTitle = styled.div`
-	font-size:24px;
+	font-size: 24px;
 `;
 const CardImageWRapper = styled.img`
 	width: 75px;
@@ -126,9 +126,9 @@ const CardImageWRapper = styled.img`
 
 const CardContent = styled.div`
 	height: 352px;
-	display:flex;
-	flex-direction:column;
-	
+	display: flex;
+	flex-direction: column;
+
 	background-color: #ffffff;
 	margin-top: 5px;
 	margin-bottom: 10px;
@@ -146,242 +146,238 @@ const CardIcon = styled.div`
 	// background-color: #ffffff;
 `;
 const SignupTodayWrapper = styled.div`
-	display:flex;
-	justify-content:center;
-	margin-bottom:20px;
-	margin-top:20px;
-
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+	margin-top: 20px;
 `;
 const HorizontalRow = styled.div`
-	border-bottom:1px solid #cfcfcf;
+	border-bottom: 1px solid #cfcfcf;
 `;
 const JobPostWrapper = styled.div`
-	display:flex;
-	flex-direction:column;
+	display: flex;
+	flex-direction: column;
 `;
 const SectionTitle = styled.div`
-	font-size:36px;
-	font-weight:500;
-	text-align:center;
-	margin: 20px auto; 
+	font-size: 36px;
+	font-weight: 500;
+	text-align: center;
+	margin: 20px auto;
 `;
 const ResourceTopicTitle = styled.div`
-	font-size:28px;
-	font-weight:500;
-	text-align:center;
-	margin: 30px auto; 
+	font-size: 28px;
+	font-weight: 500;
+	text-align: center;
+	margin: 30px auto;
 `;
 const SectionSubTitle = styled.div`
-	font-size:18px;
-	text-align:center;
+	font-size: 18px;
+	text-align: center;
 `;
 const JobPostCard = styled.div`
-	margin-top:20px;
-	margin-bottom:20px;
-	background:#fff;
-	border-radius:6px;
-	padding:20px;
-	.basic-details{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background: #fff;
+	border-radius: 6px;
+	padding: 20px;
+	.basic-details {
 		border-bottom: 1px solid #d1d1d1;
-    	padding-bottom: 20px;
-		margin-top:20px;
+		padding-bottom: 20px;
+		margin-top: 20px;
 	}
-	.description{
-		margin-top:20px;
-		span{
-			font-weight:600;
-			padding-left:10px;
+	.description {
+		margin-top: 20px;
+		span {
+			font-weight: 600;
+			padding-left: 10px;
 		}
-		.tags{
-			margin-top:5px;
-			display:flex;
+		.tags {
+			margin-top: 5px;
+			display: flex;
 			flex-wrap: wrap;
 		}
-		.certificates{
-			ul{
+		.certificates {
+			ul {
 				margin: 0px;
-    			padding: 3px 25px;
+				padding: 3px 25px;
 			}
 		}
 	}
 `;
 const JobPostFirstRow = styled.div`
-	display:flex;
-	justify-content:space-between;
+	display: flex;
+	justify-content: space-between;
 `;
 const PostImage = styled.img`
 	height: 50px;
-    width: 50px;
-    border-radius: 6px;
-	margin-right:5px;
+	width: 50px;
+	border-radius: 6px;
+	margin-right: 5px;
 `;
-const PostHeaderContent = styled.div`
-
-`;
+const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`
-	color:#acacac;
-	font-size:8px;
+	color: #acacac;
+	font-size: 8px;
 `;
 const PostSubHeading = styled.div`
-	font-weight:700;
+	font-weight: 700;
 `;
 const RatingWrapper = styled.div`
-	display:flex;
-	align-items:center;
+	display: flex;
+	align-items: center;
 `;
 const JobPostHeaderRightSection = styled.div`
-	display:flex;
-	align-items:center;
+	display: flex;
+	align-items: center;
 `;
 const JobPostHeaderLeftSection = styled.div`
-${forSize.tabletAndDown} {
-	display:none;
-}
+	${forSize.tabletAndDown} {
+		display: none;
+	}
 `;
 const PublishDateWrapper = styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 const JobDetailsTitle = styled.div`
-color:${colors.secondaryColorGreen};
-font-weight:500;
-margin-bottom:5px;
+	color: ${colors.secondaryColorGreen};
+	font-weight: 500;
+	margin-bottom: 5px;
 `;
 const JobDetailvalue = styled.div`
-font-weight:600;
-padding-left:10px;
+	font-weight: 600;
+	padding-left: 10px;
 `;
 const JobDetailContent = styled.div`
-	display:flex;
-	padding-left:10px;
-	flex-wrap:wrap;
-	div{
-		margin-bottom:5px;
-		display:flex;
+	display: flex;
+	padding-left: 10px;
+	flex-wrap: wrap;
+	div {
+		margin-bottom: 5px;
+		display: flex;
 	}
 `;
 const JobDetailsWrapper = styled(Row)`
-	.details-container{
-		margin-bottom:20px;
+	.details-container {
+		margin-bottom: 20px;
 	}
 `;
 const LanguageContentWrapper = styled.div`
-	display:flex;
-	flex-direction:column;
-	padding-left:10px;
-	border-right: ${(p: { border: boolean }) => p.border ? "1px solid #efefef" : ""} ;
-	padding-right:10px;
-	margin-right:10px;
-	
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
+	border-right: ${(p: { border: boolean }) =>
+		p.border ? "1px solid #efefef" : ""};
+	padding-right: 10px;
+	margin-right: 10px;
 `;
 const LanguageTitle = styled.span`
-	color:#c2c2c2;
+	color: #c2c2c2;
 `;
 const LanguageDescription = styled.span`
-	font-weight:600;
+	font-weight: 600;
 `;
 const LanguageImage = styled.img`
-	width:26px;
-	height:26px;
+	width: 26px;
+	height: 26px;
 `;
 const DescriptionTag = styled.div`
-	padding:8px 10px;
-	border-radius:16px;
-	color:${colors.secondaryColorGreen};
-	background-color:#d9e4f6;
-	margin-right:5px;
-	margin-bottom:5px;
+	padding: 8px 10px;
+	border-radius: 16px;
+	color: ${colors.secondaryColorGreen};
+	background-color: #d9e4f6;
+	margin-right: 5px;
+	margin-bottom: 5px;
 `;
-const TableWrapper = styled.div`
-`;
+const TableWrapper = styled.div``;
 
 const StyledRankedTable = styled.div`
-  margin: 25px 0;
-  > .table-responsive {
-    border-radius: 16px;
-    background-color: white;
-    text-align: center;
-    > .table {
-      margin-bottom: 0px;
-      > thead {
-        background-color: ${colors.secondaryColorGreen};
-        color: white;
-        > tr {
-          > th {
-            padding: 15px;
-            font-size: 14px;
-          }
-        }
-      }
-      > tbody {
-        > tr {
-          > td {
-            font-size: 14px;
-            font-weight: 600;
-            padding: 0.7rem 0.7rem;
-          }
-        }
-      }
-    }
-  }
+	margin: 25px 0;
+	> .table-responsive {
+		border-radius: 16px;
+		background-color: white;
+		text-align: center;
+		> .table {
+			margin-bottom: 0px;
+			> thead {
+				background-color: ${colors.secondaryColorGreen};
+				color: white;
+				> tr {
+					> th {
+						padding: 15px;
+						font-size: 14px;
+					}
+				}
+			}
+			> tbody {
+				> tr {
+					> td {
+						font-size: 14px;
+						font-weight: 600;
+						padding: 0.7rem 0.7rem;
+					}
+				}
+			}
+		}
+	}
 `;
 const ResourcesWrapper = styled.div`
-.inactive{
-	display:none;
-}
+	.inactive {
+		display: none;
+	}
 `;
 const ResourceCardRow = styled(Row)`
-	margin-top:20px;
+	margin-top: 20px;
 `;
 
 const ResourceCardNavigation = styled.div`
-	display:flex;
-	justify-content:center;
-	margin-top:10px;
-	margin-bottom:10px;
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
 `;
 const LeftNavigation = styled.div`
-	border-radius:6px;
-	background-color:#fff;
-	height:40px;
-	width:40px;
+	border-radius: 6px;
+	background-color: #fff;
+	height: 40px;
+	width: 40px;
 	display: flex;
-    align-items: center;
-    justify-content: center;
-	margin-right:5px;
-	img{
+	align-items: center;
+	justify-content: center;
+	margin-right: 5px;
+	img {
 		transform: rotate(90deg);
 	}
 `;
 const RightNavigation = styled.div`
-	border-radius:6px;
-	background-color:#fff;
-	height:40px;
-	width:40px;
+	border-radius: 6px;
+	background-color: #fff;
+	height: 40px;
+	width: 40px;
 	display: flex;
-    align-items: center;
-    justify-content: center;
-	margin-left:5px;
-	img{
+	align-items: center;
+	justify-content: center;
+	margin-left: 5px;
+	img {
 		transform: rotate(270deg);
 	}
 `;
 const TopicsContent = styled.div`
-margin:0 auto;
-margin-top:20px;
-margin-bottom:20px;
-display:flex;
-justify-content:center;
-${forSize.tabletAndDown} {
-	flex-direction:column;
-	align-items:center;
-}
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	${forSize.tabletAndDown} {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 const ViewAllResourceWrapper = styled.div`
-	display:flex;
-	justify-content:center;
-	margin-bottom:20px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
 `;
 function ForEmployers() {
 	// TODO Refactor: Refactor so that navbarheight is used as a global variable
@@ -428,7 +424,7 @@ function ForEmployers() {
 			habilidades: "Productos Medicos",
 			certificados: "Maquinas de CAC",
 			ubicacion: "Otay",
-			contacto: "664 555 8024"
+			contacto: "664 555 8024",
 		},
 		{
 			id: 4,
@@ -439,7 +435,7 @@ function ForEmployers() {
 			habilidades: "Productos Medicos",
 			certificados: "Maquinas de CAC",
 			ubicacion: "Otay",
-			contacto: "664 555 8024"
+			contacto: "664 555 8024",
 		},
 		{
 			id: 5,
@@ -450,41 +446,55 @@ function ForEmployers() {
 			habilidades: "Productos Medicos",
 			certificados: "Maquinas de CAC",
 			ubicacion: "Otay",
-			contacto: "664 555 8024"
-		}
+			contacto: "664 555 8024",
+		},
 	];
 	const resources = [
 		{
 			id: 1,
 			date: "July 26, 20120",
-			title:
-				"Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
+			title: "Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
 			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
 			img: img1,
 		},
 		{
 			id: 2,
 			date: "July 30, 20120",
-			title:
-				"Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
+			title: "Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
 			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
 			img: img1,
 		},
 		{
 			id: 3,
 			date: "Aug 4, 20120",
-			title:
-				"Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
+			title: "Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
 			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
 			img: img1,
 		},
 	];
 	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
-	const jobDescriptions = ["Neque Curabitur Faucibus", "Praesent Non", "Est Dolor", "Consectetur Lobortis", "Dolor"];
-	const jobSkills = ["Neque Curabitur Faucibus", "Praesent Non", "Est Dolor", "Consectetur Lobortis", "Dolor"];
-	const certifications = ["Nisl Sodales Auctor", "Quam Fringilla Sed", "Rhoncus Diam", "Mauris Faucibs"];
-	console.log("isMobile", isMobile)
+	const jobDescriptions = [
+		"Neque Curabitur Faucibus",
+		"Praesent Non",
+		"Est Dolor",
+		"Consectetur Lobortis",
+		"Dolor",
+	];
+	const jobSkills = [
+		"Neque Curabitur Faucibus",
+		"Praesent Non",
+		"Est Dolor",
+		"Consectetur Lobortis",
+		"Dolor",
+	];
+	const certifications = [
+		"Nisl Sodales Auctor",
+		"Quam Fringilla Sed",
+		"Rhoncus Diam",
+		"Mauris Faucibs",
+	];
+	console.log("isMobile", isMobile);
 	return (
 		<PageWrapper title="Empleadores">
 			<ContentWrapper>
@@ -521,15 +531,14 @@ function ForEmployers() {
 								<div>
 									<BannerSubTitle>
 										{" "}
-										Post jobs and we'll rank ad filter the right
-										factory workers in
+										Post jobs and we'll rank ad filter the
+										right factory workers in
 										<br />
 										Tijuana for your factory
 									</BannerSubTitle>
 								</div>
 								<BannerButtonContainer>
 									<LinkButton
-										$primary
 										to={
 											urlGenerators.queryRoutes
 												.submitSalaryData
@@ -549,15 +558,15 @@ function ForEmployers() {
 					</Row>
 				</Banner>
 
-
 				<FeaturesWrapper>
 					<Row>
 						<Col xs={12} md={4}>
 							<CardContent>
-								<CardImageWRapper src={saveMoneyImage} alt="save-money" />
-								<CardTitle>
-									Save Money
-								</CardTitle>
+								<CardImageWRapper
+									src={saveMoneyImage}
+									alt="save-money"
+								/>
+								<CardTitle>Save Money</CardTitle>
 								<div>
 									Get two months of free and unlimited job
 									posts by signing up today.You can hire
@@ -570,11 +579,12 @@ function ForEmployers() {
 						<Col xs={12} md={4}>
 							<CardContent>
 								<CardIcon>
-									<CardImageWRapper src={saveTimeImage} alt="save-time" />
+									<CardImageWRapper
+										src={saveTimeImage}
+										alt="save-time"
+									/>
 								</CardIcon>
-								<CardTitle>
-									Save Time
-								</CardTitle>
+								<CardTitle>Save Time</CardTitle>
 								<div>
 									We rank and filter all of you application on
 									a weekly basis to find factory workers that
@@ -585,14 +595,14 @@ function ForEmployers() {
 							</CardContent>
 						</Col>
 						<Col xs={12} md={4}>
-
 							<CardContent>
 								<CardIcon>
-									<CardImageWRapper src={getResultImage} alt="get-result" />
+									<CardImageWRapper
+										src={getResultImage}
+										alt="get-result"
+									/>
 								</CardIcon>
-								<CardTitle>
-									Get Results
-								</CardTitle>
+								<CardTitle>Get Results</CardTitle>
 								<div>
 									You Only pay for results. we charge 5 pesos
 									per job application, rather than charging a
@@ -607,10 +617,7 @@ function ForEmployers() {
 					<SignupTodayWrapper>
 						<LinkButton
 							$primary
-							to={
-								urlGenerators.queryRoutes
-									.submitSalaryData
-							}
+							to={urlGenerators.queryRoutes.submitSalaryData}
 						>
 							SIGN UP TODAY
 						</LinkButton>
@@ -618,20 +625,19 @@ function ForEmployers() {
 					<HorizontalRow></HorizontalRow>
 				</FeaturesWrapper>
 				<JobPostWrapper>
-					<SectionTitle>
-						Job Posts
-					</SectionTitle>
+					<SectionTitle>Job Posts</SectionTitle>
 					<SectionSubTitle>
 						Get your job posts in front of the right people
 					</SectionSubTitle>
 					<JobPostCard>
 						<JobPostFirstRow>
 							<JobPostHeaderRightSection>
-								<PostImage src={facebookImage} alt="post-image" />
+								<PostImage
+									src={facebookImage}
+									alt="post-image"
+								/>
 								<PostHeaderContent>
-									<PostTitle>
-										Facebook
-									</PostTitle>
+									<PostTitle>Facebook</PostTitle>
 									<PostSubHeading>
 										UI/UX Designer
 									</PostSubHeading>
@@ -641,9 +647,7 @@ function ForEmployers() {
 											size={18}
 											activeColor="#ffd700"
 										/>
-										<PostTitle>
-											32 Reviews
-										</PostTitle>
+										<PostTitle>32 Reviews</PostTitle>
 									</RatingWrapper>
 								</PostHeaderContent>
 							</JobPostHeaderRightSection>
@@ -660,163 +664,257 @@ function ForEmployers() {
 								<PublishDateWrapper>
 									<PostTitle>
 										Published&nbsp;:&nbsp;
-									</PostTitle> 3 days ago
+									</PostTitle>{" "}
+									3 days ago
 								</PublishDateWrapper>
 							</JobPostHeaderLeftSection>
 						</JobPostFirstRow>
 						<div className="basic-details">
 							<JobDetailsWrapper>
-								<Col xs={12} md={6} className="details-container">
+								<Col
+									xs={12}
+									md={6}
+									className="details-container"
+								>
 									<JobDetailsTitle>SALARY</JobDetailsTitle>
 									<JobDetailContent>
-										<img src={dollarImage} alt="dollar-img" />
-										<JobDetailvalue>Rs 40,000 - Rs 50,000 / Month</JobDetailvalue>
+										<img
+											src={dollarImage}
+											alt="dollar-img"
+										/>
+										<JobDetailvalue>
+											Rs 40,000 - Rs 50,000 / Month
+										</JobDetailvalue>
 									</JobDetailContent>
 								</Col>
-								<Col xs={12} md={6} className="details-container">
+								<Col
+									xs={12}
+									md={6}
+									className="details-container"
+								>
 									<JobDetailsTitle>JOB TYPE</JobDetailsTitle>
 									<JobDetailContent>
-										<img src={jobTypeImage} alt="dollar-img" />
-										<JobDetailvalue>Permanent</JobDetailvalue>
+										<img
+											src={jobTypeImage}
+											alt="dollar-img"
+										/>
+										<JobDetailvalue>
+											Permanent
+										</JobDetailvalue>
 									</JobDetailContent>
 								</Col>
 							</JobDetailsWrapper>
 							<JobDetailsWrapper>
-								<Col xs={12} md={6} className="details-container">
-									<JobDetailsTitle>MIN EDUCATION</JobDetailsTitle>
+								<Col
+									xs={12}
+									md={6}
+									className="details-container"
+								>
+									<JobDetailsTitle>
+										MIN EDUCATION
+									</JobDetailsTitle>
 									<JobDetailContent>
-										<img src={minEducationImage} alt="dollar-img" />
-										<JobDetailvalue>Completed High School</JobDetailvalue>
+										<img
+											src={minEducationImage}
+											alt="dollar-img"
+										/>
+										<JobDetailvalue>
+											Completed High School
+										</JobDetailvalue>
 									</JobDetailContent>
 								</Col>
-								<Col xs={12} md={6} className="details-container">
+								<Col
+									xs={12}
+									md={6}
+									className="details-container"
+								>
 									<JobDetailsTitle>Industry</JobDetailsTitle>
 									<JobDetailContent>
-										<img src={industryImage} alt="dollar-img" />
-										<JobDetailvalue>Aerospace</JobDetailvalue>
+										<img
+											src={industryImage}
+											alt="dollar-img"
+										/>
+										<JobDetailvalue>
+											Aerospace
+										</JobDetailvalue>
 									</JobDetailContent>
 								</Col>
 							</JobDetailsWrapper>
 							<JobDetailsWrapper>
-								<Col xs={12} md={6} className="details-container">
-									<JobDetailsTitle>MIN LANGUAGE PROFICIENCY</JobDetailsTitle>
+								<Col
+									xs={12}
+									md={6}
+									className="details-container"
+								>
+									<JobDetailsTitle>
+										MIN LANGUAGE PROFICIENCY
+									</JobDetailsTitle>
 									<JobDetailContent>
-										<LanguageImage src={languageImage} alt="dollar-img" />
+										<LanguageImage
+											src={languageImage}
+											alt="dollar-img"
+										/>
 										<LanguageContentWrapper border>
-											<LanguageTitle>English</LanguageTitle>
-											<LanguageDescription>Conversational</LanguageDescription>
+											<LanguageTitle>
+												English
+											</LanguageTitle>
+											<LanguageDescription>
+												Conversational
+											</LanguageDescription>
 										</LanguageContentWrapper>
 										<LanguageContentWrapper border={false}>
-											<LanguageTitle>Spanish</LanguageTitle>
-											<LanguageDescription>Native</LanguageDescription>
+											<LanguageTitle>
+												Spanish
+											</LanguageTitle>
+											<LanguageDescription>
+												Native
+											</LanguageDescription>
 										</LanguageContentWrapper>
 									</JobDetailContent>
 								</Col>
-								<Col xs={12} md={6} className="details-container">
+								<Col
+									xs={12}
+									md={6}
+									className="details-container"
+								>
 									<JobDetailsTitle>SHIFTS</JobDetailsTitle>
 									<JobDetailContent>
-										<LanguageImage src={shiftsImage} alt="dollar-img" />
+										<LanguageImage
+											src={shiftsImage}
+											alt="dollar-img"
+										/>
 										<LanguageContentWrapper border>
-											<LanguageTitle>Mon - Fri</LanguageTitle>
-											<LanguageDescription>8 AM - 6 PM</LanguageDescription>
+											<LanguageTitle>
+												Mon - Fri
+											</LanguageTitle>
+											<LanguageDescription>
+												8 AM - 6 PM
+											</LanguageDescription>
 										</LanguageContentWrapper>
 										<LanguageContentWrapper border>
-											<LanguageTitle>Mon - Fri</LanguageTitle>
-											<LanguageDescription>8 AM - 6 PM</LanguageDescription>
+											<LanguageTitle>
+												Mon - Fri
+											</LanguageTitle>
+											<LanguageDescription>
+												8 AM - 6 PM
+											</LanguageDescription>
 										</LanguageContentWrapper>
 										<LanguageContentWrapper border={false}>
-											<LanguageTitle>Mon - Fri</LanguageTitle>
-											<LanguageDescription>8 AM - 6 PM</LanguageDescription>
+											<LanguageTitle>
+												Mon - Fri
+											</LanguageTitle>
+											<LanguageDescription>
+												8 AM - 6 PM
+											</LanguageDescription>
 										</LanguageContentWrapper>
 									</JobDetailContent>
 								</Col>
 							</JobDetailsWrapper>
 							<JobDetailsWrapper>
-								<Col xs={12} md={12} className="details-container">
+								<Col
+									xs={12}
+									md={12}
+									className="details-container"
+								>
 									<JobDetailsTitle>LOCATION</JobDetailsTitle>
 									<JobDetailContent>
 										<div>
-											<LanguageImage src={cityImage} alt="dollar-img" />
+											<LanguageImage
+												src={cityImage}
+												alt="dollar-img"
+											/>
 											<LanguageContentWrapper border>
-												<LanguageTitle>City</LanguageTitle>
-												<LanguageDescription>Tijuana</LanguageDescription>
+												<LanguageTitle>
+													City
+												</LanguageTitle>
+												<LanguageDescription>
+													Tijuana
+												</LanguageDescription>
 											</LanguageContentWrapper>
 										</div>
 										<div>
-											<LanguageImage src={industrialParkImage} alt="dollar-img" />
+											<LanguageImage
+												src={industrialParkImage}
+												alt="dollar-img"
+											/>
 											<LanguageContentWrapper border>
-												<LanguageTitle>Industrial Park</LanguageTitle>
-												<LanguageDescription>EL Logo</LanguageDescription>
+												<LanguageTitle>
+													Industrial Park
+												</LanguageTitle>
+												<LanguageDescription>
+													EL Logo
+												</LanguageDescription>
 											</LanguageContentWrapper>
 										</div>
 										<div>
-											<LanguageImage src={addressImage} alt="dollar-img" />
-											<LanguageContentWrapper border={false}>
-												<LanguageTitle>Address</LanguageTitle>
-												<LanguageDescription>Calle Lagua Maynar 5520, Section C</LanguageDescription>
+											<LanguageImage
+												src={addressImage}
+												alt="dollar-img"
+											/>
+											<LanguageContentWrapper
+												border={false}
+											>
+												<LanguageTitle>
+													Address
+												</LanguageTitle>
+												<LanguageDescription>
+													Calle Lagua Maynar 5520,
+													Section C
+												</LanguageDescription>
 											</LanguageContentWrapper>
 										</div>
 									</JobDetailContent>
 								</Col>
 							</JobDetailsWrapper>
-
 						</div>
 						<div className="description">
 							<div className="df">
 								<img src={descriptionImage} alt=""></img>
-								<span>
-									Description
-								</span>
+								<span>Description</span>
 							</div>
 							<div className="tags">
-								{
-									jobDescriptions.map((v) => {
-										return <DescriptionTag key={v}>{v}</DescriptionTag>
-									})
-								}
+								{jobDescriptions.map((v) => {
+									return (
+										<DescriptionTag key={v}>
+											{v}
+										</DescriptionTag>
+									);
+								})}
 							</div>
 						</div>
 						<div className="description">
 							<div className="df">
 								<img src={skillsImages} alt=""></img>
-								<span>
-									Skilld Required
-								</span>
+								<span>Skilld Required</span>
 							</div>
 							<div className="tags">
-								{
-									jobSkills.map((v) => {
-										return <DescriptionTag key={v}>{v}</DescriptionTag>
-									})
-								}
+								{jobSkills.map((v) => {
+									return (
+										<DescriptionTag key={v}>
+											{v}
+										</DescriptionTag>
+									);
+								})}
 							</div>
 						</div>
 						<div className="description">
 							<div className="df">
 								<img src={certificateImage} alt=""></img>
-								<span>
-									Certificates & Licences
-								</span>
+								<span>Certificates & Licences</span>
 							</div>
 							<div className="certificates">
 								<ul>
-									{
-										certifications.map((v) => {
-											return <li key={v}>{v}</li>
-										})
-									}
+									{certifications.map((v) => {
+										return <li key={v}>{v}</li>;
+									})}
 								</ul>
 							</div>
 						</div>
-
 					</JobPostCard>
 					<SignupTodayWrapper>
 						<LinkButton
 							$primary
-							to={
-								urlGenerators.queryRoutes
-									.submitSalaryData
-							}
+							to={urlGenerators.queryRoutes.submitSalaryData}
 						>
 							SIGN UP TODAY
 						</LinkButton>
@@ -824,9 +922,7 @@ function ForEmployers() {
 					<HorizontalRow></HorizontalRow>
 				</JobPostWrapper>
 				<TableWrapper>
-					<SectionTitle>
-						Ranked Applicants
-					</SectionTitle>
+					<SectionTitle>Ranked Applicants</SectionTitle>
 					<SectionSubTitle>
 						Find factory workers that are tailored to your needs
 						(availability, skills, education, level and more)
@@ -857,57 +953,86 @@ function ForEmployers() {
 										<td>{user.certificados}</td>
 										<td>{user.ubicacion}</td>
 										<td>{user.contacto}</td>
-										<td><img src={arrowDownCircleImage} alt=""></img></td>
+										<td>
+											<img
+												src={arrowDownCircleImage}
+												alt=""
+											></img>
+										</td>
 									</tr>
 								))}
 							</tbody>
 						</Table>
 					</StyledRankedTable>
 					<HorizontalRow></HorizontalRow>
-
 				</TableWrapper>
 				<ResourcesWrapper>
-					<SectionTitle>
-						Resources
-					</SectionTitle>
+					<SectionTitle>Resources</SectionTitle>
 					<SectionSubTitle>
-						Improve your HR practices by learning about industry best standards with our resources
+						Improve your HR practices by learning about industry
+						best standards with our resources
 					</SectionSubTitle>
 					<ResourceCardRow>
 						{resources.map((resource) => (
-							<ResourcePreviewCard key={resource.id} resource={resource} isMobile={isMobile} activeResourceCard={activeResourceCard} />
+							<ResourcePreviewCard
+								key={resource.id}
+								resource={resource}
+								isMobile={isMobile}
+								activeResourceCard={activeResourceCard}
+							/>
 						))}
 					</ResourceCardRow>
-					{isMobile ? <ResourceCardNavigation>
-						<LeftNavigation onClick={() => {
-							setActiveResourceCard(activeResourceCard > 1 ? activeResourceCard - 1 : activeResourceCard)
-						}} >
-							<img src={navigationArrowImage} alt="left-navigation"></img>
-						</LeftNavigation>
-						<RightNavigation onClick={() => {
-							setActiveResourceCard(activeResourceCard < 3 ? activeResourceCard + 1 : activeResourceCard)
-						}}>
-							<img src={navigationArrowImage} alt="right-navigation"></img>
-						</RightNavigation>
-					</ResourceCardNavigation> : null}
+					{isMobile ? (
+						<ResourceCardNavigation>
+							<LeftNavigation
+								onClick={() => {
+									setActiveResourceCard(
+										activeResourceCard > 1
+											? activeResourceCard - 1
+											: activeResourceCard
+									);
+								}}
+							>
+								<img
+									src={navigationArrowImage}
+									alt="left-navigation"
+								></img>
+							</LeftNavigation>
+							<RightNavigation
+								onClick={() => {
+									setActiveResourceCard(
+										activeResourceCard < 3
+											? activeResourceCard + 1
+											: activeResourceCard
+									);
+								}}
+							>
+								<img
+									src={navigationArrowImage}
+									alt="right-navigation"
+								></img>
+							</RightNavigation>
+						</ResourceCardNavigation>
+					) : null}
 				</ResourcesWrapper>
 				<ResourcesWrapper>
-					<ResourceTopicTitle>
-						Resource Topics
-					</ResourceTopicTitle>
+					<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
 					<TopicsContent>
 						<ResourceTopicButton title="Legal" img={topic1Image} />
-						<ResourceTopicButton title="Turnover Rates" img={topic2Image} />
-						<ResourceTopicButton title="Hiring Best Practices" img={topic3Image} />
+						<ResourceTopicButton
+							title="Turnover Rates"
+							img={topic2Image}
+						/>
+						<ResourceTopicButton
+							title="Hiring Best Practices"
+							img={topic3Image}
+						/>
 						<ResourceTopicButton title="View All Topics" />
 					</TopicsContent>
 					<ViewAllResourceWrapper>
 						<LinkButton
 							$primary
-							to={
-								urlGenerators.queryRoutes
-									.employerResources
-							}
+							to={urlGenerators.queryRoutes.employerResources}
 						>
 							View All Resources
 						</LinkButton>
