@@ -7,6 +7,7 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "src/components/button";
 import { TranslationComponent } from "src/translations";
 import colors from "src/colors";
+import { forSize } from "src/responsive";
 
 const ArrayContainer = styled.div`
 	margin-top: 20px;
@@ -23,7 +24,7 @@ const ElementContainer = styled.div`
 const ElementHeading = styled.h5`
 	text-transform: capitalize;
 	color: hsl(204, 63%, 55%);
-	margin-bottom: 20px;
+	// margin-bottom: 20px;
 `;
 // const ElementDeleteButton = styled(Button)`
 // 	&&&&&&&&& {
@@ -39,6 +40,10 @@ const FieldDeleteButton = styled(Button)`
 	border-radius: 3rem !important;
 	font-weight : 0 !important;
 	padding: 0.6em 3em !important;
+	${forSize.phoneOnly} {
+		padding: 0.2em 1em !important;
+		font-size: 0.9rem; 
+	}
 
 ` 
 const ElementAddButton = styled(Button)`
@@ -50,8 +55,14 @@ const ElementAddButton = styled(Button)`
 const ElementHeader = styled.div`
 	display : flex;
 	justify-content: space-between;
-	align-items: baseline;
+	align-items: center;
 `;
+const HeaderHorizontalLine = styled.div`
+	width: 100%;
+	background-color:hsl(204, 63%, 55%);
+	height: 1px;
+	margin: 0px 5px;
+`
 
 interface FormArrayProps {
 	name: string;
@@ -82,6 +93,8 @@ function FormArray({
 										<ElementHeader>
 											<ElementHeading>{name}</ElementHeading>
 											{index !== 0 && (
+												<>
+												<HeaderHorizontalLine/>
 												<FieldDeleteButton
 													type="button"
 													onClick={() =>
@@ -90,6 +103,7 @@ function FormArray({
 												>
 													Remove {name}
 												</FieldDeleteButton>
+												</>
 											)}
 										</ElementHeader>
 										<ElementRender
