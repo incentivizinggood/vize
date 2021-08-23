@@ -124,10 +124,6 @@ function InnerForm({ submissionError }: any) {
 					ElementRender={({ name }: { name: string }) => (
 						<T.fields.jobSchedule
 							renderer={(t: any) => (
-								// <Box
-								// 	display="flex"
-								// 	// justifyContent="space-between"
-								// >
 								<ShiftSelectionWrapper>
 									<Field
 										name="startDay"

@@ -13,17 +13,10 @@ const ArrayContainer = styled.div`
 `;
 
 const ElementContainer = styled.div`
-	// margin-left: auto;
-	// margin-right: auto;
-	// margin-bottom: 20px;
 	margin-top: 20px;
 	width: 100%;
-	// max-width: 500px;
-
 	background-color: ${colors.surface};
 	color: ${colors.onSurface};
-	// box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
-	// padding: 30px;
 	position: relative;
 	padding-top: 20px;
 `;
@@ -32,21 +25,32 @@ const ElementHeading = styled.h5`
 	color: hsl(204, 63%, 55%);
 	margin-bottom: 20px;
 `;
-const ElementDeleteButton = styled(Button)`
-	&&&&&&&&& {
-		padding: 0;
-		width: 1.5em;
-		height: 1.5em;
-		position: absolute;
-		right: 10px;
-		top: 10px;
-	}
-`;
+// const ElementDeleteButton = styled(Button)`
+// 	&&&&&&&&& {
+// 		padding: 0;
+// 		width: 1.5em;
+// 		height: 1.5em;
+// 		position: absolute;
+// 		right: 10px;
+// 		top: 10px;
+// 	}
+// `;
+const FieldDeleteButton = styled(Button)`
+	border-radius: 3rem !important;
+	font-weight : 0 !important;
+	padding: 0.6em 3em !important;
+
+` 
 const ElementAddButton = styled(Button)`
 	border-radius: 3rem !important;
 	background-color: #F0F8FF !important;
 	border: none !important;
 	font-weight : 0 !important;
+`;
+const ElementHeader = styled.div`
+	display : flex;
+	justify-content: space-between;
+	align-items: baseline;
 `;
 
 interface FormArrayProps {
@@ -75,20 +79,19 @@ function FormArray({
 						{values[name] && values[name].length > 0
 							? values[name].map((x: unknown, index: number) => (
 									<ElementContainer>
-										<ElementHeading>{name}</ElementHeading>
-										{index !== 0 && (
-											<ElementDeleteButton
-												type="button"
-												onClick={() =>
-													arrayHelpers.remove(index)
-												} // remove a friend from the list
-											>
-												<FontAwesomeIcon
-													icon={faTimes}
-												/>
-											</ElementDeleteButton>
-										)}
-
+										<ElementHeader>
+											<ElementHeading>{name}</ElementHeading>
+											{index !== 0 && (
+												<FieldDeleteButton
+													type="button"
+													onClick={() =>
+														arrayHelpers.remove(index)
+													} // remove a friend from the list
+												>
+													Remove {name}
+												</FieldDeleteButton>
+											)}
+										</ElementHeader>
 										<ElementRender
 											name={`${name}[${index}]`}
 										/>
