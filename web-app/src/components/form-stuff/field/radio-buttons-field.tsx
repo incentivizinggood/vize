@@ -52,17 +52,10 @@ export default function RadioButtonsField({
 	);
 }
 const RadioButtonWrapper = styled.div`
-	// .MuiFormControlLabel-root.customRadioButton {
-	// 	.MuiButtonBase-root {
-	// 		opacity: 0;
-	// 		position: absolute;
-	// 	}
-	// 	.MuiButtonBase-root,
-	// 	.MuiIconButton-label {
-	// 		display: inline-block;
-	// 		vertical-align: middle;
-	// 		margin: 5px;
-	// 		cursor: pointer;
-	// 	}
-	// }
+	.contractTypeField {
+		.MuiBox-root-15 {
+			display: flex !important;
+			flex-direction: column;
+		}
+	}
 `;

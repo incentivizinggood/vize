@@ -256,6 +256,7 @@ function InnerForm({ submissionError }: any) {
 							<Field
 								name="contractType"
 								type="radioButtons"
+								className="contractTypeField"
 								display="block"
 								label={t.label}
 								options={[
