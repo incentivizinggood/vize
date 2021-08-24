@@ -1,13 +1,13 @@
 import React from "react";
 import { forSize } from "src/responsive";
 import styled from "styled-components";
-const TopicItem = styled.div`
+const TopicItem = styled.button`
     width:250px;
-    background:#fff;
-    border-radius:16px;
-    margin:0 15px;
-    margin-bottom:5px;
-    padding:5px;
+    background:white;
+    border-radius: 30px;
+    margin: 0 15px;
+    margin-bottom: 5px;
+    padding: 15px 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,21 +21,22 @@ const TopicItem = styled.div`
         }
     }
     span{
-        
         flex : 0 0 auto;
         font-weight:600;
         ${forSize.tabletAndDown} {
             width:70%;
+            text-align:left;
         }
     }
 `;
-interface ResourceopicButtonProps {
+interface ResourceTopicButtonProps {
     title: string,
-    img?: string
+    img?: string,
+    onClick: React.MouseEventHandler<HTMLButtonElement>
 }
-export default function ResourceopicButton(props: ResourceopicButtonProps): JSX.Element {
-    const { title, img } = props
-    return <TopicItem>
+export default function ResourceTopicButton(props: ResourceTopicButtonProps): JSX.Element {
+    const { title, img, onClick } = props
+    return <TopicItem onClick={onClick}>
         <div>
             {img ? <img src={img} alt=""></img> : null}
         </div>
