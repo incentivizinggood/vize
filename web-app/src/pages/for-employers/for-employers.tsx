@@ -27,7 +27,7 @@ import topic2Image from "../../images/job-post-icons/topic-2.png";
 import topic3Image from "../../images/job-post-icons/topic-3.png";
 import img1 from "../../images/workers.jpeg";
 
-const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
+const T = translations.forEmployers;
 
 const horizontalPaddingVal = "15px";
 
@@ -427,37 +427,32 @@ function ForEmployers() {
 							<BannerContent>
 								<div>
 									<BannerNormalContent>
-										Hiring made{" "}
+										<T.heading.hiringMade />{" "}
 									</BannerNormalContent>
 									<BannerHighlightedContent>
-										easier
+									<T.heading.easier />
 									</BannerHighlightedContent>
-									,<br />
+									<BannerNormalContent>{", "}</BannerNormalContent>
 									<BannerHighlightedContent>
-										faster
+									 <T.heading.faster />
 									</BannerHighlightedContent>
 									<BannerNormalContent>
-										, and{" "}
+										, <T.heading.and />{" "}
 									</BannerNormalContent>{" "}
 									<BannerHighlightedContent>
-										affordable
+									<T.heading.affordable />{" "}
 									</BannerHighlightedContent>
-									<br />
 									<BannerNormalContent>
-										with
+									<T.heading.with />
 									</BannerNormalContent>{" "}
 									<BannerVizeContent>
-										Vize
+									<T.heading.Vize />
 										<VizeBackgroundEffect />
 									</BannerVizeContent>
 								</div>
 								<div>
 									<BannerSubTitle>
-										{" "}
-										Post jobs and we'll rank ad filter the
-										right factory workers in
-										<br />
-										Tijuana for your factory
+										<T.subheading />
 									</BannerSubTitle>
 								</div>
 								<BannerButtonContainer>

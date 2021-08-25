@@ -659,6 +659,40 @@ export default {
 		},
 		read: "Read",
 	},
+	forEmployers: {
+		heading: {
+			hiringMade: "Hiring made",
+			easier: "easier",
+			faster: "faster",
+			and: "and",
+			affordable: "affordable",
+			with: "with",
+			Vize: "Vize",
+		},
+		subheading:
+			"Post jobs and we'll rank ad filter the right factory workers in Tijuana for your factory",
+		getStarted: "GET STARTED",
+		signUpToday: "SIGN UP TODAY",
+		benefits: {
+			saveMoneyHeading: "Save Money",
+			saveMoneyDescription:
+				"Get two months of free and unlimited job posts by signing up today.You can hire workforce you need easier, faster, and more affordable by reaching over 3000 factory workers on our site.",
+			saveTimeHeading: "Save Money",
+			saveTimeDescription:
+				"We rank and filter all of your applications on a weekly basis to find factory workers that are tailored to your needs (availability, skills, education level, and more) so you don’t have to sort through CVs yourself.",
+			getResultsHeading: "Get Results",
+			getResultsDescription:
+				"You only pay for results. We charge 5 pesos per job application, rather than charging a monthly subscription. This saves you money, gives you the flexibility to post as many jobs as you need, when you need them, and for however many workers you need.",
+		},
+		exampleJobPost: {
+			heading: "Job Posts",
+			subheading: "Get your job posts in front of the right people",
+		},
+		rankedApplicants: {
+			heading: "Ranked Applicants",
+			subheading: "Find factory workers that are tailored to your needs (availability, skills, education, level and more)",
+		},
+	},
 	legacyTranslationsNeedsRefactor: {
 		passwordChanger: {
 			oldPassword: "Current password",
@@ -737,55 +771,6 @@ export default {
 			placeholder_name: "Your Name",
 			placeholder_email: "Eg. example@email.com",
 			placeholder_comments: "Please enter your comments...",
-		},
-		forEmployers: {
-			resourcesPageText:
-				"Learn how you can lower turnover rates, decrease recruiting costs, improve your recruiting practices, and much more with our resources",
-			resources: "Resources",
-			headerText:
-				"Recruit and retain the best workforce in Tijuana with Vize",
-			getStarted: "Get Started",
-			heading1: "The Problem",
-			card1part1: "Many factories like yours face turnover rates of",
-			card1part2: " of their workforce",
-			card1part3: " every year",
-			card2part1:
-				"High turnover rates force you to spend more time and money on",
-			card2part2: " recruiting and training",
-			card3part1: "Losing 1 worker can cost you at least",
-			card3part2: " $615 every month",
-			heading2: "The Solution",
-			recruitingHeading: "Recruiting",
-			recruitingText:
-				"We help you recruit the best employees with affordable and effective job posts.",
-			retainmentHeading: "Retainment",
-			retainmentText:
-				"We then give you actionable insights on how to retain these employees using data directly from workers all across Tijuana.",
-			heading3: "Pricing",
-			pricingText1: "The first 10 customers get full",
-			pricingText2: "premium access",
-			pricingText3: " to our services",
-			pricingText4: "FOR FREE",
-			pricingText5: "for the first 90 days.",
-			businessHeading: "Buisness",
-			businessText1: "5 Job Posts",
-			businessText2: "Data Analytics Dashboard",
-			businessText3: "Buisiness Resources",
-			premiumHeading: "Premium",
-			premiumText1: "10 Job Posts",
-			premiumText2: "Data Analytics Dashboard",
-			premiumText3: "Buisiness Resources",
-			premiumText4: "Individualized Analysis and Consulting",
-			img: {
-				exampleJobPost: {
-					src: exampleJobPostSquareEn,
-					alt: "",
-				},
-				analyticsDashboard: {
-					src: analyticsDashboardEn,
-					alt: "",
-				},
-			},
 		},
 		companyreview: {
 			recommend: "Recommended",

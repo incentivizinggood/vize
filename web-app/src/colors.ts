@@ -1,7 +1,7 @@
 /** The color pallette to use across the website. */
 const colors = {
 	primaryColorBlue: "#1da1f2",
-	secondaryColorGreen: "#057642",
+	secondaryColorGreen: "#188038",
 	tertiaryColorLightBlue: "#eaf7ff",
 
 	// Used for the hover color of a primary button

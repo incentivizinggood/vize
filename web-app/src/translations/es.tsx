@@ -679,6 +679,48 @@ export default {
 		},
 		read: "Leer",
 	},
+	forEmployers: {
+		heading: {
+			hiringMade: "La contratación es más",
+			easier: "fácil",
+			faster: "rápida",
+			and: "y",
+			affordable: "asequible",
+			with: "con",
+			Vize: "Vize",
+		},
+		subheading:
+			"Publique empleos y nosotros clasificaremos y filtraremos a los trabajadores de fábrica indicados en Tijuana para su fábrica",
+		getStarted: "Comenzar",
+		signUpToday: "SIGN UP TODAY",
+		benefits: {
+			saveMoneyHeading: "Ahorre Dinero",
+			saveMoneyDescription:
+				"Reciba 2 meses de ofertas de empleo ilimitadas gratis al registrarse hoy. Puede contratar la fuerza de trabajo que necesita de manera más fácil, rápida y asequible al llegar a más de 3000 trabajadores de fábrica en nuestro sitio.",
+			saveTimeHeading: "Ahorre Tiempo",
+			saveTimeDescription:
+				"Clasificaremos y filtraremos todas sus solicitudes semanalmente para encontrar a los trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo y más) para que usted no tenga que revisar todos los CVs.",
+			getResultsHeading: "Obtenga Resultados",
+			getResultsDescription:
+				"Solo paga por los resultados. Cobramos 5 pesos por solicitud de empleo, en vez de cobrar una suscripción mensual. Esto le ahorra dinero, le da la flexibilidad para publicar todos los empleos que necesite, cuando los necesite y para todos los trabajadores que necesite.",
+		},
+		exampleJobPost: {
+			heading: "Ofertas de Empleo",
+			subheading: "Coloque sus ofertas de empleo delante de las personas indicadas",
+			// salary: "Salario",
+			// minimumEducation: "Educación Minima",
+			// englishProficiency: "Dominio del Inglés",
+			// location: "Ubicación",
+			// city: "Ciudad",
+			// industrialPark: "Parque Industrial",
+			// address: "Dirección",
+			// contractType: "Tipo de Contrato",
+			// industry: "Industria",
+			// shifts: "Turnos",
+		},
+		rankedApplicantsHeading: "Solicitantes Clasificados",
+		rankedApplicantsSubheading: "Encuentre a trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo y más)",
+	},
 	legacyTranslationsNeedsRefactor: {
 		passwordChanger: {
 			oldPassword: "Contraseña actual",
@@ -763,56 +805,7 @@ export default {
 			placeholder_email: "Eg. ejemplo@email.com",
 			placeholder_comments: "Por favor deje sus comentarios",
 		},
-		forEmployers: {
-			resourcesPageText:
-				"Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
-			resources: "Recursos",
-			headerText:
-				"Recluta y retiene a la mejor fuerza laboral en Tijuna con Vize",
-			getStarted: "Empezar",
-			heading1: "El Problema",
-			card1part1:
-				"Muchas fábricas como la suya enfrentan tasas de rotación del",
-			card1part2: " de su fuerza laboral",
-			card1part3: " cada año",
-			card2part1:
-				"Las altas tasas de rotación te obligan a gastar más tiempo y dinero en",
-			card2part2: " reclutar y entrenar",
-			card3part1: "Perder 1 trabajador les puede costar al menos",
-			card3part2: " $11,000 pesos cada mes",
-			heading2: "La Solución",
-			recruitingHeading: "Reclutamiento",
-			recruitingText:
-				"Le ayudamos a reclutar los mejores empleados con puestos de trabajo asequibles y efectivos.",
-			retainmentHeading: "Retención",
-			retainmentText:
-				"Luego, le brindamos información práctica sobre cómo retener sus empleados utilizando datos analiticos directamente de los trabajadores en todo Tijuana.",
-			heading3: "Precios",
-			pricingText1: "Los primeros 10 clientes obtienen",
-			pricingText2: " acceso premium",
-			pricingText3: " completo a nuestros servicios",
-			pricingText4: " GRATIS",
-			pricingText5: " durante los primeros 90 días.",
-			businessHeading: "Negocio",
-			businessText1: "5 Anuncios de Trabajo",
-			businessText2: "Panel de Análisis de Datos",
-			businessText3: "Recursos de Negocio",
-			premiumHeading: "Premium",
-			premiumText1: "10 Anuncios de Trabajo",
-			premiumText2: "Panel de Análisis de Datos",
-			premiumText3: "Recursos de Negocio",
-			premiumText4: "Análisis y Consultoría Individualizados",
-			img: {
-				exampleJobPost: {
-					src: exampleJobPostSquareEs,
-					alt: "",
-				},
-				analyticsDashboard: {
-					src: analyticsDashboardEs,
-					alt: "",
-				},
-			},
-		},
+		
 		companyreview: {
 			recommend: "Recomendado",
 			reviews: "Evaluaciones",
