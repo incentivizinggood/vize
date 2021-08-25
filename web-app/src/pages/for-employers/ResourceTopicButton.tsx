@@ -6,7 +6,7 @@ const TopicItem = styled.button`
     background:white;
     border-radius: 30px;
     margin: 0 15px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     padding: 15px 5px;
     display: flex;
     align-items: center;

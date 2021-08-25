@@ -18,6 +18,7 @@ const ResourceCard = styled.div`
 	background:#fff;
 	border-radius:16px 16px 6px;
 	margin-bottom:10px;
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 `;
 const ResourceContentWrapper = styled.div`
 	padding:10px 20px;
@@ -43,9 +44,11 @@ const ResourceDescription = styled.span`
 `;
 const ResourceReadButton = styled.button`
 	margin-top:5px;
-	align-self: flex-start;
-	color:${colors.primaryColorBlue};
-	padding-left: 0px;
+	align-self: center;
+	background-color:${colors.primaryColorBlue};
+	padding: 5px 10px;
+    border-radius: 17px;
+	color:white;
 `;
 function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 	const { resource, activeResourceCard, isMobile } = props

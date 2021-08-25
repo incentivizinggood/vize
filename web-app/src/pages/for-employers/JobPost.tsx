@@ -27,6 +27,7 @@ const JobPostCard = styled.div`
 	background: #fff;
 	border-radius: 6px;
 	padding: 20px;
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 `;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -39,6 +40,7 @@ const JobRequirementDescription = styled.div`
 	margin-top: 10px;
 	display: flex;
 	flex-wrap: wrap;
+	margin-left:10px;
 `;
 const JobBasicDetails = styled.div`
 	border-bottom: 1px solid #d1d1d1;
@@ -58,7 +60,7 @@ const PostImage = styled.img`
 const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`
 	color: #acacac;
-	font-size: 8px;
+	font-size: 10px;
 `;
 const PostSubHeading = styled.div`
 	font-weight: 700;
@@ -92,8 +94,12 @@ const JobDetailvalue = styled.div`
 `;
 const JobDetailContent = styled.div`
 	display: flex;
-	padding-left: 10px;
+	// padding-left: 10px;
 	flex-wrap: wrap;
+	img	{
+		width: 18px;
+    	height: 18px;
+	}
 `;
 const JobDetailContainer = styled.div`
 	margin-bottom: 5px;
@@ -141,18 +147,18 @@ function JobPost(props: JobPostInterface): JSX.Element {
 					<PostHeaderContent>
 						<PostTitle>{props.company}</PostTitle>
 						<PostSubHeading>{props.jobPost}</PostSubHeading>
-						<RatingWrapper>
+						{/* <RatingWrapper>
 							<ReactStars
 								count={props.rating}
 								size={18}
 								activeColor="#ffd700"
 							/>
 							<PostTitle>{props.reviewCount} Reviews</PostTitle>
-						</RatingWrapper>
+						</RatingWrapper> */}
 					</PostHeaderContent>
 				</JobPostHeaderRightSection>
 				<JobPostHeaderLeftSection>
-					<LinkButton
+					{/* <LinkButton
 						$primary
 						to={urlGenerators.queryRoutes.submitSalaryData}
 					>
@@ -160,7 +166,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 					</LinkButton>
 					<PublishDateWrapper>
 						<PostTitle>Published&nbsp;:&nbsp;</PostTitle> 3 days ago
-					</PublishDateWrapper>
+					</PublishDateWrapper> */}
 				</JobPostHeaderLeftSection>
 			</JobPostFirstRow>
 			<JobBasicDetails>
@@ -280,7 +286,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={descriptionImage} alt=""></img>
-					<span>Descripción</span>
+					<span>&nbsp;Descripción</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
 					{props.description}
@@ -290,7 +296,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={skillsImages} alt=""></img>
-					<span>Habilidades Requeridas</span>
+					<span>&nbsp;Habilidades Requeridas</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
 					{props.jobSkills.map((v) => {
@@ -301,7 +307,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={certificateImage} alt=""></img>
-					<span>Certificados y Licencias</span>
+					<span>&nbsp;Certificados y Licencias</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
 					{props.certifications.map((v) => {
@@ -312,7 +318,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={certificateImage} alt=""></img>
-					<span>Beneficios</span>
+					<span>&nbsp;Beneficios</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
 					{props.benifits.map((v) => {

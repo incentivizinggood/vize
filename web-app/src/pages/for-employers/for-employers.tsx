@@ -63,11 +63,9 @@ const ContentWrapper = styled.div`
 		margin-left: 4%;
 		margin-right: 4%;
 	}
-	@media only screen and (max-width: 1600px) {
-		body {
-			margin-left: 25%;
-			margin-right: 25%;
-		}
+	@media only screen and (min-width: 1600px) {
+		margin-left: 25%;
+		margin-right: 25%;
 	}
 `;
 const Banner = styled.div`
@@ -81,6 +79,12 @@ const BannerContent = styled.div`
 	flex-direction: column;
 	${forSize.tabletAndDown} {
 		align-items: center;
+	}
+`;
+const BannerContentWrapper = styled.div`
+	
+	${forSize.tabletAndDown} {
+		text-align:center;
 	}
 `;
 const BannerNormalContent = styled.span`
@@ -113,6 +117,7 @@ const BannerSubTitle = styled.div`
 	margin: 10px 0px;
 	${forSize.tabletAndDown} {
 		font-size: 14px;
+		text-align:center;
 	}
 `;
 const VizeBackgroundEffect = styled.div`
@@ -161,6 +166,7 @@ const CardContent = styled.div`
 	border-radius: 15px;
 	padding: 30px;
 	line-height: 1.6;
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 	${forSize.tabletAndDown} {
 		justify-content: center;
 		align-items: center;
@@ -185,6 +191,7 @@ const HorizontalRow = styled.div`
 const JobPostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	
 `;
 const SectionTitle = styled.div`
 	font-size: 36px;
@@ -425,36 +432,34 @@ function ForEmployers() {
 					<Row>
 						<Col xs={12} md={6}>
 							<BannerContent>
-								<div>
+								<BannerContentWrapper>
 									<BannerNormalContent>
 										<T.heading.hiringMade />{" "}
 									</BannerNormalContent>
 									<BannerHighlightedContent>
-									<T.heading.easier />
+										<T.heading.easier />
 									</BannerHighlightedContent>
 									<BannerNormalContent>{", "}</BannerNormalContent>
 									<BannerHighlightedContent>
-									 <T.heading.faster />
+										<T.heading.faster />
 									</BannerHighlightedContent>
 									<BannerNormalContent>
 										, <T.heading.and />{" "}
 									</BannerNormalContent>{" "}
 									<BannerHighlightedContent>
-									<T.heading.affordable />{" "}
+										<T.heading.affordable />{" "}
 									</BannerHighlightedContent>
 									<BannerNormalContent>
-									<T.heading.with />
+										<T.heading.with />
 									</BannerNormalContent>{" "}
 									<BannerVizeContent>
-									<T.heading.Vize />
+										<T.heading.Vize />
 										<VizeBackgroundEffect />
 									</BannerVizeContent>
-								</div>
-								<div>
-									<BannerSubTitle>
-										<T.subheading />
-									</BannerSubTitle>
-								</div>
+								</BannerContentWrapper>
+								<BannerSubTitle>
+									<T.subheading />
+								</BannerSubTitle>
 								<BannerButtonContainer>
 									<LinkButton
 										$primary
@@ -583,7 +588,7 @@ function ForEmployers() {
 							<tbody>
 								{userData.map((user) => (
 									<tr key={user.id}>
-										<td>{user.clasificasion}</td>
+										<td className="text-center">{user.clasificasion}</td>
 										<td>{user.nombre}</td>
 										<td>{user.disponibildad}</td>
 										<td>{user.educacion}</td>
@@ -667,20 +672,20 @@ function ForEmployers() {
 						<ResourceTopicButton
 							title="Legal"
 							img={topic1Image}
-							onClick={() => {}}
+							onClick={() => { }}
 						/>
 						<ResourceTopicButton
-							onClick={() => {}}
+							onClick={() => { }}
 							title="Turnover Rates"
 							img={topic2Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => {}}
+							onClick={() => { }}
 							title="Hiring Best Practices"
 							img={topic3Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => {}}
+							onClick={() => { }}
 							title="View All Topics"
 						/>
 					</TopicsContent>
