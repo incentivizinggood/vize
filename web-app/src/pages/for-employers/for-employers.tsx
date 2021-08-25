@@ -30,10 +30,6 @@ import img1 from "../../images/workers.jpeg";
 const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
 
 const horizontalPaddingVal = "15px";
-export interface LanguageProficiency {
-	language: string;
-	proficiency: string;
-}
 
 export interface Shift {
 	day: string;
@@ -50,7 +46,7 @@ export interface JobPostInterface {
 	jobType: string;
 	minEducation: string;
 	industry: string;
-	languageProficiency: LanguageProficiency[];
+	englishProficiency: string;
 	shifts: Shift[];
 	city: string;
 	industrialPark: string;
@@ -72,7 +68,7 @@ const ContentWrapper = styled.div`
 			margin-left: 25%;
 			margin-right: 25%;
 		}
-	  }
+	}
 `;
 const Banner = styled.div`
 	margin-top: 150px;
@@ -84,7 +80,7 @@ const BannerContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	${forSize.tabletAndDown} {
-		align-items:center;
+		align-items: center;
 	}
 `;
 const BannerNormalContent = styled.span`
@@ -171,7 +167,7 @@ const CardContent = styled.div`
 	}
 `;
 const BenefitCardDescription = styled.div`
-	line-height:1.8;
+	line-height: 1.8;
 `;
 const CardIcon = styled.div`
 	width: 60px;
@@ -257,7 +253,7 @@ const LeftNavigation = styled.div`
 	border-radius: 6px;
 	background-color: #fff;
 	height: 50px;
-    width: 50px;
+	width: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -271,7 +267,7 @@ const RightNavigation = styled.div`
 	border-radius: 6px;
 	background-color: #fff;
 	height: 50px;
-    width: 50px;
+	width: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -314,57 +310,57 @@ function ForEmployers() {
 		{
 			id: 1,
 			clasificasion: "1",
-			nombre: "jedus Bon",
-			disponibildad: "matution",
-			educacion: "universidad Trunca",
+			nombre: "Jesús Bon",
+			disponibildad: "Matutino",
+			educacion: "Universidad Trunca",
 			habilidades: "Productos Medicos",
-			certificados: "Maquinas de CAC",
+			certificados: "Máquinas de CAC",
 			ubicacion: "Otay",
 			contacto: "664 555 8024",
 		},
 		{
 			id: 2,
 			clasificasion: "2",
-			nombre: "jedus Bon",
-			disponibildad: "matution",
-			educacion: "universidad Trunca",
-			habilidades: "Productos Medicos",
-			certificados: "Maquinas de CAC",
-			ubicacion: "Otay",
-			contacto: "664 555 8024",
+			nombre: "José Carrillo",
+			disponibildad: "Vespertino",
+			educacion: "Preparatoria",
+			habilidades: "Instrumentos de Medición",
+			certificados: "Ninguno",
+			ubicacion: "Florido",
+			contacto: "664 555 6238",
 		},
 		{
 			id: 3,
 			clasificasion: "3",
-			nombre: "jedus Bon",
-			disponibildad: "matution",
-			educacion: "universidad Trunca",
-			habilidades: "Productos Medicos",
-			certificados: "Maquinas de CAC",
-			ubicacion: "Otay",
-			contacto: "664 555 8024",
+			nombre: "Miguel Diaz",
+			disponibildad: "Matutino",
+			educacion: "Preparatoria",
+			habilidades: "Productos Aeroespaciales",
+			certificados: "Máquinas de AFM3D",
+			ubicacion: "Camino Verde",
+			contacto: "664 555 1287",
 		},
 		{
 			id: 4,
 			clasificasion: "4",
-			nombre: "jedus Bon",
-			disponibildad: "matution",
-			educacion: "universidad Trunca",
-			habilidades: "Productos Medicos",
-			certificados: "Maquinas de CAC",
-			ubicacion: "Otay",
-			contacto: "664 555 8024",
+			nombre: "Francisco Cervantes",
+			disponibildad: "Nocturno",
+			educacion: "Preparatoria",
+			habilidades: "Procesos Electrónicos",
+			certificados: "Montacargas",
+			ubicacion: "Florido",
+			contacto: "664 555 8946",
 		},
 		{
 			id: 5,
 			clasificasion: "5",
-			nombre: "jedus Bon",
-			disponibildad: "matution",
-			educacion: "universidad Trunca",
-			habilidades: "Productos Medicos",
-			certificados: "Maquinas de CAC",
-			ubicacion: "Otay",
-			contacto: "664 555 8024",
+			nombre: "Iván García",
+			disponibildad: "Matutino",
+			educacion: "Preparatoria",
+			habilidades: "Moldeado de Plástico",
+			certificados: "Máquinas de CNC",
+			ubicacion: "El Lago",
+			contacto: "664 555 6529",
 		},
 	];
 	const resources = [
@@ -393,40 +389,34 @@ function ForEmployers() {
 	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
 	const jobPost: JobPostInterface = {
-		"company": "Facebook",
-		"jobPost": "UI/UX Designer",
-		"reviewCount": 32,
-		"rating": 3,
-		"published": "3 days ago",
-		"salaryRange": "Rs 40,000 - Rs 50,000 / Month",
-		"jobType": "Permanent",
-		"minEducation": "Completed High School",
-		"industry": "Aerospace",
-		"languageProficiency": [{ "language": "English", "proficiency": "Conversational" }, { "language": "Spanish", "proficiency": "Native" }],
-		"shifts": [{ "day": "Mon-Wed", "time": "8 AM - 5 PM" }, { "day": "Mon-Wed", "time": "8 AM - 5 PM" }, { "day": "Mon-Wed", "time": "8 AM - 5 PM" }],
-		"city": "London",
-		"industrialPark": "EL Logo",
-		"address": "Calle Lagua Maynar 5520, Section C",
-		"description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-		"jobSkills": [
-			"Neque Curabitur Faucibus",
-			"Praesent Non",
-			"Est Dolor",
-			"Consectetur Lobortis",
-			"Dolor",
+		company: "Facebook",
+		jobPost: "UI/UX Designer",
+		reviewCount: 32,
+		rating: 3,
+		published: "3 days ago",
+		salaryRange: "$1.800 - $2.100 Pesos / Semana",
+		jobType: "Proyecto (Temporal)",
+		minEducation: "Preparatoria",
+		industry: "Electrónica",
+		englishProficiency: "Básico",
+		shifts: [
+			{ day: "lun - vie", time: "8 AM - 5 PM" },
+			{ day: "lun - vie", time: "2 PM - 11 PM" },
+			{ day: "mar - sab", time: "8 AM - 5 PM" },
 		],
-		"certifications": [
-			"Nisl Sodales Auctor",
-			"Quam Fringilla Sed",
-			"Rhoncus Diam",
-			"Mauris Faucibs",
+		city: "Tijuana",
+		industrialPark: "El Lago",
+		address: "Calle Lagua Maynar 5520, Section C",
+		description:
+			"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
+		jobSkills: [
+			"Maquinas Automatizadas",
+			"Instrumentos de Medicion",
+			"Uso de Computadora",
 		],
-		"benifits": [
-			"Health Insurance",
-			"Social Security",
-			"Provident Fund"
-		]
-	}
+		certifications: ["Instrumentos de Medicion", "Montacargas"],
+		benifits: ["Seguro Social", "Seguro de Salud"],
+	};
 	console.log("isMobile", isMobile);
 	return (
 		<PageWrapper title="Empleadores">
@@ -501,7 +491,7 @@ function ForEmployers() {
 									alt="save-money"
 								/>
 								<CardTitle>Save Money</CardTitle>
-								<BenefitCardDescription >
+								<BenefitCardDescription>
 									Get two months of free and unlimited job
 									posts by signing up today.You can hire
 									workforce you need easier, faster, and more
@@ -584,13 +574,13 @@ function ForEmployers() {
 						<Table responsive>
 							<thead>
 								<tr>
-									<th>Clasificasion</th>
+									<th>Clasificasión</th>
 									<th>Nombre</th>
-									<th>Disponibildad</th>
-									<th>Educacion</th>
+									<th>Disponibilidad</th>
+									<th>Educación</th>
 									<th>Habilidades</th>
 									<th>Certificados/Licencias</th>
-									<th>Ubicacion</th>
+									<th>Ubicación</th>
 									<th>Contacto</th>
 									<th></th>
 								</tr>
@@ -647,7 +637,11 @@ function ForEmployers() {
 								}}
 							>
 								<img
-									src={activeResourceCard > 1 ? navigationArrowImage : navigationArrowImageGrey}
+									src={
+										activeResourceCard > 1
+											? navigationArrowImage
+											: navigationArrowImageGrey
+									}
 									alt="left-navigation"
 								></img>
 							</LeftNavigation>
@@ -661,7 +655,11 @@ function ForEmployers() {
 								}}
 							>
 								<img
-									src={activeResourceCard < 3 ? navigationArrowImage : navigationArrowImageGrey}
+									src={
+										activeResourceCard < 3
+											? navigationArrowImage
+											: navigationArrowImageGrey
+									}
 									alt="right-navigation"
 								></img>
 							</RightNavigation>
@@ -671,18 +669,25 @@ function ForEmployers() {
 				<ResourcesWrapper>
 					<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
 					<TopicsContent>
-						<ResourceTopicButton title="Legal" img={topic1Image} onClick={() => { }} />
 						<ResourceTopicButton
-							onClick={() => { }}
+							title="Legal"
+							img={topic1Image}
+							onClick={() => {}}
+						/>
+						<ResourceTopicButton
+							onClick={() => {}}
 							title="Turnover Rates"
 							img={topic2Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="Hiring Best Practices"
 							img={topic3Image}
 						/>
-						<ResourceTopicButton onClick={() => { }} title="View All Topics" />
+						<ResourceTopicButton
+							onClick={() => {}}
+							title="View All Topics"
+						/>
 					</TopicsContent>
 					<ViewAllResourceWrapper>
 						<LinkButton

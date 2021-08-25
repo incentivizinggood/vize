@@ -29,31 +29,31 @@ const JobPostCard = styled.div`
 	padding: 20px;
 `;
 const JobRequirementWrapper = styled.div`
-    margin-top: 20px;
+	margin-top: 20px;
 `;
 const JobRequirementTitle = styled.div`
-    font-weight: 600;
-    padding-left: 10px;
+	font-weight: 600;
+	padding-left: 10px;
 `;
 const JobRequirementDescription = styled.div`
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
 `;
 const JobBasicDetails = styled.div`
-    border-bottom: 1px solid #d1d1d1;
-    padding-bottom: 20px;
-    margin-top: 20px;
+	border-bottom: 1px solid #d1d1d1;
+	padding-bottom: 20px;
+	margin-top: 20px;
 `;
 const JobPostFirstRow = styled.div`
 	display: flex;
 	justify-content: space-between;
 `;
 const PostImage = styled.img`
-height: 60px;
-width: 60px;
-border-radius: 6px;
-margin: 20px 20px 20px 0px;
+	height: 60px;
+	width: 60px;
+	border-radius: 6px;
+	margin: 20px 20px 20px 0px;
 `;
 const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`
@@ -82,7 +82,7 @@ const PublishDateWrapper = styled.div`
 	justify-content: center;
 `;
 const JobDetailsTitle = styled.div`
-	color: ${colors.secondaryColorGreen};
+	color: black;
 	font-weight: 500;
 	margin-bottom: 5px;
 `;
@@ -96,7 +96,7 @@ const JobDetailContent = styled.div`
 	flex-wrap: wrap;
 `;
 const JobDetailContainer = styled.div`
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 	display: flex;
 `;
 const JobDetailsWrapper = styled(Row)`
@@ -108,14 +108,14 @@ const LanguageContentWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-left: 10px;
-	border-right: ${(p: { withImage?: boolean, border: boolean }) =>
-        p.border ? "1px solid #efefef" : ""};
+	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.border ? "1px solid #efefef" : ""};
 	padding-right: 10px;
-	margin-right:  ${(p: { withImage?: boolean, border: boolean }) =>
-        p.withImage ? "10px" : ""};
+	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.withImage ? "10px" : ""};
 `;
 const LanguageTitle = styled.span`
-	color: #c2c2c2;
+	color: black;
 `;
 const LanguageDescription = styled.span`
 	font-weight: 600;
@@ -133,282 +133,195 @@ const DescriptionTag = styled.div`
 	margin-bottom: 5px;
 `;
 function JobPost(props: JobPostInterface): JSX.Element {
-    return <JobPostCard>
-        <JobPostFirstRow>
-            <JobPostHeaderRightSection>
-                <PostImage
-                    src={facebookImage}
-                    alt="post-image"
-                />
-                <PostHeaderContent>
-                    <PostTitle>{props.company}</PostTitle>
-                    <PostSubHeading>
-                        {props.jobPost}
-                    </PostSubHeading>
-                    <RatingWrapper>
-                        <ReactStars
-                            count={props.rating}
-                            size={18}
-                            activeColor="#ffd700"
-                        />
-                        <PostTitle>{props.reviewCount} Reviews</PostTitle>
-                    </RatingWrapper>
-                </PostHeaderContent>
-            </JobPostHeaderRightSection>
-            <JobPostHeaderLeftSection>
-                <LinkButton
-                    $primary
-                    to={
-                        urlGenerators.queryRoutes
-                            .submitSalaryData
-                    }
-                >
-                    SIGN UP TODAY
-                </LinkButton>
-                <PublishDateWrapper>
-                    <PostTitle>
-                        Published&nbsp;:&nbsp;
-                    </PostTitle>{" "}
-                    3 days ago
-                </PublishDateWrapper>
-            </JobPostHeaderLeftSection>
-        </JobPostFirstRow>
-        <JobBasicDetails>
-            <JobDetailsWrapper>
-                <Col
-                    xs={12}
-                    md={6}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>SALARY</JobDetailsTitle>
-                    <JobDetailContent>
-                        <img
-                            src={dollarImage}
-                            alt="dollar-img"
-                        />
-                        <JobDetailvalue>
-                            {props.salaryRange}
-                        </JobDetailvalue>
-                    </JobDetailContent>
-                </Col>
-                <Col
-                    xs={12}
-                    md={6}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>JOB TYPE</JobDetailsTitle>
-                    <JobDetailContent>
-                        <img
-                            src={jobTypeImage}
-                            alt="dollar-img"
-                        />
-                        <JobDetailvalue>
-                            {props.jobType}
-                        </JobDetailvalue>
-                    </JobDetailContent>
-                </Col>
-            </JobDetailsWrapper>
-            <JobDetailsWrapper>
-                <Col
-                    xs={12}
-                    md={6}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>
-                        MIN EDUCATION
-                    </JobDetailsTitle>
-                    <JobDetailContent>
-                        <img
-                            src={minEducationImage}
-                            alt="dollar-img"
-                        />
-                        <JobDetailvalue>
-                            {props.minEducation}
-                        </JobDetailvalue>
-                    </JobDetailContent>
-                </Col>
-                <Col
-                    xs={12}
-                    md={6}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>Industry</JobDetailsTitle>
-                    <JobDetailContent>
-                        <img
-                            src={industryImage}
-                            alt="dollar-img"
-                        />
-                        <JobDetailvalue>
-                            {props.industry}
-                        </JobDetailvalue>
-                    </JobDetailContent>
-                </Col>
-            </JobDetailsWrapper>
-            <JobDetailsWrapper>
-                <Col
-                    xs={12}
-                    md={6}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>
-                        MIN LANGUAGE PROFICIENCY
-                    </JobDetailsTitle>
-                    <JobDetailContent>
-                        <LanguageImage
-                            src={languageImage}
-                            alt="dollar-img"
-                        />
-                        {props.languageProficiency.map((v) => {
-                            return <LanguageContentWrapper border key={v.language}>
-                                <LanguageTitle>
-                                    {v.language}
-                                </LanguageTitle>
-                                <LanguageDescription>
-                                    {v.proficiency}
-                                </LanguageDescription>
-                            </LanguageContentWrapper>
-                        })}
-                    </JobDetailContent>
-                </Col>
-                <Col
-                    xs={12}
-                    md={6}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>SHIFTS</JobDetailsTitle>
-                    <JobDetailContent>
-                        <LanguageImage
-                            src={shiftsImage}
-                            alt="dollar-img"
-                        />
-                        {props.shifts.map((v, index) => {
-                            return <LanguageContentWrapper border key={index} >
-                                <LanguageTitle>
-                                    {v.day}
-                                </LanguageTitle>
-                                <LanguageDescription>
-                                    {v.time}
-                                </LanguageDescription>
-                            </LanguageContentWrapper>
-                        })}
-                    </JobDetailContent>
-                </Col>
-            </JobDetailsWrapper>
-            <JobDetailsWrapper>
-                <Col
-                    xs={12}
-                    md={12}
-                    className="details-container"
-                >
-                    <JobDetailsTitle>LOCATION</JobDetailsTitle>
-                    <JobDetailContent>
-                        <JobDetailContainer>
-                            <LanguageImage
-                                src={cityImage}
-                                alt="dollar-img"
-                            />
-                            <LanguageContentWrapper border withImage>
-                                <LanguageTitle>
-                                    City
-                                </LanguageTitle>
-                                <LanguageDescription>
-                                    {props.city}
-                                </LanguageDescription>
-                            </LanguageContentWrapper>
-                        </JobDetailContainer>
-                        <JobDetailContainer>
-                            <LanguageImage
-                                src={industrialParkImage}
-                                alt="dollar-img"
-                            />
-                            <LanguageContentWrapper border withImage>
-                                <LanguageTitle>
-                                    Industrial Park
-                                </LanguageTitle>
-                                <LanguageDescription>
-                                    {props.industrialPark}
-                                </LanguageDescription>
-                            </LanguageContentWrapper>
-                        </JobDetailContainer>
-                        <JobDetailContainer>
-                            <LanguageImage
-                                src={addressImage}
-                                alt="dollar-img"
-                            />
-                            <LanguageContentWrapper
-                                border={false}
-                                withImage
-                            >
-                                <LanguageTitle>
-                                    Address
-                                </LanguageTitle>
-                                <LanguageDescription>
-                                    {props.address}
+	return (
+		<JobPostCard>
+			<JobPostFirstRow>
+				<JobPostHeaderRightSection>
+					<PostImage src={facebookImage} alt="post-image" />
+					<PostHeaderContent>
+						<PostTitle>{props.company}</PostTitle>
+						<PostSubHeading>{props.jobPost}</PostSubHeading>
+						<RatingWrapper>
+							<ReactStars
+								count={props.rating}
+								size={18}
+								activeColor="#ffd700"
+							/>
+							<PostTitle>{props.reviewCount} Reviews</PostTitle>
+						</RatingWrapper>
+					</PostHeaderContent>
+				</JobPostHeaderRightSection>
+				<JobPostHeaderLeftSection>
+					<LinkButton
+						$primary
+						to={urlGenerators.queryRoutes.submitSalaryData}
+					>
+						SIGN UP TODAY
+					</LinkButton>
+					<PublishDateWrapper>
+						<PostTitle>Published&nbsp;:&nbsp;</PostTitle> 3 days ago
+					</PublishDateWrapper>
+				</JobPostHeaderLeftSection>
+			</JobPostFirstRow>
+			<JobBasicDetails>
+				<JobDetailsWrapper>
+					<Col xs={12} md={6} className="details-container">
+						<JobDetailsTitle>Salario</JobDetailsTitle>
+						<JobDetailContent>
+							<img src={dollarImage} alt="dollar-img" />
+							<JobDetailvalue>{props.salaryRange}</JobDetailvalue>
+						</JobDetailContent>
+					</Col>
+					<Col xs={12} md={6} className="details-container">
+						<JobDetailsTitle>Tipo de Contrato</JobDetailsTitle>
+						<JobDetailContent>
+							<img src={jobTypeImage} alt="dollar-img" />
+							<JobDetailvalue>{props.jobType}</JobDetailvalue>
+						</JobDetailContent>
+					</Col>
+				</JobDetailsWrapper>
+				<JobDetailsWrapper>
+					<Col xs={12} md={6} className="details-container">
+						<JobDetailsTitle>Educación Minima</JobDetailsTitle>
+						<JobDetailContent>
+							<img src={minEducationImage} alt="dollar-img" />
+							<JobDetailvalue>
+								{props.minEducation}
+							</JobDetailvalue>
+						</JobDetailContent>
+					</Col>
+					<Col xs={12} md={6} className="details-container">
+						<JobDetailsTitle>Industria</JobDetailsTitle>
+						<JobDetailContent>
+							<img src={industryImage} alt="dollar-img" />
+							<JobDetailvalue>{props.industry}</JobDetailvalue>
+						</JobDetailContent>
+					</Col>
+				</JobDetailsWrapper>
+				<JobDetailsWrapper>
+					<Col xs={12} md={6} className="details-container">
+						<JobDetailsTitle>Dominio del Inglés</JobDetailsTitle>
+						<JobDetailContent>
+							<LanguageImage
+								src={languageImage}
+								alt="dollar-img"
+							/>
+							<JobDetailvalue>
+								{props.englishProficiency}
+							</JobDetailvalue>
+						</JobDetailContent>
+					</Col>
+					<Col xs={12} md={6} className="details-container">
+						<JobDetailsTitle>Turnos</JobDetailsTitle>
+						<JobDetailContent>
+							<LanguageImage src={shiftsImage} alt="dollar-img" />
+							{props.shifts.map((v, index) => {
+								return (
+									<LanguageContentWrapper border key={index}>
+										<LanguageTitle>{v.day}</LanguageTitle>
+										<LanguageDescription>
+											{v.time}
+										</LanguageDescription>
+									</LanguageContentWrapper>
+								);
+							})}
+						</JobDetailContent>
+					</Col>
+				</JobDetailsWrapper>
+				<JobDetailsWrapper>
+					<Col xs={12} md={12} className="details-container">
+						<JobDetailsTitle>Ubicación</JobDetailsTitle>
+						<JobDetailContent>
+							<JobDetailContainer>
+								<LanguageImage
+									src={cityImage}
+									alt="dollar-img"
+								/>
+								<LanguageContentWrapper border withImage>
+									<LanguageTitle>Ciudad</LanguageTitle>
+									<LanguageDescription>
+										{props.city}
+									</LanguageDescription>
+								</LanguageContentWrapper>
+							</JobDetailContainer>
+							<JobDetailContainer>
+								<LanguageImage
+									src={industrialParkImage}
+									alt="dollar-img"
+								/>
+								<LanguageContentWrapper border withImage>
+									<LanguageTitle>
+										Parque Industrial
+									</LanguageTitle>
+									<LanguageDescription>
+										{props.industrialPark}
+									</LanguageDescription>
+								</LanguageContentWrapper>
+							</JobDetailContainer>
+							<JobDetailContainer>
+								<LanguageImage
+									src={addressImage}
+									alt="dollar-img"
+								/>
+								<LanguageContentWrapper
+									border={false}
+									withImage
+								>
+									<LanguageTitle>Dirección</LanguageTitle>
+									<LanguageDescription>
+										{props.address}
+									</LanguageDescription>
+								</LanguageContentWrapper>
+							</JobDetailContainer>
+						</JobDetailContent>
+					</Col>
+				</JobDetailsWrapper>
+			</JobBasicDetails>
+			<JobRequirementWrapper>
+				<JobRequirementTitle>
+					<img src={descriptionImage} alt=""></img>
+					<span>Descripción</span>
+				</JobRequirementTitle>
+				<JobRequirementDescription>
+					{props.description}
+				</JobRequirementDescription>
+			</JobRequirementWrapper>
 
-                                </LanguageDescription>
-                            </LanguageContentWrapper>
-                        </JobDetailContainer>
-                    </JobDetailContent>
-                </Col>
-            </JobDetailsWrapper>
-
-        </JobBasicDetails>
-        <JobRequirementWrapper>
-            <JobRequirementTitle>
-                <img src={descriptionImage} alt=""></img>
-                <span>Description</span>
-            </JobRequirementTitle>
-            <JobRequirementDescription>
-                {props.description}
-            </JobRequirementDescription>
-        </JobRequirementWrapper>
-
-        <JobRequirementWrapper>
-            <JobRequirementTitle>
-                <img src={skillsImages} alt=""></img>
-                <span>Skilld Required</span>
-            </JobRequirementTitle>
-            <JobRequirementDescription>
-                {props.jobSkills.map((v) => {
-                    return (
-                        <DescriptionTag key={v}>
-                            {v}
-                        </DescriptionTag>
-                    );
-                })}
-            </JobRequirementDescription>
-        </JobRequirementWrapper>
-        <JobRequirementWrapper>
-            <JobRequirementTitle>
-                <img src={certificateImage} alt=""></img>
-                <span>Certificates & Licences</span>
-            </JobRequirementTitle>
-            <JobRequirementDescription>
-                {props.certifications.map((v) => {
-                    return (
-                        <DescriptionTag key={v}>
-                            {v}
-                        </DescriptionTag>
-                    );
-                })}
-            </JobRequirementDescription>
-        </JobRequirementWrapper>
-        <JobRequirementWrapper>
-            <JobRequirementTitle>
-                <img src={certificateImage} alt=""></img>
-                <span>Benifits</span>
-            </JobRequirementTitle>
-            <JobRequirementDescription>
-                {props.benifits.map((v) => {
-                    return (
-                        <DescriptionTag key={v}>
-                            {v}
-                        </DescriptionTag>
-                    );
-                })}
-            </JobRequirementDescription>
-        </JobRequirementWrapper>
-    </JobPostCard>
+			<JobRequirementWrapper>
+				<JobRequirementTitle>
+					<img src={skillsImages} alt=""></img>
+					<span>Habilidades Requeridas</span>
+				</JobRequirementTitle>
+				<JobRequirementDescription>
+					{props.jobSkills.map((v) => {
+						return <DescriptionTag key={v}>{v}</DescriptionTag>;
+					})}
+				</JobRequirementDescription>
+			</JobRequirementWrapper>
+			<JobRequirementWrapper>
+				<JobRequirementTitle>
+					<img src={certificateImage} alt=""></img>
+					<span>Certificados y Licencias</span>
+				</JobRequirementTitle>
+				<JobRequirementDescription>
+					{props.certifications.map((v) => {
+						return <DescriptionTag key={v}>{v}</DescriptionTag>;
+					})}
+				</JobRequirementDescription>
+			</JobRequirementWrapper>
+			<JobRequirementWrapper>
+				<JobRequirementTitle>
+					<img src={certificateImage} alt=""></img>
+					<span>Beneficios</span>
+				</JobRequirementTitle>
+				<JobRequirementDescription>
+					{props.benifits.map((v) => {
+						return <DescriptionTag key={v}>{v}</DescriptionTag>;
+					})}
+				</JobRequirementDescription>
+			</JobRequirementWrapper>
+		</JobPostCard>
+	);
 }
 
 export default JobPost;
