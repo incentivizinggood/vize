@@ -158,10 +158,8 @@ const CardImageWrapper = styled.img`
 `;
 
 const CardContent = styled.div`
-	height: 352px;
 	display: flex;
 	flex-direction: column;
-
 	background-color: #ffffff;
 	margin-top: 5px;
 	margin-bottom: 20px;
@@ -174,6 +172,13 @@ const CardContent = styled.div`
 		justify-content: center;
 		align-items: center;
 	}
+	${forSize.tabletLandscapeAndDown} {
+		height: 450px;
+	}
+	${forSize.desktopAndDown} {
+		height: 450px;
+	}
+	height: 352px;
 `;
 const BenefitCardDescription = styled.div`
 	line-height: 1.8;
@@ -194,6 +199,7 @@ const HorizontalRow = styled.div`
 const JobPostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items:center;
 `;
 const SectionTitle = styled.div`
 	font-size: 36px;
@@ -620,7 +626,7 @@ function ForEmployers() {
 					</SignupTodayWrapper>
 					<HorizontalRow></HorizontalRow>
 				</TableWrapper>
-				{/* <ResourcesWrapper>
+				<ResourcesWrapper>
 					<SectionTitle>Resources</SectionTitle>
 					<SectionSubtitle>
 						Improve your HR practices by learning about industry
@@ -683,20 +689,20 @@ function ForEmployers() {
 						<ResourceTopicButton
 							title="Legal"
 							img={topic1Image}
-							onClick={() => {}}
+							onClick={() => { }}
 						/>
 						<ResourceTopicButton
-							onClick={() => {}}
+							onClick={() => { }}
 							title="Turnover Rates"
 							img={topic2Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => {}}
+							onClick={() => { }}
 							title="Hiring Best Practices"
 							img={topic3Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => {}}
+							onClick={() => { }}
 							title="View All Topics"
 						/>
 					</TopicsContent>
@@ -708,7 +714,7 @@ function ForEmployers() {
 							View All Resources
 						</LinkButton>
 					</ViewAllResourceWrapper>
-				</ResourcesWrapper> */}
+				</ResourcesWrapper>
 			</ContentWrapper>
 		</PageWrapper>
 	);

@@ -29,6 +29,7 @@ const JobPostCard = styled.div`
 	border-radius: 15px;
 	padding: 20px;
 	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	max-width:700px;
 `;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -56,7 +57,7 @@ const PostImage = styled.img`
 	height: 60px;
 	width: 60px;
 	border-radius: 6px;
-	margin: 20px 20px 20px 0px;
+	margin: 0px 20px 0px 0px;
 `;
 const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`
@@ -225,7 +226,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
 							{props.shifts.map((v, index) => {
 								return (
-									<LanguageContentWrapper border key={index}>
+									<LanguageContentWrapper border={index !== props.shifts.length - 1} key={index}>
 										<LanguageTitle>{v.day}</LanguageTitle>
 										<LanguageDescription>
 											{v.time}
