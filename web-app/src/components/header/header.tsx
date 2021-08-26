@@ -13,7 +13,7 @@ import EmployerNavLinks from "./employer-nav-links";
 import FadableNav from "./fadable-nav";
 import LangSelector from "./lang-selector";
 import LogoutButton from "./logout-button";
-
+import { LinkButton } from "../../components/button/";
 const T = translations.header;
 
 function getUserRole() {
@@ -72,19 +72,7 @@ function AccountLink({ user }: AccountLinkProps) {
 		);
 	}
 
-	const userRole = getUserRole();
-
-	return (
-		<Link
-			to={urlGenerators.vizeLogin(userRole)}
-			type="button"
-			className="toggle-only-display"
-		>
-			<span>
-				<T.signup_or_login />
-			</span>
-		</Link>
-	);
+	return null;
 }
 
 interface AccountSectionProps {
@@ -127,22 +115,14 @@ function AccountSection({ user }: AccountSectionProps) {
 	return (
 		<>
 			<li>
-				<Link
-					to={urlGenerators.vizeRegister(userRole)}
-					type="button"
-					id="register-button"
-					className="btn navbar-btn margin-right btn-green hvr-icon-forward"
-				>
-					<T.signup />
-				</Link>
+				<LinkButton to={urlGenerators.vizeLogin(userRole)}>
+					<T.login />
+				</LinkButton>
 			</li>
 			<li>
-				<Link
-					to={urlGenerators.vizeLogin(userRole)}
-					className="navbar-link margin-right"
-				>
-					<T.login />
-				</Link>
+				<LinkButton $primary to={urlGenerators.vizeRegister(userRole)}>
+					<T.signup />
+				</LinkButton>
 			</li>
 		</>
 	);
@@ -200,11 +180,6 @@ function Header(props: HeaderProps) {
 							</li>
 						</ul>
 						<ul className="nav navbar-nav navbar-right">
-							<AccountSection user={props.user} />
-
-							<li className="dropdown">
-								<LangSelector />
-							</li>
 							<li>
 								<Link
 									to={`/${urlGenerators.queryRoutes.forEmployers}`}
@@ -215,6 +190,12 @@ function Header(props: HeaderProps) {
 									</span>
 								</Link>
 							</li>
+							<AccountSection user={props.user} />
+
+							<li className="dropdown">
+								<LangSelector />
+							</li>
+
 							<br />
 							{props.user ? (
 								<li>

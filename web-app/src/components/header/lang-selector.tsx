@@ -15,7 +15,9 @@ interface LocaleIconProps {
 function LocaleIcon({ code }: LocaleIconProps): JSX.Element {
 	return (
 		<img
-			style={{ borderRadius: "8px" }}
+			style={{ borderRadius: "50%",
+			width: "40px",
+			height: "40px" }}
 			src={localeMetadata[code].icon}
 			alt={localeMetadata[code].nativeName}
 		/>

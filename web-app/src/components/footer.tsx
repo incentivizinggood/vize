@@ -31,7 +31,7 @@ const FooterContainer = styled.footer`
 
 		&:hover,
 		&:focus {
-			color: ${colors.old.vizeBlue};
+			color: ${colors.primaryColorBlue};
 		}
 	}
 `;

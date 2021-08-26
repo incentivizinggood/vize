@@ -4,8 +4,8 @@ import styled from "styled-components";
 import colors from "src/colors";
 
 const ErrorBox = styled.div`
-	background: ${colors.error};
-	color: ${colors.onError};
+	background: ${colors.errorBackground};
+	color: ${colors.errorText};
 	width: 100%;
 	margin-top: 30px;
 	padding: 10px;

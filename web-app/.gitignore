@@ -3,3 +3,4 @@ generated/
 
 # Files output by jest.
 coverage
+.history
