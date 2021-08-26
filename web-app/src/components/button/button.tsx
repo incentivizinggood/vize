@@ -40,7 +40,7 @@ const Button = styled.button<ButtonExtraProps>`
 
 			return css`
 				background-color: white;
-				color: black;
+				color: black !important;
 				:hover {
 					background-color: ${colors.lightGray};
 					color: black;

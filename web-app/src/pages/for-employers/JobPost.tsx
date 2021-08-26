@@ -6,7 +6,6 @@ import { LinkButton } from "src/components/button";
 import * as urlGenerators from "src/pages/url-generators";
 import ReactStars from "react-rating-stars-component";
 import { JobPostInterface } from "./for-employers";
-import facebookImage from "../../images/facebook.png";
 import dollarImage from "../../images/job-post-icons/dollar.png";
 import addressImage from "../../images/job-post-icons/address.png";
 import languageImage from "../../images/job-post-icons/language.png";
@@ -20,12 +19,14 @@ import minEducationImage from "../../images/job-post-icons/min-education.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
 import colors from "src/colors";
+import foxconnLogoImage from "../../images/foxconnLogo.png";
+
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background: #fff;
-	border-radius: 6px;
+	border-radius: 15px;
 	padding: 20px;
 	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 `;
@@ -59,11 +60,12 @@ const PostImage = styled.img`
 `;
 const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`
-	color: #acacac;
-	font-size: 10px;
+	color: black;
+	font-size: 13px;
 `;
 const PostSubHeading = styled.div`
 	font-weight: 700;
+	font-size: 18px;
 `;
 const RatingWrapper = styled.div`
 	display: flex;
@@ -143,7 +145,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 		<JobPostCard>
 			<JobPostFirstRow>
 				<JobPostHeaderRightSection>
-					<PostImage src={facebookImage} alt="post-image" />
+					<PostImage src={foxconnLogoImage} alt="post-image" />
 					<PostHeaderContent>
 						<PostTitle>{props.company}</PostTitle>
 						<PostSubHeading>{props.jobPost}</PostSubHeading>
@@ -292,6 +294,7 @@ function JobPost(props: JobPostInterface): JSX.Element {
 					{props.description}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
+			<br />
 
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
@@ -304,6 +307,8 @@ function JobPost(props: JobPostInterface): JSX.Element {
 					})}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
+			<br />
+
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={certificateImage} alt=""></img>
@@ -315,6 +320,8 @@ function JobPost(props: JobPostInterface): JSX.Element {
 					})}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
+			<br />
+
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={certificateImage} alt=""></img>

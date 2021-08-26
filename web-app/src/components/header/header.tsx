@@ -72,19 +72,7 @@ function AccountLink({ user }: AccountLinkProps) {
 		);
 	}
 
-	const userRole = getUserRole();
-
-	return (
-		<Link
-			to={urlGenerators.vizeLogin(userRole)}
-			type="button"
-			className="toggle-only-display"
-		>
-			<span>
-				<T.signup_or_login />
-			</span>
-		</Link>
-	);
+	return null;
 }
 
 interface AccountSectionProps {

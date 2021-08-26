@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
-import { LinkButton, WhiteButton } from "src/components/button";
+import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
@@ -68,6 +68,9 @@ const ContentWrapper = styled.div`
 		margin-right: 25%;
 	}
 `;
+const SignUpButton = styled(ExternalLinkButton)`
+	font-size: 21px;
+`;
 const Banner = styled.div`
 	margin-top: 150px;
 	${forSize.tabletAndDown} {
@@ -82,9 +85,8 @@ const BannerContent = styled.div`
 	}
 `;
 const BannerContentWrapper = styled.div`
-	
 	${forSize.tabletAndDown} {
-		text-align:center;
+		text-align: center;
 	}
 `;
 const BannerNormalContent = styled.span`
@@ -117,7 +119,7 @@ const BannerSubTitle = styled.div`
 	margin: 10px 0px;
 	${forSize.tabletAndDown} {
 		font-size: 14px;
-		text-align:center;
+		text-align: center;
 	}
 `;
 const VizeBackgroundEffect = styled.div`
@@ -166,7 +168,8 @@ const CardContent = styled.div`
 	border-radius: 15px;
 	padding: 30px;
 	line-height: 1.6;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 	${forSize.tabletAndDown} {
 		justify-content: center;
 		align-items: center;
@@ -191,7 +194,6 @@ const HorizontalRow = styled.div`
 const JobPostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	
 `;
 const SectionTitle = styled.div`
 	font-size: 36px;
@@ -396,8 +398,8 @@ function ForEmployers() {
 	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
 	const jobPost: JobPostInterface = {
-		company: "Facebook",
-		jobPost: "UI/UX Designer",
+		company: "Foxconn",
+		jobPost: "Operador de Producción",
 		reviewCount: 32,
 		rating: 3,
 		published: "3 days ago",
@@ -409,7 +411,7 @@ function ForEmployers() {
 		shifts: [
 			{ day: "lun - vie", time: "8 AM - 5 PM" },
 			{ day: "lun - vie", time: "2 PM - 11 PM" },
-			{ day: "mar - sab", time: "8 AM - 5 PM" },
+			// { day: "mar - sab", time: "8 AM - 5 PM" },
 		],
 		city: "Tijuana",
 		industrialPark: "El Lago",
@@ -439,7 +441,9 @@ function ForEmployers() {
 									<BannerHighlightedContent>
 										<T.heading.easier />
 									</BannerHighlightedContent>
-									<BannerNormalContent>{", "}</BannerNormalContent>
+									<BannerNormalContent>
+										{", "}
+									</BannerNormalContent>
 									<BannerHighlightedContent>
 										<T.heading.faster />
 									</BannerHighlightedContent>
@@ -461,15 +465,13 @@ function ForEmployers() {
 									<T.subheading />
 								</BannerSubTitle>
 								<BannerButtonContainer>
-									<LinkButton
+									<SignUpButton
 										$primary
-										to={
-											urlGenerators.queryRoutes
-												.submitSalaryData
-										}
+										href="https://calendly.com/julian-vize/contratacion-con-vize"
+										target="_blank"
 									>
-										GET STARTED
-									</LinkButton>
+										<T.getStarted />
+									</SignUpButton>
 								</BannerButtonContainer>
 							</BannerContent>
 						</Col>
@@ -490,13 +492,11 @@ function ForEmployers() {
 									src={saveMoneyImage}
 									alt="save-money"
 								/>
-								<CardTitle>Save Money</CardTitle>
+								<CardTitle>
+									<T.benefits.saveMoneyHeading />
+								</CardTitle>
 								<BenefitCardDescription>
-									Get two months of free and unlimited job
-									posts by signing up today.You can hire
-									workforce you need easier, faster, and more
-									affordable by reaching over 3000 factory
-									workers on our site.
+									<T.benefits.saveMoneyDescription />
 								</BenefitCardDescription>
 							</CardContent>
 						</Col>
@@ -508,13 +508,11 @@ function ForEmployers() {
 										alt="save-time"
 									/>
 								</CardIcon>
-								<CardTitle>Save Time</CardTitle>
+								<CardTitle>
+									<T.benefits.saveTimeHeading />
+								</CardTitle>
 								<BenefitCardDescription>
-									We rank and filter all of you application on
-									a weekly basis to find factory workers that
-									are tailored to your needs (availability,
-									skills,education level, and more) so you
-									don't have to start tough CVs yourself
+									<T.benefits.saveTimeDescription />
 								</BenefitCardDescription>
 							</CardContent>
 						</Col>
@@ -526,49 +524,51 @@ function ForEmployers() {
 										alt="get-result"
 									/>
 								</CardIcon>
-								<CardTitle>Get Results</CardTitle>
+								<CardTitle>
+									<T.benefits.getResultsHeading />
+								</CardTitle>
 								<BenefitCardDescription>
-									You Only pay for results. we charge 5 pesos
-									per job application, rather than charging a
-									monthly subscriotion. This saves you money,
-									gives you a flexibility, to post as many
-									jobs as you need, when you need them, and
-									for however many workers you need.
+									<T.benefits.getResultsDescription />
 								</BenefitCardDescription>
 							</CardContent>
 						</Col>
 					</Row>
 					<SignupTodayWrapper>
-						<LinkButton
+						<SignUpButton
 							$primary
-							to={urlGenerators.queryRoutes.submitSalaryData}
+							href="https://calendly.com/julian-vize/contratacion-con-vize"
+							target="_blank"
 						>
-							SIGN UP TODAY
-						</LinkButton>
+							<T.signUpToday />
+						</SignUpButton>
 					</SignupTodayWrapper>
 					<HorizontalRow></HorizontalRow>
 				</FeaturesWrapper>
 				<JobPostWrapper>
-					<SectionTitle>Job Posts</SectionTitle>
+					<SectionTitle>
+						<T.exampleJobPost.heading />
+					</SectionTitle>
 					<SectionSubtitle>
-						Get your job posts in front of the right people
+						<T.exampleJobPost.subheading />
 					</SectionSubtitle>
 					<JobPost {...jobPost}></JobPost>
 					<SignupTodayWrapper>
-						<LinkButton
+						<SignUpButton
 							$primary
-							to={urlGenerators.queryRoutes.submitSalaryData}
+							href="https://calendly.com/julian-vize/contratacion-con-vize"
+							target="_blank"
 						>
-							SIGN UP TODAY
-						</LinkButton>
+							<T.signUpToday />
+						</SignUpButton>
 					</SignupTodayWrapper>
 					<HorizontalRow></HorizontalRow>
 				</JobPostWrapper>
 				<TableWrapper>
-					<SectionTitle>Ranked Applicants</SectionTitle>
+					<SectionTitle>
+						<T.rankedApplicants.heading />
+					</SectionTitle>
 					<SectionSubtitle>
-						Find factory workers that are tailored to your needs
-						(availability, skills, education, level and more)
+						<T.rankedApplicants.subheading />
 					</SectionSubtitle>
 					<StyledRankedTable>
 						<Table responsive>
@@ -588,7 +588,9 @@ function ForEmployers() {
 							<tbody>
 								{userData.map((user) => (
 									<tr key={user.id}>
-										<td className="text-center">{user.clasificasion}</td>
+										<td className="text-center">
+											{user.clasificasion}
+										</td>
 										<td>{user.nombre}</td>
 										<td>{user.disponibildad}</td>
 										<td>{user.educacion}</td>
@@ -607,9 +609,18 @@ function ForEmployers() {
 							</tbody>
 						</Table>
 					</StyledRankedTable>
+					<SignupTodayWrapper>
+						<SignUpButton
+							$primary
+							href="https://calendly.com/julian-vize/contratacion-con-vize"
+							target="_blank"
+						>
+							<T.getStarted />
+						</SignUpButton>
+					</SignupTodayWrapper>
 					<HorizontalRow></HorizontalRow>
 				</TableWrapper>
-				<ResourcesWrapper>
+				{/* <ResourcesWrapper>
 					<SectionTitle>Resources</SectionTitle>
 					<SectionSubtitle>
 						Improve your HR practices by learning about industry
@@ -672,20 +683,20 @@ function ForEmployers() {
 						<ResourceTopicButton
 							title="Legal"
 							img={topic1Image}
-							onClick={() => { }}
+							onClick={() => {}}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="Turnover Rates"
 							img={topic2Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="Hiring Best Practices"
 							img={topic3Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="View All Topics"
 						/>
 					</TopicsContent>
@@ -697,7 +708,7 @@ function ForEmployers() {
 							View All Resources
 						</LinkButton>
 					</ViewAllResourceWrapper>
-				</ResourcesWrapper>
+				</ResourcesWrapper> */}
 			</ContentWrapper>
 		</PageWrapper>
 	);
