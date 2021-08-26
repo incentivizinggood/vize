@@ -691,7 +691,7 @@ export default {
 		},
 		subheading:
 			"Publique empleos y nosotros clasificaremos y filtraremos a los trabajadores de fábrica indicados en Tijuana para su fábrica",
-		getStarted: "COMENZAR",
+		getStarted: "Comenzar",
 		signUpToday: "Regístrate Hoy",
 		benefits: {
 			saveMoneyHeading: "Ahorre Dinero",
@@ -706,7 +706,8 @@ export default {
 		},
 		exampleJobPost: {
 			heading: "Ofertas de Empleo",
-			subheading: "Coloque sus ofertas de empleo delante de las personas indicadas",
+			subheading:
+				"Coloque sus ofertas de empleo delante de las personas indicadas",
 			// salary: "Salario",
 			// minimumEducation: "Educación Minima",
 			// englishProficiency: "Dominio del Inglés",
@@ -720,7 +721,8 @@ export default {
 		},
 		rankedApplicants: {
 			heading: "Solicitantes Clasificados",
-			subheading: "Encuentre a trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo, y más)",
+			subheading:
+				"Encuentre a trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo, y más)",
 		},
 	},
 	legacyTranslationsNeedsRefactor: {
@@ -807,7 +809,7 @@ export default {
 			placeholder_email: "Eg. ejemplo@email.com",
 			placeholder_comments: "Por favor deje sus comentarios",
 		},
-		
+
 		companyreview: {
 			recommend: "Recomendado",
 			reviews: "Evaluaciones",
