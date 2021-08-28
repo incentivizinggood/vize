@@ -52,8 +52,8 @@ export default function RadioButtonsField({
 	);
 }
 const RadioButtonWrapper = styled.div`
-	.contractTypeField {
-		.MuiBox-root-15 {
+	.verticleRadioField {
+		.MuiBox-root {
 			display: flex !important;
 			flex-direction: column;
 		}

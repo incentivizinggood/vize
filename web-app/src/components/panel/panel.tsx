@@ -18,7 +18,7 @@ const Panel = styled.div`
 	padding: ${PannelPadding};
 
 	${forSize.phoneOnly} {
-		padding: 20px;
+		padding: 0px;
 	}
 `;
 

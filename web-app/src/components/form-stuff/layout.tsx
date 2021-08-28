@@ -55,7 +55,7 @@ const FormToolbar = styled.div`
 `;
 
 const PostFormHeaderContainer = styled.div`
-	margin-bottom: 20px;
+	// margin-bottom: 20px;
 	padding: 30px 30px 0px 30px;
 `;
 const PostFormFieldContainer = styled.div`
@@ -71,7 +71,8 @@ const ShiftSelectionWrapper = styled.div`
 		margin-right: 0;
 	}
 	${forSize.phoneOnly} {
-		display: block;
+		display: grid;
+		grid-template-columns: repeat(2, 45%);
 		> div {
 			margin-right: 0;
 		}

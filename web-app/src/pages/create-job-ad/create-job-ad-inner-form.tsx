@@ -53,7 +53,7 @@ function InnerForm({ submissionError }: any) {
 						<Field
 							name="minimunEducation"
 							type="radioButtons"
-							flexDirection="row"
+							className="verticleRadioField"
 							label={t.label}
 							options={[
 								<FormControlLabel
@@ -86,6 +86,7 @@ function InnerForm({ submissionError }: any) {
 						<Field
 							name="minimunEducation"
 							type="radioButtons"
+							className="verticleRadioField"
 							// width="45%"
 							label={t.label}
 							options={[
@@ -256,8 +257,8 @@ function InnerForm({ submissionError }: any) {
 							<Field
 								name="contractType"
 								type="radioButtons"
-								className="contractTypeField"
-								display="block"
+								className="verticleRadioField"
+								// display="block"
 								label={t.label}
 								options={[
 									<FormControlLabel

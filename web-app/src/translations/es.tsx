@@ -358,7 +358,7 @@ export default {
 				collegeDegree: "College Degree",
 			},
 			minimumLanguage: {
-				label: "Minimum Language Proficiency",
+				label: "English Proficiency",
 				native: "Native",
 				conversational: "Conversational",
 				fluent: "Fluent",
