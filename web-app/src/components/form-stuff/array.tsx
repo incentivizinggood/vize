@@ -92,9 +92,10 @@ function FormArray({
 									<ElementContainer>
 										<ElementHeader>
 											<ElementHeading>{name}</ElementHeading>
+											<HeaderHorizontalLine/>
+
 											{index !== 0 && (
 												<>
-												<HeaderHorizontalLine/>
 												<FieldDeleteButton
 													type="button"
 													onClick={() =>
