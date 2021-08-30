@@ -52,14 +52,19 @@ const FormFooter = styled.div`
 const FormToolbar = styled.div`
 	text-align: left;
 	margin-top: 20px;
+	.form-button {
+		margin-left: -30px;
+		width: calc(100% + 60px);
+		margin-bottom: -30px;
+	}
 `;
 
 const PostFormHeaderContainer = styled.div`
 	// margin-bottom: 20px;
-	padding: 30px 30px 0px 30px;
+	// padding: 30px 30px 0px 30px;
 `;
 const PostFormFieldContainer = styled.div`
-	padding: 30px;
+	// padding: 30px;
 `;
 const ShiftSelectionWrapper = styled.div`
 	display: flex;

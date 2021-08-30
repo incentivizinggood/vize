@@ -8,7 +8,6 @@ const SubmitButton = styled(Button)`
 	text-transform: capitalize !important;
 	background-color: hsl(204, 63%, 55%) !important;
 	color: white !important;
-	// border-radius: 0px !important;
 	border-radius: 0px 0px 20px 20px !important;
 `;
 export default SubmitButton;
