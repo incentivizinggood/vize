@@ -40,6 +40,7 @@ import { PrivacyPolicy } from "./privacy-policy";
 
 import { queryRoutes } from "./url-generators";
 import { JobAdPage } from "./job-ad";
+import JobList from "./job-list";
 
 /** Replace null with undefined. */
 function fixNullParams<T>(param?: T | null): T | undefined {
@@ -213,6 +214,12 @@ export default function Pages(): JSX.Element {
 				path={`/${queryRoutes.user}`}
 				component={() => (
 					<UserPage user_id={fixNullParams(params.get("id"))} />
+				)}
+			/>
+			<Route
+				path={`/job-list`}
+				component={() => (
+					<JobList />
 				)}
 			/>
 			<Route component={NotFoundPage} />
