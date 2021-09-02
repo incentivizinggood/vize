@@ -3,7 +3,7 @@ import { TextField } from "formik-material-ui";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useField, useFormikContext } from "formik";
-
+import styled from "styled-components";
 import { useCompanyNameInputQuery } from "generated/graphql-operations";
 
 interface CompanyNameInputProps {
@@ -12,6 +12,22 @@ interface CompanyNameInputProps {
 	label: string;
 	placeholder: string;
 }
+const FormikFieldWrapper = styled.div`
+	.MuiAutocomplete-inputRoot {
+		margin-top: 10px;
+		border-radius: 10px;
+		background-color: #f0f8ff;
+	}
+	.MuiOutlinedInput-notchedOutline {
+		border: 1px solid #dcdcdc !important;
+	}
+`;
+const FieldHeading = styled.p`
+	font-size: 0.9rem;
+	.optional {
+		color: red;
+	}
+`;
 
 export function CompanyNameInput(props: CompanyNameInputProps): JSX.Element {
 	const form = useFormikContext();
@@ -46,29 +62,33 @@ export function CompanyNameInput(props: CompanyNameInputProps): JSX.Element {
 			options={options}
 			loading={loading}
 			renderInput={params => (
-				<TextField
-					{...params}
-					field={field}
-					form={form}
-					meta={meta}
-					label={props.label + (props.required ? " *" : "")}
-					placeholder={props.placeholder}
-					variant="standard"
-					InputProps={{
-						...params.InputProps,
-						endAdornment: (
-							<React.Fragment>
-								{loading ? (
-									<CircularProgress
-										color="inherit"
-										size={20}
-									/>
-								) : null}
-								{params.InputProps.endAdornment}
-							</React.Fragment>
-						),
-					}}
-				/>
+				<FormikFieldWrapper>
+					<FieldHeading>
+						{props.label + (props.required ? " *" : "")}
+					</FieldHeading>
+					<TextField
+						{...params}
+						field={field}
+						form={form}
+						meta={meta}
+						placeholder={props.placeholder}
+						variant="outlined"
+						InputProps={{
+							...params.InputProps,
+							endAdornment: (
+								<React.Fragment>
+									{loading ? (
+										<CircularProgress
+											color="inherit"
+											size={20}
+										/>
+									) : null}
+									{params.InputProps.endAdornment}
+								</React.Fragment>
+							),
+						}}
+					/>
+				</FormikFieldWrapper>
 			)}
 		/>
 	);
