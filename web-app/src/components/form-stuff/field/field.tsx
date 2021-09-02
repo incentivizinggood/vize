@@ -44,7 +44,13 @@ function FieldInner({
 	...restProps
 }: any): JSX.Element {
 	if (type === "rating") {
-		return <Formik.Field {...restProps} component={RatingField} />;
+		return (
+			<Formik.Field
+				{...restProps}
+				component={RatingField}
+				label={label}
+			/>
+		);
 	}
 	console.log(width);
 	if (type === "radioButtons") {
@@ -61,20 +67,25 @@ function FieldInner({
 	}
 	if (variant === "privacyTextField") {
 		return (
-			<FormikField
-				{...restProps}
-				type={type}
-				variant="outlined"
-				component={TextField}
-				fullWidth
-				InputProps={{
-					startAdornment: (
-						<InputAdornment position="start">
-							<PrivacyIcon />
-						</InputAdornment>
-					),
-				}}
-			/>
+			<FormikFieldWrapper>
+				<FieldHeading>{label}</FieldHeading>
+				<FormikField
+					{...restProps}
+					type={type}
+					// label={label}
+					className={"customInputClass"}
+					variant={"outlined"}
+					component={TextField}
+					fullWidth
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<PrivacyIcon />
+							</InputAdornment>
+						),
+					}}
+				/>
+			</FormikFieldWrapper>
 		);
 	}
 

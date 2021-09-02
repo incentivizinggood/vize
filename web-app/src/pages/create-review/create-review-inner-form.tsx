@@ -214,8 +214,8 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 				<SubmitButton
 					variant="contained"
 					size="large"
+					className="form-button"
 					type="submit"
-					color="primary"
 				>
 					<T.submit />
 				</SubmitButton>

@@ -53,9 +53,9 @@ const FormToolbar = styled.div`
 	text-align: left;
 	margin-top: 20px;
 	.form-button {
-		margin-left: -30px;
-		width: calc(100% + 60px);
-		margin-bottom: -30px;
+		margin-left: -30px !important;
+		width: calc(100% + 60px) !important;
+		margin-bottom: -30px !important;
 	}
 `;
 
