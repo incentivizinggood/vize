@@ -5,7 +5,7 @@ import {
 	faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import RatingsDropdown from "./ratings-dropdown";
+import RatingsDropdown from "../../../components/ratings-dropdown";
 import PopupModal from "src/components/popup-modal";
 import { withUser } from "src/hoc/user";
 import FlagSystem from "src/components/flag/flag";

@@ -11,7 +11,7 @@ import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import ResourcePreviewCard from "./ResourcePreviewCard";
 import ResourceTopicButton from "./ResourceTopicButton";
-import JobPost from "./JobPost";
+import { JobPost } from "./JobPost";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
 import arrowDownImage from "../../images/arrow-down-circle-line.png";

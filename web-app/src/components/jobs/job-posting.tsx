@@ -18,7 +18,7 @@ import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
-import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";
+import RatingsDropdown from "src/components/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
 import { JobSchedule } from "src/components/job-schedual";
 
