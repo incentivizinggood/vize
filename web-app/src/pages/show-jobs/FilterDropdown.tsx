@@ -23,6 +23,7 @@ interface FilterDropdownProps {
 }
 const DropdownContainer = styled.div`
     margin-bottom:10px;
+    margin-right:8px;
 `;
 const FilterButton = styled(Button)`
     background-color:${props => props.active ?

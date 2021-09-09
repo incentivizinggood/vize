@@ -148,7 +148,7 @@ color:black;
 `;
 const FilterWrapper = styled.div`
 	display:flex;
-	justify-content:space-between;
+	justify-content:start;
 	flex-wrap:wrap;
 	align-items:center;
 `;
@@ -168,6 +168,7 @@ const LabelContainer = styled.div`
 const CssTextField = withStyles({
 	root: {
 		'margin-bottom': '10px',
+		'margin-right': '8px',
 		'& label.Mui-focused': {
 			color: colors.secondaryColorGreen,
 		},
