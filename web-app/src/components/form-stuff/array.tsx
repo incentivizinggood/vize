@@ -23,7 +23,7 @@ export const ElementContainer = styled.div`
 
 	background-color: white;
 	color: black;
-	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: ${boxShadow.wide};
 	padding: 30px;
 	position: relative;
 	padding-top: 20px;

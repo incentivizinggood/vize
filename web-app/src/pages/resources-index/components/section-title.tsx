@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { forSize } from "src/responsive";
-import { colors } from "src/global-styles";
+import { colors, boxShadow } from "src/global-styles";
 
 const SectionTitle = styled.div`
 	margin-left: auto;
@@ -16,7 +16,7 @@ const SectionTitle = styled.div`
 
 	background-color: white;
 	color: black;
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: ${boxShadow.wide};
 	padding: 30px;
 
 	${forSize.phoneOnly} {

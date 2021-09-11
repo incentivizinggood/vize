@@ -36,7 +36,7 @@ const JobContainer = styled.div`
 
 	background-color: white;
 	border-radius: ${borderRadius.container};
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: ${boxShadow.wide};
 
 	${forSize.tabletAndDown} {
 		padding: 12px;

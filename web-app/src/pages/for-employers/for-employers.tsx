@@ -168,8 +168,7 @@ const CardContent = styled.div`
 	border-radius: ${borderRadius.container};
 	padding: 30px;
 	line-height: 1.6;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	box-shadow: ${boxShadow.wide};
 	${forSize.tabletAndDown} {
 		justify-content: center;
 		align-items: center;

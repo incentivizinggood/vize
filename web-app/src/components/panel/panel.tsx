@@ -20,7 +20,7 @@ const Panel = styled.div<Props>`
 
 	background-color: white;
 	color: black;
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: ${boxShadow.wide};
 	padding: ${PannelPadding};
 
 	${forSize.phoneOnly} {

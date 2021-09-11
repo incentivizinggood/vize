@@ -23,14 +23,14 @@ import { colors, borderRadius, boxShadow } from "src/global-styles";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CloseIcon from "@material-ui/icons/Close";
+
 const JobPostCard = styled.div`
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background: #fff;
 	border-radius: ${borderRadius.container};
 	padding: 20px;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	box-shadow: ${boxShadow.wide};
 `;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;

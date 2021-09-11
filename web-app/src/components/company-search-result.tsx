@@ -29,7 +29,7 @@ const CompanySearchContainer = styled.div`
 	margin-left: auto;
 	margin-bottom: 35px;
 
-	box-shadow: 0px 0px 3px 0px;
+	box-shadow: ${boxShadow.wide};
 	background-color: white;
 	border-radius: ${borderRadius.container};
 
