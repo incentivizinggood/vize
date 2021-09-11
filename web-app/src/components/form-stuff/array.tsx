@@ -6,14 +6,14 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "src/components/button";
 import { TranslationComponent } from "src/translations";
-import { colors } from "src/global-styles";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 export const ArrayContainer = styled.div`
 	margin-top: 20px;
 `;
 
 export const ElementContainer = styled.div`
-	border-radius: 10px;
+	border-radius: ${borderRadius.container};
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;

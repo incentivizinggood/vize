@@ -29,7 +29,7 @@ const JobPostFirstRow = styled.div`
 const PostImage = styled.img`
 	height: 68px;
 	width: 68px;
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	margin-right: 20px;
 `;
 const PostHeaderContent = styled.div`

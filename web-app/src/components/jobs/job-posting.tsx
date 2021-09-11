@@ -21,6 +21,7 @@ import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/components/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
 import { JobSchedule } from "src/components/job-schedual";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const FontAwesomeIconSized = styled(FontAwesomeIcon)`
 	width: 16px !important;
@@ -34,7 +35,7 @@ const JobContainer = styled.div`
 	padding: 20px 30px;
 
 	background-color: white;
-	border-radius: 10px;
+	border-radius: ${borderRadius.container};
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 
 	${forSize.tabletAndDown} {

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { colors } from "src/global-styles";
+import { colors, borderRadius } from "src/global-styles";
 
 export interface ButtonExtraProps {
 	/** Style this button to make it look more important. */
@@ -65,7 +65,7 @@ const Button = styled.button<ButtonExtraProps>`
 		vertical-align: middle;
 		padding: 0.9rem 3rem;
 		line-height: 1.5;
-		border-radius: 30px;
+		border-radius: ${borderRadius.button};
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 			border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 

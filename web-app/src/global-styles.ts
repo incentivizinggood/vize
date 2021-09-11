@@ -33,6 +33,9 @@ const boxShadow = {
 
 const borderRadius = {
 	container: "16px",
+	containerMobile: "10px",
+	smallImage: "8px",
+	button: "30px",
 };
 
 export { colors, boxShadow, borderRadius };

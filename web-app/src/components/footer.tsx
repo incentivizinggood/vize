@@ -6,6 +6,7 @@ import * as urlGenerators from "src/pages/url-generators";
 import { forSize } from "src/responsive";
 import { colors } from "src/global-styles";
 import { useTranslations } from "src/translations";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 import facebookIcon from "src/images/facebook.png";
 import instagramIcon from "src/images/instagram.png";
@@ -71,13 +72,13 @@ const SocialLinks = styled.div`
 const WhatsApp = styled.img`
 	width: 30px;
 	height: 30px;
-	border-radius: 8px;
+	border-radius: ${borderRadius.smallImage};
 `;
 
 const SocialIcon = styled.img`
 	width: 50px;
 	height: 50px;
-	border-radius: 8px;
+	border-radius: ${borderRadius.smallImage};
 `;
 
 const CopyRight = styled.div`

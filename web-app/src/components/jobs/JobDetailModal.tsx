@@ -5,6 +5,7 @@ import { colors } from "src/global-styles";
 import { withStyles } from "@material-ui/core/styles";
 import StarRatings from "react-star-ratings";
 import { Button } from "src/components/button";
+import { borderRadius } from "src/global-styles";
 
 import { Row, Col, ListGroup } from "react-bootstrap";
 import {
@@ -73,7 +74,7 @@ const JobPostContent = styled.div`
 	margin-top: 40px;
 	background: white;
 	padding: 10px 20px;
-	border-radius: 16px;
+	border-radius: ${borderRadius.container};
 	height: 100%;
 `;
 const ScrollableContent = styled.div`
@@ -103,7 +104,7 @@ const JobCompanyBasicDetail = styled.div`
 `;
 const CompanyRatingsWrapper = styled.div``;
 const CompanyRating = styled.div`
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	background-color: #eaf7ff;
 	.list-group-item:first-child {
 		background: #eaf7ff;
@@ -120,7 +121,7 @@ const StatesWrapper = styled.div`
 `;
 const Stats = styled.div`
 	background-color: #eaf7ff;
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -177,7 +178,7 @@ const ViewAllReview = styled.div`
 const ReviewDetails = styled.div`
 	padding: 5px;
 	margin-top: 10px;
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	border: 1px solid #efefef;
 	background-color: #f9f9f9;
 `;
@@ -206,7 +207,7 @@ const ReviewCommentsRow = styled(Row)`
 	justify-content: space-between;
 `;
 const ReviewCommentsColumn = styled(Col)`
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	padding: 20px;
 	border: 1px solid #efefef;
 	margin: 5px;
@@ -220,7 +221,7 @@ const ReviewCommentHeader = styled(Col)`
 	left: 15px;
 	padding: 2px 10px;
 	background: #efefef;
-	border-radius: 16px;
+	border-radius: ${borderRadius.container};
 `;
 const AveeragePay = styled.div`
 	margin-top: 20px;

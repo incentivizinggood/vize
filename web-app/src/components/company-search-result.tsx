@@ -16,6 +16,7 @@ import { translations } from "src/translations";
 import { forSize } from "src/responsive";
 import defaultCompanyIcon from "src/images/default-company.png";
 import { CompanySearchResultFragment } from "generated/graphql-operations";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const T = translations.legacyTranslationsNeedsRefactor.CompanySearchResult;
 
@@ -30,7 +31,7 @@ const CompanySearchContainer = styled.div`
 
 	box-shadow: 0px 0px 3px 0px;
 	background-color: white;
-	border-radius: 8px;
+	border-radius: ${borderRadius.container};
 
 	width: 60%;
 

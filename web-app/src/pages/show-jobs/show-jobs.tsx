@@ -22,6 +22,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import Modal from "react-bootstrap/Modal";
 import { validateSchema } from "graphql";
+import { borderRadius } from "src/global-styles";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -38,7 +39,7 @@ const PageStyling = styled.div`
 `;
 const Banner = styled.div`
 	height: 350px;
-	border-radius: 16px;
+	border-radius: ${borderRadius.container};
 	background-color: ${colors.secondaryColorGreen};
 	padding: 20px;
 	color: #fff;
@@ -81,7 +82,7 @@ const SearchBar = styled.div`
 	width: 87%;
 	bottom: -76px;
 	background: #fff;
-	border-radius: 16px;
+	border-radius: ${borderRadius.container};
 	${forSize.tabletLandscapeAndDown} {
 		bottom: -150px;
 	}

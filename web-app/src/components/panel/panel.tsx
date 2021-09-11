@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { forSize } from "src/responsive";
-import { colors } from "src/global-styles";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const PannelPadding = "30px";
 
@@ -10,7 +10,8 @@ interface Props {
 }
 
 const Panel = styled.div<Props>`
-	${(props) => props.roundedEdges && "border-radius: 10px;"};
+	${(props) =>
+		props.roundedEdges && `border-radius: ${borderRadius.container};`};
 
 	margin-left: auto;
 	margin-right: auto;

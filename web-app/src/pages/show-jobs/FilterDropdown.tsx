@@ -10,7 +10,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import { Col } from "react-bootstrap";
-import { colors } from "src/global-styles";
+import { colors, borderRadius } from "src/global-styles";
+
 interface option {
 	label: string;
 	value: number;
@@ -33,7 +34,7 @@ const FilterButton = styled(Button)`
 	color: ${(props) =>
 		props.active ? `white !important` : `black !important`};
 	padding: 12px 20px !important;
-	border-radius: 25px !important;
+	border-radius: ${borderRadius.button} !important;
 	text-transform: capitalize !important;
 `;
 const DropdownWrapper = styled.div`

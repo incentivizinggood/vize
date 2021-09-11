@@ -19,7 +19,7 @@ import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import minEducationImage from "../../images/job-post-icons/min-education.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
-import { colors } from "src/global-styles";
+import { colors, borderRadius, boxShadow } from "src/global-styles";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CloseIcon from "@material-ui/icons/Close";
@@ -27,7 +27,7 @@ const JobPostCard = styled.div`
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background: #fff;
-	border-radius: 15px;
+	border-radius: ${borderRadius.container};
 	padding: 20px;
 	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
 		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
@@ -57,7 +57,7 @@ const JobPostTitle = styled.div`
 const PostImage = styled.img`
 	height: 60px;
 	width: 60px;
-	border-radius: 6px;
+	border-radius: ${borderRadius.smallImage};
 	margin: 20px 20px 20px 0px;
 `;
 const PostHeaderContent = styled.div``;
@@ -142,7 +142,7 @@ const LanguageImage = styled.img`
 `;
 const DescriptionTag = styled.div`
 	padding: 8px 10px;
-	border-radius: 16px;
+	border-radius: ${borderRadius.container};
 	// color: ${colors.secondaryColorGreen};
 	background-color: #126e4e1c;
 	margin-right: 5px;

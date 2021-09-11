@@ -6,7 +6,7 @@ import PageWrapper from "src/components/page-wrapper";
 import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
-import { colors } from "src/global-styles";
+import { colors, borderRadius, boxShadow } from "src/global-styles";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import ResourcePreviewCard from "./ResourcePreviewCard";
@@ -165,7 +165,7 @@ const CardContent = styled.div`
 	background-color: #ffffff;
 	margin-top: 5px;
 	margin-bottom: 20px;
-	border-radius: 15px;
+	border-radius: ${borderRadius.container};
 	padding: 30px;
 	line-height: 1.6;
 	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
@@ -217,7 +217,7 @@ const TableWrapper = styled.div``;
 const StyledRankedTable = styled.div`
 	margin: 25px 0;
 	> .table-responsive {
-		border-radius: 16px;
+		border-radius: ${borderRadius.container};
 		background-color: white;
 		> .table {
 			margin-bottom: 0px;
@@ -259,7 +259,7 @@ const ResourceCardNavigation = styled.div`
 	margin-bottom: 10px;
 `;
 const LeftNavigation = styled.div`
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	background-color: #fff;
 	height: 50px;
 	width: 50px;
@@ -273,7 +273,7 @@ const LeftNavigation = styled.div`
 	}
 `;
 const RightNavigation = styled.div`
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	background-color: #fff;
 	height: 50px;
 	width: 50px;

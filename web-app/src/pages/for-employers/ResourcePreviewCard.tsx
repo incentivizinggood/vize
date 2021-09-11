@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Col } from "react-bootstrap";
-import { colors } from "src/global-styles";
+import { colors, borderRadius, boxShadow } from "src/global-styles";
 
 interface ResourcePreviewCardProps {
 	resource: {
@@ -16,7 +16,7 @@ interface ResourcePreviewCardProps {
 }
 const ResourceCard = styled.div`
 	background: #fff;
-	border-radius: 16px 16px 6px;
+	border-radius: ${borderRadius.container};
 	margin-bottom: 10px;
 	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
 		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
@@ -28,14 +28,14 @@ const ResourceContentWrapper = styled.div`
 `;
 const ResourceImage = styled.img`
 	height: 260px;
-	border-radius: 16px;
+	border-radius: ${borderRadius.container};
 	width: 100%;
 `;
 const ResourceDatePublished = styled.span`
 	color: #777;
 `;
 const ResourceTitle = styled.span`
-	font-size: 16px;
+	font-size: ${borderRadius.container};
 	font-weight: 700;
 	padding-bottom: 10px;
 	padding-top: 10px;
@@ -48,7 +48,7 @@ const ResourceReadButton = styled.button`
 	align-self: center;
 	background-color: ${colors.primaryColorBlue};
 	padding: 5px 10px;
-	border-radius: 17px;
+	border-radius: ${borderRadius.container};
 	color: white;
 `;
 function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
