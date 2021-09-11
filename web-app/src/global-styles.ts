@@ -24,4 +24,15 @@ const colors = {
 	onSurfaceAccentWeak: "#cbcbcb",
 };
 
-export default colors;
+// Box Shadow Colors taken from https://getcssscan.com/css-box-shadow-examples
+const boxShadow = {
+	// use the "wide" option as the default. If it doesn't look good you can use the narrow option instead
+	wide: "rgba(149, 157, 165, 0.2) 0px 8px 24px", // box shadow #0 from list of examples
+	narrow: "box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px", // box shadow #9 from list of examples
+};
+
+const borderRadius = {
+	container: "16px",
+};
+
+export { colors, boxShadow, borderRadius };

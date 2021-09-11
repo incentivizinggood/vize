@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { forSize } from "src/responsive";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 const PannelPadding = "30px";
 

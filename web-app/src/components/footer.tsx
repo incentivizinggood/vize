@@ -4,7 +4,7 @@ import styled from "styled-components";
 import * as urlGenerators from "src/pages/url-generators";
 
 import { forSize } from "src/responsive";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 import { useTranslations } from "src/translations";
 
 import facebookIcon from "src/images/facebook.png";

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Header from "src/components/header";
 import Footer from "src/components/footer";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 const PageContainer = styled.div`
 	overflow: hidden;

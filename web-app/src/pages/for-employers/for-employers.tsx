@@ -6,7 +6,7 @@ import PageWrapper from "src/components/page-wrapper";
 import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import ResourcePreviewCard from "./ResourcePreviewCard";

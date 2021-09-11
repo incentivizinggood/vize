@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 export interface ButtonExtraProps {
 	/** Style this button to make it look more important. */

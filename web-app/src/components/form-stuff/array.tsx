@@ -6,7 +6,7 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "src/components/button";
 import { TranslationComponent } from "src/translations";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 export const ArrayContainer = styled.div`
 	margin-top: 20px;

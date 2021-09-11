@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 import { JobPostInterface } from "../../pages/show-jobs/show-jobs";
@@ -8,19 +7,20 @@ import dollarImage from "../../images/job-post-icons/dollar.png";
 import addressImage from "../../images/job-post-icons/address.png";
 import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const JobPostWrapper = styled.div`
-    background:#fff;
-	border-radius:16px 16px 6px;
-	margin-bottom:10px;
-    padding:15px;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-    cursor:pointer;
+	background: #fff;
+	border-radius: ${borderRadius.container};
+	margin-bottom: 10px;
+	padding: 15px;
+	box-shadow: ${boxShadow.wide};
+	cursor: pointer;
 `;
 const JobPostHeaderRightSection = styled.div`
 	display: flex;
 	align-items: start;
-    width:100%;
+	width: 100%;
 `;
 const JobPostFirstRow = styled.div`
 	display: flex;
@@ -30,10 +30,10 @@ const PostImage = styled.img`
 	height: 68px;
 	width: 68px;
 	border-radius: 6px;
-	margin-right:20px;
+	margin-right: 20px;
 `;
 const PostHeaderContent = styled.div`
-    flex-grow:1
+	flex-grow: 1;
 `;
 const PostTitle = styled.div`
 	color: black;
@@ -42,7 +42,7 @@ const PostTitle = styled.div`
 const ReviewCount = styled.div`
 	color: black;
 	font-size: 13px;
-    margin-left:5px;
+	margin-left: 5px;
 `;
 const PostSubHeading = styled.div`
 	font-weight: 700;
@@ -55,7 +55,7 @@ const RatingWrapper = styled.div`
 const JobDetail = styled.div`
 	display: flex;
 	flex-direction: column;
-    margin-top:10px;
+	margin-top: 10px;
 `;
 const JobDetailsTitle = styled.div`
 	color: black;
@@ -70,21 +70,21 @@ const JobDetailContent = styled.div`
 	display: flex;
 	// padding-left: 10px;
 	flex-wrap: wrap;
-	img	{
+	img {
 		width: 18px;
-    	height: 18px;
+		height: 18px;
 	}
-    margin-bottom:10px;
+	margin-bottom: 10px;
 `;
 const LanguageContentWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-left: 10px;
 	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
-        p.border ? "1px solid #efefef" : ""};
+		p.border ? "1px solid #efefef" : ""};
 	padding-right: 10px;
 	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
-        p.withImage ? "10px" : ""};
+		p.withImage ? "10px" : ""};
 `;
 const LanguageTitle = styled.span`
 	color: black;
@@ -97,84 +97,97 @@ const LanguageImage = styled.img`
 	height: 26px;
 `;
 const ActionsWrapper = styled.div`
-    margin-top:10px;
-    margin-bottom:10px;
-	display:flex;
-	justify-content:space-around;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-around;
 `;
 const TitleRow = styled.div`
-   display:flex;
-   justify-content:space-between;
+	display: flex;
+	justify-content: space-between;
 `;
 const PostedDate = styled.div`
-  color:grey;
+	color: grey;
 `;
 interface JobPostPreviewProps {
-    job: JobPostInterface,
-    hideButtons?: boolean,
-    openJobDetail?: (options: any) => void
+	job: JobPostInterface;
+	hideButtons?: boolean;
+	openJobDetail?: (options: any) => void;
 }
-export default function JobPostPreview(props: JobPostPreviewProps): JSX.Element {
-    const { job, openJobDetail, hideButtons } = props;
+export default function JobPostPreview(
+	props: JobPostPreviewProps
+): JSX.Element {
+	const { job, openJobDetail, hideButtons } = props;
 
-    return <JobPostWrapper onClick={() => {
-        if (openJobDetail) {
-            openJobDetail({ visible: true, jobPost: job })
-        }
-    }}>
-        <JobPostFirstRow>
-            <JobPostHeaderRightSection>
-                <PostImage src={job.companyLogo} alt="post-image" />
-                <PostHeaderContent>
-                    <TitleRow>
-                        <PostTitle>{job.company}</PostTitle>
-                        <PostedDate>{job.postedTimeAgo}</PostedDate>
-                    </TitleRow>
-                    <PostSubHeading>{job.jobPost}</PostSubHeading>
-                    <RatingWrapper>
-                        <RatingsDropdown ratings={{
-                            healthAndSafety: job.rating,
-                            managerRelationship: job.rating,
-                            workEnvironment: job.rating,
-                            benefits: job.rating,
-                            overallSatisfaction: job.rating
-                        }} numReviews={job.reviewCount} companyName="" />
-                        <ReviewCount>{job.reviewCount} Reviews</ReviewCount>
-                    </RatingWrapper>
-                </PostHeaderContent>
-            </JobPostHeaderRightSection>
-        </JobPostFirstRow>
-        <JobDetail>
-            <JobDetailContent>
-                <img src={dollarImage} alt="dollar-img" />
-                <JobDetailvalue>{job.salaryRange}</JobDetailvalue>
-            </JobDetailContent>
-            <JobDetailContent>
-                <img src={jobTypeImage} alt="dollar-img" />
-                <JobDetailvalue>{job.jobType}</JobDetailvalue>
-            </JobDetailContent>
-            <JobDetailContent>
-                <img src={addressImage} alt="dollar-img" />
-                <JobDetailvalue>{[job.city, job.industrialPark].join(", ")}</JobDetailvalue>
-            </JobDetailContent>
-            <JobDetailContent>
-                <LanguageImage src={shiftsImage} alt="dollar-img" />
-                {job.shifts.map((v, index) => {
-                    return (
-                        index < 2 ? <LanguageContentWrapper border key={index}>
-                            <LanguageTitle>{v.day}</LanguageTitle>
-                            <LanguageDescription>
-                                {v.time}
-                            </LanguageDescription>
-                        </LanguageContentWrapper> : null
-                    );
-                })}
-            </JobDetailContent>
-            {!hideButtons ? <ActionsWrapper>
-                <Button $primary>Postularme</Button>
-                <Button >Show More Details</Button>
-            </ActionsWrapper> : null}
-
-        </JobDetail>
-    </JobPostWrapper>
+	return (
+		<JobPostWrapper
+			onClick={() => {
+				if (openJobDetail) {
+					openJobDetail({ visible: true, jobPost: job });
+				}
+			}}
+		>
+			<JobPostFirstRow>
+				<JobPostHeaderRightSection>
+					<PostImage src={job.companyLogo} alt="post-image" />
+					<PostHeaderContent>
+						<TitleRow>
+							<PostTitle>{job.company}</PostTitle>
+							<PostedDate>{job.postedTimeAgo}</PostedDate>
+						</TitleRow>
+						<PostSubHeading>{job.jobPost}</PostSubHeading>
+						<RatingWrapper>
+							<RatingsDropdown
+								ratings={{
+									healthAndSafety: job.rating,
+									managerRelationship: job.rating,
+									workEnvironment: job.rating,
+									benefits: job.rating,
+									overallSatisfaction: job.rating,
+								}}
+								numReviews={job.reviewCount}
+								companyName=""
+							/>
+							<ReviewCount>{job.reviewCount} Reviews</ReviewCount>
+						</RatingWrapper>
+					</PostHeaderContent>
+				</JobPostHeaderRightSection>
+			</JobPostFirstRow>
+			<JobDetail>
+				<JobDetailContent>
+					<img src={dollarImage} alt="dollar-img" />
+					<JobDetailvalue>{job.salaryRange}</JobDetailvalue>
+				</JobDetailContent>
+				<JobDetailContent>
+					<img src={jobTypeImage} alt="dollar-img" />
+					<JobDetailvalue>{job.jobType}</JobDetailvalue>
+				</JobDetailContent>
+				<JobDetailContent>
+					<img src={addressImage} alt="dollar-img" />
+					<JobDetailvalue>
+						{[job.city, job.industrialPark].join(", ")}
+					</JobDetailvalue>
+				</JobDetailContent>
+				<JobDetailContent>
+					<LanguageImage src={shiftsImage} alt="dollar-img" />
+					{job.shifts.map((v, index) => {
+						return index < 2 ? (
+							<LanguageContentWrapper border key={index}>
+								<LanguageTitle>{v.day}</LanguageTitle>
+								<LanguageDescription>
+									{v.time}
+								</LanguageDescription>
+							</LanguageContentWrapper>
+						) : null;
+					})}
+				</JobDetailContent>
+				{!hideButtons ? (
+					<ActionsWrapper>
+						<Button $primary>Postularme</Button>
+						<Button>Show More Details</Button>
+					</ActionsWrapper>
+				) : null}
+			</JobDetail>
+		</JobPostWrapper>
+	);
 }
