@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Modal from 'react-modal';
 import styled from "styled-components";
 import colors from "src/colors";
@@ -13,9 +13,11 @@ import descriptionImage from "../../images/job-post-icons/description.png";
 import StarsIcon from '@material-ui/icons/Stars'
 import RateReviewIcon from '@material-ui/icons/RateReview';;
 import Tab from '@material-ui/core/Tab';
+import RatingsDropdownReview from "../ratings-dropdown-review";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WorkIcon from '@material-ui/icons/Work';
 import JobPostPreview from "./JobPostPreview";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
         height: 35,
@@ -68,14 +70,15 @@ const StyledModal = styled(Modal)`
 const JobPostContent = styled.div`
     margin-top:40px;
     background:white;
-    padding:10px 20px;
+    padding:20px;
     border-radius: 16px;
     height:100%;
 `;
 const ScrollableContent = styled.div`
-    height:430px;
+    height:410px;
     overflow-y:auto;
     overflow-x:hidden;
+    padding: 10px;
 `;
 const CompanyContent = styled.div`
 `;
@@ -104,12 +107,28 @@ const CompanyRating = styled.div`
     border-radius:6px;
     background-color:#EAF7FF;
     .list-group-item:first-child{
-        background:#EAF7FF;
+        background:#eff6fa;
+    }
+    .list-group .highlighted{
+        background-color:${colors.tertiaryColorLightBlue}
+    }
+    .list-group .even{
+        background-color:#eff6fa;
     }
 `;
 const RatingContainer = styled.div`
     display:flex;
     justify-content:space-between;
+    font-size:${(p: { highlighted?: boolean }) =>
+        p.highlighted ? "18px" : "14px"};
+    font-weight:${(p: { highlighted?: boolean }) =>
+        p.highlighted ? "700" : "normal"};
+    span:first-child{
+        width:150px;
+    }
+    span:last-child{
+        width:20px;
+    }
 `;
 const StatesWrapper = styled.div`
     display:flex;
@@ -117,7 +136,7 @@ const StatesWrapper = styled.div`
     height:inherit;
 `;
 const Stats = styled.div`
-    background-color:#EAF7FF;
+    background:#eff6fa;
     border-radius:6px;
     display:flex;
     justify-content:center;
@@ -133,7 +152,6 @@ const Stats = styled.div`
 const RatingTitle = styled.div`
     display:flex;
     align-items:center;
-    background-color:#EAF7FF;
     padding:5px;
     font-weight:900;
     font-size:16px;
@@ -150,7 +168,7 @@ const Column = styled(Col)`
     height:300px;
 `;
 const CommpanyReviewsWrapper = styled.div`
-margin-top:20px;
+    margin-top:40px;
 `;
 const ReviewTitleRow = styled.div`
     display:flex;
@@ -172,8 +190,14 @@ const ViewAllReview = styled.div`
         cursor:pointer;
     }
 `;
+const ViewAllButton = styled.div`
+   margin-top:10px;
+   margin-bottom:10px;
+   display:flex;
+   justify-content:center;
+`;
 const ReviewDetails = styled.div`
-    padding:5px;
+    padding:15px;
     margin-top:10px;
     border-radius:6px;
     border:1px solid #efefef;
@@ -193,8 +217,14 @@ const ReviewedBy = styled.div`
 const PostedDate = styled.span`
    color:grey;
 `;
-const ReviewRating = styled.button`
-   
+const ReviewRatingWrapper = styled.div`
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+`;
+const ReviewRating = styled.div`
+    display:flex;
+    flex-direction:column;
 `;
 const ReviewComments = styled.div`
    display:flex;
@@ -224,7 +254,7 @@ const ReviewCommentHeader = styled(Col)`
    border-radius: 16px;
 `;
 const AveeragePay = styled.div`
-   margin-top:20px;
+   margin-top:5px;
    margin-bottom:20px;
 `;
 const GreyText = styled.span`
@@ -234,12 +264,32 @@ const SalaryRangeValues = styled.span`
    display:flex;
    justify-content:space-between;
 `;
+const JobLocationList = styled.div`
+   display:flex;
+   flex-direction:column;
+`;
+const JobLocationText = styled.span`
+   
+`;
+const JobList = styled(Row)`
+   margin-top:10px;
+`;
+const RecommendedButton = styled.button`
+   color:${colors.secondaryColorGreen};
+   background-color: #def1de;
+   border-radius: 6px;
+`;
+const ButtonText = styled.div`
+    display:flex;
+    align-items:center;
+`;
 
 Modal.setAppElement('#app-root');
 export default function JobDetailModal(props: JobDetailModalProps): JSX.Element {
     const { visible, jobPost, onClose } = props
     const [activetTab, setActiveTab] = useState(1);
-    console.log("jobPost", jobPost)
+    const jobContentRef = useRef(null);
+    const companyContentRef = useRef(null);
     return <StyledModal
         isOpen={visible}
         onRequestClose={onClose}
@@ -252,17 +302,23 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                 indicatorColor="primary"
                 textColor="primary"
                 onChange={(e, newValue) => {
-                    setActiveTab(newValue)
+                    if (newValue === 1) {
+                        jobContentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    } else {
+                        companyContentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                    setActiveTab(newValue);
                 }}
                 aria-label="disabled tabs example"
             >
                 <Tab value={1} label="Job" />
                 <Tab value={2} label="Company" />
             </Tabs>
-            {activetTab === 1 ? <ScrollableContent>
-                <JobContentWrapper {...jobPost}></JobContentWrapper>
-            </ScrollableContent> : <ScrollableContent>
-                <CompanyContent>
+            <ScrollableContent>
+                <div ref={jobContentRef}>
+                    <JobContentWrapper   {...jobPost}></JobContentWrapper>
+                </div>
+                <CompanyContent ref={companyContentRef} >
                     <JobRequirementWrapper>
                         <JobRequirementTitle>
                             <img src={descriptionImage} alt=""></img>
@@ -302,7 +358,11 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                 <strong>Location</strong>
                             </Col>
                             <Col>
-                                {jobPost.companyDetail.location}
+                                <JobLocationList>
+                                    {jobPost.companyDetail.location.map((v) => {
+                                        return <JobLocationText key={v}>{v}</JobLocationText>
+                                    })}
+                                </JobLocationList>
                             </Col>
                         </Row>
                     </JobCompanyBasicDetail>
@@ -313,23 +373,26 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                     <ListGroup>
                                         <ListGroup.Item>
                                             <RatingTitle>
-                                                <StarsIcon />&nbsp;Ratings
+                                                <StarsIcon />&nbsp;{jobPost.company} Ratings
                                             </RatingTitle>
                                         </ListGroup.Item>
-                                        <ListGroup.Item>
-                                            <RatingContainer>
+                                        <ListGroup.Item className="highlighted">
+                                            <RatingContainer highlighted>
                                                 <span>Average Rating</span>
                                                 <div>
                                                     <StarRatings
                                                         rating={jobPost.companyDetail.ratings.average}
-                                                        starDimension="15px"
-                                                        starSpacing="1.5px"
+                                                        starDimension="18px"
+                                                        starSpacing="2px"
                                                     />
                                                 </div>
+                                                <span>
+                                                    {jobPost.companyDetail.ratings.average}
+                                                </span>
                                             </RatingContainer>
                                         </ListGroup.Item>
-                                        <ListGroup.Item>
-                                            <RatingContainer>
+                                        <ListGroup.Item className="even" >
+                                            <RatingContainer >
                                                 <span>Overall Satisfaction</span>
                                                 <div>
                                                     <StarRatings
@@ -338,6 +401,9 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                                         starSpacing="1.5px"
                                                     />
                                                 </div>
+                                                <span>
+                                                    {jobPost.companyDetail.ratings.overallSatisfaction}
+                                                </span>
                                             </RatingContainer>
                                         </ListGroup.Item>
                                         <ListGroup.Item>
@@ -350,10 +416,13 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                                         starSpacing="1.5px"
                                                     />
                                                 </div>
+                                                <span>
+                                                    {jobPost.companyDetail.ratings.healthAndSafeety}
+                                                </span>
                                             </RatingContainer>
                                         </ListGroup.Item>
-                                        <ListGroup.Item>
-                                            <RatingContainer>
+                                        <ListGroup.Item className="even">
+                                            <RatingContainer >
                                                 <span>Work Environment</span>
                                                 <div>
                                                     <StarRatings
@@ -362,6 +431,9 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                                         starSpacing="1.5px"
                                                     />
                                                 </div>
+                                                <span>
+                                                    {jobPost.companyDetail.ratings.workEnvironment}
+                                                </span>
                                             </RatingContainer>
                                         </ListGroup.Item>
                                         <ListGroup.Item>
@@ -374,10 +446,13 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                                         starSpacing="1.5px"
                                                     />
                                                 </div>
+                                                <span>
+                                                    {jobPost.companyDetail.ratings.managerRelationships}
+                                                </span>
                                             </RatingContainer>
                                         </ListGroup.Item>
-                                        <ListGroup.Item>
-                                            <RatingContainer>
+                                        <ListGroup.Item className="even">
+                                            <RatingContainer >
                                                 <span>Benefits</span>
                                                 <div>
                                                     <StarRatings
@@ -386,6 +461,9 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                                         starSpacing="1.5px"
                                                     />
                                                 </div>
+                                                <span>
+                                                    {jobPost.companyDetail.ratings.benefits}
+                                                </span>
                                             </RatingContainer>
                                         </ListGroup.Item>
                                     </ListGroup>
@@ -412,28 +490,34 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                     <CommpanyReviewsWrapper>
                         <ReviewTitleRow>
                             <NumberOfReview>
-                                <RateReviewIcon /><span>&nbsp;{jobPost.companyDetail.reviewCount} Reviews</span></NumberOfReview>
-                            <ViewAllReview>
-                                <a href="#">View All Reviews</a>
-                            </ViewAllReview>
+                                <RateReviewIcon /><span>&nbsp;{jobPost.companyDetail.reviewCount} Reviews</span>
+                            </NumberOfReview>
                         </ReviewTitleRow>
                         {jobPost.companyDetail.reviews.map((v: any, index: number) => {
                             return <ReviewDetails key={index}>
                                 <ReviewHeader>
                                     <ReviewedBy>
-                                        <span>{v.reviewedBy}</span>&nbsp;<PostedDate>{v.reviewedOn}</PostedDate>
+                                        <span>{v.reviewedBy}</span>&nbsp;<PostedDate>Posted {v.reviewedOn}</PostedDate>
                                     </ReviewedBy>
-                                    <Button $primary>
-                                        Recommends {jobPost.company}
-                                    </Button>
                                 </ReviewHeader>
-                                <ReviewRating>
-                                    <StarRatings
-                                        rating={jobPost.companyDetail.ratings.average}
-                                        starDimension="15px"
-                                        starSpacing="1.5px"
-                                    />
-                                </ReviewRating>
+                                <ReviewRatingWrapper>
+                                    <ReviewRating>
+                                        <span>{v.title}</span>
+                                        <RatingsDropdownReview ratings={{
+                                            healthAndSafety: v.rating.healthAndSafety,
+                                            managerRelationship: v.rating.managerRelationship,
+                                            workEnvironment: v.rating.workEnvironment,
+                                            benefits: v.rating.benefits,
+                                            overallSatisfaction: v.rating.overallSatisfaction
+                                        }} companyName="" />
+                                    </ReviewRating>
+                                    <RecommendedButton>
+                                        <ButtonText>
+                                            <CheckCircleOutlineIcon />&nbsp;
+                                            Recommends {jobPost.company}
+                                        </ButtonText>
+                                    </RecommendedButton>
+                                </ReviewRatingWrapper>
                                 <ReviewComments>
                                     <ReviewCommentsRow>
                                         <ReviewCommentsColumn md={6}>
@@ -451,7 +535,7 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                     </ReviewCommentsRow>
                                     <ReviewCommentsRow>
                                         <ReviewCommentsColumn md={12}>
-                                            <ReviewCommentHeader>AdditionalComments</ReviewCommentHeader>
+                                            <ReviewCommentHeader>Additional Comments</ReviewCommentHeader>
                                             <span>
                                                 {v.additionalComments}
                                             </span>
@@ -460,14 +544,16 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                 </ReviewComments>
                             </ReviewDetails>
                         })}
+                        <ViewAllButton>
+                            <Button $primary>
+                                View All Reviews
+                            </Button>
+                        </ViewAllButton>
                     </CommpanyReviewsWrapper>
                     <CommpanyReviewsWrapper>
                         <ReviewTitleRow>
                             <NumberOfReview>
                                 <RateReviewIcon /><span>&nbsp;{jobPost.companyDetail.salaries ? jobPost.companyDetail.salaries.length : 0} Salary</span></NumberOfReview>
-                            <ViewAllReview>
-                                <a href="#">View All Salaries</a>
-                            </ViewAllReview>
                         </ReviewTitleRow>
                         {jobPost.companyDetail.salaries.map((v: any, index: number) => {
                             return <ReviewDetails key={index}>
@@ -487,26 +573,34 @@ export default function JobDetailModal(props: JobDetailModalProps): JSX.Element 
                                 </SalaryRangeValues>
                             </ReviewDetails>
                         })}
+                        <ViewAllButton>
+                            <Button $primary>
+                                View All Salaries
+                            </Button>
+                        </ViewAllButton>
                     </CommpanyReviewsWrapper>
                     <CommpanyReviewsWrapper>
                         <ReviewTitleRow>
                             <NumberOfReview>
-                                <WorkIcon /><span>&nbsp;{jobPost.companyDetail.jobs ? jobPost.companyDetail.jobs.length : 0} Jobs</span>
+                                <WorkIcon /><span>&nbsp;Additional Jobs</span>
                             </NumberOfReview>
-                            <ViewAllReview>
-                                <a href="#">View All Jobs</a>
-                            </ViewAllReview>
+
                         </ReviewTitleRow>
-                        <Row>
+                        <JobList>
                             {jobPost.companyDetail.jobs.map((v: any, index: number) => {
                                 return <Col xs={12} sm={6} md={6} key={v.id}>
                                     <JobPostPreview job={...v} hideButtons />
                                 </Col>
                             })}
-                        </Row>
+                        </JobList>
+                        <ViewAllButton>
+                            <Button $primary>
+                                View All Jobs
+                            </Button>
+                        </ViewAllButton>
                     </CommpanyReviewsWrapper>
                 </CompanyContent>
-            </ScrollableContent>}
+            </ScrollableContent>
         </JobPostContent>
     </StyledModal>
 }

@@ -23,7 +23,7 @@ interface FilterDropdownProps {
 }
 const DropdownContainer = styled.div`
     margin-bottom:10px;
-    margin-right:8px;
+    margin-right:12px;
 `;
 const FilterButton = styled(Button)`
     background-color:${props => props.active ?
@@ -59,20 +59,27 @@ function FilterDropdown(props: FilterDropdownProps): JSX.Element {
     const { displayLabel, options, value, updateValue } = props;
     const [active, setActive] = useState(false);
     useEffect(() => {
+        console.log("value", value)
         let active = false;
-        if (typeof value === "number") {
-            if (value) {
+        if (typeof value === "object") {
+            if (value.length) {
                 active = true
             }
         } else {
-            if (value.length) {
+            if (value) {
                 active = true
             }
         }
         setActive(active);
     }, [value])
     const handleChange = (event) => {
-        updateValue(event.target.value);
+        if (event.target.checked) {
+            updateValue(typeof value === "object" ? [...value, parseInt(event.target.value)] : parseInt(event.target.value));
+        } else {
+            updateValue(typeof value === "object" ? value.filter((v) => {
+                return v !== parseInt(event.target.value)
+            }) : "");
+        }
     };
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -84,7 +91,7 @@ function FilterDropdown(props: FilterDropdownProps): JSX.Element {
     };
     const open = Boolean(anchorEl);
     return <DropdownContainer>
-        <FilterButton active={active} variant="contained" color="primary" onClick={handleClick}>
+        <FilterButton active={displayLabel !== "Any Time" && active ? active : false} variant="contained" color="primary" onClick={handleClick}>
             {displayLabel} {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         </FilterButton>
         <Popover
@@ -101,12 +108,12 @@ function FilterDropdown(props: FilterDropdownProps): JSX.Element {
             }}
         >
             <DropdownWrapper>
-                {typeof value === "number" ? <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                {typeof value !== "object" ? <RadioGroup value={value} onChange={handleChange}>
                     {options.map((v) => {
-                        return <FormControlLabel key={v.value} control={<Radio checked={value === v.value} />} label={v.label} />
+                        return <FormControlLabel key={v.value} value={v.value} control={<Radio checked={value == v.value} />} label={v.label} />
                     })}
                 </RadioGroup> : options.map((v) => {
-                    return <FormControlLabel key={v.value} value={v.value} control={<Checkbox checked={value.indexOf(v.value) > -1} />} label={v.label} />
+                    return <FormControlLabel key={v.value} value={v.value} onChange={handleChange} control={<Checkbox checked={value && value.indexOf(v.value) > -1} />} label={v.label} />
                 })}
             </DropdownWrapper>
         </Popover>

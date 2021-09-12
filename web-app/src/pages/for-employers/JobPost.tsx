@@ -21,7 +21,6 @@ import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
 import colors from "src/colors";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CloseIcon from '@material-ui/icons/Close';
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -54,8 +53,8 @@ const JobPostTitle = styled.div`
 	justify-content: space-between;
 `;
 const PostImage = styled.img`
-	height: 60px;
-	width: 60px;
+	height: 68px;
+	width: 68px;
 	border-radius: 6px;
 	margin: 20px 20px 20px 0px;
 `;
@@ -82,16 +81,12 @@ const JobPostHeaderRightSection = styled.div`
 	align-items: center;
 `;
 const JobPostHeaderLeftSection = styled.div`
-	align-items: center;
+	align-items: end;
     display: flex;
     flex-direction: column;
 	flex-grow:1;
 `;
-const PublishDateWrapper = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`;
+
 const JobDetailsTitle = styled.div`
 	color: black;
 	font-weight: 500;
@@ -167,7 +162,7 @@ const CloseButton = styled.div`
 	align-items:center;
 	background-color:#efefef;
 	border-radius:50%;
-	padding:5px;
+	padding:12px;
 	cursor:pointer;
 `;
 export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
@@ -203,7 +198,7 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 					<CloseIcon onClick={props.onClose} />
 				</CloseButton>
 			</ActionsWrapper>
-			<span>Published 3 days ago</span>
+			<span>Posted {props.published}</span>
 		</JobPostHeaderLeftSection> : null}
 	</JobPostTitle>
 

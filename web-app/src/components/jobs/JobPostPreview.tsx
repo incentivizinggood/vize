@@ -13,7 +13,7 @@ const JobPostWrapper = styled.div`
     background:#fff;
 	border-radius:16px 16px 6px;
 	margin-bottom:10px;
-    padding:15px;
+    padding:20px;
 	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
     cursor:pointer;
 `;
@@ -128,7 +128,7 @@ export default function JobPostPreview(props: JobPostPreviewProps): JSX.Element 
                 <PostHeaderContent>
                     <TitleRow>
                         <PostTitle>{job.company}</PostTitle>
-                        <PostedDate>{job.postedTimeAgo}</PostedDate>
+                        <PostedDate>Posted {job.postedTimeAgo}</PostedDate>
                     </TitleRow>
                     <PostSubHeading>{job.jobPost}</PostSubHeading>
                     <RatingWrapper>

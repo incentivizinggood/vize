@@ -111,7 +111,7 @@ const SearchBarIcon = styled.div`
 	display:flex;
 	align-items:center;
 	svg{
-		width:150px;
+		width:110px;
 		color:${colors.secondaryColorGreen};
 		font-size:36px;
 	}
@@ -151,6 +151,7 @@ const FilterWrapper = styled.div`
 	justify-content:start;
 	flex-wrap:wrap;
 	align-items:center;
+	margin:20px;
 `;
 const Badge = styled.div`
 	height:20px;
@@ -173,7 +174,7 @@ const CssTextField = withStyles({
 			color: colors.secondaryColorGreen,
 		},
 		'& .MuiInput-underline:after': {
-			borderBottomColor: colors.secondaryColorGreen,
+			borderBottomColor: "grey",
 		},
 	},
 })(TextField);
@@ -202,7 +203,8 @@ export interface Ratings {
 export interface Review {
 	reviewedBy: string,
 	reviewedOn: string,
-	rating: number;
+	title: string,
+	rating: Ratings;
 	pros: string;
 	cons: string;
 	additionalComments: string;
@@ -218,7 +220,7 @@ export interface Company {
 	size: string;
 	industry: string;
 	companyWebsite: string;
-	location: string;
+	location: string[];
 	ratings: Ratings;
 	recommendationPercenteage: number;
 	averageStay: number;
@@ -293,14 +295,14 @@ export default function ShowJobs(): JSX.Element {
 		};
 	}, []);
 	const [filters, updateFilters] = useState({
-		jobPostedRange: 1,
+		dayPosted: 1,
 		industrialPark: [],
-		shifts: [1],
-		jobTitles: [1],
-		jobTypes: [1],
-		industries: [1],
-		skills: [1],
-		licences: [1],
+		shifts: [],
+		jobTitles: [],
+		jobTypes: [],
+		industries: [],
+		skills: [],
+		licences: [],
 		minSalary: 0,
 		maxSalary: 0,
 	})
@@ -311,7 +313,7 @@ export default function ShowJobs(): JSX.Element {
 		})
 	}
 	const filterMasters: any = {
-		jobPostedRange: [
+		dayPosted: [
 			{
 				label: "Any Time",
 				value: 1
@@ -440,116 +442,460 @@ export default function ShowJobs(): JSX.Element {
 		return `${str.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}`
 	}
 	const getDisplayLabel = (fitlerKey: string): any => {
-		return typeof filters[fitlerKey] === "number" ? filterMasters[fitlerKey].find((v) => {
-			return v.value === filters[fitlerKey];
-		}).label : <LabelContainer>{camelcaseToLabel(fitlerKey)}  {filters[fitlerKey].length ? <Badge >{filters[fitlerKey].length}</Badge> : null}</LabelContainer>;
-	}
-	const jobs: Array<JobPostInterface> = [{
-		"id": 1,
-		company: "Foxconn",
-		jobPost: "Operador de Producción",
-		reviewCount: 32,
-		rating: 3,
-		companyLogo: "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
-		published: "3 days ago",
-		salaryRange: "$1.800 - $2.100 Pesos / Semana",
-		jobType: "Proyecto (Temporal)",
-		minEducation: "Preparatoria",
-		englishProficiency: "Básico",
-		industry: "Electrónica",
-		shifts: [
-			{ day: "lun - vie", time: "8 AM - 5 PM" },
-			{ day: "lun - vie", time: "2 PM - 11 PM" },
-			{ day: "mar - sab", time: "8 AM - 5 PM" },
-		],
-		city: "Tijuana",
-		industrialPark: "El Lago",
-		address: "Calle Lagua Maynar 5520, Section C",
-		postedTimeAgo: "3 days ago",
-		description:
-			"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
-		jobSkills: [
-			"Maquinas Automatizadas",
-			"Instrumentos de Medicion",
-			"Uso de Computadora",
-		],
-		certifications: ["Instrumentos de Medicion", "Montacargas"],
-		benifits: ["Seguro Social", "Seguro de Salud"],
-		companyDetail: {
-			"description": "opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now",
-			"size": "2001-5000",
-			"industry": "Aerospace",
-			"companyWebsite": "https://facebook.com",
-			"location": "Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo",
-			"ratings": {
-				"average": 5,
-				"overallSatisfaction": 4,
-				"healthAndSafeety": 3.5,
-				"workEnvironment": 4,
-				"managerRelationships": 3.86,
-				"benefits": 3.8
-			},
-			"recommendationPercenteage": 40,
-			"averageStay": 9,
-			"reviewCount": 3,
-			"reviews": [
-				{
-					"reviewedBy": "Operator",
-					"reviewedOn": "3 days ago",
-					"rating": 5,
-					"pros": "containing Lorem Ipsum passages, and more recently with desktop",
-					"cons": "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
-					"additionalComments": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-				}
-			],
-			"salaries": [
-				{
-					"position": "Operador",
-					"pay": 38,
-					"range": [
-						38,
-						1500,
-						3000
-					]
-				}
-			],
-			"jobs": [
-				{
-					"id": 1,
-					"company": "Foxconn",
-					"jobPost": "Operador de Producción",
-					"reviewCount": 32,
-					"rating": 3,
-					"companyLogo": "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
-					"published": "3 days ago",
-					"salaryRange": "$1.800 - $2.100 Pesos / Semana",
-					"jobType": "Proyecto (Temporal)",
-					"minEducation": "Preparatoria",
-					"englishProficiency": "Básico",
-					"industry": "Electrónica",
-					"shifts": [
-						{
-							"day": "lun - vie",
-							"time": "8 AM - 5 PM"
-						},
-						{
-							"day": "lun - vie",
-							"time": "2 PM - 11 PM"
-						},
-						{
-							"day": "mar - sab",
-							"time": "8 AM - 5 PM"
-						}
-					],
-					"city": "Tijuana",
-					"industrialPark": "El Lago",
-					"address": "Calle Lagua Maynar 5520, Section C",
-					"postedTimeAgo": "3 days ago",
-					"description": "En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto."
-				}
-			]
+		if (typeof filters[fitlerKey] !== "object") {
+			return filterMasters[fitlerKey].find((v) => {
+				return v.value == filters[fitlerKey];
+			}).label
+		} else {
+			return <LabelContainer>  {filters[fitlerKey].length ? filters[fitlerKey].length > 1 ? <>{camelcaseToLabel(fitlerKey)}&nbsp;<Badge >{filters[fitlerKey].length}</Badge></> : filterMasters[fitlerKey].find((v) => {
+				return v.value == filters[fitlerKey];
+			}).label : camelcaseToLabel(fitlerKey)}</LabelContainer>
 		}
-	}]
+	}
+	const jobs: Array<JobPostInterface> = [
+		{
+			"id": 1,
+			company: "Foxconn",
+			jobPost: "Operador de Producción",
+			reviewCount: 32,
+			rating: 3,
+			companyLogo: "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+			published: "3 days ago",
+			salaryRange: "$1.800 - $2.100 Pesos / Semana",
+			jobType: "Proyecto (Temporal)",
+			minEducation: "Preparatoria",
+			englishProficiency: "Básico",
+			industry: "Electrónica",
+			shifts: [
+				{ day: "lun - vie", time: "8 AM - 5 PM" },
+				{ day: "lun - vie", time: "2 PM - 11 PM" },
+				{ day: "mar - sab", time: "8 AM - 5 PM" },
+			],
+			city: "Tijuana",
+			industrialPark: "El Lago",
+			address: "Calle Lagua Maynar 5520, Section C",
+			postedTimeAgo: "3 days ago",
+			description:
+				"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
+			jobSkills: [
+				"Maquinas Automatizadas",
+				"Instrumentos de Medicion",
+				"Uso de Computadora",
+			],
+			certifications: ["Instrumentos de Medicion", "Montacargas"],
+			benifits: ["Seguro Social", "Seguro de Salud"],
+			companyDetail: {
+				"description": "opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now",
+				"size": "2001-5000",
+				"industry": "Aerospace",
+				"companyWebsite": "https://facebook.com",
+				"location": [
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo",
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo"
+				],
+				"ratings": {
+					"average": 5,
+					"overallSatisfaction": 4,
+					"healthAndSafeety": 3.5,
+					"workEnvironment": 4,
+					"managerRelationships": 3.86,
+					"benefits": 3.8
+				},
+				"recommendationPercenteage": 40,
+				"averageStay": 9,
+				"reviewCount": 3,
+				"reviews": [
+					{
+						"reviewedBy": "Operator",
+						"title": "The Best",
+						"reviewedOn": "3 days ago",
+						"rating": {
+							healthAndSafety: 4,
+							managerRelationship: 4,
+							workEnvironment: 4,
+							benefits: 4,
+							overallSatisfaction: 4
+						},
+						"pros": "containing Lorem Ipsum passages, and more recently with desktop",
+						"cons": "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
+						"additionalComments": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+					}
+				],
+				"salaries": [
+					{
+						"position": "Operador",
+						"pay": 38,
+						"range": [
+							38,
+							1500,
+							3000
+						]
+					}
+				],
+				"jobs": [
+					{
+						"id": 1,
+						"company": "Foxconn",
+						"jobPost": "Operador de Producción",
+						"reviewCount": 32,
+						"rating": 3,
+						"companyLogo": "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+						"published": "3 days ago",
+						"salaryRange": "$1.800 - $2.100 Pesos / Semana",
+						"jobType": "Proyecto (Temporal)",
+						"minEducation": "Preparatoria",
+						"englishProficiency": "Básico",
+						"industry": "Electrónica",
+						"shifts": [
+							{
+								"day": "lun - vie",
+								"time": "8 AM - 5 PM"
+							},
+							{
+								"day": "lun - vie",
+								"time": "2 PM - 11 PM"
+							},
+							{
+								"day": "mar - sab",
+								"time": "8 AM - 5 PM"
+							}
+						],
+						"city": "Tijuana",
+						"industrialPark": "El Lago",
+						"address": "Calle Lagua Maynar 5520, Section C",
+						"postedTimeAgo": "3 days ago",
+						"description": "En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto."
+					}
+				]
+			}
+		},
+		{
+			"id": 2,
+			company: "Foxconn",
+			jobPost: "Operador de Producción",
+			reviewCount: 32,
+			rating: 3,
+			companyLogo: "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+			published: "3 days ago",
+			salaryRange: "$1.800 - $2.100 Pesos / Semana",
+			jobType: "Proyecto (Temporal)",
+			minEducation: "Preparatoria",
+			englishProficiency: "Básico",
+			industry: "Electrónica",
+			shifts: [
+				{ day: "lun - vie", time: "8 AM - 5 PM" },
+				{ day: "lun - vie", time: "2 PM - 11 PM" },
+				{ day: "mar - sab", time: "8 AM - 5 PM" },
+			],
+			city: "Tijuana",
+			industrialPark: "El Lago",
+			address: "Calle Lagua Maynar 5520, Section C",
+			postedTimeAgo: "3 days ago",
+			description:
+				"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
+			jobSkills: [
+				"Maquinas Automatizadas",
+				"Instrumentos de Medicion",
+				"Uso de Computadora",
+			],
+			certifications: ["Instrumentos de Medicion", "Montacargas"],
+			benifits: ["Seguro Social", "Seguro de Salud"],
+			companyDetail: {
+				"description": "opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now",
+				"size": "2001-5000",
+				"industry": "Aerospace",
+				"companyWebsite": "https://facebook.com",
+				"location": [
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo",
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo"
+				],
+				"ratings": {
+					"average": 5,
+					"overallSatisfaction": 4,
+					"healthAndSafeety": 3.5,
+					"workEnvironment": 4,
+					"managerRelationships": 3.86,
+					"benefits": 3.8
+				},
+				"recommendationPercenteage": 40,
+				"averageStay": 9,
+				"reviewCount": 3,
+				"reviews": [
+					{
+						"reviewedBy": "Operator",
+						"reviewedOn": "3 days ago",
+						"rating": 5,
+						"pros": "containing Lorem Ipsum passages, and more recently with desktop",
+						"cons": "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
+						"additionalComments": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+					}
+				],
+				"salaries": [
+					{
+						"position": "Operador",
+						"pay": 38,
+						"range": [
+							38,
+							1500,
+							3000
+						]
+					}
+				],
+				"jobs": [
+					{
+						"id": 1,
+						"company": "Foxconn",
+						"jobPost": "Operador de Producción",
+						"reviewCount": 32,
+						"rating": 3,
+						"companyLogo": "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+						"published": "3 days ago",
+						"salaryRange": "$1.800 - $2.100 Pesos / Semana",
+						"jobType": "Proyecto (Temporal)",
+						"minEducation": "Preparatoria",
+						"englishProficiency": "Básico",
+						"industry": "Electrónica",
+						"shifts": [
+							{
+								"day": "lun - vie",
+								"time": "8 AM - 5 PM"
+							},
+							{
+								"day": "lun - vie",
+								"time": "2 PM - 11 PM"
+							},
+							{
+								"day": "mar - sab",
+								"time": "8 AM - 5 PM"
+							}
+						],
+						"city": "Tijuana",
+						"industrialPark": "El Lago",
+						"address": "Calle Lagua Maynar 5520, Section C",
+						"postedTimeAgo": "3 days ago",
+						"description": "En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto."
+					}
+				]
+			}
+		},
+		{
+			"id": 3,
+			company: "Foxconn",
+			jobPost: "Operador de Producción",
+			reviewCount: 32,
+			rating: 3,
+			companyLogo: "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+			published: "3 days ago",
+			salaryRange: "$1.800 - $2.100 Pesos / Semana",
+			jobType: "Proyecto (Temporal)",
+			minEducation: "Preparatoria",
+			englishProficiency: "Básico",
+			industry: "Electrónica",
+			shifts: [
+				{ day: "lun - vie", time: "8 AM - 5 PM" },
+				{ day: "lun - vie", time: "2 PM - 11 PM" },
+				{ day: "mar - sab", time: "8 AM - 5 PM" },
+			],
+			city: "Tijuana",
+			industrialPark: "El Lago",
+			address: "Calle Lagua Maynar 5520, Section C",
+			postedTimeAgo: "3 days ago",
+			description:
+				"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
+			jobSkills: [
+				"Maquinas Automatizadas",
+				"Instrumentos de Medicion",
+				"Uso de Computadora",
+			],
+			certifications: ["Instrumentos de Medicion", "Montacargas"],
+			benifits: ["Seguro Social", "Seguro de Salud"],
+			companyDetail: {
+				"description": "opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now",
+				"size": "2001-5000",
+				"industry": "Aerospace",
+				"companyWebsite": "https://facebook.com",
+				"location": [
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo",
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo"
+				],
+				"ratings": {
+					"average": 5,
+					"overallSatisfaction": 4,
+					"healthAndSafeety": 3.5,
+					"workEnvironment": 4,
+					"managerRelationships": 3.86,
+					"benefits": 3.8
+				},
+				"recommendationPercenteage": 40,
+				"averageStay": 9,
+				"reviewCount": 3,
+				"reviews": [
+					{
+						"reviewedBy": "Operator",
+						"reviewedOn": "3 days ago",
+						"rating": 5,
+						"pros": "containing Lorem Ipsum passages, and more recently with desktop",
+						"cons": "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
+						"additionalComments": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+					}
+				],
+				"salaries": [
+					{
+						"position": "Operador",
+						"pay": 38,
+						"range": [
+							38,
+							1500,
+							3000
+						]
+					}
+				],
+				"jobs": [
+					{
+						"id": 1,
+						"company": "Foxconn",
+						"jobPost": "Operador de Producción",
+						"reviewCount": 32,
+						"rating": 3,
+						"companyLogo": "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+						"published": "3 days ago",
+						"salaryRange": "$1.800 - $2.100 Pesos / Semana",
+						"jobType": "Proyecto (Temporal)",
+						"minEducation": "Preparatoria",
+						"englishProficiency": "Básico",
+						"industry": "Electrónica",
+						"shifts": [
+							{
+								"day": "lun - vie",
+								"time": "8 AM - 5 PM"
+							},
+							{
+								"day": "lun - vie",
+								"time": "2 PM - 11 PM"
+							},
+							{
+								"day": "mar - sab",
+								"time": "8 AM - 5 PM"
+							}
+						],
+						"city": "Tijuana",
+						"industrialPark": "El Lago",
+						"address": "Calle Lagua Maynar 5520, Section C",
+						"postedTimeAgo": "3 days ago",
+						"description": "En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto."
+					}
+				]
+			}
+		}, {
+			"id": 4,
+			company: "Foxconn",
+			jobPost: "Operador de Producción",
+			reviewCount: 32,
+			rating: 3,
+			companyLogo: "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+			published: "3 days ago",
+			salaryRange: "$1.800 - $2.100 Pesos / Semana",
+			jobType: "Proyecto (Temporal)",
+			minEducation: "Preparatoria",
+			englishProficiency: "Básico",
+			industry: "Electrónica",
+			shifts: [
+				{ day: "lun - vie", time: "8 AM - 5 PM" },
+				{ day: "lun - vie", time: "2 PM - 11 PM" },
+				{ day: "mar - sab", time: "8 AM - 5 PM" },
+			],
+			city: "Tijuana",
+			industrialPark: "El Lago",
+			address: "Calle Lagua Maynar 5520, Section C",
+			postedTimeAgo: "3 days ago",
+			description:
+				"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
+			jobSkills: [
+				"Maquinas Automatizadas",
+				"Instrumentos de Medicion",
+				"Uso de Computadora",
+			],
+			certifications: ["Instrumentos de Medicion", "Montacargas"],
+			benifits: ["Seguro Social", "Seguro de Salud"],
+			companyDetail: {
+				"description": "opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now",
+				"size": "2001-5000",
+				"industry": "Aerospace",
+				"companyWebsite": "https://facebook.com",
+				"location": [
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo",
+					"Calle Laguna Maynar 5520, Section C, Tijuana, EL Logo"
+				],
+				"ratings": {
+					"average": 5,
+					"overallSatisfaction": 4,
+					"healthAndSafeety": 3.5,
+					"workEnvironment": 4,
+					"managerRelationships": 3.86,
+					"benefits": 3.8
+				},
+				"recommendationPercenteage": 40,
+				"averageStay": 9,
+				"reviewCount": 3,
+				"reviews": [
+					{
+						"reviewedBy": "Operator",
+						"reviewedOn": "3 days ago",
+						"rating": 5,
+						"pros": "containing Lorem Ipsum passages, and more recently with desktop",
+						"cons": "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
+						"additionalComments": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+					}
+				],
+				"salaries": [
+					{
+						"position": "Operador",
+						"pay": 38,
+						"range": [
+							38,
+							1500,
+							3000
+						]
+					}
+				],
+				"jobs": [
+					{
+						"id": 1,
+						"company": "Foxconn",
+						"jobPost": "Operador de Producción",
+						"reviewCount": 32,
+						"rating": 3,
+						"companyLogo": "https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Facebook-512.png",
+						"published": "3 days ago",
+						"salaryRange": "$1.800 - $2.100 Pesos / Semana",
+						"jobType": "Proyecto (Temporal)",
+						"minEducation": "Preparatoria",
+						"englishProficiency": "Básico",
+						"industry": "Electrónica",
+						"shifts": [
+							{
+								"day": "lun - vie",
+								"time": "8 AM - 5 PM"
+							},
+							{
+								"day": "lun - vie",
+								"time": "2 PM - 11 PM"
+							},
+							{
+								"day": "mar - sab",
+								"time": "8 AM - 5 PM"
+							}
+						],
+						"city": "Tijuana",
+						"industrialPark": "El Lago",
+						"address": "Calle Lagua Maynar 5520, Section C",
+						"postedTimeAgo": "3 days ago",
+						"description": "En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto."
+					}
+				]
+			}
+		}
+	]
 	const [mobileFilterModal, setMobileFilterModal] = useState({ visible: false });
 	const [jobPostModal, setJobPostModal] = useState({ visible: false, jobPost: null });
 	const isMobile: boolean = width <= 768;
@@ -581,14 +927,14 @@ export default function ShowJobs(): JSX.Element {
 								<SearchBarIcon>
 									<SearchIcon></SearchIcon>
 								</SearchBarIcon>
-								<input name="search"></input>
-								<SearchButton id="">Search for jobs</SearchButton>
+								<input name="search" placeholder="Search by job title, skill, company, or more"></input>
+								<SearchButton id="">Search</SearchButton>
 							</SearchInput>
 							{
 								!isMobile ? <Filters>
 
 									<FilterWrapper>
-										<FilterDropdown displayLabel={getDisplayLabel("jobPostedRange")} options={filterMasters.jobPostedRange} value={filters.jobPostedRange} updateValue={(v) => updateFilterValue("jobPostedRange", v)}></FilterDropdown>
+										<FilterDropdown displayLabel={getDisplayLabel("dayPosted")} options={filterMasters.dayPosted} value={filters.dayPosted} updateValue={(v) => updateFilterValue("dayPosted", v)}></FilterDropdown>
 										<FilterDropdown displayLabel={getDisplayLabel("industrialPark")} options={filterMasters.industrialPark} value={filters.industrialPark} updateValue={(v) => updateFilterValue("industrialPark", v)}></FilterDropdown>
 										<CssTextField
 											label="Min Salary"
