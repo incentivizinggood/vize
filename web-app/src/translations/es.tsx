@@ -817,11 +817,7 @@ export default {
 			readReviews:
 				"Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
 			readReviewsButton: "Leer Evaluaciones",
-<<<<<<< HEAD
-			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
-=======
 			viewMoreJobs: "Ver Más Ofertas de Empleo",
->>>>>>> master
 			referralMessage:
 				"¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
 		},

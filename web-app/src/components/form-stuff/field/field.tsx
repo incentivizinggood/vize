@@ -131,23 +131,7 @@ function FieldInner({
 				component={TextField}
 				fullWidth
 			/>
-<<<<<<< HEAD
 		</FormikFieldWrapper>
-=======
-		);
-	}
-
-	return (
-		<FormikField
-			{...restProps}
-			type={type}
-			component={TextField}
-			InputLabelProps={{
-				shrink: true,
-			}}
-			fullWidth
-		/>
->>>>>>> master
 	);
 }
 
@@ -157,9 +141,13 @@ function FieldComponent({ t: T, ...restProps }: any): JSX.Element {
 			<T renderer={(t: any) => <FieldInner {...restProps} {...t} />} />
 		);
 	}
-	// debugger;
 
 	return FieldInner(restProps);
 }
+
+// Added this margin so that error messages do not overlap with other fields
+const Field = styled(FieldComponent)`
+	margin-bottom: 7px !important;
+`;
 
 export default Field;
