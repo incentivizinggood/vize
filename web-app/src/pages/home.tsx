@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import * as urlGenerators from "src/pages/url-generators";
+import styled from "styled-components";
 
 import PageWrapper from "src/components/page-wrapper";
 import Banner, { BannerTitle } from "src/components/banner";
@@ -39,6 +40,13 @@ function addSalaryHomeBottom() {
 		label: "Home | Bottom",
 	});
 }
+
+const SignUpNowContainter = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+`;
 
 // no longer using the reward component but keeping it in case we use it in the future again
 function RewardComponent() {
@@ -340,38 +348,34 @@ function HomePage() {
 			</div>
 
 			{/* services */}
-			<div className="star" id="services">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-1" />
-						<div className="col-md-8">
+			<SignUpNowContainter>
+				<div className="row">
+					<div className="col-md-1" />
+					<div className="col-md-8">
+						<center>
+							{" "}
+							<h1>
+								<T.discover_employers />{" "}
+							</h1>
+							<br />
+						</center>
+					</div>
+					<div className="col-md-2">
+						<div>
 							<center>
 								{" "}
-								<h1>
-									<T.discover_employers />{" "}
-								</h1>
-								<br />
+								<BlackBorderButton
+									to={urlGenerators.vizeRegister("worker")}
+								>
+									<T.signup_button />
+								</BlackBorderButton>
 							</center>
 						</div>
-						<div className="col-md-2">
-							<div>
-								<center>
-									{" "}
-									<BlackBorderButton
-										to={urlGenerators.vizeRegister(
-											"worker"
-										)}
-									>
-										<T.signup_button />
-									</BlackBorderButton>
-								</center>
-							</div>
-						</div>
-						<div className="col-md-1" />
 					</div>
-					<div className="clearfix" />
+					<div className="col-md-1" />
 				</div>
-			</div>
+				<div className="clearfix" />
+			</SignUpNowContainter>
 		</PageWrapper>
 	);
 }
