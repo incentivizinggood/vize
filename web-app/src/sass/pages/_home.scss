@@ -21,6 +21,11 @@
 	}
 }
 
+.nav > li > a:focus,
+.nav > li > a:hover {
+	background-color: transparent;
+}
+
 .frontTitle {
 	text-align: center;
 	font-size: 26px;

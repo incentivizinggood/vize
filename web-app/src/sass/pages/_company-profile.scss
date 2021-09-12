@@ -142,7 +142,6 @@ span.headingoo {
 			font-weight: 600;
 
 			&:hover {
-				background-color: $concrete;
 				text-decoration: none;
 			}
 
@@ -197,7 +196,6 @@ span.headingoo {
 
 .na_tab .nav > li span:hover {
 	color: white;
-	background: transparent;
 }
 
 div.num_sett h1 {
@@ -397,7 +395,6 @@ path.CircularProgressbar-trail {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-	background-color: white !important;
 	border-color: white !important;
 }
 
