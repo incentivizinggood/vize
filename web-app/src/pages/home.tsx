@@ -109,7 +109,7 @@ function HomePage() {
 				<CompaniesSearchBar />
 			</Banner>
 
-			<div className="full-width-container background-white">
+			<div className="full-width-container">
 				<div className="container desktop-view">
 					<div className="col-md-8">
 						<div>
@@ -147,7 +147,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container mobile-view background-white">
+				<div className="container mobile-view">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -189,26 +189,27 @@ function HomePage() {
 				{/* ====mobile view show  end==== */}
 			</div>
 
-			<div className="full-width-container background-primary">
+			<div className="full-width-container background-white">
 				<div className="container desktop-view">
 					<div className="col-md-5">
-						<div>
-							<h1 className="white-text-center">
+						<div className="great-job-hm">
+							<h1>
 								<T.findemp_title />
 							</h1>
 						</div>
-						<div>
-							<h4 className="white-text-center">
+						<div className="great-comp-hm">
+							<h4>
 								<T.findemp_text />
 							</h4>
 						</div>
+						<br />
 						<div>
 							<center>
-								<WhiteButton
+								<BlackBorderButton
 									to={`/${urlGenerators.queryRoutes.companies}`}
 								>
 									<T.companiesButton />
-								</WhiteButton>
+								</BlackBorderButton>
 							</center>
 						</div>
 					</div>
@@ -228,23 +229,23 @@ function HomePage() {
 
 				<div className="container mobile-view">
 					<div className="col-md-5">
-						<div>
-							<h1 className="white-text-center">
+						<div className="great-job-hm">
+							<h1>
 								<T.findemp_title />
 							</h1>
 						</div>
-						<div>
-							<h4 className="white-text-center">
+						<div className="great-comp-hm">
+							<h4>
 								<T.findemp_text />
 							</h4>
 						</div>
 						<div>
 							<center>
-								<WhiteButton
+								<BlackBorderButton
 									to={`/${urlGenerators.queryRoutes.companies}`}
 								>
 									<T.companiesButton />
-								</WhiteButton>
+								</BlackBorderButton>
 							</center>
 						</div>
 					</div>
@@ -295,7 +296,10 @@ function HomePage() {
 							</div>
 
 							<div className="panel-card">
-								<div className="front">
+								<div
+									className="front"
+									style={{ borderRadius: "16px" }}
+								>
 									<div className="frontTitle">
 										<T.get_fair_salary /> <br />
 										<T.your_work />
