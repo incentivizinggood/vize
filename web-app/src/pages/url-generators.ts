@@ -1,6 +1,7 @@
 export const queryRoutes = {
 	about: "acerca-de-nosotros",
 	createCompanyProfile: "crear-perfil-de-la-empresa",
+	userProfileForm: "perfil",
 	contactUs: "contactenos",
 	reviews: "evaluaciones",
 	reviewSubmitted: "evaluacion-enviada",
@@ -21,6 +22,8 @@ export const queryRoutes = {
 	salaries: "salarios",
 	applyForJob: "postularme",
 	register: "crear-cuenta",
+	requestPasswordReset: "solicitud-para-restablecer-contraseña",
+	resetPassword: "restablecer-contraseña",
 	login: "iniciar-sesion",
 	user: "usuario",
 	privacyPolicy: "poliza-de-privacidad",
@@ -97,4 +100,12 @@ export function vizeLogin(userRole?: string): string {
 			? `?${queryParameters.user}=${encodeURIComponent(userRole)}`
 			: ""
 	}`;
+}
+
+export function vizeRequestPasswordReset(): string {
+	return `/${queryRoutes.requestPasswordReset}`;
+}
+
+export function vizeResetPassword(): string {
+	return `/${queryRoutes.resetPassword}`;
 }

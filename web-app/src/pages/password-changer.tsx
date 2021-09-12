@@ -60,7 +60,7 @@ class PasswordChanger extends React.Component {
 					success: true,
 				})
 			)
-			.catch(error =>
+			.catch((error) =>
 				this.setState({
 					error: error.error.errors,
 					success: false,
@@ -77,7 +77,7 @@ class PasswordChanger extends React.Component {
 				{this.state.error ? (
 					<div>
 						<T.error
-							renderer={t =>
+							renderer={(t) =>
 								// TODO: Some of the error messages,
 								// particularly ones from the server,
 								// will not be translated at the moment.
@@ -97,7 +97,7 @@ class PasswordChanger extends React.Component {
 						style={{ width: "100%" }}
 					>
 						<T.oldPassword
-							renderer={t => (
+							renderer={(t) => (
 								<input
 									id="passwordChangeForm-oldPassword"
 									name="oldPassword"
@@ -118,7 +118,7 @@ class PasswordChanger extends React.Component {
 						style={{ width: "100%" }}
 					>
 						<T.newPassword
-							renderer={t => (
+							renderer={(t) => (
 								<input
 									id="passwordChangeForm-newPassword"
 									name="newPassword"
@@ -139,7 +139,7 @@ class PasswordChanger extends React.Component {
 						style={{ width: "100%" }}
 					>
 						<T.newPassword
-							renderer={t => (
+							renderer={(t) => (
 								<input
 									id="passwordChangeForm-repeatNewPassword"
 									name="repeatNewPassword"
@@ -156,7 +156,7 @@ class PasswordChanger extends React.Component {
 					<br />
 					<br />
 					<T.submit
-						renderer={t => (
+						renderer={(t) => (
 							<input
 								type="submit"
 								className="btn btn-primary"

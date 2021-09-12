@@ -30,56 +30,60 @@ const initialValues: Values = {
 	password: "",
 };
 
-const onSubmit = (
-	history: History,
-	role: "worker" | "company",
-	setSubmissionError: any
-) => (values: Values, actions: FormikHelpers<Values>) => {
-	const options = {
-		email: values.email,
-		password: values.password,
-		role,
-	};
+const onSubmit =
+	(history: History, role: "worker" | "company", setSubmissionError: any) =>
+	(values: Values, actions: FormikHelpers<Values>) => {
+		const options = {
+			email: values.email,
+			password: values.password,
+			role,
+		};
 
-	register(options)
-		.then(x => {
-			actions.resetForm({ values: initialValues });
-			// checks to see if the current page is the write a review page.
-			// if the current page is write a review page and a register is successful
-			// there should be no redirect so that the user can stay on the write a review page
+		register(options)
+			.then((x) => {
+				actions.resetForm({ values: initialValues });
+				// checks to see if the current page is the write a review page.
+				// if the current page is write a review page and a register is successful
+				// there should be no redirect so that the user can stay on the write a review page
 
-			analytics.sendEvent({
-				category: "User",
-				action: "Created Account",
-				label: options.role,
-			});
+				analytics.sendEvent({
+					category: "User",
+					action: "Created Account",
+					label: options.role,
+				});
 
-			if (
-				!(
-					window.location.pathname.includes(
-						urlGenerators.queryRoutes.writeReview
-					) ||
-					window.location.pathname.includes(
-						urlGenerators.queryRoutes.submitSalaryData
-					) ||
-					window.location.pathname.includes(
-						urlGenerators.queryRoutes.applyForJob
-					) ||
-					window.location.pathname.includes(
-						urlGenerators.queryRoutes.workerResources
+				if (
+					!(
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.writeReview
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.submitSalaryData
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.applyForJob
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.workerResources
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.userProfileForm
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.jobs
+						)
 					)
-				)
-			) {
-				history.push("/");
-			}
-		})
-		.catch(error => {
-			// Error to display at bottom of form
-			setSubmissionError(error.message);
+				) {
+					history.push("/");
+				}
+			})
+			.catch((error) => {
+				// Error to display at bottom of form
+				setSubmissionError(error.message);
 
-			actions.setSubmitting(false);
-		});
-};
+				actions.setSubmitting(false);
+			});
+	};
 
 export function RegisterForm(): JSX.Element {
 	const history = useHistory();

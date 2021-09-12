@@ -147,7 +147,7 @@ export async function companyNameSuggestions(
 
 	const tsquery = [
 		...finishedWords.map(escapeTsqueryTerm),
-		...unfinishedWords.map(x => escapeTsqueryTerm(x) + ":*"),
+		...unfinishedWords.map((x) => escapeTsqueryTerm(x) + ":*"),
 	].join(" & ");
 
 	const results = await simpleQuery<{ company_name: string }>(sql`

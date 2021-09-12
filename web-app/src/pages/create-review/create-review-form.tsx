@@ -16,9 +16,9 @@ import InnerForm from "./create-review-inner-form";
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
 	if (x instanceof Array)
-		return filter(map(x, omitEmptyStrings), y => y !== undefined);
+		return filter(map(x, omitEmptyStrings), (y) => y !== undefined);
 	if (x instanceof Object)
-		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
+		return omitBy(mapValues(x, omitEmptyStrings), (y) => y === undefined);
 	return x;
 }
 
@@ -50,13 +50,13 @@ const initialValues = {
 
 const proConSchema = yup
 	.string()
-	.test("eight-word-min", "Se requiere al menos ocho palabras", value => {
+	.test("eight-word-min", "Se requiere al menos ocho palabras", (value) => {
 		const isString =
 			value && (typeof value === "string" || value instanceof String);
 		const wordCount = isString ? value.split(/\s+\b/).length : 0;
 		return wordCount >= 8;
 	})
-	.test("610-char-max", "El limite de caracteres es 610", value => {
+	.test("610-char-max", "El limite de caracteres es 610", (value) => {
 		const isString =
 			value && (typeof value === "string" || value instanceof String);
 		const wordCount = isString ? value.length : 0;
@@ -208,7 +208,7 @@ export default function CreateReviewForm({
 				// Go to the review submitted page so that the user can claim their reward.
 				history.push(`/${urlGenerators.queryRoutes.reviewSubmitted}`);
 			})
-			.catch(errors => {
+			.catch((errors) => {
 				// Error in English: Not Logged In
 				if (
 					errors.message.includes(
@@ -216,7 +216,7 @@ export default function CreateReviewForm({
 					)
 				) {
 					setContent(
-						<PopupModal isOpen={true}>
+						<PopupModal isOpen={true} closeModalButtonColor="white">
 							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para escribir una evaluación" />
 						</PopupModal>
 					);

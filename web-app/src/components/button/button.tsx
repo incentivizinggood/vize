@@ -8,20 +8,21 @@ export interface ButtonExtraProps {
 }
 
 const Button = styled.button<ButtonExtraProps>`
-	&&&&&&&&& { /* Increase specificity to override global styles. */
+	&&&&&&&&& {
+		/* Increase specificity to override global styles. */
 
 		/* Color the button to show it's status. */
-		${props => {
+		${(props) => {
 			if (props.disabled) {
 				if (props.$primary) {
 					return css`
 						background-color: ${colors.onSurfaceWeak};
-						color: ${colors.surface};
+						color: white;
 					`;
 				}
 
 				return css`
-					background-color: ${colors.surface};
+					background-color: white;
 					color: ${colors.onSurfaceWeak};
 					border: 1px solid;
 				`;
@@ -29,26 +30,28 @@ const Button = styled.button<ButtonExtraProps>`
 
 			if (props.$primary) {
 				return css`
-					background-color: ${colors.vizeBlue};
-					color: ${colors.onMain};
+					background-color: ${colors.primaryColorBlue};
+					color: white;
 					:hover {
-						background-color: ${colors.mainVariant};
+						background-color: ${colors.darkPrimaryBlue};
 					}
 				`;
 			}
 
 			return css`
-				background-color: ${colors.surface};
-				color: ${colors.main};
+				background-color: white;
+				color: black !important;
 				:hover {
-					color: ${colors.mainVariant};
+					background-color: ${colors.lightGray};
+					color: black;
 				}
 				border: 1px solid;
+				border-color: ${colors.darkGray};
 			`;
 		}}
 
 		/* Disabled buttons cannot be clicked */
-		${props =>
+		${(props) =>
 			props.disabled &&
 			css`
 				pointer-events: none;
@@ -62,7 +65,7 @@ const Button = styled.button<ButtonExtraProps>`
 		vertical-align: middle;
 		padding: 0.9rem 3rem;
 		line-height: 1.5;
-		border-radius: 0.4rem;
+		border-radius: 30px;
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 			border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 

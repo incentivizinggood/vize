@@ -32,13 +32,7 @@ nav {
 		a {
 			letter-spacing: 1px;
 			font-size: 1.2em;
-			color: white;
-			&:not(#register-button):hover,
-			&:not(#register-button):focus,
-			&:not(#register-button):active {
-				background-color: transparent !important;
-				color: white;
-			}
+			color: black;
 		}
 	}
 
@@ -65,13 +59,13 @@ nav {
 	font-weight: bold;
 	letter-spacing: 0.015em;
 	font-size: 12px;
-	padding-top: 6px;
+	padding-top: 9px;
 	line-height: 13px;
-	padding-bottom: 6px;
+	padding-bottom: 9px;
 	width: 120px;
 	text-transform: uppercase;
 	margin-top: 9px;
-	border-radius: 3px;
+	border-radius: 30px;
 	background: $secondary-color-red;
 
 	&:hover,

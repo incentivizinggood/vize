@@ -7,10 +7,7 @@ import { locationInputSchema } from "./location";
 const createCompanyInputSchema = yup
 	.object({
 		name: yup.string().required(),
-		contactEmail: yup
-			.string()
-			.email()
-			.required(),
+		contactEmail: yup.string().email().required(),
 		yearEstablished: yup.number(),
 		numEmployees: yup
 			.string()
@@ -22,11 +19,7 @@ const createCompanyInputSchema = yup
 				"5000+",
 			]),
 		industry: yup.string(),
-		locations: yup
-			.array()
-			.required()
-			.min(1)
-			.of(locationInputSchema),
+		locations: yup.array().required().min(1).of(locationInputSchema),
 		contactPhoneNumber: yup.string(),
 		websiteURL: yup.string().url(),
 		descriptionOfCompany: yup.string(),
@@ -37,7 +30,7 @@ export async function createCompany(
 	input: unknown,
 	userId: number
 ): Promise<number> {
-	const transaction: Transaction<number> = async client => {
+	const transaction: Transaction<number> = async (client) => {
 		{
 			const {
 				rows: [{ role, companyid }],
@@ -96,7 +89,7 @@ export async function createCompany(
 			VALUES
 				${locations
 					.map(
-						l =>
+						(l) =>
 							sql`(
 								${companyid},
 								${l.city},

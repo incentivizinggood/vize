@@ -23,10 +23,10 @@ export async function paginate<NodeT extends Record<string, unknown>>(
 			OFFSET ${pageNumber * pageSize}
 			LIMIT ${pageSize}
 		`
-	).then(results => ({
+	).then((results) => ({
 		// Remove the totalCount column because it is not part of the nodes.
 		nodes: results.map(
-			({ totalCount: _totalCount, ...rest }) => (rest as unknown) as NodeT
+			({ totalCount: _totalCount, ...rest }) => rest as unknown as NodeT
 		),
 		// Extract the totalCount from the results.
 		// If there are no results, it's 0.

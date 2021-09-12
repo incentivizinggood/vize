@@ -50,7 +50,10 @@ function SalariesSection(props: SalariesSectionProps): JSX.Element {
 				<SalariesToDisplay />
 			</div>
 
-			<SeeMoreFooter to={`./${urlGenerators.queryRoutes.salaries}`} ariaControls={urlGenerators.queryRoutes.salaries}>
+			<SeeMoreFooter
+				to={`./${urlGenerators.queryRoutes.salaries}`}
+				ariaControls={urlGenerators.queryRoutes.salaries}
+			>
 				<T.overview_tab.see_all_salaries />
 			</SeeMoreFooter>
 		</SectionContainer>

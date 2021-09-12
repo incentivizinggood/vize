@@ -1,232 +1,311 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from "react";
 import styled from "styled-components";
-
+import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
-import Banner, { BannerTitle } from "src/components/banner";
-import { LinkButton } from "src/components/button";
+import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
-import { WhiteButton } from "src/components/button";
+import ResourcePreviewCard from "./ResourcePreviewCard";
+import ResourceTopicButton from "./ResourceTopicButton";
+import JobPost from "./JobPost";
 import resourcesIcon from "src/images/icons/resources-icon.png";
+import bannerImage from "../../images/employer-banner-right-section.png";
+import arrowDownImage from "../../images/arrow-down-circle-line.png";
+import getResultImage from "../../images/getResult.png";
+import saveMoneyImage from "../../images/saveMoney.png";
+import saveTimeImage from "../../images/saveTime.png";
 
-const T = translations.legacyTranslationsNeedsRefactor.forEmployers;
+import arrowDownCircleImage from "../../images/arrow-down-circle-line.png";
+import navigationArrowImage from "../../images/job-post-icons/navifationarrow.png";
+import navigationArrowImageGrey from "../../images/navigation-grey.png";
+import topic1Image from "../../images/job-post-icons/topic-1.png";
+import topic2Image from "../../images/job-post-icons/topic-2.png";
+import topic3Image from "../../images/job-post-icons/topic-3.png";
+import img1 from "../../images/workers.jpeg";
+
+const T = translations.forEmployers;
 
 const horizontalPaddingVal = "15px";
 
-const P = styled.p`
-	color: ${colors.main};
-	text-align: center;
-	font-size: 30px;
+export interface Shift {
+	day: string;
+	time: string;
+}
 
+export interface JobPostInterface {
+	company: string;
+	jobPost: string;
+	reviewCount: number;
+	rating: number;
+	published: string;
+	salaryRange: string;
+	jobType: string;
+	minEducation: string;
+	industry: string;
+	englishProficiency: string;
+	shifts: Shift[];
+	city: string;
+	industrialPark: string;
+	address: string;
+	description: string;
+	jobSkills: string[];
+	certifications: string[];
+	benifits: string[];
+}
+const ContentWrapper = styled.div`
+	margin-left: 12%;
+	margin-right: 12%;
 	${forSize.tabletAndDown} {
-		padding-left: ${horizontalPaddingVal};
-		padding-right: ${horizontalPaddingVal};
+		margin-left: 4%;
+		margin-right: 4%;
+	}
+	@media only screen and (min-width: 1600px) {
+		margin-left: 25%;
+		margin-right: 25%;
 	}
 `;
-
-const Bold = styled.span`
-	font-weight: bold;
+const SignUpButton = styled(ExternalLinkButton)`
+	font-size: 21px;
 `;
-
-const ProblemPoint = styled.p`
-	display: block;
-
-	max-width: 600px;
-	padding: 70px;
-	margin-left: auto;
-	margin-right: auto;
-
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	background-color: white;
-	color: ${colors.main};
-	text-align: center;
-	font-size: 30px;
-
-	& + & {
-		margin-top: 150px;
-	}
-
-	${forSize.phoneOnly} {
-		padding: 30px;
-		width: 90%;
+const Banner = styled.div`
+	margin-top: 150px;
+	${forSize.tabletAndDown} {
+		margin-top: 130px;
 	}
 `;
-
-const SectionTitle = styled.h1`
-	color: ${colors.main};
-	padding: 30px 0;
-	text-align: center;
-	font-weight: bold;
-	font-size: 65px;
-
-	${forSize.tabletLandscapeAndDown} {
-		font-size: 50px;
+const BannerContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	${forSize.tabletAndDown} {
+		align-items: center;
 	}
 `;
-
-const SubsectionTitle = styled.h2`
-	color: ${colors.main};
-	text-align: center;
-	font-weight: bold;
-	font-size: 36px;
+const BannerContentWrapper = styled.div`
+	${forSize.tabletAndDown} {
+		text-align: center;
+	}
+`;
+const BannerNormalContent = styled.span`
+	font-size: 50px;
+	font-weight: 600;
+	${forSize.tabletAndDown} {
+		font-size: 35px;
+	}
+`;
+const BannerHighlightedContent = styled.span`
+	font-size: 50px;
+	font-weight: bolder;
+	color: ${colors.secondaryColorGreen};
+	${forSize.tabletAndDown} {
+		font-size: 35px;
+	}
+`;
+const BannerVizeContent = styled.span`
+	position: relative;
+	font-size: 50px;
+	font-weight: bolder;
+	color: ${colors.secondaryColorGreen};
+	z-index: 1;
+	${forSize.tabletAndDown} {
+		font-size: 30px;
+	}
+`;
+const BannerSubTitle = styled.div`
+	font-size: 20px;
+	margin: 10px 0px;
+	${forSize.tabletAndDown} {
+		font-size: 14px;
+		text-align: center;
+	}
+`;
+const VizeBackgroundEffect = styled.div`
+	background-color: #6abaf5;
+	top: 35px;
+	left: 0px;
+	position: absolute;
+	height: 12px;
+	width: 100%;
+	z-index: -1;
+	${forSize.tabletAndDown} {
+		top: 21px;
+		height: 6px;
+	}
+`;
+const BannerImage = styled.img`
+	height: 480px;
+	${forSize.tabletAndDown} {
+		height: 320px;
+	}
+`;
+const BannerButtonContainer = styled.div`
+	margin: 40px 5px;
+`;
+const FeaturesWrapper = styled.div`
+	margin-bottom: 20px;
+	margin-top: 40px;
+`;
+const CardTitle = styled.div`
+	font-size: 24px;
+	margin-bottom: 20px;
+`;
+const CardImageWrapper = styled.img`
+	width: 75px;
+	margin-bottom: 25px;
 `;
 
-const SectionContainer = styled.section`
-	padding-top: 60px;
-	padding-bottom: 60px;
-`;
+const CardContent = styled.div`
+	height: 352px;
+	display: flex;
+	flex-direction: column;
 
-const ResourcesSectionContainer = styled.section`
-	background-color: ${colors.vizeBlue};
-	color: white;
+	background-color: #ffffff;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	border-radius: 15px;
+	padding: 30px;
+	line-height: 1.6;
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	${forSize.tabletAndDown} {
+		justify-content: center;
+		align-items: center;
+	}
+`;
+const BenefitCardDescription = styled.div`
+	line-height: 1.8;
+`;
+const CardIcon = styled.div`
+	width: 60px;
+	// background-color: #ffffff;
+`;
+const SignupTodayWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	height: 250px;
-
-	padding-left: 15%;
-	padding-right: 15%;
-
-	${forSize.phoneOnly} {
-		padding-left: 3%;
-		padding-right: 3%;
-	}
+	margin-bottom: 20px;
+	margin-top: 20px;
+`;
+const HorizontalRow = styled.div`
+	border-bottom: 1px solid #cfcfcf;
+`;
+const JobPostWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+const SectionTitle = styled.div`
+	font-size: 36px;
+	font-weight: 500;
+	text-align: center;
+	margin: 20px auto;
+`;
+const ResourceTopicTitle = styled.div`
+	font-size: 28px;
+	font-weight: 500;
+	text-align: center;
+	margin: 30px auto;
+`;
+const SectionSubtitle = styled.div`
+	font-size: 18px;
+	text-align: center;
 `;
 
-const ResourcesIconImage = styled.img`
-	height: 70%;
+const TableWrapper = styled.div``;
 
-	${forSize.phoneOnly} {
+const StyledRankedTable = styled.div`
+	margin: 25px 0;
+	> .table-responsive {
+		border-radius: 16px;
+		background-color: white;
+		> .table {
+			margin-bottom: 0px;
+			> thead {
+				background-color: ${colors.secondaryColorGreen};
+				color: white;
+				> tr {
+					> th {
+						padding: 15px;
+						font-size: 14px;
+					}
+				}
+			}
+			> tbody {
+				> tr {
+					> td {
+						font-size: 14px;
+						font-weight: 600;
+						padding: 0.7rem 0.7rem;
+					}
+				}
+			}
+		}
+	}
+`;
+const ResourcesWrapper = styled.div`
+	.inactive {
 		display: none;
 	}
 `;
-
-const ResourcesSectionText = styled.p`
-	text-align: center;
-	font-weight: bold;
-	font-size: 22px;
-
-	${forSize.phoneOnly} {
-		font-size: 18px;
-	}
+const ResourceCardRow = styled(Row)`
+	margin-top: 20px;
 `;
 
-const GetStarted = props => (
-	<LinkButton $primary to={urlGenerators.vizeRegister("company")} {...props}>
-		<T.getStarted />
-	</LinkButton>
-);
-
-const GetStartedMedium = styled(GetStarted)`
-	font-size: 30px;
-`;
-
-const GetStartedLarge = styled(GetStarted)`
-	font-size: 35px;
-	padding: 1.3rem 4rem !important;
-`;
-
-const PlanBox = styled.div`
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-	background-color: white;
-	color: ${colors.main};
-	margin: 10px;
-	width: 30rem;
-	padding: calc(3rem - 20px) 2rem;
-	text-align: center;
-	font-weight: bolder;
-
-	display: flex;
-	flex-direction: column;
-	> * {
-		margin: 20px 0;
-	}
-
-	${forSize.phoneOnly} {
-		width: 85%;
-	}
-`;
-
-const PlanFeatureList = styled.ul`
-	list-style-type: none;
-	line-height: 1.5;
-	font-size: 18px;
-	text-align: left;
-	padding-left: 8px;
-
-	li:before {
-		content: "✓  ";
-	}
-
-	li {
-		margin-bottom: 15px;
-	}
-
-	/* Push the "Get Started" button to the bottom */
-	flex: 1;
-`;
-
-const PlanName = styled.h1`
-	font-weight: bold;
-`;
-
-interface PlanOptionProps {
-	name: React.ReactNode;
-	items: React.ReactNode[];
-}
-
-const PlanOption = ({ name, items }: PlanOptionProps) => (
-	<PlanBox>
-		<PlanName>{name}</PlanName>
-		<PlanFeatureList>
-			{items.map(item => (
-				<li>{item}</li>
-			))}
-		</PlanFeatureList>
-		<GetStartedMedium />
-	</PlanBox>
-);
-
-const PlansContainer = styled.div`
+const ResourceCardNavigation = styled.div`
 	display: flex;
 	justify-content: center;
-	margin-bottom: 150px;
-
-	> * {
-		margin: 30px;
-		min-height: 450px; // so that boxes are the same height for mobile screen size
+	margin-top: 10px;
+	margin-bottom: 10px;
+`;
+const LeftNavigation = styled.div`
+	border-radius: 6px;
+	background-color: #fff;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 15px;
+	img {
+		transform: rotate(90deg);
+		height: 35px;
 	}
-
+`;
+const RightNavigation = styled.div`
+	border-radius: 6px;
+	background-color: #fff;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 15px;
+	img {
+		transform: rotate(270deg);
+		height: 35px;
+	}
+`;
+const TopicsContent = styled.div`
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
 	${forSize.tabletAndDown} {
 		flex-direction: column;
 		align-items: center;
 	}
 `;
-
-const SolutionContainer = styled.section`
+const ViewAllResourceWrapper = styled.div`
 	display: flex;
-	flex-direction: column;
-	align-items: center;
 	justify-content: center;
-	margin-top: 80px;
-	> div {
-		margin-bottom: 24px;
-		max-width: 879px;
-	}
+	margin-bottom: 20px;
 `;
-
-const PricingTextContainer = styled(P)`
-	max-width: 620px;
-	margin-left: auto;
-	margin-right: auto;
-`;
-
 function ForEmployers() {
 	// TODO Refactor: Refactor so that navbarheight is used as a global variable
 	const [width, setWidth] = useState<number>(window.innerWidth);
+	const [activeResourceCard, setActiveResourceCard] = useState(1);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
 	}
@@ -236,151 +315,401 @@ function ForEmployers() {
 			window.removeEventListener("resize", handleWindowSizeChange);
 		};
 	}, []);
-
-	let isMobile: boolean = width <= 768;
+	const userData = [
+		{
+			id: 1,
+			clasificasion: "1",
+			nombre: "Jesús Bon",
+			disponibildad: "Matutino",
+			educacion: "Universidad Trunca",
+			habilidades: "Productos Medicos",
+			certificados: "Máquinas de CAC",
+			ubicacion: "Otay",
+			contacto: "664 555 8024",
+		},
+		{
+			id: 2,
+			clasificasion: "2",
+			nombre: "José Carrillo",
+			disponibildad: "Vespertino",
+			educacion: "Preparatoria",
+			habilidades: "Instrumentos de Medición",
+			certificados: "Ninguno",
+			ubicacion: "Florido",
+			contacto: "664 555 6238",
+		},
+		{
+			id: 3,
+			clasificasion: "3",
+			nombre: "Miguel Diaz",
+			disponibildad: "Matutino",
+			educacion: "Preparatoria",
+			habilidades: "Productos Aeroespaciales",
+			certificados: "Máquinas de AFM3D",
+			ubicacion: "Camino Verde",
+			contacto: "664 555 1287",
+		},
+		{
+			id: 4,
+			clasificasion: "4",
+			nombre: "Francisco Cervantes",
+			disponibildad: "Nocturno",
+			educacion: "Preparatoria",
+			habilidades: "Procesos Electrónicos",
+			certificados: "Montacargas",
+			ubicacion: "Florido",
+			contacto: "664 555 8946",
+		},
+		{
+			id: 5,
+			clasificasion: "5",
+			nombre: "Iván García",
+			disponibildad: "Matutino",
+			educacion: "Preparatoria",
+			habilidades: "Moldeado de Plástico",
+			certificados: "Máquinas de CNC",
+			ubicacion: "El Lago",
+			contacto: "664 555 6529",
+		},
+	];
+	const resources = [
+		{
+			id: 1,
+			date: "July 26, 20120",
+			title: "Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
+			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
+			img: img1,
+		},
+		{
+			id: 2,
+			date: "July 30, 20120",
+			title: "Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
+			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
+			img: img1,
+		},
+		{
+			id: 3,
+			date: "Aug 4, 20120",
+			title: "Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl eget vehicula",
+			text: " Duis vestibulum elit vel neque pharatra valpputate. Quisque sceierisque nisi urna. Duis retrum non risus in imperdet. Proin molestie accumsan nula",
+			img: img1,
+		},
+	];
+	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
-
+	const jobPost: JobPostInterface = {
+		company: "Foxconn",
+		jobPost: "Operador de Producción",
+		reviewCount: 32,
+		rating: 3,
+		published: "3 days ago",
+		salaryRange: "$1.800 - $2.100 Pesos / Semana",
+		jobType: "Proyecto (Temporal)",
+		minEducation: "Preparatoria",
+		industry: "Electrónica",
+		englishProficiency: "Básico",
+		shifts: [
+			{ day: "lun - vie", time: "8 AM - 5 PM" },
+			{ day: "lun - vie", time: "2 PM - 11 PM" },
+			// { day: "mar - sab", time: "8 AM - 5 PM" },
+		],
+		city: "Tijuana",
+		industrialPark: "El Lago",
+		address: "Calle Lagua Maynar 5520, Section C",
+		description:
+			"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
+		jobSkills: [
+			"Maquinas Automatizadas",
+			"Instrumentos de Medicion",
+			"Uso de Computadora",
+		],
+		certifications: ["Instrumentos de Medicion", "Montacargas"],
+		benifits: ["Seguro Social", "Seguro de Salud"],
+	};
+	console.log("isMobile", isMobile);
 	return (
 		<PageWrapper title="Empleadores">
-			<ResourcesSectionContainer
-				style={{
-					marginTop: navbarHeight,
-				}}
-			>
-				<ResourcesIconImage src={resourcesIcon} />
-				<div
-					style={{
-						flexDirection: "column",
-						display: "flex",
-						alignItems: "center",
-					}}
-				>
-					<ResourcesSectionText>
-						<T.resourcesPageText />
-					</ResourcesSectionText>
-					<br />
-					<WhiteButton
-						to={urlGenerators.queryRoutes.employerResources}
-						style={{ fontSize: 22 }}
-					>
-						<T.resources />
-					</WhiteButton>
-				</div>
-			</ResourcesSectionContainer>
-			<Banner>
-				<BannerTitle>
-					<T.headerText />
-				</BannerTitle>
-				<GetStartedLarge />
-			</Banner>
+			<ContentWrapper>
+				<Banner>
+					<Row>
+						<Col xs={12} md={6}>
+							<BannerContent>
+								<BannerContentWrapper>
+									<BannerNormalContent>
+										<T.heading.hiringMade />{" "}
+									</BannerNormalContent>
+									<BannerHighlightedContent>
+										<T.heading.easier />
+									</BannerHighlightedContent>
+									<BannerNormalContent>
+										{", "}
+									</BannerNormalContent>
+									<BannerHighlightedContent>
+										<T.heading.faster />
+									</BannerHighlightedContent>
+									<BannerNormalContent>
+										, <T.heading.and />{" "}
+									</BannerNormalContent>{" "}
+									<BannerHighlightedContent>
+										<T.heading.affordable />{" "}
+									</BannerHighlightedContent>
+									<BannerNormalContent>
+										<T.heading.with />
+									</BannerNormalContent>{" "}
+									<BannerVizeContent>
+										<T.heading.Vize />
+										<VizeBackgroundEffect />
+									</BannerVizeContent>
+								</BannerContentWrapper>
+								<BannerSubTitle>
+									<T.subheading />
+								</BannerSubTitle>
+								<BannerButtonContainer>
+									<SignUpButton
+										$primary
+										href="https://calendly.com/julian-vize/contratacion-con-vize"
+										target="_blank"
+									>
+										<T.getStarted />
+									</SignUpButton>
+								</BannerButtonContainer>
+							</BannerContent>
+						</Col>
+						<Col xs={12} md={6}>
+							<BannerImage
+								src={bannerImage}
+								alt="employer-banner"
+							></BannerImage>
+						</Col>
+					</Row>
+				</Banner>
 
-			<SectionContainer>
-				<SectionTitle>
-					<T.heading1 />
-				</SectionTitle>
-
-				<ProblemPoint>
-					<T.card1part1 /> <Bold>90% - 120%</Bold>
-					<T.card1part2 />{" "}
-					<Bold>
-						<T.card1part3 />
-					</Bold>
-				</ProblemPoint>
-
-				<ProblemPoint>
-					<T.card2part1 />{" "}
-					<Bold>
-						<T.card2part2 />
-					</Bold>
-				</ProblemPoint>
-				<ProblemPoint>
-					<T.card3part1 />{" "}
-					<Bold>
-						<T.card3part2 />
-					</Bold>
-				</ProblemPoint>
-			</SectionContainer>
-
-			<SectionContainer style={{ backgroundColor: "white" }}>
-				<SectionTitle>
-					<T.heading2 />
-				</SectionTitle>
-				<SolutionContainer>
-					<div>
-						<SubsectionTitle>
-							<T.recruitingHeading />
-						</SubsectionTitle>
-						<P>
-							<T.recruitingText />
-						</P>
-					</div>
-					<T.img.exampleJobPost
-						renderer={t => (
-							<img
-								className="img-responsive"
-								src={t.src}
-								alt={t.alt}
+				<FeaturesWrapper>
+					<Row>
+						<Col xs={12} md={4}>
+							<CardContent>
+								<CardImageWrapper
+									src={saveMoneyImage}
+									alt="save-money"
+								/>
+								<CardTitle>
+									<T.benefits.saveMoneyHeading />
+								</CardTitle>
+								<BenefitCardDescription>
+									<T.benefits.saveMoneyDescription />
+								</BenefitCardDescription>
+							</CardContent>
+						</Col>
+						<Col xs={12} md={4}>
+							<CardContent>
+								<CardIcon>
+									<CardImageWrapper
+										src={saveTimeImage}
+										alt="save-time"
+									/>
+								</CardIcon>
+								<CardTitle>
+									<T.benefits.saveTimeHeading />
+								</CardTitle>
+								<BenefitCardDescription>
+									<T.benefits.saveTimeDescription />
+								</BenefitCardDescription>
+							</CardContent>
+						</Col>
+						<Col xs={12} md={4}>
+							<CardContent>
+								<CardIcon>
+									<CardImageWrapper
+										src={getResultImage}
+										alt="get-result"
+									/>
+								</CardIcon>
+								<CardTitle>
+									<T.benefits.getResultsHeading />
+								</CardTitle>
+								<BenefitCardDescription>
+									<T.benefits.getResultsDescription />
+								</BenefitCardDescription>
+							</CardContent>
+						</Col>
+					</Row>
+					<SignupTodayWrapper>
+						<SignUpButton
+							$primary
+							href="https://calendly.com/julian-vize/contratacion-con-vize"
+							target="_blank"
+						>
+							<T.signUpToday />
+						</SignUpButton>
+					</SignupTodayWrapper>
+					<HorizontalRow></HorizontalRow>
+				</FeaturesWrapper>
+				<JobPostWrapper>
+					<SectionTitle>
+						<T.exampleJobPost.heading />
+					</SectionTitle>
+					<SectionSubtitle>
+						<T.exampleJobPost.subheading />
+					</SectionSubtitle>
+					<JobPost {...jobPost}></JobPost>
+					<SignupTodayWrapper>
+						<SignUpButton
+							$primary
+							href="https://calendly.com/julian-vize/contratacion-con-vize"
+							target="_blank"
+						>
+							<T.signUpToday />
+						</SignUpButton>
+					</SignupTodayWrapper>
+					<HorizontalRow></HorizontalRow>
+				</JobPostWrapper>
+				<TableWrapper>
+					<SectionTitle>
+						<T.rankedApplicants.heading />
+					</SectionTitle>
+					<SectionSubtitle>
+						<T.rankedApplicants.subheading />
+					</SectionSubtitle>
+					<StyledRankedTable>
+						<Table responsive>
+							<thead>
+								<tr>
+									<th>Clasificasión</th>
+									<th>Nombre</th>
+									<th>Disponibilidad</th>
+									<th>Educación</th>
+									<th>Habilidades</th>
+									<th>Certificados/Licencias</th>
+									<th>Ubicación</th>
+									<th>Contacto</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{userData.map((user) => (
+									<tr key={user.id}>
+										<td className="text-center">
+											{user.clasificasion}
+										</td>
+										<td>{user.nombre}</td>
+										<td>{user.disponibildad}</td>
+										<td>{user.educacion}</td>
+										<td>{user.habilidades}</td>
+										<td>{user.certificados}</td>
+										<td>{user.ubicacion}</td>
+										<td>{user.contacto}</td>
+										<td>
+											<img
+												src={arrowDownCircleImage}
+												alt=""
+											></img>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</Table>
+					</StyledRankedTable>
+					<SignupTodayWrapper>
+						<SignUpButton
+							$primary
+							href="https://calendly.com/julian-vize/contratacion-con-vize"
+							target="_blank"
+						>
+							<T.getStarted />
+						</SignUpButton>
+					</SignupTodayWrapper>
+					<HorizontalRow></HorizontalRow>
+				</TableWrapper>
+				{/* <ResourcesWrapper>
+					<SectionTitle>Resources</SectionTitle>
+					<SectionSubtitle>
+						Improve your HR practices by learning about industry
+						best standards with our resources
+					</SectionSubtitle>
+					<ResourceCardRow>
+						{resources.map((resource) => (
+							<ResourcePreviewCard
+								key={resource.id}
+								resource={resource}
+								isMobile={isMobile}
+								activeResourceCard={activeResourceCard}
 							/>
-						)}
-					/>
-				</SolutionContainer>
-				<SolutionContainer>
-					<div>
-						<SubsectionTitle>
-							<T.retainmentHeading />
-						</SubsectionTitle>
-						<P>
-							<T.retainmentText />
-						</P>
-					</div>
-					<T.img.analyticsDashboard
-						renderer={t => (
-							<img
-								className="img-responsive"
-								src={t.src}
-								alt={t.alt}
-							/>
-						)}
-					/>
-				</SolutionContainer>
-			</SectionContainer>
-
-			<SectionContainer>
-				<SectionTitle>
-					<T.heading3 />
-				</SectionTitle>
-				<PricingTextContainer>
-					<T.pricingText1 />{" "}
-					<Bold>
-						<T.pricingText2 />
-					</Bold>{" "}
-					<T.pricingText3 />{" "}
-					<Bold>
-						<T.pricingText4 />
-					</Bold>{" "}
-					<T.pricingText5 />
-				</PricingTextContainer>
-				<br />
-				<PlansContainer>
-					<PlanOption
-						name={<T.businessHeading />}
-						items={[
-							<T.businessText1 />,
-							<T.businessText2 />,
-							<T.businessText3 />,
-						]}
-					/>
-					<PlanOption
-						name={<T.premiumHeading />}
-						items={[
-							<T.premiumText1 />,
-							<T.premiumText2 />,
-							<T.premiumText3 />,
-							<T.premiumText4 />,
-						]}
-					/>
-				</PlansContainer>
-			</SectionContainer>
+						))}
+					</ResourceCardRow>
+					{isMobile ? (
+						<ResourceCardNavigation>
+							<LeftNavigation
+								onClick={() => {
+									setActiveResourceCard(
+										activeResourceCard > 1
+											? activeResourceCard - 1
+											: activeResourceCard
+									);
+								}}
+							>
+								<img
+									src={
+										activeResourceCard > 1
+											? navigationArrowImage
+											: navigationArrowImageGrey
+									}
+									alt="left-navigation"
+								></img>
+							</LeftNavigation>
+							<RightNavigation
+								onClick={() => {
+									setActiveResourceCard(
+										activeResourceCard < 3
+											? activeResourceCard + 1
+											: activeResourceCard
+									);
+								}}
+							>
+								<img
+									src={
+										activeResourceCard < 3
+											? navigationArrowImage
+											: navigationArrowImageGrey
+									}
+									alt="right-navigation"
+								></img>
+							</RightNavigation>
+						</ResourceCardNavigation>
+					) : null}
+				</ResourcesWrapper>
+				<ResourcesWrapper>
+					<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
+					<TopicsContent>
+						<ResourceTopicButton
+							title="Legal"
+							img={topic1Image}
+							onClick={() => {}}
+						/>
+						<ResourceTopicButton
+							onClick={() => {}}
+							title="Turnover Rates"
+							img={topic2Image}
+						/>
+						<ResourceTopicButton
+							onClick={() => {}}
+							title="Hiring Best Practices"
+							img={topic3Image}
+						/>
+						<ResourceTopicButton
+							onClick={() => {}}
+							title="View All Topics"
+						/>
+					</TopicsContent>
+					<ViewAllResourceWrapper>
+						<LinkButton
+							$primary
+							to={urlGenerators.queryRoutes.employerResources}
+						>
+							View All Resources
+						</LinkButton>
+					</ViewAllResourceWrapper>
+				</ResourcesWrapper> */}
+			</ContentWrapper>
 		</PageWrapper>
 	);
 }

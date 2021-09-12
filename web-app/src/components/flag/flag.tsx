@@ -86,7 +86,7 @@ function FlagSystem(props: FlagSystemProps) {
 
 				<Reason>
 					<T
-						renderer={t => (
+						renderer={(t) => (
 							<select
 								id="selectClear"
 								className="form-control"
@@ -107,7 +107,7 @@ function FlagSystem(props: FlagSystemProps) {
 				</Reason>
 				<TextArea>
 					<T.explanation
-						renderer={t => (
+						renderer={(t) => (
 							<textarea
 								id="textAreaClear"
 								rows={2}

@@ -54,6 +54,10 @@ First, install the Heroku CLI and login by following the instructions here:
 https://devcenter.heroku.com/articles/heroku-cli. Just install the Heroku CLI
 and login. Don't create an app or anything else.
 
+Note: If you install heroku with npm and use nvm you must use the same version
+of node that you installed heroku with in order to use it. If you are not using
+the same version with nvm you may get an error like `heroku: command not found`.
+
 To connect your computer to the Heroku apps, run:
 
 ```bash

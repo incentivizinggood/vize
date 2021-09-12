@@ -36,7 +36,7 @@
 	that is all that GraphQL and the frontend
 	would be expecting.
 */
-export const processLocation = function(location: string) {
+export const processLocation = function (location: string) {
 	let returnVal = "";
 
 	try {

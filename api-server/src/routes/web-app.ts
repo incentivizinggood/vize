@@ -19,7 +19,7 @@ router.use(express.static(staticRoot));
  * (AKA the "history api"), we need to make sure the index page is served
  * instead of giving 404 errors.
  */
-const fallbackToIndex: express.RequestHandler = function(_req, res, _next) {
+const fallbackToIndex: express.RequestHandler = function (_req, res, _next) {
 	res.sendFile(path.join(staticRoot, "index.html"));
 };
 

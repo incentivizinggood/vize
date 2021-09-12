@@ -1,6 +1,6 @@
 import React from "react";
 import { Form } from "formik";
-import { SubmitButton } from "src/components/button";
+import { Button } from "src/components/button";
 import styled from "styled-components";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -67,7 +67,7 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 			/>
 
 			<T.fields.contractType
-				renderer={t => (
+				renderer={(t) => (
 					<Field
 						name="contractType"
 						select
@@ -89,10 +89,11 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 			<br />
 
 			<T.fields.employmentStatus
-				renderer={t => (
+				renderer={(t) => (
 					<Field
 						name="employmentStatus"
 						type="radioButtons"
+						showPrivacyIcon={true}
 						label={t.label}
 						options={[
 							<FormControlLabel
@@ -115,7 +116,7 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 			<Field name="cons" required multiline rows={6} t={T.fields.cons} />
 
 			<T.fields.wouldRecommendToOtherJobSeekers
-				renderer={t => (
+				renderer={(t) => (
 					<Field
 						name="wouldRecommendToOtherJobSeekers"
 						select
@@ -181,7 +182,7 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 			</FormText>
 
 			<T.fields.incomeType
-				renderer={t => (
+				renderer={(t) => (
 					<Field
 						name="incomeType"
 						select
@@ -211,14 +212,9 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					className="form-button"
-					type="submit"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);

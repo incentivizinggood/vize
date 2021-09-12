@@ -9,7 +9,7 @@ import { TranslationComponent } from "src/translations";
 import colors from "src/colors";
 import { forSize } from "src/responsive";
 
-const ArrayContainer = styled.div`
+export const ArrayContainer = styled.div`
 	margin-top: 20px;
 `;
 
@@ -71,7 +71,7 @@ interface FormArrayProps {
 			({ array }: { array: unknown[] }) => string
 		>;
 	};
-	ElementRender: React.ComponentType<{ name: string }>;
+	ElementRender: React.ComponentType<{ name: string; index: number }>;
 }
 
 function FormArray({
@@ -85,11 +85,12 @@ function FormArray({
 		<>
 			<FieldArray
 				name={name}
-				render={arrayHelpers => (
+				render={(arrayHelpers) => (
 					<ArrayContainer>
 						{values[name] && values[name].length > 0
 							? values[name].map((x: unknown, index: number) => (
 									<ElementContainer>
+<<<<<<< HEAD
 										<ElementHeader>
 											<ElementHeading>{name}</ElementHeading>
 											<HeaderHorizontalLine/>
@@ -107,8 +108,19 @@ function FormArray({
 												</>
 											)}
 										</ElementHeader>
+=======
+										<ElementDeleteButton
+											type="button"
+											onClick={() =>
+												arrayHelpers.remove(index)
+											}
+										>
+											<FontAwesomeIcon icon={faTimes} />
+										</ElementDeleteButton>
+>>>>>>> master
 										<ElementRender
 											name={`${name}[${index}]`}
+											index={index}
 										/>
 									</ElementContainer>
 							  ))

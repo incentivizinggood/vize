@@ -22,7 +22,7 @@ function useScroll() {
 export default function withScroll<OuterProps>(
 	WrappedComponent: React.ComponentType<OuterProps & { scroll: number }>
 ) {
-	return function(props: OuterProps) {
+	return function (props: OuterProps) {
 		const scroll = useScroll();
 		return <WrappedComponent {...props} scroll={scroll} />;
 	};

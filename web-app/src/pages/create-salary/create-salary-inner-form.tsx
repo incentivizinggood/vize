@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "formik";
 import styled from "styled-components";
-import { SubmitButton } from "src/components/button";
+import { Button } from "src/components/button";
 
 import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
 import { CompanyNameInput } from "src/components/company-name-input";
@@ -36,7 +36,7 @@ function InnerForm({ submissionError }) {
 			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
 
 			<T.fields.incomeType
-				renderer={t => (
+				renderer={(t) => (
 					<Field name="incomeType" select required label={t.label}>
 						<option value="YEARLY_SALARY">{t.yearlySalary}</option>
 						<option value="MONTHLY_SALARY">
@@ -57,7 +57,7 @@ function InnerForm({ submissionError }) {
 			/>
 
 			<T.fields.gender
-				renderer={t => (
+				renderer={(t) => (
 					<Field name="gender" select label={t.label}>
 						<option value="MALE">{t.male}</option>
 						<option value="FEMALE">{t.female}</option>
@@ -68,14 +68,9 @@ function InnerForm({ submissionError }) {
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<SubmitButton
-					variant="contained"
-					size="large"
-					type="submit"
-					color="primary"
-				>
+				<Button $primary type="submit">
 					<T.submit />
-				</SubmitButton>
+				</Button>
 			</FormToolbar>
 		</Form>
 	);

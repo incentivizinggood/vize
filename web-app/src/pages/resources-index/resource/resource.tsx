@@ -176,7 +176,7 @@ function Resource(props: ResourceProps) {
 					isResourceLiked: props.resource.isLikedByCurrentUser,
 				},
 			},
-		}).catch(errors => {
+		}).catch((errors) => {
 			// Error in English: Not Logged In
 			if (
 				errors.message.includes(

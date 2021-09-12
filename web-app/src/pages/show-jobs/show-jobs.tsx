@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import JobPosting from "src/components/jobs/job-posting.tsx";
+import JobPosting from "src/components/jobs/job-posting";
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
@@ -37,7 +37,7 @@ export default function ShowJobs(): JSX.Element {
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
 
-	const RenderedItems = data.searchJobAds.nodes.map(function(jobad) {
+	const RenderedItems = data.searchJobAds.nodes.map(function (jobad) {
 		return <JobPosting key={jobad.id} job={jobad} />;
 	});
 

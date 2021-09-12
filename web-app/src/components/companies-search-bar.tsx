@@ -28,14 +28,16 @@ export default function CompaniesSearchBar(): JSX.Element {
 		defaultValues: { search: params.get("q") || "" },
 	});
 
-	const onSubmit: SubmitHandler<Inputs> = data => {
+	const onSubmit: SubmitHandler<Inputs> = (data) => {
 		analytics.sendEvent({
 			category: "User",
 			action: "Search",
 			label: data.search,
 		});
 
-		history.push(`/${urlGenerators.queryRoutes.companies}?q=${data.search}`);
+		history.push(
+			`/${urlGenerators.queryRoutes.companies}?q=${data.search}`
+		);
 	};
 
 	return (

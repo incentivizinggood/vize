@@ -1,12 +1,13 @@
 import React from "react";
 import * as Formik from "formik";
-import { TextField } from "formik-material-ui";
+import { TextField, Checkbox } from "formik-material-ui";
 import styled from "styled-components";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import PrivacyIcon from "@material-ui/icons/Security";
 
 import RatingField from "./rating-field";
 import RadioButtonsField from "./radio-buttons-field";
+import PhoneNumberInputMask from "./phone-number-input";
 
 const FormikFieldWrapper = styled.div`
 	margin-bottom: 1.5rem;
@@ -65,6 +66,34 @@ function FieldInner({
 			/>
 		);
 	}
+	// if (type === "checkboxButtons") {
+	// 	return <Formik.Field {...restProps} component={CheckboxButtonsField} />;
+	// }
+	if (type === "checkbox") {
+		return (
+			<Formik.Field
+				{...restProps}
+				type={type}
+				component={Checkbox}
+				color="primary"
+			/>
+		);
+	}
+	if (type === "phoneNumber") {
+		return (
+			<FormikField
+				{...restProps}
+				type={type}
+				component={TextField}
+				InputProps={{ inputComponent: PhoneNumberInputMask }}
+				InputLabelProps={{
+					shrink: true,
+				}}
+				fullWidth
+				color="primary"
+			/>
+		);
+	}
 	if (variant === "privacyTextField") {
 		return (
 			<FormikFieldWrapper>
@@ -102,7 +131,23 @@ function FieldInner({
 				component={TextField}
 				fullWidth
 			/>
+<<<<<<< HEAD
 		</FormikFieldWrapper>
+=======
+		);
+	}
+
+	return (
+		<FormikField
+			{...restProps}
+			type={type}
+			component={TextField}
+			InputLabelProps={{
+				shrink: true,
+			}}
+			fullWidth
+		/>
+>>>>>>> master
 	);
 }
 
@@ -116,10 +161,5 @@ function FieldComponent({ t: T, ...restProps }: any): JSX.Element {
 
 	return FieldInner(restProps);
 }
-
-// Added this margin so that error messages do not overlap with other fields
-const Field = styled(FieldComponent)`
-	margin-bottom: 7px !important;
-`;
 
 export default Field;

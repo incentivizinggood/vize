@@ -2,10 +2,10 @@
 export default function initHotjar() {
 	// This is the code sniplet that we copy/pasted from Hotjar.
 	// Do not modify.
-	(function(h, o, t, j, a, r) {
+	(function (h, o, t, j, a, r) {
 		h.hj =
 			h.hj ||
-			function() {
+			function () {
 				(h.hj.q = h.hj.q || []).push(arguments);
 			};
 		h._hjSettings = { hjid: 1168709, hjsv: 6 };

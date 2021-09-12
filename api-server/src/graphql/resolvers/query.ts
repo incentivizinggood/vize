@@ -35,6 +35,15 @@ export const Query: QueryResolvers = {
 	user: (_obj, args, _context, _info) =>
 		dataModel.getUserById(Number(args.id)),
 
+	userProfile: (_obj, _args, context, _info) => {
+		// Error in English: Not Logged In
+		if (!context.user) {
+			throw new Error("Tienes que iniciar una sesión o registrarte");
+		}
+
+		return dataModel.getUserProfileByUser(context.user);
+	},
+
 	vote: (_obj, args, _context, _info) =>
 		dataModel.getVoteById(dataModel.stringToVoteId(args.id)),
 

@@ -27,7 +27,7 @@ export const Mutation: MutationResolvers = {
 
 		return dataModel
 			.castVote(context.user, Number(subjectId), isUpvote)
-			.then(vote => (vote ? { vote } : null));
+			.then((vote) => (vote ? { vote } : null));
 	},
 
 	resourceLike: async (
@@ -59,6 +59,32 @@ export const Mutation: MutationResolvers = {
 		);
 		const company = await dataModel.getCompanyById(companyId);
 		return { company };
+	},
+
+	createUserProfile: async (_obj, { input }, context, _info) => {
+		// Error in English: Not Logged In
+		if (!context.user) {
+			throw new Error("Tienes que iniciar una sesión o registrarte");
+		}
+
+		await dataModel.createUserProfile(input, context.user.userId);
+
+		const userProfile = await dataModel.getUserProfileByUser(context.user);
+
+		return { userProfile };
+	},
+
+	updateUserProfile: async (_obj, { input }, context, _info) => {
+		// Error in English: Not Logged In
+		if (!context.user) {
+			throw new Error("Tienes que iniciar una sesión o registrarte");
+		}
+
+		await dataModel.updateUserProfile(input, context.user.userId);
+
+		const userProfile = await dataModel.getUserProfileByUser(context.user);
+
+		return { userProfile };
 	},
 
 	createReview: async (_obj, { input }, context, _info) => {

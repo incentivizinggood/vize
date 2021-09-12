@@ -11,7 +11,7 @@ interface FadableNavExtraProps {
 }
 
 const FadableNav = styled.nav<FadableNavExtraProps>`
-	${props => {
+	${(props) => {
 		if (props.animated && props.scroll < threshold) {
 			// If we are using the animation, the navbar is transparent when
 			// we are scrolled close to the top of the page.
@@ -22,22 +22,11 @@ const FadableNav = styled.nav<FadableNavExtraProps>`
 		return css`
 			background: white;
 			box-shadow: 0 0 5px;
-
-			ul li a {
-				color: black;
-				cursor: pointer;
-
-				&:not(#register-button):hover,
-				&:not(#register-button):focus,
-				&:not(#register-button):active {
-					color: black;
-				}
-			}
 		`;
 	}}
 `;
 
 // TODO: Fix this type so that it works with out a type cast.
-export default (withScroll(FadableNav) as any) as React.ComponentType<{
+export default withScroll(FadableNav) as any as React.ComponentType<{
 	animated?: boolean;
 }>;

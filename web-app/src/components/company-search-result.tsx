@@ -164,7 +164,7 @@ function CompanySearchResult(props: CompanySearchResultProps): JSX.Element {
 										how to do this processing on a higher level
 										of the stack */}
 										{props.company.locations.map(
-											location =>
+											(location) =>
 												processLocation(
 													JSON.stringify(location)
 												) +

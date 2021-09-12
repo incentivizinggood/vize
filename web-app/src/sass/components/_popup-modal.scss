@@ -1,0 +1,49 @@
+.ReactModal__Overlay {
+	z-index: 4;
+}
+.ReactModalPortal {
+	.ReactModal__Content.ReactModal__Content--after-open {
+		width: 60%;
+		max-width: 550px;
+		height: 200px;
+	}
+	form {
+		input[type="tel"] {
+			width: 100%;
+			padding: 2px;
+		}
+		input[type="submit"] {
+			float: right;
+			margin-top: 5px;
+			padding: 5px;
+			padding-left: 15px;
+			padding-right: 15px;
+			background-color: $primary-color-blue;
+			border: 1px solid #d4d1d1;
+			outline: none;
+			color: white;
+			font-weight: bolder;
+		}
+	}
+}
+
+@include for-size(phone-only) {
+	.ReactModalPortal {
+		.ReactModal__Content.ReactModal__Content--after-open {
+			height: 250px;
+			form {
+				padding-top: 20px;
+			}
+		}
+	}
+}
+
+@include for-size(tablet-and-down) {
+	.ReactModalPortal {
+		.ReactModal__Content.ReactModal__Content--after-open {
+			width: 90%;
+			max-width: 500px;
+			height: 200px;
+		}
+	}
+}

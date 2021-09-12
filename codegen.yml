@@ -21,9 +21,11 @@ generates:
         Review: api-server/src/models/types#Review
         Salary: api-server/src/models/types#Salary
         User: api-server/src/models/types#User
+        UserProfile: api-server/src/models/types#UserProfile
         Vote: api-server/src/models/types#Vote
       scalars:
         DateTime: Date
+        Date: Date
       enumsAsTypes: true
     plugins:
       - typescript

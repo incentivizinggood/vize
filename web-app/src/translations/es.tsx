@@ -60,6 +60,8 @@ export default {
 		myAccount: "Mi Cuenta",
 		username: "Nombre de Usuario",
 		changePassword: "Cambiar Contraseña",
+		editProfile: "Editar Perfil",
+		createProfile: "Crear Perfil",
 	},
 	needToBeLoggedInToView: {
 		youNeedToBeLoggedInToView:
@@ -74,6 +76,7 @@ export default {
 	},
 	loginRegister: {
 		login: "Iniciar Sesión",
+		forgotPassword: "¿Has olvidado tu contraseña?",
 		noAccount: "¿No tienes una cuenta? ",
 		register: "Crear Cuenta",
 		username: {
@@ -85,6 +88,10 @@ export default {
 			placeholder: "Correo electrónico o nombre de usuario",
 		},
 		password: { label: "Contraseña", placeholder: "Contraseña" },
+		confirmPassword: {
+			label: "Confirmar Contraseña",
+			placeholder: "Confirmar Contraseña",
+		},
 		registrationSuccess: "¡Registracion exitosa!",
 		companyName: {
 			label: "Nombre de Empresa",
@@ -109,6 +116,22 @@ export default {
 			passwordRequired: "Contraseña es un campo requerido",
 			passwordIncorrect: "Contraseña incorrecta",
 			companyNameRequired: "Nombre de Compañía es un campo requerido",
+		},
+	},
+	requestPasswordReset: {
+		requestPasswordReset: "Solicitud Para Restablecer Contraseña",
+		submitRequest: "Enviar Solicitud",
+		email: {
+			label: "Correo Electrónico",
+			placeholder: "Correo Electrónico",
+		},
+	},
+	resetPassword: {
+		resetPassword: "Restablecer Contraseña",
+		password: { label: "Contraseña", placeholder: "Contraseña" },
+		confirmPassword: {
+			label: "Confirmar Contraseña",
+			placeholder: "Confirmar Contraseña",
 		},
 	},
 	createCompany: {
@@ -271,7 +294,7 @@ export default {
 				label: "Cantidad de Ingresos",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Evaluación",
 	},
 	createSalary: {
 		formTitle: "Forma Salarial",
@@ -324,7 +347,7 @@ export default {
 				female: "Mujer",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Salario",
 	},
 	createJobAd: {
 		formTitle: "Publicar un Trabajo",
@@ -442,30 +465,240 @@ export default {
 				contractor: "Contratista",
 			},
 		},
-		submit: "Enviar",
+		submit: "Publicar Oferta",
 	},
 	applyToJobAd: {
-		formTitle: "Solicitar un trabajo",
+		formTitle: "Solicitar un Trabajo",
 		fields: {
 			fullName: {
-				label: "Nombre completo",
-				placeholder: "Por favor ingrese su nombre completo aquí",
+				label: "Nombre Completo",
+				placeholder: "Ingresa tu nombre completo",
 			},
 			email: {
-				label: "Direccion de correo electronico",
+				label: "Correo Electrónico",
 				placeholder: "ejemplo@gmail.com",
 			},
 			phoneNumber: {
-				label: "Numero telefonico",
-				placeholder: "###-###-####",
+				label: "Numero de Telefono",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "Ciudad",
+				placeholder:
+					"Ingresa el nombre de la ciudad en la que resides actualmente",
+			},
+			neighborhood: {
+				label: "Colonia",
+				placeholder:
+					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
+			},
+			workExperiences: {
+				label: "Experiencia Laboral",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+				jobTitle: {
+					label: "Puesto de Trabajo",
+					placeholder: "Ingresa el nombre de el puesto desempeñado",
+				},
+				companyName: {
+					label: "Nombre de la Empresa",
+					placeholder: "Ingresa el nombre de la empresa",
+				},
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingresa el nombre de la ciudad",
+				},
+				startDate: {
+					label: "Fecha de Inicio",
+				},
+				endDate: {
+					label: "Fecha de Finalización",
+				},
+				experienceDescription: {
+					label: "Descripción",
+					placeholder:
+						"Describe tu experiencia laboral. ¿Qué hacíste en el trabajo? ¿Cuáles eran tus responsabilidades? ¿Cuáles fueron tus logros?",
+				},
+				iCurrentlyWorkHere: "Actualmente trabajo aquí",
+				present: "Presente",
+				month: "Mes",
+				year: "Año",
+				january: "enero",
+				february: "febrero",
+				march: "marzo",
+				april: "abril",
+				may: "mayo",
+				june: "junio",
+				july: "julio",
+				august: "agosto",
+				september: "septiembre",
+				october: "octubre",
+				november: "noviembre",
+				december: "diciembre",
+			},
+			skills: {
+				label: "Habilidades",
+				placeholder:
+					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
+			},
+			education: {
+				label: "Nivel Educativo Más Alto",
+				someHighScool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
+			},
+			englishProficiency: {
+				label: "Dominio del Inglés",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			availability: {
+				label: "Disponibilidad",
+				morning: "Turno Matutino",
+				afternoon: "Turno Vespertino",
+				night: "Turno Nocturno",
+			},
+			availabilityComments: {
+				label: "Comentarios de Disponibilidad",
+				placeholder:
+					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
 			},
 			coverLetter: {
-				label: "Carta de presentación / Comentarios adicionales",
+				label: "Carta de Presentación / Comentarios Adicionales",
 				placeholder:
-					"Use este espacio para describir por qué sería el más adecuado para esta posición. También puede incluir cualquier comentario adicional que le gustaría enviar a la empresa junto con su solicitud",
+					"Usa este espacio para describir por qué serías la persona mas adecuada para esta posición. También puede incluir cualquier comentario adicional que te gustaría enviar a la empresa junto con tu solicitud",
+			},
+			createProfileWithFormData:
+				"Crea un perfil con los datos en este formulario (para postularte con un clic)",
+			updateProfileWithFormData:
+				"Actualiza tu perfil con los datos en este formulario",
+		},
+		submit: "Enviar Solicitud",
+	},
+	userProfileForm: {
+		formTitleCreateProfile: "Crear un Perfil",
+		formTitleEditProfile: "Editar Tu Perfil",
+		formDescription:
+			"¡Con este perfil puedes postularte a empleos con solo un clic!",
+		fields: {
+			fullName: {
+				label: "Nombre Completo",
+				placeholder: "Ingresa tu nombre completo",
+			},
+			phoneNumber: {
+				label: "Numero de Telefono",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "Ciudad",
+				placeholder:
+					"Ingresa el nombre de la ciudad en la que resides actualmente",
+			},
+			neighborhood: {
+				label: "Colonia",
+				placeholder:
+					"Ingresa el nombre de la colonia o área de la ciudad en la que resides",
+			},
+			workExperiences: {
+				workExperience: "Experiencia Laboral",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+				jobTitle: {
+					label: "Puesto de Trabajo",
+					placeholder: "Ingresa el nombre de el puesto desempeñado",
+				},
+				companyName: {
+					label: "Nombre de la Empresa",
+					placeholder: "Ingresa el nombre de la empresa",
+				},
+				city: {
+					label: "Ciudad",
+					placeholder: "Ingresa el nombre de la ciudad",
+				},
+				startDate: {
+					label: "Fecha de Inicio",
+				},
+				endDate: {
+					label: "Fecha de Finalización",
+				},
+				experienceDescription: {
+					label: "Descripción",
+					placeholder:
+						"Describe tu experiencia laboral. ¿Qué hacíste en el trabajo? ¿Cuáles eran tus responsabilidades? ¿Cuáles fueron tus logros?",
+				},
+				iCurrentlyWorkHere: "Actualmente trabajo aquí",
+				present: "Presente",
+				month: "Mes",
+				year: "Año",
+				january: "enero",
+				february: "febrero",
+				march: "marzo",
+				april: "abril",
+				may: "mayo",
+				june: "junio",
+				july: "julio",
+				august: "agosto",
+				september: "septiembre",
+				october: "octubre",
+				november: "noviembre",
+				december: "diciembre",
+			},
+			skills: {
+				label: "Habilidades",
+				placeholder:
+					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
+			},
+			education: {
+				label: "Nivel Educativo Más Alto",
+				someHighScool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
+			},
+			englishProficiency: {
+				label: "Dominio del Inglés",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			availability: {
+				label: "Disponibilidad",
+				morning: "Turno Matutino",
+				afternoon: "Turno Vespertino",
+				night: "Turno Nocturno",
+			},
+			availabilityComments: {
+				label: "Comentarios de Disponibilidad",
+				placeholder:
+					"Proporciona cualquier información adicional relacionada con tu disponibilidad.",
+			},
+			yourDreamJob: {
+				description:
+					"¿Qué trabajo deseas tener en 2-5 años? Te emparejaremos con otras personas que tengan una meta similar.",
+				privacyInformation:
+					"No se compartirá esta información con ningún empleador cuando envies una solicitud de empleo.",
+				label: "El Trabajo de tus Sueños",
+				placeholder: "¿Qué trabajo te gustaría tener en 2-5 años?",
 			},
 		},
-		submit: "Enviar",
+		submit: "Crear Perfil",
+		update: "Actualizar Perfil",
 	},
 	resources: {
 		featuredResources: "Recursos Destacados",
@@ -479,6 +712,52 @@ export default {
 			location: "Localización",
 		},
 		read: "Leer",
+	},
+	forEmployers: {
+		heading: {
+			hiringMade: "La contratación es más",
+			easier: "fácil",
+			faster: "rápida",
+			and: "y",
+			affordable: "asequible",
+			with: "con",
+			Vize: "Vize",
+		},
+		subheading:
+			"Publique empleos y nosotros clasificaremos y filtraremos a los trabajadores de fábrica indicados en Tijuana para su fábrica",
+		getStarted: "Comenzar",
+		signUpToday: "Regístrate Hoy",
+		benefits: {
+			saveMoneyHeading: "Ahorre Dinero",
+			saveMoneyDescription:
+				"Reciba 2 meses de ofertas de empleo ilimitadas gratis al registrarse hoy. Puede contratar la fuerza de trabajo que necesita de manera más fácil, rápida y asequible al llegar a más de 3000 trabajadores de fábrica en nuestro sitio.",
+			saveTimeHeading: "Ahorre Tiempo",
+			saveTimeDescription:
+				"Clasificaremos y filtraremos todas sus solicitudes semanalmente para encontrar a los trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo y más) para que usted no tenga que revisar todos los CVs.",
+			getResultsHeading: "Obtenga Resultados",
+			getResultsDescription:
+				"Solo paga por los resultados. Cobramos 5 pesos por solicitud de empleo, en vez de cobrar una suscripción mensual. Esto le ahorra dinero, le da la flexibilidad para publicar todos los empleos que necesite, cuando los necesite y para todos los trabajadores que necesite.",
+		},
+		exampleJobPost: {
+			heading: "Ofertas de Empleo",
+			subheading:
+				"Coloque sus ofertas de empleo delante de las personas indicadas",
+			// salary: "Salario",
+			// minimumEducation: "Educación Minima",
+			// englishProficiency: "Dominio del Inglés",
+			// location: "Ubicación",
+			// city: "Ciudad",
+			// industrialPark: "Parque Industrial",
+			// address: "Dirección",
+			// contractType: "Tipo de Contrato",
+			// industry: "Industria",
+			// shifts: "Turnos",
+		},
+		rankedApplicants: {
+			heading: "Solicitantes Clasificados",
+			subheading:
+				"Encuentre a trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo, y más)",
+		},
 	},
 	legacyTranslationsNeedsRefactor: {
 		passwordChanger: {
@@ -538,7 +817,11 @@ export default {
 			readReviews:
 				"Lee evaluaciones escritas por empleados que han trabajado en esta empresa para obtener más información sobre cómo es la experiencia de trabajar ahí.",
 			readReviewsButton: "Leer Evaluaciones",
+<<<<<<< HEAD
 			viewMoreJobs: "Ver Más Empleos de Otras Empresas",
+=======
+			viewMoreJobs: "Ver Más Ofertas de Empleo",
+>>>>>>> master
 			referralMessage:
 				"¿Conoces a alguien que esté buscando empleo en una fabrica? Puedes compartir el enlace a continuación o usar uno de los botones a continuación para compartir la pagina de empleos por WhatsApp o Facebook.",
 		},

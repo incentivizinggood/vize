@@ -51,7 +51,7 @@ export default {
 		my_company: "My Company",
 		post_a_job: "Post a Job",
 		for_employers: "For Employers",
-		login: "LOG IN",
+		login: "Sign In",
 		signup: "SIGN UP",
 		signup_or_login: "SIGN UP OR LOGIN",
 		logout: "LOG OUT",
@@ -61,6 +61,8 @@ export default {
 		myAccount: "My Account",
 		username: "Username",
 		changePassword: "Change Password",
+		editProfile: "Edit Profile",
+		createProfile: "Create Profile",
 	},
 	needToBeLoggedInToView: {
 		youNeedToBeLoggedInToView: "You have to be logged in to use this page.",
@@ -74,6 +76,7 @@ export default {
 	},
 	loginRegister: {
 		login: "Login",
+		forgotPassword: "Forgot your password?",
 		noAccount: "Don't have an account? ",
 		register: "Register",
 		username: { label: "Username", placeholder: "Username" },
@@ -82,6 +85,7 @@ export default {
 			placeholder: "Email or username",
 		},
 		password: { label: "Password", placeholder: "Password" },
+		confirmPassword: { label: "Confirm Password", placeholder: "Password" },
 		registrationSuccess: "Registration successful!",
 		companyName: { label: "Company Name", placeholder: "Company Name" },
 		alreadyAccount: "Already have an account? ",
@@ -100,6 +104,16 @@ export default {
 			passwordIncorrect: "Incorrect password",
 			companyNameRequired: "Company Name is a required field",
 		},
+	},
+	requestPasswordReset: {
+		requestPasswordReset: "Request Password Reset",
+		submitRequest: "Submit Request",
+		email: { label: "Email", placeholder: "Email" },
+	},
+	resetPassword: {
+		resetPassword: "Reset Password",
+		password: { label: "Password", placeholder: "Password" },
+		confirmPassword: { label: "Confirm Password", placeholder: "Password" },
 	},
 	createCompany: {
 		formTitle: "Create a New Profile",
@@ -259,7 +273,7 @@ export default {
 				label: "Income Amount",
 			},
 		},
-		submit: "Submit",
+		submit: "Publish Review",
 	},
 	createSalary: {
 		formTitle: "Submit Salary Data",
@@ -311,7 +325,7 @@ export default {
 				female: "Female",
 			},
 		},
-		submit: "Submit",
+		submit: "Publish Salary",
 	},
 	createJobAd: {
 		formTitle: "Post a Job",
@@ -429,7 +443,7 @@ export default {
 				contractor: "Contractor",
 			},
 		},
-		submit: "Submit",
+		submit: "Post Job",
 	},
 	applyToJobAd: {
 		formTitle: "Apply for a Job",
@@ -444,15 +458,229 @@ export default {
 			},
 			phoneNumber: {
 				label: "Phone Number",
-				placeholder: "###-###-####",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			workExperiences: {
+				label: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+				},
+				iCurrentlyWorkHere: "I currently work here",
+				present: "Present",
+				month: "Month",
+				year: "Year",
+				january: "Janauary",
+				february: "February",
+				march: "March",
+				april: "April",
+				may: "May",
+				june: "June",
+				july: "July",
+				august: "August",
+				september: "September",
+				october: "October",
+				november: "November",
+				december: "December",
+			},
+			skills: {
+				label: "Skills",
+				placeholder:
+					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Highest level of education",
+				someHighScool: "Some High School",
+				highSchool: "High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			englishProficiency: {
+				label: "English Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
+			availability: {
+				label: "Availability",
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
 			},
 			coverLetter: {
 				label: "Cover Letter/Additional Comments",
 				placeholder:
 					"Use this space to describe why you would be best suited for this position. You may also include any additional comments you would like to send to the company along with your application",
 			},
+			createProfileWithFormData:
+				"Create a profile with the data in this form (apply to jobs with one click)",
+			updateProfileWithFormData:
+				"Update your profile with the data in this form",
 		},
-		submit: "Submit",
+		submit: "Submit Application",
+	},
+	userProfileForm: {
+		formTitleCreateProfile: "Create a Profile",
+		formTitleEditProfile: "Edit Your Profile",
+		formDescription:
+			"With this profile you can apply to jobs with just one click!",
+		fields: {
+			fullName: {
+				label: "Full Name",
+				placeholder: "Please enter your full name here",
+			},
+			phoneNumber: {
+				label: "Phone Number",
+				placeholder: "+52(   )   -    ",
+			},
+			city: {
+				label: "City",
+				placeholder:
+					"Enter the name of the city that you currently live in",
+			},
+			neighborhood: {
+				label: "Neighborhood",
+				placeholder:
+					"Enter the name of the neighborhood or area of the city that you live in",
+			},
+			workExperiences: {
+				workExperience: "Work Experience",
+				addElement: ({ array }: { array: unknown[] }) =>
+					`Add ${array.length > 0 ? "Another" : "An"} Experience`,
+				jobTitle: {
+					label: "Job Title",
+					placeholder: "Enter the job title",
+				},
+				companyName: {
+					label: "Company Name",
+					placeholder: "Enter the name of the company you worked at",
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city that your job was located",
+				},
+				startDate: {
+					label: "Start Date",
+					placeholder: "Enter the date you started your job",
+				},
+				endDate: {
+					label: "End Date",
+					placeholder: "Enter the date you ended your job",
+				},
+				experienceDescription: {
+					label: "Description",
+					placeholder:
+						"Describe your work experience. What did you do? What were your responsibilities? What did you accomplish?",
+				},
+				iCurrentlyWorkHere: "I currently work here",
+				present: "Present",
+				month: "Month",
+				year: "Year",
+				january: "Janauary",
+				february: "February",
+				march: "March",
+				april: "April",
+				may: "May",
+				june: "June",
+				july: "July",
+				august: "August",
+				september: "September",
+				october: "October",
+				november: "November",
+				december: "December",
+			},
+			skills: {
+				label: "Skills",
+				placeholder:
+					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+			},
+			certificatesAndLicences: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+			},
+			education: {
+				label: "Highest level of education",
+				someHighScool: "Some High School",
+				highSchool: "High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			englishProficiency: {
+				label: "English Proficiency",
+				native: "Native",
+				fluent: "Fluent",
+				conversational: "Conversational",
+				basic: "Basic",
+				none: "None",
+			},
+			availability: {
+				label: "Availability",
+				morning: "Morning Shift",
+				afternoon: "Afternoon Shift",
+				night: "Night Shift",
+			},
+			availabilityComments: {
+				label: "Availability Comments",
+				placeholder:
+					"Would you like to provide any additional information related to your availability?",
+			},
+			yourDreamJob: {
+				description:
+					"What job do you want to have in 2-5 years? We'll match you with other people that have a similar goal.",
+				privacyInformation:
+					"This information will not be shared with any employer when you apply to a job.",
+				label: "Your Dream Job",
+				placeholder: "What job do you want to have in 2-5 years?",
+			},
+		},
+		submit: "Create Profile",
+		update: "Update Profile",
 	},
 	resources: {
 		featuredResources: "Featured Resources",
@@ -466,6 +694,40 @@ export default {
 			location: "Location",
 		},
 		read: "Read",
+	},
+	forEmployers: {
+		heading: {
+			hiringMade: "Hiring made",
+			easier: "easier",
+			faster: "faster",
+			and: "and",
+			affordable: "affordable",
+			with: "with",
+			Vize: "Vize",
+		},
+		subheading:
+			"Post jobs and we'll rank ad filter the right factory workers in Tijuana for your factory",
+		getStarted: "Get Started",
+		signUpToday: "Sign Up Today",
+		benefits: {
+			saveMoneyHeading: "Save Money",
+			saveMoneyDescription:
+				"Get two months of free and unlimited job posts by signing up today.You can hire workforce you need easier, faster, and more affordable by reaching over 3000 factory workers on our site.",
+			saveTimeHeading: "Save Time",
+			saveTimeDescription:
+				"We rank and filter all of your applications on a weekly basis to find factory workers that are tailored to your needs (availability, skills, education level, and more) so you don’t have to sort through CVs yourself.",
+			getResultsHeading: "Get Results",
+			getResultsDescription:
+				"You only pay for results. We charge 5 pesos per job application, rather than charging a monthly subscription. This saves you money, gives you the flexibility to post as many jobs as you need, when you need them, and for however many workers you need.",
+		},
+		exampleJobPost: {
+			heading: "Job Posts",
+			subheading: "Get your job posts in front of the right people",
+		},
+		rankedApplicants: {
+			heading: "Ranked Applicants",
+			subheading: "Find factory workers that are tailored to your needs (availability, skills, education, level and more)",
+		},
 	},
 	legacyTranslationsNeedsRefactor: {
 		passwordChanger: {
@@ -526,7 +788,7 @@ export default {
 			readReviews:
 				"Read reviews written by other employees that work at this company to gather more information about what it is like to work there.",
 			readReviewsButton: "Leer Evaluaciones",
-			viewMoreJobs: "View More Jobs From Other Companies",
+			viewMoreJobs: "View More Jobs",
 			referralMessage:
 				"Do you know someone that is looking for a job? You can share the link below or use one of the buttons below to share the jobs page to WhatsApp or Facebook.",
 		},
@@ -545,55 +807,6 @@ export default {
 			placeholder_name: "Your Name",
 			placeholder_email: "Eg. example@email.com",
 			placeholder_comments: "Please enter your comments...",
-		},
-		forEmployers: {
-			resourcesPageText:
-				"Learn how you can lower turnover rates, decrease recruiting costs, improve your recruiting practices, and much more with our resources",
-			resources: "Resources",
-			headerText:
-				"Recruit and retain the best workforce in Tijuana with Vize",
-			getStarted: "Get Started",
-			heading1: "The Problem",
-			card1part1: "Many factories like yours face turnover rates of",
-			card1part2: " of their workforce",
-			card1part3: " every year",
-			card2part1:
-				"High turnover rates force you to spend more time and money on",
-			card2part2: " recruiting and training",
-			card3part1: "Losing 1 worker can cost you at least",
-			card3part2: " $615 every month",
-			heading2: "The Solution",
-			recruitingHeading: "Recruiting",
-			recruitingText:
-				"We help you recruit the best employees with affordable and effective job posts.",
-			retainmentHeading: "Retainment",
-			retainmentText:
-				"We then give you actionable insights on how to retain these employees using data directly from workers all across Tijuana.",
-			heading3: "Pricing",
-			pricingText1: "The first 10 customers get full",
-			pricingText2: "premium access",
-			pricingText3: " to our services",
-			pricingText4: "FOR FREE",
-			pricingText5: "for the first 90 days.",
-			businessHeading: "Buisness",
-			businessText1: "5 Job Posts",
-			businessText2: "Data Analytics Dashboard",
-			businessText3: "Buisiness Resources",
-			premiumHeading: "Premium",
-			premiumText1: "10 Job Posts",
-			premiumText2: "Data Analytics Dashboard",
-			premiumText3: "Buisiness Resources",
-			premiumText4: "Individualized Analysis and Consulting",
-			img: {
-				exampleJobPost: {
-					src: exampleJobPostSquareEn,
-					alt: "",
-				},
-				analyticsDashboard: {
-					src: analyticsDashboardEn,
-					alt: "",
-				},
-			},
 		},
 		companyreview: {
 			recommend: "Recommended",

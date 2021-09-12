@@ -1,0 +1,44 @@
+mutation createUserProfile($input: UserProfileInput!) {
+	createUserProfile(input: $input) {
+		userProfile {
+			...UserProfileData
+		}
+	}
+}
+
+mutation updateUserProfile($input: UserProfileInput!) {
+	updateUserProfile(input: $input) {
+		userProfile {
+			...UserProfileData
+		}
+	}
+}
+
+query getUserProfileData {
+	userProfile {
+		...UserProfileData
+	}
+}
+
+fragment UserProfileData on UserProfile {
+	id
+	fullName
+	phoneNumber
+	city
+	email
+	neighborhood
+	workExperiences {
+		jobTitle
+		companyName
+		city
+		startDate
+		endDate
+		experienceDescription
+	}
+	skills
+	certificatesAndLicences
+	highestLevelOfEducation
+	englishProficiency
+	availability
+	availabilityComments
+}

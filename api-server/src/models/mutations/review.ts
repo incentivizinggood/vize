@@ -8,12 +8,7 @@ import { locationInputSchema } from "./location";
 
 type PhoneNumber = undefined | string;
 
-const starRatingSchema = yup
-	.number()
-	.integer()
-	.min(0)
-	.max(5)
-	.required();
+const starRatingSchema = yup.number().integer().min(0).max(5).required();
 
 const createReviewInputSchema = yup
 	.object({
@@ -21,10 +16,7 @@ const createReviewInputSchema = yup
 		reviewTitle: yup.string().required(),
 		location: locationInputSchema,
 		jobTitle: yup.string().required(),
-		numberOfMonthsWorked: yup
-			.number()
-			.min(0)
-			.required(),
+		numberOfMonthsWorked: yup.number().min(0).required(),
 		contractType: yup
 			.string()
 			.oneOf([
@@ -35,10 +27,7 @@ const createReviewInputSchema = yup
 				"CONTRACTOR",
 			])
 			.required(),
-		employmentStatus: yup
-			.string()
-			.oneOf(["FORMER", "CURRENT"])
-			.required(),
+		employmentStatus: yup.string().oneOf(["FORMER", "CURRENT"]).required(),
 		pros: yup.string().required(),
 		cons: yup.string().required(),
 		wouldRecommendToOtherJobSeekers: yup.boolean().required(),
@@ -76,7 +65,7 @@ export async function createReview(
 		referredBy,
 	} = await createReviewInputSchema.validate(input);
 
-	const transaction: Transaction<number> = async client => {
+	const transaction: Transaction<number> = async (client) => {
 		let phoneNumberReviewer: PhoneNumber = undefined;
 		let phoneNumberReferredBy: PhoneNumber = undefined;
 		let totalReviewsCount = 0;

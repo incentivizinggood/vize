@@ -15,9 +15,9 @@ import InnerForm from "./create-salary-inner-form";
 function omitEmptyStrings(x) {
 	if (x === "") return undefined;
 	if (x instanceof Array)
-		return filter(map(x, omitEmptyStrings), y => y !== undefined);
+		return filter(map(x, omitEmptyStrings), (y) => y !== undefined);
 	if (x instanceof Object)
-		return omitBy(mapValues(x, omitEmptyStrings), y => y === undefined);
+		return omitBy(mapValues(x, omitEmptyStrings), (y) => y === undefined);
 	return x;
 }
 
@@ -71,14 +71,12 @@ export default function CreateSalaryForm({ companyName }) {
 			},
 		})
 			.then(({ data }) => {
-				console.log("data", data);
-
 				actions.resetForm(initialValues);
 
 				// Go to the review submitted page so that the user can claim their reward.
 				history.push("/");
 			})
-			.catch(errors => {
+			.catch((errors) => {
 				// Error in English: Not Logged In
 				if (
 					errors.message.includes(
@@ -86,8 +84,8 @@ export default function CreateSalaryForm({ companyName }) {
 					)
 				) {
 					setContent(
-						<PopupModal isOpen={true}>
-							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para escribir una evaluación" />
+						<PopupModal isOpen={true} closeModalButtonColor="white">
+							<RegisterLoginModal errorText="Crea una cuenta o inicia una sesión para agregar un salario" />
 						</PopupModal>
 					);
 				} else {
