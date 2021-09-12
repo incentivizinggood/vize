@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 import { colors } from "src/global-styles";
@@ -20,6 +20,7 @@ import Tab from "@material-ui/core/Tab";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import WorkIcon from "@material-ui/icons/Work";
 import JobPostPreview from "./JobPostPreview";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 const BorderLinearProgress = withStyles((theme) => ({
 	root: {
 		height: 35,
@@ -73,15 +74,17 @@ const StyledModal = styled(Modal)`
 const JobPostContent = styled.div`
 	margin-top: 40px;
 	background: white;
-	padding: 10px 20px;
+	padding: 20px;
 	border-radius: ${borderRadius.container};
 	height: 100%;
 `;
 const ScrollableContent = styled.div`
-	height: 430px;
+	height: 410px;
 	overflow-y: auto;
 	overflow-x: hidden;
+	padding: 10px;
 `;
+const CompanyContent = styled.div``;
 const CompanyContent = styled.div``;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -107,12 +110,28 @@ const CompanyRating = styled.div`
 	border-radius: ${borderRadius.container};
 	background-color: #eaf7ff;
 	.list-group-item:first-child {
-		background: #eaf7ff;
+		background: #eff6fa;
+	}
+	.list-group .highlighted {
+		background-color: ${colors.tertiaryColorLightBlue};
+	}
+	.list-group .even {
+		background-color: #eff6fa;
 	}
 `;
 const RatingContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
+	font-size: ${(p: { highlighted?: boolean }) =>
+		p.highlighted ? "18px" : "14px"};
+	font-weight: ${(p: { highlighted?: boolean }) =>
+		p.highlighted ? "700" : "normal"};
+	span:first-child {
+		width: 150px;
+	}
+	span:last-child {
+		width: 20px;
+	}
 `;
 const StatesWrapper = styled.div`
 	display: flex;
@@ -120,7 +139,7 @@ const StatesWrapper = styled.div`
 	height: inherit;
 `;
 const Stats = styled.div`
-	background-color: #eaf7ff;
+	background: #eff6fa;
 	border-radius: ${borderRadius.container};
 	display: flex;
 	justify-content: center;
@@ -136,7 +155,6 @@ const Stats = styled.div`
 const RatingTitle = styled.div`
 	display: flex;
 	align-items: center;
-	background-color: #eaf7ff;
 	padding: 5px;
 	font-weight: 900;
 	font-size: 16px;
@@ -153,7 +171,7 @@ const Column = styled(Col)`
 	height: 300px;
 `;
 const CommpanyReviewsWrapper = styled.div`
-	margin-top: 20px;
+	margin-top: 40px;
 `;
 const ReviewTitleRow = styled.div`
 	display: flex;
@@ -175,8 +193,14 @@ const ViewAllReview = styled.div`
 		cursor: pointer;
 	}
 `;
+const ViewAllButton = styled.div`
+	margin-top: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+`;
 const ReviewDetails = styled.div`
-	padding: 5px;
+	padding: 15px;
 	margin-top: 10px;
 	border-radius: ${borderRadius.container};
 	border: 1px solid #efefef;
@@ -195,6 +219,15 @@ const ReviewedBy = styled.div`
 `;
 const PostedDate = styled.span`
 	color: grey;
+`;
+const ReviewRatingWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+`;
+const ReviewRating = styled.div`
+	display: flex;
+	flex-direction: column;
 `;
 const ReviewRating = styled.button``;
 const ReviewComments = styled.div`
@@ -224,7 +257,7 @@ const ReviewCommentHeader = styled(Col)`
 	border-radius: ${borderRadius.container};
 `;
 const AveeragePay = styled.div`
-	margin-top: 20px;
+	margin-top: 5px;
 	margin-bottom: 20px;
 `;
 const GreyText = styled.span`
@@ -234,6 +267,23 @@ const SalaryRangeValues = styled.span`
 	display: flex;
 	justify-content: space-between;
 `;
+const JobLocationList = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+const JobLocationText = styled.span``;
+const JobList = styled(Row)`
+	margin-top: 10px;
+`;
+const RecommendedButton = styled.button`
+	color: ${colors.secondaryColorGreen};
+	background-color: #def1de;
+	border-radius: 6px;
+`;
+const ButtonText = styled.div`
+	display: flex;
+	align-items: center;
+`;
 
 Modal.setAppElement("#app-root");
 export default function JobDetailModal(
@@ -241,7 +291,8 @@ export default function JobDetailModal(
 ): JSX.Element {
 	const { visible, jobPost, onClose } = props;
 	const [activetTab, setActiveTab] = useState(1);
-	console.log("jobPost", jobPost);
+	const jobContentRef = useRef(null);
+	const companyContentRef = useRef(null);
 	return (
 		<StyledModal
 			isOpen={visible}
@@ -259,6 +310,17 @@ export default function JobDetailModal(
 					indicatorColor="primary"
 					textColor="primary"
 					onChange={(e, newValue) => {
+						if (newValue === 1) {
+							jobContentRef.current.scrollIntoView({
+								behavior: "smooth",
+								block: "start",
+							});
+						} else {
+							companyContentRef.current.scrollIntoView({
+								behavior: "smooth",
+								block: "start",
+							});
+						}
 						setActiveTab(newValue);
 					}}
 					aria-label="disabled tabs example"
@@ -266,398 +328,445 @@ export default function JobDetailModal(
 					<Tab value={1} label="Job" />
 					<Tab value={2} label="Company" />
 				</Tabs>
-				{activetTab === 1 ? (
-					<ScrollableContent>
+				<ScrollableContent>
+					<div ref={jobContentRef}>
 						<JobContentWrapper {...jobPost}></JobContentWrapper>
-					</ScrollableContent>
-				) : (
-					<ScrollableContent>
-						<CompanyContent>
-							<JobRequirementWrapper>
-								<JobRequirementTitle>
-									<img src={descriptionImage} alt=""></img>
-									<span>&nbsp;Descripción</span>
-								</JobRequirementTitle>
-								<JobRequirementDescription>
-									{jobPost.companyDetail.description}
-								</JobRequirementDescription>
-							</JobRequirementWrapper>
-							<JobCompanyBasicDetail>
-								<Row>
-									<Col md={3}>
-										<strong>Size</strong>
-									</Col>
-									<Col>{jobPost.companyDetail.size}</Col>
-								</Row>
-								<Row>
-									<Col md={3}>
-										<strong>Industry</strong>
-									</Col>
-									<Col>{jobPost.companyDetail.industry}</Col>
-								</Row>
-								<Row>
-									<Col md={3}>
-										<strong>Website</strong>
-									</Col>
-									<Col>
-										{jobPost.companyDetail.companyWebsite}
-									</Col>
-								</Row>
-								<Row>
-									<Col md={3}>
-										<strong>Location</strong>
-									</Col>
-									<Col>{jobPost.companyDetail.location}</Col>
-								</Row>
-							</JobCompanyBasicDetail>
-							<CompanyRatingsWrapper>
-								<Row>
-									<Column md={6}>
-										<CompanyRating>
-											<ListGroup>
-												<ListGroup.Item>
-													<RatingTitle>
-														<StarsIcon />
-														&nbsp;Ratings
-													</RatingTitle>
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<RatingContainer>
-														<span>
-															Average Rating
-														</span>
-														<div>
-															<StarRatings
-																rating={
-																	jobPost
-																		.companyDetail
-																		.ratings
-																		.average
-																}
-																starDimension="15px"
-																starSpacing="1.5px"
-															/>
-														</div>
-													</RatingContainer>
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<RatingContainer>
-														<span>
-															Overall Satisfaction
-														</span>
-														<div>
-															<StarRatings
-																rating={
-																	jobPost
-																		.companyDetail
-																		.ratings
-																		.overallSatisfaction
-																}
-																starDimension="15px"
-																starSpacing="1.5px"
-															/>
-														</div>
-													</RatingContainer>
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<RatingContainer>
-														<span>
-															Health and Safety
-														</span>
-														<div>
-															<StarRatings
-																rating={
-																	jobPost
-																		.companyDetail
-																		.ratings
-																		.healthAndSafeety
-																}
-																starDimension="15px"
-																starSpacing="1.5px"
-															/>
-														</div>
-													</RatingContainer>
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<RatingContainer>
-														<span>
-															Work Environment
-														</span>
-														<div>
-															<StarRatings
-																rating={
-																	jobPost
-																		.companyDetail
-																		.ratings
-																		.workEnvironment
-																}
-																starDimension="15px"
-																starSpacing="1.5px"
-															/>
-														</div>
-													</RatingContainer>
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<RatingContainer>
-														<span>
-															Manager
-															Relationships
-														</span>
-														<div>
-															<StarRatings
-																rating={
-																	jobPost
-																		.companyDetail
-																		.ratings
-																		.managerRelationships
-																}
-																starDimension="15px"
-																starSpacing="1.5px"
-															/>
-														</div>
-													</RatingContainer>
-												</ListGroup.Item>
-												<ListGroup.Item>
-													<RatingContainer>
-														<span>Benefits</span>
-														<div>
-															<StarRatings
-																rating={
-																	jobPost
-																		.companyDetail
-																		.ratings
-																		.benefits
-																}
-																starDimension="15px"
-																starSpacing="1.5px"
-															/>
-														</div>
-													</RatingContainer>
-												</ListGroup.Item>
-											</ListGroup>
-										</CompanyRating>
-									</Column>
-									<Column md={6}>
-										<StatesWrapper>
-											<Stats>
-												<div>
-													<StatesTitle>
-														{
-															jobPost
-																.companyDetail
-																.recommendationPercenteage
-														}
-														%
-													</StatesTitle>
+					</div>
+					<CompanyContent ref={companyContentRef}>
+						<JobRequirementWrapper>
+							<JobRequirementTitle>
+								<img src={descriptionImage} alt=""></img>
+								<span>&nbsp;Descripción</span>
+							</JobRequirementTitle>
+							<JobRequirementDescription>
+								{jobPost.companyDetail.description}
+							</JobRequirementDescription>
+						</JobRequirementWrapper>
+						<JobCompanyBasicDetail>
+							<Row>
+								<Col md={3}>
+									<strong>Size</strong>
+								</Col>
+								<Col>{jobPost.companyDetail.size}</Col>
+							</Row>
+							<Row>
+								<Col md={3}>
+									<strong>Industry</strong>
+								</Col>
+								<Col>{jobPost.companyDetail.industry}</Col>
+							</Row>
+							<Row>
+								<Col md={3}>
+									<strong>Website</strong>
+								</Col>
+								<Col>
+									{jobPost.companyDetail.companyWebsite}
+								</Col>
+							</Row>
+							<Row>
+								<Col md={3}>
+									<strong>Location</strong>
+								</Col>
+								<Col>
+									<JobLocationList>
+										{jobPost.companyDetail.location.map(
+											(v) => {
+												return (
+													<JobLocationText key={v}>
+														{v}
+													</JobLocationText>
+												);
+											}
+										)}
+									</JobLocationList>
+								</Col>
+							</Row>
+						</JobCompanyBasicDetail>
+						<CompanyRatingsWrapper>
+							<Row>
+								<Column md={6}>
+									<CompanyRating>
+										<ListGroup>
+											<ListGroup.Item>
+												<RatingTitle>
+													<StarsIcon />
+													&nbsp;{jobPost.company}{" "}
+													Ratings
+												</RatingTitle>
+											</ListGroup.Item>
+											<ListGroup.Item className="highlighted">
+												<RatingContainer highlighted>
+													<span>Average Rating</span>
+													<div>
+														<StarRatings
+															rating={
+																jobPost
+																	.companyDetail
+																	.ratings
+																	.average
+															}
+															starDimension="18px"
+															starSpacing="2px"
+														/>
+													</div>
 													<span>
-														The percentage of
-														reviewers that would
-														recommend{" "}
-														{jobPost.company} to a
-														friend
-													</span>
-												</div>
-											</Stats>
-											<Stats>
-												<div>
-													<StatesTitle>
 														{
-															jobPost
-																.companyDetail
-																.averageStay
-														}
-													</StatesTitle>
-													The average numbe of months
-													that workeer stays at the
-													factory
-												</div>
-											</Stats>
-										</StatesWrapper>
-									</Column>
-								</Row>
-							</CompanyRatingsWrapper>
-							<CommpanyReviewsWrapper>
-								<ReviewTitleRow>
-									<NumberOfReview>
-										<RateReviewIcon />
-										<span>
-											&nbsp;
-											{
-												jobPost.companyDetail
-													.reviewCount
-											}{" "}
-											Reviews
-										</span>
-									</NumberOfReview>
-									<ViewAllReview>
-										<a href="#">View All Reviews</a>
-									</ViewAllReview>
-								</ReviewTitleRow>
-								{jobPost.companyDetail.reviews.map(
-									(v: any, index: number) => {
-										return (
-											<ReviewDetails key={index}>
-												<ReviewHeader>
-													<ReviewedBy>
-														<span>
-															{v.reviewedBy}
-														</span>
-														&nbsp;
-														<PostedDate>
-															{v.reviewedOn}
-														</PostedDate>
-													</ReviewedBy>
-													<Button $primary>
-														Recommends{" "}
-														{jobPost.company}
-													</Button>
-												</ReviewHeader>
-												<ReviewRating>
-													<StarRatings
-														rating={
 															jobPost
 																.companyDetail
 																.ratings.average
 														}
-														starDimension="15px"
-														starSpacing="1.5px"
+													</span>
+												</RatingContainer>
+											</ListGroup.Item>
+											<ListGroup.Item className="even">
+												<RatingContainer>
+													<span>
+														Overall Satisfaction
+													</span>
+													<div>
+														<StarRatings
+															rating={
+																jobPost
+																	.companyDetail
+																	.ratings
+																	.overallSatisfaction
+															}
+															starDimension="15px"
+															starSpacing="1.5px"
+														/>
+													</div>
+													<span>
+														{
+															jobPost
+																.companyDetail
+																.ratings
+																.overallSatisfaction
+														}
+													</span>
+												</RatingContainer>
+											</ListGroup.Item>
+											<ListGroup.Item>
+												<RatingContainer>
+													<span>
+														Health and Safety
+													</span>
+													<div>
+														<StarRatings
+															rating={
+																jobPost
+																	.companyDetail
+																	.ratings
+																	.healthAndSafeety
+															}
+															starDimension="15px"
+															starSpacing="1.5px"
+														/>
+													</div>
+													<span>
+														{
+															jobPost
+																.companyDetail
+																.ratings
+																.healthAndSafeety
+														}
+													</span>
+												</RatingContainer>
+											</ListGroup.Item>
+											<ListGroup.Item className="even">
+												<RatingContainer>
+													<span>
+														Work Environment
+													</span>
+													<div>
+														<StarRatings
+															rating={
+																jobPost
+																	.companyDetail
+																	.ratings
+																	.workEnvironment
+															}
+															starDimension="15px"
+															starSpacing="1.5px"
+														/>
+													</div>
+													<span>
+														{
+															jobPost
+																.companyDetail
+																.ratings
+																.workEnvironment
+														}
+													</span>
+												</RatingContainer>
+											</ListGroup.Item>
+											<ListGroup.Item>
+												<RatingContainer>
+													<span>
+														Manager Relationships
+													</span>
+													<div>
+														<StarRatings
+															rating={
+																jobPost
+																	.companyDetail
+																	.ratings
+																	.managerRelationships
+															}
+															starDimension="15px"
+															starSpacing="1.5px"
+														/>
+													</div>
+													<span>
+														{
+															jobPost
+																.companyDetail
+																.ratings
+																.managerRelationships
+														}
+													</span>
+												</RatingContainer>
+											</ListGroup.Item>
+											<ListGroup.Item className="even">
+												<RatingContainer>
+													<span>Benefits</span>
+													<div>
+														<StarRatings
+															rating={
+																jobPost
+																	.companyDetail
+																	.ratings
+																	.benefits
+															}
+															starDimension="15px"
+															starSpacing="1.5px"
+														/>
+													</div>
+													<span>
+														{
+															jobPost
+																.companyDetail
+																.ratings
+																.benefits
+														}
+													</span>
+												</RatingContainer>
+											</ListGroup.Item>
+										</ListGroup>
+									</CompanyRating>
+								</Column>
+								<Column md={6}>
+									<StatesWrapper>
+										<Stats>
+											<div>
+												<StatesTitle>
+													{
+														jobPost.companyDetail
+															.recommendationPercenteage
+													}
+													%
+												</StatesTitle>
+												<span>
+													The percentage of reviewers
+													that would recommend{" "}
+													{jobPost.company} to a
+													friend
+												</span>
+											</div>
+										</Stats>
+										<Stats>
+											<div>
+												<StatesTitle>
+													{
+														jobPost.companyDetail
+															.averageStay
+													}
+												</StatesTitle>
+												The average numbe of months that
+												workeer stays at the factory
+											</div>
+										</Stats>
+									</StatesWrapper>
+								</Column>
+							</Row>
+						</CompanyRatingsWrapper>
+						<CommpanyReviewsWrapper>
+							<ReviewTitleRow>
+								<NumberOfReview>
+									<RateReviewIcon />
+									<span>
+										&nbsp;
+										{jobPost.companyDetail.reviewCount}{" "}
+										Reviews
+									</span>
+								</NumberOfReview>
+							</ReviewTitleRow>
+							{jobPost.companyDetail.reviews.map(
+								(v: any, index: number) => {
+									return (
+										<ReviewDetails key={index}>
+											<ReviewHeader>
+												<ReviewedBy>
+													<span>{v.reviewedBy}</span>
+													&nbsp;
+													<PostedDate>
+														Posted {v.reviewedOn}
+													</PostedDate>
+												</ReviewedBy>
+											</ReviewHeader>
+											<ReviewRatingWrapper>
+												<ReviewRating>
+													<span>{v.title}</span>
+													<RatingsDropdownReview
+														ratings={{
+															healthAndSafety:
+																v.rating
+																	.healthAndSafety,
+															managerRelationship:
+																v.rating
+																	.managerRelationship,
+															workEnvironment:
+																v.rating
+																	.workEnvironment,
+															benefits:
+																v.rating
+																	.benefits,
+															overallSatisfaction:
+																v.rating
+																	.overallSatisfaction,
+														}}
+														companyName=""
 													/>
 												</ReviewRating>
-												<ReviewComments>
-													<ReviewCommentsRow>
-														<ReviewCommentsColumn
-															md={6}
-														>
-															<ReviewCommentHeader>
-																Pros
-															</ReviewCommentHeader>
-															<span>
-																{v.pros}
-															</span>
-														</ReviewCommentsColumn>
-														<ReviewCommentsColumn
-															md={6}
-														>
-															<ReviewCommentHeader>
-																Cons
-															</ReviewCommentHeader>
-															<span>
-																{v.cons}
-															</span>
-														</ReviewCommentsColumn>
-													</ReviewCommentsRow>
-													<ReviewCommentsRow>
-														<ReviewCommentsColumn
-															md={12}
-														>
-															<ReviewCommentHeader>
-																AdditionalComments
-															</ReviewCommentHeader>
-															<span>
-																{
-																	v.additionalComments
-																}
-															</span>
-														</ReviewCommentsColumn>
-													</ReviewCommentsRow>
-												</ReviewComments>
-											</ReviewDetails>
-										);
-									}
-								)}
-							</CommpanyReviewsWrapper>
-							<CommpanyReviewsWrapper>
-								<ReviewTitleRow>
-									<NumberOfReview>
-										<RateReviewIcon />
-										<span>
-											&nbsp;
-											{jobPost.companyDetail.salaries
-												? jobPost.companyDetail.salaries
-														.length
-												: 0}{" "}
-											Salary
-										</span>
-									</NumberOfReview>
-									<ViewAllReview>
-										<a href="#">View All Salaries</a>
-									</ViewAllReview>
-								</ReviewTitleRow>
-								{jobPost.companyDetail.salaries.map(
+												<RecommendedButton>
+													<ButtonText>
+														<CheckCircleOutlineIcon />
+														&nbsp; Recommends{" "}
+														{jobPost.company}
+													</ButtonText>
+												</RecommendedButton>
+											</ReviewRatingWrapper>
+											<ReviewComments>
+												<ReviewCommentsRow>
+													<ReviewCommentsColumn
+														md={6}
+													>
+														<ReviewCommentHeader>
+															Pros
+														</ReviewCommentHeader>
+														<span>{v.pros}</span>
+													</ReviewCommentsColumn>
+													<ReviewCommentsColumn
+														md={6}
+													>
+														<ReviewCommentHeader>
+															Cons
+														</ReviewCommentHeader>
+														<span>{v.cons}</span>
+													</ReviewCommentsColumn>
+												</ReviewCommentsRow>
+												<ReviewCommentsRow>
+													<ReviewCommentsColumn
+														md={12}
+													>
+														<ReviewCommentHeader>
+															Additional Comments
+														</ReviewCommentHeader>
+														<span>
+															{
+																v.additionalComments
+															}
+														</span>
+													</ReviewCommentsColumn>
+												</ReviewCommentsRow>
+											</ReviewComments>
+										</ReviewDetails>
+									);
+								}
+							)}
+							<ViewAllButton>
+								<Button $primary>View All Reviews</Button>
+							</ViewAllButton>
+						</CommpanyReviewsWrapper>
+						<CommpanyReviewsWrapper>
+							<ReviewTitleRow>
+								<NumberOfReview>
+									<RateReviewIcon />
+									<span>
+										&nbsp;
+										{jobPost.companyDetail.salaries
+											? jobPost.companyDetail.salaries
+													.length
+											: 0}{" "}
+										Salary
+									</span>
+								</NumberOfReview>
+							</ReviewTitleRow>
+							{jobPost.companyDetail.salaries.map(
+								(v: any, index: number) => {
+									return (
+										<ReviewDetails key={index}>
+											<ReviewHeader>
+												<ReviewedBy>
+													<span>{v.position}</span>
+												</ReviewedBy>
+											</ReviewHeader>
+											<AveeragePay>
+												<GreyText>Average</GreyText>{" "}
+												<span>: $ {v.pay} / week</span>
+											</AveeragePay>
+											<BorderLinearProgress
+												variant="determinate"
+												value={50}
+											/>
+											<SalaryRangeValues>
+												{v.range.map((v) => {
+													return (
+														<span key={v}>
+															${v}
+														</span>
+													);
+												})}
+											</SalaryRangeValues>
+										</ReviewDetails>
+									);
+								}
+							)}
+							<ViewAllButton>
+								<Button $primary>View All Salaries</Button>
+							</ViewAllButton>
+						</CommpanyReviewsWrapper>
+						<CommpanyReviewsWrapper>
+							<ReviewTitleRow>
+								<NumberOfReview>
+									<WorkIcon />
+									<span>&nbsp;Additional Jobs</span>
+								</NumberOfReview>
+							</ReviewTitleRow>
+							<JobList>
+								{jobPost.companyDetail.jobs.map(
 									(v: any, index: number) => {
 										return (
-											<ReviewDetails key={index}>
-												<ReviewHeader>
-													<ReviewedBy>
-														<span>
-															{v.position}
-														</span>
-													</ReviewedBy>
-												</ReviewHeader>
-												<AveeragePay>
-													<GreyText>Average</GreyText>{" "}
-													<span>
-														: $ {v.pay} / week
-													</span>
-												</AveeragePay>
-												<BorderLinearProgress
-													variant="determinate"
-													value={50}
+											<Col
+												xs={12}
+												sm={6}
+												md={6}
+												key={v.id}
+											>
+												<JobPostPreview
+													job={...v}
+													hideButtons
 												/>
-												<SalaryRangeValues>
-													{v.range.map((v) => {
-														return (
-															<span key={v}>
-																${v}
-															</span>
-														);
-													})}
-												</SalaryRangeValues>
-											</ReviewDetails>
+											</Col>
 										);
 									}
 								)}
-							</CommpanyReviewsWrapper>
-							<CommpanyReviewsWrapper>
-								<ReviewTitleRow>
-									<NumberOfReview>
-										<WorkIcon />
-										<span>
-											&nbsp;
-											{jobPost.companyDetail.jobs
-												? jobPost.companyDetail.jobs
-														.length
-												: 0}{" "}
-											Jobs
-										</span>
-									</NumberOfReview>
-									<ViewAllReview>
-										<a href="#">View All Jobs</a>
-									</ViewAllReview>
-								</ReviewTitleRow>
-								<Row>
-									{jobPost.companyDetail.jobs.map(
-										(v: any, index: number) => {
-											return (
-												<Col
-													xs={12}
-													sm={6}
-													md={6}
-													key={v.id}
-												>
-													<JobPostPreview
-														job={...v}
-														hideButtons
-													/>
-												</Col>
-											);
-										}
-									)}
-								</Row>
-							</CommpanyReviewsWrapper>
-						</CompanyContent>
-					</ScrollableContent>
-				)}
+							</JobList>
+							<ViewAllButton>
+								<Button $primary>View All Jobs</Button>
+							</ViewAllButton>
+						</CommpanyReviewsWrapper>
+					</CompanyContent>
+				</ScrollableContent>
 			</JobPostContent>
 		</StyledModal>
 	);

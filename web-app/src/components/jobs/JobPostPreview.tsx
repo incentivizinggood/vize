@@ -13,7 +13,7 @@ const JobPostPreviewWrapper = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
 	margin-bottom: 10px;
-	padding: 15px;
+	padding: 20px;
 	box-shadow: ${boxShadow.wide};
 	cursor: pointer;
 `;
@@ -129,7 +129,7 @@ export default function JobPostPreview(
 				<HeaderTextItemsContainer>
 					<CompanyNameAndPostedDateContainer>
 						<CompanyName>{job.company}</CompanyName>
-						<PostedDate>{job.postedTimeAgo}</PostedDate>
+						<PostedDate>Posted {job.postedTimeAgo}</PostedDate>
 					</CompanyNameAndPostedDateContainer>
 					<JobTitle>{job.jobPost}</JobTitle>
 					<RatingWrapper>
