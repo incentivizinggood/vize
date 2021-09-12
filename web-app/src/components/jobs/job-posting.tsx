@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import colors from "src/colors";
-
+import ReactMarkdown from "react-markdown";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
@@ -150,7 +150,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	const showJobSchedule =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
 
-	// A job post will not be minimizable if we are only looking at that one job post (using the job post link). 
+	// A job post will not be minimizable if we are only looking at that one job post (using the job post link).
 	// In this case, we want to display all of the data for the job post without having to minizmize or expand the details
 	const QualificationsAndResponsibilities = () => {
 		if (isMinimizable) {
@@ -160,13 +160,13 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 					<h4>
 						<T.showjob.qualifications />
 					</h4>
-					<p>{job.qualifications} </p>
+					<ReactMarkdown source={job.qualifications} />
 					<br />
 					<div>
 						<h4>
 							<T.showjob.responsibilities />
 						</h4>
-						<p>{job.responsibilities}</p>
+						<ReactMarkdown source={job.responsibilities} />
 					</div>
 				</div>
 			);
@@ -177,13 +177,13 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				<h4>
 					<T.showjob.qualifications />
 				</h4>
-				<p>{job.qualifications} </p>
+				<ReactMarkdown source={job.qualifications} />
 				<br />
 				<div>
 					<h4>
 						<T.showjob.responsibilities />
 					</h4>
-					<p>{job.responsibilities}</p>
+					<ReactMarkdown source={job.responsibilities} />
 				</div>
 			</>
 		);
@@ -267,7 +267,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 			</h4>
 			<div className="h4-font-sz">
 				<article>
-					<p>{job.jobDescription}</p>
+					<ReactMarkdown source={job.jobDescription} />
 					<input
 						id={job.id}
 						className="read-more-toggle"
