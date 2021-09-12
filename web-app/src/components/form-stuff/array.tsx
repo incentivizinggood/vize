@@ -23,7 +23,7 @@ const ElementContainer = styled.div`
 const ElementHeading = styled.h5`
 	text-transform: capitalize;
 	color: hsl(204, 63%, 55%);
-	// margin-bottom: 20px;
+	white-space: nowrap;
 `;
 // const ElementDeleteButton = styled(Button)`
 // 	&&&&&&&&& {
@@ -85,11 +85,16 @@ function FormArray({
 				render={(arrayHelpers) => (
 					<ArrayContainer>
 						{values[name] && values[name].length > 0
-							? values[name].map((x: unknown, index: number) => (
-									<ElementContainer>
+							? values[name].map((_: unknown, index: number) => (
+									<ElementContainer key={index}>
 										<ElementHeader>
 											<ElementHeading>
-												{name}
+												{name.substring(
+													0,
+													name.length - 1
+												) +
+													" " +
+													(index + 1)}
 											</ElementHeading>
 											<HeaderHorizontalLine />
 
@@ -115,7 +120,7 @@ function FormArray({
 									</ElementContainer>
 							  ))
 							: null}
-						{!(name === "shifts" && values.shifts?.length >= 3) && (
+						{!(name === "shift" && values.shifts?.length >= 3) && (
 							<ElementAddButton
 								type="button"
 								onClick={() => arrayHelpers.push("")}

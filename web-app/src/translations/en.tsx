@@ -350,26 +350,28 @@ export default {
 				placeholder:
 					"Enter the certificates and licences preferred for this position",
 			},
-			minimunEducation: {	
+			minimunEducation: {
 				label: "Minimum level of education",
-					someHighSchool: "Some High School",
-					completedHighSchool: "Completed High School",
-					someCollege: "Some College",
-					collegeDegree: "College Degree",
+				someHighSchool: "Some High School",
+				completedHighSchool: "Completed High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
 			},
 			minimumLanguage: {
-					label: "English Proficiency",
-					native: "Native",
-					conversational: "Conversational",
-					fluent: "Fluent",
-					basic: "Basic",
-					none: "None",
+				label: "English Proficiency",
+				native: "Native",
+				conversational: "Conversational",
+				fluent: "Fluent",
+				basic: "Basic",
+				none: "None",
 			},
 			locations: {
 				label: "Locations",
-				addElement: ({ array }: { array: unknown[] }) =>{
+				addElement: ({ array }: { array: unknown[] }) => {
 					// console.log("Locations", array)
-					return `Add ${array?.length > 0 ? "another" : "a"} location`
+					return `Add ${
+						array?.length > 0 ? "another" : "a"
+					} location`;
 				},
 				city: {
 					label: "Add a city for a job",
@@ -387,7 +389,7 @@ export default {
 			jobSchedule: {
 				label: "Shifts",
 				addElement: ({ array }: { array: unknown[] }) => {
-					return `Add ${array?.length > 0 ? "another" : "a"} Shifts`;
+					return `Add ${array?.length > 0 ? "another" : "a"} shift`;
 				},
 				startDay: {
 					label: "Working Days From",
@@ -726,7 +728,8 @@ export default {
 		},
 		rankedApplicants: {
 			heading: "Ranked Applicants",
-			subheading: "Find factory workers that are tailored to your needs (availability, skills, education, level and more)",
+			subheading:
+				"Find factory workers that are tailored to your needs (availability, skills, education, level and more)",
 		},
 	},
 	legacyTranslationsNeedsRefactor: {

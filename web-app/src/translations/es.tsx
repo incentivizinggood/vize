@@ -425,9 +425,9 @@ export default {
 				hourlyWage: "Sueldo por Hora",
 			},
 			jobSchedule: {
-				label: "Shifts",
+				label: "Turnos",
 				addElement: ({ array }: { array: unknown[] }) => {
-					return `Add ${array?.length > 0 ? "another" : "a"} Shifts`;
+					return `Agrega ${array?.length > 0 ? "otro" : "un"} turno`;
 				},
 				startDay: {
 					label: "Working Days From",
@@ -495,7 +495,7 @@ export default {
 			workExperiences: {
 				label: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+					`Agrega ${array.length > 0 ? "otra" : "una"} experiencia`,
 				jobTitle: {
 					label: "Puesto de Trabajo",
 					placeholder: "Ingresa el nombre de el puesto desempeñado",
@@ -611,7 +611,7 @@ export default {
 			workExperiences: {
 				workExperience: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+					`Agrega ${array.length > 0 ? "otra" : "una"} experiencia`,
 				jobTitle: {
 					label: "Puesto de Trabajo",
 					placeholder: "Ingresa el nombre de el puesto desempeñado",

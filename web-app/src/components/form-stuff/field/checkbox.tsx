@@ -19,7 +19,6 @@ const CheckboxHeading = styled.p`
 function CustomCheckbox({
 	name,
 	label,
-	optional,
 	flexDirection,
 	checkboxes,
 	display,
@@ -29,12 +28,12 @@ function CustomCheckbox({
 		<FormikCheckboxWrapper>
 			<CheckboxHeading>
 				{label}
-				<span className="optional">{optional}</span>
+				<span style={{ color: "red" }}>*</span>
 			</CheckboxHeading>
 			<Box display={display} flexDirection={flexDirection}>
 				{checkboxes.map((c: any) => (
 					<FormControlLabel
-					className="customCheckbox"
+						className="customCheckbox"
 						control={
 							<Checkbox
 								{...c}

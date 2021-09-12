@@ -24,9 +24,6 @@ const FormikFieldWrapper = styled.div`
 `;
 const FieldHeading = styled.p`
 	font-size: 0.9rem;
-	.optional {
-		color: red;
-	}
 `;
 
 export function CompanyNameInput(props: CompanyNameInputProps): JSX.Element {

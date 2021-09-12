@@ -30,15 +30,12 @@ const FormikField = styled(Formik.Field)`
 `;
 export const FieldHeading = styled.p`
 	font-size: 0.9rem;
-	.optional {
-		color: red;
-	}
 `;
 function FieldInner({
 	type,
 	variant,
 	label,
-	optional,
+	required,
 	flexDirection,
 	display,
 	width,
@@ -117,11 +114,10 @@ function FieldInner({
 			</FormikFieldWrapper>
 		);
 	}
-
 	return (
 		<FormikFieldWrapper>
 			<FieldHeading>
-				{label} <span className="optional">{optional}</span>
+				{label} {required && <span style={{ color: "red" }}>*</span>}
 			</FieldHeading>
 			<FormikField
 				{...restProps}

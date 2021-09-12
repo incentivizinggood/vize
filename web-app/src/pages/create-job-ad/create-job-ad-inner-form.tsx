@@ -28,7 +28,6 @@ function InnerForm({ submissionError }: any) {
 				/>
 				<Field
 					name="jobDescription"
-					optional="*"
 					multiline
 					rows={6}
 					required
@@ -80,7 +79,7 @@ function InnerForm({ submissionError }: any) {
 						/>
 					)}
 				/>
-				{/* Minimum Level of education */}
+				<br />
 				<T.fields.minimumLanguage
 					renderer={(t) => (
 						<Field
@@ -119,7 +118,6 @@ function InnerForm({ submissionError }: any) {
 						/>
 					)}
 				/>
-				{/* end */}
 				<FormArray
 					name="shifts"
 					ElementRender={({ name }: { name: string }) => (
@@ -127,7 +125,7 @@ function InnerForm({ submissionError }: any) {
 							renderer={(t: any) => (
 								<ShiftSelectionWrapper>
 									<Field
-										name="startDay"
+										name={`${name}.startDay`}
 										required
 										select
 										defaultValue={1}
@@ -156,7 +154,7 @@ function InnerForm({ submissionError }: any) {
 										</option>
 									</Field>
 									<Field
-										name="endDay"
+										name={`${name}.endDay`}
 										select
 										required
 										defaultValue={5}
@@ -185,14 +183,14 @@ function InnerForm({ submissionError }: any) {
 										</option>
 									</Field>
 									<Field
-										name="startTime"
+										name={`${name}.startTime`}
 										type="time"
 										required
 										defaultValue="08:00"
 										label={t.startTime.label}
 									/>
 									<Field
-										name="endTime"
+										name={`${name}.endTime`}
 										type="time"
 										required
 										defaultValue="18:00"
