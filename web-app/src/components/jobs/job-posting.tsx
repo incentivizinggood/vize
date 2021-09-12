@@ -13,7 +13,7 @@ import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 import { Button } from "src/components/button";
 import { LinkButton } from "src/components/button";
-
+import ReactMarkdown from "react-markdown";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
@@ -167,13 +167,13 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 					<h4>
 						<T.showjob.qualifications />
 					</h4>
-					<p>{job.qualifications} </p>
+					<ReactMarkdown source={job.qualifications} />
 					<br />
 					<div>
 						<h4>
 							<T.showjob.responsibilities />
 						</h4>
-						<p>{job.responsibilities}</p>
+						<ReactMarkdown source={job.responsibilities} />
 					</div>
 				</div>
 			);
@@ -184,13 +184,13 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				<h4>
 					<T.showjob.qualifications />
 				</h4>
-				<p>{job.qualifications} </p>
+				<ReactMarkdown source={job.qualifications} />
 				<br />
 				<div>
 					<h4>
 						<T.showjob.responsibilities />
 					</h4>
-					<p>{job.responsibilities}</p>
+					<ReactMarkdown source={job.responsibilities} />
 				</div>
 			</>
 		);
@@ -274,7 +274,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 			</h4>
 			<div className="h4-font-sz">
 				<article>
-					<p>{job.jobDescription}</p>
+					<ReactMarkdown source={job.jobDescription} />
 					<input
 						id={job.id}
 						className="read-more-toggle"
