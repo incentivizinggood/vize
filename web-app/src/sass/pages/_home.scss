@@ -6,19 +6,24 @@
 		display: inline-block;
 		-webkit-perspective: 600px;
 		-moz-perspective: 600px;
-		padding: 10px;
 
 		.front {
 			z-index: 900;
 			height: inherit;
 			background: white;
-			box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+			box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
 			transform: rotate(0deg);
 			transition: all 0.4s ease-in-out;
 			padding-bottom: 24px;
 			padding-top: 24px;
+			border-radius: 16px;
 		}
 	}
+}
+
+.nav > li > a:focus,
+.nav > li > a:hover {
+	background-color: transparent;
 }
 
 .frontTitle {
