@@ -179,6 +179,10 @@ const ReviewTitleRow = styled.div`
 const ReviewTitle = styled.h4`
 	font-weight: bold;
 `;
+// Used for Job Title, location, and how long the employee has stayed at the company
+const ReviewSubheadingText = styled.h5`
+	margin-top: 8px;
+`;
 const NumberOfReview = styled.div`
 	display: flex;
 	align-items: center;
@@ -221,7 +225,8 @@ const PostedDate = styled.span`
 const ReviewRatingWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin-top: 10px;
+	margin-top: 4px;
+	margin-bottom: 5px;
 `;
 const ReviewRating = styled.div`
 	display: flex;
@@ -610,6 +615,15 @@ export default function JobDetailModal(
 													Posted {v.reviewedOn}
 												</PostedDate>
 											</ReviewHeader>
+
+											<ReviewSubheadingText>
+												<b>Operador</b> in Tijuana, Otay
+												Industrial Park
+											</ReviewSubheadingText>
+											<ReviewSubheadingText>
+												Current Employee, less than 1
+												year
+											</ReviewSubheadingText>
 
 											<ReviewRatingWrapper>
 												<ReviewRating>
