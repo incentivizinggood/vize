@@ -19,7 +19,8 @@ const StarRatingsDropdownButton = styled.a`
 `;
 
 const NumRatingsText = styled(Link)`
-	margin-left: 6px;
+	margin-right: 6px;
+	font-size: 16px;
 	font-weight: bold;
 `;
 
@@ -43,15 +44,15 @@ function RatingsDropdownReview({
 
 	return (
 		<StarRatingsDropdownButton className="show-on-hover">
-			<NumRatingsText
-				to={ }
-			>
-				{(ratings.healthAndSafety +
-					ratings.managerRelationship +
-					ratings.workEnvironment +
-					ratings.benefits) /
-					4}
-			</NumRatingsText>&nbsp;
+			<NumRatingsText to={}>
+				{(
+					(ratings.healthAndSafety +
+						ratings.managerRelationship +
+						ratings.workEnvironment +
+						ratings.benefits) /
+					4
+				).toFixed(1)}
+			</NumRatingsText>
 			<StarRatings
 				rating={
 					(ratings.healthAndSafety +

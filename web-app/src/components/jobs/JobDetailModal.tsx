@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import StarRatings from "react-star-ratings";
 import { Button } from "src/components/button";
 import { borderRadius } from "src/global-styles";
-
+import RatingsDropdownReview from "../ratings-dropdown-review";
 import { Row, Col, ListGroup } from "react-bootstrap";
 import {
 	JobPostTitleRow,
@@ -84,7 +84,6 @@ const ScrollableContent = styled.div`
 	overflow-x: hidden;
 	padding: 10px;
 `;
-const CompanyContent = styled.div``;
 const CompanyContent = styled.div``;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -229,7 +228,6 @@ const ReviewRating = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-const ReviewRating = styled.button``;
 const ReviewComments = styled.div`
 	display: flex;
 	flex-direction: column;
