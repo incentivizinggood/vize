@@ -176,6 +176,9 @@ const ReviewTitleRow = styled.div`
 	display: flex;
 	justify-content: space-between;
 `;
+const ReviewTitle = styled.h4`
+	font-weight: bold;
+`;
 const NumberOfReview = styled.div`
 	display: flex;
 	align-items: center;
@@ -209,12 +212,8 @@ const ReviewHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 `;
-const ReviewedBy = styled.div`
-	display: flex;
-	span {
-		font-size: 16px;
-		font-weight: 700;
-	}
+const SalaryJobTitle = styled.h4`
+	font-weight: bold;
 `;
 const PostedDate = styled.span`
 	color: grey;
@@ -603,17 +602,17 @@ export default function JobDetailModal(
 									return (
 										<ReviewDetails key={index}>
 											<ReviewHeader>
-												<ReviewedBy>
-													<span>{v.reviewedBy}</span>
-													&nbsp;
-													<PostedDate>
-														Posted {v.reviewedOn}
-													</PostedDate>
-												</ReviewedBy>
+												<ReviewTitle>
+													Review Title
+												</ReviewTitle>
+
+												<PostedDate>
+													Posted {v.reviewedOn}
+												</PostedDate>
 											</ReviewHeader>
+
 											<ReviewRatingWrapper>
 												<ReviewRating>
-													<span>{v.title}</span>
 													<RatingsDropdownReview
 														ratings={{
 															healthAndSafety:
@@ -704,9 +703,9 @@ export default function JobDetailModal(
 									return (
 										<ReviewDetails key={index}>
 											<ReviewHeader>
-												<ReviewedBy>
-													<span>{v.position}</span>
-												</ReviewedBy>
+												<SalaryJobTitle>
+													{v.position}
+												</SalaryJobTitle>
 											</ReviewHeader>
 											<AveeragePay>
 												<GreyText>Average</GreyText>{" "}
