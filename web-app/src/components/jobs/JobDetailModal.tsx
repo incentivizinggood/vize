@@ -412,11 +412,9 @@ export default function JobDetailModal(
 														/>
 													</div>
 													<span>
-														{
-															jobPost
-																.companyDetail
-																.ratings.average
-														}
+														{jobPost.companyDetail.ratings.average.toFixed(
+															1
+														)}
 													</span>
 												</RatingContainer>
 											</ListGroup.Item>
@@ -438,12 +436,9 @@ export default function JobDetailModal(
 														/>
 													</div>
 													<span>
-														{
-															jobPost
-																.companyDetail
-																.ratings
-																.overallSatisfaction
-														}
+														{jobPost.companyDetail.ratings.overallSatisfaction.toFixed(
+															1
+														)}
 													</span>
 												</RatingContainer>
 											</ListGroup.Item>
@@ -465,12 +460,9 @@ export default function JobDetailModal(
 														/>
 													</div>
 													<span>
-														{
-															jobPost
-																.companyDetail
-																.ratings
-																.healthAndSafeety
-														}
+														{jobPost.companyDetail.ratings.healthAndSafeety.toFixed(
+															1
+														)}
 													</span>
 												</RatingContainer>
 											</ListGroup.Item>
@@ -492,12 +484,9 @@ export default function JobDetailModal(
 														/>
 													</div>
 													<span>
-														{
-															jobPost
-																.companyDetail
-																.ratings
-																.workEnvironment
-														}
+														{jobPost.companyDetail.ratings.workEnvironment.toFixed(
+															1
+														)}
 													</span>
 												</RatingContainer>
 											</ListGroup.Item>
@@ -519,12 +508,9 @@ export default function JobDetailModal(
 														/>
 													</div>
 													<span>
-														{
-															jobPost
-																.companyDetail
-																.ratings
-																.managerRelationships
-														}
+														{jobPost.companyDetail.ratings.managerRelationships.toFixed(
+															1
+														)}
 													</span>
 												</RatingContainer>
 											</ListGroup.Item>
@@ -544,12 +530,9 @@ export default function JobDetailModal(
 														/>
 													</div>
 													<span>
-														{
-															jobPost
-																.companyDetail
-																.ratings
-																.benefits
-														}
+														{jobPost.companyDetail.ratings.benefits.toFixed(
+															1
+														)}
 													</span>
 												</RatingContainer>
 											</ListGroup.Item>
