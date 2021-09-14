@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import { borderRadius } from "src/global-styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import SalaryBar from "./SalaryBar";
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -63,19 +64,8 @@ export default function JobDetails(props: JobDetailsProps): JSX.Element {
                 <GreyText>Average</GreyText>{" "}
                 <span>: $ {pay} / week</span>
             </AveeragePay>
-            <BorderLinearProgress
-                variant="determinate"
-                value={50}
-            />
-            <SalaryRangeValues>
-                {range.map((v) => {
-                    return (
-                        <span key={v}>
-                            ${v}
-                        </span>
-                    );
-                })}
-            </SalaryRangeValues>
+            <SalaryBar range={range}>
+            </SalaryBar>
         </StyledJobDetails>
     );
 }

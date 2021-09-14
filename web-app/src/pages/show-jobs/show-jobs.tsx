@@ -539,7 +539,7 @@ export default function ShowJobs(): JSX.Element {
 					{
 						position: "Operador",
 						pay: 38,
-						range: [38, 1500, 3000],
+						range: [38, 500, 3000],
 					},
 				],
 				jobs: [
