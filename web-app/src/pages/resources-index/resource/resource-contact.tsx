@@ -8,15 +8,14 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 import defaultAuthorImg from "src/images/icons/profile-icon.png";
 import { translations } from "src/translations";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const T = translations.resources;
 
 const ContactSectionContainter = styled.div`
 	display: flex;
 	flex-direction: column;
-
 	background-color: white;
-	border-radius: 4px;
 `;
 
 const ContactTitle = styled.h3`

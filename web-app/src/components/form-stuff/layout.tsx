@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import PageWrapper, { PageWrapperProps } from "src/components/page-wrapper";
 import { Panel, PanelContainer, PannelPadding } from "src/components/panel";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 const FormHeader = styled.h1`
 	margin-bottom: 10px;

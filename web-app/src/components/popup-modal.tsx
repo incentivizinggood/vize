@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { forSize } from "src/responsive";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const ModalStyled = styled(Modal)`
 	position: absolute;
@@ -17,7 +18,7 @@ const ModalStyled = styled(Modal)`
 	overflow-y: scroll;
 	scrollbar-width: none;
 	-ms-overflow-style: none;
-	border-radius: 10px;
+	border-radius: ${borderRadius.container};
 	outline: none;
 	padding: 15px;
 	margin-right: -50%;

@@ -6,6 +6,7 @@ import { useJobApplicationSubmittedQuery } from "generated/graphql-operations";
 import ClipboardIcon from "@material-ui/icons/Assignment";
 import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Spinner from "src/components/Spinner";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 import PageWrapper from "src/components/page-wrapper";
 import { translations } from "src/translations";
@@ -30,8 +31,8 @@ const PageContentContainer = styled.div`
 	margin-left: auto;
 
 	background-color: #fefdfe;
-	box-shadow: 0px 1px 3px 0px;
-	border-radius: 8px;
+	box-shadow: ${boxShadow.wide};
+	border-radius: ${borderRadius.container};
 
 	width: 80%;
 

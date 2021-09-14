@@ -5,6 +5,7 @@ import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import ClipboardIcon from "@material-ui/icons/Assignment";
 import ClipboardCopiedIcon from "@material-ui/icons/AssignmentTurnedIn";
+import { boxShadow } from "src/global-styles";
 
 import { useUser } from "src/hoc/user";
 import PageWrapper from "src/components/page-wrapper";
@@ -27,7 +28,7 @@ const RewardSection = styled.div`
 	margin-bottom: 250px;
 	padding: 50px;
 	background-color: #fefdfe;
-	box-shadow: 0px 1px 3px 0px;
+	box-shadow: ${boxShadow.wide};
 	width: 80%;
 	display: flex;
 

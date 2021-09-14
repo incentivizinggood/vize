@@ -8,7 +8,7 @@ import {
 	faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 import { Button } from "src/components/button";
@@ -21,6 +21,7 @@ import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/components/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
 import { JobSchedule } from "src/components/job-schedual";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 const FontAwesomeIconSized = styled(FontAwesomeIcon)`
 	width: 16px !important;
@@ -34,8 +35,8 @@ const JobContainer = styled.div`
 	padding: 20px 30px;
 
 	background-color: white;
-	border-radius: 10px;
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	border-radius: ${borderRadius.container};
+	box-shadow: ${boxShadow.wide};
 
 	${forSize.tabletAndDown} {
 		padding: 12px;

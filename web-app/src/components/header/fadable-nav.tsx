@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-
+import { boxShadow } from "src/global-styles";
 import withScroll from "src/hoc/scroll";
 
 // How far down that the user can scroll before the navbar goes opaque.
@@ -21,7 +21,7 @@ const FadableNav = styled.nav<FadableNavExtraProps>`
 		// These styles make the nav opaque.
 		return css`
 			background: white;
-			box-shadow: 0 0 5px;
+			box-shadow: ${boxShadow.wide};
 		`;
 	}}
 `;

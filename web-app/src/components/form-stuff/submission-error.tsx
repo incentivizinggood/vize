@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 const ErrorBox = styled.div`
 	background: ${colors.errorBackground};
