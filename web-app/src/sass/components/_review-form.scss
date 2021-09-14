@@ -82,7 +82,6 @@
 }
 
 .na_tab .nav > li :hover {
-	background-color: $primary-color-blue;
 	color: white;
 }
 
@@ -293,7 +292,6 @@
 	width: 20%;
 
 	&:hover {
-		background-color: $primary-color-blue;
 		color: white;
 	}
 }
@@ -314,7 +312,6 @@
 .nav-tabs > li.active > a:focus {
 	color: white !important;
 	cursor: default !important;
-	background-color: $primary-color-blue !important;
 	border: 0px solid #ddd !important;
 	border-bottom: 1px solid #4395cc !important;
 }

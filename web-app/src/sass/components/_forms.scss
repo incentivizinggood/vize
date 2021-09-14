@@ -50,10 +50,6 @@
 				-moz-transition: all 0.4s;
 				transition: all 0.4s;
 			}
-
-			&:hover:before {
-				opacity: 0;
-			}
 		}
 	}
 
@@ -99,9 +95,6 @@
 		input.input {
 			height: 55px;
 			border: none;
-			&:hover {
-				border-color: $secondary-color-red;
-			}
 		}
 
 		textarea.input {
