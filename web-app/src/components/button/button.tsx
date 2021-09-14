@@ -64,14 +64,7 @@ const Button = styled.button<ButtonExtraProps>`
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: middle;
-		padding:${(props) => {
-		if (props.size === "small") {
-			return "0.9rem 3rem";
-		} else if (props.size === "small") {
-			return "0.9rem 3rem"
-		} else {
-			return "0.9rem 3rem";
-		}
+		padding: 0.9rem 3rem
 	}};
 		line-height: 1.5;
 		border-radius: ${borderRadius.button};

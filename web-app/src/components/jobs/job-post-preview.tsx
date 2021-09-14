@@ -70,11 +70,7 @@ const JobDetailContainer = styled.div`
 	}
 	margin-bottom: 10px;
 `;
-const JobDetailsTitle = styled.div`
-	color: black;
-	font-weight: 500;
-	margin-bottom: 5px;
-`;
+
 const JobDetailText = styled.div`
 	font-weight: 600;
 	padding-left: 10px;

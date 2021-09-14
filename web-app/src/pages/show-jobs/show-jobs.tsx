@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { colors } from "src/global-styles";
-import FilterDropdown from "./FilterDropdown";
+import FilterDropdown from "./filter-dropdown";
 import { withStyles } from "@material-ui/core/styles";
-import JobPosting from "src/components/jobs/job-posting";
-import JobDetailModal from "src/components/jobs/JobDetailModal";
+import JobDetailModal from "src/components/jobs/job-detail-modal";
 
 import PageWrapper from "src/components/page-wrapper";
-import JobPostPreview from "../../components/jobs/JobPostPreview";
+import JobPostPreview from "../../components/jobs/job-post-preview";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -20,8 +19,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
-import Modal from "react-bootstrap/Modal";
-import { validateSchema } from "graphql";
 import { borderRadius } from "src/global-styles";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -193,9 +190,9 @@ export interface Shift {
 export interface Ratings {
 	average: number;
 	overallSatisfaction: number;
-	healthAndSafeety: number;
+	healthAndSafety: number;
 	workEnvironment: number;
-	managerRelationships: number;
+	managerRelationship: number;
 	benefits: number;
 }
 
@@ -283,7 +280,6 @@ export default function ShowJobs(): JSX.Element {
 	// 	message = "";
 	// }
 	const [width, setWidth] = useState<number>(window.innerWidth);
-	const [activeResourceCard, setActiveResourceCard] = useState(1);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
 	}
@@ -513,9 +509,9 @@ export default function ShowJobs(): JSX.Element {
 				ratings: {
 					average: 5,
 					overallSatisfaction: 4,
-					healthAndSafeety: 3.5,
+					healthAndSafety: 3.5,
 					workEnvironment: 4,
-					managerRelationships: 3.86,
+					managerRelationship: 3.86,
 					benefits: 3.8,
 				},
 				recommendationPercenteage: 40,
@@ -630,9 +626,9 @@ export default function ShowJobs(): JSX.Element {
 				ratings: {
 					average: 5,
 					overallSatisfaction: 4,
-					healthAndSafeety: 3.5,
+					healthAndSafety: 3.5,
 					workEnvironment: 4,
-					managerRelationships: 3.86,
+					managerRelationship: 3.86,
 					benefits: 3.8,
 				},
 				recommendationPercenteage: 40,
@@ -641,8 +637,16 @@ export default function ShowJobs(): JSX.Element {
 				reviews: [
 					{
 						reviewedBy: "Operator",
+						title: "The best",
 						reviewedOn: "3 days ago",
-						rating: 5,
+						rating: {
+							average: 5,
+							overallSatisfaction: 4,
+							healthAndSafety: 3.5,
+							workEnvironment: 4,
+							managerRelationship: 3.86,
+							benefits: 3.8,
+						},
 						pros: "containing Lorem Ipsum passages, and more recently with desktop",
 						cons: "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
 						additionalComments:
@@ -740,9 +744,9 @@ export default function ShowJobs(): JSX.Element {
 				ratings: {
 					average: 5,
 					overallSatisfaction: 4,
-					healthAndSafeety: 3.5,
+					healthAndSafety: 3.5,
 					workEnvironment: 4,
-					managerRelationships: 3.86,
+					managerRelationship: 3.86,
 					benefits: 3.8,
 				},
 				recommendationPercenteage: 40,
@@ -751,8 +755,16 @@ export default function ShowJobs(): JSX.Element {
 				reviews: [
 					{
 						reviewedBy: "Operator",
+						title: "The best",
 						reviewedOn: "3 days ago",
-						rating: 5,
+						rating: {
+							average: 5,
+							overallSatisfaction: 4,
+							healthAndSafety: 3.5,
+							workEnvironment: 4,
+							managerRelationship: 3.86,
+							benefits: 3.8,
+						},
 						pros: "containing Lorem Ipsum passages, and more recently with desktop",
 						cons: "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
 						additionalComments:
@@ -850,9 +862,9 @@ export default function ShowJobs(): JSX.Element {
 				ratings: {
 					average: 5,
 					overallSatisfaction: 4,
-					healthAndSafeety: 3.5,
+					healthAndSafety: 3.5,
 					workEnvironment: 4,
-					managerRelationships: 3.86,
+					managerRelationship: 3.86,
 					benefits: 3.8,
 				},
 				recommendationPercenteage: 40,
@@ -861,8 +873,16 @@ export default function ShowJobs(): JSX.Element {
 				reviews: [
 					{
 						reviewedBy: "Operator",
+						title: "The best",
 						reviewedOn: "3 days ago",
-						rating: 5,
+						rating: {
+							average: 5,
+							overallSatisfaction: 4,
+							healthAndSafety: 3.5,
+							workEnvironment: 4,
+							managerRelationship: 3.86,
+							benefits: 3.8,
+						},
 						pros: "containing Lorem Ipsum passages, and more recently with desktop",
 						cons: "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
 						additionalComments:
@@ -1102,22 +1122,22 @@ export default function ShowJobs(): JSX.Element {
 						<Row>
 							{jobs && jobs.length
 								? jobs.map((job) => {
-										return (
-											<Col
-												xs={12}
-												sm={6}
-												md={4}
-												key={job.id}
-											>
-												<JobPostPreview
-													job={job}
-													openJobDetail={
-														setJobPostModal
-													}
-												/>
-											</Col>
-										);
-								  })
+									return (
+										<Col
+											xs={12}
+											sm={6}
+											md={4}
+											key={job.id}
+										>
+											<JobPostPreview
+												job={job}
+												openJobDetail={
+													setJobPostModal
+												}
+											/>
+										</Col>
+									);
+								})
 								: null}
 						</Row>
 					</JobListWrapper>

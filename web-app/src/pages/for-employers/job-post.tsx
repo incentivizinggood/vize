@@ -116,7 +116,7 @@ const JobDetailsWrapper = styled(Row)`
 		margin-bottom: 20px;
 	}
 `;
-const LanguageContentWrapper = styled.div`
+const LanguageContentContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-left: 10px;
@@ -270,7 +270,7 @@ export const JobContentWrapper = function (
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
 							{props.shifts.map((v, index) => {
 								return (
-									<LanguageContentWrapper
+									<LanguageContentContainer
 										border={
 											index !== props.shifts.length - 1
 										}
@@ -280,7 +280,7 @@ export const JobContentWrapper = function (
 										<LanguageDescription>
 											{v.time}
 										</LanguageDescription>
-									</LanguageContentWrapper>
+									</LanguageContentContainer>
 								);
 							})}
 						</JobDetailContent>
@@ -295,33 +295,33 @@ export const JobContentWrapper = function (
 									src={cityImage}
 									alt="dollar-img"
 								/>
-								<LanguageContentWrapper border withImage>
+								<LanguageContentContainer border withImage>
 									<LanguageTitle>Ciudad</LanguageTitle>
 									<LanguageDescription>
 										{props.city}
 									</LanguageDescription>
-								</LanguageContentWrapper>
+								</LanguageContentContainer>
 							</JobDetailContainer>
 							<JobDetailContainer>
 								<LanguageImage
 									src={industrialParkImage}
 									alt="dollar-img"
 								/>
-								<LanguageContentWrapper border withImage>
+								<LanguageContentContainer border withImage>
 									<LanguageTitle>
 										Parque Industrial
 									</LanguageTitle>
 									<LanguageDescription>
 										{props.industrialPark}
 									</LanguageDescription>
-								</LanguageContentWrapper>
+								</LanguageContentContainer>
 							</JobDetailContainer>
 							<JobDetailContainer>
 								<LanguageImage
 									src={addressImage}
 									alt="dollar-img"
 								/>
-								<LanguageContentWrapper
+								<LanguageContentContainer
 									border={false}
 									withImage
 								>
@@ -329,7 +329,7 @@ export const JobContentWrapper = function (
 									<LanguageDescription>
 										{props.address}
 									</LanguageDescription>
-								</LanguageContentWrapper>
+								</LanguageContentContainer>
 							</JobDetailContainer>
 						</JobDetailContent>
 					</Col>

@@ -18,7 +18,7 @@ const StarRatingsDropdownButton = styled.a`
 	padding-bottom: 6px;
 `;
 
-const NumRatingsText = styled(Link)`
+const AverageRatingValue = styled.span`
 	margin-right: 6px;
 	font-size: 16px;
 	font-weight: bold;
@@ -44,7 +44,7 @@ function RatingsDropdownReview({
 
 	return (
 		<StarRatingsDropdownButton className="show-on-hover">
-			<NumRatingsText to={}>
+			<AverageRatingValue>
 				{(
 					(ratings.healthAndSafety +
 						ratings.managerRelationship +
@@ -52,7 +52,7 @@ function RatingsDropdownReview({
 						ratings.benefits) /
 					4
 				).toFixed(1)}
-			</NumRatingsText>
+			</AverageRatingValue>
 			<StarRatings
 				rating={
 					(ratings.healthAndSafety +

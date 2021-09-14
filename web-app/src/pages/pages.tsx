@@ -216,12 +216,6 @@ export default function Pages(): JSX.Element {
 					<UserPage user_id={fixNullParams(params.get("id"))} />
 				)}
 			/>
-			<Route
-				path={`/job-list`}
-				component={() => (
-					<JobList />
-				)}
-			/>
 			<Route component={NotFoundPage} />
 		</Switch>
 	);

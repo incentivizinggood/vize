@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
-import Button from "@material-ui/core/Button";
 import styled from "styled-components";
-
+import FilterButton from "../../components/button/filter-button";
 import Radio from "@material-ui/core/Radio";
 import Checkbox from "@material-ui/core/Checkbox";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import { colors, borderRadius } from "src/global-styles";
+import { colors } from "src/global-styles";
 
 interface option {
 	label: string;
@@ -25,17 +22,7 @@ const DropdownContainer = styled.div`
 	margin-bottom: 10px;
 	margin-right: 12px;
 `;
-const FilterButton = styled(Button)`
-	background-color: ${(props) =>
-		props.active
-			? `${colors.secondaryColorGreen} !important`
-			: `${colors.tertiaryColorLightBlue} !important`};
-	color: ${(props) =>
-		props.active ? `white !important` : `black !important`};
-	padding: 12px 20px !important;
-	border-radius: ${borderRadius.button} !important;
-	text-transform: capitalize !important;
-`;
+
 const DropdownWrapper = styled.div`
 	padding: 20px;
 	.PrivateSwitchBase-root-1 {
@@ -82,8 +69,8 @@ function FilterDropdown(props: FilterDropdownProps): JSX.Element {
 			updateValue(
 				typeof value === "object"
 					? value.filter((v) => {
-							return v !== parseInt(event.target.value);
-					  })
+						return v !== parseInt(event.target.value);
+					})
 					: ""
 			);
 		}
@@ -99,15 +86,7 @@ function FilterDropdown(props: FilterDropdownProps): JSX.Element {
 	const open = Boolean(anchorEl);
 	return (
 		<DropdownContainer>
-			<FilterButton
-				active={displayLabel !== "Any Time" && active ? active : false}
-				variant="contained"
-				color="primary"
-				onClick={handleClick}
-			>
-				{displayLabel}{" "}
-				{open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-			</FilterButton>
+			<FilterButton displayLabel={displayLabel} active={active} handleClick={handleClick} open={open}></FilterButton>
 			<Popover
 				open={open}
 				anchorEl={anchorEl}
