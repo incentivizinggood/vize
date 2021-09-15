@@ -289,7 +289,7 @@ export default function ShowJobs(): JSX.Element {
 			window.removeEventListener("resize", handleWindowSizeChange);
 		};
 	}, []);
-	const [filters, updateFilters] = useState({
+	let initialValuesForFilter = {
 		dayPosted: 1,
 		industrialPark: [],
 		shifts: [],
@@ -300,7 +300,8 @@ export default function ShowJobs(): JSX.Element {
 		licences: [],
 		minSalary: 0,
 		maxSalary: 0,
-	});
+	}
+	const [filters, updateFilters] = useState({ ...initialValuesForFilter });
 	const updateFilterValue = (key: string, val: string) => {
 		updateFilters({
 			...filters,
@@ -348,10 +349,6 @@ export default function ShowJobs(): JSX.Element {
 			{
 				label: "Mixed",
 				value: 2,
-			},
-			{
-				label: "Night",
-				value: 3,
 			},
 		],
 		jobTitles: [
@@ -481,7 +478,6 @@ export default function ShowJobs(): JSX.Element {
 			shifts: [
 				{ day: "lun - vie", time: "8 AM - 5 PM" },
 				{ day: "lun - vie", time: "2 PM - 11 PM" },
-				{ day: "mar - sab", time: "8 AM - 5 PM" },
 			],
 			city: "Tijuana",
 			industrialPark: "El Lago",
@@ -539,7 +535,7 @@ export default function ShowJobs(): JSX.Element {
 					{
 						position: "Operador",
 						pay: 38,
-						range: [38, 500, 3000],
+						range: [38, 3000, 3000],
 					},
 				],
 				jobs: [
@@ -565,10 +561,6 @@ export default function ShowJobs(): JSX.Element {
 							{
 								day: "lun - vie",
 								time: "2 PM - 11 PM",
-							},
-							{
-								day: "mar - sab",
-								time: "8 AM - 5 PM",
 							},
 						],
 						city: "Tijuana",
@@ -598,7 +590,6 @@ export default function ShowJobs(): JSX.Element {
 			shifts: [
 				{ day: "lun - vie", time: "8 AM - 5 PM" },
 				{ day: "lun - vie", time: "2 PM - 11 PM" },
-				{ day: "mar - sab", time: "8 AM - 5 PM" },
 			],
 			city: "Tijuana",
 			industrialPark: "El Lago",
@@ -683,10 +674,6 @@ export default function ShowJobs(): JSX.Element {
 							{
 								day: "lun - vie",
 								time: "2 PM - 11 PM",
-							},
-							{
-								day: "mar - sab",
-								time: "8 AM - 5 PM",
 							},
 						],
 						city: "Tijuana",
@@ -716,7 +703,6 @@ export default function ShowJobs(): JSX.Element {
 			shifts: [
 				{ day: "lun - vie", time: "8 AM - 5 PM" },
 				{ day: "lun - vie", time: "2 PM - 11 PM" },
-				{ day: "mar - sab", time: "8 AM - 5 PM" },
 			],
 			city: "Tijuana",
 			industrialPark: "El Lago",
@@ -801,10 +787,6 @@ export default function ShowJobs(): JSX.Element {
 							{
 								day: "lun - vie",
 								time: "2 PM - 11 PM",
-							},
-							{
-								day: "mar - sab",
-								time: "8 AM - 5 PM",
 							},
 						],
 						city: "Tijuana",
@@ -834,7 +816,6 @@ export default function ShowJobs(): JSX.Element {
 			shifts: [
 				{ day: "lun - vie", time: "8 AM - 5 PM" },
 				{ day: "lun - vie", time: "2 PM - 11 PM" },
-				{ day: "mar - sab", time: "8 AM - 5 PM" },
 			],
 			city: "Tijuana",
 			industrialPark: "El Lago",
@@ -920,10 +901,7 @@ export default function ShowJobs(): JSX.Element {
 								day: "lun - vie",
 								time: "2 PM - 11 PM",
 							},
-							{
-								day: "mar - sab",
-								time: "8 AM - 5 PM",
-							},
+
 						],
 						city: "Tijuana",
 						industrialPark: "El Lago",
@@ -943,6 +921,9 @@ export default function ShowJobs(): JSX.Element {
 		visible: false,
 		jobPost: null,
 	});
+	const clearAllFilter = () => {
+		updateFilters({ ...initialValuesForFilter });
+	}
 	const isMobile: boolean = width <= 768;
 	return (
 		<PageWrapper title="Trabajos - Vize">
@@ -1038,7 +1019,7 @@ export default function ShowJobs(): JSX.Element {
 											options={filterMasters.shifts}
 											value={filters.shifts}
 											updateValue={(v) =>
-												updateFilterValue("shift", v)
+												updateFilterValue("shifts", v)
 											}
 										></FilterDropdown>
 										<FilterDropdown
@@ -1098,7 +1079,7 @@ export default function ShowJobs(): JSX.Element {
 											}
 										></FilterDropdown>
 									</FilterWrapper>
-									<Button className="clear-btn">
+									<Button className="clear-btn" onClick={clearAllFilter}>
 										Clear All
 									</Button>
 								</Filters>

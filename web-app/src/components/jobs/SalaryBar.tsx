@@ -70,7 +70,7 @@ const InnerCircle = styled.div`
 `;
 export default function SalaryBar(props: any): JSX.Element {
     const { range } = props;
-    const averagePosition = (range[1] * 630) / range[2];
+    const averagePosition = (range[1] * 610) / range[2];
     return <SalaryBarWrapper>
         <DottedRow></DottedRow>
         <MarkedCircle position="start" value={range[0]}>

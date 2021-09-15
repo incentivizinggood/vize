@@ -7,6 +7,7 @@ import {
 	JobPostTitleRow,
 	JobContentWrapper,
 } from "src/pages/for-employers/job-post";
+import HorizontalLine from "../horizontal-line";
 import CompanyContentWrapper from "./company-content-wrapper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -20,9 +21,9 @@ const jobDetailModalStyles = {
 	content: {
 		top: "20%",
 		margin: "0 auto",
-		minWidth: "760px",
-		maxWidth: "760px",
-		minHeight: "600px",
+		minWidth: "1100px",
+		maxWidth: "1100px",
+		minHeight: "670px",
 	},
 };
 interface JobDetailModalProps {
@@ -56,7 +57,7 @@ const JobPostContent = styled.div`
 	height: 100%;
 `;
 const ScrollableContent = styled.div`
-	height: 410px;
+	height: 480px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 10px;
@@ -71,6 +72,14 @@ export default function JobDetailModal(
 	const [activetTab, setActiveTab] = useState(1);
 	const jobContentRef = useRef(null);
 	const companyContentRef = useRef(null);
+
+	const onScroll = (e) => {
+		if (e.currentTarget.scrollTop < 700) {
+			setActiveTab(1)
+		} else {
+			setActiveTab(2)
+		}
+	}
 	return (
 		<StyledModal
 			isOpen={visible}
@@ -91,12 +100,10 @@ export default function JobDetailModal(
 						if (tabValue === 1) {
 							jobContentRef.current.scrollIntoView({
 								behavior: "smooth",
-								block: "start",
 							});
 						} else {
 							companyContentRef.current.scrollIntoView({
 								behavior: "smooth",
-								block: "start",
 							});
 						}
 						setActiveTab(tabValue);
@@ -106,11 +113,12 @@ export default function JobDetailModal(
 					<Tab value={1} label="Job" />
 					<Tab value={2} label="Company" />
 				</Tabs>
-				<ScrollableContent>
-					<div ref={jobContentRef}>
+				<ScrollableContent onScroll={onScroll}>
+					<div ref={jobContentRef} id="job-content">
 						<JobContentWrapper {...jobPost}></JobContentWrapper>
 					</div>
-					<div ref={companyContentRef}>
+					<HorizontalLine />
+					<div ref={companyContentRef} id="company-content">
 						<CompanyContentWrapper companyDetail={jobPost.companyDetail} company={jobPost.company}></CompanyContentWrapper>
 					</div>
 				</ScrollableContent>

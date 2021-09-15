@@ -72,6 +72,7 @@ const ReviewCommentsColumn = styled(Col)`
 	background-color: #fff;
 	position: relative;
 	margin-top: 10px;
+	margin-left: 0px;
 `;
 const ReviewCommentHeader = styled(Col)`
 	position: absolute;

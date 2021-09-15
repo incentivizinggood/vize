@@ -11,7 +11,9 @@ import ReviewDetails from "./review-details";
 import JobDetails from "./job-details";
 import descriptionImage from "../../images/job-post-icons/description.png";
 import RateReviewIcon from "@material-ui/icons/RateReview";
-const CompanyContent = styled.div``;
+const CompanyContent = styled.div`
+    padding-top:20px;
+`;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
 `;
@@ -62,6 +64,7 @@ const JobLocationList = styled.div`
 	flex-direction: column;
 `;
 const JobLocationText = styled.span``;
+const SectionTitle = styled.h3``;
 const JobList = styled(Row)`
 	margin-top: 10px;
 `;
@@ -69,6 +72,7 @@ const JobList = styled(Row)`
 export default function CompanyContentWrapper(props: any): JSX.Element {
     const { companyDetail, company } = props;
     return <CompanyContent >
+        <SectionTitle>Company Overview</SectionTitle>
         <JobRequirementWrapper>
             <JobRequirementTitle>
                 <img src={descriptionImage} alt=""></img>

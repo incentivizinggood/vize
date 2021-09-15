@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
-import { forSize } from "src/responsive";
 import { Button } from "src/components/button";
 import ReplyIcon from "@material-ui/icons/Reply";
-import * as urlGenerators from "src/pages/url-generators";
 import RatingsDropdown from "../../components/ratings-dropdown";
 import { JobPostInterface } from "./for-employers";
 import dollarImage from "../../images/job-post-icons/dollar.png";
@@ -21,7 +19,6 @@ import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
 import { colors, borderRadius, boxShadow } from "src/global-styles";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CloseIcon from "@material-ui/icons/Close";
 
 const JobPostCard = styled.div`
@@ -48,7 +45,7 @@ const JobRequirementDescription = styled.div`
 const JobBasicDetails = styled.div`
 	border-bottom: 1px solid #d1d1d1;
 	padding-bottom: 20px;
-	margin-top: 20px;
+	padding-top: 20px;
 `;
 const JobPostTitle = styled.div`
 	display: flex;
@@ -150,7 +147,7 @@ const ActionsWrapper = styled.div`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: 100%;
+	width: 430px;
 `;
 const ReplyIconWrapper = styled.div`
 	display: flex;

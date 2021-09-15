@@ -101,6 +101,10 @@ const ButtonsContainer = styled.div`
 	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-around;
+	button{
+		width:200px;
+		padding: 0.9rem 2rem !important;
+	}
 `;
 interface JobPostPreviewProps {
 	job: JobPostInterface;
@@ -162,12 +166,10 @@ export default function JobPostPreview(
 				<JobDetailContainer>
 					<ShiftsIcon src={shiftsImage} alt="Shifts Icon" />
 					{job.shifts.map((shift, index) => {
-						return index < 2 ? (
-							<ShiftContainer border key={index}>
-								<ShiftDay>{shift.day}</ShiftDay>
-								<ShiftTime>{shift.time}</ShiftTime>
-							</ShiftContainer>
-						) : null;
+						return <ShiftContainer border={index < job.shifts.length - 1} key={index}>
+							<ShiftDay>{shift.day}</ShiftDay>
+							<ShiftTime>{shift.time}</ShiftTime>
+						</ShiftContainer>;
 					})}
 				</JobDetailContainer>
 				{!hideButtons ? (
