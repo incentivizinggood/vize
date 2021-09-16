@@ -174,11 +174,15 @@ const CardContent = styled.div`
 	}
 	${forSize.tabletLandscapeAndDown} {
 		height: 450px;
+		width 270px;
+		width: auto !important;
+
 	}
 	${forSize.desktopAndDown} {
 		height: 450px;
 	}
-	height: 352px;
+	height: 420px;
+	width: 290px;
 `;
 const BenefitCardDescription = styled.div`
 	line-height: 1.8;
@@ -199,7 +203,7 @@ const HorizontalRow = styled.div`
 const JobPostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items:center;
+	align-items: center;
 `;
 const SectionTitle = styled.div`
 	font-size: 36px;
@@ -689,20 +693,20 @@ function ForEmployers() {
 						<ResourceTopicButton
 							title="Legal"
 							img={topic1Image}
-							onClick={() => { }}
+							onClick={() => {}}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="Turnover Rates"
 							img={topic2Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="Hiring Best Practices"
 							img={topic3Image}
 						/>
 						<ResourceTopicButton
-							onClick={() => { }}
+							onClick={() => {}}
 							title="View All Topics"
 						/>
 					</TopicsContent>
