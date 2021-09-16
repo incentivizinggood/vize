@@ -127,16 +127,6 @@ export default function CompanyContentWrapper(props: any): JSX.Element {
             recommendationPercenteage={companyDetail.recommendationPercenteage}
             averageStay={companyDetail.averageStay} />
         <CommpanyReviewsWrapper>
-            <ReviewTitleRow>
-                <NumberOfReview>
-                    <RateReviewIcon />
-                    <span>
-                        &nbsp;
-                        {companyDetail.reviewCount}{" "}
-                        Reviews
-                    </span>
-                </NumberOfReview>
-            </ReviewTitleRow>
             {companyDetail.reviews.map(
                 (v: any, index: number) => {
                     console.log("v", v)

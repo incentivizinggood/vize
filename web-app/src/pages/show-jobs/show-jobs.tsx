@@ -535,7 +535,7 @@ export default function ShowJobs(): JSX.Element {
 					{
 						position: "Operador",
 						pay: 38,
-						range: [38, 3000, 3000],
+						range: [38, 38, 3000],
 					},
 				],
 				jobs: [
@@ -1050,7 +1050,7 @@ export default function ShowJobs(): JSX.Element {
 												"industries"
 											)}
 											options={filterMasters.industries}
-											value={filters.jobTypes}
+											value={filters.industries}
 											updateValue={(v) =>
 												updateFilterValue(
 													"industries",

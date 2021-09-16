@@ -23,7 +23,7 @@ const jobDetailModalStyles = {
 		margin: "0 auto",
 		minWidth: "1100px",
 		maxWidth: "1100px",
-		minHeight: "670px",
+		minHeight: "calc(100vh - 60px)",
 	},
 };
 interface JobDetailModalProps {
@@ -57,7 +57,7 @@ const JobPostContent = styled.div`
 	height: 100%;
 `;
 const ScrollableContent = styled.div`
-	height: 480px;
+	height: calc(100vh - 260px);
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 10px;

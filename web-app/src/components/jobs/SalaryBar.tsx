@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors } from "src/global-styles";
 
 const SalaryBarWrapper = styled.div`
-    width:635px;
+    width:1000px;
     display:flex;
     align-items:center;
     height:75px;
@@ -15,7 +15,7 @@ const DottedRow = styled.hr`
     // border-top: 1px solid ${colors.primaryColorBlue} !important;
     border:none;
     :after {
-        content:"..............................................................................................";
+        content:"..............................................................................................................................";
         color:${colors.primaryColorBlue};
         letter-spacing: 4px; 
     }
@@ -70,7 +70,10 @@ const InnerCircle = styled.div`
 `;
 export default function SalaryBar(props: any): JSX.Element {
     const { range } = props;
-    const averagePosition = (range[1] * 610) / range[2];
+    let averagePosition = (range[1] * 975) / range[2];
+    if (range[1] === range[0]) {
+        averagePosition = 0;
+    }
     return <SalaryBarWrapper>
         <DottedRow></DottedRow>
         <MarkedCircle position="start" value={range[0]}>
