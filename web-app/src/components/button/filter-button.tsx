@@ -31,7 +31,7 @@ export default function FilterButton(props: FilterButtonProps): JSX.Element {
         color="primary"
         onClick={handleClick}
     >
-        {displayLabel}{" "}
+        {displayLabel === "Any Time" ? "Date Posted" : displayLabel}{" "}
         {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
     </StyledFilterButton>
 }
