@@ -390,11 +390,11 @@ export default function ShowJobs(): JSX.Element {
 			},
 			{
 				label: "Medical",
-				value: 1,
+				value: 2,
 			},
 			{
 				label: "Plastics",
-				value: 1,
+				value: 3,
 			},
 		],
 		skills: [
