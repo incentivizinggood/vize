@@ -62,7 +62,11 @@ function ResourcesIndex(props: ResourcesIndexProps) {
 	);
 }
 
-function ResourcesIndexContainer({ audienceType }: { audienceType: string }) {
+function ResourcesIndexContainer({
+	audienceType,
+}: {
+	audienceType: string;
+}): JSX.Element {
 	const [currentPageNum, setCurrentPageNum] = React.useState(0);
 
 	const { loading, error, data } = useQuery(resourcesIndexPageQuery, {

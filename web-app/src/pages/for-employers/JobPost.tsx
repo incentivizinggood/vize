@@ -21,15 +21,14 @@ import skillsImages from "../../images/job-post-icons/skills.png";
 import colors from "src/colors";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
 
-
 const JobPostCard = styled.div`
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background: #fff;
 	border-radius: 15px;
 	padding: 20px;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-	max-width:700px;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	max-width: 700px;
 `;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -42,7 +41,7 @@ const JobRequirementDescription = styled.div`
 	margin-top: 10px;
 	display: flex;
 	flex-wrap: wrap;
-	margin-left:10px;
+	margin-left: 10px;
 `;
 const JobBasicDetails = styled.div`
 	border-bottom: 1px solid #d1d1d1;
@@ -99,9 +98,9 @@ const JobDetailContent = styled.div`
 	display: flex;
 	// padding-left: 10px;
 	flex-wrap: wrap;
-	img	{
+	img {
 		width: 18px;
-    	height: 18px;
+		height: 18px;
 	}
 `;
 const JobDetailContainer = styled.div`
@@ -226,7 +225,12 @@ function JobPost(props: JobPostInterface): JSX.Element {
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
 							{props.shifts.map((v, index) => {
 								return (
-									<LanguageContentWrapper border={index !== props.shifts.length - 1} key={index}>
+									<LanguageContentWrapper
+										border={
+											index !== props.shifts.length - 1
+										}
+										key={index}
+									>
 										<LanguageTitle>{v.day}</LanguageTitle>
 										<LanguageDescription>
 											{v.time}

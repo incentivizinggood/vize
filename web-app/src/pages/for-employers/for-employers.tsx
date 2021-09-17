@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from "react";
+import { useQuery } from "react-apollo";
+
 import styled from "styled-components";
 import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
-import { LinkButton, ExternalLinkButton } from "src/components/button";
+import { ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
-import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
+import Spinner from "src/components/Spinner";
+
 import ResourcePreviewCard from "./ResourcePreviewCard";
 import ResourceTopicButton from "./ResourceTopicButton";
 import JobPost from "./JobPost";
@@ -26,6 +29,8 @@ import topic1Image from "../../images/job-post-icons/topic-1.png";
 import topic2Image from "../../images/job-post-icons/topic-2.png";
 import topic3Image from "../../images/job-post-icons/topic-3.png";
 import img1 from "../../images/workers.jpeg";
+
+import employerPageResourcesQuery from "./employer-page-resources.graphql";
 
 const T = translations.forEmployers;
 
@@ -57,8 +62,8 @@ export interface JobPostInterface {
 	benifits: string[];
 }
 const ContentWrapper = styled.div`
-	margin-left: 12%;
-	margin-right: 12%;
+	margin-left: 9%;
+	margin-right: 9%;
 	${forSize.tabletAndDown} {
 		margin-left: 4%;
 		margin-right: 4%;
@@ -166,20 +171,18 @@ const CardContent = styled.div`
 	border-radius: 15px;
 	padding: 30px;
 	line-height: 1.6;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	${forSize.tabletAndDown} {
 		justify-content: center;
 		align-items: center;
 	}
 	${forSize.tabletLandscapeAndDown} {
 		height: 450px;
-		width 270px;
 		width: auto !important;
-
 	}
 	${forSize.desktopAndDown} {
-		height: 450px;
+		height: 470px;
+		width: 280px;
 	}
 	height: 420px;
 	width: 290px;
@@ -225,6 +228,7 @@ const SectionSubtitle = styled.div`
 const TableWrapper = styled.div``;
 
 const StyledRankedTable = styled.div`
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	margin: 25px 0;
 	> .table-responsive {
 		border-radius: 16px;
@@ -257,6 +261,7 @@ const ResourcesWrapper = styled.div`
 	.inactive {
 		display: none;
 	}
+	margin-bottom: 20px;
 `;
 const ResourceCardRow = styled(Row)`
 	margin-top: 20px;
@@ -312,7 +317,7 @@ const ViewAllResourceWrapper = styled.div`
 	justify-content: center;
 	margin-bottom: 20px;
 `;
-function ForEmployers() {
+function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 	// TODO Refactor: Refactor so that navbarheight is used as a global variable
 	const [width, setWidth] = useState<number>(window.innerWidth);
 	const [activeResourceCard, setActiveResourceCard] = useState(1);
@@ -436,7 +441,26 @@ function ForEmployers() {
 		certifications: ["Instrumentos de Medicion", "Montacargas"],
 		benifits: ["Seguro Social", "Seguro de Salud"],
 	};
-	console.log("isMobile", isMobile);
+
+	const {
+		loading,
+		error,
+		data: resourcesData,
+	} = useQuery(employerPageResourcesQuery, {
+		variables: { audienceType },
+	});
+
+	console.log("data", resourcesData);
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		// TODO: Display errors in better way
+		return <>{JSON.stringify(error)}</>;
+	}
+
 	return (
 		<PageWrapper title="Empleadores">
 			<ContentWrapper>
@@ -552,7 +576,8 @@ function ForEmployers() {
 							<T.signUpToday />
 						</SignUpButton>
 					</SignupTodayWrapper>
-					<HorizontalRow></HorizontalRow>
+
+					<HorizontalRow />
 				</FeaturesWrapper>
 				<JobPostWrapper>
 					<SectionTitle>
@@ -571,8 +596,10 @@ function ForEmployers() {
 							<T.signUpToday />
 						</SignUpButton>
 					</SignupTodayWrapper>
-					<HorizontalRow></HorizontalRow>
 				</JobPostWrapper>
+
+				<HorizontalRow />
+
 				<TableWrapper>
 					<SectionTitle>
 						<T.rankedApplicants.heading />
@@ -628,7 +655,8 @@ function ForEmployers() {
 							<T.getStarted />
 						</SignUpButton>
 					</SignupTodayWrapper>
-					<HorizontalRow></HorizontalRow>
+
+					<HorizontalRow />
 				</TableWrapper>
 				<ResourcesWrapper>
 					<SectionTitle>Resources</SectionTitle>
@@ -637,9 +665,9 @@ function ForEmployers() {
 						best standards with our resources
 					</SectionSubtitle>
 					<ResourceCardRow>
-						{resources.map((resource) => (
+						{resourcesData.highlightedResources.map((resource) => (
 							<ResourcePreviewCard
-								key={resource.id}
+								key={resource.slug}
 								resource={resource}
 								isMobile={isMobile}
 								activeResourceCard={activeResourceCard}
@@ -687,7 +715,8 @@ function ForEmployers() {
 						</ResourceCardNavigation>
 					) : null}
 				</ResourcesWrapper>
-				<ResourcesWrapper>
+
+				{/*<ResourcesWrapper>
 					<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
 					<TopicsContent>
 						<ResourceTopicButton
@@ -718,7 +747,7 @@ function ForEmployers() {
 							View All Resources
 						</LinkButton>
 					</ViewAllResourceWrapper>
-				</ResourcesWrapper>
+				</ResourcesWrapper> */}
 			</ContentWrapper>
 		</PageWrapper>
 	);
