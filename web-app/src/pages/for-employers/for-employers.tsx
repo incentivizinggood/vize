@@ -5,12 +5,13 @@ import { useQuery } from "react-apollo";
 import styled from "styled-components";
 import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
-import { ExternalLinkButton } from "src/components/button";
+import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
 import colors from "src/colors";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import Spinner from "src/components/Spinner";
+import * as urlGenerators from "src/pages/url-generators";
 
 import ResourcePreviewCard from "./ResourcePreviewCard";
 import ResourceTopicButton from "./ResourceTopicButton";
@@ -665,14 +666,17 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 						best standards with our resources
 					</SectionSubtitle>
 					<ResourceCardRow>
-						{resourcesData.highlightedResources.map((resource) => (
-							<ResourcePreviewCard
-								key={resource.slug}
-								resource={resource}
-								isMobile={isMobile}
-								activeResourceCard={activeResourceCard}
-							/>
-						))}
+						{resourcesData.highlightedResources.map(
+							(resource: any) => (
+								<ResourcePreviewCard
+									key={resource.slug}
+									resource={resource}
+									isMobile={isMobile}
+									audienceType={audienceType}
+									activeResourceCard={activeResourceCard}
+								/>
+							)
+						)}
 					</ResourceCardRow>
 					{isMobile ? (
 						<ResourceCardNavigation>
@@ -716,8 +720,8 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					) : null}
 				</ResourcesWrapper>
 
-				{/*<ResourcesWrapper>
-					<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
+				<ResourcesWrapper>
+					{/*<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
 					<TopicsContent>
 						<ResourceTopicButton
 							title="Legal"
@@ -739,6 +743,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							title="View All Topics"
 						/>
 					</TopicsContent>
+					*/}
 					<ViewAllResourceWrapper>
 						<LinkButton
 							$primary
@@ -747,7 +752,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							View All Resources
 						</LinkButton>
 					</ViewAllResourceWrapper>
-				</ResourcesWrapper> */}
+				</ResourcesWrapper>
 			</ContentWrapper>
 		</PageWrapper>
 	);

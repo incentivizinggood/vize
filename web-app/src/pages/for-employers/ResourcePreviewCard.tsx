@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Col } from "react-bootstrap";
-import colors from "src/colors";
 import { LinkButton } from "src/components/button";
 import * as urlGenerators from "src/pages/url-generators";
 
@@ -37,18 +36,19 @@ const ResourceDescription = styled.span`
 
 interface ResourcePreviewCardProps {
 	resource: {
-		slug: number;
+		slug: string;
 		publishDate: string;
 		title: string;
-		body: string;
+		subtitle: string;
 		resourceImageURL: string;
 	};
 	activeResourceCard: number;
 	isMobile: boolean;
+	audienceType: string;
 }
 
 function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
-	const { resource, activeResourceCard, isMobile } = props;
+	const { resource, activeResourceCard, isMobile, audienceType } = props;
 	return (
 		<Col
 			xs={12}
@@ -74,11 +74,19 @@ function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 							: resource.title}
 					</ResourceTitle>
 					<ResourceDescription>
-						{resource.body && resource.body.length > 130
-							? `${resource.body.substring(0, 130)}...`
-							: resource.body}
+						{resource.subtitle && resource.subtitle.length > 130
+							? `${resource.subtitle.substring(0, 130)}...`
+							: resource.subtitle}
 					</ResourceDescription>
-					<LinkButton $primary>Read</LinkButton>
+					<LinkButton
+						to={urlGenerators.vizeResourceUrl(
+							resource.slug,
+							audienceType
+						)}
+						$primary
+					>
+						Read
+					</LinkButton>
 				</ResourceContentWrapper>
 			</ResourceCard>
 		</Col>

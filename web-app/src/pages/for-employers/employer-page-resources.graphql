@@ -2,7 +2,7 @@ query employerPageResources($audienceType: String!) {
 	highlightedResources(audienceType: $audienceType) {
 		slug
 		title
-		body
+		subtitle
 		resourceImageURL
 		topicName
 		publishDate
