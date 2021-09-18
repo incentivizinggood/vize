@@ -5,8 +5,11 @@ import { LinkButton } from "src/components/button";
 import * as urlGenerators from "src/pages/url-generators";
 
 const ResourceCard = styled.div`
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 	background: #fff;
-	border-radius: 16px 16px 6px;
+	border-radius: 16px;
 	margin-bottom: 10px;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
@@ -14,6 +17,7 @@ const ResourceContentWrapper = styled.div`
 	padding: 10px 20px;
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 `;
 const ResourceImage = styled.img`
 	height: 260px;
@@ -79,11 +83,12 @@ function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 							: resource.subtitle}
 					</ResourceDescription>
 					<LinkButton
+						$primary
 						to={urlGenerators.vizeResourceUrl(
 							resource.slug,
 							audienceType
 						)}
-						$primary
+						style={{ marginTop: "auto" }}
 					>
 						Read
 					</LinkButton>

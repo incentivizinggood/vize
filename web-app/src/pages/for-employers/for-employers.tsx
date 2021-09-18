@@ -266,6 +266,7 @@ const ResourcesWrapper = styled.div`
 `;
 const ResourceCardRow = styled(Row)`
 	margin-top: 20px;
+	display: flex;
 `;
 
 const ResourceCardNavigation = styled.div`
