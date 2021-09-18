@@ -70,8 +70,8 @@ const ContentWrapper = styled.div`
 		margin-right: 4%;
 	}
 	@media only screen and (min-width: 1600px) {
-		margin-left: 25%;
-		margin-right: 25%;
+		margin-left: 20%;
+		margin-right: 20%;
 	}
 `;
 const SignUpButton = styled(ExternalLinkButton)`
