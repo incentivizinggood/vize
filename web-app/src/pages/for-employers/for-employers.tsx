@@ -322,7 +322,7 @@ const ViewAllResourceWrapper = styled.div`
 function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 	// TODO Refactor: Refactor so that navbarheight is used as a global variable
 	const [width, setWidth] = useState<number>(window.innerWidth);
-	const [activeResourceCard, setActiveResourceCard] = useState(1);
+	const [activeResourceCard, setActiveResourceCard] = useState(0);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
 	}
@@ -452,8 +452,6 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 		variables: { audienceType },
 	});
 
-	console.log("data", resourcesData);
-
 	if (loading) {
 		return <Spinner />;
 	}
@@ -462,6 +460,8 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 		// TODO: Display errors in better way
 		return <>{JSON.stringify(error)}</>;
 	}
+
+	const numResources = resourcesData.highlightedResources.length;
 
 	return (
 		<PageWrapper title="Empleadores">
@@ -668,10 +668,11 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					</SectionSubtitle>
 					<ResourceCardRow>
 						{resourcesData.highlightedResources.map(
-							(resource: any) => (
+							(resource: any, index: number) => (
 								<ResourcePreviewCard
-									key={resource.slug}
+									key={index}
 									resource={resource}
+									resourceIndex={index}
 									isMobile={isMobile}
 									audienceType={audienceType}
 									activeResourceCard={activeResourceCard}
@@ -684,7 +685,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							<LeftNavigation
 								onClick={() => {
 									setActiveResourceCard(
-										activeResourceCard > 1
+										activeResourceCard > 0
 											? activeResourceCard - 1
 											: activeResourceCard
 									);
@@ -692,7 +693,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							>
 								<img
 									src={
-										activeResourceCard > 1
+										activeResourceCard > 0
 											? navigationArrowImage
 											: navigationArrowImageGrey
 									}
@@ -702,7 +703,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							<RightNavigation
 								onClick={() => {
 									setActiveResourceCard(
-										activeResourceCard < 3
+										activeResourceCard < numResources - 1
 											? activeResourceCard + 1
 											: activeResourceCard
 									);
@@ -710,7 +711,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							>
 								<img
 									src={
-										activeResourceCard < 3
+										activeResourceCard < numResources - 1
 											? navigationArrowImage
 											: navigationArrowImageGrey
 									}

@@ -46,21 +46,30 @@ interface ResourcePreviewCardProps {
 		subtitle: string;
 		resourceImageURL: string;
 	};
+	resourceIndex: number;
 	activeResourceCard: number;
 	isMobile: boolean;
 	audienceType: string;
 }
 
 function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
-	const { resource, activeResourceCard, isMobile, audienceType } = props;
+	const {
+		resource,
+		activeResourceCard,
+		resourceIndex,
+		isMobile,
+		audienceType,
+	} = props;
+	console.log("active", activeResourceCard);
+	console.log("current", resourceIndex);
 	return (
 		<Col
 			xs={12}
 			md={4}
-			key={resource.slug}
+			key={resourceIndex}
 			className={
 				isMobile
-					? activeResourceCard === resource.slug
+					? activeResourceCard === resourceIndex
 						? "active"
 						: "inactive"
 					: ""
