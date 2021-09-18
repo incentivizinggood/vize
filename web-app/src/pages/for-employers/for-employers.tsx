@@ -114,6 +114,7 @@ const BannerVizeContent = styled.span`
 	position: relative;
 	font-size: 50px;
 	font-weight: bolder;
+	margin-left: 5px;
 	color: ${colors.secondaryColorGreen};
 	z-index: 1;
 	${forSize.tabletAndDown} {
@@ -661,10 +662,11 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					<HorizontalRow />
 				</TableWrapper>
 				<ResourcesWrapper>
-					<SectionTitle>Resources</SectionTitle>
+					<SectionTitle>
+						<T.resources.heading />
+					</SectionTitle>
 					<SectionSubtitle>
-						Improve your HR practices by learning about industry
-						best standards with our resources
+						<T.resources.subheading />
 					</SectionSubtitle>
 					<ResourceCardRow>
 						{resourcesData.highlightedResources.map(
@@ -751,7 +753,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 							$primary
 							to={urlGenerators.queryRoutes.employerResources}
 						>
-							View All Resources
+							<T.resources.heading />
 						</LinkButton>
 					</ViewAllResourceWrapper>
 				</ResourcesWrapper>

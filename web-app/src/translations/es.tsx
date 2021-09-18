@@ -696,13 +696,13 @@ export default {
 		benefits: {
 			saveMoneyHeading: "Ahorre Dinero",
 			saveMoneyDescription:
-				"Reciba 2 meses de ofertas de empleo ilimitadas gratis al registrarse hoy. Puede contratar la fuerza de trabajo que necesita de manera más fácil, rápida y asequible al llegar a más de 3000 trabajadores de fábrica en nuestro sitio.",
+				"Reciba 3 meses de ofertas de empleo ilimitadas gratis al registrarse hoy. Solo estamos ofreciendo esta oportunidad por un tiempo limitado.",
 			saveTimeHeading: "Ahorre Tiempo",
 			saveTimeDescription:
 				"Clasificaremos y filtraremos todas sus solicitudes semanalmente para encontrar a los trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo y más) para que usted no tenga que revisar todos los CVs.",
 			getResultsHeading: "Obtenga Resultados",
 			getResultsDescription:
-				"Solo paga por los resultados. Cobramos 5 pesos por solicitud de empleo, en vez de cobrar una suscripción mensual. Esto le ahorra dinero, le da la flexibilidad para publicar todos los empleos que necesite, cuando los necesite y para todos los trabajadores que necesite.",
+				"Cobramos 5 pesos por solicitud de empleo, en vez de cobrar una suscripción mensual. De esa manera, solo pagaran por resultados. Esto le ahorra dinero, le da la flexibilidad para publicar todos los empleos que necesite, cuando los necesite y para todos los trabajadores que necesite.",
 		},
 		exampleJobPost: {
 			heading: "Ofertas de Empleo",
@@ -723,6 +723,12 @@ export default {
 			heading: "Solicitantes Clasificados",
 			subheading:
 				"Encuentre a trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo, y más)",
+		},
+		resources: {
+			heading: "Recursos",
+			subheading:
+				"Mejore sus prácticas de Recursos Humanos con nuestros recursos sobre los mejores estándares de la industria maquiladora",
+			viewMoreResources: "Ver Más Recursos",
 		},
 	},
 	legacyTranslationsNeedsRefactor: {
