@@ -77,6 +77,9 @@ const ContentWrapper = styled.div`
 const SignUpButton = styled(ExternalLinkButton)`
 	font-size: 21px;
 `;
+const ResourcesButton = styled(LinkButton)`
+	font-size: 21px;
+`;
 const Banner = styled.div`
 	margin-top: 150px;
 	${forSize.tabletAndDown} {
@@ -263,7 +266,7 @@ const ResourcesWrapper = styled.div`
 	.inactive {
 		display: none;
 	}
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 `;
 const ResourceCardRow = styled(Row)`
 	margin-top: 20px;
@@ -749,12 +752,12 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					</TopicsContent>
 					*/}
 					<ViewAllResourceWrapper>
-						<LinkButton
+						<ResourcesButton
 							$primary
 							to={urlGenerators.queryRoutes.employerResources}
 						>
-							<T.resources.heading />
-						</LinkButton>
+							<T.resources.viewMoreResources />
+						</ResourcesButton>
 					</ViewAllResourceWrapper>
 				</ResourcesWrapper>
 			</ContentWrapper>
