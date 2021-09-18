@@ -60,8 +60,15 @@ function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 		isMobile,
 		audienceType,
 	} = props;
-	console.log("active", activeResourceCard);
-	console.log("current", resourceIndex);
+	const dateOptions = {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+	};
+
+	const resourcePublishedDate = new Date(
+		props.resource.publishDate
+	).toLocaleDateString("es-MX", dateOptions);
 	return (
 		<Col
 			xs={12}
@@ -79,7 +86,7 @@ function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 				<ResourceImage alt="top" src={resource.resourceImageURL} />
 				<ResourceContentWrapper>
 					<ResourceDatePublished>
-						{resource.publishDate}
+						{resourcePublishedDate}
 					</ResourceDatePublished>
 					<ResourceTitle>
 						{resource.title && resource.title.length > 65
