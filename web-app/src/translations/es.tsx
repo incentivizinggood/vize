@@ -624,7 +624,7 @@ export default {
 					"Escribe una lista de todas las habilidades y conocimientos relacionados con la manufactura que tengas. Separa cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
 			},
 			certificatesAndLicences: {
-				label: "Certificates & Licences",
+				label: "Certificados y Licencias",
 				placeholder:
 					"Escribe una lista de los certificados y licencias relacionados con la manufactura que tengas. Separa cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
 			},

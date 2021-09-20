@@ -14,7 +14,7 @@ import Spinner from "src/components/Spinner";
 import * as urlGenerators from "src/pages/url-generators";
 
 import ResourcePreviewCardVertical from "./resource-preview-card-vertical";
-import ResourceTopicButton from "./ResourceTopicButton";
+import ResourceTopicButton from "./resource-topic-button";
 import JobPost from "./JobPost";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
