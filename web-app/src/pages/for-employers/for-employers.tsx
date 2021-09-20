@@ -1,16 +1,20 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from "react";
+import { useQuery } from "react-apollo";
+
 import styled from "styled-components";
 import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
 import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
-import * as urlGenerators from "src/pages/url-generators";
 import colors from "src/colors";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
-import ResourcePreviewCard from "./ResourcePreviewCard";
-import ResourceTopicButton from "./ResourceTopicButton";
+import Spinner from "src/components/Spinner";
+import * as urlGenerators from "src/pages/url-generators";
+
+import ResourcePreviewCardVertical from "./resource-preview-card-vertical";
+import ResourceTopicButton from "./resource-topic-button";
 import JobPost from "./JobPost";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
@@ -26,6 +30,8 @@ import topic1Image from "../../images/job-post-icons/topic-1.png";
 import topic2Image from "../../images/job-post-icons/topic-2.png";
 import topic3Image from "../../images/job-post-icons/topic-3.png";
 import img1 from "../../images/workers.jpeg";
+
+import employerPageResourcesQuery from "./employer-page-resources.graphql";
 
 const T = translations.forEmployers;
 
@@ -57,18 +63,21 @@ export interface JobPostInterface {
 	benifits: string[];
 }
 const ContentWrapper = styled.div`
-	margin-left: 12%;
-	margin-right: 12%;
+	margin-left: 9%;
+	margin-right: 9%;
 	${forSize.tabletAndDown} {
 		margin-left: 4%;
 		margin-right: 4%;
 	}
 	@media only screen and (min-width: 1600px) {
-		margin-left: 25%;
-		margin-right: 25%;
+		margin-left: 20%;
+		margin-right: 20%;
 	}
 `;
 const SignUpButton = styled(ExternalLinkButton)`
+	font-size: 21px;
+`;
+const ResourcesButton = styled(LinkButton)`
 	font-size: 21px;
 `;
 const Banner = styled.div`
@@ -108,6 +117,7 @@ const BannerVizeContent = styled.span`
 	position: relative;
 	font-size: 50px;
 	font-weight: bolder;
+	margin-left: 5px;
 	color: ${colors.secondaryColorGreen};
 	z-index: 1;
 	${forSize.tabletAndDown} {
@@ -158,22 +168,29 @@ const CardImageWrapper = styled.img`
 `;
 
 const CardContent = styled.div`
-	height: 352px;
 	display: flex;
 	flex-direction: column;
-
 	background-color: #ffffff;
 	margin-top: 5px;
 	margin-bottom: 20px;
 	border-radius: 15px;
 	padding: 30px;
 	line-height: 1.6;
-	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-		0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	${forSize.tabletAndDown} {
 		justify-content: center;
 		align-items: center;
 	}
+	${forSize.tabletLandscapeAndDown} {
+		height: 450px;
+		width: auto !important;
+	}
+	${forSize.desktopAndDown} {
+		height: 470px;
+		width: 280px;
+	}
+	height: 420px;
+	width: 290px;
 `;
 const BenefitCardDescription = styled.div`
 	line-height: 1.8;
@@ -194,6 +211,7 @@ const HorizontalRow = styled.div`
 const JobPostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;
 const SectionTitle = styled.div`
 	font-size: 36px;
@@ -215,6 +233,7 @@ const SectionSubtitle = styled.div`
 const TableWrapper = styled.div``;
 
 const StyledRankedTable = styled.div`
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	margin: 25px 0;
 	> .table-responsive {
 		border-radius: 16px;
@@ -247,9 +266,11 @@ const ResourcesWrapper = styled.div`
 	.inactive {
 		display: none;
 	}
+	margin-bottom: 30px;
 `;
 const ResourceCardRow = styled(Row)`
 	margin-top: 20px;
+	display: flex;
 `;
 
 const ResourceCardNavigation = styled.div`
@@ -302,10 +323,10 @@ const ViewAllResourceWrapper = styled.div`
 	justify-content: center;
 	margin-bottom: 20px;
 `;
-function ForEmployers() {
+function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 	// TODO Refactor: Refactor so that navbarheight is used as a global variable
 	const [width, setWidth] = useState<number>(window.innerWidth);
-	const [activeResourceCard, setActiveResourceCard] = useState(1);
+	const [activeResourceCard, setActiveResourceCard] = useState(0);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
 	}
@@ -426,7 +447,26 @@ function ForEmployers() {
 		certifications: ["Instrumentos de Medicion", "Montacargas"],
 		benifits: ["Seguro Social", "Seguro de Salud"],
 	};
-	console.log("isMobile", isMobile);
+
+	const {
+		loading,
+		error,
+		data: resourcesData,
+	} = useQuery(employerPageResourcesQuery, {
+		variables: { audienceType },
+	});
+
+	if (loading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		// TODO: Display errors in better way
+		return <>{JSON.stringify(error)}</>;
+	}
+
+	const numResources = resourcesData.highlightedResources.length;
+
 	return (
 		<PageWrapper title="Empleadores">
 			<ContentWrapper>
@@ -542,7 +582,8 @@ function ForEmployers() {
 							<T.signUpToday />
 						</SignUpButton>
 					</SignupTodayWrapper>
-					<HorizontalRow></HorizontalRow>
+
+					<HorizontalRow />
 				</FeaturesWrapper>
 				<JobPostWrapper>
 					<SectionTitle>
@@ -561,8 +602,10 @@ function ForEmployers() {
 							<T.signUpToday />
 						</SignUpButton>
 					</SignupTodayWrapper>
-					<HorizontalRow></HorizontalRow>
 				</JobPostWrapper>
+
+				<HorizontalRow />
+
 				<TableWrapper>
 					<SectionTitle>
 						<T.rankedApplicants.heading />
@@ -618,30 +661,36 @@ function ForEmployers() {
 							<T.getStarted />
 						</SignUpButton>
 					</SignupTodayWrapper>
-					<HorizontalRow></HorizontalRow>
+
+					<HorizontalRow />
 				</TableWrapper>
-				{/* <ResourcesWrapper>
-					<SectionTitle>Resources</SectionTitle>
+				<ResourcesWrapper>
+					<SectionTitle>
+						<T.resources.heading />
+					</SectionTitle>
 					<SectionSubtitle>
-						Improve your HR practices by learning about industry
-						best standards with our resources
+						<T.resources.subheading />
 					</SectionSubtitle>
 					<ResourceCardRow>
-						{resources.map((resource) => (
-							<ResourcePreviewCard
-								key={resource.id}
-								resource={resource}
-								isMobile={isMobile}
-								activeResourceCard={activeResourceCard}
-							/>
-						))}
+						{resourcesData.highlightedResources.map(
+							(resource: any, index: number) => (
+								<ResourcePreviewCardVertical
+									key={index}
+									resource={resource}
+									resourceIndex={index}
+									isMobile={isMobile}
+									audienceType={audienceType}
+									activeResourceCard={activeResourceCard}
+								/>
+							)
+						)}
 					</ResourceCardRow>
 					{isMobile ? (
 						<ResourceCardNavigation>
 							<LeftNavigation
 								onClick={() => {
 									setActiveResourceCard(
-										activeResourceCard > 1
+										activeResourceCard > 0
 											? activeResourceCard - 1
 											: activeResourceCard
 									);
@@ -649,7 +698,7 @@ function ForEmployers() {
 							>
 								<img
 									src={
-										activeResourceCard > 1
+										activeResourceCard > 0
 											? navigationArrowImage
 											: navigationArrowImageGrey
 									}
@@ -659,7 +708,7 @@ function ForEmployers() {
 							<RightNavigation
 								onClick={() => {
 									setActiveResourceCard(
-										activeResourceCard < 3
+										activeResourceCard < numResources - 1
 											? activeResourceCard + 1
 											: activeResourceCard
 									);
@@ -667,7 +716,7 @@ function ForEmployers() {
 							>
 								<img
 									src={
-										activeResourceCard < 3
+										activeResourceCard < numResources - 1
 											? navigationArrowImage
 											: navigationArrowImageGrey
 									}
@@ -677,8 +726,9 @@ function ForEmployers() {
 						</ResourceCardNavigation>
 					) : null}
 				</ResourcesWrapper>
+
 				<ResourcesWrapper>
-					<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
+					{/*<ResourceTopicTitle>Resource Topics</ResourceTopicTitle>
 					<TopicsContent>
 						<ResourceTopicButton
 							title="Legal"
@@ -700,15 +750,16 @@ function ForEmployers() {
 							title="View All Topics"
 						/>
 					</TopicsContent>
+					*/}
 					<ViewAllResourceWrapper>
-						<LinkButton
+						<ResourcesButton
 							$primary
 							to={urlGenerators.queryRoutes.employerResources}
 						>
-							View All Resources
-						</LinkButton>
+							<T.resources.viewMoreResources />
+						</ResourcesButton>
 					</ViewAllResourceWrapper>
-				</ResourcesWrapper> */}
+				</ResourcesWrapper>
 			</ContentWrapper>
 		</PageWrapper>
 	);
