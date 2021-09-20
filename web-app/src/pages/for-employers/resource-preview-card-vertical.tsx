@@ -41,7 +41,7 @@ const ResourceDescription = styled.span`
 	margin-bottom: 10px;
 `;
 
-interface ResourcePreviewCardProps {
+interface ResourcePreviewCardVerticalProps {
 	resource: {
 		slug: string;
 		publishDate: string;
@@ -55,7 +55,9 @@ interface ResourcePreviewCardProps {
 	audienceType: string;
 }
 
-function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
+function ResourcePreviewCardVertical(
+	props: ResourcePreviewCardVerticalProps
+): JSX.Element {
 	const {
 		resource,
 		activeResourceCard,
@@ -117,4 +119,4 @@ function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 	);
 }
 
-export default ResourcePreviewCard;
+export default ResourcePreviewCardVertical;

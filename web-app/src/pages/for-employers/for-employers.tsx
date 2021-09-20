@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import Spinner from "src/components/Spinner";
 import * as urlGenerators from "src/pages/url-generators";
 
-import ResourcePreviewCard from "./ResourcePreviewCard";
+import ResourcePreviewCardVertical from "./resource-preview-card-vertical";
 import ResourceTopicButton from "./ResourceTopicButton";
 import JobPost from "./JobPost";
 import resourcesIcon from "src/images/icons/resources-icon.png";
@@ -674,7 +674,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					<ResourceCardRow>
 						{resourcesData.highlightedResources.map(
 							(resource: any, index: number) => (
-								<ResourcePreviewCard
+								<ResourcePreviewCardVertical
 									key={index}
 									resource={resource}
 									resourceIndex={index}
