@@ -729,6 +729,7 @@ export default {
 			subheading:
 				"Mejore sus prácticas de Recursos Humanos con nuestros recursos sobre los mejores estándares de la industria maquiladora",
 			viewMoreResources: "Ver Más Recursos",
+			read: "Leer",
 		},
 	},
 	legacyTranslationsNeedsRefactor: {

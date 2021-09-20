@@ -698,6 +698,7 @@ export default {
 			subheading:
 				"Improve your HR practices by learning about industry best standards with our resources",
 			viewMoreResources: "View More Resources",
+			read: "Read",
 		},
 	},
 	legacyTranslationsNeedsRefactor: {

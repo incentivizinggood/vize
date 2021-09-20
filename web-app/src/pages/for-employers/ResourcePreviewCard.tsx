@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { Col } from "react-bootstrap";
 import { LinkButton } from "src/components/button";
 import * as urlGenerators from "src/pages/url-generators";
+import { translations } from "src/translations";
+
+const T = translations.forEmployers.resources;
 
 const ResourceCard = styled.div`
 	height: 100%;
@@ -104,9 +107,9 @@ function ResourcePreviewCard(props: ResourcePreviewCardProps): JSX.Element {
 							resource.slug,
 							audienceType
 						)}
-						style={{ marginTop: "auto" }}
+						style={{ marginTop: "auto", fontSize: "17px" }}
 					>
-						Read
+						<T.read />
 					</LinkButton>
 				</ResourceContentWrapper>
 			</ResourceCard>
