@@ -1,0 +1,10 @@
+query employerPageResources($audienceType: String!) {
+	highlightedResources(audienceType: $audienceType) {
+		slug
+		title
+		subtitle
+		resourceImageURL
+		topicName
+		publishDate
+	}
+}

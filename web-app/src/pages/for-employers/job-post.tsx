@@ -19,8 +19,8 @@ import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
 import { colors, borderRadius, boxShadow } from "src/global-styles";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
-import CloseIcon from "@material-ui/icons/Close";
 import { forSize } from "src/responsive";
+import CloseIcon from "@material-ui/icons/Close";
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -28,7 +28,8 @@ const JobPostCard = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
 	padding: 20px;
-	box-shadow: ${boxShadow.wide};
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	max-width: 700px;
 `;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -53,10 +54,10 @@ const JobPostTitle = styled.div`
 	justify-content: space-between;
 `;
 const PostImage = styled.img`
-	height: 68px;
-	width: 68px;
-	border-radius: ${borderRadius.smallImage};
-	margin: 20px 20px 20px 0px;
+	height: 60px;
+	width: 60px;
+	border-radius: 6px;
+	margin: 0px 20px 0px 0px;
 `;
 const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`

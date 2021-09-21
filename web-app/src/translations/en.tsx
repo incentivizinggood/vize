@@ -670,13 +670,13 @@ export default {
 			Vize: "Vize",
 		},
 		subheading:
-			"Post jobs and we'll rank ad filter the right factory workers in Tijuana for your factory",
+			"Post jobs and we'll rank and filter the right factory workers in Tijuana for your factory",
 		getStarted: "Get Started",
 		signUpToday: "Sign Up Today",
 		benefits: {
 			saveMoneyHeading: "Save Money",
 			saveMoneyDescription:
-				"Get two months of free and unlimited job posts by signing up today.You can hire workforce you need easier, faster, and more affordable by reaching over 3000 factory workers on our site.",
+				"Get three months of free and unlimited job posts by signing up today. We are only offering this opportunity for a limited amount of time.",
 			saveTimeHeading: "Save Time",
 			saveTimeDescription:
 				"We rank and filter all of your applications on a weekly basis to find factory workers that are tailored to your needs (availability, skills, education level, and more) so you don’t have to sort through CVs yourself.",
@@ -690,7 +690,15 @@ export default {
 		},
 		rankedApplicants: {
 			heading: "Ranked Applicants",
-			subheading: "Find factory workers that are tailored to your needs (availability, skills, education, level and more)",
+			subheading:
+				"Find factory workers that are tailored to your needs (availability, skills, education, level and more)",
+		},
+		resources: {
+			heading: "Resources",
+			subheading:
+				"Improve your HR practices by learning about industry best standards with our resources",
+			viewMoreResources: "View More Resources",
+			read: "Read",
 		},
 	},
 	legacyTranslationsNeedsRefactor: {

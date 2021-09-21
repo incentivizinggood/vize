@@ -134,7 +134,7 @@ export default function Pages(): JSX.Element {
 			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.forEmployers}`}
-				component={ForEmployers}
+				component={() => <ForEmployers audienceType={"EMPLOYERS"} />}
 			/>
 
 			<Route
