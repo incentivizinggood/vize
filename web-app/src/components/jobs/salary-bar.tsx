@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colors } from "src/global-styles";
+import { forSize } from "src/responsive";
 
 const SalaryBarWrapper = styled.div`
     width:1000px;
@@ -8,6 +9,9 @@ const SalaryBarWrapper = styled.div`
     align-items:center;
     height:75px;
     position:relative;
+    ${forSize.tabletAndDown} {
+        width:310px;
+    }
 `;
 const DottedRow = styled.hr`
     height:14px;
@@ -18,6 +22,11 @@ const DottedRow = styled.hr`
         content:"..............................................................................................................................";
         color:${colors.primaryColorBlue};
         letter-spacing: 4px; 
+    }
+    ${forSize.tabletAndDown} {
+        :after {
+            content:"....................................";
+        }
     }
 `;
 const MarkedCircle = styled.div`

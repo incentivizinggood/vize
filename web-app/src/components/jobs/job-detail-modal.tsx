@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 import { colors } from "src/global-styles";
@@ -11,21 +11,10 @@ import HorizontalLine from "../horizontal-line";
 import CompanyContentWrapper from "./company-content-wrapper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { forSize } from "src/responsive";
 
 
-const jobDetailModalStyles = {
-	overlay: {
-		backgroundColor: "#000000a3",
-		zIndex: 999,
-	},
-	content: {
-		top: "20%",
-		margin: "0 auto",
-		minWidth: "1100px",
-		maxWidth: "1100px",
-		minHeight: "calc(100vh - 60px)",
-	},
-};
+
 interface JobDetailModalProps {
 	visible: boolean;
 	jobPost: any;
@@ -61,6 +50,9 @@ const ScrollableContent = styled.div`
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 10px;
+	${forSize.tabletAndDown} {
+		height:420px;
+	}
 `;
 
 
@@ -68,6 +60,16 @@ Modal.setAppElement("#app-root");
 export default function JobDetailModal(
 	props: JobDetailModalProps
 ): JSX.Element {
+	const [width, setWidth] = useState<number>(window.innerWidth);
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+	useEffect(() => {
+		window.addEventListener("resize", handleWindowSizeChange);
+		return () => {
+			window.removeEventListener("resize", handleWindowSizeChange);
+		};
+	}, []);
 	const { visible, jobPost, onClose } = props;
 	const [activetTab, setActiveTab] = useState(1);
 	const jobContentRef = useRef(null);
@@ -80,6 +82,19 @@ export default function JobDetailModal(
 			setActiveTab(2)
 		}
 	}
+	const jobDetailModalStyles = {
+		overlay: {
+			backgroundColor: "#000000a3",
+			zIndex: 999,
+		},
+		content: {
+			top: "20%",
+			margin: "0 auto",
+			minWidth: width < 450 ? "400px" : "1100px",
+			maxWidth: width < 450 ? "400px" : "1100px",
+			minHeight: "calc(100vh - 60px)",
+		},
+	};
 	return (
 		<StyledModal
 			isOpen={visible}

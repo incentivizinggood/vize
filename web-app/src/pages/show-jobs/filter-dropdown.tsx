@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Popover from "@material-ui/core/Popover";
+import { forSize } from "src/responsive";
+
 import styled from "styled-components";
 import FilterButton from "../../components/button/filter-button";
 import Radio from "@material-ui/core/Radio";
@@ -21,6 +23,9 @@ interface FilterDropdownProps {
 const DropdownContainer = styled.div`
 	margin-bottom: 10px;
 	margin-right: 12px;
+	${forSize.tabletAndDown} {
+		display:inline-block;
+	}
 `;
 
 const DropdownWrapper = styled.div`

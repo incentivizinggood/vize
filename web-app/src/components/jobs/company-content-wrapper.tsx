@@ -62,13 +62,19 @@ const ViewAllButton = styled.div`
 const JobLocationList = styled.div`
 	display: flex;
 	flex-direction: column;
+    width:75%;
 `;
 const JobLocationText = styled.span``;
 const SectionTitle = styled.h3``;
 const JobList = styled(Row)`
 	margin-top: 10px;
 `;
-
+const ExtraDetailsContainer = styled.div`
+    display: flex;
+`;
+const ExtraTitleContent = styled.div`
+    width:25%;
+`;
 export default function CompanyContentWrapper(props: any): JSX.Element {
     const { companyDetail, company } = props;
     return <CompanyContent >
@@ -83,44 +89,36 @@ export default function CompanyContentWrapper(props: any): JSX.Element {
             </JobRequirementDescription>
         </JobRequirementWrapper>
         <JobCompanyBasicDetail>
-            <Row>
-                <Col md={3}>
-                    <strong>Size</strong>
-                </Col>
-                <Col>{companyDetail.size}</Col>
-            </Row>
-            <Row>
-                <Col md={3}>
-                    <strong>Industry</strong>
-                </Col>
-                <Col>{companyDetail.industry}</Col>
-            </Row>
-            <Row>
-                <Col md={3}>
-                    <strong>Website</strong>
-                </Col>
-                <Col>
-                    {companyDetail.companyWebsite}
-                </Col>
-            </Row>
-            <Row>
-                <Col md={3}>
-                    <strong>Location</strong>
-                </Col>
-                <Col>
-                    <JobLocationList>
-                        {companyDetail.location.map(
-                            (v) => {
-                                return (
-                                    <JobLocationText key={v}>
-                                        {v}
-                                    </JobLocationText>
-                                );
-                            }
-                        )}
-                    </JobLocationList>
-                </Col>
-            </Row>
+            <ExtraDetailsContainer>
+                <ExtraTitleContent><span><strong>Size</strong></span>
+                </ExtraTitleContent>
+                <span>{companyDetail.size}</span>
+            </ExtraDetailsContainer>
+            <ExtraDetailsContainer>
+                <ExtraTitleContent><span><strong>Industry</strong></span>
+                </ExtraTitleContent>
+                <span>{companyDetail.industry}</span>
+            </ExtraDetailsContainer>
+            <ExtraDetailsContainer>
+                <ExtraTitleContent><span><strong>Website</strong></span>
+                </ExtraTitleContent>
+                <span>{companyDetail.companyWebsite}</span>
+            </ExtraDetailsContainer>
+            <ExtraDetailsContainer>
+                <ExtraTitleContent><span><strong>Location</strong></span>
+                </ExtraTitleContent>
+                <JobLocationList>
+                    {companyDetail.location.map(
+                        (v) => {
+                            return (
+                                <JobLocationText key={v}>
+                                    {v}
+                                </JobLocationText>
+                            );
+                        }
+                    )}
+                </JobLocationList>
+            </ExtraDetailsContainer>
         </JobCompanyBasicDetail>
         <CompanyRatingWrapper company={company}
             ratings={companyDetail.ratings}

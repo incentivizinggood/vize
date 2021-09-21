@@ -5,6 +5,8 @@ import { Row, Col, ListGroup } from "react-bootstrap";
 import StarsIcon from "@material-ui/icons/Stars";
 import { colors, borderRadius } from "src/global-styles";
 import Stats from "./stats"
+import { forSize } from "src/responsive";
+
 const StyledCompanyRatingsWrapper = styled.div``;
 const CompanyRating = styled.div`
 	border-radius: ${borderRadius.container};
@@ -37,6 +39,9 @@ const StatesWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: inherit;
+    ${forSize.tabletAndDown} {
+		margin-top:25px;
+	}
 `;
 const RatingTitle = styled.div`
 	display: flex;

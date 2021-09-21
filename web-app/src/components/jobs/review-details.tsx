@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import RatingsDropdownReview from "../ratings-dropdown-review";
 import { colors, borderRadius } from "src/global-styles";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { forSize } from "src/responsive";
 
 export interface Ratings {
     average: number;
@@ -59,12 +60,13 @@ const ReviewComments = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-const ReviewCommentsRow = styled(Row)`
+const ReviewCommentsRow = styled.div`
 	margin: 0px;
 	display: flex;
 	justify-content: space-between;
+    flex-wrap: wrap;
 `;
-const ReviewCommentsColumn = styled(Col)`
+const ReviewCommentsColumn = styled.div`
 	border-radius: ${borderRadius.container};
 	padding: 20px;
 	border: 1px solid #efefef;
@@ -73,6 +75,11 @@ const ReviewCommentsColumn = styled(Col)`
 	position: relative;
 	margin-top: 10px;
 	margin-left: 0px;
+    width:${(p: { type?: string; }) =>
+        p.type === "half" ? "48%" : "100%"};
+    ${forSize.tabletAndDown} {
+        width:100%;
+    }
 `;
 const ReviewCommentHeader = styled(Col)`
 	position: absolute;
@@ -151,27 +158,19 @@ export default function ReviewDetails(props: ReviewDetailsProps): JSX.Element {
                 : null}
             <ReviewComments>
                 <ReviewCommentsRow>
-                    <ReviewCommentsColumn
-                        md={6}
-                    >
+                    <ReviewCommentsColumn type="half" >
                         <ReviewCommentHeader>
                             Pros
                         </ReviewCommentHeader>
                         <span>{pros}</span>
                     </ReviewCommentsColumn>
-                    <ReviewCommentsColumn
-                        md={6}
-                    >
+                    <ReviewCommentsColumn type="half">
                         <ReviewCommentHeader>
                             Cons
                         </ReviewCommentHeader>
                         <span>{cons}</span>
                     </ReviewCommentsColumn>
-                </ReviewCommentsRow>
-                <ReviewCommentsRow>
-                    <ReviewCommentsColumn
-                        md={12}
-                    >
+                    <ReviewCommentsColumn type="full">
                         <ReviewCommentHeader>
                             Additional Comments
                         </ReviewCommentHeader>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { Button } from "src/components/button";
@@ -20,6 +20,7 @@ import skillsImages from "../../images/job-post-icons/skills.png";
 import { colors, borderRadius, boxShadow } from "src/global-styles";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
 import CloseIcon from "@material-ui/icons/Close";
+import { forSize } from "src/responsive";
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -104,6 +105,21 @@ const JobDetailContent = styled.div`
 		height: 18px;
 	}
 `;
+const LocationContainer = styled.div`
+	display: flex;
+	// padding-left: 10px;
+	flex-wrap: wrap;
+	img {
+		width: 18px;
+		height: 18px;
+	}
+	${forSize.tabletAndDown} {
+		flex-direction: column;
+		div{
+			border:none;
+		}
+	}
+`;
 const JobDetailContainer = styled.div`
 	margin-bottom: 5px;
 	display: flex;
@@ -148,6 +164,9 @@ const ActionsWrapper = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	width: 430px;
+	${forSize.tabletAndDown} {
+		width: auto;
+	}
 `;
 const ReplyIconWrapper = styled.div`
 	display: flex;
@@ -165,47 +184,70 @@ const CloseButton = styled.div`
 	cursor: pointer;
 `;
 export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
+	const [width, setWidth] = useState<number>(window.innerWidth);
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+	useEffect(() => {
+		window.addEventListener("resize", handleWindowSizeChange);
+		return () => {
+			window.removeEventListener("resize", handleWindowSizeChange);
+		};
+	}, []);
 	return (
-		<JobPostTitle>
-			<JobPostHeaderRightSection>
-				<PostImage src={foxconnLogoImage} alt="post-image" />
-				<PostHeaderContent>
-					<PostTitle>{props.company}</PostTitle>
-					<PostSubHeading>{props.jobPost}</PostSubHeading>
-					<RatingWrapper>
-						<RatingsDropdown
-							ratings={{
-								healthAndSafety: props.rating,
-								managerRelationship: props.rating,
-								workEnvironment: props.rating,
-								benefits: props.rating,
-								overallSatisfaction: props.rating,
-							}}
-							numReviews={props.reviewCount}
-							companyName=""
-						/>
-						<ReviewCount>{props.reviewCount} Reviews</ReviewCount>
-					</RatingWrapper>
-				</PostHeaderContent>
-			</JobPostHeaderRightSection>
-			{props.modal ? (
-				<JobPostHeaderLeftSection>
-					<ActionsWrapper>
-						<Button>
-							<ReplyIconWrapper>
-								<ReplyIcon />
-								<span>Compartir</span>
-							</ReplyIconWrapper>
-						</Button>
-						<Button $primary>Postularme</Button>
-						<CloseButton>
-							<CloseIcon onClick={props.onClose} />
-						</CloseButton>
-					</ActionsWrapper>
-					<span>Posted {props.published}</span>
-				</JobPostHeaderLeftSection>
-			) : null}
-		</JobPostTitle>
+		<>
+			<JobPostTitle>
+				<JobPostHeaderRightSection>
+					<PostImage src={foxconnLogoImage} alt="post-image" />
+					<PostHeaderContent>
+						<PostTitle>{props.company}</PostTitle>
+						<PostSubHeading>{props.jobPost}</PostSubHeading>
+						<RatingWrapper>
+							<RatingsDropdown
+								ratings={{
+									healthAndSafety: props.rating,
+									managerRelationship: props.rating,
+									workEnvironment: props.rating,
+									benefits: props.rating,
+									overallSatisfaction: props.rating,
+								}}
+								numReviews={props.reviewCount}
+								companyName=""
+							/>
+							<ReviewCount>{props.reviewCount} Reviews</ReviewCount>
+						</RatingWrapper>
+						{width < 450 ? <span>Posted {props.published}</span> : null}
+					</PostHeaderContent>
+				</JobPostHeaderRightSection>
+
+				{props.modal ? (
+					<JobPostHeaderLeftSection>
+						<ActionsWrapper>
+							{width > 450 ? <><Button>
+								<ReplyIconWrapper>
+									<ReplyIcon />
+									<span>Compartir</span>
+								</ReplyIconWrapper>
+							</Button>
+								<Button $primary>Postularme</Button></> : null}
+
+							<CloseButton>
+								<CloseIcon onClick={props.onClose} />
+							</CloseButton>
+						</ActionsWrapper>
+						{width > 450 ? <span>Posted {props.published}</span> : null}
+					</JobPostHeaderLeftSection>
+				) : null}
+			</JobPostTitle>
+			{width < 450 ? <ActionsWrapper><Button>
+				<ReplyIconWrapper>
+					<ReplyIcon />
+					<span>Compartir</span>
+				</ReplyIconWrapper>
+			</Button>
+				<Button $primary>Postularme</Button></ActionsWrapper> : null}
+		</>
+
 	);
 };
 export const JobContentWrapper = function (
@@ -286,7 +328,7 @@ export const JobContentWrapper = function (
 				<JobDetailsWrapper>
 					<Col xs={12} md={12} className="details-container">
 						<JobDetailsTitle>Ubicación</JobDetailsTitle>
-						<JobDetailContent>
+						<LocationContainer>
 							<JobDetailContainer>
 								<LanguageImage
 									src={cityImage}
@@ -328,7 +370,7 @@ export const JobContentWrapper = function (
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
-						</JobDetailContent>
+						</LocationContainer>
 					</Col>
 				</JobDetailsWrapper>
 			</JobBasicDetails>

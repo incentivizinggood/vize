@@ -80,8 +80,8 @@ const SearchBar = styled.div`
 	bottom: -76px;
 	background: #fff;
 	border-radius: ${borderRadius.container};
-	${forSize.tabletLandscapeAndDown} {
-		bottom: -150px;
+	${forSize.tabletAndDown} {
+		bottom: -90px;
 	}
 	${forSize.tabletAndDown} {
 		top: 250px;
@@ -138,6 +138,9 @@ const Filters = styled.div`
 	svg {
 		color: black;
 	}
+	${forSize.tabletAndDown} {
+		height: 130px;
+	}
 `;
 const FilterOpenIcon = styled.span`
 	color: black;
@@ -148,6 +151,11 @@ const FilterWrapper = styled.div`
 	flex-wrap: wrap;
 	align-items: center;
 	margin: 20px;
+	${forSize.tabletAndDown} {
+		overflow:auto;
+		display:block;
+		white-space: nowrap;
+	}
 `;
 const Badge = styled.div`
 	height: 20px;
@@ -178,9 +186,6 @@ const JobListWrapper = styled.div`
 	margin-top: 100px;
 	${forSize.tabletAndDown} {
 		margin-top: 150px;
-	}
-	${forSize.tabletLandscapeAndDown} {
-		margin-top: 200px;
 	}
 `;
 export interface Shift {
@@ -959,144 +964,129 @@ export default function ShowJobs(): JSX.Element {
 								></input>
 								<SearchButton id="">Search</SearchButton>
 							</SearchInput>
-							{!isMobile ? (
-								<Filters>
-									<FilterWrapper>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"dayPosted"
-											)}
-											options={filterMasters.dayPosted}
-											value={filters.dayPosted}
-											updateValue={(v) =>
-												updateFilterValue(
-													"dayPosted",
-													v
-												)
-											}
-										></FilterDropdown>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"industrialPark"
-											)}
-											options={
-												filterMasters.industrialPark
-											}
-											value={filters.industrialPark}
-											updateValue={(v) =>
-												updateFilterValue(
-													"industrialPark",
-													v
-												)
-											}
-										></FilterDropdown>
-										<CssTextField
-											label="Min Salary"
-											placeholder="e.g. 2000"
-											InputProps={{
-												startAdornment: (
-													<InputAdornment position="start">
-														<AttachMoneyIcon />
-													</InputAdornment>
-												),
-											}}
-										/>
-										<CssTextField
-											label="Max Salary"
-											placeholder="e.g. 2200"
-											InputProps={{
-												startAdornment: (
-													<InputAdornment position="start">
-														<AttachMoneyIcon />
-													</InputAdornment>
-												),
-											}}
-										/>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"shifts"
-											)}
-											options={filterMasters.shifts}
-											value={filters.shifts}
-											updateValue={(v) =>
-												updateFilterValue("shifts", v)
-											}
-										></FilterDropdown>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"jobTitles"
-											)}
-											options={filterMasters.jobTitles}
-											value={filters.jobTitles}
-											updateValue={(v) =>
-												updateFilterValue(
-													"jobTitles",
-													v
-												)
-											}
-										></FilterDropdown>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"jobTypes"
-											)}
-											options={filterMasters.jobTypes}
-											value={filters.jobTypes}
-											updateValue={(v) =>
-												updateFilterValue("jobTypes", v)
-											}
-										></FilterDropdown>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"industries"
-											)}
-											options={filterMasters.industries}
-											value={filters.industries}
-											updateValue={(v) =>
-												updateFilterValue(
-													"industries",
-													v
-												)
-											}
-										></FilterDropdown>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"skills"
-											)}
-											options={filterMasters.skills}
-											value={filters.skills}
-											updateValue={(v) =>
-												updateFilterValue("skills", v)
-											}
-										></FilterDropdown>
-										<FilterDropdown
-											displayLabel={getDisplayLabel(
-												"licences"
-											)}
-											options={filterMasters.licences}
-											value={filters.licences}
-											updateValue={(v) =>
-												updateFilterValue("licences", v)
-											}
-										></FilterDropdown>
-									</FilterWrapper>
-									<Button className="clear-btn" onClick={clearAllFilter}>
-										Clear All
-									</Button>
-								</Filters>
-							) : (
-								<Filters>
-									<FilterOpenIcon>
-										Filters{" "}
-										<FilterListIcon
-											onClick={() =>
-												setMobileFilterModal({
-													visible: true,
-												})
-											}
-										/>
-									</FilterOpenIcon>
-								</Filters>
-							)}
+							<Filters>
+								<FilterWrapper>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"dayPosted"
+										)}
+										options={filterMasters.dayPosted}
+										value={filters.dayPosted}
+										updateValue={(v) =>
+											updateFilterValue(
+												"dayPosted",
+												v
+											)
+										}
+									></FilterDropdown>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"industrialPark"
+										)}
+										options={
+											filterMasters.industrialPark
+										}
+										value={filters.industrialPark}
+										updateValue={(v) =>
+											updateFilterValue(
+												"industrialPark",
+												v
+											)
+										}
+									></FilterDropdown>
+									<CssTextField
+										label="Min Salary"
+										placeholder="e.g. 2000"
+										InputProps={{
+											startAdornment: (
+												<InputAdornment position="start">
+													<AttachMoneyIcon />
+												</InputAdornment>
+											),
+										}}
+									/>
+									<CssTextField
+										label="Max Salary"
+										placeholder="e.g. 2200"
+										InputProps={{
+											startAdornment: (
+												<InputAdornment position="start">
+													<AttachMoneyIcon />
+												</InputAdornment>
+											),
+										}}
+									/>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"shifts"
+										)}
+										options={filterMasters.shifts}
+										value={filters.shifts}
+										updateValue={(v) =>
+											updateFilterValue("shifts", v)
+										}
+									></FilterDropdown>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"jobTitles"
+										)}
+										options={filterMasters.jobTitles}
+										value={filters.jobTitles}
+										updateValue={(v) =>
+											updateFilterValue(
+												"jobTitles",
+												v
+											)
+										}
+									></FilterDropdown>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"jobTypes"
+										)}
+										options={filterMasters.jobTypes}
+										value={filters.jobTypes}
+										updateValue={(v) =>
+											updateFilterValue("jobTypes", v)
+										}
+									></FilterDropdown>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"industries"
+										)}
+										options={filterMasters.industries}
+										value={filters.industries}
+										updateValue={(v) =>
+											updateFilterValue(
+												"industries",
+												v
+											)
+										}
+									></FilterDropdown>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"skills"
+										)}
+										options={filterMasters.skills}
+										value={filters.skills}
+										updateValue={(v) =>
+											updateFilterValue("skills", v)
+										}
+									></FilterDropdown>
+									<FilterDropdown
+										displayLabel={getDisplayLabel(
+											"licences"
+										)}
+										options={filterMasters.licences}
+										value={filters.licences}
+										updateValue={(v) =>
+											updateFilterValue("licences", v)
+										}
+									></FilterDropdown>
+								</FilterWrapper>
+								<Button className="clear-btn" onClick={clearAllFilter}>
+									Clear All
+								</Button>
+							</Filters>
 						</SearchBar>
 					</Banner>
 					<JobListWrapper>
