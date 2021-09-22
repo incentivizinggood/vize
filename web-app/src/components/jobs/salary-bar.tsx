@@ -9,8 +9,12 @@ const SalaryBarWrapper = styled.div`
     align-items:center;
     height:75px;
     position:relative;
+    margin:0 auto;
     ${forSize.tabletAndDown} {
         width:310px;
+    }
+    ${forSize.phoneOnly} {
+        width:237px;
     }
 `;
 const DottedRow = styled.hr`
@@ -26,6 +30,11 @@ const DottedRow = styled.hr`
     ${forSize.tabletAndDown} {
         :after {
             content:"....................................";
+        }
+    }
+    ${forSize.phoneOnly} {
+        :after {
+            content:".........................";
         }
     }
 `;

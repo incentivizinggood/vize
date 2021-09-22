@@ -8,6 +8,7 @@ import addressImage from "../../images/job-post-icons/address.png";
 import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import { borderRadius, boxShadow } from "src/global-styles";
+import { forSize } from "src/responsive";
 
 const JobPostPreviewWrapper = styled.div`
 	background: #fff;
@@ -16,6 +17,9 @@ const JobPostPreviewWrapper = styled.div`
 	padding: 20px;
 	box-shadow: ${boxShadow.wide};
 	cursor: pointer;
+	${forSize.phoneOnly} {
+		padding: 7px 5px;
+	}
 `;
 const HeaderContainer = styled.div`
 	display: flex;
@@ -28,6 +32,11 @@ const CompanyLogo = styled.img`
 	width: 68px;
 	border-radius: ${borderRadius.container};
 	margin-right: 20px;
+	${forSize.phoneOnly} {
+		margin-right: 10px;
+		height: 55px;
+		width: 55px;
+	}
 `;
 const HeaderTextItemsContainer = styled.div`
 	flex-grow: 1;
@@ -46,6 +55,9 @@ const PostedDate = styled.div`
 const JobTitle = styled.div`
 	font-weight: 700;
 	font-size: 18px;
+	${forSize.phoneOnly} {
+		font-size: 14px;
+	}
 `;
 const ReviewCount = styled.div`
 	color: black;
@@ -104,6 +116,13 @@ const ButtonsContainer = styled.div`
 	button{
 		width:200px;
 		padding: 0.9rem 2rem !important;
+	}
+	${forSize.phoneOnly} {
+		button{
+			width: 125px;
+			padding: 0.7rem 0.4rem !important;
+			font-size: 12px;
+		}
 	}
 `;
 interface JobPostPreviewProps {

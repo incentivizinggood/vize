@@ -82,10 +82,10 @@ const SearchBar = styled.div`
 	border-radius: ${borderRadius.container};
 	${forSize.tabletAndDown} {
 		bottom: -90px;
-	}
-	${forSize.tabletAndDown} {
 		top: 250px;
+		margin: 0 1%;
 	}
+
 `;
 const SearchInput = styled.div`
 	height: 75px;
@@ -98,6 +98,9 @@ const SearchInput = styled.div`
 		border: none;
 		background: #eaf7ff;
 		color: black;
+		${forSize.tabletAndDown} {
+			width:20%;
+		}
 	}
 	input:focus {
 		outline: none;
@@ -115,6 +118,12 @@ const SearchBarIcon = styled.div`
 		svg {
 			width: 75px;
 			font-size: 26px;
+		}
+	}
+	${forSize.phoneOnly} {
+		svg {
+			width: 50px;
+			font-size: 18px;
 		}
 	}
 `;

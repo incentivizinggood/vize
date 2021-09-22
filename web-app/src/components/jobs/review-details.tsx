@@ -51,6 +51,9 @@ const ReviewRatingWrapper = styled.div`
 	justify-content: space-between;
 	margin-top: 4px;
 	margin-bottom: 5px;
+    ${forSize.phoneOnly} {
+        flex-direction:column;
+    }
 `;
 const ReviewRating = styled.div`
 	display: flex;
@@ -93,6 +96,8 @@ const RecommendedButton = styled.button`
 	color: ${colors.secondaryColorGreen};
 	background-color: #def1de;
 	border-radius: 6px;
+    padding: 5px;
+    width: 132px;
 `;
 const ButtonText = styled.div`
 	display: flex;

@@ -58,11 +58,18 @@ const PostImage = styled.img`
 	width: 60px;
 	border-radius: 6px;
 	margin: 0px 20px 0px 0px;
+	${forSize.phoneOnly} {
+		height: 50px;
+		width: 50px;
+	}
 `;
 const PostHeaderContent = styled.div``;
 const PostTitle = styled.div`
 	color: black;
 	font-size: 13px;
+	${forSize.phoneOnly} {
+		font-size: 11px;
+	}
 `;
 const ReviewCount = styled.div`
 	color: black;
@@ -72,6 +79,9 @@ const ReviewCount = styled.div`
 const PostSubHeading = styled.div`
 	font-weight: 700;
 	font-size: 18px;
+	${forSize.phoneOnly} {
+		font-size: 14px;
+	}
 `;
 const RatingWrapper = styled.div`
 	display: flex;
@@ -168,6 +178,13 @@ const ActionsWrapper = styled.div`
 	${forSize.tabletAndDown} {
 		width: auto;
 	}
+	${forSize.phoneOnly} {
+		button {
+			width: 125px;
+			padding: 0.7rem 0.4rem !important;
+			font-size: 12px;
+		}
+	}
 `;
 const ReplyIconWrapper = styled.div`
 	display: flex;
@@ -184,6 +201,16 @@ const CloseButton = styled.div`
 	padding: 12px;
 	cursor: pointer;
 `;
+
+function ModalButtons(): JSX.Element {
+	return <ActionsWrapper><Button>
+		<ReplyIconWrapper>
+			<ReplyIcon />
+			<span>Compartir</span>
+		</ReplyIconWrapper>
+	</Button>
+		<Button $primary>Postularme</Button></ActionsWrapper>
+}
 export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 	const [width, setWidth] = useState<number>(window.innerWidth);
 	function handleWindowSizeChange() {
@@ -224,14 +251,7 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 				{props.modal ? (
 					<JobPostHeaderLeftSection>
 						<ActionsWrapper>
-							{width > 450 ? <><Button>
-								<ReplyIconWrapper>
-									<ReplyIcon />
-									<span>Compartir</span>
-								</ReplyIconWrapper>
-							</Button>
-								<Button $primary>Postularme</Button></> : null}
-
+							{width > 450 ? <ModalButtons /> : null}
 							<CloseButton>
 								<CloseIcon onClick={props.onClose} />
 							</CloseButton>
@@ -240,13 +260,7 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 					</JobPostHeaderLeftSection>
 				) : null}
 			</JobPostTitle>
-			{width < 450 ? <ActionsWrapper><Button>
-				<ReplyIconWrapper>
-					<ReplyIcon />
-					<span>Compartir</span>
-				</ReplyIconWrapper>
-			</Button>
-				<Button $primary>Postularme</Button></ActionsWrapper> : null}
+			{width < 450 ? <ModalButtons></ModalButtons> : null}
 		</>
 
 	);

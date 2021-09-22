@@ -20,6 +20,15 @@ const CompanyRating = styled.div`
 	.list-group .even {
 		background-color: #eff6fa;
 	}
+    ${forSize.tabletAndDown} {
+		.list-group-item{
+            padding: 5px 7px;
+        }
+        .star-ratings svg{
+            width:12px !important;
+            height:12px !important;
+        }
+	}
 `;
 const RatingContainer = styled.div`
 	display: flex;
@@ -56,6 +65,9 @@ const RatingTitle = styled.div`
 
 const Column = styled(Col)`
 	height: 300px;
+    ${forSize.tabletAndDown} {
+		height:230px;
+	}
 `;
 export interface Ratings {
     average: number;
