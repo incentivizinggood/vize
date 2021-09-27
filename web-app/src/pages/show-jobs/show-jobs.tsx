@@ -85,7 +85,7 @@ const SearchBar = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
 	${forSize.tabletAndDown} {
-		bottom: -90px;
+		bottom: -42px;
 		top: 250px;
 		width: 100%;
 		margin: 0;
@@ -154,7 +154,7 @@ const Filters = styled.div`
 		color: black;
 	}
 	${forSize.tabletAndDown} {
-		height: 130px;
+		height: 80px;
 	}
 `;
 const FilterOpenIcon = styled.span`
@@ -170,6 +170,7 @@ const FilterWrapper = styled.div`
 		overflow:auto;
 		display:block;
 		white-space: nowrap;
+		margin: 5px;
 	}
 `;
 const Badge = styled.div`
@@ -205,7 +206,7 @@ const JobListWrapper = styled.div`
 	margin-right:10px;
 	margin-left:10px;
 	${forSize.tabletAndDown} {
-		margin-top: 150px;
+		margin-top: 55px;
 	}
 `;
 export interface Shift {

@@ -92,10 +92,9 @@ const JobPostHeaderRightSection = styled.div`
 	display: flex;
 `;
 const JobPostHeaderLeftSection = styled.div`
-	align-items: end;
+	align-items: flex-end;
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
 `;
 
 const JobDetailsTitle = styled.div`
