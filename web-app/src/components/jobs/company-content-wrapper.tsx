@@ -71,6 +71,7 @@ const JobList = styled(Row)`
 `;
 const ExtraDetailsContainer = styled.div`
     display: flex;
+    margin-bottom:15px;
 `;
 const ExtraTitleContent = styled.div`
     width:25%;
@@ -127,7 +128,6 @@ export default function CompanyContentWrapper(props: any): JSX.Element {
         <CommpanyReviewsWrapper>
             {companyDetail.reviews.map(
                 (v: any, index: number) => {
-                    console.log("v", v)
                     return (
                         <ReviewDetails {...v} key={index}>
                         </ReviewDetails>

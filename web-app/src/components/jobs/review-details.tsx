@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import RatingsDropdownReview from "../ratings-dropdown-review";
 import { colors, borderRadius } from "src/global-styles";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { forSize } from "src/responsive";
 
 export interface Ratings {
@@ -96,8 +97,16 @@ const RecommendedButton = styled.button`
 	color: ${colors.secondaryColorGreen};
 	background-color: #def1de;
 	border-radius: 6px;
-    padding: 5px;
+    padding: 8px;
     width: 132px;
+`;
+const NotRecommendedButton = styled.button`
+    color: #d50c0c;
+    background-color: white;
+    border-radius: 6px;
+    padding: 8px;
+    width: 280px;
+    border: 1px solid;
 `;
 const ButtonText = styled.div`
 	display: flex;
@@ -109,8 +118,7 @@ export default function ReviewDetails(props: ReviewDetailsProps): JSX.Element {
         rating,
         pros,
         cons,
-        additionalComments, } = props
-    console.log("rating", rating)
+        additionalComments, recommended } = props
     return (
         <StyledReviewDetails >
             <ReviewHeader>
@@ -152,13 +160,18 @@ export default function ReviewDetails(props: ReviewDetailsProps): JSX.Element {
                         companyName=""
                     />
                 </ReviewRating>
-                <RecommendedButton>
+                {recommended ? <RecommendedButton>
                     <ButtonText>
                         <CheckCircleOutlineIcon />
                         &nbsp; Recommends{" "}
                         {company}
                     </ButtonText>
-                </RecommendedButton>
+                </RecommendedButton> : <NotRecommendedButton>
+                    <ButtonText>
+                        <HighlightOffIcon />
+                        &nbsp; Doesn't Recommends this Company
+                    </ButtonText>
+                </NotRecommendedButton>}
             </ReviewRatingWrapper>
                 : null}
             <ReviewComments>

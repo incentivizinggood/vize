@@ -51,6 +51,7 @@ const CompanyName = styled.div`
 `;
 const PostedDate = styled.div`
 	color: grey;
+	font-size: 13px;
 `;
 const JobTitle = styled.div`
 	font-weight: 700;
@@ -116,10 +117,10 @@ const ButtonsContainer = styled.div`
 	button{
 		width:200px;
 		padding: 0.9rem 2rem !important;
+		margin: 0 10px;
 	}
 	${forSize.phoneOnly} {
 		button{
-			width: 125px;
 			padding: 0.7rem 0.4rem !important;
 			font-size: 12px;
 		}

@@ -59,8 +59,9 @@ const PostImage = styled.img`
 	border-radius: 6px;
 	margin: 0px 20px 0px 0px;
 	${forSize.phoneOnly} {
-		height: 50px;
-		width: 50px;
+		height: 55px;
+		width: 55px;
+		margin: 0px 8px 0px 0px;
 	}
 `;
 const PostHeaderContent = styled.div``;
@@ -89,7 +90,6 @@ const RatingWrapper = styled.div`
 `;
 const JobPostHeaderRightSection = styled.div`
 	display: flex;
-	align-items: center;
 `;
 const JobPostHeaderLeftSection = styled.div`
 	align-items: end;
@@ -160,6 +160,9 @@ const LanguageImage = styled.img`
 	width: 26px;
 	height: 26px;
 `;
+const DatePosted = styled.span`
+	font-size:12px;
+`;
 const DescriptionTag = styled.div`
 	padding: 8px 10px;
 	border-radius: ${borderRadius.container};
@@ -188,9 +191,11 @@ const ActionsWrapper = styled.div`
 `;
 const ReplyIconWrapper = styled.div`
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
+	align-items:center;
 	svg {
 		transform: scale(-1, 1);
+		margin-right:5px;
 	}
 `;
 const CloseButton = styled.div`
@@ -244,7 +249,7 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 							/>
 							<ReviewCount>{props.reviewCount} Reviews</ReviewCount>
 						</RatingWrapper>
-						{width < 450 ? <span>Posted {props.published}</span> : null}
+						{width < 450 ? <DatePosted>Posted {props.published}</DatePosted> : null}
 					</PostHeaderContent>
 				</JobPostHeaderRightSection>
 

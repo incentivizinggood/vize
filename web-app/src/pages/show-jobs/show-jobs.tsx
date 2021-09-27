@@ -30,8 +30,9 @@ const PageStyling = styled.div`
 	padding-left: 50px;
 
 	${forSize.tabletAndDown} {
-		padding-right: 10px;
-		padding-left: 10px;
+		padding-top: 50px;
+		padding-right: 0px;
+		padding-left: 0px;
 	}
 `;
 const Banner = styled.div`
@@ -43,6 +44,9 @@ const Banner = styled.div`
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	${forSize.tabletAndDown} {
+		border-radius:0px;
+	}
 `;
 const BannerSection = styled.div`
 	margin-top: 20px;
@@ -83,7 +87,9 @@ const SearchBar = styled.div`
 	${forSize.tabletAndDown} {
 		bottom: -90px;
 		top: 250px;
-		margin: 0 1%;
+		width: 100%;
+		margin: 0;
+		left: 0;
 	}
 
 `;
@@ -178,6 +184,9 @@ const LabelContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 `;
+const ResetAllButton = styled.button`
+	color:#000000;
+`;
 
 const CssTextField = withStyles({
 	root: {
@@ -193,6 +202,8 @@ const CssTextField = withStyles({
 })(TextField);
 const JobListWrapper = styled.div`
 	margin-top: 100px;
+	margin-right:10px;
+	margin-left:10px;
 	${forSize.tabletAndDown} {
 		margin-top: 150px;
 	}
@@ -218,6 +229,7 @@ export interface Review {
 	pros: string;
 	cons: string;
 	additionalComments: string;
+	recommended: boolean;
 }
 
 export interface Salary {
@@ -539,6 +551,7 @@ export default function ShowJobs(): JSX.Element {
 							benefits: 4,
 							overallSatisfaction: 4,
 						},
+						recommended: false,
 						pros: "containing Lorem Ipsum passages, and more recently with desktop",
 						cons: "also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets",
 						additionalComments:
@@ -928,9 +941,6 @@ export default function ShowJobs(): JSX.Element {
 			},
 		},
 	];
-	const [mobileFilterModal, setMobileFilterModal] = useState({
-		visible: false,
-	});
 	const [jobPostModal, setJobPostModal] = useState({
 		visible: false,
 		jobPost: null,
@@ -1091,10 +1101,11 @@ export default function ShowJobs(): JSX.Element {
 											updateFilterValue("licences", v)
 										}
 									></FilterDropdown>
+									{isMobile ? <ResetAllButton onClick={clearAllFilter} >Reset All</ResetAllButton> : null}
 								</FilterWrapper>
-								<Button className="clear-btn" onClick={clearAllFilter}>
+								{!isMobile ? <Button className="clear-btn" onClick={clearAllFilter}>
 									Clear All
-								</Button>
+								</Button> : null}
 							</Filters>
 						</SearchBar>
 					</Banner>

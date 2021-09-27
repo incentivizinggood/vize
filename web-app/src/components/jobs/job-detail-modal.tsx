@@ -46,6 +46,7 @@ const JobPostContent = styled.div`
 	height: 100%;
 	${forSize.tabletAndDown} {
 		padding: 8px;
+		margin-top:0px;
 	}
 `;
 const ScrollableContent = styled.div`
@@ -54,7 +55,7 @@ const ScrollableContent = styled.div`
 	overflow-x: hidden;
 	padding: 10px;
 	${forSize.tabletAndDown} {
-		height: calc(100vh - 275px);
+		height: calc(100vh - 225px);
 	}
 `;
 
@@ -91,11 +92,11 @@ export default function JobDetailModal(
 			zIndex: 999,
 		},
 		content: {
-			top: "20%",
+			top: width < 450 ? 0 : "20%",
 			margin: "0 auto",
 			minWidth: width < 450 ? "95%" : "1100px",
 			maxWidth: width < 450 ? "95%" : "1100px",
-			minHeight: "calc(100vh - 60px)",
+			minHeight: width < 450 ? "100vh" : "calc(100vh - 60px)",
 		},
 	};
 	return (
