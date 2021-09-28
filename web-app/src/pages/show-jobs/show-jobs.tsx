@@ -14,7 +14,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useShowJobsQuery } from "generated/graphql-operations";
 import TextField from "@material-ui/core/TextField";
-import FilterListIcon from "@material-ui/icons/FilterList";
+import JobListBannerImage from "../../images/job-list-banner-image.png";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SearchIcon from "@material-ui/icons/Search";
@@ -51,7 +51,24 @@ const Banner = styled.div`
 const BannerSection = styled.div`
 	margin-top: 20px;
 	margin-left: 5%;
+	margin-right: 5%;
+	display:flex;
+	justify-content:space-between;
+	${forSize.tabletAndDown} {
+		flex-direction:column;
+	}
 `;
+const BannerTextContainer = styled.div`
+	
+`;
+const BannerImage = styled.img`
+	height:125px;
+	width:auto;
+	${forSize.tabletAndDown} {
+		display:none;
+	}
+`;
+
 const BannerTitle = styled.div`
 	font-size: 36px;
 	margin: 20px 0px;
@@ -962,16 +979,19 @@ export default function ShowJobs(): JSX.Element {
 				{RenderedItems} */}
 					<Banner>
 						<BannerSection>
-							<BannerTitle>
-								Find a Great Job in&nbsp;
-								<BannerVizeContent>
-									Tijuana
-									<VizeBackgroundEffect />
-								</BannerVizeContent>
-							</BannerTitle>
-							<BannerSubtitle>
-								6 Employment Offer(s) Available
-							</BannerSubtitle>
+							<BannerTextContainer>
+								<BannerTitle>
+									Find a Great Job in&nbsp;
+									<BannerVizeContent>
+										Tijuana
+										<VizeBackgroundEffect />
+									</BannerVizeContent>
+								</BannerTitle>
+								<BannerSubtitle>
+									6 Employment Offer(s) Available
+								</BannerSubtitle>
+							</BannerTextContainer>
+							<BannerImage src={JobListBannerImage}></BannerImage>
 						</BannerSection>
 						<SearchBar>
 							<SearchInput>
