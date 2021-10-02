@@ -15,7 +15,7 @@ const schema = yup
 	.shape({
 		email: yup
 			.string()
-			.email("Correo Electrónico debe ser válido")
+			.email("El correo electrónico debe ser válido")
 			.required("Correo Electrónico es un campo requerido"),
 		companyName: schemas.companyName,
 		password: schemas.password.required("Contraseña es un campo requerido"),

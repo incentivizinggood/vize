@@ -216,7 +216,10 @@ let initialValues = {
 const schema = yup.object().shape({
 	jobAdId: yup.string().required(),
 	fullName: yup.string().required("Se requiere el nombre completo"),
-	email: yup.string().email().required("Se requiere el correo electrónico"),
+	email: yup
+		.string()
+		.email("El correo electrónico debe ser válido")
+		.required("Se requiere el correo electrónico"),
 	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
 	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
