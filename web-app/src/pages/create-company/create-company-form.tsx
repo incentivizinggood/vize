@@ -101,7 +101,11 @@ export default function CreateCompanyForm() {
 			validationSchema={schema}
 			onSubmit={onSubmit(createCompany, history, setSubmissionError)}
 		>
-			<InnerForm submissionError={submissionError} />
+			<InnerForm
+				schema={schema}
+				submissionError={submissionError}
+				setSubmissionError={setSubmissionError}
+			/>
 		</Formik>
 	);
 }

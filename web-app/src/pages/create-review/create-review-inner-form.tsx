@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "formik";
+import { Form, useFormikContext } from "formik";
 import { Button } from "src/components/button";
 import styled from "styled-components";
 
@@ -25,6 +25,31 @@ const FormDividerLine = styled.hr`
 
 function InnerForm({ submissionError }: { submissionError: string | null }) {
 	const t = useTranslations().createReview;
+	const { values }: any = useFormikContext();
+
+	function checkError(): void {
+		schema
+			.validate(values, { abortEarly: false })
+			.then(function () {
+				// Success
+			})
+			.catch(function (err: any) {
+				let errorMessage = "Error: ";
+				const errors = err.inner;
+				for (const error of errors) {
+					if (error.type !== "typeError") {
+						errorMessage += error.message;
+						break;
+					}
+				}
+
+				if (errorMessage === "Error: ")
+					errorMessage =
+						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
+
+				setSubmissionError(errorMessage);
+			});
+	}
 
 	return (
 		<Form noValidate>

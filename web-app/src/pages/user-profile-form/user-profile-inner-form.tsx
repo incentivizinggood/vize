@@ -59,6 +59,30 @@ function InnerForm({
 	const { values }: any = useFormikContext();
 	const submitButtonText = profileExists ? <T.update /> : <T.submit />;
 
+	function checkError(): void {
+		schema
+			.validate(values, { abortEarly: false })
+			.then(function () {
+				// Success
+			})
+			.catch(function (err: any) {
+				let errorMessage = "Error: ";
+				const errors = err.inner;
+				for (const error of errors) {
+					if (error.type !== "typeError") {
+						errorMessage += error.message;
+						break;
+					}
+				}
+
+				if (errorMessage === "Error: ")
+					errorMessage =
+						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
+
+				setSubmissionError(errorMessage);
+			});
+	}
+
 	return (
 		<Form noValidate>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />

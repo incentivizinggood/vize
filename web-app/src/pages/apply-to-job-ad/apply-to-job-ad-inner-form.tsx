@@ -1,11 +1,12 @@
 import React from "react";
-import { Form, useFormikContext, FieldArray } from "formik";
+import { FieldArray } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import FormWrapper from "../forms/form-wrapper";
 
 import { Button } from "src/components/button";
 import {
@@ -13,7 +14,7 @@ import {
 	ElementContainer,
 	ElementDeleteButton,
 } from "src/components/form-stuff/array";
-import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { Field } from "src/components/form-stuff";
 
 import { translations } from "src/translations";
 const T = translations.applyToJobAd;
@@ -54,47 +55,16 @@ interface ApplyToJobAdInnerFormProps {
 }
 
 function InnerForm({
-	schema,
-	submissionError,
-	setSubmissionError,
 	profileExists,
-}: ApplyToJobAdInnerFormProps) {
-	const { values }: any = useFormikContext();
-
-	function checkError() {
-		console.log("click");
-		schema
-			.validate(values, { abortEarly: false })
-			.then(function () {
-				// Success
-			})
-			.catch(function (err: any) {
-				let errorMessage = "Error: ";
-				const errors = err.inner;
-				for (const error of errors) {
-					if (error.type !== "typeError") {
-						errorMessage += error.message;
-						break;
-					}
-				}
-
-				if (errorMessage === "Error: ")
-					errorMessage =
-						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
-
-				setSubmissionError(errorMessage);
-
-				console.log("e", err);
-			});
-	}
-
+	...props
+}: ApplyToJobAdInnerFormProps): any {
 	const updateOrCreateProfileText = profileExists ? (
 		<T.fields.updateProfileWithFormData />
 	) : (
 		<T.fields.createProfileWithFormData />
 	);
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			{profileExists && (
 				<>
 					<Button
@@ -550,15 +520,7 @@ function InnerForm({
 				<CheckboxField name="saveDataToProfile" type="checkbox" />
 				{updateOrCreateProfileText}
 			</CheckboxLabel>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary onClick={checkError} type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 
