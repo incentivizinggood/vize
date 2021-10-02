@@ -309,7 +309,9 @@ export default function CreateUserProfileForm({
 				)}
 			>
 				<InnerForm
+					schema={schema}
 					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
 					profileExists={userProfile != null}
 				/>
 			</Formik>

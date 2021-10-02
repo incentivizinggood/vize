@@ -247,7 +247,11 @@ export default function CreateReviewForm({
 				validationSchema={schema}
 				onSubmit={onSubmit}
 			>
-				<InnerForm submissionError={submissionError} />
+				<InnerForm
+					schema={schema}
+					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
+				/>
 			</Formik>
 			{content}
 		</div>

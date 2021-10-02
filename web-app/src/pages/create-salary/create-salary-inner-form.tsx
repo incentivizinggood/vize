@@ -1,44 +1,24 @@
 import React from "react";
-import { Form, useFormikContext } from "formik";
-import styled from "styled-components";
 import { Button } from "src/components/button";
 
-import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { Field } from "src/components/form-stuff";
 import { CompanyNameInput } from "src/components/company-name-input";
 import { translations, useTranslations } from "src/translations";
+import FormWrapper from "../forms/form-wrapper";
 
 const T = translations.createSalary;
 
-function InnerForm({ submissionError }) {
+interface CreateSalaryInnerFormProps {
+	schema: any;
+	submissionError: any;
+	setSubmissionError: any;
+}
+
+function InnerForm(props: CreateSalaryInnerFormProps): any {
 	const t = useTranslations().createSalary;
-	const { values }: any = useFormikContext();
-
-	function checkError(): void {
-		schema
-			.validate(values, { abortEarly: false })
-			.then(function () {
-				// Success
-			})
-			.catch(function (err: any) {
-				let errorMessage = "Error: ";
-				const errors = err.inner;
-				for (const error of errors) {
-					if (error.type !== "typeError") {
-						errorMessage += error.message;
-						break;
-					}
-				}
-
-				if (errorMessage === "Error: ")
-					errorMessage =
-						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
-
-				setSubmissionError(errorMessage);
-			});
-	}
 
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			<CompanyNameInput
 				name="companyName"
 				required
@@ -89,15 +69,7 @@ function InnerForm({ submissionError }) {
 					</Field>
 				)}
 			/>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 

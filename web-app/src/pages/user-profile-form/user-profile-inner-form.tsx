@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, useFormikContext, FieldArray } from "formik";
+import { useFormikContext, FieldArray } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
@@ -8,13 +8,14 @@ import PrivacyIcon from "@material-ui/icons/Security";
 import { Button } from "src/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import FormWrapper from "../forms/form-wrapper";
 
 import {
 	ArrayContainer,
 	ElementContainer,
 	ElementDeleteButton,
 } from "src/components/form-stuff/array";
-import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { Field } from "src/components/form-stuff";
 
 import { translations } from "src/translations";
 const T = translations.userProfileForm;
@@ -48,43 +49,21 @@ const AddAnotherExperienceButton = styled(Button)`
 `;
 
 interface UserProfileInnerFormProps {
+	schema: any;
 	submissionError: any;
+	setSubmissionError: any;
 	profileExists: boolean;
 }
 
 function InnerForm({
-	submissionError,
 	profileExists,
-}: UserProfileInnerFormProps) {
+	...props
+}: UserProfileInnerFormProps): any {
 	const { values }: any = useFormikContext();
-	const submitButtonText = profileExists ? <T.update /> : <T.submit />;
-
-	function checkError(): void {
-		schema
-			.validate(values, { abortEarly: false })
-			.then(function () {
-				// Success
-			})
-			.catch(function (err: any) {
-				let errorMessage = "Error: ";
-				const errors = err.inner;
-				for (const error of errors) {
-					if (error.type !== "typeError") {
-						errorMessage += error.message;
-						break;
-					}
-				}
-
-				if (errorMessage === "Error: ")
-					errorMessage =
-						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
-
-				setSubmissionError(errorMessage);
-			});
-	}
+	const submitButtonText = profileExists ? T.update : T.submit;
 
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={submitButtonText} {...props}>
 			<Field name="fullName" type="text" required t={T.fields.fullName} />
 
 			<Field
@@ -530,17 +509,7 @@ function InnerForm({
 				type="text"
 				t={T.fields.yourDreamJob}
 			/>
-
-			<SubmissionError error={submissionError} />
-
-			<br />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					{submitButtonText}
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 
