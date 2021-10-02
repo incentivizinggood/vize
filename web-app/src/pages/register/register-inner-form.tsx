@@ -1,18 +1,11 @@
 import React from "react";
 import { Form } from "formik";
-import styled from "styled-components";
 
 import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
-import { Button } from "src/components/button";
+import { LoginRegisterButton } from "src/components/button";
 import { translations } from "src/translations";
 
 const T = translations.loginRegister;
-
-const RegisterButton = styled(Button)`
-	font-size: 22px;
-	width: 100%;
-	margin-top: 20px;
-`;
 
 interface InnerFormProps {
 	userRole: string;
@@ -36,9 +29,9 @@ export function InnerForm(props: InnerFormProps): JSX.Element {
 			<SubmissionError error={props.submissionError} />
 
 			<FormToolbar>
-				<RegisterButton $primary type="submit">
+				<LoginRegisterButton $primary type="submit">
 					<T.createAccount />
-				</RegisterButton>
+				</LoginRegisterButton>
 			</FormToolbar>
 		</Form>
 	);
