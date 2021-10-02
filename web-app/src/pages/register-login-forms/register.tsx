@@ -8,7 +8,7 @@ import {
 	FormPageWrapper,
 } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import LoginWithFacebook from "src/components/login-with-facebook";
+import LoginWithFacebook from "./components/login-with-facebook";
 
 import { RegisterForm } from "./register-form";
 

@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
 import { workExperienceSchema } from "src/form-schemas";
