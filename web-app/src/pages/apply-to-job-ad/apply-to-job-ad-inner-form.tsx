@@ -47,15 +47,47 @@ const AddAnotherExperienceButton = styled(Button)`
 `;
 
 interface ApplyToJobAdInnerFormProps {
+	schema: any;
 	submissionError: any;
+	setSubmissionError: any;
 	profileExists: boolean;
 }
 
 function InnerForm({
+	schema,
 	submissionError,
+	setSubmissionError,
 	profileExists,
 }: ApplyToJobAdInnerFormProps) {
 	const { values }: any = useFormikContext();
+
+	function checkError() {
+		console.log("click");
+		schema
+			.validate(values, { abortEarly: false })
+			.then(function () {
+				// Success
+			})
+			.catch(function (err: any) {
+				let errorMessage = "Error: ";
+				const errors = err.inner;
+				for (const error of errors) {
+					if (error.type !== "typeError") {
+						errorMessage += error.message;
+						break;
+					}
+				}
+
+				if (errorMessage === "Error: ")
+					errorMessage =
+						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
+
+				setSubmissionError(errorMessage);
+
+				console.log("e", err);
+			});
+	}
+
 	const updateOrCreateProfileText = profileExists ? (
 		<T.fields.updateProfileWithFormData />
 	) : (
@@ -522,7 +554,7 @@ function InnerForm({
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<Button $primary type="submit">
+				<Button $primary onClick={checkError} type="submit">
 					<T.submit />
 				</Button>
 			</FormToolbar>

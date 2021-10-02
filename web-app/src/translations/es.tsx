@@ -435,6 +435,8 @@ export default {
 	},
 	applyToJobAd: {
 		formTitle: "Solicitar un Trabajo",
+		applyWithOneClick:
+			"Puedes crear un perfil con la información en este formulario para postularte a cualquier trabajo con solo un click. Esto significa que solo tienes que llenar esta información una vez.",
 		fields: {
 			fullName: {
 				label: "Nombre Completo",

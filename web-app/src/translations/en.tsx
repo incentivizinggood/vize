@@ -411,6 +411,8 @@ export default {
 	},
 	applyToJobAd: {
 		formTitle: "Apply for a Job",
+		applyWithOneClick:
+			"You can create a profile with the information in this form to apply to any job with one click. This means you only have to fill out this information once.",
 		fields: {
 			fullName: {
 				label: "Full Name",

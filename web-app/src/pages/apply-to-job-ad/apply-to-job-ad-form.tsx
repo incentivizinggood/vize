@@ -225,21 +225,27 @@ const schema = yup.object().shape({
 	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
 		.string()
-		.oneOf([
-			"NATIVE_LANGUAGE",
-			"FLUENT",
-			"CONVERSATIONAL",
-			"BASIC",
-			"NO_PROFICIENCY",
-		]),
+		.oneOf(
+			[
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			],
+			"Se requiere el dominio del inglés"
+		),
 	highestLevelOfEducation: yup
 		.string()
-		.oneOf([
-			"SOME_HIGH_SCHOOL",
-			"HIGH_SCHOOL",
-			"SOME_COLLEGE",
-			"COLLEGE_DEGREE",
-		]),
+		.oneOf(
+			[
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			],
+			"Se requiere el nivel educativo más alto"
+		),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
@@ -275,9 +281,34 @@ const onSubmit =
 			return null;
 		}
 
-		let jobApplicationFormFormattedValues = formatInputData(
+		const jobApplicationFormFormattedValues = formatInputData(
 			jobApplicationFormValues
 		);
+
+		schema.validate({}).catch(function (e) {
+			console.log(e);
+			console.log("teee");
+		});
+		console.log("lol");
+		schema
+			.validate(values, { abortEarly: false })
+			.then(function () {
+				// Success
+			})
+			.catch(function (err) {
+				console.log("e", err);
+			});
+
+		const validateNestedSchema = async () => {
+			const validationResult = await schema
+				.validate(values, {
+					abortEarly: false,
+				})
+				.catch((err) => {
+					return err;
+				});
+			console.log(validationResult.inner[0].path); // gives "basicDetails.emailId"
+		};
 
 		return applyToJobAd({
 			variables: {
@@ -434,7 +465,9 @@ export default function ApplyToJobAdForm({
 				)}
 			>
 				<InnerForm
+					schema={schema}
 					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
 					profileExists={userProfile != null}
 				/>
 			</Formik>
