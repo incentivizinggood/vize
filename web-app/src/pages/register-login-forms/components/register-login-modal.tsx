@@ -30,20 +30,6 @@ export default function RegisterLoginModal({ errorText }): JSX.Element {
 		setRegisterOrLogin(newState);
 	}
 
-	const styles = {
-		linkButton: {
-			color: "blue",
-			fontSize: 16,
-			fontWeight: 600,
-		},
-	};
-
-	const linkButton = {
-		color: "blue",
-		fontSize: 16,
-		fontWeight: 600,
-	};
-
 	const errorDiv = {
 		backgroundColor: "crimson",
 		margin: -10,
