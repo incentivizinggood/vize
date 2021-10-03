@@ -63,8 +63,7 @@ const Button = styled.button<ButtonExtraProps>`
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: middle;
-		padding: 0.9rem 3rem;
-		line-height: 1.5;
+		padding: 13px 20px;
 		border-radius: 30px;
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 			border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;

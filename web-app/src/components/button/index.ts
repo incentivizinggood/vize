@@ -6,6 +6,7 @@ import BlackBorderButton from "./black-border-button";
 import WriteReviewButton from "./write-review-button";
 import AddSalaryButton from "./add-salary-button";
 import LoginRegisterButton from "./login-register-button";
+import ContinueWithFacebookButton from "./continue-with-facebook";
 
 export {
 	Button,
@@ -16,4 +17,5 @@ export {
 	WriteReviewButton,
 	AddSalaryButton,
 	LoginRegisterButton,
+	ContinueWithFacebookButton,
 };
