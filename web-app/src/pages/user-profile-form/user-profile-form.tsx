@@ -235,7 +235,6 @@ const onSubmit =
 			})
 			.catch((errors) => {
 				// Error in English: Not Logged In
-				console.log("Error", errors);
 				if (
 					errors.message.includes(
 						"Tienes que iniciar una sesión o registrarte"

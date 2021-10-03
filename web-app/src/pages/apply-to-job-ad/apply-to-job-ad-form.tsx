@@ -288,31 +288,6 @@ const onSubmit =
 			jobApplicationFormValues
 		);
 
-		schema.validate({}).catch(function (e) {
-			console.log(e);
-			console.log("teee");
-		});
-		console.log("lol");
-		schema
-			.validate(values, { abortEarly: false })
-			.then(function () {
-				// Success
-			})
-			.catch(function (err) {
-				console.log("e", err);
-			});
-
-		const validateNestedSchema = async () => {
-			const validationResult = await schema
-				.validate(values, {
-					abortEarly: false,
-				})
-				.catch((err) => {
-					return err;
-				});
-			console.log(validationResult.inner[0].path); // gives "basicDetails.emailId"
-		};
-
 		return applyToJobAd({
 			variables: {
 				input: omitEmptyStrings(jobApplicationFormFormattedValues),
@@ -340,7 +315,7 @@ const onSubmit =
 							),
 						},
 					}).then(({ data }) => {
-						console.log("Updated/Created User Profile");
+						// Success updating or editing the user profile
 					});
 				}
 
@@ -364,7 +339,6 @@ const onSubmit =
 				}
 			})
 			.catch((errors) => {
-				console.log("ERROR", errors.message);
 				// Error in English: Not Logged In
 				if (
 					errors.message.includes(
