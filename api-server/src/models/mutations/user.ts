@@ -16,7 +16,10 @@ import { attributes } from "../queries/user";
 
 const createUserInputSchema = yup
 	.object({
-		email: yup.string().email().required(),
+		email: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 		password: yup.string().min(1).max(256).required(),
 		role: yup
 			.mixed<"worker" | "company">()
@@ -188,7 +191,10 @@ export async function authWithFacebook(input: unknown): Promise<User> {
 
 const requestPasswordResetInputSchema = yup
 	.object({
-		emailAddress: yup.string().email().required(),
+		emailAddress: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 	})
 	.required();
 

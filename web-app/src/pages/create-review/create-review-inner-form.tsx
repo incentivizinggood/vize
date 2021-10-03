@@ -1,17 +1,11 @@
 import React from "react";
-import { Form } from "formik";
-import { Button } from "src/components/button";
 import styled from "styled-components";
+import FormWrapper from "../forms/form-wrapper";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 
-import {
-	Field,
-	FormToolbar,
-	SubmissionError,
-	FormText,
-} from "src/components/form-stuff";
+import { Field, FormText } from "src/components/form-stuff";
 import { CompanyNameInput } from "src/components/company-name-input";
 import { translations, useTranslations } from "src/translations";
 
@@ -23,11 +17,17 @@ const FormDividerLine = styled.hr`
 	margin-right: -30px;
 `;
 
-function InnerForm({ submissionError }: { submissionError: string | null }) {
+interface CreateReviewInnerFormProps {
+	schema: any;
+	submissionError: any;
+	setSubmissionError: any;
+}
+
+function InnerForm(props: CreateReviewInnerFormProps): any {
 	const t = useTranslations().createReview;
 
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			<CompanyNameInput
 				name="companyName"
 				required
@@ -208,15 +208,7 @@ function InnerForm({ submissionError }: { submissionError: string | null }) {
 				required
 				t={T.fields.incomeAmount}
 			/>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 

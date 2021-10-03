@@ -160,17 +160,18 @@ export async function createJobAd(
 }
 
 function formatWorkExperiences(workExperiences: any): any {
-	
-	workExperiences?.forEach(function(_: any, index: number) {	
+	workExperiences?.forEach(function (_: any, index: number) {
 		const startDate = new Date(workExperiences[index].startDate);
-		const startDateMonth = monthTranslations[startDate.getMonth().toString()];
+		const startDateMonth =
+			monthTranslations[startDate.getMonth().toString()];
 		const startDateYear = startDate.getFullYear();
 		const startDateText = `${startDateMonth} ${startDateYear}`;
 
 		let endDateText = "Presente";
 		if (workExperiences[index].endDate) {
 			const endDate = new Date(workExperiences[index].endDate);
-			const endDateMonth = monthTranslations[endDate.getMonth().toString()];
+			const endDateMonth =
+				monthTranslations[endDate.getMonth().toString()];
 			const endDateYear = endDate.getFullYear();
 			endDateText = `${endDateMonth} ${endDateYear}`;
 		}
@@ -187,7 +188,10 @@ const createApplyToJobAdInputSchema = yup
 		jobTitle: yup.string().required(),
 		numReviews: yup.number().required(),
 		fullName: yup.string().required(),
-		email: yup.string().email().required(),
+		email: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 		phoneNumber: yup.string().required(),
 		city: yup.string().required(),
 		neighborhood: yup.string(),

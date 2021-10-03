@@ -7,7 +7,10 @@ import { locationInputSchema } from "./location";
 const createCompanyInputSchema = yup
 	.object({
 		name: yup.string().required(),
-		contactEmail: yup.string().email().required(),
+		contactEmail: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 		yearEstablished: yup.number(),
 		numEmployees: yup
 			.string()

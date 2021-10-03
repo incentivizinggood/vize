@@ -1,22 +1,22 @@
 import React from "react";
-import { Form } from "formik";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoney from "@material-ui/icons/AttachMoney";
-import { Button } from "src/components/button";
+import FormWrapper from "../forms/form-wrapper";
 
-import {
-	FormArray,
-	Field,
-	FormToolbar,
-	SubmissionError,
-} from "src/components/form-stuff";
+import { FormArray, Field } from "src/components/form-stuff";
 import { translations } from "src/translations";
 
 const T = translations.createJobAd;
 
-function InnerForm({ submissionError }) {
+interface CreateJobAdInnerFormProps {
+	schema: any;
+	submissionError: any;
+	setSubmissionError: any;
+}
+
+function InnerForm(props: CreateJobAdInnerFormProps): any {
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			<Field name="jobTitle" type="text" required t={T.fields.jobTitle} />
 
 			<FormArray
@@ -207,15 +207,7 @@ function InnerForm({ submissionError }) {
 				required
 				t={T.fields.qualifications}
 			/>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 

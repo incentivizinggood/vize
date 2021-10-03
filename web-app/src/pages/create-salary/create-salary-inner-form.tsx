@@ -1,19 +1,24 @@
 import React from "react";
-import { Form } from "formik";
-import styled from "styled-components";
 import { Button } from "src/components/button";
 
-import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { Field } from "src/components/form-stuff";
 import { CompanyNameInput } from "src/components/company-name-input";
 import { translations, useTranslations } from "src/translations";
+import FormWrapper from "../forms/form-wrapper";
 
 const T = translations.createSalary;
 
-function InnerForm({ submissionError }) {
+interface CreateSalaryInnerFormProps {
+	schema: any;
+	submissionError: any;
+	setSubmissionError: any;
+}
+
+function InnerForm(props: CreateSalaryInnerFormProps): any {
 	const t = useTranslations().createSalary;
 
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			<CompanyNameInput
 				name="companyName"
 				required
@@ -64,15 +69,7 @@ function InnerForm({ submissionError }) {
 					</Field>
 				)}
 			/>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 
