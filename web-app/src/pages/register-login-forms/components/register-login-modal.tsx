@@ -14,115 +14,87 @@ const TitleText = styled.h2`
 
 /* The page where users can create an account.
  */
-class RegisterLoginModal extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			registerLogin: "register",
-		};
-		this.changeRegisterLoginState =
-			this.changeRegisterLoginState.bind(this);
-	}
 
-	changeRegisterLoginState() {
-		if (this.state.registerLogin === "register") {
-			this.setState({ registerLogin: "login" });
+export default function RegisterLoginModal({ errorText }): JSX.Element {
+	const [registerLogin, setRegisterOrLogin] = React.useState("register");
+
+	function changeRegisterLoginState(): void {
+		if (registerLogin === "register") {
+			setRegisterOrLogin("login");
 		} else {
-			this.setState({ registerLogin: "register" });
+			setRegisterOrLogin("register");
 		}
 	}
 
-	render() {
-		const styles = {
-			linkButton: {
-				color: "blue",
-				fontSize: 16,
-				fontWeight: 600,
-			},
-		};
+	function setRegisterOrLoginFunction(newState: string): void {
+		setRegisterOrLogin(newState);
+	}
 
-		const linkButton = {
+	const styles = {
+		linkButton: {
 			color: "blue",
 			fontSize: 16,
 			fontWeight: 600,
-		};
+		},
+	};
 
-		const errorDiv = {
-			backgroundColor: "crimson",
-			margin: -10,
-			marginBottom: 10,
-			height: 60,
-			textAlign: "center",
-		};
+	const linkButton = {
+		color: "blue",
+		fontSize: 16,
+		fontWeight: 600,
+	};
 
-		const errorText = {
-			position: "relative",
-			top: "50%",
-			transform: "translateY(-50%)",
-			color: "white",
-			width: "80%",
-			margin: "0 auto",
-			fontWeight: "bold",
-		};
+	const errorDiv = {
+		backgroundColor: "crimson",
+		margin: -10,
+		marginBottom: 10,
+		height: 60,
+		textAlign: "center",
+	};
 
-		let formContent = null;
+	const errorTextStyle = {
+		position: "relative",
+		top: "50%",
+		transform: "translateY(-50%)",
+		color: "white",
+		width: "80%",
+		margin: "0 auto",
+		fontWeight: "bold",
+	};
 
-		if (this.state.registerLogin === "register") {
-			formContent = (
-				<div>
-					<TitleText>
-						<T.register />
-					</TitleText>
+	let formContent = null;
 
-					<RegisterForm showInput={false} />
-
-					<div className="text-center login-link-cs">
-						<br />
-						<T.alreadyAccount />
-						<button
-							style={linkButton}
-							onClick={this.changeRegisterLoginState}
-						>
-							<T.login />
-						</button>
-						<div className="clearfix" />
-					</div>
-				</div>
-			);
-		} else {
-			formContent = (
-				<div>
-					<TitleText>
-						<T.login />
-					</TitleText>
-
-					<LoginForm />
-
-					<div className="row">
-						<div className="col-lg-12 text-center">
-							<br />
-							<T.noAccount />
-							<button
-								style={linkButton}
-								onClick={this.changeRegisterLoginState}
-							>
-								<T.register />
-							</button>
-						</div>
-					</div>
-				</div>
-			);
-		}
-
-		return (
+	if (registerLogin === "register") {
+		formContent = (
 			<div>
-				<div style={errorDiv}>
-					<h4 style={errorText}>{this.props.errorText}</h4>
-				</div>
-				{formContent}
+				<TitleText>
+					<T.register />
+				</TitleText>
+
+				<RegisterForm
+					setRegisterOrLogin={setRegisterOrLoginFunction}
+					showInput={false}
+				/>
+			</div>
+		);
+	} else {
+		formContent = (
+			<div>
+				<TitleText>
+					<T.login />
+				</TitleText>
+
+				<LoginForm setRegisterOrLogin={setRegisterOrLoginFunction} />
 			</div>
 		);
 	}
-}
 
-export default RegisterLoginModal;
+	return (
+		<div>
+			<div style={errorDiv}>
+				<h4 style={errorTextStyle}>{errorText}</h4>
+			</div>
+			{formContent}
+		</div>
+	);
+}

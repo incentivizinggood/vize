@@ -1,24 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 import * as urlGenerators from "src/pages/url-generators";
-import {
-	FormHeader,
-	FormFooter,
-	FormPageWrapper,
-} from "src/components/form-stuff";
+import { FormHeader, FormPageWrapper } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import LoginWithFacebook from "./components/login-with-facebook";
 
 import LoginForm from "./login-form";
 
 const T = translations.loginRegister;
-
-const X = styled.div`
-	margin-top: 5px;
-	text-align: center;
-`;
 
 /** The page where users can login to the app. */
 function LoginPage(): JSX.Element {
@@ -30,25 +18,11 @@ function LoginPage(): JSX.Element {
 	}
 
 	return (
-		<FormPageWrapper title="Login">
+		<FormPageWrapper title="Iniciar Sesión">
 			<FormHeader>
 				<T.login />
 			</FormHeader>
-			<LoginForm />
-			<X>
-				{/* TODO Make this look nice. */}
-				<Link to={urlGenerators.vizeRequestPasswordReset()}>
-					<T.forgotPassword />
-				</Link>
-			</X>
-			<LoginWithFacebook />
-
-			<FormFooter>
-				<T.noAccount />
-				<Link to={urlGenerators.vizeRegister(userRole)}>
-					<T.register />
-				</Link>
-			</FormFooter>
+			<LoginForm userRole={userRole} />
 		</FormPageWrapper>
 	);
 }
