@@ -16,6 +16,7 @@ import LoginForm from "./login-form";
 const T = translations.loginRegister;
 
 const X = styled.div`
+	margin-top: 5px;
 	text-align: center;
 `;
 
@@ -34,14 +35,14 @@ function LoginPage(): JSX.Element {
 				<T.login />
 			</FormHeader>
 			<LoginForm />
-			<br />
-			<LoginWithFacebook />
 			<X>
 				{/* TODO Make this look nice. */}
 				<Link to={urlGenerators.vizeRequestPasswordReset()}>
 					<T.forgotPassword />
 				</Link>
 			</X>
+			<LoginWithFacebook />
+
 			<FormFooter>
 				<T.noAccount />
 				<Link to={urlGenerators.vizeRegister(userRole)}>
