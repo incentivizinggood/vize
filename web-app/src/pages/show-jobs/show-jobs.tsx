@@ -223,6 +223,20 @@ const JobListWrapper = styled.div`
 		margin-top: 55px;
 	}
 `;
+
+let initialValuesForFilter = {
+	dayPosted: 1,
+	industrialPark: [],
+	shifts: [],
+	jobTitles: [],
+	jobTypes: [],
+	industries: [],
+	skills: [],
+	licences: [],
+	minSalary: 0,
+	maxSalary: 0,
+};
+
 export interface Shift {
 	day: string;
 	time: string;
@@ -291,20 +305,38 @@ export interface JobPostInterface {
 	companyDetail?: Company;
 }
 export default function ShowJobs(): JSX.Element {
-	// const { loading, error, data } = useShowJobsQuery();
+	const [filters, updateFilters] = useState({ ...initialValuesForFilter });
+	const [width, setWidth] = useState<number>(window.innerWidth);
+	const [jobPostModal, setJobPostModal] = useState({
+		visible: false,
+		jobPost: null,
+	});
 
-	// if (loading) {
-	// 	return (
-	// 		<h2>
-	// 			<T.jobsearch.loading />
-	// 		</h2>
-	// 	);
-	// }
+	useEffect(() => {
+		window.addEventListener("resize", handleWindowSizeChange);
+		return () => {
+			window.removeEventListener("resize", handleWindowSizeChange);
+		};
+	}, []);
 
-	// if (error) {
-	// 	console.error(error);
-	// 	return <h2>{`Error! ${error.message}`}</h2>;
-	// }
+	const { loading, error, data } = useShowJobsQuery();
+
+	if (loading) {
+		return (
+			<h2>
+				<T.jobsearch.loading />
+			</h2>
+		);
+	}
+
+	if (error) {
+		console.error(error);
+		return <h2>{`Error! ${error.message}`}</h2>;
+	}
+
+	const jobsData = data?.searchJobAds.nodes;
+
+	console.log("data", jobsData);
 
 	// const RenderedItems = data.searchJobAds.nodes.map(function (jobad) {
 	// 	return <JobPosting key={jobad.id} job={jobad} />;
@@ -320,157 +352,17 @@ export default function ShowJobs(): JSX.Element {
 	// } else {
 	// 	message = "";
 	// }
-	const [width, setWidth] = useState<number>(window.innerWidth);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
 	}
-	useEffect(() => {
-		window.addEventListener("resize", handleWindowSizeChange);
-		return () => {
-			window.removeEventListener("resize", handleWindowSizeChange);
-		};
-	}, []);
-	let initialValuesForFilter = {
-		dayPosted: 1,
-		industrialPark: [],
-		shifts: [],
-		jobTitles: [],
-		jobTypes: [],
-		industries: [],
-		skills: [],
-		licences: [],
-		minSalary: 0,
-		maxSalary: 0,
-	};
-	const [filters, updateFilters] = useState({ ...initialValuesForFilter });
-	const updateFilterValue = (key: string, val: string) => {
-		updateFilters({
-			...filters,
-			[key]: val,
-		});
-	};
-	const filterMasters: any = {
-		dayPosted: [
-			{
-				label: "Any Time",
-				value: 1,
-			},
-			{
-				label: "Past Month",
-				value: 2,
-			},
-			{
-				label: "Past Week",
-				value: 3,
-			},
-			{
-				label: "Past 24 Hours",
-				value: 4,
-			},
-		],
-		industrialPark: [
-			{
-				label: "El Florido",
-				value: 1,
-			},
-			{
-				label: "Otay",
-				value: 2,
-			},
-			{
-				label: "Luna Park",
-				value: 3,
-			},
-		],
-		shifts: [
-			{
-				label: "Morning",
-				value: 1,
-			},
-			{
-				label: "Mixed",
-				value: 2,
-			},
-		],
-		jobTitles: [
-			{
-				label: "Operador",
-				value: 1,
-			},
-			{
-				label: "Ensamble",
-				value: 2,
-			},
-		],
-		jobTypes: [
-			{
-				label: "Full-time",
-				value: 1,
-			},
-			{
-				label: "Temporary",
-				value: 2,
-			},
-			{
-				label: "Part-time",
-				value: 3,
-			},
-			{
-				label: "Contractor",
-				value: 4,
-			},
-			{
-				label: "Internship",
-				value: 5,
-			},
-		],
-		industries: [
-			{
-				label: "Aerospace",
-				value: 1,
-			},
-			{
-				label: "Medical",
-				value: 2,
-			},
-			{
-				label: "Plastics",
-				value: 3,
-			},
-		],
-		skills: [
-			{
-				label: "Productos Medicos",
-				value: 1,
-			},
-			{
-				label: "Instrumentos de Medicion",
-				value: 2,
-			},
-			{
-				label: "Productos Aerospaciales",
-				value: 3,
-			},
-			{
-				label: "Productos Aerospaciales",
-				value: 4,
-			},
-		],
-		licences: [
-			{
-				label: "Montacargas",
-				value: 1,
-			},
-			{
-				label: "Máquinas de CAC",
-				value: 2,
-			},
-			{
-				label: "Máquinas de CAC",
-				value: 3,
-			},
-		],
-	};
+
+	// const updateFilterValue = (key: string, val: string) => {
+	// 	updateFilters({
+	// 		...filters,
+	// 		[key]: val,
+	// 	});
+	// };
+
 	const camelcaseToLabel = (str: string): string => {
 		return `${str.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}`;
 	};
@@ -616,10 +508,7 @@ export default function ShowJobs(): JSX.Element {
 			},
 		},
 	];
-	const [jobPostModal, setJobPostModal] = useState({
-		visible: false,
-		jobPost: null,
-	});
+
 	const clearAllFilter = () => {
 		updateFilters({ ...initialValuesForFilter });
 	};
@@ -653,8 +542,8 @@ export default function ShowJobs(): JSX.Element {
 					</Banner>
 					<JobListWrapper>
 						<Row>
-							{jobs && jobs.length
-								? jobs.map((job) => {
+							{jobsData && jobsData.length
+								? jobsData.map((job) => {
 										return (
 											<Col
 												xs={12}
@@ -688,6 +577,129 @@ export default function ShowJobs(): JSX.Element {
 		</PageWrapper>
 	);
 }
+
+// const filterMasters: any = {
+// 	dayPosted: [
+// 		{
+// 			label: "Any Time",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Past Month",
+// 			value: 2,
+// 		},
+// 		{
+// 			label: "Past Week",
+// 			value: 3,
+// 		},
+// 		{
+// 			label: "Past 24 Hours",
+// 			value: 4,
+// 		},
+// 	],
+// 	industrialPark: [
+// 		{
+// 			label: "El Florido",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Otay",
+// 			value: 2,
+// 		},
+// 		{
+// 			label: "Luna Park",
+// 			value: 3,
+// 		},
+// 	],
+// 	shifts: [
+// 		{
+// 			label: "Morning",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Mixed",
+// 			value: 2,
+// 		},
+// 	],
+// 	jobTitles: [
+// 		{
+// 			label: "Operador",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Ensamble",
+// 			value: 2,
+// 		},
+// 	],
+// 	jobTypes: [
+// 		{
+// 			label: "Full-time",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Temporary",
+// 			value: 2,
+// 		},
+// 		{
+// 			label: "Part-time",
+// 			value: 3,
+// 		},
+// 		{
+// 			label: "Contractor",
+// 			value: 4,
+// 		},
+// 		{
+// 			label: "Internship",
+// 			value: 5,
+// 		},
+// 	],
+// 	industries: [
+// 		{
+// 			label: "Aerospace",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Medical",
+// 			value: 2,
+// 		},
+// 		{
+// 			label: "Plastics",
+// 			value: 3,
+// 		},
+// 	],
+// 	skills: [
+// 		{
+// 			label: "Productos Medicos",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Instrumentos de Medicion",
+// 			value: 2,
+// 		},
+// 		{
+// 			label: "Productos Aerospaciales",
+// 			value: 3,
+// 		},
+// 		{
+// 			label: "Productos Aerospaciales",
+// 			value: 4,
+// 		},
+// 	],
+// 	licences: [
+// 		{
+// 			label: "Montacargas",
+// 			value: 1,
+// 		},
+// 		{
+// 			label: "Máquinas de CAC",
+// 			value: 2,
+// 		},
+// 		{
+// 			label: "Máquinas de CAC",
+// 			value: 3,
+// 		},
+// 	],
+// };
 
 {
 	/* <SearchBar>

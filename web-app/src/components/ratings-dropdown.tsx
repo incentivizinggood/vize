@@ -47,9 +47,10 @@ function RatingsDropdown({
 				rating={
 					(ratings.healthAndSafety +
 						ratings.managerRelationship +
+						ratings.overallSatisfaction +
 						ratings.workEnvironment +
 						ratings.benefits) /
-					4
+					5
 				} // the average rating of all 5 ratings
 				starDimension="15px"
 				starSpacing="1.5px"

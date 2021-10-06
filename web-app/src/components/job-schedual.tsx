@@ -1,7 +1,26 @@
 import React from "react";
+import styled from "styled-components";
+
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
+
+const ShiftContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
+	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.border ? "1px solid #efefef" : ""};
+	padding-right: 10px;
+	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.withImage ? "10px" : ""};
+`;
+const ShiftDay = styled.span`
+	color: black;
+`;
+const ShiftTime = styled.span`
+	font-weight: 600;
+`;
 
 interface Interval {
 	start: number;
@@ -173,12 +192,20 @@ export function JobSchedule(props: JobScheduleProps): JSX.Element {
 	const daysAreNumeric =
 		typeof props.startDay === "number" && typeof props.endDay === "number";
 	return (
-		<span>
-			{getShiftName(props.startTime, props.endTime)}
-			{daysAreNumeric && " | "}
-			{getShiftDayRange(props.startDay, props.endDay)}
-			{props.startTime && props.endTime && " | "}
-			{getShiftTimeRange(props.startTime, props.endTime)}
-		</span>
+		<ShiftContainer border={false}>
+			<ShiftDay>
+				{getShiftDayRange(props.startDay, props.endDay)}
+			</ShiftDay>
+			<ShiftTime>
+				{getShiftTimeRange(props.startTime, props.endTime)}
+			</ShiftTime>
+		</ShiftContainer>
+		// <span>
+		// 	{getShiftName(props.startTime, props.endTime)}
+		// 	{daysAreNumeric && " | "}
+		// 	{getShiftDayRange(props.startDay, props.endDay)}
+		// 	{props.startTime && props.endTime && " | "}
+		// 	{getShiftTimeRange(props.startTime, props.endTime)}
+		// </span>
 	);
 }

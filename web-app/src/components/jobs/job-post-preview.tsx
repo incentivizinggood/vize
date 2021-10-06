@@ -9,6 +9,11 @@ import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
+import { JobSchedule } from "../job-schedual";
+
+import { translations } from "src/translations";
+
+const T = translations.legacyTranslationsNeedsRefactor;
 
 const JobPostPreviewWrapper = styled.div`
 	background: #fff;
@@ -89,22 +94,6 @@ const JobDetailText = styled.div`
 	padding-left: 10px;
 `;
 
-const ShiftContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	padding-left: 10px;
-	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
-		p.border ? "1px solid #efefef" : ""};
-	padding-right: 10px;
-	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
-		p.withImage ? "10px" : ""};
-`;
-const ShiftDay = styled.span`
-	color: black;
-`;
-const ShiftTime = styled.span`
-	font-weight: 600;
-`;
 const ShiftsIcon = styled.img`
 	width: 26px;
 	height: 26px;
@@ -114,13 +103,13 @@ const ButtonsContainer = styled.div`
 	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-around;
-	button{
-		width:200px;
+	button {
+		width: 200px;
 		padding: 0.9rem 2rem !important;
 		margin: 0 10px;
 	}
 	${forSize.phoneOnly} {
-		button{
+		button {
 			padding: 0.7rem 0.4rem !important;
 			font-size: 12px;
 		}
@@ -136,6 +125,23 @@ export default function JobPostPreview(
 ): JSX.Element {
 	const { job, openJobDetail, hideButtons } = props;
 
+	const contractType =
+		job.contractType === "FULL_TIME" ? (
+			<T.showjob.fullTime />
+		) : job.contractType === "PART_TIME" ? (
+			<T.showjob.partTime />
+		) : job.contractType === "INTERNSHIP" ? (
+			<T.showjob.internship />
+		) : job.contractType === "TEMPORARY" ? (
+			<T.showjob.temporary />
+		) : (
+			<T.showjob.contractor />
+		);
+
+	// True if there is a city and an industrial hub for a job
+	const isTwoJobLocations =
+		job.locations[0].city && job.locations[0].industrialHub;
+
 	return (
 		<JobPostPreviewWrapper
 			onClick={() => {
@@ -145,52 +151,79 @@ export default function JobPostPreview(
 			}}
 		>
 			<HeaderContainer>
-				<CompanyLogo src={job.companyLogo} alt="Company Logo" />
+				{/* <CompanyLogo src={job.companyLogo} alt="Company Logo" /> */}
 				<HeaderTextItemsContainer>
 					<CompanyNameAndPostedDateContainer>
-						<CompanyName>{job.company}</CompanyName>
-						<PostedDate>Posted {job.postedTimeAgo}</PostedDate>
+						<CompanyName>{job.company.name}</CompanyName>
+						{/* <PostedDate>Posted {job.postedTimeAgo}</PostedDate> */}
 					</CompanyNameAndPostedDateContainer>
-					<JobTitle>{job.jobPost}</JobTitle>
-					<RatingWrapper>
-						<RatingsDropdown
-							ratings={{
-								healthAndSafety: job.rating,
-								managerRelationship: job.rating,
-								workEnvironment: job.rating,
-								benefits: job.rating,
-								overallSatisfaction: job.rating,
-							}}
-							numReviews={job.reviewCount}
-							companyName=""
-						/>
-						<ReviewCount>{job.reviewCount} Reviews</ReviewCount>
-					</RatingWrapper>
+					<JobTitle>{job.jobTitle}</JobTitle>
+					{job.company.avgStarRatings && (
+						<RatingWrapper>
+							<RatingsDropdown
+								ratings={{
+									healthAndSafety:
+										job.company.avgStarRatings
+											.healthAndSafety,
+									managerRelationship:
+										job.company.avgStarRatings
+											.managerRelationship,
+									workEnvironment:
+										job.company.avgStarRatings
+											.workEnvironment,
+									benefits:
+										job.company.avgStarRatings.benefits,
+									overallSatisfaction:
+										job.company.avgStarRatings
+											.overallSatisfaction,
+								}}
+								numReviews={job.reviewCount}
+								companyName={job.company.name}
+							/>
+							<ReviewCount>
+								{job.company.numReviews} Reviews
+							</ReviewCount>
+						</RatingWrapper>
+					)}
 				</HeaderTextItemsContainer>
 			</HeaderContainer>
 			<JobDetailsContainer>
 				<JobDetailContainer>
 					<img src={dollarImage} alt="Salary Icon" />
-					<JobDetailText>{job.salaryRange}</JobDetailText>
+					<JobDetailText>
+						${job.salaryMin} - ${job.salaryMax} pesos / semana
+					</JobDetailText>
 				</JobDetailContainer>
 				<JobDetailContainer>
 					<img src={jobTypeImage} alt="Contract Type Icon" />
-					<JobDetailText>{job.jobType}</JobDetailText>
+					<JobDetailText>{contractType}</JobDetailText>
 				</JobDetailContainer>
 				<JobDetailContainer>
 					<img src={addressImage} alt="Location Icon" />
 					<JobDetailText>
-						{[job.city, job.industrialPark].join(", ")}
+						{isTwoJobLocations
+							? [
+									job.locations[0].city,
+									job.locations[0].industrialHub,
+							  ].join(", ")
+							: job.locations[0].city}
 					</JobDetailText>
 				</JobDetailContainer>
 				<JobDetailContainer>
 					<ShiftsIcon src={shiftsImage} alt="Shifts Icon" />
-					{job.shifts.map((shift, index) => {
+					<JobSchedule
+						startTime={job.startTime}
+						endTime={job.endTime}
+						startDay={job.startDay}
+						endDay={job.endDay}
+					/>
+
+					{/* {job.shifts.map((shift, index) => {
 						return <ShiftContainer border={index < job.shifts.length - 1} key={index}>
 							<ShiftDay>{shift.day}</ShiftDay>
 							<ShiftTime>{shift.time}</ShiftTime>
 						</ShiftContainer>;
-					})}
+					})} */}
 				</JobDetailContainer>
 				{!hideButtons ? (
 					<ButtonsContainer>
