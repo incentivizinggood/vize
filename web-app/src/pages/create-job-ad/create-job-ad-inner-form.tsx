@@ -1,6 +1,7 @@
 import React from "react";
-import { Form } from "formik";
+import { Form, useFormikContext } from "formik";
 import { Button } from "src/components/button";
+
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 
@@ -17,6 +18,8 @@ import { Box } from "@material-ui/core";
 
 const T = translations.createJobAd;
 function InnerForm({ submissionError }: any) {
+	const { values }: any = useFormikContext();
+	console.log("vak", values);
 	return (
 		<Form noValidate>
 			<PostFormFieldContainer>
