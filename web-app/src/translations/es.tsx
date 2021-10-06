@@ -417,7 +417,7 @@ export default {
 				placeholder: "Ej. 2200",
 			},
 			salaryType: {
-				label: "Tipo de Ingreso (en Pesos)",
+				label: "Tipo de Salario (en Pesos)",
 				yearlySalary: "Anual",
 				monthlySalary: "Mensual",
 				weeklySalary: "Sueldo por Semana",

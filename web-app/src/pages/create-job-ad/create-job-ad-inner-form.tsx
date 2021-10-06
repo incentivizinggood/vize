@@ -39,14 +39,14 @@ function InnerForm({ submissionError }: any) {
 					t={T.fields.jobDescription}
 				/>
 				<Field
-					name="responsibilities"
+					name="skills"
 					multiline
 					rows={6}
 					required
 					t={T.fields.responsibilities}
 				/>
 				<Field
-					name="qualifications"
+					name="certificatesAndLicences"
 					multiline
 					rows={6}
 					required
@@ -102,22 +102,22 @@ function InnerForm({ submissionError }: any) {
 							label={t.label}
 							options={[
 								<FormControlLabel
-									value="someHighSchool"
+									value="SOME_HIGH_SCHOOL"
 									control={<Radio />}
 									label={t.someHighSchool}
 								/>,
 								<FormControlLabel
-									value="completedHighSchool"
+									value="HIGH_SCHOOL"
 									control={<Radio />}
 									label={t.completedHighSchool}
 								/>,
 								<FormControlLabel
-									value="someCollege"
+									value="SOME_COLLEGE"
 									control={<Radio />}
 									label={t.someCollege}
 								/>,
 								<FormControlLabel
-									value="collegeDegree"
+									value="COLLEGE_DEGREE"
 									control={<Radio />}
 									label={t.collegeDegree}
 								/>,
@@ -129,34 +129,33 @@ function InnerForm({ submissionError }: any) {
 				<T.fields.minimumLanguage
 					renderer={(t) => (
 						<Field
-							name="minimunEducation"
+							name="englishProficiency"
 							type="radioButtons"
 							className="verticleRadioField"
-							// width="45%"
 							label={t.label}
 							options={[
 								<FormControlLabel
-									value="native"
+									value="NATIVE_LANGUAGE"
 									control={<Radio />}
 									label={t.native}
 								/>,
 								<FormControlLabel
-									value="fluent"
+									value="FLUENT"
 									control={<Radio />}
 									label={t.fluent}
 								/>,
 								<FormControlLabel
-									value="conversational"
+									value="CONVERSATIONAL"
 									control={<Radio />}
 									label={t.conversational}
 								/>,
 								<FormControlLabel
-									value="basic"
+									value="BASIC"
 									control={<Radio />}
 									label={t.basic}
 								/>,
 								<FormControlLabel
-									value="none"
+									value="NO_PROFICIENCY"
 									control={<Radio />}
 									label={t.none}
 								/>,

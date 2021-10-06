@@ -24,6 +24,7 @@ const initialValues = {
 	jobTitle: "",
 	jobDescription: "",
 	skills: "",
+	contractType: "",
 	certificatesAndLicences: "",
 	highestLevelOfEducation: "",
 	englishProficiency: "",
@@ -42,19 +43,9 @@ const initialValues = {
 			industrialHub: "",
 		},
 	],
-
+	salaryType: "",
 	salaryMin: "",
 	salaryMax: "",
-	jobSchedule: [
-		{
-			startDay: 1,
-			endDay: 5,
-			startTime: "08:00",
-			endTime: "18:00",
-		},
-	],
-	salaryType: "",
-	contractType: "",
 };
 
 const schema = yup.object().shape({

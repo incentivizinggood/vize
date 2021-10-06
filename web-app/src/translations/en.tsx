@@ -429,7 +429,7 @@ export default {
 				placeholder: "e.g. 2200",
 			},
 			salaryType: {
-				label: "Income Type (in Pesos)",
+				label: "Salary Type (in Pesos)",
 				yearlySalary: "Yearly Salary",
 				monthlySalary: "Monthly Salary",
 				weeklySalary: "Weekly Salary",
