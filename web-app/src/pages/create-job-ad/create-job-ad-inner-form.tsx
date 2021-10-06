@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, useFormikContext } from "formik";
 import { Button } from "src/components/button";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AttachMoney from "@material-ui/icons/AttachMoney";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
@@ -50,6 +52,47 @@ function InnerForm({ submissionError }: any) {
 					required
 					t={T.fields.qualifications}
 				/>
+				<br />
+				<T.fields.contractType
+					renderer={(t: any) => (
+						<Field
+							name="contractType"
+							type="radioButtons"
+							className="verticleRadioField"
+							// display="block"
+							label={t.label}
+							options={[
+								<FormControlLabel
+									value="fullTime"
+									control={<Radio />}
+									label={t.fullTime}
+								/>,
+								<FormControlLabel
+									value="partTime"
+									control={<Radio />}
+									label={t.partTime}
+								/>,
+								<FormControlLabel
+									value="internship"
+									control={<Radio />}
+									label={t.internship}
+								/>,
+
+								<FormControlLabel
+									value="temporary"
+									control={<Radio />}
+									label={t.temporary}
+								/>,
+								<FormControlLabel
+									value="contractor"
+									control={<Radio />}
+									label={t.contractor}
+								/>,
+							]}
+						/>
+					)}
+				/>
+				<br />
 				<T.fields.minimunEducation
 					renderer={(t) => (
 						<Field
@@ -234,6 +277,10 @@ function InnerForm({ submissionError }: any) {
 					)}
 					T={T.fields.locations}
 				/>
+				<div style={{ marginTop: "30px" }}>
+					<T.fields.salaryExplanation />
+				</div>
+
 				<T.fields.salaryType
 					renderer={(t: any) => (
 						<Field
@@ -252,83 +299,41 @@ function InnerForm({ submissionError }: any) {
 						</Field>
 					)}
 				/>
-				<Box>
-					<T.fields.contractType
-						renderer={(t: any) => (
-							<Field
-								name="contractType"
-								type="radioButtons"
-								className="verticleRadioField"
-								// display="block"
-								label={t.label}
-								options={[
-									<FormControlLabel
-										value="fullTime"
-										control={<Radio />}
-										label={t.fullTime}
-									/>,
-									<FormControlLabel
-										value="partTime"
-										control={<Radio />}
-										label={t.partTime}
-									/>,
-									<FormControlLabel
-										value="internship"
-										control={<Radio />}
-										label={t.internship}
-									/>,
 
-									<FormControlLabel
-										value="temporary"
-										control={<Radio />}
-										label={t.temporary}
-									/>,
-									<FormControlLabel
-										value="contractor"
-										control={<Radio />}
-										label={t.contractor}
-									/>,
-								]}
-							/>
-						)}
+				<div style={{ display: "flex", marginTop: "-15px" }}>
+					<Field
+						name="salaryMin"
+						type="number"
+						fullWidth={false}
+						required
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<AttachMoney />
+								</InputAdornment>
+							),
+						}}
+						style={{ width: "94%" }}
+						t={T.fields.salaryMin}
 					/>
-				</Box>
-				{/* <div style={{ marginTop: "10px" }}>
-				<T.fields.salaryExplanation />
-			</div> */}
-				{/* <span>
-				<Field
-					name="salaryMin"
-					type="number"
-					fullWidth={false}
-					required
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<AttachMoney />
-							</InputAdornment>
-						),
-					}}
-					style={{ width: "49%", marginRight: "2%" }}
-					t={T.fields.salaryMin}
-				/>
 
-				<Field
-					name="salaryMax"
-					type="number"
-					fullWidth={false}
-					required
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<AttachMoney />
-							</InputAdornment>
-						),
-					}}
-					style={{ width: "49%" }}
-					t={T.fields.salaryMax}
-				/>
-			</span> */}
+					<Field
+						name="salaryMax"
+						type="number"
+						fullWidth={false}
+						required
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<AttachMoney />
+								</InputAdornment>
+							),
+						}}
+						style={{ width: "100%" }}
+						t={T.fields.salaryMax}
+					/>
+				</div>
+
 				<SubmissionError error={submissionError} />
 			</PostFormFieldContainer>
 			<FormToolbar>

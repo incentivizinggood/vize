@@ -22,13 +22,11 @@ function omitEmptyStrings(x) {
 
 const initialValues = {
 	jobTitle: "",
-	locations: [
-		{
-			city: "",
-			address: "",
-			industrialHub: "",
-		},
-	],
+	jobDescription: "",
+	skills: "",
+	certificatesAndLicences: "",
+	highestLevelOfEducation: "",
+	englishProficiency: "",
 	shifts: [
 		{
 			startDay: "",
@@ -37,10 +35,16 @@ const initialValues = {
 			endTime: "",
 		},
 	],
-	minimumLevel: "",
-	minimumLanguage: "",
-	// salaryMin: "",
-	// salaryMax: "",
+	locations: [
+		{
+			city: "",
+			address: "",
+			industrialHub: "",
+		},
+	],
+
+	salaryMin: "",
+	salaryMax: "",
 	jobSchedule: [
 		{
 			startDay: 1,
@@ -51,9 +55,6 @@ const initialValues = {
 	],
 	salaryType: "",
 	contractType: "",
-	jobDescription: "",
-	responsibilities: "",
-	qualifications: "",
 };
 
 const schema = yup.object().shape({
