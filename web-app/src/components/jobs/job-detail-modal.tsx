@@ -6,14 +6,12 @@ import { borderRadius } from "src/global-styles";
 import {
 	JobPostTitleRow,
 	JobContentWrapper,
-} from "src/pages/for-employers/job-post";
+} from "src/components/jobs/new-job-post";
 import HorizontalLine from "../horizontal-line";
 import CompanyContentWrapper from "./company-content-wrapper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { forSize } from "src/responsive";
-
-
 
 interface JobDetailModalProps {
 	visible: boolean;
@@ -46,7 +44,7 @@ const JobPostContent = styled.div`
 	height: 100%;
 	${forSize.tabletAndDown} {
 		padding: 8px;
-		margin-top:0px;
+		margin-top: 0px;
 	}
 `;
 const ScrollableContent = styled.div`
@@ -58,7 +56,6 @@ const ScrollableContent = styled.div`
 		height: calc(100vh - 225px);
 	}
 `;
-
 
 Modal.setAppElement("#app-root");
 export default function JobDetailModal(
@@ -81,11 +78,11 @@ export default function JobDetailModal(
 
 	const onScroll = (e) => {
 		if (e.currentTarget.scrollTop < 700) {
-			setActiveTab(1)
+			setActiveTab(1);
 		} else {
-			setActiveTab(2)
+			setActiveTab(2);
 		}
-	}
+	};
 	const jobDetailModalStyles = {
 		overlay: {
 			backgroundColor: "#000000a3",
@@ -138,7 +135,10 @@ export default function JobDetailModal(
 					</div>
 					<HorizontalLine />
 					<div ref={companyContentRef} id="company-content">
-						<CompanyContentWrapper companyDetail={jobPost.companyDetail} company={jobPost.company}></CompanyContentWrapper>
+						<CompanyContentWrapper
+							companyDetail={jobPost.companyDetail}
+							company={jobPost.company}
+						></CompanyContentWrapper>
 					</div>
 				</ScrollableContent>
 			</JobPostContent>

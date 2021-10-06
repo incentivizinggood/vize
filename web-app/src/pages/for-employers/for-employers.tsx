@@ -2,6 +2,7 @@
 import React from "react";
 import { useQuery } from "react-apollo";
 
+import { StarRatings as StartRatingsType } from "generated/graphql-operations";
 import styled from "styled-components";
 import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
@@ -13,7 +14,7 @@ import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import ResourcePreviewCard from "./resoource-preview-card";
 import ResourceTopicButton from "./resource-topic-button";
-import { JobPost } from "./job-post";
+import { JobPost } from "../../components/jobs/new-job-post";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
 import arrowDownImage from "../../images/arrow-down-circle-line.png";
@@ -30,6 +31,7 @@ import topic3Image from "../../images/job-post-icons/topic-3.png";
 import img1 from "../../images/workers.jpeg";
 
 import employerPageResourcesQuery from "./employer-page-resources.graphql";
+import { string } from "yup";
 
 const T = translations.forEmployers;
 
@@ -41,12 +43,21 @@ export interface Shift {
 }
 
 export interface JobPostInterface {
-	company: string;
-	jobPost: string;
-	reviewCount: number;
-	rating: number;
-	published: string;
-	salaryRange: string;
+	company: {
+		id: string;
+		name: string;
+		avgStarRatings: StartRatingsType;
+		numReviews: number;
+	};
+	id: string;
+	contractType: string;
+	created: date;
+	startDay: number;
+	endDay: number;
+	startTime: string;
+	endTime: string;
+	salaryMax: string;
+	salaryMin: string;
 	jobType: string;
 	minEducation: string;
 	industry: string;
