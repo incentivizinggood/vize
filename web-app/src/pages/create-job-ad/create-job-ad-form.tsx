@@ -84,8 +84,8 @@ const schema = yup.object().shape({
 			"COLLEGE_DEGREE",
 		])
 		.required("Se requiere el nivel educativo minimo"),
-	shifts: yup.array().of(schemas.shiftSchema).required(),
-	locations: yup.array().of(schemas.locationSchema).required(),
+	shifts: yup.array().required().min(1).of(schemas.shiftSchema),
+	locations: yup.array().required().min(1).of(schemas.locationSchema),
 	salaryType: yup
 		.string()
 		.oneOf([

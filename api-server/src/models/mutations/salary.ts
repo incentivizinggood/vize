@@ -3,7 +3,7 @@ import * as yup from "yup";
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 
-import { locationInputSchema } from "./location";
+import { locationInputSchema } from "./input-schemas";
 
 const createSalaryInputSchema = yup
 	.object({
