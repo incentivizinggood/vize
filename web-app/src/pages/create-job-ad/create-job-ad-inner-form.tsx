@@ -59,32 +59,30 @@ function InnerForm({ submissionError }: any) {
 							name="contractType"
 							type="radioButtons"
 							className="verticleRadioField"
-							// display="block"
 							label={t.label}
 							options={[
 								<FormControlLabel
-									value="fullTime"
+									value="FULL_TIME"
 									control={<Radio />}
 									label={t.fullTime}
 								/>,
 								<FormControlLabel
-									value="partTime"
-									control={<Radio />}
-									label={t.partTime}
-								/>,
-								<FormControlLabel
-									value="internship"
-									control={<Radio />}
-									label={t.internship}
-								/>,
-
-								<FormControlLabel
-									value="temporary"
+									value="TEMPORARY"
 									control={<Radio />}
 									label={t.temporary}
 								/>,
 								<FormControlLabel
-									value="contractor"
+									value="PART_TIME"
+									control={<Radio />}
+									label={t.partTime}
+								/>,
+								<FormControlLabel
+									value="INTERNSHIP"
+									control={<Radio />}
+									label={t.internship}
+								/>,
+								<FormControlLabel
+									value="CONTRACTOR"
 									control={<Radio />}
 									label={t.contractor}
 								/>,
@@ -290,11 +288,19 @@ function InnerForm({ submissionError }: any) {
 							label={t.label}
 							style={{ width: "100%" }}
 						>
-							<option value={1}>{t.yearlySalary}</option>
-							<option value={2}>{t.monthlySalary}</option>
-							<option value={3}>{t.weeklySalary}</option>
-							<option value={4}>{t.dailySalary}</option>
-							<option value={5}>{t.hourlyWage}</option>
+							<option value="YEARLY_SALARY">
+								{t.yearlySalary}
+							</option>
+							<option value="MONTHLY_SALARY">
+								{t.monthlySalary}
+							</option>
+							<option value="WEEKLY_SALARY">
+								{t.weeklySalary}
+							</option>
+							<option value="DAILY_SALARY">
+								{t.dailySalary}
+							</option>
+							<option value="HOURLY_WAGE">{t.hourlyWage}</option>
 						</Field>
 					)}
 				/>
