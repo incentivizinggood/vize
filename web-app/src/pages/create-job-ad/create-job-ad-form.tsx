@@ -26,8 +26,8 @@ const initialValues = {
 	skills: "",
 	contractType: "",
 	certificatesAndLicences: "",
-	highestLevelOfEducation: "",
-	englishProficiency: "",
+	minimumEducation: "",
+	requiredEnglishProficiency: "",
 	shifts: [
 		{
 			startDay: "",
@@ -49,35 +49,12 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-	jobTitle: yup.string().required("Se requiere el titulo de empleo"),
-	locations: yup.array().of(schemas.locationSchema).required(),
-	minimuLanguage: yup.array().of(schemas.locationSchema).required(),
-	salaryMin: yup.number().required("Se requiere el salario minimo"),
-	salaryMax: yup.number().required("Se requiere el salario maximo"),
-	startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-	endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-	startDay: yup
-		.number()
-		.integer()
-		.min(0)
-		.max(6)
-		.required("Se requiere el día de inicio del turno"),
-	endDay: yup
-		.number()
-		.integer()
-		.min(0)
-		.max(6)
-		.required("Se requiere el día final del turno"),
-	salaryType: yup
+	jobTitle: yup.string().required("Se requiere el titulo del empleo"),
+	jobDescription: yup
 		.string()
-		.oneOf([
-			"YEARLY_SALARY",
-			"MONTHLY_SALARY",
-			"WEEKLY_SALARY",
-			"DAILY_SALARY",
-			"HOURLY_WAGE",
-		])
-		.required("Se requiere el tipo de ingreso"),
+		.required("Se requiere la descripción del empleo"),
+	skills: yup.string().required("Se requiere al menos una habilidad"),
+	certificatesAndLicences: yup.string(),
 	contractType: yup
 		.mixed()
 		.oneOf([
@@ -88,13 +65,39 @@ const schema = yup.object().shape({
 			"CONTRACTOR",
 		])
 		.required("Se requiere el tipo de contrato"),
-	jobDescription: yup
+	minimumEnglishProficiency: yup
 		.string()
-		.required("Se requiere la descripción del trabajo"),
-	responsibilities: yup
+		.oneOf([
+			"NATIVE_LANGUAGE",
+			"FLUENT",
+			"CONVERSATIONAL",
+			"BASIC",
+			"NO_PROFICIENCY",
+		])
+		.required("Se requiere el nivel educativo minimo"),
+	minimumEducation: yup
 		.string()
-		.required("Se requieren las responabilidades"),
-	qualifications: yup.string().required("Se requieren las calificaciones"),
+		.oneOf([
+			"SOME_HIGH_SCHOOL",
+			"HIGH_SCHOOL",
+			"SOME_COLLEGE",
+			"COLLEGE_DEGREE",
+		])
+		.required("Se requiere el nivel educativo minimo"),
+	shifts: yup.array().of(schemas.shiftSchema).required(),
+	locations: yup.array().of(schemas.locationSchema).required(),
+	salaryType: yup
+		.string()
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		])
+		.required("Se requiere el tipo de salario"),
+	salaryMin: yup.number().required("Se requiere el salario minimo"),
+	salaryMax: yup.number().required("Se requiere el salario maximo"),
 });
 
 const onSubmit =

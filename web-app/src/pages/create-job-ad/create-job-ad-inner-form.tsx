@@ -129,7 +129,7 @@ function InnerForm({ submissionError }: any) {
 				<T.fields.minimumLanguage
 					renderer={(t) => (
 						<Field
-							name="englishProficiency"
+							name="minimumEnglishProficiency"
 							type="radioButtons"
 							className="verticleRadioField"
 							label={t.label}
