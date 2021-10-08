@@ -36,32 +36,33 @@ export default function ShowJobs(): JSX.Element {
 		console.error(error);
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
+	return <>asdf</>;
 
-	const RenderedItems = data.searchJobAds.nodes.map(function (jobad) {
-		return <JobPosting key={jobad.id} job={jobad} />;
-	});
+	// const RenderedItems = data.searchJobAds.nodes.map(function (jobad) {
+	// 	return <JobPosting key={jobad.id} job={jobad} />;
+	// });
 
-	let message;
-	if (RenderedItems.length < 1) {
-		message = (
-			<h2>
-				<T.jobsearch.nojobs />
-			</h2>
-		);
-	} else {
-		message = "";
-	}
+	// let message;
+	// if (RenderedItems.length < 1) {
+	// 	message = (
+	// 		<h2>
+	// 			<T.jobsearch.nojobs />
+	// 		</h2>
+	// 	);
+	// } else {
+	// 	message = "";
+	// }
 
-	return (
-		<PageWrapper title="Trabajos - Vize">
-			<PageStyling>
-				<h2>
-					{data.searchJobAds.nodes.length}{" "}
-					<T.jobsearch.jobsAvailable />
-				</h2>
-				{message}
-				{RenderedItems}
-			</PageStyling>
-		</PageWrapper>
-	);
+	// return (
+	// 	<PageWrapper title="Trabajos - Vize">
+	// 		<PageStyling>
+	// 			<h2>
+	// 				{data.searchJobAds.nodes.length}{" "}
+	// 				<T.jobsearch.jobsAvailable />
+	// 			</h2>
+	// 			{message}
+	// 			{RenderedItems}
+	// 		</PageStyling>
+	// 	</PageWrapper>
+	// );
 }

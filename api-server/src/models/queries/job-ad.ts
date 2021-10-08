@@ -10,18 +10,17 @@ const attributes = sql.raw(
 		'companyname AS "companyName"',
 		'companyid AS "companyId"',
 		'jobtitle AS "jobTitle"',
+		'jobdescription AS "jobDescription"',
+		"skills",
+		'certificates_and_licenses AS "certificatesAndLicenses"',
+		'contracttype AS "contractType"',
+		'minimum_education AS "minimumEducation"',
+		'minimum_english_proficiency AS "minimumEnglishProficiency"',
+		"shifts",
 		'salary_min AS "salaryMin"',
 		'salary_max AS "salaryMax"',
 		'salary_type AS "salaryType"',
-		'contracttype AS "contractType"',
-		'jobdescription AS "jobDescription"',
-		"responsibilities",
-		"qualifications",
 		'dateadded AS "dateAdded"',
-		'start_time AS "startTime"',
-		'end_time AS "endTime"',
-		'start_day AS "startDay"',
-		'end_day AS "endDay"',
 	].join(", ")
 );
 const baseQuery = sql`SELECT ${attributes} FROM jobads`;
@@ -50,7 +49,10 @@ export async function getCompanyOfJobAd(jobAd: JobAd): Promise<Company> {
 	const company: Company | null = await getCompanyById(jobAd.companyId);
 
 	if (company === null) {
-		throw new Error("REFERENCE_ANOMALY");
+		// In english: Error: There is no company associated with this job offer
+		throw new Error(
+			"Error: no hay ninguna empresa asociada a esta oferta de empleo"
+		);
 	}
 
 	return company;

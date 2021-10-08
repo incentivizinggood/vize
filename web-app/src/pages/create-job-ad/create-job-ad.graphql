@@ -2,20 +2,29 @@ mutation createJobAd($input: CreateJobAdInput!) {
 	createJobAd(input: $input) {
 		jobAd {
 			id
+			created
 			jobTitle
+			jobDescription
+			skills
+			certificatesAndLicences
+			contractType
+			minimumEducation
+			minimumEnglishProficiency
+			shifts {
+				startDay
+				endDay
+				startTime
+				endTime
+			}
 			locations {
 				city
 				address
 				industrialHub
 			}
+			salaryType
 			salaryMin
 			salaryMax
-			salaryType
-			contractType
-			jobDescription
-			responsibilities
-			qualifications
-			created
+
 			company {
 				id
 				name

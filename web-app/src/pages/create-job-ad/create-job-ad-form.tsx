@@ -27,7 +27,7 @@ const initialValues = {
 	contractType: "",
 	certificatesAndLicences: "",
 	minimumEducation: "",
-	requiredEnglishProficiency: "",
+	minimumEnglishProficiency: "",
 	shifts: [
 		{
 			startDay: "",
@@ -101,7 +101,9 @@ const schema = yup.object().shape({
 });
 
 const onSubmit =
-	(createJobAd, history, setSubmissionError) => (values, actions) =>
+	(createJobAd, history, setSubmissionError) => (values, actions) => {
+		console.log("vvv", values);
+
 		createJobAd({
 			variables: {
 				input: omitEmptyStrings(values),
@@ -126,6 +128,7 @@ const onSubmit =
 			.catch((errors) => {
 				// Errors to display on form fields
 				const formErrors = {};
+				console.log("err", errors);
 
 				// cut out the "GraphQL error: " from error message
 				const errorMessage = errors.message.substring(14);
@@ -134,8 +137,9 @@ const onSubmit =
 				actions.setErrors(formErrors);
 				actions.setSubmitting(false);
 			});
+	};
 
-export default function CreateJobAdForm() {
+export default function CreateJobAdForm(): JSX.Element {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	const [createJobAd] = useCreateJobAdMutation();

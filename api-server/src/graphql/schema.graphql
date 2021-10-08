@@ -114,7 +114,7 @@ input UserProfileInput {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	longTermProfessionalGoal: String
@@ -436,7 +436,7 @@ type JobAd {
 	minimumEducation: EducationLevels
 	minimumEnglishProficiency: LanguageProficiencies
 	shifts: [Shift]!
-	locations: [LocationInput!]!
+	locations: [Location!]!
 	salaryType: IncomeType
 	"In units of pesos."
 	salaryMin: Float
@@ -458,7 +458,7 @@ type JobApplication {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	coverLetter: String
@@ -557,7 +557,7 @@ type UserProfile {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	longTermProfessionalGoal: String

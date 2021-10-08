@@ -83,7 +83,7 @@ export async function createJobAd(
 		salaryMax,
 	} = await createJobAdInputSchema.validate(input);
 
-	if (salaryMin > salaryMax) {
+	if (salaryMin && salaryMax && salaryMin > salaryMax) {
 		// Error in English: salaryMin must be less than or equal to salaryMax
 		throw new Error(
 			"El salario minimo debe de ser menos que el salario maximo."

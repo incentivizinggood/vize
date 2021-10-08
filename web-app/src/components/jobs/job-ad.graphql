@@ -1,23 +1,29 @@
 fragment JobPosting on JobAd {
 	id
+	created
+
 	jobTitle
+	jobDescription
+	skills
+	certificatesAndLicences
+	contractType
+	minimumEducation
+	minimumEnglishProficiency
+	shifts {
+		startDay
+		endDay
+		startTime
+		endTime
+	}
 	locations {
 		city
 		address
 		industrialHub
 	}
+	salaryType
 	salaryMin
 	salaryMax
-	startDay
-	endDay
-	startTime
-	endTime
-	salaryType
-	contractType
-	jobDescription
-	qualifications
-	responsibilities
-	created
+
 	company {
 		id
 		name

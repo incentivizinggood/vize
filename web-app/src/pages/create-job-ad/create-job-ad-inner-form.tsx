@@ -49,7 +49,6 @@ function InnerForm({ submissionError }: any) {
 					name="certificatesAndLicences"
 					multiline
 					rows={6}
-					required
 					t={T.fields.qualifications}
 				/>
 				<br />
