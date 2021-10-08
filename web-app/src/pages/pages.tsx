@@ -23,12 +23,12 @@ import ContactUsPage from "./contact-us";
 import ForEmployers from "./for-employers";
 import HelpPage from "./help";
 import HomePage from "./home";
-import LoginPage from "./login";
 import MyAccountPage from "./my-account";
 import NotFoundPage from "./not-found";
 import PasswordChanger from "./password-changer";
 import CreateJobAd from "./create-job-ad";
-import RegisterPage from "./register";
+import { Login as LoginPage } from "./register-login-forms";
+import { Register as RegisterPage } from "./register-login-forms";
 import RequestPasswordResetPage from "./request-password-reset";
 import ResetPasswordPage from "./reset-password";
 import ShowJobs from "./show-jobs";
@@ -133,7 +133,7 @@ export default function Pages(): JSX.Element {
 			/>
 			<Route
 				path={`/${urlGenerators.queryRoutes.forEmployers}`}
-				component={ForEmployers}
+				component={() => <ForEmployers audienceType={"EMPLOYERS"} />}
 			/>
 
 			<Route

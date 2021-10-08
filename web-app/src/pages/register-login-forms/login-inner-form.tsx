@@ -1,18 +1,11 @@
 import React from "react";
 import { Form } from "formik";
-import styled from "styled-components";
 
 import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
-import { Button } from "src/components/button";
+import { LoginRegisterButton } from "src/components/button";
 import { translations } from "src/translations";
 
 const T = translations.loginRegister;
-
-const LoginButton = styled(Button)`
-	font-size: 22px;
-	width: 100%;
-	margin-top: 20px;
-`;
 
 export default function InnerForm({
 	submissionError,
@@ -28,9 +21,9 @@ export default function InnerForm({
 			<SubmissionError error={submissionError} />
 
 			<FormToolbar>
-				<LoginButton $primary type="submit">
+				<LoginRegisterButton $primary type="submit">
 					<T.login />
-				</LoginButton>
+				</LoginRegisterButton>
 			</FormToolbar>
 		</Form>
 	);

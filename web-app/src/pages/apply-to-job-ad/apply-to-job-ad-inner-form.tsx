@@ -1,11 +1,12 @@
 import React from "react";
-import { Form, useFormikContext, FieldArray } from "formik";
+import { FieldArray } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import FormWrapper from "../forms/form-wrapper";
 
 import { Button } from "src/components/button";
 import {
@@ -13,7 +14,7 @@ import {
 	ElementContainer,
 	ElementDeleteButton,
 } from "src/components/form-stuff/array";
-import { Field, FormToolbar, SubmissionError } from "src/components/form-stuff";
+import { Field } from "src/components/form-stuff";
 
 import { translations } from "src/translations";
 const T = translations.applyToJobAd;
@@ -47,22 +48,23 @@ const AddAnotherExperienceButton = styled(Button)`
 `;
 
 interface ApplyToJobAdInnerFormProps {
+	schema: any;
 	submissionError: any;
+	setSubmissionError: any;
 	profileExists: boolean;
 }
 
 function InnerForm({
-	submissionError,
 	profileExists,
-}: ApplyToJobAdInnerFormProps) {
-	const { values }: any = useFormikContext();
+	...props
+}: ApplyToJobAdInnerFormProps): any {
 	const updateOrCreateProfileText = profileExists ? (
 		<T.fields.updateProfileWithFormData />
 	) : (
 		<T.fields.createProfileWithFormData />
 	);
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			{profileExists && (
 				<>
 					<Button
@@ -120,7 +122,7 @@ function InnerForm({
 											fontWeight: "bold",
 										}}
 									>
-										Work Experience
+										<T.fields.workExperiences.label />
 									</h3>
 									<Field
 										name={`workExperiences[${index}].jobTitle`}
@@ -147,7 +149,7 @@ function InnerForm({
 												marginBottom: "-10px",
 											}}
 										>
-											Start Date
+											<T.fields.workExperiences.startDate.label />
 										</FieldTitle>
 
 										<T.fields.workExperiences
@@ -235,7 +237,7 @@ function InnerForm({
 											marginBottom: "-10px",
 										}}
 									>
-										End Date
+										<T.fields.workExperiences.endDate.label />
 									</FieldTitle>
 									{values.workExperiences[index]
 										.iCurrentlyWorkHere && (
@@ -518,15 +520,7 @@ function InnerForm({
 				<CheckboxField name="saveDataToProfile" type="checkbox" />
 				{updateOrCreateProfileText}
 			</CheckboxLabel>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 

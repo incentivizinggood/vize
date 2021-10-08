@@ -47,7 +47,6 @@
 }
 
 .na_tab .nav > li :hover {
-	background-color: #439bd5;
 	color: #fff;
 }
 
@@ -85,7 +84,6 @@
 .nav-tabs > li.active > a:focus {
 	color: #ffffff !important;
 	cursor: default !important;
-	background-color: #439bd5 !important;
 	border: 0px solid #ddd !important;
 	border-bottom: 1px solid #4395cc !important;
 }
@@ -352,7 +350,6 @@
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-	background-color: #ffffff !important;
 	border-color: #ffffff !important;
 }
 
@@ -429,10 +426,6 @@
 			color: #fff;
 			font-family: initial;
 			font-size: 19px;
-
-			&:hover {
-				background-color: #3d7ba5;
-			}
 		}
 	}
 }

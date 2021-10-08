@@ -200,7 +200,10 @@ const createApplyToJobAdInputSchema = yup
 		jobTitle: yup.string().required(),
 		numReviews: yup.number().required(),
 		fullName: yup.string().required(),
-		email: yup.string().email().required(),
+		email: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 		phoneNumber: yup.string().required(),
 		city: yup.string().required(),
 		neighborhood: yup.string(),

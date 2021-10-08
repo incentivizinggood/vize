@@ -7,7 +7,7 @@ import * as urlGenerators from "src/pages/url-generators";
 
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import { useCreateReviewMutation } from "generated/graphql-operations";
 import * as schemas from "src/form-schemas";
@@ -247,7 +247,11 @@ export default function CreateReviewForm({
 				validationSchema={schema}
 				onSubmit={onSubmit}
 			>
-				<InnerForm submissionError={submissionError} />
+				<InnerForm
+					schema={schema}
+					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
+				/>
 			</Formik>
 			{content}
 		</div>

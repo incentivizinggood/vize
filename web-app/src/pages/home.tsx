@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import * as urlGenerators from "src/pages/url-generators";
+import styled from "styled-components";
 
 import PageWrapper from "src/components/page-wrapper";
 import Banner, { BannerTitle } from "src/components/banner";
@@ -39,6 +40,13 @@ function addSalaryHomeBottom() {
 		label: "Home | Bottom",
 	});
 }
+
+const SignUpNowContainter = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+`;
 
 // no longer using the reward component but keeping it in case we use it in the future again
 function RewardComponent() {
@@ -109,7 +117,7 @@ function HomePage() {
 				<CompaniesSearchBar />
 			</Banner>
 
-			<div className="full-width-container background-white">
+			<div className="full-width-container">
 				<div className="container desktop-view">
 					<div className="col-md-8">
 						<div>
@@ -147,7 +155,7 @@ function HomePage() {
 
 				{/* =====mobile view show====  */}
 
-				<div className="container mobile-view background-white">
+				<div className="container mobile-view">
 					<div className="col-md-4">
 						<div className="great-job-hm">
 							<h1>
@@ -189,26 +197,27 @@ function HomePage() {
 				{/* ====mobile view show  end==== */}
 			</div>
 
-			<div className="full-width-container background-primary">
+			<div className="full-width-container background-white">
 				<div className="container desktop-view">
 					<div className="col-md-5">
-						<div>
-							<h1 className="white-text-center">
+						<div className="great-job-hm">
+							<h1>
 								<T.findemp_title />
 							</h1>
 						</div>
-						<div>
-							<h4 className="white-text-center">
+						<div className="great-comp-hm">
+							<h4>
 								<T.findemp_text />
 							</h4>
 						</div>
+						<br />
 						<div>
 							<center>
-								<WhiteButton
+								<BlackBorderButton
 									to={`/${urlGenerators.queryRoutes.companies}`}
 								>
 									<T.companiesButton />
-								</WhiteButton>
+								</BlackBorderButton>
 							</center>
 						</div>
 					</div>
@@ -228,23 +237,23 @@ function HomePage() {
 
 				<div className="container mobile-view">
 					<div className="col-md-5">
-						<div>
-							<h1 className="white-text-center">
+						<div className="great-job-hm">
+							<h1>
 								<T.findemp_title />
 							</h1>
 						</div>
-						<div>
-							<h4 className="white-text-center">
+						<div className="great-comp-hm">
+							<h4>
 								<T.findemp_text />
 							</h4>
 						</div>
 						<div>
 							<center>
-								<WhiteButton
+								<BlackBorderButton
 									to={`/${urlGenerators.queryRoutes.companies}`}
 								>
 									<T.companiesButton />
-								</WhiteButton>
+								</BlackBorderButton>
 							</center>
 						</div>
 					</div>
@@ -295,7 +304,10 @@ function HomePage() {
 							</div>
 
 							<div className="panel-card">
-								<div className="front">
+								<div
+									className="front"
+									style={{ borderRadius: "16px" }}
+								>
 									<div className="frontTitle">
 										<T.get_fair_salary /> <br />
 										<T.your_work />
@@ -336,38 +348,34 @@ function HomePage() {
 			</div>
 
 			{/* services */}
-			<div className="star" id="services">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-1" />
-						<div className="col-md-8">
+			<SignUpNowContainter>
+				<div className="row">
+					<div className="col-md-1" />
+					<div className="col-md-8">
+						<center>
+							{" "}
+							<h1>
+								<T.discover_employers />{" "}
+							</h1>
+							<br />
+						</center>
+					</div>
+					<div className="col-md-2">
+						<div>
 							<center>
 								{" "}
-								<h1>
-									<T.discover_employers />{" "}
-								</h1>
-								<br />
+								<BlackBorderButton
+									to={urlGenerators.vizeRegister("worker")}
+								>
+									<T.signup_button />
+								</BlackBorderButton>
 							</center>
 						</div>
-						<div className="col-md-2">
-							<div>
-								<center>
-									{" "}
-									<BlackBorderButton
-										to={urlGenerators.vizeRegister(
-											"worker"
-										)}
-									>
-										<T.signup_button />
-									</BlackBorderButton>
-								</center>
-							</div>
-						</div>
-						<div className="col-md-1" />
 					</div>
-					<div className="clearfix" />
+					<div className="col-md-1" />
 				</div>
-			</div>
+				<div className="clearfix" />
+			</SignUpNowContainter>
 		</PageWrapper>
 	);
 }

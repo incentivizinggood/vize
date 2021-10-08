@@ -15,15 +15,24 @@ import {
 	PostFormFieldContainer,
 	ShiftSelectionWrapper,
 } from "src/components/form-stuff";
+import FormWrapper from "../forms/form-wrapper";
+
 import { translations } from "src/translations";
 import { Box } from "@material-ui/core";
 
 const T = translations.createJobAd;
-function InnerForm({ submissionError }: any) {
+interface CreateJobAdInnerFormProps {
+	schema: any;
+	submissionError: any;
+	setSubmissionError: any;
+}
+
+function InnerForm(props: CreateJobAdInnerFormProps): any {
 	const { values }: any = useFormikContext();
 	console.log("vak", values);
+
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			<PostFormFieldContainer>
 				<Field
 					name="jobTitle"
@@ -337,15 +346,8 @@ function InnerForm({ submissionError }: any) {
 						t={T.fields.salaryMax}
 					/>
 				</div>
-
-				<SubmissionError error={submissionError} />
 			</PostFormFieldContainer>
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 

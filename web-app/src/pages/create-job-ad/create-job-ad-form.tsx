@@ -150,7 +150,11 @@ export default function CreateJobAdForm(): JSX.Element {
 			validationSchema={schema}
 			onSubmit={onSubmit(createJobAd, history, setSubmissionError)}
 		>
-			<InnerForm submissionError={submissionError} />
+			<InnerForm
+				schema={schema}
+				submissionError={submissionError}
+				setSubmissionError={setSubmissionError}
+			/>
 		</Formik>
 	);
 }
