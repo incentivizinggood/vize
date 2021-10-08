@@ -1,6 +1,5 @@
 import React from "react";
-import { Form, useFormikContext } from "formik";
-import { Button } from "src/components/button";
+import { useFormikContext } from "formik";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoney from "@material-ui/icons/AttachMoney";
 
@@ -10,15 +9,12 @@ import Radio from "@material-ui/core/Radio";
 import {
 	FormArray,
 	Field,
-	FormToolbar,
-	SubmissionError,
 	PostFormFieldContainer,
 	ShiftSelectionWrapper,
 } from "src/components/form-stuff";
 import FormWrapper from "../forms/form-wrapper";
 
 import { translations } from "src/translations";
-import { Box } from "@material-ui/core";
 
 const T = translations.createJobAd;
 interface CreateJobAdInnerFormProps {
@@ -102,7 +98,7 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 				<T.fields.minimunEducation
 					renderer={(t) => (
 						<Field
-							name="minimunEducation"
+							name="minimumEducation"
 							type="radioButtons"
 							className="verticleRadioField"
 							label={t.label}
