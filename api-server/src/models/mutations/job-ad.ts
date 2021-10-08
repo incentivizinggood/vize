@@ -39,8 +39,7 @@ const createJobAdInputSchema = yup
 				"CONVERSATIONAL",
 				"BASIC",
 				"NO_PROFICIENCY",
-			])
-			.required("Se requiere el nivel educativo minimo"),
+			]),
 		minimumEducation: yup
 			.string()
 			.oneOf([
@@ -48,8 +47,7 @@ const createJobAdInputSchema = yup
 				"HIGH_SCHOOL",
 				"SOME_COLLEGE",
 				"COLLEGE_DEGREE",
-			])
-			.required("Se requiere el nivel educativo minimo"),
+			]),
 		shifts: yup.array().required().min(1).of(shiftInputSchema),
 		locations: yup.array().required().min(1).of(locationInputSchema),
 		salaryType: yup
@@ -60,10 +58,9 @@ const createJobAdInputSchema = yup
 				"WEEKLY_SALARY",
 				"DAILY_SALARY",
 				"HOURLY_WAGE",
-			])
-			.required("Se requiere el tipo de salario"),
-		salaryMin: yup.number().required("Se requiere el salario minimo"),
-		salaryMax: yup.number().required("Se requiere el salario maximo"),
+			]),
+		salaryMin: yup.number(),
+		salaryMax: yup.number(),
 	})
 	.required();
 
@@ -126,7 +123,7 @@ export async function createJobAd(
 					certificates_and_licences,
 					contracttype,
 					minimum_education,
-					minimum_language_proficiency,
+					minimum_english_proficiency,
 					shifts,
 					salary_type,
 					salary_min,
