@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter } from "lodash";
+import PopupModal from "src/components/popup-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 
 import { useCreateJobAdMutation } from "generated/graphql-operations";
 import * as urlGenerators from "src/pages/url-generators";
@@ -101,7 +103,8 @@ const schema = yup.object().shape({
 });
 
 const onSubmit =
-	(createJobAd, history, setSubmissionError) => (values, actions) => {
+	(createJobAd, history, setSubmissionError, setLoginRegisterModal) =>
+	(values, actions) => {
 		console.log("vvv", values);
 
 		createJobAd({
@@ -126,16 +129,32 @@ const onSubmit =
 				);
 			})
 			.catch((errors) => {
-				// Errors to display on form fields
-				const formErrors = {};
-				console.log("err", errors);
+				// Error in English: Not Logged In
+				if (
+					errors.message.includes(
+						"Tienes que iniciar una sesión o registrarte"
+					)
+				) {
+					console.log("yeah");
+					setLoginRegisterModal(
+						<PopupModal isOpen={true} closeModalButtonColor="white">
+							<RegisterLoginModal
+								errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo"
+								userRole="company"
+							/>
+						</PopupModal>
+					);
+				} else {
+					// Errors to display on form fields
+					const formErrors = {};
 
-				// cut out the "GraphQL error: " from error message
-				const errorMessage = errors.message.substring(14);
-				setSubmissionError(errorMessage);
+					// cut out the "GraphQL error: " from error message
+					const errorMessage = errors.message.substring(14);
+					setSubmissionError(errorMessage);
 
-				actions.setErrors(formErrors);
-				actions.setSubmitting(false);
+					actions.setErrors(formErrors);
+					actions.setSubmitting(false);
+				}
 			});
 	};
 
@@ -143,18 +162,27 @@ export default function CreateJobAdForm(): JSX.Element {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	const [createJobAd] = useCreateJobAdMutation();
+	const [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={schema}
-			onSubmit={onSubmit(createJobAd, history, setSubmissionError)}
-		>
-			<InnerForm
-				schema={schema}
-				submissionError={submissionError}
-				setSubmissionError={setSubmissionError}
-			/>
-		</Formik>
+		<>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schema}
+				onSubmit={onSubmit(
+					createJobAd,
+					history,
+					setSubmissionError,
+					setLoginRegisterModal
+				)}
+			>
+				<InnerForm
+					schema={schema}
+					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
+				/>
+			</Formik>
+			{loginRegisterModal}
+		</>
 	);
 }

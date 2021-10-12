@@ -88,6 +88,10 @@ const onSubmit =
 						window.location.pathname.includes(
 							urlGenerators.queryRoutes.jobs
 						)
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.postJob
+						)
 					)
 				) {
 					history.push("/");
@@ -103,24 +107,14 @@ const onSubmit =
 
 interface RegisterFormProps {
 	setRegisterOrLogin?: any;
+	userRole: string;
 }
 export function RegisterForm({
 	setRegisterOrLogin,
+	userRole,
 }: RegisterFormProps): JSX.Element {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
-
-	const params = new URLSearchParams(location.search);
-	let userRole: string | null = "worker";
-
-	if (params != null) {
-		userRole = params.get(urlGenerators.queryParameters.user);
-
-		// userRole will be null if the register-login modal is being used
-		if (userRole === null) {
-			userRole = "worker";
-		}
-	}
 
 	return (
 		<>
@@ -135,7 +129,7 @@ export function RegisterForm({
 				/>
 			</Formik>
 
-			<LoginWithFacebook />
+			{userRole === "worker" && <LoginWithFacebook />}
 			<FormFooter>
 				<T.alreadyAccount />
 				{setRegisterOrLogin ? (

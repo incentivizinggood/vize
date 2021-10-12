@@ -15,7 +15,15 @@ const TitleText = styled.h2`
 /* The page where users can create an account.
  */
 
-export default function RegisterLoginModal({ errorText }): JSX.Element {
+interface RegisterLoginModalInterface {
+	errorText: string;
+	userRole?: string;
+}
+
+export default function RegisterLoginModal({
+	errorText,
+	userRole,
+}: RegisterLoginModalInterface): JSX.Element {
 	const [registerLogin, setRegisterOrLogin] = React.useState("register");
 
 	function changeRegisterLoginState(): void {
@@ -59,7 +67,7 @@ export default function RegisterLoginModal({ errorText }): JSX.Element {
 
 				<RegisterForm
 					setRegisterOrLogin={setRegisterOrLoginFunction}
-					showInput={false}
+					userRole={userRole ? userRole : "worker"}
 				/>
 			</div>
 		);
@@ -70,7 +78,10 @@ export default function RegisterLoginModal({ errorText }): JSX.Element {
 					<T.login />
 				</TitleText>
 
-				<LoginForm setRegisterOrLogin={setRegisterOrLoginFunction} />
+				<LoginForm
+					setRegisterOrLogin={setRegisterOrLoginFunction}
+					userRole={userRole ? userRole : "worker"}
+				/>
 			</div>
 		);
 	}
