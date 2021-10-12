@@ -134,7 +134,7 @@ export default function LoginForm({
 						<T.register />
 					</FunctionButton>
 				) : (
-					<Link to={urlGenerators.vizeLogin(userRole)}>
+					<Link to={urlGenerators.vizeRegister(userRole)}>
 						<T.register />
 					</Link>
 				)}

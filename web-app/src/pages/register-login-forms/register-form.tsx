@@ -87,7 +87,6 @@ const onSubmit =
 						) ||
 						window.location.pathname.includes(
 							urlGenerators.queryRoutes.jobs
-						)
 						) ||
 						window.location.pathname.includes(
 							urlGenerators.queryRoutes.postJob
