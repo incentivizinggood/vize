@@ -31,6 +31,7 @@ function FormWrapper({
 			.catch(function (err: any) {
 				let errorMessage = "Error: ";
 				const errors = err.inner;
+
 				for (const error of errors) {
 					if (
 						error.type !== "typeError" &&

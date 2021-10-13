@@ -14,7 +14,6 @@ const PanelContainer = styled.div`
 
 	background-color: ${colors.tertiaryColorLightBlue};
 	padding: 112px 20px 20px 20px;
-
 	${forSize.phoneOnly} {
 		padding: ${NavbarHeigh} 0px 50px 0px;
 	}

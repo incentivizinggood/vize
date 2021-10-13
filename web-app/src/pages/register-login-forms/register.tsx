@@ -15,15 +15,19 @@ function RegisterPage(): JSX.Element {
 	const params = new URLSearchParams(location.search);
 
 	if (params != null) {
-		userRole = params.get(urlGenerators.queryParameters.user);
+		const queryParams = params.get(urlGenerators.queryParameters.user);
+
+		if (queryParams != null) {
+			userRole = queryParams;
+		}
 	}
 
 	return (
 		<FormPageWrapper title="Crear Cuenta">
 			<FormHeader>
-				<T.register userRole />
+				<T.register />
 			</FormHeader>
-			<RegisterForm />
+			<RegisterForm userRole={userRole} />
 		</FormPageWrapper>
 	);
 }

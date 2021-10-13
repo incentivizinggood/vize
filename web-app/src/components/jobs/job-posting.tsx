@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import colors from "src/colors";
+import ReactMarkdown from "react-markdown";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 import { Button } from "src/components/button";

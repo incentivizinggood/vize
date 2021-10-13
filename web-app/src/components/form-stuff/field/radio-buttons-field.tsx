@@ -6,13 +6,18 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PrivacyIcon from "@material-ui/icons/Security";
+import { Box } from "@material-ui/core";
+import styled from "styled-components";
 
 export default function RadioButtonsField({
 	field,
 	form: { touched, errors },
 	name,
 	options,
+	title,
 	label,
+	width,
+	display,
 	showPrivacyIcon,
 	...props
 }: any): JSX.Element {
@@ -21,36 +26,39 @@ export default function RadioButtonsField({
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue((event.target as HTMLInputElement).value);
 	};
-
 	return (
-		<FormControl component="fieldset">
-			<span>
-				{showPrivacyIcon && (
-					<PrivacyIcon style={{ marginRight: "5px" }} />
-				)}
-
-				<FormLabel
-					required
-					component="label"
-					style={{
-						fontWeight: "bold",
-						color: "black",
-					}}
-				>
-					{label}
-				</FormLabel>
-			</span>
-			<RadioGroup {...props} {...field} name={field.name}>
-				{options.map((option: any, index: number) => (
-					<FormControlLabel
-						style={{ marginBottom: "-8px" }}
-						value={option.props.value}
-						control={<Radio color="primary" />}
-						label={option.props.label}
-						key={index}
-					/>
-				))}
-			</RadioGroup>
-		</FormControl>
+		<RadioButtonWrapper>
+			<FormControl component="fieldset">
+				<span>
+					{showPrivacyIcon && (
+						<PrivacyIcon style={{ marginRight: "5px" }} />
+					)}
+					<FormLabel required component="label">
+						{label}
+					</FormLabel>
+				</span>
+				<RadioGroup {...props} {...field} name={field.name}>
+					<Box display={display}>
+						{options.map((option: any) => (
+							<FormControlLabel
+								style={{ width: width }}
+								className={"customRadioButton"}
+								value={option.props.value}
+								control={<Radio color="primary" />}
+								label={option.props.label}
+							/>
+						))}
+					</Box>
+				</RadioGroup>
+			</FormControl>
+		</RadioButtonWrapper>
 	);
 }
+const RadioButtonWrapper = styled.div`
+	.verticleRadioField {
+		.MuiBox-root {
+			display: flex !important;
+			flex-direction: column;
+		}
+	}
+`;

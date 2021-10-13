@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { mapValues, map, omitBy, filter } from "lodash";
+import PopupModal from "src/components/popup-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 
 import { useCreateJobAdMutation } from "generated/graphql-operations";
 import * as urlGenerators from "src/pages/url-generators";
@@ -20,8 +22,45 @@ function omitEmptyStrings(x) {
 	return x;
 }
 
+function formatInputData(inputValues: any): any {
+	const skillsArray = inputValues.skills.includes(",")
+		? inputValues.skills.split(",")
+		: [inputValues.skills];
+	const certificatesAndLicencesArray =
+		inputValues.certificatesAndLicences.includes(",")
+			? inputValues.certificatesAndLicences.split(",")
+			: [inputValues.certificatesAndLicences];
+
+	// Clean up the white space from the input
+	skillsArray.forEach(function (_: any, index: number) {
+		skillsArray[index] = skillsArray[index].trim();
+	});
+	certificatesAndLicencesArray.forEach(function (_: any, index: number) {
+		certificatesAndLicencesArray[index] =
+			certificatesAndLicencesArray[index].trim();
+	});
+	inputValues.skills = skillsArray;
+	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
+
+	return inputValues;
+}
+
 const initialValues = {
 	jobTitle: "",
+	jobDescription: "",
+	skills: "",
+	contractType: "",
+	certificatesAndLicences: "",
+	minimumEducation: "",
+	minimumEnglishProficiency: "",
+	shifts: [
+		{
+			startDay: "",
+			endDay: "",
+			startTime: "",
+			endTime: "",
+		},
+	],
 	locations: [
 		{
 			city: "",
@@ -29,38 +68,49 @@ const initialValues = {
 			industrialHub: "",
 		},
 	],
+	salaryType: "",
 	salaryMin: "",
 	salaryMax: "",
-	startDay: 1,
-	endDay: 5,
-	startTime: "08:00",
-	endTime: "18:00",
-	salaryType: "",
-	contractType: "",
-	jobDescription: "",
-	responsibilities: "",
-	qualifications: "",
 };
 
 const schema = yup.object().shape({
-	jobTitle: yup.string().required("Se requiere el titulo de empleo"),
-	locations: yup.array().of(schemas.locationSchema).required(),
-	salaryMin: yup.number().required("Se requiere el salario minimo"),
-	salaryMax: yup.number().required("Se requiere el salario maximo"),
-	startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-	endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-	startDay: yup
-		.number()
-		.integer()
-		.min(0)
-		.max(6)
-		.required("Se requiere el día de inicio del turno"),
-	endDay: yup
-		.number()
-		.integer()
-		.min(0)
-		.max(6)
-		.required("Se requiere el día final del turno"),
+	jobTitle: yup.string().required("Se requiere el titulo del empleo"),
+	jobDescription: yup
+		.string()
+		.required("Se requiere la descripción del empleo"),
+	skills: yup.string().required("Se requiere al menos una habilidad"),
+	certificatesAndLicences: yup.string(),
+	contractType: yup
+		.mixed()
+		.oneOf(
+			["FULL_TIME", "PART_TIME", "INTERNSHIP", "TEMPORARY", "CONTRACTOR"],
+			"Se requiere el tipo de contrato"
+		),
+	minimumEnglishProficiency: yup
+		.string()
+		.oneOf(
+			[
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			],
+			"Se requiere el nivel educativo minimo"
+		),
+	minimumEducation: yup
+		.string()
+		.oneOf(
+			[
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			],
+			"Se requiere el nivel educativo minimo"
+		),
+	shifts: yup.array().required().min(1).of(schemas.shiftSchema),
+	locations: yup.array().required().min(1).of(schemas.locationSchema),
 	salaryType: yup
 		.string()
 		.oneOf([
@@ -69,32 +119,21 @@ const schema = yup.object().shape({
 			"WEEKLY_SALARY",
 			"DAILY_SALARY",
 			"HOURLY_WAGE",
-		])
-		.required("Se requiere el tipo de ingreso"),
-	contractType: yup
-		.mixed()
-		.oneOf([
-			"FULL_TIME",
-			"PART_TIME",
-			"INTERNSHIP",
-			"TEMPORARY",
-			"CONTRACTOR",
-		])
-		.required("Se requiere el tipo de contrato"),
-	jobDescription: yup
-		.string()
-		.required("Se requiere la descripción del trabajo"),
-	responsibilities: yup
-		.string()
-		.required("Se requieren las responabilidades"),
-	qualifications: yup.string().required("Se requieren las calificaciones"),
+		]),
+	salaryMin: yup.number(),
+	salaryMax: yup.number(),
 });
 
 const onSubmit =
-	(createJobAd, history, setSubmissionError) => (values, actions) =>
+	(createJobAd, history, setSubmissionError, setLoginRegisterModal) =>
+	(values, actions) => {
+		const userProfileFormValues = JSON.parse(JSON.stringify(values));
+		const formattedValues = formatInputData(userProfileFormValues);
+		console.log("val", formattedValues);
+
 		createJobAd({
 			variables: {
-				input: omitEmptyStrings(values),
+				input: omitEmptyStrings(formattedValues),
 			},
 		})
 			.then(({ data }) => {
@@ -114,33 +153,60 @@ const onSubmit =
 				);
 			})
 			.catch((errors) => {
-				// Errors to display on form fields
-				const formErrors = {};
+				// Error in English: Not Logged In
+				if (
+					errors.message.includes(
+						"Tienes que iniciar una sesión o registrarte"
+					)
+				) {
+					console.log("yeah");
+					setLoginRegisterModal(
+						<PopupModal isOpen={true} closeModalButtonColor="white">
+							<RegisterLoginModal
+								errorText="Crea una cuenta o inicia una sesión para postularte a este trabajo"
+								userRole="company"
+							/>
+						</PopupModal>
+					);
+				} else {
+					// Errors to display on form fields
+					const formErrors = {};
 
-				// cut out the "GraphQL error: " from error message
-				const errorMessage = errors.message.substring(14);
-				setSubmissionError(errorMessage);
+					// cut out the "GraphQL error: " from error message
+					const errorMessage = errors.message.substring(14);
+					setSubmissionError(errorMessage);
 
-				actions.setErrors(formErrors);
-				actions.setSubmitting(false);
+					actions.setErrors(formErrors);
+					actions.setSubmitting(false);
+				}
 			});
+	};
 
-export default function CreateJobAdForm() {
+export default function CreateJobAdForm(): JSX.Element {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 	const [createJobAd] = useCreateJobAdMutation();
+	const [loginRegisterModal, setLoginRegisterModal] = React.useState(null);
 
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={schema}
-			onSubmit={onSubmit(createJobAd, history, setSubmissionError)}
-		>
-			<InnerForm
-				schema={schema}
-				submissionError={submissionError}
-				setSubmissionError={setSubmissionError}
-			/>
-		</Formik>
+		<>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schema}
+				onSubmit={onSubmit(
+					createJobAd,
+					history,
+					setSubmissionError,
+					setLoginRegisterModal
+				)}
+			>
+				<InnerForm
+					schema={schema}
+					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
+				/>
+			</Formik>
+			{loginRegisterModal}
+		</>
 	);
 }

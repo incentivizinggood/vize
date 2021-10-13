@@ -78,6 +78,9 @@ const onSubmit =
 					) ||
 					window.location.pathname.includes(
 						urlGenerators.queryRoutes.jobs
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.postJob
 					)
 				)
 			) {
@@ -92,7 +95,7 @@ const onSubmit =
 	};
 
 interface LoginFormProps {
-	userRole?: any;
+	userRole: string;
 	setRegisterOrLogin?: any;
 }
 
@@ -118,7 +121,7 @@ export default function LoginForm({
 					<T.forgotPassword />
 				</Link>
 			</ForgotPasswordDiv>
-			<LoginWithFacebook />
+			{userRole === "worker" && <LoginWithFacebook />}
 
 			<FormFooter>
 				<T.noAccount />
@@ -131,7 +134,7 @@ export default function LoginForm({
 						<T.register />
 					</FunctionButton>
 				) : (
-					<Link to={urlGenerators.vizeLogin(userRole)}>
+					<Link to={urlGenerators.vizeRegister(userRole)}>
 						<T.register />
 					</Link>
 				)}

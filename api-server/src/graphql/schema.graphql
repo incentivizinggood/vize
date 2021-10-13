@@ -114,7 +114,7 @@ input UserProfileInput {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	longTermProfessionalGoal: String
@@ -167,6 +167,17 @@ input CreateSalaryInput {
 	gender: Gender
 }
 
+input ShiftInput {
+	"The time of day that this job starts in the local time of the job site."
+	startTime: String
+	"The time of day that this job ends in the local time of the job site."
+	endTime: String
+	"The day of week that this job starts. (0 - 6; Sunday is 0)"
+	startDay: Int
+	"The day of week that this job ends. (0 - 6; Sunday is 0)"
+	endDay: Int
+}
+
 type CreateSalaryPayload {
 	salary: Salary
 }
@@ -187,7 +198,7 @@ enum LanguageProficiencies {
 	NO_PROFICIENCY
 }
 
-enum HighestLevelOfEducation {
+enum EducationLevels {
 	SOME_HIGH_SCHOOL
 	HIGH_SCHOOL
 	SOME_COLLEGE
@@ -201,25 +212,19 @@ enum EmploymentStatus {
 
 input CreateJobAdInput {
 	jobTitle: String!
-	locations: [LocationInput!]!
-	"In units of pesos."
-	salaryMin: Float!
-	"In units of pesos."
-	salaryMax: Float!
-	salaryType: IncomeType!
-	contractType: ContractType!
 	jobDescription: String!
-	responsibilities: String!
-	qualifications: String!
-
-	"The time of day that this job starts in the local time of the job site."
-	startTime: String
-	"The time of day that this job ends in the local time of the job site."
-	endTime: String
-	"The day of week that this job starts. (0 - 6; Sunday is 0)"
-	startDay: Int
-	"The day of week that this job ends. (0 - 6; Sunday is 0)"
-	endDay: Int
+	skills: [String]
+	certificatesAndLicences: [String]
+	contractType: ContractType!
+	minimumEducation: EducationLevels
+	minimumEnglishProficiency: LanguageProficiencies
+	shifts: [ShiftInput]!
+	locations: [LocationInput!]!
+	salaryType: IncomeType
+	"In units of pesos."
+	salaryMin: Float
+	"In units of pesos."
+	salaryMax: Float
 }
 
 type CreateJobAdPayload {
@@ -240,7 +245,7 @@ input ApplyToJobAdInput {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	coverLetter: String
@@ -421,29 +426,22 @@ type CompanySalaryStats {
 
 type JobAd {
 	id: ID!
-
-	jobTitle: String!
-	locations: [Location!]!
-	"In units of pesos."
-	salaryMin: Float!
-	"In units of pesos."
-	salaryMax: Float!
-	salaryType: IncomeType!
-	contractType: String!
-	jobDescription: String!
-	responsibilities: String!
-	qualifications: String!
-	"The date and time this was created."
 	created: DateTime
 
-	"The time of day that this job starts."
-	startTime: String
-	"The time of day that this job ends."
-	endTime: String
-	"The day of week that this job starts. (0 - 6; Sunday is 0)"
-	startDay: Int
-	"The day of week that this job ends. (0 - 6; Sunday is 0)"
-	endDay: Int
+	jobTitle: String!
+	jobDescription: String!
+	skills: [String]
+	certificatesAndLicences: [String]
+	contractType: ContractType!
+	minimumEducation: EducationLevels
+	minimumEnglishProficiency: LanguageProficiencies
+	shifts: [Shift]!
+	locations: [Location!]!
+	salaryType: IncomeType
+	"In units of pesos."
+	salaryMin: Float
+	"In units of pesos."
+	salaryMax: Float
 
 	"The company that is hiring."
 	company: Company!
@@ -460,7 +458,7 @@ type JobApplication {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	coverLetter: String
@@ -559,7 +557,7 @@ type UserProfile {
 	skills: [String]!
 	certificatesAndLicences: [String]
 	englishProficiency: LanguageProficiencies!
-	highestLevelOfEducation: HighestLevelOfEducation!
+	highestLevelOfEducation: EducationLevels!
 	availability: [String]!
 	availabilityComments: String
 	longTermProfessionalGoal: String
@@ -593,6 +591,17 @@ type Location {
 	city: String
 	address: String
 	industrialHub: String
+}
+
+type Shift {
+	"The time of day that this job starts in the local time of the job site."
+	startTime: String
+	"The time of day that this job ends in the local time of the job site."
+	endTime: String
+	"The day of week that this job starts. (0 - 6; Sunday is 0)"
+	startDay: Int
+	"The day of week that this job ends. (0 - 6; Sunday is 0)"
+	endDay: Int
 }
 
 type StarRatings {
