@@ -171,7 +171,6 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 										name={`${name}.startDay`}
 										required
 										select
-										defaultValue={1}
 										label={t.startDay.label}
 									>
 										<option value={1}>
@@ -200,7 +199,6 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 										name={`${name}.endDay`}
 										select
 										required
-										defaultValue={5}
 										label={t.endDay.label}
 									>
 										<option value={1}>
@@ -229,14 +227,12 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 										name={`${name}.startTime`}
 										type="time"
 										required
-										defaultValue="08:00"
 										label={t.startTime.label}
 									/>
 									<Field
 										name={`${name}.endTime`}
 										type="time"
 										required
-										defaultValue="18:00"
 										label={t.endTime.label}
 									/>
 								</ShiftSelectionWrapper>
@@ -283,7 +279,6 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 						<Field
 							name="salaryType"
 							select
-							required
 							defaultValue={t.yearlySalary}
 							label={t.label}
 							style={{ width: "100%" }}
@@ -310,7 +305,6 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 						name="salaryMin"
 						type="number"
 						fullWidth={false}
-						required
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
@@ -326,7 +320,6 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 						name="salaryMax"
 						type="number"
 						fullWidth={false}
-						required
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">

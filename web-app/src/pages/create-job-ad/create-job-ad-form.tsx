@@ -113,18 +113,15 @@ const schema = yup.object().shape({
 	locations: yup.array().required().min(1).of(schemas.locationSchema),
 	salaryType: yup
 		.string()
-		.oneOf(
-			[
-				"YEARLY_SALARY",
-				"MONTHLY_SALARY",
-				"WEEKLY_SALARY",
-				"DAILY_SALARY",
-				"HOURLY_WAGE",
-			],
-			"Se requiere el tipo de salario"
-		),
-	salaryMin: yup.number().required("Se requiere el salario minimo"),
-	salaryMax: yup.number().required("Se requiere el salario maximo"),
+		.oneOf([
+			"YEARLY_SALARY",
+			"MONTHLY_SALARY",
+			"WEEKLY_SALARY",
+			"DAILY_SALARY",
+			"HOURLY_WAGE",
+		]),
+	salaryMin: yup.number(),
+	salaryMax: yup.number(),
 });
 
 const onSubmit =
