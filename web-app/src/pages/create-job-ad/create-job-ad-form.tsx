@@ -82,45 +82,47 @@ const schema = yup.object().shape({
 	certificatesAndLicences: yup.string(),
 	contractType: yup
 		.mixed()
-		.oneOf([
-			"FULL_TIME",
-			"PART_TIME",
-			"INTERNSHIP",
-			"TEMPORARY",
-			"CONTRACTOR",
-		])
-		.required("Se requiere el tipo de contrato"),
+		.oneOf(
+			["FULL_TIME", "PART_TIME", "INTERNSHIP", "TEMPORARY", "CONTRACTOR"],
+			"Se requiere el tipo de contrato"
+		),
 	minimumEnglishProficiency: yup
 		.string()
-		.oneOf([
-			"NATIVE_LANGUAGE",
-			"FLUENT",
-			"CONVERSATIONAL",
-			"BASIC",
-			"NO_PROFICIENCY",
-		])
-		.required("Se requiere el nivel educativo minimo"),
+		.oneOf(
+			[
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			],
+			"Se requiere el nivel educativo minimo"
+		),
 	minimumEducation: yup
 		.string()
-		.oneOf([
-			"SOME_HIGH_SCHOOL",
-			"HIGH_SCHOOL",
-			"SOME_COLLEGE",
-			"COLLEGE_DEGREE",
-		])
-		.required("Se requiere el nivel educativo minimo"),
+		.oneOf(
+			[
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			],
+			"Se requiere el nivel educativo minimo"
+		),
 	shifts: yup.array().required().min(1).of(schemas.shiftSchema),
 	locations: yup.array().required().min(1).of(schemas.locationSchema),
 	salaryType: yup
 		.string()
-		.oneOf([
-			"YEARLY_SALARY",
-			"MONTHLY_SALARY",
-			"WEEKLY_SALARY",
-			"DAILY_SALARY",
-			"HOURLY_WAGE",
-		])
-		.required("Se requiere el tipo de salario"),
+		.oneOf(
+			[
+				"YEARLY_SALARY",
+				"MONTHLY_SALARY",
+				"WEEKLY_SALARY",
+				"DAILY_SALARY",
+				"HOURLY_WAGE",
+			],
+			"Se requiere el tipo de salario"
+		),
 	salaryMin: yup.number().required("Se requiere el salario minimo"),
 	salaryMax: yup.number().required("Se requiere el salario maximo"),
 });

@@ -164,21 +164,27 @@ const schema = yup.object().shape({
 	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
 		.string()
-		.oneOf([
-			"NATIVE_LANGUAGE",
-			"FLUENT",
-			"CONVERSATIONAL",
-			"BASIC",
-			"NO_PROFICIENCY",
-		]),
+		.oneOf(
+			[
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			],
+			"Se requiere el dominio del inglés"
+		),
 	highestLevelOfEducation: yup
 		.string()
-		.oneOf([
-			"SOME_HIGH_SCHOOL",
-			"HIGH_SCHOOL",
-			"SOME_COLLEGE",
-			"COLLEGE_DEGREE",
-		]),
+		.oneOf(
+			[
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			],
+			"Se requiere el nivel educativo mas alto"
+		),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
