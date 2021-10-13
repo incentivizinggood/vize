@@ -205,7 +205,7 @@ const onSubmit =
 			return null;
 		}
 
-		let formattedValues = formatInputData(userProfileFormValues);
+		const formattedValues = formatInputData(userProfileFormValues);
 		const updateOrCreateUserProfile = userProfile
 			? updateUserProfile
 			: createUserProfile;

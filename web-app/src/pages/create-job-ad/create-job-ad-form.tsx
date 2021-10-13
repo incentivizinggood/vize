@@ -22,6 +22,29 @@ function omitEmptyStrings(x) {
 	return x;
 }
 
+function formatInputData(inputValues: any): any {
+	const skillsArray = inputValues.skills.includes(",")
+		? inputValues.skills.split(",")
+		: [inputValues.skills];
+	const certificatesAndLicencesArray =
+		inputValues.certificatesAndLicences.includes(",")
+			? inputValues.certificatesAndLicences.split(",")
+			: [inputValues.certificatesAndLicences];
+
+	// Clean up the white space from the input
+	skillsArray.forEach(function (_: any, index: number) {
+		skillsArray[index] = skillsArray[index].trim();
+	});
+	certificatesAndLicencesArray.forEach(function (_: any, index: number) {
+		certificatesAndLicencesArray[index] =
+			certificatesAndLicencesArray[index].trim();
+	});
+	inputValues.skills = skillsArray;
+	inputValues.certificatesAndLicences = certificatesAndLicencesArray;
+
+	return inputValues;
+}
+
 const initialValues = {
 	jobTitle: "",
 	jobDescription: "",
@@ -105,11 +128,13 @@ const schema = yup.object().shape({
 const onSubmit =
 	(createJobAd, history, setSubmissionError, setLoginRegisterModal) =>
 	(values, actions) => {
-		console.log("vvv", values);
+		const userProfileFormValues = JSON.parse(JSON.stringify(values));
+		const formattedValues = formatInputData(userProfileFormValues);
+		console.log("val", formattedValues);
 
 		createJobAd({
 			variables: {
-				input: omitEmptyStrings(values),
+				input: omitEmptyStrings(formattedValues),
 			},
 		})
 			.then(({ data }) => {

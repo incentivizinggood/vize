@@ -19,8 +19,8 @@ const createJobAdInputSchema = yup
 		jobDescription: yup
 			.string()
 			.required("Se requiere la descripción del empleo"),
-		skills: yup.string().required("Se requiere al menos una habilidad"),
-		certificatesAndLicences: yup.string(),
+		skills: yup.array().required().min(1).of(yup.string()),
+		certificatesAndLicences: yup.array().of(yup.string()).nullable(),
 		contractType: yup
 			.mixed()
 			.oneOf([
@@ -48,6 +48,7 @@ const createJobAdInputSchema = yup
 				"SOME_COLLEGE",
 				"COLLEGE_DEGREE",
 			]),
+		// shifts: yup.array().of(shiftInputSchema),
 		shifts: yup.array().required().min(1).of(shiftInputSchema),
 		locations: yup.array().required().min(1).of(locationInputSchema),
 		salaryType: yup
@@ -110,6 +111,10 @@ export async function createJobAd(
 				'Tienes que crear un perfil para la empresa antes de publicar ofertas de empleo. Navega a "Mi Empresa" en la barra de navegación y llena la encuesta para crear el perfil.'
 			);
 		}
+		console.log("shifts", shifts);
+		console.log("skills", shifts);
+		console.log("certificates", shifts);
+		console.log("shifts json", JSON.stringify(shifts));
 
 		const {
 			rows: [{ jobadid }],
@@ -139,14 +144,14 @@ export async function createJobAd(
 					${contractType},
 					${minimumEducation},
 					${minimumEnglishProficiency},
-					${shifts},
-					${contractType},
+					${JSON.stringify(shifts)},
 					${salaryType},
 					${salaryMin},
 					${salaryMax}
 				)
 			RETURNING jobadid
 		`);
+		// ${JSON.stringify(shifts)},
 
 		await client.query(sql`
 			INSERT INTO job_locations
@@ -254,6 +259,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		coverLetter,
 		numReviews,
 	} = await createApplyToJobAdInputSchema.validate(input);
+	console.log("work", workExperiences);
+	console.log("work json", JSON.stringify(workExperiences));
 
 	const transaction: Transaction<boolean> = async (client) => {
 		const {

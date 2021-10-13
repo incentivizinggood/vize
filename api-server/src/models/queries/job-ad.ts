@@ -12,7 +12,7 @@ const attributes = sql.raw(
 		'jobtitle AS "jobTitle"',
 		'jobdescription AS "jobDescription"',
 		"skills",
-		'certificates_and_licenses AS "certificatesAndLicenses"',
+		'certificates_and_licences AS "certificatesAndLicenses"',
 		'contracttype AS "contractType"',
 		'minimum_education AS "minimumEducation"',
 		'minimum_english_proficiency AS "minimumEnglishProficiency"',
