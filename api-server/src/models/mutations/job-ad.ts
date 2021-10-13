@@ -48,7 +48,6 @@ const createJobAdInputSchema = yup
 				"SOME_COLLEGE",
 				"COLLEGE_DEGREE",
 			]),
-		// shifts: yup.array().of(shiftInputSchema),
 		shifts: yup.array().required().min(1).of(shiftInputSchema),
 		locations: yup.array().required().min(1).of(locationInputSchema),
 		salaryType: yup
@@ -111,10 +110,6 @@ export async function createJobAd(
 				'Tienes que crear un perfil para la empresa antes de publicar ofertas de empleo. Navega a "Mi Empresa" en la barra de navegación y llena la encuesta para crear el perfil.'
 			);
 		}
-		console.log("shifts", shifts);
-		console.log("skills", shifts);
-		console.log("certificates", shifts);
-		console.log("shifts json", JSON.stringify(shifts));
 
 		const {
 			rows: [{ jobadid }],
@@ -151,7 +146,6 @@ export async function createJobAd(
 				)
 			RETURNING jobadid
 		`);
-		// ${JSON.stringify(shifts)},
 
 		await client.query(sql`
 			INSERT INTO job_locations

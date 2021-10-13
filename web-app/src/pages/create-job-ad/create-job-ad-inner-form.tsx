@@ -1,5 +1,4 @@
 import React from "react";
-import { useFormikContext } from "formik";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoney from "@material-ui/icons/AttachMoney";
 
@@ -24,9 +23,6 @@ interface CreateJobAdInnerFormProps {
 }
 
 function InnerForm(props: CreateJobAdInnerFormProps): any {
-	const { values }: any = useFormikContext();
-	console.log("vak", values);
-
 	return (
 		<FormWrapper submitButtonText={T.submit} {...props}>
 			<PostFormFieldContainer>
