@@ -14,32 +14,32 @@ const Button = styled.button<ButtonExtraProps>`
 
 		/* Color the button to show it's status. */
 		${(props) => {
-		if (props.disabled) {
-			if (props.$primary) {
-				return css`
+			if (props.disabled) {
+				if (props.$primary) {
+					return css`
 						background-color: ${colors.onSurfaceWeak};
 						color: white;
 					`;
-			}
+				}
 
-			return css`
+				return css`
 					background-color: white;
 					color: ${colors.onSurfaceWeak};
 					border: 1px solid;
 				`;
-		}
+			}
 
-		if (props.$primary) {
-			return css`
+			if (props.$primary) {
+				return css`
 					background-color: ${colors.primaryColorBlue};
 					color: white;
 					:hover {
 						background-color: ${colors.darkPrimaryBlue};
 					}
 				`;
-		}
+			}
 
-		return css`
+			return css`
 				background-color: white;
 				color: black !important;
 				:hover {
@@ -49,12 +49,12 @@ const Button = styled.button<ButtonExtraProps>`
 				border: 1px solid;
 				border-color: ${colors.darkGray};
 			`;
-	}}
+		}}
 
 		/* Disabled buttons cannot be clicked */
 		${(props) =>
-		props.disabled &&
-		css`
+			props.disabled &&
+			css`
 				pointer-events: none;
 			`}
 
@@ -64,9 +64,7 @@ const Button = styled.button<ButtonExtraProps>`
 		text-align: center;
 		white-space: nowrap;
 		vertical-align: middle;
-		padding: 0.9rem 3rem
-	}};
-		line-height: 1.5;
+		padding: 0.9rem 3rem;
 		border-radius: ${borderRadius.button};
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 			border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;

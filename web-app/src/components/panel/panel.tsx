@@ -17,15 +17,12 @@ const Panel = styled.div<Props>`
 	margin-right: auto;
 	width: 100%;
 	margin-bottom: 10px;
+	border-radius: 20px;
 
 	background-color: white;
 	color: black;
 	box-shadow: ${boxShadow.wide};
 	padding: ${PannelPadding};
-
-	${forSize.phoneOnly} {
-		padding: 20px;
-	}
 `;
 
 export default Panel;

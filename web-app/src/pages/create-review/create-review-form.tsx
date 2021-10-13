@@ -7,7 +7,7 @@ import * as urlGenerators from "src/pages/url-generators";
 
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import { useCreateReviewMutation } from "generated/graphql-operations";
 import * as schemas from "src/form-schemas";
@@ -90,18 +90,19 @@ const schema = yup
 			.required("Se requiere el numero de meses trabajados"),
 		contractType: yup
 			.mixed()
-			.oneOf([
-				"FULL_TIME",
-				"PART_TIME",
-				"INTERNSHIP",
-				"TEMPORARY",
-				"CONTRACTOR",
-			])
-			.required("Se requiere el tipo de contrato"),
+			.oneOf(
+				[
+					"FULL_TIME",
+					"PART_TIME",
+					"INTERNSHIP",
+					"TEMPORARY",
+					"CONTRACTOR",
+				],
+				"Se requiere el tipo de contrato"
+			),
 		employmentStatus: yup
 			.mixed()
-			.oneOf(["FORMER", "CURRENT"])
-			.required("Se requiere el estado de empleo"),
+			.oneOf(["FORMER", "CURRENT"], "Se requiere el estado de empleo"),
 		pros: proConSchema,
 		cons: proConSchema,
 		wouldRecommendToOtherJobSeekers: yup
@@ -115,14 +116,16 @@ const schema = yup
 		additionalComments: yup.string(),
 		incomeType: yup
 			.string()
-			.oneOf([
-				"YEARLY_SALARY",
-				"MONTHLY_SALARY",
-				"WEEKLY_SALARY",
-				"DAILY_SALARY",
-				"HOURLY_WAGE",
-			])
-			.required("Se requiere el tipo de ingreso"),
+			.oneOf(
+				[
+					"YEARLY_SALARY",
+					"MONTHLY_SALARY",
+					"WEEKLY_SALARY",
+					"DAILY_SALARY",
+					"HOURLY_WAGE",
+				],
+				"Se requiere el tipo de ingreso"
+			),
 		incomeAmount: yup
 			.number()
 			.min(0)
@@ -247,7 +250,11 @@ export default function CreateReviewForm({
 				validationSchema={schema}
 				onSubmit={onSubmit}
 			>
-				<InnerForm submissionError={submissionError} />
+				<InnerForm
+					schema={schema}
+					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
+				/>
 			</Formik>
 			{content}
 		</div>

@@ -1,13 +1,34 @@
 import React from "react";
-import { Formik, FormikHelpers, FormikErrors } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { useHistory } from "react-router-dom";
 import { History } from "history";
 import * as yup from "yup";
 import * as urlGenerators from "src/pages/url-generators";
 import * as schemas from "src/form-schemas";
 import { login } from "src/auth";
+import LoginWithFacebook from "./components/login-with-facebook";
+import { Link } from "react-router-dom";
+import { FormFooter } from "src/components/form-stuff";
 
 import InnerForm from "./login-inner-form";
+
+import styled from "styled-components";
+import { translations } from "src/translations";
+
+const T = translations.loginRegister;
+
+const ForgotPasswordDiv = styled.div`
+	margin-top: 5px;
+	text-align: center;
+`;
+
+const FunctionButton = styled.button`
+	color: #337ab7;
+
+	:hover {
+		color: #23527c;
+	}
+`;
 
 const schema = yup
 	.object()
@@ -57,6 +78,9 @@ const onSubmit =
 					) ||
 					window.location.pathname.includes(
 						urlGenerators.queryRoutes.jobs
+					) ||
+					window.location.pathname.includes(
+						urlGenerators.queryRoutes.postJob
 					)
 				)
 			) {
@@ -70,17 +94,51 @@ const onSubmit =
 		}
 	};
 
-export default function LoginForm(): JSX.Element {
+interface LoginFormProps {
+	userRole: string;
+	setRegisterOrLogin?: any;
+}
+
+export default function LoginForm({
+	userRole,
+	setRegisterOrLogin,
+}: LoginFormProps): JSX.Element {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={schema}
-			onSubmit={onSubmit(history, setSubmissionError)}
-		>
-			<InnerForm submissionError={submissionError} />
-		</Formik>
+		<>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schema}
+				onSubmit={onSubmit(history, setSubmissionError)}
+			>
+				<InnerForm submissionError={submissionError} />
+			</Formik>
+			<ForgotPasswordDiv>
+				{/* TODO Make this look nice. */}
+				<Link to={urlGenerators.vizeRequestPasswordReset()}>
+					<T.forgotPassword />
+				</Link>
+			</ForgotPasswordDiv>
+			{userRole === "worker" && <LoginWithFacebook />}
+
+			<FormFooter>
+				<T.noAccount />
+				{setRegisterOrLogin ? (
+					<FunctionButton
+						onClick={() => {
+							setRegisterOrLogin("register");
+						}}
+					>
+						<T.register />
+					</FunctionButton>
+				) : (
+					<Link to={urlGenerators.vizeRegister(userRole)}>
+						<T.register />
+					</Link>
+				)}
+			</FormFooter>
+		</>
 	);
 }

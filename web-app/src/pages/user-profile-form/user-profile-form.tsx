@@ -2,10 +2,10 @@ import React from "react";
 import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-import { mapValues, map, omitBy, filter, merge } from "lodash";
+import { mapValues, map, omitBy, filter } from "lodash";
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import { workExperienceSchema } from "src/form-schemas";
 import { queryRoutes } from "src/pages/url-generators";
@@ -164,21 +164,27 @@ const schema = yup.object().shape({
 	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
 		.string()
-		.oneOf([
-			"NATIVE_LANGUAGE",
-			"FLUENT",
-			"CONVERSATIONAL",
-			"BASIC",
-			"NO_PROFICIENCY",
-		]),
+		.oneOf(
+			[
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			],
+			"Se requiere el dominio del inglés"
+		),
 	highestLevelOfEducation: yup
 		.string()
-		.oneOf([
-			"SOME_HIGH_SCHOOL",
-			"HIGH_SCHOOL",
-			"SOME_COLLEGE",
-			"COLLEGE_DEGREE",
-		]),
+		.oneOf(
+			[
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			],
+			"Se requiere el nivel educativo mas alto"
+		),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
@@ -205,7 +211,7 @@ const onSubmit =
 			return null;
 		}
 
-		let formattedValues = formatInputData(userProfileFormValues);
+		const formattedValues = formatInputData(userProfileFormValues);
 		const updateOrCreateUserProfile = userProfile
 			? updateUserProfile
 			: createUserProfile;
@@ -235,7 +241,6 @@ const onSubmit =
 			})
 			.catch((errors) => {
 				// Error in English: Not Logged In
-				console.log("Error", errors);
 				if (
 					errors.message.includes(
 						"Tienes que iniciar una sesión o registrarte"
@@ -309,7 +314,9 @@ export default function CreateUserProfileForm({
 				)}
 			>
 				<InnerForm
+					schema={schema}
 					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
 					profileExists={userProfile != null}
 				/>
 			</Formik>

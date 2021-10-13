@@ -1,20 +1,20 @@
 import React from "react";
-import { Form } from "formik";
 
-import { Button } from "src/components/button";
-import {
-	FormArray,
-	Field,
-	FormToolbar,
-	SubmissionError,
-} from "src/components/form-stuff";
+import { FormArray, Field } from "src/components/form-stuff";
 import { translations } from "src/translations";
+import FormWrapper from "../forms/form-wrapper";
 
 const T = translations.createCompany;
 
-function InnerForm({ submissionError }) {
+interface CreateCompanyInnerFormProps {
+	schema: any;
+	submissionError: any;
+	setSubmissionError: any;
+}
+
+function InnerForm(props: CreateCompanyInnerFormProps): any {
 	return (
-		<Form noValidate>
+		<FormWrapper submitButtonText={T.submit} {...props}>
 			<Field name="name" type="text" required t={T.fields.companyName} />
 
 			<Field
@@ -88,15 +88,7 @@ function InnerForm({ submissionError }) {
 				rows={6}
 				t={T.fields.descriptionOfCompany}
 			/>
-
-			<SubmissionError error={submissionError} />
-
-			<FormToolbar>
-				<Button $primary type="submit">
-					<T.submit />
-				</Button>
-			</FormToolbar>
-		</Form>
+		</FormWrapper>
 	);
 }
 

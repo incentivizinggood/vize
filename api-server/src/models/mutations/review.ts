@@ -4,7 +4,7 @@ import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
 import { postToSlack } from "src/connectors/slack-webhook";
 
-import { locationInputSchema } from "./location";
+import { locationInputSchema } from "./input-schemas";
 
 type PhoneNumber = undefined | string;
 

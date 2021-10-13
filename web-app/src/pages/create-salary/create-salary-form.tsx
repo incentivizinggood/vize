@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import { useCreateSalaryMutation } from "generated/graphql-operations";
 import * as schemas from "src/form-schemas";
@@ -42,14 +42,16 @@ const schema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el nombre del cargo"),
 	incomeType: yup
 		.string()
-		.oneOf([
-			"YEARLY_SALARY",
-			"MONTHLY_SALARY",
-			"WEEKLY_SALARY",
-			"DAILY_SALARY",
-			"HOURLY_WAGE",
-		])
-		.required("Se requiere el tipo de ingreso"),
+		.oneOf(
+			[
+				"YEARLY_SALARY",
+				"MONTHLY_SALARY",
+				"WEEKLY_SALARY",
+				"DAILY_SALARY",
+				"HOURLY_WAGE",
+			],
+			"Se requiere el tipo de ingreso"
+		),
 	incomeAmount: yup
 		.number()
 		.min(0)
@@ -115,7 +117,11 @@ export default function CreateSalaryForm({ companyName }) {
 				validationSchema={schema}
 				onSubmit={onSubmit}
 			>
-				<InnerForm submissionError={submissionError} />
+				<InnerForm
+					schema={schema}
+					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
+				/>
 			</Formik>
 			{content}
 		</div>

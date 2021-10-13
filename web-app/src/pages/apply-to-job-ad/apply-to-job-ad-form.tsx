@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { mapValues, map, omitBy, filter, merge } from "lodash";
 import * as analytics from "src/startup/analytics";
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 import { useUser } from "src/hoc/user";
 import * as urlGenerators from "src/pages/url-generators";
 import { workExperienceSchema } from "src/form-schemas";
@@ -216,7 +216,10 @@ let initialValues = {
 const schema = yup.object().shape({
 	jobAdId: yup.string().required(),
 	fullName: yup.string().required("Se requiere el nombre completo"),
-	email: yup.string().email().required("Se requiere el correo electrónico"),
+	email: yup
+		.string()
+		.email("El correo electrónico debe ser válido")
+		.required("Se requiere el correo electrónico"),
 	phoneNumber: yup.string().required("Se requiere el numero de telefono"),
 	city: yup.string().required("Se requiere la ciudad"),
 	neighborhood: yup.string(),
@@ -225,21 +228,27 @@ const schema = yup.object().shape({
 	certificatesAndLicences: yup.string(),
 	englishProficiency: yup
 		.string()
-		.oneOf([
-			"NATIVE_LANGUAGE",
-			"FLUENT",
-			"CONVERSATIONAL",
-			"BASIC",
-			"NO_PROFICIENCY",
-		]),
+		.oneOf(
+			[
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			],
+			"Se requiere el dominio del inglés"
+		),
 	highestLevelOfEducation: yup
 		.string()
-		.oneOf([
-			"SOME_HIGH_SCHOOL",
-			"HIGH_SCHOOL",
-			"SOME_COLLEGE",
-			"COLLEGE_DEGREE",
-		]),
+		.oneOf(
+			[
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			],
+			"Se requiere el nivel educativo más alto"
+		),
 	morning: yup.boolean(),
 	afternoon: yup.boolean(),
 	night: yup.boolean(),
@@ -275,7 +284,7 @@ const onSubmit =
 			return null;
 		}
 
-		let jobApplicationFormFormattedValues = formatInputData(
+		const jobApplicationFormFormattedValues = formatInputData(
 			jobApplicationFormValues
 		);
 
@@ -306,7 +315,7 @@ const onSubmit =
 							),
 						},
 					}).then(({ data }) => {
-						console.log("Updated/Created User Profile");
+						// Success updating or editing the user profile
 					});
 				}
 
@@ -330,7 +339,6 @@ const onSubmit =
 				}
 			})
 			.catch((errors) => {
-				console.log("ERROR", errors.message);
 				// Error in English: Not Logged In
 				if (
 					errors.message.includes(
@@ -434,7 +442,9 @@ export default function ApplyToJobAdForm({
 				)}
 			>
 				<InnerForm
+					schema={schema}
 					submissionError={submissionError}
+					setSubmissionError={setSubmissionError}
 					profileExists={userProfile != null}
 				/>
 			</Formik>

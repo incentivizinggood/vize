@@ -40,7 +40,10 @@ const initialValues = {
 
 const schema = yup.object().shape({
 	name: schemas.companyName.required(),
-	contactEmail: yup.string().email().required(),
+	contactEmail: yup
+		.string()
+		.email("El correo electrónico debe ser válido")
+		.required(),
 	contactPhoneNumber: yup.string().max(20),
 	yearEstablished: yup.number().integer(),
 	numEmployees: yup
@@ -98,7 +101,11 @@ export default function CreateCompanyForm() {
 			validationSchema={schema}
 			onSubmit={onSubmit(createCompany, history, setSubmissionError)}
 		>
-			<InnerForm submissionError={submissionError} />
+			<InnerForm
+				schema={schema}
+				submissionError={submissionError}
+				setSubmissionError={setSubmissionError}
+			/>
 		</Formik>
 	);
 }

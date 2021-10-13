@@ -358,6 +358,36 @@ export default {
 				label: "Nombre del Cargo",
 				placeholder: "Ingrese el título del empleo que está anunciando",
 			},
+			jobDescription: {
+				label: "Descripción del Trabajo",
+				placeholder:
+					"Por favor ingrese una descripción formal de este trabajo",
+			},
+			responsibilities: {
+				label: "Resposabilidades",
+				placeholder:
+					"Por favor resuma las responsabilidades de este puesto",
+			},
+			qualifications: {
+				label: "Calificaciones",
+				placeholder:
+					"Por favor resuma las calificaciones necesarias para este puesto",
+			},
+			minimunEducation: {
+				label: "Minimum level of education",
+				someHighSchool: "Some High School",
+				completedHighSchool: "Completed High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			minimumLanguage: {
+				label: "English Proficiency",
+				native: "Native",
+				conversational: "Conversational",
+				fluent: "Fluent",
+				basic: "Basic",
+				none: "None",
+			},
 			locations: {
 				label: "Ubicaciones",
 				addElement: ({ array }: { array: unknown[] }) =>
@@ -387,7 +417,7 @@ export default {
 				placeholder: "Ej. 2200",
 			},
 			salaryType: {
-				label: "Tipo de Ingreso (en Pesos)",
+				label: "Tipo de Salario (en Pesos)",
 				yearlySalary: "Anual",
 				monthlySalary: "Mensual",
 				weeklySalary: "Sueldo por Semana",
@@ -395,17 +425,36 @@ export default {
 				hourlyWage: "Sueldo por Hora",
 			},
 			jobSchedule: {
-				labelStartDay: "Día de Inicio del Turno",
-				labelEndDay: "Día Final del Turno",
-				labelStartTime: "Hora de Inicio del Turno",
-				labelEndTime: "Hora Final del Turno",
-				monday: "Lunes",
-				tuesday: "Martes",
-				wednesday: "Miércoles",
-				thursday: "Jueves",
-				friday: "Viernes",
-				saturday: "Sábado",
-				sunday: "Domingo",
+				label: "Turnos",
+				addElement: ({ array }: { array: unknown[] }) => {
+					return `Agrega ${array?.length > 0 ? "otro" : "un"} turno`;
+				},
+				startDay: {
+					label: "Working Days From",
+					monday: "Lunes",
+					tuesday: "Martes",
+					wednesday: "Miércoles",
+					thursday: "Jueves",
+					friday: "Viernes",
+					saturday: "Sábado",
+					sunday: "Domingo",
+				},
+				endDay: {
+					label: "To",
+					monday: "Lunes",
+					tuesday: "Martes",
+					wednesday: "Miércoles",
+					thursday: "Jueves",
+					friday: "Viernes",
+					saturday: "Sábado",
+					sunday: "Domingo",
+				},
+				startTime: {
+					label: "Working Time From",
+				},
+				endTime: {
+					label: "To",
+				},
 			},
 			contractType: {
 				label: "Tipo de Contrato",
@@ -415,26 +464,13 @@ export default {
 				temporary: "Proyecto (Temporal)",
 				contractor: "Contratista",
 			},
-			jobDescription: {
-				label: "Descripción del Trabajo",
-				placeholder:
-					"Por favor ingrese una descripción formal de este trabajo",
-			},
-			responsibilities: {
-				label: "Resposabilidades",
-				placeholder:
-					"Por favor resuma las responsabilidades de este puesto",
-			},
-			qualifications: {
-				label: "Calificaciones",
-				placeholder:
-					"Por favor resuma las calificaciones necesarias para este puesto",
-			},
 		},
 		submit: "Publicar Oferta",
 	},
 	applyToJobAd: {
 		formTitle: "Solicitar un Trabajo",
+		applyWithOneClick:
+			"Puedes crear un perfil con la información en este formulario para postularte a cualquier trabajo con solo un click. Esto significa que solo tienes que llenar esta información una vez.",
 		fields: {
 			fullName: {
 				label: "Nombre Completo",
@@ -461,7 +497,7 @@ export default {
 			workExperiences: {
 				label: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+					`Agrega ${array.length > 0 ? "otra" : "una"} experiencia`,
 				jobTitle: {
 					label: "Puesto de Trabajo",
 					placeholder: "Ingresa el nombre de el puesto desempeñado",
@@ -577,7 +613,7 @@ export default {
 			workExperiences: {
 				workExperience: "Experiencia Laboral",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Agrega ${array.length > 0 ? "Otra" : "Una"} Experiencia`,
+					`Agrega ${array.length > 0 ? "otra" : "una"} experiencia`,
 				jobTitle: {
 					label: "Puesto de Trabajo",
 					placeholder: "Ingresa el nombre de el puesto desempeñado",
@@ -816,7 +852,56 @@ export default {
 			placeholder_email: "Eg. ejemplo@email.com",
 			placeholder_comments: "Por favor deje sus comentarios",
 		},
-
+		forEmployers: {
+			resourcesPageText:
+				"Descubre cómo puedes reducir las tasas de rotación, reducir los costos de contratación, mejorar tus prácticas de contratación y mucho más con nuestros recursos",
+			resources: "Recursos",
+			headerText:
+				"Recluta y retiene a la mejor fuerza laboral en Tijuna con Vize",
+			getStarted: "Empezar",
+			heading1: "El Problema",
+			card1part1:
+				"Muchas fábricas como la suya enfrentan tasas de rotación del",
+			card1part2: " de su fuerza laboral",
+			card1part3: " cada año",
+			card2part1:
+				"Las altas tasas de rotación te obligan a gastar más tiempo y dinero en",
+			card2part2: " reclutar y entrenar",
+			card3part1: "Perder 1 trabajador les puede costar al menos",
+			card3part2: " $11,000 pesos cada mes",
+			heading2: "La Solución",
+			recruitingHeading: "Reclutamiento",
+			recruitingText:
+				"Le ayudamos a reclutar los mejores empleados con puestos de trabajo asequibles y efectivos.",
+			retainmentHeading: "Retención",
+			retainmentText:
+				"Luego, le brindamos información práctica sobre cómo retener sus empleados utilizando datos analiticos directamente de los trabajadores en todo Tijuana.",
+			heading3: "Precios",
+			pricingText1: "Los primeros 10 clientes obtienen",
+			pricingText2: " acceso premium",
+			pricingText3: " completo a nuestros servicios",
+			pricingText4: " GRATIS",
+			pricingText5: " durante los primeros 90 días.",
+			businessHeading: "Negocio",
+			businessText1: "5 Anuncios de Trabajo",
+			businessText2: "Panel de Análisis de Datos",
+			businessText3: "Recursos de Negocio",
+			premiumHeading: "Premium",
+			premiumText1: "10 Anuncios de Trabajo",
+			premiumText2: "Panel de Análisis de Datos",
+			premiumText3: "Recursos de Negocio",
+			premiumText4: "Análisis y Consultoría Individualizados",
+			img: {
+				exampleJobPost: {
+					src: exampleJobPostSquareEs,
+					alt: "",
+				},
+				analyticsDashboard: {
+					src: analyticsDashboardEs,
+					alt: "",
+				},
+			},
+		},
 		companyreview: {
 			recommend: "Recomendado",
 			reviews: "Evaluaciones",

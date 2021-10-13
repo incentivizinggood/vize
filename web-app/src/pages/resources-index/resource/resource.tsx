@@ -24,7 +24,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as urlGenerators from "src/pages/url-generators";
 
 import PopupModal from "src/components/popup-modal";
-import RegisterLoginModal from "src/components/register-login-modal";
+import RegisterLoginModal from "src/pages/register-login-forms/components/register-login-modal";
 
 import {
 	FacebookShareButton,

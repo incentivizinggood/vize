@@ -6,3 +6,4 @@ export * from "./salary";
 export * from "./user";
 export * from "./user-profile";
 export * from "./vote";
+export * from "./input-schemas";

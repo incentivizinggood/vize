@@ -336,22 +336,86 @@ export default {
 				placeholder:
 					"Tell us the title of the position you are advertising",
 			},
+			jobDescription: {
+				label: "Job Description",
+				placeholder:
+					"Enter a formal description of this job and include details such as the relevant job functions and responsiblities",
+			},
+			responsibilities: {
+				label: "Job Skills",
+				placeholder: "Enter the skills needed for the job",
+			},
+			qualifications: {
+				label: "Certificates & Licences",
+				placeholder:
+					"Enter the certificates and licences preferred for this position",
+			},
+			minimunEducation: {
+				label: "Minimum level of education",
+				someHighSchool: "Some High School",
+				completedHighSchool: "Completed High School",
+				someCollege: "Some College",
+				collegeDegree: "College Degree",
+			},
+			minimumLanguage: {
+				label: "English Proficiency",
+				native: "Native",
+				conversational: "Conversational",
+				fluent: "Fluent",
+				basic: "Basic",
+				none: "None",
+			},
 			locations: {
 				label: "Locations",
-				addElement: ({ array }: { array: unknown[] }) =>
-					`Add ${array.length > 0 ? "another" : "a"} location`,
+				addElement: ({ array }: { array: unknown[] }) => {
+					// console.log("Locations", array)
+					return `Add ${
+						array?.length > 0 ? "another" : "a"
+					} location`;
+				},
 				city: {
-					label: "City",
-					placeholder: "Enter the city for your location",
+					label: "Add a city for a job",
+					placeholder: "Enter your city",
 				},
 				address: {
-					label: "Address",
-					placeholder: "Enter the street address for your location",
+					label: "Add an address for a job",
+					placeholder: "Enter your address",
 				},
 				industrialHub: {
-					label: "Industrial Park",
-					placeholder:
-						"Enter the industrial park for your location (e.g. Florido, Pacífico, etc.)",
+					label: "Add an industrial park for a job",
+					placeholder: "Enter industrial park",
+				},
+			},
+			jobSchedule: {
+				label: "Shifts",
+				addElement: ({ array }: { array: unknown[] }) => {
+					return `Add ${array?.length > 0 ? "another" : "a"} shift`;
+				},
+				startDay: {
+					label: "Working Days From",
+					monday: "Monday",
+					tuesday: "Tuesday",
+					wednesday: "Wednesday",
+					thursday: "Thursday",
+					friday: "Friday",
+					saturday: "Saturday",
+					sunday: "Sunday",
+				},
+				endDay: {
+					label: "To",
+					monday: "Monday",
+					tuesday: "Tuesday",
+					wednesday: "Wednesday",
+					thursday: "Thursday",
+					friday: "Friday",
+					saturday: "Saturday",
+					sunday: "Sunday",
+				},
+				startTime: {
+					label: "Working Time From",
+				},
+				endTime: {
+					label: "To",
 				},
 			},
 			salaryExplanation:
@@ -365,25 +429,12 @@ export default {
 				placeholder: "e.g. 2200",
 			},
 			salaryType: {
-				label: "Income Type (in Pesos)",
+				label: "Salary Type (in Pesos)",
 				yearlySalary: "Yearly Salary",
 				monthlySalary: "Monthly Salary",
 				weeklySalary: "Weekly Salary",
 				dailySalary: "Daily Salary",
 				hourlyWage: "Hourly Wage",
-			},
-			jobSchedule: {
-				labelStartDay: "Start Day",
-				labelEndDay: "End Day",
-				labelStartTime: "Start Time",
-				labelEndTime: "End Time",
-				monday: "Monday",
-				tuesday: "Tuesday",
-				wednesday: "Wednesday",
-				thursday: "Thursday",
-				friday: "Friday",
-				saturday: "Saturday",
-				sunday: "Sunday",
 			},
 			contractType: {
 				label: "Contract Type",
@@ -393,24 +444,13 @@ export default {
 				temporary: "Temporary",
 				contractor: "Contractor",
 			},
-			jobDescription: {
-				label: "Job Description",
-				placeholder: "Enter a formal description of this job",
-			},
-			responsibilities: {
-				label: "Responsibilities",
-				placeholder: "Summarize the responsibilities of this position",
-			},
-			qualifications: {
-				label: "Qualifications",
-				placeholder:
-					"Summarize the qualifications needed for this position",
-			},
 		},
 		submit: "Post Job",
 	},
 	applyToJobAd: {
 		formTitle: "Apply for a Job",
+		applyWithOneClick:
+			"You can create a profile with the information in this form to apply to any job with one click. This means you only have to fill out this information once.",
 		fields: {
 			fullName: {
 				label: "Full Name",

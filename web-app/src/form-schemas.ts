@@ -16,6 +16,27 @@ export const locationSchema = yup.object().shape({
 	industrialHub: yup.string().max(300),
 });
 
+export const shiftSchema = yup.object().shape({
+	startDay: yup
+		.number()
+		.integer()
+		.min(0)
+		.max(6)
+		.required("Se requiere el día de inicio del turno"),
+	endDay: yup
+		.number()
+		.integer()
+		.min(0)
+		.max(6)
+		.required("Se requiere el día final del turno"),
+	startTime: yup
+		.string()
+		.required("Se requiere el tiempo que inicia el turno"),
+	endTime: yup
+		.string()
+		.required("Se requiere el tiempo que termina el turno"),
+});
+
 export const workExperienceSchema = yup.object().shape({
 	jobTitle: yup.string().required("Se requiere el puesto de trabajo"),
 	companyName: yup.string().required("Se requiere el nombre de la empresa"),

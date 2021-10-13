@@ -19,7 +19,6 @@ const baseQuery = sql`SELECT ${attributes} FROM users`;
 
 // Get the user with a given id.
 export async function getUserById(id: number): Promise<User | null> {
-	console.log("useemee");
 	return simpleQuery1<User>(sql`
 		${baseQuery}
 		WHERE userid=${id}

@@ -10,15 +10,46 @@ import {
 	languageProficiencyTranslations,
 	workShiftTranlsations,
 } from "src/utils/translation-utils";
-import { locationInputSchema } from "./location";
+import { locationInputSchema, shiftInputSchema } from "./input-schemas";
 import { workExperienceInputSchema } from "./work-experience";
 
 const createJobAdInputSchema = yup
 	.object({
-		jobTitle: yup.string().required(),
+		jobTitle: yup.string().required("Se requiere el titulo del empleo"),
+		jobDescription: yup
+			.string()
+			.required("Se requiere la descripción del empleo"),
+		skills: yup.array().required().min(1).of(yup.string()),
+		certificatesAndLicences: yup.array().of(yup.string()).nullable(),
+		contractType: yup
+			.mixed()
+			.oneOf([
+				"FULL_TIME",
+				"PART_TIME",
+				"INTERNSHIP",
+				"TEMPORARY",
+				"CONTRACTOR",
+			])
+			.required("Se requiere el tipo de contrato"),
+		minimumEnglishProficiency: yup
+			.string()
+			.oneOf([
+				"NATIVE_LANGUAGE",
+				"FLUENT",
+				"CONVERSATIONAL",
+				"BASIC",
+				"NO_PROFICIENCY",
+			]),
+		minimumEducation: yup
+			.string()
+			.oneOf([
+				"SOME_HIGH_SCHOOL",
+				"HIGH_SCHOOL",
+				"SOME_COLLEGE",
+				"COLLEGE_DEGREE",
+			]),
+		shifts: yup.array().required().min(1).of(shiftInputSchema),
 		locations: yup.array().required().min(1).of(locationInputSchema),
-		salaryMin: yup.number().required(),
-		salaryMax: yup.number().required(),
 		salaryType: yup
 			.string()
 			.oneOf([
@@ -27,26 +58,9 @@ const createJobAdInputSchema = yup
 				"WEEKLY_SALARY",
 				"DAILY_SALARY",
 				"HOURLY_WAGE",
-			])
-			.required(),
-		contractType: yup
-			.string()
-			.oneOf([
-				"FULL_TIME",
-				"PART_TIME",
-				"INTERNSHIP",
-				"TEMPORARY",
-				"CONTRACTOR",
-			])
-			.required(),
-		jobDescription: yup.string().required(),
-		responsibilities: yup.string().required(),
-		qualifications: yup.string().required(),
-		// TODO: Should we check for a valid time format here? The database ensures this for now.
-		startTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-		endTime: yup.string().matches(/([0-1][0-9]|2[0-3]):[0-5][0-9]/),
-		startDay: yup.number().integer().min(0).max(6),
-		endDay: yup.number().integer().min(0).max(6),
+			]),
+		salaryMin: yup.number(),
+		salaryMax: yup.number(),
 	})
 	.required();
 
@@ -56,21 +70,20 @@ export async function createJobAd(
 ): Promise<number> {
 	const {
 		jobTitle,
+		jobDescription,
+		skills,
+		certificatesAndLicences,
+		contractType,
+		minimumEducation,
+		minimumEnglishProficiency,
+		shifts,
 		locations,
+		salaryType,
 		salaryMin,
 		salaryMax,
-		salaryType,
-		contractType,
-		jobDescription,
-		responsibilities,
-		qualifications,
-		startTime,
-		endTime,
-		startDay,
-		endDay,
 	} = await createJobAdInputSchema.validate(input);
 
-	if (salaryMin > salaryMax) {
+	if (salaryMin && salaryMax && salaryMin > salaryMax) {
 		// Error in English: salaryMin must be less than or equal to salaryMax
 		throw new Error(
 			"El salario minimo debe de ser menos que el salario maximo."
@@ -105,33 +118,31 @@ export async function createJobAd(
 				(
 					companyid,
 					jobtitle,
-					salary_min,
-					salary_max,
-					salary_type,
-					contracttype,
 					jobdescription,
-					responsibilities,
-					qualifications,
-					start_time,
-					end_time,
-					start_day,
-					end_day
+					skills,
+					certificates_and_licences,
+					contracttype,
+					minimum_education,
+					minimum_english_proficiency,
+					shifts,
+					salary_type,
+					salary_min,
+					salary_max
 				)
 			VALUES
 				(
 					${companyid},
 					${jobTitle},
-					${salaryMin},
-					${salaryMax},
-					${salaryType},
-					${contractType},
 					${jobDescription},
-					${responsibilities},
-					${qualifications},
-					${startTime},
-					${endTime},
-					${startDay},
-					${endDay}
+					${skills},
+					${certificatesAndLicences},
+					${contractType},
+					${minimumEducation},
+					${minimumEnglishProficiency},
+					${JSON.stringify(shifts)},
+					${salaryType},
+					${salaryMin},
+					${salaryMax}
 				)
 			RETURNING jobadid
 		`);
@@ -160,17 +171,18 @@ export async function createJobAd(
 }
 
 function formatWorkExperiences(workExperiences: any): any {
-	
-	workExperiences?.forEach(function(_: any, index: number) {	
+	workExperiences?.forEach(function (_: any, index: number) {
 		const startDate = new Date(workExperiences[index].startDate);
-		const startDateMonth = monthTranslations[startDate.getMonth().toString()];
+		const startDateMonth =
+			monthTranslations[startDate.getMonth().toString()];
 		const startDateYear = startDate.getFullYear();
 		const startDateText = `${startDateMonth} ${startDateYear}`;
 
 		let endDateText = "Presente";
 		if (workExperiences[index].endDate) {
 			const endDate = new Date(workExperiences[index].endDate);
-			const endDateMonth = monthTranslations[endDate.getMonth().toString()];
+			const endDateMonth =
+				monthTranslations[endDate.getMonth().toString()];
 			const endDateYear = endDate.getFullYear();
 			endDateText = `${endDateMonth} ${endDateYear}`;
 		}
@@ -187,7 +199,10 @@ const createApplyToJobAdInputSchema = yup
 		jobTitle: yup.string().required(),
 		numReviews: yup.number().required(),
 		fullName: yup.string().required(),
-		email: yup.string().email().required(),
+		email: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 		phoneNumber: yup.string().required(),
 		city: yup.string().required(),
 		neighborhood: yup.string(),
@@ -238,6 +253,8 @@ export async function applyToJobAd(input: unknown): Promise<boolean> {
 		coverLetter,
 		numReviews,
 	} = await createApplyToJobAdInputSchema.validate(input);
+	console.log("work", workExperiences);
+	console.log("work json", JSON.stringify(workExperiences));
 
 	const transaction: Transaction<boolean> = async (client) => {
 		const {

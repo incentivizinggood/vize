@@ -1,14 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import * as urlGenerators from "src/pages/url-generators";
 
-import {
-	FormHeader,
-	FormFooter,
-	FormPageWrapper,
-} from "src/components/form-stuff";
+import { FormHeader, FormPageWrapper } from "src/components/form-stuff";
 import { translations } from "src/translations";
-import LoginWithFacebook from "src/components/login-with-facebook";
 
 import { RegisterForm } from "./register-form";
 
@@ -21,22 +15,19 @@ function RegisterPage(): JSX.Element {
 	const params = new URLSearchParams(location.search);
 
 	if (params != null) {
-		userRole = params.get(urlGenerators.queryParameters.user);
+		const queryParams = params.get(urlGenerators.queryParameters.user);
+
+		if (queryParams != null) {
+			userRole = queryParams;
+		}
 	}
 
 	return (
-		<FormPageWrapper title="Register">
+		<FormPageWrapper title="Crear Cuenta">
 			<FormHeader>
 				<T.register />
 			</FormHeader>
-			<RegisterForm />
-			<LoginWithFacebook />
-			<FormFooter>
-				<T.alreadyAccount />
-				<Link to={urlGenerators.vizeLogin(userRole)}>
-					<T.login />
-				</Link>
-			</FormFooter>
+			<RegisterForm userRole={userRole} />
 		</FormPageWrapper>
 	);
 }

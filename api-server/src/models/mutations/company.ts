@@ -2,12 +2,15 @@ import * as yup from "yup";
 
 import sql from "src/utils/sql-template";
 import { execTransactionRW, Transaction } from "src/connectors/postgresql";
-import { locationInputSchema } from "./location";
+import { locationInputSchema } from "./input-schemas";
 
 const createCompanyInputSchema = yup
 	.object({
 		name: yup.string().required(),
-		contactEmail: yup.string().email().required(),
+		contactEmail: yup
+			.string()
+			.email("El correo electrónico debe ser válido")
+			.required(),
 		yearEstablished: yup.number(),
 		numEmployees: yup
 			.string()

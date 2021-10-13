@@ -7,6 +7,22 @@ import * as urlGenerators from "src/pages/url-generators";
 import * as analytics from "src/startup/analytics";
 import * as schemas from "src/form-schemas";
 import { register } from "src/auth";
+import { FormFooter } from "src/components/form-stuff";
+
+import LoginWithFacebook from "./components/login-with-facebook";
+import { Link } from "react-router-dom";
+import { translations } from "src/translations";
+import styled from "styled-components";
+
+const FunctionButton = styled.button`
+	color: #337ab7;
+
+	:hover {
+		color: #23527c;
+	}
+`;
+
+const T = translations.loginRegister;
 
 import { InnerForm } from "./register-inner-form";
 
@@ -15,7 +31,7 @@ const schema = yup
 	.shape({
 		email: yup
 			.string()
-			.email("Correo Electrónico debe ser válido")
+			.email("El correo electrónico debe ser válido")
 			.required("Correo Electrónico es un campo requerido"),
 		companyName: schemas.companyName,
 		password: schemas.password.required("Contraseña es un campo requerido"),
@@ -71,6 +87,9 @@ const onSubmit =
 						) ||
 						window.location.pathname.includes(
 							urlGenerators.queryRoutes.jobs
+						) ||
+						window.location.pathname.includes(
+							urlGenerators.queryRoutes.postJob
 						)
 					)
 				) {
@@ -85,29 +104,47 @@ const onSubmit =
 			});
 	};
 
-export function RegisterForm(): JSX.Element {
+interface RegisterFormProps {
+	setRegisterOrLogin?: any;
+	userRole: string;
+}
+export function RegisterForm({
+	setRegisterOrLogin,
+	userRole,
+}: RegisterFormProps): JSX.Element {
 	const history = useHistory();
 	const [submissionError, setSubmissionError] = React.useState(null);
 
-	const params = new URLSearchParams(location.search);
-	let userRole: string | null = "worker";
-
-	if (params != null) {
-		userRole = params.get(urlGenerators.queryParameters.user);
-
-		// userRole will be null if the register-login modal is being used
-		if (userRole === null) {
-			userRole = "worker";
-		}
-	}
-
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={schema}
-			onSubmit={onSubmit(history, userRole, setSubmissionError)}
-		>
-			<InnerForm userRole={userRole} submissionError={submissionError} />
-		</Formik>
+		<>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={schema}
+				onSubmit={onSubmit(history, userRole, setSubmissionError)}
+			>
+				<InnerForm
+					userRole={userRole}
+					submissionError={submissionError}
+				/>
+			</Formik>
+
+			{userRole === "worker" && <LoginWithFacebook />}
+			<FormFooter>
+				<T.alreadyAccount />
+				{setRegisterOrLogin ? (
+					<FunctionButton
+						onClick={() => {
+							setRegisterOrLogin("login");
+						}}
+					>
+						<T.login />
+					</FunctionButton>
+				) : (
+					<Link to={urlGenerators.vizeLogin(userRole)}>
+						<T.login />
+					</Link>
+				)}
+			</FormFooter>
+		</>
 	);
 }
