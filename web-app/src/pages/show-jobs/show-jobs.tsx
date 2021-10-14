@@ -363,36 +363,36 @@ export default function ShowJobs(): JSX.Element {
 	// 	});
 	// };
 
-	const camelcaseToLabel = (str: string): string => {
-		return `${str.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}`;
-	};
-	const getDisplayLabel = (fitlerKey: string): any => {
-		if (typeof filters[fitlerKey] !== "object") {
-			return filterMasters[fitlerKey].find((v) => {
-				return v.value == filters[fitlerKey];
-			}).label;
-		} else {
-			return (
-				<LabelContainer>
-					{" "}
-					{filters[fitlerKey].length ? (
-						filters[fitlerKey].length > 1 ? (
-							<>
-								{camelcaseToLabel(fitlerKey)}&nbsp;
-								<Badge>{filters[fitlerKey].length}</Badge>
-							</>
-						) : (
-							filterMasters[fitlerKey].find((v) => {
-								return v.value == filters[fitlerKey];
-							}).label
-						)
-					) : (
-						camelcaseToLabel(fitlerKey)
-					)}
-				</LabelContainer>
-			);
-		}
-	};
+	// const camelcaseToLabel = (str: string): string => {
+	// 	return `${str.replace(/([A-Z]+)*([A-Z][a-z])/g, "$1 $2")}`;
+	// };
+	// const getDisplayLabel = (fitlerKey: string): any => {
+	// 	if (typeof filters[fitlerKey] !== "object") {
+	// 		return filterMasters[fitlerKey].find((v) => {
+	// 			return v.value == filters[fitlerKey];
+	// 		}).label;
+	// 	} else {
+	// 		return (
+	// 			<LabelContainer>
+	// 				{" "}
+	// 				{filters[fitlerKey].length ? (
+	// 					filters[fitlerKey].length > 1 ? (
+	// 						<>
+	// 							{camelcaseToLabel(fitlerKey)}&nbsp;
+	// 							<Badge>{filters[fitlerKey].length}</Badge>
+	// 						</>
+	// 					) : (
+	// 						filterMasters[fitlerKey].find((v) => {
+	// 							return v.value == filters[fitlerKey];
+	// 						}).label
+	// 					)
+	// 				) : (
+	// 					camelcaseToLabel(fitlerKey)
+	// 				)}
+	// 			</LabelContainer>
+	// 		);
+	// 	}
+	// };
 	const jobs: Array<JobPostInterface> = [
 		{
 			id: 1,
@@ -509,9 +509,9 @@ export default function ShowJobs(): JSX.Element {
 		},
 	];
 
-	const clearAllFilter = () => {
-		updateFilters({ ...initialValuesForFilter });
-	};
+	// const clearAllFilter = () => {
+	// 	updateFilters({ ...initialValuesForFilter });
+	// };
 	const isMobile: boolean = width <= 768;
 	return (
 		<PageWrapper title="Trabajos - Vize">

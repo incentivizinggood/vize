@@ -12,7 +12,7 @@ import JobDetails from "./job-details";
 import descriptionImage from "../../images/job-post-icons/description.png";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 const CompanyContent = styled.div`
-    padding-top:20px;
+	padding-top: 20px;
 `;
 const JobRequirementWrapper = styled.div`
 	margin-top: 20px;
@@ -62,7 +62,7 @@ const ViewAllButton = styled.div`
 const JobLocationList = styled.div`
 	display: flex;
 	flex-direction: column;
-    width:75%;
+	width: 75%;
 `;
 const JobLocationText = styled.span``;
 const SectionTitle = styled.h3``;
@@ -70,129 +70,121 @@ const JobList = styled(Row)`
 	margin-top: 10px;
 `;
 const ExtraDetailsContainer = styled.div`
-    display: flex;
-    margin-bottom:15px;
+	display: flex;
+	margin-bottom: 15px;
 `;
 const ExtraTitleContent = styled.div`
-    width:25%;
+	width: 25%;
 `;
-export default function CompanyContentWrapper(props: any): JSX.Element {
-    const { companyDetail, company } = props;
-    return <CompanyContent >
-        <SectionTitle>Company Overview</SectionTitle>
-        <JobRequirementWrapper>
-            <JobRequirementTitle>
-                <img src={descriptionImage} alt=""></img>
-                <span>&nbsp;Descripción</span>
-            </JobRequirementTitle>
-            <JobRequirementDescription>
-                {companyDetail.description}
-            </JobRequirementDescription>
-        </JobRequirementWrapper>
-        <JobCompanyBasicDetail>
-            <ExtraDetailsContainer>
-                <ExtraTitleContent><span><strong>Size</strong></span>
-                </ExtraTitleContent>
-                <span>{companyDetail.size}</span>
-            </ExtraDetailsContainer>
-            <ExtraDetailsContainer>
-                <ExtraTitleContent><span><strong>Industry</strong></span>
-                </ExtraTitleContent>
-                <span>{companyDetail.industry}</span>
-            </ExtraDetailsContainer>
-            <ExtraDetailsContainer>
-                <ExtraTitleContent><span><strong>Website</strong></span>
-                </ExtraTitleContent>
-                <span>{companyDetail.companyWebsite}</span>
-            </ExtraDetailsContainer>
-            <ExtraDetailsContainer>
-                <ExtraTitleContent><span><strong>Location</strong></span>
-                </ExtraTitleContent>
-                <JobLocationList>
-                    {companyDetail.location.map(
-                        (v) => {
-                            return (
-                                <JobLocationText key={v}>
-                                    {v}
-                                </JobLocationText>
-                            );
-                        }
-                    )}
-                </JobLocationList>
-            </ExtraDetailsContainer>
-        </JobCompanyBasicDetail>
-        <CompanyRatingWrapper company={company}
-            ratings={companyDetail.ratings}
-            recommendationPercenteage={companyDetail.recommendationPercenteage}
-            averageStay={companyDetail.averageStay} />
-        <CommpanyReviewsWrapper>
-            {companyDetail.reviews.map(
-                (v: any, index: number) => {
-                    return (
-                        <ReviewDetails {...v} key={index}>
-                        </ReviewDetails>
-                    );
-                }
-            )}
-            <ViewAllButton>
-                <Button $primary>View All Reviews</Button>
-            </ViewAllButton>
-        </CommpanyReviewsWrapper>
-        <CommpanyReviewsWrapper>
-            <ReviewTitleRow>
-                <NumberOfReview>
-                    <RateReviewIcon />
-                    <span>
-                        &nbsp;
-                        {companyDetail.salaries
-                            ? companyDetail.salaries
-                                .length
-                            : 0}{" "}
-                        Salary
-                    </span>
-                </NumberOfReview>
-            </ReviewTitleRow>
-            {companyDetail.salaries.map(
-                (v: any, index: number) => {
-                    return (
-                        <JobDetails {...v} key={index}>
-                        </JobDetails>
-                    );
-                }
-            )}
-            <ViewAllButton>
-                <Button $primary>View All Salaries</Button>
-            </ViewAllButton>
-        </CommpanyReviewsWrapper>
-        <CommpanyReviewsWrapper>
-            <ReviewTitleRow>
-                <NumberOfReview>
-                    <WorkIcon />
-                    <span>&nbsp;Additional Jobs</span>
-                </NumberOfReview>
-            </ReviewTitleRow>
-            <JobList>
-                {companyDetail.jobs.map(
-                    (v: any, index: number) => {
-                        return (
-                            <Col
-                                xs={12}
-                                sm={6}
-                                md={6}
-                                key={v.id}
-                            >
-                                <JobPostPreview
-                                    job={...v}
-                                    hideButtons
-                                />
-                            </Col>
-                        );
-                    }
-                )}
-            </JobList>
-            <ViewAllButton>
-                <Button $primary>View All Jobs</Button>
-            </ViewAllButton>
-        </CommpanyReviewsWrapper>
-    </CompanyContent>
+export default function CompanyContentWrapper({ company }: any): JSX.Element {
+	return (
+		<CompanyContent>
+			<SectionTitle>Company Overview</SectionTitle>
+			<JobRequirementWrapper>
+				<JobRequirementTitle>
+					<img src={descriptionImage} alt=""></img>
+					<span>&nbsp;Descripción</span>
+				</JobRequirementTitle>
+				<JobRequirementDescription>
+					{company.descriptionOfCompany}
+				</JobRequirementDescription>
+			</JobRequirementWrapper>
+			<JobCompanyBasicDetail>
+				<ExtraDetailsContainer>
+					<ExtraTitleContent>
+						<span>
+							<strong>Size</strong>
+						</span>
+					</ExtraTitleContent>
+					<span>{company.numEmployees}</span>
+				</ExtraDetailsContainer>
+				<ExtraDetailsContainer>
+					<ExtraTitleContent>
+						<span>
+							<strong>Industry</strong>
+						</span>
+					</ExtraTitleContent>
+					<span>{company.industry}</span>
+				</ExtraDetailsContainer>
+				<ExtraDetailsContainer>
+					<ExtraTitleContent>
+						<span>
+							<strong>Website</strong>
+						</span>
+					</ExtraTitleContent>
+					<span>{company.websiteURL}</span>
+				</ExtraDetailsContainer>
+				<ExtraDetailsContainer>
+					<ExtraTitleContent>
+						<span>
+							<strong>Location</strong>
+						</span>
+					</ExtraTitleContent>
+					<JobLocationList>
+						{company.locations.map((location, i) => {
+							return (
+								<JobLocationText key={i}>
+									{location}
+								</JobLocationText>
+							);
+						})}
+					</JobLocationList>
+				</ExtraDetailsContainer>
+			</JobCompanyBasicDetail>
+			<CompanyRatingWrapper
+				company={company}
+				ratings={company.avgStarRatings}
+				percentRecommended={company.percentRecommended}
+				avgNumMonthsWorked={company.avgNumMonthsWorked}
+			/>
+			<CommpanyReviewsWrapper>
+				{company.reviews.map((v: any, index: number) => {
+					return <ReviewDetails {...v} key={index}></ReviewDetails>;
+				})}
+				<ViewAllButton>
+					<Button $primary>View All Reviews</Button>
+				</ViewAllButton>
+			</CommpanyReviewsWrapper>
+			<CommpanyReviewsWrapper>
+				<ReviewTitleRow>
+					<NumberOfReview>
+						<RateReviewIcon />
+						<span>
+							&nbsp;
+							{companyDetail.salaries
+								? companyDetail.salaries.length
+								: 0}{" "}
+							Salary
+						</span>
+					</NumberOfReview>
+				</ReviewTitleRow>
+				{companyDetail.salaries.map((v: any, index: number) => {
+					return <JobDetails {...v} key={index}></JobDetails>;
+				})}
+				<ViewAllButton>
+					<Button $primary>View All Salaries</Button>
+				</ViewAllButton>
+			</CommpanyReviewsWrapper>
+			<CommpanyReviewsWrapper>
+				<ReviewTitleRow>
+					<NumberOfReview>
+						<WorkIcon />
+						<span>&nbsp;Additional Jobs</span>
+					</NumberOfReview>
+				</ReviewTitleRow>
+				<JobList>
+					{companyDetail.jobs.map((v: any, index: number) => {
+						return (
+							<Col xs={12} sm={6} md={6} key={v.id}>
+								<JobPostPreview job={...v} hideButtons />
+							</Col>
+						);
+					})}
+				</JobList>
+				<ViewAllButton>
+					<Button $primary>View All Jobs</Button>
+				</ViewAllButton>
+			</CommpanyReviewsWrapper>
+		</CompanyContent>
+	);
 }

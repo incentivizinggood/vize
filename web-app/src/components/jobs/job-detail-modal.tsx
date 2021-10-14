@@ -76,6 +76,8 @@ export default function JobDetailModal(
 	const jobContentRef = useRef(null);
 	const companyContentRef = useRef(null);
 
+	console.log("dataa", jobPost);
+
 	const onScroll = (e) => {
 		if (e.currentTarget.scrollTop < 700) {
 			setActiveTab(1);
@@ -136,7 +138,6 @@ export default function JobDetailModal(
 					<HorizontalLine />
 					<div ref={companyContentRef} id="company-content">
 						<CompanyContentWrapper
-							companyDetail={jobPost.companyDetail}
 							company={jobPost.company}
 						></CompanyContentWrapper>
 					</div>

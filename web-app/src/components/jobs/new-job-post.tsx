@@ -236,26 +236,39 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 				<JobPostHeaderRightSection>
 					<PostImage src={foxconnLogoImage} alt="post-image" />
 					<PostHeaderContent>
-						<PostTitle>{props.company}</PostTitle>
-						<PostSubHeading>{props.jobPost}</PostSubHeading>
-						<RatingWrapper>
-							<RatingsDropdown
-								ratings={{
-									healthAndSafety: props.rating,
-									managerRelationship: props.rating,
-									workEnvironment: props.rating,
-									benefits: props.rating,
-									overallSatisfaction: props.rating,
-								}}
-								numReviews={props.reviewCount}
-								companyName=""
-							/>
-							<ReviewCount>
-								{props.reviewCount} Reviews
-							</ReviewCount>
-						</RatingWrapper>
+						<PostTitle>{props.company.name}</PostTitle>
+						<PostSubHeading>{props.jobTitle}</PostSubHeading>
+						{props.company.avgStarRatings && (
+							<RatingWrapper>
+								<RatingsDropdown
+									ratings={{
+										healthAndSafety:
+											props.company.avgStarRatings
+												.healthAndSafety,
+										managerRelationship:
+											props.company.avgStarRatings
+												.managerRelationship,
+										workEnvironment:
+											props.company.avgStarRatings
+												.workEnvironment,
+										benefits:
+											props.company.avgStarRatings
+												.benefits,
+										overallSatisfaction:
+											props.company.avgStarRatings
+												.overallSatisfaction,
+									}}
+									numReviews={props.company.numReviews}
+									companyName={props.company.name}
+								/>
+								<ReviewCount>
+									{props.company.numReviews} Reviews
+								</ReviewCount>
+							</RatingWrapper>
+						)}
+
 						{width < 450 ? (
-							<DatePosted>Posted {props.published}</DatePosted>
+							<DatePosted>Posted {props.created}</DatePosted>
 						) : null}
 					</PostHeaderContent>
 				</JobPostHeaderRightSection>
@@ -269,7 +282,7 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 							</CloseButton>
 						</ActionsWrapper>
 						{width > 450 ? (
-							<span>Posted {props.published}</span>
+							<span>Posted {props.created}</span>
 						) : null}
 					</JobPostHeaderLeftSection>
 				) : null}
@@ -285,18 +298,23 @@ export const JobContentWrapper = function (
 		<>
 			<JobBasicDetails>
 				<JobDetailsWrapper>
-					<Col xs={12} md={6} className="details-container">
-						<JobDetailsTitle>Salario</JobDetailsTitle>
-						<JobDetailContent>
-							<img src={dollarImage} alt="dollar-img" />
-							<JobDetailvalue>{props.salaryRange}</JobDetailvalue>
-						</JobDetailContent>
-					</Col>
+					{props.salaryMin && props.salaryMax && props.salaryType && (
+						<Col xs={12} md={6} className="details-container">
+							<JobDetailsTitle>Salario</JobDetailsTitle>
+							<JobDetailContent>
+								<img src={dollarImage} alt="dollar-img" />
+								<JobDetailvalue>
+									{props.salaryMin} - {props.salaryMax} /{" "}
+									{props.salaryType}
+								</JobDetailvalue>
+							</JobDetailContent>
+						</Col>
+					)}
 					<Col xs={12} md={6} className="details-container">
 						<JobDetailsTitle>Tipo de Contrato</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={jobTypeImage} alt="dollar-img" />
-							<JobDetailvalue>{props.jobType}</JobDetailvalue>
+							<JobDetailvalue>{props.jobTitle}</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 				</JobDetailsWrapper>
@@ -306,7 +324,7 @@ export const JobContentWrapper = function (
 						<JobDetailContent>
 							<img src={minEducationImage} alt="dollar-img" />
 							<JobDetailvalue>
-								{props.minEducation}
+								{props.minimumEducation}
 							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
@@ -314,7 +332,9 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Industria</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={industryImage} alt="dollar-img" />
-							<JobDetailvalue>{props.industry}</JobDetailvalue>
+							<JobDetailvalue>
+								{props.company.industry}
+							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 				</JobDetailsWrapper>
@@ -327,7 +347,7 @@ export const JobContentWrapper = function (
 								alt="dollar-img"
 							/>
 							<JobDetailvalue>
-								{props.englishProficiency}
+								{props.minimumEnglishProficiency}
 							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
@@ -335,7 +355,7 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Turnos</JobDetailsTitle>
 						<JobDetailContent>
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
-							{props.shifts.map((v, index) => {
+							{props.shifts.map((shift, index) => {
 								return (
 									<LanguageContentContainer
 										border={
@@ -343,9 +363,11 @@ export const JobContentWrapper = function (
 										}
 										key={index}
 									>
-										<LanguageTitle>{v.day}</LanguageTitle>
+										<LanguageTitle>
+											{shift.startDay} - {shift.endDay}
+										</LanguageTitle>
 										<LanguageDescription>
-											{v.time}
+											{shift.startTime} - {shift.endTime}
 										</LanguageDescription>
 									</LanguageContentContainer>
 								);
@@ -356,7 +378,7 @@ export const JobContentWrapper = function (
 				<JobDetailsWrapper>
 					<Col xs={12} md={12} className="details-container">
 						<JobDetailsTitle>Ubicación</JobDetailsTitle>
-						<LocationContainer>
+						{/* <LocationContainer>
 							<JobDetailContainer>
 								<LanguageImage
 									src={cityImage}
@@ -398,7 +420,7 @@ export const JobContentWrapper = function (
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
-						</LocationContainer>
+						</LocationContainer> */}
 					</Col>
 				</JobDetailsWrapper>
 			</JobBasicDetails>
@@ -408,7 +430,7 @@ export const JobContentWrapper = function (
 					<span>&nbsp;Descripción</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{props.description}
+					{props.company.descriptionOfCompany}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<br />
@@ -419,27 +441,33 @@ export const JobContentWrapper = function (
 					<span>&nbsp;Habilidades Requeridas</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{props.jobSkills.map((v) => {
-						return <DescriptionTag key={v}>{v}</DescriptionTag>;
+					{props.skills.map((skill, i) => {
+						return <DescriptionTag key={i}>{skill}</DescriptionTag>;
 					})}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<br />
 
-			<JobRequirementWrapper>
-				<JobRequirementTitle>
-					<img src={certificateImage} alt=""></img>
-					<span>&nbsp;Certificados y Licencias</span>
-				</JobRequirementTitle>
-				<JobRequirementDescription>
-					{props.certifications.map((v) => {
-						return <DescriptionTag key={v}>{v}</DescriptionTag>;
-					})}
-				</JobRequirementDescription>
-			</JobRequirementWrapper>
+			{props.certificatesAndLicences && (
+				<JobRequirementWrapper>
+					<JobRequirementTitle>
+						<img src={certificateImage} alt=""></img>
+						<span>&nbsp;Certificados y Licencias</span>
+					</JobRequirementTitle>
+					<JobRequirementDescription>
+						{props.certificatesAndLicences.map((certificate, i) => {
+							return (
+								<DescriptionTag key={i}>
+									{certificate}
+								</DescriptionTag>
+							);
+						})}
+					</JobRequirementDescription>
+				</JobRequirementWrapper>
+			)}
 			<br />
 
-			<JobRequirementWrapper>
+			{/* <JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={certificateImage} alt=""></img>
 					<span>&nbsp;Beneficios</span>
@@ -449,7 +477,7 @@ export const JobContentWrapper = function (
 						return <DescriptionTag key={v}>{v}</DescriptionTag>;
 					})}
 				</JobRequirementDescription>
-			</JobRequirementWrapper>
+			</JobRequirementWrapper> */}
 		</>
 	);
 };

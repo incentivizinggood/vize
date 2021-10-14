@@ -37,39 +37,40 @@ const T = translations.forEmployers;
 
 const horizontalPaddingVal = "15px";
 
-export interface Shift {
-	day: string;
-	time: string;
-}
-
 export interface JobPostInterface {
+	id: string;
+	created: Date;
+
 	company: {
 		id: string;
 		name: string;
-		avgStarRatings: StartRatingsType;
+		avgStarRatings?: StartRatingsType;
 		numReviews: number;
+		descriptionOfCompany: string;
+
+		industry: string;
+		locations: {
+			city: string;
+			industrialPark: string;
+			address: string;
+		};
 	};
-	id: string;
+	jobTitle: string;
+	jobDescription: string;
+	skills: string[];
+	certificatesAndLicences?: string[];
 	contractType: string;
-	created: date;
-	startDay: number;
-	endDay: number;
-	startTime: string;
-	endTime: string;
-	salaryMax: string;
-	salaryMin: string;
-	jobType: string;
-	minEducation: string;
-	industry: string;
-	englishProficiency: string;
-	shifts: Shift[];
-	city: string;
-	industrialPark: string;
-	address: string;
-	description: string;
-	jobSkills: string[];
-	certifications: string[];
-	benifits: string[];
+	minimumEducation: string;
+	minimumEnglishProficiency: string;
+	shifts: {
+		startDay: number;
+		endDay: number;
+		startTime: string;
+		endTime: string;
+	};
+	salaryType?: string;
+	salaryMax?: number;
+	salaryMin?: number;
 }
 const ContentWrapper = styled.div`
 	margin-left: 9%;

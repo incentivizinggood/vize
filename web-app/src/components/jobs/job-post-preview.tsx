@@ -125,6 +125,8 @@ export default function JobPostPreview(
 ): JSX.Element {
 	const { job, openJobDetail, hideButtons } = props;
 
+	console.log("job", job);
+
 	const contractType =
 		job.contractType === "FULL_TIME" ? (
 			<T.showjob.fullTime />
