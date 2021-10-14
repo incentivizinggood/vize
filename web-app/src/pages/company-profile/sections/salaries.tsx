@@ -21,7 +21,6 @@ interface SalariesSectionProps {
 // TODO: add type for props
 function SalariesSection(props: SalariesSectionProps): JSX.Element {
 	// FIRST SALARY CODE TO SHOW ON THE OVERVIEW TAB
-
 	const SalariesToDisplay = () => {
 		if (props.company.numSalaries > 0) {
 			return props.company.salaryStats

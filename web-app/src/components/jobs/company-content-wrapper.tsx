@@ -151,21 +151,21 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 						<RateReviewIcon />
 						<span>
 							&nbsp;
-							{companyDetail.salaries
-								? companyDetail.salaries.length
+							{company.salaryStats
+								? company.salaryStats.length
 								: 0}{" "}
 							Salary
 						</span>
 					</NumberOfReview>
 				</ReviewTitleRow>
-				{companyDetail.salaries.map((v: any, index: number) => {
-					return <JobDetails {...v} key={index}></JobDetails>;
+				{company.salaryStats.map((salary: any, index: number) => {
+					return <JobDetails {...salary} key={index}></JobDetails>;
 				})}
 				<ViewAllButton>
 					<Button $primary>View All Salaries</Button>
 				</ViewAllButton>
 			</CommpanyReviewsWrapper>
-			<CommpanyReviewsWrapper>
+			{/* <CommpanyReviewsWrapper>
 				<ReviewTitleRow>
 					<NumberOfReview>
 						<WorkIcon />
@@ -173,10 +173,10 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 					</NumberOfReview>
 				</ReviewTitleRow>
 				<JobList>
-					{companyDetail.jobs.map((v: any, index: number) => {
+					{company.jobAds.map((job: any, index: number) => {
 						return (
-							<Col xs={12} sm={6} md={6} key={v.id}>
-								<JobPostPreview job={...v} hideButtons />
+							<Col xs={12} sm={6} md={6} key={index}>
+								<JobPostPreview job={job} hideButtons />
 							</Col>
 						);
 					})}
@@ -184,7 +184,7 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 				<ViewAllButton>
 					<Button $primary>View All Jobs</Button>
 				</ViewAllButton>
-			</CommpanyReviewsWrapper>
+			</CommpanyReviewsWrapper> */}
 		</CompanyContent>
 	);
 }

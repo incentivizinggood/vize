@@ -29,12 +29,16 @@ fragment JobPosting on JobAd {
 
 		...CompanyProfileOverviewSection
 		...CompanyProfileReviewsSection
-		...CompanyProfileJobsSection
 		...CompanyProfileSalariesSection
 
 		descriptionOfCompany
-		industry
 		numEmployees
+		industry
+		locations {
+			city
+			address
+			industrialHub
+		}
 		websiteURL
 		companyIconURL
 	}
