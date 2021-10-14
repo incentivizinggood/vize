@@ -8,7 +8,7 @@ import WorkIcon from "@material-ui/icons/Work";
 import JobPostPreview from "./job-post-preview";
 import CompanyRatingWrapper from "./company-rating-wrapper";
 import ReviewDetails from "./review-details";
-import JobDetails from "./job-details";
+import SalaryComponent from "./salary-component";
 import descriptionImage from "../../images/job-post-icons/description.png";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 const CompanyContent = styled.div`
@@ -145,7 +145,7 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 					<Button $primary>View All Reviews</Button>
 				</ViewAllButton>
 			</CommpanyReviewsWrapper>
-			<CommpanyReviewsWrapper>
+			{/* <CommpanyReviewsWrapper>
 				<ReviewTitleRow>
 					<NumberOfReview>
 						<RateReviewIcon />
@@ -159,12 +159,12 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 					</NumberOfReview>
 				</ReviewTitleRow>
 				{company.salaryStats.map((salary: any, index: number) => {
-					return <JobDetails {...salary} key={index}></JobDetails>;
+					return <SalaryComponent {...salary} key={index}></SalaryComponent>;
 				})}
 				<ViewAllButton>
 					<Button $primary>View All Salaries</Button>
 				</ViewAllButton>
-			</CommpanyReviewsWrapper>
+			</CommpanyReviewsWrapper> */}
 			{/* <CommpanyReviewsWrapper>
 				<ReviewTitleRow>
 					<NumberOfReview>
