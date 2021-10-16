@@ -109,7 +109,6 @@ export interface Review {
 		cons: string;
 		created: Date;
 		jobTitle: string;
-		numberOfMonthsWorked: number;
 		title: string;
 		wouldRecommendToOtherJobSeekers: boolean;
 		starRatings: Ratings;
@@ -128,7 +127,6 @@ export default function ReviewDetails({ review }: Review): JSX.Element {
 		cons,
 		created,
 		jobTitle,
-		numberOfMonthsWorked,
 		title,
 		wouldRecommendToOtherJobSeekers,
 		starRatings,
@@ -138,7 +136,7 @@ export default function ReviewDetails({ review }: Review): JSX.Element {
 	return (
 		<StyledReviewDetails>
 			<ReviewHeader>
-				<ReviewTitle>Review Title</ReviewTitle>
+				<ReviewTitle>{title}</ReviewTitle>
 
 				<PostedDate>Posted {created}</PostedDate>
 			</ReviewHeader>
@@ -193,12 +191,14 @@ export default function ReviewDetails({ review }: Review): JSX.Element {
 						<ReviewCommentHeader>Cons</ReviewCommentHeader>
 						<span>{cons}</span>
 					</ReviewCommentsColumn>
-					<ReviewCommentsColumn type="full">
-						<ReviewCommentHeader>
-							Additional Comments
-						</ReviewCommentHeader>
-						<span>{additionalComments}</span>
-					</ReviewCommentsColumn>
+					{additionalComments && (
+						<ReviewCommentsColumn type="full">
+							<ReviewCommentHeader>
+								Additional Comments
+							</ReviewCommentHeader>
+							<span>{additionalComments}</span>
+						</ReviewCommentsColumn>
+					)}
 				</ReviewCommentsRow>
 			</ReviewComments>
 		</StyledReviewDetails>

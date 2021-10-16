@@ -97,6 +97,7 @@ export default function CompanyRatingWrapper({
 			ratings.managerRelationship +
 			ratings.benefits) /
 		5;
+	percentRecommended *= 100;
 
 	return (
 		<StyledCompanyRatingsWrapper>
