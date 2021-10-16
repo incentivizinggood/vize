@@ -453,7 +453,7 @@ export const JobContentWrapper = function (
 				<JobDetailsWrapper>
 					<Col xs={12} md={12} className="details-container">
 						<JobDetailsTitle>Ubicación</JobDetailsTitle>
-						{/* <LocationContainer>
+						<LocationContainer>
 							<JobDetailContainer>
 								<LanguageImage
 									src={cityImage}
@@ -462,7 +462,7 @@ export const JobContentWrapper = function (
 								<LanguageContentContainer border withImage>
 									<LanguageTitle>Ciudad</LanguageTitle>
 									<LanguageDescription>
-										{props.city}
+										{props.locations[0].city}
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
@@ -476,7 +476,7 @@ export const JobContentWrapper = function (
 										Parque Industrial
 									</LanguageTitle>
 									<LanguageDescription>
-										{props.industrialPark}
+										{props.locations[0].industrialHub}
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
@@ -491,11 +491,11 @@ export const JobContentWrapper = function (
 								>
 									<LanguageTitle>Dirección</LanguageTitle>
 									<LanguageDescription>
-										{props.address}
+										{props.locations[0].address}
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
-						</LocationContainer> */}
+						</LocationContainer>
 					</Col>
 				</JobDetailsWrapper>
 			</JobBasicDetails>

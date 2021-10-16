@@ -75,11 +75,16 @@ export default function JobDetailModal(
 	const [activetTab, setActiveTab] = useState(1);
 	const jobContentRef = useRef(null);
 	const companyContentRef = useRef(null);
+	const scrollableContentRef = useRef(null);
 
 	console.log("dataa", jobPost);
 
 	const onScroll = (e) => {
-		if (e.currentTarget.scrollTop < 700) {
+		if (
+			e.currentTarget.scrollTop <
+			companyContentRef.current.offsetTop -
+				scrollableContentRef.current.offsetTop
+		) {
 			setActiveTab(1);
 		} else {
 			setActiveTab(2);
@@ -131,12 +136,23 @@ export default function JobDetailModal(
 					<Tab value={1} label="Job" />
 					<Tab value={2} label="Company" />
 				</Tabs>
-				<ScrollableContent onScroll={onScroll}>
-					<div ref={jobContentRef} id="job-content">
+				<ScrollableContent
+					onScroll={onScroll}
+					ref={scrollableContentRef}
+				>
+					<div
+						ref={jobContentRef}
+						id="job-content"
+						onScroll={onScroll}
+					>
 						<JobContentWrapper {...jobPost}></JobContentWrapper>
 					</div>
 					<HorizontalLine />
-					<div ref={companyContentRef} id="company-content">
+					<div
+						ref={companyContentRef}
+						id="company-content"
+						onScroll={onScroll}
+					>
 						<CompanyContentWrapper
 							company={jobPost.company}
 						></CompanyContentWrapper>
