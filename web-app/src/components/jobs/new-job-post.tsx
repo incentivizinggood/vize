@@ -389,7 +389,9 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Tipo de Contrato</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={jobTypeImage} alt="dollar-img" />
-							<JobDetailvalue>{props.jobTitle}</JobDetailvalue>
+							<JobDetailvalue>
+								{props.contractType}
+							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 				</JobDetailsWrapper>
