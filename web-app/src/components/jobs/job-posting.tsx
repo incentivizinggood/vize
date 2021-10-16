@@ -20,6 +20,7 @@ import RatingsDropdown from "src/components/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
 import { JobSchedule } from "src/components/job-schedual";
 import { borderRadius, boxShadow } from "src/global-styles";
+import { absoluteDateToRelativeDate } from "src/utils";
 
 const FontAwesomeIconSized = styled(FontAwesomeIcon)`
 	width: 16px !important;
@@ -62,69 +63,24 @@ const DatePostedDiv = styled.div`
 	}
 `;
 
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-const _MS_PER_MONTH = 1000 * 60 * 60 * 24 * 30.5;
-
-// gets the date a job was posted in relative terms (ex. 5 days ago instead of using and exact date)
-function getDateDifference(datePosted: Date): JSX.Element {
-	const currentDate = new Date();
-	const postedDateUTC = Date.UTC(
-		datePosted.getFullYear(),
-		datePosted.getMonth(),
-		datePosted.getDate()
-	);
-	const currentDateUTC = Date.UTC(
-		currentDate.getFullYear(),
-		currentDate.getMonth(),
-		currentDate.getDate()
-	);
-	const diffDays = Math.floor((currentDateUTC - postedDateUTC) / _MS_PER_DAY);
-	const diffMonths = Math.floor(
-		(currentDateUTC - postedDateUTC) / _MS_PER_MONTH
-	);
-
-	if (diffDays == 1) {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffDays} <T.showjob.day_ago />
-			</>
-		);
-	}
-	if (diffDays < 30.5) {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffDays} <T.showjob.days_ago />
-			</>
-		);
-	} else if (diffMonths === 1) {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffMonths} <T.showjob.month_ago />
-			</>
-		);
-	} else {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffMonths} <T.showjob.months_ago />
-			</>
-		);
-	}
-}
-
 interface JobPostingProps {
 	job: JobPostingFragment;
 	isMinimizable: boolean; // If false, the abimity to expand and minimize the job post will be disabled
 }
 
-function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
+function JobPosting({
+	job,
+	isMinimizable = true,
+}: JobPostingProps): JSX.Element {
 	const datePosted = new Date(job.created);
-	const DatePostedComponent = () => {
-		return getDateDifference(datePosted);
+	const DatePostedComponent = (): JSX.Element => {
+		return absoluteDateToRelativeDate(datePosted);
 	};
+
 	let [jobApplicationModal, setJobApplicationModal] = React.useState(null);
 
-	function ShowApplyToJobModal() {
-		const applyToJobModalTitle: string = `Aplicar a ${job.company.name}`;
+	function ShowApplyToJobModal(): void {
+		const applyToJobModalTitle = `Aplicar a ${job.company.name}`;
 
 		setJobApplicationModal(
 			<PopupModal

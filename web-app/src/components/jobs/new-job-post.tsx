@@ -28,6 +28,7 @@ import { colors, borderRadius, boxShadow } from "src/global-styles";
 import foxconnLogoImage from "../../images/foxconnLogo.png";
 import { forSize } from "src/responsive";
 import CloseIcon from "@material-ui/icons/Close";
+import { absoluteDateToRelativeDate } from "src/utils";
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -297,6 +298,12 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 			window.removeEventListener("resize", handleWindowSizeChange);
 		};
 	}, []);
+
+	const datePosted = new Date(props.created);
+	const DatePostedComponent = (): JSX.Element => {
+		return absoluteDateToRelativeDate(datePosted);
+	};
+
 	return (
 		<>
 			<JobPostTitle>
@@ -332,7 +339,9 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 						)}
 
 						{width < 450 ? (
-							<DatePosted>Posted {props.created}</DatePosted>
+							<DatePosted>
+								<DatePostedComponent />
+							</DatePosted>
 						) : null}
 					</PostHeaderContent>
 				</JobPostHeaderRightSection>
@@ -346,7 +355,9 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 							</CloseButton>
 						</ActionsWrapper>
 						{width > 450 ? (
-							<span>Posted {props.created}</span>
+							<span>
+								<DatePostedComponent />
+							</span>
 						) : null}
 					</JobPostHeaderLeftSection>
 				) : null}

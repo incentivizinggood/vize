@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { JobPostInterface } from "../../pages/show-jobs/show-jobs";
+import { JobPost } from "src/components/jobs/new-job-post";
 import RatingsDropdown from "../ratings-dropdown";
 import { Button } from "src/components/button";
 import dollarImage from "../../images/job-post-icons/dollar.png";
@@ -10,6 +10,7 @@ import shiftsImage from "../../images/job-post-icons/shifts.png";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
 import { JobSchedule } from "../job-schedual";
+import { absoluteDateToRelativeDate } from "src/utils";
 
 import { translations } from "src/translations";
 
@@ -116,7 +117,7 @@ const ButtonsContainer = styled.div`
 	}
 `;
 interface JobPostPreviewProps {
-	job: JobPostInterface;
+	job: JobPost;
 	hideButtons?: boolean;
 	openJobDetail?: (options: any) => void;
 }
@@ -124,6 +125,11 @@ export default function JobPostPreview(
 	props: JobPostPreviewProps
 ): JSX.Element {
 	const { job, openJobDetail, hideButtons } = props;
+
+	const datePosted = new Date(props.job.created);
+	const DatePostedComponent = (): JSX.Element => {
+		return absoluteDateToRelativeDate(datePosted);
+	};
 
 	console.log("job", job);
 
@@ -157,7 +163,9 @@ export default function JobPostPreview(
 				<HeaderTextItemsContainer>
 					<CompanyNameAndPostedDateContainer>
 						<CompanyName>{job.company.name}</CompanyName>
-						{/* <PostedDate>Posted {job.postedTimeAgo}</PostedDate> */}
+						<PostedDate>
+							<DatePostedComponent />
+						</PostedDate>
 					</CompanyNameAndPostedDateContainer>
 					<JobTitle>{job.jobTitle}</JobTitle>
 					{job.company.avgStarRatings && (
