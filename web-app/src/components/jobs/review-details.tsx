@@ -5,6 +5,8 @@ import RatingsDropdownReview from "../ratings-dropdown-review";
 import { colors, borderRadius } from "src/global-styles";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { absoluteDateToRelativeDate } from "src/utils";
+
 import { forSize } from "src/responsive";
 
 const ReviewTitle = styled.h4`
@@ -133,12 +135,19 @@ export default function ReviewDetails({ review }: Review): JSX.Element {
 		location,
 	} = review;
 
+	const datePosted = new Date(review.created);
+	const DatePostedComponent = (): JSX.Element => {
+		return absoluteDateToRelativeDate(datePosted);
+	};
+
 	return (
 		<StyledReviewDetails>
 			<ReviewHeader>
 				<ReviewTitle>{title}</ReviewTitle>
 
-				<PostedDate>Posted {created}</PostedDate>
+				<PostedDate>
+					<DatePostedComponent />
+				</PostedDate>
 			</ReviewHeader>
 
 			<ReviewSubheadingText>
