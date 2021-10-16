@@ -134,7 +134,15 @@ export default function CompanyContentWrapper({
 							<strong>Website</strong>
 						</span>
 					</ExtraTitleContent>
-					<span>{company.websiteURL}</span>
+					<span>
+						<a
+							href={company.websiteURL}
+							rel="noreferrer"
+							target="_blank"
+						>
+							{company.websiteURL}
+						</a>
+					</span>
 				</ExtraDetailsContainer>
 				<ExtraDetailsContainer>
 					<ExtraTitleContent>
