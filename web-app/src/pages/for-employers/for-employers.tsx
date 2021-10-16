@@ -2,7 +2,6 @@
 import React from "react";
 import { useQuery } from "react-apollo";
 
-import { StarRatings as StartRatingsType } from "generated/graphql-operations";
 import styled from "styled-components";
 import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
@@ -14,7 +13,6 @@ import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import ResourcePreviewCard from "./resoource-preview-card";
 import ResourceTopicButton from "./resource-topic-button";
-import { JobPost } from "../../components/jobs/new-job-post";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
 import arrowDownImage from "../../images/arrow-down-circle-line.png";
@@ -30,6 +28,9 @@ import topic2Image from "../../images/job-post-icons/topic-2.png";
 import topic3Image from "../../images/job-post-icons/topic-3.png";
 import img1 from "../../images/workers.jpeg";
 
+// Types
+import { JobPost } from "../../components/jobs/new-job-post";
+
 import employerPageResourcesQuery from "./employer-page-resources.graphql";
 import { string } from "yup";
 
@@ -37,41 +38,6 @@ const T = translations.forEmployers;
 
 const horizontalPaddingVal = "15px";
 
-export interface JobPostInterface {
-	id: string;
-	created: Date;
-
-	company: {
-		id: string;
-		name: string;
-		avgStarRatings?: StartRatingsType;
-		numReviews: number;
-		descriptionOfCompany: string;
-
-		industry: string;
-		locations: {
-			city: string;
-			industrialPark: string;
-			address: string;
-		};
-	};
-	jobTitle: string;
-	jobDescription: string;
-	skills: string[];
-	certificatesAndLicences?: string[];
-	contractType: string;
-	minimumEducation: string;
-	minimumEnglishProficiency: string;
-	shifts: {
-		startDay: number;
-		endDay: number;
-		startTime: string;
-		endTime: string;
-	};
-	salaryType?: string;
-	salaryMax?: number;
-	salaryMin?: number;
-}
 const ContentWrapper = styled.div`
 	margin-left: 9%;
 	margin-right: 9%;
@@ -428,7 +394,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 	];
 	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
-	const jobPost: JobPostInterface = {
+	const jobPost: JobPost = {
 		company: "Foxconn",
 		jobPost: "Operador de Producción",
 		reviewCount: 32,

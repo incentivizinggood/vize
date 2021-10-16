@@ -4,7 +4,14 @@ import { Row, Col } from "react-bootstrap";
 import { Button } from "src/components/button";
 import ReplyIcon from "@material-ui/icons/Reply";
 import RatingsDropdown from "../ratings-dropdown";
-import { JobPostInterface } from "../../pages/for-employers/for-employers";
+
+// Types
+import {
+	StarRatings as Ratings,
+	Company,
+	CompanySalaryStats as Salary,
+} from "generated/graphql-operations";
+
 import dollarImage from "../../images/job-post-icons/dollar.png";
 import addressImage from "../../images/job-post-icons/address.png";
 import languageImage from "../../images/job-post-icons/language.png";
@@ -219,7 +226,67 @@ function ModalButtons(): JSX.Element {
 		</ActionsWrapper>
 	);
 }
-export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
+
+export interface Review {
+	review: {
+		additionalComments?: string;
+		pros: string;
+		cons: string;
+		created: Date;
+		jobTitle: string;
+		numberOfMonthsWorked: number;
+		title: string;
+		wouldRecommendToOtherJobSeekers: boolean;
+		starRatings: Ratings;
+
+		location: {
+			city: string;
+			industrialHub?: string;
+		};
+	};
+}
+
+// export interface Company {
+// 	id: string;
+// 	name: string;
+// 	avgStarRatings?: Ratings;
+// 	numReviews: number;
+// 	descriptionOfCompany: string;
+// 	industry: string;
+// 	numEmployees: number;
+// 	websiteURL: string;
+// 	locations: {
+// 		city: string;
+// 		industrialPark: string;
+// 		address: string;
+// 	};
+// 	reviews?: Review[];
+// }
+
+export interface JobPost {
+	id: string;
+	created: Date;
+
+	company: Company;
+	jobTitle: string;
+	jobDescription: string;
+	skills: string[];
+	certificatesAndLicences?: string[];
+	contractType: string;
+	minimumEducation: string;
+	minimumEnglishProficiency: string;
+	shifts: {
+		startDay: number;
+		endDay: number;
+		startTime: string;
+		endTime: string;
+	};
+	salaryType?: string;
+	salaryMax?: number;
+	salaryMin?: number;
+}
+
+export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 	const [width, setWidth] = useState<number>(window.innerWidth);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);

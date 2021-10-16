@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { colors } from "src/global-styles";
 import { Row, Col } from "react-bootstrap";
 import { Button } from "src/components/button";
+import { StarRatings as Ratings } from "generated/graphql-operations";
 
 import WorkIcon from "@material-ui/icons/Work";
 import JobPostPreview from "./job-post-preview";
@@ -76,7 +77,28 @@ const ExtraDetailsContainer = styled.div`
 const ExtraTitleContent = styled.div`
 	width: 25%;
 `;
-export default function CompanyContentWrapper({ company }: any): JSX.Element {
+
+interface CompanyContentWrapperInterface {
+	company: {
+		id: string;
+		name: string;
+		avgStarRatings?: Ratings;
+		numReviews: number;
+		descriptionOfCompany: string;
+		numEmployees: number;
+		industry: string;
+		websiteURL: string;
+		locations: {
+			city: string;
+			industrialPark: string;
+			address: string;
+		}[];
+	};
+}
+
+export default function CompanyContentWrapper({
+	company,
+}: CompanyContentWrapperInterface): JSX.Element {
 	return (
 		<CompanyContent>
 			<SectionTitle>Company Overview</SectionTitle>
@@ -124,27 +146,39 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 						{company.locations.map((location, i) => {
 							return (
 								<JobLocationText key={i}>
-									{location}
+									{location.address}, {location.city}{" "}
+									{location.industrialPark &&
+										`, ${location.industrialPark}`}
 								</JobLocationText>
 							);
 						})}
 					</JobLocationList>
 				</ExtraDetailsContainer>
 			</JobCompanyBasicDetail>
-			<CompanyRatingWrapper
-				company={company}
-				ratings={company.avgStarRatings}
-				percentRecommended={company.percentRecommended}
-				avgNumMonthsWorked={company.avgNumMonthsWorked}
-			/>
-			<CommpanyReviewsWrapper>
-				{company.reviews.map((v: any, index: number) => {
-					return <ReviewDetails {...v} key={index}></ReviewDetails>;
-				})}
-				<ViewAllButton>
-					<Button $primary>View All Reviews</Button>
-				</ViewAllButton>
-			</CommpanyReviewsWrapper>
+			{company.avgStarRatings && (
+				<>
+					<CompanyRatingWrapper
+						companyName={company.name}
+						ratings={company.avgStarRatings}
+						percentRecommended={company.percentRecommended}
+						avgNumMonthsWorked={company.avgNumMonthsWorked}
+					/>
+					<CommpanyReviewsWrapper>
+						{company.reviews.map((review: any, index: number) => {
+							return (
+								<ReviewDetails
+									review={review}
+									key={index}
+								></ReviewDetails>
+							);
+						})}
+						<ViewAllButton>
+							<Button $primary>View All Reviews</Button>
+						</ViewAllButton>
+					</CommpanyReviewsWrapper>
+				</>
+			)}
+
 			{/* <CommpanyReviewsWrapper>
 				<ReviewTitleRow>
 					<NumberOfReview>
@@ -184,7 +218,8 @@ export default function CompanyContentWrapper({ company }: any): JSX.Element {
 				<ViewAllButton>
 					<Button $primary>View All Jobs</Button>
 				</ViewAllButton>
-			</CommpanyReviewsWrapper> */}
+			</CommpanyReviewsWrapper> 
+            */}
 		</CompanyContent>
 	);
 }

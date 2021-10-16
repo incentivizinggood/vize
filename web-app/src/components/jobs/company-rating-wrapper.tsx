@@ -69,7 +69,8 @@ const Column = styled(Col)`
 		height: 230px;
 	}
 `;
-export interface Ratings {
+
+export interface Rating {
 	overallSatisfaction: number;
 	healthAndSafety: number;
 	workEnvironment: number;
@@ -78,15 +79,17 @@ export interface Ratings {
 }
 
 interface CompanyRatingWrapperProps {
-	company: string;
-	ratings: Ratings;
+	companyName: string;
+	ratings: Rating;
 	percentRecommended: number;
 	avgNumMonthsWorked: number;
 }
-export default function CompanyRatingWrapper(
-	props: CompanyRatingWrapperProps
-): JSX.Element {
-	const { company, ratings, percentRecommended, avgNumMonthsWorked } = props;
+export default function CompanyRatingWrapper({
+	companyName,
+	ratings,
+	percentRecommended,
+	avgNumMonthsWorked,
+}: CompanyRatingWrapperProps): JSX.Element {
 	const averageRating =
 		(ratings.overallSatisfaction +
 			ratings.healthAndSafety +
@@ -104,7 +107,7 @@ export default function CompanyRatingWrapper(
 							<ListGroup.Item>
 								<RatingTitle>
 									<StarsIcon />
-									&nbsp;{company} Ratings
+									&nbsp;{companyName} Ratings
 								</RatingTitle>
 							</ListGroup.Item>
 							<ListGroup.Item className="highlighted">
@@ -200,7 +203,7 @@ export default function CompanyRatingWrapper(
 					<StatesWrapper>
 						<Stats
 							value={`${percentRecommended}%`}
-							text={`The percentage of reviewers that would recommend ${company} to a friend.`}
+							text={`The percentage of reviewers that would recommend ${companyName} to a friend.`}
 						></Stats>
 						<Stats
 							value={`${avgNumMonthsWorked}`}
