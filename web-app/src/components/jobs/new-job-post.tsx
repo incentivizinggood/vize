@@ -29,6 +29,13 @@ import foxconnLogoImage from "../../images/foxconnLogo.png";
 import { forSize } from "src/responsive";
 import CloseIcon from "@material-ui/icons/Close";
 import { absoluteDateToRelativeDate } from "src/utils";
+import {
+	contractTypeTranlsations,
+	salaryTypeTranlsations,
+	educationTranslations,
+	languageProficiencyTranslations,
+	dayTranslations,
+} from "api-server/src/utils/translation-utils";
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -369,6 +376,13 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 export const JobContentWrapper = function (
 	props: JobPostInterface
 ): JSX.Element {
+	const minimumEducation = educationTranslations[props.minimumEducation];
+	const minimumEnglishProficiency =
+		languageProficiencyTranslations[props.minimumEnglishProficiency];
+	const contractType = contractTypeTranlsations[props.contractType];
+	const salaryType = props.salaryType
+		? salaryTypeTranlsations[props.salaryType]
+		: null;
 	return (
 		<>
 			<JobBasicDetails>
@@ -380,7 +394,7 @@ export const JobContentWrapper = function (
 								<img src={dollarImage} alt="dollar-img" />
 								<JobDetailvalue>
 									{props.salaryMin} - {props.salaryMax} /{" "}
-									{props.salaryType}
+									{salaryType}
 								</JobDetailvalue>
 							</JobDetailContent>
 						</Col>
@@ -389,9 +403,7 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Tipo de Contrato</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={jobTypeImage} alt="dollar-img" />
-							<JobDetailvalue>
-								{props.contractType}
-							</JobDetailvalue>
+							<JobDetailvalue>{contractType}</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 				</JobDetailsWrapper>
@@ -400,9 +412,7 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Educación Minima</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={minEducationImage} alt="dollar-img" />
-							<JobDetailvalue>
-								{props.minimumEducation}
-							</JobDetailvalue>
+							<JobDetailvalue>{minimumEducation}</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 					<Col xs={12} md={6} className="details-container">
@@ -424,7 +434,7 @@ export const JobContentWrapper = function (
 								alt="dollar-img"
 							/>
 							<JobDetailvalue>
-								{props.minimumEnglishProficiency}
+								{minimumEnglishProficiency}
 							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
@@ -433,6 +443,9 @@ export const JobContentWrapper = function (
 						<JobDetailContent>
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
 							{props.shifts.map((shift, index) => {
+								const startDay =
+									dayTranslations[shift.startDay];
+								const endDay = dayTranslations[shift.endDay];
 								return (
 									<LanguageContentContainer
 										border={
@@ -441,7 +454,7 @@ export const JobContentWrapper = function (
 										key={index}
 									>
 										<LanguageTitle>
-											{shift.startDay} - {shift.endDay}
+											{startDay} - {endDay}
 										</LanguageTitle>
 										<LanguageDescription>
 											{shift.startTime} - {shift.endTime}

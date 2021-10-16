@@ -11,6 +11,10 @@ import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
 import { JobSchedule } from "../job-schedual";
 import { absoluteDateToRelativeDate } from "src/utils";
+import {
+	contractTypeTranlsations,
+	salaryTypeTranlsations,
+} from "api-server/src/utils/translation-utils";
 
 import { translations } from "src/translations";
 
@@ -133,18 +137,10 @@ export default function JobPostPreview(
 
 	console.log("job", job);
 
-	const contractType =
-		job.contractType === "FULL_TIME" ? (
-			<T.showjob.fullTime />
-		) : job.contractType === "PART_TIME" ? (
-			<T.showjob.partTime />
-		) : job.contractType === "INTERNSHIP" ? (
-			<T.showjob.internship />
-		) : job.contractType === "TEMPORARY" ? (
-			<T.showjob.temporary />
-		) : (
-			<T.showjob.contractor />
-		);
+	const contractType = contractTypeTranlsations[job.contractType];
+	const salaryType = job.salaryType
+		? salaryTypeTranlsations[job.salaryType]
+		: null;
 
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
@@ -201,7 +197,7 @@ export default function JobPostPreview(
 				<JobDetailContainer>
 					<img src={dollarImage} alt="Salary Icon" />
 					<JobDetailText>
-						${job.salaryMin} - ${job.salaryMax} pesos / semana
+						${job.salaryMin} - ${job.salaryMax} pesos / {salaryType}
 					</JobDetailText>
 				</JobDetailContainer>
 				<JobDetailContainer>
