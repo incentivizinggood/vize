@@ -9,7 +9,7 @@ import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
-import { JobSchedule } from "../job-schedual";
+import { JobShift } from "../job-shift";
 import { absoluteDateToRelativeDate } from "src/utils";
 import {
 	contractTypeTranlsations,
@@ -19,6 +19,17 @@ import {
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
+
+const ShiftContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
+	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.border ? "1px solid #efefef" : ""};
+	padding-right: 10px;
+	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.withImage ? "10px" : ""};
+`;
 
 const JobPostPreviewWrapper = styled.div`
 	background: #fff;
@@ -217,19 +228,24 @@ export default function JobPostPreview(
 				</JobDetailContainer>
 				<JobDetailContainer>
 					<ShiftsIcon src={shiftsImage} alt="Shifts Icon" />
-					<JobSchedule
-						startTime={job.startTime}
-						endTime={job.endTime}
-						startDay={job.startDay}
-						endDay={job.endDay}
-					/>
+					{/* <ShiftDay>{startDay} - {endDay}</ShiftDay>
+								<ShiftTime>{shift.startTime} - {shift.endTime}</ShiftTime> */}
 
-					{/* {job.shifts.map((shift, index) => {
-						return <ShiftContainer border={index < job.shifts.length - 1} key={index}>
-							<ShiftDay>{shift.day}</ShiftDay>
-							<ShiftTime>{shift.time}</ShiftTime>
-						</ShiftContainer>;
-					})} */}
+					{job.shifts.map((shift, index) => {
+						return (
+							<ShiftContainer
+								border={index < job.shifts.length - 1}
+								key={index}
+							>
+								<JobShift
+									startTime={shift.startTime}
+									endTime={shift.endTime}
+									startDay={shift.startDay}
+									endDay={shift.endDay}
+								/>
+							</ShiftContainer>
+						);
+					})}
 				</JobDetailContainer>
 				{!hideButtons ? (
 					<ButtonsContainer>

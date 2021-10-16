@@ -29,6 +29,8 @@ import foxconnLogoImage from "../../images/foxconnLogo.png";
 import { forSize } from "src/responsive";
 import CloseIcon from "@material-ui/icons/Close";
 import { absoluteDateToRelativeDate } from "src/utils";
+import { JobShift } from "../job-shift";
+
 import {
 	contractTypeTranlsations,
 	salaryTypeTranlsations,
@@ -36,6 +38,17 @@ import {
 	languageProficiencyTranslations,
 	dayTranslations,
 } from "api-server/src/utils/translation-utils";
+
+const ShiftContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
+	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.border ? "1px solid #efefef" : ""};
+	padding-right: 10px;
+	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.withImage ? "10px" : ""};
+`;
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -443,23 +456,18 @@ export const JobContentWrapper = function (
 						<JobDetailContent>
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
 							{props.shifts.map((shift, index) => {
-								const startDay =
-									dayTranslations[shift.startDay];
-								const endDay = dayTranslations[shift.endDay];
 								return (
-									<LanguageContentContainer
-										border={
-											index !== props.shifts.length - 1
-										}
+									<ShiftContainer
+										border={index < props.shifts.length - 1}
 										key={index}
 									>
-										<LanguageTitle>
-											{startDay} - {endDay}
-										</LanguageTitle>
-										<LanguageDescription>
-											{shift.startTime} - {shift.endTime}
-										</LanguageDescription>
-									</LanguageContentContainer>
+										<JobShift
+											startTime={shift.startTime}
+											endTime={shift.endTime}
+											startDay={shift.startDay}
+											endDay={shift.endDay}
+										/>
+									</ShiftContainer>
 								);
 							})}
 						</JobDetailContent>

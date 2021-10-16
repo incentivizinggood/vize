@@ -18,7 +18,7 @@ import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
 import RatingsDropdown from "src/components/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
-import { JobSchedule } from "src/components/job-schedual";
+import { JobShift } from "src/components/job-shift";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { absoluteDateToRelativeDate } from "src/utils";
 
@@ -109,7 +109,7 @@ function JobPosting({
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
-	const showJobSchedule =
+	const showJobShift =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
 
 	// A job post will not be minimizable if we are only looking at that one job post (using the job post link).
@@ -211,10 +211,10 @@ function JobPosting({
 				{contractType}
 			</div>
 
-			{showJobSchedule && (
+			{showJobShift && (
 				<div>
 					<FontAwesomeIconSized icon={faClock} />
-					<JobSchedule
+					<JobShift
 						startTime={job.startTime}
 						endTime={job.endTime}
 						startDay={job.startDay}
