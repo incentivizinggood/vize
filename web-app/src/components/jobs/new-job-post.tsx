@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { Button } from "src/components/button";
-import ReplyIcon from "@material-ui/icons/Reply";
 import RatingsDropdown from "../ratings-dropdown";
+import { colors, borderRadius, boxShadow } from "src/global-styles";
+import { forSize } from "src/responsive";
+import CloseIcon from "@material-ui/icons/Close";
+import { absoluteDateToRelativeDate } from "src/utils";
+import { JobShift } from "../job-shift";
+import {
+	contractTypeTranlsations,
+	salaryTypeTranlsations,
+	educationTranslations,
+	languageProficiencyTranslations,
+} from "api-server/src/utils/translation-utils";
 
 // Types
 import {
@@ -12,6 +22,8 @@ import {
 	CompanySalaryStats as Salary,
 } from "generated/graphql-operations";
 
+// Images & Icons
+import defaultCompanyIcon from "src/images/default-company.png";
 import dollarImage from "../../images/job-post-icons/dollar.png";
 import addressImage from "../../images/job-post-icons/address.png";
 import languageImage from "../../images/job-post-icons/language.png";
@@ -24,20 +36,7 @@ import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import minEducationImage from "../../images/job-post-icons/min-education.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
-import { colors, borderRadius, boxShadow } from "src/global-styles";
-import foxconnLogoImage from "../../images/foxconnLogo.png";
-import { forSize } from "src/responsive";
-import CloseIcon from "@material-ui/icons/Close";
-import { absoluteDateToRelativeDate } from "src/utils";
-import { JobShift } from "../job-shift";
-
-import {
-	contractTypeTranlsations,
-	salaryTypeTranlsations,
-	educationTranslations,
-	languageProficiencyTranslations,
-	dayTranslations,
-} from "api-server/src/utils/translation-utils";
+import ReplyIcon from "@material-ui/icons/Reply";
 
 const ShiftContainer = styled.div`
 	display: flex;
@@ -56,7 +55,7 @@ const JobPostCard = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
 	padding: 20px;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	box-shadow: ${boxShadow.wide};
 	max-width: 700px;
 `;
 const JobRequirementWrapper = styled.div`
@@ -324,11 +323,15 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 		return absoluteDateToRelativeDate(datePosted);
 	};
 
+	const companyProfileIcon = props.company.companyIconURL
+		? props.company.companyIconURL
+		: defaultCompanyIcon;
+
 	return (
 		<>
 			<JobPostTitle>
 				<JobPostHeaderRightSection>
-					<PostImage src={foxconnLogoImage} alt="post-image" />
+					<PostImage src={companyProfileIcon} alt="post-image" />
 					<PostHeaderContent>
 						<PostTitle>{props.company.name}</PostTitle>
 						<PostSubHeading>{props.jobTitle}</PostSubHeading>

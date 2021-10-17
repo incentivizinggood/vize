@@ -3,10 +3,6 @@ import styled from "styled-components";
 import { JobPost } from "src/components/jobs/new-job-post";
 import RatingsDropdown from "../ratings-dropdown";
 import { Button } from "src/components/button";
-import dollarImage from "../../images/job-post-icons/dollar.png";
-import addressImage from "../../images/job-post-icons/address.png";
-import jobTypeImage from "../../images/job-post-icons/job-type.png";
-import shiftsImage from "../../images/job-post-icons/shifts.png";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
 import { JobShift } from "../job-shift";
@@ -17,6 +13,13 @@ import {
 } from "api-server/src/utils/translation-utils";
 
 import { translations } from "src/translations";
+
+// Images
+import defaultCompanyIcon from "src/images/default-company.png";
+import dollarImage from "../../images/job-post-icons/dollar.png";
+import addressImage from "../../images/job-post-icons/address.png";
+import jobTypeImage from "../../images/job-post-icons/job-type.png";
+import shiftsImage from "../../images/job-post-icons/shifts.png";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -153,6 +156,10 @@ export default function JobPostPreview(
 		? salaryTypeTranlsations[job.salaryType]
 		: null;
 
+	const companyProfileIcon = job.company.companyIconURL
+		? job.company.companyIconURL
+		: defaultCompanyIcon;
+
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
@@ -166,7 +173,7 @@ export default function JobPostPreview(
 			}}
 		>
 			<HeaderContainer>
-				{/* <CompanyLogo src={job.companyLogo} alt="Company Logo" /> */}
+				<CompanyLogo src={companyProfileIcon} alt="Company Logo" />
 				<HeaderTextItemsContainer>
 					<CompanyNameAndPostedDateContainer>
 						<CompanyName>{job.company.name}</CompanyName>
