@@ -216,9 +216,12 @@ const CssTextField = withStyles({
 	},
 })(TextField);
 const JobListWrapper = styled.div`
+	display: flex;
+	flex-wrap: wrap;
 	margin-top: 100px;
 	margin-right: 10px;
 	margin-left: 10px;
+
 	${forSize.tabletAndDown} {
 		margin-top: 55px;
 	}
@@ -426,27 +429,17 @@ export default function ShowJobs(): JSX.Element {
 						</BannerSection>
 					</Banner>
 					<JobListWrapper>
-						<Row>
-							{jobsData && jobsData.length
-								? jobsData.map((job) => {
-										return (
-											<Col
-												xs={12}
-												sm={6}
-												md={4}
-												key={job.id}
-											>
-												<JobPostPreview
-													job={job}
-													openJobDetail={
-														setJobPostModal
-													}
-												/>
-											</Col>
-										);
-								  })
-								: null}
-						</Row>
+						{jobsData && jobsData.length
+							? jobsData.map((job, i) => {
+									return (
+										<JobPostPreview
+											job={job}
+											key={i}
+											openJobDetail={setJobPostModal}
+										/>
+									);
+							  })
+							: null}
 					</JobListWrapper>
 				</PageStyling>
 				{jobPostModal.visible ? (

@@ -41,6 +41,9 @@ const JobPostPreviewWrapper = styled.div`
 	padding: 20px;
 	box-shadow: ${boxShadow.wide};
 	cursor: pointer;
+	margin-right: 2%;
+	flex: 0 0 31.333333%;
+
 	${forSize.phoneOnly} {
 		padding: 7px 5px;
 	}
@@ -212,12 +215,15 @@ export default function JobPostPreview(
 				</HeaderTextItemsContainer>
 			</HeaderContainer>
 			<JobDetailsContainer>
-				<JobDetailContainer>
-					<img src={dollarImage} alt="Salary Icon" />
-					<JobDetailText>
-						${job.salaryMin} - ${job.salaryMax} pesos / {salaryType}
-					</JobDetailText>
-				</JobDetailContainer>
+				{job.salaryMin && job.salaryMax && job.salaryType && (
+					<JobDetailContainer>
+						<img src={dollarImage} alt="Salary Icon" />
+						<JobDetailText>
+							${job.salaryMin} - ${job.salaryMax} pesos /{" "}
+							{salaryType}
+						</JobDetailText>
+					</JobDetailContainer>
+				)}
 				<JobDetailContainer>
 					<img src={jobTypeImage} alt="Contract Type Icon" />
 					<JobDetailText>{contractType}</JobDetailText>
@@ -254,6 +260,14 @@ export default function JobPostPreview(
 						);
 					})}
 				</JobDetailContainer>
+				{(job.salaryMin === null ||
+					!job.salaryMax ||
+					!job.salaryType) && (
+					<>
+						<br />
+						<br />
+					</>
+				)}
 				{!hideButtons ? (
 					<ButtonsContainer>
 						<Button $primary>Postularme</Button>
