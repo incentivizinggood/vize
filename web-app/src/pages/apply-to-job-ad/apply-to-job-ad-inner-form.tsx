@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldArray } from "formik";
+import { FieldArray, useFormikContext } from "formik";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Radio from "@material-ui/core/Radio";
@@ -58,6 +58,8 @@ function InnerForm({
 	profileExists,
 	...props
 }: ApplyToJobAdInnerFormProps): any {
+	const { values }: any = useFormikContext();
+
 	const updateOrCreateProfileText = profileExists ? (
 		<T.fields.updateProfileWithFormData />
 	) : (

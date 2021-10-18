@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { JobPost } from "src/components/jobs/new-job-post";
 import RatingsDropdown from "../ratings-dropdown";
-import { Button } from "src/components/button";
+import { Button, LinkButton } from "src/components/button";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
 import { JobShift } from "../job-shift";
@@ -11,6 +11,7 @@ import {
 	contractTypeTranlsations,
 	salaryTypeTranlsations,
 } from "api-server/src/utils/translation-utils";
+import { queryRoutes } from "src/pages/url-generators";
 
 import { translations } from "src/translations";
 
@@ -46,6 +47,7 @@ const JobPostPreviewWrapper = styled.div`
 
 	${forSize.phoneOnly} {
 		padding: 7px 5px;
+		flex: 0 0 100%;
 	}
 `;
 const HeaderContainer = styled.div`
@@ -125,11 +127,8 @@ const ButtonsContainer = styled.div`
 	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-around;
-	button {
-		width: 200px;
-		padding: 0.9rem 2rem !important;
-		margin: 0 10px;
-	}
+	width 100%;
+
 	${forSize.phoneOnly} {
 		button {
 			padding: 0.7rem 0.4rem !important;
@@ -241,9 +240,6 @@ export default function JobPostPreview(
 				</JobDetailContainer>
 				<JobDetailContainer>
 					<ShiftsIcon src={shiftsImage} alt="Shifts Icon" />
-					{/* <ShiftDay>{startDay} - {endDay}</ShiftDay>
-								<ShiftTime>{shift.startTime} - {shift.endTime}</ShiftTime> */}
-
 					{job.shifts.map((shift, index) => {
 						return (
 							<ShiftContainer
@@ -260,6 +256,7 @@ export default function JobPostPreview(
 						);
 					})}
 				</JobDetailContainer>
+				{/* TODO: Push buttons group */}
 				{(job.salaryMin === null ||
 					!job.salaryMax ||
 					!job.salaryType) && (
@@ -268,10 +265,19 @@ export default function JobPostPreview(
 						<br />
 					</>
 				)}
+
 				{!hideButtons ? (
 					<ButtonsContainer>
-						<Button $primary>Postularme</Button>
-						<Button>Show More Details</Button>
+						<LinkButton
+							$primary
+							to={`/${queryRoutes.applyForJob}/?id=${job.id}`}
+							style={{ width: "48%", padding: "0.9rem 2rem" }}
+						>
+							Postularme
+						</LinkButton>
+						<Button style={{ width: "48%" }}>
+							Show More Details
+						</Button>
 					</ButtonsContainer>
 				) : null}
 			</JobDetailsContainer>
