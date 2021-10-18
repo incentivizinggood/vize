@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { JobPost } from "src/components/jobs/new-job-post";
 import RatingsDropdown from "../ratings-dropdown";
-import { Button, LinkButton } from "src/components/button";
+import { Button } from "src/components/button";
 import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
 import { JobShift } from "../job-shift";
@@ -12,6 +12,8 @@ import {
 	salaryTypeTranlsations,
 } from "api-server/src/utils/translation-utils";
 import { queryRoutes } from "src/pages/url-generators";
+import PopupModal from "src/components/popup-modal";
+import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 
 import { translations } from "src/translations";
 
@@ -146,6 +148,24 @@ export default function JobPostPreview(
 ): JSX.Element {
 	const { job, openJobDetail, hideButtons } = props;
 
+	const [jobApplicationModal, setJobApplicationModal] = React.useState(null);
+
+	function ShowApplyToJobModal(event: any): void {
+		// Stop the job details modal from popping up
+		event.stopPropagation();
+		const applyToJobModalTitle = `Aplicar a ${job.company.name}`;
+
+		setJobApplicationModal(
+			<PopupModal
+				isOpen={true}
+				modalTitle={applyToJobModalTitle}
+				setJobApplicationModal={setJobApplicationModal}
+			>
+				<ApplyToJobAdForm jobAdId={job.id} modalIsOpen={true} />
+			</PopupModal>
+		);
+	}
+
 	const datePosted = new Date(props.job.created);
 	const DatePostedComponent = (): JSX.Element => {
 		return absoluteDateToRelativeDate(datePosted);
@@ -169,7 +189,7 @@ export default function JobPostPreview(
 	return (
 		<JobPostPreviewWrapper
 			onClick={() => {
-				if (openJobDetail) {
+				if (openJobDetail && !jobApplicationModal) {
 					openJobDetail({ visible: true, jobPost: job });
 				}
 			}}
@@ -268,19 +288,20 @@ export default function JobPostPreview(
 
 				{!hideButtons ? (
 					<ButtonsContainer>
-						<LinkButton
+						<Button
 							$primary
-							to={`/${queryRoutes.applyForJob}/?id=${job.id}`}
+							onClick={ShowApplyToJobModal}
 							style={{ width: "48%", padding: "0.9rem 2rem" }}
 						>
 							Postularme
-						</LinkButton>
+						</Button>
 						<Button style={{ width: "48%" }}>
 							Show More Details
 						</Button>
 					</ButtonsContainer>
 				) : null}
 			</JobDetailsContainer>
+			{jobApplicationModal}
 		</JobPostPreviewWrapper>
 	);
 }
