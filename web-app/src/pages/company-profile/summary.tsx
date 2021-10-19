@@ -79,6 +79,7 @@ export default function CompanyProfileSummary({
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
 
+	console.log("data", data);
 	if (!data || !data.company) {
 		return (
 			<h2>

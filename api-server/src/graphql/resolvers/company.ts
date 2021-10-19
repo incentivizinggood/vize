@@ -34,8 +34,15 @@ export const Company: CompanyResolvers = {
 
 	numReviews: (obj, _args, _context, _info) => obj.numReviews || 0,
 
-	jobAds: (obj, args, _context, _info) =>
-		dataModel.getJobAdsByCompany(obj, args.pageNum, args.pageSize),
+	jobAds: async (obj, args, _context, _info) => {
+		const test = await dataModel.getJobAdsByCompany(
+			obj,
+			args.pageNum,
+			args.pageSize
+		);
+		console.log("waaa", test);
+		return test;
+	},
 
 	numJobAds: (obj, _args, _context, _info) =>
 		dataModel.countJobAdsByCompany(obj),

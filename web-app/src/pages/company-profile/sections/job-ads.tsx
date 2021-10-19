@@ -10,7 +10,7 @@ import {
 	SectionHeaderTitle,
 	SeeMoreFooter,
 } from "../components";
-import JobPosting from "src/components/jobs/job-posting.tsx";
+import JobPostPreview from "src/components/jobs/job-post-preview";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -19,10 +19,12 @@ interface JobsSectionProps {
 }
 
 export default function JobsSection(props: JobsSectionProps): JSX.Element {
+	console.log("jobAd 2", props.company);
+
 	// FIRST JOB_AD CODE TO SHOW ON THE OVERVIEW TAB
 	let jobAdsToDisplay;
 	if (props.company.jobAds.length > 0) {
-		jobAdsToDisplay = <JobPosting job={props.company.jobAds[0]} />;
+		jobAdsToDisplay = <JobPostPreview job={props.company.jobAds[0]} />;
 	} else {
 		jobAdsToDisplay = <T.overview_tab.no_jobs />;
 	}

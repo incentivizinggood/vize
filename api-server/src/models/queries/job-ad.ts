@@ -36,6 +36,7 @@ export async function getJobAdsByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<JobAd[]> {
+	console.log("heloooo", company);
 	return simpleQuery(sql`
 		${baseQuery}
 		WHERE companyname=${company.name}

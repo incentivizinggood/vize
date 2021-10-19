@@ -10,7 +10,7 @@ import {
 	SectionHeaderTitle,
 } from "../components";
 
-import JobPosting from "src/components/jobs/job-posting";
+import JobPostPreview from "src/components/jobs/job-post-preview";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -86,6 +86,8 @@ export default function JobTab({ companyId }: JobTabProps): JSX.Element {
 		);
 	}
 
+	console.log("jobAd", data.company);
+
 	return (
 		<SectionContainer ref={infiniteRef}>
 			<SectionHeaderContainer>
@@ -95,7 +97,7 @@ export default function JobTab({ companyId }: JobTabProps): JSX.Element {
 			</SectionHeaderContainer>
 
 			{data.company.jobAds.map((jobAd) => (
-				<JobPosting key={jobAd.id} job={jobAd} />
+				<JobPostPreview key={jobAd.id} job={jobAd} />
 			))}
 			{loading ? <Spinner /> : null}
 		</SectionContainer>

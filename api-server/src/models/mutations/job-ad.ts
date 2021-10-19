@@ -96,6 +96,11 @@ export async function createJobAd(
 		} = await client.query(
 			sql`SELECT role, companyid FROM users WHERE userid=${userId}`
 		);
+		const {
+			rows: [{ name: companyName }],
+		} = await client.query(
+			sql`SELECT name FROM companies WHERE id=${companyid}`
+		);
 
 		if (role !== "company-unverified" && role !== "company") {
 			// Error in English: Only employers may create a company. You must create an employer account.
@@ -116,6 +121,7 @@ export async function createJobAd(
 		} = await client.query(sql`
 			INSERT INTO jobads
 				(
+					companyname,
 					companyid,
 					jobtitle,
 					jobdescription,
@@ -131,6 +137,7 @@ export async function createJobAd(
 				)
 			VALUES
 				(
+					${companyName},
 					${companyid},
 					${jobTitle},
 					${jobDescription},
