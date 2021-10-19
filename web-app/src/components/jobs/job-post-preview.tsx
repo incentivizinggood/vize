@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { JobPost } from "src/components/jobs/new-job-post";
 import RatingsDropdown from "../ratings-dropdown";
@@ -11,6 +11,9 @@ import {
 	contractTypeTranlsations,
 	salaryTypeTranlsations,
 } from "api-server/src/utils/translation-utils";
+import JobDetailModal from "src/components/jobs/job-detail-modal";
+import PopupModal from "src/components/popup-modal";
+import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 
 import { translations } from "src/translations";
 
@@ -146,7 +149,33 @@ export default function JobPostPreview(
 	props: JobPostPreviewProps
 ): JSX.Element {
 	const { job, openJobDetail, showApplyToJobModal, hideButtons } = props;
+	const [jobPostModal, setJobPostModal] = useState({
+		visible: false,
+		jobPost: null,
+	});
 
+	const [jobApplicationModal, setJobApplicationModal] = React.useState(null);
+
+	function ShowApplyToJobModal(
+		companyName: string,
+		jobId: string,
+		event?: any
+	): void {
+		if (event) {
+			event.stopPropagation();
+		}
+		const applyToJobModalTitle = `Aplicar a ${companyName}`;
+
+		setJobApplicationModal(
+			<PopupModal
+				isOpen={true}
+				modalTitle={applyToJobModalTitle}
+				setJobApplicationModal={setJobApplicationModal}
+			>
+				<ApplyToJobAdForm jobAdId={jobId} modalIsOpen={true} />
+			</PopupModal>
+		);
+	}
 	const datePosted = new Date(props.job.created);
 	const DatePostedComponent = (): JSX.Element => {
 		return absoluteDateToRelativeDate(datePosted);
@@ -166,12 +195,12 @@ export default function JobPostPreview(
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
-
+	useState;
 	return (
 		<JobPostPreviewWrapper
 			onClick={() => {
-				if (openJobDetail) {
-					openJobDetail({
+				if (jobPostModal.visible == false && !jobApplicationModal) {
+					setJobPostModal({
 						visible: true,
 						jobPost: job,
 					});
@@ -274,7 +303,14 @@ export default function JobPostPreview(
 					<ButtonsContainer>
 						<Button
 							$primary
-							onClick={showApplyToJobModal}
+							onClick={(event) => {
+								e.stopPropagation;
+								ShowApplyToJobModal(
+									job.company.name,
+									job.id,
+									event
+								);
+							}}
 							style={{ width: "48%", padding: "0.9rem 2rem" }}
 						>
 							Postularme
@@ -285,6 +321,22 @@ export default function JobPostPreview(
 					</ButtonsContainer>
 				) : null}
 			</JobDetailsContainer>
+			{jobPostModal.visible ? (
+				<JobDetailModal
+					visible={jobPostModal.visible}
+					jobPost={job}
+					showApplyToJobModal={() =>
+						ShowApplyToJobModal(
+							jobPostModal.jobPost.company.name,
+							jobPostModal.jobPost.id
+						)
+					}
+					onClose={() => {
+						setJobPostModal({ visible: false, jobPost: null });
+					}}
+				/>
+			) : null}
+			{jobApplicationModal}
 		</JobPostPreviewWrapper>
 	);
 }

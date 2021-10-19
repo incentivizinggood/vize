@@ -317,7 +317,8 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 			</Button> */}
 				<Button
 					$primary
-					onClick={() => {
+					onClick={(e) => {
+						e.stopPropagation();
 						props.onClose();
 						props.showApplyToJobModal();
 					}}
@@ -384,8 +385,13 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 					<JobPostHeaderLeftSection>
 						<ActionsWrapper>
 							{width > 450 ? <ModalButtons /> : null}
-							<CloseButton>
-								<CloseIcon onClick={props.onClose} />
+							<CloseButton
+								onClick={(e) => {
+									e.stopPropagation();
+									props.onClose();
+								}}
+							>
+								<CloseIcon />
 							</CloseButton>
 						</ActionsWrapper>
 						{width > 450 ? (
