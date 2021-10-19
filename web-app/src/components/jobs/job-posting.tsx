@@ -173,7 +173,7 @@ function JobPosting({
 					<RatingsDropdown
 						ratings={job.company.avgStarRatings}
 						numReviews={job.company.numReviews}
-						companyName={job.company.id}
+						companyId={job.company.id}
 					/>
 				)}
 			<div>

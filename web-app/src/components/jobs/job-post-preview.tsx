@@ -237,7 +237,7 @@ export default function JobPostPreview(
 											.overallSatisfaction,
 								}}
 								numReviews={job.reviewCount}
-								companyName={job.company.name}
+								companyId={job.company.id}
 							/>
 							<ReviewCount>
 								{job.company.numReviews} Reviews

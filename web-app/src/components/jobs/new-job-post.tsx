@@ -368,7 +368,7 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 												.overallSatisfaction,
 									}}
 									numReviews={props.company.numReviews}
-									companyName={props.company.name}
+									companyId={props.company.id}
 								/>
 							</RatingWrapper>
 						)}
