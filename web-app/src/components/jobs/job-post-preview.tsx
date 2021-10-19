@@ -45,7 +45,7 @@ const JobPostPreviewWrapper = styled.div`
 	flex: 0 0 31.333333%;
 
 	${forSize.phoneOnly} {
-		padding: 7px 5px;
+		padding: 10px;
 		flex: 0 0 100%;
 	}
 `;
@@ -76,6 +76,7 @@ const CompanyNameAndPostedDateContainer = styled.div`
 const CompanyName = styled.div`
 	color: black;
 	font-size: 13px;
+	margin-right: 3px;
 `;
 const PostedDate = styled.div`
 	color: grey;

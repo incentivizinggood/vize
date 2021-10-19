@@ -15,6 +15,7 @@ import Col from "react-bootstrap/Col";
 import { useShowJobsQuery } from "generated/graphql-operations";
 import TextField from "@material-ui/core/TextField";
 import JobListBannerImage from "../../images/job-list-banner-image.png";
+import ManJobSearchingImage from "../../images/ManJobSearching.png";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SearchIcon from "@material-ui/icons/Search";
@@ -62,7 +63,7 @@ const BannerSection = styled.div`
 `;
 const BannerTextContainer = styled.div``;
 const BannerImage = styled.img`
-	height: 125px;
+	height: 175px;
 	width: auto;
 	${forSize.tabletAndDown} {
 		display: none;
@@ -443,7 +444,9 @@ export default function ShowJobs(): JSX.Element {
 									6 Employment Offer(s) Available
 								</BannerSubtitle>
 							</BannerTextContainer>
-							<BannerImage src={JobListBannerImage}></BannerImage>
+							<BannerImage
+								src={ManJobSearchingImage}
+							></BannerImage>
 						</BannerSection>
 					</Banner>
 					<JobListWrapper>
