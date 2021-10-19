@@ -201,17 +201,19 @@ const ActionsWrapper = styled.div`
 	margin-top: 10px;
 	margin-bottom: 10px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-end;
 	align-items: center;
 	width: 430px;
 	${forSize.tabletAndDown} {
 		width: auto;
 	}
 	${forSize.phoneOnly} {
+		justify-content: space-around;
+
 		button {
-			width: 125px;
-			padding: 0.7rem 0.4rem !important;
-			font-size: 12px;
+			// width: 125px;
+			// padding: 0.7rem 0.4rem !important;
+			font-size: 19px;
 		}
 	}
 `;
@@ -232,20 +234,6 @@ const CloseButton = styled.div`
 	padding: 12px;
 	cursor: pointer;
 `;
-
-function ModalButtons(): JSX.Element {
-	return (
-		<ActionsWrapper>
-			<Button>
-				<ReplyIconWrapper>
-					<ReplyIcon />
-					<span>Compartir</span>
-				</ReplyIconWrapper>
-			</Button>
-			<Button $primary>Postularme</Button>
-		</ActionsWrapper>
-	);
-}
 
 export interface Review {
 	review: {
@@ -317,6 +305,29 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 			window.removeEventListener("resize", handleWindowSizeChange);
 		};
 	}, []);
+
+	function ModalButtons(): JSX.Element {
+		return (
+			<ActionsWrapper>
+				{/* <Button>
+				<ReplyIconWrapper>
+					<ReplyIcon />
+					<span>Compartir</span>
+				</ReplyIconWrapper>
+			</Button> */}
+				<Button
+					$primary
+					onClick={() => {
+						props.onClose();
+						props.showApplyToJobModal();
+					}}
+					style={{ marginRight: "10px" }}
+				>
+					Postularme
+				</Button>
+			</ActionsWrapper>
+		);
+	}
 
 	const datePosted = new Date(props.created);
 	const DatePostedComponent = (): JSX.Element => {

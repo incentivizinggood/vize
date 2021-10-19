@@ -11,9 +11,6 @@ import {
 	contractTypeTranlsations,
 	salaryTypeTranlsations,
 } from "api-server/src/utils/translation-utils";
-import { queryRoutes } from "src/pages/url-generators";
-import PopupModal from "src/components/popup-modal";
-import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 
 import { translations } from "src/translations";
 
@@ -142,29 +139,12 @@ interface JobPostPreviewProps {
 	job: JobPost;
 	hideButtons?: boolean;
 	openJobDetail?: (options: any) => void;
+	showApplyToJobModal?: (options: any) => void;
 }
 export default function JobPostPreview(
 	props: JobPostPreviewProps
 ): JSX.Element {
-	const { job, openJobDetail, hideButtons } = props;
-
-	const [jobApplicationModal, setJobApplicationModal] = React.useState(null);
-
-	function ShowApplyToJobModal(event: any): void {
-		// Stop the job details modal from popping up
-		event.stopPropagation();
-		const applyToJobModalTitle = `Aplicar a ${job.company.name}`;
-
-		setJobApplicationModal(
-			<PopupModal
-				isOpen={true}
-				modalTitle={applyToJobModalTitle}
-				setJobApplicationModal={setJobApplicationModal}
-			>
-				<ApplyToJobAdForm jobAdId={job.id} modalIsOpen={true} />
-			</PopupModal>
-		);
-	}
+	const { job, openJobDetail, showApplyToJobModal, hideButtons } = props;
 
 	const datePosted = new Date(props.job.created);
 	const DatePostedComponent = (): JSX.Element => {
@@ -189,8 +169,11 @@ export default function JobPostPreview(
 	return (
 		<JobPostPreviewWrapper
 			onClick={() => {
-				if (openJobDetail && !jobApplicationModal) {
-					openJobDetail({ visible: true, jobPost: job });
+				if (openJobDetail) {
+					openJobDetail({
+						visible: true,
+						jobPost: job,
+					});
 				}
 			}}
 		>
@@ -290,7 +273,7 @@ export default function JobPostPreview(
 					<ButtonsContainer>
 						<Button
 							$primary
-							onClick={ShowApplyToJobModal}
+							onClick={showApplyToJobModal}
 							style={{ width: "48%", padding: "0.9rem 2rem" }}
 						>
 							Postularme
@@ -301,7 +284,6 @@ export default function JobPostPreview(
 					</ButtonsContainer>
 				) : null}
 			</JobDetailsContainer>
-			{jobApplicationModal}
 		</JobPostPreviewWrapper>
 	);
 }

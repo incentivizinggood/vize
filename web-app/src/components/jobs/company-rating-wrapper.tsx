@@ -13,6 +13,12 @@ const CompanyRating = styled.div`
 	background-color: #eaf7ff;
 	.list-group-item:first-child {
 		background: #eff6fa;
+		border-top-left-radius: 16px;
+		border-top-right-radius: 16px;
+	}
+	.list-group-item:last-child {
+		border-bottom-left-radius: 16px;
+		border-bottom-right-radius: 16px;
 	}
 	.list-group .highlighted {
 		background-color: ${colors.tertiaryColorLightBlue};

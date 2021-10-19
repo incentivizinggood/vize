@@ -13,11 +13,6 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { forSize } from "src/responsive";
 
-interface JobDetailModalProps {
-	visible: boolean;
-	jobPost: any;
-	onClose: () => void;
-}
 const StyledModal = styled(Modal)`
 	:focus-visible {
 		outline: none;
@@ -56,6 +51,12 @@ const ScrollableContent = styled.div`
 		height: calc(100vh - 225px);
 	}
 `;
+interface JobDetailModalProps {
+	visible: boolean;
+	jobPost: any;
+	showApplyToJobModal: () => void;
+	onClose: () => void;
+}
 
 Modal.setAppElement("#app-root");
 export default function JobDetailModal(
@@ -71,7 +72,7 @@ export default function JobDetailModal(
 			window.removeEventListener("resize", handleWindowSizeChange);
 		};
 	}, []);
-	const { visible, jobPost, onClose } = props;
+	const { visible, jobPost, showApplyToJobModal, onClose } = props;
 	const [activetTab, setActiveTab] = useState(1);
 	const jobContentRef = useRef(null);
 	const companyContentRef = useRef(null);
@@ -113,6 +114,7 @@ export default function JobDetailModal(
 				<JobPostTitleRow
 					{...jobPost}
 					modal
+					showApplyToJobModal={showApplyToJobModal}
 					onClose={onClose}
 				></JobPostTitleRow>
 				<Tabs

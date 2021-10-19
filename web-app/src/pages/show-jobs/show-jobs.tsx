@@ -20,6 +20,8 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import { borderRadius } from "src/global-styles";
+import PopupModal from "src/components/popup-modal";
+import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
 
 const T = translations.legacyTranslationsNeedsRefactor;
 
@@ -315,6 +317,22 @@ export default function ShowJobs(): JSX.Element {
 		jobPost: null,
 	});
 
+	const [jobApplicationModal, setJobApplicationModal] = React.useState(null);
+
+	function ShowApplyToJobModal(companyName: string, jobId: string): void {
+		const applyToJobModalTitle = `Aplicar a ${companyName}`;
+
+		setJobApplicationModal(
+			<PopupModal
+				isOpen={true}
+				modalTitle={applyToJobModalTitle}
+				setJobApplicationModal={setJobApplicationModal}
+			>
+				<ApplyToJobAdForm jobAdId={jobId} modalIsOpen={true} />
+			</PopupModal>
+		);
+	}
+
 	useEffect(() => {
 		window.addEventListener("resize", handleWindowSizeChange);
 		return () => {
@@ -435,6 +453,12 @@ export default function ShowJobs(): JSX.Element {
 										<JobPostPreview
 											job={job}
 											key={i}
+											showApplyToJobModal={() =>
+												ShowApplyToJobModal(
+													job.company.name,
+													job.id
+												)
+											}
 											openJobDetail={setJobPostModal}
 										/>
 									);
@@ -446,12 +470,19 @@ export default function ShowJobs(): JSX.Element {
 					<JobDetailModal
 						visible={jobPostModal.visible}
 						jobPost={jobPostModal.jobPost}
+						showApplyToJobModal={() =>
+							ShowApplyToJobModal(
+								jobPostModal.jobPost.company.name,
+								jobPostModal.jobPost.id
+							)
+						}
 						onClose={() => {
 							setJobPostModal({ visible: false, jobPost: null });
 						}}
 					/>
 				) : null}
 			</div>
+			{jobApplicationModal}
 		</PageWrapper>
 	);
 }
