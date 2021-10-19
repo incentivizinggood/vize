@@ -99,7 +99,7 @@ export async function createJobAd(
 		const {
 			rows: [{ name: companyName }],
 		} = await client.query(
-			sql`SELECT name FROM companies WHERE id=${companyid}`
+			sql`SELECT name FROM companies WHERE companyid=${companyid}`
 		);
 
 		if (role !== "company-unverified" && role !== "company") {
