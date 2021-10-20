@@ -28,6 +28,8 @@ const PageStyling = styled.div`
 	padding-bottom: 30px;
 	padding-right: 50px;
 	padding-left: 50px;
+	max-width: 1500px;
+	margin: 0 auto;
 
 	${forSize.tabletAndDown} {
 		padding-top: 50px;

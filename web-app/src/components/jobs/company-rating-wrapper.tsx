@@ -118,6 +118,12 @@ export default function CompanyRatingWrapper({
 		5;
 	percentRecommended *= 100;
 
+	let avgNumMonthsWorkedFormatted = avgNumMonthsWorked.toFixed(1);
+	if (avgNumMonthsWorkedFormatted.includes(".0")) {
+		console.log("ye");
+		avgNumMonthsWorkedFormatted = avgNumMonthsWorkedFormatted.substr(0, 1);
+	}
+
 	return (
 		<StyledCompanyRatingsWrapper>
 			<CompanyRating>
@@ -219,7 +225,7 @@ export default function CompanyRatingWrapper({
 					text={`El porcentaje de revisores que recomendarían ${companyName} a un amigo.`}
 				></Stats>
 				<Stats
-					value={`${avgNumMonthsWorked}`}
+					value={`${avgNumMonthsWorkedFormatted}`}
 					text="La cantidad promedio de meses que trabajadores permanecieron en esta fábrica."
 				></Stats>
 			</StatesWrapper>

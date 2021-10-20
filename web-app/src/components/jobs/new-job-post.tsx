@@ -548,7 +548,7 @@ export const JobContentWrapper = function (
 					<span>&nbsp;Descripción</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{props.company.descriptionOfCompany}
+					{props.jobDescription}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<br />
