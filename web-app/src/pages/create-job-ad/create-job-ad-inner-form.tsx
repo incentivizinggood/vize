@@ -44,13 +44,13 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 					multiline
 					rows={6}
 					required
-					t={T.fields.responsibilities}
+					t={T.fields.skills}
 				/>
 				<Field
 					name="certificatesAndLicences"
 					multiline
 					rows={6}
-					t={T.fields.qualifications}
+					t={T.fields.certificatesAndLicences}
 				/>
 				<br />
 				<T.fields.contractType
@@ -107,7 +107,7 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 								<FormControlLabel
 									value="HIGH_SCHOOL"
 									control={<Radio />}
-									label={t.completedHighSchool}
+									label={t.highSchool}
 								/>,
 								<FormControlLabel
 									value="SOME_COLLEGE"
@@ -124,7 +124,7 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 					)}
 				/>
 				<br />
-				<T.fields.minimumLanguage
+				<T.fields.minimumEnglishProficiency
 					renderer={(t) => (
 						<Field
 							name="minimumEnglishProficiency"
@@ -164,7 +164,7 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 				<FormArray
 					name="shifts"
 					ElementRender={({ name }: { name: string }) => (
-						<T.fields.jobSchedule
+						<T.fields.shifts
 							renderer={(t: any) => (
 								<ShiftSelectionWrapper>
 									<Field
@@ -239,7 +239,7 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 							)}
 						/>
 					)}
-					T={T.fields.jobSchedule}
+					T={T.fields.shifts}
 				/>
 				<FormArray
 					name="locations"

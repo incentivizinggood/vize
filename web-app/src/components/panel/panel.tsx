@@ -23,6 +23,10 @@ const Panel = styled.div<Props>`
 	color: black;
 	box-shadow: ${boxShadow.wide};
 	padding: ${PannelPadding};
+
+	${forSize.phoneOnly} {
+		padding: 15px;
+	}
 `;
 
 export default Panel;
