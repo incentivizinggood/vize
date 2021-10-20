@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { colors } from "src/global-styles";
 import { Row, Col } from "react-bootstrap";
-import { Button } from "src/components/button";
+import { LinkButton } from "src/components/button";
 import { StarRatings as Ratings } from "generated/graphql-operations";
+import { queryRoutes } from "src/pages/url-generators";
 
 import WorkIcon from "@material-ui/icons/Work";
 import JobPostPreview from "./job-post-preview";
@@ -181,7 +182,12 @@ export default function CompanyContentWrapper({
 							);
 						})}
 						<ViewAllButton>
-							<Button $primary>View All Reviews</Button>
+							<LinkButton
+								to={`/${queryRoutes.companyProfile}/${company.id}/${queryRoutes.reviews}`}
+								$primary
+							>
+								View All Reviews
+							</LinkButton>
 						</ViewAllButton>
 					</CommpanyReviewsWrapper>
 				</>
