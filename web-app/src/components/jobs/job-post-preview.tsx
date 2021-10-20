@@ -301,7 +301,7 @@ export default function JobPostPreview(
 						<Button
 							$primary
 							onClick={(event) => {
-								e.stopPropagation;
+								event.stopPropagation;
 								ShowApplyToJobModal(
 									job.company.name,
 									job.id,
