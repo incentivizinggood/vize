@@ -135,8 +135,8 @@ export default function JobDetailModal(
 					}}
 					aria-label="disabled tabs example"
 				>
-					<Tab value={1} label="Job" />
-					<Tab value={2} label="Company" />
+					<Tab value={1} label="Empleo" />
+					<Tab value={2} label="Empresa" />
 				</Tabs>
 				<ScrollableContent
 					onScroll={onScroll}

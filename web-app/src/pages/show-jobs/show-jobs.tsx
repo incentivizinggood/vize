@@ -70,6 +70,10 @@ const BannerImage = styled.img`
 const BannerTitle = styled.div`
 	font-size: 36px;
 	margin: 20px 0px;
+
+	${forSize.tabletAndDown} {
+		font-size: 26px;
+	}
 `;
 const BannerVizeContent = styled.span`
 	position: relative;
@@ -411,14 +415,19 @@ export default function ShowJobs(): JSX.Element {
 						<BannerSection>
 							<BannerTextContainer>
 								<BannerTitle>
-									Find a Great Job in&nbsp;
+									Encuentra el mejor empleo para ti en&nbsp;
 									<BannerVizeContent>
 										Tijuana
 										<VizeBackgroundEffect />
 									</BannerVizeContent>
 								</BannerTitle>
 								<BannerSubtitle>
-									6 Employment Offer(s) Available
+									{jobsData && jobsData.length} Vacante
+									{jobsData &&
+										jobsData.length > 1 &&
+										"s"}{" "}
+									Disponible
+									{jobsData && jobsData.length > 1 && "s"}
 								</BannerSubtitle>
 							</BannerTextContainer>
 							<BannerImage

@@ -236,12 +236,9 @@ export default function JobPostPreview(
 										job.company.avgStarRatings
 											.overallSatisfaction,
 								}}
-								numReviews={job.reviewCount}
+								numReviews={job.company.numReviews}
 								companyId={job.company.id}
 							/>
-							<ReviewCount>
-								{job.company.numReviews} Reviews
-							</ReviewCount>
 						</RatingWrapper>
 					)}
 				</HeaderTextItemsContainer>
@@ -316,7 +313,7 @@ export default function JobPostPreview(
 							Postularme
 						</Button>
 						<Button style={{ width: "48%" }}>
-							Show More Details
+							Ver Más Detalles
 						</Button>
 					</ButtonsContainer>
 				) : null}
