@@ -18,7 +18,7 @@ const ReviewSubheadingText = styled.h5`
 `;
 const StyledReviewDetails = styled.div`
 	padding: 15px;
-	margin-top: 10px;
+	margin-top: 20px;
 	border-radius: ${borderRadius.container};
 	border: 1px solid #efefef;
 	background-color: #f9f9f9;
@@ -151,7 +151,7 @@ export default function ReviewDetails({ review }: Review): JSX.Element {
 			</ReviewHeader>
 
 			<ReviewSubheadingText>
-				<b>{jobTitle}</b> in {location.city}{" "}
+				<b>{jobTitle}</b> en {location.city}{" "}
 				{location.industrialHub && `, ${location.industrialHub}`}
 			</ReviewSubheadingText>
 			{/* <ReviewSubheadingText>
@@ -193,17 +193,17 @@ export default function ReviewDetails({ review }: Review): JSX.Element {
 			<ReviewComments>
 				<ReviewCommentsRow>
 					<ReviewCommentsColumn type="half">
-						<ReviewCommentHeader>Pros</ReviewCommentHeader>
+						<ReviewCommentHeader>Ventajas</ReviewCommentHeader>
 						<span>{pros}</span>
 					</ReviewCommentsColumn>
 					<ReviewCommentsColumn type="half">
-						<ReviewCommentHeader>Cons</ReviewCommentHeader>
+						<ReviewCommentHeader>Desventajas</ReviewCommentHeader>
 						<span>{cons}</span>
 					</ReviewCommentsColumn>
 					{additionalComments && (
 						<ReviewCommentsColumn type="full">
 							<ReviewCommentHeader>
-								Additional Comments
+								Comentarios Adicionales
 							</ReviewCommentHeader>
 							<span>{additionalComments}</span>
 						</ReviewCommentsColumn>

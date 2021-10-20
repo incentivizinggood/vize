@@ -102,7 +102,7 @@ export default function CompanyContentWrapper({
 }: CompanyContentWrapperInterface): JSX.Element {
 	return (
 		<CompanyContent>
-			<SectionTitle>Company Overview</SectionTitle>
+			<SectionTitle>Resumen de {company.name}</SectionTitle>
 			<JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={descriptionImage} alt=""></img>
@@ -116,7 +116,7 @@ export default function CompanyContentWrapper({
 				<ExtraDetailsContainer>
 					<ExtraTitleContent>
 						<span>
-							<strong>Size</strong>
+							<strong>Tamaño</strong>
 						</span>
 					</ExtraTitleContent>
 					<span>{company.numEmployees}</span>
@@ -124,7 +124,7 @@ export default function CompanyContentWrapper({
 				<ExtraDetailsContainer>
 					<ExtraTitleContent>
 						<span>
-							<strong>Industry</strong>
+							<strong>Industria</strong>
 						</span>
 					</ExtraTitleContent>
 					<span>{company.industry}</span>
@@ -132,7 +132,7 @@ export default function CompanyContentWrapper({
 				<ExtraDetailsContainer>
 					<ExtraTitleContent>
 						<span>
-							<strong>Website</strong>
+							<strong>Sitio Web</strong>
 						</span>
 					</ExtraTitleContent>
 					<span>
@@ -148,7 +148,7 @@ export default function CompanyContentWrapper({
 				<ExtraDetailsContainer>
 					<ExtraTitleContent>
 						<span>
-							<strong>Location</strong>
+							<strong>Ubicación</strong>
 						</span>
 					</ExtraTitleContent>
 					<JobLocationList>
@@ -186,7 +186,7 @@ export default function CompanyContentWrapper({
 								to={`/${queryRoutes.companyProfile}/${company.id}/${queryRoutes.reviews}`}
 								$primary
 							>
-								View All Reviews
+								Ver Todas las Evaluaciones
 							</LinkButton>
 						</ViewAllButton>
 					</CommpanyReviewsWrapper>

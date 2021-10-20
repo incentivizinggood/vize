@@ -7,8 +7,16 @@ import { colors, borderRadius } from "src/global-styles";
 import Stats from "./stats";
 import { forSize } from "src/responsive";
 
-const StyledCompanyRatingsWrapper = styled.div``;
+const StyledCompanyRatingsWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+
+	${forSize.tabletAndDown} {
+		flex-direction: column;
+	}
+`;
 const CompanyRating = styled.div`
+	flex: 0 0 49%;
 	border-radius: ${borderRadius.container};
 	background-color: #eaf7ff;
 	.list-group-item:first-child {
@@ -25,6 +33,9 @@ const CompanyRating = styled.div`
 	}
 	.list-group .even {
 		background-color: #eff6fa;
+	}
+	.list-group {
+		margin-bottom: 0px;
 	}
 	${forSize.tabletAndDown} {
 		.list-group-item {
@@ -52,6 +63,8 @@ const RatingContainer = styled.div`
 `;
 const StatesWrapper = styled.div`
 	display: flex;
+	justify-content: space-between;
+	flex: 0 0 49%;
 	flex-direction: column;
 	height: inherit;
 	${forSize.tabletAndDown} {
@@ -107,118 +120,109 @@ export default function CompanyRatingWrapper({
 
 	return (
 		<StyledCompanyRatingsWrapper>
-			<Row>
-				<Column md={6}>
-					<CompanyRating>
-						<ListGroup>
-							<ListGroup.Item>
-								<RatingTitle>
-									<StarsIcon />
-									&nbsp;{companyName} Ratings
-								</RatingTitle>
-							</ListGroup.Item>
-							<ListGroup.Item className="highlighted">
-								<RatingContainer highlighted>
-									<span>Average Rating</span>
-									<div>
-										<StarRatings
-											rating={averageRating}
-											starDimension="18px"
-											starSpacing="2px"
-										/>
-									</div>
-									<span>{averageRating.toFixed(1)}</span>
-								</RatingContainer>
-							</ListGroup.Item>
-							<ListGroup.Item className="even">
-								<RatingContainer>
-									<span>Overall Satisfaction</span>
-									<div>
-										<StarRatings
-											rating={ratings.overallSatisfaction}
-											starDimension="15px"
-											starSpacing="1.5px"
-										/>
-									</div>
-									<span>
-										{ratings.overallSatisfaction.toFixed(1)}
-									</span>
-								</RatingContainer>
-							</ListGroup.Item>
-							<ListGroup.Item>
-								<RatingContainer>
-									<span>Health and Safety</span>
-									<div>
-										<StarRatings
-											rating={ratings.healthAndSafety}
-											starDimension="15px"
-											starSpacing="1.5px"
-										/>
-									</div>
-									<span>
-										{ratings.healthAndSafety.toFixed(1)}
-									</span>
-								</RatingContainer>
-							</ListGroup.Item>
-							<ListGroup.Item className="even">
-								<RatingContainer>
-									<span>Work Environment</span>
-									<div>
-										<StarRatings
-											rating={ratings.workEnvironment}
-											starDimension="15px"
-											starSpacing="1.5px"
-										/>
-									</div>
-									<span>
-										{ratings.workEnvironment.toFixed(1)}
-									</span>
-								</RatingContainer>
-							</ListGroup.Item>
-							<ListGroup.Item>
-								<RatingContainer>
-									<span>Manager Relationships</span>
-									<div>
-										<StarRatings
-											rating={ratings.managerRelationship}
-											starDimension="15px"
-											starSpacing="1.5px"
-										/>
-									</div>
-									<span>
-										{ratings.managerRelationship.toFixed(1)}
-									</span>
-								</RatingContainer>
-							</ListGroup.Item>
-							<ListGroup.Item className="even">
-								<RatingContainer>
-									<span>Benefits</span>
-									<div>
-										<StarRatings
-											rating={ratings.benefits}
-											starDimension="15px"
-											starSpacing="1.5px"
-										/>
-									</div>
-									<span>{ratings.benefits.toFixed(1)}</span>
-								</RatingContainer>
-							</ListGroup.Item>
-						</ListGroup>
-					</CompanyRating>
-				</Column>
-				<Column md={6}>
-					<StatesWrapper>
-						<Stats
-							value={`${percentRecommended}%`}
-							text={`The percentage of reviewers that would recommend ${companyName} to a friend.`}
-						></Stats>
-						<Stats
-							value={`${avgNumMonthsWorked}`}
-							text="The average numbe of months that workers stayed at this factory."
-						></Stats>
-					</StatesWrapper>
-				</Column>
-			</Row>
+			<CompanyRating>
+				<ListGroup>
+					<ListGroup.Item>
+						<RatingTitle>
+							<StarsIcon />
+							&nbsp;{companyName} Calificaciones
+						</RatingTitle>
+					</ListGroup.Item>
+					<ListGroup.Item className="highlighted">
+						<RatingContainer highlighted>
+							<span>Promedio</span>
+							<div>
+								<StarRatings
+									rating={averageRating}
+									starDimension="18px"
+									starSpacing="2px"
+								/>
+							</div>
+							<span>{averageRating.toFixed(1)}</span>
+						</RatingContainer>
+					</ListGroup.Item>
+					<ListGroup.Item className="even">
+						<RatingContainer>
+							<span>Satisfacción General</span>
+							<div>
+								<StarRatings
+									rating={ratings.overallSatisfaction}
+									starDimension="15px"
+									starSpacing="1.5px"
+								/>
+							</div>
+							<span>
+								{ratings.overallSatisfaction.toFixed(1)}
+							</span>
+						</RatingContainer>
+					</ListGroup.Item>
+					<ListGroup.Item>
+						<RatingContainer>
+							<span>Salud y Seguiridad</span>
+							<div>
+								<StarRatings
+									rating={ratings.healthAndSafety}
+									starDimension="15px"
+									starSpacing="1.5px"
+								/>
+							</div>
+							<span>{ratings.healthAndSafety.toFixed(1)}</span>
+						</RatingContainer>
+					</ListGroup.Item>
+					<ListGroup.Item className="even">
+						<RatingContainer>
+							<span>Ambiente de Trabajo</span>
+							<div>
+								<StarRatings
+									rating={ratings.workEnvironment}
+									starDimension="15px"
+									starSpacing="1.5px"
+								/>
+							</div>
+							<span>{ratings.workEnvironment.toFixed(1)}</span>
+						</RatingContainer>
+					</ListGroup.Item>
+					<ListGroup.Item>
+						<RatingContainer>
+							<span>Relaciones con Supervisores</span>
+							<div>
+								<StarRatings
+									rating={ratings.managerRelationship}
+									starDimension="15px"
+									starSpacing="1.5px"
+								/>
+							</div>
+							<span>
+								{ratings.managerRelationship.toFixed(1)}
+							</span>
+						</RatingContainer>
+					</ListGroup.Item>
+					<ListGroup.Item className="even">
+						<RatingContainer>
+							<span>Beneficios</span>
+							<div>
+								<StarRatings
+									rating={ratings.benefits}
+									starDimension="15px"
+									starSpacing="1.5px"
+								/>
+							</div>
+							<span>{ratings.benefits.toFixed(1)}</span>
+						</RatingContainer>
+					</ListGroup.Item>
+				</ListGroup>
+			</CompanyRating>
+
+			<StatesWrapper>
+				<Stats
+					value={`${percentRecommended}%`}
+					text={`El porcentaje de revisores que recomendarían ${companyName} a un amigo.`}
+				></Stats>
+				<Stats
+					value={`${avgNumMonthsWorked}`}
+					text="La cantidad promedio de meses que trabajadores permanecieron en esta fábrica."
+				></Stats>
+			</StatesWrapper>
 		</StyledCompanyRatingsWrapper>
 	);
 }

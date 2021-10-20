@@ -133,7 +133,6 @@ export default function JobDetailModal(
 						}
 						setActiveTab(tabValue);
 					}}
-					aria-label="disabled tabs example"
 				>
 					<Tab value={1} label="Empleo" />
 					<Tab value={2} label="Empresa" />

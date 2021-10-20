@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colors, borderRadius } from "src/global-styles";
+import { forSize } from "src/responsive";
 
 const StyledStats = styled.div`
 	background: #eff6fa;
@@ -8,12 +9,15 @@ const StyledStats = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 50%;
-	margin-bottom: 10px;
+	height: 48%;
 	borded: 1px solid #efefef;
 	div {
 		width: 200px;
 		text-align: center;
+	}
+
+	${forSize.tabletAndDown} {
+		margin-bottom: 10px;
 	}
 `;
 const StatesTitle = styled.div`
@@ -22,17 +26,17 @@ const StatesTitle = styled.div`
 	font-weight: 900;
 `;
 interface StatsProps {
-    value: string;
-    text: string;
+	value: string;
+	text: string;
 }
 export default function Stats(props: StatsProps): JSX.Element {
-    const { value, text } = props;
-    return <StyledStats>
-        <div>
-            <StatesTitle>{value}</StatesTitle>
-            <span>
-                {text}
-            </span>
-        </div>
-    </StyledStats>
+	const { value, text } = props;
+	return (
+		<StyledStats>
+			<div>
+				<StatesTitle>{value}</StatesTitle>
+				<span>{text}</span>
+			</div>
+		</StyledStats>
+	);
 }
