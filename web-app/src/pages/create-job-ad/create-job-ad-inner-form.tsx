@@ -173,25 +173,25 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 										select
 										label={t.startDay.label}
 									>
-										<option value={1}>
+										<option value={0}>
 											{t.startDay.monday}
 										</option>
-										<option value={2}>
+										<option value={1}>
 											{t.startDay.tuesday}
 										</option>
-										<option value={3}>
+										<option value={2}>
 											{t.startDay.wednesday}
 										</option>
-										<option value={4}>
+										<option value={3}>
 											{t.startDay.thursday}
 										</option>
-										<option value={5}>
+										<option value={4}>
 											{t.startDay.friday}
 										</option>
-										<option value={6}>
+										<option value={5}>
 											{t.startDay.saturday}
 										</option>
-										<option value={0}>
+										<option value={6}>
 											{t.startDay.sunday}
 										</option>
 									</Field>
@@ -201,25 +201,25 @@ function InnerForm(props: CreateJobAdInnerFormProps): any {
 										required
 										label={t.endDay.label}
 									>
-										<option value={1}>
+										<option value={0}>
 											{t.endDay.monday}
 										</option>
-										<option value={2}>
+										<option value={1}>
 											{t.endDay.tuesday}
 										</option>
-										<option value={3}>
+										<option value={2}>
 											{t.endDay.wednesday}
 										</option>
-										<option value={4}>
+										<option value={3}>
 											{t.endDay.thursday}
 										</option>
-										<option value={5}>
+										<option value={4}>
 											{t.endDay.friday}
 										</option>
-										<option value={6}>
+										<option value={5}>
 											{t.endDay.saturday}
 										</option>
-										<option value={0}>
+										<option value={6}>
 											{t.endDay.sunday}
 										</option>
 									</Field>
