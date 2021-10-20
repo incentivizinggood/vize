@@ -57,10 +57,17 @@ function FormWrapper({
 
 			<SubmissionError error={submissionError} />
 
+			<br />
+
 			<FormToolbar>
 				<T
 					renderer={(submitButtonText: any) => (
-						<Button $primary onClick={checkError} type="submit">
+						<Button
+							$primary
+							onClick={checkError}
+							type="submit"
+							style={{ fontSize: "21px" }}
+						>
 							{submitButtonText}
 						</Button>
 					)}

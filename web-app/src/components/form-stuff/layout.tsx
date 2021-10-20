@@ -56,6 +56,10 @@ const FormToolbar = styled.div`
 		width: calc(100% + 60px) !important;
 		margin-bottom: -30px !important;
 	}
+
+	${forSize.phoneOnly} {
+		text-align: center;
+	}
 `;
 
 const PostFormHeaderContainer = styled.div`
