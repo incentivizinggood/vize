@@ -8,20 +8,19 @@ import {
 	faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import colors from "src/colors";
-import ReactMarkdown from "react-markdown";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
-import { Button } from "src/components/button";
 import { LinkButton } from "src/components/button";
 import ReactMarkdown from "react-markdown";
 import { forSize } from "src/responsive";
 import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 import { JobPostingFragment } from "generated/graphql-operations";
-import RatingsDropdown from "src/pages/company-profile/articles/ratings-dropdown";
+import RatingsDropdown from "src/components/ratings-dropdown";
 const T = translations.legacyTranslationsNeedsRefactor;
-import { JobSchedule } from "src/components/job-schedual";
+import { JobShift } from "src/components/job-shift";
+import { borderRadius, boxShadow } from "src/global-styles";
+import { absoluteDateToRelativeDate } from "src/utils";
 
 const FontAwesomeIconSized = styled(FontAwesomeIcon)`
 	width: 16px !important;
@@ -35,8 +34,8 @@ const JobContainer = styled.div`
 	padding: 20px 30px;
 
 	background-color: white;
-	border-radius: 10px;
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+	border-radius: ${borderRadius.container};
+	box-shadow: ${boxShadow.wide};
 
 	${forSize.tabletAndDown} {
 		padding: 12px;
@@ -64,69 +63,24 @@ const DatePostedDiv = styled.div`
 	}
 `;
 
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-const _MS_PER_MONTH = 1000 * 60 * 60 * 24 * 30.5;
-
-// gets the date a job was posted in relative terms (ex. 5 days ago instead of using and exact date)
-function getDateDifference(datePosted: Date): JSX.Element {
-	const currentDate = new Date();
-	const postedDateUTC = Date.UTC(
-		datePosted.getFullYear(),
-		datePosted.getMonth(),
-		datePosted.getDate()
-	);
-	const currentDateUTC = Date.UTC(
-		currentDate.getFullYear(),
-		currentDate.getMonth(),
-		currentDate.getDate()
-	);
-	const diffDays = Math.floor((currentDateUTC - postedDateUTC) / _MS_PER_DAY);
-	const diffMonths = Math.floor(
-		(currentDateUTC - postedDateUTC) / _MS_PER_MONTH
-	);
-
-	if (diffDays == 1) {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffDays} <T.showjob.day_ago />
-			</>
-		);
-	}
-	if (diffDays < 30.5) {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffDays} <T.showjob.days_ago />
-			</>
-		);
-	} else if (diffMonths === 1) {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffMonths} <T.showjob.month_ago />
-			</>
-		);
-	} else {
-		return (
-			<>
-				<T.showjob.posted_on /> {diffMonths} <T.showjob.months_ago />
-			</>
-		);
-	}
-}
-
 interface JobPostingProps {
 	job: JobPostingFragment;
 	isMinimizable: boolean; // If false, the abimity to expand and minimize the job post will be disabled
 }
 
-function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
+function JobPosting({
+	job,
+	isMinimizable = true,
+}: JobPostingProps): JSX.Element {
 	const datePosted = new Date(job.created);
-	const DatePostedComponent = () => {
-		return getDateDifference(datePosted);
+	const DatePostedComponent = (): JSX.Element => {
+		return absoluteDateToRelativeDate(datePosted);
 	};
+
 	let [jobApplicationModal, setJobApplicationModal] = React.useState(null);
 
-	function ShowApplyToJobModal() {
-		const applyToJobModalTitle: string = `Aplicar a ${job.company.name}`;
+	function ShowApplyToJobModal(): void {
+		const applyToJobModalTitle = `Aplicar a ${job.company.name}`;
 
 		setJobApplicationModal(
 			<PopupModal
@@ -155,7 +109,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 	// True if there is a city and an industrial hub for a job
 	const isTwoJobLocations =
 		job.locations[0].city && job.locations[0].industrialHub;
-	const showJobSchedule =
+	const showJobShift =
 		(job.startTime && job.endTime) || (job.startDay && job.endDay);
 
 	// A job post will not be minimizable if we are only looking at that one job post (using the job post link).
@@ -219,7 +173,7 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 					<RatingsDropdown
 						ratings={job.company.avgStarRatings}
 						numReviews={job.company.numReviews}
-						companyName={job.company.id}
+						companyId={job.company.id}
 					/>
 				)}
 			<div>
@@ -257,10 +211,10 @@ function JobPosting({ job, isMinimizable = true }: JobPostingProps) {
 				{contractType}
 			</div>
 
-			{showJobSchedule && (
+			{showJobShift && (
 				<div>
 					<FontAwesomeIconSized icon={faClock} />
-					<JobSchedule
+					<JobShift
 						startTime={job.startTime}
 						endTime={job.endTime}
 						startDay={job.startDay}

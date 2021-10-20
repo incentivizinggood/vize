@@ -26,14 +26,20 @@ fragment JobPosting on JobAd {
 
 	company {
 		id
-		name
-		numReviews
-		avgStarRatings {
-			healthAndSafety
-			managerRelationship
-			workEnvironment
-			benefits
-			overallSatisfaction
+
+		...CompanyProfileOverviewSection
+		...CompanyProfileReviewsSection
+		...CompanyProfileSalariesSection
+
+		descriptionOfCompany
+		numEmployees
+		industry
+		locations {
+			city
+			address
+			industrialHub
 		}
+		websiteURL
+		companyIconURL
 	}
 }

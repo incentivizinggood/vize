@@ -2,9 +2,28 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { Button } from "src/components/button";
-import ReplyIcon from "@material-ui/icons/Reply";
 import RatingsDropdown from "../ratings-dropdown";
-import { JobPostInterface } from "../../pages/for-employers/for-employers";
+import { colors, borderRadius, boxShadow } from "src/global-styles";
+import { forSize } from "src/responsive";
+import CloseIcon from "@material-ui/icons/Close";
+import { absoluteDateToRelativeDate } from "src/utils";
+import { JobShift } from "../job-shift";
+import {
+	contractTypeTranlsations,
+	salaryTypeTranlsations,
+	educationTranslations,
+	languageProficiencyTranslations,
+} from "api-server/src/utils/translation-utils";
+
+// Types
+import {
+	StarRatings as Ratings,
+	Company,
+	CompanySalaryStats as Salary,
+} from "generated/graphql-operations";
+
+// Images & Icons
+import defaultCompanyIcon from "src/images/default-company.png";
 import dollarImage from "../../images/job-post-icons/dollar.png";
 import addressImage from "../../images/job-post-icons/address.png";
 import languageImage from "../../images/job-post-icons/language.png";
@@ -17,10 +36,18 @@ import jobTypeImage from "../../images/job-post-icons/job-type.png";
 import minEducationImage from "../../images/job-post-icons/min-education.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
-import { colors, borderRadius, boxShadow } from "src/global-styles";
-import foxconnLogoImage from "../../images/foxconnLogo.png";
-import { forSize } from "src/responsive";
-import CloseIcon from "@material-ui/icons/Close";
+import ReplyIcon from "@material-ui/icons/Reply";
+
+const ShiftContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
+	border-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.border ? "1px solid #efefef" : ""};
+	padding-right: 10px;
+	margin-right: ${(p: { withImage?: boolean; border: boolean }) =>
+		p.withImage ? "10px" : ""};
+`;
 
 const JobPostCard = styled.div`
 	margin-top: 20px;
@@ -28,7 +55,7 @@ const JobPostCard = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
 	padding: 20px;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	box-shadow: ${boxShadow.wide};
 	max-width: 700px;
 `;
 const JobRequirementWrapper = styled.div`
@@ -174,17 +201,19 @@ const ActionsWrapper = styled.div`
 	margin-top: 10px;
 	margin-bottom: 10px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-end;
 	align-items: center;
 	width: 430px;
 	${forSize.tabletAndDown} {
 		width: auto;
 	}
 	${forSize.phoneOnly} {
+		justify-content: space-around;
+
 		button {
-			width: 125px;
-			padding: 0.7rem 0.4rem !important;
-			font-size: 12px;
+			// width: 125px;
+			// padding: 0.7rem 0.4rem !important;
+			font-size: 19px;
 		}
 	}
 `;
@@ -206,20 +235,66 @@ const CloseButton = styled.div`
 	cursor: pointer;
 `;
 
-function ModalButtons(): JSX.Element {
-	return (
-		<ActionsWrapper>
-			<Button>
-				<ReplyIconWrapper>
-					<ReplyIcon />
-					<span>Compartir</span>
-				</ReplyIconWrapper>
-			</Button>
-			<Button $primary>Postularme</Button>
-		</ActionsWrapper>
-	);
+export interface Review {
+	review: {
+		additionalComments?: string;
+		pros: string;
+		cons: string;
+		created: Date;
+		jobTitle: string;
+		numberOfMonthsWorked: number;
+		title: string;
+		wouldRecommendToOtherJobSeekers: boolean;
+		starRatings: Ratings;
+
+		location: {
+			city: string;
+			industrialHub?: string;
+		};
+	};
 }
-export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
+
+// export interface Company {
+// 	id: string;
+// 	name: string;
+// 	avgStarRatings?: Ratings;
+// 	numReviews: number;
+// 	descriptionOfCompany: string;
+// 	industry: string;
+// 	numEmployees: number;
+// 	websiteURL: string;
+// 	locations: {
+// 		city: string;
+// 		industrialPark: string;
+// 		address: string;
+// 	};
+// 	reviews?: Review[];
+// }
+
+export interface JobPost {
+	id: string;
+	created: Date;
+
+	company: Company;
+	jobTitle: string;
+	jobDescription: string;
+	skills: string[];
+	certificatesAndLicences?: string[];
+	contractType: string;
+	minimumEducation: string;
+	minimumEnglishProficiency: string;
+	shifts: {
+		startDay: number;
+		endDay: number;
+		startTime: string;
+		endTime: string;
+	};
+	salaryType?: string;
+	salaryMax?: number;
+	salaryMin?: number;
+}
+
+export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 	const [width, setWidth] = useState<number>(window.innerWidth);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
@@ -230,32 +305,78 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 			window.removeEventListener("resize", handleWindowSizeChange);
 		};
 	}, []);
+
+	function ModalButtons(): JSX.Element {
+		return (
+			<ActionsWrapper>
+				{/* <Button>
+				<ReplyIconWrapper>
+					<ReplyIcon />
+					<span>Compartir</span>
+				</ReplyIconWrapper>
+			</Button> */}
+				<Button
+					$primary
+					onClick={(e) => {
+						e.stopPropagation();
+						props.onClose();
+						props.showApplyToJobModal();
+					}}
+					style={{ marginRight: "10px" }}
+				>
+					Postularme
+				</Button>
+			</ActionsWrapper>
+		);
+	}
+
+	const datePosted = new Date(props.created);
+	const DatePostedComponent = (): JSX.Element => {
+		return absoluteDateToRelativeDate(datePosted);
+	};
+
+	const companyProfileIcon = props.company.companyIconURL
+		? props.company.companyIconURL
+		: defaultCompanyIcon;
+
 	return (
 		<>
 			<JobPostTitle>
 				<JobPostHeaderRightSection>
-					<PostImage src={foxconnLogoImage} alt="post-image" />
+					<PostImage src={companyProfileIcon} alt="post-image" />
 					<PostHeaderContent>
-						<PostTitle>{props.company}</PostTitle>
-						<PostSubHeading>{props.jobPost}</PostSubHeading>
-						<RatingWrapper>
-							<RatingsDropdown
-								ratings={{
-									healthAndSafety: props.rating,
-									managerRelationship: props.rating,
-									workEnvironment: props.rating,
-									benefits: props.rating,
-									overallSatisfaction: props.rating,
-								}}
-								numReviews={props.reviewCount}
-								companyName=""
-							/>
-							<ReviewCount>
-								{props.reviewCount} Reviews
-							</ReviewCount>
-						</RatingWrapper>
+						<PostTitle>{props.company.name}</PostTitle>
+						<PostSubHeading>{props.jobTitle}</PostSubHeading>
+						{props.company.avgStarRatings && (
+							<RatingWrapper>
+								<RatingsDropdown
+									ratings={{
+										healthAndSafety:
+											props.company.avgStarRatings
+												.healthAndSafety,
+										managerRelationship:
+											props.company.avgStarRatings
+												.managerRelationship,
+										workEnvironment:
+											props.company.avgStarRatings
+												.workEnvironment,
+										benefits:
+											props.company.avgStarRatings
+												.benefits,
+										overallSatisfaction:
+											props.company.avgStarRatings
+												.overallSatisfaction,
+									}}
+									numReviews={props.company.numReviews}
+									companyId={props.company.id}
+								/>
+							</RatingWrapper>
+						)}
+
 						{width < 450 ? (
-							<DatePosted>Posted {props.published}</DatePosted>
+							<DatePosted>
+								<DatePostedComponent />
+							</DatePosted>
 						) : null}
 					</PostHeaderContent>
 				</JobPostHeaderRightSection>
@@ -264,12 +385,19 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 					<JobPostHeaderLeftSection>
 						<ActionsWrapper>
 							{width > 450 ? <ModalButtons /> : null}
-							<CloseButton>
-								<CloseIcon onClick={props.onClose} />
+							<CloseButton
+								onClick={(e) => {
+									e.stopPropagation();
+									props.onClose();
+								}}
+							>
+								<CloseIcon />
 							</CloseButton>
 						</ActionsWrapper>
 						{width > 450 ? (
-							<span>Posted {props.published}</span>
+							<span>
+								<DatePostedComponent />
+							</span>
 						) : null}
 					</JobPostHeaderLeftSection>
 				) : null}
@@ -281,22 +409,34 @@ export const JobPostTitleRow = function (props: JobPostInterface): JSX.Element {
 export const JobContentWrapper = function (
 	props: JobPostInterface
 ): JSX.Element {
+	const minimumEducation = educationTranslations[props.minimumEducation];
+	const minimumEnglishProficiency =
+		languageProficiencyTranslations[props.minimumEnglishProficiency];
+	const contractType = contractTypeTranlsations[props.contractType];
+	const salaryType = props.salaryType
+		? salaryTypeTranlsations[props.salaryType]
+		: null;
 	return (
 		<>
 			<JobBasicDetails>
 				<JobDetailsWrapper>
-					<Col xs={12} md={6} className="details-container">
-						<JobDetailsTitle>Salario</JobDetailsTitle>
-						<JobDetailContent>
-							<img src={dollarImage} alt="dollar-img" />
-							<JobDetailvalue>{props.salaryRange}</JobDetailvalue>
-						</JobDetailContent>
-					</Col>
+					{props.salaryMin && props.salaryMax && props.salaryType && (
+						<Col xs={12} md={6} className="details-container">
+							<JobDetailsTitle>Salario</JobDetailsTitle>
+							<JobDetailContent>
+								<img src={dollarImage} alt="dollar-img" />
+								<JobDetailvalue>
+									{props.salaryMin} - {props.salaryMax} /{" "}
+									{salaryType}
+								</JobDetailvalue>
+							</JobDetailContent>
+						</Col>
+					)}
 					<Col xs={12} md={6} className="details-container">
 						<JobDetailsTitle>Tipo de Contrato</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={jobTypeImage} alt="dollar-img" />
-							<JobDetailvalue>{props.jobType}</JobDetailvalue>
+							<JobDetailvalue>{contractType}</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 				</JobDetailsWrapper>
@@ -305,16 +445,16 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Educación Minima</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={minEducationImage} alt="dollar-img" />
-							<JobDetailvalue>
-								{props.minEducation}
-							</JobDetailvalue>
+							<JobDetailvalue>{minimumEducation}</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 					<Col xs={12} md={6} className="details-container">
 						<JobDetailsTitle>Industria</JobDetailsTitle>
 						<JobDetailContent>
 							<img src={industryImage} alt="dollar-img" />
-							<JobDetailvalue>{props.industry}</JobDetailvalue>
+							<JobDetailvalue>
+								{props.company.industry}
+							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
 				</JobDetailsWrapper>
@@ -327,7 +467,7 @@ export const JobContentWrapper = function (
 								alt="dollar-img"
 							/>
 							<JobDetailvalue>
-								{props.englishProficiency}
+								{minimumEnglishProficiency}
 							</JobDetailvalue>
 						</JobDetailContent>
 					</Col>
@@ -335,19 +475,19 @@ export const JobContentWrapper = function (
 						<JobDetailsTitle>Turnos</JobDetailsTitle>
 						<JobDetailContent>
 							<LanguageImage src={shiftsImage} alt="dollar-img" />
-							{props.shifts.map((v, index) => {
+							{props.shifts.map((shift, index) => {
 								return (
-									<LanguageContentContainer
-										border={
-											index !== props.shifts.length - 1
-										}
+									<ShiftContainer
+										border={index < props.shifts.length - 1}
 										key={index}
 									>
-										<LanguageTitle>{v.day}</LanguageTitle>
-										<LanguageDescription>
-											{v.time}
-										</LanguageDescription>
-									</LanguageContentContainer>
+										<JobShift
+											startTime={shift.startTime}
+											endTime={shift.endTime}
+											startDay={shift.startDay}
+											endDay={shift.endDay}
+										/>
+									</ShiftContainer>
 								);
 							})}
 						</JobDetailContent>
@@ -365,7 +505,7 @@ export const JobContentWrapper = function (
 								<LanguageContentContainer border withImage>
 									<LanguageTitle>Ciudad</LanguageTitle>
 									<LanguageDescription>
-										{props.city}
+										{props.locations[0].city}
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
@@ -379,7 +519,7 @@ export const JobContentWrapper = function (
 										Parque Industrial
 									</LanguageTitle>
 									<LanguageDescription>
-										{props.industrialPark}
+										{props.locations[0].industrialHub}
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
@@ -394,7 +534,7 @@ export const JobContentWrapper = function (
 								>
 									<LanguageTitle>Dirección</LanguageTitle>
 									<LanguageDescription>
-										{props.address}
+										{props.locations[0].address}
 									</LanguageDescription>
 								</LanguageContentContainer>
 							</JobDetailContainer>
@@ -408,7 +548,7 @@ export const JobContentWrapper = function (
 					<span>&nbsp;Descripción</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{props.description}
+					{props.company.descriptionOfCompany}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<br />
@@ -419,27 +559,33 @@ export const JobContentWrapper = function (
 					<span>&nbsp;Habilidades Requeridas</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{props.jobSkills.map((v) => {
-						return <DescriptionTag key={v}>{v}</DescriptionTag>;
+					{props.skills.map((skill, i) => {
+						return <DescriptionTag key={i}>{skill}</DescriptionTag>;
 					})}
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<br />
 
-			<JobRequirementWrapper>
-				<JobRequirementTitle>
-					<img src={certificateImage} alt=""></img>
-					<span>&nbsp;Certificados y Licencias</span>
-				</JobRequirementTitle>
-				<JobRequirementDescription>
-					{props.certifications.map((v) => {
-						return <DescriptionTag key={v}>{v}</DescriptionTag>;
-					})}
-				</JobRequirementDescription>
-			</JobRequirementWrapper>
+			{props.certificatesAndLicences && (
+				<JobRequirementWrapper>
+					<JobRequirementTitle>
+						<img src={certificateImage} alt=""></img>
+						<span>&nbsp;Certificados y Licencias</span>
+					</JobRequirementTitle>
+					<JobRequirementDescription>
+						{props.certificatesAndLicences.map((certificate, i) => {
+							return (
+								<DescriptionTag key={i}>
+									{certificate}
+								</DescriptionTag>
+							);
+						})}
+					</JobRequirementDescription>
+				</JobRequirementWrapper>
+			)}
 			<br />
 
-			<JobRequirementWrapper>
+			{/* <JobRequirementWrapper>
 				<JobRequirementTitle>
 					<img src={certificateImage} alt=""></img>
 					<span>&nbsp;Beneficios</span>
@@ -449,7 +595,7 @@ export const JobContentWrapper = function (
 						return <DescriptionTag key={v}>{v}</DescriptionTag>;
 					})}
 				</JobRequirementDescription>
-			</JobRequirementWrapper>
+			</JobRequirementWrapper> */}
 		</>
 	);
 };

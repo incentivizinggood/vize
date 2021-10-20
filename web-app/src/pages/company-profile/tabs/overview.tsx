@@ -39,6 +39,7 @@ export default function OverviewTab({
 			</h2>
 		);
 	}
+	console.log("compa", data);
 
 	return (
 		<>

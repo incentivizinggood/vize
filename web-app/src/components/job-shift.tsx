@@ -1,7 +1,17 @@
 import React from "react";
+import styled from "styled-components";
+import { dayTranslations } from "api-server/src/utils/translation-utils";
+
 import { translations } from "src/translations";
 
 const T = translations.legacyTranslationsNeedsRefactor;
+
+const ShiftDay = styled.span`
+	color: black;
+`;
+const ShiftTime = styled.span`
+	font-weight: 600;
+`;
 
 interface Interval {
 	start: number;
@@ -105,34 +115,6 @@ export function getShiftName(
 	// 	.sort((a, b) => a.overlap - b.overlap)[0].name;
 }
 
-function dayName(day: number): JSX.Element {
-	return [
-		<T.showjob.sunday />,
-		<T.showjob.monday />,
-		<T.showjob.tuesday />,
-		<T.showjob.wednesday />,
-		<T.showjob.thursday />,
-		<T.showjob.friday />,
-		<T.showjob.saturday />,
-	][day];
-}
-
-function getShiftDayRange(
-	startDay: number | null | undefined,
-	endDay: number | null | undefined
-): JSX.Element {
-	if (typeof startDay !== "number" || typeof endDay !== "number") {
-		return <></>;
-	}
-	return (
-		<>
-			{dayName(startDay)}
-			{" - "}
-			{dayName(endDay)}
-		</>
-	);
-}
-
 function getShiftTimeRange(
 	startTimeRaw: string | null | undefined,
 	endTimeRaw: string | null | undefined
@@ -162,23 +144,28 @@ function getShiftTimeRange(
 	);
 }
 
-interface JobScheduleProps {
+interface JobShiftProps {
 	startTime: string | null | undefined;
 	endTime: string | null | undefined;
 	startDay: number | null | undefined;
 	endDay: number | null | undefined;
 }
 
-export function JobSchedule(props: JobScheduleProps): JSX.Element {
-	const daysAreNumeric =
-		typeof props.startDay === "number" && typeof props.endDay === "number";
+export function JobShift({
+	startTime,
+	endTime,
+	startDay,
+	endDay,
+}: JobShiftProps): JSX.Element {
+	const startDayText = dayTranslations[startDay];
+	const endDayText = dayTranslations[endDay];
+
 	return (
-		<span>
-			{getShiftName(props.startTime, props.endTime)}
-			{daysAreNumeric && " | "}
-			{getShiftDayRange(props.startDay, props.endDay)}
-			{props.startTime && props.endTime && " | "}
-			{getShiftTimeRange(props.startTime, props.endTime)}
-		</span>
+		<>
+			<ShiftDay>
+				{startDayText} - {endDayText}
+			</ShiftDay>
+			<ShiftTime>{getShiftTimeRange(startTime, endTime)}</ShiftTime>
+		</>
 	);
 }

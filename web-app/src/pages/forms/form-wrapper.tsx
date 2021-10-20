@@ -45,7 +45,8 @@ function FormWrapper({
 				if (errorMessage === "Error: ")
 					errorMessage =
 						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
-
+				console.log("em", errorMessage);
+				console.log("err", err);
 				setSubmissionError(errorMessage);
 			});
 	}
@@ -56,10 +57,17 @@ function FormWrapper({
 
 			<SubmissionError error={submissionError} />
 
+			<br />
+
 			<FormToolbar>
 				<T
 					renderer={(submitButtonText: any) => (
-						<Button $primary onClick={checkError} type="submit">
+						<Button
+							$primary
+							onClick={checkError}
+							type="submit"
+							style={{ fontSize: "21px" }}
+						>
 							{submitButtonText}
 						</Button>
 					)}

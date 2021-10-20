@@ -3,9 +3,8 @@ import ReactMarkdown from "react-markdown";
 import { useQuery, useMutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Link } from "react-router-dom";
 import { withUser } from "src/hoc/user";
+import { boxShadow } from "src/global-styles";
 import { ResourceAuthor } from "imports/api/models/types";
 import * as analytics from "src/startup/analytics";
 
@@ -85,7 +84,7 @@ const ResourceFooter = styled.div`
 	margin: 0 auto;
 
 	background-color: white;
-	box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: ${boxShadow.wide};
 
 	> * {
 		margin: auto 0;

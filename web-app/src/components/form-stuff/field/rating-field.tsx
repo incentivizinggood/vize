@@ -4,7 +4,7 @@ import { FormHelperText } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import styled from "styled-components";
 
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 
 const RatingContainer = styled.div<{ hasError: boolean }>`
 	margin-top: 16px;

@@ -7,15 +7,12 @@ import { Row, Col, Table, Card } from "react-bootstrap";
 import PageWrapper from "src/components/page-wrapper";
 import { LinkButton, ExternalLinkButton } from "src/components/button";
 import { forSize } from "src/responsive";
-import colors from "src/colors";
+import * as urlGenerators from "src/pages/url-generators";
+import { colors, borderRadius, boxShadow } from "src/global-styles";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
-import Spinner from "src/components/Spinner";
-import * as urlGenerators from "src/pages/url-generators";
-
-import ResourcePreviewCardVertical from "./resource-preview-card-vertical";
+import ResourcePreviewCard from "./resoource-preview-card";
 import ResourceTopicButton from "./resource-topic-button";
-import JobPost from "./JobPost";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
 import arrowDownImage from "../../images/arrow-down-circle-line.png";
@@ -31,37 +28,16 @@ import topic2Image from "../../images/job-post-icons/topic-2.png";
 import topic3Image from "../../images/job-post-icons/topic-3.png";
 import img1 from "../../images/workers.jpeg";
 
+// Types
+import { JobPost } from "../../components/jobs/new-job-post";
+
 import employerPageResourcesQuery from "./employer-page-resources.graphql";
+import { string } from "yup";
 
 const T = translations.forEmployers;
 
 const horizontalPaddingVal = "15px";
 
-export interface Shift {
-	day: string;
-	time: string;
-}
-
-export interface JobPostInterface {
-	company: string;
-	jobPost: string;
-	reviewCount: number;
-	rating: number;
-	published: string;
-	salaryRange: string;
-	jobType: string;
-	minEducation: string;
-	industry: string;
-	englishProficiency: string;
-	shifts: Shift[];
-	city: string;
-	industrialPark: string;
-	address: string;
-	description: string;
-	jobSkills: string[];
-	certifications: string[];
-	benifits: string[];
-}
 const ContentWrapper = styled.div`
 	margin-left: 9%;
 	margin-right: 9%;
@@ -173,10 +149,10 @@ const CardContent = styled.div`
 	background-color: #ffffff;
 	margin-top: 5px;
 	margin-bottom: 20px;
-	border-radius: 15px;
+	border-radius: ${borderRadius.container};
 	padding: 30px;
 	line-height: 1.6;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	box-shadow: ${boxShadow.wide};
 	${forSize.tabletAndDown} {
 		justify-content: center;
 		align-items: center;
@@ -236,7 +212,7 @@ const StyledRankedTable = styled.div`
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	margin: 25px 0;
 	> .table-responsive {
-		border-radius: 16px;
+		border-radius: ${borderRadius.container};
 		background-color: white;
 		> .table {
 			margin-bottom: 0px;
@@ -280,7 +256,7 @@ const ResourceCardNavigation = styled.div`
 	margin-bottom: 10px;
 `;
 const LeftNavigation = styled.div`
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	background-color: #fff;
 	height: 50px;
 	width: 50px;
@@ -294,7 +270,7 @@ const LeftNavigation = styled.div`
 	}
 `;
 const RightNavigation = styled.div`
-	border-radius: 6px;
+	border-radius: ${borderRadius.container};
 	background-color: #fff;
 	height: 50px;
 	width: 50px;
@@ -418,7 +394,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 	];
 	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
-	const jobPost: JobPostInterface = {
+	const jobPost: JobPost = {
 		company: "Foxconn",
 		jobPost: "Operador de Producción",
 		reviewCount: 32,

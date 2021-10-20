@@ -15,7 +15,7 @@ import Spinner from "src/components/Spinner";
 import { useCompanyProfileSummaryQuery } from "generated/graphql-operations";
 import { translations } from "src/translations";
 import { forSize } from "src/responsive";
-
+import { boxShadow } from "src/global-styles";
 import defaultCompanyIcon from "src/images/default-company.png";
 
 const T = translations.legacyTranslationsNeedsRefactor;
@@ -25,7 +25,7 @@ const CompanySummaryContainer = styled.div`
 	padding: 15px;
 	display: flex;
 
-	box-shadow: 1px 1px 5px 1px #dac1c1;
+	box-shadow: ${boxShadow.wide};
 	background-color: white;
 
 	${forSize.phoneOnly} {
@@ -79,6 +79,7 @@ export default function CompanyProfileSummary({
 		return <h2>{`Error! ${error.message}`}</h2>;
 	}
 
+	console.log("data", data);
 	if (!data || !data.company) {
 		return (
 			<h2>

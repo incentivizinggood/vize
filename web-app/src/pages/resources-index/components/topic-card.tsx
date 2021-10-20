@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import * as urlGenerators from "src/pages/url-generators";
 import { Link } from "react-router-dom";
+import { forSize } from "src/responsive";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 import ArrowRightIcon from "@material-ui/icons/ArrowRightAlt";
 
@@ -15,12 +17,14 @@ const TopicCard = styled.div`
 	margin-bottom: 10px;
 
 	background-color: white;
-	border-radius: 4px;
+	border-radius: ${borderRadius.container};
 	height: 260px;
 
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+	box-shadow: ${boxShadow.wide};
+
+	${forSize.phoneOnly} {
+		border-radius: ${borderRadius.containerMobile};
+	}
 `;
 
 const TopicCardContent = styled.div`

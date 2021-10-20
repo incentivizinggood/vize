@@ -350,67 +350,107 @@ export default {
 		submit: "Publicar Salario",
 	},
 	createJobAd: {
-		formTitle: "Publicar un Trabajo",
+		formTitle: "Publicar un Empleo",
 		header1:
-			"Alcance a cientos de trabajadores con nuestras publicaciones de trabajo",
+			"Encuentra y contrata a los mejores trabajadores en Tijuana de forma rápida y sencilla con nuestras ofertas de empleo.",
 		fields: {
 			jobTitle: {
 				label: "Nombre del Cargo",
 				placeholder: "Ingrese el título del empleo que está anunciando",
 			},
 			jobDescription: {
-				label: "Descripción del Trabajo",
-				placeholder:
-					"Por favor ingrese una descripción formal de este trabajo",
+				label: "Descripción del Empleo",
+				placeholder: "Ingrese una descripción formal de este empleo",
 			},
-			responsibilities: {
-				label: "Resposabilidades",
+			skills: {
+				label: "Habilidades Requeridas",
 				placeholder:
-					"Por favor resuma las responsabilidades de este puesto",
+					"Escriba una lista de todas las habilidades que se requieren para este empleo. Separe cada habilidad con una coma. P.ej. Productos Medicos, Instrumentos de Medición, Moldeado de Plástico",
 			},
-			qualifications: {
-				label: "Calificaciones",
+			certificatesAndLicences: {
+				label: "Certificados y Licencias",
 				placeholder:
-					"Por favor resuma las calificaciones necesarias para este puesto",
+					"Escriba una lista de los certificados y licencias que se requieren para este empleo. Separe cada certificado / licencia con una coma. P.ej. ISO, Montacargas, Máquinas de CAC, CAD",
+			},
+			contractType: {
+				label: "Tipo de Contrato",
+				fullTime: "Tiempo completo",
+				partTime: "Medio tiempo",
+				internship: "Prácticas (Pasantía)",
+				temporary: "Proyecto (Temporal)",
+				contractor: "Contratista",
 			},
 			minimunEducation: {
-				label: "Minimum level of education",
-				someHighSchool: "Some High School",
-				completedHighSchool: "Completed High School",
-				someCollege: "Some College",
-				collegeDegree: "College Degree",
+				label: "Nivel de Educación Minimo Requerido",
+				someHighSchool: "Preparatoria Trunca",
+				highSchool: "Preparatoria",
+				someCollege: "Universidad Trunca",
+				collegeDegree: "Título Universitario",
 			},
-			minimumLanguage: {
-				label: "English Proficiency",
-				native: "Native",
-				conversational: "Conversational",
-				fluent: "Fluent",
-				basic: "Basic",
-				none: "None",
+			minimumEnglishProficiency: {
+				label: "Dominio del Inglés Minimo Requerido",
+				native: "Nativo",
+				fluent: "Fluido",
+				conversational: "Conversacional",
+				basic: "Básico",
+				none: "Ninguno",
+			},
+			shifts: {
+				label: "Turnos",
+				addElement: ({ array }: { array: unknown[] }) => {
+					return `Agrega ${array?.length > 0 ? "Otro" : "Un"} Turno`;
+				},
+				startDay: {
+					label: "Día de Inicio del Turno",
+					monday: "Lunes",
+					tuesday: "Martes",
+					wednesday: "Miércoles",
+					thursday: "Jueves",
+					friday: "Viernes",
+					saturday: "Sábado",
+					sunday: "Domingo",
+				},
+				endDay: {
+					label: "Día Final del Turno",
+					monday: "Lunes",
+					tuesday: "Martes",
+					wednesday: "Miércoles",
+					thursday: "Jueves",
+					friday: "Viernes",
+					saturday: "Sábado",
+					sunday: "Domingo",
+				},
+				startTime: {
+					label: "Hora de Inicio",
+				},
+				endTime: {
+					label: "Hora de Finalización",
+				},
 			},
 			locations: {
 				label: "Ubicaciones",
 				addElement: ({ array }: { array: unknown[] }) =>
-					`Agrega ${array.length > 0 ? "otra" : "una"} ubicación`,
+					`Agrega ${array.length > 0 ? "Otra" : "Una"} Ubicación`,
 				city: {
 					label: "Ciudad",
-					placeholder: "Ingrese la ciudad para su ubicación",
+					placeholder:
+						"Ingrese la ciudad en la que se encuentra su fábrica",
 				},
 				address: {
 					label: "Dirección",
-					placeholder: "Ingresa la dirección de tu ubicación",
+					placeholder: "Ingrese la dirección de su fábrica",
 				},
 				industrialHub: {
 					label: "Parque Industrial",
 					placeholder:
-						"Ingrese al parque industrial para su ubicación (por ejemplo, Florido, Pacífico, etc.)",
+						"Ingrese el parque industrial en el que se encuentra su fábrica (por ejemplo, Florido, Pacífico, etc.)",
 				},
 			},
 			salaryExplanation:
-				"Ingrese un rango con el salario mínimo y máximo que está dispuesto a ofrecer para este trabajo. También puedes ingresar el mismo valor para el salario mínimo y máximo.",
+				"Ingrese un rango con el salario mínimo y máximo que está dispuesto a ofrecer para este trabajo. También puede ingresar el mismo valor para el salario mínimo y máximo.",
 			salaryMin: {
 				label: "Salario Mínimo (en Pesos)",
-				placeholder: "Ej. 2000",
+				placeholder: "Ej. 1900",
 			},
 			salaryMax: {
 				label: "Salario Máximo (en Pesos)",
@@ -423,46 +463,6 @@ export default {
 				weeklySalary: "Sueldo por Semana",
 				dailySalary: "Sueldo por Día",
 				hourlyWage: "Sueldo por Hora",
-			},
-			jobSchedule: {
-				label: "Turnos",
-				addElement: ({ array }: { array: unknown[] }) => {
-					return `Agrega ${array?.length > 0 ? "otro" : "un"} turno`;
-				},
-				startDay: {
-					label: "Working Days From",
-					monday: "Lunes",
-					tuesday: "Martes",
-					wednesday: "Miércoles",
-					thursday: "Jueves",
-					friday: "Viernes",
-					saturday: "Sábado",
-					sunday: "Domingo",
-				},
-				endDay: {
-					label: "To",
-					monday: "Lunes",
-					tuesday: "Martes",
-					wednesday: "Miércoles",
-					thursday: "Jueves",
-					friday: "Viernes",
-					saturday: "Sábado",
-					sunday: "Domingo",
-				},
-				startTime: {
-					label: "Working Time From",
-				},
-				endTime: {
-					label: "To",
-				},
-			},
-			contractType: {
-				label: "Tipo de Contrato",
-				fullTime: "Tiempo completo",
-				partTime: "Medio tiempo",
-				internship: "Prácticas (Pasantía)",
-				temporary: "Proyecto (Temporal)",
-				contractor: "Contratista",
 			},
 		},
 		submit: "Publicar Oferta",
@@ -1003,13 +1003,13 @@ export default {
 			contractor: "Contratista",
 			internship: "Prácticas (Pasantía)",
 			temporary: "Proyecto (Temporal)",
-			monday: "lu",
-			tuesday: "ma",
-			wednesday: "mi",
-			thursday: "ju",
-			friday: "vi",
-			saturday: "sá",
-			sunday: "do",
+			monday: "lun",
+			tuesday: "mar",
+			wednesday: "mie",
+			thursday: "jue",
+			friday: "vie",
+			saturday: "sáb",
+			sunday: "dom",
 			day_ago: "día",
 			days_ago: "dias",
 			month_ago: "mes",

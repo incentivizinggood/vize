@@ -40,6 +40,7 @@ import { PrivacyPolicy } from "./privacy-policy";
 
 import { queryRoutes } from "./url-generators";
 import { JobAdPage } from "./job-ad";
+import JobList from "./job-list";
 
 /** Replace null with undefined. */
 function fixNullParams<T>(param?: T | null): T | undefined {

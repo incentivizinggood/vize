@@ -26,13 +26,13 @@ const NumRatingsText = styled(Link)`
 interface StartRatingsProps {
 	ratings: StartRatingsType;
 	numReviews?: number;
-	companyName?: string;
+	companyId?: string;
 }
 
 function RatingsDropdown({
 	ratings,
 	numReviews,
-	companyName,
+	companyId,
 }: StartRatingsProps) {
 	const numReviewsText =
 		numReviews === 1 ? (
@@ -47,19 +47,20 @@ function RatingsDropdown({
 				rating={
 					(ratings.healthAndSafety +
 						ratings.managerRelationship +
+						ratings.overallSatisfaction +
 						ratings.workEnvironment +
 						ratings.benefits) /
-					4
+					5
 				} // the average rating of all 5 ratings
 				starDimension="15px"
 				starSpacing="1.5px"
 			/>
 			&nbsp;
 			<FontAwesomeIcon icon={faCaretDown} />
-			{numReviews && companyName && (
+			{numReviews && companyId && (
 				<NumRatingsText
 					to={urlGenerators.vizeCompanyProfileUrl(
-						companyName,
+						companyId,
 						urlGenerators.queryRoutes.reviews
 					)}
 				>

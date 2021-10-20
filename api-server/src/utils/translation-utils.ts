@@ -1,8 +1,8 @@
-interface MonthTranslationsInterface {
+interface DateTranslationsInterface {
 	[key: string]: string;
 }
 
-export const monthTranslations: MonthTranslationsInterface = {
+export const monthTranslations: DateTranslationsInterface = {
 	0: "enero",
 	1: "febrero",
 	2: "marzo",
@@ -15,6 +15,32 @@ export const monthTranslations: MonthTranslationsInterface = {
 	9: "octubre",
 	10: "noviembre",
 	11: "diciembre",
+};
+
+export const dayTranslations: DateTranslationsInterface = {
+	0: "lun",
+	1: "mar",
+	2: "mie",
+	3: "jue",
+	4: "vie",
+	5: "sab",
+	6: "dom",
+};
+
+export const salaryTypeTranlsations = {
+	YEARLY_SALARY: "año",
+	MONTHLY_SALARY: "mes",
+	WEEKLY_SALARY: "semana",
+	DAILY_SALARY: "dia",
+	HOURLY_WAGE: "hora",
+};
+
+export const contractTypeTranlsations = {
+	FULL_TIME: "Tiempo Completo",
+	PART_TIME: "Medio Tiempo",
+	INTERNSHIP: "Prácticas (Pasantía)",
+	TEMPORARY: "Proyecto (Temporal)",
+	CONTRACTOR: "Contratista",
 };
 
 export const workShiftTranlsations = {

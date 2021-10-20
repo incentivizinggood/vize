@@ -6,17 +6,24 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "src/components/button";
 import { TranslationComponent } from "src/translations";
+import { borderRadius, boxShadow } from "src/global-styles";
 import { forSize } from "src/responsive";
 
 export const ArrayContainer = styled.div`
 	margin-top: 20px;
 `;
 
-const ElementContainer = styled.div`
+export const ElementContainer = styled.div`
+	border-radius: ${borderRadius.container};
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
 	margin-top: 20px;
 	width: 100%;
 	background-color: white;
 	color: black;
+	box-shadow: ${boxShadow.wide};
+	padding: 30px;
 	position: relative;
 	padding-top: 20px;
 `;

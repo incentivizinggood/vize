@@ -5,6 +5,7 @@ import * as urlGenerators from "src/pages/url-generators";
 import { translations } from "src/translations";
 import { Link } from "react-router-dom";
 import { forSize } from "src/responsive";
+import { borderRadius, boxShadow } from "src/global-styles";
 
 import {
 	FacebookShareButton,
@@ -21,16 +22,15 @@ const footerHeight = "27px";
 const ResourceCard = styled.div`
 	display: flex;
 	background-color: white;
-	border-radius: 4px;
+	border-radius: ${borderRadius.container};
 	margin: 10px;
 	height: 145px;
 
-	box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-		0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-		0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+	box-shadow: ${boxShadow.wide};
 
 	${forSize.phoneOnly} {
 		height: 125px;
+		border-radius: ${borderRadius.containerMobile};
 	}
 `;
 
@@ -49,7 +49,7 @@ const ResourceImage = styled.img`
 	height: 130px;
 	margin: auto;
 	margin-left: 5px;
-	border-radius: 4px;
+	border-radius: ${borderRadius.smallImage};
 
 	${forSize.phoneOnly} {
 		width: 110px;
@@ -97,7 +97,7 @@ const ReadMore = styled(Link)`
 
 	height: ${footerHeight};
 	width: 85px;
-	border-radius: 0.4rem;
+	border-radius: ${borderRadius.button};
 `;
 
 const ReadMoreButton = (props) => (

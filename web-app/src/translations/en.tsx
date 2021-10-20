@@ -329,7 +329,8 @@ export default {
 	},
 	createJobAd: {
 		formTitle: "Post a Job",
-		header1: "Reach hundreds of workers instantly with our job posts",
+		header1:
+			"Find and hire the best workers in Tijuana quickly and easily with our job posts.",
 		fields: {
 			jobTitle: {
 				label: "Job Title",
@@ -341,23 +342,32 @@ export default {
 				placeholder:
 					"Enter a formal description of this job and include details such as the relevant job functions and responsiblities",
 			},
-			responsibilities: {
-				label: "Job Skills",
-				placeholder: "Enter the skills needed for the job",
+			skills: {
+				label: "Skills",
+				placeholder:
+					"List out any manufaturing related skills that you need for this job. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
 			},
-			qualifications: {
+			certificatesAndLicences: {
 				label: "Certificates & Licences",
 				placeholder:
-					"Enter the certificates and licences preferred for this position",
+					"List out any manufacturing related certificates and licenses that you need for this job. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+			},
+			contractType: {
+				label: "Contract Type",
+				fullTime: "Full time",
+				partTime: "Part time",
+				internship: "Internship",
+				temporary: "Temporary",
+				contractor: "Contractor",
 			},
 			minimunEducation: {
-				label: "Minimum level of education",
+				label: "Minimum Level of Education Required",
 				someHighSchool: "Some High School",
-				completedHighSchool: "Completed High School",
+				highSchool: "High School",
 				someCollege: "Some College",
 				collegeDegree: "College Degree",
 			},
-			minimumLanguage: {
+			minimumEnglishProficiency: {
 				label: "English Proficiency",
 				native: "Native",
 				conversational: "Conversational",
@@ -365,28 +375,7 @@ export default {
 				basic: "Basic",
 				none: "None",
 			},
-			locations: {
-				label: "Locations",
-				addElement: ({ array }: { array: unknown[] }) => {
-					// console.log("Locations", array)
-					return `Add ${
-						array?.length > 0 ? "another" : "a"
-					} location`;
-				},
-				city: {
-					label: "Add a city for a job",
-					placeholder: "Enter your city",
-				},
-				address: {
-					label: "Add an address for a job",
-					placeholder: "Enter your address",
-				},
-				industrialHub: {
-					label: "Add an industrial park for a job",
-					placeholder: "Enter industrial park",
-				},
-			},
-			jobSchedule: {
+			shifts: {
 				label: "Shifts",
 				addElement: ({ array }: { array: unknown[] }) => {
 					return `Add ${array?.length > 0 ? "another" : "a"} shift`;
@@ -418,11 +407,33 @@ export default {
 					label: "To",
 				},
 			},
+			locations: {
+				label: "Locations",
+				addElement: ({ array }: { array: unknown[] }) => {
+					return `Add ${
+						array?.length > 0 ? "another" : "a"
+					} location`;
+				},
+				city: {
+					label: "City",
+					placeholder: "Enter the city where your factory is located",
+				},
+				address: {
+					label: "Address",
+					placeholder: "Enter the address of your factory",
+				},
+				industrialHub: {
+					label: "Industrial Park",
+					placeholder:
+						"Enter the industrial park that your factory is located in",
+				},
+			},
+
 			salaryExplanation:
 				"Enter a range with the minimum and maximum salary you are willing to offer for this job. You can also set the minimum and maximum to the same value.",
 			salaryMin: {
 				label: "Minimum Salary (in Pesos)",
-				placeholder: "e.g. 2000",
+				placeholder: "e.g. 1900",
 			},
 			salaryMax: {
 				label: "Maximum Salary (in Pesos)",
@@ -435,14 +446,6 @@ export default {
 				weeklySalary: "Weekly Salary",
 				dailySalary: "Daily Salary",
 				hourlyWage: "Hourly Wage",
-			},
-			contractType: {
-				label: "Contract Type",
-				fullTime: "Full time",
-				partTime: "Part time",
-				internship: "Internship",
-				temporary: "Temporary",
-				contractor: "Contractor",
 			},
 		},
 		submit: "Post Job",
@@ -523,12 +526,12 @@ export default {
 			skills: {
 				label: "Skills",
 				placeholder:
-					"Write a list of any of manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
+					"Lits out any manufaturing related skills that you have. Seperate out each skill with a comma. e.g. Crane Machine, Medical Products, TVs, Forklift Machine, SMT Machine",
 			},
 			certificatesAndLicences: {
 				label: "Certificates & Licences",
 				placeholder:
-					"Write a list of any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
+					"List out any manufacturing related certificates and licenses that you have. Seperate out each Certificate / License with a comma. e.g. ISO, CAC Machinery, CAD",
 			},
 			education: {
 				label: "Highest level of education",
@@ -921,13 +924,13 @@ export default {
 			contractor: "Contractor",
 			internship: "Internship",
 			temporary: "Temporary",
-			monday: "M",
-			tuesday: "Tu",
-			wednesday: "W",
-			thursday: "Th",
-			friday: "F",
-			saturday: "Sa",
-			sunday: "Su",
+			monday: "Mon",
+			tuesday: "Tue",
+			wednesday: "Wed",
+			thursday: "Thu",
+			friday: "Fri",
+			saturday: "Sat",
+			sunday: "Sun",
 			day_ago: "day ago",
 			days_ago: "days ago",
 			month_ago: "month ago",

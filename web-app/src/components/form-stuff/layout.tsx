@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import PageWrapper, { PageWrapperProps } from "src/components/page-wrapper";
 import { Panel, PanelContainer, PannelPadding } from "src/components/panel";
-import colors from "src/colors";
+import { colors } from "src/global-styles";
 import { forSize } from "src/responsive";
 
 const PostFormMainHeader = styled.h2`
@@ -55,6 +55,10 @@ const FormToolbar = styled.div`
 		margin-left: -30px !important;
 		width: calc(100% + 60px) !important;
 		margin-bottom: -30px !important;
+	}
+
+	${forSize.phoneOnly} {
+		text-align: center;
 	}
 `;
 

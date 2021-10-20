@@ -12,7 +12,7 @@ const attributes = sql.raw(
 		'jobtitle AS "jobTitle"',
 		'jobdescription AS "jobDescription"',
 		"skills",
-		'certificates_and_licences AS "certificatesAndLicenses"',
+		'certificates_and_licences AS "certificatesAndLicences"',
 		'contracttype AS "contractType"',
 		'minimum_education AS "minimumEducation"',
 		'minimum_english_proficiency AS "minimumEnglishProficiency"',
@@ -36,6 +36,7 @@ export async function getJobAdsByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<JobAd[]> {
+	console.log("heloooo", company);
 	return simpleQuery(sql`
 		${baseQuery}
 		WHERE companyname=${company.name}
