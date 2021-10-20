@@ -45,7 +45,8 @@ function FormWrapper({
 				if (errorMessage === "Error: ")
 					errorMessage =
 						"Hay un error en esta encuesta. Por favor encuentra el campo con el error para areglarlo.";
-
+				console.log("em", errorMessage);
+				console.log("err", err);
 				setSubmissionError(errorMessage);
 			});
 	}

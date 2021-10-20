@@ -111,15 +111,7 @@ const schema = yup.object().shape({
 		),
 	shifts: yup.array().required().min(1).of(schemas.shiftSchema),
 	locations: yup.array().required().min(1).of(schemas.locationSchema),
-	salaryType: yup
-		.string()
-		.oneOf([
-			"YEARLY_SALARY",
-			"MONTHLY_SALARY",
-			"WEEKLY_SALARY",
-			"DAILY_SALARY",
-			"HOURLY_WAGE",
-		]),
+	salaryType: yup.string(),
 	salaryMin: yup.number(),
 	salaryMax: yup.number(),
 });
