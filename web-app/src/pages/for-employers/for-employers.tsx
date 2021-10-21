@@ -11,6 +11,7 @@ import * as urlGenerators from "src/pages/url-generators";
 import { colors, borderRadius, boxShadow } from "src/global-styles";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
+import Spinner from "src/components/Spinner";
 import ResourcePreviewCard from "./resoource-preview-card";
 import ResourceTopicButton from "./resource-topic-button";
 import resourcesIcon from "src/images/icons/resources-icon.png";
@@ -51,7 +52,7 @@ const ContentWrapper = styled.div`
 	}
 `;
 const SignUpButton = styled(ExternalLinkButton)`
-	font-size: 21px;
+	font-size: 28px;
 `;
 const ResourcesButton = styled(LinkButton)`
 	font-size: 21px;
@@ -394,34 +395,48 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 	];
 	const isMobile: boolean = width <= 768;
 	const navbarHeight = isMobile ? 65 : 75;
+
+	let exampleDate = new Date();
+	exampleDate.setDate(exampleDate.getDate() - 2);
+
 	const jobPost: JobPost = {
-		company: "Foxconn",
-		jobPost: "Operador de Producción",
-		reviewCount: 32,
-		rating: 3,
-		published: "3 days ago",
-		salaryRange: "$1.800 - $2.100 Pesos / Semana",
-		jobType: "Proyecto (Temporal)",
-		minEducation: "Preparatoria",
-		industry: "Electrónica",
-		englishProficiency: "Básico",
+		company: {
+			name: "Foxconn",
+			industry: "Electrónica",
+			companyIconURL:
+				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqsnY--fF4Yrx9oqER1MRcYgBzC6WAvkNDbg&usqp=CAU",
+			numReviews: 32,
+			numEmployees: "5000+",
+			percentRecommended: 1,
+		},
+		jobTitle: "Operador de Producción",
+		// rating: 3,
+		published: exampleDate,
+		salaryMin: null,
+		salaryMin: null,
+		salaryType: null,
+		contractType: "TEMPORARY",
+		minimumEducation: "SOME_HIGH_SCHOOL",
+		minimumEnglishProficiency: "BASIC",
 		shifts: [
-			{ day: "lun - vie", time: "8 AM - 5 PM" },
-			{ day: "lun - vie", time: "2 PM - 11 PM" },
-			// { day: "mar - sab", time: "8 AM - 5 PM" },
+			{ startDay: 0, endDay: 4, startTime: "08:00", endTime: "18:00" },
 		],
-		city: "Tijuana",
-		industrialPark: "El Lago",
-		address: "Calle Lagua Maynar 5520, Section C",
-		description:
+		locations: [
+			{
+				city: "Tijuana",
+				industrialPark: "El Lago",
+				address: "Calle Lagua Maynar 5520, Section C",
+			},
+		],
+		jobDescription:
 			"En este empleo, vas a realizar el correcto ensamble del producto cumpliendo con los requerimientos necesarios con el objetivo de asegurar la calidad del producto.",
-		jobSkills: [
+		skills: [
 			"Maquinas Automatizadas",
 			"Instrumentos de Medicion",
 			"Uso de Computadora",
 		],
-		certifications: ["Instrumentos de Medicion", "Montacargas"],
-		benifits: ["Seguro Social", "Seguro de Salud"],
+		certificatesAndLicences: ["Instrumentos de Medicion", "Montacargas"],
+		// benifits: ["Seguro Social", "Seguro de Salud"],
 	};
 
 	const {
@@ -650,7 +665,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					<ResourceCardRow>
 						{resourcesData.highlightedResources.map(
 							(resource: any, index: number) => (
-								<ResourcePreviewCardVertical
+								<ResourcePreviewCard
 									key={index}
 									resource={resource}
 									resourceIndex={index}

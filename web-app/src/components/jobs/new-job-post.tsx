@@ -37,6 +37,7 @@ import minEducationImage from "../../images/job-post-icons/min-education.png";
 import shiftsImage from "../../images/job-post-icons/shifts.png";
 import skillsImages from "../../images/job-post-icons/skills.png";
 import ReplyIcon from "@material-ui/icons/Reply";
+import ReactMarkdown from "react-markdown";
 
 const ShiftContainer = styled.div`
 	display: flex;
@@ -548,7 +549,7 @@ export const JobContentWrapper = function (
 					<span>&nbsp;Descripción</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{props.jobDescription}
+					<ReactMarkdown source={props.jobDescription} />
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<br />

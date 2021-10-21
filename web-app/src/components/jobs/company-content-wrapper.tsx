@@ -13,6 +13,8 @@ import ReviewDetails from "./review-details";
 import SalaryComponent from "./salary-component";
 import descriptionImage from "../../images/job-post-icons/description.png";
 import RateReviewIcon from "@material-ui/icons/RateReview";
+import ReactMarkdown from "react-markdown";
+
 const CompanyContent = styled.div`
 	padding-top: 20px;
 `;
@@ -109,7 +111,7 @@ export default function CompanyContentWrapper({
 					<span>&nbsp;Descripción</span>
 				</JobRequirementTitle>
 				<JobRequirementDescription>
-					{company.descriptionOfCompany}
+					<ReactMarkdown source={company.descriptionOfCompany} />
 				</JobRequirementDescription>
 			</JobRequirementWrapper>
 			<JobCompanyBasicDetail>
