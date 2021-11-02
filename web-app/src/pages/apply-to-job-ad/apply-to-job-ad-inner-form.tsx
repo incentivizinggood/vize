@@ -29,6 +29,11 @@ const FieldDescription = styled.p`
 	font-size: 1em;
 `;
 
+const MonthAndYearWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
 const FieldTitle = styled.h5`
 	font-weight: bold;
 `;
@@ -40,6 +45,10 @@ const CheckboxLabel = styled.label`
 
 const CheckboxField = styled(Field)`
 	padding-left: 0px !important;
+`;
+
+const DateField = styled.div`
+	flex: 0 0 46%;
 `;
 
 const AddAnotherExperienceButton = styled(Button)`
@@ -144,126 +153,25 @@ function InnerForm({
 										required
 										t={T.fields.workExperiences.city}
 									/>
-									<span>
-										<FieldTitle
-											style={{
-												marginTop: "15px",
-												marginBottom: "-10px",
-											}}
-										>
-											<T.fields.workExperiences.startDate.label />
-										</FieldTitle>
-
-										<T.fields.workExperiences
-											renderer={(t) => (
-												<Field
-													name={`workExperiences[${index}].startDateMonth`}
-													select
-													required
-													label={t.month}
-													fullWidth={false}
-													style={{
-														width: "47%",
-														marginRight: "3%",
-													}}
-												>
-													<option value={0}>
-														{t.january}
-													</option>
-													<option value={1}>
-														{t.february}
-													</option>
-													<option value={2}>
-														{t.march}
-													</option>
-													<option value={3}>
-														{t.april}
-													</option>
-													<option value={4}>
-														{t.may}
-													</option>
-													<option value={5}>
-														{t.june}
-													</option>
-													<option value={6}>
-														{t.july}
-													</option>
-													<option value={7}>
-														{t.august}
-													</option>
-													<option value={8}>
-														{t.september}
-													</option>
-													<option value={9}>
-														{t.october}
-													</option>
-													<option value={10}>
-														{t.november}
-													</option>
-													<option value={11}>
-														{t.december}
-													</option>
-												</Field>
-											)}
-										/>
-
-										<T.fields.workExperiences
-											renderer={(t) => (
-												<Field
-													name={`workExperiences[${index}].startDateYear`}
-													select
-													required
-													label={t.year}
-													fullWidth={false}
-													style={{
-														width: "47%",
-														marginLeft: "3%",
-													}}
-												>
-													{years.map((year, i) => (
-														<option
-															value={year}
-															key={i}
-														>
-															{year}
-														</option>
-													))}
-												</Field>
-											)}
-										/>
-									</span>
-
 									<FieldTitle
 										style={{
 											marginTop: "15px",
 											marginBottom: "-10px",
 										}}
 									>
-										<T.fields.workExperiences.endDate.label />
+										<T.fields.workExperiences.startDate.label />
 									</FieldTitle>
-									{values.workExperiences[index]
-										.iCurrentlyWorkHere && (
-										<>
-											<br />
-											<T.fields.workExperiences.present />
-											<br />
-										</>
-									)}
-									{!values.workExperiences[index]
-										.iCurrentlyWorkHere && (
-										<span>
+
+									<MonthAndYearWrapper>
+										<DateField>
 											<T.fields.workExperiences
 												renderer={(t) => (
 													<Field
-														name={`workExperiences[${index}].endDateMonth`}
+														name={`workExperiences[${index}].startDateMonth`}
 														select
 														required
 														label={t.month}
 														fullWidth={false}
-														style={{
-															width: "47%",
-															marginRight: "3%",
-														}}
 													>
 														<option value={0}>
 															{t.january}
@@ -304,19 +212,17 @@ function InnerForm({
 													</Field>
 												)}
 											/>
+										</DateField>
 
+										<DateField>
 											<T.fields.workExperiences
 												renderer={(t) => (
 													<Field
-														name={`workExperiences[${index}].endDateYear`}
+														name={`workExperiences[${index}].startDateYear`}
 														select
 														required
 														label={t.year}
 														fullWidth={false}
-														style={{
-															width: "47%",
-															marginLeft: "3%",
-														}}
 													>
 														{years.map(
 															(year, i) => (
@@ -331,7 +237,106 @@ function InnerForm({
 													</Field>
 												)}
 											/>
-										</span>
+										</DateField>
+									</MonthAndYearWrapper>
+
+									<FieldTitle
+										style={{
+											marginTop: "15px",
+											marginBottom: "-10px",
+										}}
+									>
+										<T.fields.workExperiences.endDate.label />
+									</FieldTitle>
+									{values.workExperiences[index]
+										.iCurrentlyWorkHere && (
+										<>
+											<br />
+											<T.fields.workExperiences.present />
+											<br />
+										</>
+									)}
+									{!values.workExperiences[index]
+										.iCurrentlyWorkHere && (
+										<MonthAndYearWrapper>
+											<DateField>
+												<T.fields.workExperiences
+													renderer={(t) => (
+														<Field
+															name={`workExperiences[${index}].endDateMonth`}
+															select
+															required
+															label={t.month}
+															fullWidth={false}
+														>
+															<option value={0}>
+																{t.january}
+															</option>
+															<option value={1}>
+																{t.february}
+															</option>
+															<option value={2}>
+																{t.march}
+															</option>
+															<option value={3}>
+																{t.april}
+															</option>
+															<option value={4}>
+																{t.may}
+															</option>
+															<option value={5}>
+																{t.june}
+															</option>
+															<option value={6}>
+																{t.july}
+															</option>
+															<option value={7}>
+																{t.august}
+															</option>
+															<option value={8}>
+																{t.september}
+															</option>
+															<option value={9}>
+																{t.october}
+															</option>
+															<option value={10}>
+																{t.november}
+															</option>
+															<option value={11}>
+																{t.december}
+															</option>
+														</Field>
+													)}
+												/>
+											</DateField>
+
+											<DateField>
+												<T.fields.workExperiences
+													renderer={(t) => (
+														<Field
+															name={`workExperiences[${index}].endDateYear`}
+															select
+															required
+															label={t.year}
+															fullWidth={false}
+														>
+															{years.map(
+																(year, i) => (
+																	<option
+																		value={
+																			year
+																		}
+																		key={i}
+																	>
+																		{year}
+																	</option>
+																)
+															)}
+														</Field>
+													)}
+												/>
+											</DateField>
+										</MonthAndYearWrapper>
 									)}
 
 									<CheckboxLabel>
@@ -392,10 +397,6 @@ function InnerForm({
 				t={T.fields.skills}
 			/>
 
-			<br />
-			<br />
-			<br />
-
 			<Field
 				name="certificatesAndLicences"
 				type="text"
@@ -404,8 +405,6 @@ function InnerForm({
 				t={T.fields.certificatesAndLicences}
 			/>
 
-			<br />
-			<br />
 			<br />
 
 			<T.fields.englishProficiency
@@ -446,8 +445,6 @@ function InnerForm({
 			/>
 
 			<br />
-			<br />
-			<br />
 
 			<T.fields.education
 				renderer={(t) => (
@@ -482,8 +479,6 @@ function InnerForm({
 			/>
 
 			<br />
-			<br />
-			<br />
 
 			<FieldTitle>
 				<T.fields.availability.label /> {" *"}
@@ -502,6 +497,8 @@ function InnerForm({
 					<T.fields.availability.night />
 				</CheckboxLabel>
 			</FormGroup>
+
+			<br />
 
 			<Field
 				name="availabilityComments"

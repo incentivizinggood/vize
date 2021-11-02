@@ -224,12 +224,12 @@ const CssTextField = withStyles({
 const JobListWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	margin-top: 100px;
+	margin-top: 20px;
 	margin-right: 10px;
 	margin-left: 10px;
 
 	${forSize.tabletAndDown} {
-		margin-top: 55px;
+		margin-top: 10px;
 	}
 `;
 
@@ -440,7 +440,11 @@ export default function ShowJobs(): JSX.Element {
 					<JobListWrapper>
 						{jobsData && jobsData.length
 							? jobsData.map((job, i) => {
-									return <JobPostPreview job={job} key={i} />;
+									if (!job.isArchived) {
+										return (
+											<JobPostPreview job={job} key={i} />
+										);
+									}
 							  })
 							: null}
 					</JobListWrapper>

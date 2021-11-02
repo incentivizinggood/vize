@@ -20,6 +20,8 @@ const attributes = sql.raw(
 		'salary_min AS "salaryMin"',
 		'salary_max AS "salaryMax"',
 		'salary_type AS "salaryType"',
+		'external_job_post_URL AS "externalJobPostURL"',
+		'is_archived AS "isArchived"',
 		'dateadded AS "dateAdded"',
 	].join(", ")
 );
@@ -36,7 +38,6 @@ export async function getJobAdsByCompany(
 	pageNumber: number,
 	pageSize: number
 ): Promise<JobAd[]> {
-	console.log("heloooo", company);
 	return simpleQuery(sql`
 		${baseQuery}
 		WHERE companyname=${company.name}

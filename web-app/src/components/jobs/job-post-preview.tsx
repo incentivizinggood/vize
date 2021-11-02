@@ -14,6 +14,7 @@ import {
 import JobDetailModal from "src/components/jobs/job-detail-modal";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
+import * as analytics from "src/startup/analytics";
 
 import { translations } from "src/translations";
 
@@ -40,16 +41,20 @@ const ShiftContainer = styled.div`
 const JobPostPreviewWrapper = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
-	margin-bottom: 10px;
+	margin-bottom: 2%;
 	padding: 20px;
 	box-shadow: ${boxShadow.wide};
 	cursor: pointer;
-	margin-right: 2%;
+	margin-right: 1%;
+	margin-left: 1%;
 	flex: 0 0 31.333333%;
 
 	${forSize.phoneOnly} {
 		padding: 10px;
 		flex: 0 0 100%;
+		margin-right: 0%;
+		margin-left: 0%;
+		margin-bottom: 10px;
 	}
 `;
 const HeaderContainer = styled.div`
@@ -161,9 +166,6 @@ export default function JobPostPreview(
 		jobId: string,
 		event?: any
 	): void {
-		if (event) {
-			event.stopPropagation();
-		}
 		const applyToJobModalTitle = `Aplicar a ${companyName}`;
 
 		setJobApplicationModal(
@@ -180,8 +182,6 @@ export default function JobPostPreview(
 	const DatePostedComponent = (): JSX.Element => {
 		return absoluteDateToRelativeDate(datePosted);
 	};
-
-	console.log("job", job);
 
 	const contractType = contractTypeTranlsations[job.contractType];
 	const salaryType = job.salaryType
@@ -301,12 +301,24 @@ export default function JobPostPreview(
 						<Button
 							$primary
 							onClick={(event) => {
-								event.stopPropagation;
-								ShowApplyToJobModal(
-									job.company.name,
-									job.id,
-									event
-								);
+								event.stopPropagation();
+								if (job.externalJobPostURL) {
+									window.open(
+										job.externalJobPostURL,
+										"_blank"
+									);
+								} else {
+									ShowApplyToJobModal(
+										job.company.name,
+										job.id,
+										event
+									);
+								}
+								analytics.sendEvent({
+									category: "User",
+									action: "Apply To Job Button Pressed (Preview)",
+									label: job.company.name,
+								});
 							}}
 							style={{ width: "48%", padding: "0.9rem 2rem" }}
 						>

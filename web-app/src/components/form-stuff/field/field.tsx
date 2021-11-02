@@ -50,10 +50,10 @@ function FieldInner({
 			/>
 		);
 	}
-	console.log(width);
 	if (type === "radioButtons") {
 		return (
 			<Formik.Field
+				className="verticleRadioField"
 				{...restProps}
 				label={label}
 				width={width}

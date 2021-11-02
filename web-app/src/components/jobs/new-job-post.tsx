@@ -320,8 +320,18 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 					$primary
 					onClick={(e) => {
 						e.stopPropagation();
-						props.onClose();
-						props.showApplyToJobModal();
+
+						if (props.externalJobPostURL) {
+							window.open(props.externalJobPostURL, "_blank");
+						} else {
+							props.onClose();
+							props.showApplyToJobModal();
+						}
+						analytics.sendEvent({
+							category: "User",
+							action: "Apply To Job Button Pressed (Full Details)",
+							label: props.company.name,
+						});
 					}}
 					style={{ marginRight: "10px" }}
 				>
