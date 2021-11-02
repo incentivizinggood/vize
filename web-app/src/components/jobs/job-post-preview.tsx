@@ -161,9 +161,6 @@ export default function JobPostPreview(
 		jobId: string,
 		event?: any
 	): void {
-		if (event) {
-			event.stopPropagation();
-		}
 		const applyToJobModalTitle = `Aplicar a ${companyName}`;
 
 		setJobApplicationModal(
@@ -301,12 +298,19 @@ export default function JobPostPreview(
 						<Button
 							$primary
 							onClick={(event) => {
-								event.stopPropagation;
-								ShowApplyToJobModal(
-									job.company.name,
-									job.id,
-									event
-								);
+								event.stopPropagation();
+								if (job.externalJobPostURL) {
+									window.open(
+										job.externalJobPostURL,
+										"_blank"
+									);
+								} else {
+									ShowApplyToJobModal(
+										job.company.name,
+										job.id,
+										event
+									);
+								}
 							}}
 							style={{ width: "48%", padding: "0.9rem 2rem" }}
 						>

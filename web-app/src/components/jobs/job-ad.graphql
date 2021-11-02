@@ -9,6 +9,7 @@ fragment JobPosting on JobAd {
 	contractType
 	minimumEducation
 	minimumEnglishProficiency
+	externalJobPostURL
 	shifts {
 		startDay
 		endDay
