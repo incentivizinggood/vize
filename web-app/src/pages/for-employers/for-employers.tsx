@@ -12,7 +12,8 @@ import { colors, borderRadius, boxShadow } from "src/global-styles";
 import { translations } from "src/translations";
 import { useState, useEffect } from "react";
 import Spinner from "src/components/Spinner";
-import ResourcePreviewCard from "./resoource-preview-card";
+// import ResourcePreviewCard from "./resoource-preview-card";
+import ResourcePreviewCardVertical from "./resource-preview-card-vertical";
 import ResourceTopicButton from "./resource-topic-button";
 import resourcesIcon from "src/images/icons/resources-icon.png";
 import bannerImage from "../../images/employer-banner-right-section.png";
@@ -138,6 +139,7 @@ const FeaturesWrapper = styled.div`
 const CardTitle = styled.div`
 	font-size: 24px;
 	margin-bottom: 20px;
+	font-weight: bold;
 `;
 const CardImageWrapper = styled.img`
 	width: 75px;
@@ -665,7 +667,7 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 					<ResourceCardRow>
 						{resourcesData.highlightedResources.map(
 							(resource: any, index: number) => (
-								<ResourcePreviewCard
+								<ResourcePreviewCardVertical
 									key={index}
 									resource={resource}
 									resourceIndex={index}
