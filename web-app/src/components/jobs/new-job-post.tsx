@@ -327,6 +327,11 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 							props.onClose();
 							props.showApplyToJobModal();
 						}
+						analytics.sendEvent({
+							category: "User",
+							action: "Apply To Job Button Pressed (Full Details)",
+							label: props.company.name,
+						});
 					}}
 					style={{ marginRight: "10px" }}
 				>

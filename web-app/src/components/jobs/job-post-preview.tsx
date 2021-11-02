@@ -14,6 +14,7 @@ import {
 import JobDetailModal from "src/components/jobs/job-detail-modal";
 import PopupModal from "src/components/popup-modal";
 import ApplyToJobAdForm from "src/pages/apply-to-job-ad/apply-to-job-ad-form";
+import * as analytics from "src/startup/analytics";
 
 import { translations } from "src/translations";
 
@@ -313,6 +314,11 @@ export default function JobPostPreview(
 										event
 									);
 								}
+								analytics.sendEvent({
+									category: "User",
+									action: "Apply To Job Button Pressed (Preview)",
+									label: job.company.name,
+								});
 							}}
 							style={{ width: "48%", padding: "0.9rem 2rem" }}
 						>
