@@ -40,16 +40,20 @@ const ShiftContainer = styled.div`
 const JobPostPreviewWrapper = styled.div`
 	background: #fff;
 	border-radius: ${borderRadius.container};
-	margin-bottom: 10px;
+	margin-bottom: 2%;
 	padding: 20px;
 	box-shadow: ${boxShadow.wide};
 	cursor: pointer;
-	margin-right: 2%;
+	margin-right: 1%;
+	margin-left: 1%;
 	flex: 0 0 31.333333%;
 
 	${forSize.phoneOnly} {
 		padding: 10px;
 		flex: 0 0 100%;
+		margin-right: 0%;
+		margin-left: 0%;
+		margin-bottom: 10px;
 	}
 `;
 const HeaderContainer = styled.div`
@@ -177,8 +181,6 @@ export default function JobPostPreview(
 	const DatePostedComponent = (): JSX.Element => {
 		return absoluteDateToRelativeDate(datePosted);
 	};
-
-	console.log("job", job);
 
 	const contractType = contractTypeTranlsations[job.contractType];
 	const salaryType = job.salaryType
