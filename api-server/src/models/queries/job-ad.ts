@@ -21,6 +21,7 @@ const attributes = sql.raw(
 		'salary_max AS "salaryMax"',
 		'salary_type AS "salaryType"',
 		'external_job_post_URL AS "externalJobPostURL"',
+		'is_archived AS "isArchived"',
 		'dateadded AS "dateAdded"',
 	].join(", ")
 );

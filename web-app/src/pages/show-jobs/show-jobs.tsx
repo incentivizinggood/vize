@@ -440,7 +440,11 @@ export default function ShowJobs(): JSX.Element {
 					<JobListWrapper>
 						{jobsData && jobsData.length
 							? jobsData.map((job, i) => {
-									return <JobPostPreview job={job} key={i} />;
+									if (!job.isArchived) {
+										return (
+											<JobPostPreview job={job} key={i} />
+										);
+									}
 							  })
 							: null}
 					</JobListWrapper>

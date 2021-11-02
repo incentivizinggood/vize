@@ -444,6 +444,8 @@ type JobAd {
 	salaryMax: Float
 	"Link to an external job post if it exists"
 	externalJobPostURL: String
+	"Whether a job post has been archived/delted or not"
+	isArchived: Boolean!
 
 	"The company that is hiring."
 	company: Company!
