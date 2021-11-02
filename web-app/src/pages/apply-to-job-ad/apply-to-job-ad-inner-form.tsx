@@ -397,10 +397,6 @@ function InnerForm({
 				t={T.fields.skills}
 			/>
 
-			<br />
-			<br />
-			<br />
-
 			<Field
 				name="certificatesAndLicences"
 				type="text"
@@ -409,8 +405,6 @@ function InnerForm({
 				t={T.fields.certificatesAndLicences}
 			/>
 
-			<br />
-			<br />
 			<br />
 
 			<T.fields.englishProficiency
@@ -451,8 +445,6 @@ function InnerForm({
 			/>
 
 			<br />
-			<br />
-			<br />
 
 			<T.fields.education
 				renderer={(t) => (
@@ -487,8 +479,6 @@ function InnerForm({
 			/>
 
 			<br />
-			<br />
-			<br />
 
 			<FieldTitle>
 				<T.fields.availability.label /> {" *"}
@@ -507,6 +497,8 @@ function InnerForm({
 					<T.fields.availability.night />
 				</CheckboxLabel>
 			</FormGroup>
+
+			<br />
 
 			<Field
 				name="availabilityComments"

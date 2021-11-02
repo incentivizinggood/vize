@@ -27,38 +27,34 @@ export default function RadioButtonsField({
 		setValue((event.target as HTMLInputElement).value);
 	};
 	return (
-		<RadioButtonWrapper>
-			<FormControl component="fieldset">
-				<span>
-					{showPrivacyIcon && (
-						<PrivacyIcon style={{ marginRight: "5px" }} />
-					)}
-					<FormLabel required component="label">
-						{label}
-					</FormLabel>
-				</span>
-				<RadioGroup {...props} {...field} name={field.name}>
-					<Box display={display}>
-						{options.map((option: any) => (
-							<FormControlLabel
-								style={{ width: width }}
-								className={"customRadioButton"}
-								value={option.props.value}
-								control={<Radio color="primary" />}
-								label={option.props.label}
-							/>
-						))}
-					</Box>
-				</RadioGroup>
-			</FormControl>
-		</RadioButtonWrapper>
+		<FormControl component="fieldset" style={{ marginBottom: "15px" }}>
+			<span>
+				{showPrivacyIcon && (
+					<PrivacyIcon style={{ marginRight: "5px" }} />
+				)}
+
+				<FormLabel
+					required
+					component="label"
+					style={{
+						fontWeight: "bold",
+						color: "black",
+					}}
+				>
+					{label}
+				</FormLabel>
+			</span>
+			<RadioGroup {...props} {...field} name={field.name}>
+				{options.map((option: any, index: number) => (
+					<FormControlLabel
+						value={option.props.value}
+						style={{ marginBottom: "-3px" }}
+						control={<Radio color="primary" />}
+						label={option.props.label}
+						key={index}
+					/>
+				))}
+			</RadioGroup>
+		</FormControl>
 	);
 }
-const RadioButtonWrapper = styled.div`
-	.verticleRadioField {
-		.MuiBox-root {
-			display: flex !important;
-			flex-direction: column;
-		}
-	}
-`;
