@@ -442,6 +442,8 @@ type JobAd {
 	salaryMin: Float
 	"In units of pesos."
 	salaryMax: Float
+	"Link to an external job post if it exists"
+	externalJobPostURL: String
 
 	"The company that is hiring."
 	company: Company!
