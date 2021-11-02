@@ -731,14 +731,16 @@ export default {
 		signUpToday: "Regístrate Hoy",
 		benefits: {
 			saveMoneyHeading: "Ahorre Dinero",
+			saveMoneyDescriptionBold:
+				"Reciba 3 meses de ofertas de empleo ilimitadas gratis al registrarse hoy.",
 			saveMoneyDescription:
-				"Reciba 3 meses de ofertas de empleo ilimitadas gratis al registrarse hoy. Solo estamos ofreciendo esta oportunidad por un tiempo limitado.",
+				" Solo estamos ofreciendo esta oportunidad por un tiempo limitado.",
 			saveTimeHeading: "Ahorre Tiempo",
 			saveTimeDescription:
 				"Clasificaremos y filtraremos todas sus solicitudes semanalmente para encontrar a los trabajadores de fábrica que se adapten a las necesidades que usted tenga (disponibilidad, habilidades, nivel educativo y más) para que usted no tenga que revisar todos los CVs.",
 			getResultsHeading: "Obtenga Resultados",
 			getResultsDescription:
-				"Cobramos 5 pesos por solicitud de empleo, en vez de cobrar una suscripción mensual. De esa manera, solo pagaran por resultados. Esto le ahorra dinero, le da la flexibilidad para publicar todos los empleos que necesite, cuando los necesite y para todos los trabajadores que necesite.",
+				"Cobramos 10 pesos por solicitud de empleo, en vez de cobrar una suscripción mensual. De esa manera, solo se paga por resultados. Esto le ahorra dinero y le da la flexibilidad de publicar todas las ofertas que necesite en el momento que los necesite.",
 		},
 		exampleJobPost: {
 			heading: "Ofertas de Empleo",

@@ -137,7 +137,7 @@ const FeaturesWrapper = styled.div`
 	margin-top: 40px;
 `;
 const CardTitle = styled.div`
-	font-size: 24px;
+	font-size: 23px;
 	margin-bottom: 20px;
 	font-weight: bold;
 `;
@@ -529,6 +529,9 @@ function ForEmployers({ audienceType }: { audienceType: string }): JSX.Element {
 									<T.benefits.saveMoneyHeading />
 								</CardTitle>
 								<BenefitCardDescription>
+									<strong>
+										<T.benefits.saveMoneyDescriptionBold />
+									</strong>
 									<T.benefits.saveMoneyDescription />
 								</BenefitCardDescription>
 							</CardContent>

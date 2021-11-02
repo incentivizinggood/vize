@@ -718,14 +718,16 @@ export default {
 		signUpToday: "Sign Up Today",
 		benefits: {
 			saveMoneyHeading: "Save Money",
+			saveMoneyDescriptionBold:
+				"Get three months of free and unlimited job posts by signing up today.",
 			saveMoneyDescription:
-				"Get three months of free and unlimited job posts by signing up today. We are only offering this opportunity for a limited amount of time.",
+				" We are only offering this opportunity for a limited amount of time.",
 			saveTimeHeading: "Save Time",
 			saveTimeDescription:
 				"We rank and filter all of your applications on a weekly basis to find factory workers that are tailored to your needs (availability, skills, education level, and more) so you don’t have to sort through CVs yourself.",
 			getResultsHeading: "Get Results",
 			getResultsDescription:
-				"You only pay for results. We charge 5 pesos per job application, rather than charging a monthly subscription. This saves you money, gives you the flexibility to post as many jobs as you need, when you need them, and for however many workers you need.",
+				"You only pay for results. We charge 10 pesos per job application, rather than charging a monthly subscription. This saves you money, gives you the flexibility to post as many jobs as you need, when you need them, and for however many workers you need.",
 		},
 		exampleJobPost: {
 			heading: "Job Posts",
