@@ -374,7 +374,7 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 							</RatingWrapper>
 						)}
 
-						{width < 450 ? (
+						{props.modal && width < 450 ? (
 							<DatePosted>
 								<DatePostedComponent />
 							</DatePosted>
@@ -403,7 +403,7 @@ export const JobPostTitleRow = function (props: JobPost): JSX.Element {
 					</JobPostHeaderLeftSection>
 				) : null}
 			</JobPostTitle>
-			{width < 450 ? <ModalButtons></ModalButtons> : null}
+			{props.modal && width < 450 ? <ModalButtons></ModalButtons> : null}
 		</>
 	);
 };
